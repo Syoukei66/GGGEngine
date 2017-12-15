@@ -1,0 +1,1083 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Engine">
+      <UniqueIdentifier>{40f25046-13a4-4b53-ba3c-7dde881a8e35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Native">
+      <UniqueIdentifier>{a285b650-12de-483c-9079-25fe75cb8528}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Util">
+      <UniqueIdentifier>{9cffaaca-4cb8-4cd2-a9f4-67da4c19f87a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Structure">
+      <UniqueIdentifier>{5f54d9ff-61ad-4c86-af21-c9ba3ca0ea9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Structure">
+      <UniqueIdentifier>{00b65c55-af34-40f6-9a8e-52f56ea262af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene">
+      <UniqueIdentifier>{38fd56d6-452c-49f0-a6e0-da45f0f688d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene">
+      <UniqueIdentifier>{8ca4bc88-fa08-44f1-99ad-a83cc37450e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Component">
+      <UniqueIdentifier>{5fabf9c0-dec1-4686-8c0f-7488cf31bc39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Component">
+      <UniqueIdentifier>{ba0f3838-3bce-4a32-98b7-b39c8e08c65e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Resource">
+      <UniqueIdentifier>{2aeeef1e-cc6f-4f77-94be-804bd3d1cb4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Resource">
+      <UniqueIdentifier>{61812dd8-4ad8-4395-a7be-f191afbcfec7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine">
+      <UniqueIdentifier>{8c216c30-c0f2-4861-b88d-2fba17326067}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Activity">
+      <UniqueIdentifier>{01cfeda8-85e9-4fc1-be35-9e3c19909ae8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Activity">
+      <UniqueIdentifier>{24b20409-d738-4664-8910-2ff0d10004a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\Event">
+      <UniqueIdentifier>{2cc33172-6251-476e-a5bd-31d6d913da42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\Event">
+      <UniqueIdentifier>{3c6df1c2-b507-4a47-a523-101928faa02e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Util\EasingFunction">
+      <UniqueIdentifier>{3773b935-e204-4552-b0c3-b5f5de5a20b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\Event\Update">
+      <UniqueIdentifier>{84e658b8-dfcc-47ca-a7ae-e0cda434457a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\Event\Update">
+      <UniqueIdentifier>{7788d977-b8fa-4385-8101-d5a86aba04fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\Event\EngineInput">
+      <UniqueIdentifier>{430171ff-bf19-4c95-8051-a08f65b8c052}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\Event\EngineInput">
+      <UniqueIdentifier>{496b1619-1b4e-4466-a8af-913c0277c72f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Director">
+      <UniqueIdentifier>{b8d79364-1f64-44c0-b322-e001361dedc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\Device">
+      <UniqueIdentifier>{ed6de422-1ae2-4cf4-905c-6592aff49ccf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\Device\Input">
+      <UniqueIdentifier>{33782a84-5c54-49c7-9cc4-bdd05dbec88d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\Device">
+      <UniqueIdentifier>{135314d1-d3be-4fc2-9460-7349260709a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\Device\Input">
+      <UniqueIdentifier>{f2a3a349-cdd0-410d-ab0b-4bd2a26727bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene\Device\Input\Engine">
+      <UniqueIdentifier>{ae90fc6d-eafd-48aa-9441-9bfd59117566}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Util">
+      <UniqueIdentifier>{ee3f7439-c31b-4001-b8f4-d5959ab48152}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Util\EasingFunction">
+      <UniqueIdentifier>{732a3168-fb38-42cb-9155-005a38c0a257}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Native">
+      <UniqueIdentifier>{025b4d2f-e86a-4611-90f7-e36bd853e617}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Allocator">
+      <UniqueIdentifier>{cc98758f-6ca1-4c0f-97cb-e8b8a1d1ffbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Allocator">
+      <UniqueIdentifier>{e9f48cf8-f824-4be3-bc0a-e693fd4add68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Asset">
+      <UniqueIdentifier>{35a509b7-eaf0-4739-bdaf-e8666902ec31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Asset">
+      <UniqueIdentifier>{dfc1d997-2aed-4c0f-825e-5afc7ddb6aae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Collision">
+      <UniqueIdentifier>{f9d7f947-83d4-406c-80ee-2ed3569fed5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Collision">
+      <UniqueIdentifier>{06b6f220-3fd5-4a5e-a313-cbf1982d6a82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Camera">
+      <UniqueIdentifier>{67e9b2d6-ba51-47f8-ab0a-c6f74485233a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Camera">
+      <UniqueIdentifier>{05c1314b-a6cd-4ec8-a235-d4fcbcc27075}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Engine\Input">
+      <UniqueIdentifier>{5e576f55-eec3-4466-a306-c7d4abc510bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\Input">
+      <UniqueIdentifier>{5ea11ecd-1d5d-41bd-80ce-9c085e1250bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene\Device\Input\Engine">
+      <UniqueIdentifier>{af2dfef4-b25d-46ce-a703-134dd3b612e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Camera\2D">
+      <UniqueIdentifier>{9031b82b-78ed-4c68-87ab-986f08c9951d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Camera\3D">
+      <UniqueIdentifier>{6f803f75-8ca4-455a-9348-cc70672d7c77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Camera\2D">
+      <UniqueIdentifier>{be66520a-001e-433b-8ae9-59516ca40521}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Camera\3D">
+      <UniqueIdentifier>{443dc6e8-d7b0-4740-98f1-770446fcc6a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject">
+      <UniqueIdentifier>{9bec477f-2789-42a8-9b6f-79ecb3619942}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject\3D">
+      <UniqueIdentifier>{3c706006-4efe-4493-b667-5d976cc902a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject\3D\Primitive">
+      <UniqueIdentifier>{78624ef6-d74a-4d41-bc39-b3a7323a1543}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject\2D">
+      <UniqueIdentifier>{a3de45e9-224a-4825-9ac5-1b2e22593596}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject\2D\Shape">
+      <UniqueIdentifier>{932e395f-6641-43f3-94ba-5bb95627a9aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject\2D\Shape\Sprite">
+      <UniqueIdentifier>{6a155512-9ced-4869-b3ee-40797f6f7665}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject\2D\Shape\Sprite\TextureRegion">
+      <UniqueIdentifier>{df6a36de-e2ed-4483-be0c-e234bc860b5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject\2D\Modifier">
+      <UniqueIdentifier>{bd78d597-0b56-45f3-b7cc-c18023f53d1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject\VBO">
+      <UniqueIdentifier>{b490f347-22cd-4859-b798-13b91c494fea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject\VBO\2D">
+      <UniqueIdentifier>{178e3309-2454-4ff2-af66-48b092f2c57e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject\VBO\3D">
+      <UniqueIdentifier>{8ceb2489-02cd-454a-b028-c45af4518ccd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject\Material">
+      <UniqueIdentifier>{cffa89c8-72dc-4362-b8e4-c5baa1c9aef3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject\Material\Shader">
+      <UniqueIdentifier>{ef68cf5d-dd0b-4e68-8e1c-9a25ab4e464b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject">
+      <UniqueIdentifier>{73881a59-1756-4a0d-b5ee-717ef61ba364}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\3D">
+      <UniqueIdentifier>{887ec1d6-1b51-494e-907a-fa3cab0e64aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\3D\Primitive">
+      <UniqueIdentifier>{d8d02f28-3142-4320-8da9-c76c3e9dc771}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\2D">
+      <UniqueIdentifier>{af227e00-ddba-4234-a38b-d341c72201dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\2D\Modifier">
+      <UniqueIdentifier>{92cbe9b1-107f-473a-8e31-acb6b2972df1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\2D\Shape">
+      <UniqueIdentifier>{f65913ff-af18-4f69-b9c3-752a4573608c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\2D\Shape\Sprite">
+      <UniqueIdentifier>{de137ee1-ada0-471b-a47e-6de5b9f8601a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\2D\Shape\Sprite\TextureRegion">
+      <UniqueIdentifier>{7835a267-ad6e-4006-9bcd-032979834a86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\VBO">
+      <UniqueIdentifier>{4e11bb03-1909-48f1-9515-a7770c5a3581}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\VBO\2D">
+      <UniqueIdentifier>{c724f639-8303-420b-9273-695f12f0c3ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\VBO\3D">
+      <UniqueIdentifier>{bb04d39f-d1f5-40f8-8946-23fa0100ee9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\Material">
+      <UniqueIdentifier>{9d5ff583-f183-4165-a28c-f9c3765715dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\Material\Shader">
+      <UniqueIdentifier>{ebeb23f3-c233-48c1-a406-0feb0dbe0083}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Light">
+      <UniqueIdentifier>{e98418f6-332a-4a2e-a9c9-32c2092c0183}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Light">
+      <UniqueIdentifier>{7a45de9f-6862-48e1-b894-8900bcc654a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject\3D\Model">
+      <UniqueIdentifier>{a5699b47-5d21-4edc-a84b-b1fd0c55d763}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\3D\Model">
+      <UniqueIdentifier>{3b71dc71-e34b-4a4d-aff1-181b31f8ca0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Resource\Texture">
+      <UniqueIdentifier>{e4709944-4d4b-4f33-9b0d-d35dbd613e07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Resource\Texture\Atlas">
+      <UniqueIdentifier>{5cbc1636-9bd6-4948-b546-c437d76e0c06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Resource\Spine">
+      <UniqueIdentifier>{33f99194-e046-47c6-ae1c-0e36a84103cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Resource\Spine\c">
+      <UniqueIdentifier>{17169ea0-0f8e-4344-8203-b56ecc2bae52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Resource\Particle">
+      <UniqueIdentifier>{a4071fa6-c860-4735-bdef-396c016ff26c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Resource\Texture">
+      <UniqueIdentifier>{0c1df039-9320-4535-bf59-4c9e28529857}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Resource\Texture\Atlas">
+      <UniqueIdentifier>{8c6957c3-fa2e-45fc-8e03-96f4f7a5f773}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Resource\Spine">
+      <UniqueIdentifier>{1fd74c9e-e5ab-4bd8-9df9-85249d069f22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Resource\Spine\c">
+      <UniqueIdentifier>{5999589c-1e78-4825-a3df-f260f6b5b918}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Resource\Particle">
+      <UniqueIdentifier>{de6af76a-5702-4695-bb04-9e03753866f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Resource\Model">
+      <UniqueIdentifier>{3e3adae3-f231-45a4-aed6-e5dc38e59ae3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Resource\Model">
+      <UniqueIdentifier>{75a7fd5d-323e-4480-a5c6-da5ab6295f15}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Shape.cpp">
+      <Filter>ソース ファイル\GameObject\2D\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityDrawState.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="IVertexBufferObject.cpp">
+      <Filter>ソース ファイル\GameObject\VBO</Filter>
+    </ClCompile>
+    <ClCompile Include="ITextureRegion.cpp">
+      <Filter>ソース ファイル\GameObject\2D\Shape\Sprite\TextureRegion</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureRegion.cpp">
+      <Filter>ソース ファイル\GameObject\2D\Shape\Sprite\TextureRegion</Filter>
+    </ClCompile>
+    <ClCompile Include="TiledTextureRegion.cpp">
+      <Filter>ソース ファイル\GameObject\2D\Shape\Sprite\TextureRegion</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedSprite.cpp">
+      <Filter>ソース ファイル\GameObject\2D\Shape\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseActivity.cpp">
+      <Filter>ソース ファイル\Activity</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>ソース ファイル\Structure</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="EasingFunction.cpp">
+      <Filter>ソース ファイル\Util\EasingFunction</Filter>
+    </ClCompile>
+    <ClCompile Include="EasingFunctionManager.cpp">
+      <Filter>ソース ファイル\Util\EasingFunction</Filter>
+    </ClCompile>
+    <ClCompile Include="Bresenham.cpp">
+      <Filter>ソース ファイル\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineInputEvent.cpp">
+      <Filter>ソース ファイル\Scene\Event\EngineInput</Filter>
+    </ClCompile>
+    <ClCompile Include="UpdateEvent.cpp">
+      <Filter>ソース ファイル\Scene\Event\Update</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="CSVTokenizer.cpp">
+      <Filter>ソース ファイル\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>ソース ファイル\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="UserInputDevice.cpp">
+      <Filter>ソース ファイル\Scene\Device\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomDevice.cpp">
+      <Filter>ソース ファイル\Scene\Device</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomDeviceDriver.cpp">
+      <Filter>ソース ファイル\Scene\Device</Filter>
+    </ClCompile>
+    <ClCompile Include="UserInputDeviceDriver.cpp">
+      <Filter>ソース ファイル\Scene\Device\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeMethod.cpp">
+      <Filter>ソース ファイル\Native</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>ソース ファイル\GameObject\2D\Shape\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Vertex.cpp">
+      <Filter>ソース ファイル\Structure</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneResource.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>ソース ファイル\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityModifier.cpp">
+      <Filter>ソース ファイル\GameObject\2D\Modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityModifierManager.cpp">
+      <Filter>ソース ファイル\GameObject\2D\Modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityModifierFactory.cpp">
+      <Filter>ソース ファイル\GameObject\2D\Modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="LoopSprite.cpp">
+      <Filter>ソース ファイル\GameObject\2D\Shape\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="LoopTextureRegion.cpp">
+      <Filter>ソース ファイル\GameObject\2D\Shape\Sprite\TextureRegion</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityModifierAttribute.cpp">
+      <Filter>ソース ファイル\GameObject\2D\Modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>ソース ファイル\Resource\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="JsonParser.cpp">
+      <Filter>ソース ファイル\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleData.cpp">
+      <Filter>ソース ファイル\Resource\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>ソース ファイル\Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="TexturePalette.cpp">
+      <Filter>ソース ファイル\Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="TexturePaletteManager.cpp">
+      <Filter>ソース ファイル\Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureAtlas.cpp">
+      <Filter>ソース ファイル\Resource\Texture\Atlas</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureAtlasLoader.cpp">
+      <Filter>ソース ファイル\Resource\Texture\Atlas</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleDataManager.cpp">
+      <Filter>ソース ファイル\Resource\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineOption.cpp">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleDataLoader.cpp">
+      <Filter>ソース ファイル\Resource\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\Animation.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\AnimationState.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\AnimationStateData.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\Array.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\Atlas.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\AtlasAttachmentLoader.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\Attachment.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\AttachmentLoader.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\Bone.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\BoneData.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\BoundingBoxAttachment.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\ClippingAttachment.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\SpColor.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\Event.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\EventData.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\extension.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\IkConstraint.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\IkConstraintData.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\Json.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\MeshAttachment.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\PathAttachment.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\PathConstraint.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\PathConstraintData.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\PointAttachment.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\RegionAttachment.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\Skeleton.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\SkeletonBinary.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\SkeletonBounds.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\SkeletonClipping.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\SkeletonJson.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\Skin.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\Slot.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\SlotData.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\TransformConstraint.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\TransformConstraintData.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\Triangulator.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\VertexAttachment.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\VertexEffect.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="AttachmentVertexes.cpp">
+      <Filter>ソース ファイル\Resource\Spine</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineAttachmentLoader.cpp">
+      <Filter>ソース ファイル\Resource\Spine</Filter>
+    </ClCompile>
+    <ClCompile Include="spine-c\src\spine\SkeletonData.c">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClCompile>
+    <ClCompile Include="SpineDataManager.cpp">
+      <Filter>ソース ファイル\Resource\Spine</Filter>
+    </ClCompile>
+    <ClCompile Include="SpineData.cpp">
+      <Filter>ソース ファイル\Resource\Spine</Filter>
+    </ClCompile>
+    <ClCompile Include="SkeletonAnimation.cpp">
+      <Filter>ソース ファイル\Resource\Spine</Filter>
+    </ClCompile>
+    <ClCompile Include="DigitalInput.cpp">
+      <Filter>ソース ファイル\Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="AnalogInput.cpp">
+      <Filter>ソース ファイル\Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineInputDeviceDriver.cpp">
+      <Filter>ソース ファイル\Scene\Device\Input\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity2D.cpp">
+      <Filter>ソース ファイル\GameObject\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera2D_MultiTarget.cpp">
+      <Filter>ソース ファイル\Camera\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform2D.cpp">
+      <Filter>ソース ファイル\GameObject\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera2D.cpp">
+      <Filter>ソース ファイル\Camera\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform3D.cpp">
+      <Filter>ソース ファイル\GameObject\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteVertexBufferObject.cpp">
+      <Filter>ソース ファイル\GameObject\VBO\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBufferObject_Primitive3D_Cube.cpp">
+      <Filter>ソース ファイル\GameObject\VBO\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Primitive3D.cpp">
+      <Filter>ソース ファイル\GameObject\3D\Primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube3D.cpp">
+      <Filter>ソース ファイル\GameObject\3D\Primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera3D.cpp">
+      <Filter>ソース ファイル\Camera\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>ソース ファイル\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera3D_Transformed.cpp">
+      <Filter>ソース ファイル\Camera\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBufferObject_Primitive3D_Line.cpp">
+      <Filter>ソース ファイル\GameObject\VBO\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Line3D.cpp">
+      <Filter>ソース ファイル\GameObject\3D\Primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBufferObject_Primitive3D_Plane.cpp">
+      <Filter>ソース ファイル\GameObject\VBO\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Plane3D.cpp">
+      <Filter>ソース ファイル\GameObject\3D\Primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBufferObject_Primitive3D_Triangle.cpp">
+      <Filter>ソース ファイル\GameObject\VBO\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle3D.cpp">
+      <Filter>ソース ファイル\GameObject\3D\Primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera3D_LookAt.cpp">
+      <Filter>ソース ファイル\Camera\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>ソース ファイル\GameObject\Material\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>ソース ファイル\GameObject\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Shape3D.cpp">
+      <Filter>ソース ファイル\GameObject\3D\Primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject3D.cpp">
+      <Filter>ソース ファイル\GameObject\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera3D_FirstPerson.cpp">
+      <Filter>ソース ファイル\Camera\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>ソース ファイル\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>ソース ファイル\GameObject\3D\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="BillBoard.cpp">
+      <Filter>ソース ファイル\GameObject\3D\Primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshField.cpp">
+      <Filter>ソース ファイル\GameObject\3D\Primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBufferObject_Primitive3D_MeshField.cpp">
+      <Filter>ソース ファイル\GameObject\VBO\3D</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Entity.h">
+      <Filter>ヘッダー ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>ヘッダー ファイル\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Util.h">
+      <Filter>ヘッダー ファイル\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>ヘッダー ファイル\Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry.h">
+      <Filter>ヘッダー ファイル\Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineOption.h">
+      <Filter>ヘッダー ファイル\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeType.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>ヘッダー ファイル\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Bresenham.h">
+      <Filter>ヘッダー ファイル\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureRegion.h">
+      <Filter>ヘッダー ファイル\GameObject\2D\Shape\Sprite\TextureRegion</Filter>
+    </ClInclude>
+    <ClInclude Include="TiledTextureRegion.h">
+      <Filter>ヘッダー ファイル\GameObject\2D\Shape\Sprite\TextureRegion</Filter>
+    </ClInclude>
+    <ClInclude Include="ITextureRegion.h">
+      <Filter>ヘッダー ファイル\GameObject\2D\Shape\Sprite\TextureRegion</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>ヘッダー ファイル\Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="CSVTokenizer.h">
+      <Filter>ヘッダー ファイル\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape.h">
+      <Filter>ヘッダー ファイル\GameObject\2D\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="IVertexBufferObject.h">
+      <Filter>ヘッダー ファイル\GameObject\VBO</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedSprite.h">
+      <Filter>ヘッダー ファイル\GameObject\2D\Shape\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseActivity.h">
+      <Filter>ヘッダー ファイル\Activity</Filter>
+    </ClInclude>
+    <ClInclude Include="EasingFunction.h">
+      <Filter>ヘッダー ファイル\Util\EasingFunction</Filter>
+    </ClInclude>
+    <ClInclude Include="EasingFunctionManager.h">
+      <Filter>ヘッダー ファイル\Util\EasingFunction</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineInputEvent.h">
+      <Filter>ヘッダー ファイル\Scene\Event\EngineInput</Filter>
+    </ClInclude>
+    <ClInclude Include="UpdateEvent.h">
+      <Filter>ヘッダー ファイル\Scene\Event\Update</Filter>
+    </ClInclude>
+    <ClInclude Include="Director.h">
+      <Filter>ヘッダー ファイル\Director</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>ヘッダー ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityDrawState.h">
+      <Filter>ヘッダー ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomDevice.h">
+      <Filter>ヘッダー ファイル\Scene\Device</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomDeviceDriver.h">
+      <Filter>ヘッダー ファイル\Scene\Device</Filter>
+    </ClInclude>
+    <ClInclude Include="UserInputDevice.h">
+      <Filter>ヘッダー ファイル\Scene\Device\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="UserInputDeviceDriver.h">
+      <Filter>ヘッダー ファイル\Scene\Device\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="INativeProcess_Matrix.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="INativeProcess_Texture.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="INativeProcess_Graphics.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeMethod.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>ヘッダー ファイル\GameObject\2D\Shape\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneResource.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MathConstants.h">
+      <Filter>ヘッダー ファイル\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>ヘッダー ファイル\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>ヘッダー ファイル\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityModifier.h">
+      <Filter>ヘッダー ファイル\GameObject\2D\Modifier</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityModifierManager.h">
+      <Filter>ヘッダー ファイル\GameObject\2D\Modifier</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityModifierFactory.h">
+      <Filter>ヘッダー ファイル\GameObject\2D\Modifier</Filter>
+    </ClInclude>
+    <ClInclude Include="LoopTextureRegion.h">
+      <Filter>ヘッダー ファイル\GameObject\2D\Shape\Sprite\TextureRegion</Filter>
+    </ClInclude>
+    <ClInclude Include="LoopSprite.h">
+      <Filter>ヘッダー ファイル\GameObject\2D\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityModifierAttribute.h">
+      <Filter>ヘッダー ファイル\GameObject\2D\Modifier</Filter>
+    </ClInclude>
+    <ClInclude Include="PoolAllocator.h">
+      <Filter>ヘッダー ファイル\Allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>ヘッダー ファイル\Resource\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="JsonParser.h">
+      <Filter>ヘッダー ファイル\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleData.h">
+      <Filter>ヘッダー ファイル\Resource\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleDataManager.h">
+      <Filter>ヘッダー ファイル\Resource\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>ヘッダー ファイル\Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="TexturePalette.h">
+      <Filter>ヘッダー ファイル\Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="TexturePaletteManager.h">
+      <Filter>ヘッダー ファイル\Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureAtlas.h">
+      <Filter>ヘッダー ファイル\Resource\Texture\Atlas</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureAtlasLoader.h">
+      <Filter>ヘッダー ファイル\Resource\Texture\Atlas</Filter>
+    </ClInclude>
+    <ClInclude Include="INativeProcess_IO.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleDataLoader.h">
+      <Filter>ヘッダー ファイル\Resource\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\Animation.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\AnimationState.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\AnimationStateData.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\Array.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\Atlas.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\AtlasAttachmentLoader.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\Attachment.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\AttachmentLoader.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\Bone.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\BoneData.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\BoundingBoxAttachment.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\ClippingAttachment.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\SpColor.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\dll.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\Event.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\EventData.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\extension.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\IkConstraint.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\IkConstraintData.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\MeshAttachment.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\PathAttachment.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\PathConstraint.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\PathConstraintData.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\PointAttachment.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\RegionAttachment.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\Skeleton.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\SkeletonBinary.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\SkeletonBounds.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\SkeletonClipping.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\SkeletonJson.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\Skin.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\Slot.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\SlotData.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\spine.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\TransformConstraint.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\TransformConstraintData.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\Triangulator.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\VertexAttachment.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\VertexEffect.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\src\spine\Json.h">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\src\spine\kvec.h">
+      <Filter>ソース ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="AttachmentVertexes.h">
+      <Filter>ヘッダー ファイル\Resource\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineAttachmentLoader.h">
+      <Filter>ヘッダー ファイル\Resource\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="spine-c\include\spine\SkeletonData.h">
+      <Filter>ヘッダー ファイル\Resource\Spine\c</Filter>
+    </ClInclude>
+    <ClInclude Include="SpineDataManager.h">
+      <Filter>ヘッダー ファイル\Resource\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="SpineData.h">
+      <Filter>ヘッダー ファイル\Resource\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="SkeletonAnimation.h">
+      <Filter>ヘッダー ファイル\Resource\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="AnalogInput.h">
+      <Filter>ヘッダー ファイル\Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="DigitalInput.h">
+      <Filter>ヘッダー ファイル\Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineInput.h">
+      <Filter>ヘッダー ファイル\Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineInputDeviceDriver.h">
+      <Filter>ヘッダー ファイル\Scene\Device\Input\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="InputDevice.h">
+      <Filter>ヘッダー ファイル\Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="InputDeviceManager.h">
+      <Filter>ヘッダー ファイル\Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="INativeProcess_Time.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity2D.h">
+      <Filter>ヘッダー ファイル\GameObject\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera2D_MultiTarget.h">
+      <Filter>ヘッダー ファイル\Camera\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>ヘッダー ファイル\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform2D.h">
+      <Filter>ヘッダー ファイル\GameObject\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform3D.h">
+      <Filter>ヘッダー ファイル\GameObject\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera2D.h">
+      <Filter>ヘッダー ファイル\Camera\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Primitive3D.h">
+      <Filter>ヘッダー ファイル\GameObject\3D\Primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteVertexBufferObject.h">
+      <Filter>ヘッダー ファイル\GameObject\VBO\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBufferObject_Primitive3D_Cube.h">
+      <Filter>ヘッダー ファイル\GameObject\VBO\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube3D.h">
+      <Filter>ヘッダー ファイル\GameObject\3D\Primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera3D.h">
+      <Filter>ヘッダー ファイル\Camera\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera3D_Transformed.h">
+      <Filter>ヘッダー ファイル\Camera\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Line3D.h">
+      <Filter>ヘッダー ファイル\GameObject\3D\Primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBufferObject_Primitive3D_Line.h">
+      <Filter>ヘッダー ファイル\GameObject\VBO\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane3D.h">
+      <Filter>ヘッダー ファイル\GameObject\3D\Primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBufferObject_Primitive3D_Plane.h">
+      <Filter>ヘッダー ファイル\GameObject\VBO\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle3D.h">
+      <Filter>ヘッダー ファイル\GameObject\3D\Primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBufferObject_Primitive3D_Triangle.h">
+      <Filter>ヘッダー ファイル\GameObject\VBO\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera3D_LookAt.h">
+      <Filter>ヘッダー ファイル\Camera\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>ヘッダー ファイル\GameObject\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>ヘッダー ファイル\GameObject\Material\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="StandardShader.h">
+      <Filter>ヘッダー ファイル\GameObject\Material\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape3D.h">
+      <Filter>ヘッダー ファイル\GameObject\3D\Primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject3D.h">
+      <Filter>ヘッダー ファイル\GameObject\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera3D_FirstPerson.h">
+      <Filter>ヘッダー ファイル\Camera\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>ヘッダー ファイル\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="INativeProcess_Material.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>ヘッダー ファイル\GameObject\3D\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="INativeProcess_Model.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelDataPool.h">
+      <Filter>ヘッダー ファイル\Resource\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelData.h">
+      <Filter>ヘッダー ファイル\Resource\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="BillBoard.h">
+      <Filter>ヘッダー ファイル\GameObject\3D\Primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshField.h">
+      <Filter>ヘッダー ファイル\GameObject\3D\Primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBufferObject_Primitive3D_MeshField.h">
+      <Filter>ヘッダー ファイル\GameObject\VBO\3D</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

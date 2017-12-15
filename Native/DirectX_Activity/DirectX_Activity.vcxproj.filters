@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Native">
+      <UniqueIdentifier>{f42609b9-68a7-449e-9d9f-1c0381e409e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Native">
+      <UniqueIdentifier>{b169b8f4-10eb-42bd-8640-76f4cdcf9fc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Input">
+      <UniqueIdentifier>{9f585479-0613-4079-b8a3-a7fca86836b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Input">
+      <UniqueIdentifier>{4cde5a41-bf6c-435a-b608-c2cde9675546}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Input\Device">
+      <UniqueIdentifier>{6f6fd6e0-badd-499d-9428-2c0066b35427}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Input\Device">
+      <UniqueIdentifier>{d8c41d4a-3929-4915-8e7a-b09f6e0d7e7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Director">
+      <UniqueIdentifier>{0a85f1c0-d1bf-4e86-8324-59e06bf1b69c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DirectXActivity.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeProcess_Matrix.cpp">
+      <Filter>ソース ファイル\Native</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeProcess_Texture.cpp">
+      <Filter>ソース ファイル\Native</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeProcess_IO.cpp">
+      <Filter>ソース ファイル\Native</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectXInputDeviceManager.cpp">
+      <Filter>ソース ファイル\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectXInputDevice_Mouse.cpp">
+      <Filter>ソース ファイル\Input\Device</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectXInputDevice_Keyboard.cpp">
+      <Filter>ソース ファイル\Input\Device</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectXNativeImplements.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectXInputDevice_XInput.cpp">
+      <Filter>ソース ファイル\Input\Device</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeProcess_Time.cpp">
+      <Filter>ソース ファイル\Native</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeProcess_Graphics.cpp">
+      <Filter>ソース ファイル\Native</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeProcess_Material.cpp">
+      <Filter>ソース ファイル\Native</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeProcess_Model.cpp">
+      <Filter>ソース ファイル\Native</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DirectXActivity.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeProcess_Graphics.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeProcess_Matrix.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeProcess_Texture.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeProcess_IO.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXInputDeviceManager.h">
+      <Filter>ヘッダー ファイル\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXInputDevice_Mouse.h">
+      <Filter>ヘッダー ファイル\Input\Device</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXInputDevice_Keyboard.h">
+      <Filter>ヘッダー ファイル\Input\Device</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXInputDevice.h">
+      <Filter>ヘッダー ファイル\Input\Device</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXDirector.h">
+      <Filter>ヘッダー ファイル\Director</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXNativeImplements.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXInputDevice_XInput.h">
+      <Filter>ヘッダー ファイル\Input\Device</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeProcess_Time.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeProcess_Material.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeProcess_Model.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
