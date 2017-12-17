@@ -78,43 +78,6 @@ void NativeProcess_Graphics::Graphics_Cheat(T_UINT16 cheat_id)
 {
   const LPDIRECT3DDEVICE9 pDevice = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
 
-  if (cheat_id == 0)
-  {
-    D3DCOLORVALUE WhiteColor = { 1.0f,1.0f,1.0f,1.0f };
-
-    //=====Material Setting=====
-    D3DMATERIAL9 mat;
-    ZeroMemory(&mat, sizeof(mat));
-    mat.Diffuse.r = 1.0f;
-    mat.Diffuse.g = 1.0f;
-    mat.Diffuse.b = 1.0f;
-    mat.Diffuse.a = 1.0f;
-    pDevice->SetMaterial(&mat);
-    pDevice->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE, D3DMCS_MATERIAL);
-
-    //=====Light Setting=====
-    D3DLIGHT9 light;
-    ZeroMemory(&light, sizeof(light));//Init
-    light.Type = D3DLIGHT_DIRECTIONAL;
-    D3DXVECTOR3 vecDir(0.0f, 0.0f, 1.0f);//Direction
-    D3DXVec3Normalize((D3DXVECTOR3*)&light.Direction, &vecDir);
-    light.Diffuse.r = 1.0f;
-    light.Diffuse.g = 1.0f;
-    light.Diffuse.b = 1.0f;
-    light.Diffuse.a = 1.0f;
-    light.Ambient = WhiteColor;
-    pDevice->SetLight(0, &light);//SetLight(0~3(Light selector),&light)
-    pDevice->LightEnable(0, TRUE);
-
-    //=====Ambient Setting=====
-    D3DXCOLOR ambient = { 0.0f, 0.0f, 0.0f, 1.0f };
-    pDevice->SetRenderState(D3DRS_AMBIENT, ambient);
-
-  }
-  if (cheat_id == 1)
-  {
-    pDevice->SetRenderState(D3DRS_NORMALIZENORMALS, true);
-  }
   
 }
 
@@ -152,6 +115,11 @@ void NativeProcess_Graphics::Graphics_SetViewport(T_FLOAT x, T_FLOAT y, T_FLOAT 
 void NativeProcess_Graphics::Graphics_SetBlendMode(BlendFunction::BlendMode src, BlendFunction::BlendMode dst)
 {
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
+  if (src == BlendFunction::BL_NOBLEND || dst == BlendFunction::BL_NOBLEND)
+  {
+    device->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+    return;
+  }
   device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE); 
   device->SetRenderState(D3DRS_SRCBLEND, BLENDMODE_TYPES[src]);
   device->SetRenderState(D3DRS_DESTBLEND, BLENDMODE_TYPES[dst]);

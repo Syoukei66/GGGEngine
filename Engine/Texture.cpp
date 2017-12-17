@@ -9,7 +9,6 @@
 Texture::Texture(const std::string& path)
   : path_(path)
   , native_texture_(nullptr)
-  , size_(-1, -1)
 {
 }
 
@@ -38,5 +37,4 @@ void Texture::Unload()
   }
   delete this->native_texture_;
   this->native_texture_ = nullptr;
-  this->size_ = TSize(0, 0);
 }

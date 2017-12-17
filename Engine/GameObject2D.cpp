@@ -138,7 +138,7 @@ void GameObject2D::Draw(GameObject2DRenderState* state)
       //2.Ž©•ªŽ©g
       if (state->IsTargetedLayer(this->GetLayerId()))
       {
-        this->ApplyMaterial(state);
+        this->ApplyBlendMode(state);
         this->NativeDraw(state);
       }
       self_already_drawed = true;
@@ -154,7 +154,7 @@ void GameObject2D::Draw(GameObject2DRenderState* state)
     //2.Ž©•ªŽ©g
     if (state->IsTargetedLayer(this->GetLayerId()))
     {
-      this->ApplyMaterial(state);
+      this->ApplyBlendMode(state);
       this->NativeDraw(state);
     }
   }

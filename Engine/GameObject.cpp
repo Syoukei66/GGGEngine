@@ -26,7 +26,7 @@ void GameObject::Init()
   this->blend_function_dst_ = BlendFunction::BLEND_DEFAULT_DST;
 }
 
-void GameObject::ApplyMaterial(GameObjectRenderState* state)
+void GameObject::ApplyBlendMode(GameObjectRenderState* state)
 {
   state->SetBlendMode(this->blend_function_src_, this->blend_function_dst_);
 }
