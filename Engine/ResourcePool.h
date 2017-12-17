@@ -32,6 +32,9 @@ class ResourcePool : public ResourceLoadReserver<TKey>
 public:
   ResourcePool(const std::string& category)
     : category_(category)
+    , resources_()
+    , load_reserve_()
+    , unload_reserve_()
   {
   }
 
