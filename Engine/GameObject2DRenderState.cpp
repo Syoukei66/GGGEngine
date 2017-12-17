@@ -21,6 +21,7 @@ void GameObject2DRenderState::Init()
   GameObjectRenderState::Init();
   this->world_color_ = Color::WHITE;
   this->color_stack_.clear();
+  NativeMethod::Graphics().Graphics_SetLightingEnabled(false);
 }
 
 void GameObject2DRenderState::PushColor(const Color& color)

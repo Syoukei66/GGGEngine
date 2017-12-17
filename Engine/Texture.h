@@ -35,7 +35,7 @@ public:
 
   inline const TSize& GetSize() const override
   {
-    return this->size_;
+    return this->native_texture_->GetSize();
   }
 
   inline const std::string& GetPath() const
@@ -49,7 +49,6 @@ public:
 private:
   std::string path_;
   NativeTexture* native_texture_;
-  TSize size_;
 };
 
 #endif//HAL_ENGINE_RESOURCE_TEXTURE_H_

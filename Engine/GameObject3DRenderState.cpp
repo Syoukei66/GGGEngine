@@ -46,7 +46,7 @@ void GameObject3DRenderState::DrawZOrderedGameObject()
   for (std::vector<PostDrawParam*>::iterator itr = this->post_draw_list_.begin(); itr != this->post_draw_list_.end();)
   {
     this->PushMatrix((*itr)->object->GetTransform()->GetWorldMatrix());
-    (*itr)->object->ApplyMaterial(this);
+    (*itr)->object->ApplyBlendMode(this);
     (*itr)->object->NativeDraw(this);
     this->PopMatrix();
     delete (*itr);

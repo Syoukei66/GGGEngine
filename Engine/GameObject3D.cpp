@@ -10,6 +10,7 @@ GameObject3D::GameObject3D()
   , children_()
   , z_test_(false)
 {
+  this->SetBlendFunction(BlendFunction::BL_NOBLEND, BlendFunction::BL_NOBLEND);
   this->transform_ = new Transform3D(this);
   this->transform_->Init();
 }
@@ -126,7 +127,7 @@ void GameObject3D::Draw(GameObject3DRenderState* state)
     else
     {
       // Ž©•ªŽ©g‚Ì•`‰æ
-      this->ApplyMaterial(state);
+      this->ApplyBlendMode(state);
       this->NativeDraw(state);
     }
   }

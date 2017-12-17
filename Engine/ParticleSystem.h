@@ -87,7 +87,7 @@ public:
   void Prepare(const ParticleData* data);
   void Init();
 
-  virtual void PreDraw(GameObject2DRenderState* state) override;
+  void Update() override;
 
 protected:
   virtual void PushMatrixStack(GameObject2DRenderState* state) override;

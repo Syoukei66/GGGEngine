@@ -7,6 +7,7 @@
 Light::Light()
   : diffuse_(255, 255, 255, 255)
   , ambient_(50, 50, 100, 255)
+//  , ambient_(255, 255, 255, 255)
   , direction_(0.0f, -1.0f, 1.0f)
 {
   this->light_id_ = NativeMethod::Graphics().Graphics_CreateLight(&this->light_);

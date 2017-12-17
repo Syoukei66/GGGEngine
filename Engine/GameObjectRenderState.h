@@ -24,7 +24,7 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  void SetBlendMode(BlendFunction::BlendMode src, BlendFunction::BlendMode dst);
+  void SetBlendMode(BlendFunction::BlendMode src, BlendFunction::BlendMode dst, bool force_update = false);
   inline LP_DEVICE GetRenderObject() const
   {
     return this->render_object_;

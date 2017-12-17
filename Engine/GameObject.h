@@ -27,7 +27,7 @@ public:
   virtual void Init();
 
   //TODO: ‰‹}ˆ’uB
-  void ApplyMaterial(GameObjectRenderState* state);
+  void ApplyBlendMode(GameObjectRenderState* state);
 
   virtual void ManagedPreUpdate() = 0;
   virtual void ManagedUpdate() = 0;

@@ -314,6 +314,7 @@ void DirectXActivity::InputProcess(EngineInputState* state)
 
 void DirectXActivity::DrawFPS(const char* text, T_FLOAT x, T_FLOAT y, T_UINT32 color)
 {
+#ifdef _DEBUG
   const T_UINT16 width = Director::GetInstance()->GetScreenWidth();
   const T_UINT16 height = Director::GetInstance()->GetScreenHeight();
   RECT rect = { x, y, x + width, y + height };
@@ -326,6 +327,7 @@ void DirectXActivity::DrawFPS(const char* text, T_FLOAT x, T_FLOAT y, T_UINT32 c
     NULL,
     color
   );
+#endif
 }
 
 // =================================================================
