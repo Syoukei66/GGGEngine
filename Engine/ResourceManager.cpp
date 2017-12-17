@@ -58,10 +58,14 @@ void ResourceManager::RealizeResources(const ResourceLoadOrder& order, IResource
 
   listener->OnLoadingInit();
 
+  this->particle_data_manager_->Load();
+  this->spine_data_manager_->Load();
   this->texture_palette_manager_->PreRealize(listener);
 
   listener->OnLoadingStarted();
 
+  this->particle_data_manager_->Load();
+  this->spine_data_manager_->Load();
   this->texture_palette_manager_->Realize(listener);
 
   listener->OnLoadingFinished();
