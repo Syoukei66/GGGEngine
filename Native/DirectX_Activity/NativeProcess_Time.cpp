@@ -13,7 +13,11 @@ NativeProcess_Time::NativeProcess_Time()
   , time_end_()
   , time_freq_()
 {}
+#else
+NativeProcess_Time::NativeProcess_Time()
+{}
 #endif
+
 
 #ifdef _DEBUG
 void NativeProcess_Time::FPS_Init()

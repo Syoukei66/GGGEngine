@@ -31,10 +31,13 @@ bool BaseActivity::Run(IEngineSetting* setting)
   NativeMethod::IO_SetInstance(this->SetupNativeProcess_IO());
   NativeMethod::Time_SetInstance(this->SetupNativeProcess_Time());
 
+  bool result = false;
+
   //Engine
   this->engine_ = new Engine();
   Director::GetInstance()->SetEngine(this->engine_);
-  NATIVE_ASSERT(this->engine_->Init(setting), "エンジンの初期化に失敗しました。");
+  result = this->engine_->Init(setting);
+  NATIVE_ASSERT(result, "エンジンの初期化に失敗しました。");
 
 #ifdef _DEBUG
   NativeMethod::Time().FPS_Init();
@@ -43,8 +46,9 @@ bool BaseActivity::Run(IEngineSetting* setting)
   const EngineOption* option = this->engine_->GetEngineOption();
   this->ApplyEngineOption(option);
   InputManager::GetInstance()->Init(option->input_setting.Build());
+  result = this->Init(option);
   //Acitivity
-  NATIVE_ASSERT(this->Init(option), "アクティビティの初期化に失敗しました。");
+  NATIVE_ASSERT(result, "アクティビティの初期化に失敗しました。");
 
   setting->OnGameInit();
   //Scene
@@ -52,10 +56,12 @@ bool BaseActivity::Run(IEngineSetting* setting)
   while (this->Update());
   setting->OnGameFinal();
 
-  NATIVE_ASSERT(this->Uninit(), "アクティビティの終了処理に失敗しました。");
+  result = this->Uninit();
+  NATIVE_ASSERT(result, "アクティビティの終了処理に失敗しました。");
   InputManager::GetInstance()->Uninit();
 
-  NATIVE_ASSERT(this->engine_->End(), "エンジンの終了処理に失敗しました。");
+  result = this->engine_->End();
+  NATIVE_ASSERT(result, "エンジンの終了処理に失敗しました。");
   delete this->engine_;
   
   NativeMethod::Graphics_DeleteInstance();

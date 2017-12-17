@@ -106,6 +106,7 @@ void SkeletonAnimation::NativeDraw(GameObject2DRenderState* state)
       vertexes[j].packed_color = color.GetPackedColor();
     }
 
+    this->ApplyBlendMode(state);
     NativeMethod::Graphics().Graphics_SetTexture(attachment_vertexes->texture_);
     NativeMethod::Graphics().Graphics_DrawSprite(state, INativeProcess_Graphics::PRIMITIVE_TRIANGLESTRIP, vertexes, attachment_vertexes->size_);
     

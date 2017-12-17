@@ -24,7 +24,7 @@ GameObjectRenderState::~GameObjectRenderState()
 void GameObjectRenderState::Init()
 {
   this->render_object_ = Director::GetInstance()->GetDevice();
-  this->SetBlendMode(BlendFunction::BLEND_DEFAULT_SRC, BlendFunction::BLEND_DEFAULT_DST);
+  this->SetBlendMode(BlendFunction::BL_NOBLEND, BlendFunction::BL_NOBLEND, true);
 }
 
 void GameObjectRenderState::PushMatrix(LP_MATRIX_4x4 matrix)
@@ -41,9 +41,9 @@ void GameObjectRenderState::PopMatrix()
 // =================================================================
 // Setter / Getter
 // =================================================================
-void GameObjectRenderState::SetBlendMode(BlendFunction::BlendMode src, BlendFunction::BlendMode dst)
+void GameObjectRenderState::SetBlendMode(BlendFunction::BlendMode src, BlendFunction::BlendMode dst, bool force_update)
 {
-  if (this->src_ == src && this->dst_ == dst)
+  if (!force_update && this->src_ == src && this->dst_ == dst)
   {
     return;
   }

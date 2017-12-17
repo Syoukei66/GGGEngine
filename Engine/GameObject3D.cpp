@@ -127,6 +127,7 @@ void GameObject3D::Draw(GameObject3DRenderState* state)
     else
     {
       // Ž©•ªŽ©g‚Ì•`‰æ
+      this->ApplyBlendMode(state);
       this->NativeDraw(state);
     }
   }

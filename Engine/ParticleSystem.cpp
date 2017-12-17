@@ -126,11 +126,11 @@ void ParticleSystem::Init()
   }
 }
 
-void ParticleSystem::PreDraw(GameObject2DRenderState* state)
+void ParticleSystem::Update()
 {
   if (this->data_->duration == -1.0f || this->duration_ > 0.0f)
   {
-    this->duration_-= 1.0f;
+    this->duration_ -= 1.0f;
     const T_FLOAT emission_time = (T_FLOAT)Director::GetInstance()->GetFrameRate() * this->data_->life_time / this->data_->max_particles;
     this->time_count_ += 1.0f;
     while (this->time_count_ > emission_time)
@@ -154,7 +154,6 @@ void ParticleSystem::PreDraw(GameObject2DRenderState* state)
 
   if (this->particles_->GetAllocatedCount() == 0)
   {
-    GameObject2D::PreDraw(state);
     return;
   }
   for (std::list<Particle*>::iterator itr = this->particles_->begin(); itr != this->particles_->end();)
@@ -172,7 +171,6 @@ void ParticleSystem::PreDraw(GameObject2DRenderState* state)
   {
     this->Init();
   }
-  GameObject2D::PreDraw(state);
 }
 
 void ParticleSystem::PushMatrixStack(GameObject2DRenderState* state)
