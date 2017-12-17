@@ -221,6 +221,8 @@
     <ClCompile Include="MeshField.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="NativeMethod.cpp" />
+    <ClCompile Include="NativeObject.cpp" />
+    <ClCompile Include="NativeTexture.cpp" />
     <ClCompile Include="ParticleData.cpp" />
     <ClCompile Include="ParticleDataLoader.cpp" />
     <ClCompile Include="ParticleDataManager.cpp" />
@@ -369,6 +371,8 @@
     <ClInclude Include="ModelData.h" />
     <ClInclude Include="ModelDataManager.h" />
     <ClInclude Include="NativeMethod.h" />
+    <ClInclude Include="NativeObject.h" />
+    <ClInclude Include="NativeTexture.h" />
     <ClInclude Include="ParticleData.h" />
     <ClInclude Include="ParticleDataLoader.h" />
     <ClInclude Include="ParticleDataManager.h" />

@@ -7,6 +7,8 @@
 #include "Material.h"
 #include "ITexture.h"
 
+#include "NativeTexture.h"
+
 class INativeProcess_Graphics
 {
 public:
@@ -54,8 +56,8 @@ public:
   virtual void Graphics_DrawPrimitive(GameObjectRenderState* state, PrimitiveType type, const Vertex* vertexes, T_UINT16 vertexes_count) = 0;
   virtual void Graphics_DrawIndexedPrimitive(GameObjectRenderState* state, PrimitiveType type, const Vertex* vertexes, T_UINT16 vertexes_count, const T_UINT16* indexes) = 0;
 
-  virtual void Graphics_DrawSprite(GameObjectRenderState* state, PrimitiveType type, const SpriteVertex* vertexes, T_UINT16 vertexes_count, LP_TEXTURE texture) = 0;
-  virtual void Graphics_DrawIndexedSprite(GameObjectRenderState* state, PrimitiveType type, const SpriteVertex* vertexes, T_UINT16 vertexes_count, const T_UINT16* indexes, LP_TEXTURE texture) = 0;
+  virtual void Graphics_DrawSprite(GameObjectRenderState* state, PrimitiveType type, const SpriteVertex* vertexes, T_UINT16 vertexes_count) = 0;
+  virtual void Graphics_DrawIndexedSprite(GameObjectRenderState* state, PrimitiveType type, const SpriteVertex* vertexes, T_UINT16 vertexes_count, const T_UINT16* indexes) = 0;
 
   virtual void Graphics_DrawVertexes(GameObjectRenderState* state, PrimitiveType primitive_type, VertexType vertex_type, const void* vertexes, T_UINT16 vertexes_count) = 0;
   virtual void Graphics_DrawIndexedVertexes(GameObjectRenderState* state, PrimitiveType primitive_type, VertexType vertex_type, const void* vertexes, T_UINT16 vertexes_count, const T_UINT16* indexes) = 0;

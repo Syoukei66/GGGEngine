@@ -3,7 +3,7 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-StaticTexture::StaticTexture(LP_TEXTURE native_texture)
+StaticTexture::StaticTexture(NativeTexture* native_texture)
   : native_texture_(native_texture)
 {
 }

@@ -27,8 +27,7 @@ void Texture::Load()
   {
     return;
   }
-  this->native_texture_ = NativeMethod::Texture().Texture_Load(this->path_.c_str());
-  NativeMethod::Texture().Texture_GetSize(this->native_texture_, &this->size_);
+  this->native_texture_ = new NativeTexture(this->path_.c_str());
 }
 
 void Texture::Unload()
@@ -37,7 +36,7 @@ void Texture::Unload()
   {
     return;
   }
-  NativeMethod::Texture().Texture_Unload(this->native_texture_);
+  delete this->native_texture_;
   this->native_texture_ = nullptr;
   this->size_ = TSize(0, 0);
 }

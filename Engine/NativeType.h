@@ -60,15 +60,9 @@ static const T_DOUBLE T_DOUBLE_MAX = DBL_MAX;
 
 typedef T_UINT32 T_PACKED_COLOR_UINT32;
 
-// ===================================================================================
-// ネイティブ部分で用意したインスタンスを格納するための型
-// void*だと関数の引数にした際、あらゆるポインタ型を受け入れるようになってしまい問題がある
-// とはいえint*でも問題があるため、
-// 空のstructを用意する方がいいのかもしれない
-// ===================================================================================
+typedef struct NativeInstance { void* p; } * const LP_NATIVE_INSTANCE;
 
 typedef int* LP_DEVICE;
-typedef int* LP_TEXTURE;
 typedef int* LP_MATERIAL;
 
 typedef int* LP_MODEL;

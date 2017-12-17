@@ -11,8 +11,8 @@
 
 void _spAtlasPage_createTexture(spAtlasPage* self, const char* path)
 {
-  const ITexture* texture = HalEngine::Resource::GetTexture(path);
-  self->rendererObject = texture->GetNativeTexture();
+  const Texture* texture = HalEngine::Resource::GetTexture(path);
+  self->rendererObject = (void*)texture;
   self->width = texture->GetSize().width;
   self->height = texture->GetSize().height;
 }
