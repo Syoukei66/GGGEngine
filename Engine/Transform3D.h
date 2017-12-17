@@ -1,6 +1,6 @@
 #pragma once
 #include "Transform.h"
-#include "Quaternion.h"
+#include "Transform3DRotator.h"
 
 class GameObject3D;
 
@@ -32,35 +32,6 @@ public:
   T_FLOAT MoveCircularX(T_FLOAT x, const TVec3f& pos);
   T_FLOAT MoveCircularY(T_FLOAT y, const TVec3f& pos);
   T_FLOAT MoveCircularZ(T_FLOAT z, const TVec3f& pos);
-
-  inline void RotationAxis(const TVec3f& rotation)
-  {
-    this->SetRotation(this->GetRotation() + rotation);
-  }
-  inline void RotationAxis(T_FLOAT x_axis, T_FLOAT y_axis, T_FLOAT z_axis)
-  {
-    this->SetRotation(
-      this->GetRotationX() + x_axis,
-      this->GetRotationY() + y_axis, 
-      this->GetRotationZ() + z_axis
-      );
-  }
-  void RotationXAxis(T_FLOAT x_axis)
-  {
-    this->SetRotationX(this->GetRotationX() + x_axis);
-  }
-  void RotationYAxis(T_FLOAT y_axis)
-  {
-    this->SetRotationY(this->GetRotationY() + y_axis);
-  }
-  void RotationZAxis(T_FLOAT z_axis)
-  {
-    this->SetRotationZ(this->GetRotationZ() + z_axis);
-  }
-
-  void RotationX(T_FLOAT x);
-  void RotationY(T_FLOAT y);
-  void RotationZ(T_FLOAT z);
 
   void OnRotationChanged() override;
 
@@ -129,32 +100,6 @@ public:
     return this->scale_.z;
   }
 
-  void SetRotation(const TVec3f& rotation);
-  void SetRotation(T_FLOAT rotation_x, T_FLOAT rotation_y, T_FLOAT rotation_z);
-  inline const TVec3f& GetRotation()
-  {
-    return this->rotation_;
-//    return this->quaternion_.EularAngles();
-  }
-  void SetRotationX(T_FLOAT rotation_x);
-  inline T_FLOAT GetRotationX()
-  {
-    return this->rotation_.x;
-//    return this->quaternion_.EularAngles().x;
-  }
-  void SetRotationY(T_FLOAT rotation_y);
-  inline T_FLOAT GetRotationY()
-  {
-    return this->rotation_.y;
-//    return this->quaternion_.EularAngles().y;
-  }
-  void SetRotationZ(T_FLOAT rotation_z);
-  inline T_FLOAT GetRotationZ()
-  {
-    return this->rotation_.z;
-//    return this->quaternion_.EularAngles().z;
-  }
-
   inline const TVec3f& GetDirection()
   {
     return this->direction_;
@@ -163,6 +108,11 @@ public:
   inline LP_MATRIX_4x4 GetWorldMatrix()
   {
     return this->world_matrix_;
+  }
+
+  inline Transform3DRotator* GetRotator()
+  {
+    return this->rotator_;
   }
 
   // =================================================================
@@ -175,8 +125,7 @@ private:
 
   TVec3f position_;
   TVec3f scale_;
-  TVec3f rotation_;
-//  Quaternion quaternion_;
+  Transform3DRotator* rotator_;
 
   TVec3f world_position_;
 

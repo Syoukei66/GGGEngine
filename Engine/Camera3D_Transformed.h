@@ -15,15 +15,6 @@ public:
   virtual ~Camera3D_Transformed();
   
   // =================================================================
-  // Methods for/from SuperClass/Interfaces
-  // =================================================================
-public:
-  //virtual void DrawLayers(Scene* scene, GameObject3DRenderState* state) override;
-
-private:
-  void UpdateMatrixes();
-
-  // =================================================================
   // Methods
   // =================================================================
 public:
@@ -33,11 +24,10 @@ public:
   void MoveX(T_FLOAT x);
   void MoveY(T_FLOAT y);
   void MoveZ(T_FLOAT z);
-  void Rotation(TVec3f rotation);
-  void Rotation(T_FLOAT x_axis, T_FLOAT y_axis, T_FLOAT z_axis);
-  void RotationXAxis(T_FLOAT x_axis);
-  void RotationYAxis(T_FLOAT y_axis);
-  void RotationZAxis(T_FLOAT z_axis);
+
+  void RotateXAxis(T_FLOAT x_axis);
+  void RotateYAxis(T_FLOAT y_axis);
+  void RotateZAxis(T_FLOAT z_axis);
 
 public:
   inline Transform3D* GetTransform()

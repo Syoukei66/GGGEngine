@@ -690,6 +690,9 @@
     <ClCompile Include="NativeTexture.cpp">
       <Filter>ソース ファイル\Native\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Transform3DRotator.cpp">
+      <Filter>ソース ファイル\Component\GameObject\3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -1171,6 +1174,9 @@
     </ClInclude>
     <ClInclude Include="NativeTexture.h">
       <Filter>ヘッダー ファイル\Native\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform3DRotator.h">
+      <Filter>ヘッダー ファイル\Component\GameObject\3D</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
