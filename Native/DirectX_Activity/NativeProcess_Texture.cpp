@@ -51,23 +51,23 @@ void NativeProcess_Texture::TexturePalette_Unload(ITexturePalette* ipalette) con
   palette->Unload();
 }
 
-LP_TEXTURE NativeProcess_Texture::Texture_Load(const char* path) const
+LP_NATIVE_INSTANCE NativeProcess_Texture::Texture_Load(const char* path) const
 {
   LP_DEVICE device = Director::GetInstance()->GetDevice();
-  LP_TEXTURE dest = NULL;
+  LPDIRECT3DTEXTURE9 dest = nullptr;
   HRESULT hr = D3DXCreateTextureFromFile(
     (LPDIRECT3DDEVICE9)device,
     path,
-    (LPDIRECT3DTEXTURE9*)&dest);
+    &dest);
 
   if (FAILED(hr))
   {
     MessageBox(NULL, "テクスチャのロードに失敗しました", "お知らせ", MB_OK);
   }
-  return dest;
+  return (LP_NATIVE_INSTANCE)dest;
 }
 
-void NativeProcess_Texture::Texture_Unload(LP_TEXTURE texture) const
+void NativeProcess_Texture::Texture_Unload(LP_NATIVE_INSTANCE texture) const
 {
   LPDIRECT3DTEXTURE9 tex = (LPDIRECT3DTEXTURE9)texture;
   if (tex)
@@ -76,14 +76,7 @@ void NativeProcess_Texture::Texture_Unload(LP_TEXTURE texture) const
   }
 }
 
-void NativeProcess_Texture::Texture_SetToDevice(LP_TEXTURE texture) const
-{
-  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
-  device->SetFVF(D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1);
-  device->SetTexture(0, (LPDIRECT3DTEXTURE9)texture);
-}
-
-void NativeProcess_Texture::Texture_GetSize(LP_TEXTURE texture, TSize* size) const
+void NativeProcess_Texture::Texture_GetSize(LP_NATIVE_INSTANCE texture, TSize* size) const
 {
   D3DSURFACE_DESC desc;
   LPDIRECT3DTEXTURE9 tex = (LPDIRECT3DTEXTURE9)texture;

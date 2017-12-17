@@ -1,8 +1,8 @@
 #pragma once
 
 #include <string>
-#include "NativeType.h"
 #include "Geometry.h"
+#include "NativeTexture.h"
 
 class ITexture
 {
@@ -17,6 +17,6 @@ public:
   // =================================================================
 public:
   virtual bool IsLoaded() const = 0;
-  virtual const LP_TEXTURE GetNativeTexture() const = 0;
+  virtual const NativeTexture* GetNativeTexture() const = 0;
   virtual const TSize& GetSize() const = 0;
 };

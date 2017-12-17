@@ -41,7 +41,7 @@ inline ITexture* GetTexture(T_UINT8 pid, T_UINT16 tid)
   return ResourceManager::GetInstance()->GetTexturePaletteManager()->Get(pid)->GetTexture(tid);
 }
 
-inline const ITexture* GetTexture(const char* path)
+inline const Texture* GetTexture(const char* path)
 {
   return ResourceManager::GetInstance()->GetTexturePaletteManager()->DynamicLoad(path);
 }

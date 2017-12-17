@@ -28,7 +28,7 @@ public:
     return this->native_texture_;
   }
 
-  inline const LP_TEXTURE GetNativeTexture() const override
+  inline const NativeTexture* GetNativeTexture() const override
   {
     return this->native_texture_;
   }
@@ -48,7 +48,7 @@ public:
   // =================================================================
 private:
   std::string path_;
-  LP_TEXTURE native_texture_;
+  NativeTexture* native_texture_;
   TSize size_;
 };
 

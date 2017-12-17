@@ -99,12 +99,12 @@ void Sprite::NativeDraw(GameObject2DRenderState* state)
   {
     vertexes[i].packed_color = color;
   }
+  NativeMethod::Graphics().Graphics_SetTexture(texture);
   NativeMethod::Graphics().Graphics_DrawSprite(
     state,
     INativeProcess_Graphics::PRIMITIVE_TRIANGLESTRIP,
     vertexes,
-    size,
-    texture->GetNativeTexture()
+    size
   );
 }
 

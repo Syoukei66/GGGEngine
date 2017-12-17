@@ -160,7 +160,7 @@ void NativeProcess_Graphics::Graphics_SetBlendMode(BlendFunction::BlendMode src,
 void NativeProcess_Graphics::Graphics_SetTexture(const ITexture* texture)
 {
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
-  const LPDIRECT3DTEXTURE9 d3dTexture = texture ? (LPDIRECT3DTEXTURE9)texture->GetNativeTexture() : nullptr;
+  const LPDIRECT3DTEXTURE9 d3dTexture = texture ? (LPDIRECT3DTEXTURE9)texture->GetNativeTexture()->GetNativeObj() : nullptr;
   if (this->texture_ != d3dTexture)
   {
     device->SetTexture(0, d3dTexture);
@@ -220,17 +220,11 @@ void NativeProcess_Graphics::Graphics_DrawIndexedPrimitive(GameObjectRenderState
   );
 }
 
-void NativeProcess_Graphics::Graphics_DrawSprite(GameObjectRenderState* state, PrimitiveType type, const SpriteVertex* vertexes, T_UINT16 vertexes_count, LP_TEXTURE texture)
+void NativeProcess_Graphics::Graphics_DrawSprite(GameObjectRenderState* state, PrimitiveType type, const SpriteVertex* vertexes, T_UINT16 vertexes_count)
 {
-  const LPDIRECT3DTEXTURE9 d3dTexture = (LPDIRECT3DTEXTURE9)texture;
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)state->GetRenderObject();
 
   device->SetFVF(D3DFVF_XYZW | D3DFVF_DIFFUSE | D3DFVF_TEX1);
-  if (this->texture_ != d3dTexture)
-  {
-    device->SetTexture(0, d3dTexture);
-    this->texture_ = d3dTexture;
-  }
   HRESULT hr = device->DrawPrimitiveUP(
     PRIMITIVE_TYPES[type],
     PRIMITIVE_SURF_NUM(type, vertexes_count),
@@ -239,19 +233,13 @@ void NativeProcess_Graphics::Graphics_DrawSprite(GameObjectRenderState* state, P
   );
 }
 
-void NativeProcess_Graphics::Graphics_DrawIndexedSprite(GameObjectRenderState* state, PrimitiveType type, const SpriteVertex * vertexes, T_UINT16 vertexes_count, const T_UINT16* indexes, LP_TEXTURE texture)
+void NativeProcess_Graphics::Graphics_DrawIndexedSprite(GameObjectRenderState* state, PrimitiveType type, const SpriteVertex * vertexes, T_UINT16 vertexes_count, const T_UINT16* indexes)
 {
-  const LPDIRECT3DTEXTURE9 d3dTexture = (LPDIRECT3DTEXTURE9)texture;
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)state->GetRenderObject();
 
   //TODO:Ø‚è‘Ö‚¦‚ê‚é‚æ‚¤‚É
   //device->SetRenderState(D3DRS_LIGHTING, true);
   device->SetFVF(D3DFVF_XYZW | D3DFVF_DIFFUSE | D3DFVF_TEX1);
-  if (this->texture_ != d3dTexture)
-  {
-    device->SetTexture(0, d3dTexture);
-    this->texture_ = d3dTexture;
-  }
   HRESULT hr = device->DrawIndexedPrimitiveUP(
     PRIMITIVE_TYPES[type],
     0,
