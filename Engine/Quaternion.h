@@ -51,27 +51,66 @@ public:
 
   const TVec3f& EularAngles();
 
-  void SetRotationWithAxis(const TVec3f rotation);
+  void SetRotationWithAxis(const TVec3f& rotation);
   void SetRotationWithAxis(T_FLOAT x, T_FLOAT y, T_FLOAT z);
+  void SetRotationWithMatrix(LP_MATRIX_4x4 matrix);
 
-  const TVec3f q(const TVec3f& v, T_FLOAT rad);
+  const void q(const TVec3f& v, T_FLOAT rad);
 
-  void ToRotationMatrix(LP_MATRIX_4x4 dest) const;
-  void FromRotationMatrix(LP_MATRIX_4x4 rotation_matrix);
-protected:
+private:
+  //static T_FLOAT ScalarSquare(const Quaternion& q);
+  //static T_FLOAT Scalar(const Quaternion& q);
+  //static const Quaternion Conjugated(const Quaternion& q);
+  //static const Quaternion Inversed(const Quaternion& q);
+  //static const Quaternion Normalized(const Quaternion& q);
 
-  static T_FLOAT ScalarSquare(const Quaternion& q);
-  static T_FLOAT Scalar(const Quaternion& q);
-  static const Quaternion Conjugated(const Quaternion& q);
-  static const Quaternion Inversed(const Quaternion& q);
-  static const Quaternion Normalized(const Quaternion& q);
+  //Matrix‚É‡‚í‚¹‚ÄQuaternion‚Ì’l‚ð•Ï‰»‚³‚¹‚é
+  void FromRotationMatrix();
+
+  //Quaternion‚Ì’l‚É‡‚í‚¹‚ÄMatrix‚ðì¬
+  void PrepareRotationMatrix();
+
+  //Quaternion‚Ì’l‚É‡‚í‚¹‚ÄEularAngles‚ðì¬
+  void PrepareEularAngles();
+
+public:
+  inline LP_MATRIX_4x4 GetMatrix()
+  {
+    this->PrepareRotationMatrix();
+    return this->rotation_matrix_;
+  }
+
+  inline const TVec3f& GetEularAngles()
+  {
+    return this->eular_angles_;
+  }
+
+  inline T_FLOAT GetEularX()
+  {
+    this->PrepareEularAngles();
+    return this->eular_angles_.x;
+  }
+
+  inline T_FLOAT GetEularY()
+  {
+    this->PrepareEularAngles();
+    return this->eular_angles_.y;
+  }
+
+  inline T_FLOAT GetEularZ()
+  {
+    this->PrepareEularAngles();
+    return this->eular_angles_.z;
+  }
 
   // =================================================================
   // setter/getter
   // =================================================================
 private:
+  LP_MATRIX_4x4 rotation_matrix_;
   TVec3f v_;
   T_FLOAT w_;
   TVec3f eular_angles_;
-  bool is_normalized_;
+  bool need_rotation_matrix_update_;
+  bool need_eular_angles_update_;
 };

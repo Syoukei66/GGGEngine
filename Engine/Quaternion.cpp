@@ -20,12 +20,15 @@ Quaternion::Quaternion()
   : v_(0.0f, 0.0f, 0.0f)
   , w_(1.0f)
   , eular_angles_(0.0f, 0.0f, 0.0f)
-  , is_normalized_(true)
+  , need_rotation_matrix_update_(false)
+  , need_eular_angles_update_(false)
 {
+  this->rotation_matrix_ = NativeMethod::Matrix().Matrix4x4_Create();
 }
 
 Quaternion::~Quaternion()
 {
+  NativeMethod::Matrix().Matrix4x4_Delete(this->rotation_matrix_);
 }
 
 // =================================================================
@@ -69,83 +72,102 @@ void Quaternion::RotationZ(const TVec3f& direction, T_FLOAT rad)
 
 const TVec3f& Quaternion::EularAngles()
 {
-  if (!this->is_normalized_)
-  {
-    *this = Normalized(*this);
-    this->is_normalized_ = true;
-    this->eular_angles_ = this->v_ * (MathConstants::PI * 2);
-  }
+  this->PrepareEularAngles();
   return this->eular_angles_;
 }
 
-void Quaternion::SetRotationWithAxis(const TVec3f rotation)
+void Quaternion::SetRotationWithAxis(const TVec3f& rotation)
 {
+  NativeMethod::Matrix().Matrix4x4_Rotation(this->rotation_matrix_, rotation.x, rotation.y, rotation.z);
 
+  this->FromRotationMatrix();
+  
+  this->eular_angles_ = rotation;
+  this->need_eular_angles_update_ = false;
 }
 
 void Quaternion::SetRotationWithAxis(T_FLOAT x, T_FLOAT y, T_FLOAT z)
 {
+  NativeMethod::Matrix().Matrix4x4_Rotation(this->rotation_matrix_, x, y, z);
+
+  this->FromRotationMatrix();
+
+  this->eular_angles_.x = x;
+  this->eular_angles_.y = y;
+  this->eular_angles_.z = z;
+  this->need_eular_angles_update_ = false;
 }
 
-const TVec3f Quaternion::q(const TVec3f& v, T_FLOAT rad)
+void Quaternion::SetRotationWithMatrix(LP_MATRIX_4x4 matrix)
 {
+  NativeMethod::Matrix().Matrix4x4_Assign(this->rotation_matrix_, matrix);
+
+  this->FromRotationMatrix();
+}
+
+const void Quaternion::q(const TVec3f& v, T_FLOAT rad)
+{
+  if (rad == 0.0f)
+  {
+    return;
+  }
   const T_FLOAT sin_ = sin(rad / 2.0f);
   const T_FLOAT cos_ = cos(rad / 2.0f);
   this->v_ * sin_;
   this->w_ = cos_;
+  this->need_rotation_matrix_update_ = true;
+  this->need_eular_angles_update_ = true;
 }
 
-void Quaternion::ToRotationMatrix(LP_MATRIX_4x4 dest) const
+
+//T_FLOAT Quaternion::ScalarSquare(const Quaternion& q)
+//{
+//  return
+//    q.v_.x * q.v_.x +
+//    q.v_.y * q.v_.y +
+//    q.v_.z * q.v_.z +
+//    q.w_ * q.w_;
+//}
+//
+//T_FLOAT Quaternion::Scalar(const Quaternion& q)
+//{
+//  return sqrt(ScalarSquare(q));
+//}
+//
+//const Quaternion Quaternion::Conjugated(const Quaternion& q)
+//{
+//  Quaternion ret = Quaternion();
+//  ret.v_ = -q.v_;
+//  ret.w_ = q.w_;
+//  return ret;
+//}
+//
+//const Quaternion Quaternion::Inversed(const Quaternion& q)
+//{
+//  return Conjugated(q) / ScalarSquare(q);
+//}
+//
+//const Quaternion Quaternion::Normalized(const Quaternion& q)
+//{
+//  return q / ScalarSquare(q);
+//}
+
+void Quaternion::FromRotationMatrix()
 {
-  //            m11 = 1.0f - 2.0f * qy * qy - 2.0f * qz * qz;
-  const T_FLOAT m11 = 1.0f - 2.0f * this->v_.y * this->v_.y - 2.0f * this->v_.z * this->v_.z;
-  //            m12 = 2.0f * qx * qy + 2.0f * qw * qz;
-  const T_FLOAT m12 = 2.0f * this->v_.x * this->v_.y + 2.0f * this->w_ * this->v_.z;
-  //            m13 = 2.0f * qx * qz - 2.0f * qw * qy
-  const T_FLOAT m13 = 2.0f * this->v_.x * this->v_.z - 2.0f * this->w_ * this->v_.y;
+  this->need_rotation_matrix_update_ = false;
+  this->need_eular_angles_update_ = true;
 
-  //            m21 = 2.0f * qx * qy - 2.0f * qw * qz;
-  const T_FLOAT m21 = 2.0f * this->v_.x * this->v_.y - 2.0f * this->w_ * this->v_.z;
-  //            m22 = 1.0f - 2.0f * qx * qx - 2.0f * qz * qz;
-  const T_FLOAT m22 = 1.0f - 2.0f * this->v_.x * this->v_.x - 2.0f * this->v_.z * this->v_.z;
-  //            m23 = 2.0f * qy * qz + 2.0f * qw * qx;
-  const T_FLOAT m23 = 2.0f * this->v_.y * this->v_.z + 2.0f * this->w_ * this->v_.x;
+  const T_FLOAT m11 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 0, 0);
+  const T_FLOAT m12 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 0, 1);
+  const T_FLOAT m13 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 0, 2);
 
-  //            m31 = 2.0f * qx * qz + 2.0f * qw * qy;
-  const T_FLOAT m31 = 2.0f * this->v_.x * this->v_.z + 2.0f * this->w_ * this->v_.y;
-  //            m32 = 2.0f * qy * qz - 2.0f * qw * qx;
-  const T_FLOAT m32 = 2.0f * this->v_.y * this->v_.z - 2.0f * this->w_ * this->v_.x;
-  //            m33 = 1.0f - 2.0f * qx * qx - 2.0f * qy * qy;
-  const T_FLOAT m33 = 1.0f - 2.0f * this->v_.x * this->v_.x - 2.0f * this->v_.y * this->v_.y;
+  const T_FLOAT m21 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 1, 0);
+  const T_FLOAT m22 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 1, 1);
+  const T_FLOAT m23 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 1, 2);
 
-  NativeMethod::Matrix().Matrix4x4_Init(dest);
-
-  NativeMethod::Matrix().Matrix4x4_Set(dest, 0, 0, m11);
-  NativeMethod::Matrix().Matrix4x4_Set(dest, 0, 1, m12);
-  NativeMethod::Matrix().Matrix4x4_Set(dest, 0, 2, m13);
-
-  NativeMethod::Matrix().Matrix4x4_Set(dest, 1, 0, m21);
-  NativeMethod::Matrix().Matrix4x4_Set(dest, 1, 1, m22);
-  NativeMethod::Matrix().Matrix4x4_Set(dest, 1, 2, m23);
-
-  NativeMethod::Matrix().Matrix4x4_Set(dest, 2, 0, m31);
-  NativeMethod::Matrix().Matrix4x4_Set(dest, 2, 1, m32);
-  NativeMethod::Matrix().Matrix4x4_Set(dest, 2, 2, m33);
-}
-
-void Quaternion::FromRotationMatrix(LP_MATRIX_4x4 rotation_matrix)
-{
-  const T_FLOAT m11 = NativeMethod::Matrix().Matrix4x4_Get(rotation_matrix, 0, 0);
-  const T_FLOAT m12 = NativeMethod::Matrix().Matrix4x4_Get(rotation_matrix, 0, 1);
-  const T_FLOAT m13 = NativeMethod::Matrix().Matrix4x4_Get(rotation_matrix, 0, 2);
-
-  const T_FLOAT m21 = NativeMethod::Matrix().Matrix4x4_Get(rotation_matrix, 1, 0);
-  const T_FLOAT m22 = NativeMethod::Matrix().Matrix4x4_Get(rotation_matrix, 1, 1);
-  const T_FLOAT m23 = NativeMethod::Matrix().Matrix4x4_Get(rotation_matrix, 1, 2);
-
-  const T_FLOAT m31 = NativeMethod::Matrix().Matrix4x4_Get(rotation_matrix, 2, 0);
-  const T_FLOAT m32 = NativeMethod::Matrix().Matrix4x4_Get(rotation_matrix, 2, 1);
-  const T_FLOAT m33 = NativeMethod::Matrix().Matrix4x4_Get(rotation_matrix, 2, 2);
+  const T_FLOAT m31 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 2, 0);
+  const T_FLOAT m32 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 2, 1);
+  const T_FLOAT m33 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 2, 2);
 
   // Å‘å¬•ª‚ðŒŸõ
   T_FLOAT elem[4]; // 0:x, 1:y, 2:z, 3:w
@@ -206,34 +228,88 @@ void Quaternion::FromRotationMatrix(LP_MATRIX_4x4 rotation_matrix)
   }
 }
 
-T_FLOAT Quaternion::ScalarSquare(const Quaternion& q)
+void Quaternion::PrepareRotationMatrix()
 {
-  return
-    q.v_.x * q.v_.x +
-    q.v_.y * q.v_.y +
-    q.v_.z * q.v_.z +
-    q.w_ * q.w_;
+  if (!this->need_rotation_matrix_update_)
+  {
+    return;
+  }
+  //            m11 = 1.0f - 2.0f * qy * qy - 2.0f * qz * qz;
+  const T_FLOAT m11 = 1.0f - 2.0f * this->v_.y * this->v_.y - 2.0f * this->v_.z * this->v_.z;
+  //            m12 = 2.0f * qx * qy + 2.0f * qw * qz;
+  const T_FLOAT m12 = 2.0f * this->v_.x * this->v_.y + 2.0f * this->w_ * this->v_.z;
+  //            m13 = 2.0f * qx * qz - 2.0f * qw * qy
+  const T_FLOAT m13 = 2.0f * this->v_.x * this->v_.z - 2.0f * this->w_ * this->v_.y;
+
+  //            m21 = 2.0f * qx * qy - 2.0f * qw * qz;
+  const T_FLOAT m21 = 2.0f * this->v_.x * this->v_.y - 2.0f * this->w_ * this->v_.z;
+  //            m22 = 1.0f - 2.0f * qx * qx - 2.0f * qz * qz;
+  const T_FLOAT m22 = 1.0f - 2.0f * this->v_.x * this->v_.x - 2.0f * this->v_.z * this->v_.z;
+  //            m23 = 2.0f * qy * qz + 2.0f * qw * qx;
+  const T_FLOAT m23 = 2.0f * this->v_.y * this->v_.z + 2.0f * this->w_ * this->v_.x;
+
+  //            m31 = 2.0f * qx * qz + 2.0f * qw * qy;
+  const T_FLOAT m31 = 2.0f * this->v_.x * this->v_.z + 2.0f * this->w_ * this->v_.y;
+  //            m32 = 2.0f * qy * qz - 2.0f * qw * qx;
+  const T_FLOAT m32 = 2.0f * this->v_.y * this->v_.z - 2.0f * this->w_ * this->v_.x;
+  //            m33 = 1.0f - 2.0f * qx * qx - 2.0f * qy * qy;
+  const T_FLOAT m33 = 1.0f - 2.0f * this->v_.x * this->v_.x - 2.0f * this->v_.y * this->v_.y;
+
+  NativeMethod::Matrix().Matrix4x4_Init(this->rotation_matrix_);
+
+  NativeMethod::Matrix().Matrix4x4_Set(this->rotation_matrix_, 0, 0, m11);
+  NativeMethod::Matrix().Matrix4x4_Set(this->rotation_matrix_, 0, 1, m12);
+  NativeMethod::Matrix().Matrix4x4_Set(this->rotation_matrix_, 0, 2, m13);
+
+  NativeMethod::Matrix().Matrix4x4_Set(this->rotation_matrix_, 1, 0, m21);
+  NativeMethod::Matrix().Matrix4x4_Set(this->rotation_matrix_, 1, 1, m22);
+  NativeMethod::Matrix().Matrix4x4_Set(this->rotation_matrix_, 1, 2, m23);
+
+  NativeMethod::Matrix().Matrix4x4_Set(this->rotation_matrix_, 2, 0, m31);
+  NativeMethod::Matrix().Matrix4x4_Set(this->rotation_matrix_, 2, 1, m32);
+  NativeMethod::Matrix().Matrix4x4_Set(this->rotation_matrix_, 2, 2, m33);
+
+  this->need_eular_angles_update_ = true;
+  this->need_rotation_matrix_update_ = false;
 }
 
-T_FLOAT Quaternion::Scalar(const Quaternion& q)
+void Quaternion::PrepareEularAngles()
 {
-  return sqrt(ScalarSquare(q));
-}
+  this->PrepareRotationMatrix();
+  if (!this->need_eular_angles_update_)
+  {
+    return;
+  }
+  const T_FLOAT m11 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 0, 0);
+  const T_FLOAT m12 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 0, 1);
+  const T_FLOAT m13 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 0, 2);
 
-const Quaternion Quaternion::Conjugated(const Quaternion& q)
-{
-  Quaternion ret = Quaternion();
-  ret.v_ = -q.v_;
-  ret.w_ = q.w_;
-  return ret;
-}
+  const T_FLOAT m21 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 1, 0);
+  const T_FLOAT m22 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 1, 1);
+  const T_FLOAT m23 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 1, 2);
 
-const Quaternion Quaternion::Inversed(const Quaternion& q)
-{
-  return Conjugated(q) / ScalarSquare(q);
-}
+  const T_FLOAT m31 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 2, 0);
+  const T_FLOAT m32 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 2, 1);
+  const T_FLOAT m33 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 2, 2);
+  
+  if (m32 == 1.0f)
+  {
+    this->eular_angles_.x = MathConstants::PI_1_2;
+    this->eular_angles_.y = 0.0f;
+    this->eular_angles_.z = atan2f(m21, m11);
+  }
+  else if (m32 == -1.0f)
+  {
+    this->eular_angles_.x = -MathConstants::PI_1_2;
+    this->eular_angles_.y = 0.0f;
+    this->eular_angles_.z = atan2f(m21, m11);
+  }
+  else
+  {
+    this->eular_angles_.x = asinf(m32);
+    this->eular_angles_.y = atan2f(-m31, m33);
+    this->eular_angles_.z = atan2f(-m12, m22);
+  }
 
-const Quaternion Quaternion::Normalized(const Quaternion& q)
-{
-  return q / ScalarSquare(q);
+  this->need_eular_angles_update_ = false;
 }
