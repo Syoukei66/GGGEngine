@@ -67,13 +67,13 @@ void NativeProcess_Matrix::Matrix4x4_Scaling(LP_MATRIX_4x4 mat, T_FLOAT x, T_FLO
 void NativeProcess_Matrix::Matrix4x4_Rotation(LP_MATRIX_4x4 mat, T_FLOAT x, T_FLOAT y, T_FLOAT z) const
 {
   D3DXMATRIX matX, matY, matZ;
+  D3DXMatrixRotationZ(&matZ, z);
   D3DXMatrixRotationX(&matX, x);
   D3DXMatrixRotationY(&matY, y);
-  D3DXMatrixRotationZ(&matZ, z);
   D3DXMatrixIdentity((D3DXMATRIX*)mat);
+  D3DXMatrixMultiply((D3DXMATRIX*)mat, &matZ, (D3DXMATRIX*)mat);
   D3DXMatrixMultiply((D3DXMATRIX*)mat, &matX, (D3DXMATRIX*)mat);
   D3DXMatrixMultiply((D3DXMATRIX*)mat, &matY, (D3DXMATRIX*)mat);
-  D3DXMatrixMultiply((D3DXMATRIX*)mat, &matZ, (D3DXMATRIX*)mat);
 }
 
 void NativeProcess_Matrix::Matrix4x4_Apply(LP_MATRIX_4x4 mat, TVec2f* dest) const
@@ -141,8 +141,8 @@ T_FLOAT NativeProcess_Matrix::Matrix4x4_Get(LP_MATRIX_4x4 mat, T_UINT8 x, T_UINT
 void NativeProcess_Matrix::Matrix4x4_Direction(LP_MATRIX_4x4 mat, TVec3f * dest) const
 {
   D3DXMATRIX* matrix = (D3DXMATRIX*)mat;
-  dest->x = -matrix->_31;
-  dest->y = -matrix->_32;
+  dest->x = matrix->_31;
+  dest->y = matrix->_32;
   dest->z = matrix->_33;
 }
 

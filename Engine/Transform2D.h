@@ -26,8 +26,8 @@ public:
   void MoveY(T_FLOAT y);
   void Rotation(TVec3f rotation);
   void Rotation(T_FLOAT x_axis, T_FLOAT y_axis);
-  void RotationXAxis(T_FLOAT x_axis);
-  void RotationYAxis(T_FLOAT y_axis);
+  void RotateXAxis(T_FLOAT x_axis);
+  void RotateYAxis(T_FLOAT y_axis);
 
 protected:
   virtual void UpdateTranslateMatrix(LP_MATRIX_4x4 matrix);

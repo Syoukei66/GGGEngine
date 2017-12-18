@@ -202,6 +202,7 @@
     <ClCompile Include="GameObject2DRenderState.cpp" />
     <ClCompile Include="GameObject3D.cpp" />
     <ClCompile Include="GameObject3DRenderState.cpp" />
+    <ClCompile Include="Transform3DRotator.cpp" />
     <ClCompile Include="GameObjectRenderState.cpp" />
     <ClCompile Include="EntityModifier.cpp" />
     <ClCompile Include="EntityModifierAttribute.cpp" />
@@ -340,6 +341,7 @@
     <ClInclude Include="GameObject2DRenderState.h" />
     <ClInclude Include="GameObject3D.h" />
     <ClInclude Include="GameObject3DRenderState.h" />
+    <ClInclude Include="Transform3DRotator.h" />
     <ClInclude Include="GameObjectRenderState.h" />
     <ClInclude Include="EntityModifier.h" />
     <ClInclude Include="EntityModifierAttribute.h" />

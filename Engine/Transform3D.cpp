@@ -12,15 +12,16 @@ Transform3D::Transform3D(GameObject3D* entity)
   , direction_()
   , position_()
   , scale_()
-//  , quaternion_()
   , world_position_()
   , matrix_applied_position_()
 {
+  this->rotator_ = new Transform3DRotator(this);
   this->world_matrix_ = NativeMethod::Matrix().Matrix4x4_Create();
 }
 
 Transform3D::~Transform3D()
 {
+  delete this->rotator_;
   NativeMethod::Matrix().Matrix4x4_Delete(this->world_matrix_);
 }
 
@@ -31,7 +32,7 @@ void Transform3D::OnInit()
 {
   this->position_ = TVec3f(0.0f, 0.0f, 0.0f);
   this->scale_ = TVec3f(1.0f, 1.0f, 1.0f);
-//  this->quaternion_ = Quaternion();
+  this->rotator_->SetEularAngles(TVec3f(0.0f, 0.0f, 0.0f));
 
   this->world_position_ = TVec3f(0.0f, 0.0f, 0.0f);
   this->matrix_applied_position_ = TVec3f(0.0f, 0.0f, 0.0f);
@@ -111,26 +112,6 @@ T_FLOAT Transform3D::MoveCircularZ(T_FLOAT z, const TVec3f& pos)
   return 0.0f;
 }
 
-void Transform3D::RotationX(T_FLOAT x)
-{
-}
-
-void Transform3D::RotationY(T_FLOAT y)
-{
-}
-
-void Transform3D::RotationZ(T_FLOAT z)
-{
-  //this->quaternion_.q(this->direction_, z);
-  //this->SetRotation(this->quaternion_.Normalize().);
-}
-
-void Transform3D::OnRotationChanged()
-{
-  Transform::OnRotationChanged();
-  //this->quaternion_.
-}
-
 void Transform3D::UpdateWorldMatrix(LP_MATRIX_4x4 matrix)
 {
   NativeMethod::Matrix().Matrix4x4_Assign(this->world_matrix_, matrix);
@@ -158,12 +139,7 @@ void Transform3D::UpdateScaleMatrix(LP_MATRIX_4x4 matrix)
 
 void Transform3D::UpdateRotateMatrix(LP_MATRIX_4x4 matrix)
 {
-  NativeMethod::Matrix().Matrix4x4_Rotation(
-    matrix,
-    this->rotation_.x,
-    this->rotation_.y,
-    this->rotation_.z
-  );
+  this->rotator_->ToRotationMatrix(matrix);
 }
 
 void Transform3D::OnUpdateMatrix(LP_MATRIX_4x4 matrix)
@@ -353,60 +329,4 @@ void Transform3D::SetScaleZ(T_FLOAT scale_z)
   }
   this->scale_.z = scale_z;
   this->OnScaleChanged();
-}
-
-void Transform3D::SetRotation(const TVec3f& rotation)
-{
-  if (this->rotation_ == rotation)
-  {
-    return;
-  }
-  this->rotation_ = rotation;
-  this->OnRotationChanged();
-}
-
-void Transform3D::SetRotation(T_FLOAT rotation_x, T_FLOAT rotation_y, T_FLOAT rotation_z)
-{
-  if (
-    this->rotation_.x == rotation_x &&
-    this->rotation_.y == rotation_y &&
-    this->rotation_.z == rotation_z
-    )
-  {
-    return;
-  }
-  this->rotation_.x = rotation_x;
-  this->rotation_.y = rotation_y;
-  this->rotation_.z = rotation_z;
-  this->OnRotationChanged();
-}
-
-void Transform3D::SetRotationX(T_FLOAT rotation_x)
-{
-  if (this->rotation_.x == rotation_x)
-  {
-    return;
-  }
-  this->rotation_.x = rotation_x;
-  this->OnRotationChanged();
-}
-
-void Transform3D::SetRotationY(T_FLOAT rotation_y)
-{
-  if (this->rotation_.y == rotation_y)
-  {
-    return;
-  }
-  this->rotation_.y = rotation_y;
-  this->OnRotationChanged();
-}
-
-void Transform3D::SetRotationZ(T_FLOAT rotation_z)
-{
-  if (this->rotation_.z == rotation_z)
-  {
-    return;
-  }
-  this->rotation_.z = rotation_z;
-  this->OnRotationChanged();
 }

@@ -18,20 +18,11 @@ Camera3D_Transformed::Camera3D_Transformed()
   this->inv_ = NativeMethod::Matrix().Matrix4x4_Create();
 }
 
-// =================================================================
-// Methods for/from SuperClass/Interfaces
-// =================================================================
-//void Camera3D_Transformed::DrawLayers(Scene* scene, GameObject3DRenderState* state)
-//{
-//  //TODO:まちがい ビュー行列を編集しないとだめ
-//  state->PushMatrix(this->entity_->GetTransform()->GetScaleMatrix());
-//  state->PushMatrix(this->entity_->GetTransform()->GetRotationMatrix());
-//  state->PushMatrix(this->entity_->GetTransform()->GetTranslateMatrix());
-//  //Camera3D::DrawLayers(scene, state);
-//  state->PopMatrix();
-//  state->PopMatrix();
-//  state->PopMatrix();
-//}
+Camera3D_Transformed::~Camera3D_Transformed()
+{
+  delete this->entity_;
+  NativeMethod::Matrix().Matrix4x4_Delete(this->inv_);
+}
 
 // =================================================================
 // Methods
@@ -73,31 +64,17 @@ void Camera3D_Transformed::MoveZ(T_FLOAT z)
   this->GetTransform()->SetZ(this->GetTransform()->GetZ() + z);
 }
 
-void Camera3D_Transformed::Rotation(TVec3f rotation)
+void Camera3D_Transformed::RotateXAxis(T_FLOAT x_axis)
 {
-  this->GetTransform()->SetRotation(this->GetTransform()->GetRotation() + rotation);
+  this->GetTransform()->GetRotator()->RotateX(x_axis);
 }
 
-void Camera3D_Transformed::Rotation(T_FLOAT x_axis, T_FLOAT y_axis, T_FLOAT z_axis)
+void Camera3D_Transformed::RotateYAxis(T_FLOAT y_axis)
 {
-  this->GetTransform()->SetRotation(
-    this->GetTransform()->GetRotationX() + x_axis,
-    this->GetTransform()->GetRotationY() + y_axis,
-    this->GetTransform()->GetRotationZ() + z_axis
-  );
+  this->GetTransform()->GetRotator()->RotateY(y_axis);
 }
 
-void Camera3D_Transformed::RotationXAxis(T_FLOAT x_axis)
+void Camera3D_Transformed::RotateZAxis(T_FLOAT z_axis)
 {
-  this->GetTransform()->SetRotationX(this->GetTransform()->GetRotationX() + x_axis);
-}
-
-void Camera3D_Transformed::RotationYAxis(T_FLOAT y_axis)
-{
-  this->GetTransform()->SetRotationY(this->GetTransform()->GetRotationY() + y_axis);
-}
-
-void Camera3D_Transformed::RotationZAxis(T_FLOAT z_axis)
-{
-  this->GetTransform()->SetRotationZ(this->GetTransform()->GetRotationZ() + z_axis);
+  this->GetTransform()->GetRotator()->RotateY(z_axis);
 }

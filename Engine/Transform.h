@@ -37,7 +37,6 @@ protected:
   
   bool UpdateMatrix();
 
-  //–ß‚è’l‚Ís—ñ‚É•ÏX‚ª‚ ‚Á‚½‚©
   virtual void UpdateTranslateMatrix(LP_MATRIX_4x4 matrix) = 0;
   virtual void UpdateRotateMatrix(LP_MATRIX_4x4 matrix) = 0;
   virtual void UpdateScaleMatrix(LP_MATRIX_4x4 matrix) = 0;
