@@ -30,40 +30,31 @@ Transform3DRotator::~Transform3DRotator()
 // =================================================================
 // Methods
 // =================================================================
-void Transform3DRotator::RotateXAxis(T_FLOAT rad)
+void Transform3DRotator::RotateX(T_FLOAT rad)
 {
+  if (rad == 0.0f)
+  {
+    return;
+  }
   this->q(X_AXIS, rad);
 }
 
-void Transform3DRotator::RotateYAxis(T_FLOAT rad)
+void Transform3DRotator::RotateY(T_FLOAT rad)
 {
+  if (rad == 0.0f)
+  {
+    return;
+  }
   this->q(Y_AXIS, rad);
 }
 
-void Transform3DRotator::RotateZAxis(T_FLOAT rad)
+void Transform3DRotator::RotateZ(T_FLOAT rad)
 {
+  if (rad == 0.0f)
+  {
+    return;
+  }
   this->q(Z_AXIS, rad);
-}
-
-void Transform3DRotator::RotateX(const TVec3f& direction, T_FLOAT rad)
-{
-  TVec3f v = direction;
-  v.x = direction.z;
-  v.z = direction.x;
-  this->q(direction, rad);
-}
-
-void Transform3DRotator::RotateY(const TVec3f& direction, T_FLOAT rad)
-{
-  TVec3f v = direction;
-  v.y = direction.z;
-  v.z = direction.y;
-  this->q(direction, rad);
-}
-
-void Transform3DRotator::RotateZ(const TVec3f& direction, T_FLOAT rad)
-{
-  this->q(direction, rad);
 }
 
 void Transform3DRotator::FromRotationMatrix(LP_MATRIX_4x4 matrix)
@@ -76,6 +67,8 @@ void Transform3DRotator::ToRotationMatrix(LP_MATRIX_4x4 dest)
 {
   this->PrepareRotationMatrix();
   NativeMethod::Matrix().Matrix4x4_Assign(dest, this->rotation_matrix_);
+  //this->PrepareEularAngles();
+  //NativeMethod::Matrix().Matrix4x4_Rotation(dest, this->eular_angles_.x, this->eular_angles_.y, this->eular_angles_.z);
 }
 
 const void Transform3DRotator::q(const TVec3f& v, T_FLOAT rad)

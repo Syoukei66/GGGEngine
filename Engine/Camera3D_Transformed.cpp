@@ -66,15 +66,15 @@ void Camera3D_Transformed::MoveZ(T_FLOAT z)
 
 void Camera3D_Transformed::RotateXAxis(T_FLOAT x_axis)
 {
-  this->GetTransform()->GetRotator()->RotateXAxis(x_axis);
+  this->GetTransform()->GetRotator()->RotateX(x_axis);
 }
 
 void Camera3D_Transformed::RotateYAxis(T_FLOAT y_axis)
 {
-  this->GetTransform()->GetRotator()->RotateYAxis(y_axis);
+  this->GetTransform()->GetRotator()->RotateY(y_axis);
 }
 
 void Camera3D_Transformed::RotateZAxis(T_FLOAT z_axis)
 {
-  this->GetTransform()->GetRotator()->RotateYAxis(z_axis);
+  this->GetTransform()->GetRotator()->RotateY(z_axis);
 }

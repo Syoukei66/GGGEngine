@@ -33,8 +33,6 @@ public:
   T_FLOAT MoveCircularY(T_FLOAT y, const TVec3f& pos);
   T_FLOAT MoveCircularZ(T_FLOAT z, const TVec3f& pos);
 
-  void OnRotationChanged() override;
-
   void UpdateWorldMatrix(LP_MATRIX_4x4 matrix);
 
 protected:

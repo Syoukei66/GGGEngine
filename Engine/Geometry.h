@@ -282,7 +282,7 @@ struct BaseTVec3
     return BaseTVec3(
       a.y * b.z - b.y * a.z,
      -a.x * b.z + b.x * a.z,
-      a.x * b.y + b.x * b.y
+      a.x * b.y - b.x * a.y
     );
   }
 

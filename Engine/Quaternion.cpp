@@ -13,16 +13,20 @@ const Quaternion Quaternion::Identity = Quaternion();
 // Constructor / Destructor
 // =================================================================
 
+Quaternion Quaternion::Eular(const TVec3f& eular_angles)
+{
+  return Quaternion();
+}
+
 Quaternion::Quaternion()
-  : v_(0.0f, 0.0f, 0.0f)
-  , w_(1.0f)
+  : Quaternion(TVec3f(0.0f, 0.0f, 0.0f), 0.0f)
 {}
 
 Quaternion::Quaternion(const TVec3f& v, T_FLOAT rad)
 {
   const T_FLOAT sin_ = sinf(rad / 2.0f);
   const T_FLOAT cos_ = cosf(rad / 2.0f);
-  this->v_ = v * sin_;
+  this->v_ = v.Normalized() * sin_;
   this->w_ = cos_;
 }
 
@@ -109,26 +113,31 @@ void Quaternion::FromRotationMatrix(LP_MATRIX_4x4 mat)
 
 void Quaternion::ToRotationMatrix(LP_MATRIX_4x4 dest)
 {
+  *this = this->Normalized();
+  const T_FLOAT qx = this->v_.x;
+  const T_FLOAT qy = this->v_.y;
+  const T_FLOAT qz = this->v_.z;
+  const T_FLOAT qw = this->w_;
   //            m11 = 1.0f - 2.0f * qy * qy - 2.0f * qz * qz;
-  const T_FLOAT m11 = 1.0f - 2.0f * this->v_.y * this->v_.y - 2.0f * this->v_.z * this->v_.z;
+  const T_FLOAT m11 = 1.0f - 2.0f * qy * qy - 2.0f * qz * qz;
   //            m12 = 2.0f * qx * qy + 2.0f * qw * qz;
-  const T_FLOAT m12 = 2.0f * this->v_.x * this->v_.y + 2.0f * this->w_ * this->v_.z;
+  const T_FLOAT m12 = 2.0f * qx * qy + 2.0f * qw * qz;
   //            m13 = 2.0f * qx * qz - 2.0f * qw * qy
-  const T_FLOAT m13 = 2.0f * this->v_.x * this->v_.z - 2.0f * this->w_ * this->v_.y;
+  const T_FLOAT m13 = 2.0f * qx * qz - 2.0f * qw * qy;
 
   //            m21 = 2.0f * qx * qy - 2.0f * qw * qz;
-  const T_FLOAT m21 = 2.0f * this->v_.x * this->v_.y - 2.0f * this->w_ * this->v_.z;
+  const T_FLOAT m21 = 2.0f * qx * qy - 2.0f * qw * qz;
   //            m22 = 1.0f - 2.0f * qx * qx - 2.0f * qz * qz;
-  const T_FLOAT m22 = 1.0f - 2.0f * this->v_.x * this->v_.x - 2.0f * this->v_.z * this->v_.z;
+  const T_FLOAT m22 = 1.0f - 2.0f * qx * qx - 2.0f * qz * qz;
   //            m23 = 2.0f * qy * qz + 2.0f * qw * qx;
-  const T_FLOAT m23 = 2.0f * this->v_.y * this->v_.z + 2.0f * this->w_ * this->v_.x;
+  const T_FLOAT m23 = 2.0f * qy * qz + 2.0f * qw * qx;
 
   //            m31 = 2.0f * qx * qz + 2.0f * qw * qy;
-  const T_FLOAT m31 = 2.0f * this->v_.x * this->v_.z + 2.0f * this->w_ * this->v_.y;
+  const T_FLOAT m31 = 2.0f * qx * qz + 2.0f * qw * qy;
   //            m32 = 2.0f * qy * qz - 2.0f * qw * qx;
-  const T_FLOAT m32 = 2.0f * this->v_.y * this->v_.z - 2.0f * this->w_ * this->v_.x;
+  const T_FLOAT m32 = 2.0f * qy * qz - 2.0f * qw * qx;
   //            m33 = 1.0f - 2.0f * qx * qx - 2.0f * qy * qy;
-  const T_FLOAT m33 = 1.0f - 2.0f * this->v_.x * this->v_.x - 2.0f * this->v_.y * this->v_.y;
+  const T_FLOAT m33 = 1.0f - 2.0f * qx * qx - 2.0f * qy * qy;
 
   NativeMethod::Matrix().Matrix4x4_Init(dest);
 

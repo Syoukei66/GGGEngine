@@ -9,6 +9,7 @@ struct Quaternion
   // =================================================================
 public:
   static const Quaternion Identity;
+  static Quaternion Eular(const TVec3f& eular_angles);
 
   // =================================================================
   // Constructor / Destructor

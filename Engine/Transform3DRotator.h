@@ -19,13 +19,9 @@ public:
   // Methods
   // =================================================================
 public:
-  void RotateXAxis(T_FLOAT rad);
-  void RotateYAxis(T_FLOAT rad);
-  void RotateZAxis(T_FLOAT rad);
-
-  void RotateX(const TVec3f& direction, T_FLOAT rad);
-  void RotateY(const TVec3f& direction, T_FLOAT rad);
-  void RotateZ(const TVec3f& direction, T_FLOAT rad);
+  void RotateX(T_FLOAT rad);
+  void RotateY(T_FLOAT rad);
+  void RotateZ(T_FLOAT rad);
 
   void FromRotationMatrix(LP_MATRIX_4x4 matrix);
   void ToRotationMatrix(LP_MATRIX_4x4 dest);

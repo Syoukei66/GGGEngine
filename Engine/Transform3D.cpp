@@ -112,12 +112,6 @@ T_FLOAT Transform3D::MoveCircularZ(T_FLOAT z, const TVec3f& pos)
   return 0.0f;
 }
 
-void Transform3D::OnRotationChanged()
-{
-  Transform::OnRotationChanged();
-  //this->quaternion_.
-}
-
 void Transform3D::UpdateWorldMatrix(LP_MATRIX_4x4 matrix)
 {
   NativeMethod::Matrix().Matrix4x4_Assign(this->world_matrix_, matrix);
