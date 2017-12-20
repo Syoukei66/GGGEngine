@@ -693,6 +693,15 @@
     <ClCompile Include="Transform3DRotator.cpp">
       <Filter>ソース ファイル\Component\GameObject\3D</Filter>
     </ClCompile>
+    <ClCompile Include="Sprite3D.cpp">
+      <Filter>ソース ファイル\Component\GameObject\3D\Primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedSprite3D.cpp">
+      <Filter>ソース ファイル\Component\GameObject\3D\Primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBufferObject_Sprite3D.cpp">
+      <Filter>ソース ファイル\Component\GameObject\VBO\3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -1177,6 +1186,15 @@
     </ClInclude>
     <ClInclude Include="Transform3DRotator.h">
       <Filter>ヘッダー ファイル\Component\GameObject\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedSprite3D.h">
+      <Filter>ヘッダー ファイル\Component\GameObject\3D\Primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite3D.h">
+      <Filter>ヘッダー ファイル\Component\GameObject\3D\Primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBufferObject_Sprite3D.h">
+      <Filter>ヘッダー ファイル\Component\GameObject\VBO\3D</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
