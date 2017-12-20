@@ -173,6 +173,7 @@
   <ItemGroup>
     <ClCompile Include="AnalogInput.cpp" />
     <ClCompile Include="AnimatedSprite.cpp" />
+    <ClCompile Include="AnimatedSprite3D.cpp" />
     <ClCompile Include="AttachmentVertexes.cpp" />
     <ClCompile Include="BaseActivity.cpp" />
     <ClCompile Include="BillBoard.cpp" />
@@ -202,6 +203,7 @@
     <ClCompile Include="GameObject2DRenderState.cpp" />
     <ClCompile Include="GameObject3D.cpp" />
     <ClCompile Include="GameObject3DRenderState.cpp" />
+    <ClCompile Include="Sprite3D.cpp" />
     <ClCompile Include="Transform3DRotator.cpp" />
     <ClCompile Include="GameObjectRenderState.cpp" />
     <ClCompile Include="EntityModifier.cpp" />
@@ -305,9 +307,11 @@
     <ClCompile Include="VertexBufferObject_Primitive3D_MeshField.cpp" />
     <ClCompile Include="VertexBufferObject_Primitive3D_Plane.cpp" />
     <ClCompile Include="VertexBufferObject_Primitive3D_Triangle.cpp" />
+    <ClCompile Include="VertexBufferObject_Sprite3D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.h" />
+    <ClInclude Include="AnimatedSprite3D.h" />
     <ClInclude Include="BillBoard.h" />
     <ClInclude Include="BlendFunction.h" />
     <ClInclude Include="Camera.h" />
@@ -341,6 +345,7 @@
     <ClInclude Include="GameObject2DRenderState.h" />
     <ClInclude Include="GameObject3D.h" />
     <ClInclude Include="GameObject3DRenderState.h" />
+    <ClInclude Include="Sprite3D.h" />
     <ClInclude Include="Transform3DRotator.h" />
     <ClInclude Include="GameObjectRenderState.h" />
     <ClInclude Include="EntityModifier.h" />
@@ -468,6 +473,7 @@
     <ClInclude Include="VertexBufferObject_Primitive3D_MeshField.h" />
     <ClInclude Include="VertexBufferObject_Primitive3D_Plane.h" />
     <ClInclude Include="VertexBufferObject_Primitive3D_Triangle.h" />
+    <ClInclude Include="VertexBufferObject_Sprite3D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
