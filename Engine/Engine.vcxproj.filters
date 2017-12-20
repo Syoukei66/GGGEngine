@@ -684,14 +684,14 @@
     <ClCompile Include="ITexture.cpp">
       <Filter>ソース ファイル\Resource\Pool\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="NativeObject.cpp">
-      <Filter>ソース ファイル\Native\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="NativeTexture.cpp">
       <Filter>ソース ファイル\Native\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Transform3DRotator.cpp">
       <Filter>ソース ファイル\Component\GameObject\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeMatrix.cpp">
+      <Filter>ソース ファイル\Native\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1169,14 +1169,17 @@
     <ClInclude Include="Collision2D.h">
       <Filter>ヘッダー ファイル\Component\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="NativeObject.h">
-      <Filter>ヘッダー ファイル\Native\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="NativeTexture.h">
       <Filter>ヘッダー ファイル\Native\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Transform3DRotator.h">
       <Filter>ヘッダー ファイル\Component\GameObject\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeMatrix.h">
+      <Filter>ヘッダー ファイル\Native\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="INativeObjectFactory.h">
+      <Filter>ヘッダー ファイル\Native\Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
