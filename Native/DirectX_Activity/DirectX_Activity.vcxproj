@@ -201,7 +201,6 @@
     <ClCompile Include="DirectXInputDevice_XInput.cpp" />
     <ClCompile Include="DirectXNativeImplements.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="NativeMatrix.cpp" />
     <ClCompile Include="NativeProcess_IO.cpp" />
     <ClCompile Include="NativeProcess_Material.cpp" />
     <ClCompile Include="NativeProcess_Model.cpp" />
@@ -219,7 +218,6 @@
     <ClInclude Include="DirectXInputDevice_Mouse.h" />
     <ClInclude Include="DirectXInputDevice_XInput.h" />
     <ClInclude Include="DirectXNativeImplements.h" />
-    <ClInclude Include="NativeMatrix.h" />
     <ClInclude Include="NativeProcess_IO.h" />
     <ClInclude Include="NativeProcess_Material.h" />
     <ClInclude Include="NativeProcess_Model.h" />

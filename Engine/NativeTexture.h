@@ -3,27 +3,28 @@
 #include "NativeObject.h"
 #include "Geometry.h"
 
-class INativeTexture
+class NativeTexture : public NativeObject
 {
+  // =================================================================
+  // Constructor / Destructor
+  // =================================================================
 public:
-  INativeTexture(const char* path);
-  ~INativeTexture();
+  NativeTexture(const char* path);
+  ~NativeTexture();
 
-<<<<<<< HEAD
   // =================================================================
-  // Methods
+  // setter/getter
   // =================================================================
-public:
-  virtual const TSize& GetSize() = 0;
-=======
 public:
   inline const TSize& GetSize() const
   {
     return this->size_;
   }
 
+  // =================================================================
+  // Data Member
+  // =================================================================
 private:
   TSize size_;
->>>>>>> parent of 4f2c2e8... NativeMatrixクラスの作成
 
 };
