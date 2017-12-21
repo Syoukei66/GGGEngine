@@ -34,6 +34,12 @@
     <Filter Include="ヘッダー ファイル\Director">
       <UniqueIdentifier>{0a85f1c0-d1bf-4e86-8324-59e06bf1b69c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Native\Objects">
+      <UniqueIdentifier>{531972f2-7dee-473a-ab3e-a5e9b087856f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Native\Objects">
+      <UniqueIdentifier>{c84d3842-1499-482d-bf8c-4fec1a7581ec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectXActivity.cpp">
@@ -77,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="NativeProcess_Model.cpp">
       <Filter>ソース ファイル\Native</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeMatrix.cpp">
+      <Filter>ソース ファイル\Native\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +133,9 @@
     </ClInclude>
     <ClInclude Include="NativeProcess_Model.h">
       <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeMatrix.h">
+      <Filter>ヘッダー ファイル\Native\Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

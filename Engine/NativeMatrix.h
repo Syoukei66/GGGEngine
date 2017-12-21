@@ -2,19 +2,25 @@
 
 #include "Geometry.h"
 
+typedef struct NativeMatrixInstance {};
+
 class INativeMatrix
 {
   // =================================================================
   // Static Method
   // =================================================================
 public:
-  static const INativeMatrix& Identity();
+  //static const INativeMatrix& Identity();
 
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  INativeMatrix() {}
+  INativeMatrix(NativeMatrixInstance* instance)
+    : native_instance_(instance)
+  {}
+
+  INativeMatrix(){}
   virtual ~INativeMatrix() {}
 
 private:
@@ -54,6 +60,8 @@ public:
 
   virtual void Assign(const INativeMatrix& mat) = 0;
   virtual void Multiple(const INativeMatrix& mat) = 0;
+  virtual void Inverse() = 0;
+  virtual void Inverse(INativeMatrix* dest) const = 0;
 
   virtual void Translation(T_FLOAT x, T_FLOAT y) = 0;
   virtual void Translation(const TVec2f& value) = 0;
@@ -94,8 +102,28 @@ public:
   virtual void PerspectiveFovLH(T_FLOAT field_of_view_y, T_FLOAT aspect_ratio, T_FLOAT z_near, T_FLOAT z_far) = 0;
   virtual void OrthoLH(T_FLOAT width, T_FLOAT height, T_FLOAT z_near, T_FLOAT z_far) = 0;
 
+  // =================================================================
+  // Setter / Getter
+  // =================================================================
+public:
+  inline NativeMatrixInstance* GetNativeInstance() const
+  {
+    this->native_instance_;
+  }
+
 protected:
+  inline void SetNativeMatrixInstance(NativeMatrixInstance* instance)
+  {
+    this->native_instance_ = instance;
+  }
+
   virtual const T_FLOAT* Get(T_UINT8 x) const = 0;
   virtual T_FLOAT* Get(T_UINT8 x) = 0;
+
+  // =================================================================
+  // Setter / Getter
+  // =================================================================
+private:
+  NativeMatrixInstance* native_instance_;
 
 };
