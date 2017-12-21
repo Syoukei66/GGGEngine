@@ -286,9 +286,6 @@
     <Filter Include="ヘッダー ファイル\Native\Objects">
       <UniqueIdentifier>{a673a16a-f4e4-46c4-90dc-3f2fb3e57753}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Native\Objects">
-      <UniqueIdentifier>{784afe90-ace7-4893-9f12-2ecc87784cd0}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shape.cpp">
@@ -684,14 +681,17 @@
     <ClCompile Include="ITexture.cpp">
       <Filter>ソース ファイル\Resource\Pool\Texture</Filter>
     </ClCompile>
+<<<<<<< HEAD
+=======
+    <ClCompile Include="NativeObject.cpp">
+      <Filter>ソース ファイル\Native\Objects</Filter>
+    </ClCompile>
     <ClCompile Include="NativeTexture.cpp">
       <Filter>ソース ファイル\Native\Objects</Filter>
     </ClCompile>
+>>>>>>> parent of 4f2c2e8... NativeMatrixクラスの作成
     <ClCompile Include="Transform3DRotator.cpp">
       <Filter>ソース ファイル\Component\GameObject\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="NativeMatrix.cpp">
-      <Filter>ソース ファイル\Native\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1169,17 +1169,29 @@
     <ClInclude Include="Collision2D.h">
       <Filter>ヘッダー ファイル\Component\Collision</Filter>
     </ClInclude>
+    <ClInclude Include="NativeObject.h">
+      <Filter>ヘッダー ファイル\Native\Objects</Filter>
+    </ClInclude>
     <ClInclude Include="NativeTexture.h">
       <Filter>ヘッダー ファイル\Native\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Transform3DRotator.h">
       <Filter>ヘッダー ファイル\Component\GameObject\3D</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="NativeMatrix.h">
       <Filter>ヘッダー ファイル\Native\Objects</Filter>
     </ClInclude>
     <ClInclude Include="INativeObjectFactory.h">
       <Filter>ヘッダー ファイル\Native\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="NativeObject.h">
+      <Filter>ヘッダー ファイル\Native\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeMatrixStack.h">
+      <Filter>ヘッダー ファイル\Native\Objects</Filter>
+    </ClInclude>
+=======
+>>>>>>> parent of 4f2c2e8... NativeMatrixクラスの作成
   </ItemGroup>
 </Project>
