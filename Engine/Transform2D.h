@@ -30,10 +30,10 @@ public:
   void RotateYAxis(T_FLOAT y_axis);
 
 protected:
-  virtual void UpdateTranslateMatrix(LP_MATRIX_4x4 matrix);
-  virtual void UpdateScaleMatrix(LP_MATRIX_4x4 matrix);
-  virtual void UpdateRotateMatrix(LP_MATRIX_4x4 matrix);
-  virtual void OnUpdateMatrix(LP_MATRIX_4x4 matrix);
+  virtual void UpdateTranslateMatrix(INativeMatrix* matrix);
+  virtual void UpdateScaleMatrix(INativeMatrix* matrix);
+  virtual void UpdateRotateMatrix(INativeMatrix* matrix);
+  virtual void OnUpdateMatrix(INativeMatrix* matrix);
 
   // =================================================================
   // setter/getter

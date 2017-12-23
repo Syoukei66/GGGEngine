@@ -60,15 +60,10 @@ static const T_DOUBLE T_DOUBLE_MAX = DBL_MAX;
 
 typedef T_UINT32 T_PACKED_COLOR_UINT32;
 
-typedef struct NativeInstance { void* p; } * const LP_NATIVE_INSTANCE;
-
 typedef int* LP_DEVICE;
 typedef int* LP_MATERIAL;
 
 typedef int* LP_MODEL;
-
-typedef int* LP_MATRIX_4x4_STACK;
-typedef int* LP_MATRIX_4x4;
 
 typedef int* LP_VERTEX_BUFFER;
 

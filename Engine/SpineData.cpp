@@ -13,8 +13,8 @@ void _spAtlasPage_createTexture(spAtlasPage* self, const char* path)
 {
   const Texture* texture = HalEngine::Resource::GetTexture(path);
   self->rendererObject = (void*)texture;
-  self->width = texture->GetSize().width;
-  self->height = texture->GetSize().height;
+  self->width = texture->GetWidth();
+  self->height = texture->GetHeight();
 }
 
 void _spAtlasPage_disposeTexture(spAtlasPage* self)

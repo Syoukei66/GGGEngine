@@ -7,26 +7,23 @@
 BillBoard::BillBoard()
   : Shape3D(new VertexBufferObject_Primitive3D_Plane())
 {
-  this->mat_ = NativeMethod::Matrix().Matrix4x4_Create();
+  this->mat_ = INativeMatrix::Create();
 }
 
 BillBoard::~BillBoard()
 {
-  if (this->mat_)
-  {
-    NativeMethod::Matrix().Matrix4x4_Delete(this->mat_);
-  }
+  delete this->mat_;
 }
 
 void BillBoard::PushMatrixStack(GameObject3DRenderState* state)
 {
   state->PushMatrix(this->GetTransform()->GetMatrix());
 
-  NativeMethod::Matrix().Matrix4x4_Inverse(this->mat_, state->GetCamera()->GetViewMatrix());
+  state->GetCamera()->GetViewMatrix()->Inverse(this->mat_);
 
-  NativeMethod::Matrix().Matrix4x4_Set(this->mat_, 3, 0, 0.0f);
-  NativeMethod::Matrix().Matrix4x4_Set(this->mat_, 3, 1, 0.0f);
-  NativeMethod::Matrix().Matrix4x4_Set(this->mat_, 3, 2, 0.0f);
+  (*this->mat_)[3][0] = 0.0f;
+  (*this->mat_)[3][1] = 0.0f;
+  (*this->mat_)[3][2] = 0.0f;
 
   state->PushMatrix(this->mat_);
 }

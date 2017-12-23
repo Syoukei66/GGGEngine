@@ -28,14 +28,19 @@ public:
     return this->native_texture_;
   }
 
-  inline const NativeTexture* GetNativeTexture() const override
+  inline const INativeTexture* GetNativeTexture() const override
   {
     return this->native_texture_;
   }
 
-  inline const TSize& GetSize() const override
+  inline T_UINT16 GetWidth() const override
   {
-    return this->native_texture_->GetSize();
+    return this->native_texture_->GetWidth();
+  }
+
+  inline T_UINT16 GetHeight() const override
+  {
+    return this->native_texture_->GetHeight();
   }
 
   inline const std::string& GetPath() const
@@ -48,7 +53,7 @@ public:
   // =================================================================
 private:
   std::string path_;
-  NativeTexture* native_texture_;
+  INativeTexture* native_texture_;
 };
 
 #endif//HAL_ENGINE_RESOURCE_TEXTURE_H_

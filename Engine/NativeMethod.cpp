@@ -22,25 +22,6 @@ void Graphics_DeleteInstance()
   delete graphics;
 }
 
-//Matrix
-
-INativeProcess_Matrix* matrix;
-
-INativeProcess_Matrix& Matrix()
-{
-  return *matrix;
-}
-
-void Matrix_SetInstance(INativeProcess_Matrix* process)
-{
-  matrix = process;
-}
-
-void Matrix_DeleteInstance()
-{
-  delete matrix;
-}
-
 //Texture
 
 INativeProcess_Texture* texture;

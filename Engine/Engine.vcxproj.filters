@@ -99,9 +99,6 @@
     <Filter Include="ヘッダー ファイル\Allocator">
       <UniqueIdentifier>{cc98758f-6ca1-4c0f-97cb-e8b8a1d1ffbb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Asset">
-      <UniqueIdentifier>{35a509b7-eaf0-4739-bdaf-e8666902ec31}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\リソース ファイル">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -287,7 +284,10 @@
       <UniqueIdentifier>{a673a16a-f4e4-46c4-90dc-3f2fb3e57753}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Native\Objects">
-      <UniqueIdentifier>{784afe90-ace7-4893-9f12-2ecc87784cd0}</UniqueIdentifier>
+      <UniqueIdentifier>{cf9daef2-c55b-466e-b5f6-0ec449319b3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Asset">
+      <UniqueIdentifier>{35a509b7-eaf0-4739-bdaf-e8666902ec31}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -684,14 +684,17 @@
     <ClCompile Include="ITexture.cpp">
       <Filter>ソース ファイル\Resource\Pool\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="NativeTexture.cpp">
-      <Filter>ソース ファイル\Native\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Transform3DRotator.cpp">
       <Filter>ソース ファイル\Component\GameObject\3D</Filter>
     </ClCompile>
     <ClCompile Include="NativeMatrix.cpp">
       <Filter>ソース ファイル\Native\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeTexture.cpp">
+      <Filter>ソース ファイル\Native\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeMatrixStack.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -760,12 +763,6 @@
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>ヘッダー ファイル\Component\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="INativeProcess_Matrix.h">
-      <Filter>ヘッダー ファイル\Native</Filter>
-    </ClInclude>
-    <ClInclude Include="INativeProcess_Texture.h">
-      <Filter>ヘッダー ファイル\Native</Filter>
     </ClInclude>
     <ClInclude Include="INativeProcess_Graphics.h">
       <Filter>ヘッダー ファイル\Native</Filter>
@@ -1178,8 +1175,17 @@
     <ClInclude Include="NativeMatrix.h">
       <Filter>ヘッダー ファイル\Native\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="INativeObjectFactory.h">
+    <ClInclude Include="NativeMatrixStack.h">
       <Filter>ヘッダー ファイル\Native\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeObject.h">
+      <Filter>ヘッダー ファイル\Native\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeObjectFactory.h">
+      <Filter>ヘッダー ファイル\Native\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="INativeProcess_Texture.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

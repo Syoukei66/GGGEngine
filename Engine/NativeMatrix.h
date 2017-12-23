@@ -1,26 +1,30 @@
 #pragma once
 
 #include "Geometry.h"
+#include "NativeObject.h"
 
 typedef struct NativeMatrixInstance {};
 
-class INativeMatrix
+class INativeMatrix : public NativeObject<NativeMatrixInstance>
 {
   // =================================================================
   // Static Method
   // =================================================================
 public:
-  //static const INativeMatrix& Identity();
+  static INativeMatrix* Create();
+  static INativeMatrix* Create(NativeMatrixInstance* instance);
+  static const INativeMatrix& Identity();
 
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
   INativeMatrix(NativeMatrixInstance* instance)
-    : native_instance_(instance)
+    : NativeObject(instance)
   {}
 
-  INativeMatrix(){}
+  INativeMatrix() {}
+  
   virtual ~INativeMatrix() {}
 
 private:
@@ -53,11 +57,12 @@ public:
   }
 
   // =================================================================
-  // Method
+  // Method for/from SuperClass/Interfaces
   // =================================================================
 public:
   virtual void Init() = 0;
 
+  virtual void Assign(NativeMatrixInstance* mat) = 0;
   virtual void Assign(const INativeMatrix& mat) = 0;
   virtual void Multiple(const INativeMatrix& mat) = 0;
   virtual void Inverse() = 0;
@@ -105,25 +110,8 @@ public:
   // =================================================================
   // Setter / Getter
   // =================================================================
-public:
-  inline NativeMatrixInstance* GetNativeInstance() const
-  {
-    this->native_instance_;
-  }
-
 protected:
-  inline void SetNativeMatrixInstance(NativeMatrixInstance* instance)
-  {
-    this->native_instance_ = instance;
-  }
-
   virtual const T_FLOAT* Get(T_UINT8 x) const = 0;
   virtual T_FLOAT* Get(T_UINT8 x) = 0;
-
-  // =================================================================
-  // Setter / Getter
-  // =================================================================
-private:
-  NativeMatrixInstance* native_instance_;
 
 };

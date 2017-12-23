@@ -9,12 +9,12 @@ GameObject3DRenderState::GameObject3DRenderState(Camera3D* camera)
   : camera_(camera)
   , post_draw_list_()
 {
-  this->mat_ = NativeMethod::Matrix().Matrix4x4_Create();
+  this->mat_ = INativeMatrix::Create();
 }
 
 GameObject3DRenderState::~GameObject3DRenderState()
 {
-  NativeMethod::Matrix().Matrix4x4_Delete(this->mat_);
+  delete this->mat_;
 }
 
 void GameObject3DRenderState::Init()
@@ -24,12 +24,12 @@ void GameObject3DRenderState::Init()
 
 void GameObject3DRenderState::AddZCheckOrder(GameObject3D* object)
 {
-  NativeMethod::Matrix().Matrix4x4_Assign(this->mat_, NativeMethod::Matrix().Matrix4x4Stack_GetTop(this->GetMatrixStack()));
-  NativeMethod::Matrix().Matrix4x4_Multiply(this->mat_, this->camera_->GetViewMatrix());
-  NativeMethod::Matrix().Matrix4x4_Multiply(this->mat_, this->camera_->GetProjectionMatrix());
+  this->mat_->Assign(this->GetMatrixStack()->GetTop());
+  this->mat_->Multiple(*this->camera_->GetViewMatrix());
+  this->mat_->Multiple(*this->camera_->GetProjectionMatrix());
 
   TVec4f pos = TVec4f(0.0f, 0.0f, 0.0f, 1.0f);
-  NativeMethod::Matrix().Matrix4x4_Apply(this->mat_, &pos);
+  this->mat_->Apply(&pos);
 
   PostDrawParam* param = new PostDrawParam();
   param->object = object;

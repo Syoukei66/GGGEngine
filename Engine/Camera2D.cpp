@@ -2,7 +2,7 @@
 #include "NativeMethod.h"
 #include "Scene.h"
 
-static LP_MATRIX_4x4 VIEW_MATRIX = nullptr;
+static INativeMatrix* VIEW_MATRIX = nullptr;
 
 static void CreateViewMatrix()
 {
@@ -10,16 +10,13 @@ static void CreateViewMatrix()
   {
     return;
   }
-  VIEW_MATRIX = NativeMethod::Matrix().Matrix4x4_Create();
+  VIEW_MATRIX = INativeMatrix::Create();
 }
 
 static void DeleteViewMatrix()
 {
-  if (!VIEW_MATRIX)
-  {
-    return;
-  }
-  NativeMethod::Matrix().Matrix4x4_Delete(VIEW_MATRIX);
+  delete VIEW_MATRIX;
+  VIEW_MATRIX = nullptr;
 }
 
 // =================================================================
@@ -29,20 +26,20 @@ Camera2D::Camera2D(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT 
   : Camera(x, y, width, height, z_min, z_max)
 {
   this->render_state_ = new GameObject2DRenderState(this);
-  this->projection_matrix_ = NativeMethod::Matrix().Matrix4x4_Create();
+  this->projection_matrix_ = INativeMatrix::Create();
 }
 
 Camera2D::Camera2D()
   : Camera()
 {
   this->render_state_ = new GameObject2DRenderState(this);
-  this->projection_matrix_ = NativeMethod::Matrix().Matrix4x4_Create();
+  this->projection_matrix_ = INativeMatrix::Create();
 }
 
 Camera2D::~Camera2D()
 {
   delete this->render_state_;
-  NativeMethod::Matrix().Matrix4x4_Delete(this->projection_matrix_);
+  delete this->projection_matrix_;
 }
 
 // =================================================================
@@ -57,8 +54,7 @@ void Camera2D::DrawScene(Scene* scene)
 
 void Camera2D::OnViewportDirty()
 {
-  NativeMethod::Matrix().Matrix4x4_OrthoLH(
-    this->projection_matrix_,
+  this->projection_matrix_->OrthoLH(
     this->GetViewportWidth(),
     this->GetViewportHeight(),
     this->GetViewportZMin(),
@@ -66,12 +62,12 @@ void Camera2D::OnViewportDirty()
   );
 }
 
-LP_MATRIX_4x4 Camera2D::GetViewMatrix()
+const INativeMatrix* Camera2D::GetViewMatrix()
 {
-  return NativeMethod::Matrix().Matrix4x4_GetIdentity();
+  return &INativeMatrix::Identity();
 }
 
-LP_MATRIX_4x4 Camera2D::GetProjectionMatrix()
+const INativeMatrix* Camera2D::GetProjectionMatrix()
 {
   this->CheckViewportDirty();
   return this->projection_matrix_;

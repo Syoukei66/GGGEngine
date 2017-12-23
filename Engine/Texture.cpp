@@ -26,7 +26,7 @@ void Texture::Load()
   {
     return;
   }
-  this->native_texture_ = new NativeTexture(this->path_.c_str());
+  this->native_texture_ = INativeTexture::Create(this->path_.c_str());
 }
 
 void Texture::Unload()

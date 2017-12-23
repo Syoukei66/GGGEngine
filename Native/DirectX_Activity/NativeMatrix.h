@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../../Engine/NativeMatrix.h"
+
 #include <d3d9.h>
 #include <d3dx9.h>
 
@@ -12,12 +13,14 @@ class NativeMatrix : public INativeMatrix
 public:
   NativeMatrix();
   NativeMatrix(NativeMatrixInstance* instance);
+  ~NativeMatrix();
 
   // =================================================================
   // Method
   // =================================================================
 public:
   virtual void Init() override;
+  virtual void Assign(NativeMatrixInstance* mat) override;
   virtual void Assign(const INativeMatrix& mat) override;
   virtual void Multiple(const INativeMatrix& mat) override;
   virtual void Inverse() override;
@@ -70,6 +73,6 @@ protected:
   // Data Member
   // =================================================================
 private:
-  D3DXMATRIX mat_;
+  D3DXMATRIX* mat_;
 
 };

@@ -2,7 +2,6 @@
 #include <math.h>
 
 #include "MathConstants.h"
-#include "NativeMethod.h"
 #include "GameObject3D.h"
 
 static const TVec3f X_AXIS = TVec3f(1.0f, 0.0f, 0.0f);
@@ -19,12 +18,12 @@ Transform3DRotator::Transform3DRotator(Transform3D* transform)
   , need_rotation_matrix_update_(false)
   , need_eular_angles_update_(false)
 {
-  this->rotation_matrix_ = NativeMethod::Matrix().Matrix4x4_Create();
+  this->rotation_matrix_ = INativeMatrix::Create();
 }
 
 Transform3DRotator::~Transform3DRotator()
 {
-  NativeMethod::Matrix().Matrix4x4_Delete(this->rotation_matrix_);
+  delete this->rotation_matrix_;
 }
 
 // =================================================================
@@ -57,18 +56,16 @@ void Transform3DRotator::RotateZ(T_FLOAT rad)
   this->q(Z_AXIS, rad);
 }
 
-void Transform3DRotator::FromRotationMatrix(LP_MATRIX_4x4 matrix)
+void Transform3DRotator::FromRotationMatrix(INativeMatrix* matrix)
 {
-  NativeMethod::Matrix().Matrix4x4_Assign(this->rotation_matrix_, matrix);
+  this->rotation_matrix_->Assign(*matrix);
   this->FromRotationMatrix();
 }
 
-void Transform3DRotator::ToRotationMatrix(LP_MATRIX_4x4 dest)
+void Transform3DRotator::ToRotationMatrix(INativeMatrix* dest)
 {
   this->PrepareRotationMatrix();
-  NativeMethod::Matrix().Matrix4x4_Assign(dest, this->rotation_matrix_);
-  //this->PrepareEularAngles();
-  //NativeMethod::Matrix().Matrix4x4_Rotation(dest, this->eular_angles_.x, this->eular_angles_.y, this->eular_angles_.z);
+  dest->Assign(*this->rotation_matrix_);
 }
 
 const void Transform3DRotator::q(const TVec3f& v, T_FLOAT rad)
@@ -85,7 +82,7 @@ const void Transform3DRotator::q(const TVec3f& v, T_FLOAT rad)
 
 void Transform3DRotator::FromRotationMatrix()
 {
-  this->quaternion_.FromRotationMatrix(this->rotation_matrix_);
+  this->quaternion_.FromRotationMatrix(*this->rotation_matrix_);
   this->transform_->OnRotationChanged();
   this->need_rotation_matrix_update_ = false;
   this->need_eular_angles_update_ = true;
@@ -109,17 +106,17 @@ void Transform3DRotator::PrepareEularAngles()
   {
     return;
   }
-  const T_FLOAT m11 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 0, 0);
-  const T_FLOAT m12 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 0, 1);
-  const T_FLOAT m13 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 0, 2);
+  const T_FLOAT m11 = *this->rotation_matrix_[0][0];
+  const T_FLOAT m12 = *this->rotation_matrix_[0][1];
+  const T_FLOAT m13 = *this->rotation_matrix_[0][2];
 
-  const T_FLOAT m21 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 1, 0);
-  const T_FLOAT m22 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 1, 1);
-  const T_FLOAT m23 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 1, 2);
+  const T_FLOAT m21 = *this->rotation_matrix_[1][0];
+  const T_FLOAT m22 = *this->rotation_matrix_[1][1];
+  const T_FLOAT m23 = *this->rotation_matrix_[1][2];
 
-  const T_FLOAT m31 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 2, 0);
-  const T_FLOAT m32 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 2, 1);
-  const T_FLOAT m33 = NativeMethod::Matrix().Matrix4x4_Get(this->rotation_matrix_, 2, 2);
+  const T_FLOAT m31 = *this->rotation_matrix_[2][0];
+  const T_FLOAT m32 = *this->rotation_matrix_[2][1];
+  const T_FLOAT m33 = *this->rotation_matrix_[2][2];
 
   if (m32 == 1.0f)
   {
@@ -146,7 +143,7 @@ void Transform3DRotator::PrepareEularAngles()
 
 void Transform3DRotator::SetEularAngles(const TVec3f& rotation)
 {
-  NativeMethod::Matrix().Matrix4x4_Rotation(this->rotation_matrix_, rotation.x, rotation.y, rotation.z);
+  this->rotation_matrix_->Rotation(rotation);
 
   this->FromRotationMatrix();
 
@@ -156,7 +153,7 @@ void Transform3DRotator::SetEularAngles(const TVec3f& rotation)
 
 void Transform3DRotator::SetEularAngles(T_FLOAT x, T_FLOAT y, T_FLOAT z)
 {
-  NativeMethod::Matrix().Matrix4x4_Rotation(this->rotation_matrix_, x, y, z);
+  this->rotation_matrix_->Rotation(x, y, z);
 
   this->FromRotationMatrix();
 
@@ -168,21 +165,21 @@ void Transform3DRotator::SetEularAngles(T_FLOAT x, T_FLOAT y, T_FLOAT z)
 
 void Transform3DRotator::SetEularX(T_FLOAT x)
 {
-  NativeMethod::Matrix().Matrix4x4_Rotation(this->rotation_matrix_, x, this->eular_angles_.y, this->eular_angles_.z);
+  this->rotation_matrix_->Rotation(x, this->eular_angles_.y, this->eular_angles_.z);
 
   this->FromRotationMatrix();
 }
 
 void Transform3DRotator::SetEularY(T_FLOAT y)
 {
-  NativeMethod::Matrix().Matrix4x4_Rotation(this->rotation_matrix_, this->eular_angles_.x, y, this->eular_angles_.z);
+  this->rotation_matrix_->Rotation(this->eular_angles_.x, y, this->eular_angles_.z);
 
   this->FromRotationMatrix();
 }
 
 void Transform3DRotator::SetEularZ(T_FLOAT z)
 {
-  NativeMethod::Matrix().Matrix4x4_Rotation(this->rotation_matrix_, this->eular_angles_.x, this->eular_angles_.y, z);
+  this->rotation_matrix_->Rotation(this->eular_angles_.x, this->eular_angles_.y, z);
 
   this->FromRotationMatrix();
 }

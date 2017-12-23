@@ -18,9 +18,9 @@ Camera2D_MultiTarget::Camera2D_MultiTarget(T_FLOAT x, T_FLOAT y, T_FLOAT width, 
   , next_zoom_(1.0f)
   , padding_(0.0f)
 {
-  this->translate_ = NativeMethod::Matrix().Matrix4x4_Create();
-  this->scale_ = NativeMethod::Matrix().Matrix4x4_Create();
-  this->view_matrix_ = NativeMethod::Matrix().Matrix4x4_Create();
+  this->translate_ = INativeMatrix::Create();
+  this->scale_ = INativeMatrix::Create();
+  this->view_matrix_ = INativeMatrix::Create();
 }
 
 Camera2D_MultiTarget::Camera2D_MultiTarget()
@@ -31,16 +31,16 @@ Camera2D_MultiTarget::Camera2D_MultiTarget()
   , next_zoom_(1.0f)
   , padding_(0.0f)
 {
-  this->translate_ = NativeMethod::Matrix().Matrix4x4_Create();
-  this->scale_ = NativeMethod::Matrix().Matrix4x4_Create();
-  this->view_matrix_ = NativeMethod::Matrix().Matrix4x4_Create();
+  this->translate_ = INativeMatrix::Create();
+  this->scale_ = INativeMatrix::Create();
+  this->view_matrix_ = INativeMatrix::Create();
 }
 
 Camera2D_MultiTarget::~Camera2D_MultiTarget()
 {
-  NativeMethod::Matrix().Matrix4x4_Delete(this->translate_);
-  NativeMethod::Matrix().Matrix4x4_Delete(this->scale_);
-  NativeMethod::Matrix().Matrix4x4_Delete(this->view_matrix_);
+  delete this->translate_;
+  delete this->scale_;
+  delete this->view_matrix_;
 }
 
 // =================================================================
@@ -90,7 +90,7 @@ void Camera2D_MultiTarget::Update()
   return;
 }
 
-LP_MATRIX_4x4 Camera2D_MultiTarget::GetViewMatrix()
+INativeMatrix* Camera2D_MultiTarget::GetViewMatrix()
 {
   return this->view_matrix_;
 }
@@ -105,9 +105,10 @@ void Camera2D_MultiTarget::SetViewEntity(GameObject2D* view_)
 
 void Camera2D_MultiTarget::OnUpdateZoom()
 {
-  NativeMethod::Matrix().Matrix4x4_Scaling(this->scale_, this->zoom_, this->zoom_, 1.0f);
-  NativeMethod::Matrix().Matrix4x4_Translate(this->translate_, this->position_.x, this->position_.y, 0.0f);
-  NativeMethod::Matrix().Matrix4x4_Init(this->view_matrix_);
-  NativeMethod::Matrix().Matrix4x4_Multiply(this->view_matrix_, this->scale_);
-  NativeMethod::Matrix().Matrix4x4_Multiply(this->view_matrix_, this->translate_);
+  this->scale_->Scaling(this->zoom_, this->zoom_, 1.0f);
+  this->translate_->Translation(this->position_);
+
+  this->view_matrix_->Init();
+  this->view_matrix_->Multiple(*this->scale_);
+  this->view_matrix_->Multiple(*this->translate_);
 }

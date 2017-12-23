@@ -81,19 +81,19 @@ void NativeProcess_Graphics::Graphics_Cheat(T_UINT16 cheat_id)
   
 }
 
-void NativeProcess_Graphics::Graphics_SetTransformView(LP_MATRIX_4x4 mat)
+void NativeProcess_Graphics::Graphics_SetTransformView(NativeMatrixInstance* mat)
 {
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
   device->SetTransform(D3DTS_VIEW, (LPD3DXMATRIX)mat);
 }
 
-void NativeProcess_Graphics::Graphics_SetTransformProjection(LP_MATRIX_4x4 mat)
+void NativeProcess_Graphics::Graphics_SetTransformProjection(NativeMatrixInstance* mat)
 {
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
   device->SetTransform(D3DTS_PROJECTION, (LPD3DXMATRIX)mat);
 }
 
-void NativeProcess_Graphics::Graphics_SetTransformWorld(LP_MATRIX_4x4 mat)
+void NativeProcess_Graphics::Graphics_SetTransformWorld(NativeMatrixInstance* mat)
 {
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
   device->SetTransform(D3DTS_WORLD, (LPD3DXMATRIX)mat);
@@ -128,7 +128,7 @@ void NativeProcess_Graphics::Graphics_SetBlendMode(BlendFunction::BlendMode src,
 void NativeProcess_Graphics::Graphics_SetTexture(const ITexture* texture)
 {
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
-  const LPDIRECT3DTEXTURE9 d3dTexture = texture ? (LPDIRECT3DTEXTURE9)texture->GetNativeTexture()->GetNativeObj() : nullptr;
+  const LPDIRECT3DTEXTURE9 d3dTexture = texture ? (LPDIRECT3DTEXTURE9)texture->GetNativeTexture()->GetNativeInstance() : nullptr;
   if (this->texture_ != d3dTexture)
   {
     device->SetTexture(0, d3dTexture);

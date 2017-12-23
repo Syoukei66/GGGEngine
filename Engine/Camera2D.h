@@ -22,8 +22,8 @@ public:
 
 protected:
   virtual void OnViewportDirty() override;
-  virtual LP_MATRIX_4x4 GetViewMatrix() override;
-  virtual LP_MATRIX_4x4 GetProjectionMatrix() override;
+  virtual const INativeMatrix* GetViewMatrix() override;
+  virtual const INativeMatrix* GetProjectionMatrix() override;
 
   // =================================================================
   // Method
@@ -40,5 +40,5 @@ public:
 private:
   GameObject2DRenderState* render_state_;
 
-  LP_MATRIX_4x4 projection_matrix_;
+  INativeMatrix* projection_matrix_;
 };

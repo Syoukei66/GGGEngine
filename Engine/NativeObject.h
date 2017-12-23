@@ -1,40 +1,49 @@
 #pragma once
 
-<<<<<<< HEAD
 template<typename T>
 class NativeObject
 {
+  // =================================================================
+  // Constructor / Destructor
+  // =================================================================
 public:
   NativeObject(T* native_instance)
     : instance_(native_instance)
   {}
 
-public:
-  inline T* GetNativeInstance()
-  {
-    return instance_;
-  }
+  NativeObject() {}
+
+  virtual ~NativeObject() {}
 
 private:
-  T* instance_;
-=======
-#include "NativeType.h"
+  NativeObject(const NativeObject& obj) {}
+  NativeObject& operator = (const NativeObject& obj) { return *this; }
 
-class NativeObject
-{
-protected:
-  NativeObject(LP_NATIVE_INSTANCE instance);
-
+  // =================================================================
+  // Setter / Getter
+  // =================================================================
 public:
-  ~NativeObject() {}
+  template<typename T2>
+  inline T2* GetNativeInstance() const
+  {
+    return (T2*)this->instance_;
+  }
 
-public:
-  inline LP_NATIVE_INSTANCE GetNativeObj() const
+  inline T* GetNativeInstance() const
   {
     return this->instance_;
   }
 
 protected:
-  LP_NATIVE_INSTANCE instance_;
->>>>>>> parent of 4f2c2e8... NativeMatrixクラスの作成
+  template<typename T2>
+  inline void SetNativeInstance(T2* instance)
+  {
+    this->instance_ = (T*)instance;
+  }
+
+  // =================================================================
+  // Data Member
+  // =================================================================
+private:
+  T* instance_;
 };

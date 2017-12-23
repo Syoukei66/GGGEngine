@@ -45,9 +45,6 @@
     <ClCompile Include="DirectXActivity.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="NativeProcess_Matrix.cpp">
-      <Filter>ソース ファイル\Native</Filter>
-    </ClCompile>
     <ClCompile Include="NativeProcess_Texture.cpp">
       <Filter>ソース ファイル\Native</Filter>
     </ClCompile>
@@ -87,18 +84,21 @@
     <ClCompile Include="NativeMatrix.cpp">
       <Filter>ソース ファイル\Native\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="NativeMatrixStack.cpp">
+      <Filter>ソース ファイル\Native\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeTexture.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeObjectFactory.cpp">
+      <Filter>ソース ファイル\Native\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectXActivity.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="NativeProcess_Graphics.h">
-      <Filter>ヘッダー ファイル\Native</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeProcess_Matrix.h">
-      <Filter>ヘッダー ファイル\Native</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeProcess_Texture.h">
       <Filter>ヘッダー ファイル\Native</Filter>
     </ClInclude>
     <ClInclude Include="NativeProcess_IO.h">
@@ -136,6 +136,15 @@
     </ClInclude>
     <ClInclude Include="NativeMatrix.h">
       <Filter>ヘッダー ファイル\Native\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeMatrixStack.h">
+      <Filter>ヘッダー ファイル\Native\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeTexture.h">
+      <Filter>ヘッダー ファイル\Native\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeProcess_Texture.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
