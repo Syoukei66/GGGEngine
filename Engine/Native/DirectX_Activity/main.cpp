@@ -1,6 +1,7 @@
 #include <Windows.h>
+#include <EngineSetting.h>
+
 #include "DirectXActivity.h"
-#include "../../Project/EngineSetting.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {

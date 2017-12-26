@@ -1,4 +1,4 @@
-#include "../../Engine/NativeObjectFactory.h"
+#include <NativeObjectFactory.h>
 
 #include "NativeMatrix.h"
 #include "NativeMatrixStack.h"

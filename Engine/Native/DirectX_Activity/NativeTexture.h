@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../../Engine/NativeTexture.h"
-
 #include <d3d9.h>
 #include <d3dx9.h>
+
+#include <NativeTexture.h>
 
 class NativeTexture : public INativeTexture
 {
@@ -18,8 +18,8 @@ public:
   // Method for/from SuperClass/Interfaces
   // =================================================================
 public:
-  virtual T_FLOAT GetWidth() const override;
-  virtual T_FLOAT GetHeight() const override;
+  virtual T_UINT16 GetWidth() const override;
+  virtual T_UINT16 GetHeight() const override;
 
   // =================================================================
   // Method for/from SuperClass/Interfaces

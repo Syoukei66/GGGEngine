@@ -19,7 +19,7 @@ public:
 public:
   inline T_UINT8 RegisterPath(const char* path) override
   {
-    T_UINT8 id = this->paths_.size();
+    T_UINT8 id = (T_UINT8)this->paths_.size();
     this->paths_[id] = path;
     return id;
   }

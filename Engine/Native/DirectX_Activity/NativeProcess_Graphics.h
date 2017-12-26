@@ -1,7 +1,7 @@
 #ifndef HAL_DIRECTX_ACTIVITY_NATIVE_NATIVEPROCESS_GRAPHICS_H_
 #define HAL_DIRECTX_ACTIVITY_NATIVE_NATIVEPROCESS_GRAPHICS_H_
 
-#include "../../Engine/INativeProcess_Graphics.h"
+#include <INativeProcess_Graphics.h>
 #include <d3d9.h>
 
 class NativeProcess_Graphics : public INativeProcess_Graphics

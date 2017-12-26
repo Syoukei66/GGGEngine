@@ -3,7 +3,7 @@
 #include "Geometry.h"
 #include "NativeObject.h"
 
-typedef struct NativeMatrixInstance {};
+struct NativeMatrixInstance { void* p; };
 
 class INativeMatrix : public NativeObject<NativeMatrixInstance>
 {

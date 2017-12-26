@@ -1,7 +1,7 @@
 #ifndef HAL_DIRECTX_ACTIVITY_NATIVE_NATIVEPROCESS_TEXTURE_H_
 #define HAL_DIRECTX_ACTIVITY_NATIVE_NATIVEPROCESS_TEXTURE_H_
 
-#include "../../Engine/INativeProcess_Texture.h"
+#include <INativeProcess_Texture.h>
 
 class NativeProcess_Texture : public INativeProcess_Texture
 {

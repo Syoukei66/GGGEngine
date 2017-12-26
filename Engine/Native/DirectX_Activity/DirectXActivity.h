@@ -3,9 +3,9 @@
 
 #include <d3d9.h>
 #include <d3dx9.h>
+#include <BaseActivity.h>
 #include "DirectXNativeImplements.h"
 #include "DirectXInputDeviceManager.h"
-#include "../../Engine/BaseActivity.h"
 
 class DirectXActivity : public BaseActivity
 {

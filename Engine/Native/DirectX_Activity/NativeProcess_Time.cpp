@@ -1,9 +1,9 @@
 #include "NativeProcess_Time.h"
-#include "../../Engine/Director.h"
 #include <windows.h>
 #include <windowsx.h>
 #include <d3d9.h>
 #include <d3dx9.h>
+#include <Director.h>
 
 #ifdef _DEBUG
 NativeProcess_Time::NativeProcess_Time()

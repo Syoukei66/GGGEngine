@@ -2,8 +2,8 @@
 
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
-#include "../../Engine/InputDevice.h"
-#include "../../Engine/EngineInputEvent.h"
+#include <InputDevice.h>
+#include <EngineInputEvent.h>
 
 class DirectXInputDevice : public InputDevice
 {

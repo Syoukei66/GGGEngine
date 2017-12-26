@@ -3,10 +3,10 @@
 #include <windowsx.h>
 #include <d3d9.h>
 #include <d3dx9.h>
-#include "../../Engine/Texture.h"
-#include "../../Engine/Color.h"
-#include "../../Engine/Director.h"
-#include "../../Engine/NativeMethod.h"
+#include <Texture.h>
+#include <Color.h>
+#include <Director.h>
+#include <NativeMethod.h>
 
 #include "NativeProcess_Graphics.h"
 #include "NativeProcess_Texture.h"
@@ -311,7 +311,7 @@ void DirectXActivity::DrawFPS(const char* text, T_FLOAT x, T_FLOAT y, T_UINT32 c
 #ifdef _DEBUG
   const T_UINT16 width = Director::GetInstance()->GetScreenWidth();
   const T_UINT16 height = Director::GetInstance()->GetScreenHeight();
-  RECT rect = { x, y, x + width, y + height };
+  RECT rect = { (LONG)x, (LONG)y, (LONG)(x + width), (LONG)(y + height) };
 
   this->debug_font_->DrawText(
     NULL,

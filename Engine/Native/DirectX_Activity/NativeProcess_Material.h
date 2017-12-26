@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../Engine/INativeProcess_Material.h"
+#include <INativeProcess_Material.h>
 
 class NativeProcess_Material : public INativeProcess_Material
 {

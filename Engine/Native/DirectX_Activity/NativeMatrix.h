@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../../Engine/NativeMatrix.h"
-
 #include <d3d9.h>
 #include <d3dx9.h>
+
+#include <NativeMatrix.h>
 
 class NativeMatrix : public INativeMatrix
 {

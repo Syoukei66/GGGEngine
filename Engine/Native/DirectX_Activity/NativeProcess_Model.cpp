@@ -2,11 +2,11 @@
 
 #include <d3d9.h>
 #include <d3dx9.h>
-#include "../../Engine/Director.h"
-#include "../../Engine/HalEngine.h"
+#include <Director.h>
+#include <HalEngine.h>
 #include "DirectXDirector.h"
 
-struct ModelData {
+struct DirectXModelData {
 public:
   LPD3DXMESH mesh;
   T_UINT32 material_count;
@@ -17,7 +17,7 @@ public:
 LP_MODEL NativeProcess_Model::Model_Load(const char* full_path)
 {
   const LPDIRECT3DDEVICE9 pDevice = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
-  ModelData* ret = new ModelData();
+  DirectXModelData* ret = new DirectXModelData();
   LPD3DXBUFFER pAdjacency = NULL;
   LPD3DXBUFFER materialBuffer;
   DWORD material_count = 0;
@@ -60,7 +60,7 @@ void NativeProcess_Model::Model_Unload(LP_MODEL model)
 void NativeProcess_Model::Model_Draw(LP_MODEL model)
 {
   const LPDIRECT3DDEVICE9 pDevice = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
-  ModelData* dx_model = (ModelData*)model;
+  DirectXModelData* dx_model = (DirectXModelData*)model;
   for (T_UINT32 i = 0; i < dx_model->material_count; ++i)
   {
     NativeMethod::Graphics().Graphics_SetMaterial(dx_model->materials[i]);

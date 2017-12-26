@@ -256,7 +256,7 @@ struct BaseTVec3
 
   T Length() const
   {
-    return sqrt(LengthSquare());
+    return (T)sqrt(LengthSquare());
   }
   T LengthSquare() const
   {

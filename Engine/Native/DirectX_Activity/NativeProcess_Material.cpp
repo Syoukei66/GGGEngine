@@ -2,7 +2,7 @@
 
 #include <d3d9.h>
 #include <d3dx9.h>
-#include "../../Engine/Director.h"
+#include <Director.h>
 
 LP_MATERIAL NativeProcess_Material::Material_Create()
 {

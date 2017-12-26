@@ -3,7 +3,7 @@
 #include "NativeObject.h"
 #include "Geometry.h"
 
-typedef struct NativeTextureInstance {};
+struct NativeTextureInstance { void* p; };
 
 class INativeTexture : public NativeObject<NativeTextureInstance>
 {
@@ -26,7 +26,7 @@ public:
   // Methods
   // =================================================================
 public:
-  virtual T_FLOAT GetWidth() const = 0;
-  virtual T_FLOAT GetHeight() const = 0;
+  virtual T_UINT16 GetWidth() const = 0;
+  virtual T_UINT16 GetHeight() const = 0;
 
 };

@@ -182,7 +182,6 @@
     <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Camera2D_MultiTarget.cpp" />
     <ClCompile Include="Camera3D.cpp" />
-    <ClCompile Include="Camera3D_FirstPerson.cpp" />
     <ClCompile Include="Camera3D_LookAt.cpp" />
     <ClCompile Include="Camera3D_Transformed.cpp" />
     <ClCompile Include="Collision.cpp" />
@@ -318,7 +317,6 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Camera3D.h" />
-    <ClInclude Include="Camera3D_FirstPerson.h" />
     <ClInclude Include="Camera3D_LookAt.h" />
     <ClInclude Include="Camera3D_Transformed.h" />
     <ClInclude Include="Cube3D.h" />
@@ -340,7 +338,6 @@
     <ClInclude Include="EngineInputEvent.h" />
     <ClInclude Include="EngineOption.h" />
     <ClInclude Include="GameComponent.h" />
-    <ClInclude Include="GameComponentManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObject2D.h" />
     <ClInclude Include="GameObject2DRenderState.h" />

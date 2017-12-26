@@ -37,11 +37,11 @@ public:
 public:
   inline T_FLOAT GetTaskProgressRateForCategory(const std::string& category)
   {
-    return this->category_task_sum_[category] / this->category_progressed_task_sum_[category];
+    return (T_FLOAT)this->category_task_sum_[category] / this->category_progressed_task_sum_[category];
   }
   inline T_FLOAT GetTaskProgressRate()
   {
-    return this->task_sum_ / this->progressed_task_sum_;
+    return (T_FLOAT)this->task_sum_ / this->progressed_task_sum_;
   }
   inline std::map<std::string, T_UINT32>::iterator TaskIteratorBegin()
   {

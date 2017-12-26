@@ -41,12 +41,6 @@
     <Filter Include="ソース ファイル\Native">
       <UniqueIdentifier>{025b4d2f-e86a-4611-90f7-e36bd853e617}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Allocator">
-      <UniqueIdentifier>{e9f48cf8-f824-4be3-bc0a-e693fd4add68}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Asset">
-      <UniqueIdentifier>{dfc1d997-2aed-4c0f-825e-5afc7ddb6aae}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Engine\Input">
       <UniqueIdentifier>{5ea11ecd-1d5d-41bd-80ce-9c085e1250bd}</UniqueIdentifier>
     </Filter>
@@ -98,10 +92,6 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\Allocator">
       <UniqueIdentifier>{cc98758f-6ca1-4c0f-97cb-e8b8a1d1ffbb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\リソース ファイル">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="ヘッダー ファイル\Component\Camera">
       <UniqueIdentifier>{05c1314b-a6cd-4ec8-a235-d4fcbcc27075}</UniqueIdentifier>
@@ -286,8 +276,9 @@
     <Filter Include="ソース ファイル\Native\Objects">
       <UniqueIdentifier>{cf9daef2-c55b-466e-b5f6-0ec449319b3f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Asset">
-      <UniqueIdentifier>{35a509b7-eaf0-4739-bdaf-e8666902ec31}</UniqueIdentifier>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -603,9 +594,6 @@
     <ClCompile Include="GameObject3D.cpp">
       <Filter>ソース ファイル\Component\GameObject\3D</Filter>
     </ClCompile>
-    <ClCompile Include="Camera3D_FirstPerson.cpp">
-      <Filter>ソース ファイル\Component\Camera\3D</Filter>
-    </ClCompile>
     <ClCompile Include="Light.cpp">
       <Filter>ソース ファイル\Component\Light</Filter>
     </ClCompile>
@@ -796,9 +784,6 @@
     </ClInclude>
     <ClInclude Include="LoopTextureRegion.h">
       <Filter>ヘッダー ファイル\Component\GameObject\2D\Shape\Sprite\TextureRegion</Filter>
-    </ClInclude>
-    <ClInclude Include="LoopSprite.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\2D\Shape</Filter>
     </ClInclude>
     <ClInclude Include="EntityModifierAttribute.h">
       <Filter>ヘッダー ファイル\Component\GameObject\2D\Modifier</Filter>
@@ -1067,9 +1052,6 @@
     <ClInclude Include="GameObject3D.h">
       <Filter>ヘッダー ファイル\Component\GameObject\3D</Filter>
     </ClInclude>
-    <ClInclude Include="Camera3D_FirstPerson.h">
-      <Filter>ヘッダー ファイル\Component\Camera\3D</Filter>
-    </ClInclude>
     <ClInclude Include="Light.h">
       <Filter>ヘッダー ファイル\Component\Light</Filter>
     </ClInclude>
@@ -1116,9 +1098,6 @@
       <Filter>ヘッダー ファイル\Engine</Filter>
     </ClInclude>
     <ClInclude Include="GameComponent.h">
-      <Filter>ヘッダー ファイル\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="GameComponentManager.h">
       <Filter>ヘッダー ファイル\Component</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
@@ -1204,6 +1183,9 @@
     </ClInclude>
     <ClInclude Include="VertexBufferObject_Sprite3D.h">
       <Filter>ヘッダー ファイル\Component\GameObject\VBO\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="LoopSprite.h">
+      <Filter>ヘッダー ファイル\Component\GameObject\2D\Shape\Sprite</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

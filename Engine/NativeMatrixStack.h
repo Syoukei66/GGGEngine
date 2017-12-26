@@ -3,7 +3,7 @@
 #include "NativeObject.h"
 #include "NativeMatrix.h"
 
-typedef struct NativeMatrixStackInstance {};
+struct NativeMatrixStackInstance { void* p; };
 
 class INativeMatrixStack : public NativeObject<NativeMatrixInstance>
 {

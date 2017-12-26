@@ -2,9 +2,9 @@
 
 #include <d3d9.h>
 #include <d3dx9.h>
-#include "../../Engine/Texture.h"
-#include "../../Engine/ITextureRegion.h"
-#include "../../Engine/Director.h"
+#include <Texture.h>
+#include <ITextureRegion.h>
+#include <Director.h>
 #include "DirectXDirector.h"
 
 static const D3DPRIMITIVETYPE PRIMITIVE_TYPES[INativeProcess_Graphics::PrimitiveType::PRIMITIVE_DATANUM] =
@@ -103,10 +103,10 @@ void NativeProcess_Graphics::Graphics_SetViewport(T_FLOAT x, T_FLOAT y, T_FLOAT 
 {
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
   D3DVIEWPORT9 viewport;
-  viewport.X = x;
-  viewport.Y = y;
-  viewport.Width = w;
-  viewport.Height = h;
+  viewport.X = (DWORD)x;
+  viewport.Y = (DWORD)y;
+  viewport.Width = (DWORD)w;
+  viewport.Height = (DWORD)h;
   viewport.MinZ = minZ;
   viewport.MaxZ = maxZ;
   device->SetViewport(&viewport);

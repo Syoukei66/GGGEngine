@@ -1,7 +1,7 @@
 #include "DirectXInputDevice_Mouse.h"
+#include <Director.h>
 
 #include "DirectXDirector.h"
-#include "../../Engine/Director.h"
 
 DirectXInputDevice_Mouse::DirectXInputDevice_Mouse(T_UINT8 handler, const MouseInput* mouse_inputs, T_UINT8 mouse_inputs_count, EngineInput::Analog::ID analog_input_id)
   : DirectXInputDevice(handler)

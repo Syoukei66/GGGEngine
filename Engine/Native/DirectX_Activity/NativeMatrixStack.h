@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../Engine/NativeMatrixStack.h"
+#include <NativeMatrixStack.h>
 
 class NativeMatrixStack : public INativeMatrixStack
 {

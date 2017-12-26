@@ -5,10 +5,10 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include "../../Engine/Texture.h"
-#include "../../Engine/CSVTokenizer.h"
-#include "../../Engine/Director.h"
-#include "../../Engine/TexturePalette.h"
+#include <Texture.h>
+#include <CSVTokenizer.h>
+#include <Director.h>
+#include <TexturePalette.h>
 
 ITexturePalette* NativeProcess_Texture::TexturePalette_Create(const char* path) const
 {

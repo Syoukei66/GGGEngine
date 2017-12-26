@@ -1,6 +1,6 @@
 #include "NativeTexture.h"
 
-#include "../../Engine/Director.h"
+#include <Director.h>
 
 #define texture_ GetNativeInstance<IDirect3DTexture9>()
 
@@ -38,13 +38,13 @@ NativeTexture::~NativeTexture()
 // =================================================================
 // Method for/from SuperClass/Interfaces
 // =================================================================
-T_FLOAT NativeTexture::GetWidth() const
+T_UINT16 NativeTexture::GetWidth() const
 {
-  return this->desc_.Width;
+  return (T_UINT16)this->desc_.Width;
 }
 
-T_FLOAT NativeTexture::GetHeight() const
+T_UINT16 NativeTexture::GetHeight() const
 {
-  return this->desc_.Height;
+  return (T_UINT16)this->desc_.Height;
 }
 

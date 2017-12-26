@@ -1,7 +1,7 @@
 #pragma once
 
 #include <windows.h>
-#include "../../Engine/INativeProcess_Time.h"
+#include <INativeProcess_Time.h>
 
 class NativeProcess_Time : public INativeProcess_Time
 {

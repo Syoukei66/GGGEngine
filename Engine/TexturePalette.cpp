@@ -24,7 +24,7 @@ TexturePalette::~TexturePalette()
 // =================================================================
 T_UINT8 TexturePalette::RegisterPath(const char* path)
 {
-  T_UINT8 id = this->textures_.size();
+  T_UINT8 id = (T_UINT8)this->textures_.size();
   char full_path[256] = { '\0' };
   Director::GetInstance()->GetEngineOption()->asset_path.GetTexturePath(path, full_path);
   this->textures_[id] = new Texture(full_path);
@@ -57,7 +57,7 @@ T_UINT8 TexturePalette::LoadImmediately(const char* path)
   Texture* texture = new Texture(path);
   texture->Load();
 
-  T_UINT8 id = this->textures_.size();
+  T_UINT8 id = (T_UINT8)this->textures_.size();
   this->textures_[id] = texture;
   return id;
 }
