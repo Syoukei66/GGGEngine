@@ -2,6 +2,7 @@
 
 #include <list>
 #include <deque>
+#include <functional>
 #include "NativeType.h"
 
 //=======================================================================================
@@ -23,13 +24,25 @@ template<class T>
 class PoolAllocator
 {
 public:
+  PoolAllocator(T_UINT16 count, std::function<T*(T_UINT16 index)> builder)
+  {
+    for (T_UINT16 i = 0; i < count; ++i)
+    {
+      this->pool_.push_back(builder(i));
+    }
+  }
   PoolAllocator(T_UINT16 count)
   {
     for (T_UINT16 i = 0; i < count; ++i)
     {
-      this->pool_.push_back(new T());
+      this->pool_.push_back(this->CreateInstance());
     }
   }
+  virtual T* CreateInstance() const
+  {
+    return new T();
+  }
+
   ~PoolAllocator()
   {
     for (typename std::deque<T*>::iterator itr = this->pool_.begin(); itr != this->pool_.end(); ++itr)
