@@ -3,7 +3,6 @@
 #include "Camera3D.h"
 #include "GameObject3D.h"
 
-//TODO: ビュー行列を編集するように変更すること
 class Camera3D_Transformed : public Camera3D
 {
   // =================================================================
@@ -14,21 +13,6 @@ public:
   Camera3D_Transformed();
   virtual ~Camera3D_Transformed();
   
-  // =================================================================
-  // Methods
-  // =================================================================
-public:
-  //これらのカメラ操作関数は現在の位置、回転、スケールを基準にしたカメラ操作を行う
-  void Move(TVec3f value);
-  void Move(T_FLOAT x, T_FLOAT y, T_FLOAT z);
-  void MoveX(T_FLOAT x);
-  void MoveY(T_FLOAT y);
-  void MoveZ(T_FLOAT z);
-
-  void RotateXAxis(T_FLOAT x_axis);
-  void RotateYAxis(T_FLOAT y_axis);
-  void RotateZAxis(T_FLOAT z_axis);
-
 public:
   inline Transform3D* GetTransform()
   {
@@ -45,5 +29,4 @@ public:
   // =================================================================
 private:
   GameObject3D* entity_;
-  LP_MATRIX_4x4 inv_;
 };

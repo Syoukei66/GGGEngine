@@ -46,7 +46,7 @@ public:
 private:
   Camera3D* const camera_;
 
-  LP_MATRIX_4x4 mat_;
+  INativeMatrix* mat_;
   std::vector<PostDrawParam*> post_draw_list_;
 
 };

@@ -17,8 +17,8 @@ Camera3D_LookAt::Camera3D_LookAt(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT he
   , view_dirty_(true)
 {
   this->entity_ = new GameObject3D();
-  this->view_matrix_ = NativeMethod::Matrix().Matrix4x4_Create();
-  this->inv_ = NativeMethod::Matrix().Matrix4x4_Create();
+  this->view_matrix_ = INativeMatrix::Create();
+  this->inv_ = INativeMatrix::Create();
 }
 
 Camera3D_LookAt::Camera3D_LookAt()
@@ -32,15 +32,15 @@ Camera3D_LookAt::Camera3D_LookAt()
   , view_dirty_(true)
 {
   this->entity_ = new GameObject3D();
-  this->view_matrix_ = NativeMethod::Matrix().Matrix4x4_Create();
-  this->inv_ = NativeMethod::Matrix().Matrix4x4_Create();
+  this->view_matrix_ = INativeMatrix::Create();
+  this->inv_ = INativeMatrix::Create();
 }
 
 Camera3D_LookAt::~Camera3D_LookAt()
 {
   delete this->entity_;
-  NativeMethod::Matrix().Matrix4x4_Delete(this->view_matrix_);
-  NativeMethod::Matrix().Matrix4x4_Delete(this->inv_);
+  delete this->view_matrix_;
+  delete this->inv_;
 }
 
 // =================================================================
@@ -53,21 +53,19 @@ void Camera3D_LookAt::CheckViewDirty()
   //  return;
   //}
   this->OnViewChanged();
-  NativeMethod::Matrix().Matrix4x4_Init(this->inv_);
-  NativeMethod::Matrix().Matrix4x4_Init(this->view_matrix_);
+  this->inv_->Init();
+  this->view_matrix_->Init();
 
   if (this->target_)
   {
-    NativeMethod::Matrix().Matrix4x4_LookAtLH(
-      this->view_matrix_,
+    this->view_matrix_->LookAtLH(
       this->GetTransform()->GetWorldPosition(),
       this->target_->GetTransform()->GetWorldPosition(),
       this->camera_up_
     );
-    NativeMethod::Matrix().Matrix4x4_Direction(this->view_matrix_, &this->target_direction_);
+    this->view_matrix_->Direction(&this->target_direction_);
 
-    NativeMethod::Matrix().Matrix4x4_LookAtLH(
-      this->view_matrix_,
+    this->view_matrix_->LookAtLH(
       this->GetTransform()->GetWorldPosition(),
       this->current_look_at_pos_,
       this->camera_up_
@@ -83,37 +81,35 @@ void Camera3D_LookAt::CheckViewDirty()
       GameObject3D* p = this->entity_;
       while (p)
       {
-        NativeMethod::Matrix().Matrix4x4_Multiply(this->inv_, p->GetTransform()->GetMatrix());
+        this->inv_->Multiple(*p->GetTransform()->GetMatrix());
         p = p->GetParent();
       }
-      NativeMethod::Matrix().Matrix4x4_Inverse(this->view_matrix_, this->inv_);
+      this->inv_->Inverse(this->view_matrix_);
 
       //LoodkAtの適用
       TVec3f camera_pos = TVec3f();
       TVec3f look_at_pos = this->look_at_pos_;
-      NativeMethod::Matrix().Matrix4x4_Apply(
-        this->GetTransform()->GetRotationMatrix(),
-        &look_at_pos.x, &look_at_pos.y, &look_at_pos.z
-      );
-      NativeMethod::Matrix().Matrix4x4_LookAtLH(
-        this->inv_,
+      this->GetTransform()->GetRotationMatrix()->Apply(&look_at_pos);
+      this->inv_->LookAtLH(
         camera_pos,
         look_at_pos,
         this->camera_up_
       );
-      NativeMethod::Matrix().Matrix4x4_Multiply(this->view_matrix_, this->inv_);
+      this->view_matrix_->Multiple(*this->inv_);
       this->current_look_at_pos_ = TVec3f(0.0f, 0.0f, 0.0f);
-      NativeMethod::Matrix().Matrix4x4_Direction(this->view_matrix_, &this->current_look_at_pos_);
+
+      this->view_matrix_->Direction(&this->current_look_at_pos_);
+      //TODO: 仮実装なので直すように
       this->current_look_at_pos_ *= 100.0f;
     }
     //プレイヤーが存在しない時の処理
     else
     {
-      NativeMethod::Matrix().Matrix4x4_Inverse(this->inv_, this->entity_->GetTransform()->GetMatrix());
-      NativeMethod::Matrix().Matrix4x4_Multiply(this->view_matrix_, this->inv_);
+      this->entity_->GetTransform()->GetMatrix()->Inverse(this->inv_);
+      this->view_matrix_->Multiple(*this->inv_);
     }
   }
-  NativeMethod::Matrix().Matrix4x4_Direction(this->view_matrix_, &this->direction_);
+  this->view_matrix_->Direction(&this->direction_);
 
   //const T_FLOAT direction_x = -NativeMethod::Matrix().Matrix4x4_Get(this->view_matrix_, 2, 0);
   //const T_FLOAT direction_y = -NativeMethod::Matrix().Matrix4x4_Get(this->view_matrix_, 2, 1);
@@ -123,7 +119,7 @@ void Camera3D_LookAt::CheckViewDirty()
   this->view_dirty_ = false;
 }
 
-LP_MATRIX_4x4 Camera3D_LookAt::GetViewMatrix()
+INativeMatrix* Camera3D_LookAt::GetViewMatrix()
 {
   this->CheckViewDirty();
   return this->view_matrix_;

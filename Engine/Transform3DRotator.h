@@ -23,8 +23,8 @@ public:
   void RotateY(T_FLOAT rad);
   void RotateZ(T_FLOAT rad);
 
-  void FromRotationMatrix(LP_MATRIX_4x4 matrix);
-  void ToRotationMatrix(LP_MATRIX_4x4 dest);
+  void FromRotationMatrix(INativeMatrix* matrix);
+  void ToRotationMatrix(INativeMatrix* dest);
 
   const void q(const TVec3f& v, T_FLOAT rad);
 
@@ -78,7 +78,7 @@ public:
   // =================================================================
 private:
   Transform3D* transform_;
-  LP_MATRIX_4x4 rotation_matrix_;
+  INativeMatrix* rotation_matrix_;
   Quaternion quaternion_;
   TVec3f eular_angles_;
   bool need_rotation_matrix_update_;

@@ -24,7 +24,6 @@ bool BaseActivity::Run(IEngineSetting* setting)
 {
   Director::GetInstance()->SetActivity(this);
   NativeMethod::Graphics_SetInstance(this->SetupNativeProcess_Graphics());
-  NativeMethod::Matrix_SetInstance(this->SetupNativeProcess_Matrix());
   NativeMethod::Texture_SetInstance(this->SetupNativeProcess_Texture());
   NativeMethod::Material_SetInstance(this->SetupNativeProcess_Material());
   NativeMethod::Model_SetInstance(this->SetupNativeProcess_Model());
@@ -65,7 +64,6 @@ bool BaseActivity::Run(IEngineSetting* setting)
   delete this->engine_;
   
   NativeMethod::Graphics_DeleteInstance();
-  NativeMethod::Matrix_DeleteInstance();
   NativeMethod::Texture_DeleteInstance();
   NativeMethod::Material_DeleteInstance();
   NativeMethod::Model_DeleteInstance();

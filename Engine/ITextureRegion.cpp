@@ -28,9 +28,8 @@ void ITextureRegion::Init()
 
 void ITextureRegion::FitToTexture()
 {
-  const TSize texture_size = this->texture_->GetSize();
-  this->SetWidth((T_FLOAT)texture_size.width);
-  this->SetHeight((T_FLOAT)texture_size.height);
+  this->SetWidth((T_FLOAT)this->GetTexture()->GetWidth());
+  this->SetHeight((T_FLOAT)this->GetTexture()->GetHeight());
 }
 
 bool ITextureRegion::UpdateTextureCoord()

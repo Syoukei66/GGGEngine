@@ -22,7 +22,7 @@ public:
 public:
   virtual void Update() override;
 
-  virtual LP_MATRIX_4x4 GetViewMatrix() override;
+  virtual INativeMatrix* GetViewMatrix() override;
 
   // =================================================================
   // Method
@@ -79,9 +79,9 @@ public:
 private:
   GameObject2D* view_;
   std::deque<GameObject2D*> target_entities_;
-  LP_MATRIX_4x4 translate_;
-  LP_MATRIX_4x4 scale_;
-  LP_MATRIX_4x4 view_matrix_;
+  INativeMatrix* translate_;
+  INativeMatrix* scale_;
+  INativeMatrix* view_matrix_;
   TVec2f position_;
   T_FLOAT zoom_;
   T_FLOAT next_zoom_;

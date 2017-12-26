@@ -2,7 +2,6 @@
 #include <math.h>
 
 #include "MathConstants.h"
-#include "NativeMethod.h"
 
 // =================================================================
 // Static Member
@@ -38,19 +37,19 @@ void Quaternion::q(const TVec3f& v, T_FLOAT rad)
   *this = *this * Quaternion(v, rad);
 }
 
-void Quaternion::FromRotationMatrix(LP_MATRIX_4x4 mat)
+void Quaternion::FromRotationMatrix(const INativeMatrix& mat)
 {
-  const T_FLOAT m11 = NativeMethod::Matrix().Matrix4x4_Get(mat, 0, 0);
-  const T_FLOAT m12 = NativeMethod::Matrix().Matrix4x4_Get(mat, 0, 1);
-  const T_FLOAT m13 = NativeMethod::Matrix().Matrix4x4_Get(mat, 0, 2);
+  const T_FLOAT m11 = mat[0][0];
+  const T_FLOAT m12 = mat[0][1];
+  const T_FLOAT m13 = mat[0][2];
 
-  const T_FLOAT m21 = NativeMethod::Matrix().Matrix4x4_Get(mat, 1, 0);
-  const T_FLOAT m22 = NativeMethod::Matrix().Matrix4x4_Get(mat, 1, 1);
-  const T_FLOAT m23 = NativeMethod::Matrix().Matrix4x4_Get(mat, 1, 2);
+  const T_FLOAT m21 = mat[1][0];
+  const T_FLOAT m22 = mat[1][1];
+  const T_FLOAT m23 = mat[1][2];
 
-  const T_FLOAT m31 = NativeMethod::Matrix().Matrix4x4_Get(mat, 2, 0);
-  const T_FLOAT m32 = NativeMethod::Matrix().Matrix4x4_Get(mat, 2, 1);
-  const T_FLOAT m33 = NativeMethod::Matrix().Matrix4x4_Get(mat, 2, 2);
+  const T_FLOAT m31 = mat[2][0];
+  const T_FLOAT m32 = mat[2][1];
+  const T_FLOAT m33 = mat[2][2];
 
   // Å‘å¬•ª‚ðŒŸõ
   T_FLOAT elem[4]; // 0:x, 1:y, 2:z, 3:w
@@ -111,7 +110,7 @@ void Quaternion::FromRotationMatrix(LP_MATRIX_4x4 mat)
   }
 }
 
-void Quaternion::ToRotationMatrix(LP_MATRIX_4x4 dest)
+void Quaternion::ToRotationMatrix(INativeMatrix* dest)
 {
   *this = this->Normalized();
   const T_FLOAT qx = this->v_.x;
@@ -139,19 +138,19 @@ void Quaternion::ToRotationMatrix(LP_MATRIX_4x4 dest)
   //            m33 = 1.0f - 2.0f * qx * qx - 2.0f * qy * qy;
   const T_FLOAT m33 = 1.0f - 2.0f * qx * qx - 2.0f * qy * qy;
 
-  NativeMethod::Matrix().Matrix4x4_Init(dest);
+  dest->Init();
 
-  NativeMethod::Matrix().Matrix4x4_Set(dest, 0, 0, m11);
-  NativeMethod::Matrix().Matrix4x4_Set(dest, 0, 1, m12);
-  NativeMethod::Matrix().Matrix4x4_Set(dest, 0, 2, m13);
+  (*dest)[0][0] = m11;
+  (*dest)[0][1] = m12;
+  (*dest)[0][2] = m13;
 
-  NativeMethod::Matrix().Matrix4x4_Set(dest, 1, 0, m21);
-  NativeMethod::Matrix().Matrix4x4_Set(dest, 1, 1, m22);
-  NativeMethod::Matrix().Matrix4x4_Set(dest, 1, 2, m23);
+  (*dest)[1][0] = m21;
+  (*dest)[1][1] = m22;
+  (*dest)[1][2] = m23;
 
-  NativeMethod::Matrix().Matrix4x4_Set(dest, 2, 0, m31);
-  NativeMethod::Matrix().Matrix4x4_Set(dest, 2, 1, m32);
-  NativeMethod::Matrix().Matrix4x4_Set(dest, 2, 2, m33);
+  (*dest)[2][0] = m31;
+  (*dest)[2][1] = m32;
+  (*dest)[2][2] = m33;
 }
 
 T_FLOAT Quaternion::ScalarSquare() const

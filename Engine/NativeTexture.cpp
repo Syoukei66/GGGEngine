@@ -1,13 +1,8 @@
 #include "NativeTexture.h"
-#include "NativeMethod.h"
 
-NativeTexture::NativeTexture(const char* path)
-  : NativeObject(NativeMethod::Texture().Texture_Load(path))
-{
-  NativeMethod::Texture().Texture_GetSize(this->instance_, &this->size_);
-}
+#include "NativeObjectFactory.h"
 
-NativeTexture::~NativeTexture()
+INativeTexture* INativeTexture::Create(const char* path)
 {
-  NativeMethod::Texture().Texture_Unload(this->instance_);
+  return NativeObjectFactory::CreateTexture(path);
 }

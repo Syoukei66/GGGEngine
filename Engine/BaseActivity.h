@@ -5,7 +5,6 @@
 #include "EngineInput.h"
 
 #include "INativeProcess_Graphics.h"
-#include "INativeProcess_Matrix.h"
 #include "INativeProcess_Texture.h"
 #include "INativeProcess_Material.h"
 #include "INativeProcess_Model.h"
@@ -29,7 +28,6 @@ public:
 
 protected:
   virtual INativeProcess_Graphics* SetupNativeProcess_Graphics() = 0;
-  virtual INativeProcess_Matrix* SetupNativeProcess_Matrix() = 0;
   virtual INativeProcess_Texture* SetupNativeProcess_Texture() = 0;
   virtual INativeProcess_Material* SetupNativeProcess_Material() = 0;
   virtual INativeProcess_Model* SetupNativeProcess_Model() = 0;

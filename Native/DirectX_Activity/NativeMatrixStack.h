@@ -1,23 +1,21 @@
 #pragma once
 
-#include <string>
-#include "Geometry.h"
-#include "NativeTexture.h"
+#include "../../Engine/NativeMatrixStack.h"
 
-class ITexture
+class NativeMatrixStack : public INativeMatrixStack
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  ~ITexture() {}
+  NativeMatrixStack();
+  ~NativeMatrixStack();
 
   // =================================================================
-  // Setter / Getter
+  // Method
   // =================================================================
 public:
-  virtual bool IsLoaded() const = 0;
-  virtual const INativeTexture* GetNativeTexture() const = 0;
-  virtual T_UINT16 GetWidth() const = 0;
-  virtual T_UINT16 GetHeight() const = 0;
+  virtual void Push(NativeMatrixInstance* mat) override;
+  virtual void Pop() override;
+  virtual NativeMatrixInstance* GetTop() override;
 };

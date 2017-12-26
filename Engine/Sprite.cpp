@@ -132,9 +132,10 @@ void Sprite::FitToTexture()
   {
     return;
   }
-  TSize textureSize = texture->GetSize();
-  this->SetWidth(textureSize.width * (this->texture_region_->GetU1() - this->texture_region_->GetU0()));
-  this->SetHeight(textureSize.height * (this->texture_region_->GetV1() - this->texture_region_->GetV0()));
+  T_FLOAT tw = (T_FLOAT)texture->GetWidth();
+  T_FLOAT th = (T_FLOAT)texture->GetHeight();
+  this->SetWidth(tw * (this->texture_region_->GetU1() - this->texture_region_->GetU0()));
+  this->SetHeight(th * (this->texture_region_->GetV1() - this->texture_region_->GetV0()));
 }
 
 // =================================================================

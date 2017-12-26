@@ -20,8 +20,8 @@ public:
   // =================================================================
 public:
   virtual void DrawScene(Scene* scene) override;
-  virtual LP_MATRIX_4x4 GetViewMatrix() override;
-  virtual LP_MATRIX_4x4 GetProjectionMatrix() override;
+  virtual const INativeMatrix* GetViewMatrix() override;
+  virtual const INativeMatrix* GetProjectionMatrix() override;
 
 protected:
   virtual void OnViewportDirty() override;
@@ -78,7 +78,7 @@ protected:
 private:
   GameObject3DRenderState* render_state_;
 
-  LP_MATRIX_4x4 projection_matrix_;
+  INativeMatrix* projection_matrix_;
   T_FLOAT fov_;
   T_FLOAT z_near_;
   T_FLOAT z_far_;

@@ -2,6 +2,8 @@
 
 #include "NativeType.h"
 #include "BlendFunction.h"
+#include "NativeMatrix.h"
+#include "NativeMatrixStack.h"
 
 class GameObjectRenderState
 {
@@ -17,7 +19,7 @@ public:
   // =================================================================
 public:
   virtual void Init();
-  void PushMatrix(LP_MATRIX_4x4 matrix);
+  void PushMatrix(INativeMatrix* matrix);
   void PopMatrix();
 
   // =================================================================
@@ -29,7 +31,7 @@ public:
   {
     return this->render_object_;
   }
-  inline LP_MATRIX_4x4_STACK GetMatrixStack()
+  inline INativeMatrixStack* GetMatrixStack()
   {
     return this->matrix_stack_;
   }
@@ -60,7 +62,7 @@ public:
 private:
   T_UINT32 layer_state_;
   LP_DEVICE render_object_;
-  LP_MATRIX_4x4_STACK matrix_stack_;
+  INativeMatrixStack* matrix_stack_;
   BlendFunction::BlendMode src_, dst_;
 
 };

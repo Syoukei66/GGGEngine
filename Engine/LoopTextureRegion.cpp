@@ -9,8 +9,8 @@ LoopTextureRegion* LoopTextureRegion::CreateWithTexture(const ITexture* texture)
   LoopTextureRegion* ret = new LoopTextureRegion();
   ret->Init();
   ret->SetTexture(texture);
-  ret->SetLoopWidth((T_FLOAT)texture->GetSize().width);
-  ret->SetLoopHeight((T_FLOAT)texture->GetSize().height);
+  ret->SetLoopWidth((T_FLOAT)texture->GetWidth());
+  ret->SetLoopHeight((T_FLOAT)texture->GetHeight());
   ret->FitToTexture();
   return ret;
 }
@@ -37,7 +37,6 @@ LoopTextureRegion::~LoopTextureRegion()
 // =================================================================
 void LoopTextureRegion::OnUpdateTextureCoord()
 {
-  const TSize texture_size = this->GetTexture()->GetSize();
   const T_FLOAT region_w = this->GetWidth();
   const T_FLOAT region_h = this->GetHeight();
   const T_FLOAT loop_w = this->GetLoopWidth();

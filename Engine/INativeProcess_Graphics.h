@@ -8,6 +8,7 @@
 #include "ITexture.h"
 
 #include "NativeTexture.h"
+#include "NativeMatrix.h"
 
 class INativeProcess_Graphics
 {
@@ -39,9 +40,9 @@ public:
 public:
   virtual void Graphics_Cheat(T_UINT16 cheat_id) = 0;
 
-  virtual void Graphics_SetTransformView(LP_MATRIX_4x4 mat) = 0;
-  virtual void Graphics_SetTransformProjection(LP_MATRIX_4x4 mat) = 0;
-  virtual void Graphics_SetTransformWorld(LP_MATRIX_4x4 mat) = 0;
+  virtual void Graphics_SetTransformView(NativeMatrixInstance* mat) = 0;
+  virtual void Graphics_SetTransformProjection(NativeMatrixInstance* mat) = 0;
+  virtual void Graphics_SetTransformWorld(NativeMatrixInstance* mat) = 0;
 
   virtual void Graphics_SetViewport(T_FLOAT x, T_FLOAT y, T_FLOAT w, T_FLOAT h, T_FLOAT minZ, T_FLOAT maxZ) = 0;
 

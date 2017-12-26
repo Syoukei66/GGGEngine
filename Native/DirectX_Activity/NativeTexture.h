@@ -1,27 +1,29 @@
 #pragma once
 
-#include "Shape3D.h"
+#include "../../Engine/NativeTexture.h"
 
-class BillBoard : public Shape3D
+#include <d3d9.h>
+#include <d3dx9.h>
+
+class NativeTexture : public INativeTexture
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  BillBoard();
-  ~BillBoard();
+  NativeTexture(const char* path);
+  ~NativeTexture();
 
   // =================================================================
-  // Methods for/from SuperClass/Interfaces
+  // Method for/from SuperClass/Interfaces
   // =================================================================
 public:
-  void PushMatrixStack(GameObject3DRenderState* state) override;
-  void PopMatrixStack(GameObject3DRenderState* state) override;
-  
+  virtual T_FLOAT GetWidth() const override;
+  virtual T_FLOAT GetHeight() const override;
+
   // =================================================================
-  // Data Member
+  // Method for/from SuperClass/Interfaces
   // =================================================================
 private:
-  INativeMatrix* mat_;
-
+  D3DSURFACE_DESC desc_;
 };
