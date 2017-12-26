@@ -81,9 +81,10 @@ void Sprite3D::FitToTexture()
   {
     return;
   }
-  TSize textureSize = texture->GetSize();
-  this->SetWidth(textureSize.width * (this->texture_region_->GetU1() - this->texture_region_->GetU0()));
-  this->SetHeight(textureSize.height * (this->texture_region_->GetV1() - this->texture_region_->GetV0()));
+  const T_FLOAT texture_width = (T_FLOAT)texture->GetWidth();
+  const T_FLOAT texture_height = (T_FLOAT)texture->GetHeight();
+  this->SetWidth(texture_width * (this->texture_region_->GetU1() - this->texture_region_->GetU0()));
+  this->SetHeight(texture_height * (this->texture_region_->GetV1() - this->texture_region_->GetV0()));
 }
 
 void Sprite3D::SetTextureRegion(ITextureRegion* itr)

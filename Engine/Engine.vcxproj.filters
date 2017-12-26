@@ -1195,6 +1195,7 @@
     </ClInclude>
     <ClInclude Include="INativeProcess_Texture.h">
       <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
     <ClInclude Include="AnimatedSprite3D.h">
       <Filter>ヘッダー ファイル\Component\GameObject\3D\Primitive</Filter>
     </ClInclude>
