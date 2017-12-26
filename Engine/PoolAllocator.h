@@ -24,11 +24,11 @@ template<class T>
 class PoolAllocator
 {
 public:
-  PoolAllocator(T_UINT16 count, std::function<T*()> builder)
+  PoolAllocator(T_UINT16 count, std::function<T*(T_UINT16 index)> builder)
   {
     for (T_UINT16 i = 0; i < count; ++i)
     {
-      this->pool_.push_back(builder());
+      this->pool_.push_back(builder(i));
     }
   }
   PoolAllocator(T_UINT16 count)
