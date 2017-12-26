@@ -42,7 +42,8 @@ TiledTextureRegion::~TiledTextureRegion()
 // =================================================================
 void TiledTextureRegion::OnUpdateTextureCoord()
 {
-  const TSize texture_size = this->GetTexture()->GetSize();
+  const T_FLOAT tw = (T_FLOAT)this->GetTexture()->GetWidth();
+  const T_FLOAT th = (T_FLOAT)this->GetTexture()->GetHeight();
   const T_FLOAT region_x = this->GetX();
   const T_FLOAT region_y = this->GetY();
   const T_FLOAT region_w = this->GetWidth();
@@ -52,8 +53,8 @@ void TiledTextureRegion::OnUpdateTextureCoord()
   const T_UINT8 y = (current_index / this->x_num_) % this->y_num_;
   const T_FLOAT w = 1.0f / this->x_num_;
   const T_FLOAT h = 1.0f / this->y_num_;
-  const T_FLOAT rateX = region_w / texture_size.width;
-  const T_FLOAT rateY = region_h / texture_size.height;
+  const T_FLOAT rateX = region_w / tw;
+  const T_FLOAT rateY = region_h / th;
   this->SetU0(region_x + (x * w) * rateX);
   this->SetV0(region_y + (y * h) * rateY);
   this->SetU1(region_x + (x * w + w) * rateX);

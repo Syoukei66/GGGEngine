@@ -10,7 +10,6 @@ TextureRegion* TextureRegion::CreateWithTexture(const ITexture* texture)
 {
   TextureRegion* ret = new TextureRegion();
   ret->Init();
-  TSize size = texture->GetSize();
   ret->SetTexture(texture);
   ret->FitToTexture();
   return ret;
@@ -36,13 +35,14 @@ TextureRegion::~TextureRegion()
 // =================================================================
 void TextureRegion::OnUpdateTextureCoord()
 {
-  const TSize texture_size = this->GetTexture()->GetSize();
+  const T_FLOAT tw = (T_FLOAT)this->GetTexture()->GetWidth();
+  const T_FLOAT th = (T_FLOAT)this->GetTexture()->GetHeight();
   const T_FLOAT x = this->GetX();
   const T_FLOAT y = this->GetY();
-  const T_FLOAT width = this->GetWidth();
-  const T_FLOAT height = this->GetHeight();
-  this->SetU0(x / texture_size.width);
-  this->SetV0(y / texture_size.height);
-  this->SetU1((x + width) / texture_size.width);
-  this->SetV1((y + height) / texture_size.height);
+  const T_FLOAT w = this->GetWidth();
+  const T_FLOAT h = this->GetHeight();
+  this->SetU0(x / tw);
+  this->SetV0(y / th);
+  this->SetU1((x + w) / tw);
+  this->SetV1((y + h) / th);
 }

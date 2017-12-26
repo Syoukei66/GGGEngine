@@ -9,7 +9,6 @@
 #include "../../Engine/NativeMethod.h"
 
 #include "NativeProcess_Graphics.h"
-#include "NativeProcess_Matrix.h"
 #include "NativeProcess_Texture.h"
 #include "NativeProcess_Material.h"
 #include "NativeProcess_Model.h"
@@ -52,11 +51,6 @@ DirectXActivity::~DirectXActivity()
 INativeProcess_Graphics* DirectXActivity::SetupNativeProcess_Graphics()
 {
   return new NativeProcess_Graphics();
-}
-
-INativeProcess_Matrix* DirectXActivity::SetupNativeProcess_Matrix()
-{
-  return new NativeProcess_Matrix();
 }
 
 INativeProcess_Texture* DirectXActivity::SetupNativeProcess_Texture()

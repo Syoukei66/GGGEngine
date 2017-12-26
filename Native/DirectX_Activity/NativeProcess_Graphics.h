@@ -12,9 +12,9 @@ class NativeProcess_Graphics : public INativeProcess_Graphics
 public:
   virtual void Graphics_Cheat(T_UINT16 cheat_id) override;
 
-  virtual void Graphics_SetTransformView(LP_MATRIX_4x4 mat) override;
-  virtual void Graphics_SetTransformProjection(LP_MATRIX_4x4 mat) override;
-  virtual void Graphics_SetTransformWorld(LP_MATRIX_4x4 mat) override;
+  virtual void Graphics_SetTransformView(NativeMatrixInstance* mat) override;
+  virtual void Graphics_SetTransformProjection(NativeMatrixInstance* mat) override;
+  virtual void Graphics_SetTransformWorld(NativeMatrixInstance* mat) override;
 
   virtual void Graphics_SetViewport(T_FLOAT x, T_FLOAT y, T_FLOAT w, T_FLOAT h, T_FLOAT minZ, T_FLOAT maxZ);
 

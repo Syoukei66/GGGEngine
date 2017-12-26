@@ -26,42 +26,38 @@ void Transform2D::OnInit()
   this->matrix_applied_position_ = TVec2f(0.0f, 0.0f);
 }
 
-void Transform2D::UpdateTranslateMatrix(LP_MATRIX_4x4 matrix)
+void Transform2D::UpdateTranslateMatrix(INativeMatrix* matrix)
 {
-  NativeMethod::Matrix().Matrix4x4_Translate(
-    matrix,
+  matrix->Translation(
     this->position_.x,
     this->position_.y,
     0.0f
   );
 }
 
-void Transform2D::UpdateScaleMatrix(LP_MATRIX_4x4 matrix)
+void Transform2D::UpdateScaleMatrix(INativeMatrix* matrix)
 {
-  NativeMethod::Matrix().Matrix4x4_Scaling(
-    matrix,
+  matrix->Translation(
     this->scale_.x,
     this->scale_.y,
     1.0f
   );
 }
 
-void Transform2D::UpdateRotateMatrix(LP_MATRIX_4x4 matrix)
+void Transform2D::UpdateRotateMatrix(INativeMatrix* matrix)
 {
-  NativeMethod::Matrix().Matrix4x4_Rotation(
-    matrix,
+  matrix->Translation(
     0.0f,
     0.0f,
     this->rotation_
   );
 }
 
-void Transform2D::OnUpdateMatrix(LP_MATRIX_4x4 matrix)
+void Transform2D::OnUpdateMatrix(INativeMatrix* matrix)
 {
   this->matrix_applied_position_.x = 0.0f;
   this->matrix_applied_position_.y = 0.0f;
-  NativeMethod::Matrix().Matrix4x4_Apply(
-    matrix, 
+  matrix->Apply(
     &this->matrix_applied_position_.x,
     &this->matrix_applied_position_.y,
     nullptr
@@ -79,8 +75,7 @@ TVec2f Transform2D::GetMatrixAppliedPosition()
 
 void Transform2D::ApplyMatrixToPosition(TVec2f* dest)
 {
-  NativeMethod::Matrix().Matrix4x4_Apply(
-    this->GetMatrix(),
+  this->GetMatrix()->Apply(
     &(dest->x),
     &(dest->y),
     nullptr

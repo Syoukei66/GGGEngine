@@ -1,26 +1,24 @@
 #include "Transform.h"
 #include "GameObject.h"
 
-#include "NativeMethod.h"
-
 // =================================================================
 // Constructor / Destructor
 // =================================================================
 Transform::Transform(GameObject* entity)
   : entity_(entity)
 {
-  this->translate_matrix_ = NativeMethod::Matrix().Matrix4x4_Create();
-  this->scale_matrix_ = NativeMethod::Matrix().Matrix4x4_Create();
-  this->rotation_matrix_ = NativeMethod::Matrix().Matrix4x4_Create();
-  this->matrix_ = NativeMethod::Matrix().Matrix4x4_Create();
+  this->translate_matrix_ = INativeMatrix::Create();
+  this->scale_matrix_ = INativeMatrix::Create();
+  this->rotation_matrix_ = INativeMatrix::Create();
+  this->matrix_ = INativeMatrix::Create();
 }
 
 Transform::~Transform()
 {
-  NativeMethod::Matrix().Matrix4x4_Delete(this->translate_matrix_);
-  NativeMethod::Matrix().Matrix4x4_Delete(this->scale_matrix_);
-  NativeMethod::Matrix().Matrix4x4_Delete(this->rotation_matrix_);
-  NativeMethod::Matrix().Matrix4x4_Delete(this->matrix_);
+  delete this->translate_matrix_;
+  delete this->scale_matrix_;
+  delete this->rotation_matrix_;
+  delete this->matrix_;
 }
 
 // =================================================================
@@ -63,7 +61,7 @@ bool Transform::UpdateMatrix()
   bool matrix_dirty = false;
   if (this->translation_dirty_)
   {
-    NativeMethod::Matrix().Matrix4x4_Init(this->translate_matrix_);
+    this->translate_matrix_->Init();
     this->UpdateTranslateMatrix(this->translate_matrix_);
 
     this->translation_dirty_ = false;
@@ -71,23 +69,23 @@ bool Transform::UpdateMatrix()
   }
   if (this->scale_dirty_)
   {
-    NativeMethod::Matrix().Matrix4x4_Init(this->scale_matrix_);
+    this->scale_matrix_->Init();
     this->UpdateScaleMatrix(this->scale_matrix_);
     this->scale_dirty_ = false;
     matrix_dirty = true;
   }
   if (this->rotation_dirty_)
   {
-    NativeMethod::Matrix().Matrix4x4_Init(this->rotation_matrix_);
+    this->rotation_matrix_->Init();
     this->UpdateRotateMatrix(this->rotation_matrix_);
     this->rotation_dirty_ = false;
     matrix_dirty = true;
   }
 
-  NativeMethod::Matrix().Matrix4x4_Init(this->matrix_);
-  NativeMethod::Matrix().Matrix4x4_Multiply(this->matrix_, this->scale_matrix_);
-  NativeMethod::Matrix().Matrix4x4_Multiply(this->matrix_, this->rotation_matrix_);
-  NativeMethod::Matrix().Matrix4x4_Multiply(this->matrix_, this->translate_matrix_);
+  this->matrix_->Init();
+  this->matrix_->Multiple(*this->scale_matrix_);
+  this->matrix_->Multiple(*this->rotation_matrix_);
+  this->matrix_->Multiple(*this->translate_matrix_);
 
   this->OnUpdateMatrix(this->matrix_);
   return true;

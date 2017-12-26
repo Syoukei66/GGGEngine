@@ -3,6 +3,7 @@
 #include "NativeType.h"
 #include "Geometry.h"
 #include "GameComponent.h"
+#include "NativeMatrix.h"
 
 class Scene;
 
@@ -21,8 +22,8 @@ public:
 public:
   virtual void DrawScene(Scene* scene) = 0;
 
-  virtual LP_MATRIX_4x4 GetViewMatrix() = 0;
-  virtual LP_MATRIX_4x4 GetProjectionMatrix() = 0;
+  virtual const INativeMatrix* GetViewMatrix() = 0;
+  virtual const INativeMatrix* GetProjectionMatrix() = 0;
 
 protected:
   void SetupCamera();

@@ -1,6 +1,5 @@
 #include "Transform3D.h"
 #include "GameObject3D.h"
-#include "NativeMethod.h"
 #include "MathConstants.h"
 
 // =================================================================
@@ -16,13 +15,13 @@ Transform3D::Transform3D(GameObject3D* entity)
   , matrix_applied_position_()
 {
   this->rotator_ = new Transform3DRotator(this);
-  this->world_matrix_ = NativeMethod::Matrix().Matrix4x4_Create();
+  this->world_matrix_ = INativeMatrix::Create();
 }
 
 Transform3D::~Transform3D()
 {
   delete this->rotator_;
-  NativeMethod::Matrix().Matrix4x4_Delete(this->world_matrix_);
+  delete this->world_matrix_;
 }
 
 // =================================================================
@@ -41,14 +40,14 @@ void Transform3D::OnInit()
 void Transform3D::Move(const TVec3f& value)
 {
   TVec3f v = value;
-  NativeMethod::Matrix().Matrix4x4_Apply(this->GetRotationMatrix(), &v.x, &v.y, &v.z);
+  this->GetRotationMatrix()->Apply(&v);
   const TVec3f& pos = this->GetPosition();
   this->SetPosition(pos.x + v.x, pos.y + v.y, pos.z + v.z);
 }
 
 void Transform3D::Move(T_FLOAT x, T_FLOAT y, T_FLOAT z)
 {
-  NativeMethod::Matrix().Matrix4x4_Apply(this->GetRotationMatrix(), &x, &y, &z);
+  this->GetRotationMatrix()->Apply(&x, &y, &z);
   const TVec3f& pos = this->GetPosition();
   this->SetPosition(pos.x + x, pos.y + y, pos.z + z);
 }
@@ -57,7 +56,7 @@ void Transform3D::MoveX(T_FLOAT x)
 {
   T_FLOAT y = 0.0f;
   T_FLOAT z = 0.0f;
-  NativeMethod::Matrix().Matrix4x4_Apply(this->GetRotationMatrix(), &x, &y, &z);
+  this->GetRotationMatrix()->Apply(&x, &y, &z);
   this->SetPosition(this->GetX() + x, this->GetY() + y, this->GetZ() + z);
 }
 
@@ -65,7 +64,7 @@ void Transform3D::MoveY(T_FLOAT y)
 {
   T_FLOAT x = 0.0f;
   T_FLOAT z = 0.0f;
-  NativeMethod::Matrix().Matrix4x4_Apply(this->GetRotationMatrix(), &x, &y, &z);
+  this->GetRotationMatrix()->Apply(&x, &y, &z);
   this->SetPosition(this->GetX() + x, this->GetY() + y, this->GetZ() + z);
 }
 
@@ -73,7 +72,7 @@ void Transform3D::MoveZ(T_FLOAT z)
 {
   T_FLOAT x = 0.0f;
   T_FLOAT y = 0.0f;
-  NativeMethod::Matrix().Matrix4x4_Apply(this->GetRotationMatrix(), &x, &y, &z);
+  this->GetRotationMatrix()->Apply(&x, &y, &z);
   this->SetPosition(this->GetX() + x, this->GetY() + y, this->GetZ() + z);
 }
 
@@ -112,48 +111,33 @@ T_FLOAT Transform3D::MoveCircularZ(T_FLOAT z, const TVec3f& pos)
   return 0.0f;
 }
 
-void Transform3D::UpdateWorldMatrix(LP_MATRIX_4x4 matrix)
+void Transform3D::UpdateWorldMatrix(NativeMatrixInstance* native_instance)
 {
-  NativeMethod::Matrix().Matrix4x4_Assign(this->world_matrix_, matrix);
+  this->GetWorldMatrix()->Assign(native_instance);
 }
 
-void Transform3D::UpdateTranslateMatrix(LP_MATRIX_4x4 matrix)
+void Transform3D::UpdateTranslateMatrix(INativeMatrix* matrix)
 {
-  NativeMethod::Matrix().Matrix4x4_Translate(
-    matrix,
-    this->position_.x,
-    this->position_.y,
-    this->position_.z
-  );
+  matrix->Translation(this->position_);
 }
 
-void Transform3D::UpdateScaleMatrix(LP_MATRIX_4x4 matrix)
+void Transform3D::UpdateScaleMatrix(INativeMatrix* matrix)
 {
-  NativeMethod::Matrix().Matrix4x4_Scaling(
-    matrix,
-    this->scale_.x,
-    this->scale_.y,
-    this->scale_.z
-  );
+  matrix->Scaling(this->scale_);
 }
 
-void Transform3D::UpdateRotateMatrix(LP_MATRIX_4x4 matrix)
+void Transform3D::UpdateRotateMatrix(INativeMatrix* matrix)
 {
   this->rotator_->ToRotationMatrix(matrix);
 }
 
-void Transform3D::OnUpdateMatrix(LP_MATRIX_4x4 matrix)
+void Transform3D::OnUpdateMatrix(INativeMatrix* matrix)
 {
   this->matrix_applied_position_.x = 0.0f;
   this->matrix_applied_position_.y = 0.0f;
   this->matrix_applied_position_.z = 0.0f;
-  NativeMethod::Matrix().Matrix4x4_Apply(
-    matrix,
-    &this->matrix_applied_position_.x,
-    &this->matrix_applied_position_.y,
-    &this->matrix_applied_position_.z
-  );
-  NativeMethod::Matrix().Matrix4x4_Direction(matrix, &this->direction_);
+  matrix->Apply(&this->matrix_applied_position_);
+  matrix->Direction(&this->direction_);
 }
 
 // =================================================================
@@ -167,12 +151,7 @@ const TVec3f& Transform3D::GetMatrixAppliedPosition()
 
 void Transform3D::ApplyMatrixToPosition(TVec3f* dest)
 {
-  NativeMethod::Matrix().Matrix4x4_Apply(
-    this->GetMatrix(),
-    &(dest->x),
-    &(dest->y),
-    &(dest->z)
-  );
+  this->GetMatrix()->Apply(dest);
 }
 
 const TVec3f& Transform3D::GetWorldPosition(GameObject3D* root)

@@ -21,7 +21,6 @@ public:
   // =================================================================
 protected:
   virtual INativeProcess_Graphics* SetupNativeProcess_Graphics() override;
-  virtual INativeProcess_Matrix* SetupNativeProcess_Matrix() override;
   virtual INativeProcess_Texture* SetupNativeProcess_Texture() override;
   virtual INativeProcess_Material* SetupNativeProcess_Material() override;
   virtual INativeProcess_Model* SetupNativeProcess_Model() override;

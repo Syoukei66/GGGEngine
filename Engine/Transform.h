@@ -3,6 +3,7 @@
 
 #include "NativeType.h"
 #include "Geometry.h"
+#include "NativeMatrix.h"
 
 class GameObject;
 
@@ -37,35 +38,35 @@ protected:
   
   bool UpdateMatrix();
 
-  virtual void UpdateTranslateMatrix(LP_MATRIX_4x4 matrix) = 0;
-  virtual void UpdateRotateMatrix(LP_MATRIX_4x4 matrix) = 0;
-  virtual void UpdateScaleMatrix(LP_MATRIX_4x4 matrix) = 0;
-  virtual void OnUpdateMatrix(LP_MATRIX_4x4 matrix) = 0;
+  virtual void UpdateTranslateMatrix(INativeMatrix* matrix) = 0;
+  virtual void UpdateRotateMatrix(INativeMatrix* matrix) = 0;
+  virtual void UpdateScaleMatrix(INativeMatrix* matrix) = 0;
+  virtual void OnUpdateMatrix(INativeMatrix* matrix) = 0;
 
   // =================================================================
   // setter/getter
   // =================================================================
 public:
 
-  inline LP_MATRIX_4x4 GetMatrix()
+  inline INativeMatrix* GetMatrix()
   {
     this->UpdateMatrix();
     return this->matrix_;
   }
 
-  inline LP_MATRIX_4x4 GetTranslateMatrix()
+  inline INativeMatrix* GetTranslateMatrix()
   {
     this->UpdateMatrix();
     return this->translate_matrix_;
   }
 
-  inline LP_MATRIX_4x4 GetRotationMatrix()
+  inline INativeMatrix* GetRotationMatrix()
   {
     this->UpdateMatrix();
     return this->rotation_matrix_;
   }
 
-  inline LP_MATRIX_4x4 GetScaleMatrix()
+  inline INativeMatrix* GetScaleMatrix()
   {
     this->UpdateMatrix();
     return this->scale_matrix_;
@@ -81,10 +82,10 @@ protected:
 private:
   GameObject* entity_;
 
-  LP_MATRIX_4x4 translate_matrix_;
-  LP_MATRIX_4x4 rotation_matrix_;
-  LP_MATRIX_4x4 scale_matrix_;
-  LP_MATRIX_4x4 matrix_;
+  INativeMatrix* translate_matrix_;
+  INativeMatrix* rotation_matrix_;
+  INativeMatrix* scale_matrix_;
+  INativeMatrix* matrix_;
 
   bool translation_dirty_;
   bool rotation_dirty_;

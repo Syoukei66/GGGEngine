@@ -33,13 +33,13 @@ public:
   T_FLOAT MoveCircularY(T_FLOAT y, const TVec3f& pos);
   T_FLOAT MoveCircularZ(T_FLOAT z, const TVec3f& pos);
 
-  void UpdateWorldMatrix(LP_MATRIX_4x4 matrix);
+  void UpdateWorldMatrix(NativeMatrixInstance* native_instance);
 
 protected:
-  virtual void UpdateTranslateMatrix(LP_MATRIX_4x4 matrix) override;
-  virtual void UpdateScaleMatrix(LP_MATRIX_4x4 matrix) override;
-  virtual void UpdateRotateMatrix(LP_MATRIX_4x4 matrix) override;
-  virtual void OnUpdateMatrix(LP_MATRIX_4x4 matrix) override;
+  virtual void UpdateTranslateMatrix(INativeMatrix* matrix) override;
+  virtual void UpdateScaleMatrix(INativeMatrix* matrix) override;
+  virtual void UpdateRotateMatrix(INativeMatrix* matrix) override;
+  virtual void OnUpdateMatrix(INativeMatrix* matrix) override;
 
   // =================================================================
   // setter/getter
@@ -103,7 +103,7 @@ public:
     return this->direction_;
   }
 
-  inline LP_MATRIX_4x4 GetWorldMatrix()
+  inline INativeMatrix* GetWorldMatrix()
   {
     return this->world_matrix_;
   }
@@ -129,5 +129,5 @@ private:
 
   TVec3f matrix_applied_position_;
 
-  LP_MATRIX_4x4 world_matrix_;
+  INativeMatrix* world_matrix_;
 };

@@ -2,7 +2,6 @@
 #define HAL_ENGINE_NATIVE_NATIVEMETHOD_H_
 
 #include "INativeProcess_Graphics.h"
-#include "INativeProcess_Matrix.h"
 #include "INativeProcess_Texture.h"
 #include "INativeProcess_Material.h"
 #include "INativeProcess_Model.h"
@@ -17,10 +16,6 @@ namespace NativeMethod
 INativeProcess_Graphics& Graphics();
 void Graphics_SetInstance(INativeProcess_Graphics* process);
 void Graphics_DeleteInstance();
-
-INativeProcess_Matrix& Matrix();
-void Matrix_SetInstance(INativeProcess_Matrix* process);
-void Matrix_DeleteInstance();
 
 INativeProcess_Texture& Texture();
 void Texture_SetInstance(INativeProcess_Texture* process);

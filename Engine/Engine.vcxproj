@@ -203,6 +203,9 @@
     <ClCompile Include="GameObject2DRenderState.cpp" />
     <ClCompile Include="GameObject3D.cpp" />
     <ClCompile Include="GameObject3DRenderState.cpp" />
+    <ClCompile Include="NativeMatrix.cpp" />
+    <ClCompile Include="NativeMatrixStack.cpp" />
+    <ClCompile Include="NativeTexture.cpp" />
     <ClCompile Include="Sprite3D.cpp" />
     <ClCompile Include="Transform3DRotator.cpp" />
     <ClCompile Include="GameObjectRenderState.cpp" />
@@ -224,8 +227,6 @@
     <ClCompile Include="MeshField.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="NativeMethod.cpp" />
-    <ClCompile Include="NativeObject.cpp" />
-    <ClCompile Include="NativeTexture.cpp" />
     <ClCompile Include="ParticleData.cpp" />
     <ClCompile Include="ParticleDataLoader.cpp" />
     <ClCompile Include="ParticleDataManager.cpp" />
@@ -345,6 +346,11 @@
     <ClInclude Include="GameObject2DRenderState.h" />
     <ClInclude Include="GameObject3D.h" />
     <ClInclude Include="GameObject3DRenderState.h" />
+    <ClInclude Include="INativeProcess_Texture.h" />
+    <ClInclude Include="NativeMatrix.h" />
+    <ClInclude Include="NativeObjectFactory.h" />
+    <ClInclude Include="NativeMatrixStack.h" />
+    <ClInclude Include="NativeObject.h" />
     <ClInclude Include="Sprite3D.h" />
     <ClInclude Include="Transform3DRotator.h" />
     <ClInclude Include="GameObjectRenderState.h" />
@@ -359,7 +365,6 @@
     <ClInclude Include="InputDevice.h" />
     <ClInclude Include="INativeProcess_IO.h" />
     <ClInclude Include="INativeProcess_Graphics.h" />
-    <ClInclude Include="INativeProcess_Matrix.h" />
     <ClInclude Include="InputDeviceManager.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="InputSetting.h" />
@@ -378,7 +383,6 @@
     <ClInclude Include="ModelData.h" />
     <ClInclude Include="ModelDataManager.h" />
     <ClInclude Include="NativeMethod.h" />
-    <ClInclude Include="NativeObject.h" />
     <ClInclude Include="NativeTexture.h" />
     <ClInclude Include="ParticleData.h" />
     <ClInclude Include="ParticleDataLoader.h" />
@@ -444,7 +448,6 @@
     <ClInclude Include="StaticTexturePalette.h" />
     <ClInclude Include="TextureAtlas.h" />
     <ClInclude Include="PoolAllocator.h" />
-    <ClInclude Include="INativeProcess_Texture.h" />
     <ClInclude Include="TextureAtlasLoader.h" />
     <ClInclude Include="TexturePaletteManager.h" />
     <ClInclude Include="Transform.h" />

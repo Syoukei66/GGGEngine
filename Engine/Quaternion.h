@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Geometry.h"
+#include "NativeMatrix.h"
 
 struct Quaternion
 {
@@ -40,8 +41,8 @@ public:
   // Methods
   // =================================================================
   void q(const TVec3f& v, T_FLOAT rad);
-  void FromRotationMatrix(LP_MATRIX_4x4 mat);
-  void ToRotationMatrix(LP_MATRIX_4x4 dest);
+  void FromRotationMatrix(const INativeMatrix& mat);
+  void ToRotationMatrix(INativeMatrix* dest);
 
   T_FLOAT ScalarSquare() const;
   T_FLOAT Scalar() const;

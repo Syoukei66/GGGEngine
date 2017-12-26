@@ -50,37 +50,3 @@ void NativeProcess_Texture::TexturePalette_Unload(ITexturePalette* ipalette) con
   TexturePalette* palette = (TexturePalette*)ipalette;
   palette->Unload();
 }
-
-LP_NATIVE_INSTANCE NativeProcess_Texture::Texture_Load(const char* path) const
-{
-  LP_DEVICE device = Director::GetInstance()->GetDevice();
-  LPDIRECT3DTEXTURE9 dest = nullptr;
-  HRESULT hr = D3DXCreateTextureFromFile(
-    (LPDIRECT3DDEVICE9)device,
-    path,
-    &dest);
-
-  if (FAILED(hr))
-  {
-    MessageBox(NULL, "テクスチャのロードに失敗しました", "お知らせ", MB_OK);
-  }
-  return (LP_NATIVE_INSTANCE)dest;
-}
-
-void NativeProcess_Texture::Texture_Unload(LP_NATIVE_INSTANCE texture) const
-{
-  LPDIRECT3DTEXTURE9 tex = (LPDIRECT3DTEXTURE9)texture;
-  if (tex)
-  {
-    tex->Release();
-  }
-}
-
-void NativeProcess_Texture::Texture_GetSize(LP_NATIVE_INSTANCE texture, TSize* size) const
-{
-  D3DSURFACE_DESC desc;
-  LPDIRECT3DTEXTURE9 tex = (LPDIRECT3DTEXTURE9)texture;
-  tex->GetLevelDesc(0, &desc);
-  size->width = desc.Width;
-  size->height = desc.Height;
-}

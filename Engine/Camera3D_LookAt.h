@@ -18,7 +18,7 @@ public:
 protected:
   void CheckViewDirty();
   virtual void OnViewDirty() {}
-  virtual LP_MATRIX_4x4 GetViewMatrix() override;
+  virtual INativeMatrix* GetViewMatrix() override;
 
   // =================================================================
   // Methods
@@ -120,8 +120,8 @@ public:
 private:
   GameObject3D* entity_;
 
-  LP_MATRIX_4x4 view_matrix_;
-  LP_MATRIX_4x4 inv_;
+  INativeMatrix* view_matrix_;
+  INativeMatrix* inv_;
 
   TVec3f look_at_pos_;
   TVec3f current_look_at_pos_;

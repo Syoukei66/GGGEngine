@@ -1,8 +1,8 @@
 #include "GameObjectRenderState.h"
 #include "GameObject.h"
 
-#include "NativeMethod.h"
 #include "Director.h"
+#include "NativeMethod.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -10,12 +10,12 @@
 GameObjectRenderState::GameObjectRenderState()
   : layer_state_(0)
 {
-  this->matrix_stack_ = NativeMethod::Matrix().Matrix4x4Stack_Create();
+  this->matrix_stack_ = INativeMatrixStack::Create();
 }
 
 GameObjectRenderState::~GameObjectRenderState()
 {
-  NativeMethod::Matrix().Matrix4x4Stack_Delete(this->matrix_stack_);
+  delete this->matrix_stack_;
 }
 
 // =================================================================
@@ -27,15 +27,15 @@ void GameObjectRenderState::Init()
   this->SetBlendMode(BlendFunction::BL_NOBLEND, BlendFunction::BL_NOBLEND, true);
 }
 
-void GameObjectRenderState::PushMatrix(LP_MATRIX_4x4 matrix)
+void GameObjectRenderState::PushMatrix(INativeMatrix* matrix)
 {
-  NativeMethod::Matrix().Matrix4x4Stack_Push(this->matrix_stack_, matrix);
-  NativeMethod::Matrix().Matrix4x4Stack_Apply(this->render_object_, this->matrix_stack_);
+  this->matrix_stack_->Push(matrix->GetNativeInstance());
+  NativeMethod::Graphics().Graphics_SetTransformWorld(this->matrix_stack_->GetTop());
 }
 
 void GameObjectRenderState::PopMatrix()
 {
-  NativeMethod::Matrix().Matrix4x4Stack_Pop(this->matrix_stack_);
+  this->matrix_stack_->Pop();
 }
 
 // =================================================================

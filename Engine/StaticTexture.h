@@ -9,7 +9,7 @@ class StaticTexture : public ITexture
   // =================================================================
 public:
   //texture‚Ì‰ð•ú‚Ís‚¢‚Ü‚¹‚ñ
-  StaticTexture(NativeTexture* native_texture);
+  StaticTexture(INativeTexture* native_texture);
 
   // =================================================================
   // Setter / Getter
@@ -20,21 +20,27 @@ public:
     return this->native_texture_;
   }
 
-  inline const NativeTexture* GetNativeTexture() const override
+  inline const INativeTexture* GetNativeTexture() const override
   {
     return this->native_texture_;
   }
 
-  inline const TSize& GetSize() const override
+  inline T_UINT16 GetWidth() const override
   {
-    return this->size_;
+    return this->native_texture_->GetWidth();
   }
+
+  inline T_UINT16 GetHeight() const override
+  {
+    return this->native_texture_->GetHeight();
+  }
+
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
-  NativeTexture* native_texture_;
+  INativeTexture* native_texture_;
   TSize size_;
 
 };

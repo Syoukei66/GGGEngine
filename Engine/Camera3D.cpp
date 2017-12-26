@@ -14,7 +14,7 @@ Camera3D::Camera3D(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT 
   , projection_dirty_(true)
   , direction_(0.0f, 0.0f, 1.0f)
 {
-  this->projection_matrix_ = NativeMethod::Matrix().Matrix4x4_Create();
+  this->projection_matrix_ = INativeMatrix::Create();
   this->render_state_ = new GameObject3DRenderState(this);
 }
 
@@ -26,16 +26,13 @@ Camera3D::Camera3D()
   , projection_dirty_(true)
   , direction_(0.0f, 0.0f, 1.0f)
 {
-  this->projection_matrix_ = NativeMethod::Matrix().Matrix4x4_Create();
+  this->projection_matrix_ = INativeMatrix::Create();
   this->render_state_ = new GameObject3DRenderState(this);
 }
 
 Camera3D::~Camera3D()
 {
-  if (this->projection_matrix_)
-  {
-    NativeMethod::Matrix().Matrix4x4_Delete(this->projection_matrix_);
-  }
+  delete this->projection_matrix_;
   delete this->render_state_;
 }
 
@@ -50,12 +47,12 @@ void Camera3D::DrawScene(Scene* scene)
   this->render_state_->DrawZOrderedGameObject();
 }
 
-LP_MATRIX_4x4 Camera3D::GetViewMatrix()
+const INativeMatrix* Camera3D::GetViewMatrix()
 {
-  return NativeMethod::Matrix().Matrix4x4_GetIdentity();
+  return &INativeMatrix::Identity();
 }
 
-LP_MATRIX_4x4 Camera3D::GetProjectionMatrix()
+const INativeMatrix* Camera3D::GetProjectionMatrix()
 {
   this->CheckProjectionDirty();
   return this->projection_matrix_;
@@ -76,8 +73,7 @@ void Camera3D::CheckProjectionDirty()
     return;
   }
   this->OnProjectionChanged();
-  NativeMethod::Matrix().Matrix4x4_PerspectiveFovLH(
-    this->projection_matrix_,
+  this->projection_matrix_->PerspectiveFovLH(
     MathConstants::PI / this->fov_,
     this->GetViewportWidth() / this->GetViewportHeight(),
     this->z_near_,
