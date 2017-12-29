@@ -26,7 +26,19 @@ void DirectXInputDevice_XInput::InputProcess(T_UINT8 handler, EngineInputState* 
   DWORD dw_result;
   XINPUT_STATE xstate;
   ZeroMemory(&xstate, sizeof(XINPUT_STATE));
-  dw_result = XInputGetState(this->user_index_, &xstate);
+  T_INT8 success_count = -1;
+  for (T_UINT8 i = 0; i < 4; ++i)
+  {
+    dw_result = XInputGetState(i, &xstate);
+    if (dw_result == ERROR_SUCCESS)
+    {
+      ++success_count;
+      if (success_count >= this->user_index_)
+      {
+        break;
+      }
+    }
+  }
   if (dw_result != ERROR_SUCCESS)
   {
     return;
