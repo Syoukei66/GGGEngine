@@ -35,7 +35,9 @@ public:
   void Load(IResourceLoadingListener* listener);
   void Unload();
   void Show(ISceneShowListener* listener);
+  void ShowFinish();
   void Hide(ISceneHideListener* listener);
+  void HideFinish();
 
   void Draw();
   void Draw2DLayers(GameObject2DRenderState* state);
@@ -74,7 +76,9 @@ protected:
   virtual void OnSetup() = 0;
   virtual void OnUnload() = 0;
   virtual void OnShow(ISceneShowListener* listener) = 0;
+  virtual void OnShowFinish() {}
   virtual void OnHide(ISceneHideListener* listener) = 0;
+  virtual void OnHideFinish() {}
 
   // =================================================================
   // Setter / Getter

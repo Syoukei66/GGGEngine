@@ -53,6 +53,11 @@ void Scene::Show(ISceneShowListener* listener)
   }
 }
 
+void Scene::ShowFinish()
+{
+  this->OnShowFinish();
+}
+
 void Scene::Hide(ISceneHideListener* listener)
 {
   this->OnHide(listener);
@@ -60,6 +65,11 @@ void Scene::Hide(ISceneHideListener* listener)
   {
     listener->OnHideFinish();
   }
+}
+
+void Scene::HideFinish()
+{
+  this->OnHideFinish();
 }
 
 void Scene::Draw()
