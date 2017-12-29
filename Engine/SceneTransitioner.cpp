@@ -59,6 +59,10 @@ Scene* SceneTransitioner::Transition()
 
 void SceneTransitioner::OnShowFinish()
 {
+  if (this->now_scene_)
+  {
+    this->now_scene_->ShowFinish();
+  }
   this->state_ = SCENE_TRANSITION_NONE;
 }
 
@@ -66,6 +70,7 @@ void SceneTransitioner::OnHideFinish()
 {
   if (this->now_scene_)
   {
+    this->now_scene_->HideFinish();
     this->now_scene_->Unload();
     delete this->now_scene_;
   }
@@ -86,6 +91,10 @@ void SceneTransitioner::OnHideFinish()
 
 void SceneTransitioner::SetNextScene(Scene* scene)
 {
+  if (this->now_scene_ == scene)
+  {
+    return;
+  }
   this->state_ = SCENE_TRANSITION_ON_HIDE;
   this->next_scene_ = scene;
 }
