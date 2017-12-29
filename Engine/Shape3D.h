@@ -22,6 +22,7 @@ public:
   // =================================================================
   // Setter / Getter
   // =================================================================
+public:
   inline void SetTexture(const ITexture* texture) 
   {
     this->texture_ = texture;
