@@ -39,14 +39,6 @@ Camera3D::~Camera3D()
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
-void Camera3D::DrawScene(Scene* scene)
-{
-  this->SetupCamera();
-  this->render_state_->Init();
-  scene->Draw3DLayers(this->render_state_);
-  this->render_state_->DrawZOrderedGameObject();
-}
-
 const INativeMatrix* Camera3D::GetViewMatrix()
 {
   return &INativeMatrix::Identity();
@@ -56,6 +48,13 @@ const INativeMatrix* Camera3D::GetProjectionMatrix()
 {
   this->CheckProjectionDirty();
   return this->projection_matrix_;
+}
+
+void Camera3D::OnDrawScene(Scene* scene)
+{
+  this->render_state_->Init();
+  scene->Draw3DLayers(this->render_state_);
+  this->render_state_->DrawZOrderedGameObject();
 }
 
 void Camera3D::OnViewportDirty()

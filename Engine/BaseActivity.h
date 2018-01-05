@@ -41,7 +41,6 @@ protected:
   virtual bool ContinueEnabled() = 0;
   virtual bool PreDraw() = 0;
   virtual void PostDraw() = 0;
-  virtual void DrawToScreen() = 0;
   virtual void InputProcess(EngineInputState* state) = 0;
   bool Update();
   

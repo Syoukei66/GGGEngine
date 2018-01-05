@@ -23,6 +23,13 @@ Camera::Camera()
 // =================================================================
 // Method
 // =================================================================
+void Camera::DrawScene(Scene* scene)
+{
+  this->SetupCamera();
+  NativeMethod::Graphics().Graphics_Clear();
+  this->OnDrawScene(scene);
+}
+
 void Camera::SetupCamera()
 {
   this->CheckViewportDirty();
