@@ -184,7 +184,8 @@
     <ClCompile Include="Camera3D.cpp" />
     <ClCompile Include="Camera3D_LookAt.cpp" />
     <ClCompile Include="Camera3D_Transformed.cpp" />
-    <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Collider3D.cpp" />
+    <ClCompile Include="Collision2D.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="CSVTokenizer.cpp" />
     <ClCompile Include="Cube3D.cpp" />
@@ -319,6 +320,7 @@
     <ClInclude Include="Camera3D.h" />
     <ClInclude Include="Camera3D_LookAt.h" />
     <ClInclude Include="Camera3D_Transformed.h" />
+    <ClInclude Include="Collider3D.h" />
     <ClInclude Include="Cube3D.h" />
     <ClInclude Include="EngineAttachmentLoader.h" />
     <ClInclude Include="AttachmentVertexes.h" />

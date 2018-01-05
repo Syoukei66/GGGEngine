@@ -24,10 +24,13 @@ public:
 
   inline bool IsEnabled() const
   {
-    return this->is_enabled_;
+    return this->enabled_;
   }
 
+  // =================================================================
+  // Data Member
+  // =================================================================
 private:
-  bool is_enabled_;
+  bool enabled_;
 
 };
