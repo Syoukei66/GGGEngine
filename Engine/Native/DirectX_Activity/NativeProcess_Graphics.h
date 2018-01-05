@@ -12,6 +12,8 @@ class NativeProcess_Graphics : public INativeProcess_Graphics
 public:
   virtual void Graphics_Cheat(T_UINT16 cheat_id) override;
 
+  virtual void Graphics_Clear() override;
+
   virtual void Graphics_SetTransformView(NativeMatrixInstance* mat) override;
   virtual void Graphics_SetTransformProjection(NativeMatrixInstance* mat) override;
   virtual void Graphics_SetTransformWorld(NativeMatrixInstance* mat) override;

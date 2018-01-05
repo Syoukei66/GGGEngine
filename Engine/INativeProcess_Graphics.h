@@ -40,6 +40,8 @@ public:
 public:
   virtual void Graphics_Cheat(T_UINT16 cheat_id) = 0;
 
+  virtual void Graphics_Clear() = 0;
+
   virtual void Graphics_SetTransformView(NativeMatrixInstance* mat) = 0;
   virtual void Graphics_SetTransformProjection(NativeMatrixInstance* mat) = 0;
   virtual void Graphics_SetTransformWorld(NativeMatrixInstance* mat) = 0;

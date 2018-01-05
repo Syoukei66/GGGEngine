@@ -45,9 +45,19 @@ Camera2D::~Camera2D()
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
-void Camera2D::DrawScene(Scene* scene)
+const INativeMatrix* Camera2D::GetViewMatrix()
 {
-  this->SetupCamera();
+  return &INativeMatrix::Identity();
+}
+
+const INativeMatrix* Camera2D::GetProjectionMatrix()
+{
+  this->CheckViewportDirty();
+  return this->projection_matrix_;
+}
+
+void Camera2D::OnDrawScene(Scene* scene)
+{
   this->render_state_->Init();
   scene->Draw2DLayers(this->render_state_);
 }
@@ -62,13 +72,3 @@ void Camera2D::OnViewportDirty()
   );
 }
 
-const INativeMatrix* Camera2D::GetViewMatrix()
-{
-  return &INativeMatrix::Identity();
-}
-
-const INativeMatrix* Camera2D::GetProjectionMatrix()
-{
-  this->CheckViewportDirty();
-  return this->projection_matrix_;
-}

@@ -18,7 +18,7 @@ public:
   // Methods for/from SuperClass/Interfaces
   // =================================================================
 public:
-  virtual void DrawScene(Scene* scene) override;
+  virtual void OnDrawScene(Scene* scene) override;
 
 protected:
   virtual void OnViewportDirty() override;

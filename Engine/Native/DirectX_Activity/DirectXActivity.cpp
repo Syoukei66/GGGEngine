@@ -268,12 +268,6 @@ bool DirectXActivity::ContinueEnabled()
 
 bool DirectXActivity::PreDraw()
 {
-  this->d3d_device_->Clear(
-    0, NULL,
-    (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER),
-    D3DCOLOR_RGBA(0, 0, 0, 0),
-    1.0f, 0
-  );
   if (SUCCEEDED(this->d3d_device_->BeginScene()))
   {
     return true;
@@ -283,21 +277,26 @@ bool DirectXActivity::PreDraw()
 
 void DirectXActivity::PostDraw()
 {
-  this->d3d_device_->EndScene();
-}
+#ifdef _DEBUG  
+  D3DVIEWPORT9 viewport;
+  viewport.X = 0;
+  viewport.Y = 0;
+  viewport.Width = (DWORD)Director::GetInstance()->GetScreenWidth();
+  viewport.Height = (DWORD)Director::GetInstance()->GetScreenHeight();
+  viewport.MinZ = 0.0f;
+  viewport.MaxZ = 1.0f;
+  this->d3d_device_->SetViewport(&viewport);
 
-void DirectXActivity::DrawToScreen()
-{
-#ifdef _DEBUG
   const T_UINT8 edge = 2;
   const std::string debug_text = std::to_string(NativeMethod::Time().FPS_GetValue());
   this->DrawFPS(debug_text.c_str(), -edge, -edge, 0xFF000000);
-  this->DrawFPS(debug_text.c_str(),  edge, -edge, 0xFF000000);
-  this->DrawFPS(debug_text.c_str(), -edge,  edge, 0xFF000000);
-  this->DrawFPS(debug_text.c_str(),  edge,  edge, 0xFF000000);
+  this->DrawFPS(debug_text.c_str(), edge, -edge, 0xFF000000);
+  this->DrawFPS(debug_text.c_str(), -edge, edge, 0xFF000000);
+  this->DrawFPS(debug_text.c_str(), edge, edge, 0xFF000000);
   this->DrawFPS(debug_text.c_str(), 0, 0, 0xFFFFFFFF);
-
 #endif
+
+  this->d3d_device_->EndScene();
   this->d3d_device_->Present(NULL, NULL, NULL, NULL);
 }
 

@@ -76,9 +76,19 @@ static int PRIMITIVE_SURF_NUM(INativeProcess_Graphics::PrimitiveType type, int n
 
 void NativeProcess_Graphics::Graphics_Cheat(T_UINT16 cheat_id)
 {
-  const LPDIRECT3DDEVICE9 pDevice = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
+  const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
 
-  
+}
+
+void NativeProcess_Graphics::Graphics_Clear()
+{
+  const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
+  device->Clear(
+    0, NULL,
+    (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER),
+    D3DCOLOR_RGBA(0, 0, 0, 0),
+    1.0f, 0
+  );
 }
 
 void NativeProcess_Graphics::Graphics_SetTransformView(NativeMatrixInstance* mat)

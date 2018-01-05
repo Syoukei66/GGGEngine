@@ -33,7 +33,6 @@ protected:
   virtual bool ContinueEnabled() override;
   virtual bool PreDraw() override;
   virtual void PostDraw() override;
-  virtual void DrawToScreen() override;
   virtual void InputProcess(EngineInputState* state) override;
 
 private:

@@ -109,7 +109,6 @@ bool BaseActivity::Update()
       this->engine_->OnDraw();
       this->PostDraw();
     }
-    this->DrawToScreen();
   }
 
 #ifdef _DEBUG

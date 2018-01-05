@@ -20,14 +20,14 @@ public:
   // Method
   // =================================================================
 public:
-  virtual void DrawScene(Scene* scene) = 0;
-
+  void DrawScene(Scene* scene);
   virtual const INativeMatrix* GetViewMatrix() = 0;
   virtual const INativeMatrix* GetProjectionMatrix() = 0;
 
 protected:
   void SetupCamera();
   void CheckViewportDirty();
+  virtual void OnDrawScene(Scene* scene) = 0;
   virtual void OnViewportDirty() = 0;
 
 private:
