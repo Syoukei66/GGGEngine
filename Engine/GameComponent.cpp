@@ -4,7 +4,7 @@
 // Constructor / Destructor
 // =================================================================
 GameComponent::GameComponent()
-  : is_enabled_(false)
+  : enabled_(false)
 {
 }
 
@@ -13,9 +13,9 @@ GameComponent::GameComponent()
 // =================================================================
 void GameComponent::SetEnabled(bool enabled)
 {
-  if (this->is_enabled_ == enabled)
+  if (this->enabled_ == enabled)
   {
     return;
   }
-  this->is_enabled_ = enabled;
+  this->enabled_ = enabled;
 }
