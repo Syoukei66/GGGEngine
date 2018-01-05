@@ -39,6 +39,24 @@ namespace Util
     return min + (T_UINT32)(((T_DOUBLE)rand() / (RAND_MAX + 1)) * (T_DOUBLE)(max - min));
   }
 
+  inline T_FLOAT GetRandom(T_FLOAT min, T_FLOAT max)
+  {
+    if (!RANDOM_INITIALIZED)
+    {
+      RandomInit();
+    }
+    return min + (T_FLOAT)(((T_DOUBLE)rand() / (RAND_MAX + 1)) * (T_DOUBLE)(max - min));
+  }
+
+  inline T_DOUBLE GetRandom(T_DOUBLE min, T_DOUBLE max)
+  {
+    if (!RANDOM_INITIALIZED)
+    {
+      RandomInit();
+    }
+    return min + (T_DOUBLE)(((T_DOUBLE)rand() / (RAND_MAX + 1)) * (T_DOUBLE)(max - min));
+  }
+
   inline T_UINT32 GetRandom(T_UINT32 max)
   {
     return GetRandom(0, max);
