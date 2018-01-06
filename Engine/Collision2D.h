@@ -5,7 +5,7 @@
 
 //Collider A_B‚Å”»’è‚ğs‚¤
 //Collider A_B‚ÆB_A‚Ìˆ—“à—e‚Í•Ï‚í‚ç‚È‚¢
-namespace Collision
+namespace Collision2D
 {
 bool Point_Point(IPointCollider2D& a, IPointCollider2D& b);
 bool Point_Line(IPointCollider2D& a, ILineCollider2D& b);

@@ -1202,5 +1202,8 @@
     <ClInclude Include="Collider3D.h">
       <Filter>ヘッダー ファイル\Component\Collision\3D</Filter>
     </ClInclude>
+    <ClInclude Include="Collision3D.h">
+      <Filter>ヘッダー ファイル\Component\Collision\3D</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
