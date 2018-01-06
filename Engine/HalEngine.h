@@ -18,8 +18,12 @@
       #include "Camera3D_LookAt.h"
       #include "Camera3D_Transformed.h"
 //--Collision
-    #include "Collider2D.h"
-    #include "Collision2D.h"
+//----2D
+      #include "Collider2D.h"
+      #include "Collision2D.h"
+//----3D
+      #include "Collider3D.h"
+      #include "Collision3D.h"
 //--GameObject
     #include "GameObject.h"
     #include "GameObjectRenderState.h"

@@ -6,17 +6,27 @@
 // =================================================================
 Collider3D::Collider3D(GameObject3D* entity)
   : entity_(entity)
+  , offset_(0.0f, 0.0f, 0.0f)
 {
 }
 
+Collider3D::Collider3D(GameObject3D* entity, const TVec3f& offset)
+  : entity_(entity)
+  , offset_(offset)
+{
+}
+
+// =================================================================
+// Methods
+// =================================================================
 void Collider3D::Prepare()
 {
-  this->position_ = this->entity_->GetTransform()->GetWorldPosition();
+  this->position_ = this->offset_ + this->entity_->GetTransform()->GetWorldPosition();
 }
 
 bool Collider3D::RoughCheck(const Collider3D& other)
 {
-  return Collision::Sphare_Sphare(
+  return Collision3D::Sphare_Sphare(
     this->GetPosition(),
     this->GetBoundRadius(),
     other.GetPosition(),
@@ -36,7 +46,7 @@ bool Collider3D_Sphare::Collision(Collider3D_Sphare& other)
 {
   this->Prepare();
   other.Prepare();
-  return Collision::Sphare_Sphare(
+  return Collision3D::Sphare_Sphare(
     this->GetPosition(),
     this->GetBoundRadius(),
     other.GetPosition(),

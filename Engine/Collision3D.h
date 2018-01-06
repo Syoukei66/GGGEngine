@@ -2,7 +2,7 @@
 
 #include "Geometry.h"
 
-namespace Collision
+namespace Collision3D
 {
 
 inline bool Sphare_Sphare(const TVec3f& ap, T_FLOAT ar, const TVec3f& bp, T_FLOAT br)

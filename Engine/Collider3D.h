@@ -14,6 +14,7 @@ class Collider3D : public GameComponent
   // =================================================================
 public:
   Collider3D(GameObject3D* entity);
+  Collider3D(GameObject3D* entity, const TVec3f& offset);
 
   // =================================================================
   // Methods
@@ -34,10 +35,19 @@ public:
   {
     return this->position_;
   }
+  inline void SetOffset(const TVec3f& offset)
+  {
+    this->offset_ = offset;
+  }
+  inline const TVec3f& GetOffset() const
+  {
+    return this->offset_;
+  }
   virtual T_FLOAT GetBoundRadius() const = 0;
 
 protected:
   GameObject3D* entity_;
+  TVec3f offset_;
   TVec3f position_;
 
 };
