@@ -5,9 +5,9 @@ InputState::InputState(T_UINT8 player_id, const InputSetting& setting)
   : player_id_(player_id)
   , entities_()
 {
-  for (std::deque<InputEntity>::const_iterator itr = setting.entities_.begin(); itr != setting.entities_.end(); ++itr)
+  for (InputEntity entity : setting.entities_)
   {
-    this->entities_[(*itr).input_id] = (*itr);
+    this->entities_[entity.input_id] = entity;
   }
 }
 

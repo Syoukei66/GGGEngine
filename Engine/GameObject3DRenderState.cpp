@@ -31,25 +31,24 @@ void GameObject3DRenderState::AddZCheckOrder(GameObject3D* object)
   TVec4f pos = TVec4f(0.0f, 0.0f, 0.0f, 1.0f);
   this->mat_->Apply(&pos);
 
-  PostDrawParam* param = new PostDrawParam();
-  param->object = object;
-  param->distance = pos.z / pos.w;
+  PostDrawParam param = PostDrawParam();
+  param.object = object;
+  param.distance = pos.z / pos.w;
   this->post_draw_list_.push_back(param);
 }
 
 void GameObject3DRenderState::DrawZOrderedGameObject()
 {
   this->camera_->GetDirection();
-  std::sort(this->post_draw_list_.begin(), this->post_draw_list_.end(), [](PostDrawParam* a, PostDrawParam* b) {
-    return a->distance > b->distance;
+  std::sort(this->post_draw_list_.begin(), this->post_draw_list_.end(), [](const PostDrawParam& a, const PostDrawParam& b) {
+    return a.distance > b.distance;
   });
-  for (std::vector<PostDrawParam*>::iterator itr = this->post_draw_list_.begin(); itr != this->post_draw_list_.end();)
+  for (PostDrawParam param : this->post_draw_list_)
   {
-    this->PushMatrix((*itr)->object->GetTransform()->GetWorldMatrix());
-    (*itr)->object->ApplyBlendMode(this);
-    (*itr)->object->NativeDraw(this);
+    this->PushMatrix(param.object->GetTransform()->GetWorldMatrix());
+    param.object->ApplyBlendMode(this);
+    param.object->NativeDraw(this);
     this->PopMatrix();
-    delete (*itr);
-    itr = this->post_draw_list_.erase(itr);
   }
+  this->post_draw_list_.clear();
 }

@@ -23,9 +23,11 @@ public:
 
   void InputProcess(EngineInputState* state)
   {
-    for (typename std::list<T*>::iterator it = this->begin(); it != this->end(); ++it)
+    //for (typename std::list<T*>::iterator it = this->begin(); it != this->end(); ++it)
+    //{
+    //  T* device = (*it);   
+    for (T* device : this->devices_)
     {
-      T* device = (*it);
       device->InputProcess(device->GetHandler(), state);
     }
   }

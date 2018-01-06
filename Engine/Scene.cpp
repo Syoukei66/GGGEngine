@@ -74,7 +74,10 @@ void Scene::HideFinish()
 
 void Scene::Draw()
 {
-  for (std::vector<Camera*>::iterator itr = this->cameras_.begin(); itr != this->cameras_.end(); ++itr)
+  //for (Camera* camera : this->cameras_)
+  //{
+  //  camera->DrawScene(this);
+  for (std::vector<Camera*>::iterator itr = this->cameras_.begin(), v_end = this->cameras_.end(); itr != v_end; ++itr)
   {
     (*itr)->DrawScene(this);
   }
