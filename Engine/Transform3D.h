@@ -82,6 +82,10 @@ public:
   {
     return this->scale_;
   }
+  inline T_FLOAT GetScaleMax() const
+  {
+    return this->scale_max_;
+  }
   void SetScaleX(T_FLOAT scale_x);
   inline T_FLOAT GetScaleX() const
   {
@@ -123,6 +127,7 @@ private:
 
   TVec3f position_;
   TVec3f scale_;
+  T_FLOAT scale_max_;
   Transform3DRotator* rotator_;
 
   TVec3f world_position_;
