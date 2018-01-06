@@ -36,7 +36,7 @@ bool Collider3D_Sphare::Collision(Collider3D_Sphare& other)
 {
   this->Prepare();
   other.Prepare();
-  Collision::Sphare_Sphare(
+  return Collision::Sphare_Sphare(
     this->GetPosition(),
     this->GetBoundRadius(),
     other.GetPosition(),
