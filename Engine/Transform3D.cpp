@@ -1,4 +1,6 @@
 #include "Transform3D.h"
+#include <algorithm> 
+
 #include "GameObject3D.h"
 #include "MathConstants.h"
 
@@ -11,6 +13,7 @@ Transform3D::Transform3D(GameObject3D* entity)
   , direction_()
   , position_()
   , scale_()
+  , scale_max_(1.0f)
   , world_position_()
   , matrix_applied_position_()
 {
@@ -245,6 +248,7 @@ void Transform3D::SetScale(const TVec3f& scale)
     return;
   }
   this->scale_ = scale;
+  this->scale_max_ = std::max(scale.x, std::max(scale.y, std::max(scale.z, this->scale_max_)));
   this->OnScaleChanged();
 }
 
@@ -261,6 +265,7 @@ void Transform3D::SetScale(T_FLOAT scale)
   this->scale_.x = scale;
   this->scale_.y = scale;
   this->scale_.z = scale;
+  this->scale_max_ = std::max(scale, this->scale_max_);
   this->OnScaleChanged();
 }
 
@@ -277,6 +282,7 @@ void Transform3D::SetScale(T_FLOAT scale_x, T_FLOAT scale_y, T_FLOAT scale_z)
   this->scale_.x = scale_x;
   this->scale_.y = scale_y;
   this->scale_.z = scale_z;
+  this->scale_max_ = std::max(scale_x, std::max(scale_y, std::max(scale_z, this->scale_max_)));
   this->OnScaleChanged();
 }
 
@@ -287,6 +293,7 @@ void Transform3D::SetScaleX(T_FLOAT scale_x)
     return;
   }
   this->scale_.x = scale_x;
+  this->scale_max_ = std::max(scale_x, this->scale_max_);
   this->OnScaleChanged();
 }
 
@@ -297,6 +304,7 @@ void Transform3D::SetScaleY(T_FLOAT scale_y)
     return;
   }
   this->scale_.y = scale_y;
+  this->scale_max_ = std::max(scale_y, this->scale_max_);
   this->OnScaleChanged();
 }
 
@@ -307,5 +315,6 @@ void Transform3D::SetScaleZ(T_FLOAT scale_z)
     return;
   }
   this->scale_.z = scale_z;
+  this->scale_max_ = std::max(scale_z, this->scale_max_);
   this->OnScaleChanged();
 }

@@ -51,5 +51,5 @@ bool Collider3D_Sphare::Collision(Collider3D_Sphare& other)
 
 T_FLOAT Collider3D_Sphare::GetBoundRadius() const
 {
-  return this->radius_;
+  return this->radius_ * this->entity_->GetTransform()->GetScaleMax();
 }
