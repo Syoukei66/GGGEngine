@@ -11,7 +11,7 @@ inline bool Sphare_Sphare(const TVec3f& ap, T_FLOAT ar, const TVec3f& bp, T_FLOA
   const T_FLOAT dy = ap.y - bp.y;
   const T_FLOAT dz = ap.z - bp.z;
   const T_FLOAT r = ar + br;
-  return dx * dx + dy * dy * dz * dz <= r * r;
+  return dx * dx + dy * dy + dz * dz <= r * r;
 }
 
 
