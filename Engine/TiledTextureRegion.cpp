@@ -1,7 +1,7 @@
 #include "TiledTextureRegion.h"
 #include "Util.h"
 #include "Director.h"
-#include "HalEngine.h"
+#include "Moniker.h"
 
 // =================================================================
 // Factory Method

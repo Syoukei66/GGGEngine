@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Moniker.h"
+
 //Activity
   #include "BaseActivity.h"
 
@@ -104,7 +106,6 @@
   #include "INativeProcess_Graphics.h"
   #include "INativeProcess_IO.h"
   #include "INativeProcess_Material.h"
-  #include "INativeProcess_Model.h"
   #include "INativeProcess_Texture.h"
   #include "INativeProcess_Time.h"
   #include "NativeMethod.h"
@@ -112,6 +113,7 @@
 //--Objects
     #include "NativeMatrix.h"
     #include "NativeMatrixStack.h"
+    #include "NativeModel.h"
     #include "NativeObject.h"
     #include "NativeObjectFactory.h"
     #include "NativeTexture.h"
@@ -178,59 +180,3 @@
     #include "EasingFunctionManager.h"
 //--Singleton
     #include "Singleton.h"
-
-namespace HalEngine
-{
-
-inline InputState* Input(T_UINT8 player_id)
-{
-  return InputManager::GetInstance()->GetState(player_id);
-}
-
-namespace Time
-{
-//–ß‚è’l‚Í•b
-inline T_FLOAT DeltaTime()
-{
-  return UpdateEventState::GetInstance()->GetDeltaTime() / 1000.0f;
-}
-
-//–ß‚è’l‚Í•b
-inline T_FLOAT ElapsedTimeSinceSceneCreate()
-{
-  return UpdateEventState::GetInstance()->GetMillisecondsElapsedSinceSceneCreate() / 1000.0f;
-}
-
-inline T_UINT32 ElapsedFrameSinceSceneCreate()
-{
-  return UpdateEventState::GetInstance()->GetFrameElapsedSinceSceneCreate();
-}
-
-}
-
-namespace Resource
-{
-
-inline ITexture* GetTexture(T_UINT8 pid, T_UINT16 tid)
-{
-  return ResourceManager::GetInstance()->GetTexturePaletteManager()->Get(pid)->GetTexture(tid);
-}
-
-inline const Texture* GetTexture(const char* path)
-{
-  return ResourceManager::GetInstance()->GetTexturePaletteManager()->DynamicLoad(path);
-}
-
-inline const ParticleData* GetParticleData(T_UINT8 id)
-{
-  return ResourceManager::GetInstance()->GetParticleDataManager()->GetData(id);
-}
-
-inline EntityModifierManager* GetEntityModifierManager()
-{
-  return ResourceManager::GetInstance()->GetEntityModifierManager();
-}
-
-}
-
-}

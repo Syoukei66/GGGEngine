@@ -1,7 +1,7 @@
 #include "Sprite3D.h"
 #include "TextureRegion.h"
-#include "HalEngine.h"
 #include "GameObject3DRenderState.h"
+#include "Moniker.h"
 
 Sprite3D* Sprite3D::CreateFromAsset(T_UINT8 palette_id, T_UINT16 texture_id)
 {

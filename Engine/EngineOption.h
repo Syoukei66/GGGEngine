@@ -7,6 +7,7 @@
 #include "EntityModifierManager.h"
 #include "ParticleDataManager.h"
 #include "SpineDataManager.h"
+#include "ModelDataManager.h"
 #include "InputSetting.h"
 
 class AssetPath
@@ -16,18 +17,21 @@ public:
     : root("")
     , texture("")
     , particle("")
+    , model("")
   {}
 
 public:
   void GetTexturePath(const char* path, char* dest) const;
   void GetParticlePath(const char* path, char* dest) const;
   void GetSpinePath(const char* path, char* dest) const;
+  void GetModelPath(const char* path, char* dest) const;
 
 public:
   const char* root;
   const char* texture;
   const char* particle;
   const char* spine;
+  const char* model;
   
 };
 
@@ -78,6 +82,7 @@ public:
   virtual void SetupTexturePalettes(TexturePaletteManager* manager) = 0;
   virtual void SetupParticleDatas(ParticleDataManager* manager) = 0;
   virtual void SetupSpineDatas(SpineDataManager* manager) = 0;
+  virtual void SetupModelDatas(ModelDataManager* manager) = 0;
 
 };
 

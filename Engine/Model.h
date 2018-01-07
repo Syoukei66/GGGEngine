@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObject3D.h"
+#include "ModelData.h"
 
 class Model : public GameObject3D
 {
@@ -9,7 +10,7 @@ class Model : public GameObject3D
   // =================================================================
 public:
   //TODO:Œã‚ÅModelData‚Æ•ª‚¯‚é
-  Model(const char* path);
+  Model(const ModelData* data);
   ~Model();
 
   // =================================================================
@@ -17,6 +18,7 @@ public:
   // =================================================================
 public:
   void NativeDraw(GameObject3DRenderState* state) override;
+
   // =================================================================
   // Setter / Getter
   // =================================================================
@@ -34,6 +36,6 @@ public:
   // Data Member
   // =================================================================
 private:
-  LP_MODEL model_;
+  const ModelData* data_;
   bool lighting_enabled_;
 };

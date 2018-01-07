@@ -203,10 +203,10 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NativeMatrix.cpp" />
     <ClCompile Include="NativeMatrixStack.cpp" />
+    <ClCompile Include="NativeModel.cpp" />
     <ClCompile Include="NativeObjectFactory.cpp" />
     <ClCompile Include="NativeProcess_IO.cpp" />
     <ClCompile Include="NativeProcess_Material.cpp" />
-    <ClCompile Include="NativeProcess_Model.cpp" />
     <ClCompile Include="NativeProcess_Texture.cpp" />
     <ClCompile Include="NativeProcess_Graphics.cpp" />
     <ClCompile Include="NativeProcess_Time.cpp" />
@@ -223,9 +223,9 @@
     <ClInclude Include="DirectXNativeImplements.h" />
     <ClInclude Include="NativeMatrix.h" />
     <ClInclude Include="NativeMatrixStack.h" />
+    <ClInclude Include="NativeModel.h" />
     <ClInclude Include="NativeProcess_IO.h" />
     <ClInclude Include="NativeProcess_Material.h" />
-    <ClInclude Include="NativeProcess_Model.h" />
     <ClInclude Include="NativeProcess_Graphics.h" />
     <ClInclude Include="NativeProcess_Texture.h" />
     <ClInclude Include="NativeProcess_Time.h" />

@@ -203,8 +203,11 @@
     <ClCompile Include="GameObject2DRenderState.cpp" />
     <ClCompile Include="GameObject3D.cpp" />
     <ClCompile Include="GameObject3DRenderState.cpp" />
+    <ClCompile Include="ModelData.cpp" />
+    <ClCompile Include="ModelDataManager.cpp" />
     <ClCompile Include="NativeMatrix.cpp" />
     <ClCompile Include="NativeMatrixStack.cpp" />
+    <ClCompile Include="NativeModel.cpp" />
     <ClCompile Include="NativeTexture.cpp" />
     <ClCompile Include="Sprite3D.cpp" />
     <ClCompile Include="Transform3DRotator.cpp" />
@@ -347,7 +350,9 @@
     <ClInclude Include="GameObject3D.h" />
     <ClInclude Include="GameObject3DRenderState.h" />
     <ClInclude Include="INativeProcess_Texture.h" />
+    <ClInclude Include="Moniker.h" />
     <ClInclude Include="NativeMatrix.h" />
+    <ClInclude Include="NativeModel.h" />
     <ClInclude Include="NativeObjectFactory.h" />
     <ClInclude Include="NativeMatrixStack.h" />
     <ClInclude Include="NativeObject.h" />
@@ -360,7 +365,6 @@
     <ClInclude Include="EntityModifierManager.h" />
     <ClInclude Include="HalEngine.h" />
     <ClInclude Include="INativeProcess_Material.h" />
-    <ClInclude Include="INativeProcess_Model.h" />
     <ClInclude Include="INativeProcess_Time.h" />
     <ClInclude Include="InputDevice.h" />
     <ClInclude Include="INativeProcess_IO.h" />

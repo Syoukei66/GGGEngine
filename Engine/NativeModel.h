@@ -1,29 +1,31 @@
 #pragma once
 
-#include <d3d9.h>
-#include <d3dx9.h>
+#include "NativeObject.h"
+#include "Geometry.h"
 
-#include <NativeTexture.h>
+struct NativeModelInstance { void* p; };
 
-class NativeTexture : public INativeTexture
+class INativeModel : public NativeObject<NativeModelInstance>
 {
+  // =================================================================
+  // Static Method
+  // =================================================================
+public:
+  static INativeModel* Create(const char* directory_path, const char* name);
+
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  NativeTexture(const char* path);
-  ~NativeTexture();
+  INativeModel(NativeModelInstance* instance)
+    : NativeObject(instance)
+  {}
+  virtual ~INativeModel() {}
 
   // =================================================================
-  // Method for/from SuperClass/Interfaces
+  // Methods
   // =================================================================
 public:
-  virtual T_UINT16 GetWidth() const override;
-  virtual T_UINT16 GetHeight() const override;
+  virtual void Draw() const = 0;
 
-  // =================================================================
-  // Data Members
-  // =================================================================
-private:
-  D3DSURFACE_DESC desc_;
 };
