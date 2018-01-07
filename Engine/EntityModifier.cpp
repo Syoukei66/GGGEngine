@@ -1,8 +1,8 @@
 ﻿#include "EntityModifier.h"
 #include <algorithm>
 
-#include "HalEngine.h"
 #include "EasingFunctionManager.h"
+#include "Moniker.h"
 
 //=========================================================================
 // EntityModifierRoot

@@ -1,7 +1,7 @@
 #include "TextureRegion.h"
 #include <stdlib.h>
 #include "ResourceManager.h"
-#include "HalEngine.h"
+#include "Moniker.h"
 
 // =================================================================
 // Factory Method

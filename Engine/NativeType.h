@@ -63,8 +63,6 @@ typedef T_UINT32 T_PACKED_COLOR_UINT32;
 typedef int* LP_DEVICE;
 typedef int* LP_MATERIAL;
 
-typedef int* LP_MODEL;
-
 typedef int* LP_VERTEX_BUFFER;
 
 typedef int* LP_LIGHT;

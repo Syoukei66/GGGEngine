@@ -60,25 +60,6 @@ void Material_DeleteInstance()
   delete material;
 }
 
-//Model
-
-INativeProcess_Model* model;
-
-INativeProcess_Model& Model()
-{
-  return *model;
-}
-
-void Model_SetInstance(INativeProcess_Model* process)
-{
-  model = process;
-}
-
-void Model_DeleteInstance()
-{
-  delete model;
-}
-
 //IO
 
 INativeProcess_IO* io;

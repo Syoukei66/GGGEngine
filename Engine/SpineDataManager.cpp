@@ -4,6 +4,10 @@
 #include "Director.h"
 
 SpineDataManager::SpineDataManager()
+  : is_already_loaded_(false)
+  , size_(0)
+  , paths_(nullptr)
+  , datas_(nullptr)
 {}
 
 SpineDataManager::~SpineDataManager()

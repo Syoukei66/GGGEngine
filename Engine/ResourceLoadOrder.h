@@ -7,14 +7,14 @@ struct ResourceLoadOrder
 {
   ResourceLoadOrder()
     : load_palette_id()
+    , load_model_id()
     , particle_load(false)
     , spine_load(false)
-    , model_load(false)
   {}
   std::set<T_UINT8> load_palette_id;
+  std::set<T_UINT8> load_model_id;
   bool particle_load;
   bool spine_load;
-  bool model_load;
 };
 
 class ResourceLoadOrderBuilder
@@ -47,9 +47,9 @@ public:
     return this;
   }
 
-  inline ResourceLoadOrderBuilder* ModelData()
+  inline ResourceLoadOrderBuilder* ModelData(T_UINT8 model_id)
   {
-    this->order_.model_load = true;
+    this->order_.load_model_id.insert(model_id);
     return this;
   }
 

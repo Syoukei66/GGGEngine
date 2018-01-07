@@ -32,6 +32,7 @@ bool Engine::Init(IEngineSetting* setting)
   setting->SetupTexturePalettes(ResourceManager::GetInstance()->GetTexturePaletteManager());
   setting->SetupParticleDatas(ResourceManager::GetInstance()->GetParticleDataManager());
   setting->SetupSpineDatas(ResourceManager::GetInstance()->GetSpineDataManager());
+  setting->SetupModelDatas(ResourceManager::GetInstance()->GetModelDataManager());
   EasingFunctionManager::GetInstance()->Load(this->option_->render_cycle);
   return true;
 }

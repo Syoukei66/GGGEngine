@@ -1,5 +1,5 @@
 #include "EntityModifierFactory.h"
-#include "HalEngine.h"
+#include "Moniker.h"
 
 namespace EntityModifierFactory
 {
