@@ -4,7 +4,6 @@
 #include "INativeProcess_Graphics.h"
 #include "INativeProcess_Texture.h"
 #include "INativeProcess_Material.h"
-#include "INativeProcess_Model.h"
 #include "INativeProcess_IO.h"
 #include "INativeProcess_Time.h"
 
@@ -24,10 +23,6 @@ void Texture_DeleteInstance();
 INativeProcess_Material& Material();
 void Material_SetInstance(INativeProcess_Material* process);
 void Material_DeleteInstance();
-
-INativeProcess_Model& Model();
-void Model_SetInstance(INativeProcess_Model* process);
-void Model_DeleteInstance();
 
 INativeProcess_IO& IO();
 void IO_SetInstance(INativeProcess_IO* process);

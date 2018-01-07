@@ -4,7 +4,7 @@
 #include <string.h>
 #include "NativeMethod.h"
 #include "Director.h"
-#include "HalEngine.h"
+#include "Moniker.h"
 
 static bool IsSpace(char c)
 {

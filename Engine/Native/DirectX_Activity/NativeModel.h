@@ -2,28 +2,30 @@
 
 #include <d3d9.h>
 #include <d3dx9.h>
+#include <HalEngine.h>
 
-#include <NativeTexture.h>
-
-class NativeTexture : public INativeTexture
+class NativeModel : public INativeModel
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  NativeTexture(const char* path);
-  ~NativeTexture();
+  NativeModel(const char* asset_path, const char* name);
+  ~NativeModel();
 
   // =================================================================
   // Method for/from SuperClass/Interfaces
   // =================================================================
 public:
-  virtual T_UINT16 GetWidth() const override;
-  virtual T_UINT16 GetHeight() const override;
+  virtual void Draw() const override;
 
   // =================================================================
   // Data Members
   // =================================================================
 private:
-  D3DSURFACE_DESC desc_;
+  LPD3DXMESH mesh_;
+  T_UINT32 material_count_;
+  Material** materials_;
+  const ITexture** textures_;
+
 };
