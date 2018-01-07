@@ -78,3 +78,29 @@ void AssetPath::GetSpinePath(const char* path, char* dest) const
     strcat(dest, path);
   }
 }
+
+void AssetPath::GetModelPath(const char* path, char* dest) const
+{
+  if (strlen(this->root) > 0)
+  {
+    strcat(dest, this->root);
+  }
+
+  if (strlen(this->model) > 0)
+  {
+    if (strlen(dest) > 0)
+    {
+      strcat(dest, "/");
+    }
+    strcat(dest, this->model);
+  }
+
+  if (strlen(path) > 0)
+  {
+    if (strlen(dest) > 0)
+    {
+      strcat(dest, "/");
+    }
+    strcat(dest, path);
+  }
+}

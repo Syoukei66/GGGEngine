@@ -2,8 +2,6 @@
 
 #include <Director.h>
 
-#define texture_ GetNativeInstance<IDirect3DTexture9>()
-
 static NativeTextureInstance* TextureLoad(const char* path)
 {
   LP_DEVICE device = Director::GetInstance()->GetDevice();
@@ -26,13 +24,13 @@ static NativeTextureInstance* TextureLoad(const char* path)
 NativeTexture::NativeTexture(const char* path)
   : INativeTexture(TextureLoad(path))
 {
-  LPDIRECT3DTEXTURE9 tex = (LPDIRECT3DTEXTURE9)this->texture_;
+  LPDIRECT3DTEXTURE9 tex = this->GetNativeInstance<IDirect3DTexture9>();
   tex->GetLevelDesc(0, &this->desc_);
 }
 
 NativeTexture::~NativeTexture()
 {
-  this->texture_->Release();
+  this->GetNativeInstance<IDirect3DTexture9>()->Release();
 }
 
 // =================================================================

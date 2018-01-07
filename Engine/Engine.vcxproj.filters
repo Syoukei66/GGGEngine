@@ -705,6 +705,15 @@
     <ClCompile Include="Collision2D.cpp">
       <Filter>ソース ファイル\Component\Collision\2D</Filter>
     </ClCompile>
+    <ClCompile Include="NativeModel.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelData.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelDataManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -1073,9 +1082,6 @@
     <ClInclude Include="Model.h">
       <Filter>ヘッダー ファイル\Component\GameObject\3D\Model</Filter>
     </ClInclude>
-    <ClInclude Include="INativeProcess_Model.h">
-      <Filter>ヘッダー ファイル\Native</Filter>
-    </ClInclude>
     <ClInclude Include="ModelData.h">
       <Filter>ヘッダー ファイル\Resource\Pool\Model</Filter>
     </ClInclude>
@@ -1204,6 +1210,12 @@
     </ClInclude>
     <ClInclude Include="Collision3D.h">
       <Filter>ヘッダー ファイル\Component\Collision\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeModel.h">
+      <Filter>ヘッダー ファイル\Native\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Moniker.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

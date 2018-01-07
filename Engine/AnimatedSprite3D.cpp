@@ -1,6 +1,6 @@
 #include "AnimatedSprite3D.h"
 #include "TiledTextureRegion.h"
-#include "HalEngine.h"
+#include "Moniker.h"
 
 AnimatedSprite3D* AnimatedSprite3D::CreateFromAsset(T_UINT8 palette_id, T_UINT16 texture_id, T_UINT8 x_num, T_UINT8 y_num)
 {
