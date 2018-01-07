@@ -4,14 +4,14 @@
 #include <d3dx9.h>
 #include <HalEngine.h>
 
-class NativeModel : public INativeModel
+class NativeModel_x : public INativeModel
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  NativeModel(const char* asset_path, const char* name);
-  ~NativeModel();
+  NativeModel_x(const char* asset_path, const char* name);
+  ~NativeModel_x();
 
   // =================================================================
   // Method for/from SuperClass/Interfaces

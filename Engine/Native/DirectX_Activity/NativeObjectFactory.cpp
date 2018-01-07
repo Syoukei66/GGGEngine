@@ -28,5 +28,5 @@ INativeTexture* NativeObjectFactory::CreateTexture(const char* path)
 
 INativeModel* NativeObjectFactory::CreateModel(const char* directory_path, const char* name)
 {
-  return new NativeModel(directory_path, name);
+  return new NativeModel_x(directory_path, name);
 }

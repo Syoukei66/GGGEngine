@@ -3,7 +3,7 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-NativeModel::NativeModel(const char* asset_path, const char* name)
+NativeModel_x::NativeModel_x(const char* asset_path, const char* name)
   : INativeModel(nullptr)
 {
   const LPDIRECT3DDEVICE9 pDevice = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
@@ -53,7 +53,7 @@ NativeModel::NativeModel(const char* asset_path, const char* name)
   }
 }
 
-NativeModel::~NativeModel()
+NativeModel_x::~NativeModel_x()
 {
   this->mesh_->Release();
   for (T_UINT32 i = 0; i < this->material_count_; ++i)
@@ -68,7 +68,7 @@ NativeModel::~NativeModel()
 // =================================================================
 // Method for/from SuperClass/Interfaces
 // =================================================================
-void NativeModel::Draw() const
+void NativeModel_x::Draw() const
 {
   const LPDIRECT3DDEVICE9 pDevice = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
   for (T_UINT32 i = 0; i < this->material_count_; ++i)
