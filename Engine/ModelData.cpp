@@ -1,41 +1,54 @@
 #include "ModelData.h"
 #include "Director.h"
+#include "ResourcePool.h"
+
+const ModelData* ModelData::DynamicLoad(const char* path)
+{
+  return ResourcePool::GetInstance().DynamicLoad<ModelData>(path);
+}
 
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-ModelData::ModelData(const std::string& path)
-  : path_(path)
-  , native_model_(nullptr)
-{ 
-}
-
-ModelData::~ModelData()
-{
-  this->Unload();
-}
+ModelData::ModelData(const char* path)
+  : FileResource("ModelData", path)
+{}
 
 // =================================================================
 // Methods
 // =================================================================
-void ModelData::Load()
+INativeModel* ModelData::NativeLoadProcess(const std::string& path)
 {
-  if (this->IsLoaded())
-  {
-    return;
-  }
-  const AssetPath* asset_path = &Director::GetInstance()->GetEngineOption()->asset_path;
-  char directory_path_cstr[256] = {};
-  asset_path->GetModelPath(this->path_.c_str(), directory_path_cstr);
-  this->native_model_ = INativeModel::Create(directory_path_cstr, this->path_.c_str());
-}
+  std::string directory_path = std::string();
+  std::string file_name = std::string();
+  std::string extension = std::string();
+  std::string buf = std::string();
 
-void ModelData::Unload()
-{
-  if (!this->IsLoaded())
+  const char* p = path.c_str();
+  while (*p != '\0')
   {
-    return;
+    buf.append(p, 1);
+    if (file_name.length() == 0)
+    {
+      if (*p == '/')
+      {
+        directory_path.append(buf);
+        buf.clear();
+        ++p;
+        continue;
+      }
+      if (*p == '.')
+      {
+        file_name.append(buf);
+        buf.clear();
+        ++p;
+        continue;
+      }
+    }
+    ++p;
   }
-  delete this->native_model_;
-  this->native_model_ = nullptr;
+  file_name.append(buf);
+  extension.append(buf);
+
+  return INativeModel::Create(directory_path.c_str(), file_name.c_str(), extension.c_str());
 }

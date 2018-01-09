@@ -45,6 +45,7 @@ public:
   // Data Member
   // =================================================================
 private:
+  bool material_delete_;
   LP_MATERIAL material_;
   Color ambient_;
   Color diffuse_;

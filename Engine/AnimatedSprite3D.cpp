@@ -2,10 +2,9 @@
 #include "TiledTextureRegion.h"
 #include "Moniker.h"
 
-AnimatedSprite3D* AnimatedSprite3D::CreateFromAsset(T_UINT8 palette_id, T_UINT16 texture_id, T_UINT8 x_num, T_UINT8 y_num)
+AnimatedSprite3D* AnimatedSprite3D::CreateWithTexture(const Texture* texture, T_UINT8 x_num, T_UINT8 y_num)
 {
   AnimatedSprite3D* ret = new AnimatedSprite3D();
-  const ITexture* texture = HalEngine::Resource::GetTexture(palette_id, texture_id);
   TiledTextureRegion* region = TiledTextureRegion::CreateWithTexture(texture, x_num, y_num);
   ret->Init();
   ret->SetTextureRegion(region);

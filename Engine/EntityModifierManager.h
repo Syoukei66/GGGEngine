@@ -20,11 +20,23 @@ struct EntityModifierAllocateOption
 class EntityModifierManager
 {
 public:
-  EntityModifierManager(EntityModifierAllocateOption* option);
+  static EntityModifierManager& GetInstance()
+  {
+    static EntityModifierManager self = EntityModifierManager();
+    return self;
+  }
+
+private:
+  EntityModifierManager();
+
+public:
   ~EntityModifierManager();
 
 public:
-  virtual bool OnUpdate(T_UINT16 frame_elapsed);
+  void Init(EntityModifierAllocateOption* option);
+  void Uninit();
+
+  bool OnUpdate(T_UINT16 frame_elapsed);
 
 public:
   void ClearModifiers();

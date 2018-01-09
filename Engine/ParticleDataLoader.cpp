@@ -2,6 +2,7 @@
 #include "NativeMethod.h"
 #include "JsonParser.h"
 #include "MathConstants.h"
+#include "ResourceLoader.h"
 
 enum EmitterType
 {
@@ -9,9 +10,21 @@ enum EmitterType
   EM_TYPE_RADIUS,
 };
 
-ParticleData* ParticleDataLoader::LoadParticleData(const char* path, TextureAtlas* atlas)
+const ParticleDataLoader* ParticleDataLoader::DynamicLoad(const char* path)
 {
-  std::string str = NativeMethod::IO().TextFile_Read(path);
+  return ResourcePool::GetInstance().DynamicLoad<ParticleDataLoader>(path);
+}
+
+// =================================================================
+// Constructor / Destructor
+// =================================================================
+ParticleDataLoader::ParticleDataLoader(const char* path)
+  : FileResource("ParticleData", path)
+{}
+
+ParticleData* ParticleDataLoader::NativeLoadProcess(const std::string& path)
+{
+  std::string str = NativeMethod::IO().TextFile_Read(path.c_str());
   JsonParser parser;
   JsonNode* json = parser.Parse(str.c_str());
 
@@ -26,7 +39,7 @@ ParticleData* ParticleDataLoader::LoadParticleData(const char* path, TextureAtla
 
     exdata->accel_rad = json->GetValue("radialAcceleration")->FloatValue();
     exdata->accel_rad_variance = json->GetValue("radialAccelVariance")->FloatValue();
-    
+
     exdata->accel_tan = json->GetValue("tangentialAcceleration")->FloatValue();
     exdata->accel_tan_variance = json->GetValue("tangentialAccelVariance")->FloatValue();
 
@@ -51,7 +64,7 @@ ParticleData* ParticleDataLoader::LoadParticleData(const char* path, TextureAtla
     exdata->rotate_per_sec = json->GetValue("rotatePerSecond")->FloatValue();
     exdata->rotate_per_sec_variance = json->GetValue("rotatePerSecondVariance")->FloatValue();
   }
-  data->region_ = atlas->GetTextureRegion(json->GetString("textureFileName")->StringValue());
+  data->region_ = this->atlas_->GetTextureRegion(json->GetString("textureFileName")->StringValue());
 
   data->start_color_r = json->GetValue("startColorRed")->FloatValue();
   data->start_color_g = json->GetValue("startColorGreen")->FloatValue();

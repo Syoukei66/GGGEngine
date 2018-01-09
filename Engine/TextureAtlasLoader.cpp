@@ -5,6 +5,7 @@
 #include "NativeMethod.h"
 #include "Director.h"
 #include "Moniker.h"
+#include "Texture.h"
 
 static bool IsSpace(char c)
 {
@@ -60,7 +61,8 @@ TextureAtlas* TextureAtlasLoader::Load(const char* directory_path, const char* a
   }
   texture_path.append(texture_file_name);
 
-  const ITexture* texture = HalEngine::Resource::GetTexture(texture_path.c_str());
+  Texture* texture = new Texture(texture_path.c_str());
+  texture->Load();
   TextureAtlas* ret = new TextureAtlas(texture);
   while (!EndOfFile(*p))
   {

@@ -1,34 +1,46 @@
 #pragma once
 
-#include "ModelData.h"
-#include "ResourcePool.h"
+#include <string>
 
-class ModelDataManager : public ResourcePool<T_UINT8, ModelData>
+class ResourceLoader
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  ModelDataManager();
-
-  // =================================================================
-  // Methods for/from SuperClass/Interfaces
-  // =================================================================
-protected:
-  virtual ModelData* PreLoadProcess(const T_UINT8& key) override;
-  virtual ModelData* LoadProcess(const T_UINT8& key, ModelData* value) override;
-  virtual void PreUnloadProcess(const T_UINT8& key, ModelData* value) override;
-  virtual void UnloadProcess(const T_UINT8& key, ModelData* value) override;
+  ResourceLoader(const std::string& category, const std::string& path);
+  virtual ~ResourceLoader() {}
 
   // =================================================================
   // Methods
   // =================================================================
 public:
-  void RegisterPath(T_UINT8 id, const char* path);
+  void Load();
+  void Unload();
+
+protected:
+  virtual void LoadProcess(const std::string& path) = 0;
+  virtual void UnloadProcess() = 0;
+
+  // =================================================================
+  // Setter / Getter
+  // =================================================================
+public:
+  virtual bool IsLoaded() const = 0;
+
+  inline const std::string& GetCategory() const
+  {
+    return this->category_;
+  }
+  inline const std::string& GetPath() const
+  {
+    return this->path_;
+  }
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
-  std::map<T_UINT8, std::string> paths_;
+  const std::string category_;
+  const std::string path_;
 };

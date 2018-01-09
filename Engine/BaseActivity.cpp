@@ -2,7 +2,6 @@
 #include "Director.h"
 
 #include "NativeMethod.h"
-#include "TexturePaletteManager.h"
 #include "InputManager.h"
 #include <string.h>
 
@@ -24,7 +23,6 @@ bool BaseActivity::Run(IEngineSetting* setting)
 {
   Director::GetInstance()->SetActivity(this);
   NativeMethod::Graphics_SetInstance(this->SetupNativeProcess_Graphics());
-  NativeMethod::Texture_SetInstance(this->SetupNativeProcess_Texture());
   NativeMethod::Material_SetInstance(this->SetupNativeProcess_Material());
   NativeMethod::IO_SetInstance(this->SetupNativeProcess_IO());
   NativeMethod::Time_SetInstance(this->SetupNativeProcess_Time());
@@ -63,7 +61,6 @@ bool BaseActivity::Run(IEngineSetting* setting)
   delete this->engine_;
   
   NativeMethod::Graphics_DeleteInstance();
-  NativeMethod::Texture_DeleteInstance();
   NativeMethod::Material_DeleteInstance();
   NativeMethod::IO_DeleteInstance();
   NativeMethod::Time_DeleteInstance();

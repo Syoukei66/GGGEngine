@@ -9,8 +9,7 @@ class Model : public GameObject3D
   // Constructor / Destructor
   // =================================================================
 public:
-  //TODO:Œã‚ÅModelData‚Æ•ª‚¯‚é
-  Model(const ModelData* data);
+  Model(const ModelData& data);
   ~Model();
 
   // =================================================================
@@ -36,6 +35,6 @@ public:
   // Data Member
   // =================================================================
 private:
-  const ModelData* data_;
+  const ModelData& data_;
   bool lighting_enabled_;
 };

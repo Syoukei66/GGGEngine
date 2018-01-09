@@ -18,17 +18,9 @@ AnimatedSprite* AnimatedSprite::CreateWithTextureRegion(TiledTextureRegion* regi
   return ret;
 }
 
-AnimatedSprite* AnimatedSprite::CreateWithTexture(const ITexture* texture, T_UINT8 x_num, T_UINT8 y_num)
+AnimatedSprite* AnimatedSprite::CreateWithTexture(const Texture* texture, T_UINT8 x_num, T_UINT8 y_num)
 {
   TiledTextureRegion* region = TiledTextureRegion::CreateWithTexture(texture, x_num, y_num);
-  AnimatedSprite* ret = AnimatedSprite::CreateWithTextureRegion(region);
-  ret->delete_region_ = true;
-  return ret;
-}
-
-AnimatedSprite* AnimatedSprite::CreateFromAsset(T_UINT8 palette_id, T_UINT16 texture_id, T_UINT8 x_num, T_UINT8 y_num)
-{
-  TiledTextureRegion* region = TiledTextureRegion::CreateFromAsset(palette_id, texture_id, x_num, y_num);
   AnimatedSprite* ret = AnimatedSprite::CreateWithTextureRegion(region);
   ret->delete_region_ = true;
   return ret;

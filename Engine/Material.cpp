@@ -6,17 +6,22 @@
 // =================================================================
 Material::Material()
 {
+  this->material_delete_ = true;
   this->material_ = NativeMethod::Material().Material_Create();
 }
 
 Material::Material(LP_MATERIAL native_material)
 {
+  this->material_delete_ = false;
   this->material_ = native_material;
 }
 
 Material::~Material()
 {
-  NativeMethod::Material().Material_Delete(this->material_);
+  if (this->material_delete_)
+  {
+    NativeMethod::Material().Material_Delete(this->material_);
+  }
 }
 
 // =================================================================

@@ -5,12 +5,13 @@
 
 #include "GameObject2D.h"
 #include "AttachmentVertexes.h"
+#include "SpineData.h"
 
 class SkeletonAnimation : public GameObject2D
 {
 
 public:
-  static SkeletonAnimation* CreateFromAsset(T_UINT8 spine_id);
+  static SkeletonAnimation* CreateWithData(const SpineData* data);
 
 public:
   SkeletonAnimation(spSkeletonData* data);

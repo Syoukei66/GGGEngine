@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include "Director.h"
+#include "NativeMethod.h"
 
 // =================================================================
 // Constructor / Destructor

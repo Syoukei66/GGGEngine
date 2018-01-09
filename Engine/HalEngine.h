@@ -106,7 +106,6 @@
   #include "INativeProcess_Graphics.h"
   #include "INativeProcess_IO.h"
   #include "INativeProcess_Material.h"
-  #include "INativeProcess_Texture.h"
   #include "INativeProcess_Time.h"
   #include "NativeMethod.h"
   #include "NativeType.h"
@@ -122,13 +121,10 @@
   #include "CSVTokenizer.h"
   #include "JsonParser.h"
   #include "LoadProgressCounter.h"
-  #include "ResourceLoadOrder.h"
-  #include "ResourceManager.h"
 //--Pool
     #include "ResourcePool.h"
 //----Model
       #include "ModelData.h"
-      #include "ModelDataManager.h"
 //----Particle
       #include "ParticleData.h"
       #include "ParticleDataLoader.h"
@@ -140,20 +136,14 @@
       #include "SkeletonAnimation.h"
       #include "SpineData.h"
       #include "SpineDataManager.h"
+      #include "SpineResource.h"
 //------c
         #include <spine\spine.h>
 //----Texture
-      #include "ITexture.h"
-      #include "StaticTexture.h"
       #include "Texture.h"
-      #include "TexturePaletteManager.h"
 //------Atlas
         #include "TextureAtlas.h"
         #include "TextureAtlasLoader.h"
-//------Palette
-        #include "ITexturePalette.h"
-        #include "StaticTexturePalette.h"
-        #include "TexturePalette.h"
 
 //Scene
   #include "Scene.h"

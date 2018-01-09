@@ -4,24 +4,23 @@
 
 TextureAtlas* TextureAtlas::CreateWithAtlasFile(const char* path)
 {
-  std::string directory_path = std::string();
-  const char* asset_root = Director::GetInstance()->GetEngineOption()->asset_path.root;
-  const char* asset_particle = Director::GetInstance()->GetEngineOption()->asset_path.particle;
-  if (strlen(asset_root) > 0)
-  {
-    directory_path.append(asset_root);
-    directory_path.append("/");
-  }
-  if (strlen(asset_particle) > 0)
-  {
-    directory_path.append(asset_particle);
-    directory_path.append("/");
-  }
-  TextureAtlasLoader loader;
-  return loader.Load(directory_path.c_str(), path);
+  //std::string directory_path = std::string();
+  //if (strlen(asset_root) > 0)
+  //{
+  //  directory_path.append(asset_root);
+  //  directory_path.append("/");
+  //}
+  //if (strlen(asset_particle) > 0)
+  //{
+  //  directory_path.append(asset_particle);
+  //  directory_path.append("/");
+  //}
+  //TextureAtlasLoader loader;
+  //return loader.Load(directory_path.c_str(), path);
+  return nullptr;
 }
 
-TextureAtlas::TextureAtlas(const ITexture* texture)
+TextureAtlas::TextureAtlas(const Texture* texture)
   : texture_(texture)
 {}
 

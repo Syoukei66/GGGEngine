@@ -21,7 +21,7 @@ Sprite* Sprite::CreateWithTextureRegion(ITextureRegion* region)
   return ret;
 }
 
-Sprite* Sprite::CreateWithTexture(const ITexture* texture)
+Sprite* Sprite::CreateWithTexture(const Texture* texture)
 {
   TextureRegion* region = TextureRegion::CreateWithTexture(texture);
   Sprite* ret = Sprite::CreateWithTextureRegion(region);
@@ -29,13 +29,6 @@ Sprite* Sprite::CreateWithTexture(const ITexture* texture)
   return ret;
 }
 
-Sprite* Sprite::CreateFromAsset(T_UINT8 palette_id, T_UINT16 texture_id)
-{
-  TextureRegion* region = TextureRegion::CreateFromAsset(palette_id, texture_id);
-  Sprite* ret = Sprite::CreateWithTextureRegion(region);
-  ret->delete_region_ = true;
-  return ret;
-}
 // =================================================================
 // Constructor / Destructor
 // =================================================================
@@ -73,7 +66,7 @@ void Sprite::PreDraw(GameObject2DRenderState* state)
   {
     return;
   }
-  const ITexture* texture = this->texture_region_->GetTexture();
+  const Texture* texture = this->texture_region_->GetTexture();
   if (this->texture_region_->UpdateTextureCoord())
   {
     this->vbo_->OnVertexUvDirty();
@@ -87,7 +80,7 @@ void Sprite::NativeDraw(GameObject2DRenderState* state)
   {
     return;
   }
-  const ITexture* texture = this->texture_region_->GetTexture();
+  const Texture* texture = this->texture_region_->GetTexture();
   if (!texture)
   {
     return;
@@ -127,7 +120,7 @@ void Sprite::FitToTexture()
   {
     return;
   }
-  const ITexture* texture = this->texture_region_->GetTexture();
+  const Texture* texture = this->texture_region_->GetTexture();
   if (!texture)
   {
     return;

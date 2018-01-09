@@ -75,7 +75,7 @@ private:
 class ParticleSystem : public GameObject2D
 {
 public:
-  static ParticleSystem* CreateFromAsset(T_UINT8 particle_data_id);
+  static ParticleSystem* CreateWithData(const ParticleData* data);
   
 private:
   ParticleSystem();

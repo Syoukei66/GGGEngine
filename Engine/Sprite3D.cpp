@@ -3,10 +3,9 @@
 #include "GameObject3DRenderState.h"
 #include "Moniker.h"
 
-Sprite3D* Sprite3D::CreateFromAsset(T_UINT8 palette_id, T_UINT16 texture_id)
+Sprite3D* Sprite3D::CreateWithTexture(const Texture* texture)
 {
   Sprite3D* ret = new Sprite3D();
-  const ITexture* texture = HalEngine::Resource::GetTexture(palette_id, texture_id);
   TextureRegion* region = TextureRegion::CreateWithTexture(texture);
   ret->Init();
   ret->SetTextureRegion(region);
@@ -32,7 +31,7 @@ void Sprite3D::PreDraw(GameObject3DRenderState* state)
   {
     return;
   }
-  const ITexture* texture = this->texture_region_->GetTexture();
+  const Texture* texture = this->texture_region_->GetTexture();
   if (this->texture_region_->UpdateTextureCoord())
   {
     this->sprite3d_vbo_->OnVertexUvDirty();
@@ -76,7 +75,7 @@ void Sprite3D::FitToTexture()
   {
     return;
   }
-  const ITexture* texture = this->texture_region_->GetTexture();
+  const Texture* texture = this->texture_region_->GetTexture();
   if (!texture)
   {
     return;

@@ -34,14 +34,17 @@ public:
 
   ~PoolAllocator()
   {
+    for (typename std::list<T*>::iterator itr = this->allocated_.begin(); itr != this->allocated_.end(); ++itr)
+    {
+      (*itr)->OnFree();
+      delete (*itr);
+    }
+    this->allocated_.clear();
     for (typename std::deque<T*>::iterator itr = this->pool_.begin(); itr != this->pool_.end(); ++itr)
     {
       delete (*itr);
     }
-    for (typename std::list<T*>::iterator itr = this->allocated_.begin(); itr != this->allocated_.end(); ++itr)
-    {
-      delete (*itr);
-    }
+    this->pool_.clear();
   }
   T* Allocate()
   {

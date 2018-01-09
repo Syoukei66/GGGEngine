@@ -11,7 +11,8 @@
 
 void _spAtlasPage_createTexture(spAtlasPage* self, const char* path)
 {
-  const Texture* texture = HalEngine::Resource::GetTexture(path);
+  Texture* texture = new Texture(path);
+  texture->Load();
   self->rendererObject = (void*)texture;
   self->width = texture->GetWidth();
   self->height = texture->GetHeight();
@@ -34,14 +35,12 @@ char* _spUtil_readFile(const char* path, int* length)
 SpineData* SpineData::CreateFromFile(const char* path)
 {
   SpineData* ret = new SpineData();
-
-  char spine_path[256] = {};
-  Director::GetInstance()->GetEngineOption()->asset_path.GetSpinePath(path, spine_path);
+  
   char atlas_path[256] = {};
-  strcpy(atlas_path, spine_path);
+  strcpy(atlas_path, path);
   strcat(atlas_path, ".atlas");
   char skeleton_path[256] = {};
-  strcpy(skeleton_path, spine_path);
+  strcpy(skeleton_path, path);
   strcat(skeleton_path, ".json");
 
   ret->atlas = spAtlas_createFromFile(atlas_path, 0);
