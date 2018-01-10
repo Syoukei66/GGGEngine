@@ -42,6 +42,28 @@ public:
   void Draw2DLayers(GameObject2DRenderState* state);
   void Draw3DLayers(GameObject3DRenderState* state);
 
+  inline void AddChild(GameObject2D* child)
+  {
+    this->root2d_->AddChild(child);
+  }
+  inline void RemoveChild(GameObject2D* child)
+  {
+    this->root2d_->RemoveChild(child);
+  }
+  inline void AddChild(GameObject3D* child)
+  {
+    this->root3d_->AddChild(child);
+  }
+  inline void RemoveChild(GameObject3D* child)
+  {
+    this->root3d_->RemoveChild(child);
+  }
+  inline void ClearChildren()
+  {
+    this->root2d_->ClearChildren();
+    this->root3d_->ClearChildren();
+  }
+
   inline void AddCamera(Camera* camera)
   {
     this->cameras_.push_back(camera);
