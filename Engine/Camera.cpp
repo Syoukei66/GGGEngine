@@ -6,7 +6,8 @@
 // Constructor / Destructor
 // =================================================================
 Camera::Camera(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_min, T_FLOAT z_max)
-  : position_(x, y)
+  : viewport_clear_(true)
+  , position_(x, y)
   , size_(width, height)
   , z_min_(z_min)
   , z_max_(z_max)
@@ -14,7 +15,8 @@ Camera::Camera(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_mi
 {}
 
 Camera::Camera()
-  : position_(0.0f, 0.0f)
+  : viewport_clear_(true)
+  , position_(0.0f, 0.0f)
   , size_((T_FLOAT)Director::GetInstance()->GetScreenWidth(), (T_FLOAT)Director::GetInstance()->GetScreenHeight())
   , z_min_(0.0f)
   , z_max_(1.0f)
@@ -27,7 +29,10 @@ Camera::Camera()
 void Camera::DrawScene(Scene* scene)
 {
   this->SetupCamera();
-  NativeMethod::Graphics().Graphics_Clear();
+  if (this->viewport_clear_)
+  {
+    NativeMethod::Graphics().Graphics_Clear();
+  }
   this->OnDrawScene(scene);
 }
 

@@ -150,6 +150,7 @@ void NativeProcess_Graphics::Graphics_SetMaterial(const Material* material)
 {
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
   const D3DMATERIAL9* d3dMaterial = material ? (D3DMATERIAL9*)material->GetNativeMaterial() : nullptr;
+
   if (this->material_ != d3dMaterial)
   {
     device->SetMaterial(d3dMaterial);

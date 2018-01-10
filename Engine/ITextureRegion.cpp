@@ -38,8 +38,11 @@ bool ITextureRegion::UpdateTextureCoord()
   {
     return false;
   }
-  this->OnUpdateTextureCoord();
-  this->texture_coord_dirty_ = false;
+  if (this->texture_)
+  {
+    this->OnUpdateTextureCoord();
+    this->texture_coord_dirty_ = false;
+  }
   return true;
 }
 

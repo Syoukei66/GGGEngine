@@ -1,8 +1,6 @@
 #ifndef HAL_ENGINE_SCENE_SCENE_H_
 #define HAL_ENGINE_SCENE_SCENE_H_
 
-#include <vector>
-
 #include "GameObject2D.h"
 #include "GameObject3D.h"
 #include "InputManager.h"
@@ -11,7 +9,8 @@
 
 #include "ResourcePool.h"
 
-class Camera;
+class Camera2D;
+class Camera3D;
 
 // =================================================================
 // Scene
@@ -46,13 +45,13 @@ public:
   {
     this->root2d_->AddChild(child);
   }
-  inline void RemoveChild(GameObject2D* child)
-  {
-    this->root2d_->RemoveChild(child);
-  }
   inline void AddChild(GameObject3D* child)
   {
     this->root3d_->AddChild(child);
+  }
+  inline void RemoveChild(GameObject2D* child)
+  {
+    this->root2d_->RemoveChild(child);
   }
   inline void RemoveChild(GameObject3D* child)
   {
@@ -64,24 +63,40 @@ public:
     this->root3d_->ClearChildren();
   }
 
-  inline void AddCamera(Camera* camera)
+  inline void AddCamera(Camera2D* camera)
   {
-    this->cameras_.push_back(camera);
+    this->camera2ds_.push_back(camera);
   }
-  void RemoveCamera(Camera* camera)
+  inline void AddCamera(Camera3D* camera)
   {
-    for (std::vector<Camera*>::iterator itr = this->cameras_.begin(); itr != this->cameras_.end(); ++itr)
+    this->camera3ds_.push_back(camera);
+  }
+  void RemoveCamera(Camera2D* camera)
+  {
+    for (std::vector<Camera2D*>::iterator itr = this->camera2ds_.begin(); itr != this->camera2ds_.end(); ++itr)
     {
       if (camera == (*itr))
       {
-        this->cameras_.erase(itr);
+        this->camera2ds_.erase(itr);
+        return;
+      }
+    }
+  }
+  void RemoveCamera(Camera3D* camera)
+  {
+    for (std::vector<Camera3D*>::iterator itr = this->camera3ds_.begin(); itr != this->camera3ds_.end(); ++itr)
+    {
+      if (camera == (*itr))
+      {
+        this->camera3ds_.erase(itr);
         return;
       }
     }
   }
   inline void ClearCamera()
   {
-    this->cameras_.clear();
+    this->camera2ds_.clear();
+    this->camera3ds_.clear();
   }
 
   virtual void PreUpdate() {}
@@ -119,9 +134,10 @@ public:
   // =================================================================
 private:
   GameObject2D* root2d_;
-  GameObject3D* root3d_;
+  std::vector<Camera2D*> camera2ds_;
 
-  std::vector<Camera*> cameras_;
+  GameObject3D* root3d_;
+  std::vector<Camera3D*> camera3ds_;
 };
 
 #endif//HAL_ENGINE_SCENE_SCENE_H_

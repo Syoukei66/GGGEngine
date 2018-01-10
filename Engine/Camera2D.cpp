@@ -51,7 +51,7 @@ void Camera2D::OnViewportDirty()
     this->GetViewportWidth(),
     this->GetViewportHeight(),
     0.0f,
-    2.15f
+    1000.0f
   );
 }
 

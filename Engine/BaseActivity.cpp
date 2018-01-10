@@ -101,6 +101,8 @@ bool BaseActivity::Update()
   {
     if (this->PreDraw())
     {
+      NativeMethod::Graphics().Graphics_SetViewport(0.0f, 0.0f, this->engine_->GetScreenWidth(), this->engine_->GetScreenHeight(), 0.0f, 1.0f);
+      NativeMethod::Graphics().Graphics_Clear();
       this->engine_->OnDraw();
       this->PostDraw();
     }
