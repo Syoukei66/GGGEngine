@@ -33,8 +33,15 @@ void ResourcePool::Uninit()
   this->unload_reserve_.clear();
 }
 
+#ifdef _DEBUG
+#include <fstream>
+#endif
 void ResourcePool::ReserveLoad(const ResourceLoader& resource)
 {
+#ifdef _DEBUG
+  std::ifstream ifs(resource.GetPath());
+  NATIVE_ASSERT(ifs.is_open(), "ファイルパスが間違えています");
+#endif
   this->load_reserve_[resource.GetCategory()].insert(const_cast<ResourceLoader*>(&resource));
 }
 
@@ -59,8 +66,8 @@ void ResourcePool::PreRealize(IResourceLoadingListener* listener, bool loaded_re
       if (this->resources_.find((*itr2)->GetPath()) != this->resources_.end())
       {
         //ロード、アンロード予約から削除
+        this->load_reserve_[itr->first].erase(*itr2);
         this->unload_reserve_[itr->first].erase(*itr2);
-        itr2 = itr->second.erase(itr2);
         continue;
       }
       ++itr2;
@@ -87,9 +94,9 @@ void ResourcePool::Realize(IResourceLoadingListener* listener)
   {
     for (auto itr2 = itr->second.begin(), end2 = itr->second.end(); itr2 != end2; ++itr2)
     {
-      (*itr2)->Unload();
-      this->resources_.erase((*itr2)->GetPath());
-      listener->OnLoadingProgressed(itr->first, 1);
+      //(*itr2)->Unload();
+      //this->resources_.erase((*itr2)->GetPath());
+      //listener->OnLoadingProgressed(itr->first, 1);
     }
   }
 

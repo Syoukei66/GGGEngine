@@ -5,6 +5,7 @@
 #include "Engine.h"
 #include "Camera.h"
 #include "ResourcePool.h"
+#include "NativeMethod.h"
 
 // =================================================================
 // Constructor / Destructor

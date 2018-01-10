@@ -188,8 +188,6 @@ bool DirectXActivity::Init(const EngineOption* option)
   this->d3d_device_->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
   this->d3d_device_->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
-  //InitPolygon();
-
   this->input_ = new DirectXInputDeviceManager();
   this->native_implements_->SetupInputDevices(this->input_);
 

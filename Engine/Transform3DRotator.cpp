@@ -106,17 +106,17 @@ void Transform3DRotator::PrepareEularAngles()
   {
     return;
   }
-  const T_FLOAT m11 = *this->rotation_matrix_[0][0];
-  const T_FLOAT m12 = *this->rotation_matrix_[0][1];
-  const T_FLOAT m13 = *this->rotation_matrix_[0][2];
+  const T_FLOAT m11 = (*this->rotation_matrix_)[0][0];
+  const T_FLOAT m12 = (*this->rotation_matrix_)[0][1];
+  const T_FLOAT m13 = (*this->rotation_matrix_)[0][2];
 
-  const T_FLOAT m21 = *this->rotation_matrix_[1][0];
-  const T_FLOAT m22 = *this->rotation_matrix_[1][1];
-  const T_FLOAT m23 = *this->rotation_matrix_[1][2];
+  const T_FLOAT m21 = (*this->rotation_matrix_)[1][0];
+  const T_FLOAT m22 = (*this->rotation_matrix_)[1][1];
+  const T_FLOAT m23 = (*this->rotation_matrix_)[1][2];
 
-  const T_FLOAT m31 = *this->rotation_matrix_[2][0];
-  const T_FLOAT m32 = *this->rotation_matrix_[2][1];
-  const T_FLOAT m33 = *this->rotation_matrix_[2][2];
+  const T_FLOAT m31 = (*this->rotation_matrix_)[2][0];
+  const T_FLOAT m32 = (*this->rotation_matrix_)[2][1];
+  const T_FLOAT m33 = (*this->rotation_matrix_)[2][2];
 
   if (m32 == 1.0f)
   {
