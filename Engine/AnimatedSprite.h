@@ -22,7 +22,7 @@ public:
   //SpriteのサイズはTextureの(width,height)をそれぞれ(x_num,y_num)で割ったものになります
   //Textureの解放はこのクラスでは行われませんが、
   //生成されたTiledTextureRegionの解放はこのクラスでは行われます。
-  static AnimatedSprite* CreateWithTexture(const ITexture* texture, T_UINT8 x_num, T_UINT8 y_num);
+  static AnimatedSprite* CreateWithTexture(const Texture* texture, T_UINT8 x_num, T_UINT8 y_num);
 
   //指定したIDからTextureを取得し、
   //そのTextureからTiledTextureRegionを作成し、

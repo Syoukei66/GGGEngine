@@ -9,7 +9,6 @@
 #include <NativeMethod.h>
 
 #include "NativeProcess_Graphics.h"
-#include "NativeProcess_Texture.h"
 #include "NativeProcess_Material.h"
 #include "NativeProcess_IO.h"
 #include "NativeProcess_Time.h"
@@ -50,11 +49,6 @@ DirectXActivity::~DirectXActivity()
 INativeProcess_Graphics* DirectXActivity::SetupNativeProcess_Graphics()
 {
   return new NativeProcess_Graphics();
-}
-
-INativeProcess_Texture* DirectXActivity::SetupNativeProcess_Texture()
-{
-  return new NativeProcess_Texture();
 }
 
 INativeProcess_Material* DirectXActivity::SetupNativeProcess_Material()

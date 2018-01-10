@@ -2,58 +2,39 @@
 #define HAL_ENGINE_RESOURCE_TEXTURE_H_
 
 #include <string>
-#include "ITexture.h"
+#include "NativeTexture.h"
+#include "FileResource.h"
 
-class Texture : public ITexture
+class Texture : public FileResource<INativeTexture>
 {
+public:
+  static const Texture* DynamicLoad(const char* path);
+
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  Texture(const std::string& path);
-  ~Texture();
+  Texture(const char* path);
 
   // =================================================================
   // Methods
   // =================================================================
 public:
-  void Load();
-  void Unload();
+  virtual INativeTexture* NativeLoadProcess(const std::string& path) override;
 
   // =================================================================
   // Setter / Getter
   // =================================================================
-  inline bool IsLoaded() const override
+  inline T_UINT16 GetWidth() const
   {
-    return this->native_texture_;
+    return this->GetContents()->GetWidth();
   }
 
-  inline const INativeTexture* GetNativeTexture() const override
+  inline T_UINT16 GetHeight() const
   {
-    return this->native_texture_;
+    return this->GetContents()->GetHeight();
   }
 
-  inline T_UINT16 GetWidth() const override
-  {
-    return this->native_texture_->GetWidth();
-  }
-
-  inline T_UINT16 GetHeight() const override
-  {
-    return this->native_texture_->GetHeight();
-  }
-
-  inline const std::string& GetPath() const
-  {
-    return this->path_;
-  }
-
-  // =================================================================
-  // Data Member
-  // =================================================================
-private:
-  std::string path_;
-  INativeTexture* native_texture_;
 };
 
 #endif//HAL_ENGINE_RESOURCE_TEXTURE_H_

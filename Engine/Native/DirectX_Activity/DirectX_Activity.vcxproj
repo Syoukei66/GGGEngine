@@ -207,7 +207,6 @@
     <ClCompile Include="NativeObjectFactory.cpp" />
     <ClCompile Include="NativeProcess_IO.cpp" />
     <ClCompile Include="NativeProcess_Material.cpp" />
-    <ClCompile Include="NativeProcess_Texture.cpp" />
     <ClCompile Include="NativeProcess_Graphics.cpp" />
     <ClCompile Include="NativeProcess_Time.cpp" />
     <ClCompile Include="NativeTexture.cpp" />
@@ -227,7 +226,6 @@
     <ClInclude Include="NativeProcess_IO.h" />
     <ClInclude Include="NativeProcess_Material.h" />
     <ClInclude Include="NativeProcess_Graphics.h" />
-    <ClInclude Include="NativeProcess_Texture.h" />
     <ClInclude Include="NativeProcess_Time.h" />
     <ClInclude Include="NativeTexture.h" />
   </ItemGroup>

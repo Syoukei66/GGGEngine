@@ -23,7 +23,22 @@ EntityModifierAllocateOption::EntityModifierAllocateOption()
   , loop_modifier_count(DEFAULT_LOOP_MODIFIER_COUNT)
 {}
 
-EntityModifierManager::EntityModifierManager(EntityModifierAllocateOption* option)
+EntityModifierManager::EntityModifierManager()
+  : modifier_root_pool_(nullptr)
+  , attribute_modifier_pool_(nullptr)
+  , delay_modifier_pool_(nullptr)
+  , sequence_modifier_pool_(nullptr)
+  , synchronized_modifier_pool_(nullptr)
+  , round_modifier_pool_(nullptr)
+  , loop_modifier_pool_(nullptr)
+{}
+
+EntityModifierManager::~EntityModifierManager()
+{
+  this->Uninit();
+}
+
+void EntityModifierManager::Init(EntityModifierAllocateOption* option)
 {
   this->modifier_root_pool_ = new PoolAllocator<EntityModifierRoot>(option->entity_modifier_root_count);
 
@@ -34,42 +49,51 @@ EntityModifierManager::EntityModifierManager(EntityModifierAllocateOption* optio
   this->synchronized_modifier_pool_ = new PoolAllocator<SynchronizedEntityModifier>(option->synchronized_modifier_count);
   this->round_modifier_pool_ = new PoolAllocator<RoundEntityModifier>(option->round_modifier_count);
   this->loop_modifier_pool_ = new PoolAllocator<LoopEntityModifier>(option->loop_modifier_count);
+
 }
 
-EntityModifierManager::~EntityModifierManager()
+void EntityModifierManager::Uninit()
 {
   if (this->modifier_root_pool_)
   {
     delete this->modifier_root_pool_;
+    this->modifier_root_pool_ = nullptr;
   }
 
   if (this->attribute_modifier_pool_)
   {
     delete this->attribute_modifier_pool_;
+    this->attribute_modifier_pool_ = nullptr;
   }
   if (this->attribute_ex_modifier_pool_)
   {
     delete this->attribute_ex_modifier_pool_;
+    this->attribute_ex_modifier_pool_ = nullptr;
   }
   if (this->delay_modifier_pool_)
   {
     delete this->delay_modifier_pool_;
+    this->delay_modifier_pool_ = nullptr;
   }
   if (this->sequence_modifier_pool_)
   {
     delete this->sequence_modifier_pool_;
+    this->sequence_modifier_pool_ = nullptr;
   }
-  if (this->synchronized_modifier_pool_ )
+  if (this->synchronized_modifier_pool_)
   {
     delete this->synchronized_modifier_pool_;
+    this->synchronized_modifier_pool_ = nullptr;
   }
   if (this->round_modifier_pool_)
   {
     delete this->round_modifier_pool_;
+    this->round_modifier_pool_ = nullptr;
   }
   if (this->loop_modifier_pool_)
   {
     delete this->loop_modifier_pool_;
+    this->loop_modifier_pool_ = nullptr;
   }
 }
 

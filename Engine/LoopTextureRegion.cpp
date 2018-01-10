@@ -4,7 +4,7 @@
 // =================================================================
 // Factory Method
 // =================================================================
-LoopTextureRegion* LoopTextureRegion::CreateWithTexture(const ITexture* texture)
+LoopTextureRegion* LoopTextureRegion::CreateWithTexture(const Texture* texture)
 {
   LoopTextureRegion* ret = new LoopTextureRegion();
   ret->Init();
@@ -13,12 +13,6 @@ LoopTextureRegion* LoopTextureRegion::CreateWithTexture(const ITexture* texture)
   ret->SetLoopHeight((T_FLOAT)texture->GetHeight());
   ret->FitToTexture();
   return ret;
-}
-
-LoopTextureRegion* LoopTextureRegion::CreateFromAsset(T_UINT8 palette_id, T_UINT16 texture_id)
-{
-  const ITexture* texture = HalEngine::Resource::GetTexture(palette_id, texture_id);
-  return LoopTextureRegion::CreateWithTexture(texture);
 }
 
 // =================================================================

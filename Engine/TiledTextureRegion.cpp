@@ -6,7 +6,7 @@
 // =================================================================
 // Factory Method
 // =================================================================
-TiledTextureRegion* TiledTextureRegion::CreateWithTexture(const ITexture* texture, T_UINT8 x_num, T_UINT8 y_num)
+TiledTextureRegion* TiledTextureRegion::CreateWithTexture(const Texture* texture, T_UINT8 x_num, T_UINT8 y_num)
 {
   TiledTextureRegion* ret = new TiledTextureRegion();
   ret->Init();
@@ -15,12 +15,6 @@ TiledTextureRegion* TiledTextureRegion::CreateWithTexture(const ITexture* textur
   ret->SetYNum(y_num);
   ret->FitToTexture();
   return ret;
-}
-
-TiledTextureRegion* TiledTextureRegion::CreateFromAsset(T_UINT8 palette_id, T_UINT16 texture_id, T_UINT8 x_num, T_UINT8 y_num)
-{
-  const ITexture* texture = HalEngine::Resource::GetTexture(palette_id, texture_id);
-  return TiledTextureRegion::CreateWithTexture(texture, x_num, y_num);
 }
 
 // =================================================================

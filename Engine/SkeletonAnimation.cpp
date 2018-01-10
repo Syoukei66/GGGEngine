@@ -4,12 +4,11 @@
 
 #include "NativeMethod.h"
 #include "Director.h"
-#include "ResourceManager.h"
 #include "GameObject2DRenderState.h"
 
-SkeletonAnimation* SkeletonAnimation::CreateFromAsset(T_UINT8 spine_id)
+SkeletonAnimation* SkeletonAnimation::CreateWithData(const SpineData* data)
 {
-  return new SkeletonAnimation(ResourceManager::GetInstance()->GetSpineDataManager()->GetData(spine_id)->skeleton_data);
+  return new SkeletonAnimation(data->skeleton_data);
 }
 
 SkeletonAnimation::SkeletonAnimation(spSkeletonData* data)

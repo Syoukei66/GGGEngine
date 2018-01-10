@@ -4,7 +4,7 @@
 
 #include "Engine.h"
 #include "Camera.h"
-#include "ResourceManager.h"
+#include "ResourcePool.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -32,10 +32,8 @@ Scene::~Scene()
 // =================================================================
 void Scene::Load(IResourceLoadingListener* listener)
 {
-  ResourceLoadOrderBuilder builder = ResourceLoadOrderBuilder();
-  this->OnLoad(&builder);
-  ResourceLoadOrder order = builder.GetOrder();
-  ResourceManager::GetInstance()->RealizeResources(order, listener);
+  this->OnLoad(&ResourcePool::GetInstance());
+  ResourcePool::GetInstance().Realize(listener);
   this->OnSetup();
 }
 

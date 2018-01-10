@@ -1,24 +1,17 @@
 #include "TextureRegion.h"
 #include <stdlib.h>
-#include "ResourceManager.h"
 #include "Moniker.h"
 
 // =================================================================
 // Factory Method
 // =================================================================
-TextureRegion* TextureRegion::CreateWithTexture(const ITexture* texture)
+TextureRegion* TextureRegion::CreateWithTexture(const Texture* texture)
 {
   TextureRegion* ret = new TextureRegion();
   ret->Init();
   ret->SetTexture(texture);
   ret->FitToTexture();
   return ret;
-}
-
-TextureRegion* TextureRegion::CreateFromAsset(T_UINT8 palette_id, T_UINT16 texture_id)
-{
-  const ITexture* texture = HalEngine::Resource::GetTexture(palette_id, texture_id);
-  return TextureRegion::CreateWithTexture(texture);
 }
 
 // =================================================================

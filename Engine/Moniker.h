@@ -2,7 +2,7 @@
 
 #include "InputManager.h"
 #include "UpdateEvent.h"
-#include "ResourceManager.h"
+#include "EntityModifierManager.h"
 
 namespace HalEngine
 {
@@ -36,31 +36,11 @@ inline T_UINT32 ElapsedFrameSinceSceneCreate()
 namespace Resource
 {
 
-inline ITexture* GetTexture(T_UINT8 pid, T_UINT16 tid)
-{
-  return ResourceManager::GetInstance()->GetTexturePaletteManager()->Get(pid)->GetTexture(tid);
-}
-
-inline const Texture* GetTexture(const char* path)
-{
-  return ResourceManager::GetInstance()->GetTexturePaletteManager()->DynamicLoad(path);
-}
-
-inline const ParticleData* GetParticleData(T_UINT8 id)
-{
-  return ResourceManager::GetInstance()->GetParticleDataManager()->GetData(id);
-}
-
 inline EntityModifierManager* GetEntityModifierManager()
 {
-  return ResourceManager::GetInstance()->GetEntityModifierManager();
+  return nullptr;
 }
 
-inline ModelData* GetModelData(T_UINT8 id)
-{
-  return ResourceManager::GetInstance()->GetModelDataManager()->Get(id);
 }
-
-}// namespace Resource
 
 }// namespace HalEngine

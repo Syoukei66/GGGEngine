@@ -237,9 +237,6 @@
     <Filter Include="ソース ファイル\Resource\Pool">
       <UniqueIdentifier>{f13635fa-9847-4b21-a352-ed5f63fd0520}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Resource\Pool\Model">
-      <UniqueIdentifier>{3e3adae3-f231-45a4-aed6-e5dc38e59ae3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Resource\Pool\Particle">
       <UniqueIdentifier>{a4071fa6-c860-4735-bdef-396c016ff26c}</UniqueIdentifier>
     </Filter>
@@ -254,12 +251,6 @@
     </Filter>
     <Filter Include="ソース ファイル\Resource\Pool\Texture\Atlas">
       <UniqueIdentifier>{5cbc1636-9bd6-4948-b546-c437d76e0c06}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Resource\Pool\Texture\Palette">
-      <UniqueIdentifier>{6075be9e-83ee-412a-8637-1b4f0d10e608}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Resource\Pool\Texture\Palette">
-      <UniqueIdentifier>{66d52ecc-5d4a-4e2d-9d66-bfbef7edab82}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Component\Mesh">
       <UniqueIdentifier>{367859c9-91a8-48d2-b4ca-273a6a701684}</UniqueIdentifier>
@@ -288,6 +279,12 @@
     </Filter>
     <Filter Include="ソース ファイル\Component\Collision\2D">
       <UniqueIdentifier>{1c50554e-0d96-4bc2-a3b3-87967beb9820}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Component\Collision\3D">
+      <UniqueIdentifier>{94e35f95-46e0-430d-b61e-05b016ad8e3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Resource\Model">
+      <UniqueIdentifier>{3e3adae3-f231-45a4-aed6-e5dc38e59ae3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -381,9 +378,6 @@
     <ClCompile Include="Texture.cpp">
       <Filter>ソース ファイル\Resource\Pool\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="TexturePaletteManager.cpp">
-      <Filter>ソース ファイル\Resource\Pool\Texture</Filter>
-    </ClCompile>
     <ClCompile Include="TextureAtlas.cpp">
       <Filter>ソース ファイル\Resource\Pool\Texture\Atlas</Filter>
     </ClCompile>
@@ -392,9 +386,6 @@
     </ClCompile>
     <ClCompile Include="ParticleDataManager.cpp">
       <Filter>ソース ファイル\Resource\Pool\Particle</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineOption.cpp">
-      <Filter>ソース ファイル\Engine</Filter>
     </ClCompile>
     <ClCompile Include="ParticleDataLoader.cpp">
       <Filter>ソース ファイル\Resource\Pool\Particle</Filter>
@@ -639,9 +630,6 @@
     <ClCompile Include="Singleton.cpp">
       <Filter>ソース ファイル\Util\Singleton</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceManager.cpp">
-      <Filter>ソース ファイル\Resource</Filter>
-    </ClCompile>
     <ClCompile Include="SceneTransitioner.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
@@ -654,29 +642,11 @@
     <ClCompile Include="EngineInitializeSetting.cpp">
       <Filter>ソース ファイル\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceLoadOrder.cpp">
-      <Filter>ソース ファイル\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="TexturePalette.cpp">
-      <Filter>ソース ファイル\Resource\Pool\Texture\Palette</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticTexture.cpp">
-      <Filter>ソース ファイル\Resource\Pool\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticTexturePalette.cpp">
-      <Filter>ソース ファイル\Resource\Pool\Texture\Palette</Filter>
-    </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>ソース ファイル\Input</Filter>
     </ClCompile>
     <ClCompile Include="InputSetting.cpp">
       <Filter>ソース ファイル\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="HalEngine.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="ITexture.cpp">
-      <Filter>ソース ファイル\Resource\Pool\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Transform3DRotator.cpp">
       <Filter>ソース ファイル\Component\GameObject\3D</Filter>
@@ -687,9 +657,6 @@
     <ClCompile Include="NativeTexture.cpp">
       <Filter>ソース ファイル\Native\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="NativeMatrixStack.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Sprite3D.cpp">
       <Filter>ソース ファイル\Component\GameObject\3D\Primitive</Filter>
     </ClCompile>
@@ -699,19 +666,28 @@
     <ClCompile Include="VertexBufferObject_Sprite3D.cpp">
       <Filter>ソース ファイル\Component\GameObject\VBO\3D</Filter>
     </ClCompile>
-    <ClCompile Include="Collider3D.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Collision2D.cpp">
       <Filter>ソース ファイル\Component\Collision\2D</Filter>
     </ClCompile>
-    <ClCompile Include="NativeModel.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="ModelData.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Resource\Model</Filter>
     </ClCompile>
-    <ClCompile Include="ModelDataManager.cpp">
+    <ClCompile Include="Collider3D.cpp">
+      <Filter>ソース ファイル\Component\Collision\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeMatrixStack.cpp">
+      <Filter>ソース ファイル\Native\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeModel.cpp">
+      <Filter>ソース ファイル\Native\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourcePool.cpp">
+      <Filter>ソース ファイル\Resource\Pool</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceLoader.cpp">
+      <Filter>ソース ファイル\Resource\Pool</Filter>
+    </ClCompile>
+    <ClCompile Include="SpineResource.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -825,9 +801,6 @@
       <Filter>ヘッダー ファイル\Resource\Pool\Particle</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
-      <Filter>ヘッダー ファイル\Resource\Pool\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="TexturePaletteManager.h">
       <Filter>ヘッダー ファイル\Resource\Pool\Texture</Filter>
     </ClInclude>
     <ClInclude Include="TextureAtlas.h">
@@ -1124,16 +1097,7 @@
     <ClInclude Include="SceneTransitioner.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceManager.h">
-      <Filter>ヘッダー ファイル\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelDataManager.h">
-      <Filter>ヘッダー ファイル\Resource\Pool\Model</Filter>
-    </ClInclude>
     <ClInclude Include="LoadProgressCounter.h">
-      <Filter>ヘッダー ファイル\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceLoadOrder.h">
       <Filter>ヘッダー ファイル\Resource</Filter>
     </ClInclude>
     <ClInclude Include="ResourcePool.h">
@@ -1141,21 +1105,6 @@
     </ClInclude>
     <ClInclude Include="BlendFunction.h">
       <Filter>ヘッダー ファイル\Structure</Filter>
-    </ClInclude>
-    <ClInclude Include="ITexture.h">
-      <Filter>ヘッダー ファイル\Resource\Pool\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="TexturePalette.h">
-      <Filter>ヘッダー ファイル\Resource\Pool\Texture\Palette</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticTexture.h">
-      <Filter>ヘッダー ファイル\Resource\Pool\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="ITexturePalette.h">
-      <Filter>ヘッダー ファイル\Resource\Pool\Texture\Palette</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticTexturePalette.h">
-      <Filter>ヘッダー ファイル\Resource\Pool\Texture\Palette</Filter>
     </ClInclude>
     <ClInclude Include="HalEngine.h">
       <Filter>ヘッダー ファイル</Filter>
@@ -1183,9 +1132,6 @@
     </ClInclude>
     <ClInclude Include="NativeObjectFactory.h">
       <Filter>ヘッダー ファイル\Native\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="INativeProcess_Texture.h">
-      <Filter>ヘッダー ファイル\Native</Filter>
     </ClInclude>
     <ClInclude Include="AnimatedSprite3D.h">
       <Filter>ヘッダー ファイル\Component\GameObject\3D\Primitive</Filter>
@@ -1216,6 +1162,15 @@
     </ClInclude>
     <ClInclude Include="Moniker.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceLoader.h">
+      <Filter>ヘッダー ファイル\Resource\Pool</Filter>
+    </ClInclude>
+    <ClInclude Include="FileResource.h">
+      <Filter>ヘッダー ファイル\Resource\Pool</Filter>
+    </ClInclude>
+    <ClInclude Include="SpineResource.h">
+      <Filter>ヘッダー ファイル\Resource\Pool\Spine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

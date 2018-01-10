@@ -1,10 +1,8 @@
 #include "Engine.h"
 #include "Director.h"
 #include "EasingFunctionManager.h"
-#include "TexturePaletteManager.h"
 #include "EntityModifierManager.h"
 #include "ParticleDataManager.h"
-#include "ResourceManager.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -28,11 +26,8 @@ bool Engine::Init(IEngineSetting* setting)
   this->option_ = new EngineOption();
   setting->SetupEngineOption(this->option_);
 
-  ResourceManager::GetInstance()->Init(&this->option_->entity_modifier_option);
-  setting->SetupTexturePalettes(ResourceManager::GetInstance()->GetTexturePaletteManager());
-  setting->SetupParticleDatas(ResourceManager::GetInstance()->GetParticleDataManager());
-  setting->SetupSpineDatas(ResourceManager::GetInstance()->GetSpineDataManager());
-  setting->SetupModelDatas(ResourceManager::GetInstance()->GetModelDataManager());
+  ResourcePool::GetInstance().Init();
+  EntityModifierManager::GetInstance().Init(&this->option_->entity_modifier_option);
   EasingFunctionManager::GetInstance()->Load(this->option_->render_cycle);
   return true;
 }
@@ -40,7 +35,8 @@ bool Engine::Init(IEngineSetting* setting)
 bool Engine::End()
 {
   EasingFunctionManager::GetInstance()->Unload();
-  ResourceManager::GetInstance()->Uninit();
+  EntityModifierManager::GetInstance().Uninit();
+  ResourcePool::GetInstance().Uninit();
   delete this->option_;
   return true;
 }

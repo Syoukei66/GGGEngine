@@ -1,44 +1,57 @@
 #pragma once
 
-#include <string>
-#include <map>
+#include "ResourceLoader.h"
+#include "ResourcePool.h"
 
-#include "ITexture.h"
-
-class ITexturePalette
+template<class T>
+class FileResource : public ResourceLoader
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  ITexturePalette()
-    : textures_()
+  FileResource(const char* category, const char* path)
+    : ResourceLoader(category, path)
+    , obj_(nullptr)
   {}
-  virtual ~ITexturePalette() {}
+  virtual ~FileResource()
+  {
+    delete this->obj_;
+  }
 
   // =================================================================
   // Methods
   // =================================================================
 public:
-  virtual T_UINT8 RegisterPath(const char* path) = 0;
+  void LoadProcess(const std::string& path) override
+  {
+    this->obj_ = this->NativeLoadProcess(path);
+  }
+  void UnloadProcess()
+  {
+    delete this->obj_;
+    this->obj_ = nullptr;
+  }
+
+protected:
+  virtual T* NativeLoadProcess(const std::string& path) = 0;
 
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  inline T_UINT32 GetSize()
+  inline bool IsLoaded() const override
   {
-    return (T_UINT32)this->textures_.size();
+    return this->obj_;
   }
-  inline ITexture* GetTexture(T_UINT8 id)
+  inline T* GetContents() const
   {
-    return this->textures_[id];
+    return this->obj_;
   }
 
   // =================================================================
   // Data Member
   // =================================================================
-protected:
-  std::map<T_UINT8, ITexture*> textures_;
-
+private:
+  T* obj_;
 };

@@ -45,9 +45,6 @@
     <ClCompile Include="DirectXActivity.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="NativeProcess_Texture.cpp">
-      <Filter>ソース ファイル\Native</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -139,9 +136,6 @@
     </ClInclude>
     <ClInclude Include="NativeTexture.h">
       <Filter>ヘッダー ファイル\Native\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeProcess_Texture.h">
-      <Filter>ヘッダー ファイル\Native</Filter>
     </ClInclude>
     <ClInclude Include="NativeModel.h">
       <Filter>ヘッダー ファイル\Native\Objects</Filter>

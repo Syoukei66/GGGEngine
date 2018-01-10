@@ -8,7 +8,6 @@
 #include "InputManager.h"
 #include "UpdateEvent.h"
 #include "SceneTransitioner.h"
-#include "ResourceLoadOrder.h"
 
 #include "ResourcePool.h"
 
@@ -72,7 +71,7 @@ public:
   void OnUpdateEvent();
 
 protected:
-  virtual void OnLoad(ResourceLoadOrderBuilder* order) = 0;
+  virtual void OnLoad(IResourceLoadReserver* resource) = 0;
   virtual void OnSetup() = 0;
   virtual void OnUnload() = 0;
   virtual void OnShow(ISceneShowListener* listener) = 0;

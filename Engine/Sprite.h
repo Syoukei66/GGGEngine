@@ -12,26 +12,8 @@ class Sprite : public Shape
   // =================================================================
 public:
   static Sprite* Create();
-
-  //ITextureRegionをあらかじめセットした状態でSpriteを生成します。
-  //Spriteのサイズ(width/height)はITextureRegionに準じたものとなります。
-  //引数で渡したITextureRegionの解放はこのクラスでは行われません。
   static Sprite* CreateWithTextureRegion(ITextureRegion* region);
-
-  //TextureからTextureRegionを作成し、
-  //それをもとにSpriteを生成します。
-  //Spriteのサイズ(width/height)はTextureに準じたものとなります、
-  //Textureの解放はこのクラスでは行われませんが、
-  //生成されたTextureRegionの解放はこのクラスでは行われます。
-  static Sprite* CreateWithTexture(const ITexture* texture);
-
-  //指定したパスから画像をTextureとしてロードし、
-  //そのTextureからTextureRegionを作成し、
-  //それをもとにSpriteを生成します。
-  //Spriteのサイズ(width/height)は画像のサイズ(width/height)に準じたものとなります、
-  //ロードされたTextureの解放はこのクラスでは行われませんが、
-  //生成されたTextureRegionの解放はこのクラスでは行われます。
-  static Sprite* CreateFromAsset(T_UINT8 palette_id, T_UINT16 texture_id);
+  static Sprite* CreateWithTexture(const Texture* texture);
 
   // =================================================================
   // Constructor / Destructor

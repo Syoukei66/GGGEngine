@@ -9,7 +9,7 @@ class AnimatedSprite3D : public Sprite3D
   // Factory Method
   // =================================================================
 public:
-  static AnimatedSprite3D* CreateFromAsset(T_UINT8 palette_id, T_UINT16 texture_id, T_UINT8 x_num, T_UINT8 y_num);
+  static AnimatedSprite3D* CreateWithTexture(const Texture* texture, T_UINT8 x_num, T_UINT8 y_num);
 
   // =================================================================
   // Constructor / Destructor
