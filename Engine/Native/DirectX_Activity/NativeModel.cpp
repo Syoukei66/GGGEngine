@@ -56,7 +56,6 @@ NativeModel_x::~NativeModel_x()
   for (T_UINT32 i = 0; i < this->material_count_; ++i)
   {
     delete this->materials_[i];
-    delete this->textures_[i];
   }
   delete[] this->materials_;
   delete[] this->textures_;

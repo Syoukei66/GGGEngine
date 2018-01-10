@@ -76,6 +76,11 @@ void SpriteVertexBufferObject::OnUpdateCoord(GameObject* entity)
     this->vertexes_[V_VERTEX_V2].coord.y = y0;
     this->vertexes_[V_VERTEX_V3].coord.y = y0 + h;
   }
+
+  this->vertexes_[V_VERTEX_V0].coord.z = 0.1f;
+  this->vertexes_[V_VERTEX_V1].coord.z = 0.1f;
+  this->vertexes_[V_VERTEX_V2].coord.z = 0.1f;
+  this->vertexes_[V_VERTEX_V3].coord.z = 0.1f;
 }
 
 T_UINT32 SpriteVertexBufferObject::GetVertexesCount() const
