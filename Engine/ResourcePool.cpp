@@ -66,8 +66,8 @@ void ResourcePool::PreRealize(IResourceLoadingListener* listener, bool loaded_re
       if (this->resources_.find((*itr2)->GetPath()) != this->resources_.end())
       {
         //ロード、アンロード予約から削除
-        this->load_reserve_[itr->first].erase(*itr2);
         this->unload_reserve_[itr->first].erase(*itr2);
+        itr2 = itr->second.erase(itr2);
         continue;
       }
       ++itr2;
@@ -94,9 +94,9 @@ void ResourcePool::Realize(IResourceLoadingListener* listener)
   {
     for (auto itr2 = itr->second.begin(), end2 = itr->second.end(); itr2 != end2; ++itr2)
     {
-      //(*itr2)->Unload();
-      //this->resources_.erase((*itr2)->GetPath());
-      //listener->OnLoadingProgressed(itr->first, 1);
+      (*itr2)->Unload();
+      this->resources_.erase((*itr2)->GetPath());
+      listener->OnLoadingProgressed(itr->first, 1);
     }
   }
 

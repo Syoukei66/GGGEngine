@@ -35,6 +35,7 @@ Scene::~Scene()
 void Scene::Load(IResourceLoadingListener* listener)
 {
   this->OnLoad(&ResourcePool::GetInstance());
+  ResourcePool::GetInstance().PreRealize(listener);
   ResourcePool::GetInstance().Realize(listener);
   this->OnSetup();
 }
