@@ -44,7 +44,7 @@ void Sprite3D::NativeDraw(GameObject3DRenderState* state)
   const void* vertexes = this->vbo_->GetVertexes();
   T_UINT32 size = this->vbo_->GetVertexesCount();
   NativeMethod::Graphics().Graphics_SetTexture(this->texture_region_->GetTexture());
-  NativeMethod::Graphics().Graphics_SetMaterial(nullptr);
+  NativeMethod::Graphics().Graphics_SetMaterial(this->GetMaterial());
   NativeMethod::Graphics().Graphics_SetLightingEnabled(false);
   NativeMethod::Graphics().Graphics_DrawIndexedVertexes(
     state,
@@ -80,8 +80,8 @@ void Sprite3D::FitToTexture()
   {
     return;
   }
-  const T_FLOAT texture_width = (T_FLOAT)texture->GetWidth();
-  const T_FLOAT texture_height = (T_FLOAT)texture->GetHeight();
+  const T_FLOAT texture_width = (T_FLOAT)texture->GetWidth() * 0.01f;
+  const T_FLOAT texture_height = (T_FLOAT)texture->GetHeight() * 0.01f;
   this->SetWidth(texture_width * (this->texture_region_->GetU1() - this->texture_region_->GetU0()));
   this->SetHeight(texture_height * (this->texture_region_->GetV1() - this->texture_region_->GetV0()));
 }

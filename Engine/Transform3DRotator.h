@@ -23,6 +23,10 @@ public:
   void RotateY(T_FLOAT rad);
   void RotateZ(T_FLOAT rad);
 
+  void RotateXAxis(T_FLOAT rad);
+  void RotateYAxis(T_FLOAT rad);
+  void RotateZAxis(T_FLOAT rad);
+
   void FromRotationMatrix(INativeMatrix* matrix);
   void ToRotationMatrix(INativeMatrix* dest);
 

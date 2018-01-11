@@ -14,6 +14,7 @@ AnimatedSprite* AnimatedSprite::CreateWithTextureRegion(TiledTextureRegion* regi
 {
   AnimatedSprite* ret = AnimatedSprite::Create();
   ret->SetTextureRegion(region);
+  ret->SetAnimateRange(0, region->GetTileCount() - 1);
   ret->FitToTexture();
   return ret;
 }
@@ -32,6 +33,8 @@ AnimatedSprite* AnimatedSprite::CreateWithTexture(const Texture* texture, T_UINT
 AnimatedSprite::AnimatedSprite()
   : frame_count_(0)
   , duration_frame_(0)
+  , animation_begin_(0)
+  , animation_end_(0)
 {}
 
 // =================================================================
@@ -52,7 +55,7 @@ void AnimatedSprite::PreDraw(GameObject2DRenderState* state)
     this->frame_count_++;
     if (this->frame_count_ % this->duration_frame_ == 0 && region)
     {
-      region->SetCurrentIndex(region->GetCurrentIndex() + 1);
+      this->SetCurrentIndex(region->GetCurrentIndex() + 1);
     }
   }
   Sprite::PreDraw(state);
@@ -61,6 +64,13 @@ void AnimatedSprite::PreDraw(GameObject2DRenderState* state)
 // =================================================================
 // Methods
 // =================================================================
+void AnimatedSprite::SetAnimateRange(T_UINT16 begin, T_UINT16 end)
+{
+  this->animation_begin_ = begin;
+  this->animation_end_ = end;
+  this->SetCurrentIndex(this->GetCurrentIndex());
+}
+
 void AnimatedSprite::Animate(T_UINT16 duration_frame)
 {
   this->duration_frame_ = duration_frame;
@@ -71,5 +81,13 @@ void AnimatedSprite::Animate(T_UINT16 duration_frame)
 // =================================================================
 void AnimatedSprite::SetCurrentIndex(T_UINT16 index)
 {
-  this->GetTiledTextureRegion()->SetCurrentIndex(index);
+  TiledTextureRegion* region = (TiledTextureRegion*)this->GetTextureRegion();
+  if (!region)
+  {
+    return;
+  }
+  const T_UINT16 state_count = this->animation_end_ - this->animation_begin_ + 1;
+  const T_UINT16 local_loop = index / state_count;
+  const T_UINT16 local_index = index % state_count;
+  region->SetCurrentIndex(local_loop * region->GetTileCount() + this->animation_begin_ + local_index);
 }

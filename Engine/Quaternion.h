@@ -41,6 +41,7 @@ public:
   // Methods
   // =================================================================
   void q(const TVec3f& v, T_FLOAT rad);
+  void FromEularAngles(const TVec3f& mat);
   void FromRotationMatrix(const INativeMatrix& mat);
   void ToRotationMatrix(INativeMatrix* dest);
 

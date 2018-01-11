@@ -56,6 +56,21 @@ void Transform3DRotator::RotateZ(T_FLOAT rad)
   this->q(Z_AXIS, rad);
 }
 
+void Transform3DRotator::RotateXAxis(T_FLOAT rad)
+{
+  this->SetEularX(this->GetEularX() + rad);
+}
+
+void Transform3DRotator::RotateYAxis(T_FLOAT rad)
+{
+  this->SetEularY(this->GetEularY() + rad);
+}
+
+void Transform3DRotator::RotateZAxis(T_FLOAT rad)
+{
+  this->SetEularZ(this->GetEularZ() + rad);
+}
+
 void Transform3DRotator::FromRotationMatrix(INativeMatrix* matrix)
 {
   this->rotation_matrix_->Assign(*matrix);

@@ -8,10 +8,7 @@
 // =================================================================
 // AnalogInputState
 // コントローラーやマウスからのアナログな入力を保持します
-// 入力は0.0～1.0の間で処理されます。0.0未満の場合は入力は無視されます。
-// Preserve analog input from controller/mouse.
-// Inputs are processed between 0.0 and 1.0.
-// If it is less than 0.0, input is ignored.
+// 入力は-1.0～1.0の間で処理されます。
 // =================================================================
 
 class AnalogInputState
@@ -30,8 +27,7 @@ public:
 public:
   void Prepare();
   void PreInput(EngineInput::Analog::ID id);
-  //入力を0.0～1.0の間でセット
-  //Set the input between 0.0 and 1.0.
+  //入力を-1.0～1.0の間でセット
   void InputValue(EngineInput::Analog::ID id, T_UINT8 dimension, T_FLOAT value);
   void PostInput(EngineInput::Analog::ID id);
 
@@ -46,8 +42,6 @@ public:
 
   //過去の入力の絶対値がdead_range以下の状態かつ
   //現在の入力がdead_range以上になったタイミングでtrueになります。
-  //It becomes true when the absolute value of past input is dead_range or less and
-  //the current input becomes dead_range or more.
   inline bool IsTrigger(T_INT16 id, T_UINT8 dimension, T_FLOAT dead_range = 0.0f) const
   {
     return id != -1 &&
@@ -56,57 +50,58 @@ public:
 
   //過去の入力の絶対値がdead_range以上の状態かつ
   //現在の入力がdead_range以下になったタイミングでtrueになります。
-  //It becomes true when the absolute value of past input is dead_range or more and
-  //the current input becomes dead_range or less.
   inline bool IsRelease(T_INT16 id, T_UINT8 dimension, T_FLOAT dead_range = 0.0f) const
   {
     return id != -1 &&
       (fabs(this->input_[id][dimension]) <= dead_range && fabs(this->old_input_[id][dimension]) > dead_range);
   }
   
-  inline T_FLOAT GetValue(T_INT16 id, T_UINT8 dimension, T_FLOAT min = 0.0f, T_FLOAT max = 1.0f) const
+  inline T_FLOAT GetValue(T_INT16 id, T_UINT8 dimension, T_FLOAT dead_range = 0.0f) const
   {
-    if (id == -1 || this->input_[id][dimension] < 0.0f)
+    if (id == -1 || fabs(this->input_[id][dimension]) < dead_range)
     {
-      return (max + min) * 0.5f;
+      return 0.0f;
     }
-    return this->input_[id][dimension] * (max - min) + min;
+    return this->input_[id][dimension];
   }
 
-  inline T_FLOAT GetOldValue(T_INT16 id, T_UINT8 dimension, T_FLOAT min = 0.0f, T_FLOAT max = 1.0f) const
+  inline T_FLOAT GetOldValue(T_INT16 id, T_UINT8 dimension, T_FLOAT dead_range = 0.0f) const
   {
-    if (id == -1 || this->old_input_[id][dimension] < 0.0f)
+    if (id == -1 || fabs(this->old_input_[id][dimension]) < dead_range)
     {
-      return this->input_[id][dimension];
+      return 0.0f;
     }
-    return this->old_input_[id][dimension] * (max - min) + min;
+    return this->old_input_[id][dimension];
   }
 
-  inline T_FLOAT GetDelta(T_INT16 id, T_UINT8 dimension, T_FLOAT min = 0.0f, T_FLOAT max = 1.0f) const
+  inline T_FLOAT GetDelta(T_INT16 id, T_UINT8 dimension, T_FLOAT dead_range = 0.0f) const
   {
-    if (id == -1 || this->old_input_[id][dimension] < 0.0f)
+    if (id == -1)
     {
-      return (max - min) + min;
+      return 0.0f;
     }
-    return (this->input_[id][dimension] - this->old_input_[id][dimension]) * (max - min) + min;
+    const T_FLOAT ret = this->input_[id][dimension] - this->old_input_[id][dimension];
+    if (fabs(ret) < dead_range)
+    {
+      return 0;
+    }
+    return ret;
   }
 
-  inline bool IsEnabled(T_INT16 id, T_UINT8 dimension) const
+  inline bool IsEnabled(T_INT16 id, T_UINT8 dimension, T_FLOAT dead_range = 0.0f) const
   {
-    return id != -1 && this->input_[id][dimension] > 0.0f;
+    return id != -1 && fabs(this->input_[id][dimension]) > dead_range;
   }
 
-  inline bool IsOldEnabled(T_INT16 id, T_UINT8 dimension) const
+  inline bool IsOldEnabled(T_INT16 id, T_UINT8 dimension, T_FLOAT dead_range = 0.0f) const
   {
-    return id != -1 && this->old_input_[id][dimension] > 0.0f;
+    return id != -1 && fabs(this->old_input_[id][dimension]) > dead_range;
   }
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
-  //入力は0.0～1.0の間で処理されます
-  //Inputs are processed between 0.0 and 1.0.
   bool input_prepared_[EngineInput::Analog::ID_ANALOG_MAX];
   T_FLOAT old_input_[EngineInput::Analog::ID_ANALOG_MAX][EngineInput::Analog::DIMENSION_DATANUM];
   T_FLOAT input_[EngineInput::Analog::ID_ANALOG_MAX][EngineInput::Analog::DIMENSION_DATANUM];

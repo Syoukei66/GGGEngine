@@ -1,6 +1,7 @@
 #include "GameObject3D.h"
 #include "GameObject3DRenderState.h"
 #include "NativeMethod.h"
+#include "Camera3D.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -9,7 +10,9 @@ GameObject3D::GameObject3D()
   : parent_(nullptr)
   , children_()
   , z_test_(false)
+  , billbording_(false)
 {
+  this->calc_mat_ = INativeMatrix::Create();
   this->SetBlendFunction(BlendFunction::BL_NOBLEND, BlendFunction::BL_NOBLEND);
   this->transform_ = new Transform3D(this);
   this->transform_->Init();
@@ -17,10 +20,8 @@ GameObject3D::GameObject3D()
 
 GameObject3D::~GameObject3D()
 {
-  if (this->transform_)
-  {
-    delete this->transform_;
-  }
+  delete this->transform_;
+  delete this->calc_mat_;
 }
 
 // =================================================================
@@ -183,10 +184,24 @@ T_FLOAT GameObject3D::ConvertZLocalToWorld(T_FLOAT local_z, GameObject3D* root) 
 void GameObject3D::PushMatrixStack(GameObject3DRenderState* state)
 {
   state->PushMatrix(this->transform_->GetMatrix());
+  if (this->billbording_)
+  {
+    state->GetCamera()->GetViewMatrix()->Inverse(this->calc_mat_);
+
+    (*this->calc_mat_)[3][0] = 0.0f;
+    (*this->calc_mat_)[3][1] = 0.0f;
+    (*this->calc_mat_)[3][2] = 0.0f;
+
+    state->PushMatrix(this->calc_mat_);
+  }
 }
 
 void GameObject3D::PopMatrixStack(GameObject3DRenderState* state)
 {
+  if (this->billbording_)
+  {
+    state->PopMatrix();
+  }
   state->PopMatrix();
 }
 
