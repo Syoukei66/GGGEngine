@@ -33,6 +33,40 @@ bool InputState::AnyButton()
   return false;
 }
 
+bool InputState::AnyButtonDown()
+{
+  const DigitalInputState* digital = EngineInputState::GetInstance()->GetDigitalInput(this->player_id_);
+  for (std::map<T_UINT8, InputEntity>::iterator itr = this->entities_.begin(); itr != this->entities_.end(); ++itr)
+  {
+    const InputEntity& entity = itr->second;
+    if (
+      digital->IsTrigger(entity.negative_button) ||
+      digital->IsTrigger(entity.positive_button)
+      )
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool InputState::AnyButtonUp()
+{
+  const DigitalInputState* digital = EngineInputState::GetInstance()->GetDigitalInput(this->player_id_);
+  for (std::map<T_UINT8, InputEntity>::iterator itr = this->entities_.begin(); itr != this->entities_.end(); ++itr)
+  {
+    const InputEntity& entity = itr->second;
+    if (
+      digital->IsRelease(entity.negative_button) ||
+      digital->IsRelease(entity.positive_button)
+      )
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
 bool InputState::AnyAxis()
 {
   const AnalogInputState* analog = EngineInputState::GetInstance()->GetAnalogInput(this->player_id_);

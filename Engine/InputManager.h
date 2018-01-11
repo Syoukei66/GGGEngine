@@ -14,6 +14,8 @@ public:
 
 public:
   bool AnyButton();
+  bool AnyButtonDown();
+  bool AnyButtonUp();
   bool AnyAxis();
   bool AnyAxisOrButton();
   T_FLOAT GetAxis(T_UINT8 id, T_FLOAT dead_range = 0.1f);
