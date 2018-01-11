@@ -3,12 +3,12 @@
 #include "Sprite.h"
 #include "Vertex.h"
 
-enum { SPRITE_INDEXES_COUNT = 6 };
-static const T_UINT16 SPRITE_INDEXES[SPRITE_INDEXES_COUNT] =
-{
-  0, 1, 2,
-  1, 3, 2
-};
+//enum { SPRITE_INDEXES_COUNT = 6 };
+//static const T_UINT16 SPRITE_INDEXES[SPRITE_INDEXES_COUNT] =
+//{
+//  0, 1, 2,
+//  1, 3, 2
+//};
 
 // =================================================================
 // Factory Method
@@ -85,7 +85,8 @@ void SpriteVertexBufferObject::OnUpdateCoord(GameObject* entity)
 
 T_UINT32 SpriteVertexBufferObject::GetVertexesCount() const
 {
-  return SPRITE_INDEXES_COUNT;
+  return V_VERTEX_MAX;
+  //return SPRITE_INDEXES_COUNT;
 }
 
 const void* SpriteVertexBufferObject::GetVertexes() const
@@ -95,7 +96,8 @@ const void* SpriteVertexBufferObject::GetVertexes() const
 
 const T_UINT16* SpriteVertexBufferObject::GetIndexes() const
 {
-  return SPRITE_INDEXES;
+  return nullptr;
+  //return SPRITE_INDEXES;
 }
 
 inline INativeProcess_Graphics::PrimitiveType SpriteVertexBufferObject::GetPrimitiveType()

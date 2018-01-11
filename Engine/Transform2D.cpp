@@ -37,7 +37,7 @@ void Transform2D::UpdateTranslateMatrix(INativeMatrix* matrix)
 
 void Transform2D::UpdateScaleMatrix(INativeMatrix* matrix)
 {
-  matrix->Translation(
+  matrix->Scaling(
     this->scale_.x,
     this->scale_.y,
     1.0f
@@ -46,7 +46,7 @@ void Transform2D::UpdateScaleMatrix(INativeMatrix* matrix)
 
 void Transform2D::UpdateRotateMatrix(INativeMatrix* matrix)
 {
-  matrix->Translation(
+  matrix->Rotation(
     0.0f,
     0.0f,
     this->rotation_
