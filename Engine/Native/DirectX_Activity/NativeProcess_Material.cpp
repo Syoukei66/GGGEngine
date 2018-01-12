@@ -11,7 +11,7 @@ LP_MATERIAL NativeProcess_Material::Material_Create()
 
 void NativeProcess_Material::Material_Delete(LP_MATERIAL material)
 {
-  delete material;
+  delete (D3DMATERIAL9*)material;
 }
 
 void NativeProcess_Material::Material_SetDiffuse(LP_MATERIAL material, const Color& color)

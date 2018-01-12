@@ -7,7 +7,7 @@
 class Sprite3D : public Shape3D
 {
 public:
-  static Sprite3D* CreateFromAsset(T_UINT8 palette_id, T_UINT16 texture_id);
+  static Sprite3D* CreateWithTexture(const Texture* texture);
 
 public:
   Sprite3D();

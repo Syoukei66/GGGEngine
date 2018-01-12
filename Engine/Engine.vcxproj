@@ -196,19 +196,20 @@
     <ClCompile Include="EngineAttachmentLoader.cpp" />
     <ClCompile Include="EngineInitializeSetting.cpp" />
     <ClCompile Include="EngineInputEvent.cpp" />
-    <ClCompile Include="EngineOption.cpp" />
     <ClCompile Include="GameComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObject2D.cpp" />
     <ClCompile Include="GameObject2DRenderState.cpp" />
     <ClCompile Include="GameObject3D.cpp" />
     <ClCompile Include="GameObject3DRenderState.cpp" />
+    <ClCompile Include="ResourceLoader.cpp" />
     <ClCompile Include="ModelData.cpp" />
-    <ClCompile Include="ModelDataManager.cpp" />
     <ClCompile Include="NativeMatrix.cpp" />
     <ClCompile Include="NativeMatrixStack.cpp" />
     <ClCompile Include="NativeModel.cpp" />
     <ClCompile Include="NativeTexture.cpp" />
+    <ClCompile Include="ResourcePool.cpp" />
+    <ClCompile Include="SpineResource.cpp" />
     <ClCompile Include="Sprite3D.cpp" />
     <ClCompile Include="Transform3DRotator.cpp" />
     <ClCompile Include="GameObjectRenderState.cpp" />
@@ -216,10 +217,8 @@
     <ClCompile Include="EntityModifierAttribute.cpp" />
     <ClCompile Include="EntityModifierFactory.cpp" />
     <ClCompile Include="EntityModifierManager.cpp" />
-    <ClCompile Include="HalEngine.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="InputSetting.cpp" />
-    <ClCompile Include="ITexture.cpp" />
     <ClCompile Include="JsonParser.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Line3D.cpp" />
@@ -237,8 +236,6 @@
     <ClCompile Include="Plane3D.cpp" />
     <ClCompile Include="Primitive3D.cpp" />
     <ClCompile Include="Quaternion.cpp" />
-    <ClCompile Include="ResourceLoadOrder.cpp" />
-    <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="SceneTransitioner.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Shape3D.cpp" />
@@ -285,11 +282,8 @@
     <ClCompile Include="spine-c\src\spine\VertexEffect.c" />
     <ClCompile Include="SpineData.cpp" />
     <ClCompile Include="SpineDataManager.cpp" />
-    <ClCompile Include="StaticTexture.cpp" />
-    <ClCompile Include="StaticTexturePalette.cpp" />
     <ClCompile Include="TextureAtlas.cpp" />
     <ClCompile Include="TextureAtlasLoader.cpp" />
-    <ClCompile Include="TexturePaletteManager.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Transform2D.cpp" />
     <ClCompile Include="Transform3D.cpp" />
@@ -302,7 +296,6 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteVertexBufferObject.cpp" />
     <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="TexturePalette.cpp" />
     <ClCompile Include="TextureRegion.cpp" />
     <ClCompile Include="TiledTextureRegion.cpp" />
     <ClCompile Include="Vertex.cpp" />
@@ -316,6 +309,8 @@
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.h" />
     <ClInclude Include="AnimatedSprite3D.h" />
+    <ClInclude Include="ResourceLoader.h" />
+    <ClInclude Include="FileResource.h" />
     <ClInclude Include="BillBoard.h" />
     <ClInclude Include="BlendFunction.h" />
     <ClInclude Include="Camera.h" />
@@ -349,13 +344,13 @@
     <ClInclude Include="GameObject2DRenderState.h" />
     <ClInclude Include="GameObject3D.h" />
     <ClInclude Include="GameObject3DRenderState.h" />
-    <ClInclude Include="INativeProcess_Texture.h" />
     <ClInclude Include="Moniker.h" />
     <ClInclude Include="NativeMatrix.h" />
     <ClInclude Include="NativeModel.h" />
     <ClInclude Include="NativeObjectFactory.h" />
     <ClInclude Include="NativeMatrixStack.h" />
     <ClInclude Include="NativeObject.h" />
+    <ClInclude Include="SpineResource.h" />
     <ClInclude Include="Sprite3D.h" />
     <ClInclude Include="Transform3DRotator.h" />
     <ClInclude Include="GameObjectRenderState.h" />
@@ -372,8 +367,6 @@
     <ClInclude Include="InputDeviceManager.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="InputSetting.h" />
-    <ClInclude Include="ITexture.h" />
-    <ClInclude Include="ITexturePalette.h" />
     <ClInclude Include="JsonParser.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Line3D.h" />
@@ -385,7 +378,6 @@
     <ClInclude Include="MeshField.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelData.h" />
-    <ClInclude Include="ModelDataManager.h" />
     <ClInclude Include="NativeMethod.h" />
     <ClInclude Include="NativeTexture.h" />
     <ClInclude Include="ParticleData.h" />
@@ -395,8 +387,6 @@
     <ClInclude Include="Plane3D.h" />
     <ClInclude Include="Primitive3D.h" />
     <ClInclude Include="Quaternion.h" />
-    <ClInclude Include="ResourceLoadOrder.h" />
-    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="ResourcePool.h" />
     <ClInclude Include="SceneTransitioner.h" />
     <ClInclude Include="Shader.h" />
@@ -448,12 +438,9 @@
     <ClInclude Include="SpineData.h" />
     <ClInclude Include="SpineDataManager.h" />
     <ClInclude Include="StandardShader.h" />
-    <ClInclude Include="StaticTexture.h" />
-    <ClInclude Include="StaticTexturePalette.h" />
     <ClInclude Include="TextureAtlas.h" />
     <ClInclude Include="PoolAllocator.h" />
     <ClInclude Include="TextureAtlasLoader.h" />
-    <ClInclude Include="TexturePaletteManager.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Transform2D.h" />
     <ClInclude Include="Transform3D.h" />
@@ -469,7 +456,6 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteVertexBufferObject.h" />
     <ClInclude Include="Texture.h" />
-    <ClInclude Include="TexturePalette.h" />
     <ClInclude Include="TextureRegion.h" />
     <ClInclude Include="TiledTextureRegion.h" />
     <ClInclude Include="AnalogInput.h" />

@@ -33,6 +33,40 @@ bool InputState::AnyButton()
   return false;
 }
 
+bool InputState::AnyButtonDown()
+{
+  const DigitalInputState* digital = EngineInputState::GetInstance()->GetDigitalInput(this->player_id_);
+  for (std::map<T_UINT8, InputEntity>::iterator itr = this->entities_.begin(); itr != this->entities_.end(); ++itr)
+  {
+    const InputEntity& entity = itr->second;
+    if (
+      digital->IsTrigger(entity.negative_button) ||
+      digital->IsTrigger(entity.positive_button)
+      )
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool InputState::AnyButtonUp()
+{
+  const DigitalInputState* digital = EngineInputState::GetInstance()->GetDigitalInput(this->player_id_);
+  for (std::map<T_UINT8, InputEntity>::iterator itr = this->entities_.begin(); itr != this->entities_.end(); ++itr)
+  {
+    const InputEntity& entity = itr->second;
+    if (
+      digital->IsRelease(entity.negative_button) ||
+      digital->IsRelease(entity.positive_button)
+      )
+    {
+      return true;
+    }
+  }
+  return false;
+}
+
 bool InputState::AnyAxis()
 {
   const AnalogInputState* analog = EngineInputState::GetInstance()->GetAnalogInput(this->player_id_);
@@ -65,12 +99,28 @@ T_FLOAT InputState::GetAxis(T_UINT8 id, T_FLOAT dead_range)
   {
     return -1.0f;
   }
-  const T_FLOAT value = analog->GetValue(entity.axis, entity.dimention, -1.0f, 1.0f);
+  const T_FLOAT value = analog->GetValue(entity.axis, entity.dimention);
   if (fabs(value) < dead_range)
   {
     return 0.0f;
   }
   return value;
+}
+
+T_FLOAT InputState::GetAxisDelta(T_UINT8 id)
+{
+  const AnalogInputState* analog = EngineInputState::GetInstance()->GetAnalogInput(this->player_id_);
+  const DigitalInputState* digital = EngineInputState::GetInstance()->GetDigitalInput(this->player_id_);
+  const InputEntity& entity = this->entities_[id];
+  if (digital->IsTrigger(entity.positive_button))
+  {
+    return 1.0f;
+  }
+  if (digital->IsTrigger(entity.negative_button))
+  {
+    return -1.0f;
+  }
+  return analog->GetDelta(entity.axis, entity.dimention);
 }
 
 bool InputState::GetButton(T_UINT8 id)
@@ -82,7 +132,7 @@ bool InputState::GetButton(T_UINT8 id)
   {
     return true;
   }
-  return analog->GetValue(entity.axis, entity.dimention, -1.0f, 1.0f) != 0.0f;
+  return analog->GetValue(entity.axis, entity.dimention) != 0.0f;
 }
 
 bool InputState::GetButtonDown(T_UINT8 id)

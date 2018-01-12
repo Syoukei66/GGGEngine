@@ -9,7 +9,6 @@
 #include <NativeMethod.h>
 
 #include "NativeProcess_Graphics.h"
-#include "NativeProcess_Texture.h"
 #include "NativeProcess_Material.h"
 #include "NativeProcess_IO.h"
 #include "NativeProcess_Time.h"
@@ -50,11 +49,6 @@ DirectXActivity::~DirectXActivity()
 INativeProcess_Graphics* DirectXActivity::SetupNativeProcess_Graphics()
 {
   return new NativeProcess_Graphics();
-}
-
-INativeProcess_Texture* DirectXActivity::SetupNativeProcess_Texture()
-{
-  return new NativeProcess_Texture();
 }
 
 INativeProcess_Material* DirectXActivity::SetupNativeProcess_Material()
@@ -193,8 +187,6 @@ bool DirectXActivity::Init(const EngineOption* option)
   // SRC_RGB * SRC_ƒ¿ + DEST_RGB * (1 - SRC_ƒ¿)
   this->d3d_device_->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
   this->d3d_device_->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-
-  //InitPolygon();
 
   this->input_ = new DirectXInputDeviceManager();
   this->native_implements_->SetupInputDevices(this->input_);

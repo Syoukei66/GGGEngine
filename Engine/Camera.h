@@ -40,6 +40,16 @@ private:
   // setter/getter
   // =================================================================
 public:
+  //ビューポート領域をクリアしてから描画するかのフラグ
+  inline void SetViewportClear(bool clear)
+  {
+    this->viewport_clear_ = clear;
+  }
+  inline bool IsViewportClear() const
+  {
+    return this->viewport_clear_;
+  }
+
   void SetViewportPosition(const TVec2f& position);
   void SetViewportPosition(T_FLOAT x, T_FLOAT y);
   inline const TVec2f& GetViewportPosition() const
@@ -96,7 +106,7 @@ public:
   // Data Member
   // =================================================================
 private:
-
+  bool viewport_clear_;
   TVec2f position_;
   TSizef size_;
   T_FLOAT z_min_, z_max_;

@@ -2,23 +2,6 @@
 #include "NativeMethod.h"
 #include "Scene.h"
 
-static INativeMatrix* VIEW_MATRIX = nullptr;
-
-static void CreateViewMatrix()
-{
-  if (VIEW_MATRIX)
-  {
-    return;
-  }
-  VIEW_MATRIX = INativeMatrix::Create();
-}
-
-static void DeleteViewMatrix()
-{
-  delete VIEW_MATRIX;
-  VIEW_MATRIX = nullptr;
-}
-
 // =================================================================
 // Constructor / Destructor
 // =================================================================
@@ -67,8 +50,8 @@ void Camera2D::OnViewportDirty()
   this->projection_matrix_->OrthoLH(
     this->GetViewportWidth(),
     this->GetViewportHeight(),
-    this->GetViewportZMin(),
-    this->GetViewportZMax()
+    0.0f,
+    1000.0f
   );
 }
 

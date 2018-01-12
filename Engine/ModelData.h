@@ -2,44 +2,23 @@
 
 #include <string>
 #include "NativeModel.h"
+#include "FileResource.h"
 
-class ModelData
+class ModelData : public FileResource<INativeModel>
 {
+public:
+  static const ModelData* DynamicLoad(const char* path);
+
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  ModelData(const std::string& path);
-  ~ModelData();
+  ModelData(const char* path);
 
   // =================================================================
   // Methods
   // =================================================================
 public:
-  void Load();
-  void Unload();
+  virtual INativeModel* NativeLoadProcess(const std::string & path) override;
 
-  // =================================================================
-  // Setter / Getter
-  // =================================================================
-public:
-  inline bool IsLoaded() const
-  {
-    return this->native_model_;
-  }
-  inline const INativeModel* GetNativeModel() const
-  {
-    return this->native_model_;
-  }
-  inline const std::string& GetPath() const
-  {
-    return this->path_;
-  }
-
-  // =================================================================
-  // Data Member
-  // =================================================================
-private:
-  std::string path_;
-  INativeModel* native_model_;
 };

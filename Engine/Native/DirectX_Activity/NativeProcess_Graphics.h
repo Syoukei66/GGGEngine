@@ -22,7 +22,7 @@ public:
 
   virtual void Graphics_SetBlendMode(BlendFunction::BlendMode src, BlendFunction::BlendMode dst) override;
 
-  virtual void Graphics_SetTexture(const ITexture* texture) override;
+  virtual void Graphics_SetTexture(const Texture* texture) override;
   virtual void Graphics_SetMaterial(const Material* material) override;
   virtual void Graphics_SetLightingEnabled(bool enabled) override;
 

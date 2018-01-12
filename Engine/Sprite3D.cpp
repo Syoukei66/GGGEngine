@@ -3,10 +3,9 @@
 #include "GameObject3DRenderState.h"
 #include "Moniker.h"
 
-Sprite3D* Sprite3D::CreateFromAsset(T_UINT8 palette_id, T_UINT16 texture_id)
+Sprite3D* Sprite3D::CreateWithTexture(const Texture* texture)
 {
   Sprite3D* ret = new Sprite3D();
-  const ITexture* texture = HalEngine::Resource::GetTexture(palette_id, texture_id);
   TextureRegion* region = TextureRegion::CreateWithTexture(texture);
   ret->Init();
   ret->SetTextureRegion(region);
@@ -32,7 +31,7 @@ void Sprite3D::PreDraw(GameObject3DRenderState* state)
   {
     return;
   }
-  const ITexture* texture = this->texture_region_->GetTexture();
+  const Texture* texture = this->texture_region_->GetTexture();
   if (this->texture_region_->UpdateTextureCoord())
   {
     this->sprite3d_vbo_->OnVertexUvDirty();
@@ -45,7 +44,7 @@ void Sprite3D::NativeDraw(GameObject3DRenderState* state)
   const void* vertexes = this->vbo_->GetVertexes();
   T_UINT32 size = this->vbo_->GetVertexesCount();
   NativeMethod::Graphics().Graphics_SetTexture(this->texture_region_->GetTexture());
-  NativeMethod::Graphics().Graphics_SetMaterial(nullptr);
+  NativeMethod::Graphics().Graphics_SetMaterial(this->GetMaterial());
   NativeMethod::Graphics().Graphics_SetLightingEnabled(false);
   NativeMethod::Graphics().Graphics_DrawIndexedVertexes(
     state,
@@ -76,13 +75,13 @@ void Sprite3D::FitToTexture()
   {
     return;
   }
-  const ITexture* texture = this->texture_region_->GetTexture();
+  const Texture* texture = this->texture_region_->GetTexture();
   if (!texture)
   {
     return;
   }
-  const T_FLOAT texture_width = (T_FLOAT)texture->GetWidth();
-  const T_FLOAT texture_height = (T_FLOAT)texture->GetHeight();
+  const T_FLOAT texture_width = (T_FLOAT)texture->GetWidth() * 0.01f;
+  const T_FLOAT texture_height = (T_FLOAT)texture->GetHeight() * 0.01f;
   this->SetWidth(texture_width * (this->texture_region_->GetU1() - this->texture_region_->GetU0()));
   this->SetHeight(texture_height * (this->texture_region_->GetV1() - this->texture_region_->GetV0()));
 }

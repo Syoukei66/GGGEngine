@@ -5,7 +5,7 @@
 #include "GameObjectRenderState.h"
 #include "Vertex.h"
 #include "Material.h"
-#include "ITexture.h"
+#include "Texture.h"
 
 #include "NativeTexture.h"
 #include "NativeMatrix.h"
@@ -50,7 +50,7 @@ public:
 
   virtual void Graphics_SetBlendMode(BlendFunction::BlendMode src, BlendFunction::BlendMode dst) = 0;
 
-  virtual void Graphics_SetTexture(const ITexture* texture) = 0;
+  virtual void Graphics_SetTexture(const Texture* texture) = 0;
   virtual void Graphics_SetMaterial(const Material* material) = 0;
   virtual void Graphics_SetLightingEnabled(bool enabled) = 0;
 

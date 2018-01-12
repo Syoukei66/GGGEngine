@@ -1,5 +1,6 @@
 #pragma once
 
+//TODO:リファレンスカウンタ付けた方がいいのでは
 template<typename T>
 class NativeObject
 {

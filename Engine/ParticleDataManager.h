@@ -4,6 +4,9 @@
 #include "TextureAtlas.h"
 #include "ParticleData.h"
 
+/*
+  TODO:ResourceŠÇ—•û–@‚Ì•ÏX–¢‘Î‰
+*/
 class ParticleDataManager
 {
 public:

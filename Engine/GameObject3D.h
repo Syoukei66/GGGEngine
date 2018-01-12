@@ -115,10 +115,22 @@ public:
     return this->z_test_;
   }
 
+  inline void SetBillboardingFlag(bool billboarding)
+  {
+    this->billbording_ = billboarding;
+  }
+
+  inline bool IsBillboard() const
+  {
+    return this->billbording_;
+  }
+
 private:
   Transform3D* transform_;
   GameObject3D* parent_;
   std::vector<GameObject3D*> children_;
 
   bool z_test_;
+  bool billbording_;
+  INativeMatrix* calc_mat_;
 };

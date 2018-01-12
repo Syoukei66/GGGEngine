@@ -19,16 +19,6 @@ public:
 public:
   virtual void OnInit() override;
 
-  //これらのカメラ操作関数は現在の位置、回転、スケールを基準にしたカメラ操作を行う
-  void Move(TVec2f value);
-  void Move(T_FLOAT x, T_FLOAT y);
-  void MoveX(T_FLOAT x);
-  void MoveY(T_FLOAT y);
-  void Rotation(TVec3f rotation);
-  void Rotation(T_FLOAT x_axis, T_FLOAT y_axis);
-  void RotateXAxis(T_FLOAT x_axis);
-  void RotateYAxis(T_FLOAT y_axis);
-
 protected:
   virtual void UpdateTranslateMatrix(INativeMatrix* matrix);
   virtual void UpdateScaleMatrix(INativeMatrix* matrix);

@@ -86,10 +86,9 @@ T_FLOAT Particle::GetOffsetY()
 //===============================================================
 // ParticleSystem
 //===============================================================
-ParticleSystem* ParticleSystem::CreateFromAsset(T_UINT8 particle_data_id)
+ParticleSystem* ParticleSystem::CreateWithData(const ParticleData* data)
 {
   ParticleSystem* ret = new ParticleSystem();
-  const ParticleData* data = HalEngine::Resource::GetParticleData(particle_data_id);
   ret->Prepare(data);
   ret->Init();
   return ret;

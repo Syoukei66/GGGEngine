@@ -3,8 +3,10 @@
 #include <math.h>
 
 #include "Engine.h"
-#include "Camera.h"
-#include "ResourceManager.h"
+#include "Camera2D.h"
+#include "Camera3D.h"
+#include "ResourcePool.h"
+#include "NativeMethod.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -32,10 +34,9 @@ Scene::~Scene()
 // =================================================================
 void Scene::Load(IResourceLoadingListener* listener)
 {
-  ResourceLoadOrderBuilder builder = ResourceLoadOrderBuilder();
-  this->OnLoad(&builder);
-  ResourceLoadOrder order = builder.GetOrder();
-  ResourceManager::GetInstance()->RealizeResources(order, listener);
+  this->OnLoad(&ResourcePool::GetInstance());
+  ResourcePool::GetInstance().PreRealize(listener);
+  ResourcePool::GetInstance().Realize(listener);
   this->OnSetup();
 }
 
@@ -74,7 +75,11 @@ void Scene::HideFinish()
 
 void Scene::Draw()
 {
-  for (std::vector<Camera*>::iterator itr = this->cameras_.begin(); itr != this->cameras_.end(); ++itr)
+  for (std::vector<Camera3D*>::iterator itr = this->camera3ds_.begin(); itr != this->camera3ds_.end(); ++itr)
+  {
+    (*itr)->DrawScene(this);
+  }
+  for (std::vector<Camera2D*>::iterator itr = this->camera2ds_.begin(); itr != this->camera2ds_.end(); ++itr)
   {
     (*itr)->DrawScene(this);
   }

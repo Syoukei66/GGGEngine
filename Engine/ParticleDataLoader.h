@@ -3,9 +3,38 @@
 #include "ParticleData.h"
 #include "TextureAtlas.h"
 
-namespace ParticleDataLoader
+#include "FileResource.h"
+
+class ParticleDataLoader : public FileResource<ParticleData>
 {
+public:
+  static const ParticleDataLoader* DynamicLoad(const char* path);
 
-ParticleData* LoadParticleData(const char* path, TextureAtlas* atlas);
+  // =================================================================
+  // Constructor / Destructor
+  // =================================================================
+public:
+  ParticleDataLoader(const char* path);
 
-}
+  // =================================================================
+  // Methods
+  // =================================================================
+public:
+  virtual ParticleData* NativeLoadProcess(const std::string& path) override;
+
+  // =================================================================
+  // Setter / Getter
+  // =================================================================
+public:
+  inline void SetTextureAtlas(TextureAtlas* atlas)
+  {
+    this->atlas_ = atlas;
+  }
+
+  // =================================================================
+  // Data Member
+  // =================================================================
+private:
+  TextureAtlas* atlas_;
+
+};

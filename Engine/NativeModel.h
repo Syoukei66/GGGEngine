@@ -11,7 +11,8 @@ class INativeModel : public NativeObject<NativeModelInstance>
   // Static Method
   // =================================================================
 public:
-  static INativeModel* Create(const char* directory_path, const char* name);
+  //nameは拡張子を含むファイル名
+  static INativeModel* Create(const char* directory_path, const char* name, const char* extension);
 
   // =================================================================
   // Constructor / Destructor

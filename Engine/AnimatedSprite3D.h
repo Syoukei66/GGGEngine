@@ -9,7 +9,7 @@ class AnimatedSprite3D : public Sprite3D
   // Factory Method
   // =================================================================
 public:
-  static AnimatedSprite3D* CreateFromAsset(T_UINT8 palette_id, T_UINT16 texture_id, T_UINT8 x_num, T_UINT8 y_num);
+  static AnimatedSprite3D* CreateWithTexture(const Texture* texture, T_UINT8 x_num, T_UINT8 y_num);
 
   // =================================================================
   // Constructor / Destructor
@@ -28,8 +28,8 @@ public:
   // Method
   // =================================================================
 public:
+  void SetAnimateRange(T_UINT16 begin, T_UINT16 end);
   void Animate(T_UINT16 duration_frame);
-
 
   // =================================================================
   // Setter / Getter
@@ -51,5 +51,6 @@ public:
 private:
   T_UINT16 frame_count_;
   T_UINT16 duration_frame_;
-
+  T_UINT16 animation_begin_;
+  T_UINT16 animation_end_;
 };

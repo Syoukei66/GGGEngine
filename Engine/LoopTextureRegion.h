@@ -9,8 +9,7 @@ class LoopTextureRegion : public ITextureRegion
   // Factory Method
   // =================================================================
 public:
-  static LoopTextureRegion* CreateWithTexture(const ITexture* texture);
-  static LoopTextureRegion* CreateFromAsset(T_UINT8 palette_id, T_UINT16 texture_id);
+  static LoopTextureRegion* CreateWithTexture(const Texture* texture);
 
   // =================================================================
   // Constructor / Destructor

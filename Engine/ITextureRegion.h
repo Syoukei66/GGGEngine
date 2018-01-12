@@ -2,7 +2,7 @@
 #define HAL_ENGINE_ENTITY_SHAPE_SPRITE_TEXTUREREGION_ITEXTUREREGION_H_
 
 #include "NativeType.h"
-#include "ITexture.h"
+#include "Texture.h"
 
 class ITextureRegion
 {
@@ -32,11 +32,11 @@ protected:
   // setter/getter
   // =================================================================
 public:
-  inline void SetTexture(const ITexture* texture)
+  inline void SetTexture(const Texture* texture)
   {
     this->texture_ = texture;
   }
-  inline const ITexture* GetTexture() const
+  inline const Texture* GetTexture() const
   {
     return this->texture_;
   }
@@ -93,7 +93,7 @@ public:
   // Data Member
   // =================================================================
 private:
-  const ITexture* texture_;
+  const Texture* texture_;
   TAreaf texture_region_;
   T_FLOAT u0_, v0_, u1_, v1_;
   bool texture_coord_dirty_;

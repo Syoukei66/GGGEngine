@@ -12,8 +12,8 @@ AnalogInputState::AnalogInputState()
   {
     for (T_UINT8 j = 0; j < EngineInput::Analog::DIMENSION_DATANUM; ++j)
     {
-      this->old_input_[i][j] = -1.0f;
-      this->input_[i][j] = -1.0f;
+      this->old_input_[i][j] = 0.0f;
+      this->input_[i][j] = 0.0f;
     }
   }
 }
@@ -39,14 +39,14 @@ void AnalogInputState::PreInput(EngineInput::Analog::ID id)
   for (T_UINT8 j = 0; j < EngineInput::Analog::DIMENSION_DATANUM; ++j)
   {
     this->old_input_[id][j] = this->input_[id][j];
-    this->input_[id][j] = -1.0f;
+    this->input_[id][j] = 0.0f;
   }
 }
 
 void AnalogInputState::InputValue(EngineInput::Analog::ID id, T_UINT8 dimension, T_FLOAT value)
 {
   NATIVE_ASSERT(this->input_prepared_[id], "AnalogInput:: デバイスの入力処理の前にPrepareInputが呼び出されていません。");
-  this->input_[id][dimension] = std::min(1.0f, std::max(0.0f, value));
+  this->input_[id][dimension] = std::min(1.0f, std::max(-1.0f, value));
 }
 
 void AnalogInputState::PostInput(EngineInput::Analog::ID id)

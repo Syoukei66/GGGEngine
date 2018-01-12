@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Primitive3D.h"
-#include "ITexture.h"
+#include "Texture.h"
 #include "Material.h"
 
 class Shape3D : public Primitive3D
@@ -23,11 +23,15 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  inline void SetTexture(const ITexture* texture) 
+  inline void SetTexture(const Texture* texture) 
   {
     this->texture_ = texture;
   }
-  inline const ITexture* GetTexture() const
+  inline void SetTexture(const Texture& texture)
+  {
+    this->texture_ = &texture;
+  }
+  inline const Texture* GetTexture() const
   {
     return this->texture_;
   }
@@ -53,7 +57,7 @@ public:
   // =================================================================
 private:
   Material* material_;
-  const ITexture* texture_;
+  const Texture* texture_;
   bool lighting_enabled_;
 
 };

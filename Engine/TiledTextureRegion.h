@@ -18,8 +18,7 @@ public:
   // Factory Method
   // =================================================================
 public:
-  static TiledTextureRegion* CreateWithTexture(const ITexture* texture, T_UINT8 x_num, T_UINT8 y_num);
-  static TiledTextureRegion* CreateFromAsset(T_UINT8 palette_id, T_UINT16 texture_id, T_UINT8 x_num, T_UINT8 y_num);
+  static TiledTextureRegion* CreateWithTexture(const Texture* texture, T_UINT8 x_num, T_UINT8 y_num);
 
   // =================================================================
   // Constructor / Destructor

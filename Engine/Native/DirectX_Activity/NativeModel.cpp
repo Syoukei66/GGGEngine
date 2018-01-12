@@ -12,9 +12,7 @@ NativeModel_x::NativeModel_x(const char* asset_path, const char* name)
   DWORD material_count = 0;
 
   std::string full_path = asset_path;
-  full_path.append("/");
   full_path.append(name);
-  full_path.append(".x");
 
   D3DXLoadMeshFromX(
     full_path.c_str(),
@@ -41,15 +39,14 @@ NativeModel_x::NativeModel_x(const char* asset_path, const char* name)
   materials = (D3DXMATERIAL*)materialBuffer->GetBufferPointer();
 
   this->materials_ = new Material*[this->material_count_]();
-  this->textures_ = new const ITexture*[this->material_count_]();
+  this->textures_ = new const Texture*[this->material_count_]();
   for (T_UINT32 i = 0; i < this->material_count_; ++i)
   {
     this->materials_[i] = new Material((LP_MATERIAL)&materials[i].MatD3D);
 
     std::string texture_path = asset_path;
-    texture_path.append("/");
     texture_path.append(materials[i].pTextureFilename);
-    this->textures_[i] = HalEngine::Resource::GetTexture(texture_path.c_str());
+    this->textures_[i] = Texture::DynamicLoad(texture_path.c_str());
   }
 }
 
@@ -59,7 +56,6 @@ NativeModel_x::~NativeModel_x()
   for (T_UINT32 i = 0; i < this->material_count_; ++i)
   {
     delete this->materials_[i];
-    delete this->textures_[i];
   }
   delete[] this->materials_;
   delete[] this->textures_;

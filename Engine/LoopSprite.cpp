@@ -18,17 +18,9 @@ LoopSprite* LoopSprite::CreateWithTextureRegion(LoopTextureRegion* region)
   return ret;
 }
 
-LoopSprite* LoopSprite::CreateWithTexture(const ITexture* texture)
+LoopSprite* LoopSprite::CreateWithTexture(const Texture* texture)
 {
   LoopTextureRegion* region = LoopTextureRegion::CreateWithTexture(texture);
-  LoopSprite* ret = LoopSprite::CreateWithTextureRegion(region);
-  ret->delete_region_ = true;
-  return ret;
-}
-
-LoopSprite* LoopSprite::CreateFromAsset(T_UINT8 palette_id, T_UINT16 texture_id)
-{
-  LoopTextureRegion* region = LoopTextureRegion::CreateFromAsset(palette_id, texture_id);
   LoopSprite* ret = LoopSprite::CreateWithTextureRegion(region);
   ret->delete_region_ = true;
   return ret;
