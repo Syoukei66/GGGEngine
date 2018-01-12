@@ -37,6 +37,24 @@ void Quaternion::q(const TVec3f& v, T_FLOAT rad)
   *this = *this * Quaternion(v, rad);
 }
 
+void Quaternion::FromEularAngles(const TVec3f& mat)
+{
+  const T_FLOAT sin_ = sinf(0.0f);
+  const T_FLOAT cos_ = cosf(0.0f);
+  this->v_ = mat.Normalized() * sin_;
+  this->w_ = cos_;
+  float cosY = cosf(mat.y / 2.0f);
+  float sinY = sinf(mat.y / 2.0f);
+  float cosP = cosf(mat.x / 2.0f);
+  float sinP = sinf(mat.x / 2.0f);
+  float cosR = cosf(mat.z / 2.0f);
+  float sinR = sinf(mat.z / 2.0f);
+  this->v_.x = cosR * sinP * cosY + sinR * cosP * sinY;
+  this->v_.y = cosR * cosP * sinY - sinR * sinP * cosY;
+  this->v_.z = sinR * cosP * cosY - cosR * sinP * sinY;
+  this->w_ = cosR * cosP * cosY + sinR * sinP * sinY;
+}
+
 void Quaternion::FromRotationMatrix(const INativeMatrix& mat)
 {
   const T_FLOAT m11 = mat[0][0];

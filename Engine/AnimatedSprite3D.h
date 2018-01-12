@@ -28,8 +28,8 @@ public:
   // Method
   // =================================================================
 public:
+  void SetAnimateRange(T_UINT16 begin, T_UINT16 end);
   void Animate(T_UINT16 duration_frame);
-
 
   // =================================================================
   // Setter / Getter
@@ -51,5 +51,6 @@ public:
 private:
   T_UINT16 frame_count_;
   T_UINT16 duration_frame_;
-
+  T_UINT16 animation_begin_;
+  T_UINT16 animation_end_;
 };

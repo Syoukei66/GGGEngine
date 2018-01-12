@@ -24,13 +24,6 @@ public:
   //生成されたTiledTextureRegionの解放はこのクラスでは行われます。
   static AnimatedSprite* CreateWithTexture(const Texture* texture, T_UINT8 x_num, T_UINT8 y_num);
 
-  //指定したIDからTextureを取得し、
-  //そのTextureからTiledTextureRegionを作成し、
-  //それをもとにSpriteを生成します。
-  //SpriteのサイズはTextureの(width,height)をそれぞれ(x_num,y_num)で割ったものになります
-  //生成されたTiledTextureRegionの解放はこのクラスで行われます。
-  static AnimatedSprite* CreateFromAsset(T_UINT8 palette_id, T_UINT16 texture_id, T_UINT8 x_num, T_UINT8 y_num);
-
   // =================================================================
   // Constructor / Destructor
   // =================================================================
@@ -48,6 +41,7 @@ public:
   // Method
   // =================================================================
 public:
+  void SetAnimateRange(T_UINT16 begin, T_UINT16 end);
   void Animate(T_UINT16 duration_frame);
 
   // =================================================================
@@ -70,7 +64,8 @@ public:
 private:
   T_UINT16 frame_count_;
   T_UINT16 duration_frame_;
-
+  T_UINT16 animation_begin_;
+  T_UINT16 animation_end_;
 };
 
 #endif//HAL_ENGINE_ENTITY_SHAPE_ANIMATEDSPRITE_H_

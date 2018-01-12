@@ -25,6 +25,8 @@ class PoolAllocator
 {
 public:
   PoolAllocator(T_UINT16 count)
+    : pool_()
+    , allocated_()
   {
     for (T_UINT16 i = 0; i < count; ++i)
     {
