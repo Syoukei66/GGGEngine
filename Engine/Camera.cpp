@@ -11,6 +11,7 @@ Camera::Camera(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_mi
   , size_(width, height)
   , z_min_(z_min)
   , z_max_(z_max)
+  , viewport_dirty_(true)
 {}
 
 Camera::Camera()
@@ -19,6 +20,7 @@ Camera::Camera()
   , size_((T_FLOAT)Director::GetInstance()->GetScreenWidth(), (T_FLOAT)Director::GetInstance()->GetScreenHeight())
   , z_min_(0.0f)
   , z_max_(1.0f)
+  , viewport_dirty_(true)
 {}
 
 // =================================================================
@@ -40,6 +42,7 @@ void Camera::DrawScene(Scene* scene)
 
 void Camera::SetupCamera()
 {
+  this->CheckViewportDirty();
   NativeMethod::Graphics().Graphics_SetViewport(
     this->position_.x,
     this->position_.y,
@@ -50,6 +53,16 @@ void Camera::SetupCamera()
   );
   NativeMethod::Graphics().Graphics_SetTransformProjection(this->GetProjectionMatrix()->GetNativeInstance());
   NativeMethod::Graphics().Graphics_SetTransformView(this->GetViewMatrix()->GetNativeInstance());
+}
+
+void Camera::CheckViewportDirty()
+{
+  if (!this->viewport_dirty_)
+  {
+    return;
+  }
+  this->OnViewportDirty();
+  this->viewport_dirty_ = false;
 }
 
 // =================================================================

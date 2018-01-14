@@ -53,7 +53,7 @@ public:
   }
   inline bool IsTargetedLayer(T_UINT8 layer_id)
   {
-    return layer_state_ & (1 << layer_id);
+    return layer_state_ && (1 << layer_id);
   }
 
   // =================================================================

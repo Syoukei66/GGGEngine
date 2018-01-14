@@ -22,7 +22,7 @@ public:
 public:
   virtual void Update() override;
 
-  virtual INativeMatrix* GetViewMatrix() const override;
+  virtual INativeMatrix* GetViewMatrix() override;
 
   // =================================================================
   // Method

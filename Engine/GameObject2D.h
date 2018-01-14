@@ -59,10 +59,20 @@ public:
   virtual void NativeDraw(GameObject2DRenderState* state) {}
   virtual void PostDraw(GameObject2DRenderState* state) {}
 
+
 private:
   void UpdateChildrenZIndex();
 
 public:
+  //自身が親となった際の座標をローカル座標としている事に注意
+  //absoluteをtrueにすると、親にIsWorldフラグた立っていようとSceneの絶対座標を得れる
+ 
+  //TODO:IsWorldを復活させる必要あるかも
+  void ConvertPositionLocalToWorld(const TVec2f* local, TVec2f* dest, GameObject2D* root = nullptr) const;
+  void ConvertPositionLocalToWorld(T_FLOAT local_x, T_FLOAT local_y, TVec2f* dest, GameObject2D* root = nullptr) const;
+  T_FLOAT ConvertXLocalToWorld(T_FLOAT local_x, GameObject2D* root = nullptr) const;
+  T_FLOAT ConvertYLocalToWorld(T_FLOAT local_y, GameObject2D* root = nullptr) const;
+
   void RegisterEntityModifier(EntityModifierRoot* root);
   void UnregisterEntityModifier(EntityModifierRoot* root);
   void ClearEntityModifiers();
@@ -85,15 +95,6 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  inline bool HasParent() const
-  {
-    return this->parent_;
-  }
-  inline GameObject2D* GetParent() const
-  {
-    return this->parent_;
-  }
-
   inline Transform2D* GetTransform()
   {
     return this->transform_;

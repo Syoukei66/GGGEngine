@@ -17,19 +17,25 @@ public:
   // Method
   // =================================================================
 public:
-  void OnInit() override;
+  virtual void OnInit() override;
 
 protected:
-  void UpdateTranslateMatrix(INativeMatrix* matrix) override;
-  void UpdateScaleMatrix(INativeMatrix* matrix) override;
-  void UpdateRotateMatrix(INativeMatrix* matrix) override;
-
-  INativeMatrix* GetParentWorldMatrix() override;
+  virtual void UpdateTranslateMatrix(INativeMatrix* matrix);
+  virtual void UpdateScaleMatrix(INativeMatrix* matrix);
+  virtual void UpdateRotateMatrix(INativeMatrix* matrix);
+  virtual void OnUpdateMatrix(INativeMatrix* matrix);
 
   // =================================================================
   // setter/getter
   // =================================================================
 public:
+  TVec2f GetMatrixAppliedPosition();
+  void ApplyMatrixToPosition(TVec2f* dest);
+
+  const TVec2f& GetWorldPosition(GameObject2D* root = nullptr);
+  T_FLOAT GetWorldX(GameObject2D* root = nullptr);
+  T_FLOAT GetWorldY(GameObject2D* root = nullptr);
+
   void SetPositon(const TVec2f& position);
   void SetPositon(T_FLOAT x, T_FLOAT y);
   inline const TVec2f& GetPosition() const
@@ -76,23 +82,6 @@ public:
   }
 
   // =================================================================
-  // delegate to transform matrix
-  // =================================================================
-public:
-  inline const TVec2f GetDirection() const
-  {
-    return this->GetMatrix()->GetDirection2d();
-  }
-  inline const TVec2f GetWorldPosition() const
-  {
-    return this->GetWorldMatrix()->GetPosition2d();
-  }
-  inline const TVec2f GetWorldDirection() const
-  {
-    return this->GetWorldMatrix()->GetDirection2d();
-  }
-
-  // =================================================================
   // Data Member
   // =================================================================
 private:
@@ -101,4 +90,8 @@ private:
   TVec2f position_;
   TVec2f scale_;
   T_FLOAT rotation_;
+
+  TVec2f world_position_;
+
+  TVec2f matrix_applied_position_;
 };

@@ -19,21 +19,19 @@ public:
   // Methods for/from SuperClass/Interfaces
   // =================================================================
 public:
-  virtual const INativeMatrix* GetViewMatrix() const override;
-  virtual const INativeMatrix* GetProjectionMatrix() const override;
+  virtual const INativeMatrix* GetViewMatrix() override;
+  virtual const INativeMatrix* GetProjectionMatrix() override;
 
 protected:
-  virtual void SetupCamera() override;
-
-  virtual void OnViewportChanged() override;
-
   virtual void OnDrawScene(Scene* scene) override;
+  virtual void OnViewportDirty() override;
 
   // =================================================================
   // Method
   // =================================================================
 protected:
   void CheckProjectionDirty();
+  virtual void OnProjectionDirty() {}
 
 private:
   inline void OnProjectionChanged()
@@ -68,26 +66,19 @@ public:
   {
     return this->render_state_;
   }
-  inline INativeMatrix* GetBillboardingMatrix() const
-  {
-    return this->billboarding_matrix_;
-  }
 
 protected:
   inline void SetDirection(const TVec3f& direction)
   {
     this->direction_ = direction;
   }
-
   // =================================================================
   // Data Member
   // =================================================================
 private:
   GameObject3DRenderState* render_state_;
 
-  INativeMatrix* billboarding_matrix_;
   INativeMatrix* projection_matrix_;
-
   T_FLOAT fov_;
   T_FLOAT z_near_;
   T_FLOAT z_far_;

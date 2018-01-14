@@ -32,56 +32,53 @@ public:
   virtual void OnScaleChanged();
   virtual void OnRotationChanged();
 
-  void OnWorldTransformDirty();
+  void OnWorldPositionDirty();
 
 protected:
-  void UpdateMatrix();
-  void UpdateWorldMatrix();
+  
+  bool UpdateMatrix();
 
   virtual void UpdateTranslateMatrix(INativeMatrix* matrix) = 0;
   virtual void UpdateRotateMatrix(INativeMatrix* matrix) = 0;
   virtual void UpdateScaleMatrix(INativeMatrix* matrix) = 0;
-
-  virtual INativeMatrix* GetParentWorldMatrix() = 0;
+  virtual void OnUpdateMatrix(INativeMatrix* matrix) = 0;
 
   // =================================================================
   // setter/getter
   // =================================================================
 public:
 
-  inline INativeMatrix* GetMatrix() const
+  inline INativeMatrix* GetMatrix()
   {
-    const_cast<Transform*>(this)->UpdateMatrix();
+    this->UpdateMatrix();
     return this->matrix_;
   }
 
-  inline INativeMatrix* GetTranslateMatrix() const
+  inline INativeMatrix* GetTranslateMatrix()
   {
-    const_cast<Transform*>(this)->UpdateMatrix();
+    this->UpdateMatrix();
     return this->translate_matrix_;
   }
 
-  inline INativeMatrix* GetRotationMatrix() const
+  inline INativeMatrix* GetRotationMatrix()
   {
-    const_cast<Transform*>(this)->UpdateMatrix();
+    this->UpdateMatrix();
     return this->rotation_matrix_;
   }
 
-  inline INativeMatrix* GetScaleMatrix() const
+  inline INativeMatrix* GetScaleMatrix()
   {
-    const_cast<Transform*>(this)->UpdateMatrix();
+    this->UpdateMatrix();
     return this->scale_matrix_;
   }
 
-  inline INativeMatrix* GetWorldMatrix() const
-  {
-    const_cast<Transform*>(this)->UpdateWorldMatrix();
-    return this->world_matrix_;
-  }
 
   // =================================================================
   // Data Member
   // =================================================================
+protected:
+  bool world_position_dirty_;
+
 private:
   GameObject* entity_;
 
@@ -89,12 +86,10 @@ private:
   INativeMatrix* rotation_matrix_;
   INativeMatrix* scale_matrix_;
   INativeMatrix* matrix_;
-  INativeMatrix* world_matrix_;
 
   bool translation_dirty_;
   bool rotation_dirty_;
   bool scale_dirty_;
-  bool world_transform_dirty_;
 };
 
 #endif//HAL_ENGINE_ENTITY_TRANSFORM_H_

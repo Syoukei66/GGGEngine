@@ -47,6 +47,6 @@ private:
   Camera3D* const camera_;
 
   INativeMatrix* mat_;
-  std::vector<PostDrawParam> post_draw_list_;
+  std::vector<PostDrawParam*> post_draw_list_;
 
 };

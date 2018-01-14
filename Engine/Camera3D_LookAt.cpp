@@ -43,29 +43,15 @@ Camera3D_LookAt::~Camera3D_LookAt()
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
-INativeMatrix* Camera3D_LookAt::GetViewMatrix() const
-{
-  const_cast<Camera3D_LookAt*>(this)->CheckViewDirty();
-  return this->view_matrix_;
-}
-
-void Camera3D_LookAt::SetupCamera()
-{
-  this->OnViewChanged();
-  Camera3D::SetupCamera();
-}
-
-// =================================================================
-// Methods
-// =================================================================
 void Camera3D_LookAt::CheckViewDirty()
 {
-  if (!this->view_dirty_)
-  {
-    return;
-  }
-
+  //if (!this->view_dirty_)
+  //{
+  //  return;
+  //}
+  this->OnViewChanged();
   this->view_matrix_->Init();
+
   if (this->target_)
   {
     this->view_matrix_->LookAtLH(
@@ -73,7 +59,7 @@ void Camera3D_LookAt::CheckViewDirty()
       this->target_->GetTransform()->GetWorldPosition(),
       this->camera_up_
     );
-    this->target_direction_ = this->view_matrix_->GetDirection3d();
+    this->view_matrix_->Direction(&this->target_direction_);
 
     this->view_matrix_->LookAtLH(
       this->GetTransform()->GetWorldPosition(),
@@ -89,9 +75,10 @@ void Camera3D_LookAt::CheckViewDirty()
     {
       this->current_look_at_pos_ = this->look_at_pos_;
 
-      TVec3f camera_pos = this->GetTransform()->GetWorldPosition();
+      TVec3f camera_pos = TVec3f();
       TVec3f look_at_pos = this->look_at_pos_;
       this->GetTransform()->GetWorldMatrix()->Apply(&look_at_pos);
+      this->GetTransform()->GetWorldMatrix()->Apply(&camera_pos);
       this->direction_ = (look_at_pos - camera_pos).Normalized();
       this->view_matrix_->LookAtLH(
         camera_pos,
@@ -102,14 +89,23 @@ void Camera3D_LookAt::CheckViewDirty()
     //ƒvƒŒƒCƒ„[‚ª‘¶Ý‚µ‚È‚¢Žž‚Ìˆ—
     else
     {
-      this->direction_ = this->entity_->GetTransform()->GetMatrix()->GetDirection3d();
+      this->entity_->GetTransform()->GetMatrix()->Direction(&this->direction_);
       this->entity_->GetTransform()->GetMatrix()->Inverse(this->view_matrix_);
     }
   }
-
+  
   this->view_dirty_ = false;
 }
 
+INativeMatrix* Camera3D_LookAt::GetViewMatrix()
+{
+  this->CheckViewDirty();
+  return this->view_matrix_;
+}
+
+// =================================================================
+// Methods
+// =================================================================
 void Camera3D_LookAt::SetPlayer(GameObject3D* player)
 {
   if (this->entity_->HasParent())

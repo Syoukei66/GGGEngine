@@ -15,7 +15,6 @@ Camera3D::Camera3D(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT 
   , direction_(0.0f, 0.0f, 1.0f)
 {
   this->projection_matrix_ = INativeMatrix::Create();
-  this->billboarding_matrix_ = INativeMatrix::Create();
   this->render_state_ = new GameObject3DRenderState(this);
 }
 
@@ -28,13 +27,11 @@ Camera3D::Camera3D()
   , direction_(0.0f, 0.0f, 1.0f)
 {
   this->projection_matrix_ = INativeMatrix::Create();
-  this->billboarding_matrix_ = INativeMatrix::Create();
   this->render_state_ = new GameObject3DRenderState(this);
 }
 
 Camera3D::~Camera3D()
 {
-  delete this->billboarding_matrix_;
   delete this->projection_matrix_;
   delete this->render_state_;
 }
@@ -42,30 +39,15 @@ Camera3D::~Camera3D()
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
-const INativeMatrix* Camera3D::GetViewMatrix() const 
+const INativeMatrix* Camera3D::GetViewMatrix()
 {
   return &INativeMatrix::Identity();
 }
 
-const INativeMatrix* Camera3D::GetProjectionMatrix() const
+const INativeMatrix* Camera3D::GetProjectionMatrix()
 {
-  const_cast<Camera3D*>(this)->CheckProjectionDirty();
+  this->CheckProjectionDirty();
   return this->projection_matrix_;
-}
-
-void Camera3D::SetupCamera()
-{
-  Camera::SetupCamera();
-  this->GetViewMatrix()->Inverse(this->billboarding_matrix_);
-
-  (*this->billboarding_matrix_)[3][0] = 0.0f;
-  (*this->billboarding_matrix_)[3][1] = 0.0f;
-  (*this->billboarding_matrix_)[3][2] = 0.0f;
-}
-
-void Camera3D::OnViewportChanged()
-{
-  this->OnProjectionChanged();
 }
 
 void Camera3D::OnDrawScene(Scene* scene)
@@ -73,6 +55,11 @@ void Camera3D::OnDrawScene(Scene* scene)
   this->render_state_->Init();
   scene->Draw3DLayers(this->render_state_);
   this->render_state_->DrawZOrderedGameObject();
+}
+
+void Camera3D::OnViewportDirty()
+{
+  this->projection_dirty_ = true;
 }
 
 // =================================================================
@@ -84,6 +71,7 @@ void Camera3D::CheckProjectionDirty()
   {
     return;
   }
+  this->OnProjectionChanged();
   this->projection_matrix_->PerspectiveFovLH(
     MathConstants::PI / this->fov_,
     this->GetViewportWidth() / this->GetViewportHeight(),
