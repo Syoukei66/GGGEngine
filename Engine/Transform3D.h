@@ -103,7 +103,6 @@ public:
     return this->scale_.z;
   }
 
-  inline const TVec3f& GetDirection()
   // =================================================================
   // delegate to transform matrix
   // =================================================================
@@ -152,18 +151,15 @@ public:
   }
   inline void RotateZAxis(T_FLOAT rad)
   {
-    return this->direction_;
     this->rotator_->RotateZAxis(rad);
   }
 
-  inline INativeMatrix* GetWorldMatrix()
   inline void LerpRotation(const Quaternion& a, const Quaternion& b, T_FLOAT t)
   {
     this->rotator_->Lerp(a, b, t);
   }
   inline void LerpRotation(const Quaternion& b, T_FLOAT t)
   {
-    return this->world_matrix_;
     this->rotator_->Lerp(b, t);
   }
   inline void SlerpRotation(const Quaternion& a, const Quaternion& b, T_FLOAT t)
