@@ -193,6 +193,39 @@ void NativeMatrix::RotationZ(T_FLOAT z)
   D3DXMatrixRotationZ(this->mat_, z);
 }
 
+
+void NativeMatrix::LookAtLH(const TVec3f& camera_pos, const TVec3f& camera_at, const TVec3f& camera_up)
+{
+  D3DXMatrixLookAtLH(
+    this->mat_,
+    &D3DXVECTOR3(camera_pos.x, camera_pos.y, camera_pos.z),
+    &D3DXVECTOR3(camera_at.x, camera_at.y, camera_at.z),
+    &D3DXVECTOR3(camera_up.x, camera_up.y, camera_up.z)
+  );
+}
+
+void NativeMatrix::PerspectiveFovLH(T_FLOAT field_of_view_y, T_FLOAT aspect_ratio, T_FLOAT z_near, T_FLOAT z_far)
+{
+  D3DXMatrixPerspectiveFovLH(
+    this->mat_,
+    field_of_view_y,
+    aspect_ratio,
+    z_near,
+    z_far
+  );
+}
+
+void NativeMatrix::OrthoLH(T_FLOAT width, T_FLOAT height, T_FLOAT z_near, T_FLOAT z_far)
+{
+  D3DXMatrixOrthoLH(
+    this->mat_,
+    width,
+    height,
+    z_near,
+    z_far
+  );
+}
+
 void NativeMatrix::Apply(TVec2f* dest) const
 {
   const T_FLOAT x = dest->x;
@@ -280,49 +313,29 @@ void NativeMatrix::Apply(T_FLOAT* dest_x, T_FLOAT* dest_y, T_FLOAT* dest_z, T_FL
   }
 }
 
-void NativeMatrix::Direction(TVec2f* dest) const
+const TVec2f NativeMatrix::GetDirection2d() const
 {
-  dest->x = this->mat_->_31;
-  dest->y = this->mat_->_32;
+  return TVec2f(this->mat_->_31, this->mat_->_32);
 }
 
-void NativeMatrix::Direction(TVec3f* dest) const
+const TVec3f NativeMatrix::GetDirection3d() const
 {
-  dest->x = this->mat_->_31;
-  dest->y = this->mat_->_32;
-  dest->z = this->mat_->_33;
+  return TVec3f(this->mat_->_31, this->mat_->_32, this->mat_->_33);
 }
 
-void NativeMatrix::LookAtLH(const TVec3f& camera_pos, const TVec3f& camera_at, const TVec3f& camera_up)
+const TVec2f NativeMatrix::GetPosition2d() const
 {
-  D3DXMatrixLookAtLH(
-    this->mat_,
-    &D3DXVECTOR3(camera_pos.x, camera_pos.y, camera_pos.z),
-    &D3DXVECTOR3(camera_at.x, camera_at.y, camera_at.z),
-    &D3DXVECTOR3(camera_up.x, camera_up.y, camera_up.z)
-  );
+  return TVec2f(this->mat_->_41, this->mat_->_42);
 }
 
-void NativeMatrix::PerspectiveFovLH(T_FLOAT field_of_view_y, T_FLOAT aspect_ratio, T_FLOAT z_near, T_FLOAT z_far)
+const TVec3f NativeMatrix::GetPosition3d() const
 {
-  D3DXMatrixPerspectiveFovLH(
-    this->mat_,
-    field_of_view_y,
-    aspect_ratio,
-    z_near,
-    z_far
-  );
+  return TVec3f(this->mat_->_41, this->mat_->_42, this->mat_->_43);
 }
 
-void NativeMatrix::OrthoLH(T_FLOAT width, T_FLOAT height, T_FLOAT z_near, T_FLOAT z_far)
+const TVec4f NativeMatrix::GetPosition4d() const
 {
-  D3DXMatrixOrthoLH(
-    this->mat_,
-    width,
-    height,
-    z_near,
-    z_far
-  );
+  return TVec4f(this->mat_->_41, this->mat_->_42, this->mat_->_43, this->mat_->_44);
 }
 
 const T_FLOAT* NativeMatrix::Get(T_UINT8 x) const

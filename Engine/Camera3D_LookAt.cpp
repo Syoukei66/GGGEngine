@@ -59,7 +59,7 @@ void Camera3D_LookAt::CheckViewDirty()
       this->target_->GetTransform()->GetWorldPosition(),
       this->camera_up_
     );
-    this->view_matrix_->Direction(&this->target_direction_);
+    this->target_direction_ = this->view_matrix_->GetDirection3d();
 
     this->view_matrix_->LookAtLH(
       this->GetTransform()->GetWorldPosition(),
@@ -89,7 +89,7 @@ void Camera3D_LookAt::CheckViewDirty()
     //ƒvƒŒƒCƒ„[‚ª‘¶Ý‚µ‚È‚¢Žž‚Ìˆ—
     else
     {
-      this->entity_->GetTransform()->GetMatrix()->Direction(&this->direction_);
+      this->direction_ = this->entity_->GetTransform()->GetMatrix()->GetDirection3d();
       this->entity_->GetTransform()->GetMatrix()->Inverse(this->view_matrix_);
     }
   }
