@@ -1,5 +1,6 @@
 #include "Quaternion.h"
 #include <math.h>
+#include <algorithm>
 
 #include "MathConstants.h"
 
@@ -12,9 +13,55 @@ const Quaternion Quaternion::Identity = Quaternion();
 // Constructor / Destructor
 // =================================================================
 
-Quaternion Quaternion::Eular(const TVec3f& eular_angles)
+const Quaternion Quaternion::Eular(const TVec3f& eular_angles)
 {
-  return Quaternion();
+  Quaternion ret = Quaternion();
+  ret.q(TVec3f(0.0f, 0.0f, 1.0f), eular_angles.z);
+  ret.q(TVec3f(1.0f, 0.0f, 0.0f), eular_angles.x);
+  ret.q(TVec3f(0.0f, 1.0f, 0.0f), eular_angles.y);
+  return ret;
+}
+
+const Quaternion Quaternion::Lerp(const Quaternion& a, const Quaternion& b, T_FLOAT t)
+{
+  if (t <= 0.0f)
+  {
+    return a;
+  }
+  if (t >= 1.0f)
+  {
+    return b;
+  }
+  const T_FLOAT r = acosf(InnerProduct(a, b));
+  if (fabs(r) < MathConstants::PI_1_2)
+  {
+    return (a * (1.0f - t) + b * t).Normalized();
+  }
+  return (a * (1.0f - t) + b * -t).Normalized();
+}
+
+const Quaternion Quaternion::Slerp(const Quaternion& a, const Quaternion& b, T_FLOAT t)
+{
+  if (t <= 0.0f)
+  {
+    return a;
+  }
+  if (t >= 1.0f)
+  {
+    return b;
+  }
+  const T_FLOAT r = acosf(InnerProduct(a, b));
+  const T_FLOAT invsin_r = 1.0f / sinf(r);
+  if (fabs(r) < MathConstants::PI_1_2)
+  {
+    return (a * (sin((1.0f - t) * r) * invsin_r) + b * (sin(t * r) * invsin_r)).Normalized();
+  }
+  return (a * (sin((1.0f - t) * r) * invsin_r) + b * -(sin(t * r) * invsin_r)).Normalized();
+}
+
+T_FLOAT Quaternion::InnerProduct(const Quaternion& a, const Quaternion& b)
+{
+  return TVec3f::InnerProduct(a.v_, b.v_) + a.w_ * b.w_;
 }
 
 Quaternion::Quaternion()
@@ -28,6 +75,11 @@ Quaternion::Quaternion(const TVec3f& v, T_FLOAT rad)
   this->v_ = v.Normalized() * sin_;
   this->w_ = cos_;
 }
+
+Quaternion::Quaternion(T_FLOAT x, T_FLOAT y, T_FLOAT z, T_FLOAT w)
+  : v_(x, y, z)
+  , w_(w)
+{}
 
 // =================================================================
 // Methods

@@ -33,31 +33,6 @@ public:
   T_FLOAT MoveCircularY(T_FLOAT y, const TVec3f& pos);
   T_FLOAT MoveCircularZ(T_FLOAT z, const TVec3f& pos);
 
-  inline void RotateX(T_FLOAT rad)
-  {
-    this->rotator_->RotateX(rad);
-  }
-  inline void RotateY(T_FLOAT rad)
-  {
-    this->rotator_->RotateY(rad);
-  }
-  inline void RotateZ(T_FLOAT rad)
-  {
-    this->rotator_->RotateZ(rad);
-  }
-
-  inline void RotateXAxis(T_FLOAT rad)
-  {
-    this->rotator_->RotateXAxis(rad);
-  }
-  inline void RotateYAxis(T_FLOAT rad)
-  {
-    this->rotator_->RotateYAxis(rad);
-  }
-  inline void RotateZAxis(T_FLOAT rad)
-  {
-    this->rotator_->RotateZAxis(rad);
-  }
 
   void UpdateWorldMatrix(NativeMatrixInstance* native_instance);
 
@@ -71,14 +46,6 @@ protected:
   // setter/getter
   // =================================================================
 public:
-  const TVec3f& GetMatrixAppliedPosition();
-  void ApplyMatrixToPosition(TVec3f* dest);
-
-  const TVec3f& GetWorldPosition() const;
-  T_FLOAT GetWorldX() const;
-  T_FLOAT GetWorldY() const;
-  T_FLOAT GetWorldZ() const;
-
   void SetPosition(const TVec3f& position);
   void SetPosition(T_FLOAT x, T_FLOAT y, T_FLOAT z);
   inline const TVec3f& GetPosition() const
@@ -128,14 +95,72 @@ public:
     return this->scale_.z;
   }
 
-  inline const TVec3f& GetDirection()
+  // =================================================================
+  // delegate to transform matrix
+  // =================================================================
+public:
+  inline const TVec3f GetDirection() const
   {
-    return this->direction_;
+    return const_cast<Transform3D*>(this)->GetMatrix()->GetDirection3d();
+  }
+  inline const TVec3f GetWorldPosition() const
+  {
+    return this->world_matrix_->GetPosition3d();
+  }
+  inline const TVec3f GetWorldDirection() const
+  {
+    return this->world_matrix_->GetDirection3d();
   }
 
-  inline INativeMatrix* GetWorldMatrix()
+  // =================================================================
+  // delegate to Transform3DRotator
+  // =================================================================
+public:
+  inline void Rotate(const TVec3f& v, T_FLOAT rad)
   {
-    return this->world_matrix_;
+    this->rotator_->q(v, rad);
+  }
+  inline void RotateX(T_FLOAT rad)
+  {
+    this->rotator_->RotateX(rad);
+  }
+  inline void RotateY(T_FLOAT rad)
+  {
+    this->rotator_->RotateY(rad);
+  }
+  inline void RotateZ(T_FLOAT rad)
+  {
+    this->rotator_->RotateZ(rad);
+  }
+
+  inline void RotateXAxis(T_FLOAT rad)
+  {
+    this->rotator_->RotateXAxis(rad);
+  }
+  inline void RotateYAxis(T_FLOAT rad)
+  {
+    this->rotator_->RotateYAxis(rad);
+  }
+  inline void RotateZAxis(T_FLOAT rad)
+  {
+    this->rotator_->RotateZAxis(rad);
+  }
+
+  inline void LerpRotation(const Quaternion& a, const Quaternion& b, T_FLOAT t)
+  {
+    this->rotator_->Lerp(a, b, t);
+  }
+  inline void LerpRotation(const Quaternion& b, T_FLOAT t)
+  {
+    this->rotator_->Lerp(b, t);
+  }
+  inline void SlerpRotation(const Quaternion& a, const Quaternion& b, T_FLOAT t)
+  {
+    this->rotator_->Slerp(a, b, t);
+  }
+  inline void SlerpRotation(const Quaternion& b, T_FLOAT t)
+  {
+    this->rotator_->Slerp(b, t);
   }
 
   inline void SetEularAngles(const TVec3f& rotation)
@@ -177,23 +202,27 @@ public:
   {
     return this->rotator_->GetEularZ();
   }
+  
+  inline const Quaternion& GetQuaternion() const
+  {
+    return this->rotator_->GetQuaternion();
+  }
+
+  inline INativeMatrix* GetWorldMatrix() const
+  {
+    return this->world_matrix_;
+  }
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
   GameObject3D* entity_;
-
-  TVec3f direction_;
-
+  
   TVec3f position_;
   TVec3f scale_;
   T_FLOAT scale_max_;
   Transform3DRotator* rotator_;
-
-  TVec3f world_position_;
-
-  TVec3f matrix_applied_position_;
 
   INativeMatrix* world_matrix_;
 };

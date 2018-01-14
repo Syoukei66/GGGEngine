@@ -94,6 +94,10 @@ public:
   virtual void RotationY(T_FLOAT y) = 0;
   virtual void RotationZ(T_FLOAT z) = 0;
 
+  virtual void LookAtLH(const TVec3f& camera_pos, const TVec3f& camera_at, const TVec3f& camera_up) = 0;
+  virtual void PerspectiveFovLH(T_FLOAT field_of_view_y, T_FLOAT aspect_ratio, T_FLOAT z_near, T_FLOAT z_far) = 0;
+  virtual void OrthoLH(T_FLOAT width, T_FLOAT height, T_FLOAT z_near, T_FLOAT z_far) = 0;
+
   virtual void Apply(TVec2f* dest) const = 0;
   virtual void Apply(TVec3f* dest) const = 0;
   virtual void Apply(TVec4f* dest) const = 0;
@@ -101,12 +105,12 @@ public:
   virtual void Apply(T_FLOAT* dest_x, T_FLOAT* dest_y, T_FLOAT* dest_z) const = 0;
   virtual void Apply(T_FLOAT* dest_x, T_FLOAT* dest_y, T_FLOAT* dest_z, T_FLOAT* dest_w) const = 0;
 
-  virtual void Direction(TVec2f* dest) const = 0;
-  virtual void Direction(TVec3f* dest) const = 0;
+  virtual const TVec2f GetDirection2d() const = 0;
+  virtual const TVec3f GetDirection3d() const = 0;
 
-  virtual void LookAtLH(const TVec3f& camera_pos, const TVec3f& camera_at, const TVec3f& camera_up) = 0;
-  virtual void PerspectiveFovLH(T_FLOAT field_of_view_y, T_FLOAT aspect_ratio, T_FLOAT z_near, T_FLOAT z_far) = 0;
-  virtual void OrthoLH(T_FLOAT width, T_FLOAT height, T_FLOAT z_near, T_FLOAT z_far) = 0;
+  virtual const TVec2f GetPosition2d() const = 0;
+  virtual const TVec3f GetPosition3d() const = 0;
+  virtual const TVec4f GetPosition4d() const = 0;
 
   // =================================================================
   // Setter / Getter

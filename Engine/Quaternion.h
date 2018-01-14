@@ -10,17 +10,53 @@ struct Quaternion
   // =================================================================
 public:
   static const Quaternion Identity;
-  static Quaternion Eular(const TVec3f& eular_angles);
+  static const Quaternion Eular(const TVec3f& eular_angles);
+  static const Quaternion Lerp(const Quaternion& a, const Quaternion& b, T_FLOAT t);
+  static const Quaternion Slerp(const Quaternion& a, const Quaternion& b, T_FLOAT t);
+  static T_FLOAT InnerProduct(const Quaternion& a, const Quaternion& b);
 
   // =================================================================
   // Constructor / Destructor
   // =================================================================
   Quaternion();
   Quaternion(const TVec3f& v, T_FLOAT rad);
+  Quaternion(T_FLOAT x, T_FLOAT y, T_FLOAT z, T_FLOAT w);
 
   // =================================================================
   // Operator
   // =================================================================
+  bool operator == (const Quaternion& other) const
+  {
+    return
+      (this->v_ == other.v_ && this->w_ == other.w_) ||
+      (this->v_ == -other.v_ && this->w_ == -other.w_)
+      ;
+  }
+
+  const Quaternion operator - () const
+  {
+    Quaternion ret = *this;
+    ret.v_ = -ret.v_;
+    ret.w_ = -ret.w_;
+    return ret;
+  }
+
+  const Quaternion operator * (T_FLOAT v) const
+  {
+    Quaternion ret = *this;
+    ret.v_ *= v;
+    ret.w_ *= v;
+    return ret;
+  }
+
+  const Quaternion operator + (const Quaternion& other) const
+  {
+    Quaternion ret = *this;
+    ret.v_ += other.v_;
+    ret.w_ += other.w_;
+    return ret;
+  }
+
   const Quaternion operator * (const Quaternion& other) const
   {
     Quaternion ret = Quaternion();
