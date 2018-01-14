@@ -33,31 +33,6 @@ public:
   T_FLOAT MoveCircularY(T_FLOAT y, const TVec3f& pos);
   T_FLOAT MoveCircularZ(T_FLOAT z, const TVec3f& pos);
 
-  inline void RotateX(T_FLOAT rad)
-  {
-    this->rotator_->RotateX(rad);
-  }
-  inline void RotateY(T_FLOAT rad)
-  {
-    this->rotator_->RotateY(rad);
-  }
-  inline void RotateZ(T_FLOAT rad)
-  {
-    this->rotator_->RotateZ(rad);
-  }
-
-  inline void RotateXAxis(T_FLOAT rad)
-  {
-    this->rotator_->RotateXAxis(rad);
-  }
-  inline void RotateYAxis(T_FLOAT rad)
-  {
-    this->rotator_->RotateYAxis(rad);
-  }
-  inline void RotateZAxis(T_FLOAT rad)
-  {
-    this->rotator_->RotateZAxis(rad);
-  }
 
   void UpdateWorldMatrix(NativeMatrixInstance* native_instance);
 
@@ -129,13 +104,75 @@ public:
   }
 
   inline const TVec3f& GetDirection()
+  // =================================================================
+  // delegate to transform matrix
+  // =================================================================
+public:
+  inline const TVec3f GetDirection() const
+  {
+    return this->GetMatrix()->GetDirection3d();
+  }
+  inline const TVec3f GetWorldPosition() const
+  {
+    return this->GetWorldMatrix()->GetPosition3d();
+  }
+  inline const TVec3f GetWorldDirection() const
+  {
+    return this->GetWorldMatrix()->GetDirection3d();
+  }
+
+  // =================================================================
+  // delegate to Transform3DRotator
+  // =================================================================
+public:
+  inline void Rotate(const TVec3f& v, T_FLOAT rad)
+  {
+    this->rotator_->q(v, rad);
+  }
+  inline void RotateX(T_FLOAT rad)
+  {
+    this->rotator_->RotateX(rad);
+  }
+  inline void RotateY(T_FLOAT rad)
+  {
+    this->rotator_->RotateY(rad);
+  }
+  inline void RotateZ(T_FLOAT rad)
+  {
+    this->rotator_->RotateZ(rad);
+  }
+
+  inline void RotateXAxis(T_FLOAT rad)
+  {
+    this->rotator_->RotateXAxis(rad);
+  }
+  inline void RotateYAxis(T_FLOAT rad)
+  {
+    this->rotator_->RotateYAxis(rad);
+  }
+  inline void RotateZAxis(T_FLOAT rad)
   {
     return this->direction_;
+    this->rotator_->RotateZAxis(rad);
   }
 
   inline INativeMatrix* GetWorldMatrix()
+  inline void LerpRotation(const Quaternion& a, const Quaternion& b, T_FLOAT t)
+  {
+    this->rotator_->Lerp(a, b, t);
+  }
+  inline void LerpRotation(const Quaternion& b, T_FLOAT t)
   {
     return this->world_matrix_;
+    this->rotator_->Lerp(b, t);
+  }
+  inline void SlerpRotation(const Quaternion& a, const Quaternion& b, T_FLOAT t)
+  {
+    this->rotator_->Slerp(a, b, t);
+  }
+  inline void SlerpRotation(const Quaternion& b, T_FLOAT t)
+  {
+    this->rotator_->Slerp(b, t);
   }
 
   inline void SetEularAngles(const TVec3f& rotation)
@@ -176,6 +213,11 @@ public:
   inline T_FLOAT GetEularZ()
   {
     return this->rotator_->GetEularZ();
+  }
+  
+  inline const Quaternion& GetQuaternion() const
+  {
+    return this->rotator_->GetQuaternion();
   }
 
   // =================================================================
