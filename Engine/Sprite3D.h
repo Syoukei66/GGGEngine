@@ -1,6 +1,6 @@
 #pragma once
 
-#include "BillBoard.h"
+#include "Shape3D.h"
 #include "ITextureRegion.h"
 #include "VertexBufferObject_Sprite3D.h"
 

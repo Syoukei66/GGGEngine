@@ -2,6 +2,7 @@
 #define HAL_ENGINE_STRUCTURE_VERTEX_H_
 
 #include "NativeType.h"
+#include "EasingFunctionManager.h"
 
 // =================================================================
 // Vec2
@@ -20,6 +21,20 @@ struct BaseTVec2
     : x(x)
     , y(y)
   {}
+
+  static BaseTVec2<T> Lerp(BaseTVec2<T> a, BaseTVec2<T> b, T_FLOAT t)
+  {
+    t = std::min(std::max(t, 0.0f), 1.0f);
+    return (1.0f - t) * a + t * b;
+  }
+
+  static BaseTVec2<T> Slerp(BaseTVec2<T> a, BaseTVec2<T> b, T_FLOAT t)
+  {
+    t = std::min(std::max(t, 0.0f), 1.0f);
+    const T_FLOAT r = atan2f(b.y - a.y, b.x - a.x);
+    const T_FLOAT invsin_r = 1.0f / sinf(r);
+    return (sin((1.0f - t) * r) * invsin_r) * a + (sin(t * r) * invsin_r) * b;
+  }
 
   T Length() const
   {
@@ -249,11 +264,22 @@ struct BaseTVec3
     , z(z)
   {}
 
+  static BaseTVec3<T> Lerp(BaseTVec3<T> a, BaseTVec3<T> b, T_FLOAT t)
+  {
+    t = std::min(std::max(t, 0.0f), 1.0f);
+    return (1.0f - t) * a + t * b;
+  }
+  static BaseTVec3<T> Slerp(BaseTVec3<T> a, BaseTVec3<T> b, T_FLOAT t)
+  {
+    t = std::min(std::max(t, 0.0f), 1.0f);
+    const T_FLOAT r = acos(InnerProduct(a, b));
+    const T_FLOAT invsin_r = 1.0f / sinf(r);
+    return (sin((1.0f - t) * r) * invsin_r) * a + (sin(t * r) * invsin_r) * b;
+  }
   bool IsZero() const
   {
     return this->x == 0.0 && this->y == 0.0 && this->z == 0.0;
   }
-
   T Length() const
   {
     return (T)sqrt(LengthSquare());
@@ -324,6 +350,10 @@ struct BaseTVec3
   const BaseTVec3 operator * (T s) const
   {
     return BaseTVec3(this->x * s, this->y * s, this->z * s);
+  }
+  const BaseTVec3 operator * (const BaseTVec3<T>& vec) const
+  {
+    return BaseTVec3(this->x * vec.x, this->y * vec.y, this->z * vec.z);
   }
   BaseTVec3& operator *= (const BaseTVec3& other)
   {

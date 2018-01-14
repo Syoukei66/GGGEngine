@@ -58,17 +58,6 @@ public:
   virtual void NativeDraw(GameObject3DRenderState* state) {}
   virtual void PostDraw(GameObject3DRenderState* state) {}
 
-public:
-  //自身が親となった際の座標をローカル座標としている事に注意
-  //absoluteをtrueにすると、親にIsWorldフラグた立っていようとSceneの絶対座標を得れる
-
-  //TODO:IsWorldを復活させる必要あるかも
-  void ConvertPositionLocalToWorld(const TVec3f* local, TVec3f* dest, GameObject3D* root = nullptr) const;
-  void ConvertPositionLocalToWorld(T_FLOAT local_x, T_FLOAT local_y, T_FLOAT local_z, TVec3f* dest, GameObject3D* root = nullptr) const;
-  T_FLOAT ConvertXLocalToWorld(T_FLOAT local_x, GameObject3D* root = nullptr) const;
-  T_FLOAT ConvertYLocalToWorld(T_FLOAT local_y, GameObject3D* root = nullptr) const;
-  T_FLOAT ConvertZLocalToWorld(T_FLOAT local_z, GameObject3D* root = nullptr) const;
-
 protected:
   virtual void PushMatrixStack(GameObject3DRenderState* state);
   virtual void PopMatrixStack(GameObject3DRenderState* state);

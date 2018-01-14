@@ -40,12 +40,16 @@
         #include "EntityModifierFactory.h"
         #include "EntityModifierManager.h"
 //------Shape
-        #include "LoopSprite.h"
         #include "Shape.h"
 //--------Sprite
           #include "AnimatedSprite.h"
           #include "LoopSprite.h"
           #include "Sprite.h"
+//----------TextureRegion
+            #include "ITextureRegion.h"
+            #include "LoopTextureRegion.h"
+            #include "TextureRegion.h"
+            #include "TiledTextureRegion.h"
 //----3D
       #include "GameObject3D.h"
       #include "GameObject3DRenderState.h"
@@ -55,7 +59,6 @@
         #include "Model.h"
 //------Primitive
         #include "AnimatedSprite3D.h"
-        #include "BillBoard.h"
         #include "Cube3D.h"
         #include "Line3D.h"
         #include "MeshField.h"
@@ -118,13 +121,19 @@
     #include "NativeTexture.h"
 
 //Resource
-  #include "CSVTokenizer.h"
-  #include "JsonParser.h"
   #include "LoadProgressCounter.h"
 //--Pool
+    #include "FileResource.h"
+    #include "ResourceLoader.h"
     #include "ResourcePool.h"
 //----Model
       #include "ModelData.h"
+//----CSV
+      #include "CSVData.h"
+      #include "CSVResource.h"
+      #include "CSVTokenizer.h"
+//----Json
+      #include "JsonParser.h"
 //----Particle
       #include "ParticleData.h"
       #include "ParticleDataLoader.h"

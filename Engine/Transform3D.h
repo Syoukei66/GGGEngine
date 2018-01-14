@@ -33,6 +33,32 @@ public:
   T_FLOAT MoveCircularY(T_FLOAT y, const TVec3f& pos);
   T_FLOAT MoveCircularZ(T_FLOAT z, const TVec3f& pos);
 
+  inline void RotateX(T_FLOAT rad)
+  {
+    this->rotator_->RotateX(rad);
+  }
+  inline void RotateY(T_FLOAT rad)
+  {
+    this->rotator_->RotateY(rad);
+  }
+  inline void RotateZ(T_FLOAT rad)
+  {
+    this->rotator_->RotateZ(rad);
+  }
+
+  inline void RotateXAxis(T_FLOAT rad)
+  {
+    this->rotator_->RotateXAxis(rad);
+  }
+  inline void RotateYAxis(T_FLOAT rad)
+  {
+    this->rotator_->RotateYAxis(rad);
+  }
+  inline void RotateZAxis(T_FLOAT rad)
+  {
+    this->rotator_->RotateZAxis(rad);
+  }
+
   void UpdateWorldMatrix(NativeMatrixInstance* native_instance);
 
 protected:
@@ -48,10 +74,10 @@ public:
   const TVec3f& GetMatrixAppliedPosition();
   void ApplyMatrixToPosition(TVec3f* dest);
 
-  const TVec3f& GetWorldPosition(GameObject3D* root = nullptr);
-  T_FLOAT GetWorldX(GameObject3D* root = nullptr);
-  T_FLOAT GetWorldY(GameObject3D* root = nullptr);
-  T_FLOAT GetWorldZ(GameObject3D* root = nullptr);
+  const TVec3f& GetWorldPosition() const;
+  T_FLOAT GetWorldX() const;
+  T_FLOAT GetWorldY() const;
+  T_FLOAT GetWorldZ() const;
 
   void SetPosition(const TVec3f& position);
   void SetPosition(T_FLOAT x, T_FLOAT y, T_FLOAT z);
@@ -112,9 +138,44 @@ public:
     return this->world_matrix_;
   }
 
-  inline Transform3DRotator* GetRotator()
+  inline void SetEularAngles(const TVec3f& rotation)
   {
-    return this->rotator_;
+    this->rotator_->SetEularAngles(rotation);
+  }
+  inline void SetEularAngles(T_FLOAT x, T_FLOAT y, T_FLOAT z)
+  {
+    this->rotator_->SetEularAngles(x, y, z);
+  }
+  inline const TVec3f& GetEularAngles()
+  {
+    return this->rotator_->GetEularAngles();
+  }
+
+  inline void SetEularX(T_FLOAT x)
+  {
+    this->rotator_->SetEularX(x);
+  }
+  inline T_FLOAT GetEularX()
+  {
+    return this->rotator_->GetEularX();
+  }
+
+  inline void SetEularY(T_FLOAT y)
+  {
+    this->rotator_->SetEularY(y);
+  }
+  inline T_FLOAT GetEularY()
+  {
+    return this->rotator_->GetEularY();
+  }
+
+  inline void SetEularZ(T_FLOAT z)
+  {
+    this->rotator_->SetEularZ(z);
+  }
+  inline T_FLOAT GetEularZ()
+  {
+    return this->rotator_->GetEularZ();
   }
 
   // =================================================================

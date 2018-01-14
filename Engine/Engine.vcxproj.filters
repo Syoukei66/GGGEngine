@@ -283,8 +283,17 @@
     <Filter Include="ソース ファイル\Component\Collision\3D">
       <UniqueIdentifier>{94e35f95-46e0-430d-b61e-05b016ad8e3e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Resource\Model">
+    <Filter Include="ヘッダー ファイル\Resource\Pool\CSV">
+      <UniqueIdentifier>{284a2b53-9873-42cc-be04-f303f4fa5064}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Resource\Pool\Json">
+      <UniqueIdentifier>{abdbaedf-2883-48f3-bb36-6fbd94829992}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Resource\Pool\Model">
       <UniqueIdentifier>{3e3adae3-f231-45a4-aed6-e5dc38e59ae3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Resource\Pool\CSV">
+      <UniqueIdentifier>{ed66e4a2-1614-449c-8a12-154f8cfce1bd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -335,9 +344,6 @@
     </ClCompile>
     <ClCompile Include="Transform.cpp">
       <Filter>ソース ファイル\Component\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="CSVTokenizer.cpp">
-      <Filter>ソース ファイル\Resource</Filter>
     </ClCompile>
     <ClCompile Include="NativeMethod.cpp">
       <Filter>ソース ファイル\Native</Filter>
@@ -597,9 +603,6 @@
     <ClCompile Include="Model.cpp">
       <Filter>ソース ファイル\Component\GameObject\3D\Model</Filter>
     </ClCompile>
-    <ClCompile Include="BillBoard.cpp">
-      <Filter>ソース ファイル\Component\GameObject\3D\Primitive</Filter>
-    </ClCompile>
     <ClCompile Include="GameObjectRenderState.cpp">
       <Filter>ソース ファイル\Component\GameObject</Filter>
     </ClCompile>
@@ -670,7 +673,7 @@
       <Filter>ソース ファイル\Component\Collision\2D</Filter>
     </ClCompile>
     <ClCompile Include="ModelData.cpp">
-      <Filter>ソース ファイル\Resource\Model</Filter>
+      <Filter>ソース ファイル\Resource\Pool\Model</Filter>
     </ClCompile>
     <ClCompile Include="Collider3D.cpp">
       <Filter>ソース ファイル\Component\Collision\3D</Filter>
@@ -689,6 +692,15 @@
     </ClCompile>
     <ClCompile Include="SpineResource.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CSVResource.cpp">
+      <Filter>ソース ファイル\Resource\Pool\CSV</Filter>
+    </ClCompile>
+    <ClCompile Include="CSVData.cpp">
+      <Filter>ソース ファイル\Resource\Pool\CSV</Filter>
+    </ClCompile>
+    <ClCompile Include="CSVTokenizer.cpp">
+      <Filter>ソース ファイル\Resource\Pool\CSV</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -724,9 +736,6 @@
     </ClInclude>
     <ClInclude Include="Vertex.h">
       <Filter>ヘッダー ファイル\Structure</Filter>
-    </ClInclude>
-    <ClInclude Include="CSVTokenizer.h">
-      <Filter>ヘッダー ファイル\Resource</Filter>
     </ClInclude>
     <ClInclude Include="Shape.h">
       <Filter>ヘッダー ファイル\Component\GameObject\2D\Shape</Filter>
@@ -790,9 +799,6 @@
     </ClInclude>
     <ClInclude Include="ParticleSystem.h">
       <Filter>ヘッダー ファイル\Resource\Pool\Particle</Filter>
-    </ClInclude>
-    <ClInclude Include="JsonParser.h">
-      <Filter>ヘッダー ファイル\Resource</Filter>
     </ClInclude>
     <ClInclude Include="ParticleData.h">
       <Filter>ヘッダー ファイル\Resource\Pool\Particle</Filter>
@@ -1058,9 +1064,6 @@
     <ClInclude Include="ModelData.h">
       <Filter>ヘッダー ファイル\Resource\Pool\Model</Filter>
     </ClInclude>
-    <ClInclude Include="BillBoard.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\3D\Primitive</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>ヘッダー ファイル\Component\GameObject</Filter>
     </ClInclude>
@@ -1171,6 +1174,18 @@
     </ClInclude>
     <ClInclude Include="SpineResource.h">
       <Filter>ヘッダー ファイル\Resource\Pool\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="CSVData.h">
+      <Filter>ヘッダー ファイル\Resource\Pool\CSV</Filter>
+    </ClInclude>
+    <ClInclude Include="CSVResource.h">
+      <Filter>ヘッダー ファイル\Resource\Pool\CSV</Filter>
+    </ClInclude>
+    <ClInclude Include="CSVTokenizer.h">
+      <Filter>ヘッダー ファイル\Resource\Pool\CSV</Filter>
+    </ClInclude>
+    <ClInclude Include="JsonParser.h">
+      <Filter>ヘッダー ファイル\Resource\Pool\Json</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

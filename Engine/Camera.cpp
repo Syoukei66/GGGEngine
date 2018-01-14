@@ -28,6 +28,10 @@ Camera::Camera()
 // =================================================================
 void Camera::DrawScene(Scene* scene)
 {
+  if (!this->IsEnabled())
+  {
+    return;
+  }
   this->SetupCamera();
   if (this->viewport_clear_)
   {

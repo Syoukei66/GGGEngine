@@ -65,6 +65,7 @@ public:
   virtual void Assign(NativeMatrixInstance* mat) = 0;
   virtual void Assign(const INativeMatrix& mat) = 0;
   virtual void Multiple(const INativeMatrix& mat) = 0;
+  virtual void MultipleReverse(const INativeMatrix& mat) = 0;
   virtual void Inverse() = 0;
   virtual void Inverse(INativeMatrix* dest) const = 0;
 

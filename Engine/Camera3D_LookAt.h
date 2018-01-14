@@ -47,6 +47,11 @@ public:
     return this->entity_->GetTransform();
   }
 
+  inline GameObject3D* GetPlayer() const
+  {
+    return this->entity_->GetParent();
+  }
+
   inline void SetTarget(GameObject3D* target)
   {
     this->target_ = target;
@@ -121,7 +126,6 @@ private:
   GameObject3D* entity_;
 
   INativeMatrix* view_matrix_;
-  INativeMatrix* inv_;
 
   TVec3f look_at_pos_;
   TVec3f current_look_at_pos_;

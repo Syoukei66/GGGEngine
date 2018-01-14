@@ -176,7 +176,6 @@
     <ClCompile Include="AnimatedSprite3D.cpp" />
     <ClCompile Include="AttachmentVertexes.cpp" />
     <ClCompile Include="BaseActivity.cpp" />
-    <ClCompile Include="BillBoard.cpp" />
     <ClCompile Include="Bresenham.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Camera2D.cpp" />
@@ -187,6 +186,8 @@
     <ClCompile Include="Collider3D.cpp" />
     <ClCompile Include="Collision2D.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="CSVData.cpp" />
+    <ClCompile Include="CSVResource.cpp" />
     <ClCompile Include="CSVTokenizer.cpp" />
     <ClCompile Include="Cube3D.cpp" />
     <ClCompile Include="DigitalInput.cpp" />
@@ -309,9 +310,10 @@
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.h" />
     <ClInclude Include="AnimatedSprite3D.h" />
+    <ClInclude Include="CSVData.h" />
+    <ClInclude Include="CSVResource.h" />
     <ClInclude Include="ResourceLoader.h" />
     <ClInclude Include="FileResource.h" />
-    <ClInclude Include="BillBoard.h" />
     <ClInclude Include="BlendFunction.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Camera2D.h" />

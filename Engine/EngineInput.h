@@ -75,28 +75,30 @@ namespace Digital
     ID_DOWN,  //12
     ID_RIGHT, //13
 
+    ID_UP2,    //14
+    ID_LEFT2,  //15
+    ID_DOWN2,  //16
+    ID_RIGHT2, //17
+
+    ID_UP3,    //18
+    ID_LEFT3,  //19
+    ID_DOWN3,  //20
+    ID_RIGHT3, //21
+
     //wiiリモコンの1,2,+,-ボタンや、HOMEボタンなど、
     //ハード毎の特殊なボタン用
-    ID_S0,  //14
-    ID_S1,  //15
-    ID_S2,  //16
-    ID_S3,  //17
-    ID_S4,  //18
-    ID_S5,  //19
+    ID_S0,  //22
+    ID_S1,  //23
+    ID_S2,  //24
+    ID_S3,  //25
+    ID_S4,  //26
+    ID_S5,  //27
 
     //デバッグ用のボタン
-    ID_F1,  //20
-    ID_F2,  //21
-    ID_F3,  //22
-    ID_F4,  //23
-    ID_F5,  //24
-    ID_F6,  //25
-    ID_F7,  //26
-    ID_F8,  //27
-    ID_F9,  //28
-    ID_F10, //29
-    ID_F11, //30
-    ID_F12, //31
+    ID_F1,  //28
+    ID_F2,  //29
+    ID_F3,  //30
+    ID_F4,  //31
 
     ID_DIGITAL_MAX, //32
   };

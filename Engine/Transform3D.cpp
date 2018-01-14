@@ -116,7 +116,9 @@ T_FLOAT Transform3D::MoveCircularZ(T_FLOAT z, const TVec3f& pos)
 
 void Transform3D::UpdateWorldMatrix(NativeMatrixInstance* native_instance)
 {
-  this->GetWorldMatrix()->Assign(native_instance);
+  this->world_position_ = TVec3f();
+  this->world_matrix_->Assign(native_instance);
+  this->world_matrix_->Apply(&this->world_position_);
 }
 
 void Transform3D::UpdateTranslateMatrix(INativeMatrix* matrix)
@@ -157,32 +159,35 @@ void Transform3D::ApplyMatrixToPosition(TVec3f* dest)
   this->GetMatrix()->Apply(dest);
 }
 
-const TVec3f& Transform3D::GetWorldPosition(GameObject3D* root)
+const TVec3f& Transform3D::GetWorldPosition() const
 {
   if (this->world_position_dirty_)
   {
-    this->world_position_.x = 0.0f;
-    this->world_position_.y = 0.0f;
-    this->world_position_.z = 0.0f;
-    this->entity_->ConvertPositionLocalToWorld(nullptr, &this->world_position_, root);
-    this->world_position_dirty_ = false;
+    //キャッシュなのでconst_castを利用する
+    const_cast<Transform3D*>(this)->world_position_ = this->position_;
+    GameObject3D* parent = this->entity_->GetParent();
+    if (parent)
+    {
+      const_cast<Transform3D*>(this)->world_position_ += parent->GetTransform()->GetWorldPosition();
+    }
+    const_cast<Transform3D*>(this)->world_position_dirty_ = false;
   }
   return this->world_position_;
 }
 
-T_FLOAT Transform3D::GetWorldX(GameObject3D* root)
+T_FLOAT Transform3D::GetWorldX() const
 {
-  return this->GetWorldPosition(root).x;
+  return this->GetWorldPosition().x;
 }
 
-T_FLOAT Transform3D::GetWorldY(GameObject3D* root)
+T_FLOAT Transform3D::GetWorldY() const
 {
-  return this->GetWorldPosition(root).y;
+  return this->GetWorldPosition().y;
 }
 
-T_FLOAT Transform3D::GetWorldZ(GameObject3D* root)
+T_FLOAT Transform3D::GetWorldZ() const
 {
-  return this->GetWorldPosition(root).z;
+  return this->GetWorldPosition().z;
 }
 
 void Transform3D::SetPosition(const TVec3f& position)

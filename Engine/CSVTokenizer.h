@@ -1,64 +1,66 @@
 #pragma once
 #include <vector>
+#include <string>
 #include "NativeType.h"
 
 class CSVToken
 {
   // =================================================================
+  // Factory Method
+  // =================================================================
+public:
+  static CSVToken* Create(const std::string& str);
+
+  // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  CSVToken(T_UINT32 line_index, T_UINT16 token_index, const char* str, T_UINT8 len);
-  ~CSVToken();
-
-  // =================================================================
-  // Method
-  // =================================================================
-private:
-  void ThrowException(const char* message);
+  CSVToken(const std::string& str);
 
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  T_INT32 GetInt32();
-  T_INT64 GetInt64();
-  T_FLOAT GetFloat();
-  T_DOUBLE GetDouble();
-  const char* GetString();
-  void SetException(void(*exception)(CSVToken*, const char* message));
-
+  T_INT32 ToInt32() const;
+  T_INT64 ToInt64() const;
+  T_FLOAT ToFloat() const;
+  T_DOUBLE ToDouble() const;
+  const std::string& ToString() const;
+  
   // =================================================================
   // Data Member
   // =================================================================
 private:
-  char* str_;
-  char* trimed_str_;
-  T_UINT32 line_index_;
-  T_UINT16 token_index_;
-  void(*exception_)(CSVToken*, const char* message);
+  const std::string str_;
 };
 
 class CSVTokenizer
 {
   // =================================================================
+  // Constructor / Destructor
+  // =================================================================
+public:
+  CSVTokenizer(const std::string& str);
+  CSVTokenizer(const CSVTokenizer& other);
+
+  // =================================================================
   // Method
   // =================================================================
 public:
-  void Prepare(T_UINT32 line_index, const char* txt);
+  void Reset();
   bool HasNextToken();
-  CSVToken* NextToken();
+  const CSVToken* NextToken();
 
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  inline std::vector<CSVToken*>::iterator Begin()
+  inline std::vector<const CSVToken*>::iterator Begin()
   {
     return this->tokens_.begin();
   }
 
-  inline std::vector<CSVToken*>::iterator End()
+  inline std::vector<const CSVToken*>::iterator End()
   {
     return this->tokens_.end();
   }
@@ -68,16 +70,10 @@ public:
     return this->tokens_.size();
   }
 
-  inline void SetException(void(*exception)(CSVToken*, const char* message))
-  {
-    this->exception_ = exception;
-  }
-
   // =================================================================
   // Data Member
   // =================================================================
 private:
-  std::vector<CSVToken*> tokens_;
+  std::vector<const CSVToken*> tokens_;
   T_UINT16 now_token_index_;
-  void(*exception_)(CSVToken*, const char* message);
 };

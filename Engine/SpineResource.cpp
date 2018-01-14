@@ -3,7 +3,7 @@
 
 const SpineResource* SpineResource::DynamicLoad(const char* path)
 {
-  return nullptr;
+  return ResourcePool::GetInstance().DynamicLoad<SpineResource>(path);
 }
 
 SpineResource::SpineResource(const char* path)

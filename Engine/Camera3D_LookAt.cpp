@@ -18,7 +18,6 @@ Camera3D_LookAt::Camera3D_LookAt(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT he
 {
   this->entity_ = new GameObject3D();
   this->view_matrix_ = INativeMatrix::Create();
-  this->inv_ = INativeMatrix::Create();
 }
 
 Camera3D_LookAt::Camera3D_LookAt()
@@ -33,14 +32,12 @@ Camera3D_LookAt::Camera3D_LookAt()
 {
   this->entity_ = new GameObject3D();
   this->view_matrix_ = INativeMatrix::Create();
-  this->inv_ = INativeMatrix::Create();
 }
 
 Camera3D_LookAt::~Camera3D_LookAt()
 {
   delete this->entity_;
   delete this->view_matrix_;
-  delete this->inv_;
 }
 
 // =================================================================
@@ -53,7 +50,6 @@ void Camera3D_LookAt::CheckViewDirty()
   //  return;
   //}
   this->OnViewChanged();
-  this->inv_->Init();
   this->view_matrix_->Init();
 
   if (this->target_)
@@ -77,45 +73,27 @@ void Camera3D_LookAt::CheckViewDirty()
     GameObject3D* player = this->entity_->GetParent();
     if (player)
     {
-      //親子関係の適用
-      GameObject3D* p = this->entity_;
-      while (p)
-      {
-        this->inv_->Multiple(*p->GetTransform()->GetMatrix());
-        p = p->GetParent();
-      }
-      this->inv_->Inverse(this->view_matrix_);
+      this->current_look_at_pos_ = this->look_at_pos_;
 
-      //LoodkAtの適用
       TVec3f camera_pos = TVec3f();
       TVec3f look_at_pos = this->look_at_pos_;
-      this->GetTransform()->GetRotationMatrix()->Apply(&look_at_pos);
-      this->inv_->LookAtLH(
+      this->GetTransform()->GetWorldMatrix()->Apply(&look_at_pos);
+      this->GetTransform()->GetWorldMatrix()->Apply(&camera_pos);
+      this->direction_ = (look_at_pos - camera_pos).Normalized();
+      this->view_matrix_->LookAtLH(
         camera_pos,
         look_at_pos,
         this->camera_up_
       );
-      this->view_matrix_->Multiple(*this->inv_);
-      this->current_look_at_pos_ = TVec3f(0.0f, 0.0f, 0.0f);
-
-      this->view_matrix_->Direction(&this->current_look_at_pos_);
-      //TODO: 仮実装なので直すように
-      this->current_look_at_pos_ *= 100.0f;
     }
     //プレイヤーが存在しない時の処理
     else
     {
-      this->entity_->GetTransform()->GetMatrix()->Inverse(this->inv_);
-      this->view_matrix_->Multiple(*this->inv_);
+      this->entity_->GetTransform()->GetMatrix()->Direction(&this->direction_);
+      this->entity_->GetTransform()->GetMatrix()->Inverse(this->view_matrix_);
     }
   }
-  this->view_matrix_->Direction(&this->direction_);
-
-  //const T_FLOAT direction_x = -NativeMethod::Matrix().Matrix4x4_Get(this->view_matrix_, 2, 0);
-  //const T_FLOAT direction_y = -NativeMethod::Matrix().Matrix4x4_Get(this->view_matrix_, 2, 1);
-  //const T_FLOAT direction_z = NativeMethod::Matrix().Matrix4x4_Get(this->view_matrix_, 2, 2);
-  //this->SetDirection(TVec3f(direction_x, direction_y, direction_z));
-
+  
   this->view_dirty_ = false;
 }
 

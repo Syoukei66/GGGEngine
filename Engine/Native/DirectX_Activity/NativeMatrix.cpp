@@ -48,6 +48,11 @@ void NativeMatrix::Multiple(const INativeMatrix& mat)
   D3DXMatrixMultiply(this->mat_, this->mat_, ((const NativeMatrix&)mat).mat_);
 }
 
+void NativeMatrix::MultipleReverse(const INativeMatrix & mat)
+{
+  D3DXMatrixMultiply(this->mat_, ((const NativeMatrix&)mat).mat_, this->mat_);
+}
+
 void NativeMatrix::Inverse()
 {
   D3DXMatrixInverse(this->mat_, nullptr, this->mat_);

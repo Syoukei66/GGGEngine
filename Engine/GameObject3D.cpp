@@ -145,42 +145,6 @@ void GameObject3D::Draw(GameObject3DRenderState* state)
   this->PostDraw(state);
 }
 
-void GameObject3D::ConvertPositionLocalToWorld(const TVec3f* local, TVec3f* dest, GameObject3D* root) const
-{
-  if (local)
-  {
-    (*dest) += (*local);
-  }
-  this->transform_->ApplyMatrixToPosition(dest);
-  //(*dest) += this->GetTransform()->GetMatrixAppliedPosition();
-  if (!this->parent_ || this->parent_ == root)
-  {
-    return;
-  }
-  this->parent_->ConvertPositionLocalToWorld(nullptr, dest, root);
-
-}
-
-void GameObject3D::ConvertPositionLocalToWorld(T_FLOAT local_x, T_FLOAT local_y, T_FLOAT local_z, TVec3f* dest, GameObject3D* root) const
-{
-  this->ConvertPositionLocalToWorld(&TVec3f(local_x, local_y, local_z), dest, root);
-}
-
-T_FLOAT GameObject3D::ConvertXLocalToWorld(T_FLOAT local_x, GameObject3D* root) const
-{
-  return this->transform_->GetWorldPosition(root).x + local_x;
-}
-
-T_FLOAT GameObject3D::ConvertYLocalToWorld(T_FLOAT local_y, GameObject3D* root) const
-{
-  return this->transform_->GetWorldPosition(root).y + local_y;
-}
-
-T_FLOAT GameObject3D::ConvertZLocalToWorld(T_FLOAT local_z, GameObject3D* root) const
-{
-  return this->transform_->GetWorldPosition(root).z + local_z;
-}
-
 void GameObject3D::PushMatrixStack(GameObject3DRenderState* state)
 {
   state->PushMatrix(this->transform_->GetMatrix());

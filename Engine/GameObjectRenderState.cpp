@@ -8,7 +8,7 @@
 // Constructor / Destructor
 // =================================================================
 GameObjectRenderState::GameObjectRenderState()
-  : layer_state_(0)
+  : layer_state_(1)
 {
   this->matrix_stack_ = INativeMatrixStack::Create();
 }
