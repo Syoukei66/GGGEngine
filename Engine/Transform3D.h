@@ -46,14 +46,6 @@ protected:
   // setter/getter
   // =================================================================
 public:
-  const TVec3f& GetMatrixAppliedPosition();
-  void ApplyMatrixToPosition(TVec3f* dest);
-
-  const TVec3f& GetWorldPosition() const;
-  T_FLOAT GetWorldX() const;
-  T_FLOAT GetWorldY() const;
-  T_FLOAT GetWorldZ() const;
-
   void SetPosition(const TVec3f& position);
   void SetPosition(T_FLOAT x, T_FLOAT y, T_FLOAT z);
   inline const TVec3f& GetPosition() const
@@ -109,15 +101,15 @@ public:
 public:
   inline const TVec3f GetDirection() const
   {
-    return this->GetMatrix()->GetDirection3d();
+    return const_cast<Transform3D*>(this)->GetMatrix()->GetDirection3d();
   }
   inline const TVec3f GetWorldPosition() const
   {
-    return this->GetWorldMatrix()->GetPosition3d();
+    return this->world_matrix_->GetPosition3d();
   }
   inline const TVec3f GetWorldDirection() const
   {
-    return this->GetWorldMatrix()->GetDirection3d();
+    return this->world_matrix_->GetDirection3d();
   }
 
   // =================================================================
@@ -216,22 +208,21 @@ public:
     return this->rotator_->GetQuaternion();
   }
 
+  inline INativeMatrix* GetWorldMatrix() const
+  {
+    return this->world_matrix_;
+  }
+
   // =================================================================
   // Data Member
   // =================================================================
 private:
   GameObject3D* entity_;
-
-  TVec3f direction_;
-
+  
   TVec3f position_;
   TVec3f scale_;
   T_FLOAT scale_max_;
   Transform3DRotator* rotator_;
-
-  TVec3f world_position_;
-
-  TVec3f matrix_applied_position_;
 
   INativeMatrix* world_matrix_;
 };
