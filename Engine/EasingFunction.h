@@ -82,6 +82,15 @@ now = b;
 // =================================================================
 class Liner : public EasingFunction
 {
+public:
+  static Liner& GetInstance()
+  {
+    static Liner self = Liner();
+    return self;
+  }
+
+private:
+  Liner() {}
   inline virtual T_FLOAT CalcIn(T_FLOAT val) const override
   {
     return val;
@@ -103,6 +112,15 @@ class Liner : public EasingFunction
 // =================================================================
 class Quadratic : public EasingFunction
 {
+public:
+  static Quadratic& GetInstance()
+  {
+    static Quadratic self = Quadratic();
+    return self;
+  }
+
+private:
+  Quadratic() {}
   inline virtual T_FLOAT CalcIn(T_FLOAT val) const override
   {
     //next * (val*val) + now
@@ -134,6 +152,15 @@ class Quadratic : public EasingFunction
 // =================================================================
 class Cubic : public EasingFunction
 {
+public:
+  static Cubic& GetInstance()
+  {
+    static Cubic self = Cubic();
+    return self;
+  }
+
+private:
+  Cubic() {}
   inline virtual T_FLOAT CalcIn(T_FLOAT val) const override
   {
     //next * (val * val * val) + now
@@ -168,6 +195,15 @@ class Cubic : public EasingFunction
 // =================================================================
 class Quartic : public EasingFunction
 {
+public:
+  static Quartic& GetInstance()
+  {
+    static Quartic self = Quartic();
+    return self;
+  }
+
+private:
+  Quartic() {}
   inline virtual T_FLOAT CalcIn(T_FLOAT val) const override
   {
     //next * (val * val * val * val) + now
@@ -202,6 +238,15 @@ class Quartic : public EasingFunction
 // =================================================================
 class Quintic : public EasingFunction
 {
+public:
+  static Quintic& GetInstance()
+  {
+    static Quintic self = Quintic();
+    return self;
+  }
+
+private:
+  Quintic() {}
   inline virtual T_FLOAT CalcIn(T_FLOAT val) const override
   {
     //next * (val * val * val * val * val) + now
@@ -236,6 +281,15 @@ class Quintic : public EasingFunction
 // =================================================================
 class Sinusoidal : public EasingFunction
 {
+public:
+  static Sinusoidal& GetInstance()
+  {
+    static Sinusoidal self = Sinusoidal();
+    return self;
+  }
+
+private:
+  Sinusoidal() {}
   inline virtual T_FLOAT CalcIn(T_FLOAT val) const override
   {
     //next * ( 1 - cos(val * PI * 0.5f)) + now
@@ -260,6 +314,15 @@ class Sinusoidal : public EasingFunction
 // =================================================================
 class Exponential : public EasingFunction
 {
+public:
+  static Exponential& GetInstance()
+  {
+    static Exponential self = Exponential();
+    return self;
+  }
+
+private:
+  Exponential() {}
   inline virtual T_FLOAT CalcIn(T_FLOAT val) const override
   {
     //next * pow(2,10*(val-1)) + now
@@ -292,6 +355,15 @@ class Exponential : public EasingFunction
 // =================================================================
 class Circular : public EasingFunction
 {
+public:
+  static Circular& GetInstance()
+  {
+    static Circular self = Circular();
+    return self;
+  }
+
+private:
+  Circular() {}
   inline virtual T_FLOAT CalcIn(T_FLOAT val) const override
   {
     //next * (sqrt(1 - val * val) - 1) + now

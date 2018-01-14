@@ -22,18 +22,59 @@ struct BaseTVec2
     , y(y)
   {}
 
-  static BaseTVec2<T> Lerp(BaseTVec2<T> a, BaseTVec2<T> b, T_FLOAT t)
+  static BaseTVec2<T> EaseIn(EasingFunction::EasingFunction& easing_function, BaseTVec2<T> a, BaseTVec2<T> b, T_FLOAT t)
   {
-    t = std::min(std::max(t, 0.0f), 1.0f);
-    return (1.0f - t) * a + t * b;
+    if (t <= 0.0f)
+    {
+      return a;
+    }
+    if (t >= 1.0f)
+    {
+      return b;
+    }
+    t = easing_function.In(t);
+    return a * (1.0f - t) + b * t;
   }
 
-  static BaseTVec2<T> Slerp(BaseTVec2<T> a, BaseTVec2<T> b, T_FLOAT t)
+  static BaseTVec2<T> EaseOut(EasingFunction::EasingFunction& easing_function, BaseTVec2<T> a, BaseTVec2<T> b, T_FLOAT t)
   {
-    t = std::min(std::max(t, 0.0f), 1.0f);
-    const T_FLOAT r = atan2f(b.y - a.y, b.x - a.x);
-    const T_FLOAT invsin_r = 1.0f / sinf(r);
-    return (sin((1.0f - t) * r) * invsin_r) * a + (sin(t * r) * invsin_r) * b;
+    if (t <= 0.0f)
+    {
+      return a;
+    }
+    if (t >= 1.0f)
+    {
+      return b;
+    }
+    t = easing_function.Out(t);
+    return a * (1.0f - t) + b * t;
+  }
+
+  static BaseTVec2<T> EaseInOut(EasingFunction::EasingFunction& easing_function, BaseTVec2<T> a, BaseTVec2<T> b, T_FLOAT t)
+  {
+    if (t <= 0.0f)
+    {
+      return a;
+    }
+    if (t >= 1.0f)
+    {
+      return b;
+    }
+    t = easing_function.InOut(t);
+    return a * (1.0f - t) + b * t;
+  }
+
+  static BaseTVec2<T> Lerp(BaseTVec2<T> a, BaseTVec2<T> b, T_FLOAT t)
+  {
+    if (t <= 0.0f)
+    {
+      return a;
+    }
+    if (t >= 1.0f)
+    {
+      return b;
+    }
+    return a * (1.0f - t) + b * t;
   }
 
   T Length() const
@@ -264,18 +305,62 @@ struct BaseTVec3
     , z(z)
   {}
 
+  static BaseTVec3<T> EaseIn(EasingFunction::EasingFunction& easing_function, BaseTVec3<T> a, BaseTVec3<T> b, T_FLOAT t)
+  {
+    if (t <= 0.0f)
+    {
+      return a;
+    }
+    if (t >= 1.0f)
+    {
+      return b;
+    }
+    t = easing_function.In(t);
+    return a * (1.0f - t) + b * t;
+  }
+
+  static BaseTVec3<T> EaseOut(EasingFunction::EasingFunction& easing_function, BaseTVec3<T> a, BaseTVec3<T> b, T_FLOAT t)
+  {
+    if (t <= 0.0f)
+    {
+      return a;
+    }
+    if (t >= 1.0f)
+    {
+      return b;
+    }
+    t = easing_function.Out(t);
+    return a * (1.0f - t) + b * t;
+  }
+
+  static BaseTVec3<T> EaseInOut(EasingFunction::EasingFunction& easing_function, BaseTVec3<T> a, BaseTVec3<T> b, T_FLOAT t)
+  {
+    if (t <= 0.0f)
+    {
+      return a;
+    }
+    if (t >= 1.0f)
+    {
+      return b;
+    }
+    t = easing_function.InOut(t);
+    return a * (1.0f - t) + b * t;
+  }
+
   static BaseTVec3<T> Lerp(BaseTVec3<T> a, BaseTVec3<T> b, T_FLOAT t)
   {
+    if (t <= 0.0f)
+    {
+      return a;
+    }
+    if (t >= 1.0f)
+    {
+      return b;
+    }
     t = std::min(std::max(t, 0.0f), 1.0f);
-    return (1.0f - t) * a + t * b;
+    return a * (1.0f - t) + b * t;
   }
-  static BaseTVec3<T> Slerp(BaseTVec3<T> a, BaseTVec3<T> b, T_FLOAT t)
-  {
-    t = std::min(std::max(t, 0.0f), 1.0f);
-    const T_FLOAT r = acos(InnerProduct(a, b));
-    const T_FLOAT invsin_r = 1.0f / sinf(r);
-    return (sin((1.0f - t) * r) * invsin_r) * a + (sin(t * r) * invsin_r) * b;
-  }
+
   bool IsZero() const
   {
     return this->x == 0.0 && this->y == 0.0 && this->z == 0.0;

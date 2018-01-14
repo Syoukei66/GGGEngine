@@ -97,14 +97,14 @@ void EasingFunctionManager::Load(T_UINT8 render_cycle)
     this->Unload();
   }
   this->function_table_ = new EasingFunction::EasingFunction*[EasingFunction::FK_DATA_NUM];
-  this->function_table_[EasingFunction::FK_LINER] = new EasingFunction::Liner();
-  this->function_table_[EasingFunction::FK_QUADRATIC] = new EasingFunction::Quadratic();
-  this->function_table_[EasingFunction::FK_CUBIC] = new EasingFunction::Cubic();
-  this->function_table_[EasingFunction::FK_QUARTIC] = new EasingFunction::Quartic();
-  this->function_table_[EasingFunction::FK_QUINTIC] = new EasingFunction::Quintic();
-  this->function_table_[EasingFunction::FK_SINUSOIDAL] = new EasingFunction::Sinusoidal();
-  this->function_table_[EasingFunction::FK_EXPONENTIAL] = new EasingFunction::Exponential();
-  this->function_table_[EasingFunction::FK_CIRCULAR] = new EasingFunction::Circular();
+  this->function_table_[EasingFunction::FK_LINER] = &EasingFunction::Liner::GetInstance();
+  this->function_table_[EasingFunction::FK_QUADRATIC] = &EasingFunction::Quadratic::GetInstance();
+  this->function_table_[EasingFunction::FK_CUBIC] = &EasingFunction::Cubic::GetInstance();
+  this->function_table_[EasingFunction::FK_QUARTIC] = &EasingFunction::Quartic::GetInstance();
+  this->function_table_[EasingFunction::FK_QUINTIC] = &EasingFunction::Quintic::GetInstance();
+  this->function_table_[EasingFunction::FK_SINUSOIDAL] = &EasingFunction::Sinusoidal::GetInstance();
+  this->function_table_[EasingFunction::FK_EXPONENTIAL] = &EasingFunction::Exponential::GetInstance();
+  this->function_table_[EasingFunction::FK_CIRCULAR] = &EasingFunction::Circular::GetInstance();
 
   for (T_UINT8 i = 0; i < EasingFunction::FK_DATA_NUM; ++i)
   {
@@ -121,7 +121,6 @@ void EasingFunctionManager::Unload()
   for (T_UINT8 i = 0; i < EasingFunction::FK_DATA_NUM; ++i)
   {
     this->function_table_[i]->Unload();
-    delete this->function_table_[i];
   }
   delete[] this->function_table_;
 }
