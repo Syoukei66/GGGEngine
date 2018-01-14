@@ -21,9 +21,10 @@ public:
   virtual void OnDrawScene(Scene* scene) override;
 
 protected:
-  virtual void OnViewportDirty() override;
-  virtual const INativeMatrix* GetViewMatrix() override;
-  virtual const INativeMatrix* GetProjectionMatrix() override;
+  virtual const INativeMatrix* GetViewMatrix() const override;
+  virtual const INativeMatrix* GetProjectionMatrix() const override;
+
+  virtual void OnViewportChanged() override;
 
   // =================================================================
   // Method
@@ -41,4 +42,5 @@ private:
   GameObject2DRenderState* render_state_;
 
   INativeMatrix* projection_matrix_;
+  bool projection_dirty_;
 };

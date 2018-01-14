@@ -17,7 +17,7 @@ public:
   // Method
   // =================================================================
 public:
-  virtual void OnInit() override;
+  void OnInit() override;
 
   //これらのカメラ操作関数は現在の位置、回転、スケールを基準にしたカメラ操作を行う
   void Move(const TVec3f& move);
@@ -33,27 +33,17 @@ public:
   T_FLOAT MoveCircularY(T_FLOAT y, const TVec3f& pos);
   T_FLOAT MoveCircularZ(T_FLOAT z, const TVec3f& pos);
 
-
-  void UpdateWorldMatrix(NativeMatrixInstance* native_instance);
-
 protected:
-  virtual void UpdateTranslateMatrix(INativeMatrix* matrix) override;
-  virtual void UpdateScaleMatrix(INativeMatrix* matrix) override;
-  virtual void UpdateRotateMatrix(INativeMatrix* matrix) override;
-  virtual void OnUpdateMatrix(INativeMatrix* matrix) override;
+  void UpdateTranslateMatrix(INativeMatrix* matrix) override;
+  void UpdateScaleMatrix(INativeMatrix* matrix) override;
+  void UpdateRotateMatrix(INativeMatrix* matrix) override;
+
+  INativeMatrix* GetParentWorldMatrix() override;
 
   // =================================================================
   // setter/getter
   // =================================================================
 public:
-  const TVec3f& GetMatrixAppliedPosition();
-  void ApplyMatrixToPosition(TVec3f* dest);
-
-  const TVec3f& GetWorldPosition() const;
-  T_FLOAT GetWorldX() const;
-  T_FLOAT GetWorldY() const;
-  T_FLOAT GetWorldZ() const;
-
   void SetPosition(const TVec3f& position);
   void SetPosition(T_FLOAT x, T_FLOAT y, T_FLOAT z);
   inline const TVec3f& GetPosition() const
@@ -222,16 +212,8 @@ public:
 private:
   GameObject3D* entity_;
 
-  TVec3f direction_;
-
   TVec3f position_;
   TVec3f scale_;
   T_FLOAT scale_max_;
   Transform3DRotator* rotator_;
-
-  TVec3f world_position_;
-
-  TVec3f matrix_applied_position_;
-
-  INativeMatrix* world_matrix_;
 };

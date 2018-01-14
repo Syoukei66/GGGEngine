@@ -69,7 +69,7 @@ public:
   virtual void FireOnPositionChanged(GameObject* root) override;
   virtual void FireOnScaleChanged(GameObject* root) override;
   virtual void FireOnRotationChanged(GameObject* root) override;
-  
+
   // =================================================================
   // Setter / Getter
   // =================================================================
@@ -78,7 +78,6 @@ public:
   {
     return this->parent_;
   }
-
   inline GameObject3D* GetParent() const
   {
     return this->parent_;
@@ -121,5 +120,4 @@ private:
 
   bool z_test_;
   bool billbording_;
-  INativeMatrix* calc_mat_;
 };

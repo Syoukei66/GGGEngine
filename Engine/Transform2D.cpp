@@ -21,9 +21,6 @@ void Transform2D::OnInit()
   this->position_ = TVec2f(0.0f, 0.0f);
   this->scale_ = TVec2f(1.0f, 1.0f);
   this->rotation_ = 0.0f;
-
-  this->world_position_ = TVec2f(0.0f, 0.0f);
-  this->matrix_applied_position_ = TVec2f(0.0f, 0.0f);
 }
 
 void Transform2D::UpdateTranslateMatrix(INativeMatrix* matrix)
@@ -53,57 +50,19 @@ void Transform2D::UpdateRotateMatrix(INativeMatrix* matrix)
   );
 }
 
-void Transform2D::OnUpdateMatrix(INativeMatrix* matrix)
+INativeMatrix* Transform2D::GetParentWorldMatrix()
 {
-  this->matrix_applied_position_.x = 0.0f;
-  this->matrix_applied_position_.y = 0.0f;
-  matrix->Apply(
-    &this->matrix_applied_position_.x,
-    &this->matrix_applied_position_.y,
-    nullptr
-  );
+  GameObject2D* parent = this->entity_->GetParent();
+  if (!parent)
+  {
+    return nullptr;
+  }
+  return parent->GetTransform()->GetWorldMatrix();
 }
 
 // =================================================================
 // setter/getter
 // =================================================================
-TVec2f Transform2D::GetMatrixAppliedPosition()
-{
-  this->UpdateMatrix();
-  return this->matrix_applied_position_;
-}
-
-void Transform2D::ApplyMatrixToPosition(TVec2f* dest)
-{
-  this->GetMatrix()->Apply(
-    &(dest->x),
-    &(dest->y),
-    nullptr
-  );
-}
-
-const TVec2f& Transform2D::GetWorldPosition(GameObject2D* root)
-{
-  if (this->world_position_dirty_)
-  {
-    this->world_position_.x = 0.0f;
-    this->world_position_.y = 0.0f;
-    this->entity_->ConvertPositionLocalToWorld(nullptr, &this->world_position_, root);
-    this->world_position_dirty_ = false;
-  }
-  return this->world_position_;
-}
-
-T_FLOAT Transform2D::GetWorldX(GameObject2D* root)
-{
-  return this->GetWorldPosition(root).x;
-}
-
-T_FLOAT Transform2D::GetWorldY(GameObject2D* root)
-{
-  return this->GetWorldPosition(root).y;
-}
-
 void Transform2D::SetPositon(const TVec2f& position)
 {
   if (this->position_ == position)
