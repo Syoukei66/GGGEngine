@@ -30,7 +30,7 @@ void Transform::Init()
   this->OnTransformChanged();
   this->OnScaleChanged();
   this->OnRotationChanged();
-  this->OnWorldPositionDirty();
+  this->OnWorldTransformDirty();
 }
 
 void Transform::OnTransformChanged()
@@ -51,7 +51,7 @@ void Transform::OnRotationChanged()
   this->rotation_dirty_ = true;
 }
 
-void Transform::OnWorldPositionDirty()
+void Transform::OnWorldTransformDirty()
 {
   this->world_position_dirty_ = true;
 }

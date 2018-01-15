@@ -174,7 +174,7 @@ void GameObject3D::PopMatrixStack(GameObject3DRenderState* state)
 // =================================================================
 void GameObject3D::FireOnPositionChanged(GameObject* root)
 {
-  this->transform_->OnWorldPositionDirty();
+  this->transform_->OnWorldTransformDirty();
   this->OnPositionChanged(root);
   for (std::vector<GameObject3D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
   {
@@ -185,7 +185,7 @@ void GameObject3D::FireOnPositionChanged(GameObject* root)
 
 void GameObject3D::FireOnScaleChanged(GameObject* root)
 {
-  this->transform_->OnWorldPositionDirty();
+  this->transform_->OnWorldTransformDirty();
   this->OnScaleChanged(root);
   for (std::vector<GameObject3D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
   {
@@ -196,7 +196,7 @@ void GameObject3D::FireOnScaleChanged(GameObject* root)
 
 void GameObject3D::FireOnRotationChanged(GameObject* root)
 {
-  this->transform_->OnWorldPositionDirty();
+  this->transform_->OnWorldTransformDirty();
   this->OnRotationChanged(root);
   for (std::vector<GameObject3D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
   {

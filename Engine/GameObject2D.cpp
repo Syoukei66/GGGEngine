@@ -230,7 +230,7 @@ void GameObject2D::PopMatrixStack(GameObject2DRenderState* state)
 // =================================================================
 void GameObject2D::FireOnPositionChanged(GameObject* root)
 {
-  this->transform_->OnWorldPositionDirty();
+  this->transform_->OnWorldTransformDirty();
   this->OnPositionChanged(root);
   for (std::vector<GameObject2D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
   {
@@ -241,7 +241,7 @@ void GameObject2D::FireOnPositionChanged(GameObject* root)
 
 void GameObject2D::FireOnScaleChanged(GameObject* root)
 {
-  this->transform_->OnWorldPositionDirty();
+  this->transform_->OnWorldTransformDirty();
   this->OnScaleChanged(root);
   for (std::vector<GameObject2D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
   {
@@ -252,7 +252,7 @@ void GameObject2D::FireOnScaleChanged(GameObject* root)
 
 void GameObject2D::FireOnRotationChanged(GameObject* root)
 {
-  this->transform_->OnWorldPositionDirty();
+  this->transform_->OnWorldTransformDirty();
   this->OnRotationChanged(root);
   for (std::vector<GameObject2D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
   {
