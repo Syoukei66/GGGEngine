@@ -69,7 +69,7 @@ public:
   virtual void FireOnPositionChanged(GameObject* root) override;
   virtual void FireOnScaleChanged(GameObject* root) override;
   virtual void FireOnRotationChanged(GameObject* root) override;
-  
+
   // =================================================================
   // Setter / Getter
   // =================================================================
@@ -78,7 +78,6 @@ public:
   {
     return this->parent_;
   }
-
   inline GameObject3D* GetParent() const
   {
     return this->parent_;
@@ -109,10 +108,7 @@ public:
     this->billbording_ = billboarding;
   }
 
-  inline bool IsBillboard() const
-  {
-    return this->billbording_;
-  }
+  bool IsBillboard() const;
 
 private:
   Transform3D* transform_;
@@ -121,5 +117,4 @@ private:
 
   bool z_test_;
   bool billbording_;
-  INativeMatrix* calc_mat_;
 };

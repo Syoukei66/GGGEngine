@@ -15,15 +15,17 @@ public:
   // =================================================================
   // Methods for/from SuperClass/Interfaces
   // =================================================================
+public:
+  virtual INativeMatrix* GetViewMatrix() const override;
+
 protected:
-  void CheckViewDirty();
-  virtual void OnViewDirty() {}
-  virtual INativeMatrix* GetViewMatrix() override;
+  virtual void SetupCamera() override;
 
   // =================================================================
   // Methods
   // =================================================================
 public:
+  void CheckViewDirty();
   void SetPlayer(GameObject3D* player);
   void Update();
 

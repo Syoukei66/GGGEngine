@@ -21,20 +21,15 @@ public:
   // =================================================================
 public:
   void DrawScene(Scene* scene);
-  virtual const INativeMatrix* GetViewMatrix() = 0;
-  virtual const INativeMatrix* GetProjectionMatrix() = 0;
+  virtual const INativeMatrix* GetViewMatrix() const = 0;
+  virtual const INativeMatrix* GetProjectionMatrix() const = 0;
 
 protected:
-  void SetupCamera();
-  void CheckViewportDirty();
-  virtual void OnDrawScene(Scene* scene) = 0;
-  virtual void OnViewportDirty() = 0;
+  virtual void SetupCamera();
 
-private:
-  inline void OnViewportChanged()
-  {
-    this->viewport_dirty_ = true;
-  }
+  virtual void OnViewportChanged() {}
+
+  virtual void OnDrawScene(Scene* scene) = 0;
 
   // =================================================================
   // setter/getter
@@ -110,6 +105,5 @@ private:
   TVec2f position_;
   TSizef size_;
   T_FLOAT z_min_, z_max_;
-  bool viewport_dirty_;
 
 };

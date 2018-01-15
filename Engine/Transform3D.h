@@ -17,7 +17,7 @@ public:
   // Method
   // =================================================================
 public:
-  virtual void OnInit() override;
+  void OnInit() override;
 
   //これらのカメラ操作関数は現在の位置、回転、スケールを基準にしたカメラ操作を行う
   void Move(const TVec3f& move);
@@ -33,14 +33,12 @@ public:
   T_FLOAT MoveCircularY(T_FLOAT y, const TVec3f& pos);
   T_FLOAT MoveCircularZ(T_FLOAT z, const TVec3f& pos);
 
-
-  void UpdateWorldMatrix(NativeMatrixInstance* native_instance);
-
 protected:
-  virtual void UpdateTranslateMatrix(INativeMatrix* matrix) override;
-  virtual void UpdateScaleMatrix(INativeMatrix* matrix) override;
-  virtual void UpdateRotateMatrix(INativeMatrix* matrix) override;
-  virtual void OnUpdateMatrix(INativeMatrix* matrix) override;
+  void UpdateTranslateMatrix(INativeMatrix* matrix) override;
+  void UpdateScaleMatrix(INativeMatrix* matrix) override;
+  void UpdateRotateMatrix(INativeMatrix* matrix) override;
+
+  INativeMatrix* GetParentWorldMatrix() override;
 
   // =================================================================
   // setter/getter
@@ -101,15 +99,15 @@ public:
 public:
   inline const TVec3f GetDirection() const
   {
-    return const_cast<Transform3D*>(this)->GetMatrix()->GetDirection3d();
+    return this->GetMatrix()->GetDirection3d();
   }
   inline const TVec3f GetWorldPosition() const
   {
-    return this->world_matrix_->GetPosition3d();
+    return this->GetWorldMatrix()->GetPosition3d();
   }
   inline const TVec3f GetWorldDirection() const
   {
-    return this->world_matrix_->GetDirection3d();
+    return this->GetWorldMatrix()->GetDirection3d();
   }
 
   // =================================================================
@@ -208,21 +206,14 @@ public:
     return this->rotator_->GetQuaternion();
   }
 
-  inline INativeMatrix* GetWorldMatrix() const
-  {
-    return this->world_matrix_;
-  }
-
   // =================================================================
   // Data Member
   // =================================================================
 private:
   GameObject3D* entity_;
-  
+
   TVec3f position_;
   TVec3f scale_;
   T_FLOAT scale_max_;
   Transform3DRotator* rotator_;
-
-  INativeMatrix* world_matrix_;
 };

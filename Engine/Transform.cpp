@@ -11,6 +11,7 @@ Transform::Transform(GameObject* entity)
   this->scale_matrix_ = INativeMatrix::Create();
   this->rotation_matrix_ = INativeMatrix::Create();
   this->matrix_ = INativeMatrix::Create();
+  this->world_matrix_ = INativeMatrix::Create();
 }
 
 Transform::~Transform()
@@ -19,6 +20,7 @@ Transform::~Transform()
   delete this->scale_matrix_;
   delete this->rotation_matrix_;
   delete this->matrix_;
+  delete this->world_matrix_;
 }
 
 // =================================================================
@@ -30,7 +32,7 @@ void Transform::Init()
   this->OnTransformChanged();
   this->OnScaleChanged();
   this->OnRotationChanged();
-  this->OnWorldPositionDirty();
+  this->OnWorldTransformDirty();
 }
 
 void Transform::OnTransformChanged()
@@ -51,19 +53,18 @@ void Transform::OnRotationChanged()
   this->rotation_dirty_ = true;
 }
 
-void Transform::OnWorldPositionDirty()
+void Transform::OnWorldTransformDirty()
 {
-  this->world_position_dirty_ = true;
+  this->world_transform_dirty_ = true;
 }
 
-bool Transform::UpdateMatrix()
+void Transform::UpdateMatrix()
 {
   bool matrix_dirty = false;
   if (this->translation_dirty_)
   {
     this->translate_matrix_->Init();
     this->UpdateTranslateMatrix(this->translate_matrix_);
-
     this->translation_dirty_ = false;
     matrix_dirty = true;
   }
@@ -81,12 +82,26 @@ bool Transform::UpdateMatrix()
     this->rotation_dirty_ = false;
     matrix_dirty = true;
   }
+  if (matrix_dirty)
+  {
+    this->matrix_->Init();
+    this->matrix_->Multiple(*this->scale_matrix_);
+    this->matrix_->Multiple(*this->rotation_matrix_);
+    this->matrix_->Multiple(*this->translate_matrix_);
+  }
+}
 
-  this->matrix_->Init();
-  this->matrix_->Multiple(*this->scale_matrix_);
-  this->matrix_->Multiple(*this->rotation_matrix_);
-  this->matrix_->Multiple(*this->translate_matrix_);
-
-  this->OnUpdateMatrix(this->matrix_);
-  return true;
+void Transform::UpdateWorldMatrix()
+{
+  if (!this->world_transform_dirty_)
+  {
+    return;
+  }
+  this->world_matrix_->Assign(*this->GetMatrix());
+  INativeMatrix* parent_world_matrix = this->GetParentWorldMatrix();
+  if (parent_world_matrix)
+  {
+    this->world_matrix_->Multiple(*parent_world_matrix);
+  }
+  this->world_transform_dirty_ = false;
 }

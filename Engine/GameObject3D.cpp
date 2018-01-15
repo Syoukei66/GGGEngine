@@ -12,7 +12,6 @@ GameObject3D::GameObject3D()
   , z_test_(false)
   , billbording_(false)
 {
-  this->calc_mat_ = INativeMatrix::Create();
   this->SetBlendFunction(BlendFunction::BL_NOBLEND, BlendFunction::BL_NOBLEND);
   this->transform_ = new Transform3D(this);
   this->transform_->Init();
@@ -21,7 +20,6 @@ GameObject3D::GameObject3D()
 GameObject3D::~GameObject3D()
 {
   delete this->transform_;
-  delete this->calc_mat_;
 }
 
 // =================================================================
@@ -115,9 +113,7 @@ void GameObject3D::Draw(GameObject3DRenderState* state)
   this->PreDraw(state);
 
   this->PushMatrixStack(state);
-
-  this->transform_->UpdateWorldMatrix(state->GetMatrixStack()->GetTop());
-
+  
   if (state->IsTargetedLayer(this->GetLayerId()))
   {
     //TODO: Zテスト行うかどうかの判定はマテリアルに記述すべき
@@ -150,13 +146,7 @@ void GameObject3D::PushMatrixStack(GameObject3DRenderState* state)
   state->PushMatrix(this->transform_->GetMatrix());
   if (this->billbording_)
   {
-    state->GetCamera()->GetViewMatrix()->Inverse(this->calc_mat_);
-
-    (*this->calc_mat_)[3][0] = 0.0f;
-    (*this->calc_mat_)[3][1] = 0.0f;
-    (*this->calc_mat_)[3][2] = 0.0f;
-
-    state->PushMatrix(this->calc_mat_);
+    state->PushMatrix(state->GetCamera()->GetBillboardingMatrix());
   }
 }
 
@@ -174,7 +164,7 @@ void GameObject3D::PopMatrixStack(GameObject3DRenderState* state)
 // =================================================================
 void GameObject3D::FireOnPositionChanged(GameObject* root)
 {
-  this->transform_->OnWorldPositionDirty();
+  this->transform_->OnWorldTransformDirty();
   this->OnPositionChanged(root);
   for (std::vector<GameObject3D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
   {
@@ -185,7 +175,7 @@ void GameObject3D::FireOnPositionChanged(GameObject* root)
 
 void GameObject3D::FireOnScaleChanged(GameObject* root)
 {
-  this->transform_->OnWorldPositionDirty();
+  this->transform_->OnWorldTransformDirty();
   this->OnScaleChanged(root);
   for (std::vector<GameObject3D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
   {
@@ -196,11 +186,23 @@ void GameObject3D::FireOnScaleChanged(GameObject* root)
 
 void GameObject3D::FireOnRotationChanged(GameObject* root)
 {
-  this->transform_->OnWorldPositionDirty();
+  this->transform_->OnWorldTransformDirty();
   this->OnRotationChanged(root);
   for (std::vector<GameObject3D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
   {
     GameObject3D* child = (*it);
     child->FireOnRotationChanged(root);
   }
+}
+
+bool GameObject3D::IsBillboard() const
+{
+  if (this->HasParent())
+  {
+    if (this->parent_->IsBillboard())
+    {
+      return true;
+    }
+  }
+  return this->billbording_;
 }
