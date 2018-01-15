@@ -62,8 +62,7 @@ void Camera2D_MultiTarget::Update()
   for (std::deque<GameObject2D*>::iterator itr = this->target_entities_.begin(); itr != this->target_entities_.end(); ++itr)
   {
     GameObject2D* target = (*itr);
-    //const TVec2f& target_world = target->GetTransform()->GetWorldPosition();
-    TVec2f target_world = this->view_->GetTransform()->GetWorldPosition() - target->GetTransform()->GetWorldPosition();
+    TVec2f target_world = target->GetTransform()->GetWorldPosition() - this->view_->GetTransform()->GetWorldPosition();
     min.x = std::min(min.x, target_world.x);
     min.y = std::min(min.y, target_world.y);
     max.x = std::max(max.x, target_world.x);
