@@ -99,7 +99,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <TreatWarningAsError>false</TreatWarningAsError>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
-      <AdditionalIncludeDirectories>spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Lib\include;spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -117,7 +117,7 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <TreatWarningAsError>false</TreatWarningAsError>
-      <AdditionalIncludeDirectories>spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Lib\include;spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -139,7 +139,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <TreatWarningAsError>false</TreatWarningAsError>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
-      <AdditionalIncludeDirectories>spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Lib\include;spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -161,7 +161,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <TreatWarningAsError>false</TreatWarningAsError>
-      <AdditionalIncludeDirectories>spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Lib\include;spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -203,6 +203,7 @@
     <ClCompile Include="GameObject2DRenderState.cpp" />
     <ClCompile Include="GameObject3D.cpp" />
     <ClCompile Include="GameObject3DRenderState.cpp" />
+    <ClCompile Include="NativeShader.cpp" />
     <ClCompile Include="ResourceLoader.cpp" />
     <ClCompile Include="ModelData.cpp" />
     <ClCompile Include="NativeMatrix.cpp" />
@@ -312,6 +313,7 @@
     <ClInclude Include="AnimatedSprite3D.h" />
     <ClInclude Include="CSVData.h" />
     <ClInclude Include="CSVResource.h" />
+    <ClInclude Include="NativeShader.h" />
     <ClInclude Include="ResourceLoader.h" />
     <ClInclude Include="FileResource.h" />
     <ClInclude Include="BlendFunction.h" />
@@ -352,6 +354,7 @@
     <ClInclude Include="NativeObjectFactory.h" />
     <ClInclude Include="NativeMatrixStack.h" />
     <ClInclude Include="NativeObject.h" />
+    <ClInclude Include="ShaderResource.h" />
     <ClInclude Include="SpineResource.h" />
     <ClInclude Include="Sprite3D.h" />
     <ClInclude Include="Transform3DRotator.h" />
@@ -391,7 +394,6 @@
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="ResourcePool.h" />
     <ClInclude Include="SceneTransitioner.h" />
-    <ClInclude Include="Shader.h" />
     <ClInclude Include="Shape3D.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="SkeletonAnimation.h" />
@@ -439,7 +441,6 @@
     <ClInclude Include="spine-c\src\spine\kvec.h" />
     <ClInclude Include="SpineData.h" />
     <ClInclude Include="SpineDataManager.h" />
-    <ClInclude Include="StandardShader.h" />
     <ClInclude Include="TextureAtlas.h" />
     <ClInclude Include="PoolAllocator.h" />
     <ClInclude Include="TextureAtlasLoader.h" />

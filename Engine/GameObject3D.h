@@ -108,6 +108,11 @@ public:
     this->billbording_ = billboarding;
   }
 
+  inline bool IsBillboardingRoot() const
+  {
+    return this->billbording_;
+  }
+
   bool IsBillboard() const;
 
 private:

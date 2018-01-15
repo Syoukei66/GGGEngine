@@ -48,7 +48,7 @@ protected:
   // setter/getter
   // =================================================================
 public:
-
+  //TODO: Matrix‚ğ’¼Ú•ÒW‚Å‚«‚È‚¢‚æ‚¤‚É‚·‚é•K—v‚ª‚ ‚é‚Ì‚Å‚Í
   inline INativeMatrix* GetMatrix() const
   {
     const_cast<Transform*>(this)->UpdateMatrix();

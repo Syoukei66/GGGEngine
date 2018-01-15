@@ -69,9 +69,6 @@
         #include "Triangle3D.h"
 //----Material
       #include "Material.h"
-//------Shader
-        #include "Shader.h"
-        #include "StandardShader.h"
 //----VBO
       #include "IVertexBufferObject.h"
 //------2D
@@ -111,13 +108,14 @@
   #include "INativeProcess_Material.h"
   #include "INativeProcess_Time.h"
   #include "NativeMethod.h"
+  #include "NativeObjectFactory.h"
   #include "NativeType.h"
 //--Objects
     #include "NativeMatrix.h"
     #include "NativeMatrixStack.h"
     #include "NativeModel.h"
     #include "NativeObject.h"
-    #include "NativeObjectFactory.h"
+    #include "NativeShader.h"
     #include "NativeTexture.h"
 
 //Resource

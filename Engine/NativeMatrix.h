@@ -27,6 +27,7 @@ public:
   
   virtual ~INativeMatrix() {}
 
+  //ƒRƒs[‹Ö~
 private:
   INativeMatrix(const INativeMatrix& mat) {}
 

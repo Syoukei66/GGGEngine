@@ -1,4 +1,5 @@
 #include "..\..\NativeObjectFactory.h"
+#include "..\..\NativeObjectFactory.h"
 #include <NativeObjectFactory.h>
 
 #include "NativeMatrix.h"
@@ -32,5 +33,10 @@ INativeModel* NativeObjectFactory::CreateModel(const char* directory_path, const
   {
     return new NativeModel_x(directory_path, name);
   }
+  return nullptr;
+}
+
+INativeShader* NativeObjectFactory::CreateShader(const char* path)
+{
   return nullptr;
 }

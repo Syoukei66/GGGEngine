@@ -45,18 +45,30 @@ void GameObject3DRenderState::DrawZOrderedGameObject()
   });
   for (PostDrawParam param : this->post_draw_list_)
   {
-    this->PushMatrix(param.object->GetTransform()->GetWorldMatrix());
-    if (param.object->IsBillboard())
-    {
-      this->PushMatrix(this->camera_->GetBillboardingMatrix());
-    }
     param.object->ApplyBlendMode(this);
-    param.object->NativeDraw(this);
     if (param.object->IsBillboard())
     {
+      GameObject3D* p = param.object;
+      this->mat_->Init();
+      while (!p->IsBillboardingRoot())
+      {
+        this->mat_->MultipleReverse(*p->GetTransform()->GetMatrix());
+        p = p->GetParent();
+      }
+      this->PushMatrix(p->GetTransform()->GetWorldMatrix());
+      this->PushMatrix(this->camera_->GetBillboardingMatrix());
+      this->PushMatrix(this->mat_);
+      param.object->NativeDraw(this);
+      this->PopMatrix();
+      this->PopMatrix();
       this->PopMatrix();
     }
-    this->PopMatrix();
+    else
+    {
+      this->PushMatrix(param.object->GetTransform()->GetWorldMatrix());
+      param.object->NativeDraw(this);
+      this->PopMatrix();
+    }
   }
   this->post_draw_list_.clear();
 }
