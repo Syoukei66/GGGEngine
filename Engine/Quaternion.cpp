@@ -22,8 +22,12 @@ const Quaternion Quaternion::Eular(const TVec3f& eular_angles)
   return ret;
 }
 
-const Quaternion Quaternion::Lerp(const Quaternion& a, const Quaternion& b, T_FLOAT t)
+const Quaternion Quaternion::Lerp(Quaternion a, Quaternion b, T_FLOAT t)
 {
+  a = a.Normalized();
+  b = b.Normalized();
+  NATIVE_ASSERT(a.IsNormal(), "Quaternion‚ª³‹K‰»‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ");
+  NATIVE_ASSERT(b.IsNormal(), "Quaternion‚ª³‹K‰»‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ");
   if (t <= 0.0f)
   {
     return a;
@@ -33,15 +37,23 @@ const Quaternion Quaternion::Lerp(const Quaternion& a, const Quaternion& b, T_FL
     return b;
   }
   const T_FLOAT r = acosf(InnerProduct(a, b));
-  if (fabs(r) < MathConstants::PI_1_2)
+  if (fabs(fabs(r) - MathConstants::PI) < 0.01f)
   {
-    return (a * (1.0f - t) + b * t).Normalized();
+    fabs(r);
   }
-  return (a * (1.0f - t) + b * -t).Normalized();
+  if (fabs(r) <= MathConstants::PI_1_2)
+  {
+    return (a * (1.0f - t) + b * t);
+  }
+  return (a * (1.0f - t) + b * -t);
 }
 
-const Quaternion Quaternion::Slerp(const Quaternion& a, const Quaternion& b, T_FLOAT t)
+const Quaternion Quaternion::Slerp(Quaternion a, Quaternion b, T_FLOAT t)
 {
+  a = a.Normalized();
+  b = b.Normalized();
+  NATIVE_ASSERT(a.IsNormal(), "Quaternion‚ª³‹K‰»‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ");
+  NATIVE_ASSERT(b.IsNormal(), "Quaternion‚ª³‹K‰»‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ");
   if (t <= 0.0f)
   {
     return a;
@@ -54,9 +66,9 @@ const Quaternion Quaternion::Slerp(const Quaternion& a, const Quaternion& b, T_F
   const T_FLOAT invsin_r = 1.0f / sinf(r);
   if (fabs(r) < MathConstants::PI_1_2)
   {
-    return (a * (sin((1.0f - t) * r) * invsin_r) + b * (sin(t * r) * invsin_r)).Normalized();
+    return (a * (sin((1.0f - t) * r) * invsin_r) + b * (sin(t * r) * invsin_r));
   }
-  return (a * (sin((1.0f - t) * r) * invsin_r) + b * -(sin(t * r) * invsin_r)).Normalized();
+  return (a * (sin((1.0f - t) * r) * invsin_r) + b * -(sin(t * r) * invsin_r));
 }
 
 T_FLOAT Quaternion::InnerProduct(const Quaternion& a, const Quaternion& b)
@@ -65,7 +77,7 @@ T_FLOAT Quaternion::InnerProduct(const Quaternion& a, const Quaternion& b)
 }
 
 Quaternion::Quaternion()
-  : Quaternion(TVec3f(0.0f, 0.0f, 0.0f), 0.0f)
+  : Quaternion(TVec3f(0.0f, 0.0f, 0.0f), 1.0f)
 {}
 
 Quaternion::Quaternion(const TVec3f& v, T_FLOAT rad)
@@ -182,11 +194,11 @@ void Quaternion::FromRotationMatrix(const INativeMatrix& mat)
 
 void Quaternion::ToRotationMatrix(INativeMatrix* dest)
 {
-  *this = this->Normalized();
-  const T_FLOAT qx = this->v_.x;
-  const T_FLOAT qy = this->v_.y;
-  const T_FLOAT qz = this->v_.z;
-  const T_FLOAT qw = this->w_;
+  Quaternion normalized = this->Normalized();
+  const T_FLOAT qx = normalized.v_.x;
+  const T_FLOAT qy = normalized.v_.y;
+  const T_FLOAT qz = normalized.v_.z;
+  const T_FLOAT qw = normalized.w_;
   //            m11 = 1.0f - 2.0f * qy * qy - 2.0f * qz * qz;
   const T_FLOAT m11 = 1.0f - 2.0f * qy * qy - 2.0f * qz * qz;
   //            m12 = 2.0f * qx * qy + 2.0f * qw * qz;
@@ -252,5 +264,10 @@ const Quaternion Quaternion::Inversed() const
 
 const Quaternion Quaternion::Normalized() const
 {
-  return *this / this->ScalarSquare();
+  return *this / sqrtf(this->ScalarSquare());
+}
+
+bool Quaternion::IsNormal(T_FLOAT eps) const
+{
+  return fabs(1.0f - sqrtf(this->ScalarSquare())) < eps;
 }
