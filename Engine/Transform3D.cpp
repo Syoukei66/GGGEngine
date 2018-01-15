@@ -15,13 +15,11 @@ Transform3D::Transform3D(GameObject3D* entity)
   , scale_max_(1.0f)
 {
   this->rotator_ = new Transform3DRotator(this);
-  this->world_matrix_ = INativeMatrix::Create();
 }
 
 Transform3D::~Transform3D()
 {
   delete this->rotator_;
-  delete this->world_matrix_;
 }
 
 // =================================================================
@@ -108,11 +106,6 @@ T_FLOAT Transform3D::MoveCircularZ(T_FLOAT z, const TVec3f& pos)
   return 0.0f;
 }
 
-void Transform3D::UpdateWorldMatrix(NativeMatrixInstance* native_instance)
-{
-  this->world_matrix_->Assign(native_instance);
-}
-
 void Transform3D::UpdateTranslateMatrix(INativeMatrix* matrix)
 {
   matrix->Translation(this->position_);
@@ -128,8 +121,14 @@ void Transform3D::UpdateRotateMatrix(INativeMatrix* matrix)
   this->rotator_->ToRotationMatrix(matrix);
 }
 
-void Transform3D::OnUpdateMatrix(INativeMatrix* matrix)
+INativeMatrix* Transform3D::GetParentWorldMatrix()
 {
+  GameObject3D* parent = this->entity_->GetParent();
+  if (!parent)
+  {
+    return nullptr;
+  }
+  return parent->GetTransform()->GetWorldMatrix();
 }
 
 // =================================================================

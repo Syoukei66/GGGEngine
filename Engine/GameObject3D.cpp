@@ -116,8 +116,6 @@ void GameObject3D::Draw(GameObject3DRenderState* state)
 
   this->PushMatrixStack(state);
 
-  this->transform_->UpdateWorldMatrix(state->GetMatrixStack()->GetTop());
-
   if (state->IsTargetedLayer(this->GetLayerId()))
   {
     //TODO: Zテスト行うかどうかの判定はマテリアルに記述すべき

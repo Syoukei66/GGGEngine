@@ -76,8 +76,8 @@ public:
   inline INativeMatrix* GetWorldMatrix() const
   {
     const_cast<Transform*>(this)->UpdateWorldMatrix();
+    return this->world_matrix_;
   }
-
 
   // =================================================================
   // Data Member

@@ -93,7 +93,7 @@ void Transform::UpdateMatrix()
 
 void Transform::UpdateWorldMatrix()
 {
-  if (this->world_transform_dirty_)
+  if (!this->world_transform_dirty_)
   {
     return;
   }
