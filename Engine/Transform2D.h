@@ -20,9 +20,9 @@ public:
   void OnInit() override;
 
 protected:
-  void UpdateTranslateMatrix(INativeMatrix* matrix);
-  void UpdateScaleMatrix(INativeMatrix* matrix);
-  void UpdateRotateMatrix(INativeMatrix* matrix);
+  void UpdateTranslateMatrix(INativeMatrix* matrix) override;
+  void UpdateScaleMatrix(INativeMatrix* matrix) override;
+  void UpdateRotateMatrix(INativeMatrix* matrix) override;
 
   INativeMatrix* GetParentWorldMatrix() override;
 

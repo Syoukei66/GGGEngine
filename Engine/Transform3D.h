@@ -19,7 +19,7 @@ public:
 public:
   void OnInit() override;
 
-  //これらのカメラ操作関数は現在の位置、回転、スケールを基準にしたカメラ操作を行う
+  //縺薙ｌ繧峨�ｮ繧ｫ繝｡繝ｩ謫堺ｽ憺未謨ｰ縺ｯ迴ｾ蝨ｨ縺ｮ菴咲ｽｮ縲∝屓霆｢縲√せ繧ｱ繝ｼ繝ｫ繧貞渕貅悶↓縺励◆繧ｫ繝｡繝ｩ謫堺ｽ懊ｒ陦後≧
   void Move(const TVec3f& move);
   void Move(T_FLOAT x, T_FLOAT y, T_FLOAT z);
   void MoveX(T_FLOAT x);
@@ -28,18 +28,15 @@ public:
 
   void MoveCircular(const TVec3f& move, const TVec3f& pos);
   void MoveCircular(T_FLOAT x, T_FLOAT y, T_FLOAT z, const TVec3f& pos);
-  //戻り値には移動後のposとの角度が返される
+  //謌ｻ繧雁､縺ｫ縺ｯ遘ｻ蜍募ｾ後�ｮpos縺ｨ縺ｮ隗貞ｺｦ縺瑚ｿ斐＆繧後ｋ
   T_FLOAT MoveCircularX(T_FLOAT x, const TVec3f& pos);
   T_FLOAT MoveCircularY(T_FLOAT y, const TVec3f& pos);
   T_FLOAT MoveCircularZ(T_FLOAT z, const TVec3f& pos);
 
-
-  void UpdateWorldMatrix(NativeMatrixInstance* native_instance);
-
 protected:
-  virtual void UpdateTranslateMatrix(INativeMatrix* matrix) override;
-  virtual void UpdateScaleMatrix(INativeMatrix* matrix) override;
-  virtual void UpdateRotateMatrix(INativeMatrix* matrix) override;
+  void UpdateTranslateMatrix(INativeMatrix* matrix) override;
+  void UpdateScaleMatrix(INativeMatrix* matrix) override;
+  void UpdateRotateMatrix(INativeMatrix* matrix) override;
 
   INativeMatrix* GetParentWorldMatrix() override;
 
@@ -214,7 +211,7 @@ public:
   // =================================================================
 private:
   GameObject3D* entity_;
-  
+
   TVec3f position_;
   TVec3f scale_;
   T_FLOAT scale_max_;

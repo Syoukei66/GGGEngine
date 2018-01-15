@@ -12,7 +12,6 @@ GameObject3D::GameObject3D()
   , z_test_(false)
   , billbording_(false)
 {
-  this->calc_mat_ = INativeMatrix::Create();
   this->SetBlendFunction(BlendFunction::BL_NOBLEND, BlendFunction::BL_NOBLEND);
   this->transform_ = new Transform3D(this);
   this->transform_->Init();
@@ -21,7 +20,6 @@ GameObject3D::GameObject3D()
 GameObject3D::~GameObject3D()
 {
   delete this->transform_;
-  delete this->calc_mat_;
 }
 
 // =================================================================
@@ -111,27 +109,27 @@ void GameObject3D::Draw(GameObject3DRenderState* state)
     return;
   }
 
-  //•`‰æ‘O‚ÌƒAƒbƒvƒf[ƒgˆ—
+  //æç”»å‰ã®ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆå‡¦ç†
   this->PreDraw(state);
 
   this->PushMatrixStack(state);
-
+  
   if (state->IsTargetedLayer(this->GetLayerId()))
   {
-    //TODO: ZƒeƒXƒgs‚¤‚©‚Ç‚¤‚©‚Ì”»’è‚Íƒ}ƒeƒŠƒAƒ‹‚É‹Lq‚·‚×‚«
+    //TODO: Zãƒ†ã‚¹ãƒˆè¡Œã†ã‹ã©ã†ã‹ã®åˆ¤å®šã¯ãƒãƒ†ãƒªã‚¢ãƒ«ã«è¨˜è¿°ã™ã¹ã
     if (this->z_test_)
     {
       state->AddZCheckOrder(this);
     }
     else
     {
-      // ©•ª©g‚Ì•`‰æ
+      // è‡ªåˆ†è‡ªèº«ã®æç”»
       this->ApplyBlendMode(state);
       this->NativeDraw(state);
     }
   }
 
-  // q‚Ì•`‰æ
+  // å­ã®æç”»
   for (std::vector<GameObject3D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
   {
     GameObject3D* child = (*it);
@@ -148,13 +146,7 @@ void GameObject3D::PushMatrixStack(GameObject3DRenderState* state)
   state->PushMatrix(this->transform_->GetMatrix());
   if (this->billbording_)
   {
-    state->GetCamera()->GetViewMatrix()->Inverse(this->calc_mat_);
-
-    (*this->calc_mat_)[3][0] = 0.0f;
-    (*this->calc_mat_)[3][1] = 0.0f;
-    (*this->calc_mat_)[3][2] = 0.0f;
-
-    state->PushMatrix(this->calc_mat_);
+    state->PushMatrix(state->GetCamera()->GetBillboardingMatrix());
   }
 }
 
@@ -201,4 +193,16 @@ void GameObject3D::FireOnRotationChanged(GameObject* root)
     GameObject3D* child = (*it);
     child->FireOnRotationChanged(root);
   }
+}
+
+bool GameObject3D::IsBillboard() const
+{
+  if (this->HasParent())
+  {
+    if (this->parent_->IsBillboard())
+    {
+      return true;
+    }
+  }
+  return this->billbording_;
 }

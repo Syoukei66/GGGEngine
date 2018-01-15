@@ -88,7 +88,7 @@ void Camera2D_MultiTarget::Update()
   return;
 }
 
-INativeMatrix* Camera2D_MultiTarget::GetViewMatrix()
+INativeMatrix* Camera2D_MultiTarget::GetViewMatrix() const
 {
   return this->view_matrix_;
 }
