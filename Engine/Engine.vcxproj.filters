@@ -292,9 +292,6 @@
     <Filter Include="ソース ファイル\Component\Material">
       <UniqueIdentifier>{cffa89c8-72dc-4362-b8e4-c5baa1c9aef3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Component\Material\Shader">
-      <UniqueIdentifier>{ef68cf5d-dd0b-4e68-8e1c-9a25ab4e464b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Component\Renderer">
       <UniqueIdentifier>{7ec7c0e5-5d4e-4c72-ba75-0ac4ce3f6fdf}</UniqueIdentifier>
     </Filter>
@@ -303,6 +300,9 @@
     </Filter>
     <Filter Include="ソース ファイル\Resource\Pool\Shader">
       <UniqueIdentifier>{bd4646ec-052f-4eeb-9995-b994c650424c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル\Shader">
+      <UniqueIdentifier>{2c51305e-d442-40b8-bb64-80683400e562}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -593,9 +593,6 @@
     </ClCompile>
     <ClCompile Include="Camera3D_LookAt.cpp">
       <Filter>ソース ファイル\Component\Camera\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>ソース ファイル\Component\Material\Shader</Filter>
     </ClCompile>
     <ClCompile Include="Material.cpp">
       <Filter>ソース ファイル\Component\Material</Filter>
@@ -1199,5 +1196,22 @@
     <ClInclude Include="NativeObjectFactory.h">
       <Filter>ヘッダー ファイル\Native</Filter>
     </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>ヘッダー ファイル\Resource\Pool\Texture</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Model.hlsl">
+      <Filter>リソース ファイル\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Primitive.hlsl">
+      <Filter>リソース ファイル\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Sprite.hlsl">
+      <Filter>リソース ファイル\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Particle.hlsl">
+      <Filter>リソース ファイル\Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
