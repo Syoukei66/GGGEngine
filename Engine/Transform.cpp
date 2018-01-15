@@ -97,12 +97,11 @@ void Transform::UpdateWorldMatrix()
   {
     return;
   }
-  this->world_matrix_->Init();
+  this->world_matrix_->Assign(*this->GetMatrix());
   INativeMatrix* parent_world_matrix = this->GetParentWorldMatrix();
   if (parent_world_matrix)
   {
     this->world_matrix_->Multiple(*parent_world_matrix);
   }
-  this->world_matrix_->Multiple(*this->GetMatrix());
   this->world_transform_dirty_ = false;
 }
