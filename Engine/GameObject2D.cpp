@@ -164,36 +164,6 @@ void GameObject2D::Draw(GameObject2DRenderState* state)
   this->PostDraw(state);
 }
 
-void GameObject2D::ConvertPositionLocalToWorld(const TVec2f* local, TVec2f* dest, GameObject2D* root) const
-{
-  if (local)
-  {
-    (*dest) += (*local);
-  }
-  this->transform_->ApplyMatrixToPosition(dest);
-  //(*dest) += this->GetTransform()->GetMatrixAppliedPosition();
-  if (!this->parent_ || this->parent_ == root)
-  {
-    return;
-  }
-  this->parent_->ConvertPositionLocalToWorld(nullptr, dest, root);
-}
-
-void GameObject2D::ConvertPositionLocalToWorld(T_FLOAT local_x, T_FLOAT local_y, TVec2f* dest, GameObject2D* root) const
-{
-  this->ConvertPositionLocalToWorld(&TVec2f(local_x, local_y), dest, root);
-}
-
-T_FLOAT GameObject2D::ConvertXLocalToWorld(T_FLOAT local_x, GameObject2D* root) const
-{
-  return this->transform_->GetWorldPosition(root).x + local_x;
-}
-
-T_FLOAT GameObject2D::ConvertYLocalToWorld(T_FLOAT local_y, GameObject2D* root) const
-{
-  return this->transform_->GetWorldPosition(root).y + local_y;
-}
-
 void GameObject2D::RegisterEntityModifier(EntityModifierRoot* root)
 {
   root->OnAttached(this);
@@ -230,7 +200,7 @@ void GameObject2D::PopMatrixStack(GameObject2DRenderState* state)
 // =================================================================
 void GameObject2D::FireOnPositionChanged(GameObject* root)
 {
-  this->transform_->OnWorldPositionDirty();
+  this->transform_->OnWorldTransformDirty();
   this->OnPositionChanged(root);
   for (std::vector<GameObject2D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
   {
@@ -241,7 +211,7 @@ void GameObject2D::FireOnPositionChanged(GameObject* root)
 
 void GameObject2D::FireOnScaleChanged(GameObject* root)
 {
-  this->transform_->OnWorldPositionDirty();
+  this->transform_->OnWorldTransformDirty();
   this->OnScaleChanged(root);
   for (std::vector<GameObject2D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
   {
@@ -252,7 +222,7 @@ void GameObject2D::FireOnScaleChanged(GameObject* root)
 
 void GameObject2D::FireOnRotationChanged(GameObject* root)
 {
-  this->transform_->OnWorldPositionDirty();
+  this->transform_->OnWorldTransformDirty();
   this->OnRotationChanged(root);
   for (std::vector<GameObject2D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
   {

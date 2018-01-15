@@ -11,8 +11,8 @@ struct Quaternion
 public:
   static const Quaternion Identity;
   static const Quaternion Eular(const TVec3f& eular_angles);
-  static const Quaternion Lerp(const Quaternion& a, const Quaternion& b, T_FLOAT t);
-  static const Quaternion Slerp(const Quaternion& a, const Quaternion& b, T_FLOAT t);
+  static const Quaternion Lerp(const Quaternion a, const Quaternion b, T_FLOAT t);
+  static const Quaternion Slerp(const Quaternion a, const Quaternion b, T_FLOAT t);
   static T_FLOAT InnerProduct(const Quaternion& a, const Quaternion& b);
 
   // =================================================================
@@ -86,6 +86,7 @@ public:
   const Quaternion Conjugated() const;
   const Quaternion Inversed() const;
   const Quaternion Normalized() const;
+  bool IsNormal(T_FLOAT eps = 0.1f) const;
 
   // =================================================================
   // Data Members

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Transform.h"
 #include "Transform3DRotator.h"
 
@@ -17,9 +17,9 @@ public:
   // Method
   // =================================================================
 public:
-  virtual void OnInit() override;
+  void OnInit() override;
 
-  //‚±‚ê‚ç‚ÌƒJƒƒ‰‘€ìŠÖ”‚ÍŒ»İ‚ÌˆÊ’uA‰ñ“]AƒXƒP[ƒ‹‚ğŠî€‚É‚µ‚½ƒJƒƒ‰‘€ì‚ğs‚¤
+  //ã“ã‚Œã‚‰ã®ã‚«ãƒ¡ãƒ©æ“ä½œé–¢æ•°ã¯ç¾åœ¨ã®ä½ç½®ã€å›è»¢ã€ã‚¹ã‚±ãƒ¼ãƒ«ã‚’åŸºæº–ã«ã—ãŸã‚«ãƒ¡ãƒ©æ“ä½œã‚’è¡Œã†
   void Move(const TVec3f& move);
   void Move(T_FLOAT x, T_FLOAT y, T_FLOAT z);
   void MoveX(T_FLOAT x);
@@ -28,19 +28,17 @@ public:
 
   void MoveCircular(const TVec3f& move, const TVec3f& pos);
   void MoveCircular(T_FLOAT x, T_FLOAT y, T_FLOAT z, const TVec3f& pos);
-  //–ß‚è’l‚É‚ÍˆÚ“®Œã‚Ìpos‚Æ‚ÌŠp“x‚ª•Ô‚³‚ê‚é
+  //æˆ»ã‚Šå€¤ã«ã¯ç§»å‹•å¾Œã®posã¨ã®è§’åº¦ãŒè¿”ã•ã‚Œã‚‹
   T_FLOAT MoveCircularX(T_FLOAT x, const TVec3f& pos);
   T_FLOAT MoveCircularY(T_FLOAT y, const TVec3f& pos);
   T_FLOAT MoveCircularZ(T_FLOAT z, const TVec3f& pos);
 
-
-  void UpdateWorldMatrix(NativeMatrixInstance* native_instance);
-
 protected:
-  virtual void UpdateTranslateMatrix(INativeMatrix* matrix) override;
-  virtual void UpdateScaleMatrix(INativeMatrix* matrix) override;
-  virtual void UpdateRotateMatrix(INativeMatrix* matrix) override;
-  virtual void OnUpdateMatrix(INativeMatrix* matrix) override;
+  void UpdateTranslateMatrix(INativeMatrix* matrix) override;
+  void UpdateScaleMatrix(INativeMatrix* matrix) override;
+  void UpdateRotateMatrix(INativeMatrix* matrix) override;
+
+  INativeMatrix* GetParentWorldMatrix() override;
 
   // =================================================================
   // setter/getter
@@ -101,15 +99,15 @@ public:
 public:
   inline const TVec3f GetDirection() const
   {
-    return const_cast<Transform3D*>(this)->GetMatrix()->GetDirection3d();
+    return this->GetMatrix()->GetDirection3d();
   }
   inline const TVec3f GetWorldPosition() const
   {
-    return this->world_matrix_->GetPosition3d();
+    return this->GetWorldMatrix()->GetPosition3d();
   }
   inline const TVec3f GetWorldDirection() const
   {
-    return this->world_matrix_->GetDirection3d();
+    return this->GetWorldMatrix()->GetDirection3d();
   }
 
   // =================================================================
@@ -208,21 +206,14 @@ public:
     return this->rotator_->GetQuaternion();
   }
 
-  inline INativeMatrix* GetWorldMatrix() const
-  {
-    return this->world_matrix_;
-  }
-
   // =================================================================
   // Data Member
   // =================================================================
 private:
   GameObject3D* entity_;
-  
+
   TVec3f position_;
   TVec3f scale_;
   T_FLOAT scale_max_;
   Transform3DRotator* rotator_;
-
-  INativeMatrix* world_matrix_;
 };
