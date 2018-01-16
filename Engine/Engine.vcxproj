@@ -211,6 +211,7 @@
     <ClCompile Include="NativeModel.cpp" />
     <ClCompile Include="NativeTexture.cpp" />
     <ClCompile Include="ResourcePool.cpp" />
+    <ClCompile Include="ShaderResource.cpp" />
     <ClCompile Include="SpineResource.cpp" />
     <ClCompile Include="Sprite3D.cpp" />
     <ClCompile Include="Transform3DRotator.cpp" />

@@ -14,8 +14,7 @@ class INativeShader : public NativeObject<NativeShaderInstance>
   // Static Method
   // =================================================================
 public:
-  static INativeShader* Create();
-  static INativeShader* Create(NativeShaderInstance* instance);
+  static INativeShader* Create(const char* path);
 
   // =================================================================
   // Constructor / Destructor

@@ -6,6 +6,7 @@
 #include "NativeMatrixStack.h"
 #include "NativeTexture.h"
 #include "NativeModel.h"
+#include "NativeShader.h"
 
 INativeMatrix* NativeObjectFactory::CreateMatrix()
 {
@@ -38,5 +39,5 @@ INativeModel* NativeObjectFactory::CreateModel(const char* directory_path, const
 
 INativeShader* NativeObjectFactory::CreateShader(const char* path)
 {
-  return nullptr;
+  return new NativeShader(path);
 }

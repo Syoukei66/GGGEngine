@@ -711,6 +711,9 @@
     <ClCompile Include="NativeShader.cpp">
       <Filter>ソース ファイル\Native\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="ShaderResource.cpp">
+      <Filter>ソース ファイル\Resource\Pool\Shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
