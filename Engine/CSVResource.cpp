@@ -1,9 +1,9 @@
 #include "CSVResource.h"
-#include "ResourcePool.h"
+#include "Resources.h"
 
 const CSVResource* CSVResource::DynamicLoad(const char* path)
 {
-  return ResourcePool::GetInstance().DynamicLoad<CSVResource>(path);
+  return UserResourcePool::GetInstance().DynamicLoad<CSVResource>(path);
 }
 
 CSVResource::CSVResource(const char* path)

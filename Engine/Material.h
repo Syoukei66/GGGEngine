@@ -55,51 +55,50 @@ public:
   {
     this->color_values_[property_name] = color;
   }
-  inline void SetMatrix(const char* property_name, const INativeMatrix& matrix)
+  inline void SetMatrix(const char* property_name, INativeMatrix* matrix)
   {
-    this->
-    this->shader_->SetMatrix(property_name, matrix.GetNativeInstance());
+    this->matrix_values_[property_name] = matrix;
   }
-  inline void SetTexture(const char* property_name, const INativeTexture& texture)
+  inline void SetTexture(const char* property_name, const INativeTexture* texture)
   {
-    this->shader_->SetTexture(property_name, texture.GetNativeInstance());
+    this->texture_values_[property_name] = texture;
   }
 
-  inline void GetBool(const char* property_name, bool* dest)
+  inline bool GetBool(const char* property_name)
   {
-    this->shader_->GetBool(property_name, dest);
+    return this->bool_values_[property_name];
   }
-  inline void GetInt(const char* property_name, T_INT32* dest)
+  inline T_INT32 GetInt(const char* property_name)
   {
-    this->shader_->GetInt(property_name, dest);
+    return this->int_values_[property_name];
   }
-  inline void GetFloat(const char* property_name, T_FLOAT* dest)
+  inline T_FLOAT GetFloat(const char* property_name)
   {
-    this->shader_->GetFloat(property_name, dest);
+    return this->float_values_[property_name];
   }
-  inline void GetVec2f(const char* property_name, TVec2f* dest)
+  inline const TVec2f& GetVec2f(const char* property_name)
   {
-    this->shader_->GetVec2f(property_name, dest);
+    return this->vec2_values_[property_name];
   }
-  inline void GetVec3f(const char* property_name, TVec3f* dest)
+  inline const TVec3f& GetVec3f(const char* property_name)
   {
-    this->shader_->GetVec3f(property_name, dest);
+    return this->vec3_values_[property_name];
   }
-  inline void GetVec4f(const char* property_name, TVec4f* dest)
+  inline const TVec4f& GetVec4f(const char* property_name)
   {
-    this->shader_->GetVec4f(property_name, dest);
+    return this->vec4_values_[property_name];
   }
-  inline void GetColor(const char* property_name, Color4F* dest)
+  inline const Color4F& GetColor(const char* property_name)
   {
-    this->shader_->GetColor(property_name, dest);
+    return this->color_values_[property_name];
   }
-  inline void GetMatrix(const char* property_name, INativeMatrix* dest)
+  inline INativeMatrix* GetMatrix(const char* property_name)
   {
-    this->shader_->GetMatrix(property_name, dest);
+    return this->matrix_values_[property_name];
   }
-  inline void GetTexture(const char* property_name, INativeTexture* dest)
+  inline const INativeTexture* GetTexture(const char* property_name)
   {
-    this->shader_->GetTexture(property_name, dest);
+    return this->texture_values_[property_name];
   }
 
   // =================================================================
@@ -197,8 +196,8 @@ private:
   std::map<std::string, TVec3f> vec3_values_;
   std::map<std::string, TVec4f> vec4_values_;
   std::map<std::string, Color4F> color_values_;
-  std::map<std::string, NativeMatrixInstance> matrix_values_;
-  std::map<std::string, NativeTextureInstance> texture_values_;
+  std::map<std::string, INativeMatrix*> matrix_values_;
+  std::map<std::string, const INativeTexture*> texture_values_;
 
   INativeShader* shader_;
   Texture* texture_;
