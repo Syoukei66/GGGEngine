@@ -28,7 +28,7 @@ float4 frag(v2f i) : SV_TARGET
 	return col;
 }
 
-technique
+technique Default
 {
   pass
   {

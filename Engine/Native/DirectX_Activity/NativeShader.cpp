@@ -146,3 +146,50 @@ void NativeShader::SetTexture(const char* property_name, const INativeTexture& t
   this->effect_->SetTexture(property_name, (LPDIRECT3DTEXTURE9)texture.GetNativeInstance());
 }
 
+void NativeShader::GetBool(const char* property_name, bool* dest)
+{
+  BOOL ret;
+  this->effect_->GetBool(property_name, &ret);
+  *dest = ret;
+}
+
+void NativeShader::GetInt(const char* property_name, T_INT32* dest)
+{
+  this->effect_->GetInt(property_name, dest);
+}
+
+void NativeShader::GetFloat(const char* property_name, T_FLOAT* dest)
+{
+  this->effect_->GetFloat(property_name, dest);
+}
+
+void NativeShader::GetVec2f(const char* property_name, TVec2f* dest)
+{
+  this->effect_->GetFloatArray(property_name, (T_FLOAT*)dest, 2);
+}
+
+void NativeShader::GetVec3f(const char* property_name, TVec3f* dest)
+{
+  this->effect_->GetFloatArray(property_name, (T_FLOAT*)dest, 3);
+}
+
+void NativeShader::GetVec4f(const char* property_name, TVec4f* dest)
+{
+  this->effect_->GetFloatArray(property_name, (T_FLOAT*)dest, 4);
+}
+
+void NativeShader::GetColor(const char* property_name, Color4F* dest)
+{
+  this->effect_->GetFloatArray(property_name, (T_FLOAT*)dest, 4);
+}
+
+void NativeShader::GetMatrix(const char* property_name, INativeMatrix* dest)
+{
+  this->effect_->GetMatrix(property_name, (D3DXMATRIX*)dest->GetNativeInstance());
+}
+
+void NativeShader::GetTexture(const char* property_name, INativeTexture* dest)
+{
+  NATIVE_ASSERT(false, "‚Ü‚¾‚Å‚«‚Ä‚¢‚Ü‚¹‚ñI");
+  //this->effect_->GetTexture(property_name, (LPDIRECT3DBASETEXTURE9*)(&(dest->GetNativeInstance())));
+}

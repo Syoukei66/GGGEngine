@@ -102,58 +102,7 @@ public:
   {
     return this->transform_;
   }
-  inline void SetColor(const Color& color)
-  {
-    this->color_ = color;
-  }
-  inline void SetColor(T_UINT8 r, T_UINT8 g, T_UINT8 b)
-  {
-    this->color_.SetColor(r, g, b);
-  }
-  inline void SetColor(T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a)
-  {
-    this->color_.SetColor(r, g, b, a);
-  }
-  inline const Color& GetColor() const
-  {
-    return this->color_;
-  }
-  inline void SetRed(T_UINT8 r)
-  {
-    this->color_.SetRed(r);
-  }
-  inline T_UINT8 GetRed() const
-  {
-    return this->color_.GetRed();
-  }
-  inline void SetGreen(T_UINT8 g)
-  {
-    this->color_.SetGreen(g);
-  }
-  inline T_UINT8 GetGreen() const
-  {
-    return this->color_.GetGreen();
-  }
-  inline void SetBlue(T_UINT8 b)
-  {
-    this->color_.SetBlue(b);
-  }
-  inline T_UINT8 GetBlue() const
-  {
-    return this->color_.GetBlue();
-  }
-  inline void SetAlpha(T_UINT8 a)
-  {
-    this->color_.SetAlpha(a);
-  }
-  inline T_UINT8 GetAlpha() const
-  {
-    return this->color_.GetAlpha();
-  }
-  inline T_PACKED_COLOR_UINT32 GetPackedColor()
-  {
-    return this->color_.GetPackedColor();
-  }
+
   inline void SetZIndex(T_INT8 zindex)
   {
     this->zindex_ = zindex;
@@ -170,7 +119,6 @@ public:
 private:
   Transform2D* transform_;
 
-  Color color_;
 
   GameObject2D* parent_;
   std::vector<GameObject2D*> children_;

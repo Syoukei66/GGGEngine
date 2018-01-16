@@ -135,29 +135,6 @@ void NativeProcess_Graphics::Graphics_SetBlendMode(BlendFunction::BlendMode src,
   device->SetRenderState(D3DRS_DESTBLEND, BLENDMODE_TYPES[dst]);
 }
 
-void NativeProcess_Graphics::Graphics_SetTexture(const Texture* texture)
-{
-  const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
-  const LPDIRECT3DTEXTURE9 d3dTexture = texture ? (LPDIRECT3DTEXTURE9)texture->GetContents()->GetNativeInstance() : nullptr;
-  if (this->texture_ != d3dTexture)
-  {
-    device->SetTexture(0, d3dTexture);
-    this->texture_ = d3dTexture;
-  }
-}
-
-void NativeProcess_Graphics::Graphics_SetMaterial(const Material* material)
-{
-  const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
-  const D3DMATERIAL9* d3dMaterial = material ? (D3DMATERIAL9*)material->GetNativeMaterial() : nullptr;
-
-  if (this->material_ != d3dMaterial)
-  {
-    device->SetMaterial(d3dMaterial);
-    this->material_ = d3dMaterial;
-  }
-}
-
 void NativeProcess_Graphics::Graphics_SetLightingEnabled(bool enabled)
 {
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();

@@ -72,9 +72,6 @@
     <ClCompile Include="NativeProcess_Graphics.cpp">
       <Filter>ソース ファイル\Native</Filter>
     </ClCompile>
-    <ClCompile Include="NativeProcess_Material.cpp">
-      <Filter>ソース ファイル\Native</Filter>
-    </ClCompile>
     <ClCompile Include="NativeMatrix.cpp">
       <Filter>ソース ファイル\Native\Objects</Filter>
     </ClCompile>
@@ -126,9 +123,6 @@
       <Filter>ヘッダー ファイル\Input\Device</Filter>
     </ClInclude>
     <ClInclude Include="NativeProcess_Time.h">
-      <Filter>ヘッダー ファイル\Native</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeProcess_Material.h">
       <Filter>ヘッダー ファイル\Native</Filter>
     </ClInclude>
     <ClInclude Include="NativeMatrix.h">

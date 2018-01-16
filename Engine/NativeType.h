@@ -61,7 +61,6 @@ static const T_DOUBLE T_DOUBLE_MAX = DBL_MAX;
 typedef T_UINT32 T_PACKED_COLOR_UINT32;
 
 typedef int* LP_DEVICE;
-typedef int* LP_MATERIAL;
 
 typedef int* LP_VERTEX_BUFFER;
 

@@ -30,7 +30,7 @@ float4 frag(v2f i) : SV_TARGET
 
 technique Default
 {
-  pass pass1
+  pass
   {
     vertexshader = compile vs_2_0 vert();
     pixelshader = compile ps_2_0 frag();

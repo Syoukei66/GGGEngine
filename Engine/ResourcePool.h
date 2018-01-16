@@ -23,20 +23,11 @@ public:
 
 class ResourcePool : public IResourceLoadReserver
 {
-public:
-  static ResourcePool& GetInstance()
-  {
-    static ResourcePool self = ResourcePool();
-    return self;
-  }
-
   // =================================================================
   // Constructor / Destructor
   // =================================================================
-private:
-  ResourcePool();
-
 public:
+  ResourcePool();
   virtual ~ResourcePool();
 
   // =================================================================

@@ -5,8 +5,8 @@
 #include "Engine.h"
 #include "Camera2D.h"
 #include "Camera3D.h"
-#include "ResourcePool.h"
 #include "NativeMethod.h"
+#include "Resources.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -34,9 +34,9 @@ Scene::~Scene()
 // =================================================================
 void Scene::Load(IResourceLoadingListener* listener)
 {
-  this->OnLoad(&ResourcePool::GetInstance());
-  ResourcePool::GetInstance().PreRealize(listener);
-  ResourcePool::GetInstance().Realize(listener);
+  this->OnLoad(&UserResourcePool::GetInstance());
+  UserResourcePool::GetInstance().PreRealize(listener);
+  UserResourcePool::GetInstance().Realize(listener);
   this->OnSetup();
 }
 

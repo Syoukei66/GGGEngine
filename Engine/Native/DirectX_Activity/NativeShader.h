@@ -33,6 +33,18 @@ public:
   virtual void SetMatrix(const char* property_name, const INativeMatrix& matrix) override;
   virtual void SetTexture(const char* property_name, const INativeTexture& texture) override;
 
+  virtual void GetBool(const char* property_name, bool* dest) override;
+  virtual void GetInt(const char* property_name, T_INT32* dest) override;
+  virtual void GetFloat(const char* property_name, T_FLOAT* dest) override;
+
+  virtual void GetVec2f(const char* property_name, TVec2f* dest) override;
+  virtual void GetVec3f(const char* property_name, TVec3f* dest) override;
+  virtual void GetVec4f(const char* property_name, TVec4f* dest) override;
+
+  virtual void GetColor(const char* property_name, Color4F* dest) override;
+  virtual void GetMatrix(const char* property_name, INativeMatrix* dest) override;
+  virtual void GetTexture(const char* property_name, INativeTexture* dest) override;
+
   // =================================================================
   // Data Members
   // =================================================================

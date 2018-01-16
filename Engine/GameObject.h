@@ -5,6 +5,7 @@
 #include "BlendFunction.h"
 #include "GameComponent.h"
 #include "GameObjectRenderState.h"
+#include "Material.h"
 
 class GameObject : public GameComponent
 {
@@ -68,36 +69,23 @@ public:
     return this->layer_id_;
   }
 
-  inline void SetBlendFunction(BlendFunction::BlendMode src, BlendFunction::BlendMode dst)
+  inline void SetMaterial(Material* material)
   {
-    this->blend_function_src_ = src;
-    this->blend_function_dst_ = dst;
+    this->material_ = material;
   }
-  inline void SetBlendFunctionSource(BlendFunction::BlendMode src)
+  inline Material* GetMaterial() const
   {
-    this->blend_function_src_ = src;
+    return this->material_;
   }
-  inline BlendFunction::BlendMode GetBlendFunctionSource() const
-  {
-    return this->blend_function_src_;
-  }
-  inline void SetBlendFunctionDestination(BlendFunction::BlendMode dst)
-  {
-    this->blend_function_dst_ = dst;
-  }
-  inline BlendFunction::BlendMode GetBlendFunctionDestination() const
-  {
-    return this->blend_function_dst_;
-  }
+
   // =================================================================
   // Data Member
   // =================================================================
 private:
 	bool visible_;
   T_UINT8 layer_id_;
-
-  BlendFunction::BlendMode blend_function_src_;
-  BlendFunction::BlendMode blend_function_dst_;
+  Material* material_;
+  
 };
 
 #endif//HAL_ENGINE_ENTITY_ENTITY_H_

@@ -9,8 +9,7 @@
 // Constructor / Destructor
 // =================================================================
 GameObject2D::GameObject2D()
-  : color_(Color::WHITE)
-  , parent_(nullptr)
+  : parent_(nullptr)
   , children_()
   , zindex_(0)
   , children_zindex_dirty_(false)
@@ -33,7 +32,6 @@ GameObject2D::~GameObject2D()
 void GameObject2D::Init()
 {
   GameObject::Init();
-  this->color_ = Color::WHITE;
   this->zindex_ = 0;
   this->children_zindex_dirty_ = true;
 }

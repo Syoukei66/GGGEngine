@@ -51,7 +51,6 @@ public:
   virtual void Graphics_SetBlendMode(BlendFunction::BlendMode src, BlendFunction::BlendMode dst) = 0;
 
   virtual void Graphics_SetTexture(const Texture* texture) = 0;
-  virtual void Graphics_SetMaterial(const Material* material) = 0;
   virtual void Graphics_SetLightingEnabled(bool enabled) = 0;
 
   virtual void Graphics_PackColor4u8(T_PACKED_COLOR_UINT32* color, T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a) = 0;

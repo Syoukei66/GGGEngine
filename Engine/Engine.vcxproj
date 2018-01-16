@@ -354,6 +354,7 @@
     <ClInclude Include="NativeObjectFactory.h" />
     <ClInclude Include="NativeMatrixStack.h" />
     <ClInclude Include="NativeObject.h" />
+    <ClInclude Include="Resources.h" />
     <ClInclude Include="ShaderResource.h" />
     <ClInclude Include="SpineResource.h" />
     <ClInclude Include="Sprite3D.h" />
@@ -365,7 +366,6 @@
     <ClInclude Include="EntityModifierFactory.h" />
     <ClInclude Include="EntityModifierManager.h" />
     <ClInclude Include="HalEngine.h" />
-    <ClInclude Include="INativeProcess_Material.h" />
     <ClInclude Include="INativeProcess_Time.h" />
     <ClInclude Include="InputDevice.h" />
     <ClInclude Include="INativeProcess_IO.h" />

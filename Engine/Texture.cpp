@@ -1,10 +1,10 @@
 #include "Texture.h"
 #include "NativeType.h"
-#include "ResourcePool.h"
+#include "Resources.h"
 
 const Texture* Texture::DynamicLoad(const char* path)
 {
-  return ResourcePool::GetInstance().DynamicLoad<Texture>(path);
+  return UserResourcePool::GetInstance().DynamicLoad<Texture>(path);
 }
 
 // =================================================================

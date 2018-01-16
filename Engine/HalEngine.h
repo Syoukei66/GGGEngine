@@ -105,7 +105,6 @@
 //Native
   #include "INativeProcess_Graphics.h"
   #include "INativeProcess_IO.h"
-  #include "INativeProcess_Material.h"
   #include "INativeProcess_Time.h"
   #include "NativeMethod.h"
   #include "NativeObjectFactory.h"
@@ -120,6 +119,7 @@
 
 //Resource
   #include "LoadProgressCounter.h"
+  #include "Resources.h"
 //--Pool
     #include "FileResource.h"
     #include "ResourceLoader.h"

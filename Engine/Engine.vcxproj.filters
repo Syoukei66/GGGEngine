@@ -696,9 +696,6 @@
     <ClCompile Include="ResourceLoader.cpp">
       <Filter>ソース ファイル\Resource\Pool</Filter>
     </ClCompile>
-    <ClCompile Include="SpineResource.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="CSVResource.cpp">
       <Filter>ソース ファイル\Resource\Pool\CSV</Filter>
     </ClCompile>
@@ -713,6 +710,9 @@
     </ClCompile>
     <ClCompile Include="ShaderResource.cpp">
       <Filter>ソース ファイル\Resource\Pool\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="SpineResource.cpp">
+      <Filter>ソース ファイル\Resource\Pool\Spine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1061,9 +1061,6 @@
     <ClInclude Include="Light.h">
       <Filter>ヘッダー ファイル\Component\Light</Filter>
     </ClInclude>
-    <ClInclude Include="INativeProcess_Material.h">
-      <Filter>ヘッダー ファイル\Native</Filter>
-    </ClInclude>
     <ClInclude Include="Model.h">
       <Filter>ヘッダー ファイル\Component\GameObject\3D\Model</Filter>
     </ClInclude>
@@ -1201,6 +1198,9 @@
     </ClInclude>
     <ClInclude Include="TextureManager.h">
       <Filter>ヘッダー ファイル\Resource\Pool\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources.h">
+      <Filter>ヘッダー ファイル\Resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
