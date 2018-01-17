@@ -11,7 +11,7 @@ Camera3D_LookAt::Camera3D_LookAt(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT he
   , look_at_pos_(0.0f, 0.0f, 1.0f)
   , current_look_at_pos_(0.0f, 0.0f, 1.0f)
   , target_(nullptr)
-  , target_lerp_(1.0f)
+  , target_lerp_t_(0.5f)
   , target_direction_(0.0f, 0.0f, 1.0f)
   , camera_up_(0.0f, 1.0f, 0.0f)
   , view_dirty_(true)
@@ -25,7 +25,7 @@ Camera3D_LookAt::Camera3D_LookAt()
   , look_at_pos_(0.0f, 0.0f, 1.0f)
   , current_look_at_pos_(0.0f, 0.0f, 1.0f)
   , target_(nullptr)
-  , target_lerp_(1.0f)
+  , target_lerp_t_(0.5f)
   , target_direction_(0.0f, 0.0f, 1.0f)
   , camera_up_(0.0f, 1.0f, 0.0f)
   , view_dirty_(true)
@@ -65,16 +65,10 @@ void Camera3D_LookAt::CheckViewDirty()
     return;
   }
 
+
   this->view_matrix_->Init();
   if (this->target_)
   {
-    this->view_matrix_->LookAtLH(
-      this->GetTransform()->GetWorldPosition(),
-      this->target_->GetTransform()->GetWorldPosition(),
-      this->camera_up_
-    );
-    this->target_direction_ = this->view_matrix_->GetDirection3d();
-
     this->view_matrix_->LookAtLH(
       this->GetTransform()->GetWorldPosition(),
       this->current_look_at_pos_,
@@ -89,7 +83,7 @@ void Camera3D_LookAt::CheckViewDirty()
     {
       this->current_look_at_pos_ = this->look_at_pos_;
 
-      TVec3f camera_pos = this->GetTransform()->GetWorldPosition();
+      const TVec3f& camera_pos = this->GetTransform()->GetWorldPosition();
       TVec3f look_at_pos = this->look_at_pos_;
       this->GetTransform()->GetWorldMatrix()->Apply(&look_at_pos);
       this->direction_ = (look_at_pos - camera_pos).Normalized();
@@ -102,8 +96,8 @@ void Camera3D_LookAt::CheckViewDirty()
     //ƒvƒŒƒCƒ„[‚ª‘¶Ý‚µ‚È‚¢Žž‚Ìˆ—
     else
     {
-      this->direction_ = this->entity_->GetTransform()->GetMatrix()->GetDirection3d();
-      this->entity_->GetTransform()->GetMatrix()->Inverse(this->view_matrix_);
+      this->view_matrix_ = this->GetTransform()->GetWorldMatrix();
+      this->direction_ = this->view_matrix_->GetDirection3d();
     }
   }
 
@@ -123,9 +117,7 @@ void Camera3D_LookAt::Update()
 {
   if (this->target_)
   {
-    //this->current_look_at_pos_ += (this->target_->GetTransform()->GetWorldPosition() - this->current_look_at_pos_) * this->target_lerp_;
-    TVec3f pos = this->target_->GetTransform()->GetWorldPosition() - this->current_look_at_pos_;
-    this->current_look_at_pos_ += (pos * this->target_lerp_);
+    this->current_look_at_pos_ = TVec3f::Lerp(this->current_look_at_pos_, this->target_->GetTransform()->GetWorldPosition(), this->target_lerp_t_);
   }
 }
 

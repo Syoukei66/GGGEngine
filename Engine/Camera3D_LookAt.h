@@ -57,6 +57,7 @@ public:
   inline void SetTarget(GameObject3D* target)
   {
     this->target_ = target;
+    this->target_direction_ = (this->target_->GetTransform()->GetWorldPosition() - this->GetTransform()->GetWorldPosition()).Normalized();
   }
 
   void SetLookAtPos(const TVec3f& look_at_pos);
@@ -102,13 +103,13 @@ public:
   {
     return this->camera_up_.z;
   }
-  inline void SetTargetLerp(T_FLOAT lerp)
+  inline void SetTargetLerpDeltaTime(T_FLOAT t)
   {
-    this->target_lerp_ = lerp;
+    this->target_lerp_t_ = t;
   }
-  inline T_FLOAT GetTargetLerp() const
+  inline T_FLOAT GetTargetLerpDeltaTime() const
   {
-    return this->target_lerp_;
+    return this->target_lerp_t_;
   }
 
   inline const TVec3f& GetCurrentLookAtPos() const
@@ -133,8 +134,8 @@ private:
   TVec3f current_look_at_pos_;
 
   GameObject3D* target_;
-  T_FLOAT target_lerp_;
   TVec3f target_direction_;
+  T_FLOAT target_lerp_t_;
 
   TVec3f camera_up_;
   bool view_dirty_;
