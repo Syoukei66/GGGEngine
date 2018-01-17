@@ -9,10 +9,10 @@
 struct Vertex
 {
   TVec4f coord;
-  T_PACKED_COLOR_UINT32 packed_color;
+  T_FLOAT color[4];
   Vertex();
   Vertex(T_FLOAT x, T_FLOAT y, T_FLOAT z);
-  Vertex(const TVec4f& coord, T_PACKED_COLOR_UINT32 color);
+  Vertex(const TVec4f& coord);
   void Init();
 };
 
@@ -26,7 +26,7 @@ struct SpriteVertex
   TVec2f uv;
   SpriteVertex();
   SpriteVertex(T_FLOAT x, T_FLOAT y, T_FLOAT z, T_FLOAT u, T_FLOAT v);
-  SpriteVertex(const TVec4f& coord, T_PACKED_COLOR_UINT32 color, const TVec2f& uv);
+  SpriteVertex(const TVec4f& coord, const TVec2f& uv);
   void Init();
 };
 
@@ -41,6 +41,6 @@ struct Vertex3D
   TVec2f uv;
   Vertex3D();
   Vertex3D(T_FLOAT x, T_FLOAT y, T_FLOAT z, T_FLOAT u, T_FLOAT v, T_FLOAT normal_x, T_FLOAT normal_y, T_FLOAT normal_z);
-  Vertex3D(const TVec4f& coord, T_PACKED_COLOR_UINT32 color, const TVec2f& uv, const TVec3f& normal);
+  Vertex3D(const TVec4f& coord, const TVec2f& uv, const TVec3f& normal);
   void Init();
 };

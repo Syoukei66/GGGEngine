@@ -47,7 +47,7 @@ void SkeletonAnimation::PreDraw(GameObject2DRenderState* state)
 
 void SkeletonAnimation::NativeDraw(GameObject2DRenderState* state)
 {
-  Color4F nodeColor = this->GetColor();
+  Color4F nodeColor = this->GetMaterial()->GetColor();
 
   AttachmentVertexes* attachment_vertexes = nullptr;
   Color4F color = Color4F();
@@ -79,16 +79,16 @@ void SkeletonAnimation::NativeDraw(GameObject2DRenderState* state)
 
     switch (slot->data->blendMode) {
     case SP_BLEND_MODE_ADDITIVE:
-      this->SetBlendFunction(BlendFunction::BLEND_ADD_SRC, BlendFunction::BLEND_ADD_DST);
+      this->GetMaterial()->SetBlendFunction(BlendFunction::BLEND_ADD_SRC, BlendFunction::BLEND_ADD_DST);
       break;
     case SP_BLEND_MODE_MULTIPLY:
-      this->SetBlendFunction(BlendFunction::BLEND_MUL_SRC, BlendFunction::BLEND_MUL_DST);
+      this->GetMaterial()->SetBlendFunction(BlendFunction::BLEND_MUL_SRC, BlendFunction::BLEND_MUL_DST);
       break;
     case SP_BLEND_MODE_SCREEN:
-      this->SetBlendFunction(BlendFunction::BLEND_SCREEN_SRC, BlendFunction::BLEND_SCREEN_DST);
+      this->GetMaterial()->SetBlendFunction(BlendFunction::BLEND_SCREEN_SRC, BlendFunction::BLEND_SCREEN_DST);
       break;
     default:
-      this->SetBlendFunction(BlendFunction::BLEND_DEFAULT_SRC, BlendFunction::BLEND_DEFAULT_DST);
+      this->GetMaterial()->SetBlendFunction(BlendFunction::BLEND_DEFAULT_SRC, BlendFunction::BLEND_DEFAULT_DST);
     }
 
     attachment_vertexes = this->GetAttachmentVertexes(attachment);

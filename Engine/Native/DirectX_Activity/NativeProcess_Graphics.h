@@ -24,8 +24,6 @@ public:
 
   virtual void Graphics_SetLightingEnabled(bool enabled) override;
 
-  virtual void Graphics_PackColor4u8(T_PACKED_COLOR_UINT32* color, T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a) override;
-
   virtual void Graphics_DrawPrimitive(GameObjectRenderState* state, PrimitiveType type, const Vertex* vertexes, T_UINT16 vertexes_count) override;
   virtual void Graphics_DrawIndexedPrimitive(GameObjectRenderState* state, PrimitiveType type, const Vertex* vertexes, T_UINT16 vertexes_count, const T_UINT16* indexes) override;
 
@@ -42,8 +40,8 @@ public:
   virtual void Graphics_SetLightEnable(T_UINT16 light_id, LP_LIGHT light, bool enable) override;
   virtual void Graphics_SetLightDirection(T_UINT16 light_id, LP_LIGHT light, const TVec3f& direction) override;
 
-  virtual void Graphics_SetLightDiffuse(T_UINT16 light_id, LP_LIGHT light, const Color& color) override;
-  virtual void Graphics_SetAmbient(const Color& color) override;
+  virtual void Graphics_SetLightDiffuse(T_UINT16 light_id, LP_LIGHT light, const Color4F& color) override;
+  virtual void Graphics_SetAmbient(const Color4F& color) override;
 
   // =================================================================
   // DataMembers

@@ -194,6 +194,7 @@
     <ClCompile Include="EasingFunction.cpp" />
     <ClCompile Include="EasingFunctionManager.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="EngineAsset.cpp" />
     <ClCompile Include="EngineAttachmentLoader.cpp" />
     <ClCompile Include="EngineInitializeSetting.cpp" />
     <ClCompile Include="EngineInputEvent.cpp" />
@@ -313,6 +314,8 @@
     <ClInclude Include="AnimatedSprite3D.h" />
     <ClInclude Include="CSVData.h" />
     <ClInclude Include="CSVResource.h" />
+    <ClInclude Include="EngineResourcePool.h" />
+    <ClInclude Include="ModifiableMaterial.h" />
     <ClInclude Include="NativeShader.h" />
     <ClInclude Include="ResourceLoader.h" />
     <ClInclude Include="FileResource.h" />
@@ -354,7 +357,7 @@
     <ClInclude Include="NativeObjectFactory.h" />
     <ClInclude Include="NativeMatrixStack.h" />
     <ClInclude Include="NativeObject.h" />
-    <ClInclude Include="Resources.h" />
+    <ClInclude Include="EngineAsset.h" />
     <ClInclude Include="ShaderResource.h" />
     <ClInclude Include="SpineResource.h" />
     <ClInclude Include="Sprite3D.h" />
@@ -463,6 +466,7 @@
     <ClInclude Include="TextureRegion.h" />
     <ClInclude Include="TiledTextureRegion.h" />
     <ClInclude Include="AnalogInput.h" />
+    <ClInclude Include="UserResourcePool.h" />
     <ClInclude Include="Util.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="VertexBufferObject_Primitive3D_Cube.h" />

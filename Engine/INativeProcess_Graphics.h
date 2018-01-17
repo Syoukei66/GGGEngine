@@ -53,8 +53,6 @@ public:
   virtual void Graphics_SetTexture(const Texture* texture) = 0;
   virtual void Graphics_SetLightingEnabled(bool enabled) = 0;
 
-  virtual void Graphics_PackColor4u8(T_PACKED_COLOR_UINT32* color, T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a) = 0;
-
   virtual void Graphics_DrawPrimitive(GameObjectRenderState* state, PrimitiveType type, const Vertex* vertexes, T_UINT16 vertexes_count) = 0;
   virtual void Graphics_DrawIndexedPrimitive(GameObjectRenderState* state, PrimitiveType type, const Vertex* vertexes, T_UINT16 vertexes_count, const T_UINT16* indexes) = 0;
 
@@ -71,8 +69,8 @@ public:
   virtual void Graphics_SetLightEnable(T_UINT16 light_id, LP_LIGHT light, bool enable) = 0;
   virtual void Graphics_SetLightDirection(T_UINT16 light_id, LP_LIGHT light, const TVec3f& direction) = 0;
   
-  virtual void Graphics_SetLightDiffuse(T_UINT16 light_id, LP_LIGHT light, const Color& color) = 0;
-  virtual void Graphics_SetAmbient(const Color& color) = 0;
+  virtual void Graphics_SetLightDiffuse(T_UINT16 light_id, LP_LIGHT light, const Color4F& color) = 0;
+  virtual void Graphics_SetAmbient(const Color4F& color) = 0;
   //virtual LP_VERTEX_BUFFER Graphics_CreateVertexBuffer(T_UINT32 size, VertexBufferMode mode) = 0;
   //virtual void Graphics_DeleteVertexBuffer(LP_VERTEX_BUFFER vb) = 0;
   //virtual void Graphics_LockVertexBuffer(LP_VERTEX_BUFFER vb, void** ppb_data) = 0;

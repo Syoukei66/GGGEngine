@@ -8,15 +8,12 @@
 // =================================================================
 Shape3D::Shape3D(IVertexBufferObject* vbo)
   : Primitive3D(vbo)
-  , texture_(nullptr)
   , lighting_enabled_(true)
 {
-  this->material_ = new Material();
 }
 
 Shape3D::~Shape3D()
 {
-  delete this->material_;
 }
 
 // =================================================================

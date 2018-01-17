@@ -22,7 +22,7 @@ struct BaseTVec2
     , y(y)
   {}
 
-  static BaseTVec2<T> EaseIn(EasingFunction::EasingFunction& easing_function, BaseTVec2<T> a, BaseTVec2<T> b, T_FLOAT t)
+  static BaseTVec2<T> EaseIn(EasingFunction::EasingFunction& easing_function, const BaseTVec2<T>& a, const BaseTVec2<T>& b, T_FLOAT t)
   {
     if (t <= 0.0f)
     {
@@ -36,7 +36,7 @@ struct BaseTVec2
     return a * (1.0f - t) + b * t;
   }
 
-  static BaseTVec2<T> EaseOut(EasingFunction::EasingFunction& easing_function, BaseTVec2<T> a, BaseTVec2<T> b, T_FLOAT t)
+  static BaseTVec2<T> EaseOut(EasingFunction::EasingFunction& easing_function, const BaseTVec2<T>& a, const BaseTVec2<T>& b, T_FLOAT t)
   {
     if (t <= 0.0f)
     {
@@ -50,7 +50,7 @@ struct BaseTVec2
     return a * (1.0f - t) + b * t;
   }
 
-  static BaseTVec2<T> EaseInOut(EasingFunction::EasingFunction& easing_function, BaseTVec2<T> a, BaseTVec2<T> b, T_FLOAT t)
+  static BaseTVec2<T> EaseInOut(EasingFunction::EasingFunction& easing_function, const BaseTVec2<T>& a, const BaseTVec2<T>& b, T_FLOAT t)
   {
     if (t <= 0.0f)
     {
@@ -64,7 +64,7 @@ struct BaseTVec2
     return a * (1.0f - t) + b * t;
   }
 
-  static BaseTVec2<T> Lerp(BaseTVec2<T> a, BaseTVec2<T> b, T_FLOAT t)
+  static BaseTVec2<T> Lerp(const BaseTVec2<T>& a, const BaseTVec2<T>& b, T_FLOAT t)
   {
     if (t <= 0.0f)
     {
@@ -305,7 +305,7 @@ struct BaseTVec3
     , z(z)
   {}
 
-  static BaseTVec3<T> EaseIn(EasingFunction::EasingFunction& easing_function, BaseTVec3<T> a, BaseTVec3<T> b, T_FLOAT t)
+  static BaseTVec3<T> EaseIn(EasingFunction::EasingFunction& easing_function, const BaseTVec3<T>& a, const BaseTVec3<T>& b, T_FLOAT t)
   {
     if (t <= 0.0f)
     {
@@ -319,7 +319,7 @@ struct BaseTVec3
     return a * (1.0f - t) + b * t;
   }
 
-  static BaseTVec3<T> EaseOut(EasingFunction::EasingFunction& easing_function, BaseTVec3<T> a, BaseTVec3<T> b, T_FLOAT t)
+  static BaseTVec3<T> EaseOut(EasingFunction::EasingFunction& easing_function, const BaseTVec3<T>& a, const BaseTVec3<T>& b, T_FLOAT t)
   {
     if (t <= 0.0f)
     {
@@ -333,7 +333,7 @@ struct BaseTVec3
     return a * (1.0f - t) + b * t;
   }
 
-  static BaseTVec3<T> EaseInOut(EasingFunction::EasingFunction& easing_function, BaseTVec3<T> a, BaseTVec3<T> b, T_FLOAT t)
+  static BaseTVec3<T> EaseInOut(EasingFunction::EasingFunction& easing_function, const BaseTVec3<T>& a, const BaseTVec3<T>& b, T_FLOAT t)
   {
     if (t <= 0.0f)
     {
@@ -347,7 +347,7 @@ struct BaseTVec3
     return a * (1.0f - t) + b * t;
   }
 
-  static BaseTVec3<T> Lerp(BaseTVec3<T> a, BaseTVec3<T> b, T_FLOAT t)
+  static BaseTVec3<T> Lerp(const BaseTVec3<T>& a, const BaseTVec3<T>& b, T_FLOAT t)
   {
     if (t <= 0.0f)
     {

@@ -41,22 +41,11 @@ public:
   //全ての子GameObjectを子リストから削除します。
   void ClearChildren();
 
-  //描画メソッドです。自身と自身の子の描画処理を行います。
-  //これらのメソッドはエンジンが描画サイクルの中で呼び出す為、
-  //ユーザーが直接呼び出す機会はありません。
-  //描画を行いたい場合はGameObjectを現在のSceneをrootとした
-  //GameObjectの子GameObjectに追加してください。
-  //Drawメソッド内では以下の順番で処理が行われます。
-  //  0.VBO更新処理
-  //  1.PreDraw()
-  //  2.ZIndexが0未満の子GameObjectのDraw()
-  //  4.NativeDraw() //自身の描画処理
-  //  5.ZIndexが0以上の子GameObjectのDraw()
-  //  6.PostDraw()
   virtual void Draw(GameObject2DRenderState* state);
 
   virtual void PreDraw(GameObject2DRenderState* state) {}
-  virtual void NativeDraw(GameObject2DRenderState* state) {}
+  void ManagedDraw(GameObject2DRenderState* state);
+  //virtual void NativeDraw(GameObject2DRenderState* state) {}
   virtual void PostDraw(GameObject2DRenderState* state) {}
 
 private:

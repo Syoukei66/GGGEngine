@@ -30,8 +30,8 @@ public:
   virtual void SetVec4f(const char* property_name, const TVec4f& vec) override;
 
   virtual void SetColor(const char* property_name, const Color4F& color) override;
-  virtual void SetMatrix(const char* property_name, const INativeMatrix& matrix) override;
-  virtual void SetTexture(const char* property_name, const INativeTexture& texture) override;
+  virtual void SetMatrix(const char* property_name, const NativeMatrixInstance* matrix) override;
+  virtual void SetTexture(const char* property_name, const NativeTextureInstance* texture) override;
 
   virtual void GetBool(const char* property_name, bool* dest) override;
   virtual void GetInt(const char* property_name, T_INT32* dest) override;

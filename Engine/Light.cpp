@@ -5,9 +5,9 @@
 // Constructor / Destructor
 // =================================================================
 Light::Light()
-  : diffuse_(255, 255, 255, 255)
-  , ambient_(50, 50, 100, 255)
-//  , ambient_(255, 255, 255, 255)
+  : diffuse_(1.0f, 1.0f, 1.0f, 1.0f)
+  , ambient_(0.2f, 0.2f, 0.4f, 1.0f)
+//  , ambient_(1.0f, 1.0f, 1.0f, 1.0f)
   , direction_(0.0f, -1.0f, 1.0f)
 {
   this->light_id_ = NativeMethod::Graphics().Graphics_CreateLight(&this->light_);

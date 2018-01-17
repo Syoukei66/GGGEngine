@@ -27,28 +27,28 @@ public:
   // setter/getter
   // =================================================================
 public:
-  inline void SetDiffuse(const Color& diffuse)
+  inline void SetDiffuse(const Color4F& diffuse)
   {
     this->diffuse_ = diffuse;
   }
-  inline void SetDiffuse(T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a)
+  inline void SetDiffuse(T_FLOAT r, T_FLOAT g, T_FLOAT b, T_FLOAT a)
   {
     this->diffuse_.SetColor(r, g, b, a);
   }
-  inline const Color& GetDiffuse() const
+  inline const Color4F& GetDiffuse() const
   {
     return this->diffuse_;
   }
 
-  inline void SetAmbient(const Color& ambient)
+  inline void SetAmbient(const Color4F& ambient)
   {
     this->ambient_ = ambient;
   }
-  inline void SetAmbient(T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a)
+  inline void SetAmbient(T_FLOAT r, T_FLOAT g, T_FLOAT b, T_FLOAT a)
   {
     this->ambient_.SetColor(r, g, b, a);
   }
-  inline const Color& GetAmbient() const
+  inline const Color4F& GetAmbient() const
   {
     return this->ambient_;
   }
@@ -93,8 +93,8 @@ public:
 private:
   T_UINT16 light_id_;
   LP_LIGHT light_;
-  Color diffuse_;
-  Color ambient_;
+  Color4F diffuse_;
+  Color4F ambient_;
   TVec3f direction_;
 
 };

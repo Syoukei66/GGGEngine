@@ -141,11 +141,6 @@ void NativeProcess_Graphics::Graphics_SetLightingEnabled(bool enabled)
   device->SetRenderState(D3DRS_LIGHTING, enabled);
 }
 
-void NativeProcess_Graphics::Graphics_PackColor4u8(T_PACKED_COLOR_UINT32* color, T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a)
-{
-  (*color) = (T_PACKED_COLOR_UINT32)D3DCOLOR_RGBA(r, g, b, a);
-}
-
 void NativeProcess_Graphics::Graphics_DrawPrimitive(GameObjectRenderState* state, PrimitiveType type, const Vertex* vertexes, T_UINT16 vertexes_count)
 {
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)state->GetRenderObject();
@@ -300,24 +295,24 @@ void NativeProcess_Graphics::Graphics_SetLightDirection(T_UINT16 light_id, LP_LI
   d3d_light->Direction.z = normalized.z;
 }
 
-void NativeProcess_Graphics::Graphics_SetLightDiffuse(T_UINT16 light_id, LP_LIGHT light, const Color & color)
+void NativeProcess_Graphics::Graphics_SetLightDiffuse(T_UINT16 light_id, LP_LIGHT light, const Color4F& color)
 {
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
   D3DLIGHT9* d3d_light = (D3DLIGHT9*)light;
-  d3d_light->Diffuse.r = color.GetRed() / 255.0f;
-  d3d_light->Diffuse.g = color.GetGreen() / 255.0f;
-  d3d_light->Diffuse.b = color.GetBlue() / 255.0f;
-  d3d_light->Diffuse.a = color.GetAlpha() / 255.0f;
+  d3d_light->Diffuse.r = color.GetRed();
+  d3d_light->Diffuse.g = color.GetGreen();
+  d3d_light->Diffuse.b = color.GetBlue();
+  d3d_light->Diffuse.a = color.GetAlpha();
 }
 
-void NativeProcess_Graphics::Graphics_SetAmbient(const Color& color)
+void NativeProcess_Graphics::Graphics_SetAmbient(const Color4F& color)
 {
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
   device->SetRenderState(D3DRS_AMBIENT, D3DXCOLOR(
-    color.GetRed() / 255.0f,
-    color.GetGreen() / 255.0f,
-    color.GetBlue() / 255.0f,
-    color.GetAlpha() / 255.0f
+    color.GetRed(),
+    color.GetGreen(),
+    color.GetBlue(),
+    color.GetAlpha()
   ));
 }
 

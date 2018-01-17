@@ -27,9 +27,6 @@ public:
   //     そのインスタンスに対する初期化という形での実装としてはどうだろうか
   virtual void Init();
 
-  //TODO: 応急処置。
-  void ApplyBlendMode(GameObjectRenderState* state);
-
   virtual void ManagedPreUpdate() = 0;
   virtual void ManagedUpdate() = 0;
   virtual void ManagedPostUpdate() = 0;

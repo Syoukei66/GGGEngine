@@ -136,8 +136,7 @@ void GameObject2D::Draw(GameObject2DRenderState* state)
       //2.Ž©•ªŽ©g
       if (state->IsTargetedLayer(this->GetLayerId()))
       {
-        this->ApplyBlendMode(state);
-        this->NativeDraw(state);
+        this->ManagedDraw(state);
       }
       self_already_drawed = true;
     }
@@ -152,14 +151,20 @@ void GameObject2D::Draw(GameObject2DRenderState* state)
     //2.Ž©•ªŽ©g
     if (state->IsTargetedLayer(this->GetLayerId()))
     {
-      this->ApplyBlendMode(state);
-      this->NativeDraw(state);
+      this->ManagedDraw(state);
     }
   }
 
   this->PopMatrixStack(state);
 
   this->PostDraw(state);
+}
+
+void GameObject2D::ManagedDraw(GameObject2DRenderState* state)
+{
+  this->GetMaterial()->Begin();
+  this->NativeDraw(state);
+  this->GetMaterial()->End();
 }
 
 void GameObject2D::RegisterEntityModifier(EntityModifierRoot* root)
