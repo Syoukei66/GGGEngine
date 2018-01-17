@@ -118,12 +118,10 @@
     #include "NativeTexture.h"
 
 //Resource
-  #include "LoadProgressCounter.h"
-  #include "Resources.h"
-//--Pool
+  #include "EngineAsset.h"
+//--File
     #include "FileResource.h"
     #include "ResourceLoader.h"
-    #include "ResourcePool.h"
 //----Model
       #include "ModelData.h"
 //----CSV
@@ -151,6 +149,11 @@
 //------Atlas
         #include "TextureAtlas.h"
         #include "TextureAtlasLoader.h"
+//--Pool
+    #include "EngineResourcePool.h"
+    #include "LoadProgressCounter.h"
+    #include "ResourcePool.h"
+    #include "UserResourcePool.h"
 
 //Scene
   #include "Scene.h"

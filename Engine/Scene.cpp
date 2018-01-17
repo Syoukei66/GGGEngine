@@ -6,7 +6,7 @@
 #include "Camera2D.h"
 #include "Camera3D.h"
 #include "NativeMethod.h"
-#include "Resources.h"
+#include "UserResourcePool.h"
 
 // =================================================================
 // Constructor / Destructor

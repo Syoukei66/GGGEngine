@@ -2,7 +2,7 @@
 #include "NativeMethod.h"
 #include "JsonParser.h"
 #include "MathConstants.h"
-#include "Resources.h"
+#include "UserResourcePool.h"
 
 enum EmitterType
 {

@@ -3,7 +3,9 @@
 
 #include "NativeMethod.h"
 #include "InputManager.h"
-#include <string.h>
+
+#include "EngineResourcePool.h"
+#include "EngineAsset.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -23,7 +25,6 @@ bool BaseActivity::Run(IEngineSetting* setting)
 {
   Director::GetInstance()->SetActivity(this);
   NativeMethod::Graphics_SetInstance(this->SetupNativeProcess_Graphics());
-  NativeMethod::Material_SetInstance(this->SetupNativeProcess_Material());
   NativeMethod::IO_SetInstance(this->SetupNativeProcess_IO());
   NativeMethod::Time_SetInstance(this->SetupNativeProcess_Time());
 
@@ -47,6 +48,18 @@ bool BaseActivity::Run(IEngineSetting* setting)
   NATIVE_ASSERT(result, "アクティビティの初期化に失敗しました。");
 
   setting->OnGameInit();
+
+  IResourceLoadingListener listener = IResourceLoadingListener();
+
+  EngineResourcePool& pool = EngineResourcePool::GetInstance();
+  pool.ReserveLoad(EngineAsset::Shader::DEFAULT_MODEL);
+  pool.ReserveLoad(EngineAsset::Shader::DEFAULT_PARTICLE);
+  pool.ReserveLoad(EngineAsset::Shader::DEFAULT_PRIMITIVE);
+  pool.ReserveLoad(EngineAsset::Shader::DEFAULT_SPRITE);
+
+  pool.PreRealize(&listener);
+  pool.Realize(&listener);
+
   //Scene
   engine_->ChangeScene(setting->FirstScene());
   while (this->Update());
@@ -61,7 +74,6 @@ bool BaseActivity::Run(IEngineSetting* setting)
   delete this->engine_;
   
   NativeMethod::Graphics_DeleteInstance();
-  NativeMethod::Material_DeleteInstance();
   NativeMethod::IO_DeleteInstance();
   NativeMethod::Time_DeleteInstance();
   return true;

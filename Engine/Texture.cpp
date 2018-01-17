@@ -1,6 +1,6 @@
 #include "Texture.h"
 #include "NativeType.h"
-#include "Resources.h"
+#include "UserResourcePool.h"
 
 const Texture* Texture::DynamicLoad(const char* path)
 {

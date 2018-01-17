@@ -1,5 +1,5 @@
 #include "SpineResource.h"
-#include "Resources.h"
+#include "UserResourcePool.h"
 
 const SpineResource* SpineResource::DynamicLoad(const char* path)
 {
