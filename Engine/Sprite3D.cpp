@@ -18,7 +18,6 @@ Sprite3D::Sprite3D()
   : Shape3D(new VertexBufferObject_Sprite3D())
 {
   this->sprite3d_vbo_ = (VertexBufferObject_Sprite3D*)this->vbo_;
-  this->SetMaterial(EngineAsset::Material::SPRITE);
 }
 
 Sprite3D::~Sprite3D()
