@@ -32,8 +32,7 @@ v2f vert(appdata v)
 
 float4 frag(v2f i) : SV_TARGET
 {
-  float4 col = tex2D(_MainTexSampler, i.uv) * _Diffuse;
-  return col;
+  return tex2D(_MainTexSampler, i.uv) * _Diffuse;
 }
 
 technique Default
