@@ -39,6 +39,12 @@ technique Default
 {
   pass
   {
+    AlphaBlendEnable = TRUE;
+    BlendOp = ADD;
+    SrcBlend = SRCALPHA;
+    DestBlend = INVSRCALPHA;
+    ShadeMode = FLAT;
+    ZEnable = TRUE;
     vertexshader = compile vs_2_0 vert();
     pixelshader = compile ps_2_0 frag();
   }
