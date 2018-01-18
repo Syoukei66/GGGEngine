@@ -8,7 +8,7 @@
 // =================================================================
 struct Vertex
 {
-  TVec4f coord;
+  T_FLOAT coord[4];
   T_FLOAT color[4];
   Vertex();
   Vertex(T_FLOAT x, T_FLOAT y, T_FLOAT z);
@@ -21,9 +21,9 @@ struct Vertex
 // =================================================================
 struct SpriteVertex
 {
-  TVec4f coord;
-  T_PACKED_COLOR_UINT32 packed_color;
-  TVec2f uv;
+  T_FLOAT coord[4];
+  T_FLOAT color[4];
+  T_FLOAT uv[2];
   SpriteVertex();
   SpriteVertex(T_FLOAT x, T_FLOAT y, T_FLOAT z, T_FLOAT u, T_FLOAT v);
   SpriteVertex(const TVec4f& coord, const TVec2f& uv);
@@ -35,10 +35,10 @@ struct SpriteVertex
 // =================================================================
 struct Vertex3D
 {
-  TVec4f coord;
-  TVec3f normal;
-  T_PACKED_COLOR_UINT32 packed_color;
-  TVec2f uv;
+  T_FLOAT coord[4];
+  T_FLOAT normal[3];
+  T_FLOAT color[4];
+  T_FLOAT uv[2];
   Vertex3D();
   Vertex3D(T_FLOAT x, T_FLOAT y, T_FLOAT z, T_FLOAT u, T_FLOAT v, T_FLOAT normal_x, T_FLOAT normal_y, T_FLOAT normal_z);
   Vertex3D(const TVec4f& coord, const TVec2f& uv, const TVec3f& normal);

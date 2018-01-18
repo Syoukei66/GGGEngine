@@ -1184,9 +1184,6 @@
     <ClInclude Include="TextureManager.h">
       <Filter>ヘッダー ファイル\Resource\File\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="ModifiableMaterial.h">
-      <Filter>ヘッダー ファイル\Component\Material</Filter>
-    </ClInclude>
     <ClInclude Include="ParticleData.h">
       <Filter>ヘッダー ファイル\Resource\File\Particle</Filter>
     </ClInclude>
@@ -1223,6 +1220,9 @@
     <ClInclude Include="LoadProgressCounter.h">
       <Filter>ヘッダー ファイル\Resource\Pool</Filter>
     </ClInclude>
+    <ClInclude Include="ShaderProperties.h">
+      <Filter>ヘッダー ファイル\Component\Material</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Model.hlsl">
@@ -1237,5 +1237,13 @@
     <FxCompile Include="Particle.hlsl">
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Default.hlsli">
+      <Filter>リソース ファイル\Shader</Filter>
+    </None>
+    <None Include="White.hlsli">
+      <Filter>リソース ファイル\Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

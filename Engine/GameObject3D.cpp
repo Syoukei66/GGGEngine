@@ -9,11 +9,10 @@
 GameObject3D::GameObject3D()
   : parent_(nullptr)
   , children_()
-  , z_test_(false)
   , billbording_(false)
 {
-  this->SetBlendFunction(BlendFunction::BL_NOBLEND, BlendFunction::BL_NOBLEND);
   this->transform_ = new Transform3D(this);
+  this->GetMaterial()->MatrixProperty("_WorldViewProj") = this->transform_->GetWorldMatrix();
   this->transform_->Init();
 }
 
@@ -116,17 +115,8 @@ void GameObject3D::Draw(GameObject3DRenderState* state)
   
   if (state->IsTargetedLayer(this->GetLayerId()))
   {
-    //TODO: Zテスト行うかどうかの判定はマテリアルに記述すべき
-    if (this->z_test_)
-    {
-      state->AddZCheckOrder(this);
-    }
-    else
-    {
-      // 自分自身の描画
-      this->ApplyBlendMode(state);
-      this->NativeDraw(state);
-    }
+    // 自分自身の描画
+    this->ManagedDraw(state);
   }
 
   // 子の描画
@@ -139,6 +129,23 @@ void GameObject3D::Draw(GameObject3DRenderState* state)
   this->PopMatrixStack(state);
 
   this->PostDraw(state);
+}
+
+void GameObject3D::ManagedDraw(GameObject3DRenderState* state)
+{
+  Material* const material = this->GetMaterial();
+  if (!material)
+  {
+    return;
+  }
+  if (material->GetZTestFlag())
+  {
+    state->AddZCheckOrder(this);
+    return;
+  }
+  material->Begin();
+  this->NativeDraw(state);
+  material->End();
 }
 
 void GameObject3D::PushMatrixStack(GameObject3DRenderState* state)

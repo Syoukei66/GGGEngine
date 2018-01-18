@@ -50,37 +50,37 @@ void SpriteVertexBufferObject::OnUpdateCoord(GameObject* entity)
 
   if (xReverce)
   {
-    this->vertexes_[V_VERTEX_V0].coord.x = x0 + w;
-    this->vertexes_[V_VERTEX_V1].coord.x = x0 + w;
-    this->vertexes_[V_VERTEX_V2].coord.x = x0;
-    this->vertexes_[V_VERTEX_V3].coord.x = x0;
+    this->vertexes_[V_VERTEX_V0].coord[0] = x0 + w;
+    this->vertexes_[V_VERTEX_V1].coord[0] = x0 + w;
+    this->vertexes_[V_VERTEX_V2].coord[0] = x0;
+    this->vertexes_[V_VERTEX_V3].coord[0] = x0;
   }
   else
   {
-    this->vertexes_[V_VERTEX_V0].coord.x = x0;
-    this->vertexes_[V_VERTEX_V1].coord.x = x0;
-    this->vertexes_[V_VERTEX_V2].coord.x = x0 + w;
-    this->vertexes_[V_VERTEX_V3].coord.x = x0 + w;
+    this->vertexes_[V_VERTEX_V0].coord[0] = x0;
+    this->vertexes_[V_VERTEX_V1].coord[0] = x0;
+    this->vertexes_[V_VERTEX_V2].coord[0] = x0 + w;
+    this->vertexes_[V_VERTEX_V3].coord[0] = x0 + w;
   }
   if (yReverce)
   {
-    this->vertexes_[V_VERTEX_V0].coord.y = y0 + h;
-    this->vertexes_[V_VERTEX_V1].coord.y = y0;
-    this->vertexes_[V_VERTEX_V2].coord.y = y0 + h;
-    this->vertexes_[V_VERTEX_V3].coord.y = y0;
+    this->vertexes_[V_VERTEX_V0].coord[1] = y0 + h;
+    this->vertexes_[V_VERTEX_V1].coord[1] = y0;
+    this->vertexes_[V_VERTEX_V2].coord[1] = y0 + h;
+    this->vertexes_[V_VERTEX_V3].coord[1] = y0;
   }
   else
   {
-    this->vertexes_[V_VERTEX_V0].coord.y = y0;
-    this->vertexes_[V_VERTEX_V1].coord.y = y0 + h;
-    this->vertexes_[V_VERTEX_V2].coord.y = y0;
-    this->vertexes_[V_VERTEX_V3].coord.y = y0 + h;
+    this->vertexes_[V_VERTEX_V0].coord[1] = y0;
+    this->vertexes_[V_VERTEX_V1].coord[1] = y0 + h;
+    this->vertexes_[V_VERTEX_V2].coord[1] = y0;
+    this->vertexes_[V_VERTEX_V3].coord[1] = y0 + h;
   }
 
-  this->vertexes_[V_VERTEX_V0].coord.z = 0.1f;
-  this->vertexes_[V_VERTEX_V1].coord.z = 0.1f;
-  this->vertexes_[V_VERTEX_V2].coord.z = 0.1f;
-  this->vertexes_[V_VERTEX_V3].coord.z = 0.1f;
+  this->vertexes_[V_VERTEX_V0].coord[2] = 0.1f;
+  this->vertexes_[V_VERTEX_V1].coord[2] = 0.1f;
+  this->vertexes_[V_VERTEX_V2].coord[2] = 0.1f;
+  this->vertexes_[V_VERTEX_V3].coord[2] = 0.1f;
 }
 
 T_UINT32 SpriteVertexBufferObject::GetVertexesCount() const
@@ -133,31 +133,31 @@ void SpriteVertexBufferObject::UpdateTexture(Shape* entity, ITextureRegion* regi
 
   if (xReverce)
   {
-    this->vertexes_[V_VERTEX_V0].uv.x = u1;
-    this->vertexes_[V_VERTEX_V1].uv.x = u1;
-    this->vertexes_[V_VERTEX_V2].uv.x = u0;
-    this->vertexes_[V_VERTEX_V3].uv.x = u0;
+    this->vertexes_[V_VERTEX_V0].uv[0] = u1;
+    this->vertexes_[V_VERTEX_V1].uv[0] = u1;
+    this->vertexes_[V_VERTEX_V2].uv[0] = u0;
+    this->vertexes_[V_VERTEX_V3].uv[0] = u0;
   }
   else
   {
-    this->vertexes_[V_VERTEX_V0].uv.x = u0;
-    this->vertexes_[V_VERTEX_V1].uv.x = u0;
-    this->vertexes_[V_VERTEX_V2].uv.x = u1;
-    this->vertexes_[V_VERTEX_V3].uv.x = u1;
+    this->vertexes_[V_VERTEX_V0].uv[0] = u0;
+    this->vertexes_[V_VERTEX_V1].uv[0] = u0;
+    this->vertexes_[V_VERTEX_V2].uv[0] = u1;
+    this->vertexes_[V_VERTEX_V3].uv[0] = u1;
   }
   if (yReverce)
   {
-    this->vertexes_[V_VERTEX_V0].uv.y = v0;
-    this->vertexes_[V_VERTEX_V1].uv.y = v1;
-    this->vertexes_[V_VERTEX_V2].uv.y = v0;
-    this->vertexes_[V_VERTEX_V3].uv.y = v1;
+    this->vertexes_[V_VERTEX_V0].uv[1] = v0;
+    this->vertexes_[V_VERTEX_V1].uv[1] = v1;
+    this->vertexes_[V_VERTEX_V2].uv[1] = v0;
+    this->vertexes_[V_VERTEX_V3].uv[1] = v1;
   }
   else
   {
-    this->vertexes_[V_VERTEX_V0].uv.y = v1;
-    this->vertexes_[V_VERTEX_V1].uv.y = v0;
-    this->vertexes_[V_VERTEX_V2].uv.y = v1;
-    this->vertexes_[V_VERTEX_V3].uv.y = v0;
+    this->vertexes_[V_VERTEX_V0].uv[1] = v1;
+    this->vertexes_[V_VERTEX_V1].uv[1] = v0;
+    this->vertexes_[V_VERTEX_V2].uv[1] = v1;
+    this->vertexes_[V_VERTEX_V3].uv[1] = v0;
   }
 
   this->vertex_uv_dirty_ = false;

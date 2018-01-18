@@ -92,7 +92,13 @@ void NativeShader::Begin()
   this->effect_->SetTechnique(NULL);
   UINT path;
   this->effect_->Begin(&path, 0);
-  this->effect_->BeginPass(0);
+  HRESULT hr = this->effect_->BeginPass(0);
+  NATIVE_ASSERT(SUCCEEDED(hr), "シェーダーパスの実行に失敗しました");
+}
+
+void NativeShader::CommitChanges()
+{
+  this->effect_->CommitChanges();
 }
 
 void NativeShader::End()
@@ -138,7 +144,8 @@ void NativeShader::SetColor(const char* property_name, const Color4F& color)
 
 void NativeShader::SetMatrix(const char* property_name, const NativeMatrixInstance* matrix)
 {
-  this->effect_->SetMatrix(property_name, (const D3DXMATRIX*)matrix);
+  HRESULT hr = this->effect_->SetMatrix(property_name, (const D3DXMATRIX*)matrix);
+  NATIVE_ASSERT(SUCCEEDED(hr), "Matrixのproperty_nameに誤りがあります");
 }
 
 void NativeShader::SetTexture(const char* property_name, const NativeTextureInstance* texture)

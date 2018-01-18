@@ -11,7 +11,7 @@ void Particle::OnAllocated()
 {
   this->offset_x_ = 0;
   this->offset_y_ = 0;
-  this->GetMaterial()->SetBlendFunction(BlendFunction::BLEND_ADD_SRC, BlendFunction::BLEND_ADD_DST);
+//  this->GetMaterial()->SetBlendFunction(BlendFunction::BLEND_ADD_SRC, BlendFunction::BLEND_ADD_DST);
 }
 
 void Particle::OnFree()
@@ -47,11 +47,11 @@ void Particle::OnEmission(const ParticleData* data, const Transform2D* offset)
   {
     this->end_size = data->CalcValueByVariance(data->end_size, data->end_size_variance, 0) * 0.01f;
   }
-  this->end_spin = MathConstants::DegToRad((T_FLOAT)data->CalcValueByVariance(data->end_spin, data->end_spin_variance, 0));
-  this->end_color_r = (T_UINT8)(data->CalcValueByVariance(data->end_color_r, data->end_color_r_variance, 0) * Color::GMAX);
-  this->end_color_g = (T_UINT8)(data->CalcValueByVariance(data->end_color_g, data->end_color_g_variance, 0) * Color::GMAX);
-  this->end_color_b = (T_UINT8)(data->CalcValueByVariance(data->end_color_b, data->end_color_b_variance, 0) * Color::GMAX);
-  this->end_color_a = (T_UINT8)(data->CalcValueByVariance(data->end_color_a, data->end_color_a_variance, 0) * Color::GMAX);
+  this->end_spin = MathConstants::DegToRad(data->CalcValueByVariance(data->end_spin, data->end_spin_variance, 0));
+  this->end_color_r = data->CalcValueByVariance(data->end_color_r, data->end_color_r_variance, 0);
+  this->end_color_g = data->CalcValueByVariance(data->end_color_g, data->end_color_g_variance, 0);
+  this->end_color_b = data->CalcValueByVariance(data->end_color_b, data->end_color_b_variance, 0);
+  this->end_color_a = data->CalcValueByVariance(data->end_color_a, data->end_color_a_variance, 0);
 
   data->OnEmission(this, offset);
 
@@ -65,10 +65,10 @@ bool Particle::OnUpdate(const ParticleData* data)
   this->life_time_rest = std::max(0.0f, this->life_time_rest - 1.0f);
   this->GetTransform()->SetScale(data->CalcValueByProgress(this->start_size, this->end_size, progress));
   this->GetTransform()->SetRotation(data->CalcValueByProgress(this->start_spin, this->end_spin, progress));
-  this->GetMaterial()->SetRed(data->CalcValueByProgress(this->start_color_r, this->end_color_r, progress));
-  this->GetMaterial()->SetGreen(data->CalcValueByProgress(this->start_color_g, this->end_color_g, progress));
-  this->GetMaterial()->SetBlue(data->CalcValueByProgress(this->start_color_b, this->end_color_b, progress));
-  this->GetMaterial()->SetAlpha(data->CalcValueByProgress(this->start_color_a, this->end_color_a, progress));
+  this->GetMaterial()->GetDiffuse().SetRed(data->CalcValueByProgress(this->start_color_r, this->end_color_r, progress));
+  this->GetMaterial()->GetDiffuse().SetGreen(data->CalcValueByProgress(this->start_color_g, this->end_color_g, progress));
+  this->GetMaterial()->GetDiffuse().SetBlue(data->CalcValueByProgress(this->start_color_b, this->end_color_b, progress));
+  this->GetMaterial()->GetDiffuse().SetAlpha(data->CalcValueByProgress(this->start_color_a, this->end_color_a, progress));
 
   return data->OnUpdate(this, progress, pre_progress - progress);
 }

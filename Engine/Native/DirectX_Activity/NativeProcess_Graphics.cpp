@@ -122,25 +122,6 @@ void NativeProcess_Graphics::Graphics_SetViewport(T_FLOAT x, T_FLOAT y, T_FLOAT 
   device->SetViewport(&viewport);
 }
 
-void NativeProcess_Graphics::Graphics_SetBlendMode(BlendFunction::BlendMode src, BlendFunction::BlendMode dst)
-{
-  const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
-  if (src == BlendFunction::BL_NOBLEND || dst == BlendFunction::BL_NOBLEND)
-  {
-    device->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
-    return;
-  }
-  device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE); 
-  device->SetRenderState(D3DRS_SRCBLEND, BLENDMODE_TYPES[src]);
-  device->SetRenderState(D3DRS_DESTBLEND, BLENDMODE_TYPES[dst]);
-}
-
-void NativeProcess_Graphics::Graphics_SetLightingEnabled(bool enabled)
-{
-  const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
-  device->SetRenderState(D3DRS_LIGHTING, enabled);
-}
-
 void NativeProcess_Graphics::Graphics_DrawPrimitive(GameObjectRenderState* state, PrimitiveType type, const Vertex* vertexes, T_UINT16 vertexes_count)
 {
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)state->GetRenderObject();

@@ -76,28 +76,20 @@ void Sprite::PreDraw(GameObject2DRenderState* state)
 
 void Sprite::NativeDraw(GameObject2DRenderState* state)
 {
-  if (!this->texture_region_)
-  {
-    return;
-  }
-  const Texture* texture = this->texture_region_->GetTexture();
-  if (!texture)
-  {
-    return;
-  }
-  T_UINT32 color = state->GetWorldPackedColor();
-  SpriteVertex* vertexes = (SpriteVertex*)this->vbo_->GetVertexes();
-  T_UINT32 size = this->vbo_->GetVertexesCount();
-  for (T_UINT32 i = 0; i < size; ++i)
-  {
-    vertexes[i].packed_color = color;
-  }
-  NativeMethod::Graphics().Graphics_SetTexture(texture);
+  //if (!this->texture_region_)
+  //{
+  //  return;
+  //}
+  //const Texture* texture = this->texture_region_->GetTexture();
+  //if (!texture)
+  //{
+  //  return;
+  //}
   NativeMethod::Graphics().Graphics_DrawSprite(
     state,
     INativeProcess_Graphics::PRIMITIVE_TRIANGLESTRIP,
-    vertexes,
-    size
+    (SpriteVertex*)this->vbo_->GetVertexes(),
+    this->vbo_->GetVertexesCount()
   );
 }
 

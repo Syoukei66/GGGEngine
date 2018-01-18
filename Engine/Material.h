@@ -1,9 +1,13 @@
 #pragma once
 
+#include <unordered_map>
+#include <vector>
+
 #include "Color.h"
 #include "Texture.h"
 #include "ShaderResource.h"
 #include "BlendFunction.h"
+#include "ShaderProperties.h"
 
 class Material
 {
@@ -11,7 +15,8 @@ class Material
   // Constructor / Destructor
   // =================================================================
 public:
-  Material();
+  Material(const ShaderResource& resource);
+  Material(INativeShader* shader);
   ~Material();
 
   // =================================================================
@@ -24,94 +29,152 @@ public:
   // =================================================================
   // setter/getter
   // =================================================================
-  inline void SetShader(INativeShader* shader)
-  {
-    this->shader_ = shader;
-  }
+public:
   inline INativeShader* GetShader()
   {
     return this->shader_;
   }
 
-  inline void SetColor(const Color4F& color)
+  template <class T>
+  T& GetShaderProperty(const std::string& property_name) const
   {
-    this->color_ = color;
-  }
-  inline void SetColor(T_FLOAT r, T_FLOAT g, T_FLOAT b)
-  {
-    this->color_.SetColor(r, g, b);
-  }
-  inline void SetColor(T_FLOAT r, T_FLOAT g, T_FLOAT b, T_FLOAT a)
-  {
-    this->color_.SetColor(r, g, b, a);
-  }
-  inline const Color4F& GetColor() const
-  {
-    return this->color_;
-  }
-  inline void SetRed(T_FLOAT r)
-  {
-    this->color_.SetRed(r);
-  }
-  inline T_FLOAT GetRed() const
-  {
-    return this->color_.GetRed();
-  }
-  inline void SetGreen(T_FLOAT g)
-  {
-    this->color_.SetGreen(g);
-  }
-  inline T_FLOAT GetGreen() const
-  {
-    return this->color_.GetGreen();
-  }
-  inline void SetBlue(T_FLOAT b)
-  {
-    this->color_.SetBlue(b);
-  }
-  inline T_FLOAT GetBlue() const
-  {
-    return this->color_.GetBlue();
-  }
-  inline void SetAlpha(T_FLOAT a)
-  {
-    this->color_.SetAlpha(a);
-  }
-  inline T_FLOAT GetAlpha() const
-  {
-    return this->color_.GetAlpha();
+    T* ret = (T*)const_cast<Material*>(this)->properties_[property_name];
+    if (!ret)
+    {
+      ret = new T();
+      const_cast<Material*>(this)->properties_[property_name] = ret;
+    }
+    return *ret;
   }
 
-  inline void SetBlendFunction(BlendFunction::BlendMode src, BlendFunction::BlendMode dst)
+  inline ShaderProperty_bool& BoolProperty(const std::string& property_name)
   {
-    this->blend_function_src_ = src;
-    this->blend_function_dst_ = dst;
+    return this->GetShaderProperty<ShaderProperty_bool>(property_name);
   }
-  inline void SetBlendFunctionSource(BlendFunction::BlendMode src)
+  inline const ShaderProperty_bool& BoolProperty(const std::string& property_name) const
   {
-    this->blend_function_src_ = src;
-  }
-  inline BlendFunction::BlendMode GetBlendFunctionSource() const
-  {
-    return this->blend_function_src_;
-  }
-  inline void SetBlendFunctionDestination(BlendFunction::BlendMode dst)
-  {
-    this->blend_function_dst_ = dst;
-  }
-  inline BlendFunction::BlendMode GetBlendFunctionDestination() const
-  {
-    return this->blend_function_dst_;
+    return this->GetShaderProperty<ShaderProperty_bool>(property_name);
   }
 
+  inline ShaderProperty_int& IntProperty(const std::string& property_name)
+  {
+    return this->GetShaderProperty<ShaderProperty_int>(property_name);
+  }
+  inline const ShaderProperty_int& IntProperty(const std::string& property_name) const
+  {
+    return this->GetShaderProperty<ShaderProperty_int>(property_name);
+  }
+
+  inline ShaderProperty_float& FloatProperty(const std::string& property_name)
+  {
+    return this->GetShaderProperty<ShaderProperty_float>(property_name);
+  }
+  inline const ShaderProperty_float& FloatProperty(const std::string& property_name) const
+  {
+    return this->GetShaderProperty<ShaderProperty_float>(property_name);
+  }
+
+  inline ShaderProperty_vec2f& Vec2fProperty(const std::string& property_name)
+  {
+    return this->GetShaderProperty<ShaderProperty_vec2f>(property_name);
+  }
+  inline const ShaderProperty_vec2f& Vec2fProperty(const std::string& property_name) const
+  {
+    return this->GetShaderProperty<ShaderProperty_vec2f>(property_name);
+  }
+
+  inline ShaderProperty_vec3f& Vec3fProperty(const std::string& property_name)
+  {
+    return this->GetShaderProperty<ShaderProperty_vec3f>(property_name);
+  }
+  inline const ShaderProperty_vec3f& Vec3fProperty(const std::string& property_name) const
+  {
+    return this->GetShaderProperty<ShaderProperty_vec3f>(property_name);
+  }
+
+  inline ShaderProperty_vec4f& Vec4fProperty(const std::string& property_name)
+  {
+    return this->GetShaderProperty<ShaderProperty_vec4f>(property_name);
+  }
+  inline const ShaderProperty_vec4f& Vec4fProperty(const std::string& property_name) const
+  {
+    return this->GetShaderProperty<ShaderProperty_vec4f>(property_name);
+  }
+
+  inline ShaderProperty_color& ColorProperty(const std::string& property_name)
+  {
+    return this->GetShaderProperty<ShaderProperty_color>(property_name);
+  }
+  inline const ShaderProperty_color& ColorProperty(const std::string& property_name) const
+  {
+    return this->GetShaderProperty<ShaderProperty_color>(property_name);
+  }
+
+  inline ShaderProperty_matrix& MatrixProperty(const std::string& property_name)
+  {
+    return this->GetShaderProperty<ShaderProperty_matrix>(property_name);
+  }
+  inline const ShaderProperty_matrix& MatrixProperty(const std::string& property_name) const
+  {
+    return this->GetShaderProperty<ShaderProperty_matrix>(property_name);
+  }
+
+  inline ShaderProperty_texture& TextureProperty(const std::string& property_name)
+  {
+    return this->GetShaderProperty<ShaderProperty_texture>(property_name);
+  }
+  inline const ShaderProperty_texture& TextureProperty(const std::string& property_name) const
+  {
+    return this->GetShaderProperty<ShaderProperty_texture>(property_name);
+  }
+
+  inline void SetMainTexture(const Texture* texture)
+  {
+    *this->texture_ = texture;
+  }
+  inline const Texture* GetTexture() const
+  {
+    return *this->texture_;
+  }
+
+  inline void SetDiffuse(const Color4F& color)
+  {
+    *this->color_ = color;
+  }
+  inline void SetDiffuse(T_FLOAT r, T_FLOAT g, T_FLOAT b)
+  {
+    (*this->color_).SetColor(r, g, b);
+  }
+  inline void SetDiffuse(T_FLOAT r, T_FLOAT g, T_FLOAT b, T_FLOAT a)
+  {
+    (*this->color_).SetColor(r, g, b, a);
+  }
+  inline Color4F& GetDiffuse()
+  {
+    return *this->color_;
+  }
+  inline const Color4F& GetDiffuse() const
+  {
+    return *this->color_;
+  }
+
+  inline void SetZTestFlag(bool z_test)
+  {
+    this->z_test_ = z_test;
+  }
+  inline bool GetZTestFlag() const
+  {
+    return this->z_test_;
+  }
   // =================================================================
   // Data Member
   // =================================================================
 protected:
-  INativeShader* shader_;
-  Texture* texture_;
-  Color4F color_;
+  INativeShader* const shader_;
+  std::unordered_map<std::string, ShaderProperty*> properties_;
 
-  BlendFunction::BlendMode blend_function_src_;
-  BlendFunction::BlendMode blend_function_dst_;
+  Color4F* color_;
+  const Texture** texture_;
+
+  bool z_test_;
 };

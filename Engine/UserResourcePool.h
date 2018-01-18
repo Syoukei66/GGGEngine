@@ -7,7 +7,7 @@ class UserResourcePool : public ResourcePool
 public:
   static UserResourcePool& GetInstance()
   {
-    UserResourcePool self = UserResourcePool();
+    static UserResourcePool self = UserResourcePool();
     return self;
   }
 

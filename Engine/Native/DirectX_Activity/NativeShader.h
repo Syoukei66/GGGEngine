@@ -19,6 +19,7 @@ public:
   // =================================================================
 public:
   virtual void Begin() override;
+  virtual void CommitChanges() override;
   virtual void End() override;
 
   virtual void SetBool(const char* property_name, bool val) override;

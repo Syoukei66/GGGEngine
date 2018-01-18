@@ -23,7 +23,6 @@ Sprite3D::~Sprite3D()
 {
 }
 
-
 void Sprite3D::PreDraw(GameObject3DRenderState* state)
 {
   Shape3D::PreDraw(state);
@@ -43,9 +42,6 @@ void Sprite3D::NativeDraw(GameObject3DRenderState* state)
 {
   const void* vertexes = this->vbo_->GetVertexes();
   T_UINT32 size = this->vbo_->GetVertexesCount();
-  NativeMethod::Graphics().Graphics_SetTexture(this->texture_region_->GetTexture());
-  NativeMethod::Graphics().Graphics_SetMaterial(this->GetMaterial());
-  NativeMethod::Graphics().Graphics_SetLightingEnabled(false);
   NativeMethod::Graphics().Graphics_DrawIndexedVertexes(
     state,
     this->vbo_->GetPrimitiveType(),

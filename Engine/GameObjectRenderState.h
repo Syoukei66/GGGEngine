@@ -26,7 +26,6 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  void SetBlendMode(BlendFunction::BlendMode src, BlendFunction::BlendMode dst, bool force_update = false);
   inline LP_DEVICE GetRenderObject() const
   {
     return this->render_object_;
@@ -63,6 +62,5 @@ private:
   T_UINT32 layer_state_;
   LP_DEVICE render_object_;
   INativeMatrixStack* matrix_stack_;
-  BlendFunction::BlendMode src_, dst_;
 
 };

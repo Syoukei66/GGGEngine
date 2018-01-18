@@ -37,6 +37,7 @@ private:
   // =================================================================
 public:
   virtual void Begin() = 0;
+  virtual void CommitChanges() = 0;
   virtual void End() = 0;
 
   virtual void SetBool(const char* property_name, bool val) = 0;
@@ -60,7 +61,7 @@ public:
   virtual void GetVec4f(const char* property_name, TVec4f* dest) = 0;
 
   virtual void GetColor(const char* property_name, Color4F* dest) = 0;
-  virtual void GetMatrix(const char* property_name, NativeMatrixInstance* dest) = 0;
-  virtual void GetTexture(const char* property_name, NativeTextureInstance* dest) = 0;
+  virtual void GetMatrix(const char* property_name, INativeMatrix* dest) = 0;
+  virtual void GetTexture(const char* property_name, INativeTexture* dest) = 0;
 
 };

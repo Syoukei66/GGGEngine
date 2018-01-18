@@ -1,6 +1,8 @@
 #ifndef HAL_ENGINE_STRUCTURE_VERTEX_H_
 #define HAL_ENGINE_STRUCTURE_VERTEX_H_
 
+#include <algorithm>
+
 #include "NativeType.h"
 #include "EasingFunctionManager.h"
 

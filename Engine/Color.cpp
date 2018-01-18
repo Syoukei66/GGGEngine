@@ -52,3 +52,11 @@ void Color4F::SetColor(T_FLOAT r, T_FLOAT g, T_FLOAT b, T_FLOAT a)
   this->col_[2] = b;
   this->col_[3] = a;
 }
+
+void Color4F::GetColors(T_FLOAT color[4]) const
+{
+  color[0] = this->col_[0];
+  color[1] = this->col_[1];
+  color[2] = this->col_[2];
+  color[3] = this->col_[3];
+}

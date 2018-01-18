@@ -108,6 +108,7 @@ public:
 public:
   void SetColor(T_FLOAT r, T_FLOAT g, T_FLOAT b);
   void SetColor(T_FLOAT r, T_FLOAT g, T_FLOAT b, T_FLOAT a);
+  void GetColors(T_FLOAT color[4]) const;
 
   inline void SetRed(T_FLOAT r)
   {

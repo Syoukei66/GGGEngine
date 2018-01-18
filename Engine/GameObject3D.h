@@ -55,6 +55,7 @@ public:
   virtual void Draw(GameObject3DRenderState* state);
 
   virtual void PreDraw(GameObject3DRenderState* state) {}
+  void ManagedDraw(GameObject3DRenderState* state);
   virtual void NativeDraw(GameObject3DRenderState* state) {}
   virtual void PostDraw(GameObject3DRenderState* state) {}
 
@@ -93,16 +94,6 @@ public:
     return this->transform_;
   }
 
-  inline void SetZTestFlag(bool z_test)
-  {
-    this->z_test_ = z_test;
-  }
-
-  inline bool GetZTestFlag() const
-  {
-    return this->z_test_;
-  }
-
   inline void SetBillboardingFlag(bool billboarding)
   {
     this->billbording_ = billboarding;
@@ -120,6 +111,5 @@ private:
   GameObject3D* parent_;
   std::vector<GameObject3D*> children_;
 
-  bool z_test_;
   bool billbording_;
 };

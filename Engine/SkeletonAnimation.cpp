@@ -47,7 +47,7 @@ void SkeletonAnimation::PreDraw(GameObject2DRenderState* state)
 
 void SkeletonAnimation::NativeDraw(GameObject2DRenderState* state)
 {
-  Color4F nodeColor = this->GetMaterial()->GetColor();
+  Color4F nodeColor = this->GetMaterial()->GetDiffuse();
 
   AttachmentVertexes* attachment_vertexes = nullptr;
   Color4F color = Color4F();
@@ -77,19 +77,19 @@ void SkeletonAnimation::NativeDraw(GameObject2DRenderState* state)
       continue;
     }
 
-    switch (slot->data->blendMode) {
-    case SP_BLEND_MODE_ADDITIVE:
-      this->GetMaterial()->SetBlendFunction(BlendFunction::BLEND_ADD_SRC, BlendFunction::BLEND_ADD_DST);
-      break;
-    case SP_BLEND_MODE_MULTIPLY:
-      this->GetMaterial()->SetBlendFunction(BlendFunction::BLEND_MUL_SRC, BlendFunction::BLEND_MUL_DST);
-      break;
-    case SP_BLEND_MODE_SCREEN:
-      this->GetMaterial()->SetBlendFunction(BlendFunction::BLEND_SCREEN_SRC, BlendFunction::BLEND_SCREEN_DST);
-      break;
-    default:
-      this->GetMaterial()->SetBlendFunction(BlendFunction::BLEND_DEFAULT_SRC, BlendFunction::BLEND_DEFAULT_DST);
-    }
+    //switch (slot->data->blendMode) {
+    //case SP_BLEND_MODE_ADDITIVE:
+    //  this->GetMaterial()->SetBlendFunction(BlendFunction::BLEND_ADD_SRC, BlendFunction::BLEND_ADD_DST);
+    //  break;
+    //case SP_BLEND_MODE_MULTIPLY:
+    //  this->GetMaterial()->SetBlendFunction(BlendFunction::BLEND_MUL_SRC, BlendFunction::BLEND_MUL_DST);
+    //  break;
+    //case SP_BLEND_MODE_SCREEN:
+    //  this->GetMaterial()->SetBlendFunction(BlendFunction::BLEND_SCREEN_SRC, BlendFunction::BLEND_SCREEN_DST);
+    //  break;
+    //default:
+    //  this->GetMaterial()->SetBlendFunction(BlendFunction::BLEND_DEFAULT_SRC, BlendFunction::BLEND_DEFAULT_DST);
+    //}
 
     attachment_vertexes = this->GetAttachmentVertexes(attachment);
     SpriteVertex* vertexes = new SpriteVertex[attachment_vertexes->size_]();
@@ -102,11 +102,11 @@ void SkeletonAnimation::NativeDraw(GameObject2DRenderState* state)
 
     for (int j = 0; j < attachment_vertexes->size_; ++j)
     {
-      vertexes[j].packed_color = color.GetPackedColor();
+      color.GetColors(vertexes[j].color);
     }
 
-    this->ApplyBlendMode(state);
-    NativeMethod::Graphics().Graphics_SetTexture(attachment_vertexes->texture_);
+    //this->ApplyBlendMode(state);
+    //NativeMethod::Graphics().Graphics_SetTexture(attachment_vertexes->texture_);
     NativeMethod::Graphics().Graphics_DrawSprite(state, INativeProcess_Graphics::PRIMITIVE_TRIANGLESTRIP, vertexes, attachment_vertexes->size_);
     
     delete[] vertexes;

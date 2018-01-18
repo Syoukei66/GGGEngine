@@ -7,7 +7,7 @@ class EngineResourcePool : public ResourcePool
 public:
   static EngineResourcePool& GetInstance()
   {
-    EngineResourcePool self = EngineResourcePool();
+    static EngineResourcePool self = EngineResourcePool();
     return self;
   }
 

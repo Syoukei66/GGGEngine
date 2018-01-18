@@ -59,10 +59,10 @@ VertexBufferObject_Primitive3D_Plane::VertexBufferObject_Primitive3D_Plane()
       TVec2f uv = PLANE_VERTEX_TEX_COORDS[vertexTexIndex];
       if (temp[vertexIndex][vertexTexIndex] == -1)
       {
-        PLANE_VERTEXES[index].coord.x = coord.x;
-        PLANE_VERTEXES[index].coord.y = coord.y;
-        PLANE_VERTEXES[index].packed_color = Color::PACKED_WHITE;
-        PLANE_VERTEXES[index].uv = uv;
+        PLANE_VERTEXES[index].coord[0] = coord.x;
+        PLANE_VERTEXES[index].coord[1] = coord.y;
+        PLANE_VERTEXES[index].uv[0] = uv.x;
+        PLANE_VERTEXES[index].uv[1] = uv.y;
         temp[vertexIndex][vertexTexIndex] = index;
         index++;
       }

@@ -51,15 +51,15 @@ void VertexBufferObject_Sprite3D::OnUpdateCoord(GameObject* entity)
   const T_FLOAT x0 = -w * 0.5f;
   const T_FLOAT y0 = -h * 0.5f;
 
-  this->vertexes_[V_VERTEX_V0].coord.x = x0;
-  this->vertexes_[V_VERTEX_V1].coord.x = x0;
-  this->vertexes_[V_VERTEX_V2].coord.x = x0 + w;
-  this->vertexes_[V_VERTEX_V3].coord.x = x0 + w;
+  this->vertexes_[V_VERTEX_V0].coord[0] = x0;
+  this->vertexes_[V_VERTEX_V1].coord[0] = x0;
+  this->vertexes_[V_VERTEX_V2].coord[0] = x0 + w;
+  this->vertexes_[V_VERTEX_V3].coord[0] = x0 + w;
 
-  this->vertexes_[V_VERTEX_V0].coord.y = y0;
-  this->vertexes_[V_VERTEX_V1].coord.y = y0 + h;
-  this->vertexes_[V_VERTEX_V2].coord.y = y0;
-  this->vertexes_[V_VERTEX_V3].coord.y = y0 + h;
+  this->vertexes_[V_VERTEX_V0].coord[1] = y0;
+  this->vertexes_[V_VERTEX_V1].coord[1] = y0 + h;
+  this->vertexes_[V_VERTEX_V2].coord[1] = y0;
+  this->vertexes_[V_VERTEX_V3].coord[1] = y0 + h;
 }
 
 T_UINT32 VertexBufferObject_Sprite3D::GetVertexesCount() const
@@ -103,15 +103,15 @@ void VertexBufferObject_Sprite3D::UpdateTexture(Sprite3D* entity, ITextureRegion
   const T_FLOAT u1 = region->GetU1();
   const T_FLOAT v1 = region->GetV1();
 
-  this->vertexes_[V_VERTEX_V0].uv.x = u0;
-  this->vertexes_[V_VERTEX_V1].uv.x = u0;
-  this->vertexes_[V_VERTEX_V2].uv.x = u1;
-  this->vertexes_[V_VERTEX_V3].uv.x = u1;
+  this->vertexes_[V_VERTEX_V0].uv[0] = u0;
+  this->vertexes_[V_VERTEX_V1].uv[0] = u0;
+  this->vertexes_[V_VERTEX_V2].uv[0] = u1;
+  this->vertexes_[V_VERTEX_V3].uv[0] = u1;
 
-  this->vertexes_[V_VERTEX_V0].uv.y = v1;
-  this->vertexes_[V_VERTEX_V1].uv.y = v0;
-  this->vertexes_[V_VERTEX_V2].uv.y = v1;
-  this->vertexes_[V_VERTEX_V3].uv.y = v0;
+  this->vertexes_[V_VERTEX_V0].uv[1] = v1;
+  this->vertexes_[V_VERTEX_V1].uv[1] = v0;
+  this->vertexes_[V_VERTEX_V2].uv[1] = v1;
+  this->vertexes_[V_VERTEX_V3].uv[1] = v0;
 
   this->vertex_uv_dirty_ = false;
 }

@@ -15,6 +15,7 @@ GameObject2D::GameObject2D()
   , children_zindex_dirty_(false)
 {
   this->transform_ = new Transform2D(this);
+  this->GetMaterial()->MatrixProperty("_WorldViewProj") = this->transform_->GetWorldMatrix();
   this->transform_->Init();
 }
 
@@ -162,9 +163,14 @@ void GameObject2D::Draw(GameObject2DRenderState* state)
 
 void GameObject2D::ManagedDraw(GameObject2DRenderState* state)
 {
-  this->GetMaterial()->Begin();
+  Material* const material = this->GetMaterial();
+  if (!material)
+  {
+    return;
+  }
+  material->Begin();
   this->NativeDraw(state);
-  this->GetMaterial()->End();
+  material->End();
 }
 
 void GameObject2D::RegisterEntityModifier(EntityModifierRoot* root)
@@ -188,13 +194,11 @@ void GameObject2D::ClearEntityModifiers()
 
 void GameObject2D::PushMatrixStack(GameObject2DRenderState* state)
 {
-  state->PushColor(this->color_);
   state->PushMatrix(this->transform_->GetMatrix());
 }
 
 void GameObject2D::PopMatrixStack(GameObject2DRenderState* state)
 {
-  state->PopColor();
   state->PopMatrix();
 }
 

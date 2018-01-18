@@ -39,14 +39,18 @@ NativeModel_x::NativeModel_x(const char* asset_path, const char* name)
   materials = (D3DXMATERIAL*)materialBuffer->GetBufferPointer();
 
   this->materials_ = new Material*[this->material_count_]();
-  this->textures_ = new const Texture*[this->material_count_]();
   for (T_UINT32 i = 0; i < this->material_count_; ++i)
   {
-    this->materials_[i] = new Material((LP_MATERIAL)&materials[i].MatD3D);
-
+    const D3DMATERIAL9& mat = materials[i].MatD3D;
+    this->materials_[i] = new Material(EngineAsset::Shader::DEFAULT_MODEL.GetContents());
+    this->materials_[i]->SetDiffuse(mat.Diffuse.r, mat.Diffuse.g, mat.Diffuse.b, mat.Diffuse.a);
+    this->materials_[i]->ColorProperty("_Ambient") = Color4F(mat.Ambient.r, mat.Ambient.g, mat.Ambient.b, mat.Ambient.a);
+    this->materials_[i]->ColorProperty("_Emissive") = Color4F(mat.Emissive.r, mat.Emissive.g, mat.Emissive.b, mat.Emissive.a);
+    this->materials_[i]->ColorProperty("_Specular") = Color4F(mat.Specular.r, mat.Specular.g, mat.Specular.b, mat.Specular.a);
+    this->materials_[i]->FloatProperty("_SpecularPower") = mat.Power;
     std::string texture_path = asset_path;
     texture_path.append(materials[i].pTextureFilename);
-    this->textures_[i] = Texture::DynamicLoad(texture_path.c_str());
+    this->materials_[i]->SetMainTexture(Texture::DynamicLoad(texture_path.c_str()));
   }
 }
 
@@ -58,7 +62,6 @@ NativeModel_x::~NativeModel_x()
     delete this->materials_[i];
   }
   delete[] this->materials_;
-  delete[] this->textures_;
 }
 
 // =================================================================
@@ -69,8 +72,8 @@ void NativeModel_x::Draw() const
   const LPDIRECT3DDEVICE9 pDevice = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
   for (T_UINT32 i = 0; i < this->material_count_; ++i)
   {
-    NativeMethod::Graphics().Graphics_SetMaterial(this->materials_[i]);
-    NativeMethod::Graphics().Graphics_SetTexture(this->textures_[i]);
+    this->materials_[i]->Begin();
     this->mesh_->DrawSubset(i);
+    this->materials_[i]->End();
   }
 }

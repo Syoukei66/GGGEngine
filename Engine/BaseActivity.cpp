@@ -52,10 +52,12 @@ bool BaseActivity::Run(IEngineSetting* setting)
   IResourceLoadingListener listener = IResourceLoadingListener();
 
   EngineResourcePool& pool = EngineResourcePool::GetInstance();
+  pool.ReserveLoad(EngineAsset::Shader::DEFAULT_DEFAULT);
   pool.ReserveLoad(EngineAsset::Shader::DEFAULT_MODEL);
   pool.ReserveLoad(EngineAsset::Shader::DEFAULT_PARTICLE);
   pool.ReserveLoad(EngineAsset::Shader::DEFAULT_PRIMITIVE);
   pool.ReserveLoad(EngineAsset::Shader::DEFAULT_SPRITE);
+  pool.ReserveLoad(EngineAsset::Shader::DEFAULT_WHITE);
 
   pool.PreRealize(&listener);
   pool.Realize(&listener);

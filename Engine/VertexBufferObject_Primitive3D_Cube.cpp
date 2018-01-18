@@ -136,12 +136,14 @@ VertexBufferObject_Primitive3D_Cube::VertexBufferObject_Primitive3D_Cube()
       TVec3f normal = CUBE_NORMAL_COORDS[normalIndex].Normalized();
       if (temp[vertexIndex][vertexTexIndex][normalIndex] == -1)
       {
-        CUBE_VERTEXES[index].coord.x = coord.x;
-        CUBE_VERTEXES[index].coord.y = coord.y;
-        CUBE_VERTEXES[index].coord.z = coord.z;
-        CUBE_VERTEXES[index].packed_color = Color::PACKED_WHITE;
-        CUBE_VERTEXES[index].uv = uv;
-        CUBE_VERTEXES[index].normal = normal;
+        CUBE_VERTEXES[index].coord[0] = coord.x;
+        CUBE_VERTEXES[index].coord[1] = coord.y;
+        CUBE_VERTEXES[index].coord[2] = coord.z;
+        CUBE_VERTEXES[index].uv[0] = uv.x;
+        CUBE_VERTEXES[index].uv[1] = uv.y;
+        CUBE_VERTEXES[index].normal[0] = normal.x;
+        CUBE_VERTEXES[index].normal[1] = normal.y;
+        CUBE_VERTEXES[index].normal[2] = normal.z;
         temp[vertexIndex][vertexTexIndex][normalIndex] = index;
         index++;
       }

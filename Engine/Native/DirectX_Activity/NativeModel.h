@@ -26,6 +26,5 @@ private:
   LPD3DXMESH mesh_;
   T_UINT32 material_count_;
   Material** materials_;
-  const Texture** textures_;
 
 };

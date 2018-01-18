@@ -167,6 +167,8 @@ bool DirectXActivity::Init(const EngineOption* option)
   this->d3d_device_->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
   this->d3d_device_->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
 
+  this->d3d_device_->SetRenderState(D3DRS_LIGHTING, false);
+
   //テクスチャのアドレス外を参照した場合にどうするかの設定
   //g_pD3DDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, XXXXX);
   //g_pD3DDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, XXXXX);
