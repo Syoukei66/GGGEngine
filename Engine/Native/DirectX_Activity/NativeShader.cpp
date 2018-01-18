@@ -139,7 +139,7 @@ void NativeShader::SetVec4f(const char* property_name, const TVec4f& vec)
 
 void NativeShader::SetColor(const char* property_name, const Color4F& color)
 {
-  this->effect_->SetFloatArray(property_name, (const T_FLOAT*)&color, 4);
+  this->effect_->SetFloatArray(property_name, color.GetColors(), 4);
 }
 
 void NativeShader::SetMatrix(const char* property_name, const NativeMatrixInstance* matrix)
@@ -148,9 +148,9 @@ void NativeShader::SetMatrix(const char* property_name, const NativeMatrixInstan
   NATIVE_ASSERT(SUCCEEDED(hr), "Matrix‚Ìproperty_name‚ÉŒë‚è‚ª‚ ‚è‚Ü‚·");
 }
 
-void NativeShader::SetTexture(const char* property_name, const NativeTextureInstance* texture)
+void NativeShader::SetTexture(const char* property_name, NativeTextureInstance* texture)
 {
-  this->effect_->SetTexture(property_name, (const LPDIRECT3DTEXTURE9)texture);
+  HRESULT hr = this->effect_->SetTexture(property_name, (LPDIRECT3DTEXTURE9)texture);
 }
 
 void NativeShader::GetBool(const char* property_name, bool* dest)

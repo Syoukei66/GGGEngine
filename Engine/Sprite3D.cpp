@@ -2,6 +2,7 @@
 #include "TextureRegion.h"
 #include "GameObject3DRenderState.h"
 #include "Moniker.h"
+#include "EngineAsset.h"
 
 Sprite3D* Sprite3D::CreateWithTexture(const Texture* texture)
 {
@@ -17,12 +18,16 @@ Sprite3D::Sprite3D()
   : Shape3D(new VertexBufferObject_Sprite3D())
 {
   this->sprite3d_vbo_ = (VertexBufferObject_Sprite3D*)this->vbo_;
+  this->SetMaterial(EngineAsset::Material::SPRITE);
 }
 
 Sprite3D::~Sprite3D()
 {
 }
 
+// =================================================================
+// Methods for/from SuperClass/Interfaces
+// =================================================================
 void Sprite3D::PreDraw(GameObject3DRenderState* state)
 {
   Shape3D::PreDraw(state);
@@ -38,8 +43,21 @@ void Sprite3D::PreDraw(GameObject3DRenderState* state)
   this->sprite3d_vbo_->UpdateTexture(this, this->texture_region_);
 }
 
+void Sprite3D::PreNativeDraw(GameObject3DRenderState* state)
+{
+  if (!this->texture_region_)
+  {
+    return;
+  }
+  this->GetMaterial()->SetMainTexture(this->texture_region_->GetTexture());
+}
+
 void Sprite3D::NativeDraw(GameObject3DRenderState* state)
 {
+  if (!this->texture_region_)
+  {
+    return;
+  }
   const void* vertexes = this->vbo_->GetVertexes();
   T_UINT32 size = this->vbo_->GetVertexesCount();
   NativeMethod::Graphics().Graphics_DrawIndexedVertexes(

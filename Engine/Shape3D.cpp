@@ -2,6 +2,7 @@
 #include "NativeMethod.h"
 #include "IVertexBufferObject.h"
 #include "GameObject3DRenderState.h"
+#include "EngineAsset.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -9,6 +10,7 @@
 Shape3D::Shape3D(IVertexBufferObject* vbo)
   : Primitive3D(vbo)
 {
+  this->SetMaterial(EngineAsset::Material::DEFAULT);
 }
 
 Shape3D::~Shape3D()

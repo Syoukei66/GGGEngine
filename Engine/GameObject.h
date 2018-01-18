@@ -2,10 +2,10 @@
 #define HAL_ENGINE_ENTITY_ENTITY_H_
 
 #include "NativeType.h"
-#include "BlendFunction.h"
 #include "GameComponent.h"
-#include "GameObjectRenderState.h"
 #include "Material.h"
+
+class GameObjectRenderState;
 
 class GameObject : public GameComponent
 {
@@ -31,6 +31,8 @@ public:
   virtual void ManagedUpdate() = 0;
   virtual void ManagedPostUpdate() = 0;
   
+  void UniqueMaterial();
+
   // =================================================================
   // Events
   // =================================================================
@@ -66,9 +68,9 @@ public:
     return this->layer_id_;
   }
 
-  inline void SetMaterial(Material* material)
+  inline void SetMaterial(Material& material)
   {
-    this->material_ = material;
+    this->material_ = &material;
   }
   inline Material* GetMaterial() const
   {

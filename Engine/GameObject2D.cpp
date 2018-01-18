@@ -15,7 +15,6 @@ GameObject2D::GameObject2D()
   , children_zindex_dirty_(false)
 {
   this->transform_ = new Transform2D(this);
-  this->GetMaterial()->MatrixProperty("_WorldViewProj") = this->transform_->GetWorldMatrix();
   this->transform_->Init();
 }
 
@@ -168,8 +167,11 @@ void GameObject2D::ManagedDraw(GameObject2DRenderState* state)
   {
     return;
   }
-  material->Begin();
+  material->Begin(state);
+  this->PreNativeDraw(state);
+  material->CommitChanges(state);
   this->NativeDraw(state);
+  this->PostNativeDraw(state);
   material->End();
 }
 

@@ -2,6 +2,7 @@
 #include "TextureRegion.h"
 #include "NativeMethod.h"
 #include "GameObject2DRenderState.h"
+#include "EngineAsset.h"
 
 // =================================================================
 // Factory Method
@@ -48,6 +49,7 @@ Sprite::Sprite()
 {
   this->vbo_ = SpriteVertexBufferObject::Create();
   this->delete_region_ = false;
+  this->SetMaterial(EngineAsset::Material::SPRITE);
 }
 
 // =================================================================
@@ -74,17 +76,21 @@ void Sprite::PreDraw(GameObject2DRenderState* state)
   this->vbo_->UpdateTexture(this, this->texture_region_);
 }
 
+void Sprite::PreNativeDraw(GameObject2DRenderState* state)
+{
+  if (!this->texture_region_)
+  {
+    return;
+  }
+  this->GetMaterial()->SetMainTexture(this->texture_region_->GetTexture());
+}
+
 void Sprite::NativeDraw(GameObject2DRenderState* state)
 {
-  //if (!this->texture_region_)
-  //{
-  //  return;
-  //}
-  //const Texture* texture = this->texture_region_->GetTexture();
-  //if (!texture)
-  //{
-  //  return;
-  //}
+  if (!this->texture_region_)
+  {
+    return;
+  }
   NativeMethod::Graphics().Graphics_DrawSprite(
     state,
     INativeProcess_Graphics::PRIMITIVE_TRIANGLESTRIP,

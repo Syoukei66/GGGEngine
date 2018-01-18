@@ -102,7 +102,7 @@ void SkeletonAnimation::NativeDraw(GameObject2DRenderState* state)
 
     for (int j = 0; j < attachment_vertexes->size_; ++j)
     {
-      color.GetColors(vertexes[j].color);
+      NativeMethod::Graphics().Graphics_PackColor4u8(&vertexes[j].color, color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha());
     }
 
     //this->ApplyBlendMode(state);

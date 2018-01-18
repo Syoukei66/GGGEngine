@@ -12,7 +12,7 @@ GameObject::GameObject()
   , layer_id_(EngineInitializeSetting::GetInstance().GetDefaultLayerId())
   , material_(nullptr)
 {
-  this->material_ = new Material(EngineAsset::Shader::DEFAULT_WHITE);
+  this->material_ = new Material(EngineAsset::Shader::WHITE);
 }
 
 GameObject::~GameObject()
@@ -25,4 +25,9 @@ GameObject::~GameObject()
 void GameObject::Init()
 {
   this->visible_ = true;
+}
+
+void GameObject::UniqueMaterial()
+{
+  this->material_ = this->material_->InitialClone();
 }

@@ -12,7 +12,6 @@ GameObject3D::GameObject3D()
   , billbording_(false)
 {
   this->transform_ = new Transform3D(this);
-  this->GetMaterial()->MatrixProperty("_WorldViewProj") = this->transform_->GetWorldMatrix();
   this->transform_->Init();
 }
 
@@ -115,8 +114,19 @@ void GameObject3D::Draw(GameObject3DRenderState* state)
   
   if (state->IsTargetedLayer(this->GetLayerId()))
   {
-    // 自分自身の描画
-    this->ManagedDraw(state);
+    Material* const material = this->GetMaterial();
+    if (material)
+    {
+      // 自分自身の描画
+      if (material->GetZTestFlag())
+      {
+        state->AddZCheckOrder(this);
+      }
+      else
+      {
+        this->ManagedDraw(state);
+      }
+    }
   }
 
   // 子の描画
@@ -138,13 +148,11 @@ void GameObject3D::ManagedDraw(GameObject3DRenderState* state)
   {
     return;
   }
-  if (material->GetZTestFlag())
-  {
-    state->AddZCheckOrder(this);
-    return;
-  }
-  material->Begin();
+  material->Begin(state);
+  this->PreNativeDraw(state);
+  material->CommitChanges(state);
   this->NativeDraw(state);
+  this->PostNativeDraw(state);
   material->End();
 }
 

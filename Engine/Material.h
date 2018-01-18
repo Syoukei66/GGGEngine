@@ -1,13 +1,13 @@
 #pragma once
 
 #include <unordered_map>
-#include <vector>
 
 #include "Color.h"
-#include "Texture.h"
 #include "ShaderResource.h"
-#include "BlendFunction.h"
+#include "Texture.h"
 #include "ShaderProperties.h"
+
+class GameObjectRenderState;
 
 class Material
 {
@@ -23,8 +23,12 @@ public:
   // delegate to shader
   // =================================================================
 public:
-  virtual void Begin();
-  virtual void End();
+  Material* Clone();
+  Material* InitialClone();
+
+  void Begin(GameObjectRenderState* state);
+  void CommitChanges(GameObjectRenderState* state);
+  void End();
 
   // =================================================================
   // setter/getter
@@ -130,32 +134,32 @@ public:
 
   inline void SetMainTexture(const Texture* texture)
   {
-    *this->texture_ = texture;
+    this->texture_ = texture;
   }
   inline const Texture* GetTexture() const
   {
-    return *this->texture_;
+    return this->texture_;
   }
 
   inline void SetDiffuse(const Color4F& color)
   {
-    *this->color_ = color;
+    this->color_ = color;
   }
   inline void SetDiffuse(T_FLOAT r, T_FLOAT g, T_FLOAT b)
   {
-    (*this->color_).SetColor(r, g, b);
+    this->color_.SetColor(r, g, b);
   }
   inline void SetDiffuse(T_FLOAT r, T_FLOAT g, T_FLOAT b, T_FLOAT a)
   {
-    (*this->color_).SetColor(r, g, b, a);
+    this->color_.SetColor(r, g, b, a);
   }
   inline Color4F& GetDiffuse()
   {
-    return *this->color_;
+    return this->color_;
   }
   inline const Color4F& GetDiffuse() const
   {
-    return *this->color_;
+    return this->color_;
   }
 
   inline void SetZTestFlag(bool z_test)
@@ -166,15 +170,19 @@ public:
   {
     return this->z_test_;
   }
+
   // =================================================================
   // Data Member
   // =================================================================
 protected:
-  INativeShader* const shader_;
+  const ShaderResource* const shader_resource_;
+  INativeShader* shader_;
   std::unordered_map<std::string, ShaderProperty*> properties_;
 
-  Color4F* color_;
-  const Texture** texture_;
+  Color4F color_;
+  const Texture* texture_;
 
   bool z_test_;
+
+  std::vector<Material*> clones_;
 };

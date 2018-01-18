@@ -50,7 +50,7 @@ public:
 
   virtual void SetColor(const char* property_name, const Color4F& color) = 0;
   virtual void SetMatrix(const char* property_name, const NativeMatrixInstance* matrix) = 0;
-  virtual void SetTexture(const char* property_name, const NativeTextureInstance* texture) = 0;
+  virtual void SetTexture(const char* property_name, NativeTextureInstance* texture) = 0;
 
   virtual void GetBool(const char* property_name, bool* dest) = 0;
   virtual void GetInt(const char* property_name, T_INT32* dest) = 0;

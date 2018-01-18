@@ -7,6 +7,7 @@ class ShaderProperty
 {
 public:
   virtual void Apply(INativeShader* shader, const std::string& property_name) = 0;
+  virtual ShaderProperty* Clone() = 0;
 };
 
 // =================================================================
@@ -60,6 +61,12 @@ public:
   {
     shader->SetBool(property_name.c_str(), this->value_);
   }
+  ShaderProperty* Clone() override
+  {
+    ShaderProperty_bool* ret = new ShaderProperty_bool();
+    ret->value_ = this->value_;
+    return ret;
+  }
 };
 
 class ShaderProperty_int : public ShaderProperty_primitive<T_INT32>
@@ -76,6 +83,12 @@ public:
   {
     shader->SetInt(property_name.c_str(), this->value_);
   }
+  ShaderProperty* Clone() override
+  {
+    ShaderProperty_int* ret = new ShaderProperty_int();
+    ret->value_ = this->value_;
+    return ret;
+  }
 };
 
 class ShaderProperty_float : public ShaderProperty_primitive<T_FLOAT>
@@ -91,6 +104,12 @@ public:
   void Apply(INativeShader* shader, const std::string& property_name) override
   {
     shader->SetFloat(property_name.c_str(), this->value_);
+  }
+  ShaderProperty* Clone() override
+  {
+    ShaderProperty_float* ret = new ShaderProperty_float();
+    ret->value_ = this->value_;
+    return ret;
   }
 };
 
@@ -144,6 +163,12 @@ public:
   {
     shader->SetVec2f(property_name.c_str(), this->value_);
   }
+  ShaderProperty* Clone() override
+  {
+    ShaderProperty_vec2f* ret = new ShaderProperty_vec2f();
+    ret->value_ = this->value_;
+    return ret;
+  }
 };
 
 class ShaderProperty_vec3f : public ShaderProperty_struct<TVec3f>
@@ -158,6 +183,12 @@ public:
   void Apply(INativeShader* shader, const std::string& property_name) override
   {
     shader->SetVec3f(property_name.c_str(), this->value_);
+  }
+  ShaderProperty* Clone() override
+  {
+    ShaderProperty_vec3f* ret = new ShaderProperty_vec3f();
+    ret->value_ = this->value_;
+    return ret;
   }
 };
 
@@ -174,6 +205,12 @@ public:
   {
     shader->SetVec4f(property_name.c_str(), this->value_);
   }
+  ShaderProperty* Clone() override
+  {
+    ShaderProperty_vec4f* ret = new ShaderProperty_vec4f();
+    ret->value_ = this->value_;
+    return ret;
+  }
 };
 
 class ShaderProperty_color : public ShaderProperty_struct<Color4F>
@@ -188,6 +225,12 @@ public:
   void Apply(INativeShader* shader, const std::string& property_name) override
   {
     shader->SetColor(property_name.c_str(), this->value_);
+  }
+  ShaderProperty* Clone() override
+  {
+    ShaderProperty_color* ret = new ShaderProperty_color();
+    ret->value_ = this->value_;
+    return ret;
   }
 };
 
@@ -245,6 +288,12 @@ public:
     }
     shader->SetMatrix(property_name.c_str(), this->value_->GetNativeInstance());
   }
+  ShaderProperty* Clone() override
+  {
+    ShaderProperty_matrix* ret = new ShaderProperty_matrix();
+    ret->value_ = this->value_;
+    return ret;
+  }
 };
 
 class ShaderProperty_texture : public ShaderProperty_native<Texture>
@@ -263,6 +312,12 @@ public:
       return;
     }
     shader->SetTexture(property_name.c_str(), this->value_->GetContents()->GetNativeInstance());
+  }
+  ShaderProperty* Clone() override
+  {
+    ShaderProperty_texture* ret = new ShaderProperty_texture();
+    ret->value_ = this->value_;
+    return ret;
   }
 };
 

@@ -42,7 +42,7 @@ NativeModel_x::NativeModel_x(const char* asset_path, const char* name)
   for (T_UINT32 i = 0; i < this->material_count_; ++i)
   {
     const D3DMATERIAL9& mat = materials[i].MatD3D;
-    this->materials_[i] = new Material(EngineAsset::Shader::DEFAULT_MODEL.GetContents());
+    this->materials_[i] = new Material(EngineAsset::Shader::MODEL.GetContents());
     this->materials_[i]->SetDiffuse(mat.Diffuse.r, mat.Diffuse.g, mat.Diffuse.b, mat.Diffuse.a);
     this->materials_[i]->ColorProperty("_Ambient") = Color4F(mat.Ambient.r, mat.Ambient.g, mat.Ambient.b, mat.Ambient.a);
     this->materials_[i]->ColorProperty("_Emissive") = Color4F(mat.Emissive.r, mat.Emissive.g, mat.Emissive.b, mat.Emissive.a);
@@ -67,12 +67,12 @@ NativeModel_x::~NativeModel_x()
 // =================================================================
 // Method for/from SuperClass/Interfaces
 // =================================================================
-void NativeModel_x::Draw() const
+void NativeModel_x::Draw(GameObjectRenderState* state) const
 {
   const LPDIRECT3DDEVICE9 pDevice = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
   for (T_UINT32 i = 0; i < this->material_count_; ++i)
   {
-    this->materials_[i]->Begin();
+    this->materials_[i]->Begin(state);
     this->mesh_->DrawSubset(i);
     this->materials_[i]->End();
   }

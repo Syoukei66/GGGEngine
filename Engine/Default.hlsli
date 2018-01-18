@@ -10,7 +10,15 @@ struct v2f
   float4 vertex : SV_POSITION;
 };
 
-sampler2D _MainTex;
+texture _MainTex;
+sampler _MainTexSampler = sampler_state
+{
+  Texture = _MainTex;
+  MipFilter = LINEAR;
+  MinFilter = LINEAR;
+  MagFilter = LINEAR;
+};
+
 float4x4 _WorldViewProj;
 float4 _Diffuse;
 
@@ -24,7 +32,7 @@ v2f vert(appdata v)
 
 float4 frag(v2f i) : SV_TARGET
 {
-  float4 col = tex2D(_MainTex, i.uv) * _Diffuse;
+  float4 col = tex2D(_MainTexSampler, i.uv) * _Diffuse;
   return col;
 }
 

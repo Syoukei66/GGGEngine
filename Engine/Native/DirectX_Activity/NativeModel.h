@@ -17,7 +17,7 @@ public:
   // Method for/from SuperClass/Interfaces
   // =================================================================
 public:
-  virtual void Draw() const override;
+  virtual void Draw(GameObjectRenderState* state) const override;
 
   // =================================================================
   // Data Members

@@ -42,11 +42,13 @@ public:
 
   virtual void Graphics_Clear() = 0;
 
-  virtual void Graphics_SetTransformView(NativeMatrixInstance* mat) = 0;
-  virtual void Graphics_SetTransformProjection(NativeMatrixInstance* mat) = 0;
-  virtual void Graphics_SetTransformWorld(NativeMatrixInstance* mat) = 0;
+  //virtual void Graphics_SetTransformView(NativeMatrixInstance* mat) = 0;
+  //virtual void Graphics_SetTransformProjection(NativeMatrixInstance* mat) = 0;
+  //virtual void Graphics_SetTransformWorld(NativeMatrixInstance* mat) = 0;
 
   virtual void Graphics_SetViewport(T_FLOAT x, T_FLOAT y, T_FLOAT w, T_FLOAT h, T_FLOAT minZ, T_FLOAT maxZ) = 0;
+
+  virtual void Graphics_PackColor4u8(T_PACKED_COLOR_UINT32* color, T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a) = 0;
 
   virtual void Graphics_DrawPrimitive(GameObjectRenderState* state, PrimitiveType type, const Vertex* vertexes, T_UINT16 vertexes_count) = 0;
   virtual void Graphics_DrawIndexedPrimitive(GameObjectRenderState* state, PrimitiveType type, const Vertex* vertexes, T_UINT16 vertexes_count, const T_UINT16* indexes) = 0;

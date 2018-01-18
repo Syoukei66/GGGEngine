@@ -25,10 +25,4 @@ public:
   virtual INativeProcess_Graphics::PrimitiveType GetPrimitiveType() override;
   virtual INativeProcess_Graphics::VertexType GetVertexType() override;
 
-  // =================================================================
-  // Data Member
-  // =================================================================
-private:
-  SpriteVertex* vertexes_;
-
 };

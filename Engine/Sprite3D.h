@@ -9,14 +9,19 @@ class Sprite3D : public Shape3D
 public:
   static Sprite3D* CreateWithTexture(const Texture* texture);
 
+  // =================================================================
+  // Constructor / Destructor
+  // =================================================================
 public:
   Sprite3D();
   ~Sprite3D();
+
   // =================================================================
   // Methods for/from SuperClass/Interfaces
   // =================================================================
 public:
   virtual void PreDraw(GameObject3DRenderState* state) override;
+  virtual void PreNativeDraw(GameObject3DRenderState* state) override;
   virtual void NativeDraw(GameObject3DRenderState* state) override;
 
   // =================================================================

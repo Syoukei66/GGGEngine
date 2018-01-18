@@ -31,6 +31,9 @@ public:
   void AddZCheckOrder(GameObject3D* object);
   void DrawZOrderedGameObject();
 
+protected:
+  virtual void SetupViewProjMatrix(INativeMatrix* view_proj_matrix) override;
+
   // =================================================================
   // Setter / Getter
   // =================================================================

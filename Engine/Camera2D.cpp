@@ -30,12 +30,6 @@ Camera2D::~Camera2D()
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
-void Camera2D::OnDrawScene(Scene* scene)
-{
-  this->render_state_->Init();
-  scene->Draw2DLayers(this->render_state_);
-}
-
 const INativeMatrix* Camera2D::GetViewMatrix() const 
 {
   return &INativeMatrix::Identity();
@@ -61,3 +55,10 @@ void Camera2D::OnViewportChanged()
 {
   this->projection_dirty_ = true;
 }
+
+void Camera2D::OnDrawScene(Scene* scene)
+{
+  this->render_state_->Init();
+  scene->Draw2DLayers(this->render_state_);
+}
+

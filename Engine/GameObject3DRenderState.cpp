@@ -60,9 +60,7 @@ void GameObject3DRenderState::DrawZOrderedGameObject()
         this->PushMatrix(p->GetTransform()->GetWorldMatrix());
         this->PushMatrix(this->camera_->GetBillboardingMatrix());
         this->PushMatrix(this->mat_);
-        material->Begin();
-        param.object->NativeDraw(this);
-        material->End();
+        param.object->ManagedDraw(this);
         this->PopMatrix();
         this->PopMatrix();
         this->PopMatrix();
@@ -76,4 +74,10 @@ void GameObject3DRenderState::DrawZOrderedGameObject()
     }
   }
   this->post_draw_list_.clear();
+}
+
+void GameObject3DRenderState::SetupViewProjMatrix(INativeMatrix* view_proj_matrix)
+{
+  view_proj_matrix->Assign(*this->camera_->GetProjectionMatrix());
+  view_proj_matrix->MultipleReverse(*this->camera_->GetViewMatrix());
 }

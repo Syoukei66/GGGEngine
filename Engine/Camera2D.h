@@ -18,13 +18,12 @@ public:
   // Methods for/from SuperClass/Interfaces
   // =================================================================
 public:
-  virtual void OnDrawScene(Scene* scene) override;
-
-protected:
   virtual const INativeMatrix* GetViewMatrix() const override;
   virtual const INativeMatrix* GetProjectionMatrix() const override;
 
+protected:
   virtual void OnViewportChanged() override;
+  virtual void OnDrawScene(Scene* scene) override;
 
   // =================================================================
   // Method

@@ -22,10 +22,14 @@ public:
   void PushMatrix(INativeMatrix* matrix);
   void PopMatrix();
 
+protected:
+  virtual void SetupViewProjMatrix(INativeMatrix* view_proj_matrix) = 0;
+
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
+  INativeMatrix* GetWorldViewProjToMaterial();
   inline LP_DEVICE GetRenderObject() const
   {
     return this->render_object_;
@@ -62,5 +66,7 @@ private:
   T_UINT32 layer_state_;
   LP_DEVICE render_object_;
   INativeMatrixStack* matrix_stack_;
+  INativeMatrix* view_proj_matrix_;
+  INativeMatrix* world_view_proj_matrix_;
 
 };

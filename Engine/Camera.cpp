@@ -48,8 +48,8 @@ void Camera::SetupCamera()
     this->z_min_,
     this->z_max_
   );
-  NativeMethod::Graphics().Graphics_SetTransformProjection(this->GetProjectionMatrix()->GetNativeInstance());
-  NativeMethod::Graphics().Graphics_SetTransformView(this->GetViewMatrix()->GetNativeInstance());
+  //NativeMethod::Graphics().Graphics_SetTransformProjection(this->GetProjectionMatrix()->GetNativeInstance());
+  //NativeMethod::Graphics().Graphics_SetTransformView(this->GetViewMatrix()->GetNativeInstance());
 }
 
 // =================================================================
