@@ -40,17 +40,17 @@ Color4F::Color4F(T_FLOAT r, T_FLOAT g, T_FLOAT b, T_FLOAT a)
 // =================================================================
 void Color4F::SetColor(T_FLOAT r, T_FLOAT g, T_FLOAT b)
 {
-  this->col_[0] = r;
-  this->col_[1] = g;
-  this->col_[2] = b;
+  this->col_[0] = std::min(1.0f, std::max(0.0f, r));
+  this->col_[1] = std::min(1.0f, std::max(0.0f, g));
+  this->col_[2] = std::min(1.0f, std::max(0.0f, b));
 }
 
 void Color4F::SetColor(T_FLOAT r, T_FLOAT g, T_FLOAT b, T_FLOAT a)
 {
-  this->col_[0] = r;
-  this->col_[1] = g;
-  this->col_[2] = b;
-  this->col_[3] = a;
+  this->col_[0] = std::min(1.0f, std::max(0.0f, r));
+  this->col_[1] = std::min(1.0f, std::max(0.0f, g));
+  this->col_[2] = std::min(1.0f, std::max(0.0f, b));
+  this->col_[3] = std::min(1.0f, std::max(0.0f, a));
 }
 
 void Color4F::GetColors(T_FLOAT color[4]) const

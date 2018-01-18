@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 #include "NativeType.h"
 
 class Color4F
@@ -116,7 +117,7 @@ public:
 
   inline void SetRed(T_FLOAT r)
   {
-    this->col_[0] = r;
+    this->col_[0] = std::min(1.0f, std::max(0.0f, r));
   }
   inline T_FLOAT GetRed() const
   {
@@ -125,7 +126,7 @@ public:
 
   inline void SetGreen(T_FLOAT g)
   {
-    this->col_[1] = g;
+    this->col_[1] = std::min(1.0f, std::max(0.0f, g));
   }
   inline T_FLOAT GetGreen() const
   {
@@ -134,7 +135,7 @@ public:
 
   inline void SetBlue(T_FLOAT b)
   {
-    this->col_[2] = b;
+    this->col_[2] = std::min(1.0f, std::max(0.0f, b));
   }
   inline T_FLOAT GetBlue() const
   {
@@ -143,7 +144,7 @@ public:
 
   inline void SetAlpha(T_FLOAT a)
   {
-    this->col_[3] = a;
+    this->col_[3] = std::min(1.0f, std::max(0.0f, a));
   }
   inline T_FLOAT GetAlpha() const
   {
