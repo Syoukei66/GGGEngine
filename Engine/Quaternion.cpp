@@ -37,10 +37,6 @@ const Quaternion Quaternion::Lerp(Quaternion a, Quaternion b, T_FLOAT t)
     return b;
   }
   const T_FLOAT r = acosf(InnerProduct(a, b));
-  if (fabs(fabs(r) - MathConstants::PI) < 0.01f)
-  {
-    fabs(r);
-  }
   if (fabs(r) <= MathConstants::PI_1_2)
   {
     return (a * (1.0f - t) + b * t);
@@ -98,7 +94,7 @@ Quaternion::Quaternion(T_FLOAT x, T_FLOAT y, T_FLOAT z, T_FLOAT w)
 // =================================================================
 void Quaternion::q(const TVec3f& v, T_FLOAT rad)
 {
-  *this = *this * Quaternion(v, rad);
+  *this = this->Normalized() * Quaternion(v, rad);
 }
 
 void Quaternion::FromEularAngles(const TVec3f& mat)
@@ -194,11 +190,11 @@ void Quaternion::FromRotationMatrix(const INativeMatrix& mat)
 
 void Quaternion::ToRotationMatrix(INativeMatrix* dest)
 {
-  Quaternion normalized = this->Normalized();
-  const T_FLOAT qx = normalized.v_.x;
-  const T_FLOAT qy = normalized.v_.y;
-  const T_FLOAT qz = normalized.v_.z;
-  const T_FLOAT qw = normalized.w_;
+  *this = this->Normalized();
+  const T_FLOAT qx = this->v_.x;
+  const T_FLOAT qy = this->v_.y;
+  const T_FLOAT qz = this->v_.z;
+  const T_FLOAT qw = this->w_;
   //            m11 = 1.0f - 2.0f * qy * qy - 2.0f * qz * qz;
   const T_FLOAT m11 = 1.0f - 2.0f * qy * qy - 2.0f * qz * qz;
   //            m12 = 2.0f * qx * qy + 2.0f * qw * qz;
