@@ -505,7 +505,7 @@ EntityModifier* ColorBy(T_UINT32 duration, const Color4F& value)
   return ColorBy(duration, value.GetRed(), value.GetGreen(), value.GetBlue(), value.GetAlpha());
 }
 
-EntityModifier* ColorBy(T_UINT32 duration, T_INT16 value_r, T_INT16 value_g, T_INT16 value_b, T_INT16 value_a)
+EntityModifier* ColorBy(T_UINT32 duration, T_FLOAT value_r, T_FLOAT value_g, T_FLOAT value_b, T_FLOAT value_a)
 {
   return Synchronized(
     ColorByRed(duration, value_r),
@@ -515,7 +515,7 @@ EntityModifier* ColorBy(T_UINT32 duration, T_INT16 value_r, T_INT16 value_g, T_I
   );
 }
 
-EntityModifier* ColorByRed(T_UINT32 duration, T_INT16 value_r)
+EntityModifier* ColorByRed(T_UINT32 duration, T_FLOAT value_r)
 {
   AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
@@ -526,7 +526,7 @@ EntityModifier* ColorByRed(T_UINT32 duration, T_INT16 value_r)
   return ret;
 }
 
-EntityModifier* ColorByGreen(T_UINT32 duration, T_INT16 value_g)
+EntityModifier* ColorByGreen(T_UINT32 duration, T_FLOAT value_g)
 {
   AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
@@ -537,7 +537,7 @@ EntityModifier* ColorByGreen(T_UINT32 duration, T_INT16 value_g)
   return ret;
 }
 
-EntityModifier* ColorByBlue(T_UINT32 duration, T_INT16 value_b)
+EntityModifier* ColorByBlue(T_UINT32 duration, T_FLOAT value_b)
 {
   AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
@@ -548,7 +548,7 @@ EntityModifier* ColorByBlue(T_UINT32 duration, T_INT16 value_b)
   return ret;
 }
 
-EntityModifier* ColorByAlpha(T_UINT32 duration, T_INT16 value_a)
+EntityModifier* ColorByAlpha(T_UINT32 duration, T_FLOAT value_a)
 {
   AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
@@ -629,7 +629,7 @@ EntityModifier* ColorFromBy(T_UINT32 duration, const Color4F& from, const Color4
   );
 }
 
-EntityModifier* ColorFromBy(T_UINT32 duration, T_FLOAT from_r, T_FLOAT from_g, T_FLOAT from_b, T_FLOAT from_a, T_INT16 value_r, T_INT16 value_g, T_INT16 value_b, T_INT16 value_a)
+EntityModifier* ColorFromBy(T_UINT32 duration, T_FLOAT from_r, T_FLOAT from_g, T_FLOAT from_b, T_FLOAT from_a, T_FLOAT value_r, T_FLOAT value_g, T_FLOAT value_b, T_FLOAT value_a)
 {
   return Synchronized(
     ColorFromByRed(duration, from_r, value_r),
@@ -639,7 +639,7 @@ EntityModifier* ColorFromBy(T_UINT32 duration, T_FLOAT from_r, T_FLOAT from_g, T
   );
 }
 
-EntityModifier* ColorFromByRed(T_UINT32 duration, T_FLOAT from_r, T_INT16 value_r)
+EntityModifier* ColorFromByRed(T_UINT32 duration, T_FLOAT from_r, T_FLOAT value_r)
 {
   AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
@@ -650,7 +650,7 @@ EntityModifier* ColorFromByRed(T_UINT32 duration, T_FLOAT from_r, T_INT16 value_
   return ret;
 }
 
-EntityModifier* ColorFromByGreen(T_UINT32 duration, T_FLOAT from_g, T_INT16 value_g)
+EntityModifier* ColorFromByGreen(T_UINT32 duration, T_FLOAT from_g, T_FLOAT value_g)
 {
   AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
@@ -661,7 +661,7 @@ EntityModifier* ColorFromByGreen(T_UINT32 duration, T_FLOAT from_g, T_INT16 valu
   return ret;
 }
 
-EntityModifier* ColorFromByBlue(T_UINT32 duration, T_FLOAT from_b, T_INT16 value_b)
+EntityModifier* ColorFromByBlue(T_UINT32 duration, T_FLOAT from_b, T_FLOAT value_b)
 {
   AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
@@ -672,7 +672,7 @@ EntityModifier* ColorFromByBlue(T_UINT32 duration, T_FLOAT from_b, T_INT16 value
   return ret;
 }
 
-EntityModifier* ColorFromByAlpha(T_UINT32 duration, T_FLOAT from_a, T_INT16 value_a)
+EntityModifier* ColorFromByAlpha(T_UINT32 duration, T_FLOAT from_a, T_FLOAT value_a)
 {
   AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
