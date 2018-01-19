@@ -7,6 +7,7 @@ float4 vert(float4 vertex : POSITION) : POSITION
 
 float4 frag(float4 o : COLOR0) : SV_TARGET
 {
+  o = float4(1.0f, 1.0f, 1.0f, 1.0f);
   return o;
 }
 
