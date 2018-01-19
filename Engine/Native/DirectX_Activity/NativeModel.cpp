@@ -73,6 +73,7 @@ void NativeModel_x::Draw(GameObjectRenderState* state) const
   for (T_UINT32 i = 0; i < this->material_count_; ++i)
   {
     this->materials_[i]->Begin(state);
+    this->materials_[i]->CommitChanges(state);
     this->mesh_->DrawSubset(i);
     this->materials_[i]->End();
   }

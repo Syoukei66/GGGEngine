@@ -16,6 +16,7 @@ public:
   // Method
   // =================================================================
 public:
+  void ManagedDraw(GameObject3DRenderState* state) override;
   void NativeDraw(GameObject3DRenderState* state) override;
 
   // =================================================================

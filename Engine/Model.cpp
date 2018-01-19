@@ -6,14 +6,22 @@
 Model::Model(const ModelData& data)
   : data_(data)
 {
-  //this->SetMaterial(EngineAsset::Material::MODEL);
 }
 
 Model::~Model()
 {
 }
 
+// =================================================================
+// Method
+// =================================================================
+void Model::ManagedDraw(GameObject3DRenderState* state)
+{
+  this->NativeDraw(state);
+}
+
 void Model::NativeDraw(GameObject3DRenderState* state)
 {
   this->data_.GetContents()->Draw(state);
 }
+
