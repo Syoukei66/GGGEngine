@@ -113,6 +113,10 @@ public:
   virtual const TVec3f GetPosition3d() const = 0;
   virtual const TVec4f GetPosition4d() const = 0;
 
+  virtual const TVec3f GetCameraXVec() const = 0;
+  virtual const TVec3f GetCameraYVec() const = 0;
+  virtual const TVec3f GetCameraZVec() const = 0;
+
   // =================================================================
   // Setter / Getter
   // =================================================================

@@ -338,6 +338,21 @@ const TVec4f NativeMatrix::GetPosition4d() const
   return TVec4f(this->mat_->_41, this->mat_->_42, this->mat_->_43, this->mat_->_44);
 }
 
+const TVec3f NativeMatrix::GetCameraXVec() const
+{
+  return TVec3f(this->mat_->_11, this->mat_->_12, this->mat_->_13);
+}
+
+const TVec3f NativeMatrix::GetCameraYVec() const
+{
+  return TVec3f(this->mat_->_21, this->mat_->_22, this->mat_->_23);
+}
+
+const TVec3f NativeMatrix::GetCameraZVec() const
+{
+  return TVec3f(this->mat_->_31, this->mat_->_32, this->mat_->_33);
+}
+
 const T_FLOAT* NativeMatrix::Get(T_UINT8 x) const
 {
   return this->mat_->m[x];

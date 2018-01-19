@@ -63,11 +63,15 @@ public:
   void Apply(T_FLOAT* dest_x, T_FLOAT* dest_y, T_FLOAT* dest_z) const override;
   void Apply(T_FLOAT* dest_x, T_FLOAT* dest_y, T_FLOAT* dest_z, T_FLOAT* dest_w) const override;
 
-  virtual const TVec2f GetDirection2d() const override;
-  virtual const TVec3f GetDirection3d() const override;
-  virtual const TVec2f GetPosition2d() const override;
-  virtual const TVec3f GetPosition3d() const override;
-  virtual const TVec4f GetPosition4d() const override;
+  const TVec2f GetDirection2d() const override;
+  const TVec3f GetDirection3d() const override;
+  const TVec2f GetPosition2d() const override;
+  const TVec3f GetPosition3d() const override;
+  const TVec4f GetPosition4d() const override;
+
+  const TVec3f GetCameraXVec() const override;
+  const TVec3f GetCameraYVec() const override;
+  const TVec3f GetCameraZVec() const override;
   
 protected:
   const T_FLOAT* Get(T_UINT8 x) const override;
