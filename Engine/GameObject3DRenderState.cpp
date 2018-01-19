@@ -69,7 +69,7 @@ void GameObject3DRenderState::DrawZOrderedGameObject()
     else
     {
       this->PushMatrix(param.object->GetTransform()->GetWorldMatrix());
-      param.object->NativeDraw(this);
+      param.object->ManagedDraw(this);
       this->PopMatrix();
     }
   }
