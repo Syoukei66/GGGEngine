@@ -29,7 +29,7 @@ void Transform3D::OnInit()
 {
   this->position_ = TVec3f(0.0f, 0.0f, 0.0f);
   this->scale_ = TVec3f(1.0f, 1.0f, 1.0f);
-  this->rotator_->SetEularAngles(TVec3f(0.0f, 0.0f, 0.0f));
+  this->rotator_->Init();
 }
 
 void Transform3D::Move(const TVec3f& value)

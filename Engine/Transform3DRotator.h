@@ -19,6 +19,8 @@ public:
   // Methods
   // =================================================================
 public:
+  void Init();
+
   void RotateX(T_FLOAT rad);
   void RotateY(T_FLOAT rad);
   void RotateZ(T_FLOAT rad);

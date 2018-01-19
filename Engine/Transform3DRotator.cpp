@@ -29,6 +29,15 @@ Transform3DRotator::~Transform3DRotator()
 // =================================================================
 // Methods
 // =================================================================
+void Transform3DRotator::Init()
+{
+  this->quaternion_ = Quaternion();
+  this->eular_angles_ = TVec3f(0.0f, 0.0f, 0.0f);
+  this->rotation_matrix_->Init();
+  this->need_rotation_matrix_update_ = false;
+  this->need_eular_angles_update_ = false;
+}
+
 void Transform3DRotator::RotateX(T_FLOAT rad)
 {
   if (rad == 0.0f)
