@@ -260,10 +260,10 @@ const Quaternion Quaternion::Inversed() const
 
 const Quaternion Quaternion::Normalized() const
 {
-  return *this / sqrtf(this->ScalarSquare());
+  return *this / this->Scalar();
 }
 
 bool Quaternion::IsNormal(T_FLOAT eps) const
 {
-  return fabs(1.0f - sqrtf(this->ScalarSquare())) < eps;
+  return fabs(1.0f - this->Scalar()) < eps;
 }
