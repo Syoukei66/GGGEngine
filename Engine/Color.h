@@ -1,6 +1,8 @@
 #pragma once
 #include <algorithm>
 #include "NativeType.h"
+#undef min
+#undef max
 
 class Color4F
 {

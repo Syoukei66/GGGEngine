@@ -1,4 +1,6 @@
 #include "DirectXActivity.h"
+
+#define NOMINMAX
 #include <windows.h>
 #include <windowsx.h>
 #include <d3d9.h>

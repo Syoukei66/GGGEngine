@@ -1,3 +1,4 @@
+#define NOMINMAX
 #include <Windows.h>
 #include <EngineSetting.h>
 
