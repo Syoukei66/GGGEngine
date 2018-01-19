@@ -13,7 +13,6 @@ Camera3D_LookAt::Camera3D_LookAt(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT he
   , target_(nullptr)
   , target_lerp_t_(0.5f)
   , target_direction_(0.0f, 0.0f, 1.0f)
-  , camera_up_(0.0f, 1.0f, 0.0f)
   , view_dirty_(true)
 {
   this->entity_ = new GameObject3D();
@@ -27,7 +26,6 @@ Camera3D_LookAt::Camera3D_LookAt()
   , target_(nullptr)
   , target_lerp_t_(0.5f)
   , target_direction_(0.0f, 0.0f, 1.0f)
-  , camera_up_(0.0f, 1.0f, 0.0f)
   , view_dirty_(true)
 {
   this->entity_ = new GameObject3D();
@@ -72,7 +70,7 @@ void Camera3D_LookAt::CheckViewDirty()
     this->view_matrix_->LookAtLH(
       this->GetTransform()->GetWorldPosition(),
       this->current_look_at_pos_,
-      this->camera_up_
+      this->GetTransform()->GetWorldMatrix()->GetCameraYVec()
     );
   }
   //ターゲットが存在しない時の処理
@@ -90,7 +88,7 @@ void Camera3D_LookAt::CheckViewDirty()
       this->view_matrix_->LookAtLH(
         camera_pos,
         look_at_pos,
-        this->camera_up_
+        this->GetTransform()->GetWorldMatrix()->GetCameraYVec()
       );
     }
     //プレイヤーが存在しない時の処理
@@ -177,61 +175,5 @@ void Camera3D_LookAt::SetLookAtPosZ(T_FLOAT z)
     return;
   }
   this->look_at_pos_.z = z;
-  this->OnViewChanged();
-}
-
-void Camera3D_LookAt::SetCameraUp(const TVec3f& camera_up)
-{
-  if (this->camera_up_ == camera_up)
-  {
-    return;
-  }
-  this->camera_up_ = camera_up;
-  this->OnViewChanged();
-}
-
-void Camera3D_LookAt::SetCameraUp(T_FLOAT x, T_FLOAT y, T_FLOAT z)
-{
-  if (
-    this->camera_up_.x == x &&
-    this->camera_up_.y == y &&
-    this->camera_up_.z == z
-    )
-  {
-    return;
-  }
-  this->camera_up_.x = x;
-  this->camera_up_.y = y;
-  this->camera_up_.z = z;
-  this->OnViewChanged();
-}
-
-void Camera3D_LookAt::SetCameraUpX(T_FLOAT x)
-{
-  if (this->camera_up_.x == x)
-  {
-    return;
-  }
-  this->camera_up_.x = x;
-  this->OnViewChanged();
-}
-
-void Camera3D_LookAt::SetCameraUpY(T_FLOAT y)
-{
-  if (this->camera_up_.y == y)
-  {
-    return;
-  }
-  this->camera_up_.y = y;
-  this->OnViewChanged();
-}
-
-void Camera3D_LookAt::SetCameraUpZ(T_FLOAT z)
-{
-  if (this->camera_up_.z == z)
-  {
-    return;
-  }
-  this->camera_up_.z = z;
   this->OnViewChanged();
 }

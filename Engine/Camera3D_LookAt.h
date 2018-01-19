@@ -82,27 +82,6 @@ public:
     return this->look_at_pos_.z;
   }
 
-  void SetCameraUp(const TVec3f& camera_up);
-  void SetCameraUp(T_FLOAT x, T_FLOAT y, T_FLOAT z);
-  inline const TVec3f& GetCameraUp() const
-  {
-    return this->camera_up_;
-  }
-  void SetCameraUpX(T_FLOAT x);
-  inline T_FLOAT GetCameraUpX() const
-  {
-    return this->camera_up_.x;
-  }
-  void SetCameraUpY(T_FLOAT y);
-  inline T_FLOAT GetCameraUpY() const
-  {
-    return this->camera_up_.y;
-  }
-  void SetCameraUpZ(T_FLOAT z);
-  inline T_FLOAT GetCameraUpZ() const
-  {
-    return this->camera_up_.z;
-  }
   inline void SetTargetLerpDeltaTime(T_FLOAT t)
   {
     this->target_lerp_t_ = t;
@@ -137,7 +116,6 @@ private:
   TVec3f target_direction_;
   T_FLOAT target_lerp_t_;
 
-  TVec3f camera_up_;
   bool view_dirty_;
 
 };
