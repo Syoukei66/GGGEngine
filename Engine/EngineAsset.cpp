@@ -15,12 +15,12 @@ const ShaderResource WHITE("Asset/shader/default/White.cso");
 
 namespace Material
 {
-class Material DEFAULT(Shader::DEFAULT);
-class Material MODEL(Shader::MODEL);
-class Material PARTICLE(Shader::PARTICLE);
-class Material PRIMITIVE(Shader::PRIMITIVE);
-class Material SPRITE(Shader::SPRITE);
-class Material WHITE(Shader::SPRITE);
+class Material DEFAULT(Shader::DEFAULT, true);
+class Material MODEL(Shader::MODEL, true);
+class Material PARTICLE(Shader::PARTICLE, true);
+class Material PRIMITIVE(Shader::PRIMITIVE, true);
+class Material SPRITE(Shader::SPRITE, true);
+class Material WHITE(Shader::SPRITE, true);
 } // namespace Material
 
 } // namespace EngineAsset

@@ -5,8 +5,9 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-Material::Material(const ShaderResource& resource)
-  : shader_resource_(&resource)
+Material::Material(const ShaderResource& resource, bool protect)
+  : protected_(protect)
+  , shader_resource_(&resource)
   , shader_(nullptr)
   , properties_()
   , color_()
@@ -15,8 +16,9 @@ Material::Material(const ShaderResource& resource)
 {
 }
 
-Material::Material(INativeShader* shader)
-  : shader_resource_(nullptr)
+Material::Material(INativeShader* shader, bool protect)
+  : protected_(protect)
+  , shader_resource_(nullptr)
   , shader_(shader)
   , properties_()
   , color_()
@@ -39,7 +41,15 @@ Material::~Material()
 
 Material* Material::Clone()
 {
-  Material* ret = new Material(this->shader_);
+  Material* ret = nullptr;
+  if (this->shader_)
+  {
+    ret = new Material(this->shader_);
+  }
+  else
+  {
+    ret = new Material(*this->shader_resource_);
+  }
   for (auto pair : this->properties_)
   {
     ret->properties_[pair.first] = pair.second->Clone();

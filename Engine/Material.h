@@ -15,8 +15,8 @@ class Material
   // Constructor / Destructor
   // =================================================================
 public:
-  Material(const ShaderResource& resource);
-  Material(INativeShader* shader);
+  Material(const ShaderResource& resource, bool protect = false);
+  Material(INativeShader* shader, bool protect = false);
   ~Material();
 
   // =================================================================
@@ -53,6 +53,7 @@ public:
 
   inline ShaderProperty_bool& BoolProperty(const std::string& property_name)
   {
+    NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
     return this->GetShaderProperty<ShaderProperty_bool>(property_name);
   }
   inline const ShaderProperty_bool& BoolProperty(const std::string& property_name) const
@@ -62,6 +63,7 @@ public:
 
   inline ShaderProperty_int& IntProperty(const std::string& property_name)
   {
+    NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
     return this->GetShaderProperty<ShaderProperty_int>(property_name);
   }
   inline const ShaderProperty_int& IntProperty(const std::string& property_name) const
@@ -71,6 +73,7 @@ public:
 
   inline ShaderProperty_float& FloatProperty(const std::string& property_name)
   {
+    NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
     return this->GetShaderProperty<ShaderProperty_float>(property_name);
   }
   inline const ShaderProperty_float& FloatProperty(const std::string& property_name) const
@@ -80,6 +83,7 @@ public:
 
   inline ShaderProperty_vec2f& Vec2fProperty(const std::string& property_name)
   {
+    NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
     return this->GetShaderProperty<ShaderProperty_vec2f>(property_name);
   }
   inline const ShaderProperty_vec2f& Vec2fProperty(const std::string& property_name) const
@@ -89,6 +93,7 @@ public:
 
   inline ShaderProperty_vec3f& Vec3fProperty(const std::string& property_name)
   {
+    NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
     return this->GetShaderProperty<ShaderProperty_vec3f>(property_name);
   }
   inline const ShaderProperty_vec3f& Vec3fProperty(const std::string& property_name) const
@@ -98,6 +103,7 @@ public:
 
   inline ShaderProperty_vec4f& Vec4fProperty(const std::string& property_name)
   {
+    NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
     return this->GetShaderProperty<ShaderProperty_vec4f>(property_name);
   }
   inline const ShaderProperty_vec4f& Vec4fProperty(const std::string& property_name) const
@@ -107,6 +113,7 @@ public:
 
   inline ShaderProperty_color& ColorProperty(const std::string& property_name)
   {
+    NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
     return this->GetShaderProperty<ShaderProperty_color>(property_name);
   }
   inline const ShaderProperty_color& ColorProperty(const std::string& property_name) const
@@ -116,6 +123,7 @@ public:
 
   inline ShaderProperty_matrix& MatrixProperty(const std::string& property_name)
   {
+    NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
     return this->GetShaderProperty<ShaderProperty_matrix>(property_name);
   }
   inline const ShaderProperty_matrix& MatrixProperty(const std::string& property_name) const
@@ -125,6 +133,7 @@ public:
 
   inline ShaderProperty_texture& TextureProperty(const std::string& property_name)
   {
+    NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
     return this->GetShaderProperty<ShaderProperty_texture>(property_name);
   }
   inline const ShaderProperty_texture& TextureProperty(const std::string& property_name) const
@@ -134,23 +143,27 @@ public:
 
   inline void SetMainTexture(const Texture* texture)
   {
+    NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
     this->texture_ = texture;
   }
-  inline const Texture* GetTexture() const
+  inline const Texture* GetMainTexture() const
   {
     return this->texture_;
   }
 
   inline void SetDiffuse(const Color4F& color)
   {
+    NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
     this->color_ = color;
   }
   inline void SetDiffuse(T_FLOAT r, T_FLOAT g, T_FLOAT b)
   {
+    NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
     this->color_.SetColor(r, g, b);
   }
   inline void SetDiffuse(T_FLOAT r, T_FLOAT g, T_FLOAT b, T_FLOAT a)
   {
+    NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
     this->color_.SetColor(r, g, b, a);
   }
   inline Color4F& GetDiffuse()
@@ -164,6 +177,7 @@ public:
 
   inline void SetZTestFlag(bool z_test)
   {
+    NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
     this->z_test_ = z_test;
   }
   inline bool GetZTestFlag() const
@@ -175,6 +189,7 @@ public:
   // Data Member
   // =================================================================
 protected:
+  const bool protected_;
   const ShaderResource* const shader_resource_;
   INativeShader* shader_;
   std::unordered_map<std::string, ShaderProperty*> properties_;
