@@ -3,19 +3,19 @@
 enum { PLANE_VERTEX_COORDS_COUNT = 4 };
 static TVec2f PLANE_VERTEX_COORDS[PLANE_VERTEX_COORDS_COUNT] =
 {
-  {  0.5f,  0.5f }, //0 右上
-  {  0.5f, -0.5f }, //1 右下
-  { -0.5f, -0.5f }, //2 左下
-  { -0.5f,  0.5f }, //3 左上
+  { -0.5f, -0.5f }, //0 右上
+  { -0.5f,  0.5f }, //1 右下
+  {  0.5f, -0.5f }, //2 左下
+  {  0.5f,  0.5f }, //3 左上
 };
 
 enum { PLANE_VERTEX_TEX_COORDS_COUNT = PLANE_VERTEX_COORDS_COUNT };
 static TVec2f PLANE_VERTEX_TEX_COORDS[PLANE_VERTEX_TEX_COORDS_COUNT] =
 {
   { 0.0f, 0.0f },
-  { 1.0f, 1.0f },
-  { 1.0f, 0.0f },
   { 0.0f, 1.0f },
+  { 1.0f, 0.0f },
+  { 1.0f, 1.0f },
 };
 
 enum { PLANE_SURFS_COUNT = 1 };
@@ -23,14 +23,14 @@ enum { PLANE_TRIANGLES_COUNT = 2 * PLANE_SURFS_COUNT };
 enum { PLANE_VERTEX_INDEXES_COUNT = 6 };
 static const T_UINT16 PLANE_VERTEX_INDEXES[PLANE_VERTEX_INDEXES_COUNT] =
 {
-  1, 3, 0,
-  1, 2, 3,
+  0, 1, 2,
+  1, 3, 2,
 };
 
 static const T_UINT16 PLANE_VERTEX_TEX_INDEXES[PLANE_VERTEX_INDEXES_COUNT] =
 {
   0, 1, 2,
-  0, 3, 1,
+  1, 3, 2,
 };
 
 enum { PLANE_VERTEXES_COUNT = 4 * PLANE_SURFS_COUNT };
