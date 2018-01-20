@@ -8,18 +8,6 @@
 Material::Material(const ShaderResource& resource, bool protect)
   : protected_(protect)
   , shader_resource_(&resource)
-  , shader_(nullptr)
-  , properties_()
-  , color_()
-  , texture_()
-  , z_test_(false)
-{
-}
-
-Material::Material(INativeShader* shader, bool protect)
-  : protected_(protect)
-  , shader_resource_(nullptr)
-  , shader_(shader)
   , properties_()
   , color_()
   , texture_()
@@ -39,17 +27,12 @@ Material::~Material()
   }
 }
 
+// =================================================================
+// Method
+// =================================================================
 Material* Material::Clone()
 {
-  Material* ret = nullptr;
-  if (this->shader_)
-  {
-    ret = new Material(this->shader_);
-  }
-  else
-  {
-    ret = new Material(*this->shader_resource_);
-  }
+  Material* ret = new Material(*this->shader_resource_);
   for (auto pair : this->properties_)
   {
     ret->properties_[pair.first] = pair.second->Clone();
@@ -63,43 +46,33 @@ Material* Material::Clone()
 
 Material* Material::InitialClone()
 {
-  if (!this->shader_)
-  {
-    NATIVE_ASSERT(this->shader_resource_, "シェーダーが未定義です");
-    this->shader_ = this->shader_resource_->GetContents();
-  }
-  Material* ret = new Material(this->shader_);
+  NATIVE_ASSERT(this->shader_resource_, "シェーダーが未定義です");
+  Material* ret = new Material(*this->shader_resource_);
   this->clones_.push_back(ret);
   return ret;
 }
 
-// =================================================================
-// Method
-// =================================================================
 void Material::Begin(GameObjectRenderState* state)
 {
-  if (!this->shader_)
-  {
-    NATIVE_ASSERT(this->shader_resource_, "シェーダーが未定義です");
-    this->shader_ = this->shader_resource_->GetContents();
-  }
-  this->shader_->Begin();
+  INativeShader* shader = this->GetShader();
+  shader->Begin();
   for (auto pair : this->properties_)
   {
-    pair.second->Apply(this->shader_, pair.first);
+    pair.second->Apply(shader, pair.first);
   }
 }
 
 void Material::CommitChanges(GameObjectRenderState* state)
 {
+  INativeShader* shader = this->GetShader();
   NativeTextureInstance* texture = this->texture_ ? this->texture_->GetContents()->GetNativeInstance() : nullptr;
-  this->shader_->SetTexture("_MainTex", texture);
-  this->shader_->SetColor("_Diffuse", this->color_);
-  this->shader_->SetMatrix("_WorldViewProj", state->GetWorldViewProjToMaterial()->GetNativeInstance());
-  this->shader_->CommitChanges();
+  shader->SetTexture("_MainTex", texture);
+  shader->SetColor("_Diffuse", this->color_);
+  shader->SetMatrix("_WorldViewProj", state->GetWorldViewProjToMaterial()->GetNativeInstance());
+  shader->CommitChanges();
 }
 
 void Material::End()
 {
-  this->shader_->End();
+  this->GetShader()->End();
 }

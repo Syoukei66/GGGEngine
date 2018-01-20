@@ -42,7 +42,7 @@ NativeModel_x::NativeModel_x(const char* asset_path, const char* name)
   for (T_UINT32 i = 0; i < this->material_count_; ++i)
   {
     const D3DMATERIAL9& mat = materials[i].MatD3D;
-    this->materials_[i] = new Material(EngineAsset::Shader::MODEL.GetContents());
+    this->materials_[i] = new Material(EngineAsset::Shader::MODEL);
     this->materials_[i]->SetDiffuse(mat.Diffuse.r, mat.Diffuse.g, mat.Diffuse.b, mat.Diffuse.a);
     this->materials_[i]->ColorProperty("_Ambient") = Color4F(mat.Ambient.r, mat.Ambient.g, mat.Ambient.b, mat.Ambient.a);
     this->materials_[i]->ColorProperty("_Emissive") = Color4F(mat.Emissive.r, mat.Emissive.g, mat.Emissive.b, mat.Emissive.a);

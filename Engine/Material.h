@@ -16,7 +16,6 @@ class Material
   // =================================================================
 public:
   Material(const ShaderResource& resource, bool protect = false);
-  Material(INativeShader* shader, bool protect = false);
   ~Material();
 
   // =================================================================
@@ -36,7 +35,7 @@ public:
 public:
   inline INativeShader* GetShader()
   {
-    return this->shader_;
+    return this->shader_resource_->GetContents();
   }
 
   template <class T>
@@ -191,7 +190,6 @@ public:
 protected:
   const bool protected_;
   const ShaderResource* const shader_resource_;
-  INativeShader* shader_;
   std::unordered_map<std::string, ShaderProperty*> properties_;
 
   Color4F color_;
