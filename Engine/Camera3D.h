@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "GameComponent.h"
 #include "GameObject3DRenderState.h"
+#include "GameObject3D.h"
 
 class Camera3D : public Camera
 {
@@ -45,6 +46,16 @@ private:
   // setter/getter
   // =================================================================
 public:
+  inline Transform3D* GetTransform()
+  {
+    return this->entity_->GetTransform();
+  }
+
+  inline const Transform3D* GetTransform() const
+  {
+    return this->entity_->GetTransform();
+  }
+
   void SetFov(T_FLOAT fov);
   inline T_FLOAT GetFov() const
   {
@@ -94,5 +105,7 @@ private:
   bool projection_dirty_;
 
 protected:
+  GameObject3D* entity_;
+
   TVec3f direction_;
 };

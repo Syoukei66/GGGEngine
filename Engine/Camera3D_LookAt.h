@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Camera3D_Transformed.h"
+#include "Camera3D.h"
 
 class Camera3D_LookAt : public Camera3D
 {
@@ -39,16 +39,6 @@ private:
   // setter/getter
   // =================================================================
 public:
-  inline Transform3D* GetTransform()
-  {
-    return this->entity_->GetTransform();
-  }
-
-  inline const Transform3D* GetTransform() const
-  {
-    return this->entity_->GetTransform();
-  }
-
   inline GameObject3D* GetPlayer() const
   {
     return this->entity_->GetParent();
@@ -105,8 +95,6 @@ public:
   // Data Member
   // =================================================================
 private:
-  GameObject3D* entity_;
-
   INativeMatrix* view_matrix_;
 
   TVec3f look_at_pos_;

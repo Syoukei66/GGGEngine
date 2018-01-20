@@ -15,7 +15,6 @@ Camera3D_LookAt::Camera3D_LookAt(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT he
   , target_direction_(0.0f, 0.0f, 1.0f)
   , view_dirty_(true)
 {
-  this->entity_ = new GameObject3D();
   this->view_matrix_ = INativeMatrix::Create();
 }
 
@@ -28,13 +27,11 @@ Camera3D_LookAt::Camera3D_LookAt()
   , target_direction_(0.0f, 0.0f, 1.0f)
   , view_dirty_(true)
 {
-  this->entity_ = new GameObject3D();
   this->view_matrix_ = INativeMatrix::Create();
 }
 
 Camera3D_LookAt::~Camera3D_LookAt()
 {
-  delete this->entity_;
   delete this->view_matrix_;
 }
 
