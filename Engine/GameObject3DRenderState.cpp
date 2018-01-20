@@ -24,16 +24,22 @@ void GameObject3DRenderState::Init()
 
 void GameObject3DRenderState::AddZCheckOrder(GameObject3D* object)
 {
-  this->mat_->Assign(*object->GetTransform()->GetWorldMatrix());
-  this->mat_->Multiple(*this->camera_->GetViewMatrix());
-  this->mat_->Multiple(*this->camera_->GetProjectionMatrix());
+  //this->mat_->Assign(*object->GetTransform()->GetWorldMatrix());
+  //this->mat_->Multiple(*this->camera_->GetViewMatrix());
+  //this->mat_->Multiple(*this->camera_->GetProjectionMatrix());
 
-  TVec4f pos = TVec4f(0.0f, 0.0f, 0.0f, 1.0f);
-  this->mat_->Apply(&pos);
+  //TVec4f pos = TVec4f(0.0f, 0.0f, 0.0f, 1.0f);
+  //this->mat_->Apply(&pos);
+
+  //PostDrawParam param = PostDrawParam();
+  //param.object = object;
+  //param.distance = pos.z / pos.w;
+  TVec3f distance = object->GetTransform()->GetWorldPosition();
+  distance -= this->camera_->GetTransform()->GetWorldPosition();
 
   PostDrawParam param = PostDrawParam();
   param.object = object;
-  param.distance = pos.z / pos.w;
+  param.distance = TVec3f::InnerProduct(distance, this->camera_->GetDirection());
   this->post_draw_list_.push_back(param);
 }
 
