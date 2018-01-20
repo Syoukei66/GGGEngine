@@ -12,7 +12,6 @@ GameObject::GameObject()
   , layer_id_(EngineInitializeSetting::GetInstance().GetDefaultLayerId())
   , material_(nullptr)
 {
-  this->material_ = new Material(EngineAsset::Shader::WHITE);
 }
 
 GameObject::~GameObject()

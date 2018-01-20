@@ -115,17 +115,14 @@ void GameObject3D::Draw(GameObject3DRenderState* state)
   if (state->IsTargetedLayer(this->GetLayerId()))
   {
     Material* const material = this->GetMaterial();
-    if (material)
+    if (material && material->GetZTestFlag())
+    {
+      state->AddZCheckOrder(this);
+    }
+    else
     {
       // 自分自身の描画
-      if (material->GetZTestFlag())
-      {
-        state->AddZCheckOrder(this);
-      }
-      else
-      {
-        this->ManagedDraw(state);
-      }
+      this->ManagedDraw(state);
     }
   }
 
