@@ -18,7 +18,7 @@ public:
   // Factory Method
   // =================================================================
 public:
-  static TiledTextureRegion* CreateWithTexture(const Texture* texture, T_UINT8 x_num, T_UINT8 y_num);
+  static TiledTextureRegion* CreateWithMaterial(const Material* material, T_UINT8 x_num, T_UINT8 y_num);
 
   // =================================================================
   // Constructor / Destructor
@@ -31,7 +31,7 @@ public:
   // Methods for/from SuperClass/Interfaces
   // =================================================================
 public:
-  virtual void OnUpdateTextureCoord() override;
+  virtual void OnUpdateTextureCoord(const Texture* texture) override;
 
 private:
   T_UINT16 CalcCurrentIndex();

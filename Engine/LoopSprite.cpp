@@ -1,4 +1,5 @@
 #include "LoopSprite.h"
+#include "EngineAsset.h"
 
 // =================================================================
 // Factory Method
@@ -18,12 +19,20 @@ LoopSprite* LoopSprite::CreateWithTextureRegion(LoopTextureRegion* region)
   return ret;
 }
 
-LoopSprite* LoopSprite::CreateWithTexture(const Texture* texture)
+LoopSprite* LoopSprite::CreateWithMaterial(Material* material)
 {
-  LoopTextureRegion* region = LoopTextureRegion::CreateWithTexture(texture);
+  LoopTextureRegion* region = LoopTextureRegion::CreateWithMaterial(material);
   LoopSprite* ret = LoopSprite::CreateWithTextureRegion(region);
+  ret->SetMaterial(*material);
   ret->delete_region_ = true;
   return ret;
+}
+
+LoopSprite* LoopSprite::CreateWithTexture(const Texture* texture)
+{
+  Material* mat = EngineAsset::Material::SPRITE.Clone();
+  mat->SetMainTexture(texture);
+  return CreateWithMaterial(mat);
 }
 
 // =================================================================

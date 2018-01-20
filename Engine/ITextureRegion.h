@@ -2,7 +2,7 @@
 #define HAL_ENGINE_ENTITY_SHAPE_SPRITE_TEXTUREREGION_ITEXTUREREGION_H_
 
 #include "NativeType.h"
-#include "Texture.h"
+#include "Material.h"
 
 class ITextureRegion
 {
@@ -26,7 +26,7 @@ public:
   void OnTextureCoordDirty();
 
 protected:
-  virtual void OnUpdateTextureCoord() = 0;
+  virtual void OnUpdateTextureCoord(const Texture* texture) = 0;
 
   // =================================================================
   // setter/getter

@@ -13,6 +13,7 @@ class Sprite : public Shape
 public:
   static Sprite* Create();
   static Sprite* CreateWithTextureRegion(ITextureRegion* region);
+  static Sprite* CreateWithMaterial(Material* material);
   static Sprite* CreateWithTexture(const Texture* texture);
 
   // =================================================================
@@ -29,9 +30,7 @@ protected:
 public:
   virtual void Init() override;
   virtual void PreDraw(GameObject2DRenderState* state) override;
-  virtual void PreNativeDraw(GameObject2DRenderState* state) override;
   virtual void NativeDraw(GameObject2DRenderState* state) override;
-  virtual void PostDraw(GameObject2DRenderState* state) override;
 
   // =================================================================
   // Method

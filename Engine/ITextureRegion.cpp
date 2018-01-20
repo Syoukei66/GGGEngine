@@ -4,7 +4,7 @@
 // Constructor / Destructor
 // =================================================================
 ITextureRegion::ITextureRegion()
-  : texture_(NULL)
+  : texture_(nullptr)
   , texture_region_(0.0f, 0.0f, 1.0f, 1.0f)
   , u0_(0.0f)
   , v0_(0.0f)
@@ -28,8 +28,12 @@ void ITextureRegion::Init()
 
 void ITextureRegion::FitToTexture()
 {
-  this->SetWidth((T_FLOAT)this->GetTexture()->GetWidth());
-  this->SetHeight((T_FLOAT)this->GetTexture()->GetHeight());
+  if (!this->texture_)
+  {
+    return;
+  }
+  this->SetWidth((T_FLOAT)this->texture_->GetWidth());
+  this->SetHeight((T_FLOAT)this->texture_->GetHeight());
 }
 
 bool ITextureRegion::UpdateTextureCoord()
@@ -38,11 +42,13 @@ bool ITextureRegion::UpdateTextureCoord()
   {
     return false;
   }
-  if (this->texture_)
+  const Texture* texture = this->GetTexture();
+  if (!texture)
   {
-    this->OnUpdateTextureCoord();
-    this->texture_coord_dirty_ = false;
+    return true;
   }
+  this->OnUpdateTextureCoord(texture);
+  this->texture_coord_dirty_ = false;
   return true;
 }
 

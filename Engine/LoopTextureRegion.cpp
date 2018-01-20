@@ -4,11 +4,12 @@
 // =================================================================
 // Factory Method
 // =================================================================
-LoopTextureRegion* LoopTextureRegion::CreateWithTexture(const Texture* texture)
+LoopTextureRegion* LoopTextureRegion::CreateWithMaterial(const Material* material)
 {
   LoopTextureRegion* ret = new LoopTextureRegion();
   ret->Init();
-  ret->SetTexture(texture);
+  ret->SetTexture(material->GetMainTexture());
+  const Texture* texture = material->GetMainTexture();
   ret->SetLoopWidth((T_FLOAT)texture->GetWidth());
   ret->SetLoopHeight((T_FLOAT)texture->GetHeight());
   ret->FitToTexture();
@@ -29,7 +30,7 @@ LoopTextureRegion::~LoopTextureRegion()
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
-void LoopTextureRegion::OnUpdateTextureCoord()
+void LoopTextureRegion::OnUpdateTextureCoord(const Texture* texture)
 {
   const T_FLOAT region_w = this->GetWidth();
   const T_FLOAT region_h = this->GetHeight();

@@ -22,12 +22,20 @@ Sprite* Sprite::CreateWithTextureRegion(ITextureRegion* region)
   return ret;
 }
 
-Sprite* Sprite::CreateWithTexture(const Texture* texture)
+Sprite* Sprite::CreateWithMaterial(Material* material)
 {
-  TextureRegion* region = TextureRegion::CreateWithTexture(texture);
+  TextureRegion* region = TextureRegion::CreateWithTexture(material->GetMainTexture());
   Sprite* ret = Sprite::CreateWithTextureRegion(region);
+  ret->SetMaterial(*material);
   ret->delete_region_ = true;
   return ret;
+}
+
+Sprite* Sprite::CreateWithTexture(const Texture* texture)
+{
+  Material* mat = EngineAsset::Material::SPRITE.Clone();
+  mat->SetMainTexture(texture);
+  return CreateWithMaterial(mat);
 }
 
 // =================================================================
@@ -68,21 +76,11 @@ void Sprite::PreDraw(GameObject2DRenderState* state)
   {
     return;
   }
-  const Texture* texture = this->texture_region_->GetTexture();
   if (this->texture_region_->UpdateTextureCoord())
   {
     this->vbo_->OnVertexUvDirty();
   }
   this->vbo_->UpdateTexture(this, this->texture_region_);
-}
-
-void Sprite::PreNativeDraw(GameObject2DRenderState* state)
-{
-  if (!this->texture_region_)
-  {
-    return;
-  }
-  this->GetMaterial()->SetMainTexture(this->texture_region_->GetTexture());
 }
 
 void Sprite::NativeDraw(GameObject2DRenderState* state)
@@ -99,11 +97,6 @@ void Sprite::NativeDraw(GameObject2DRenderState* state)
   );
 }
 
-void Sprite::PostDraw(GameObject2DRenderState* state)
-{
-  Shape::PostDraw(state);
-}
-
 // =================================================================
 // Method
 // =================================================================
@@ -118,13 +111,8 @@ void Sprite::FitToTexture()
   {
     return;
   }
-  const Texture* texture = this->texture_region_->GetTexture();
-  if (!texture)
-  {
-    return;
-  }
-  T_FLOAT tw = (T_FLOAT)texture->GetWidth();
-  T_FLOAT th = (T_FLOAT)texture->GetHeight();
+  T_FLOAT tw = texture_region_->GetWidth();
+  T_FLOAT th = texture_region_->GetHeight();
   this->SetWidth(tw * (this->texture_region_->GetU1() - this->texture_region_->GetU0()));
   this->SetHeight(th * (this->texture_region_->GetV1() - this->texture_region_->GetV0()));
 }

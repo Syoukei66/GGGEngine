@@ -7,6 +7,7 @@
 class Sprite3D : public Shape3D
 {
 public:
+  static Sprite3D* CreateWithMaterial(Material* material);
   static Sprite3D* CreateWithTexture(const Texture* texture);
 
   // =================================================================
@@ -21,7 +22,6 @@ public:
   // =================================================================
 public:
   virtual void PreDraw(GameObject3DRenderState* state) override;
-  virtual void PreNativeDraw(GameObject3DRenderState* state) override;
   virtual void NativeDraw(GameObject3DRenderState* state) override;
 
   // =================================================================

@@ -1,4 +1,5 @@
 #include "AnimatedSprite.h"
+#include "EngineAsset.h"
 
 // =================================================================
 // Factory Method
@@ -19,12 +20,20 @@ AnimatedSprite* AnimatedSprite::CreateWithTextureRegion(TiledTextureRegion* regi
   return ret;
 }
 
-AnimatedSprite* AnimatedSprite::CreateWithTexture(const Texture* texture, T_UINT8 x_num, T_UINT8 y_num)
+AnimatedSprite* AnimatedSprite::CreateWithMaterial(Material* material, T_UINT8 x_num, T_UINT8 y_num)
 {
-  TiledTextureRegion* region = TiledTextureRegion::CreateWithTexture(texture, x_num, y_num);
+  TiledTextureRegion* region = TiledTextureRegion::CreateWithMaterial(material, x_num, y_num);
   AnimatedSprite* ret = AnimatedSprite::CreateWithTextureRegion(region);
+  ret->SetMaterial(*material);
   ret->delete_region_ = true;
   return ret;
+}
+
+AnimatedSprite* AnimatedSprite::CreateWithTexture(const Texture* texture, T_UINT8 x_num, T_UINT8 y_num)
+{
+  Material* mat = EngineAsset::Material::SPRITE.Clone();
+  mat->SetMainTexture(texture);
+  return CreateWithMaterial(mat, x_num, y_num);
 }
 
 // =================================================================
