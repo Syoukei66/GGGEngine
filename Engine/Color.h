@@ -29,6 +29,11 @@ public:
   static Color4F CreateBy4BitFormat(T_UINT8 r, T_UINT8 g, T_UINT8 b);
   static Color4F CreateBy4BitFormat(T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a);
 
+  inline static Color4F Lerp(const Color4F& a, const Color4F&b, T_FLOAT t)
+  {
+    return a * (1 - t) + b * t;
+  }
+
   // =================================================================
   // Constructor / Destructor
   // =================================================================
@@ -41,6 +46,26 @@ public:
   // Operators
   // =================================================================
 public:
+  const Color4F operator+ (const Color4F& other) const
+  {
+    return Color4F(
+      this->col_[0] + other.col_[0],
+      this->col_[1] + other.col_[1],
+      this->col_[2] + other.col_[2],
+      this->col_[3] + other.col_[3]
+    );
+  }
+
+  const Color4F operator* (T_FLOAT v) const
+  {
+    return Color4F(
+      this->col_[0] * v,
+      this->col_[1] * v,
+      this->col_[2] * v,
+      this->col_[3] * v
+    );
+  }
+
   const Color4F operator* (const Color4F& other) const
   {
     return Color4F(
