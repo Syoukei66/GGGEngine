@@ -23,6 +23,13 @@ public:
   static const Color4F PURPLE;
 
   // =================================================================
+  // Create Method
+  // =================================================================
+public:
+  static Color4F CreateBy4BitFormat(T_UINT8 r, T_UINT8 g, T_UINT8 b);
+  static Color4F CreateBy4BitFormat(T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a);
+
+  // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:

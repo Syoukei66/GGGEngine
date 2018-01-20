@@ -16,6 +16,19 @@ const Color4F Color4F::PINK = Color4F(1.0f, 0.0f, 1.0f);
 const Color4F Color4F::PURPLE = Color4F(0.5f, 0.0f, 0.5f);
 
 // =================================================================
+// Create Method
+// =================================================================
+Color4F Color4F::CreateBy4BitFormat(T_UINT8 r, T_UINT8 g, T_UINT8 b)
+{
+  return Color4F( r / 255.0f, g / 255.0f, b / 255.0f );
+}
+
+Color4F Color4F::CreateBy4BitFormat(T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a)
+{
+  return Color4F(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f);
+}
+
+// =================================================================
 // Constructor / Destructor
 // =================================================================
 Color4F::Color4F()
