@@ -14,10 +14,6 @@ public:
 
   virtual void Graphics_Clear() override;
 
-  //virtual void Graphics_SetTransformView(NativeMatrixInstance* mat) override;
-  //virtual void Graphics_SetTransformProjection(NativeMatrixInstance* mat) override;
-  //virtual void Graphics_SetTransformWorld(NativeMatrixInstance* mat) override;
-
   virtual void Graphics_SetViewport(T_FLOAT x, T_FLOAT y, T_FLOAT w, T_FLOAT h, T_FLOAT minZ, T_FLOAT maxZ) override;
 
   virtual void Graphics_PackColor4u8(T_PACKED_COLOR_UINT32* color, T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a) override;

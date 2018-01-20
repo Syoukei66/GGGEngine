@@ -91,24 +91,6 @@ void NativeProcess_Graphics::Graphics_Clear()
   );
 }
 
-//void NativeProcess_Graphics::Graphics_SetTransformView(NativeMatrixInstance* mat)
-//{
-//  const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
-//  device->SetTransform(D3DTS_VIEW, (LPD3DXMATRIX)mat);
-//}
-//
-//void NativeProcess_Graphics::Graphics_SetTransformProjection(NativeMatrixInstance* mat)
-//{
-//  const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
-//  device->SetTransform(D3DTS_PROJECTION, (LPD3DXMATRIX)mat);
-//}
-//
-//void NativeProcess_Graphics::Graphics_SetTransformWorld(NativeMatrixInstance* mat)
-//{
-//  const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
-//  device->SetTransform(D3DTS_WORLD, (LPD3DXMATRIX)mat);
-//}
-
 void NativeProcess_Graphics::Graphics_SetViewport(T_FLOAT x, T_FLOAT y, T_FLOAT w, T_FLOAT h, T_FLOAT minZ, T_FLOAT maxZ)
 {
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
