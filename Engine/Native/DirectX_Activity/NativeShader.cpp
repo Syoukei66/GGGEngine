@@ -87,12 +87,17 @@ NativeShader::~NativeShader()
 // =================================================================
 // Method for/from SuperClass/Interfaces
 // =================================================================
-void NativeShader::Begin()
+T_UINT8 NativeShader::Begin()
 {
   this->effect_->SetTechnique(NULL);
-  UINT path;
-  this->effect_->Begin(&path, 0);
-  HRESULT hr = this->effect_->BeginPass(0);
+  UINT path_count;
+  this->effect_->Begin(&path_count, 0);
+  return path_count;
+}
+
+void NativeShader::BeginPass(T_UINT8 path_id)
+{
+  HRESULT hr = this->effect_->BeginPass(path_id);
   NATIVE_ASSERT(SUCCEEDED(hr), "シェーダーパスの実行に失敗しました");
 }
 
@@ -101,9 +106,13 @@ void NativeShader::CommitChanges()
   this->effect_->CommitChanges();
 }
 
-void NativeShader::End()
+void NativeShader::EndPass()
 {
   this->effect_->EndPass();
+}
+
+void NativeShader::End()
+{
   this->effect_->End();
 }
 

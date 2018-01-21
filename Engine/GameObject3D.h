@@ -56,9 +56,9 @@ public:
 
   virtual void PreDraw(GameObject3DRenderState* state) {}
   virtual void ManagedDraw(GameObject3DRenderState* state);
-  virtual void PreNativeDraw(GameObject3DRenderState* state) {}
+  //virtual void PreNativeDraw(GameObject3DRenderState* state) {}
   virtual void NativeDraw(GameObject3DRenderState* state) {}
-  virtual void PostNativeDraw(GameObject3DRenderState* state) {}
+  //virtual void PostNativeDraw(GameObject3DRenderState* state) {}
   virtual void PostDraw(GameObject3DRenderState* state) {}
 
 protected:

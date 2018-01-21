@@ -25,8 +25,11 @@ public:
   Material* Clone();
   Material* InitialClone();
 
-  void Begin(GameObjectRenderState* state);
-  void CommitChanges(GameObjectRenderState* state);
+  T_UINT8 Begin();
+  void BeginPass(T_UINT8 path_id);
+  void SetWorldMatrix(GameObjectRenderState* state);
+  void CommitChanges();
+  void EndPass();
   void End();
 
   // =================================================================

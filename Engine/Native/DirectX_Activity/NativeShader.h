@@ -18,8 +18,10 @@ public:
   // Method for/from SuperClass/Interfaces
   // =================================================================
 public:
-  virtual void Begin() override;
+  virtual T_UINT8 Begin() override;
+  virtual void BeginPass(T_UINT8 path_id) override;
   virtual void CommitChanges() override;
+  virtual void EndPass() override;
   virtual void End() override;
 
   virtual void SetBool(const char* property_name, bool val) override;

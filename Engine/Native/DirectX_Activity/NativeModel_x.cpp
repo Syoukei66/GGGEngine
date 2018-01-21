@@ -72,9 +72,16 @@ void NativeModel_x::Draw(GameObjectRenderState* state) const
   const LPDIRECT3DDEVICE9 pDevice = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
   for (T_UINT32 i = 0; i < this->material_count_; ++i)
   {
-    this->materials_[i]->Begin(state);
-    this->materials_[i]->CommitChanges(state);
-    this->mesh_->DrawSubset(i);
-    this->materials_[i]->End();
+    Material* material = this->materials_[i];
+    const T_UINT8 pass_count = material->Begin();
+    for (T_UINT8 j = 0; j < pass_count; ++j)
+    {
+      material->BeginPass(j);
+      material->SetWorldMatrix(state);
+      material->CommitChanges();
+      this->mesh_->DrawSubset(i);
+      material->EndPass();
+    }
+    material->End();
   }
 }

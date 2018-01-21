@@ -167,11 +167,15 @@ void GameObject2D::ManagedDraw(GameObject2DRenderState* state)
   {
     return;
   }
-  material->Begin(state);
-  this->PreNativeDraw(state);
-  material->CommitChanges(state);
-  this->NativeDraw(state);
-  this->PostNativeDraw(state);
+  const T_UINT8 pass_count = material->Begin();
+  for (T_UINT8 i = 0; i < pass_count; ++i)
+  {
+    material->BeginPass(i);
+    material->SetWorldMatrix(state);
+    material->CommitChanges();
+    this->NativeDraw(state);
+    material->EndPass();
+  }
   material->End();
 }
 

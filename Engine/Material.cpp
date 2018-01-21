@@ -52,24 +52,45 @@ Material* Material::InitialClone()
   return ret;
 }
 
-void Material::Begin(GameObjectRenderState* state)
+T_UINT8 Material::Begin()
 {
   INativeShader* shader = this->GetShader();
-  shader->Begin();
+  return shader->Begin();
+}
+
+void Material::BeginPass(T_UINT8 path_id)
+{
+  INativeShader* shader = this->GetShader();
+  shader->BeginPass(path_id);
+  if (path_id > 0)
+  {
+    return;
+  }
   for (auto pair : this->properties_)
   {
     pair.second->Apply(shader, pair.first);
   }
-}
-
-void Material::CommitChanges(GameObjectRenderState* state)
-{
-  INativeShader* shader = this->GetShader();
   NativeTextureInstance* texture = this->texture_ ? this->texture_->GetContents()->GetNativeInstance() : nullptr;
   shader->SetTexture("_MainTex", texture);
   shader->SetColor("_Diffuse", this->color_);
+}
+
+void Material::SetWorldMatrix(GameObjectRenderState* state)
+{
+  INativeShader* shader = this->GetShader();
   shader->SetMatrix("_WorldViewProj", state->GetWorldViewProjToMaterial()->GetNativeInstance());
+}
+
+void Material::CommitChanges()
+{
+  INativeShader* shader = this->GetShader();
   shader->CommitChanges();
+}
+
+void Material::EndPass()
+{
+  INativeShader* shader = this->GetShader();
+  shader->EndPass();
 }
 
 void Material::End()

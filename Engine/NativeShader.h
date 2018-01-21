@@ -36,8 +36,10 @@ private:
   // Method 
   // =================================================================
 public:
-  virtual void Begin() = 0;
+  virtual T_UINT8 Begin() = 0;
+  virtual void BeginPass(T_UINT8 path_id) = 0;
   virtual void CommitChanges() = 0;
+  virtual void EndPass() = 0;
   virtual void End() = 0;
 
   virtual void SetBool(const char* property_name, bool val) = 0;
