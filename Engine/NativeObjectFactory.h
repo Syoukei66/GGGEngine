@@ -5,15 +5,24 @@
 #include "NativeMatrixStack.h"
 #include "NativeModel.h"
 #include "NativeShader.h"
+#include "NativeVertexBuffer.h"
+#include "NativeIndexBuffer.h"
 
 namespace NativeObjectFactory
 {
 
 INativeMatrix* CreateMatrix();
 INativeMatrix* CreateMatrix(NativeMatrixInstance* instance);
+
 INativeMatrixStack* CreateMatrixStack();
+
+INativeVertexBuffer* CreateVertexBuffer(T_UINT16 vertex_count, INativeProcess_Graphics::VertexType vertex_type);
+INativeIndexBuffer* CreateIndexBuffer(T_UINT32 indexes_count);
+
 INativeTexture* CreateTexture(const char* path);
+
 INativeModel* CreateModel(const char* directory_path, const char* name, const char* extension);
+
 INativeShader* CreateShader(const char* path);
 
 };

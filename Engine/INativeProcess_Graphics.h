@@ -64,10 +64,6 @@ public:
   
   virtual void Graphics_SetLightDiffuse(T_UINT16 light_id, LP_LIGHT light, const Color4F& color) = 0;
   virtual void Graphics_SetAmbient(const Color4F& color) = 0;
-  //virtual LP_VERTEX_BUFFER Graphics_CreateVertexBuffer(T_UINT32 size, VertexBufferMode mode) = 0;
-  //virtual void Graphics_DeleteVertexBuffer(LP_VERTEX_BUFFER vb) = 0;
-  //virtual void Graphics_LockVertexBuffer(LP_VERTEX_BUFFER vb, void** ppb_data) = 0;
-  //virtual void Graphics_DrawVertexBuffer(LP_VERTEX_BUFFER vb) = 0;
 };
 
 #endif//HAL_ENGINE_NATIVE_NATIVEPROCESS_GRAPHICS_H_

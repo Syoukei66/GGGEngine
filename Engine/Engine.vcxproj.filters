@@ -319,6 +319,9 @@
     <Filter Include="ソース ファイル\Resource\File\FBX">
       <UniqueIdentifier>{cea5a778-e900-4dd5-8bcc-3b2aacd94fb2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Component\Mesh">
+      <UniqueIdentifier>{1722a2d1-b78c-4c7d-b4c0-fd8f83a20eab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shape.cpp">
@@ -740,6 +743,18 @@
     </ClCompile>
     <ClCompile Include="FbxModel.cpp">
       <Filter>ソース ファイル\Resource\File\FBX</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshResource.cpp">
+      <Filter>ソース ファイル\Component\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeVertexBuffer.cpp">
+      <Filter>ソース ファイル\Native\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeIndexBuffer.cpp">
+      <Filter>ソース ファイル\Native\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>ソース ファイル\Component\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1246,6 +1261,18 @@
     </ClInclude>
     <ClInclude Include="FbxData.h">
       <Filter>ヘッダー ファイル\Resource\File\FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>ヘッダー ファイル\Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeVertexBuffer.h">
+      <Filter>ヘッダー ファイル\Native\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeIndexBuffer.h">
+      <Filter>ヘッダー ファイル\Native\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshResource.h">
+      <Filter>ヘッダー ファイル\Component\Mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -78,9 +78,6 @@
     <ClCompile Include="NativeMatrixStack.cpp">
       <Filter>ソース ファイル\Native\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="NativeObjectFactory.cpp">
-      <Filter>ソース ファイル\Native\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="NativeShader.cpp">
       <Filter>ソース ファイル\Native\Objects</Filter>
     </ClCompile>
@@ -88,6 +85,15 @@
       <Filter>ソース ファイル\Native\Objects</Filter>
     </ClCompile>
     <ClCompile Include="NativeModel_x.cpp">
+      <Filter>ソース ファイル\Native\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeObjectFactory.cpp">
+      <Filter>ソース ファイル\Native</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeVertexBuffer.cpp">
+      <Filter>ソース ファイル\Native\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeIndexBuffer.cpp">
       <Filter>ソース ファイル\Native\Objects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -138,6 +144,15 @@
       <Filter>ヘッダー ファイル\Native\Objects</Filter>
     </ClInclude>
     <ClInclude Include="NativeModel_x.h">
+      <Filter>ヘッダー ファイル\Native\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeVertexBuffer.h">
+      <Filter>ヘッダー ファイル\Native\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeConstants.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeIndexBuffer.h">
       <Filter>ヘッダー ファイル\Native\Objects</Filter>
     </ClInclude>
   </ItemGroup>

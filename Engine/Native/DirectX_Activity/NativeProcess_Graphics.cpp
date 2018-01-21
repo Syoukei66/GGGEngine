@@ -6,78 +6,11 @@
 #include <ITextureRegion.h>
 #include <Director.h>
 #include "DirectXDirector.h"
-
-static const D3DPRIMITIVETYPE PRIMITIVE_TYPES[INativeProcess_Graphics::PrimitiveType::PRIMITIVE_DATANUM] =
-{
-  D3DPT_POINTLIST,
-  D3DPT_LINELIST,
-  D3DPT_LINESTRIP,
-  D3DPT_TRIANGLELIST,
-  D3DPT_TRIANGLESTRIP,
-  D3DPT_TRIANGLEFAN,
-};
-
-static const D3DBLEND BLENDMODE_TYPES[BlendFunction::BL_DATANUM] =
-{
-  D3DBLEND_ZERO,
-  D3DBLEND_ONE,
-  D3DBLEND_SRCCOLOR,
-  D3DBLEND_INVSRCCOLOR,
-  D3DBLEND_SRCALPHA,
-  D3DBLEND_INVSRCALPHA,
-  D3DBLEND_DESTCOLOR,
-  D3DBLEND_INVDESTCOLOR,
-  D3DBLEND_DESTALPHA,
-  D3DBLEND_INVDESTALPHA,
-};
-
-static const DWORD FVF_TYPES[INativeProcess_Graphics::VERTEX_TYPE_DATANUM] =
-{
-  D3DFVF_XYZW | D3DFVF_DIFFUSE,
-  D3DFVF_XYZW | D3DFVF_DIFFUSE | D3DFVF_TEX1,
-  D3DFVF_XYZW | D3DFVF_DIFFUSE | D3DFVF_TEX1 | D3DFVF_NORMAL,
-};
-
-static const T_UINT32 VERTEX_SIZE[INativeProcess_Graphics::VERTEX_TYPE_DATANUM] =
-{
-  sizeof(Vertex),
-  sizeof(SpriteVertex),
-  sizeof(Vertex3D),
-};
-
-static int PRIMITIVE_SURF_NUM(INativeProcess_Graphics::PrimitiveType type, int num)
-{
-  if (type == INativeProcess_Graphics::PRIMITIVE_POINTS)
-  {
-    return num;
-  }
-  if (type == INativeProcess_Graphics::PRIMITIVE_LINES)
-  {
-    return num;
-  }
-  if (type == INativeProcess_Graphics::PRIMITIVE_LINESTRIP)
-  {
-    return num;
-  }
-  if (type == INativeProcess_Graphics::PRIMITIVE_TRIANGLES)
-  {
-    return num / 3;
-  }
-  if (type == INativeProcess_Graphics::PRIMITIVE_TRIANGLESTRIP)
-  {
-    return num - 2;
-  }
-  if (type == INativeProcess_Graphics::PRIMITIVE_TRIANGLEFAN)
-  {
-    return num - 2;
-  }
-  return num;
-}
+#include "NativeConstants.h"
 
 void NativeProcess_Graphics::Graphics_Cheat(T_UINT16 cheat_id)
 {
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
-
 }
 
 void NativeProcess_Graphics::Graphics_Clear()
@@ -115,8 +48,8 @@ void NativeProcess_Graphics::Graphics_DrawPrimitive(GameObjectRenderState* state
 
   device->SetFVF(D3DFVF_XYZW | D3DFVF_DIFFUSE);
   HRESULT hr = device->DrawPrimitiveUP(
-    PRIMITIVE_TYPES[type],
-    PRIMITIVE_SURF_NUM(type, vertexes_count),
+    NativeConstants::PRIMITIVE_TYPES[type],
+    NativeConstants::PRIMITIVE_SURF_NUM(type, vertexes_count),
     vertexes,
     sizeof(Vertex)
   );
@@ -128,10 +61,10 @@ void NativeProcess_Graphics::Graphics_DrawIndexedPrimitive(GameObjectRenderState
 
   device->SetFVF(D3DFVF_XYZW | D3DFVF_DIFFUSE);
   HRESULT hr = device->DrawIndexedPrimitiveUP(
-    PRIMITIVE_TYPES[type],
+    NativeConstants::PRIMITIVE_TYPES[type],
     0,
     vertexes_count,
-    PRIMITIVE_SURF_NUM(type, vertexes_count),
+    NativeConstants::PRIMITIVE_SURF_NUM(type, vertexes_count),
     indexes,
     D3DFMT_INDEX16,
     vertexes,
@@ -145,8 +78,8 @@ void NativeProcess_Graphics::Graphics_DrawSprite(GameObjectRenderState* state, P
 
   device->SetFVF(D3DFVF_XYZW | D3DFVF_DIFFUSE | D3DFVF_TEX1);
   HRESULT hr = device->DrawPrimitiveUP(
-    PRIMITIVE_TYPES[type],
-    PRIMITIVE_SURF_NUM(type, vertexes_count),
+    NativeConstants::PRIMITIVE_TYPES[type],
+    NativeConstants::PRIMITIVE_SURF_NUM(type, vertexes_count),
     vertexes,
     sizeof(SpriteVertex)
   );
@@ -160,10 +93,10 @@ void NativeProcess_Graphics::Graphics_DrawIndexedSprite(GameObjectRenderState* s
   //device->SetRenderState(D3DRS_LIGHTING, true);
   device->SetFVF(D3DFVF_XYZW | D3DFVF_DIFFUSE | D3DFVF_TEX1);
   HRESULT hr = device->DrawIndexedPrimitiveUP(
-    PRIMITIVE_TYPES[type],
+    NativeConstants::PRIMITIVE_TYPES[type],
     0,
     vertexes_count,
-    PRIMITIVE_SURF_NUM(type, vertexes_count),
+    NativeConstants::PRIMITIVE_SURF_NUM(type, vertexes_count),
     indexes,
     D3DFMT_INDEX16,
     vertexes,
@@ -174,12 +107,12 @@ void NativeProcess_Graphics::Graphics_DrawIndexedSprite(GameObjectRenderState* s
 void NativeProcess_Graphics::Graphics_DrawVertexes(GameObjectRenderState* state, PrimitiveType primitive_type, VertexType vertex_type, const void* vertexes, T_UINT16 vertexes_count)
 {
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)state->GetRenderObject();
-  device->SetFVF(FVF_TYPES[vertex_type]);
+  device->SetFVF(NativeConstants::FVF_TYPES[vertex_type]);
   HRESULT hr = device->DrawPrimitiveUP(
-    PRIMITIVE_TYPES[primitive_type],
-    PRIMITIVE_SURF_NUM(primitive_type, vertexes_count),
+    NativeConstants::PRIMITIVE_TYPES[primitive_type],
+    NativeConstants::PRIMITIVE_SURF_NUM(primitive_type, vertexes_count),
     vertexes,
-    VERTEX_SIZE[vertex_type]
+    NativeConstants::VERTEX_SIZE[vertex_type]
   );
 }
 
@@ -187,16 +120,16 @@ void NativeProcess_Graphics::Graphics_DrawIndexedVertexes(GameObjectRenderState*
 {
   static const D3DFORMAT format = sizeof(T_UINT16) == 2 ? D3DFMT_INDEX16 : D3DFMT_INDEX32;
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)state->GetRenderObject();
-  device->SetFVF(FVF_TYPES[vertex_type]);
+  device->SetFVF(NativeConstants::FVF_TYPES[vertex_type]);
   HRESULT hr = device->DrawIndexedPrimitiveUP(
-    PRIMITIVE_TYPES[primitive_type],
+    NativeConstants::PRIMITIVE_TYPES[primitive_type],
     0,
     vertexes_count,
-    PRIMITIVE_SURF_NUM(primitive_type, vertexes_count),
+    NativeConstants::PRIMITIVE_SURF_NUM(primitive_type, vertexes_count),
     indexes,
     format,
     vertexes,    
-    VERTEX_SIZE[vertex_type]
+    NativeConstants::VERTEX_SIZE[vertex_type]
   );
 }
 

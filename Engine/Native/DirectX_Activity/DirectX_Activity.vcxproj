@@ -203,6 +203,7 @@
     <ClCompile Include="DirectXInputDevice_XInput.cpp" />
     <ClCompile Include="DirectXNativeImplements.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="NativeIndexBuffer.cpp" />
     <ClCompile Include="NativeMatrix.cpp" />
     <ClCompile Include="NativeMatrixStack.cpp" />
     <ClCompile Include="NativeModel_x.cpp" />
@@ -212,6 +213,7 @@
     <ClCompile Include="NativeProcess_Time.cpp" />
     <ClCompile Include="NativeShader.cpp" />
     <ClCompile Include="NativeTexture.cpp" />
+    <ClCompile Include="NativeVertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectXActivity.h" />
@@ -222,6 +224,8 @@
     <ClInclude Include="DirectXInputDevice_Mouse.h" />
     <ClInclude Include="DirectXInputDevice_XInput.h" />
     <ClInclude Include="DirectXNativeImplements.h" />
+    <ClInclude Include="NativeConstants.h" />
+    <ClInclude Include="NativeIndexBuffer.h" />
     <ClInclude Include="NativeMatrix.h" />
     <ClInclude Include="NativeMatrixStack.h" />
     <ClInclude Include="NativeModel_x.h" />
@@ -230,6 +234,7 @@
     <ClInclude Include="NativeProcess_Time.h" />
     <ClInclude Include="NativeShader.h" />
     <ClInclude Include="NativeTexture.h" />
+    <ClInclude Include="NativeVertexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Project\Project.vcxproj">
