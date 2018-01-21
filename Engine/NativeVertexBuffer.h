@@ -39,7 +39,10 @@ private:
 public:
   virtual void Lock(void** dest) = 0;
   virtual void Unlock() = 0;
-  virtual void Draw(INativeProcess_Graphics::PrimitiveType primitive_type) const = 0;
-  virtual void DrawIndexed(const INativeIndexBuffer* index_buffer, INativeProcess_Graphics::PrimitiveType primitive_type) const = 0;
+
+  virtual void SetStreamSource() const = 0;
+
+  virtual void DrawPrimitive(INativeProcess_Graphics::PrimitiveType primitive_type) const = 0;
+  virtual void DrawIndexedPrimitive(const INativeIndexBuffer* index_buffer, INativeProcess_Graphics::PrimitiveType primitive_type) const = 0;
 
 };

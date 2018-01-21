@@ -12,6 +12,7 @@ class NativeVertexBuffer : public INativeVertexBuffer
   // =================================================================
 public:
   NativeVertexBuffer(T_UINT16 vertex_count, Vertex::VertexType vertex_type);
+  ~NativeVertexBuffer();
 
   // =================================================================
   // Method
@@ -19,8 +20,10 @@ public:
 public:
   virtual void Lock(void** dest) override;
   virtual void Unlock() override;
-  virtual void Draw(INativeProcess_Graphics::PrimitiveType primitive_type) const override;
-  virtual void DrawIndexed(const INativeIndexBuffer* index_buffer, INativeProcess_Graphics::PrimitiveType primitive_type) const override;
+
+  virtual void SetStreamSource() const override;
+  virtual void DrawPrimitive(INativeProcess_Graphics::PrimitiveType primitive_type) const override;
+  virtual void DrawIndexedPrimitive(const INativeIndexBuffer* index_buffer, INativeProcess_Graphics::PrimitiveType primitive_type) const override;
 
   // =================================================================
   // Data Member
