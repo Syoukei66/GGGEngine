@@ -205,7 +205,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NativeMatrix.cpp" />
     <ClCompile Include="NativeMatrixStack.cpp" />
-    <ClCompile Include="NativeModel_fbx.cpp" />
     <ClCompile Include="NativeModel_x.cpp" />
     <ClCompile Include="NativeObjectFactory.cpp" />
     <ClCompile Include="NativeProcess_IO.cpp" />
@@ -225,7 +224,6 @@
     <ClInclude Include="DirectXNativeImplements.h" />
     <ClInclude Include="NativeMatrix.h" />
     <ClInclude Include="NativeMatrixStack.h" />
-    <ClInclude Include="NativeModel_fbx.h" />
     <ClInclude Include="NativeModel_x.h" />
     <ClInclude Include="NativeProcess_IO.h" />
     <ClInclude Include="NativeProcess_Graphics.h" />

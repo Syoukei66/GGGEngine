@@ -1,6 +1,7 @@
 #ifndef HAL_ENGINE_ACTIVITY_BASEACTIVITY_H_
 #define HAL_ENGINE_ACTIVITY_BASEACTIVITY_H_
 
+#include <fbxsdk.h>
 #include "Engine.h"
 #include "EngineInput.h"
 
@@ -44,11 +45,18 @@ protected:
 public:
   virtual LP_DEVICE GetDevice() const = 0;
 
+  inline FbxManager* GetFbxManager() const
+  {
+    return this->fbx_manager_;
+  }
+
   // =================================================================
   // Data Member
   // =================================================================
 private:
   Engine* engine_;
+
+  FbxManager* fbx_manager_;
 
 };
 

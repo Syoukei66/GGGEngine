@@ -84,10 +84,10 @@
     <ClCompile Include="NativeShader.cpp">
       <Filter>ソース ファイル\Native\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="NativeModel.cpp">
+    <ClCompile Include="NativeTexture.cpp">
       <Filter>ソース ファイル\Native\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="NativeTexture.cpp">
+    <ClCompile Include="NativeModel_x.cpp">
       <Filter>ソース ファイル\Native\Objects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -134,10 +134,10 @@
     <ClInclude Include="NativeTexture.h">
       <Filter>ヘッダー ファイル\Native\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="NativeModel.h">
+    <ClInclude Include="NativeShader.h">
       <Filter>ヘッダー ファイル\Native\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="NativeShader.h">
+    <ClInclude Include="NativeModel_x.h">
       <Filter>ヘッダー ファイル\Native\Objects</Filter>
     </ClInclude>
   </ItemGroup>

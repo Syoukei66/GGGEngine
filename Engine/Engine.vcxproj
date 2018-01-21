@@ -198,12 +198,15 @@
     <ClCompile Include="EngineAttachmentLoader.cpp" />
     <ClCompile Include="EngineInitializeSetting.cpp" />
     <ClCompile Include="EngineInputEvent.cpp" />
+    <ClCompile Include="FbxData.cpp" />
+    <ClCompile Include="FbxModel.cpp" />
     <ClCompile Include="GameComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObject2D.cpp" />
     <ClCompile Include="GameObject2DRenderState.cpp" />
     <ClCompile Include="GameObject3D.cpp" />
     <ClCompile Include="GameObject3DRenderState.cpp" />
+    <ClCompile Include="FbxResource.cpp" />
     <ClCompile Include="NativeShader.cpp" />
     <ClCompile Include="ResourceLoader.cpp" />
     <ClCompile Include="ModelData.cpp" />
@@ -315,6 +318,9 @@
     <ClInclude Include="CSVData.h" />
     <ClInclude Include="CSVResource.h" />
     <ClInclude Include="EngineResourcePool.h" />
+    <ClInclude Include="FbxData.h" />
+    <ClInclude Include="FbxResource.h" />
+    <ClInclude Include="FbxModel.h" />
     <ClInclude Include="NativeShader.h" />
     <ClInclude Include="ResourceLoader.h" />
     <ClInclude Include="FileResource.h" />

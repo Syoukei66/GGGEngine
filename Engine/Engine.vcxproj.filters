@@ -313,6 +313,12 @@
     <Filter Include="ソース ファイル\Resource\File\Json">
       <UniqueIdentifier>{cd5ff153-464c-40d2-8b8c-874db93e472a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Resource\File\FBX">
+      <UniqueIdentifier>{814bdfde-d3b1-4f0a-b904-ec0a773089d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Resource\File\FBX">
+      <UniqueIdentifier>{cea5a778-e900-4dd5-8bcc-3b2aacd94fb2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shape.cpp">
@@ -725,6 +731,15 @@
     </ClCompile>
     <ClCompile Include="EngineAsset.cpp">
       <Filter>ソース ファイル\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="FbxResource.cpp">
+      <Filter>ソース ファイル\Resource\File\FBX</Filter>
+    </ClCompile>
+    <ClCompile Include="FbxData.cpp">
+      <Filter>ソース ファイル\Resource\File\FBX</Filter>
+    </ClCompile>
+    <ClCompile Include="FbxModel.cpp">
+      <Filter>ソース ファイル\Resource\File\FBX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1223,6 +1238,15 @@
     <ClInclude Include="ShaderProperties.h">
       <Filter>ヘッダー ファイル\Component\Material</Filter>
     </ClInclude>
+    <ClInclude Include="FbxModel.h">
+      <Filter>ヘッダー ファイル\Resource\File\FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="FbxResource.h">
+      <Filter>ヘッダー ファイル\Resource\File\FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="FbxData.h">
+      <Filter>ヘッダー ファイル\Resource\File\FBX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Model.hlsl">
@@ -1237,13 +1261,7 @@
     <FxCompile Include="Particle.hlsl">
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Default.hlsli">
-      <Filter>リソース ファイル\Shader</Filter>
-    </None>
-    <None Include="White.hlsli">
-      <Filter>リソース ファイル\Shader</Filter>
-    </None>
+    <FxCompile Include="Default.hlsli" />
+    <FxCompile Include="White.hlsli" />
   </ItemGroup>
 </Project>

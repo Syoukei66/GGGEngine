@@ -130,6 +130,10 @@
       #include "CSVTokenizer.h"
 //----Json
       #include "JsonParser.h"
+//----Fbx
+      #include "FbxData.h"
+      #include "FbxResource.h"
+      #include "FbxModel.h"
 //----Particle
       #include "ParticleData.h"
       #include "ParticleDataLoader.h"

@@ -40,6 +40,8 @@ bool BaseActivity::Run(IEngineSetting* setting)
   NativeMethod::Time().FPS_Init();
 #endif
 
+  this->fbx_manager_ = FbxManager::Create();
+
   const EngineOption* option = this->engine_->GetEngineOption();
   this->ApplyEngineOption(option);
   InputManager::GetInstance()->Init(option->input_setting.Build());
@@ -70,6 +72,8 @@ bool BaseActivity::Run(IEngineSetting* setting)
   result = this->Uninit();
   NATIVE_ASSERT(result, "アクティビティの終了処理に失敗しました。");
   InputManager::GetInstance()->Uninit();
+
+  this->fbx_manager_->Destroy();
 
   result = this->engine_->End();
   NATIVE_ASSERT(result, "エンジンの終了処理に失敗しました。");
