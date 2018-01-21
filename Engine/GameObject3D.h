@@ -32,13 +32,13 @@ public:
 public:
   //子GameObjectを追加します。
   //追加された子GameObjectをdeleteする機能はありません
-  void AddChild(GameObject3D* child);
+  virtual void AddChild(GameObject3D* child);
   //指定した子GameObjectを子リストから削除します。
-  void RemoveChild(GameObject3D* child);
+  virtual void RemoveChild(GameObject3D* child);
   //自身を親GameObjectの子リストから削除します。
-  void RemoveSelf();
+  virtual void RemoveSelf();
   //全ての子GameObjectを子リストから削除します。
-  void ClearChildren();
+  virtual void ClearChildren();
 
   //描画メソッドです。自身と自身の子の描画処理を行います。
   //これらのメソッドはエンジンが描画サイクルの中で呼び出す為、

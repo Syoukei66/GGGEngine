@@ -1,28 +1,36 @@
 #pragma once
 
-#include "ModelNode.h"
-#include "FbxData.h"
+#include <string>
+#include <map>
+#include <fbxsdk.h>
+#include "GameObject3D.h"
 
-class Model : public ModelNode
+class ModelNode : public GameObject3D
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  Model(const FbxData& data);
-  ~Model();
+  ModelNode(const FbxNode& node);
 
   // =================================================================
   // Method
   // =================================================================
 public:
-  void ManagedDraw(GameObject3DRenderState* state) override;
-  void NativeDraw(GameObject3DRenderState* state) override;
+  ModelNode* FindFromChildren(const std::string& name);
+  ModelNode* FindFromTree(const std::string& name);
+  void AddChild(ModelNode* node);
+  void RemoveChild(ModelNode* node);
+  void RemoveSelf() override;
+  void ClearChildren() override;
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
-  const FbxData& data_;
+  const FbxNode& node_;
+
+  ModelNode* parent_;
+  std::map<std::string, ModelNode*> children_;
 
 };

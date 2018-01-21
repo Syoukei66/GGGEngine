@@ -3,8 +3,9 @@
 #include "GameObject3DRenderState.h"
 #include "EngineAsset.h"
 
-Model::Model(const ModelData& data)
-  : data_(data)
+Model::Model(const FbxData& data)
+  : ModelNode(data.GetRootNode())
+  , data_(data)
 {
 }
 
@@ -22,6 +23,6 @@ void Model::ManagedDraw(GameObject3DRenderState* state)
 
 void Model::NativeDraw(GameObject3DRenderState* state)
 {
-  this->data_.GetContents()->Draw(state);
+  //this->data_.GetContents()->Draw(state);
 }
 

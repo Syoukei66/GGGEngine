@@ -57,6 +57,7 @@
       #include "Transform3DRotator.h"
 //------Model
         #include "Model.h"
+        #include "ModelNode.h"
 //------Primitive
         #include "AnimatedSprite3D.h"
         #include "Cube3D.h"
@@ -71,7 +72,7 @@
       #include "Material.h"
 //----Mesh
       #include "Mesh.h"
-      #include "MeshResource.h"
+      #include "MeshMaterial.h"
 //----VBO
       #include "IVertexBufferObject.h"
 //------2D

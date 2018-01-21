@@ -753,6 +753,9 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>ソース ファイル\Component\Mesh</Filter>
     </ClCompile>
+    <ClCompile Include="ModelNode.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -1270,6 +1273,9 @@
     </ClInclude>
     <ClInclude Include="MeshMaterial.h">
       <Filter>ヘッダー ファイル\Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelNode.h">
+      <Filter>ヘッダー ファイル\Component\GameObject\3D\Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
