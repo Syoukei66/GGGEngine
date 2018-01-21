@@ -744,9 +744,6 @@
     <ClCompile Include="FbxModel.cpp">
       <Filter>ソース ファイル\Resource\File\FBX</Filter>
     </ClCompile>
-    <ClCompile Include="MeshResource.cpp">
-      <Filter>ソース ファイル\Component\Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="NativeVertexBuffer.cpp">
       <Filter>ソース ファイル\Native\Objects</Filter>
     </ClCompile>
@@ -1271,7 +1268,7 @@
     <ClInclude Include="NativeIndexBuffer.h">
       <Filter>ヘッダー ファイル\Native\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="MeshResource.h">
+    <ClInclude Include="MeshMaterial.h">
       <Filter>ヘッダー ファイル\Component\Mesh</Filter>
     </ClInclude>
   </ItemGroup>

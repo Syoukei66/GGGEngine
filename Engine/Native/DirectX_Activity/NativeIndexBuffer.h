@@ -12,12 +12,20 @@ class NativeIndexBuffer : public INativeIndexBuffer
   // =================================================================
 public:
   NativeIndexBuffer(T_UINT16 vertex_count);
+  ~NativeIndexBuffer();
 
   // =================================================================
   // Method
   // =================================================================
 public:
+  virtual void Lock(void** dest) override;
+  virtual void Unlock() override;
   virtual void SetIndices() const override;
+
+  // =================================================================
+  // setter/getter
+  // =================================================================
+public:
   virtual T_UINT16 GetVertexesCount() const override;
 
   // =================================================================

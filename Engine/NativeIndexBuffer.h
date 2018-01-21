@@ -33,6 +33,8 @@ private:
   // Method
   // =================================================================
 public:
+  virtual void Lock(void** dest) = 0;
+  virtual void Unlock() = 0;
   virtual void SetIndices() const = 0;
 
   // =================================================================
