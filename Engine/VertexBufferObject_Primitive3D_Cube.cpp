@@ -107,7 +107,7 @@ static const T_UINT16 CUBE_NORMAL_INDEXES[CUBE_VERTEX_INDEXES_COUNT] =
 
 enum { CUBE_VERTEXES_COUNT = 4 * CUBE_SURFS_COUNT };
 static bool CUBE_VERTEXES_INITIALIZED = false;
-static Vertex3D CUBE_VERTEXES[CUBE_VERTEXES_COUNT];
+static Vertex::VNCT CUBE_VERTEXES[CUBE_VERTEXES_COUNT];
 static T_UINT16 CUBE_INDEXES[CUBE_VERTEX_INDEXES_COUNT];
 
 VertexBufferObject_Primitive3D_Cube::VertexBufferObject_Primitive3D_Cube()
@@ -181,7 +181,7 @@ INativeProcess_Graphics::PrimitiveType VertexBufferObject_Primitive3D_Cube::GetP
   return INativeProcess_Graphics::PRIMITIVE_TRIANGLES;
 }
 
-INativeProcess_Graphics::VertexType VertexBufferObject_Primitive3D_Cube::GetVertexType()
+Vertex::VertexType VertexBufferObject_Primitive3D_Cube::GetVertexType()
 {
-  return INativeProcess_Graphics::VERTEX_TYPE_COORD_COLOR_UV_NORMAL;
+  return Vertex::VERTEX_TYPE_VNCT;
 }

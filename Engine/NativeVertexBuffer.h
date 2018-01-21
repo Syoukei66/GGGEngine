@@ -15,7 +15,7 @@ class INativeVertexBuffer : public NativeObject<NativeVertexBufferInstance>
   // Static Method
   // =================================================================
 public:
-  static INativeVertexBuffer* Create(T_UINT16 vertex_count, INativeProcess_Graphics::VertexType vertex_type);
+  static INativeVertexBuffer* Create(T_UINT16 vertex_count, Vertex::VertexType vertex_type);
 
   // =================================================================
   // Constructor / Destructor
@@ -39,7 +39,7 @@ private:
 public:
   virtual void Lock(void** dest) = 0;
   virtual void Unlock() = 0;
-  virtual void Draw(INativeProcess_Graphics::PrimitiveType primitive_type) = 0;
-  virtual void DrawIndexed(const INativeIndexBuffer* index_buffer, INativeProcess_Graphics::PrimitiveType primitive_type) = 0;
+  virtual void Draw(INativeProcess_Graphics::PrimitiveType primitive_type) const = 0;
+  virtual void DrawIndexed(const INativeIndexBuffer* index_buffer, INativeProcess_Graphics::PrimitiveType primitive_type) const = 0;
 
 };

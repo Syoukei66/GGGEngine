@@ -18,14 +18,14 @@ public:
 
   virtual void Graphics_PackColor4u8(T_PACKED_COLOR_UINT32* color, T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a) override;
 
-  virtual void Graphics_DrawPrimitive(GameObjectRenderState* state, PrimitiveType type, const Vertex* vertexes, T_UINT16 vertexes_count) override;
-  virtual void Graphics_DrawIndexedPrimitive(GameObjectRenderState* state, PrimitiveType type, const Vertex* vertexes, T_UINT16 vertexes_count, const T_UINT16* indexes) override;
+  virtual void Graphics_DrawPrimitive(GameObjectRenderState* state, PrimitiveType type, const Vertex::VC* vertexes, T_UINT16 vertexes_count) override;
+  virtual void Graphics_DrawIndexedPrimitive(GameObjectRenderState* state, PrimitiveType type, const Vertex::VC* vertexes, T_UINT16 vertexes_count, const T_UINT16* indexes) override;
 
-  virtual void Graphics_DrawSprite(GameObjectRenderState* state, PrimitiveType type, const SpriteVertex* vertexes, T_UINT16 vertexes_count) override;
-  virtual void Graphics_DrawIndexedSprite(GameObjectRenderState* state, PrimitiveType type, const SpriteVertex* vertexes, T_UINT16 vertexes_count, const T_UINT16* indexes) override;
+  virtual void Graphics_DrawSprite(GameObjectRenderState* state, PrimitiveType type, const Vertex::VCT* vertexes, T_UINT16 vertexes_count) override;
+  virtual void Graphics_DrawIndexedSprite(GameObjectRenderState* state, PrimitiveType type, const Vertex::VCT* vertexes, T_UINT16 vertexes_count, const T_UINT16* indexes) override;
 
-  virtual void Graphics_DrawVertexes(GameObjectRenderState* state, PrimitiveType primitive_type, VertexType vertex_type, const void* vertexes, T_UINT16 vertexes_count) override;
-  virtual void Graphics_DrawIndexedVertexes(GameObjectRenderState* state, PrimitiveType primitive_type, VertexType vertex_type, const void* vertexes, T_UINT16 vertexes_count, const T_UINT16* indexes) override;
+  virtual void Graphics_DrawVertexes(GameObjectRenderState* state, PrimitiveType primitive_type, Vertex::VertexType vertex_type, const void* vertexes, T_UINT16 vertexes_count) override;
+  virtual void Graphics_DrawIndexedVertexes(GameObjectRenderState* state, PrimitiveType primitive_type, Vertex::VertexType vertex_type, const void* vertexes, T_UINT16 vertexes_count, const T_UINT16* indexes) override;
 
   virtual T_UINT16 Graphics_CreateLight(LP_LIGHT* light) override;
   virtual void Graphics_DeleteLight(T_UINT16 light_id, LP_LIGHT light) override;

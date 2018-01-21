@@ -42,7 +42,7 @@ void NativeProcess_Graphics::Graphics_PackColor4u8(T_PACKED_COLOR_UINT32* color,
   (*color) = (T_PACKED_COLOR_UINT32)D3DCOLOR_RGBA(r, g, b, a);
 }
 
-void NativeProcess_Graphics::Graphics_DrawPrimitive(GameObjectRenderState* state, PrimitiveType type, const Vertex* vertexes, T_UINT16 vertexes_count)
+void NativeProcess_Graphics::Graphics_DrawPrimitive(GameObjectRenderState* state, PrimitiveType type, const Vertex::VC* vertexes, T_UINT16 vertexes_count)
 {
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)state->GetRenderObject();
 
@@ -51,11 +51,11 @@ void NativeProcess_Graphics::Graphics_DrawPrimitive(GameObjectRenderState* state
     NativeConstants::PRIMITIVE_TYPES[type],
     NativeConstants::PRIMITIVE_SURF_NUM(type, vertexes_count),
     vertexes,
-    sizeof(Vertex)
+    sizeof(Vertex::VC)
   );
 }
 
-void NativeProcess_Graphics::Graphics_DrawIndexedPrimitive(GameObjectRenderState * state, PrimitiveType type, const Vertex * vertexes, T_UINT16 vertexes_count, const T_UINT16 * indexes)
+void NativeProcess_Graphics::Graphics_DrawIndexedPrimitive(GameObjectRenderState * state, PrimitiveType type, const Vertex::VC * vertexes, T_UINT16 vertexes_count, const T_UINT16 * indexes)
 {
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)state->GetRenderObject();
 
@@ -68,11 +68,11 @@ void NativeProcess_Graphics::Graphics_DrawIndexedPrimitive(GameObjectRenderState
     indexes,
     D3DFMT_INDEX16,
     vertexes,
-    sizeof(Vertex)
+    sizeof(Vertex::VC)
   );
 }
 
-void NativeProcess_Graphics::Graphics_DrawSprite(GameObjectRenderState* state, PrimitiveType type, const SpriteVertex* vertexes, T_UINT16 vertexes_count)
+void NativeProcess_Graphics::Graphics_DrawSprite(GameObjectRenderState* state, PrimitiveType type, const Vertex::VCT* vertexes, T_UINT16 vertexes_count)
 {
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)state->GetRenderObject();
 
@@ -81,11 +81,11 @@ void NativeProcess_Graphics::Graphics_DrawSprite(GameObjectRenderState* state, P
     NativeConstants::PRIMITIVE_TYPES[type],
     NativeConstants::PRIMITIVE_SURF_NUM(type, vertexes_count),
     vertexes,
-    sizeof(SpriteVertex)
+    sizeof(Vertex::VCT)
   );
 }
 
-void NativeProcess_Graphics::Graphics_DrawIndexedSprite(GameObjectRenderState* state, PrimitiveType type, const SpriteVertex * vertexes, T_UINT16 vertexes_count, const T_UINT16* indexes)
+void NativeProcess_Graphics::Graphics_DrawIndexedSprite(GameObjectRenderState* state, PrimitiveType type, const Vertex::VCT* vertexes, T_UINT16 vertexes_count, const T_UINT16* indexes)
 {
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)state->GetRenderObject();
 
@@ -100,11 +100,11 @@ void NativeProcess_Graphics::Graphics_DrawIndexedSprite(GameObjectRenderState* s
     indexes,
     D3DFMT_INDEX16,
     vertexes,
-    sizeof(SpriteVertex)
+    sizeof(Vertex::VCT)
   );
 }
 
-void NativeProcess_Graphics::Graphics_DrawVertexes(GameObjectRenderState* state, PrimitiveType primitive_type, VertexType vertex_type, const void* vertexes, T_UINT16 vertexes_count)
+void NativeProcess_Graphics::Graphics_DrawVertexes(GameObjectRenderState* state, PrimitiveType primitive_type, Vertex::VertexType vertex_type, const void* vertexes, T_UINT16 vertexes_count)
 {
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)state->GetRenderObject();
   device->SetFVF(NativeConstants::FVF_TYPES[vertex_type]);
@@ -112,11 +112,11 @@ void NativeProcess_Graphics::Graphics_DrawVertexes(GameObjectRenderState* state,
     NativeConstants::PRIMITIVE_TYPES[primitive_type],
     NativeConstants::PRIMITIVE_SURF_NUM(primitive_type, vertexes_count),
     vertexes,
-    NativeConstants::VERTEX_SIZE[vertex_type]
+    Vertex::VERTEX_SIZE[vertex_type]
   );
 }
 
-void NativeProcess_Graphics::Graphics_DrawIndexedVertexes(GameObjectRenderState* state, PrimitiveType primitive_type, VertexType vertex_type, const void* vertexes, T_UINT16 vertexes_count, const T_UINT16* indexes)
+void NativeProcess_Graphics::Graphics_DrawIndexedVertexes(GameObjectRenderState* state, PrimitiveType primitive_type, Vertex::VertexType vertex_type, const void* vertexes, T_UINT16 vertexes_count, const T_UINT16* indexes)
 {
   static const D3DFORMAT format = sizeof(T_UINT16) == 2 ? D3DFMT_INDEX16 : D3DFMT_INDEX32;
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)state->GetRenderObject();
@@ -129,7 +129,7 @@ void NativeProcess_Graphics::Graphics_DrawIndexedVertexes(GameObjectRenderState*
     indexes,
     format,
     vertexes,    
-    NativeConstants::VERTEX_SIZE[vertex_type]
+    Vertex::VERTEX_SIZE[vertex_type]
   );
 }
 

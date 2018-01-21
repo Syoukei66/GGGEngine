@@ -1,7 +1,7 @@
 #include "VertexBufferObject_Primitive3D_Triangle.h"
 
 enum { TRIANGLE_VERTEXES_COUNT = 3 };
-static const Vertex TRIANGLE_VERTEXES[TRIANGLE_VERTEXES_COUNT] =
+static const Vertex::VC TRIANGLE_VERTEXES[TRIANGLE_VERTEXES_COUNT] =
 {
   {  -0.5f,  0.5f,  0.0f }, //0
   {   0.5f,  0.5f,  0.0f }, //1
@@ -46,7 +46,7 @@ INativeProcess_Graphics::PrimitiveType VertexBufferObject_Primitive3D_Triangle::
   return INativeProcess_Graphics::PRIMITIVE_TRIANGLES;
 }
 
-INativeProcess_Graphics::VertexType VertexBufferObject_Primitive3D_Triangle::GetVertexType()
+Vertex::VertexType VertexBufferObject_Primitive3D_Triangle::GetVertexType()
 {
-  return INativeProcess_Graphics::VERTEX_TYPE_COORD_COLOR;
+  return Vertex::VERTEX_TYPE_VC;
 }

@@ -92,13 +92,13 @@ void SkeletonAnimation::NativeDraw(GameObject2DRenderState* state)
     //}
 
     attachment_vertexes = this->GetAttachmentVertexes(attachment);
-    SpriteVertex* vertexes = new SpriteVertex[attachment_vertexes->size_]();
+    Vertex::VCT* vertexes = new Vertex::VCT[attachment_vertexes->size_]();
     for (int j = 0; j < attachment_vertexes->size_; ++j)
     {
       vertexes[j] = attachment_vertexes->vertexes_[j];
     }
 
-    spRegionAttachment_computeWorldVertices(attachment, slot->bone, (float*)vertexes, 0, sizeof(SpriteVertex) / sizeof(float));
+    spRegionAttachment_computeWorldVertices(attachment, slot->bone, (float*)vertexes, 0, sizeof(Vertex::VCT) / sizeof(float));
 
     for (int j = 0; j < attachment_vertexes->size_; ++j)
     {

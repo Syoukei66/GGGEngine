@@ -92,7 +92,7 @@ void Sprite::NativeDraw(GameObject2DRenderState* state)
   NativeMethod::Graphics().Graphics_DrawSprite(
     state,
     INativeProcess_Graphics::PRIMITIVE_TRIANGLESTRIP,
-    (SpriteVertex*)this->vbo_->GetVertexes(),
+    (Vertex::VCT*)this->vbo_->GetVertexes(),
     this->vbo_->GetVertexesCount()
   );
 }

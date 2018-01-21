@@ -35,7 +35,7 @@ static const T_UINT16 PLANE_VERTEX_TEX_INDEXES[PLANE_VERTEX_INDEXES_COUNT] =
 
 enum { PLANE_VERTEXES_COUNT = 4 * PLANE_SURFS_COUNT };
 static bool PLANE_VERTEXES_INITIALIZED = false;
-static SpriteVertex PLANE_VERTEXES[PLANE_VERTEXES_COUNT];
+static Vertex::VCT PLANE_VERTEXES[PLANE_VERTEXES_COUNT];
 static T_UINT16 PLANE_INDEXES[PLANE_VERTEX_INDEXES_COUNT];
 
 VertexBufferObject_Primitive3D_Plane::VertexBufferObject_Primitive3D_Plane()
@@ -100,7 +100,7 @@ INativeProcess_Graphics::PrimitiveType VertexBufferObject_Primitive3D_Plane::Get
   return INativeProcess_Graphics::PRIMITIVE_TRIANGLES;
 }
 
-INativeProcess_Graphics::VertexType VertexBufferObject_Primitive3D_Plane::GetVertexType()
+Vertex::VertexType VertexBufferObject_Primitive3D_Plane::GetVertexType()
 {
-  return INativeProcess_Graphics::VERTEX_TYPE_COORD_COLOR_UV;
+  return Vertex::VERTEX_TYPE_VCT;
 }

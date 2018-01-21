@@ -7,18 +7,11 @@
 namespace NativeConstants
 {
 
-static const DWORD FVF_TYPES[INativeProcess_Graphics::VERTEX_TYPE_DATANUM] =
+static const DWORD FVF_TYPES[Vertex::VERTEX_TYPE_DATANUM] =
 {
   D3DFVF_XYZW | D3DFVF_DIFFUSE,
   D3DFVF_XYZW | D3DFVF_DIFFUSE | D3DFVF_TEX1,
   D3DFVF_XYZW | D3DFVF_DIFFUSE | D3DFVF_TEX1 | D3DFVF_NORMAL,
-};
-
-static const T_UINT32 VERTEX_SIZE[INativeProcess_Graphics::VERTEX_TYPE_DATANUM] =
-{
-  sizeof(Vertex),
-  sizeof(SpriteVertex),
-  sizeof(Vertex3D),
 };
 
 static const D3DPRIMITIVETYPE PRIMITIVE_TYPES[INativeProcess_Graphics::PRIMITIVE_DATANUM] =

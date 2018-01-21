@@ -25,12 +25,12 @@ INativeMatrixStack* NativeObjectFactory::CreateMatrixStack()
   return new NativeMatrixStack();
 }
 
-INativeVertexBuffer* CreateVertexBuffer(T_UINT16 vertex_count, INativeProcess_Graphics::VertexType vertex_type)
+INativeVertexBuffer* NativeObjectFactory::CreateVertexBuffer(T_UINT16 vertex_count, Vertex::VertexType vertex_type)
 {
   return new NativeVertexBuffer(vertex_count, vertex_type);
 }
 
-INativeIndexBuffer* CreateIndexBuffer(T_UINT32 indexes_count)
+INativeIndexBuffer* NativeObjectFactory::CreateIndexBuffer(T_UINT32 indexes_count)
 {
   return new NativeIndexBuffer(indexes_count);
 }

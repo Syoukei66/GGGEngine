@@ -22,14 +22,14 @@ public:
   virtual const void* GetVertexes() const override;
   virtual const T_UINT16* GetIndexes() const override;
   virtual INativeProcess_Graphics::PrimitiveType GetPrimitiveType() override;
-  virtual INativeProcess_Graphics::VertexType GetVertexType() override;
+  virtual Vertex::VertexType GetVertexType() override;
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
   T_UINT32 vertexes_count_;
-  Vertex3D* vertexes_;
+  Vertex::VNCT* vertexes_;
 
   T_UINT32 indexes_count_;
   T_UINT16* indexes_;

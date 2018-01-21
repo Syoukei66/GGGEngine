@@ -34,7 +34,7 @@ void SpriteVertexBufferObject::OnInit()
 {
   for (T_UINT8 i = 0; i < V_VERTEX_MAX; ++i)
   {
-    this->vertexes_[i].Init();
+    this->vertexes_[i] = Vertex::VCT();
   }
 }
 
@@ -105,9 +105,9 @@ inline INativeProcess_Graphics::PrimitiveType SpriteVertexBufferObject::GetPrimi
   return INativeProcess_Graphics::PRIMITIVE_TRIANGLES;
 }
 
-INativeProcess_Graphics::VertexType SpriteVertexBufferObject::GetVertexType()
+Vertex::VertexType SpriteVertexBufferObject::GetVertexType()
 {
-  return INativeProcess_Graphics::VERTEX_TYPE_COORD_COLOR_UV;
+  return Vertex::VERTEX_TYPE_VCT;
 }
 
 void SpriteVertexBufferObject::OnVertexUvDirty()

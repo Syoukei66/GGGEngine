@@ -11,16 +11,16 @@ VertexBufferObject_Primitive3D_MeshField::VertexBufferObject_Primitive3D_MeshFie
   T_FLOAT ux = width / x_num;
   T_FLOAT uy = height / y_num;
 
-  this->vertexes_ = new Vertex3D[this->vertexes_count_];
+  this->vertexes_ = new Vertex::VNCT[this->vertexes_count_];
   for (T_UINT16 y = 0; y < y_num; ++y)
   {
     for (T_UINT16 x = 0; x < x_num; ++x)
    {
       T_UINT16 i = y * x_num * 4 + x * 4;
-      Vertex3D* v0 = &this->vertexes_[i + 0];
-      Vertex3D* v1 = &this->vertexes_[i + 1];
-      Vertex3D* v2 = &this->vertexes_[i + 2];
-      Vertex3D* v3 = &this->vertexes_[i + 3];
+      Vertex::VNCT* v0 = &this->vertexes_[i + 0];
+      Vertex::VNCT* v1 = &this->vertexes_[i + 1];
+      Vertex::VNCT* v2 = &this->vertexes_[i + 2];
+      Vertex::VNCT* v3 = &this->vertexes_[i + 3];
 
       v0->coord[0] = x * ux - width * 0.5f;
       v0->coord[1] = y * uy - height * 0.5f;
@@ -116,7 +116,7 @@ INativeProcess_Graphics::PrimitiveType VertexBufferObject_Primitive3D_MeshField:
   return INativeProcess_Graphics::PRIMITIVE_TRIANGLESTRIP;
 }
 
-INativeProcess_Graphics::VertexType VertexBufferObject_Primitive3D_MeshField::GetVertexType()
+Vertex::VertexType VertexBufferObject_Primitive3D_MeshField::GetVertexType()
 {
-  return INativeProcess_Graphics::VERTEX_TYPE_COORD_COLOR_UV_NORMAL;
+  return Vertex::VERTEX_TYPE_VNCT;
 }

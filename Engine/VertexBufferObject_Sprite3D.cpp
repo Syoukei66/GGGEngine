@@ -82,9 +82,9 @@ INativeProcess_Graphics::PrimitiveType VertexBufferObject_Sprite3D::GetPrimitive
   return INativeProcess_Graphics::PRIMITIVE_TRIANGLES;
 }
 
-INativeProcess_Graphics::VertexType VertexBufferObject_Sprite3D::GetVertexType()
+Vertex::VertexType VertexBufferObject_Sprite3D::GetVertexType()
 {
-  return INativeProcess_Graphics::VERTEX_TYPE_COORD_COLOR_UV;
+  return Vertex::VERTEX_TYPE_VCT;
 }
 
 void VertexBufferObject_Sprite3D::OnVertexUvDirty()

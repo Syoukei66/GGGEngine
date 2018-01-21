@@ -1,7 +1,7 @@
 #include "VertexBufferObject_Primitive3D_Line.h"
 
 enum { LINE_VERTEXES_COUNT = 2 };
-static const Vertex LINE_VERTEXES[LINE_VERTEXES_COUNT] =
+static const Vertex::VC LINE_VERTEXES[LINE_VERTEXES_COUNT] =
 {
   { 0.0f, -0.5f,  0.0f },
   { 0.0f,  0.5f,  0.0f },
@@ -45,7 +45,7 @@ INativeProcess_Graphics::PrimitiveType VertexBufferObject_Primitive3D_Line::GetP
   return INativeProcess_Graphics::PRIMITIVE_LINES;
 }
 
-INativeProcess_Graphics::VertexType VertexBufferObject_Primitive3D_Line::GetVertexType()
+Vertex::VertexType VertexBufferObject_Primitive3D_Line::GetVertexType()
 {
-  return INativeProcess_Graphics::VERTEX_TYPE_COORD_COLOR;
+  return Vertex::VERTEX_TYPE_VC;
 }
