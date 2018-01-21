@@ -5,7 +5,7 @@
 #include "NativeMatrix.h"
 #include "NativeMatrixStack.h"
 #include "NativeTexture.h"
-#include "NativeModel.h"
+#include "NativeModel_x.h"
 #include "NativeShader.h"
 
 INativeMatrix* NativeObjectFactory::CreateMatrix()
