@@ -26,8 +26,6 @@ protected:
   virtual void OnInit() = 0;
 
 public:
-  //GameObjectに更新が必要な変更が行われた事を伝えるメソッドです。
-  //全ての更新は描画メソッド内で行われます。
   virtual void OnTransformChanged();
   virtual void OnScaleChanged();
   virtual void OnRotationChanged();
