@@ -18,7 +18,7 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, Vertex::VertexType
     &this->vertex_buffer_,
     NULL
   );
-  NATIVE_ASSERT(hr, "VertexBuffer‚Ìì¬‚É¸”s‚µ‚Ü‚µ‚½");
+  NATIVE_ASSERT(SUCCEEDED(hr), "VertexBuffer‚Ìì¬‚É¸”s‚µ‚Ü‚µ‚½");
 }
 
 NativeVertexBuffer::~NativeVertexBuffer()

@@ -16,7 +16,7 @@ NativeIndexBuffer::NativeIndexBuffer(T_UINT16 vertex_count)
     &this->index_buffer_,
     NULL
   );
-  NATIVE_ASSERT(hr, "IndexBuffer‚Ìì¬‚É¸”s‚µ‚Ü‚µ‚½");
+  NATIVE_ASSERT(SUCCEEDED(hr), "IndexBuffer‚Ìì¬‚É¸”s‚µ‚Ü‚µ‚½");
 }
 
 NativeIndexBuffer::~NativeIndexBuffer()
