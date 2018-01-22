@@ -5,8 +5,9 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, Vertex::VertexType vertex_type)
+NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_count, Vertex::VertexType vertex_type)
   : vertex_count_(vertex_count)
+  , polygon_count_(polygon_count)
   , vertex_type_(vertex_type)
 {
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
@@ -52,7 +53,7 @@ void NativeVertexBuffer::DrawPrimitive(INativeProcess_Graphics::PrimitiveType pr
   device->DrawPrimitive(
     NativeConstants::PRIMITIVE_TYPES[primitive_type],
     0,
-    NativeConstants::PRIMITIVE_SURF_NUM(primitive_type, this->vertex_count_)
+    this->polygon_count_
   );
 }
 
@@ -66,6 +67,6 @@ void NativeVertexBuffer::DrawIndexedPrimitive(const INativeIndexBuffer* index_bu
     0,
     vertex_count,
     0,
-    NativeConstants::PRIMITIVE_SURF_NUM(primitive_type, vertex_count)
+    this->polygon_count_
   );
 }

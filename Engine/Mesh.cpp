@@ -6,8 +6,9 @@
 Mesh::Mesh(const MeshMaterial& material)
   : material_(material)
 {
+  const T_UINT16 polygon_count = material.GetPolygonCount();
   const T_UINT16 vertexes_count = material.GetVertexesCount();
-  this->vertex_buffer_ = INativeVertexBuffer::Create(vertexes_count, material.GetVertexType());
+  this->vertex_buffer_ = INativeVertexBuffer::Create(vertexes_count, polygon_count, material.GetVertexType());
   void* dest_vertexes;
   this->vertex_buffer_->Lock(&dest_vertexes);
   material.SetupVertex(dest_vertexes);

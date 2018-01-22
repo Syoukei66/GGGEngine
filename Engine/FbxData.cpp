@@ -17,7 +17,12 @@ FbxData* FbxData::Create(const char* path)
   NATIVE_ASSERT(import_status, "FBXƒtƒ@ƒCƒ‹‚Ì“Ç‚Ýž‚Ý‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 
   FbxScene* ret = FbxScene::Create(manager, "");
+
   importer->Import(ret);
+
+  FbxGeometryConverter converter = FbxGeometryConverter(manager);
+  converter.Triangulate(ret, true);
+  converter.RemoveBadPolygonsFromMeshes(ret);
 
   importer->Destroy();
 

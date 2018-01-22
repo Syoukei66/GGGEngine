@@ -1,13 +1,22 @@
 #pragma once
 
-#include "Shape3D.h"
+#include "GameObject3D.h"
+#include "Mesh.h"
 
-class Plane3D : public Shape3D
+class Plane3D : public GameObject3D
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
   Plane3D();
+  ~Plane3D();
+
+public:
+  void NativeDraw(GameObject3DRenderState* state) override;
+
+private:
+  MeshMaterial* mesh_material_;
+  Mesh* mesh_;
 
 };

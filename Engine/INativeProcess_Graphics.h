@@ -25,6 +25,35 @@ public:
     PRIMITIVE_DATANUM,
   };
 
+  static int PRIMITIVE_SURF_NUM(INativeProcess_Graphics::PrimitiveType type, int num)
+  {
+    if (type == PRIMITIVE_POINTS)
+    {
+      return num;
+    }
+    if (type == PRIMITIVE_LINES)
+    {
+      return num;
+    }
+    if (type == PRIMITIVE_LINESTRIP)
+    {
+      return num;
+    }
+    if (type == PRIMITIVE_TRIANGLES)
+    {
+      return num / 3;
+    }
+    if (type == PRIMITIVE_TRIANGLESTRIP)
+    {
+      return num - 2;
+    }
+    if (type == PRIMITIVE_TRIANGLEFAN)
+    {
+      return num - 2;
+    }
+    return num;
+  }
+
   // =================================================================
   // Method
   // =================================================================

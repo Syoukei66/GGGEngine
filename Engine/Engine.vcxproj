@@ -209,6 +209,7 @@
     <ClCompile Include="GameObject3DRenderState.cpp" />
     <ClCompile Include="FbxResource.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MeshMaterial_Plane.cpp" />
     <ClCompile Include="ModelNode.cpp" />
     <ClCompile Include="NativeIndexBuffer.cpp" />
     <ClCompile Include="NativeShader.cpp" />
@@ -329,6 +330,7 @@
     <ClInclude Include="FbxResource.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshMaterial.h" />
+    <ClInclude Include="MeshMaterial_Plane.h" />
     <ClInclude Include="ModelNode.h" />
     <ClInclude Include="NativeIndexBuffer.h" />
     <ClInclude Include="NativeVertexBuffer.h" />

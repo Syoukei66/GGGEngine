@@ -322,6 +322,12 @@
     <Filter Include="ヘッダー ファイル\Resource\File\FBX">
       <UniqueIdentifier>{814bdfde-d3b1-4f0a-b904-ec0a773089d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Component\Mesh\Materials">
+      <UniqueIdentifier>{f23d124f-9ae3-4d18-96e8-47c1b6f7cd66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Component\Mesh\Materials">
+      <UniqueIdentifier>{3a91ce83-cc9a-4db8-908b-efaa9272a9a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Shape.cpp">
@@ -757,7 +763,10 @@
       <Filter>ソース ファイル\Resource\File\FBX</Filter>
     </ClCompile>
     <ClCompile Include="FbxMeshMaterial.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Resource\File\FBX</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshMaterial_Plane.cpp">
+      <Filter>ソース ファイル\Component\Mesh\Materials</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1282,6 +1291,9 @@
     </ClInclude>
     <ClInclude Include="FbxMeshMaterial.h">
       <Filter>ヘッダー ファイル\Resource\File\FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshMaterial_Plane.h">
+      <Filter>ヘッダー ファイル\Component\Mesh\Materials</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

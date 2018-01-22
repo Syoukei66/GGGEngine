@@ -7,11 +7,12 @@
 NativeIndexBuffer::NativeIndexBuffer(T_UINT16 vertex_count)
   : vertex_count_(vertex_count)
 {
+  static const D3DFORMAT format = sizeof(T_UINT16) == 2 ? D3DFMT_INDEX16 : D3DFMT_INDEX32;
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
   HRESULT hr = device->CreateIndexBuffer(
     sizeof(T_UINT16) * vertex_count,
     0,
-    D3DFMT_INDEX16,
+    format,
     D3DPOOL_MANAGED,
     &this->index_buffer_,
     NULL

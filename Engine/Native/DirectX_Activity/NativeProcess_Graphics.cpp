@@ -49,7 +49,7 @@ void NativeProcess_Graphics::Graphics_DrawPrimitive(GameObjectRenderState* state
   device->SetFVF(D3DFVF_XYZW | D3DFVF_DIFFUSE);
   HRESULT hr = device->DrawPrimitiveUP(
     NativeConstants::PRIMITIVE_TYPES[type],
-    NativeConstants::PRIMITIVE_SURF_NUM(type, vertexes_count),
+    INativeProcess_Graphics::PRIMITIVE_SURF_NUM(type, vertexes_count),
     vertexes,
     sizeof(Vertex::VC)
   );
@@ -64,7 +64,7 @@ void NativeProcess_Graphics::Graphics_DrawIndexedPrimitive(GameObjectRenderState
     NativeConstants::PRIMITIVE_TYPES[type],
     0,
     vertexes_count,
-    NativeConstants::PRIMITIVE_SURF_NUM(type, vertexes_count),
+    INativeProcess_Graphics::PRIMITIVE_SURF_NUM(type, vertexes_count),
     indexes,
     D3DFMT_INDEX16,
     vertexes,
@@ -79,7 +79,7 @@ void NativeProcess_Graphics::Graphics_DrawSprite(GameObjectRenderState* state, P
   device->SetFVF(D3DFVF_XYZW | D3DFVF_DIFFUSE | D3DFVF_TEX1);
   HRESULT hr = device->DrawPrimitiveUP(
     NativeConstants::PRIMITIVE_TYPES[type],
-    NativeConstants::PRIMITIVE_SURF_NUM(type, vertexes_count),
+    INativeProcess_Graphics::PRIMITIVE_SURF_NUM(type, vertexes_count),
     vertexes,
     sizeof(Vertex::VCT)
   );
@@ -96,7 +96,7 @@ void NativeProcess_Graphics::Graphics_DrawIndexedSprite(GameObjectRenderState* s
     NativeConstants::PRIMITIVE_TYPES[type],
     0,
     vertexes_count,
-    NativeConstants::PRIMITIVE_SURF_NUM(type, vertexes_count),
+    INativeProcess_Graphics::PRIMITIVE_SURF_NUM(type, vertexes_count),
     indexes,
     D3DFMT_INDEX16,
     vertexes,
@@ -110,7 +110,7 @@ void NativeProcess_Graphics::Graphics_DrawVertexes(GameObjectRenderState* state,
   device->SetFVF(NativeConstants::FVF_TYPES[vertex_type]);
   HRESULT hr = device->DrawPrimitiveUP(
     NativeConstants::PRIMITIVE_TYPES[primitive_type],
-    NativeConstants::PRIMITIVE_SURF_NUM(primitive_type, vertexes_count),
+    INativeProcess_Graphics::PRIMITIVE_SURF_NUM(primitive_type, vertexes_count),
     vertexes,
     Vertex::VERTEX_SIZE[vertex_type]
   );
@@ -125,7 +125,7 @@ void NativeProcess_Graphics::Graphics_DrawIndexedVertexes(GameObjectRenderState*
     NativeConstants::PRIMITIVE_TYPES[primitive_type],
     0,
     vertexes_count,
-    NativeConstants::PRIMITIVE_SURF_NUM(primitive_type, vertexes_count),
+    INativeProcess_Graphics::PRIMITIVE_SURF_NUM(primitive_type, vertexes_count),
     indexes,
     format,
     vertexes,    

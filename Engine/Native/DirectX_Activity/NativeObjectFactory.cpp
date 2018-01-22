@@ -25,9 +25,9 @@ INativeMatrixStack* NativeObjectFactory::CreateMatrixStack()
   return new NativeMatrixStack();
 }
 
-INativeVertexBuffer* NativeObjectFactory::CreateVertexBuffer(T_UINT16 vertex_count, Vertex::VertexType vertex_type)
+INativeVertexBuffer* NativeObjectFactory::CreateVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_count, Vertex::VertexType vertex_type)
 {
-  return new NativeVertexBuffer(vertex_count, vertex_type);
+  return new NativeVertexBuffer(vertex_count, polygon_count, vertex_type);
 }
 
 INativeIndexBuffer* NativeObjectFactory::CreateIndexBuffer(T_UINT32 indexes_count)

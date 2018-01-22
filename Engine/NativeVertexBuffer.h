@@ -15,7 +15,7 @@ class INativeVertexBuffer : public NativeObject<NativeVertexBufferInstance>
   // Static Method
   // =================================================================
 public:
-  static INativeVertexBuffer* Create(T_UINT16 vertex_count, Vertex::VertexType vertex_type);
+  static INativeVertexBuffer* Create(T_UINT16 vertex_count, T_UINT16 polygon_count, Vertex::VertexType vertex_type);
 
   // =================================================================
   // Constructor / Destructor

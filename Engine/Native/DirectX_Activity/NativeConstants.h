@@ -24,33 +24,4 @@ static const D3DPRIMITIVETYPE PRIMITIVE_TYPES[INativeProcess_Graphics::PRIMITIVE
   D3DPT_TRIANGLEFAN,
 };
 
-static int PRIMITIVE_SURF_NUM(INativeProcess_Graphics::PrimitiveType type, int num)
-{
-  if (type == INativeProcess_Graphics::PRIMITIVE_POINTS)
-  {
-    return num;
-  }
-  if (type == INativeProcess_Graphics::PRIMITIVE_LINES)
-  {
-    return num;
-  }
-  if (type == INativeProcess_Graphics::PRIMITIVE_LINESTRIP)
-  {
-    return num;
-  }
-  if (type == INativeProcess_Graphics::PRIMITIVE_TRIANGLES)
-  {
-    return num / 3;
-  }
-  if (type == INativeProcess_Graphics::PRIMITIVE_TRIANGLESTRIP)
-  {
-    return num - 2;
-  }
-  if (type == INativeProcess_Graphics::PRIMITIVE_TRIANGLEFAN)
-  {
-    return num - 2;
-  }
-  return num;
-}
-
 }
