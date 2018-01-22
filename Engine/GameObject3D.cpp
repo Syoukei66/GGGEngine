@@ -115,9 +115,9 @@ void GameObject3D::Draw(GameObject3DRenderState* state)
   if (state->IsTargetedLayer(this->GetLayerId()))
   {
     Material* const material = this->GetMaterial();
-    if (material && material->GetZTestFlag())
+    if (material && material->GetZTestLevel() > 0)
     {
-      state->AddZCheckOrder(this);
+      state->AddZCheckOrder(material->GetZTestLevel(), this);
     }
     else
     {

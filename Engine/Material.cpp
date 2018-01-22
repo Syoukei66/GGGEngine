@@ -11,7 +11,7 @@ Material::Material(const ShaderResource& resource, bool protect)
   , properties_()
   , color_()
   , texture_()
-  , z_test_(false)
+  , z_test_level_(0)
 {
 }
 
@@ -39,7 +39,7 @@ Material* Material::Clone()
   }
   ret->color_ = this->color_;
   ret->texture_ = this->texture_;
-  ret->z_test_ = this->z_test_;
+  ret->z_test_level_ = this->z_test_level_;
   this->clones_.push_back(ret);
   return ret;
 }

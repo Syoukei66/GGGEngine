@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <map>
 #include "GameObjectRenderState.h"
 
 class Camera3D;
@@ -28,7 +29,7 @@ public:
   // =================================================================
 public:
   void Init() override;
-  void AddZCheckOrder(GameObject3D* object);
+  void AddZCheckOrder(T_UINT8 level, GameObject3D* object);
   void DrawZOrderedGameObject();
 
 protected:
@@ -50,6 +51,6 @@ private:
   Camera3D* const camera_;
 
   INativeMatrix* mat_;
-  std::vector<PostDrawParam> post_draw_list_;
+  std::map<int, std::vector<PostDrawParam>> post_draw_map_;
 
 };

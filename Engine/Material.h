@@ -177,14 +177,14 @@ public:
     return this->color_;
   }
 
-  inline void SetZTestFlag(bool z_test)
+  inline void SetZTestLevel(T_UINT8 level)
   {
     NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
-    this->z_test_ = z_test;
+    this->z_test_level_ = level;
   }
-  inline bool GetZTestFlag() const
+  inline T_UINT8 GetZTestLevel() const
   {
-    return this->z_test_;
+    return this->z_test_level_;
   }
 
   // =================================================================
@@ -198,7 +198,7 @@ protected:
   Color4F color_;
   const Texture* texture_;
 
-  bool z_test_;
+  T_UINT8 z_test_level_;
 
   std::vector<Material*> clones_;
 };
