@@ -1309,7 +1309,11 @@
     <FxCompile Include="Particle.hlsl">
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
-    <FxCompile Include="Default.hlsli" />
-    <FxCompile Include="White.hlsli" />
+    <FxCompile Include="Default.hlsli">
+      <Filter>リソース ファイル\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="White.hlsli">
+      <Filter>リソース ファイル\Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
