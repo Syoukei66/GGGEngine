@@ -1,7 +1,7 @@
 #pragma once
 
 #include <fbxsdk.h>
-#include "Mesh.h"
+#include "FbxNodeData.h"
 
 class FbxData
 {
@@ -29,9 +29,14 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  const FbxNode& GetRootNode() const
+  FbxNode& GetRootNode() const
   {
     return *this->scene_->GetRootNode();
+  }
+
+  FbxNodeData& GetRootData() const
+  {
+    return *this->root_data_;
   }
 
   // =================================================================
@@ -39,5 +44,5 @@ public:
   // =================================================================
 private:
   FbxScene* scene_;
-  Mesh* mesh_;
+  FbxNodeData* root_data_;
 };

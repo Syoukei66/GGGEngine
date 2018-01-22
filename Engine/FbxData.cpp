@@ -28,15 +28,12 @@ FbxData* FbxData::Create(const char* path)
 // Constructor / Destructor
 // =================================================================
 FbxData::FbxData(FbxScene* scene)
+  : scene_(scene)
 {
-  FbxNode* node = scene->GetRootNode();
-  const T_INT16 node_count = node->GetChildCount();
-  for (T_INT16 i = 0; i < node_count; ++i)
-  {
-    FbxMesh* mesh = node->GetMesh();
-  }
+  this->root_data_ = new FbxNodeData(scene->GetRootNode());
 }
 
 FbxData::~FbxData()
 {
+  delete this->root_data_;
 }

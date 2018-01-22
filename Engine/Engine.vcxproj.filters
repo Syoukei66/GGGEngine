@@ -313,14 +313,14 @@
     <Filter Include="ソース ファイル\Resource\File\Json">
       <UniqueIdentifier>{cd5ff153-464c-40d2-8b8c-874db93e472a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Resource\File\FBX">
-      <UniqueIdentifier>{814bdfde-d3b1-4f0a-b904-ec0a773089d9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Resource\File\FBX">
       <UniqueIdentifier>{cea5a778-e900-4dd5-8bcc-3b2aacd94fb2}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Component\Mesh">
       <UniqueIdentifier>{1722a2d1-b78c-4c7d-b4c0-fd8f83a20eab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Resource\File\FBX">
+      <UniqueIdentifier>{814bdfde-d3b1-4f0a-b904-ec0a773089d9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -741,9 +741,6 @@
     <ClCompile Include="FbxData.cpp">
       <Filter>ソース ファイル\Resource\File\FBX</Filter>
     </ClCompile>
-    <ClCompile Include="FbxModel.cpp">
-      <Filter>ソース ファイル\Resource\File\FBX</Filter>
-    </ClCompile>
     <ClCompile Include="NativeVertexBuffer.cpp">
       <Filter>ソース ファイル\Native\Objects</Filter>
     </ClCompile>
@@ -754,6 +751,12 @@
       <Filter>ソース ファイル\Component\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="ModelNode.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="FbxNodeData.cpp">
+      <Filter>ソース ファイル\Resource\File\FBX</Filter>
+    </ClCompile>
+    <ClCompile Include="FbxMeshMaterial.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1253,9 +1256,6 @@
     <ClInclude Include="ShaderProperties.h">
       <Filter>ヘッダー ファイル\Component\Material</Filter>
     </ClInclude>
-    <ClInclude Include="FbxModel.h">
-      <Filter>ヘッダー ファイル\Resource\File\FBX</Filter>
-    </ClInclude>
     <ClInclude Include="FbxResource.h">
       <Filter>ヘッダー ファイル\Resource\File\FBX</Filter>
     </ClInclude>
@@ -1276,6 +1276,12 @@
     </ClInclude>
     <ClInclude Include="ModelNode.h">
       <Filter>ヘッダー ファイル\Component\GameObject\3D\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="FbxNodeData.h">
+      <Filter>ヘッダー ファイル\Resource\File\FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="FbxMeshMaterial.h">
+      <Filter>ヘッダー ファイル\Resource\File\FBX</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

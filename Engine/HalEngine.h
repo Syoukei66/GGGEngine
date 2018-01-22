@@ -138,8 +138,10 @@
       #include "JsonParser.h"
 //----Fbx
       #include "FbxData.h"
+      #include "FbxMeshMaterial.h"
+      #include "FbxNodeData.h"
       #include "FbxResource.h"
-      #include "FbxModel.h"
+
 //----Particle
       #include "ParticleData.h"
       #include "ParticleDataLoader.h"

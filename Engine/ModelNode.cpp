@@ -1,35 +1,62 @@
 #include "ModelNode.h"
+#include "EngineAsset.h"
 
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-ModelNode::ModelNode(const FbxNode& node)
+ModelNode::ModelNode(const FbxNodeData& node)
   : node_(node)
+  , child_count_(node.GetChildCount())
   , parent_(nullptr)
-  , children_()
 {
+  this->SetMaterial(EngineAsset::Material::MODEL);
+  this->children_ = new ModelNode*[this->child_count_];
+  for (T_UINT8 i = 0; i < this->child_count_; ++i)
+  {
+    this->children_[i] = new ModelNode(*node.GetChild(i));
+    this->children_[i]->parent_ = this;
+    this->AddChild(this->children_[i]);
+  }
 }
 
-ModelNode* ModelNode::FindFromChildren(const std::string& name)
+// =================================================================
+// Method for/from Interface/SuperClass
+// =================================================================
+void ModelNode::NativeDraw(GameObject3DRenderState* state)
 {
-  auto itr = this->children_.find(name);
-  if (itr != this->children_.end())
+  const Mesh* mesh = this->node_.GetMesh();
+  if (!mesh)
   {
-    return itr->second;
+    return;
+  }
+  mesh->Draw();
+}
+
+// =================================================================
+// Method
+// =================================================================
+ModelNode* ModelNode::FindFromChildren(const char* name)
+{
+  for (T_UINT8 i = 0; i < this->child_count_; ++i)
+  {
+    if (this->children_[i]->node_.GetName() == name)
+    {
+      return this->children_[i];
+    }
   }
   return nullptr;
 }
 
-ModelNode* ModelNode::FindFromTree(const std::string& name)
+ModelNode* ModelNode::FindFromTree(const char* name)
 {
   ModelNode* ret = this->FindFromChildren(name);
   if (ret)
   {
     return ret;
   }
-  for (auto pair : this->children_)
+  for (T_UINT8 i = 0; i < this->child_count_; ++i)
   {
-    ret = pair.second->FindFromTree(name);
+    ret = this->children_[i]->FindFromTree(name);
     if (ret)
     {
       return ret;
@@ -41,36 +68,3 @@ ModelNode* ModelNode::FindFromTree(const std::string& name)
 // =================================================================
 // Method
 // =================================================================
-void ModelNode::AddChild(ModelNode* node)
-{
-  node->parent_ = this;
-  this->children_[node->node_.GetName()] = node;
-  GameObject3D::AddChild(node);
-}
-
-void ModelNode::RemoveChild(ModelNode* node)
-{
-  node->parent_ = nullptr;
-  this->children_.erase(node->node_.GetName());
-  GameObject3D::RemoveChild(node);
-}
-
-void ModelNode::RemoveSelf()
-{
-  GameObject3D::RemoveSelf();
-  if (!this->parent_)
-  {
-    return;
-  }
-  this->parent_->RemoveChild(this);
-}
-
-void ModelNode::ClearChildren()
-{
-  for (auto pair : this->children_)
-  {
-    pair.second->parent_ = nullptr;
-  }
-  this->children_.clear();
-  GameObject3D::ClearChildren();
-}

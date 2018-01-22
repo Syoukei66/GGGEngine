@@ -44,3 +44,10 @@ Mesh* Mesh::Clone() const
   const_cast<Mesh*>(this)->clones_.push_back(mesh);
   return mesh;
 }
+
+void Mesh::Draw() const
+{
+  this->vertex_buffer_->SetStreamSource();
+  this->index_buffer_->SetIndices();
+  this->vertex_buffer_->DrawIndexedPrimitive(this->index_buffer_, INativeProcess_Graphics::PRIMITIVE_TRIANGLES);
+}

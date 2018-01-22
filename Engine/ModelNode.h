@@ -4,6 +4,7 @@
 #include <map>
 #include <fbxsdk.h>
 #include "GameObject3D.h"
+#include "FbxNodeData.h"
 
 class ModelNode : public GameObject3D
 {
@@ -11,26 +12,28 @@ class ModelNode : public GameObject3D
   // Constructor / Destructor
   // =================================================================
 public:
-  ModelNode(const FbxNode& node);
+  ModelNode(const FbxNodeData& node);
+
+  // =================================================================
+  // Method for/from Interface/SuperClass
+  // =================================================================
+public:
+  void NativeDraw(GameObject3DRenderState* state) override;
 
   // =================================================================
   // Method
   // =================================================================
 public:
-  ModelNode* FindFromChildren(const std::string& name);
-  ModelNode* FindFromTree(const std::string& name);
-  void AddChild(ModelNode* node);
-  void RemoveChild(ModelNode* node);
-  void RemoveSelf() override;
-  void ClearChildren() override;
+  ModelNode* FindFromChildren(const char* name);
+  ModelNode* FindFromTree(const char* name);
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
-  const FbxNode& node_;
+  const FbxNodeData& node_;
+  const T_UINT8 child_count_;
+  ModelNode** children_;
 
   ModelNode* parent_;
-  std::map<std::string, ModelNode*> children_;
-
 };

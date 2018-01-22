@@ -1,48 +1,58 @@
 #pragma once
 
-#include <vector>
+#include "fbxsdk.h"
+#include "Mesh.h"
+#include "FbxMeshMaterial.h"
 
-#include "NativeVertexBuffer.h"
-#include "NativeIndexBuffer.h"
-#include "MeshMaterial.h"
-
-class Mesh
+class FbxNodeData
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  Mesh(const MeshMaterial& material);
-  ~Mesh();
+  FbxNodeData(FbxNode* node);
+  ~FbxNodeData();
 
   // =================================================================
   // Method
   // =================================================================
 public:
-  Mesh* Clone() const;
-  void Draw() const;
+  FbxNodeData* FindFromChildren(const char* name);
+  FbxNodeData* FindFromTree(const char* name);
 
   // =================================================================
   // setter/getter
   // =================================================================
 public:
-  inline const INativeVertexBuffer* GetVertexBuffer() const
+  inline const T_UINT8 GetChildCount() const
   {
-    return this->vertex_buffer_;
+    return this->child_count_;
   }
 
-  inline const INativeIndexBuffer* GetIndexBuffer() const
+  inline const FbxNodeData* GetChild(T_UINT8 index) const
   {
-    return this->index_buffer_;
+    return this->children_[index];
+  }
+
+  inline const char* GetName() const
+  {
+    return this->node_->GetName();
+  }
+
+  inline const Mesh* GetMesh() const
+  {
+    return this->mesh_;
   }
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
-  const MeshMaterial& material_;
-  INativeVertexBuffer* vertex_buffer_;
-  INativeIndexBuffer* index_buffer_;
+  FbxNode* node_;
+  const T_UINT8 child_count_;
+  FbxNodeData** children_;
+  FbxMeshMaterial* mesh_material_;
+  Mesh* mesh_;
 
-  std::vector<Mesh*> clones_;
+  FbxNodeData* parent_;
 };

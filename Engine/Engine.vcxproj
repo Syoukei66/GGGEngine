@@ -199,7 +199,8 @@
     <ClCompile Include="EngineInitializeSetting.cpp" />
     <ClCompile Include="EngineInputEvent.cpp" />
     <ClCompile Include="FbxData.cpp" />
-    <ClCompile Include="FbxModel.cpp" />
+    <ClCompile Include="FbxMeshMaterial.cpp" />
+    <ClCompile Include="FbxNodeData.cpp" />
     <ClCompile Include="GameComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObject2D.cpp" />
@@ -323,8 +324,9 @@
     <ClInclude Include="CSVResource.h" />
     <ClInclude Include="EngineResourcePool.h" />
     <ClInclude Include="FbxData.h" />
+    <ClInclude Include="FbxMeshMaterial.h" />
+    <ClInclude Include="FbxNodeData.h" />
     <ClInclude Include="FbxResource.h" />
-    <ClInclude Include="FbxModel.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshMaterial.h" />
     <ClInclude Include="ModelNode.h" />
