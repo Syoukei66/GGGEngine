@@ -353,6 +353,15 @@ const TVec3f NativeMatrix::GetCameraZVec() const
   return TVec3f(this->mat_->_31, this->mat_->_32, this->mat_->_33);
 }
 
+const TVec3f NativeMatrix::GetWorldScale() const
+{
+  TVec3f ret;
+  ret.x = TVec3f(this->mat_->_11, this->mat_->_12, this->mat_->_13).Length();
+  ret.y = TVec3f(this->mat_->_21, this->mat_->_22, this->mat_->_23).Length();
+  ret.z = TVec3f(this->mat_->_31, this->mat_->_32, this->mat_->_33).Length();
+  return ret;
+}
+
 const T_FLOAT* NativeMatrix::Get(T_UINT8 x) const
 {
   return this->mat_->m[x];

@@ -117,6 +117,8 @@ public:
   virtual const TVec3f GetCameraYVec() const = 0;
   virtual const TVec3f GetCameraZVec() const = 0;
 
+  virtual const TVec3f GetWorldScale() const = 0;
+
   // =================================================================
   // Setter / Getter
   // =================================================================

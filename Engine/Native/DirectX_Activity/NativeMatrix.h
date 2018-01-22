@@ -72,7 +72,9 @@ public:
   const TVec3f GetCameraXVec() const override;
   const TVec3f GetCameraYVec() const override;
   const TVec3f GetCameraZVec() const override;
-  
+
+  const TVec3f GetWorldScale() const override;
+
 protected:
   const T_FLOAT* Get(T_UINT8 x) const override;
   T_FLOAT* Get(T_UINT8 x) override;
