@@ -170,6 +170,7 @@ public:
   }
   inline Color4F& GetDiffuse()
   {
+    NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
     return this->color_;
   }
   inline const Color4F& GetDiffuse() const
