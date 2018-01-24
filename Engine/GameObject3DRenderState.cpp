@@ -52,17 +52,13 @@ void GameObject3DRenderState::DrawZOrderedGameObject()
           this->mat_->MultipleReverse(*p->GetTransform()->GetMatrix());
           p = p->GetParent();
         }
-        Material* const material = param.object->GetMaterial();
-        if (material)
-        {
-          this->PushMatrix(p->GetTransform()->GetWorldMatrix());
-          this->PushMatrix(this->camera_->GetBillboardingMatrix());
-          this->PushMatrix(this->mat_);
-          param.object->ManagedDraw(this);
-          this->PopMatrix();
-          this->PopMatrix();
-          this->PopMatrix();
-        }
+        this->PushMatrix(p->GetTransform()->GetWorldMatrix());
+        this->PushMatrix(this->camera_->GetBillboardingMatrix());
+        this->PushMatrix(this->mat_);
+        param.object->ManagedDraw(this);
+        this->PopMatrix();
+        this->PopMatrix();
+        this->PopMatrix();
       }
       else
       {
