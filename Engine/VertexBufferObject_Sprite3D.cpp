@@ -4,19 +4,19 @@
 enum { SPRITE_VERTEX_COORDS_COUNT = 4 };
 static TVec2f SPRITE_VERTEX_COORDS[SPRITE_VERTEX_COORDS_COUNT] =
 {
-  { 0.5f,  0.5f }, //0 右上
-  { 0.5f, -0.5f }, //1 右下
-  { -0.5f, -0.5f }, //2 左下
-  { -0.5f,  0.5f }, //3 左上
+  { -0.5f, -0.5f }, //0 右上
+  { -0.5f,  0.5f }, //1 右下
+  {  0.5f, -0.5f }, //2 左下
+  {  0.5f,  0.5f }, //3 左上
 };
 
 enum { SPRITE_VERTEX_TEX_COORDS_COUNT = SPRITE_VERTEX_COORDS_COUNT };
 static TVec2f SPRITE_VERTEX_TEX_COORDS[SPRITE_VERTEX_TEX_COORDS_COUNT] =
 {
   { 0.0f, 0.0f },
-  { 1.0f, 1.0f },
-  { 1.0f, 0.0f },
   { 0.0f, 1.0f },
+  { 1.0f, 0.0f },
+  { 1.0f, 1.0f },
 };
 
 enum { SPRITE_SURFS_COUNT = 1 };
@@ -24,14 +24,14 @@ enum { SPRITE_TRIANGLES_COUNT = 2 * SPRITE_SURFS_COUNT };
 enum { SPRITE_VERTEX_INDEXES_COUNT = 6 };
 static const T_UINT16 SPRITE_VERTEX_INDEXES[SPRITE_VERTEX_INDEXES_COUNT] =
 {
-  1, 3, 0,
-  0, 3, 2,
+  0, 1, 2,
+  1, 3, 2,
 };
 
 static const T_UINT16 SPRITE_VERTEX_TEX_INDEXES[SPRITE_VERTEX_INDEXES_COUNT] =
 {
-  0, 2, 1,
-  1, 2, 3,
+  0, 1, 2,
+  1, 3, 2,
 };
 
 
