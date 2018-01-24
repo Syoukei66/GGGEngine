@@ -71,7 +71,7 @@ public:
   {
     return this->z_far_;
   }
-  inline const TVec3f& GetDirection()
+  inline const TVec3f& GetDirection() const
   {
     return this->direction_;
   }
