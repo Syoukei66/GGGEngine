@@ -99,12 +99,47 @@ T_FLOAT InputState::GetAxis(T_UINT8 id, T_FLOAT dead_range)
   {
     return -1.0f;
   }
-  const T_FLOAT value = analog->GetValue(entity.axis, entity.dimention);
-  if (fabs(value) < dead_range)
+  return analog->GetValue(entity.axis, entity.dimention, dead_range);
+}
+
+T_FLOAT InputState::GetAxisDown(T_UINT8 id, T_FLOAT dead_range)
+{
+  const AnalogInputState* analog = EngineInputState::GetInstance()->GetAnalogInput(this->player_id_);
+  const DigitalInputState* digital = EngineInputState::GetInstance()->GetDigitalInput(this->player_id_);
+  const InputEntity& entity = this->entities_[id];
+  if (digital->IsTrigger(entity.positive_button))
+  {
+    return 1.0f;
+  }
+  if (digital->IsTrigger(entity.negative_button))
+  {
+    return -1.0f;
+  }
+  if (!analog->IsTrigger(entity.axis, entity.dimention, dead_range))
   {
     return 0.0f;
   }
-  return value;
+  return analog->GetValue(entity.axis, entity.dimention, dead_range);
+}
+
+T_FLOAT InputState::GetAxisUp(T_UINT8 id, T_FLOAT dead_range)
+{
+  const AnalogInputState* analog = EngineInputState::GetInstance()->GetAnalogInput(this->player_id_);
+  const DigitalInputState* digital = EngineInputState::GetInstance()->GetDigitalInput(this->player_id_);
+  const InputEntity& entity = this->entities_[id];
+  if (digital->IsRelease(entity.positive_button))
+  {
+    return 1.0f;
+  }
+  if (digital->IsRelease(entity.negative_button))
+  {
+    return -1.0f;
+  }
+  if (!analog->IsRelease(entity.axis, entity.dimention, dead_range))
+  {
+    return 0.0f;
+  }
+  return analog->GetOldValue(entity.axis, entity.dimention, dead_range);
 }
 
 T_FLOAT InputState::GetAxisDelta(T_UINT8 id)
