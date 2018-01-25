@@ -321,6 +321,7 @@
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.h" />
     <ClInclude Include="AnimatedSprite3D.h" />
+    <ClInclude Include="Bezier.h" />
     <ClInclude Include="CSVData.h" />
     <ClInclude Include="CSVResource.h" />
     <ClInclude Include="EngineResourcePool.h" />

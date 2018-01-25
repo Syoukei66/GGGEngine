@@ -1295,6 +1295,9 @@
     <ClInclude Include="MeshMaterial_Plane.h">
       <Filter>ヘッダー ファイル\Component\Mesh\Materials</Filter>
     </ClInclude>
+    <ClInclude Include="Bezier.h">
+      <Filter>ヘッダー ファイル\Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Model.hlsl">
