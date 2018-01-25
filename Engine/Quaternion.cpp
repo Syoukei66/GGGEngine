@@ -67,6 +67,20 @@ const Quaternion Quaternion::Slerp(Quaternion a, Quaternion b, T_FLOAT t)
   return (a * (sin((1.0f - t) * r) * invsin_r) + b * -(sin(t * r) * invsin_r));
 }
 
+const Quaternion Quaternion::LookRotation(const TVec3f& forward, const TVec3f& upwards)
+{
+  const TVec3f n_upwards = upwards.Normalized();
+  const TVec3f z_axis = forward.Normalized();
+  const TVec3f x_axis = TVec3f::OuterProduct(n_upwards, z_axis).Normalized();
+  const TVec3f y_axis = TVec3f::OuterProduct(z_axis, x_axis).Normalized();
+  const T_FLOAT z_dot = TVec3f::InnerProduct(TVec3f(0.0f, 0.0f, 1.0f), z_axis);
+  const T_FLOAT x_dot = TVec3f::InnerProduct(TVec3f(1.0f, 0.0f, 0.0f), x_axis);
+  const T_FLOAT y_dot = TVec3f::InnerProduct(TVec3f(0.0f, 1.0f, 0.0f), y_axis);
+  const Quaternion x = Quaternion(TVec3f(1.0f, 0.0f, 0.0f), acosf(x_dot));
+  const Quaternion y = Quaternion(TVec3f(0.0f, 1.0f, 0.0f), acosf(y_dot));
+  return y;
+}
+
 T_FLOAT Quaternion::InnerProduct(const Quaternion& a, const Quaternion& b)
 {
   return TVec3f::InnerProduct(a.v_, b.v_) + a.w_ * b.w_;
