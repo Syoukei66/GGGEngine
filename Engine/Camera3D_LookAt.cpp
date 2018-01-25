@@ -60,12 +60,16 @@ void Camera3D_LookAt::CheckViewDirty()
     return;
   }
 
-
   this->view_matrix_->Init();
   if (this->target_)
   {
+    GameObject3D* player = this->entity_->GetParent();
+    TVec3f camera_pos = player->GetTransform()->GetWorldPosition();
+    this->direction_ = (this->current_look_at_pos_ - player->GetTransform()->GetWorldPosition()).Normalized();
+    camera_pos -= this->direction_ * this->GetTransform()->GetPosition().Length();
+    camera_pos.y = std::max(camera_pos.y, player->GetTransform()->GetY());
     this->view_matrix_->LookAtLH(
-      this->GetTransform()->GetWorldPosition(),
+      camera_pos,
       this->current_look_at_pos_,
       this->GetTransform()->GetWorldMatrix()->GetCameraYVec()
     );
