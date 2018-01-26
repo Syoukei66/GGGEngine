@@ -4,6 +4,7 @@
 #include "NativeType.h"
 #include "GameComponent.h"
 #include "Material.h"
+#include "Renderer.h"
 
 class GameObjectRenderState;
 
@@ -84,7 +85,7 @@ private:
 	bool visible_;
   T_UINT8 layer_id_;
   Material* material_;
-  
+  Renderer* renderer_;
 };
 
 #endif//HAL_ENGINE_ENTITY_ENTITY_H_
