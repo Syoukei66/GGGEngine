@@ -8,7 +8,6 @@ public:
   MeshMaterial_Plane();
 
 public:
-  virtual T_UINT16 GetPolygonCount() const override;
   virtual T_UINT16 GetVertexesCount() const override;
   virtual void SetupVertex(void * dest) const override;
   virtual T_UINT16 GetIndicesCount() const override;

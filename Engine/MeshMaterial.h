@@ -8,7 +8,6 @@ class MeshMaterial
   // Method
   // =================================================================
 public:
-  virtual T_UINT16 GetPolygonCount() const = 0;
   virtual T_UINT16 GetVertexesCount() const = 0;
   virtual void SetupVertex(void* dest) const = 0;
   virtual T_UINT16 GetIndicesCount() const = 0;

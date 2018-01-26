@@ -72,11 +72,6 @@ MeshMaterial_Plane::MeshMaterial_Plane()
   }
 }
 
-T_UINT16 MeshMaterial_Plane::GetPolygonCount() const
-{
-  return INativeProcess_Graphics::PRIMITIVE_SURF_NUM(this->GetPrimitiveType(), this->GetIndicesCount());
-}
-
 T_UINT16 MeshMaterial_Plane::GetVertexesCount() const
 {
   return PLANE_VERTEXES_COUNT;

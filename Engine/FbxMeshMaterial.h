@@ -16,7 +16,6 @@ public:
   // Method for/from Interface/SuperClass
   // =================================================================
 public:
-  virtual T_UINT16 GetPolygonCount() const override;
   virtual T_UINT16 GetVertexesCount() const override;
   virtual void SetupVertex(void* dest) const override;
   virtual T_UINT16 GetIndicesCount() const override;
@@ -28,7 +27,6 @@ public:
   // Data Member
   // =================================================================
 private:
-  T_UINT16 polygon_count_;
   Vertex::VC* vertexes_;
   T_UINT16 vertexes_count_;
   T_UINT16* indices_;

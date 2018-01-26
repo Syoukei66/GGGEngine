@@ -26,8 +26,7 @@ FbxMeshMaterial::FbxMeshMaterial(FbxMesh* mesh)
     this->vertexes_[i].coord[2] = src[i][2];
     this->vertexes_[i].coord[3] = 1.0f;
   }
-  this->polygon_count_ = INativeProcess_Graphics::PRIMITIVE_SURF_NUM(INativeProcess_Graphics::PRIMITIVE_TRIANGLES, this->indices_count_);
-
+  
   //T_UINT8 layer_num = mesh->GetLayerCount();
   //FbxLayerElementNormal* normal_element = nullptr;
   //for (T_UINT8 i = 0; i < layer_num; ++i)
@@ -89,11 +88,6 @@ FbxMeshMaterial::~FbxMeshMaterial()
 // =================================================================
 // Method for/from Interface/SuperClass
 // =================================================================
-T_UINT16 FbxMeshMaterial::GetPolygonCount() const
-{
-  return this->polygon_count_;
-}
-
 T_UINT16 FbxMeshMaterial::GetVertexesCount() const
 {
   return this->vertexes_count_;

@@ -6,15 +6,18 @@
 Mesh::Mesh(const MeshMaterial& material)
   : material_(material)
 {
-  const T_UINT16 polygon_count = material.GetPolygonCount();
   const T_UINT16 vertexes_count = material.GetVertexesCount();
-  this->vertex_buffer_ = INativeVertexBuffer::Create(vertexes_count, polygon_count, material.GetVertexType());
+  const T_UINT16 indices_count = material.GetIndicesCount();
+  const INativeProcess_Graphics::PrimitiveType primitive_type = material.GetPrimitiveType();
+  const Vertex::VertexType vertex_type = material.GetVertexType();
+  const T_UINT16 polygon_count = INativeProcess_Graphics::PRIMITIVE_SURF_NUM(primitive_type, indices_count);
+
+  this->vertex_buffer_ = INativeVertexBuffer::Create(vertexes_count, polygon_count, vertex_type);
   void* dest_vertexes;
   this->vertex_buffer_->Lock(&dest_vertexes);
   material.SetupVertex(dest_vertexes);
   this->vertex_buffer_->Unlock();
 
-  const T_UINT16 indices_count = material.GetIndicesCount();
   this->index_buffer_ = INativeIndexBuffer::Create(indices_count);
   T_UINT16* dest_indices;
   this->index_buffer_->Lock((void**)&dest_indices);
