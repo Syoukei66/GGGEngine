@@ -209,6 +209,7 @@
     <ClCompile Include="GameObject3DRenderState.cpp" />
     <ClCompile Include="FbxResource.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MeshMaterial_Cube.cpp" />
     <ClCompile Include="MeshMaterial_Plane.cpp" />
     <ClCompile Include="ModelNode.cpp" />
     <ClCompile Include="NativeIndexBuffer.cpp" />
@@ -324,6 +325,7 @@
     <ClInclude Include="Bezier.h" />
     <ClInclude Include="CSVData.h" />
     <ClInclude Include="CSVResource.h" />
+    <ClInclude Include="Cube3D.h" />
     <ClInclude Include="EngineResourcePool.h" />
     <ClInclude Include="FbxData.h" />
     <ClInclude Include="FbxMeshMaterial.h" />
@@ -331,11 +333,13 @@
     <ClInclude Include="FbxResource.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshMaterial.h" />
+    <ClInclude Include="MeshMaterial_Cube.h" />
     <ClInclude Include="MeshMaterial_Plane.h" />
     <ClInclude Include="ModelNode.h" />
     <ClInclude Include="NativeIndexBuffer.h" />
     <ClInclude Include="NativeVertexBuffer.h" />
     <ClInclude Include="NativeShader.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceLoader.h" />
     <ClInclude Include="FileResource.h" />
     <ClInclude Include="BlendFunction.h" />
@@ -346,7 +350,6 @@
     <ClInclude Include="Camera3D_Transformed.h" />
     <ClInclude Include="Collider3D.h" />
     <ClInclude Include="Collision3D.h" />
-    <ClInclude Include="Cube3D.h" />
     <ClInclude Include="EngineAttachmentLoader.h" />
     <ClInclude Include="AttachmentVertexes.h" />
     <ClInclude Include="BaseActivity.h" />

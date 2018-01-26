@@ -73,6 +73,9 @@
 //----Mesh
       #include "Mesh.h"
       #include "MeshMaterial.h"
+//------Materials
+        #include "MeshMaterial_Cube.h"
+        #include "MeshMaterial_Plane.h"
 //----VBO
       #include "IVertexBufferObject.h"
 //------2D

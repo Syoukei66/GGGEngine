@@ -579,13 +579,7 @@
     <ClCompile Include="SpriteVertexBufferObject.cpp">
       <Filter>ソース ファイル\Component\GameObject\VBO\2D</Filter>
     </ClCompile>
-    <ClCompile Include="VertexBufferObject_Primitive3D_Cube.cpp">
-      <Filter>ソース ファイル\Component\GameObject\VBO\3D</Filter>
-    </ClCompile>
     <ClCompile Include="Primitive3D.cpp">
-      <Filter>ソース ファイル\Component\GameObject\3D\Primitive</Filter>
-    </ClCompile>
-    <ClCompile Include="Cube3D.cpp">
       <Filter>ソース ファイル\Component\GameObject\3D\Primitive</Filter>
     </ClCompile>
     <ClCompile Include="Camera3D.cpp">
@@ -767,6 +761,15 @@
     </ClCompile>
     <ClCompile Include="MeshMaterial_Plane.cpp">
       <Filter>ソース ファイル\Component\Mesh\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshMaterial_Cube.cpp">
+      <Filter>ソース ファイル\Component\Mesh\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube3D.cpp">
+      <Filter>ソース ファイル\Component\GameObject\3D\Primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBufferObject_Primitive3D_Cube.cpp">
+      <Filter>ソース ファイル\Component\GameObject\VBO\3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1058,12 +1061,6 @@
     <ClInclude Include="SpriteVertexBufferObject.h">
       <Filter>ヘッダー ファイル\Component\GameObject\VBO\2D</Filter>
     </ClInclude>
-    <ClInclude Include="VertexBufferObject_Primitive3D_Cube.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\VBO\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Cube3D.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\3D\Primitive</Filter>
-    </ClInclude>
     <ClInclude Include="Camera3D.h">
       <Filter>ヘッダー ファイル\Component\Camera\3D</Filter>
     </ClInclude>
@@ -1280,9 +1277,6 @@
     <ClInclude Include="NativeIndexBuffer.h">
       <Filter>ヘッダー ファイル\Native\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="MeshMaterial.h">
-      <Filter>ヘッダー ファイル\Component\Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="ModelNode.h">
       <Filter>ヘッダー ファイル\Component\GameObject\3D\Model</Filter>
     </ClInclude>
@@ -1297,6 +1291,21 @@
     </ClInclude>
     <ClInclude Include="Bezier.h">
       <Filter>ヘッダー ファイル\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshMaterial.h">
+      <Filter>ヘッダー ファイル\Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshMaterial_Cube.h">
+      <Filter>ヘッダー ファイル\Component\Mesh\Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>ヘッダー ファイル\Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube3D.h">
+      <Filter>ヘッダー ファイル\Component\GameObject\3D\Primitive</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBufferObject_Primitive3D_Cube.h">
+      <Filter>ヘッダー ファイル\Component\GameObject\VBO\3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
