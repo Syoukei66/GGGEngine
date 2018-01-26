@@ -188,6 +188,16 @@ public:
     return this->z_test_level_;
   }
 
+  inline void SetBillboardingFlag(bool billboarding)
+  {
+    NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
+    this->billbording_ = billboarding;
+  }
+
+  inline bool IsBillboardingRoot() const
+  {
+    return this->billbording_;
+  }
   // =================================================================
   // Data Member
   // =================================================================
@@ -200,6 +210,7 @@ protected:
   const Texture* texture_;
 
   T_UINT8 z_test_level_;
+  bool billbording_;
 
   std::vector<Material*> clones_;
 };

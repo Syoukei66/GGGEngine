@@ -82,22 +82,8 @@ public:
     return this->transform_;
   }
 
-  inline void SetBillboardingFlag(bool billboarding)
-  {
-    this->billbording_ = billboarding;
-  }
-
-  inline bool IsBillboardingRoot() const
-  {
-    return this->billbording_;
-  }
-
-  bool IsBillboard() const;
-
 private:
   Transform3D* transform_;
   GameObject3D* parent_;
   std::vector<GameObject3D*> children_;
-
-  bool billbording_;
 };

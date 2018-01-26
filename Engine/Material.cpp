@@ -12,6 +12,7 @@ Material::Material(const ShaderResource& resource, bool protect)
   , color_()
   , texture_()
   , z_test_level_(0)
+  , billbording_(false)
 {
 }
 

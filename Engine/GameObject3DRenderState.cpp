@@ -38,11 +38,11 @@ void GameObject3DRenderState::DrawZOrderedGameObject()
     });
     for (PostDrawParam param : pair.second)
     {
-      if (param.object->IsBillboard())
+      if (param.object->GetMaterial()->IsBillboard())
       {
         GameObject3D* p = param.object;
         this->mat_->Init();
-        while (p && !p->IsBillboardingRoot())
+        while (p && !p->GetMaterial()->IsBillboardingRoot())
         {
           this->mat_->MultipleReverse(*p->GetTransform()->GetMatrix());
           p = p->GetParent();

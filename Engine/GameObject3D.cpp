@@ -9,7 +9,6 @@
 GameObject3D::GameObject3D()
   : parent_(nullptr)
   , children_()
-  , billbording_(false)
 {
   this->transform_ = new Transform3D(this);
   this->transform_->Init();
@@ -209,16 +208,4 @@ void GameObject3D::FireOnRotationChanged(GameObject* root)
     GameObject3D* child = (*it);
     child->FireOnRotationChanged(root);
   }
-}
-
-bool GameObject3D::IsBillboard() const
-{
-  if (this->HasParent())
-  {
-    if (this->parent_->IsBillboard())
-    {
-      return true;
-    }
-  }
-  return this->billbording_;
 }
