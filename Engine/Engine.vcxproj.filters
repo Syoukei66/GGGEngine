@@ -1309,22 +1309,22 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Model.hlsl">
+    <FxCompile Include="Default.fx">
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
-    <FxCompile Include="Primitive.hlsl">
+    <FxCompile Include="Model.fx">
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
-    <FxCompile Include="Sprite.hlsl">
+    <FxCompile Include="Particle.fx">
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
-    <FxCompile Include="Particle.hlsl">
+    <FxCompile Include="Primitive.fx">
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
-    <FxCompile Include="Default.hlsli">
+    <FxCompile Include="Sprite.fx">
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
-    <FxCompile Include="White.hlsli">
+    <FxCompile Include="White.fx">
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
   </ItemGroup>
