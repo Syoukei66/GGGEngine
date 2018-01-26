@@ -28,12 +28,8 @@ public:
   // Method
   // =================================================================
 public:
-  void Init() override;
   void AddZCheckOrder(T_UINT8 level, GameObject3D* object);
   void DrawZOrderedGameObject();
-
-protected:
-  virtual void SetupViewProjMatrix(INativeMatrix* view_proj_matrix) override;
 
   // =================================================================
   // Setter / Getter

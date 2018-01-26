@@ -7,8 +7,9 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-GameObjectRenderState::GameObjectRenderState()
-  : layer_state_(1)
+GameObjectRenderState::GameObjectRenderState(Camera* camera)
+  : camera_(camera)
+  , layer_state_(1)
 {
   this->matrix_stack_ = INativeMatrixStack::Create();
   this->view_proj_matrix_ = INativeMatrix::Create();
@@ -28,6 +29,8 @@ GameObjectRenderState::~GameObjectRenderState()
 void GameObjectRenderState::Init()
 {
   this->render_object_ = Director::GetInstance()->GetDevice();
+  this->view_proj_matrix_->Assign(*this->camera_->GetViewMatrix());
+  this->view_proj_matrix_->Multiple(*this->camera_->GetProjectionMatrix());
 }
 
 void GameObjectRenderState::PushMatrix(INativeMatrix* matrix)
@@ -45,7 +48,6 @@ void GameObjectRenderState::PopMatrix()
 // =================================================================
 INativeMatrix* GameObjectRenderState::GetWorldViewProjToMaterial()
 {
-  this->SetupViewProjMatrix(this->view_proj_matrix_);
   this->world_view_proj_matrix_->Assign(this->matrix_stack_->GetTop());
   this->world_view_proj_matrix_->Multiple(*this->view_proj_matrix_);
   return this->world_view_proj_matrix_;

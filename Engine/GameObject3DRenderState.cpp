@@ -6,7 +6,8 @@
 #include "Camera3D.h"
 
 GameObject3DRenderState::GameObject3DRenderState(Camera3D* camera)
-  : camera_(camera)
+  : GameObjectRenderState(camera)
+  , camera_(camera)
   , post_draw_map_()
 {
   this->mat_ = INativeMatrix::Create();
@@ -15,11 +16,6 @@ GameObject3DRenderState::GameObject3DRenderState(Camera3D* camera)
 GameObject3DRenderState::~GameObject3DRenderState()
 {
   delete this->mat_;
-}
-
-void GameObject3DRenderState::Init()
-{
-  GameObjectRenderState::Init();
 }
 
 void GameObject3DRenderState::AddZCheckOrder(T_UINT8 level, GameObject3D* object)
@@ -35,7 +31,6 @@ void GameObject3DRenderState::AddZCheckOrder(T_UINT8 level, GameObject3D* object
 
 void GameObject3DRenderState::DrawZOrderedGameObject()
 {
-  this->camera_->GetDirection();
   for (auto pair : this->post_draw_map_)
   {
     std::sort(pair.second.begin(), pair.second.end(), [](const PostDrawParam& a, const PostDrawParam& b) {
@@ -47,18 +42,24 @@ void GameObject3DRenderState::DrawZOrderedGameObject()
       {
         GameObject3D* p = param.object;
         this->mat_->Init();
-        while (!p->IsBillboardingRoot())
+        while (p && !p->IsBillboardingRoot())
         {
           this->mat_->MultipleReverse(*p->GetTransform()->GetMatrix());
           p = p->GetParent();
         }
-        this->PushMatrix(p->GetTransform()->GetWorldMatrix());
+        if (p)
+        {
+          this->PushMatrix(p->GetTransform()->GetWorldMatrix());
+        }
         this->PushMatrix(this->camera_->GetBillboardingMatrix());
         this->PushMatrix(this->mat_);
         param.object->ManagedDraw(this);
         this->PopMatrix();
         this->PopMatrix();
-        this->PopMatrix();
+        if (p)
+        {
+          this->PopMatrix();
+        }
       }
       else
       {
@@ -70,10 +71,4 @@ void GameObject3DRenderState::DrawZOrderedGameObject()
   }
 
   this->post_draw_map_.clear();
-}
-
-void GameObject3DRenderState::SetupViewProjMatrix(INativeMatrix* view_proj_matrix)
-{
-  view_proj_matrix->Assign(*this->camera_->GetProjectionMatrix());
-  view_proj_matrix->MultipleReverse(*this->camera_->GetViewMatrix());
 }

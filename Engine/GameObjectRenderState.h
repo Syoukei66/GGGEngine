@@ -4,6 +4,7 @@
 #include "BlendFunction.h"
 #include "NativeMatrix.h"
 #include "NativeMatrixStack.h"
+#include "Camera.h"
 
 class GameObjectRenderState
 {
@@ -11,7 +12,7 @@ class GameObjectRenderState
   // Constructor / Destructor
   // =================================================================
 public:
-  GameObjectRenderState();
+  GameObjectRenderState(Camera* camera);
   ~GameObjectRenderState();
 
   // =================================================================
@@ -21,10 +22,7 @@ public:
   virtual void Init();
   void PushMatrix(INativeMatrix* matrix);
   void PopMatrix();
-
-protected:
-  virtual void SetupViewProjMatrix(INativeMatrix* view_proj_matrix) = 0;
-
+  
   // =================================================================
   // Setter / Getter
   // =================================================================
@@ -63,6 +61,7 @@ public:
   // Data Member
   // =================================================================
 private:
+  Camera* camera_;
   T_UINT32 layer_state_;
   LP_DEVICE render_object_;
   INativeMatrixStack* matrix_stack_;

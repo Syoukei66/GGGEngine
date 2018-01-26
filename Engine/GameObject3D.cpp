@@ -160,18 +160,18 @@ void GameObject3D::ManagedDraw(GameObject3DRenderState* state)
 void GameObject3D::PushMatrixStack(GameObject3DRenderState* state)
 {
   state->PushMatrix(this->transform_->GetMatrix());
-  if (this->IsBillboardingRoot())
-  {
-    state->PushMatrix(state->GetCamera()->GetBillboardingMatrix());
-  }
+  //if (this->IsBillboardingRoot())
+  //{
+  //  state->PushMatrix(state->GetCamera()->GetBillboardingMatrix());
+  //}
 }
 
 void GameObject3D::PopMatrixStack(GameObject3DRenderState* state)
 {
-  if (this->IsBillboardingRoot())
-  {
-    state->PopMatrix();
-  }
+  //if (this->IsBillboardingRoot())
+  //{
+  //  state->PopMatrix();
+  //}
   state->PopMatrix();
 }
 

@@ -15,16 +15,20 @@ class Camera : public GameComponent
 public:
   Camera(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_min, T_FLOAT z_max);
   Camera();
+  virtual ~Camera();
 
   // =================================================================
   // Method
   // =================================================================
 public:
+  void SetupViewProjMatrix();
   void DrawScene(Scene* scene);
+
   virtual const INativeMatrix* GetViewMatrix() const = 0;
   virtual const INativeMatrix* GetProjectionMatrix() const = 0;
 
 protected:
+
   virtual void SetupCamera();
 
   virtual void OnViewportChanged() {}
@@ -95,7 +99,6 @@ public:
   {
     return this->z_max_;
   }
-
 
   // =================================================================
   // Data Member

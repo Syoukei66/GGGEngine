@@ -6,16 +6,7 @@
 // Constructor / Destructor
 // =================================================================
 GameObject2DRenderState::GameObject2DRenderState(Camera2D* camera)
-  : camera_(camera)
+  : GameObjectRenderState(camera)
 {
 }
 
-GameObject2DRenderState::~GameObject2DRenderState()
-{
-}
-
-void GameObject2DRenderState::SetupViewProjMatrix(INativeMatrix* view_proj_matrix)
-{
-  view_proj_matrix->Assign(*this->camera_->GetProjectionMatrix());
-  view_proj_matrix->MultipleReverse(*this->camera_->GetViewMatrix());
-}

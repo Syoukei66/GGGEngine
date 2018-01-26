@@ -11,7 +11,8 @@ Camera::Camera(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_mi
   , size_(width, height)
   , z_min_(z_min)
   , z_max_(z_max)
-{}
+{
+}
 
 Camera::Camera()
   : viewport_clear_(true)
@@ -19,11 +20,20 @@ Camera::Camera()
   , size_((T_FLOAT)Director::GetInstance()->GetScreenWidth(), (T_FLOAT)Director::GetInstance()->GetScreenHeight())
   , z_min_(0.0f)
   , z_max_(1.0f)
-{}
+{
+}
+
+Camera::~Camera()
+{
+}
 
 // =================================================================
 // Method
 // =================================================================
+void Camera::SetupViewProjMatrix()
+{
+}
+
 void Camera::DrawScene(Scene* scene)
 {
   if (!this->IsEnabled())
