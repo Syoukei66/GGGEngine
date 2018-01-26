@@ -20,7 +20,6 @@ public:
   // Methods
   // =================================================================
 public:
-  void Prepare();
   virtual bool Collision(Collider3D_Sphare& other) = 0;
   //virtual bool Collision(const Collider3D_Capsule& other) = 0;
 
@@ -31,9 +30,9 @@ protected:
   // Setter / Getter
   // =================================================================
 public:
-  inline const TVec3f& GetPosition() const
+  inline const TVec3f GetPosition() const
   {
-    return this->position_;
+    return this->offset_ + this->entity_->GetTransform()->GetWorldPosition();
   }
   inline void SetOffset(const TVec3f& offset)
   {
@@ -48,8 +47,6 @@ public:
 protected:
   GameObject3D* entity_;
   TVec3f offset_;
-  TVec3f position_;
-
 };
 
 // =================================================================
