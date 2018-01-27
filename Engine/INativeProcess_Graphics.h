@@ -74,16 +74,6 @@ public:
 
   virtual void Graphics_DrawVertexes(GameObjectRenderState* state, PrimitiveType primitive_type, Vertex::VertexType vertex_type, const void* vertexes, T_UINT16 vertexes_count) = 0;
   virtual void Graphics_DrawIndexedVertexes(GameObjectRenderState* state, PrimitiveType primitive_type, Vertex::VertexType vertex_type, const void* vertexes, T_UINT16 vertexes_count, const T_UINT16* indexes) = 0;
-
-  virtual T_UINT16 Graphics_CreateLight(LP_LIGHT* light) = 0;
-  virtual void Graphics_DeleteLight(T_UINT16 light_id, LP_LIGHT light) = 0;
-  virtual void Graphics_SetLight(T_UINT16 light_id, LP_LIGHT light) = 0;
-
-  virtual void Graphics_SetLightEnable(T_UINT16 light_id, LP_LIGHT light, bool enable) = 0;
-  virtual void Graphics_SetLightDirection(T_UINT16 light_id, LP_LIGHT light, const TVec3f& direction) = 0;
-  
-  virtual void Graphics_SetLightDiffuse(T_UINT16 light_id, LP_LIGHT light, const Color4F& color) = 0;
-  virtual void Graphics_SetAmbient(const Color4F& color) = 0;
 };
 
 #endif//HAL_ENGINE_NATIVE_NATIVEPROCESS_GRAPHICS_H_

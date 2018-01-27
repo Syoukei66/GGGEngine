@@ -234,7 +234,6 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="InputSetting.cpp" />
     <ClCompile Include="JsonParser.cpp" />
-    <ClCompile Include="Light.cpp" />
     <ClCompile Include="Line3D.cpp" />
     <ClCompile Include="LoadProgressCounter.cpp" />
     <ClCompile Include="LoopSprite.cpp" />
@@ -400,7 +399,6 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="InputSetting.h" />
     <ClInclude Include="JsonParser.h" />
-    <ClInclude Include="Light.h" />
     <ClInclude Include="Line3D.h" />
     <ClInclude Include="LoadProgressCounter.h" />
     <ClInclude Include="LoopSprite.h" />

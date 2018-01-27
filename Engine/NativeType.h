@@ -10,7 +10,6 @@
 	各プラットフォームで最適な型を定義
  * ================================================================= */
 
- //TODO:現状だとReleaseビルドでNATIVE_ASSERT内の処理が行われないため、必ず必要な処理はCauseに記述しないように修正すること
 #define NATIVE_ASSERT(Cause, Message) assert(Cause && Message)
 
  // =================================================================
@@ -57,13 +56,7 @@ static const T_DOUBLE T_DOUBLE_MAX = DBL_MAX;
 // blendMode
 // =================================================================
 
-
 typedef T_UINT32 T_PACKED_COLOR_UINT32;
-
 typedef int* LP_DEVICE;
-
-typedef int* LP_VERTEX_BUFFER;
-
-typedef int* LP_LIGHT;
 
 #endif//HAL_ENGINE_NATIVE_NATIVETYPE_H_

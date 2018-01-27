@@ -27,16 +27,6 @@ public:
   virtual void Graphics_DrawVertexes(GameObjectRenderState* state, PrimitiveType primitive_type, Vertex::VertexType vertex_type, const void* vertexes, T_UINT16 vertexes_count) override;
   virtual void Graphics_DrawIndexedVertexes(GameObjectRenderState* state, PrimitiveType primitive_type, Vertex::VertexType vertex_type, const void* vertexes, T_UINT16 vertexes_count, const T_UINT16* indexes) override;
 
-  virtual T_UINT16 Graphics_CreateLight(LP_LIGHT* light) override;
-  virtual void Graphics_DeleteLight(T_UINT16 light_id, LP_LIGHT light) override;
-  virtual void Graphics_SetLight(T_UINT16 light_id, LP_LIGHT light) override;
-
-  virtual void Graphics_SetLightEnable(T_UINT16 light_id, LP_LIGHT light, bool enable) override;
-  virtual void Graphics_SetLightDirection(T_UINT16 light_id, LP_LIGHT light, const TVec3f& direction) override;
-
-  virtual void Graphics_SetLightDiffuse(T_UINT16 light_id, LP_LIGHT light, const Color4F& color) override;
-  virtual void Graphics_SetAmbient(const Color4F& color) override;
-
   // =================================================================
   // DataMembers
   // =================================================================
