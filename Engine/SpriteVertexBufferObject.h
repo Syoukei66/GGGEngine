@@ -6,10 +6,6 @@
 
 class Shape;
 
-// TODO: 2DのオブジェクトもVertexBufferとIndexBufferを使用して描画するように切り替える
-//       あとwidth, heightの変更を頂点座標の変更ではなく、スケーリングで表現
-//       スケーリングに関しては、オブジェクトの大きさ用のスケールと、
-//       自分と子オブジェクト全体にかかるスケールの２種類を用意する方がいいのかもしれない
 class SpriteVertexBufferObject : public IVertexBufferObject
 {
 
