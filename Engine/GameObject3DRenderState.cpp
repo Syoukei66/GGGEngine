@@ -40,26 +40,16 @@ void GameObject3DRenderState::DrawZOrderedGameObject()
     {
       if (param.object->GetMaterial()->IsBillboard())
       {
-        GameObject3D* p = param.object;
-        this->mat_->Init();
-        while (p && !p->GetMaterial()->IsBillboardingRoot())
-        {
-          this->mat_->MultipleReverse(*p->GetTransform()->GetMatrix());
-          p = p->GetParent();
-        }
-        if (p)
-        {
-          this->PushMatrix(p->GetTransform()->GetWorldMatrix());
-        }
-        this->PushMatrix(this->camera_->GetBillboardingMatrix());
+        param.object->GetTransform()->GetRotationMatrix()->Inverse(this->mat_);
+        this->PushMatrix(param.object->GetTransform()->GetWorldMatrix());
         this->PushMatrix(this->mat_);
+        this->PushMatrix(this->camera_->GetBillboardingMatrix());
+        this->PushMatrix(param.object->GetTransform()->GetRotationMatrix());
         param.object->ManagedDraw(this);
         this->PopMatrix();
         this->PopMatrix();
-        if (p)
-        {
-          this->PopMatrix();
-        }
+        this->PopMatrix();
+        this->PopMatrix();
       }
       else
       {

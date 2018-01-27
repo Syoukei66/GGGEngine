@@ -194,7 +194,7 @@ public:
     this->billbording_ = billboarding;
   }
 
-  inline bool IsBillboardingRoot() const
+  inline bool IsBillboard() const
   {
     return this->billbording_;
   }
