@@ -11,7 +11,7 @@ Sprite3D* Sprite3D::CreateWithMaterial(Material* material)
   TextureRegion* region = TextureRegion::CreateWithTexture(material->GetMainTexture());
   ret->Init();
   ret->SetMaterial(*material);
-  ret->SetTextureRegion(region);
+  ret->SetTextureRegion(region, true);
   ret->FitToTexture();
   return ret;
 }
@@ -25,12 +25,17 @@ Sprite3D* Sprite3D::CreateWithTexture(const Texture* texture)
 
 Sprite3D::Sprite3D()
   : Shape3D(new VertexBufferObject_Sprite3D())
+  , texture_region_(nullptr)
 {
   this->sprite3d_vbo_ = (VertexBufferObject_Sprite3D*)this->vbo_;
 }
 
 Sprite3D::~Sprite3D()
 {
+  if (this->delete_region_)
+  {
+    delete this->texture_region_;
+  }
 }
 
 // =================================================================
@@ -93,12 +98,13 @@ void Sprite3D::FitToTexture()
   this->SetHeight(texture_height * (this->texture_region_->GetV1() - this->texture_region_->GetV0()));
 }
 
-void Sprite3D::SetTextureRegion(ITextureRegion* itr)
+void Sprite3D::SetTextureRegion(ITextureRegion* itr, bool delete_region)
 {
   if (this->texture_region_ == itr)
   {
     return;
   }
+  this->delete_region_ = delete_region;
   this->texture_region_ = itr;
   this->OnTextureChanged();
 }
