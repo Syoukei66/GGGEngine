@@ -206,6 +206,11 @@ void InputManager::Init(const InputSetting& setting)
 
 void InputManager::Uninit()
 {
+  for (T_UINT8 i = 0; i < this->state_count_; ++i)
+  {
+    delete this->states_[i];
+  }
+  delete[] this->states_;
 }
 
 void InputManager::ClearCaches()

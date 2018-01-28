@@ -19,6 +19,12 @@ NativeMatrix::NativeMatrix(NativeMatrixInstance* instance)
   this->mat_ = GetNativeInstance<D3DXMATRIX>();
 }
 
+NativeMatrix::NativeMatrix(const NativeMatrix& mat)
+  : INativeMatrix(mat.GetNativeInstance())
+{
+  this->mat_ = GetNativeInstance<D3DXMATRIX>();
+}
+
 NativeMatrix::~NativeMatrix()
 {
   delete this->mat_;

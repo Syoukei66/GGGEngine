@@ -8,6 +8,7 @@ public:
   ISceneShowListener()
     : controled_(false)
   {}
+  virtual ~ISceneShowListener() {}
 
 public:
   virtual void OnShowFinish() = 0;
@@ -32,6 +33,7 @@ public:
   ISceneHideListener()
     : controled_(false)
   {}
+  virtual ~ISceneHideListener() {}
 
 public:
   virtual void OnHideFinish() = 0;
@@ -68,6 +70,7 @@ private:
   // =================================================================
 public:
   SceneTransitioner();
+  ~SceneTransitioner();
 
   // =================================================================
   // Method

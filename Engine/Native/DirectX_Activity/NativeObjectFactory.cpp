@@ -20,6 +20,12 @@ INativeMatrix* NativeObjectFactory::CreateMatrix(NativeMatrixInstance* instance)
   return new NativeMatrix(instance);
 }
 
+const INativeMatrix& NativeObjectFactory::GetIdentityMatrix()
+{
+  static NativeMatrix identity = NativeMatrix();
+  return identity;
+}
+
 INativeMatrixStack* NativeObjectFactory::CreateMatrixStack()
 {
   return new NativeMatrixStack();

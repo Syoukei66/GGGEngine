@@ -13,6 +13,7 @@ class ModelNode : public GameObject3D
   // =================================================================
 public:
   ModelNode(const FbxNodeData& node);
+  virtual ~ModelNode();
 
   // =================================================================
   // Method for/from Interface/SuperClass

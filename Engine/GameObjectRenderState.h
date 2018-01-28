@@ -13,7 +13,7 @@ class GameObjectRenderState
   // =================================================================
 public:
   GameObjectRenderState(Camera* camera);
-  ~GameObjectRenderState();
+  virtual ~GameObjectRenderState();
 
   // =================================================================
   // Method

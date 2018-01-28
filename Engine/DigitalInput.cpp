@@ -1,7 +1,7 @@
 #include "DigitalInput.h"
 #include "NativeAssert.h"
 
-const DigitalInputState* DigitalInputState::NULL_INPUT = new DigitalInputState();
+const DigitalInputState DigitalInputState::NULL_INPUT = DigitalInputState();
 
 // =================================================================
 // Constructor / Destructor

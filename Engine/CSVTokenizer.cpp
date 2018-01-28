@@ -3,15 +3,15 @@
 // =================================================================
 // CSVToken
 // =================================================================
-CSVToken* CSVToken::Create(const std::string& str)
+CSVToken CSVToken::Create(const std::string& str)
 {
   if (str[0] == '\"')
   {
     std::string ret = std::string();
     ret.append(str, 1, str.length() - 2);
-    return new CSVToken(ret);
+    return CSVToken(ret);
   }
-  return new CSVToken(str);
+  return CSVToken(str);
 }
 
 // =================================================================
@@ -87,6 +87,10 @@ CSVTokenizer::CSVTokenizer(const CSVTokenizer& other)
 {
 }
 
+CSVTokenizer::~CSVTokenizer()
+{
+}
+
 void CSVTokenizer::Reset()
 {
   this->now_token_index_ = 0;
@@ -97,9 +101,9 @@ bool CSVTokenizer::HasNextToken()
   return this->now_token_index_ < this->tokens_.size();
 }
 
-const CSVToken* CSVTokenizer::NextToken()
+const CSVToken& CSVTokenizer::NextToken()
 {
-  const CSVToken* ret = this->tokens_[this->now_token_index_];
+  const CSVToken& ret = this->tokens_[this->now_token_index_];
   ++this->now_token_index_;
   return ret;
 }

@@ -11,7 +11,6 @@ ResourcePool::ResourcePool()
 
 ResourcePool::~ResourcePool()
 {
-
 }
 
 // =================================================================

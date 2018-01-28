@@ -133,6 +133,8 @@ public:
   // Data Member
   // =================================================================
 private:
+  bool is_loaded_;
+
   GameObject2D* root2d_;
   std::vector<Camera2D*> camera2ds_;
 

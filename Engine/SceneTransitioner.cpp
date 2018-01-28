@@ -10,6 +10,20 @@ SceneTransitioner::SceneTransitioner()
 {
 }
 
+SceneTransitioner::~SceneTransitioner()
+{
+  if (this->now_scene_)
+  {
+    this->now_scene_->Unload();
+    delete this->now_scene_;
+  }
+  if (this->next_scene_)
+  {
+    this->next_scene_->Unload();
+    delete this->next_scene_;
+  }
+}
+
 Scene* SceneTransitioner::Transition()
 {
   if (this->state_ == SCENE_TRANSITION_NONE)

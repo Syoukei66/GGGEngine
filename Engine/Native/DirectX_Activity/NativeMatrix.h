@@ -13,6 +13,7 @@ class NativeMatrix : public INativeMatrix
 public:
   NativeMatrix();
   NativeMatrix(NativeMatrixInstance* instance);
+  NativeMatrix(const NativeMatrix& mat);
   ~NativeMatrix();
 
   // =================================================================

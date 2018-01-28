@@ -13,6 +13,7 @@ namespace NativeObjectFactory
 
 INativeMatrix* CreateMatrix();
 INativeMatrix* CreateMatrix(NativeMatrixInstance* instance);
+const INativeMatrix& GetIdentityMatrix();
 
 INativeMatrixStack* CreateMatrixStack();
 

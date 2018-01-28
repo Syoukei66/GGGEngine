@@ -19,6 +19,15 @@ ModelNode::ModelNode(const FbxNodeData& node)
   }
 }
 
+ModelNode::~ModelNode()
+{
+  for (T_UINT8 i = 0; i < this->child_count_; ++i)
+  {
+    delete this->children_[i];
+  }
+  delete[] this->children_;
+}
+
 // =================================================================
 // Method for/from Interface/SuperClass
 // =================================================================

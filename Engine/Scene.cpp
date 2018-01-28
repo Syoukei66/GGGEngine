@@ -12,6 +12,7 @@
 // Constructor / Destructor
 // =================================================================
 Scene::Scene()
+  : is_loaded_(false)
 {
   this->root2d_ = new GameObject2D();
   this->root3d_ = new GameObject3D();
@@ -34,15 +35,25 @@ Scene::~Scene()
 // =================================================================
 void Scene::Load(IResourceLoadingListener* listener)
 {
+  if (this->is_loaded_)
+  {
+    return;
+  }
   this->OnLoad(&UserResourcePool::GetInstance());
   UserResourcePool::GetInstance().PreRealize(listener);
   UserResourcePool::GetInstance().Realize(listener);
   this->OnSetup();
+  this->is_loaded_ = true;
 }
 
 void Scene::Unload()
 {
+  if (!this->is_loaded_)
+  {
+    return;
+  }
   this->OnUnload();
+  this->is_loaded_ = false;
 }
 
 void Scene::Show(ISceneShowListener* listener)
