@@ -6,12 +6,12 @@
 // =================================================================
 Transform::Transform(GameObject* entity)
   : entity_(entity)
+  , translate_matrix_(INativeMatrix::Create())
+  , scale_matrix_(INativeMatrix::Create())
+  , rotation_matrix_(INativeMatrix::Create())
+  , matrix_(INativeMatrix::Create())
+  , world_matrix_(INativeMatrix::Create())
 {
-  this->translate_matrix_ = INativeMatrix::Create();
-  this->scale_matrix_ = INativeMatrix::Create();
-  this->rotation_matrix_ = INativeMatrix::Create();
-  this->matrix_ = INativeMatrix::Create();
-  this->world_matrix_ = INativeMatrix::Create();
 }
 
 Transform::~Transform()
@@ -97,8 +97,8 @@ void Transform::UpdateWorldMatrix()
   {
     return;
   }
-  this->world_matrix_->Assign(*this->GetMatrix());
-  INativeMatrix* parent_world_matrix = this->GetParentWorldMatrix();
+  this->world_matrix_->Assign(this->GetMatrix());
+  const INativeMatrix* parent_world_matrix = this->GetParentWorldMatrix();
   if (parent_world_matrix)
   {
     this->world_matrix_->Multiple(*parent_world_matrix);

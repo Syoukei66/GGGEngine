@@ -14,7 +14,7 @@ class Transform
   // =================================================================
 public:
   Transform(GameObject* entity);
-  ~Transform();
+  virtual ~Transform();
 
   // =================================================================
   // Method
@@ -40,41 +40,40 @@ protected:
   virtual void UpdateRotateMatrix(INativeMatrix* matrix) = 0;
   virtual void UpdateScaleMatrix(INativeMatrix* matrix) = 0;
 
-  virtual INativeMatrix* GetParentWorldMatrix() = 0;
+  virtual const INativeMatrix* GetParentWorldMatrix() = 0;
 
   // =================================================================
   // setter/getter
   // =================================================================
 public:
-  //TODO: MatrixÇíºê⁄ï“èWÇ≈Ç´Ç»Ç¢ÇÊÇ§Ç…Ç∑ÇÈïKóvÇ™Ç†ÇÈÇÃÇ≈ÇÕ
-  inline INativeMatrix* GetMatrix() const
+  inline const INativeMatrix& GetMatrix() const
   {
     const_cast<Transform*>(this)->UpdateMatrix();
-    return this->matrix_;
+    return *this->matrix_;
   }
 
-  inline INativeMatrix* GetTranslateMatrix() const
+  inline const INativeMatrix& GetTranslateMatrix() const
   {
     const_cast<Transform*>(this)->UpdateMatrix();
-    return this->translate_matrix_;
+    return *this->translate_matrix_;
   }
 
-  inline INativeMatrix* GetRotationMatrix() const
+  inline const INativeMatrix& GetRotationMatrix() const
   {
     const_cast<Transform*>(this)->UpdateMatrix();
-    return this->rotation_matrix_;
+    return *this->rotation_matrix_;
   }
 
-  inline INativeMatrix* GetScaleMatrix() const
+  inline const INativeMatrix& GetScaleMatrix() const
   {
     const_cast<Transform*>(this)->UpdateMatrix();
-    return this->scale_matrix_;
+    return *this->scale_matrix_;
   }
 
-  inline INativeMatrix* GetWorldMatrix() const
+  inline const INativeMatrix& GetWorldMatrix() const
   {
     const_cast<Transform*>(this)->UpdateWorldMatrix();
-    return this->world_matrix_;
+    return *this->world_matrix_;
   }
 
   // =================================================================
@@ -83,11 +82,11 @@ public:
 private:
   GameObject* entity_;
 
-  INativeMatrix* translate_matrix_;
-  INativeMatrix* rotation_matrix_;
-  INativeMatrix* scale_matrix_;
-  INativeMatrix* matrix_;
-  INativeMatrix* world_matrix_;
+  INativeMatrix* const translate_matrix_;
+  INativeMatrix* const rotation_matrix_;
+  INativeMatrix* const scale_matrix_;
+  INativeMatrix* const matrix_;
+  INativeMatrix* const world_matrix_;
 
   bool translation_dirty_;
   bool rotation_dirty_;

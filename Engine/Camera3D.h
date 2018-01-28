@@ -79,9 +79,9 @@ public:
   {
     return this->render_state_;
   }
-  inline INativeMatrix* GetBillboardingMatrix() const
+  inline const INativeMatrix& GetBillboardingMatrix() const
   {
-    return this->billboarding_matrix_;
+    return *this->billboarding_matrix_;
   }
 
 protected:

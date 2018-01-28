@@ -95,7 +95,7 @@ public:
   // Data Member
   // =================================================================
 private:
-  INativeMatrix* view_matrix_;
+  INativeMatrix* const view_matrix_;
 
   TVec3f look_at_pos_;
   TVec3f current_look_at_pos_;

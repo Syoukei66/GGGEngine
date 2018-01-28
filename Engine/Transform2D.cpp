@@ -50,14 +50,14 @@ void Transform2D::UpdateRotateMatrix(INativeMatrix* matrix)
   );
 }
 
-INativeMatrix* Transform2D::GetParentWorldMatrix()
+const INativeMatrix* Transform2D::GetParentWorldMatrix()
 {
   GameObject2D* parent = this->entity_->GetParent();
   if (!parent)
   {
     return nullptr;
   }
-  return parent->GetTransform()->GetWorldMatrix();
+  return &parent->GetTransform()->GetWorldMatrix();
 }
 
 // =================================================================

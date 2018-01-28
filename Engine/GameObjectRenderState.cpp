@@ -33,9 +33,9 @@ void GameObjectRenderState::Init()
   this->view_proj_matrix_->Multiple(*this->camera_->GetProjectionMatrix());
 }
 
-void GameObjectRenderState::PushMatrix(INativeMatrix* matrix)
+void GameObjectRenderState::PushMatrix(const INativeMatrix& matrix)
 {
-  this->matrix_stack_->Push(matrix->GetNativeInstance());
+  this->matrix_stack_->Push(matrix.GetNativeInstance());
 }
 
 void GameObjectRenderState::PopMatrix()

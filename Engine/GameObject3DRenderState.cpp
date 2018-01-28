@@ -40,9 +40,9 @@ void GameObject3DRenderState::DrawZOrderedGameObject()
     {
       if (param.object->GetMaterial()->IsBillboard())
       {
-        param.object->GetTransform()->GetRotationMatrix()->Inverse(this->mat_);
+        param.object->GetTransform()->GetRotationMatrix().Inverse(this->mat_);
         this->PushMatrix(param.object->GetTransform()->GetWorldMatrix());
-        this->PushMatrix(this->mat_);
+        this->PushMatrix(*this->mat_);
         this->PushMatrix(this->camera_->GetBillboardingMatrix());
         this->PushMatrix(param.object->GetTransform()->GetRotationMatrix());
         param.object->ManagedDraw(this);

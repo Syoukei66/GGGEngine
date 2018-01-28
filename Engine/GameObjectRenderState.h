@@ -20,7 +20,7 @@ public:
   // =================================================================
 public:
   virtual void Init();
-  void PushMatrix(INativeMatrix* matrix);
+  void PushMatrix(const INativeMatrix& matrix);
   void PopMatrix();
   
   // =================================================================

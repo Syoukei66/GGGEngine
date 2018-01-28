@@ -8,6 +8,7 @@
 // =================================================================
 Camera3D_LookAt::Camera3D_LookAt(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_min, T_FLOAT z_max)
   : Camera3D(x, y, width, height, z_min, z_max)
+  , view_matrix_(INativeMatrix::Create())
   , look_at_pos_(0.0f, 0.0f, 1.0f)
   , current_look_at_pos_(0.0f, 0.0f, 1.0f)
   , target_(nullptr)
@@ -15,11 +16,11 @@ Camera3D_LookAt::Camera3D_LookAt(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT he
   , target_direction_(0.0f, 0.0f, 1.0f)
   , view_dirty_(true)
 {
-  this->view_matrix_ = INativeMatrix::Create();
 }
 
 Camera3D_LookAt::Camera3D_LookAt()
   : Camera3D()
+  , view_matrix_(INativeMatrix::Create())
   , look_at_pos_(0.0f, 0.0f, 1.0f)
   , current_look_at_pos_(0.0f, 0.0f, 1.0f)
   , target_(nullptr)
@@ -27,7 +28,6 @@ Camera3D_LookAt::Camera3D_LookAt()
   , target_direction_(0.0f, 0.0f, 1.0f)
   , view_dirty_(true)
 {
-  this->view_matrix_ = INativeMatrix::Create();
 }
 
 Camera3D_LookAt::~Camera3D_LookAt()
@@ -71,7 +71,7 @@ void Camera3D_LookAt::CheckViewDirty()
     this->view_matrix_->LookAtLH(
       camera_pos,
       this->current_look_at_pos_,
-      this->GetTransform()->GetWorldMatrix()->GetCameraYVec()
+      this->GetTransform()->GetWorldMatrix().GetCameraYVec()
     );
   }
   //ターゲットが存在しない時の処理
@@ -84,18 +84,18 @@ void Camera3D_LookAt::CheckViewDirty()
 
       const TVec3f& camera_pos = this->GetTransform()->GetWorldPosition();
       TVec3f look_at_pos = this->look_at_pos_;
-      this->GetTransform()->GetWorldMatrix()->Apply(&look_at_pos);
+      this->GetTransform()->GetWorldMatrix().Apply(&look_at_pos);
       this->direction_ = (look_at_pos - camera_pos).Normalized();
       this->view_matrix_->LookAtLH(
         camera_pos,
         look_at_pos,
-        this->GetTransform()->GetWorldMatrix()->GetCameraYVec()
+        this->GetTransform()->GetWorldMatrix().GetCameraYVec()
       );
     }
     //プレイヤーが存在しない時の処理
     else
     {
-      this->view_matrix_ = this->GetTransform()->GetWorldMatrix();
+      this->view_matrix_->Assign(this->GetTransform()->GetWorldMatrix());
       this->direction_ = this->view_matrix_->GetDirection3d();
     }
   }
