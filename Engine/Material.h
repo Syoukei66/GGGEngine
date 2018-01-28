@@ -144,10 +144,10 @@ public:
     return this->GetShaderProperty<ShaderProperty_texture>(property_name);
   }
 
-  inline void SetMainTexture(const Texture* texture)
+  inline void SetMainTexture(const Texture& texture)
   {
     NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
-    this->texture_ = texture;
+    this->texture_ = &texture;
   }
   inline const Texture* GetMainTexture() const
   {

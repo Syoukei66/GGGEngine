@@ -16,7 +16,7 @@ Sprite3D* Sprite3D::CreateWithMaterial(Material* material)
   return ret;
 }
 
-Sprite3D* Sprite3D::CreateWithTexture(const Texture* texture)
+Sprite3D* Sprite3D::CreateWithTexture(const Texture& texture)
 {
   Material* mat = EngineAsset::Material::SPRITE.Clone();
   mat->SetMainTexture(texture);

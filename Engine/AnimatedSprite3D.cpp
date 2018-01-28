@@ -17,7 +17,7 @@ AnimatedSprite3D* AnimatedSprite3D::CreateWithMaterial(Material* material, T_UIN
   return ret;
 }
 
-AnimatedSprite3D* AnimatedSprite3D::CreateWithTexture(const Texture* texture, T_UINT8 x_num, T_UINT8 y_num)
+AnimatedSprite3D* AnimatedSprite3D::CreateWithTexture(const Texture& texture, T_UINT8 x_num, T_UINT8 y_num)
 {
   Material* mat = EngineAsset::Material::SPRITE.Clone();
   mat->SetMainTexture(texture);

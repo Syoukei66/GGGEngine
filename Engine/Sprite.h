@@ -14,7 +14,7 @@ public:
   static Sprite* Create();
   static Sprite* CreateWithTextureRegion(ITextureRegion* region);
   static Sprite* CreateWithMaterial(Material* material);
-  static Sprite* CreateWithTexture(const Texture* texture);
+  static Sprite* CreateWithTexture(const Texture& texture);
 
   // =================================================================
   // Constructor / Destructor

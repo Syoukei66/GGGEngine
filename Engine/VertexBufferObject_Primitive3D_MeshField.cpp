@@ -85,6 +85,12 @@ VertexBufferObject_Primitive3D_MeshField::VertexBufferObject_Primitive3D_MeshFie
   }
 }
 
+VertexBufferObject_Primitive3D_MeshField::~VertexBufferObject_Primitive3D_MeshField()
+{
+  delete[] this->vertexes_;
+  delete[] this->indexes_;
+}
+
 void VertexBufferObject_Primitive3D_MeshField::OnInit()
 {
 }

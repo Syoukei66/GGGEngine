@@ -13,7 +13,7 @@ public:
   static LoopSprite* Create();
   static LoopSprite* CreateWithTextureRegion(LoopTextureRegion* region);
   static LoopSprite* CreateWithMaterial(Material* material);
-  static LoopSprite* CreateWithTexture(const Texture* texture);
+  static LoopSprite* CreateWithTexture(const Texture& texture);
 
   // =================================================================
   // Methods for/from SuperClass/Interfaces

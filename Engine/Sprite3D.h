@@ -8,7 +8,7 @@ class Sprite3D : public Shape3D
 {
 public:
   static Sprite3D* CreateWithMaterial(Material* material);
-  static Sprite3D* CreateWithTexture(const Texture* texture);
+  static Sprite3D* CreateWithTexture(const Texture& texture);
 
   // =================================================================
   // Constructor / Destructor

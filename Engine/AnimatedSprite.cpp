@@ -29,7 +29,7 @@ AnimatedSprite* AnimatedSprite::CreateWithMaterial(Material* material, T_UINT8 x
   return ret;
 }
 
-AnimatedSprite* AnimatedSprite::CreateWithTexture(const Texture* texture, T_UINT8 x_num, T_UINT8 y_num)
+AnimatedSprite* AnimatedSprite::CreateWithTexture(const Texture& texture, T_UINT8 x_num, T_UINT8 y_num)
 {
   Material* mat = EngineAsset::Material::SPRITE.Clone();
   mat->SetMainTexture(texture);

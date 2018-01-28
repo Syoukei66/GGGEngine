@@ -13,7 +13,7 @@ public:
   static AnimatedSprite* Create();
   static AnimatedSprite* CreateWithTextureRegion(TiledTextureRegion* region);
   static AnimatedSprite* CreateWithMaterial(Material* material, T_UINT8 x_num, T_UINT8 y_num);
-  static AnimatedSprite* CreateWithTexture(const Texture* texture, T_UINT8 x_num, T_UINT8 y_num);
+  static AnimatedSprite* CreateWithTexture(const Texture& texture, T_UINT8 x_num, T_UINT8 y_num);
 
   // =================================================================
   // Constructor / Destructor

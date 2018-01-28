@@ -28,7 +28,7 @@ LoopSprite* LoopSprite::CreateWithMaterial(Material* material)
   return ret;
 }
 
-LoopSprite* LoopSprite::CreateWithTexture(const Texture* texture)
+LoopSprite* LoopSprite::CreateWithTexture(const Texture& texture)
 {
   Material* mat = EngineAsset::Material::SPRITE.Clone();
   mat->SetMainTexture(texture);

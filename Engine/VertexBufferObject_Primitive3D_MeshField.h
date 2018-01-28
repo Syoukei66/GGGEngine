@@ -9,6 +9,7 @@ class VertexBufferObject_Primitive3D_MeshField : public IVertexBufferObject
   // =================================================================
 public:
   VertexBufferObject_Primitive3D_MeshField(T_FLOAT width, T_FLOAT height, T_UINT16 x_num, T_UINT16 y_num);
+  ~VertexBufferObject_Primitive3D_MeshField();
 
   // =================================================================
   // Methods for/from SuperClass/Interfaces
