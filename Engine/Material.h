@@ -2,6 +2,7 @@
 
 #include <unordered_map>
 
+#include "NativeAssert.h"
 #include "Color.h"
 #include "ShaderResource.h"
 #include "Texture.h"

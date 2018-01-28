@@ -88,7 +88,6 @@
         #include "VertexBufferObject_Primitive3D_Triangle.h"
         #include "VertexBufferObject_Sprite3D.h"
 //--Light
-    #include "Light.h"
 //--Mesh
 
 //Director
@@ -113,6 +112,7 @@
   #include "INativeProcess_Graphics.h"
   #include "INativeProcess_IO.h"
   #include "INativeProcess_Time.h"
+  #include "NativeAssert.h"
   #include "NativeMethod.h"
   #include "NativeObjectFactory.h"
   #include "NativeType.h"

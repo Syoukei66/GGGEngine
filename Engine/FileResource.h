@@ -1,5 +1,6 @@
 #pragma once
 
+#include "NativeAssert.h"
 #include "ResourceLoader.h"
 #include "ResourcePool.h"
 

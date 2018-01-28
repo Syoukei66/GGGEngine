@@ -1,4 +1,5 @@
 #include "CSVData.h"
+#include "NativeAssert.h"
 #include <fstream>
 
 CSVData::CSVData(const char* path)

@@ -1301,6 +1301,9 @@
     <ClInclude Include="VertexBufferObject_Primitive3D_Cube.h">
       <Filter>ヘッダー ファイル\Component\GameObject\VBO\3D</Filter>
     </ClInclude>
+    <ClInclude Include="NativeAssert.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Default.fx">

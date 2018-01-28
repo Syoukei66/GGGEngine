@@ -3,6 +3,7 @@
 #include <map>
 #include <set>
 #include "NativeType.h"
+#include "NativeAssert.h"
 #include "ResourceLoader.h"
 
 class IResourceLoadingListener

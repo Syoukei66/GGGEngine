@@ -1,5 +1,6 @@
 #include "EasingFunctionManager.h"
 #include <string.h>
+#include "NativeAssert.h"
 
 namespace
 {

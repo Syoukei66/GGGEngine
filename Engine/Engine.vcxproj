@@ -335,6 +335,7 @@
     <ClInclude Include="MeshMaterial_Cube.h" />
     <ClInclude Include="MeshMaterial_Plane.h" />
     <ClInclude Include="ModelNode.h" />
+    <ClInclude Include="NativeAssert.h" />
     <ClInclude Include="NativeIndexBuffer.h" />
     <ClInclude Include="NativeVertexBuffer.h" />
     <ClInclude Include="NativeShader.h" />
