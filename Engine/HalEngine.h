@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../../Project/Asset.h"
+
 #include "Moniker.h"
 
 //Activity
