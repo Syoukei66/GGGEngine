@@ -1,14 +1,13 @@
 float4x4 _WorldViewProj;
 
-float4 vert(float4 vertex : POSITION) : POSITION
+float4 vert(float4 vertex : POSITION) : SV_POSITION
 {
   return mul(vertex, _WorldViewProj);
 }
 
 float4 frag(float4 o : COLOR0) : SV_TARGET
 {
-  o = float4(1.0f, 1.0f, 1.0f, 1.0f);
-  return o;
+  return float4(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 technique Default
