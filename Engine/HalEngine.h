@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../../Project/Asset.h"
-
 #include "Moniker.h"
 
 //Activity
@@ -197,3 +195,5 @@
     #include "EasingFunctionManager.h"
 //--Singleton
     #include "Singleton.h"
+
+#include "../../Project/Asset.h"
