@@ -20,7 +20,7 @@ class Material MODEL(Shader::MODEL, true);
 class Material PARTICLE(Shader::PARTICLE, true);
 class Material PRIMITIVE(Shader::PRIMITIVE, true);
 class Material SPRITE(Shader::SPRITE, true);
-class Material WHITE(Shader::SPRITE, true);
+class Material WHITE(Shader::WHITE, true);
 } // namespace Material
 
 } // namespace EngineAsset
