@@ -54,5 +54,17 @@ private:
   FbxMeshMaterial* mesh_material_;
   Mesh* mesh_;
 
+  Color4F ambient_;
+  Color4F diffuse_;
+  Color4F specular_;
+  Color4F emissive_;
+  Color4F shininess_;
+  Color4F transparent_;
+  Color4F reflection_;
+
+  Texture* normal_map_;
+  Texture* bump_map_;
+  Texture* texture_;
+
   FbxNodeData* parent_;
 };
