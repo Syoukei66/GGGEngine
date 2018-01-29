@@ -1,3 +1,8 @@
+#define _WORLD_VIEW_PROJ
+#define _MAIN_TEXTURE
+#define _DIFFUSE
+#include "DefaultProperty.hlsli"
+
 struct appdata
 {
   float4 vertex : POSITION;
@@ -7,9 +12,6 @@ struct v2f
 {
   float4 vertex : SV_POSITION;
 };
-
-float4x4 _WorldViewProj;
-float4 _Diffuse;
 
 v2f vert(appdata v)
 {

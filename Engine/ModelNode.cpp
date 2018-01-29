@@ -9,7 +9,7 @@ ModelNode::ModelNode(const FbxNodeData& node)
   , child_count_(node.GetChildCount())
   , parent_(nullptr)
 {
-  this->SetMaterial(EngineAsset::Material::MODEL);
+  this->SetMaterial(*node.GetMaterial());
   this->children_ = new ModelNode*[this->child_count_];
   for (T_UINT8 i = 0; i < this->child_count_; ++i)
   {
@@ -74,24 +74,47 @@ ModelNode* ModelNode::FindFromTree(const char* name)
   return nullptr;
 }
 
-void ModelNode::SetMaterials(Material* material)
+void ModelNode::SetShader(const ShaderResource& shader)
+{  
+  this->GetMaterial()->SetShader(shader);
+}
+
+void ModelNode::SetShaderForChildren(const ShaderResource& shader)
 {
   for (T_UINT8 i = 0; i < this->child_count_; ++i)
   {
-    this->children_[i]->SetMaterial(*material);
-    this->children_[i]->SetMaterials(material);
+    this->children_[i]->SetShader(shader);
   }
 }
 
-void ModelNode::SetMaterials(const char* name, Material* material)
+void ModelNode::SetShaderForChildren(const char* name, const ShaderResource& shader)
 {
   for (T_UINT8 i = 0; i < this->child_count_; ++i)
   {
     if (strcmp(this->children_[i]->node_.GetName(), name) == 0)
     {
-      this->children_[i]->SetMaterial(*material);
+      this->children_[i]->SetShader(shader);
     }
-    this->children_[i]->SetMaterials(name, material);
   }
 }
 
+void ModelNode::SetShaderForTree(const ShaderResource& shader)
+{
+  this->SetShader(shader);
+  for (T_UINT8 i = 0; i < this->child_count_; ++i)
+  {
+    this->children_[i]->SetShaderForTree(shader);
+  }
+}
+
+void ModelNode::SetShaderForTree(const char* name, const ShaderResource& shader)
+{
+  if (strcmp(this->node_.GetName(), name) == 0)
+  {
+    this->SetShader(shader);
+  }
+  for (T_UINT8 i = 0; i < this->child_count_; ++i)
+  {
+    this->children_[i]->SetShaderForTree(name, shader);
+  }
+}

@@ -1,4 +1,5 @@
-float4x4 _WorldViewProj;
+#define _WORLD_VIEW_PROJ
+#include "DefaultProperty.hlsli"
 
 float4 vert(float4 vertex : POSITION) : SV_POSITION
 {
@@ -7,7 +8,7 @@ float4 vert(float4 vertex : POSITION) : SV_POSITION
 
 float4 frag(float4 o : COLOR0) : SV_TARGET
 {
-  return float4(1.0f, 1.0f, 1.0f, 1.0f);
+  return 1.0f;
 }
 
 technique Default

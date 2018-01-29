@@ -28,8 +28,11 @@ public:
   ModelNode* FindFromChildren(const char* name);
   ModelNode* FindFromTree(const char* name);
 
-  void SetMaterials(Material* material);
-  void SetMaterials(const char* name, Material* material);
+  void SetShader(const ShaderResource& shader);
+  void SetShaderForChildren(const ShaderResource& shader);
+  void SetShaderForChildren(const char* name, const ShaderResource& shader);
+  void SetShaderForTree(const ShaderResource& shader);
+  void SetShaderForTree(const char* name, const ShaderResource& shader);
 
   // =================================================================
   // Data Member

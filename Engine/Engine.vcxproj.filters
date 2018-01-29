@@ -747,9 +747,6 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>ソース ファイル\Component\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="ModelNode.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="FbxNodeData.cpp">
       <Filter>ソース ファイル\Resource\File\FBX</Filter>
     </ClCompile>
@@ -767,6 +764,9 @@
     </ClCompile>
     <ClCompile Include="VertexBufferObject_Primitive3D_Cube.cpp">
       <Filter>ソース ファイル\Component\GameObject\VBO\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelNode.cpp">
+      <Filter>ソース ファイル\Component\GameObject\3D\Model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1312,6 +1312,9 @@
     <FxCompile Include="Model.fx">
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
+    <FxCompile Include="White.fx">
+      <Filter>リソース ファイル\Shader</Filter>
+    </FxCompile>
     <FxCompile Include="Particle.fx">
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
@@ -1321,8 +1324,10 @@
     <FxCompile Include="Sprite.fx">
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
-    <FxCompile Include="White.fx">
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DefaultProperty.hlsli">
       <Filter>リソース ファイル\Shader</Filter>
-    </FxCompile>
+    </None>
   </ItemGroup>
 </Project>

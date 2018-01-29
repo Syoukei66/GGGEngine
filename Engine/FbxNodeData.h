@@ -44,6 +44,11 @@ public:
     return this->mesh_;
   }
 
+  inline Material* GetMaterial() const
+  {
+    return this->material_;
+  }
+
   // =================================================================
   // Data Member
   // =================================================================
@@ -54,13 +59,30 @@ private:
   FbxMeshMaterial* mesh_material_;
   Mesh* mesh_;
 
-  Color4F ambient_;
-  Color4F diffuse_;
-  Color4F specular_;
-  Color4F emissive_;
-  Color4F shininess_;
-  Color4F transparent_;
-  Color4F reflection_;
+  Material* material_;
+
+  //Color4F ambient_;
+  //T_FLOAT ambient_factor_;
+
+  //Color4F diffuse_;
+  //T_FLOAT diffuse_factor_;
+
+  //Color4F emissive_;
+  //T_FLOAT emissive_factor_;
+
+  //TVec3f bump_;
+  //T_FLOAT bump_factor_;
+
+  //Color4F specular_;
+  //T_FLOAT specular_factor_;
+
+  //T_FLOAT shininess_;
+
+  //Color4F reflection_;
+  //T_FLOAT reflection_factor_;
+
+  //Color4F transparent_;
+  //T_FLOAT transparent_factor_;
 
   Texture* normal_map_;
   Texture* bump_map_;

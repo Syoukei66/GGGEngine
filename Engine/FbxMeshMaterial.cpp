@@ -66,7 +66,6 @@ FbxMeshMaterial::FbxMeshMaterial(FbxMesh* mesh)
       }
       else if (mapping_mode == FbxLayerElement::eByControlPoint)
       {
-        NATIVE_ASSERT(false, "Ç‹ÇæÇ≈Ç´ÇƒÇ¢Ç‹ÇπÇÒÅI");
         if (reference_mode == FbxLayerElement::eDirect)
         {
           for (T_UINT16 i = 0; i < normal_count; ++i)
@@ -137,7 +136,6 @@ FbxMeshMaterial::FbxMeshMaterial(FbxMesh* mesh)
       }
     }
   }
-
 }
 
 FbxMeshMaterial::~FbxMeshMaterial()

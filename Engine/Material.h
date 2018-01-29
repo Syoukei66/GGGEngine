@@ -37,6 +37,11 @@ public:
   // setter/getter
   // =================================================================
 public:
+  inline void SetShader(const ShaderResource& shader)
+  {
+    this->shader_resource_ = &shader;
+  }
+
   inline INativeShader* GetShader()
   {
     return this->shader_resource_->GetContents();
@@ -204,7 +209,7 @@ public:
   // =================================================================
 protected:
   const bool protected_;
-  const ShaderResource* const shader_resource_;
+  const ShaderResource* shader_resource_;
   std::unordered_map<std::string, ShaderProperty*> properties_;
 
   Color4F color_;

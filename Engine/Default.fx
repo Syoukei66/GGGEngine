@@ -1,3 +1,8 @@
+#define _WORLD_VIEW_PROJ
+#define _MAIN_TEXTURE
+#define _DIFFUSE
+#include "DefaultProperty.hlsli"
+
 struct appdata
 {
   float4 vertex : POSITION;
@@ -9,18 +14,6 @@ struct v2f
   float2 uv : TEXCOORD0;
   float4 vertex : SV_POSITION;
 };
-
-texture _MainTex;
-sampler _MainTexSampler = sampler_state
-{
-  Texture = _MainTex;
-  MipFilter = LINEAR;
-  MinFilter = LINEAR;
-  MagFilter = LINEAR;
-};
-
-float4x4 _WorldViewProj;
-float4 _Diffuse;
 
 v2f vert(appdata v)
 {
