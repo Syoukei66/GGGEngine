@@ -48,7 +48,7 @@ ModelNode* ModelNode::FindFromChildren(const char* name)
 {
   for (T_UINT8 i = 0; i < this->child_count_; ++i)
   {
-    if (this->children_[i]->node_.GetName() == name)
+    if (strcmp(this->children_[i]->node_.GetName(), name) == 0)
     {
       return this->children_[i];
     }
@@ -74,6 +74,24 @@ ModelNode* ModelNode::FindFromTree(const char* name)
   return nullptr;
 }
 
-// =================================================================
-// Method
-// =================================================================
+void ModelNode::SetMaterials(Material* material)
+{
+  for (T_UINT8 i = 0; i < this->child_count_; ++i)
+  {
+    this->children_[i]->SetMaterial(*material);
+    this->children_[i]->SetMaterials(material);
+  }
+}
+
+void ModelNode::SetMaterials(const char* name, Material* material)
+{
+  for (T_UINT8 i = 0; i < this->child_count_; ++i)
+  {
+    if (strcmp(this->children_[i]->node_.GetName(), name) == 0)
+    {
+      this->children_[i]->SetMaterial(*material);
+    }
+    this->children_[i]->SetMaterials(name, material);
+  }
+}
+

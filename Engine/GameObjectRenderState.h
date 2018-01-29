@@ -56,6 +56,10 @@ public:
   {
     return layer_state_ & (1 << layer_id);
   }
+  inline const Camera* GetCamera() const
+  {
+    return this->camera_;
+  }
 
   // =================================================================
   // Data Member

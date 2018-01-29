@@ -28,6 +28,9 @@ public:
   ModelNode* FindFromChildren(const char* name);
   ModelNode* FindFromTree(const char* name);
 
+  void SetMaterials(Material* material);
+  void SetMaterials(const char* name, Material* material);
+
   // =================================================================
   // Data Member
   // =================================================================

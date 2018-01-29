@@ -29,55 +29,110 @@ FbxMeshMaterial::FbxMeshMaterial(FbxMesh* mesh)
   }
   
   T_UINT8 layer_count = mesh->GetLayerCount();
-  FbxLayerElementNormal* normal_element = nullptr;
   for (T_UINT8 i = 0; i < layer_count; ++i)
   {
-    normal_element = mesh->GetLayer(i)->GetNormals();
-    if (!normal_element)
-    {
-      continue;
-    }
-    T_UINT16 normal_count = normal_element->GetDirectArray().GetCount();
-    T_UINT16 normal_index_count = normal_element->GetIndexArray().GetCount();
+    FbxLayer* layer = mesh->GetLayer(i);
 
-    FbxLayerElement::EMappingMode mapping_mode = normal_element->GetMappingMode();
-    FbxLayerElement::EReferenceMode reference_mode = normal_element->GetReferenceMode();
-
-    if (mapping_mode == FbxLayerElement::eByPolygonVertex)
+    //ñ@ê¸èÓïÒÇÃéÊìæ
+    FbxLayerElementNormal* normal_element = layer->GetNormals();
+    if (normal_element)
     {
-      if (reference_mode == FbxLayerElement::eDirect)
+      T_UINT16 normal_count = normal_element->GetDirectArray().GetCount();
+      T_UINT16 normal_index_count = normal_element->GetIndexArray().GetCount();
+
+      FbxLayerElement::EMappingMode mapping_mode = normal_element->GetMappingMode();
+      FbxLayerElement::EReferenceMode reference_mode = normal_element->GetReferenceMode();
+
+      if (mapping_mode == FbxLayerElement::eByPolygonVertex)
       {
-        for (T_UINT16 i = 0; i < normal_count; ++i)
+        if (reference_mode == FbxLayerElement::eDirect)
         {
-          this->vertexes_[i].normal[0] = normal_element->GetDirectArray().GetAt(i)[0];
-          this->vertexes_[i].normal[1] = normal_element->GetDirectArray().GetAt(i)[1];
-          this->vertexes_[i].normal[2] = normal_element->GetDirectArray().GetAt(i)[2];
+          for (T_UINT16 i = 0; i < normal_count; ++i)
+          {
+            this->vertexes_[i].normal[0] = normal_element->GetDirectArray().GetAt(i)[0];
+            this->vertexes_[i].normal[1] = normal_element->GetDirectArray().GetAt(i)[1];
+            this->vertexes_[i].normal[2] = normal_element->GetDirectArray().GetAt(i)[2];
+          }
+        }
+        else if (reference_mode == FbxLayerElement::eIndexToDirect)
+        {
+          for (T_UINT16 i = 0; i < normal_count; ++i)
+          {
+            this->vertexes_[i].normal[0] = normal_element->GetDirectArray().GetAt(normal_element->GetIndexArray().GetAt(i))[0];
+            this->vertexes_[i].normal[1] = normal_element->GetDirectArray().GetAt(normal_element->GetIndexArray().GetAt(i))[1];
+            this->vertexes_[i].normal[2] = normal_element->GetDirectArray().GetAt(normal_element->GetIndexArray().GetAt(i))[2];
+          }
         }
       }
-      else if (reference_mode == FbxLayerElement::eIndexToDirect)
+      else if (mapping_mode == FbxLayerElement::eByControlPoint)
       {
         NATIVE_ASSERT(false, "Ç‹ÇæÇ≈Ç´ÇƒÇ¢Ç‹ÇπÇÒÅI");
-        for (T_UINT16 i = 0; i < normal_count; ++i)
+        if (reference_mode == FbxLayerElement::eDirect)
         {
-
+          for (T_UINT16 i = 0; i < normal_count; ++i)
+          {
+            this->vertexes_[i].normal[0] = normal_element->GetDirectArray().GetAt(i)[0];
+            this->vertexes_[i].normal[1] = normal_element->GetDirectArray().GetAt(i)[1];
+            this->vertexes_[i].normal[2] = normal_element->GetDirectArray().GetAt(i)[2];
+          }
+        }
+        else if (reference_mode == FbxLayerElement::eIndexToDirect)
+        {
+          for (T_UINT16 i = 0; i < normal_index_count; ++i)
+          {
+            this->vertexes_[i].normal[0] = normal_element->GetDirectArray().GetAt(normal_element->GetIndexArray().GetAt(i))[0];
+            this->vertexes_[i].normal[1] = normal_element->GetDirectArray().GetAt(normal_element->GetIndexArray().GetAt(i))[1];
+            this->vertexes_[i].normal[2] = normal_element->GetDirectArray().GetAt(normal_element->GetIndexArray().GetAt(i))[2];
+          }
         }
       }
     }
-    else if (mapping_mode == FbxLayerElement::eByControlPoint)
+    //UVèÓïÒÇÃéÊìæ
+    FbxLayerElementUV* uv_element = layer->GetUVs();
+    if (uv_element)
     {
-      NATIVE_ASSERT(false, "Ç‹ÇæÇ≈Ç´ÇƒÇ¢Ç‹ÇπÇÒÅI");
-      if (reference_mode == FbxLayerElement::eDirect)
-      {
-        for (T_UINT16 i = 0; i < normal_count; ++i)
-        {
+      T_UINT16 uv_count = uv_element->GetDirectArray().GetCount();
+      T_UINT16 uv_index_count = uv_element->GetIndexArray().GetCount();
 
+      FbxLayerElement::EMappingMode mapping_mode = uv_element->GetMappingMode();
+      FbxLayerElement::EReferenceMode reference_mode = uv_element->GetReferenceMode();
+      
+      if (mapping_mode == FbxLayerElement::eByPolygonVertex)
+      {
+        if (reference_mode == FbxLayerElement::eDirect)
+        {
+          for (T_UINT16 i = 0; i < uv_count; ++i)
+          {
+            this->vertexes_[i].uv[0] = uv_element->GetDirectArray().GetAt(i)[0];
+            this->vertexes_[i].uv[1] = uv_element->GetDirectArray().GetAt(i)[1];
+          }
+        }
+        else if (reference_mode == FbxLayerElement::eIndexToDirect)
+        {
+          for (T_UINT16 i = 0; i < uv_index_count; ++i)
+          {
+            this->vertexes_[i].uv[0] = uv_element->GetDirectArray().GetAt(uv_element->GetIndexArray().GetAt(i))[0];
+            this->vertexes_[i].uv[1] = uv_element->GetDirectArray().GetAt(uv_element->GetIndexArray().GetAt(i))[1];
+          }
         }
       }
-      else if (reference_mode == FbxLayerElement::eIndexToDirect)
+      else if (mapping_mode == FbxLayerElement::eByControlPoint)
       {
-        for (T_UINT16 i = 0; i < normal_count; ++i)
+        if (reference_mode == FbxLayerElement::eDirect)
         {
-
+          for (T_UINT16 i = 0; i < uv_count; ++i)
+          {
+            this->vertexes_[i].uv[0] = uv_element->GetDirectArray().GetAt(i)[0];
+            this->vertexes_[i].uv[1] = uv_element->GetDirectArray().GetAt(i)[1];
+          }
+        }
+        else if (reference_mode == FbxLayerElement::eIndexToDirect)
+        {
+          for (T_UINT16 i = 0; i < uv_index_count; ++i)
+          {
+            this->vertexes_[i].uv[0] = uv_element->GetDirectArray().GetAt(uv_element->GetIndexArray().GetAt(i))[0];
+            this->vertexes_[i].uv[1] = uv_element->GetDirectArray().GetAt(uv_element->GetIndexArray().GetAt(i))[1];
+          }
         }
       }
     }
