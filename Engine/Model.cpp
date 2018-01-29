@@ -3,8 +3,8 @@
 #include "GameObject3DRenderState.h"
 #include "EngineAsset.h"
 
-Model::Model(FbxData& data)
-  : ModelNode(data.GetRootData())
+Model::Model(const FbxResource& data)
+  : ModelNode(data.GetContents()->GetRootData())
   , data_(data)
 {
 }

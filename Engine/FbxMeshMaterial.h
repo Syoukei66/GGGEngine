@@ -27,7 +27,7 @@ public:
   // Data Member
   // =================================================================
 private:
-  Vertex::VC* vertexes_;
+  Vertex::VNCT* vertexes_;
   T_UINT16 vertexes_count_;
   T_UINT16* indices_;
   T_UINT16 indices_count_;
