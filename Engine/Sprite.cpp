@@ -1,4 +1,5 @@
 #include "Sprite.h"
+#include "TextureRegion.h"
 
 // =================================================================
 // Factory Method
@@ -11,20 +12,28 @@ Sprite* Sprite::Create()
   return ret;
 }
 
-Sprite* Sprite::CreateWithMaterial(Material* material)
+Sprite* Sprite::CreateWithTextureRegion(ITextureRegion* region, bool delete_region)
 {
   Sprite* ret = Sprite::Create();
   SpriteRenderer* renderer = ret->GetSpriteRenderer();
-  renderer->SetMaterial(*material);
+  renderer->SetTextureRegion(region, delete_region);
   renderer->FitToTexture();
+  return ret;
+}
+
+Sprite* Sprite::CreateWithMaterial(Material& material)
+{
+  TextureRegion* region = TextureRegion::CreateWithMaterial(material);
+  Sprite* ret = Sprite::CreateWithTextureRegion(region, true);
+  SpriteRenderer* renderer = ret->GetSpriteRenderer();
+  renderer->SetMaterial(material);
   return ret;
 }
 
 Sprite* Sprite::CreateWithTexture(const Texture& texture)
 {
-  Sprite* ret = Sprite::Create();
+  TextureRegion* region = TextureRegion::CreateWithTexture(texture);
+  Sprite* ret = Sprite::CreateWithTextureRegion(region, true);
   SpriteRenderer* renderer = ret->GetSpriteRenderer();
-  renderer->SetTexture(texture);
-  renderer->FitToTexture();
   return ret;
 }

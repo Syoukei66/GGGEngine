@@ -45,9 +45,9 @@ public:
   {
     this->materials_[index] = &material;
   }
-  inline Material& GetMaterial(T_UINT16 index = 0) const
+  inline Material* GetMaterial(T_UINT16 index = 0) const
   {
-    return *this->materials_[index];
+    return this->materials_[index];
   }
   inline T_UINT16 GetMaterialCount()
   {

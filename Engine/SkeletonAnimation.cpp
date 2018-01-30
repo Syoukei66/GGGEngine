@@ -47,7 +47,7 @@ SkeletonAnimation::~SkeletonAnimation()
 // =================================================================
 void SkeletonAnimation::ManagedDraw(GameObjectRenderState* state)
 {
-  Color4F nodeColor = this->GetRenderer()->GetMaterial().GetDiffuse();
+  Color4F nodeColor = this->GetRenderer()->GetMaterial()->GetDiffuse();
 
   AttachmentVertexes* attachment_vertexes = nullptr;
   Color4F color = Color4F();

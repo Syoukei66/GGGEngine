@@ -91,7 +91,7 @@ public:
   {
     this->renderer_->SetMaterial(index, material);
   }
-  inline Material& GetMaterial(T_UINT16 index = 0) const
+  inline Material* GetMaterial(T_UINT16 index = 0) const
   {
     return this->renderer_->GetMaterial(index);
   }

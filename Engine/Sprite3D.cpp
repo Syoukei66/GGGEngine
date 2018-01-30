@@ -1,5 +1,4 @@
 #include "Sprite3D.h"
-#include "EngineAsset.h"
 #include "TextureRegion.h"
 
 // =================================================================
@@ -13,11 +12,11 @@ Sprite3D* Sprite3D::Create()
   return ret;
 }
 
-Sprite3D* Sprite3D::CreateWithTextureRegion(ITextureRegion* region)
+Sprite3D* Sprite3D::CreateWithTextureRegion(ITextureRegion* region, bool delete_region)
 {
   Sprite3D* ret = Sprite3D::Create();
   SpriteRenderer* renderer = ret->GetSpriteRenderer();
-  renderer->SetTextureRegion(region);
+  renderer->SetTextureRegion(region, delete_region);
   renderer->FitToTexture();
   return ret;
 }
@@ -25,7 +24,7 @@ Sprite3D* Sprite3D::CreateWithTextureRegion(ITextureRegion* region)
 Sprite3D* Sprite3D::CreateWithMaterial(Material& material)
 {
   TextureRegion* region = TextureRegion::CreateWithMaterial(material);
-  Sprite3D* ret = Sprite3D::CreateWithTextureRegion(region);
+  Sprite3D* ret = Sprite3D::CreateWithTextureRegion(region, true);
   SpriteRenderer* renderer = ret->GetSpriteRenderer();
   renderer->SetMaterial(material);
   return ret;
@@ -34,7 +33,7 @@ Sprite3D* Sprite3D::CreateWithMaterial(Material& material)
 Sprite3D* Sprite3D::CreateWithTexture(const Texture& texture)
 {
   TextureRegion* region = TextureRegion::CreateWithTexture(texture);
-  Sprite3D* ret = Sprite3D::CreateWithTextureRegion(region);
+  Sprite3D* ret = Sprite3D::CreateWithTextureRegion(region, true);
   SpriteRenderer* renderer = ret->GetSpriteRenderer();
   return ret;
 }

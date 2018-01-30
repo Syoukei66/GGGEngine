@@ -19,7 +19,7 @@ void Renderer::Draw(GameObjectRenderState* state)
   {
     return;
   }
-  Material* const material = &this->GetMaterial();
+  Material* const material = this->GetMaterial();
   if (!material)
   {
     return;

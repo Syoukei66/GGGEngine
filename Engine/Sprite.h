@@ -10,7 +10,8 @@ class Sprite : public GameObject2D
   // =================================================================
 public:
   static Sprite* Create();
-  static Sprite* CreateWithMaterial(Material* material);
+  static Sprite* CreateWithTextureRegion(ITextureRegion* region, bool delete_region);
+  static Sprite* CreateWithMaterial(Material& material);
   static Sprite* CreateWithTexture(const Texture& texture);
 
   // =================================================================

@@ -65,7 +65,7 @@ ModelNode* ModelNode::FindFromTree(const char* name)
 
 void ModelNode::SetShader(const ShaderResource& shader)
 {  
-  this->GetRenderer()->GetMaterial().SetShader(shader);
+  this->GetRenderer()->GetMaterial()->SetShader(shader);
 }
 
 void ModelNode::SetShaderForChildren(const ShaderResource& shader)

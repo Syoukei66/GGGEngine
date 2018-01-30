@@ -30,23 +30,19 @@ public:
   // setter/getter
   // =================================================================
 public:
-  inline void SetTexture(const Texture& texture)
-  {
-    this->GetMaterial().SetMainTexture(texture);
-  }
-  inline const Texture& GetTexture() const
-  {
-    return this->GetMaterial().GetMainTexture();
-  }
-
-  inline void SetTextureRegion(ITextureRegion* region, bool delete_region)
-  {
-    this->texture_region_ = region;
-    this->delete_region_ = delete_region;
-  }
+  void SetTextureRegion(ITextureRegion* region, bool delete_region);
   inline ITextureRegion* GetTextureRegion()
   {
     return this->texture_region_;
+  }
+
+  inline void SetTexture(const Texture& texture)
+  {
+    this->GetMaterial()->SetMainTexture(texture);
+  }
+  inline const Texture& GetTexture() const
+  {
+    return this->GetMaterial()->GetMainTexture();
   }
 
   inline void SetSize(const TSizef& size)

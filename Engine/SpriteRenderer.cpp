@@ -39,12 +39,29 @@ void SpriteRenderer::DrawSubset(T_UINT8 material_index, T_UINT8 pass_index)
 // =================================================================
 void SpriteRenderer::FitToTexture()
 {
-  const Texture& texture = this->GetTexture();
-  this->SetTexture(texture);
-  const T_FLOAT tw = (T_FLOAT)texture.GetWidth();
-  const T_FLOAT th = (T_FLOAT)texture.GetHeight();
+  const Texture* texture = this->GetTextureRegion()->GetTexture();
+  if (!texture)
+  {
+    return;
+  }
+  this->SetTexture(*texture);
+  const T_FLOAT tw = (T_FLOAT)texture->GetWidth();
+  const T_FLOAT th = (T_FLOAT)texture->GetHeight();
   this->SetWidth(tw * (this->texture_region_->GetUV1().x - this->texture_region_->GetUV0().x));
   this->SetHeight(th * (this->texture_region_->GetUV1().y - this->texture_region_->GetUV0().y));
   this->size_.width = tw;
   this->size_.height = th;
+}
+
+// =================================================================
+// setter/getter
+// =================================================================
+void SpriteRenderer::SetTextureRegion(ITextureRegion * region, bool delete_region)
+{
+  if (this->delete_region_)
+  {
+    delete this->texture_region_;
+  }
+  this->texture_region_ = region;
+  this->delete_region_ = delete_region;
 }

@@ -10,7 +10,7 @@ class AnimatedSprite : public Sprite
   // =================================================================
 public:
   static AnimatedSprite* Create();
-  static AnimatedSprite* CreateWithTextureRegion(TiledTextureRegion* region);
+  static AnimatedSprite* CreateWithTextureRegion(TiledTextureRegion* region, bool delete_region);
   static AnimatedSprite* CreateWithMaterial(Material& material, T_UINT8 x_num, T_UINT8 y_num);
   static AnimatedSprite* CreateWithTexture(const Texture& texture, T_UINT8 x_num, T_UINT8 y_num);
 
@@ -47,7 +47,7 @@ public:
   }
   inline T_UINT16 GetCurrentIndex() const
   {
-    return this->GetAnimatedSpriteRenderer()->GetCurrentIndex;
+    return this->GetAnimatedSpriteRenderer()->GetCurrentIndex();
   }
   inline TiledTextureRegion* GetTiledTextureRegion() const
   {
