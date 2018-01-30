@@ -8,6 +8,14 @@
 
 class GameObjectRenderState
 {
+private:
+  class PostDrawParam
+  {
+  public:
+    Renderer* renderer;
+    T_FLOAT distance;
+  };
+
   // =================================================================
   // Constructor / Destructor
   // =================================================================
@@ -22,7 +30,10 @@ public:
   virtual void Init();
   void PushMatrix(const INativeMatrix& matrix);
   void PopMatrix();
-  
+
+  void AddZCheckOrder(T_UINT8 level, Renderer* renderer);
+  void DrawZOrderedGameObject();
+
   // =================================================================
   // Setter / Getter
   // =================================================================
@@ -72,4 +83,6 @@ private:
   INativeMatrix* view_proj_matrix_;
   INativeMatrix* world_view_proj_matrix_;
 
+  INativeMatrix* mat_;
+  std::map<int, std::vector<PostDrawParam>> post_draw_map_;
 };

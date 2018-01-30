@@ -2,6 +2,7 @@
 
 #include "GameObjectRenderState.h"
 #include "GameComponent.h"
+#include "GameObject.h"
 #include "Material.h"
 
 class Renderer : public GameComponent
@@ -10,7 +11,7 @@ class Renderer : public GameComponent
   // Constructor / Destructor
   // =================================================================
 public:
-  Renderer();
+  Renderer(GameObject* entity);
 
   // =================================================================
   // Method
@@ -54,10 +55,16 @@ public:
     return (T_UINT16)this->materials_.size();
   }
 
+  inline GameObject* GetEntity()
+  {
+    return this->entity_;
+  }
+
   // =================================================================
   // Data Member
   // =================================================================
 private:
+  GameObject* entity_;
   T_UINT8 layer_id_;
   std::vector<Material*> materials_;
 

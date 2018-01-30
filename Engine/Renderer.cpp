@@ -5,8 +5,9 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-Renderer::Renderer()
-  : layer_id_(EngineInitializeSetting::GetInstance().GetDefaultLayerId())
+Renderer::Renderer(GameObject* entity)
+  : entity_(entity)
+  , layer_id_(EngineInitializeSetting::GetInstance().GetDefaultLayerId())
 {
 }
 
@@ -26,7 +27,7 @@ void Renderer::Draw(GameObjectRenderState* state)
   }
   if (material->GetZTestLevel() > 0)
   {
-    //state->AddZCheckOrder(material->GetZTestLevel(), this);
+    state->AddZCheckOrder(material->GetZTestLevel(), this);
     return;
   }
   const T_UINT8 material_count = this->materials_.size();
