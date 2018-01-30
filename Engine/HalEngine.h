@@ -39,17 +39,10 @@
         #include "EntityModifierAttribute.h"
         #include "EntityModifierFactory.h"
         #include "EntityModifierManager.h"
-//------Shape
-        #include "Shape.h"
-//--------Sprite
-          #include "AnimatedSprite.h"
-          #include "LoopSprite.h"
-          #include "Sprite.h"
-//----------TextureRegion
-            #include "ITextureRegion.h"
-            #include "LoopTextureRegion.h"
-            #include "TextureRegion.h"
-            #include "TiledTextureRegion.h"
+//------Sprite
+        #include "AnimatedSprite.h"
+        #include "LoopSprite.h"
+        #include "Sprite.h"
 //----3D
       #include "GameObject3D.h"
       #include "GameObject3DRenderState.h"
@@ -61,35 +54,29 @@
 //------Primitive
         #include "AnimatedSprite3D.h"
         #include "Cube3D.h"
-        #include "Line3D.h"
-        #include "MeshField.h"
         #include "Plane3D.h"
-        #include "Primitive3D.h"
-        #include "Shape.h"
         #include "Sprite3D.h"
-        #include "Triangle3D.h"
-//----Material
-      #include "Material.h"
-//----Mesh
-      #include "Mesh.h"
-      #include "MeshMaterial.h"
-//------Materials
-        #include "MeshMaterial_Cube.h"
-        #include "MeshMaterial_Plane.h"
 //----VBO
       #include "IVertexBufferObject.h"
-//------2D
-        #include "SpriteVertexBufferObject.h"
 //------3D
-        #include "VertexBufferObject_Primitive3D_Cube.h"
-        #include "VertexBufferObject_Primitive3D_Line.h"
         #include "VertexBufferObject_Primitive3D_MeshField.h"
-        #include "VertexBufferObject_Primitive3D_Plane.h"
-        #include "VertexBufferObject_Primitive3D_Triangle.h"
-        #include "VertexBufferObject_Sprite3D.h"
 //--Light
+//--Material
+    #include "Material.h"
+    #include "ShaderProperties.h"
 //--Mesh
-
+    #include "Mesh.h"
+    #include "MeshData.h"
+    #include "SubMesh.h"
+//----Data
+      #include "MeshData_Cube.h"
+      #include "MeshData_Plane.h"
+      #include "MeshData_Sprite.h"
+//--Renderer
+    #include "AnimatedSpriteRenderer.h"
+    #include "MeshRenderer.h"
+    #include "Renderer.h"
+    #include "SpriteRenderer.h"
 //Director
   #include "Director.h"
 
@@ -185,6 +172,11 @@
   #include "Geometry.h"
   #include "Quaternion.h"
   #include "Vertex.h"
+//--TextureRegion
+    #include "ITextureRegion.h"
+    #include "LoopTextureRegion.h"
+    #include "TextureRegion.h"
+    #include "TiledTextureRegion.h"
 
 //Util
   #include "Bresenham.h"

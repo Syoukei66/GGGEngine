@@ -64,6 +64,10 @@ bool BaseActivity::Run(IEngineSetting* setting)
   pool.PreRealize(&listener);
   pool.Realize(&listener);
 
+  EngineAsset::Mesh::CUBE.Load();
+  EngineAsset::Mesh::PLANE.Load();
+  EngineAsset::Mesh::QUAD.Load();
+
   //Scene
   engine_->ChangeScene(setting->FirstScene());
   while (this->Update());

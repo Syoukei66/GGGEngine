@@ -108,19 +108,10 @@ void GameObject3D::Draw(GameObject3DRenderState* state)
 
   this->PushMatrixStack(state);
   
-  if (state->IsTargetedLayer(this->GetLayerId()))
-  {
-    Material* const material = this->GetMaterial();
-    if (material && material->GetZTestLevel() > 0)
-    {
-      state->AddZCheckOrder(material->GetZTestLevel(), this);
-    }
-    else
-    {
-      // 自分自身の描画
-      this->ManagedDraw(state);
-    }
-  }
+
+  // 自分自身の描画
+  this->ManagedDraw(state);
+
 
   // 子の描画
   for (std::vector<GameObject3D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)

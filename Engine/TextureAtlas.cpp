@@ -32,7 +32,7 @@ void TextureAtlas::Register(const std::string& path, const AtlasRegion& region)
 TextureRegion* TextureAtlas::GetTextureRegion(const std::string& path) const
 {
   TextureRegion* ret = new TextureRegion();
-  ret->SetTexture(this->texture_);
+  ret->SetTexture(*this->texture_);
   const AtlasRegion& region = this->region_map_.at(path);
   ret->SetX((T_FLOAT)region.area.pos.x);
   ret->SetY((T_FLOAT)region.area.pos.y);

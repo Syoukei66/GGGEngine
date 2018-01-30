@@ -7,12 +7,13 @@ class MeshData_Sprite : public MeshData
 public:
   static MeshData_Sprite& GetInstance()
   {
-    MeshData_Sprite ret;
+    static MeshData_Sprite ret;
     return ret;
   }
 
 private:
   MeshData_Sprite();
+  MeshData_Sprite(const MeshData_Sprite& b) {}
 
 public:
   virtual T_UINT16 GetVertexesCount() const override;

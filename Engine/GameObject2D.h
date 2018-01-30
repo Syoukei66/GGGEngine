@@ -31,14 +31,9 @@ public:
   // Method
   // =================================================================
 public:
-  //子GameObjectを追加します。
-  //追加された子GameObjectをdeleteする機能はありません
   void AddChild(GameObject2D* child);
-  //指定した子GameObjectを子リストから削除します。
   void RemoveChild(GameObject2D* child);
-  //自身を親GameObjectの子リストから削除します。
   void RemoveSelf();
-  //全ての子GameObjectを子リストから削除します。
   void ClearChildren();
 
   virtual void Draw(GameObject2DRenderState* state);
@@ -102,7 +97,6 @@ public:
   
 private:
   Transform2D* transform_;
-
 
   GameObject2D* parent_;
   std::vector<GameObject2D*> children_;

@@ -2,7 +2,8 @@
 
 #include <vector>
 #include "INativeProcess_Graphics.h"
-#include "Mesh.h"
+
+class SubMesh;
 
 class MeshData
 {

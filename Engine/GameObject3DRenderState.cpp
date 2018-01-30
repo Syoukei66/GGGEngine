@@ -38,7 +38,7 @@ void GameObject3DRenderState::DrawZOrderedGameObject()
     });
     for (PostDrawParam param : pair.second)
     {
-      if (param.object->GetMaterial()->IsBillboard())
+      if (param.object->GetRenderer()->GetMaterial().IsBillboard())
       {
         param.object->GetTransform()->GetRotationMatrix().Inverse(this->mat_);
         this->PushMatrix(param.object->GetTransform()->GetWorldMatrix());

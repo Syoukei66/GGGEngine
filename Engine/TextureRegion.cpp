@@ -5,7 +5,12 @@
 // =================================================================
 // Factory Method
 // =================================================================
-TextureRegion* TextureRegion::CreateWithTexture(const Texture* texture)
+TextureRegion* TextureRegion::CreateWithMaterial(const Material& material)
+{
+  return TextureRegion::CreateWithTexture(material.GetMainTexture());
+}
+
+TextureRegion* TextureRegion::CreateWithTexture(const Texture& texture)
 {
   TextureRegion* ret = new TextureRegion();
   ret->Init();

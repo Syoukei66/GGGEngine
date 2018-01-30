@@ -77,7 +77,7 @@ void NativeModel_x::Draw(GameObjectRenderState* state) const
     for (T_UINT8 j = 0; j < pass_count; ++j)
     {
       material->BeginPass(j);
-      material->SetWorldMatrix(state);
+      material->SetDefaultProperties(state);
       material->CommitChanges();
       this->mesh_->DrawSubset(i);
       material->EndPass();

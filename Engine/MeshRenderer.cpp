@@ -1,31 +1,34 @@
 #include "MeshRenderer.h"
 
-MeshRenderer::MeshRenderer()
+// =================================================================
+// Factory Method
+// =================================================================
+MeshRenderer* MeshRenderer::Create(const Mesh& mesh)
 {
+  MeshRenderer* ret = new MeshRenderer();
+  ret->SetMesh(mesh);
+  return ret;
 }
 
-MeshRenderer::~MeshRenderer()
+// =================================================================
+// Constructor / Destructor
+// =================================================================
+MeshRenderer::MeshRenderer()
 {
 }
 
 // =================================================================
 // Method
 // =================================================================
-void MeshRenderer::Draw(GameObjectRenderState* state)
+void MeshRenderer::EditProperty(T_UINT8 material_index, T_UINT8 pass_index, Material* material)
 {
-  const T_UINT8 material_count = this->materials_.size();
-  for (T_UINT8 i = 0; i < material_count; ++i)
+}
+
+void MeshRenderer::DrawSubset(T_UINT8 material_index, T_UINT8 pass_index)
+{
+  if (!this->mesh_)
   {
-    Material* material = this->materials_[i];
-    T_UINT8 pass_count = material->Begin();
-    for (T_UINT8 j = 0; j < pass_count; ++j)
-    {
-      material->BeginPass(j);
-      material->CommitChanges();
-      material->SetWorldMatrix(state);
-      this->mesh_->DrawSubset(i);
-      material->EndPass();
-    }
-    material->End();
+    return;
   }
+  this->mesh_->DrawSubMesh(material_index);
 }

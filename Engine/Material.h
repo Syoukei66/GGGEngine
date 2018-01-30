@@ -28,7 +28,7 @@ public:
 
   T_UINT8 Begin();
   void BeginPass(T_UINT8 path_id);
-  void SetWorldMatrix(GameObjectRenderState* state);
+  void SetDefaultProperties(GameObjectRenderState* state);
   void CommitChanges();
   void EndPass();
   void End();
@@ -154,9 +154,9 @@ public:
     NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
     this->texture_ = &texture;
   }
-  inline const Texture* GetMainTexture() const
+  inline const Texture& GetMainTexture() const
   {
-    return this->texture_;
+    return *this->texture_;
   }
 
   inline void SetDiffuse(const Color4F& color)

@@ -132,10 +132,7 @@ void GameObject2D::Draw(GameObject2DRenderState* state)
     if (child->zindex_ == 0 && !self_already_drawed)
     {
       //2.Ž©•ªŽ©g
-      if (state->IsTargetedLayer(this->GetLayerId()))
-      {
-        this->ManagedDraw(state);
-      }
+      this->ManagedDraw(state);
       self_already_drawed = true;
     }
     if (!child->IsVisible())
@@ -147,10 +144,7 @@ void GameObject2D::Draw(GameObject2DRenderState* state)
   if (!self_already_drawed)
   {
     //2.Ž©•ªŽ©g
-    if (state->IsTargetedLayer(this->GetLayerId()))
-    {
-      this->ManagedDraw(state);
-    }
+    this->ManagedDraw(state);
   }
 
   this->PopMatrixStack(state);

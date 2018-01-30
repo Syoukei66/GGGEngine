@@ -6,31 +6,37 @@
 class MeshRenderer : public Renderer
 {
   // =================================================================
-  // Constructor / Destructor
+  // Factory Method
   // =================================================================
 public:
+  static MeshRenderer* Create(const Mesh& mesh);
+
+  // =================================================================
+  // Constructor / Destructor
+  // =================================================================
+protected:
   MeshRenderer();
-  ~MeshRenderer();
 
   // =================================================================
   // Method
   // =================================================================
 public:
-  virtual void Draw(GameObjectRenderState* state) override;
+  virtual void EditProperty(T_UINT8 material_index, T_UINT8 pass_index, Material* material) override;
+  virtual void DrawSubset(T_UINT8 material_index, T_UINT8 pass_index) override;
 
   // =================================================================
   // setter/getter
   // =================================================================
 public:
-  inline void SetMesh(Mesh* mesh)
+  inline void SetMesh(const Mesh& mesh)
   {
-    this->mesh_ = mesh;
+    this->mesh_ = &mesh;
   }
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
-  Mesh* mesh_;
+  const Mesh* mesh_;
 
 };

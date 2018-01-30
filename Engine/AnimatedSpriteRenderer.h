@@ -1,42 +1,44 @@
 #pragma once
 
-#include <vector>
-#include "SubMesh.h"
+#include "SpriteRenderer.h"
+#include "TiledTextureRegion.h"
 
-class Mesh
+class AnimatedSpriteRenderer : public SpriteRenderer
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  Mesh();
-  Mesh(const MeshData& data);
-  ~Mesh();
+  AnimatedSpriteRenderer();
 
   // =================================================================
-  // Method
+  // Methods for/from SuperClass/Interfaces
   // =================================================================
 public:
-  void AddSubMesh(SubMesh* mesh);
-  void DrawSubMesh(T_UINT16 index) const;
+  virtual void Update() override;
 
   // =================================================================
   // setter/getter
   // =================================================================
 public:
-  inline T_UINT16 GetSubMeshCount() const
+  void SetAnimateRange(T_UINT16 begin, T_UINT16 end);
+  void Animate(T_UINT16 duration_frame);
+  void SetCurrentIndex(T_UINT16 index);
+  inline T_UINT16 GetCurrentIndex() const
   {
-    return (T_UINT16)this->sub_meshes_.size();
+    return this->GetTiledTextureRegion()->GetCurrentIndex();
   }
-
-  inline SubMesh* GetSubMesh(T_UINT16 index) const
+  inline TiledTextureRegion* GetTiledTextureRegion() const
   {
-    return this->sub_meshes_[index];
+    return (TiledTextureRegion*)this->texture_region_;
   }
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
-  std::vector<SubMesh*> sub_meshes_;
+  T_UINT16 frame_count_;
+  T_UINT16 duration_frame_;
+  T_UINT16 animation_begin_;
+  T_UINT16 animation_end_;
 };

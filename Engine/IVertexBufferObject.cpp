@@ -1,6 +1,5 @@
 #include "IVertexBufferObject.h"
 #include <stdlib.h>
-#include "Shape.h"
 #include "ITextureRegion.h"
 #include "NativeMethod.h"
 

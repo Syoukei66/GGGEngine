@@ -71,15 +71,17 @@ void Material::BeginPass(T_UINT8 path_id)
   {
     pair.second->Apply(shader, pair.first);
   }
-  NativeTextureInstance* texture = this->texture_ ? this->texture_->GetContents()->GetNativeInstance() : nullptr;
-  shader->SetTexture("_MainTex", texture);
-  shader->SetColor("_Diffuse", this->color_);
 }
 
-void Material::SetWorldMatrix(GameObjectRenderState* state)
+void Material::SetDefaultProperties(GameObjectRenderState* state)
 {
   INativeShader* shader = this->GetShader();
   shader->SetMatrix("_WorldViewProj", state->GetWorldViewProjToMaterial()->GetNativeInstance());
+
+  NativeTextureInstance* texture = this->texture_ ? this->texture_->GetContents()->GetNativeInstance() : nullptr;
+  shader->SetTexture("_MainTex", texture);
+
+  shader->SetColor("_Diffuse", this->color_);
 }
 
 void Material::CommitChanges()

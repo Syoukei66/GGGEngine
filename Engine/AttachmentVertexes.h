@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Texture.h"
-#include "SpriteVertexBufferObject.h"
+#include "Vertex.h"
 
 class AttachmentVertexes
 {

@@ -21,21 +21,14 @@ public:
   // Method
   // =================================================================
 public:
-  //GameObjectの座標などの初期化です
-  //保持しているオブジェクトが解放される事はありません。
-  //TODO:現状どのメンバが初期化され、どのメンバが初期化されないのかが不明瞭なので
-  //     データメンバの一部をクラス化して、(Transform等)
-  //     そのインスタンスに対する初期化という形での実装としてはどうだろうか
   virtual void Init();
 
   virtual void ManagedPreUpdate() = 0;
   virtual void ManagedUpdate() = 0;
   virtual void ManagedPostUpdate() = 0;
 
-  void ManagedDraw(GameObjectRenderState* state);
+  virtual void ManagedDraw(GameObjectRenderState* state);
   
-  void UniqueMaterial();
-
   // =================================================================
   // Events
   // =================================================================
@@ -62,15 +55,6 @@ public:
     return this->visible_;
   }
 
-  inline void SetLayerId(T_UINT8 layer_id)
-  {
-    this->layer_id_ = layer_id;
-  }
-  inline T_UINT8 GetLayerId() const
-  {
-    return this->layer_id_;
-  }
-
   inline void SetRenderer(Renderer* renderer)
   {
     this->renderer_ = renderer;
@@ -85,7 +69,6 @@ public:
   // =================================================================
 private:
 	bool visible_;
-  T_UINT8 layer_id_;
   Renderer* renderer_;
 };
 

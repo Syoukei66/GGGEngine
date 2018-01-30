@@ -1,8 +1,6 @@
 #pragma once
 
-#include <algorithm>
 #include "NativeType.h"
-#include "GameObject2D.h"
 #include "Sprite.h"
 #include "PoolAllocator.h"
 
@@ -10,9 +8,7 @@ class ParticleData;
 
 //===============================================================
 // Particle
-// TODO:多分めっちゃ重いので、Spriteを使用せず、直接頂点を管理する方法に
 //===============================================================
-//Particle
 class Particle : public Sprite, public IPoolAllocatable
 {
 public:
@@ -103,7 +99,7 @@ private:
   const ParticleData* data_;
   T_FLOAT time_count_;
   T_FLOAT duration_;
-  typename PoolAllocator<Particle>* particles_;
+  PoolAllocator<Particle>* particles_;
   bool apply_local_position_;
 };
 

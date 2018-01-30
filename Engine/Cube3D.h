@@ -1,13 +1,19 @@
 #pragma once
 
-#include "Shape3D.h"
+#include "GameObject3D.h"
 
-class Cube3D : public Shape3D
+class Cube3D : public GameObject3D
 {
+  // =================================================================
+  // Factory Method
+  // =================================================================
+public:
+  static Cube3D* Create();
+
   // =================================================================
   // Constructor / Destructor
   // =================================================================
-public:
-  Cube3D();
+protected:
+  Cube3D() {}
   
 };

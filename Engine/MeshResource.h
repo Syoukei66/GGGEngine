@@ -1,30 +1,35 @@
 #pragma once
 
-#include "Vertex.h"
-#include "GameObject3D.h"
+#include "ResourceLoader.h"
+#include "Mesh.h"
 
-class IVertexBufferObject;
-
-class Primitive3D : public GameObject3D
+class MeshResource
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  Primitive3D(IVertexBufferObject* vbo);
-  virtual ~Primitive3D();
+  MeshResource(const MeshData& data);
+  ~MeshResource();
 
   // =================================================================
-  // Methods for/from SuperClass/Interfaces
+  // Methods
   // =================================================================
 public:
-  virtual void Init() override;
-  virtual void PreDraw(GameObject3DRenderState* state) override;
+  void Load();
+  void Unload();
 
   // =================================================================
-  // Data Member
+  // Setter / Getter
   // =================================================================
-protected:
-  IVertexBufferObject* vbo_;
+public:
+  inline Mesh& GetContents() const
+  {
+    NATIVE_ASSERT(this->mesh_, "メッシュがロードされていません");
+    return *this->mesh_;
+  }
 
+private:
+  const MeshData& data_;
+  Mesh* mesh_;
 };

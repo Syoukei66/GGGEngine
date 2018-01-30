@@ -9,16 +9,25 @@
 
 class SkeletonAnimation : public GameObject2D
 {
-
+  // =================================================================
+  // Factory Method
+  // =================================================================
 public:
   static SkeletonAnimation* CreateWithData(const SpineData* data);
 
+  // =================================================================
+  // Constructor / Destructor
+  // =================================================================
 public:
   SkeletonAnimation(spSkeletonData* data);
   ~SkeletonAnimation();
   
-  virtual void PreDraw(GameObject2DRenderState* state) override;
-  virtual void NativeDraw(GameObject2DRenderState* state) override;
+  // =================================================================
+  // Methods for/from SuperClass/Interfaces
+  // =================================================================
+public:
+  virtual void ManagedDraw(GameObjectRenderState* state) override;
+  virtual void Update() override;
 
   //=============================================================================
   // Animation

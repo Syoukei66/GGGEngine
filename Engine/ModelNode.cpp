@@ -1,5 +1,6 @@
 #include "ModelNode.h"
 #include "EngineAsset.h"
+#include "MeshRenderer.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -9,7 +10,8 @@ ModelNode::ModelNode(const FbxNodeData& node)
   , child_count_(node.GetChildCount())
   , parent_(nullptr)
 {
-  this->SetMaterial(*node.GetMaterial());
+  this->SetRenderer(MeshRenderer::Create(*node.GetMesh()));
+  this->GetRenderer()->SetMaterial(*node.GetMaterial());
   this->children_ = new ModelNode*[this->child_count_];
   for (T_UINT8 i = 0; i < this->child_count_; ++i)
   {
@@ -26,19 +28,6 @@ ModelNode::~ModelNode()
     delete this->children_[i];
   }
   delete[] this->children_;
-}
-
-// =================================================================
-// Method for/from Interface/SuperClass
-// =================================================================
-void ModelNode::NativeDraw(GameObject3DRenderState* state)
-{
-  const Mesh* mesh = this->node_.GetMesh();
-  if (!mesh)
-  {
-    return;
-  }
-  mesh->DrawSubset(0);
 }
 
 // =================================================================
@@ -76,7 +65,7 @@ ModelNode* ModelNode::FindFromTree(const char* name)
 
 void ModelNode::SetShader(const ShaderResource& shader)
 {  
-  this->GetMaterial()->SetShader(shader);
+  this->GetRenderer()->GetMaterial().SetShader(shader);
 }
 
 void ModelNode::SetShaderForChildren(const ShaderResource& shader)

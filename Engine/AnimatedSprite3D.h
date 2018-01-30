@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Sprite3D.h"
-#include "TiledTextureRegion.h"
+#include "AnimatedSpriteRenderer.h"
 
 class AnimatedSprite3D : public Sprite3D
 {
@@ -9,49 +9,23 @@ class AnimatedSprite3D : public Sprite3D
   // Factory Method
   // =================================================================
 public:
-  static AnimatedSprite3D* CreateWithMaterial(Material* material, T_UINT8 x_num, T_UINT8 y_num);
+  static AnimatedSprite3D* Create();
+  static AnimatedSprite3D* CreateWithTextureRegion(TiledTextureRegion* region);
+  static AnimatedSprite3D* CreateWithMaterial(Material& material, T_UINT8 x_num, T_UINT8 y_num);
   static AnimatedSprite3D* CreateWithTexture(const Texture& texture, T_UINT8 x_num, T_UINT8 y_num);
 
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  AnimatedSprite3D();
-
-  // =================================================================
-  // Methods for/from SuperClass/Interfaces
-  // =================================================================
-public:
-  virtual void Init() override;
-  virtual void Update() override;
-
-  // =================================================================
-  // Method
-  // =================================================================
-public:
-  void SetAnimateRange(T_UINT16 begin, T_UINT16 end);
-  void Animate(T_UINT16 duration_frame);
+  AnimatedSprite3D() {}
 
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  void SetCurrentIndex(T_UINT16 index);
-  inline T_UINT16 GetCurrentIndex() const
+  inline AnimatedSpriteRenderer* GetAnimatedSpriteRenderer() const
   {
-    return ((TiledTextureRegion*)this->GetTextureRegion())->GetCurrentIndex();
+    return (AnimatedSpriteRenderer*)this->GetRenderer();
   }
-  inline TiledTextureRegion* GetTiledTextureRegion()
-  {
-    return (TiledTextureRegion*)this->GetTextureRegion();
-  }
-
-  // =================================================================
-  // Data Member
-  // =================================================================
-private:
-  T_UINT16 frame_count_;
-  T_UINT16 duration_frame_;
-  T_UINT16 animation_begin_;
-  T_UINT16 animation_end_;
 };

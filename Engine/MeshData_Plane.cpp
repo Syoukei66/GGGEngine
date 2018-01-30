@@ -90,7 +90,7 @@ T_UINT16 MeshData_Plane::GetIndicesCount() const
   return PLANE_VERTEX_INDEXES_COUNT;
 }
 
-const T_UINT16 * MeshData_Plane::GetIndices() const
+const T_UINT16* MeshData_Plane::GetIndices() const
 {
   return PLANE_INDEXES;
 }

@@ -22,7 +22,7 @@ public:
   }
   inline T_FLOAT CalcScaleBySize(Particle* particle, T_FLOAT size) const
   {
-    return size / particle->GetTextureRegion()->GetWidth();
+    return size / particle->GetSpriteRenderer()->GetWidth();
   }
 
 public:
