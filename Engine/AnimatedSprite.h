@@ -28,4 +28,29 @@ public:
   {
     return (AnimatedSpriteRenderer*)this->GetRenderer();
   }
+
+  // =================================================================
+  // delegate to AnimatedSpriteRenderer
+  // =================================================================
+public:
+  inline void SetAnimateRange(T_UINT16 begin, T_UINT16 end)
+  {
+    this->GetAnimatedSpriteRenderer()->SetAnimateRange(begin, end);
+  }
+  inline void Animate(T_UINT16 duration_frame)
+  {
+    this->GetAnimatedSpriteRenderer()->Animate(duration_frame);
+  }
+  inline void SetCurrentIndex(T_UINT16 index)
+  {
+    this->GetAnimatedSpriteRenderer()->SetCurrentIndex(index);
+  }
+  inline T_UINT16 GetCurrentIndex() const
+  {
+    return this->GetAnimatedSpriteRenderer()->GetCurrentIndex;
+  }
+  inline TiledTextureRegion* GetTiledTextureRegion() const
+  {
+    return this->GetAnimatedSpriteRenderer()->GetTiledTextureRegion();
+  }
 };

@@ -10,6 +10,14 @@ SpriteRenderer::SpriteRenderer()
   this->SetMaterial(*EngineAsset::Material::SPRITE.Clone());
 }
 
+SpriteRenderer::~SpriteRenderer()
+{
+  if (this->delete_region_)
+  {
+    delete this->texture_region_;
+  }
+}
+
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================

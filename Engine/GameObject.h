@@ -65,6 +65,42 @@ public:
   }
 
   // =================================================================
+  // delegate to Renderer
+  // =================================================================
+  inline void UniqueMaterial()
+  {
+    this->renderer_->UniqueMaterial();
+  }
+  inline void SetLayerId(T_UINT8 layer_id)
+  {
+    this->renderer_->SetLayerId(layer_id);
+  }
+  inline T_UINT8 GetLayerId() const
+  {
+    this->renderer_->GetLayerId();
+  }
+  inline void AddMaterial(Material& material)
+  {
+    this->renderer_->AddMaterial(material);
+  }
+  inline void SetMaterial(Material& material)
+  {
+    this->renderer_->SetMaterial(material);
+  }
+  inline void SetMaterial(T_UINT16 index, Material& material)
+  {
+    this->renderer_->SetMaterial(index, material);
+  }
+  inline Material& GetMaterial(T_UINT16 index = 0) const
+  {
+    return this->renderer_->GetMaterial(index);
+  }
+  inline T_UINT16 GetMaterialCount()
+  {
+    return this->renderer_->GetMaterialCount();
+  }
+
+  // =================================================================
   // Data Member
   // =================================================================
 private:

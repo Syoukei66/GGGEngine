@@ -11,6 +11,7 @@ class SpriteRenderer : public Renderer
   // =================================================================
 public:
   SpriteRenderer();
+  ~SpriteRenderer();
 
   // =================================================================
   // Methods for/from SuperClass/Interfaces
@@ -38,9 +39,10 @@ public:
     return this->GetMaterial().GetMainTexture();
   }
 
-  inline void SetTextureRegion(ITextureRegion* region)
+  inline void SetTextureRegion(ITextureRegion* region, bool delete_region)
   {
     this->texture_region_ = region;
+    this->delete_region_ = delete_region;
   }
   inline ITextureRegion* GetTextureRegion()
   {
@@ -81,6 +83,7 @@ public:
   // Data Member
   // =================================================================
 protected:
+  bool delete_region_;
   ITextureRegion* texture_region_;
   TSizef size_;
 
