@@ -119,8 +119,6 @@ void GameObject2D::Draw(GameObject2DRenderState* state)
   //描画前のアップデート処理
   this->UpdateChildrenZIndex();
 
-  this->PreDraw(state);
-
   this->PushMatrixStack(state);
 
   // 1.zIndexが0未満の子GameObject
@@ -156,27 +154,6 @@ void GameObject2D::Draw(GameObject2DRenderState* state)
   }
 
   this->PopMatrixStack(state);
-
-  this->PostDraw(state);
-}
-
-void GameObject2D::ManagedDraw(GameObject2DRenderState* state)
-{
-  Material* const material = this->GetMaterial();
-  if (!material)
-  {
-    return;
-  }
-  const T_UINT8 pass_count = material->Begin();
-  for (T_UINT8 i = 0; i < pass_count; ++i)
-  {
-    material->BeginPass(i);
-    material->SetWorldMatrix(state);
-    material->CommitChanges();
-    this->NativeDraw(state);
-    material->EndPass();
-  }
-  material->End();
 }
 
 void GameObject2D::RegisterEntityModifier(EntityModifierRoot* root)

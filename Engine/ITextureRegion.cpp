@@ -6,10 +6,8 @@
 ITextureRegion::ITextureRegion()
   : texture_(nullptr)
   , texture_region_(0.0f, 0.0f, 1.0f, 1.0f)
-  , u0_(0.0f)
-  , v0_(0.0f)
-  , u1_(1.0f)
-  , v1_(1.0f)
+  , uv0_(0.0f, 0.0f)
+  , uv1_(1.0f, 1.0f)
   , texture_coord_dirty_(true)
 {}
 
@@ -20,10 +18,8 @@ void ITextureRegion::Init()
 {
   this->texture_coord_dirty_ = true;
   this->texture_region_ = TAreaf(0.0f, 0.0f, 1.0f, 1.0f);
-  this->u0_ = 0.0f;
-  this->v0_ = 0.0f;
-  this->u1_ = 1.0f;
-  this->v1_ = 1.0f;
+  this->uv0_ = TVec2f(0.0f, 0.0f);
+  this->uv1_ = TVec2f(1.0f, 1.0f);
 }
 
 void ITextureRegion::FitToTexture()
@@ -60,30 +56,6 @@ void ITextureRegion::OnTextureCoordDirty()
 // =================================================================
 // setter/getter
 // =================================================================
-T_FLOAT ITextureRegion::GetU0()
-{
-  this->UpdateTextureCoord();
-  return this->u0_;
-}
-
-T_FLOAT ITextureRegion::GetV0()
-{
-  this->UpdateTextureCoord();
-  return this->v0_;
-}
-
-T_FLOAT ITextureRegion::GetU1()
-{
-  this->UpdateTextureCoord();
-  return this->u1_;
-}
-
-T_FLOAT ITextureRegion::GetV1()
-{
-  this->UpdateTextureCoord();
-  return this->v1_;
-}
-
 void ITextureRegion::SetX(T_FLOAT x)
 {
   if (this->texture_region_.pos.x == x)

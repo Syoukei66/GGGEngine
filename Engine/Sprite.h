@@ -21,6 +21,7 @@ public:
   // =================================================================
 public:
   virtual ~Sprite();
+
 protected:
   Sprite();
 
@@ -29,8 +30,7 @@ protected:
   // =================================================================
 public:
   virtual void Init() override;
-  virtual void PreDraw(GameObject2DRenderState* state) override;
-  virtual void NativeDraw(GameObject2DRenderState* state) override;
+  virtual void Update() override;
 
   // =================================================================
   // Method
@@ -45,7 +45,6 @@ public:
   // setter/getter
   // =================================================================
 public:
-  virtual IVertexBufferObject* GetVbo() const override;
   void SetTextureRegion(ITextureRegion* itr);
   inline ITextureRegion* GetTextureRegion() const
   {
@@ -56,8 +55,8 @@ public:
   // Data Member
   // =================================================================
 private:
-  SpriteVertexBufferObject* vbo_;
   ITextureRegion* texture_region_;
+  MeshRenderer* renderer_;
 
 protected:
   //TODO:KEN,‚Ç‚¤‚É‚©‚µ‚ë

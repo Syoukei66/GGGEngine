@@ -1,45 +1,36 @@
 #pragma once
 
-#include <vector>
+#include "Renderer.h"
+#include "Mesh.h"
 
-#include "SubMesh.h"
-
-class Mesh
+class MeshRenderer : public Renderer
 {
-public:
-  static Mesh* CreateWithMeshData(const MeshData& data);
-
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  Mesh();
-  ~Mesh();
+  MeshRenderer();
+  ~MeshRenderer();
 
   // =================================================================
   // Method
   // =================================================================
 public:
-  void AddSubset(SubMesh* mesh);
-  void DrawSubset(T_UINT16 index) const;
+  virtual void Draw(GameObjectRenderState* state) override;
 
   // =================================================================
   // setter/getter
   // =================================================================
 public:
-  inline T_UINT16 GetSubMeshCount() const
+  inline void SetMesh(Mesh* mesh)
   {
-    return this->sub_meshes_.size();
-  }
-
-  inline SubMesh* GetSubMesh(T_UINT16 index) const
-  {
-    return this->sub_meshes_[index];
+    this->mesh_ = mesh;
   }
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
-  std::vector<SubMesh*> sub_meshes_;
+  Mesh* mesh_;
+
 };

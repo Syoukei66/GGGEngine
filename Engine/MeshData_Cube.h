@@ -1,8 +1,8 @@
 #pragma once
 
-#include "MeshMaterial.h"
+#include "MeshData.h"
 
-class MeshMaterial_Cube : public MeshMaterial
+class MeshMaterial_Cube : public MeshData
 {
 public:
   MeshMaterial_Cube();

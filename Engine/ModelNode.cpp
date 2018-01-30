@@ -38,7 +38,7 @@ void ModelNode::NativeDraw(GameObject3DRenderState* state)
   {
     return;
   }
-  mesh->Draw();
+  mesh->DrawSubset(0);
 }
 
 // =================================================================

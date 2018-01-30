@@ -1,4 +1,4 @@
-#include "MeshMaterial_Cube.h"
+#include "MeshData_Cube.h"
 
 enum { CUBE_VERTEX_COORDS_COUNT = 8 };
 static TVec3f CUBE_VERTEX_COORDS[CUBE_VERTEX_COORDS_COUNT] =

@@ -11,11 +11,13 @@ GameObject::GameObject()
   : visible_(true)
   , layer_id_(EngineInitializeSetting::GetInstance().GetDefaultLayerId())
   , material_(nullptr)
+  , renderer_(nullptr)
 {
 }
 
 GameObject::~GameObject()
 {
+  delete this->renderer_;
 }
 
 // =================================================================
@@ -24,6 +26,15 @@ GameObject::~GameObject()
 void GameObject::Init()
 {
   this->visible_ = true;
+}
+
+void GameObject::ManagedDraw(GameObjectRenderState* state)
+{
+  if (!this->renderer_)
+  {
+    return;
+  }
+  this->renderer_->Draw(state);
 }
 
 void GameObject::UniqueMaterial()

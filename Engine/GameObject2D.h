@@ -43,11 +43,6 @@ public:
 
   virtual void Draw(GameObject2DRenderState* state);
 
-  virtual void PreDraw(GameObject2DRenderState* state) {}
-  void ManagedDraw(GameObject2DRenderState* state);
-  virtual void NativeDraw(GameObject2DRenderState* state) {}
-  virtual void PostDraw(GameObject2DRenderState* state) {}
-
 private:
   void UpdateChildrenZIndex();
 

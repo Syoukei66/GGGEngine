@@ -17,7 +17,7 @@ public:
   // =================================================================
 public:
   virtual void Init() override;
-  virtual void PreDraw(GameObject2DRenderState* state) override;
+  virtual void Update() override;
 
   // =================================================================
   // Method

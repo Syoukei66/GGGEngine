@@ -1,11 +1,11 @@
 #pragma once
 
-#include "MeshMaterial.h"
+#include "MeshData.h"
 
-class MeshMaterial_Plane : public MeshMaterial
+class MeshData_Plane : public MeshData
 {
 public:
-  MeshMaterial_Plane();
+  MeshData_Plane();
 
 public:
   virtual T_UINT16 GetVertexesCount() const override;

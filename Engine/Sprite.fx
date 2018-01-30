@@ -15,10 +15,17 @@ struct v2f
   float4 vertex : SV_POSITION;
 };
 
+float2 _UV0 = float2(0.0f, 0.0f);
+float2 _UV1 = float2(1.0f, 1.0f);
+
 v2f vert(appdata v)
 {
   v2f o;
   o.vertex = mul(v.vertex, _WorldViewProj);
+
+  float2 uv = _UV1 - _UV0;
+  v.uv *= uv;
+  v.uv += _UV0;
   o.uv = v.uv;
   return o;
 }

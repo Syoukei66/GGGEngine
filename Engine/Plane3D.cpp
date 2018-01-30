@@ -8,7 +8,7 @@
 Plane3D::Plane3D()
 {
   this->SetMaterial(EngineAsset::Material::MODEL);
-  this->mesh_material_ = new MeshMaterial_Plane();
+  this->mesh_material_ = new MeshData_Plane();
   this->mesh_ = new Mesh(*this->mesh_material_);
 }
 
@@ -20,5 +20,5 @@ Plane3D::~Plane3D()
 
 void Plane3D::NativeDraw(GameObject3DRenderState* state)
 {
-  this->mesh_->Draw();
+  this->mesh_->DrawSubset();
 }

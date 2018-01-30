@@ -106,9 +106,6 @@ void GameObject3D::Draw(GameObject3DRenderState* state)
     return;
   }
 
-  //描画前のアップデート処理
-  this->PreDraw(state);
-
   this->PushMatrixStack(state);
   
   if (state->IsTargetedLayer(this->GetLayerId()))
@@ -133,27 +130,6 @@ void GameObject3D::Draw(GameObject3DRenderState* state)
   }
 
   this->PopMatrixStack(state);
-
-  this->PostDraw(state);
-}
-
-void GameObject3D::ManagedDraw(GameObject3DRenderState* state)
-{
-  Material* const material = this->GetMaterial();
-  if (!material)
-  {
-    return;
-  }
-  const T_UINT8 pass_count = material->Begin();
-  for (T_UINT8 i = 0; i < pass_count; ++i)
-  {
-    material->BeginPass(i);
-    material->SetWorldMatrix(state);
-    material->CommitChanges();
-    this->NativeDraw(state);
-    material->EndPass();
-  }
-  material->End();
 }
 
 void GameObject3D::PushMatrixStack(GameObject3DRenderState* state)

@@ -1,4 +1,4 @@
-#include "MeshMaterial_Plane.h"
+#include "MeshData_Plane.h"
 
 enum { PLANE_VERTEX_COORDS_COUNT = 4 };
 static TVec2f PLANE_VERTEX_COORDS[PLANE_VERTEX_COORDS_COUNT] =
@@ -38,7 +38,7 @@ static bool PLANE_VERTEXES_INITIALIZED = false;
 static Vertex::VCT PLANE_VERTEXES[PLANE_VERTEXES_COUNT];
 static T_UINT16 PLANE_INDEXES[PLANE_VERTEX_INDEXES_COUNT];
 
-MeshMaterial_Plane::MeshMaterial_Plane()
+MeshData_Plane::MeshData_Plane()
 {
   if (!PLANE_VERTEXES_INITIALIZED)
   {
@@ -72,12 +72,12 @@ MeshMaterial_Plane::MeshMaterial_Plane()
   }
 }
 
-T_UINT16 MeshMaterial_Plane::GetVertexesCount() const
+T_UINT16 MeshData_Plane::GetVertexesCount() const
 {
   return PLANE_VERTEXES_COUNT;
 }
 
-void MeshMaterial_Plane::SetupVertex(void* dest) const
+void MeshData_Plane::SetupVertex(void* dest) const
 {
   for (T_UINT16 i = 0; i < PLANE_VERTEXES_COUNT; ++i)
   {
@@ -85,22 +85,22 @@ void MeshMaterial_Plane::SetupVertex(void* dest) const
   }
 }
 
-T_UINT16 MeshMaterial_Plane::GetIndicesCount() const
+T_UINT16 MeshData_Plane::GetIndicesCount() const
 {
   return PLANE_VERTEX_INDEXES_COUNT;
 }
 
-const T_UINT16 * MeshMaterial_Plane::GetIndices() const
+const T_UINT16 * MeshData_Plane::GetIndices() const
 {
   return PLANE_INDEXES;
 }
 
-INativeProcess_Graphics::PrimitiveType MeshMaterial_Plane::GetPrimitiveType() const
+INativeProcess_Graphics::PrimitiveType MeshData_Plane::GetPrimitiveType() const
 {
   return INativeProcess_Graphics::PRIMITIVE_TRIANGLES;
 }
 
-Vertex::VertexType MeshMaterial_Plane::GetVertexType() const
+Vertex::VertexType MeshData_Plane::GetVertexType() const
 {
   return Vertex::VERTEX_TYPE_VCT;
 }

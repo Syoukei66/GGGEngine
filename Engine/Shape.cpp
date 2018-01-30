@@ -9,11 +9,11 @@ void Shape::Init()
   this->GetVbo()->Init();
 }
 
-void Shape::PreDraw(GameObject2DRenderState* state)
+void Shape::Update()
 {
   IVertexBufferObject* vbo = this->GetVbo();
   vbo->UpdateCoord(this);
-  GameObject2D::PreDraw(state);
+  GameObject2D::Update();
 }
 
 // =================================================================

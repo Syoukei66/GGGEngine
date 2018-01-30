@@ -31,6 +31,8 @@ public:
   virtual void ManagedPreUpdate() = 0;
   virtual void ManagedUpdate() = 0;
   virtual void ManagedPostUpdate() = 0;
+
+  void ManagedDraw(GameObjectRenderState* state);
   
   void UniqueMaterial();
 
@@ -69,13 +71,13 @@ public:
     return this->layer_id_;
   }
 
-  inline void SetMaterial(Material& material)
+  inline void SetRenderer(Renderer* renderer)
   {
-    this->material_ = &material;
+    this->renderer_ = renderer;
   }
-  inline Material* GetMaterial() const
+  inline Renderer* GetRenderer() const
   {
-    return this->material_;
+    return this->renderer_;
   }
 
   // =================================================================
@@ -84,7 +86,6 @@ public:
 private:
 	bool visible_;
   T_UINT8 layer_id_;
-  Material* material_;
   Renderer* renderer_;
 };
 

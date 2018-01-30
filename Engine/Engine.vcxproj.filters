@@ -753,12 +753,6 @@
     <ClCompile Include="FbxMeshMaterial.cpp">
       <Filter>ソース ファイル\Resource\File\FBX</Filter>
     </ClCompile>
-    <ClCompile Include="MeshMaterial_Plane.cpp">
-      <Filter>ソース ファイル\Component\Mesh\Materials</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshMaterial_Cube.cpp">
-      <Filter>ソース ファイル\Component\Mesh\Materials</Filter>
-    </ClCompile>
     <ClCompile Include="Cube3D.cpp">
       <Filter>ソース ファイル\Component\GameObject\3D\Primitive</Filter>
     </ClCompile>
@@ -767,6 +761,27 @@
     </ClCompile>
     <ClCompile Include="ModelNode.cpp">
       <Filter>ソース ファイル\Component\GameObject\3D\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="SubMesh.cpp">
+      <Filter>ソース ファイル\Component\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshData.cpp">
+      <Filter>ソース ファイル\Component\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshRenderer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshData_Plane.cpp">
+      <Filter>ソース ファイル\Component\Mesh\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshData_Cube.cpp">
+      <Filter>ソース ファイル\Component\Mesh\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshData_Sprite.cpp">
+      <Filter>ソース ファイル\Component\Mesh\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>ソース ファイル\Component\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1280,17 +1295,8 @@
     <ClInclude Include="FbxMeshMaterial.h">
       <Filter>ヘッダー ファイル\Resource\File\FBX</Filter>
     </ClInclude>
-    <ClInclude Include="MeshMaterial_Plane.h">
-      <Filter>ヘッダー ファイル\Component\Mesh\Materials</Filter>
-    </ClInclude>
     <ClInclude Include="Bezier.h">
       <Filter>ヘッダー ファイル\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshMaterial.h">
-      <Filter>ヘッダー ファイル\Component\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshMaterial_Cube.h">
-      <Filter>ヘッダー ファイル\Component\Mesh\Materials</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>ヘッダー ファイル\Component\Renderer</Filter>
@@ -1303,6 +1309,24 @@
     </ClInclude>
     <ClInclude Include="NativeAssert.h">
       <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="SubMesh.h">
+      <Filter>ヘッダー ファイル\Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshData.h">
+      <Filter>ヘッダー ファイル\Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshRenderer.h">
+      <Filter>ヘッダー ファイル\Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshData_Plane.h">
+      <Filter>ヘッダー ファイル\Component\Mesh\Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshData_Cube.h">
+      <Filter>ヘッダー ファイル\Component\Mesh\Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshData_Sprite.h">
+      <Filter>ヘッダー ファイル\Component\Mesh\Materials</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

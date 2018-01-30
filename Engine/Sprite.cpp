@@ -3,6 +3,8 @@
 #include "NativeMethod.h"
 #include "GameObject2DRenderState.h"
 #include "EngineAsset.h"
+#include "MeshRenderer.h"
+#include "MeshData_Sprite.h"
 
 // =================================================================
 // Factory Method
@@ -26,7 +28,7 @@ Sprite* Sprite::CreateWithMaterial(Material* material)
 {
   TextureRegion* region = TextureRegion::CreateWithTexture(material->GetMainTexture());
   Sprite* ret = Sprite::CreateWithTextureRegion(region);
-  ret->SetMaterial(*material);
+  ret->GetRenderer()->SetMaterial(*material);
   ret->delete_region_ = true;
   return ret;
 }
@@ -57,7 +59,10 @@ Sprite::Sprite()
 {
   this->vbo_ = SpriteVertexBufferObject::Create();
   this->delete_region_ = false;
-  this->SetMaterial(EngineAsset::Material::SPRITE);
+  this->renderer_ = new MeshRenderer();
+  this->renderer_->AddMaterial(EngineAsset::Material::SPRITE);
+  this->renderer_->SetMesh(Mesh::CreateWithMeshData(MeshData_Sprite::GetInstance()));
+  this->SetRenderer(this->renderer_);
 }
 
 // =================================================================
@@ -69,32 +74,16 @@ void Sprite::Init()
   this->texture_region_ = nullptr;
 }
 
-void Sprite::PreDraw(GameObject2DRenderState* state)
+void Sprite::Update()
 {
-  Shape::PreDraw(state);
+  Shape::Update();
   if (!this->texture_region_)
   {
     return;
   }
-  if (this->texture_region_->UpdateTextureCoord())
-  {
-    this->vbo_->OnVertexUvDirty();
-  }
-  this->vbo_->UpdateTexture(this, this->texture_region_);
-}
-
-void Sprite::NativeDraw(GameObject2DRenderState* state)
-{
-  if (!this->texture_region_)
-  {
-    return;
-  }
-  NativeMethod::Graphics().Graphics_DrawSprite(
-    state,
-    INativeProcess_Graphics::PRIMITIVE_TRIANGLESTRIP,
-    (Vertex::VCT*)this->vbo_->GetVertexes(),
-    this->vbo_->GetVertexesCount()
-  );
+  this->texture_region_->UpdateTextureCoord();
+  this->texture_region_->GetWidth();
+  this->texture_region_->GetHeight();
 }
 
 // =================================================================
@@ -120,11 +109,6 @@ void Sprite::FitToTexture()
 // =================================================================
 // setter/getter
 // =================================================================
-IVertexBufferObject* Sprite::GetVbo() const
-{
-  return this->vbo_;
-}
-
 void Sprite::SetTextureRegion(ITextureRegion* itr)
 {
   if (this->texture_region_ == itr)
