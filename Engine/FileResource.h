@@ -47,9 +47,7 @@ public:
   }
   inline T* GetContents() const
   {
-#ifdef _DEBUG
     NATIVE_ASSERT(this->obj_, "リソースがロードされていません");
-#endif
     return this->obj_;
   }
 
