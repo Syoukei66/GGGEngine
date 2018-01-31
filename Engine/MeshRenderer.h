@@ -9,13 +9,13 @@ class MeshRenderer : public Renderer
   // Factory Method
   // =================================================================
 public:
-  static MeshRenderer* Create(const Mesh& mesh);
+  static MeshRenderer* Create(const Mesh& mesh, GameObject* entity);
 
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 protected:
-  MeshRenderer();
+  MeshRenderer(GameObject* entity);
 
   // =================================================================
   // Method

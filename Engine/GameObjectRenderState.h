@@ -1,10 +1,13 @@
 #pragma once
 
+#include <map>
+#include <vector>
 #include "NativeType.h"
 #include "BlendFunction.h"
 #include "NativeMatrix.h"
 #include "NativeMatrixStack.h"
 #include "Camera.h"
+#include "Renderer.h"
 
 class GameObjectRenderState
 {

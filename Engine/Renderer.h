@@ -1,9 +1,10 @@
 #pragma once
 
-#include "GameObjectRenderState.h"
 #include "GameComponent.h"
-#include "GameObject.h"
 #include "Material.h"
+
+class GameObjectRenderState;
+class GameObject;
 
 class Renderer : public GameComponent
 {

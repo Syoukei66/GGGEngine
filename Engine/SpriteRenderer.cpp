@@ -4,8 +4,9 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-SpriteRenderer::SpriteRenderer()
-  : texture_region_(nullptr)
+SpriteRenderer::SpriteRenderer(GameObject* entity)
+  : Renderer(entity)
+  , texture_region_(nullptr)
 {
   this->SetMaterial(*EngineAsset::Material::SPRITE.Clone());
 }

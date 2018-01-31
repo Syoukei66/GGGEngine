@@ -1,6 +1,7 @@
 #include "Renderer.h"
 
 #include "EngineInitializeSetting.h"
+#include "GameObjectRenderState.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -68,4 +69,3 @@ void Renderer::SetMaterial(Material& material)
   }
   this->materials_[0] = &material;
 }
-

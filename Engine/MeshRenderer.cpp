@@ -1,11 +1,12 @@
 #include "MeshRenderer.h"
+#include "EngineAsset.h"
 
 // =================================================================
 // Factory Method
 // =================================================================
-MeshRenderer* MeshRenderer::Create(const Mesh& mesh)
+MeshRenderer* MeshRenderer::Create(const Mesh& mesh, GameObject* entity)
 {
-  MeshRenderer* ret = new MeshRenderer();
+  MeshRenderer* ret = new MeshRenderer(entity);
   ret->SetMesh(mesh);
   return ret;
 }
@@ -13,7 +14,8 @@ MeshRenderer* MeshRenderer::Create(const Mesh& mesh)
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-MeshRenderer::MeshRenderer()
+MeshRenderer::MeshRenderer(GameObject* entity)
+  : Renderer(entity)
 {
 }
 

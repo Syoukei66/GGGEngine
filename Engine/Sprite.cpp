@@ -7,7 +7,7 @@
 Sprite* Sprite::Create()
 {
   Sprite* ret = new Sprite();
-  ret->SetRenderer(new SpriteRenderer());
+  ret->SetRenderer(new SpriteRenderer(ret));
   ret->Init();
   return ret;
 }

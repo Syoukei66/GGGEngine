@@ -10,7 +10,7 @@ class SpriteRenderer : public Renderer
   // Constructor / Destructor
   // =================================================================
 public:
-  SpriteRenderer();
+  SpriteRenderer(GameObject* entity);
   ~SpriteRenderer();
 
   // =================================================================

@@ -10,7 +10,7 @@ ModelNode::ModelNode(const FbxNodeData& node)
   , child_count_(node.GetChildCount())
   , parent_(nullptr)
 {
-  this->SetRenderer(MeshRenderer::Create(*node.GetMesh()));
+  this->SetRenderer(MeshRenderer::Create(*node.GetMesh(), this));
   this->GetRenderer()->SetMaterial(*node.GetMaterial());
   this->children_ = new ModelNode*[this->child_count_];
   for (T_UINT8 i = 0; i < this->child_count_; ++i)
@@ -105,5 +105,50 @@ void ModelNode::SetShaderForTree(const char* name, const ShaderResource& shader)
   for (T_UINT8 i = 0; i < this->child_count_; ++i)
   {
     this->children_[i]->SetShaderForTree(name, shader);
+  }
+}
+
+void ModelNode::SetMaterial(Material& material)
+{
+  this->GetRenderer()->SetMaterial(material);
+}
+
+void ModelNode::SetMaterialForChildren(Material& material)
+{
+  for (T_UINT8 i = 0; i < this->child_count_; ++i)
+  {
+    this->children_[i]->SetMaterial(material);
+  }
+}
+
+void ModelNode::SetMaterialForChildren(const char* name, Material& material)
+{
+  for (T_UINT8 i = 0; i < this->child_count_; ++i)
+  {
+    if (strcmp(this->children_[i]->node_.GetName(), name) == 0)
+    {
+      this->children_[i]->SetMaterial(material);
+    }
+  }
+}
+
+void ModelNode::SetMaterialForTree(Material& material)
+{
+  this->SetMaterial(material);
+  for (T_UINT8 i = 0; i < this->child_count_; ++i)
+  {
+    this->children_[i]->SetMaterialForTree(material);
+  }
+}
+
+void ModelNode::SetMaterialForTree(const char* name, Material& material)
+{
+  if (strcmp(this->node_.GetName(), name) == 0)
+  {
+    this->SetMaterial(material);
+  }
+  for (T_UINT8 i = 0; i < this->child_count_; ++i)
+  {
+    this->children_[i]->SetMaterialForTree(name, material);
   }
 }
