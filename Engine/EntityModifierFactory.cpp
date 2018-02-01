@@ -9,7 +9,7 @@ namespace EntityModifierFactory
 //=======================================================================
 EntityModifierRoot* Root(EntityModifier* modifier)
 {
-  EntityModifierRoot* ret = HalEngine::Resource::GetEntityModifierManager()->GetModifierRootAllocator()->Allocate();
+  EntityModifierRoot* ret = EntityModifierManager::GetInstance().GetModifierRootAllocator()->Allocate();
   ret->Prepare(modifier);
   return ret;
 }
@@ -19,7 +19,7 @@ EntityModifierRoot* Root(EntityModifier* modifier)
 //=======================================================================
 EntityModifier* Sequence(EntityModifier* m0, EntityModifier* m1)
 {
-  SequenceEntityModifier* ret = HalEngine::Resource::GetEntityModifierManager()->GetSequenceModifierAllocator()->Allocate();
+  SequenceEntityModifier* ret = EntityModifierManager::GetInstance().GetSequenceModifierAllocator()->Allocate();
   ret->Register(m0);
   ret->Register(m1);
   ret->Prepare();
@@ -28,7 +28,7 @@ EntityModifier* Sequence(EntityModifier* m0, EntityModifier* m1)
 
 EntityModifier* Sequence(EntityModifier* m0, EntityModifier* m1, EntityModifier* m2)
 {
-  SequenceEntityModifier* ret = HalEngine::Resource::GetEntityModifierManager()->GetSequenceModifierAllocator()->Allocate();
+  SequenceEntityModifier* ret = EntityModifierManager::GetInstance().GetSequenceModifierAllocator()->Allocate();
   ret->Register(m0);
   ret->Register(m1);
   ret->Register(m2);
@@ -38,7 +38,7 @@ EntityModifier* Sequence(EntityModifier* m0, EntityModifier* m1, EntityModifier*
 
 EntityModifier* Sequence(EntityModifier* m0, EntityModifier* m1, EntityModifier* m2, EntityModifier* m3)
 {
-  SequenceEntityModifier* ret = HalEngine::Resource::GetEntityModifierManager()->GetSequenceModifierAllocator()->Allocate();
+  SequenceEntityModifier* ret = EntityModifierManager::GetInstance().GetSequenceModifierAllocator()->Allocate();
   ret->Register(m0);
   ret->Register(m1);
   ret->Register(m2);
@@ -49,7 +49,7 @@ EntityModifier* Sequence(EntityModifier* m0, EntityModifier* m1, EntityModifier*
 
 EntityModifier* Sequence(EntityModifier* m0, EntityModifier* m1, EntityModifier* m2, EntityModifier* m3, EntityModifier* m4)
 {
-  SequenceEntityModifier* ret = HalEngine::Resource::GetEntityModifierManager()->GetSequenceModifierAllocator()->Allocate();
+  SequenceEntityModifier* ret = EntityModifierManager::GetInstance().GetSequenceModifierAllocator()->Allocate();
   ret->Register(m0);
   ret->Register(m1);
   ret->Register(m2);
@@ -64,7 +64,7 @@ EntityModifier* Sequence(EntityModifier* m0, EntityModifier* m1, EntityModifier*
 //=======================================================================
 EntityModifier* Synchronized(EntityModifier* m0, EntityModifier* m1)
 {
-  SynchronizedEntityModifier* ret = HalEngine::Resource::GetEntityModifierManager()->GetSynchronizedModifierAllocator()->Allocate();
+  SynchronizedEntityModifier* ret = EntityModifierManager::GetInstance().GetSynchronizedModifierAllocator()->Allocate();
   ret->Register(m0);
   ret->Register(m1);
   ret->Prepare();
@@ -73,7 +73,7 @@ EntityModifier* Synchronized(EntityModifier* m0, EntityModifier* m1)
 
 EntityModifier* Synchronized(EntityModifier* m0, EntityModifier* m1, EntityModifier* m2)
 {
-  SynchronizedEntityModifier* ret = HalEngine::Resource::GetEntityModifierManager()->GetSynchronizedModifierAllocator()->Allocate();
+  SynchronizedEntityModifier* ret = EntityModifierManager::GetInstance().GetSynchronizedModifierAllocator()->Allocate();
   ret->Register(m0);
   ret->Register(m1);
   ret->Register(m2);
@@ -83,7 +83,7 @@ EntityModifier* Synchronized(EntityModifier* m0, EntityModifier* m1, EntityModif
 
 EntityModifier* Synchronized(EntityModifier* m0, EntityModifier* m1, EntityModifier* m2, EntityModifier* m3)
 {
-  SynchronizedEntityModifier* ret = HalEngine::Resource::GetEntityModifierManager()->GetSynchronizedModifierAllocator()->Allocate();
+  SynchronizedEntityModifier* ret = EntityModifierManager::GetInstance().GetSynchronizedModifierAllocator()->Allocate();
   ret->Register(m0);
   ret->Register(m1);
   ret->Register(m2);
@@ -94,7 +94,7 @@ EntityModifier* Synchronized(EntityModifier* m0, EntityModifier* m1, EntityModif
 
 EntityModifier* Synchronized(EntityModifier* m0, EntityModifier* m1, EntityModifier* m2, EntityModifier* m3, EntityModifier* m4)
 {
-  SynchronizedEntityModifier* ret = HalEngine::Resource::GetEntityModifierManager()->GetSynchronizedModifierAllocator()->Allocate();
+  SynchronizedEntityModifier* ret = EntityModifierManager::GetInstance().GetSynchronizedModifierAllocator()->Allocate();
   ret->Register(m0);
   ret->Register(m1);
   ret->Register(m2);
@@ -109,7 +109,7 @@ EntityModifier* Synchronized(EntityModifier* m0, EntityModifier* m1, EntityModif
 //=======================================================================
 EntityModifier* Loop(EntityModifier* target, T_UINT8 loop_count)
 {
-  LoopEntityModifier* ret = HalEngine::Resource::GetEntityModifierManager()->GetLoopModifierAllocator()->Allocate();
+  LoopEntityModifier* ret = EntityModifierManager::GetInstance().GetLoopModifierAllocator()->Allocate();
   ret->Prepare(target, loop_count);
   return ret;
 }
@@ -119,7 +119,7 @@ EntityModifier* Loop(EntityModifier* target, T_UINT8 loop_count)
 //=======================================================================
 EntityModifier* Delay(T_UINT32 duration)
 {
-  DelayEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetDelayModifierAllocator()->Allocate();
+  DelayEntityModifier* const ret = EntityModifierManager::GetInstance().GetDelayModifierAllocator()->Allocate();
   ret->Prepare(duration);
   return ret;
 }
@@ -129,7 +129,7 @@ EntityModifier* Delay(T_UINT32 duration)
 //=======================================================================
 EntityModifier* Round(EntityModifier* target)
 {
-  RoundEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetRoundModifierAllocator()->Allocate();
+  RoundEntityModifier* const ret = EntityModifierManager::GetInstance().GetRoundModifierAllocator()->Allocate();
   ret->Prepare(target);
   return ret;
 }
@@ -157,7 +157,7 @@ EntityModifier* ScaleMove(T_UINT32 duration, T_FLOAT value_x, T_FLOAT value_y)
 
 EntityModifier* ScaleMoveX(T_UINT32 duration, T_FLOAT value_x)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     0, value_x,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_SCALE_X),
@@ -168,7 +168,7 @@ EntityModifier* ScaleMoveX(T_UINT32 duration, T_FLOAT value_x)
 
 EntityModifier* ScaleMoveY(T_UINT32 duration, T_FLOAT value_y)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     0, value_y,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_SCALE_Y),
@@ -197,7 +197,7 @@ EntityModifier* ScaleTo(T_UINT32 duration, T_FLOAT to_x, T_FLOAT to_y)
 
 EntityModifier* ScaleToX(T_UINT32 duration, T_FLOAT to_x)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     0, to_x,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_SCALE_X),
@@ -208,7 +208,7 @@ EntityModifier* ScaleToX(T_UINT32 duration, T_FLOAT to_x)
 
 EntityModifier* ScaleToY(T_UINT32 duration,  T_FLOAT to_y)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     0, to_y,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_SCALE_Y),
@@ -237,7 +237,7 @@ EntityModifier* ScaleFromMove(T_UINT32 duration, T_FLOAT from_x, T_FLOAT from_y,
 
 EntityModifier* ScaleFromMoveX(T_UINT32 duration, T_FLOAT from_x, T_FLOAT value_x)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     from_x, value_x,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_SCALE_X),
@@ -248,7 +248,7 @@ EntityModifier* ScaleFromMoveX(T_UINT32 duration, T_FLOAT from_x, T_FLOAT value_
 
 EntityModifier* ScaleFromMoveY(T_UINT32 duration, T_FLOAT from_y, T_FLOAT value_y)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     from_y, value_y,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_SCALE_Y),
@@ -277,7 +277,7 @@ EntityModifier* ScaleFromTo(T_UINT32 duration, T_FLOAT from_x, T_FLOAT from_y, T
 
 EntityModifier* ScaleFromToX(T_UINT32 duration, T_FLOAT from_x, T_FLOAT to_x)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     from_x, to_x,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_SCALE_X),
@@ -288,7 +288,7 @@ EntityModifier* ScaleFromToX(T_UINT32 duration, T_FLOAT from_x, T_FLOAT to_x)
 
 EntityModifier* ScaleFromToY(T_UINT32 duration, T_FLOAT from_y, T_FLOAT to_y)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     from_y, to_y,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_SCALE_Y),
@@ -320,7 +320,7 @@ EntityModifier* TranslateBy(T_UINT32 duration, T_FLOAT value_x, T_FLOAT value_y)
 
 EntityModifier* TranslateByX(T_UINT32 duration, T_FLOAT value_x)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     0, value_x,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_TRANSLATE_X),
@@ -331,7 +331,7 @@ EntityModifier* TranslateByX(T_UINT32 duration, T_FLOAT value_x)
 
 EntityModifier* TranslateByY(T_UINT32 duration, T_FLOAT value_y)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     0, value_y,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_TRANSLATE_Y),
@@ -360,7 +360,7 @@ EntityModifier* TranslateTo(T_UINT32 duration, T_FLOAT to_x, T_FLOAT to_y)
 
 EntityModifier* TranslateToX(T_UINT32 duration, T_FLOAT to_x)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     0, to_x,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_TRANSLATE_X),
@@ -371,7 +371,7 @@ EntityModifier* TranslateToX(T_UINT32 duration, T_FLOAT to_x)
 
 EntityModifier* TranslateToY(T_UINT32 duration, T_FLOAT to_y)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     0, to_y,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_TRANSLATE_Y),
@@ -395,7 +395,7 @@ EntityModifier* TranslateFromBy(T_UINT32 duration, T_FLOAT from_x, T_FLOAT from_
 
 EntityModifier* TranslateFromByX(T_UINT32 duration, T_FLOAT from_x, T_FLOAT value_x)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     from_x, value_x,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_TRANSLATE_X),
@@ -406,7 +406,7 @@ EntityModifier* TranslateFromByX(T_UINT32 duration, T_FLOAT from_x, T_FLOAT valu
 
 EntityModifier* TranslateFromByY(T_UINT32 duration, T_FLOAT from_y, T_FLOAT value_y)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     from_y, value_y,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_TRANSLATE_Y),
@@ -430,7 +430,7 @@ EntityModifier* TranslateFromTo(T_UINT32 duration, T_FLOAT from_x, T_FLOAT from_
 
 EntityModifier* TranslateFromToX(T_UINT32 duration, T_FLOAT from_x, T_FLOAT to_x)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     from_x, to_x,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_TRANSLATE_X),
@@ -441,7 +441,7 @@ EntityModifier* TranslateFromToX(T_UINT32 duration, T_FLOAT from_x, T_FLOAT to_x
 
 EntityModifier* TranslateFromToY(T_UINT32 duration, T_FLOAT from_y, T_FLOAT to_y)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     from_y, to_y,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_TRANSLATE_Y),
@@ -455,7 +455,7 @@ EntityModifier* TranslateFromToY(T_UINT32 duration, T_FLOAT from_y, T_FLOAT to_y
 //=======================================================================
 EntityModifier* RotationBy(T_UINT32 duration, T_FLOAT value)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     0, value,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_ROTATION),
@@ -466,7 +466,7 @@ EntityModifier* RotationBy(T_UINT32 duration, T_FLOAT value)
 
 EntityModifier* RotationTo(T_UINT32 duration, T_FLOAT to)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     0, to,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_ROTATION),
@@ -477,7 +477,7 @@ EntityModifier* RotationTo(T_UINT32 duration, T_FLOAT to)
 
 EntityModifier* RotationFromBy(T_UINT32 duration, T_FLOAT from, T_FLOAT value)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     from, value,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_ROTATION),
@@ -488,7 +488,7 @@ EntityModifier* RotationFromBy(T_UINT32 duration, T_FLOAT from, T_FLOAT value)
 
 EntityModifier* RotationFromTo(T_UINT32 duration, T_FLOAT from, T_FLOAT to)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     from, to,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_ROTATION),
@@ -517,7 +517,7 @@ EntityModifier* ColorBy(T_UINT32 duration, T_FLOAT value_r, T_FLOAT value_g, T_F
 
 EntityModifier* ColorByRed(T_UINT32 duration, T_FLOAT value_r)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     0, value_r,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_COLOR_R),
@@ -528,7 +528,7 @@ EntityModifier* ColorByRed(T_UINT32 duration, T_FLOAT value_r)
 
 EntityModifier* ColorByGreen(T_UINT32 duration, T_FLOAT value_g)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     0, value_g,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_COLOR_G),
@@ -539,7 +539,7 @@ EntityModifier* ColorByGreen(T_UINT32 duration, T_FLOAT value_g)
 
 EntityModifier* ColorByBlue(T_UINT32 duration, T_FLOAT value_b)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     0, value_b,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_COLOR_B),
@@ -550,7 +550,7 @@ EntityModifier* ColorByBlue(T_UINT32 duration, T_FLOAT value_b)
 
 EntityModifier* ColorByAlpha(T_UINT32 duration, T_FLOAT value_a)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     0, value_a,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_COLOR_A),
@@ -576,7 +576,7 @@ EntityModifier* ColorTo(T_UINT32 duration, T_FLOAT to_r, T_FLOAT to_g, T_FLOAT t
 
 EntityModifier* ColorToRed(T_UINT32 duration, T_FLOAT to_r)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     0, to_r,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_COLOR_R),
@@ -587,7 +587,7 @@ EntityModifier* ColorToRed(T_UINT32 duration, T_FLOAT to_r)
 
 EntityModifier* ColorToGreen(T_UINT32 duration, T_FLOAT to_g)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     0, to_g,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_COLOR_G),
@@ -598,7 +598,7 @@ EntityModifier* ColorToGreen(T_UINT32 duration, T_FLOAT to_g)
 
 EntityModifier* ColorToBlue(T_UINT32 duration, T_FLOAT to_b)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     0, to_b,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_COLOR_B),
@@ -609,7 +609,7 @@ EntityModifier* ColorToBlue(T_UINT32 duration, T_FLOAT to_b)
 
 EntityModifier* ColorToAlpha(T_UINT32 duration, T_FLOAT to_a)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     0, to_a,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_COLOR_A),
@@ -641,7 +641,7 @@ EntityModifier* ColorFromBy(T_UINT32 duration, T_FLOAT from_r, T_FLOAT from_g, T
 
 EntityModifier* ColorFromByRed(T_UINT32 duration, T_FLOAT from_r, T_FLOAT value_r)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     from_r, value_r,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_COLOR_R),
@@ -652,7 +652,7 @@ EntityModifier* ColorFromByRed(T_UINT32 duration, T_FLOAT from_r, T_FLOAT value_
 
 EntityModifier* ColorFromByGreen(T_UINT32 duration, T_FLOAT from_g, T_FLOAT value_g)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     from_g, value_g,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_COLOR_G),
@@ -663,7 +663,7 @@ EntityModifier* ColorFromByGreen(T_UINT32 duration, T_FLOAT from_g, T_FLOAT valu
 
 EntityModifier* ColorFromByBlue(T_UINT32 duration, T_FLOAT from_b, T_FLOAT value_b)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     from_b, value_b,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_COLOR_B),
@@ -674,7 +674,7 @@ EntityModifier* ColorFromByBlue(T_UINT32 duration, T_FLOAT from_b, T_FLOAT value
 
 EntityModifier* ColorFromByAlpha(T_UINT32 duration, T_FLOAT from_a, T_FLOAT value_a)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     from_a, value_a,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_COLOR_A),
@@ -705,7 +705,7 @@ EntityModifier* ColorFromTo(T_UINT32 duration, T_FLOAT from_r, T_FLOAT from_g, T
 
 EntityModifier* ColorFromToRed(T_UINT32 duration, T_FLOAT from_r, T_FLOAT to_r)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     from_r, to_r,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_COLOR_R),
@@ -716,7 +716,7 @@ EntityModifier* ColorFromToRed(T_UINT32 duration, T_FLOAT from_r, T_FLOAT to_r)
 
 EntityModifier* ColorFromToGreen(T_UINT32 duration, T_FLOAT from_g, T_FLOAT to_g)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     from_g, to_g,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_COLOR_G),
@@ -727,7 +727,7 @@ EntityModifier* ColorFromToGreen(T_UINT32 duration, T_FLOAT from_g, T_FLOAT to_g
 
 EntityModifier* ColorFromToBlue(T_UINT32 duration, T_FLOAT from_b, T_FLOAT to_b)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     from_b, to_b,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_COLOR_B),
@@ -738,7 +738,7 @@ EntityModifier* ColorFromToBlue(T_UINT32 duration, T_FLOAT from_b, T_FLOAT to_b)
 
 EntityModifier* ColorFromToAlpha(T_UINT32 duration, T_FLOAT from_a, T_FLOAT to_a)
 {
-  AttributeEntityModifier* const ret = HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Allocate();
+  AttributeEntityModifier* const ret = EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Allocate();
   ret->Prepare(duration,
     from_a, to_a,
     EntityModifierAttribute::Create(EntityModifierAttribute::MODIFIER_ATTR_COLOR_A),

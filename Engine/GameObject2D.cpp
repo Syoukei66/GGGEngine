@@ -1,7 +1,7 @@
 #include "GameObject2D.h"
 #include "GameObjectRenderState.h"
 #include "EntityModifier.h"
-#include "Moniker.h"
+#include "EntityModifierManager.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -164,7 +164,7 @@ void GameObject2D::UnregisterEntityModifier(EntityModifierRoot* root)
 
 void GameObject2D::ClearEntityModifiers()
 {
-  HalEngine::Resource::GetEntityModifierManager()->ClearModifiersWithTargetEntity(this);
+  EntityModifierManager::GetInstance().ClearModifiersWithTargetEntity(this);
 }
 
 void GameObject2D::PushMatrixStack(GameObjectRenderState* state)
