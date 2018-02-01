@@ -12,7 +12,7 @@ public:
   }
 
 private:
-  MeshData_Sprite();
+  MeshData_Sprite() {}
   MeshData_Sprite(const MeshData_Sprite& b) {}
 
 public:

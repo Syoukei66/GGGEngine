@@ -26,7 +26,7 @@ v2f vert(appdata v)
   v.vertex.x *= _Width;
   v.vertex.y *= _Height;
   o.vertex = mul(v.vertex, _WorldViewProj);
-  
+
   v.uv *= _UV1 - _UV0;
   v.uv += _UV0;
   o.uv = v.uv;
