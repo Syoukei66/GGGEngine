@@ -32,36 +32,40 @@ NativeVertexBuffer::~NativeVertexBuffer()
 // =================================================================
 void NativeVertexBuffer::Lock(void** dest)
 {
-  this->vertex_buffer_->Lock(0, 0, dest, 0);
+  HRESULT hr = this->vertex_buffer_->Lock(0, 0, dest, 0);
+  NATIVE_ASSERT(SUCCEEDED(hr), "VertexBuffer‚ÌƒƒbƒN‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 }
 
 void NativeVertexBuffer::Unlock()
 {
-  this->vertex_buffer_->Unlock();
+  HRESULT hr = this->vertex_buffer_->Unlock();
+  NATIVE_ASSERT(SUCCEEDED(hr), "VertexBuffer‚ÌƒAƒ“ƒƒbƒN‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 }
 
 void NativeVertexBuffer::SetStreamSource() const
 {
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
-  device->SetStreamSource(0, this->vertex_buffer_, 0, Vertex::VERTEX_SIZE[this->vertex_type_]);
+  HRESULT hr = device->SetStreamSource(0, this->vertex_buffer_, 0, Vertex::VERTEX_SIZE[this->vertex_type_]);
+  NATIVE_ASSERT(SUCCEEDED(hr), "VertexBuffer‚ÌƒZƒbƒg‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
   device->SetFVF(NativeConstants::FVF_TYPES[this->vertex_type_]);
 }
 
 void NativeVertexBuffer::DrawPrimitive(INativeProcess_Graphics::PrimitiveType primitive_type) const
 {
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
-  device->DrawPrimitive(
+  HRESULT hr = device->DrawPrimitive(
     NativeConstants::PRIMITIVE_TYPES[primitive_type],
     0,
     this->polygon_count_
   );
+  NATIVE_ASSERT(SUCCEEDED(hr), "•`‰æ‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 }
 
 void NativeVertexBuffer::DrawIndexedPrimitive(const INativeIndexBuffer* index_buffer, INativeProcess_Graphics::PrimitiveType primitive_type) const
 {
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
   const T_UINT32 vertex_count = index_buffer->GetVertexesCount();
-  device->DrawIndexedPrimitive(
+  HRESULT hr = device->DrawIndexedPrimitive(
     NativeConstants::PRIMITIVE_TYPES[primitive_type],
     0,
     0,
@@ -69,4 +73,5 @@ void NativeVertexBuffer::DrawIndexedPrimitive(const INativeIndexBuffer* index_bu
     0,
     this->polygon_count_
   );
+  NATIVE_ASSERT(SUCCEEDED(hr), "•`‰æ‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 }

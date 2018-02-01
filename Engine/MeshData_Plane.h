@@ -12,7 +12,7 @@ public:
   }
 
 private:
-  MeshData_Plane();
+  MeshData_Plane() {}
   MeshData_Plane(const MeshData_Plane& b) {}
 
 public:
