@@ -32,7 +32,6 @@
     #include "Transform.h"
 //----2D
       #include "GameObject2D.h"
-      #include "GameObject2DRenderState.h"
       #include "Transform2D.h"
 //------Modifier
         #include "EntityModifier.h"
@@ -45,7 +44,6 @@
         #include "Sprite.h"
 //----3D
       #include "GameObject3D.h"
-      #include "GameObject3DRenderState.h"
       #include "Transform3D.h"
       #include "Transform3DRotator.h"
 //------Model

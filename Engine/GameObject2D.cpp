@@ -1,8 +1,6 @@
 #include "GameObject2D.h"
-
-#include <algorithm>
+#include "GameObjectRenderState.h"
 #include "EntityModifier.h"
-#include "GameObject2DRenderState.h"
 #include "Moniker.h"
 
 // =================================================================
@@ -109,7 +107,7 @@ void GameObject2D::ClearChildren()
   this->children_.clear();
 }
 
-void GameObject2D::Draw(GameObject2DRenderState* state)
+void GameObject2D::Draw(GameObjectRenderState* state)
 {
   if (!this->IsVisible())
   {
@@ -169,12 +167,12 @@ void GameObject2D::ClearEntityModifiers()
   HalEngine::Resource::GetEntityModifierManager()->ClearModifiersWithTargetEntity(this);
 }
 
-void GameObject2D::PushMatrixStack(GameObject2DRenderState* state)
+void GameObject2D::PushMatrixStack(GameObjectRenderState* state)
 {
   state->PushMatrix(this->transform_->GetMatrix());
 }
 
-void GameObject2D::PopMatrixStack(GameObject2DRenderState* state)
+void GameObject2D::PopMatrixStack(GameObjectRenderState* state)
 {
   state->PopMatrix();
 }

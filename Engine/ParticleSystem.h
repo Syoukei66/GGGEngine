@@ -86,8 +86,8 @@ public:
   void Update() override;
 
 protected:
-  virtual void PushMatrixStack(GameObject2DRenderState* state) override;
-  virtual void PopMatrixStack(GameObject2DRenderState* state) override;
+  virtual void PushMatrixStack(GameObjectRenderState* state) override;
+  virtual void PopMatrixStack(GameObjectRenderState* state) override;
 
 public:
   void SetApplyLocalPosition(bool apply_local_position)

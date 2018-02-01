@@ -6,7 +6,6 @@
 #include "Transform2D.h"
 
 class EntityModifierRoot;
-class GameObject2DRenderState;
 
 class GameObject2D : public GameObject
 {
@@ -36,7 +35,7 @@ public:
   void RemoveSelf();
   void ClearChildren();
 
-  virtual void Draw(GameObject2DRenderState* state);
+  virtual void Draw(GameObjectRenderState* state);
 
 private:
   void UpdateChildrenZIndex();
@@ -47,8 +46,8 @@ public:
   void ClearEntityModifiers();
 
 protected:
-  virtual void PushMatrixStack(GameObject2DRenderState* state);
-  virtual void PopMatrixStack(GameObject2DRenderState* state);
+  virtual void PushMatrixStack(GameObjectRenderState* state);
+  virtual void PopMatrixStack(GameObjectRenderState* state);
 
   // =================================================================
   // Events

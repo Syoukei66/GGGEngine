@@ -205,9 +205,7 @@
     <ClCompile Include="GameComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObject2D.cpp" />
-    <ClCompile Include="GameObject2DRenderState.cpp" />
     <ClCompile Include="GameObject3D.cpp" />
-    <ClCompile Include="GameObject3DRenderState.cpp" />
     <ClCompile Include="FbxResource.cpp" />
     <ClCompile Include="LoopSprite.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -374,9 +372,7 @@
     <ClInclude Include="GameComponent.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObject2D.h" />
-    <ClInclude Include="GameObject2DRenderState.h" />
     <ClInclude Include="GameObject3D.h" />
-    <ClInclude Include="GameObject3DRenderState.h" />
     <ClInclude Include="Moniker.h" />
     <ClInclude Include="NativeMatrix.h" />
     <ClInclude Include="NativeModel.h" />

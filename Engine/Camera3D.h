@@ -3,7 +3,6 @@
 #include <deque>
 #include "Camera.h"
 #include "GameComponent.h"
-#include "GameObject3DRenderState.h"
 #include "GameObject3D.h"
 
 class Camera3D : public Camera
@@ -75,7 +74,7 @@ public:
   {
     return this->direction_;
   }
-  inline GameObject3DRenderState* GetRenderState()
+  inline GameObjectRenderState* GetRenderState()
   {
     return this->render_state_;
   }
@@ -94,7 +93,7 @@ protected:
   // Data Member
   // =================================================================
 private:
-  GameObject3DRenderState* render_state_;
+  GameObjectRenderState* render_state_;
 
   INativeMatrix* billboarding_matrix_;
   INativeMatrix* projection_matrix_;

@@ -579,12 +579,6 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>ソース ファイル\Component\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject3DRenderState.cpp">
-      <Filter>ソース ファイル\Component\GameObject\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject2DRenderState.cpp">
-      <Filter>ソース ファイル\Component\GameObject\2D</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>ソース ファイル\Component\Camera</Filter>
     </ClCompile>
@@ -1042,12 +1036,6 @@
     </ClInclude>
     <ClInclude Include="GameObjectRenderState.h">
       <Filter>ヘッダー ファイル\Component\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject3DRenderState.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject2DRenderState.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\2D</Filter>
     </ClInclude>
     <ClInclude Include="VertexBufferObject_Primitive3D_MeshField.h">
       <Filter>ヘッダー ファイル\Component\GameObject\VBO\3D</Filter>

@@ -4,7 +4,6 @@
 
 #include "NativeMethod.h"
 #include "Director.h"
-#include "GameObject2DRenderState.h"
 
 // =================================================================
 // Factory Method

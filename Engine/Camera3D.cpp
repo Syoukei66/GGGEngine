@@ -17,7 +17,7 @@ Camera3D::Camera3D(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT 
   this->entity_ = new GameObject3D();
   this->projection_matrix_ = INativeMatrix::Create();
   this->billboarding_matrix_ = INativeMatrix::Create();
-  this->render_state_ = new GameObject3DRenderState(this);
+  this->render_state_ = new GameObjectRenderState(this);
 }
 
 Camera3D::Camera3D()
@@ -31,7 +31,7 @@ Camera3D::Camera3D()
   this->entity_ = new GameObject3D();
   this->projection_matrix_ = INativeMatrix::Create();
   this->billboarding_matrix_ = INativeMatrix::Create();
-  this->render_state_ = new GameObject3DRenderState(this);
+  this->render_state_ = new GameObjectRenderState(this);
 }
 
 Camera3D::~Camera3D()

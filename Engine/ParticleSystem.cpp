@@ -173,7 +173,7 @@ void ParticleSystem::Update()
   }
 }
 
-void ParticleSystem::PushMatrixStack(GameObject2DRenderState* state)
+void ParticleSystem::PushMatrixStack(GameObjectRenderState* state)
 {
   if (this->apply_local_position_)
   {
@@ -181,7 +181,7 @@ void ParticleSystem::PushMatrixStack(GameObject2DRenderState* state)
   }
 }
 
-void ParticleSystem::PopMatrixStack(GameObject2DRenderState* state)
+void ParticleSystem::PopMatrixStack(GameObjectRenderState* state)
 {
   if (this->apply_local_position_)
   {
