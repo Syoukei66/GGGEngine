@@ -11,7 +11,7 @@
 GameObjectRenderState::GameObjectRenderState(Camera* camera)
   : camera_(camera)
   , layer_state_(1)
-  , post_draw_map_()
+//  , post_draw_map_()
 {
   this->matrix_stack_ = INativeMatrixStack::Create();
   this->view_proj_matrix_ = INativeMatrix::Create();
@@ -49,8 +49,13 @@ void GameObjectRenderState::PopMatrix()
 
 void GameObjectRenderState::AddZCheckOrder(T_UINT8 level, Renderer* renderer)
 {
-  //TVec3f distance = renderer->GetEntity()->GetTransform()->GetWorldPosition();
-  //distance -= this->camera_->GetTransform()->GetWorldPosition();
+  //if (level == 0)
+  //{
+  //  this->draw_map_[renderer->GetMaterial()] = renderer->get
+  //  return;
+  //}
+  //TVec3f distance = renderer->GetEntity()->GetWorldMatrix().GetPosition3d();
+  //distance -= this->camera_->GetEntity()->GetWorldMatrix().GetPosition3d();
 
   //PostDrawParam param = PostDrawParam();
   //param.renderer = renderer;

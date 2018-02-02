@@ -6,6 +6,7 @@
 #include "NativeMatrix.h"
 
 class Scene;
+class GameObject;
 
 class Camera : public GameComponent
 {
@@ -100,9 +101,28 @@ public:
     return this->z_max_;
   }
 
+  inline const TVec3f& GetDirection() const
+  {
+    return this->direction_;
+  }
+
+  inline GameObject* GetEntity()
+  {
+    return this->entity_;
+  }
+  inline const GameObject* GetEntity() const
+  {
+    return this->entity_;
+  }
+
+
   // =================================================================
   // Data Member
   // =================================================================
+protected:
+  GameObject* entity_;
+  TVec3f direction_;
+
 private:
   bool viewport_clear_;
   TVec2f position_;

@@ -8,6 +8,7 @@
 #include "NativeMatrixStack.h"
 #include "Camera.h"
 #include "Renderer.h"
+//.#include "SubMesh.h"
 
 class GameObjectRenderState
 {
@@ -16,6 +17,7 @@ private:
   {
   public:
     Renderer* renderer;
+    //SubMesh* mesh_;
     T_FLOAT distance;
   };
 
@@ -87,5 +89,7 @@ private:
   INativeMatrix* world_view_proj_matrix_;
 
   INativeMatrix* mat_;
-  std::map<int, std::vector<PostDrawParam>> post_draw_map_;
+  //std::map<int, std::vector<PostDrawParam>> post_draw_map_;
+  //std::map<Material*, std::vector<SubMesh*>> draw_map_;
+  //std::map<int, std::map<Material*, std::vector<PostDrawParam*>>> post_draw_map_;
 };

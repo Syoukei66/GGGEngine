@@ -3,6 +3,7 @@
 #include <deque>
 #include "Camera.h"
 #include "GameObjectRenderState.h"
+#include "GameObject2D.h"
 
 class Camera2D : public Camera
 {
@@ -32,6 +33,15 @@ public:
   inline GameObjectRenderState* GetRenderState()
   {
     return this->render_state_;
+  }
+
+  // =================================================================
+  // Setter / Getter
+  // =================================================================
+public:
+  inline Transform2D* GetTransform()
+  {
+    return ((GameObject2D*)this->entity_)->GetTransform();
   }
 
   // =================================================================

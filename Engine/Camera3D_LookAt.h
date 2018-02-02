@@ -41,13 +41,13 @@ private:
 public:
   inline GameObject3D* GetPlayer() const
   {
-    return this->entity_->GetParent();
+    return ((GameObject3D*)this->entity_)->GetParent();
   }
 
   inline void SetTarget(GameObject3D* target)
   {
     this->target_ = target;
-    this->target_direction_ = (this->target_->GetTransform()->GetWorldPosition() - this->GetTransform()->GetWorldPosition()).Normalized();
+    this->target_direction_ = (this->target_->GetTransform()->GetWorldPosition() - this->GetEntity()->GetWorldMatrix().GetPosition3d()).Normalized();
   }
 
   void SetLookAtPos(const TVec3f& look_at_pos);

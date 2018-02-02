@@ -47,12 +47,7 @@ private:
 public:
   inline Transform3D* GetTransform()
   {
-    return this->entity_->GetTransform();
-  }
-
-  inline const Transform3D* GetTransform() const
-  {
-    return this->entity_->GetTransform();
+    return ((GameObject3D*)this->entity_)->GetTransform();
   }
 
   void SetFov(T_FLOAT fov);
@@ -69,10 +64,6 @@ public:
   inline T_FLOAT GetZFar() const
   {
     return this->z_far_;
-  }
-  inline const TVec3f& GetDirection() const
-  {
-    return this->direction_;
   }
   inline GameObjectRenderState* GetRenderState()
   {
@@ -102,9 +93,4 @@ private:
   T_FLOAT z_near_;
   T_FLOAT z_far_;
   bool projection_dirty_;
-
-protected:
-  GameObject3D* entity_;
-
-  TVec3f direction_;
 };
