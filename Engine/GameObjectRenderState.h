@@ -6,9 +6,10 @@
 #include "BlendFunction.h"
 #include "NativeMatrix.h"
 #include "NativeMatrixStack.h"
-#include "Camera.h"
-#include "Renderer.h"
-//.#include "SubMesh.h"
+
+class Camera;
+class Renderer;
+class SubMesh;
 
 class GameObjectRenderState
 {
@@ -17,7 +18,7 @@ private:
   {
   public:
     Renderer* renderer;
-    //SubMesh* mesh_;
+    SubMesh* mesh_;
     T_FLOAT distance;
   };
 

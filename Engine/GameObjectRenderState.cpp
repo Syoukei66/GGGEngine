@@ -4,6 +4,8 @@
 #include "Director.h"
 #include "NativeMethod.h"
 #include "Renderer.h"
+#include "Camera.h"
+#include "SubMesh.h"
 
 // =================================================================
 // Constructor / Destructor
