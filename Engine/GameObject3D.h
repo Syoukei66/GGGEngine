@@ -67,16 +67,17 @@ public:
 
   inline Transform3D* GetTransform()
   {
-    return this->transform_;
+    return (Transform3D*)this->transform_;
   }
-
   inline const Transform3D* GetTransform() const
   {
-    return this->transform_;
+    return (Transform3D*)this->transform_;
   }
-
+  
+  // =================================================================
+  // component getter
+  // =================================================================
 private:
-  Transform3D* transform_;
   GameObject3D* parent_;
   std::vector<GameObject3D*> children_;
 };

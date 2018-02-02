@@ -4,7 +4,13 @@
 #include "NativeType.h"
 #include "GameComponent.h"
 #include "Material.h"
+
 #include "Renderer.h"
+#include "AnimatedSpriteRenderer.h"
+#include "MeshRenderer.h"
+#include "SpriteRenderer.h"
+
+#include "Transform.h"
 
 class GameObjectRenderState;
 
@@ -65,6 +71,34 @@ public:
   }
 
   // =================================================================
+  // delegate to Transform
+  // =================================================================
+  inline const INativeMatrix& GetMatrix() const
+  {
+    return this->transform_->GetMatrix();
+  }
+
+  inline const INativeMatrix& GetTranslateMatrix() const
+  {
+    return this->transform_->GetTranslateMatrix();
+  }
+
+  inline const INativeMatrix& GetRotationMatrix() const
+  {
+    return this->transform_->GetRotationMatrix();
+  }
+
+  inline const INativeMatrix& GetScaleMatrix() const
+  {
+    return this->transform_->GetScaleMatrix();
+  }
+
+  inline const INativeMatrix& GetWorldMatrix() const
+  {
+    return this->transform_->GetWorldMatrix();
+  }
+
+  // =================================================================
   // delegate to Renderer
   // =================================================================
   inline void UniqueMaterial()
@@ -103,6 +137,9 @@ public:
   // =================================================================
   // Data Member
   // =================================================================
+protected:
+  Transform* transform_;
+
 private:
 	bool visible_;
   Renderer* renderer_;

@@ -74,11 +74,11 @@ public:
 
   inline Transform2D* GetTransform()
   {
-    return this->transform_;
+    return (Transform2D*)this->transform_;
   }
   inline const Transform2D* GetTransform() const
   {
-    return this->transform_;
+    return (Transform2D*)this->transform_;
   }
 
   inline void SetZIndex(T_INT8 zindex)
@@ -95,8 +95,6 @@ public:
   }
   
 private:
-  Transform2D* transform_;
-
   GameObject2D* parent_;
   std::vector<GameObject2D*> children_;
 
