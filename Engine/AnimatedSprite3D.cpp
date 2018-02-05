@@ -7,7 +7,7 @@
 AnimatedSprite3D* AnimatedSprite3D::Create()
 {
   AnimatedSprite3D* ret = new AnimatedSprite3D();
-  ret->SetRenderer(new AnimatedSpriteRenderer(ret));
+  ret->SetRenderer(new AnimatedSpriteRenderer(ret, 0.01f));
   return ret;
 }
 

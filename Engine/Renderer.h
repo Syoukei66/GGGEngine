@@ -18,6 +18,7 @@ public:
   // Method
   // =================================================================
 public:
+  void ReserveDraw(GameObjectRenderState* state);
   void Draw(GameObjectRenderState* state);
   void UniqueMaterial();
 

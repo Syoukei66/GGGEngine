@@ -4,9 +4,10 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-SpriteRenderer::SpriteRenderer(GameObject* entity)
+SpriteRenderer::SpriteRenderer(GameObject* entity, T_FLOAT image_scale)
   : Renderer(entity)
   , texture_region_(nullptr)
+  , image_scale_(image_scale)
 {
   this->SetMaterial(*EngineAsset::Material::SPRITE.Clone());
 }
@@ -26,8 +27,8 @@ void SpriteRenderer::EditProperty(T_UINT8 material_index, T_UINT8 pass_index, Ma
 {
   material->Vec2fProperty("_UV0") = this->texture_region_->GetUV0();
   material->Vec2fProperty("_UV1") = this->texture_region_->GetUV1();
-  material->FloatProperty("_Width") = this->size_.width;
-  material->FloatProperty("_Height") = this->size_.height;
+  material->FloatProperty("_Width") = this->size_.width * image_scale_;
+  material->FloatProperty("_Height") = this->size_.height * image_scale_;
 }
 
 void SpriteRenderer::DrawSubset(T_UINT8 material_index, T_UINT8 pass_index)

@@ -15,7 +15,7 @@ Renderer::Renderer(GameObject* entity)
 // =================================================================
 // Method
 // =================================================================
-void Renderer::Draw(GameObjectRenderState* state)
+void Renderer::ReserveDraw(GameObjectRenderState* state)
 {
   if (!state->IsTargetedLayer(this->layer_id_))
   {
@@ -31,6 +31,11 @@ void Renderer::Draw(GameObjectRenderState* state)
     state->AddZCheckOrder(material->GetZTestLevel(), this);
     return;
   }
+  this->Draw(state);
+}
+
+void Renderer::Draw(GameObjectRenderState* state)
+{
   const T_UINT8 material_count = this->materials_.size();
   for (T_UINT8 i = 0; i < material_count; ++i)
   {

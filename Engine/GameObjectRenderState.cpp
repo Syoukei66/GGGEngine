@@ -6,6 +6,7 @@
 #include "Renderer.h"
 #include "Camera.h"
 #include "SubMesh.h"
+#include "Camera3D.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -51,52 +52,56 @@ void GameObjectRenderState::PopMatrix()
 
 void GameObjectRenderState::AddZCheckOrder(T_UINT8 level, Renderer* renderer)
 {
-  //if (level == 0)
-  //{
-  //  this->draw_map_[renderer->GetMaterial()] = renderer->get
-  //  return;
-  //}
-  //TVec3f distance = renderer->GetEntity()->GetWorldMatrix().GetPosition3d();
-  //distance -= this->camera_->GetEntity()->GetWorldMatrix().GetPosition3d();
+  DrawParam param = DrawParam();
+  param.renderer = renderer;
 
-  //PostDrawParam param = PostDrawParam();
-  //param.renderer = renderer;
-  //param.distance = TVec3f::InnerProduct(distance, this->camera_->GetDirection());
-  //this->post_draw_map_[level].push_back(param);
+  if (level == 0)
+  {
+    this->draw_map_[renderer->GetMaterial()].push_back(param);
+    return;
+  }
+  TVec3f distance = renderer->GetEntity()->GetWorldMatrix().GetPosition3d();
+  distance -= this->camera_->GetEntity()->GetWorldMatrix().GetPosition3d();
+
+  param.distance = TVec3f::InnerProduct(distance, this->camera_->GetDirection());
+  this->post_draw_map_[level][renderer->GetMaterial()].push_back(param);
 }
 
 void GameObjectRenderState::DrawZOrderedGameObject()
 {
-  //for (auto pair : this->post_draw_map_)
-  //{
-  //  std::sort(pair.second.begin(), pair.second.end(), [](const PostDrawParam& a, const PostDrawParam& b) {
-  //    return a.distance > b.distance;
-  //  });
-  //  for (PostDrawParam param : pair.second)
-  //  {
-  //    if (param.renderer->GetMaterial()->IsBillboard())
-  //    {
-  //      param.renderer->GetEntity()->GetTransform()->GetRotationMatrix().Inverse(this->mat_);
-  //      this->PushMatrix(param.renderer->GetEntity()->GetTransform()->GetWorldMatrix());
-  //      this->PushMatrix(*this->mat_);
-  //      this->PushMatrix(this->camera_->GetBillboardingMatrix());
-  //      this->PushMatrix(param.renderer->GetEntity()->GetTransform()->GetRotationMatrix());
-  //      param.renderer->GetEntity()->ManagedDraw(this);
-  //      this->PopMatrix();
-  //      this->PopMatrix();
-  //      this->PopMatrix();
-  //      this->PopMatrix();
-  //    }
-  //    else
-  //    {
-  //      this->PushMatrix(param.renderer->GetEntity()->GetTransform()->GetWorldMatrix());
-  //      param.renderer->GetEntity()->ManagedDraw(this);
-  //      this->PopMatrix();
-  //    }
-  //  }
-  //}
+  for (auto pair : this->post_draw_map_)
+  {
+    for (auto pair2 : pair.second)
+    {
+      std::sort(pair2.second.begin(), pair2.second.end(), [](const DrawParam& a, const DrawParam& b) {
+        return a.distance > b.distance;
+      });
+      for (DrawParam param : pair2.second)
+      {
+        if (param.renderer->GetMaterial()->IsBillboard())
+        {
+          param.renderer->GetEntity()->GetRotationMatrix().Inverse(this->mat_);
+          this->PushMatrix(param.renderer->GetEntity()->GetWorldMatrix());
+          this->PushMatrix(*this->mat_);
+          this->PushMatrix(((Camera3D*)this->camera_)->GetBillboardingMatrix());
+          this->PushMatrix(param.renderer->GetEntity()->GetRotationMatrix());
+          param.renderer->Draw(this);
+          this->PopMatrix();
+          this->PopMatrix();
+          this->PopMatrix();
+          this->PopMatrix();
+        }
+        else
+        {
+          this->PushMatrix(param.renderer->GetEntity()->GetWorldMatrix());
+          param.renderer->GetEntity()->ManagedDraw(this);
+          this->PopMatrix();
+        }
+      }
+    }
+  }
 
-  //this->post_draw_map_.clear();
+  this->post_draw_map_.clear();
 }
 
 // =================================================================
