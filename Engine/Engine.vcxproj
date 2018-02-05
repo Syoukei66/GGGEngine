@@ -207,6 +207,8 @@
     <ClCompile Include="GameObject2D.cpp" />
     <ClCompile Include="GameObject3D.cpp" />
     <ClCompile Include="FbxResource.cpp" />
+    <ClCompile Include="imgui\imgui.cpp" />
+    <ClCompile Include="imgui\imgui_draw.cpp" />
     <ClCompile Include="LoopSprite.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshData.cpp" />
@@ -326,6 +328,12 @@
     <ClInclude Include="FbxNodeData.h" />
     <ClInclude Include="FbxResource.h" />
     <ClInclude Include="GameObjectFactory.h" />
+    <ClInclude Include="imgui\imconfig.h" />
+    <ClInclude Include="imgui\imgui.h" />
+    <ClInclude Include="imgui\imgui_internal.h" />
+    <ClInclude Include="imgui\stb_rect_pack.h" />
+    <ClInclude Include="imgui\stb_textedit.h" />
+    <ClInclude Include="imgui\stb_truetype.h" />
     <ClInclude Include="ITextureRegion.h" />
     <ClInclude Include="LoopSprite.h" />
     <ClInclude Include="LoopTextureRegion.h" />
