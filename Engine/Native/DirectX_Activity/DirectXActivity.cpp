@@ -16,6 +16,9 @@
 
 #include "DirectXDirector.h"
 
+#include "imgui\imgui.h"
+#include "imgui\imgui_impl_dx9.h"
+
 #ifdef _DEBUG
 static const T_UINT8 DEBUG_FONT_WIDTH = 16;
 static const T_UINT8 DEBUG_FONT_HEIGHT = 32;
@@ -67,7 +70,7 @@ bool DirectXActivity::ApplyEngineOption(const EngineOption* option)
   WNDCLASSEX wcex;
 
   wcex.cbSize = sizeof(WNDCLASSEX);
-  wcex.style = CS_VREDRAW | CS_HREDRAW;
+  wcex.style = CS_VREDRAW | CS_HREDRAW | CS_CLASSDC;
   wcex.lpfnWndProc = this->WndProc;
   wcex.cbClsExtra = 0;
   wcex.cbWndExtra = 0;
@@ -206,14 +209,20 @@ bool DirectXActivity::Init(const EngineOption* option)
     0,  // Facename
     &this->debug_font_  //LPD3DXFONT*
     );
-
 #endif
+
+  //imgui initialize
+  ImGui_ImplDX9_Init(this->GetHWnd(), this->d3d_device_);
+  ImGui::StyleColorsDark();
 
   return true;
 }
 
 bool DirectXActivity::Uninit()
 {
+  //imgui uninitialize
+  ImGui_ImplDX9_Shutdown();
+
   if (this->d3d_device_)
   {	//デバイスの解放 (重要)
     this->d3d_device_->Release();
@@ -249,6 +258,8 @@ bool DirectXActivity::FrameEnabled()
     DispatchMessage(&this->msg_);
     return false;
   }
+  //imgui
+  ImGui_ImplDX9_NewFrame();
   return true;
 }
 
@@ -259,6 +270,9 @@ bool DirectXActivity::ContinueEnabled()
 
 bool DirectXActivity::PreDraw()
 {
+  //imgui
+  ImGui::EndFrame();
+
   if (SUCCEEDED(this->d3d_device_->BeginScene()))
   {
     return true;
@@ -286,6 +300,9 @@ void DirectXActivity::PostDraw()
   this->DrawFPS(debug_text.c_str(), edge, edge, 0xFF000000);
   this->DrawFPS(debug_text.c_str(), 0, 0, 0xFFFFFFFF);
 #endif
+
+  //imgui
+  ImGui::Render();
 
   this->d3d_device_->EndScene();
   this->d3d_device_->Present(NULL, NULL, NULL, NULL);
@@ -325,8 +342,13 @@ LP_DEVICE DirectXActivity::GetDevice() const
 // =================================================================
 // Method
 // =================================================================
+extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 LRESULT DirectXActivity::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+  if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam))
+  {
+    return true;
+  }
   if (uMsg == WM_CLOSE) {
     DestroyWindow(hWnd);
   }

@@ -186,4 +186,6 @@
 //--Singleton
     #include "Singleton.h"
 
+#include "imgui/imgui.h"
+
 #include "../../Project/Asset.h"
