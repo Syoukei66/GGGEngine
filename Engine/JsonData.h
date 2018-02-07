@@ -1,26 +1,29 @@
 #pragma once
 
-#include "CSVData.h"
-#include "FileResource.h"
+#include "JsonParser.h"
 
-class CSVResource : public FileResource<CSVData>
+class JsonData
 {
-  // =================================================================
-  // Factory Method
-  // =================================================================
-public:
-  static const CSVResource* DynamicLoad(const char* path);
-
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  CSVResource(const char* path);
+  JsonData(const char* path);
+  ~JsonData();
 
   // =================================================================
-  // Methods for/from interface/super class
+  // Setter / Getter
   // =================================================================
 public:
-  virtual CSVData* NativeLoadProcess(const std::string& path) override;
+  inline JsonNode* GetRoot() const
+  {
+    return this->root_;
+  }
+
+  // =================================================================
+  // Data Member
+  // =================================================================
+private:
+  JsonNode* root_;
 
 };

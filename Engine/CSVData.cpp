@@ -2,6 +2,9 @@
 #include "NativeAssert.h"
 #include <fstream>
 
+// =================================================================
+// Constructor / Destructor
+// =================================================================
 CSVData::CSVData(const char* path)
 {
   std::ifstream ifs(path);

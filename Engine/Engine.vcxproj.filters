@@ -750,6 +750,12 @@
     <ClCompile Include="imgui\imgui_draw.cpp">
       <Filter>ソース ファイル\imgui</Filter>
     </ClCompile>
+    <ClCompile Include="JsonData.cpp">
+      <Filter>ソース ファイル\Resource\File\Json</Filter>
+    </ClCompile>
+    <ClCompile Include="JsonResource.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -1282,6 +1288,12 @@
     </ClInclude>
     <ClInclude Include="imgui\imconfig.h">
       <Filter>ヘッダー ファイル\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="JsonResource.h">
+      <Filter>ヘッダー ファイル\Resource\File\Json</Filter>
+    </ClInclude>
+    <ClInclude Include="JsonData.h">
+      <Filter>ヘッダー ファイル\Resource\File\Json</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

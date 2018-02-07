@@ -209,6 +209,8 @@
     <ClCompile Include="FbxResource.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
+    <ClCompile Include="JsonData.cpp" />
+    <ClCompile Include="JsonResource.cpp" />
     <ClCompile Include="LoopSprite.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshData.cpp" />
@@ -335,6 +337,8 @@
     <ClInclude Include="imgui\stb_textedit.h" />
     <ClInclude Include="imgui\stb_truetype.h" />
     <ClInclude Include="ITextureRegion.h" />
+    <ClInclude Include="JsonData.h" />
+    <ClInclude Include="JsonResource.h" />
     <ClInclude Include="LoopSprite.h" />
     <ClInclude Include="LoopTextureRegion.h" />
     <ClInclude Include="Mesh.h" />

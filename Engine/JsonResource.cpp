@@ -1,26 +1,29 @@
-#include "CSVResource.h"
+#include "JsonResource.h"
 #include "UserResourcePool.h"
 
 // =================================================================
 // Factory Method
 // =================================================================
-const CSVResource* CSVResource::DynamicLoad(const char* path)
+const JsonResource* JsonResource::DynamicLoad(const char* path)
 {
-  return UserResourcePool::GetInstance().DynamicLoad<CSVResource>(path);
+  return UserResourcePool::GetInstance().DynamicLoad<JsonResource>(path);
 }
 
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-CSVResource::CSVResource(const char* path)
-  : FileResource("CSVData", path)
+JsonResource::JsonResource(const char* path)
+  : FileResource("Json", path)
+{}
+
+JsonResource::~JsonResource()
 {
 }
 
 // =================================================================
 // Methods for/from interface/super class
 // =================================================================
-CSVData* CSVResource::NativeLoadProcess(const std::string& path)
+JsonData* JsonResource::NativeLoadProcess(const std::string& path)
 {
-  return new CSVData(path.c_str());
+  return new JsonData(path.c_str());
 }
