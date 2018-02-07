@@ -138,11 +138,11 @@ bool DirectXActivity::Init(const EngineOption* option)
   {
     return false;
   }
-
+  
   //デバイスのプレゼンテーションパラメータを取得
   ZeroMemory(&d3dpp, sizeof(d3dpp));
-  d3dpp.BackBufferWidth = option->window_size.width;
-  d3dpp.BackBufferHeight = option->window_size.height;
+  d3dpp.BackBufferWidth = this->window_rect_.right - this->window_rect_.left;
+  d3dpp.BackBufferHeight = this->window_rect_.top - this->window_rect_.bottom;
   d3dpp.BackBufferFormat = d3ddm.Format;
   d3dpp.BackBufferCount = 1;
   d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;

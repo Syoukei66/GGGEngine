@@ -66,6 +66,8 @@ private:
   const int show_cmd_;
   HWND wnd_;
   DWORD before_update_count_;
+  RECT window_rect_;
+
   LPDIRECT3D9 d3d_;
   LPDIRECT3DDEVICE9 d3d_device_;
 
