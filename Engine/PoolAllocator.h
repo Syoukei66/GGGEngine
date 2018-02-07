@@ -20,17 +20,26 @@ public:
   virtual void OnFree() = 0;
 };
 
+
+
 template<class T>
 class PoolAllocator
 {
+// すぐにコレクションの型を変更できる＆
+// 利用しているコードに影響を与えないように
+// コレクションの型をtypedefしておくのがいい
+// public:
+//  typedef std::vector<T> PoolList;
+//  typedef std::vector<T> AllocatedList;
+//
 public:
   PoolAllocator(T_UINT16 count)
-    : pool_()
+    : pool_(count)
     , allocated_()
   {
     for (T_UINT16 i = 0; i < count; ++i)
     {
-      this->pool_.push_back(new T());
+      this->pool_[i] = new T();
     }
   }
 
@@ -132,7 +141,9 @@ public:
     return (T_UINT16)this->allocated_.size();
   }
 private:
+  //
   typename std::deque<T*> pool_;
+  //ゲーム中は途中部分の要素の削除が頻繁に行われる為
   typename std::list<T*> allocated_;
 };
 

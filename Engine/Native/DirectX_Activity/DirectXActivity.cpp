@@ -1,4 +1,6 @@
 #include "DirectXActivity.h"
+
+#define NOMINMAX
 #include <windows.h>
 #include <windowsx.h>
 #include <d3d9.h>
@@ -9,11 +11,13 @@
 #include <NativeMethod.h>
 
 #include "NativeProcess_Graphics.h"
-#include "NativeProcess_Material.h"
 #include "NativeProcess_IO.h"
 #include "NativeProcess_Time.h"
 
 #include "DirectXDirector.h"
+
+#include "imgui\imgui.h"
+#include "imgui\imgui_impl_dx9.h"
 
 #ifdef _DEBUG
 static const T_UINT8 DEBUG_FONT_WIDTH = 16;
@@ -51,11 +55,6 @@ INativeProcess_Graphics* DirectXActivity::SetupNativeProcess_Graphics()
   return new NativeProcess_Graphics();
 }
 
-INativeProcess_Material* DirectXActivity::SetupNativeProcess_Material()
-{
-  return new NativeProcess_Material();
-}
-
 INativeProcess_IO* DirectXActivity::SetupNativeProcess_IO()
 {
   return new NativeProcess_IO();
@@ -71,7 +70,7 @@ bool DirectXActivity::ApplyEngineOption(const EngineOption* option)
   WNDCLASSEX wcex;
 
   wcex.cbSize = sizeof(WNDCLASSEX);
-  wcex.style = CS_VREDRAW | CS_HREDRAW;
+  wcex.style = CS_VREDRAW | CS_HREDRAW | CS_CLASSDC;
   wcex.lpfnWndProc = this->WndProc;
   wcex.cbClsExtra = 0;
   wcex.cbWndExtra = 0;
@@ -173,6 +172,9 @@ bool DirectXActivity::Init(const EngineOption* option)
   this->d3d_device_->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
   this->d3d_device_->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
 
+  this->d3d_device_->SetRenderState(D3DRS_LIGHTING, false);
+  this->d3d_device_->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+
   //テクスチャのアドレス外を参照した場合にどうするかの設定
   //g_pD3DDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, XXXXX);
   //g_pD3DDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, XXXXX);
@@ -207,32 +209,44 @@ bool DirectXActivity::Init(const EngineOption* option)
     0,  // Facename
     &this->debug_font_  //LPD3DXFONT*
     );
-
 #endif
+
+  //imgui initialize
+  ImGui_ImplDX9_Init(this->GetHWnd(), this->d3d_device_);
+  ImGui::StyleColorsDark();
 
   return true;
 }
 
 bool DirectXActivity::Uninit()
 {
+  //imgui uninitialize
+  ImGui_ImplDX9_Shutdown();
+
   if (this->d3d_device_)
   {	//デバイスの解放 (重要)
     this->d3d_device_->Release();
-    this->d3d_device_ = NULL;
+    this->d3d_device_ = nullptr;
   }
   if (this->input_)
   {
     this->input_->UnloadDevices();
     delete this->input_;
-    this->input_ = NULL;
+    this->input_ = nullptr;
   }
 #ifdef _DEBUG
   if (this->debug_font_)
   {
     this->debug_font_->Release();
-    this->debug_font_ = NULL;
+    this->debug_font_ = nullptr;
   }
 #endif
+  if (this->d3d_)
+  {
+    this->d3d_->Release();
+    this->d3d_ = nullptr;
+  }
+  delete this->native_implements_;
   return true;
 }
 
@@ -244,6 +258,8 @@ bool DirectXActivity::FrameEnabled()
     DispatchMessage(&this->msg_);
     return false;
   }
+  //imgui
+  ImGui_ImplDX9_NewFrame();
   return true;
 }
 
@@ -254,6 +270,9 @@ bool DirectXActivity::ContinueEnabled()
 
 bool DirectXActivity::PreDraw()
 {
+  //imgui
+  ImGui::EndFrame();
+
   if (SUCCEEDED(this->d3d_device_->BeginScene()))
   {
     return true;
@@ -281,6 +300,9 @@ void DirectXActivity::PostDraw()
   this->DrawFPS(debug_text.c_str(), edge, edge, 0xFF000000);
   this->DrawFPS(debug_text.c_str(), 0, 0, 0xFFFFFFFF);
 #endif
+
+  //imgui
+  ImGui::Render();
 
   this->d3d_device_->EndScene();
   this->d3d_device_->Present(NULL, NULL, NULL, NULL);
@@ -320,8 +342,13 @@ LP_DEVICE DirectXActivity::GetDevice() const
 // =================================================================
 // Method
 // =================================================================
+extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 LRESULT DirectXActivity::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+  if (ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam))
+  {
+    return true;
+  }
   if (uMsg == WM_CLOSE) {
     DestroyWindow(hWnd);
   }

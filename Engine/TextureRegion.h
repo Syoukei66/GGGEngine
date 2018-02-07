@@ -10,7 +10,8 @@ class TextureRegion : public ITextureRegion
   // Factory Method
   // =================================================================
 public:
-  static TextureRegion* CreateWithTexture(const Texture* texture);
+  static TextureRegion* CreateWithMaterial(const Material& material);
+  static TextureRegion* CreateWithTexture(const Texture& texture);
 
   // =================================================================
   // Constructor / Destructor
@@ -23,7 +24,7 @@ public:
   // Methods for/from SuperClass/Interfaces
   // =================================================================
 public:
-  virtual void OnUpdateTextureCoord() override;
+  virtual void OnUpdateTextureCoord(const Texture* texture) override;
 
 };
 

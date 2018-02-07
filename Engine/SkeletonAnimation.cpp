@@ -4,13 +4,18 @@
 
 #include "NativeMethod.h"
 #include "Director.h"
-#include "GameObject2DRenderState.h"
 
+// =================================================================
+// Factory Method
+// =================================================================
 SkeletonAnimation* SkeletonAnimation::CreateWithData(const SpineData* data)
 {
   return new SkeletonAnimation(data->skeleton_data);
 }
 
+// =================================================================
+// Constructor / Destructor
+// =================================================================
 SkeletonAnimation::SkeletonAnimation(spSkeletonData* data)
   : data_(data)
 {
@@ -36,25 +41,19 @@ SkeletonAnimation::~SkeletonAnimation()
   spAnimationState_dispose(this->state_);
 }
 
-void SkeletonAnimation::PreDraw(GameObject2DRenderState* state)
+// =================================================================
+// Methods for/from SuperClass/Interfaces
+// =================================================================
+void SkeletonAnimation::ManagedDraw(GameObjectRenderState* state)
 {
-  const T_FLOAT delta_time = 0.001f * Director::GetInstance()->GetEngineOption()->render_cycle * this->time_scale_;
-  spSkeleton_update(this->skeleton_, delta_time);
-  spAnimationState_update(this->state_, delta_time);
-  spAnimationState_apply(this->state_, this->skeleton_);
-  spSkeleton_updateWorldTransform(this->skeleton_);
-}
-
-void SkeletonAnimation::NativeDraw(GameObject2DRenderState* state)
-{
-  Color4F nodeColor = this->GetColor();
+  Color4F nodeColor = this->GetRenderer()->GetMaterial()->GetDiffuse();
 
   AttachmentVertexes* attachment_vertexes = nullptr;
   Color4F color = Color4F();
   for (int i = 0, n = skeleton_->slotsCount; i < n; ++i)
   {
     spSlot* slot = skeleton_->drawOrder[i];
-    
+
     if (slot->attachment->type != SP_ATTACHMENT_REGION)
     {
       //RegionAttachmentˆÈŠO‚Í–¢‘Î‰ž
@@ -77,40 +76,49 @@ void SkeletonAnimation::NativeDraw(GameObject2DRenderState* state)
       continue;
     }
 
-    switch (slot->data->blendMode) {
-    case SP_BLEND_MODE_ADDITIVE:
-      this->SetBlendFunction(BlendFunction::BLEND_ADD_SRC, BlendFunction::BLEND_ADD_DST);
-      break;
-    case SP_BLEND_MODE_MULTIPLY:
-      this->SetBlendFunction(BlendFunction::BLEND_MUL_SRC, BlendFunction::BLEND_MUL_DST);
-      break;
-    case SP_BLEND_MODE_SCREEN:
-      this->SetBlendFunction(BlendFunction::BLEND_SCREEN_SRC, BlendFunction::BLEND_SCREEN_DST);
-      break;
-    default:
-      this->SetBlendFunction(BlendFunction::BLEND_DEFAULT_SRC, BlendFunction::BLEND_DEFAULT_DST);
-    }
+    //switch (slot->data->blendMode) {
+    //case SP_BLEND_MODE_ADDITIVE:
+    //  this->GetMaterial()->SetBlendFunction(BlendFunction::BLEND_ADD_SRC, BlendFunction::BLEND_ADD_DST);
+    //  break;
+    //case SP_BLEND_MODE_MULTIPLY:
+    //  this->GetMaterial()->SetBlendFunction(BlendFunction::BLEND_MUL_SRC, BlendFunction::BLEND_MUL_DST);
+    //  break;
+    //case SP_BLEND_MODE_SCREEN:
+    //  this->GetMaterial()->SetBlendFunction(BlendFunction::BLEND_SCREEN_SRC, BlendFunction::BLEND_SCREEN_DST);
+    //  break;
+    //default:
+    //  this->GetMaterial()->SetBlendFunction(BlendFunction::BLEND_DEFAULT_SRC, BlendFunction::BLEND_DEFAULT_DST);
+    //}
 
     attachment_vertexes = this->GetAttachmentVertexes(attachment);
-    SpriteVertex* vertexes = new SpriteVertex[attachment_vertexes->size_]();
+    Vertex::VCT* vertexes = new Vertex::VCT[attachment_vertexes->size_]();
     for (int j = 0; j < attachment_vertexes->size_; ++j)
     {
       vertexes[j] = attachment_vertexes->vertexes_[j];
     }
 
-    spRegionAttachment_computeWorldVertices(attachment, slot->bone, (float*)vertexes, 0, sizeof(SpriteVertex) / sizeof(float));
+    spRegionAttachment_computeWorldVertices(attachment, slot->bone, (float*)vertexes, 0, sizeof(Vertex::VCT) / sizeof(float));
 
     for (int j = 0; j < attachment_vertexes->size_; ++j)
     {
-      vertexes[j].packed_color = color.GetPackedColor();
+      NativeMethod::Graphics().Graphics_PackColor4u8(&vertexes[j].color, color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha());
     }
 
-    this->ApplyBlendMode(state);
-    NativeMethod::Graphics().Graphics_SetTexture(attachment_vertexes->texture_);
+    //this->ApplyBlendMode(state);
+    //NativeMethod::Graphics().Graphics_SetTexture(attachment_vertexes->texture_);
     NativeMethod::Graphics().Graphics_DrawSprite(state, INativeProcess_Graphics::PRIMITIVE_TRIANGLESTRIP, vertexes, attachment_vertexes->size_);
-    
+
     delete[] vertexes;
   }
+}
+
+void SkeletonAnimation::Update()
+{
+  const T_FLOAT delta_time = 0.001f * Director::GetInstance()->GetEngineOption()->render_cycle * this->time_scale_;
+  spSkeleton_update(this->skeleton_, delta_time);
+  spAnimationState_update(this->state_, delta_time);
+  spAnimationState_apply(this->state_, this->skeleton_);
+  spSkeleton_updateWorldTransform(this->skeleton_);
 }
 
 //=============================================================================

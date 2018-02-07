@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Camera3D_Transformed.h"
+#include "Camera3D.h"
 
 class Camera3D_LookAt : public Camera3D
 {
@@ -15,15 +15,17 @@ public:
   // =================================================================
   // Methods for/from SuperClass/Interfaces
   // =================================================================
+public:
+  virtual INativeMatrix* GetViewMatrix() const override;
+
 protected:
-  void CheckViewDirty();
-  virtual void OnViewDirty() {}
-  virtual INativeMatrix* GetViewMatrix() override;
+  virtual void SetupCamera() override;
 
   // =================================================================
   // Methods
   // =================================================================
 public:
+  void CheckViewDirty();
   void SetPlayer(GameObject3D* player);
   void Update();
 
@@ -37,19 +39,15 @@ private:
   // setter/getter
   // =================================================================
 public:
-  inline Transform3D* GetTransform()
+  inline GameObject3D* GetPlayer() const
   {
-    return this->entity_->GetTransform();
-  }
-
-  inline const Transform3D* GetTransform() const
-  {
-    return this->entity_->GetTransform();
+    return ((GameObject3D*)this->entity_)->GetParent();
   }
 
   inline void SetTarget(GameObject3D* target)
   {
     this->target_ = target;
+    this->target_direction_ = (this->target_->GetTransform()->GetWorldPosition() - this->GetEntity()->GetWorldMatrix().GetPosition3d()).Normalized();
   }
 
   void SetLookAtPos(const TVec3f& look_at_pos);
@@ -74,34 +72,13 @@ public:
     return this->look_at_pos_.z;
   }
 
-  void SetCameraUp(const TVec3f& camera_up);
-  void SetCameraUp(T_FLOAT x, T_FLOAT y, T_FLOAT z);
-  inline const TVec3f& GetCameraUp() const
+  inline void SetTargetLerpDeltaTime(T_FLOAT t)
   {
-    return this->camera_up_;
+    this->target_lerp_t_ = t;
   }
-  void SetCameraUpX(T_FLOAT x);
-  inline T_FLOAT GetCameraUpX() const
+  inline T_FLOAT GetTargetLerpDeltaTime() const
   {
-    return this->camera_up_.x;
-  }
-  void SetCameraUpY(T_FLOAT y);
-  inline T_FLOAT GetCameraUpY() const
-  {
-    return this->camera_up_.y;
-  }
-  void SetCameraUpZ(T_FLOAT z);
-  inline T_FLOAT GetCameraUpZ() const
-  {
-    return this->camera_up_.z;
-  }
-  inline void SetTargetLerp(T_FLOAT lerp)
-  {
-    this->target_lerp_ = lerp;
-  }
-  inline T_FLOAT GetTargetLerp() const
-  {
-    return this->target_lerp_;
+    return this->target_lerp_t_;
   }
 
   inline const TVec3f& GetCurrentLookAtPos() const
@@ -118,19 +95,15 @@ public:
   // Data Member
   // =================================================================
 private:
-  GameObject3D* entity_;
-
-  INativeMatrix* view_matrix_;
-  INativeMatrix* inv_;
+  INativeMatrix* const view_matrix_;
 
   TVec3f look_at_pos_;
   TVec3f current_look_at_pos_;
 
   GameObject3D* target_;
-  T_FLOAT target_lerp_;
   TVec3f target_direction_;
+  T_FLOAT target_lerp_t_;
 
-  TVec3f camera_up_;
   bool view_dirty_;
 
 };

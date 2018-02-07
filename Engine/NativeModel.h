@@ -2,6 +2,7 @@
 
 #include "NativeObject.h"
 #include "Geometry.h"
+#include "GameObjectRenderState.h"
 
 struct NativeModelInstance { void* p; };
 
@@ -27,6 +28,6 @@ public:
   // Methods
   // =================================================================
 public:
-  virtual void Draw() const = 0;
+  virtual void Draw(GameObjectRenderState* state) const = 0;
 
 };

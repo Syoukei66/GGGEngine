@@ -2,7 +2,7 @@
 #include "NativeMethod.h"
 #include "JsonParser.h"
 #include "MathConstants.h"
-#include "ResourceLoader.h"
+#include "UserResourcePool.h"
 
 enum EmitterType
 {
@@ -12,7 +12,7 @@ enum EmitterType
 
 const ParticleDataLoader* ParticleDataLoader::DynamicLoad(const char* path)
 {
-  return ResourcePool::GetInstance().DynamicLoad<ParticleDataLoader>(path);
+  return UserResourcePool::GetInstance().DynamicLoad<ParticleDataLoader>(path);
 }
 
 // =================================================================

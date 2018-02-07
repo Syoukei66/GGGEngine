@@ -1,10 +1,13 @@
 #include "Cube3D.h"
-#include "VertexBufferObject_Primitive3D_Cube.h"
+#include "MeshRenderer.h"
+#include "EngineAsset.h"
 
 // =================================================================
-// Constructor / Destructor
+// Factory Method
 // =================================================================
-Cube3D::Cube3D()
-  : Shape3D(new VertexBufferObject_Primitive3D_Cube())
+Cube3D* Cube3D::Create()
 {
+  Cube3D* ret = new Cube3D();
+  ret->SetRenderer(MeshRenderer::Create(EngineAsset::Mesh::CUBE.GetContents(), ret));
+  return ret;
 }

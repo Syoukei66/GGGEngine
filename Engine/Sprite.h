@@ -1,68 +1,86 @@
-#ifndef HAL_ENGINE_ENTITY_SHAPE_SPRITE_H_
-#define HAL_ENGINE_ENTITY_SHAPE_SPRITE_H_
+#pragma once
 
-#include "Shape.h"
-#include "SpriteVertexBufferObject.h"
-#include "ITextureRegion.h"
+#include "GameObject2D.h"
+#include "SpriteRenderer.h"
 
-class Sprite : public Shape
-{  
+class Sprite : public GameObject2D
+{
   // =================================================================
   // Factory Method
   // =================================================================
 public:
   static Sprite* Create();
-  static Sprite* CreateWithTextureRegion(ITextureRegion* region);
-  static Sprite* CreateWithTexture(const Texture* texture);
+  static Sprite* CreateWithTextureRegion(ITextureRegion* region, bool delete_region);
+  static Sprite* CreateWithMaterial(Material& material);
+  static Sprite* CreateWithTexture(const Texture& texture);
 
   // =================================================================
   // Constructor / Destructor
   // =================================================================
-public:
-  virtual ~Sprite();
 protected:
-  Sprite();
+  Sprite() {}
 
   // =================================================================
-  // Methods for/from SuperClass/Interfaces
+  // Setter / Getter
   // =================================================================
 public:
-  virtual void Init() override;
-  virtual void PreDraw(GameObject2DRenderState* state) override;
-  virtual void NativeDraw(GameObject2DRenderState* state) override;
-  virtual void PostDraw(GameObject2DRenderState* state) override;
-
-  // =================================================================
-  // Method
-  // =================================================================
-public:
-  void OnTextureChanged();
-  //Spriteのサイズ(width/height)をITextureRegionに準じたものに変更します。
-  //ITextureRegionがNULLの場合、サイズは0*0になります。
-  void FitToTexture();
-
-  // =================================================================
-  // setter/getter
-  // =================================================================
-public:
-  virtual IVertexBufferObject* GetVbo() const override;
-  void SetTextureRegion(ITextureRegion* itr);
-  inline ITextureRegion* GetTextureRegion() const
+  inline SpriteRenderer* GetSpriteRenderer() const
   {
-    return this->texture_region_;
+    return (SpriteRenderer*)this->GetRenderer();
   }
 
   // =================================================================
-  // Data Member
+  // delegate to SpriteRenderer
   // =================================================================
-private:
-  SpriteVertexBufferObject* vbo_;
-  ITextureRegion* texture_region_;
+public:
+  inline void FitToTexture()
+  {
+    this->GetSpriteRenderer()->FitToTexture();
+  }
+  inline void SetTexture(const Texture& texture)
+  {
+    this->GetSpriteRenderer()->SetTexture(texture);
+  }
+  inline const Texture& GetTexture() const
+  {
+    return this->GetSpriteRenderer()->GetTexture();
+  }
 
-protected:
-  //TODO:KEN,どうにかしろ
-  bool delete_region_;
+  inline void SetTextureRegion(ITextureRegion* region, bool delete_region)
+  {
+    this->GetSpriteRenderer()->SetTextureRegion(region, delete_region);
+  }
+  inline ITextureRegion* GetTextureRegion()
+  {
+    return this->GetSpriteRenderer()->GetTextureRegion();
+  }
+
+  inline void SetSize(const TSizef& size)
+  {
+    this->GetSpriteRenderer()->SetSize(size);
+  }
+  inline void SetSize(T_FLOAT width, T_FLOAT height)
+  {
+    this->GetSpriteRenderer()->SetSize(width, height);
+  }
+  inline const TSizef& GetSize() const
+  {
+    return this->GetSpriteRenderer()->GetSize();
+  }
+  inline void SetWidth(T_FLOAT width)
+  {
+    this->GetSpriteRenderer()->SetWidth(width);
+  }
+  inline T_FLOAT GetWidth() const
+  {
+    return this->GetSpriteRenderer()->GetWidth();
+  }
+  inline void SetHeight(T_FLOAT height)
+  {
+    this->GetSpriteRenderer()->SetHeight(height);
+  }
+  inline T_FLOAT GetHeight() const
+  {
+    return this->GetSpriteRenderer()->GetHeight();
+  }
 };
-
-#endif//HAL_ENGINE_ENTITY_SHAPE_SPRITE_H_
-

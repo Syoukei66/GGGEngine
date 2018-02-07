@@ -14,6 +14,7 @@ public:
     {
       T* device = (*it);
       this->OnUnloadDevice(device);
+      delete device;
     }
     this->devices_.clear();
     return true;
@@ -47,6 +48,7 @@ public:
       return false;
     }
     this->devices_.remove(device);
+    delete device;
     return true;
   }
 

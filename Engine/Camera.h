@@ -6,6 +6,7 @@
 #include "NativeMatrix.h"
 
 class Scene;
+class GameObject;
 
 class Camera : public GameComponent
 {
@@ -15,26 +16,25 @@ class Camera : public GameComponent
 public:
   Camera(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_min, T_FLOAT z_max);
   Camera();
+  virtual ~Camera();
 
   // =================================================================
   // Method
   // =================================================================
 public:
+  void SetupViewProjMatrix();
   void DrawScene(Scene* scene);
-  virtual const INativeMatrix* GetViewMatrix() = 0;
-  virtual const INativeMatrix* GetProjectionMatrix() = 0;
+
+  virtual const INativeMatrix* GetViewMatrix() const = 0;
+  virtual const INativeMatrix* GetProjectionMatrix() const = 0;
 
 protected:
-  void SetupCamera();
-  void CheckViewportDirty();
-  virtual void OnDrawScene(Scene* scene) = 0;
-  virtual void OnViewportDirty() = 0;
 
-private:
-  inline void OnViewportChanged()
-  {
-    this->viewport_dirty_ = true;
-  }
+  virtual void SetupCamera();
+
+  virtual void OnViewportChanged() {}
+
+  virtual void OnDrawScene(Scene* scene) = 0;
 
   // =================================================================
   // setter/getter
@@ -101,15 +101,32 @@ public:
     return this->z_max_;
   }
 
+  inline const TVec3f& GetDirection() const
+  {
+    return this->direction_;
+  }
+
+  inline GameObject* GetEntity()
+  {
+    return this->entity_;
+  }
+  inline const GameObject* GetEntity() const
+  {
+    return this->entity_;
+  }
+
 
   // =================================================================
   // Data Member
   // =================================================================
+protected:
+  GameObject* entity_;
+  TVec3f direction_;
+
 private:
   bool viewport_clear_;
   TVec2f position_;
   TSizef size_;
   T_FLOAT z_min_, z_max_;
-  bool viewport_dirty_;
 
 };

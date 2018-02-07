@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Texture.h"
-#include "SpriteVertexBufferObject.h"
+#include "Vertex.h"
 
 class AttachmentVertexes
 {
@@ -10,7 +10,7 @@ public:
   ~AttachmentVertexes();
 
 public:
-  SpriteVertex* vertexes_;
+  Vertex::VCT* vertexes_;
   T_UINT8 size_;
   Texture* texture_;
 };

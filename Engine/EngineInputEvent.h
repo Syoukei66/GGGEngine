@@ -42,7 +42,7 @@ public:
   {
     if (this->analog_input_.find(handler) == this->analog_input_.end())
     {
-      return AnalogInputState::NULL_INPUT;
+      return &AnalogInputState::NULL_INPUT;
     }
     return &(this->analog_input_.at(handler));
   }
@@ -51,7 +51,7 @@ public:
   {
     if (this->digital_input_.find(handler) == this->digital_input_.end())
     {
-      return DigitalInputState::NULL_INPUT;
+      return &DigitalInputState::NULL_INPUT;
     }
     return &(this->digital_input_.at(handler));
   }

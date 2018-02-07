@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Sprite3D.h"
-#include "TiledTextureRegion.h"
+#include "AnimatedSpriteRenderer.h"
 
 class AnimatedSprite3D : public Sprite3D
 {
@@ -9,48 +9,48 @@ class AnimatedSprite3D : public Sprite3D
   // Factory Method
   // =================================================================
 public:
-  static AnimatedSprite3D* CreateWithTexture(const Texture* texture, T_UINT8 x_num, T_UINT8 y_num);
+  static AnimatedSprite3D* Create();
+  static AnimatedSprite3D* CreateWithTextureRegion(TiledTextureRegion* region, bool delete_region);
+  static AnimatedSprite3D* CreateWithMaterial(Material& material, T_UINT8 x_num, T_UINT8 y_num);
+  static AnimatedSprite3D* CreateWithTexture(const Texture& texture, T_UINT8 x_num, T_UINT8 y_num);
 
   // =================================================================
   // Constructor / Destructor
   // =================================================================
-public:
-  AnimatedSprite3D();
-
-  // =================================================================
-  // Methods for/from SuperClass/Interfaces
-  // =================================================================
-public:
-  virtual void Init() override;
-  virtual void Update() override;
-
-  // =================================================================
-  // Method
-  // =================================================================
-public:
-  void SetAnimateRange(T_UINT16 begin, T_UINT16 end);
-  void Animate(T_UINT16 duration_frame);
+protected:
+  AnimatedSprite3D() {}
 
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  void SetCurrentIndex(T_UINT16 index);
-  inline T_UINT16 GetCurrentIndex() const
+  inline AnimatedSpriteRenderer* GetAnimatedSpriteRenderer() const
   {
-    return ((TiledTextureRegion*)this->GetTextureRegion())->GetCurrentIndex();
-  }
-  inline TiledTextureRegion* GetTiledTextureRegion()
-  {
-    return (TiledTextureRegion*)this->GetTextureRegion();
+    return (AnimatedSpriteRenderer*)this->GetRenderer();
   }
 
   // =================================================================
-  // Data Member
+  // delegate to AnimatedSpriteRenderer
   // =================================================================
-private:
-  T_UINT16 frame_count_;
-  T_UINT16 duration_frame_;
-  T_UINT16 animation_begin_;
-  T_UINT16 animation_end_;
+public:
+  inline void SetAnimateRange(T_UINT16 begin, T_UINT16 end)
+  {
+    this->GetAnimatedSpriteRenderer()->SetAnimateRange(begin, end);
+  }
+  inline void Animate(T_UINT16 duration_frame)
+  {
+    this->GetAnimatedSpriteRenderer()->Animate(duration_frame);
+  }
+  inline void SetCurrentIndex(T_UINT16 index)
+  {
+    this->GetAnimatedSpriteRenderer()->SetCurrentIndex(index);
+  }
+  inline T_UINT16 GetCurrentIndex() const
+  {
+    return this->GetAnimatedSpriteRenderer()->GetCurrentIndex();
+  }
+  inline TiledTextureRegion* GetTiledTextureRegion() const
+  {
+    return this->GetAnimatedSpriteRenderer()->GetTiledTextureRegion();
+  }
 };

@@ -2,7 +2,7 @@
 #define HAL_ENGINE_ENTITY_SHAPE_SPRITE_TEXTUREREGION_ITEXTUREREGION_H_
 
 #include "NativeType.h"
-#include "Texture.h"
+#include "Material.h"
 
 class ITextureRegion
 {
@@ -26,40 +26,48 @@ public:
   void OnTextureCoordDirty();
 
 protected:
-  virtual void OnUpdateTextureCoord() = 0;
+  virtual void OnUpdateTextureCoord(const Texture* texture) = 0;
 
   // =================================================================
   // setter/getter
   // =================================================================
 public:
-  inline void SetTexture(const Texture* texture)
+  inline void SetTexture(const Texture& texture)
   {
-    this->texture_ = texture;
+    this->texture_ = &texture;
   }
   inline const Texture* GetTexture() const
   {
     return this->texture_;
   }
+
   inline void SetU0(T_FLOAT u0)
   {
-    this->u0_ = u0;
+    this->uv0_.x = u0;
   }
-  T_FLOAT GetU0();
   void SetV0(T_FLOAT v0)
   {
-    this->v0_ = v0;
+    this->uv0_.y = v0;
   }
-  T_FLOAT GetV0();
   void SetU1(T_FLOAT u1)
   {
-    this->u1_ = u1;
+    this->uv1_.x = u1;
   }
-  T_FLOAT GetU1();
   void SetV1(T_FLOAT v1)
   {
-    this->v1_ = v1;
+    this->uv1_.y = v1;
   }
-  T_FLOAT GetV1();
+  const TVec2f& GetUV0() const
+  {
+    const_cast<ITextureRegion*>(this)->UpdateTextureCoord();
+    return this->uv0_;
+  }
+  const TVec2f& GetUV1() const
+  {
+    const_cast<ITextureRegion*>(this)->UpdateTextureCoord();
+    return this->uv1_;
+  }
+
   void SetX(T_FLOAT x);
   inline T_FLOAT GetX() const
   {
@@ -95,7 +103,7 @@ public:
 private:
   const Texture* texture_;
   TAreaf texture_region_;
-  T_FLOAT u0_, v0_, u1_, v1_;
+  TVec2f uv0_, uv1_;
   bool texture_coord_dirty_;
 };
 

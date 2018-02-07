@@ -1,7 +1,5 @@
 #include "GameObject3D.h"
-#include "GameObject3DRenderState.h"
-#include "NativeMethod.h"
-#include "Camera3D.h"
+#include "GameObjectRenderState.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -9,11 +7,7 @@
 GameObject3D::GameObject3D()
   : parent_(nullptr)
   , children_()
-  , z_test_(false)
-  , billbording_(false)
 {
-  this->calc_mat_ = INativeMatrix::Create();
-  this->SetBlendFunction(BlendFunction::BL_NOBLEND, BlendFunction::BL_NOBLEND);
   this->transform_ = new Transform3D(this);
   this->transform_->Init();
 }
@@ -21,7 +15,6 @@ GameObject3D::GameObject3D()
 GameObject3D::~GameObject3D()
 {
   delete this->transform_;
-  delete this->calc_mat_;
 }
 
 // =================================================================
@@ -104,36 +97,21 @@ void GameObject3D::ClearChildren()
   this->children_.clear();
 }
 
-void GameObject3D::Draw(GameObject3DRenderState* state)
+void GameObject3D::Draw(GameObjectRenderState* state)
 { 
   if (!this->IsVisible())
   {
     return;
   }
 
-  //描画前のアップデート処理
-  this->PreDraw(state);
-
   this->PushMatrixStack(state);
+  
 
-  this->transform_->UpdateWorldMatrix(state->GetMatrixStack()->GetTop());
+  // 閾ｪ蛻�閾ｪ霄ｫ縺ｮ謠冗判
+  this->ManagedDraw(state);
 
-  if (state->IsTargetedLayer(this->GetLayerId()))
-  {
-    //TODO: Zテスト行うかどうかの判定はマテリアルに記述すべき
-    if (this->z_test_)
-    {
-      state->AddZCheckOrder(this);
-    }
-    else
-    {
-      // 自分自身の描画
-      this->ApplyBlendMode(state);
-      this->NativeDraw(state);
-    }
-  }
 
-  // 子の描画
+  // 蟄舌�ｮ謠冗判
   for (std::vector<GameObject3D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
   {
     GameObject3D* child = (*it);
@@ -141,67 +119,23 @@ void GameObject3D::Draw(GameObject3DRenderState* state)
   }
 
   this->PopMatrixStack(state);
-
-  this->PostDraw(state);
 }
 
-void GameObject3D::ConvertPositionLocalToWorld(const TVec3f* local, TVec3f* dest, GameObject3D* root) const
-{
-  if (local)
-  {
-    (*dest) += (*local);
-  }
-  this->transform_->ApplyMatrixToPosition(dest);
-  //(*dest) += this->GetTransform()->GetMatrixAppliedPosition();
-  if (!this->parent_ || this->parent_ == root)
-  {
-    return;
-  }
-  this->parent_->ConvertPositionLocalToWorld(nullptr, dest, root);
-
-}
-
-void GameObject3D::ConvertPositionLocalToWorld(T_FLOAT local_x, T_FLOAT local_y, T_FLOAT local_z, TVec3f* dest, GameObject3D* root) const
-{
-  this->ConvertPositionLocalToWorld(&TVec3f(local_x, local_y, local_z), dest, root);
-}
-
-T_FLOAT GameObject3D::ConvertXLocalToWorld(T_FLOAT local_x, GameObject3D* root) const
-{
-  return this->transform_->GetWorldPosition(root).x + local_x;
-}
-
-T_FLOAT GameObject3D::ConvertYLocalToWorld(T_FLOAT local_y, GameObject3D* root) const
-{
-  return this->transform_->GetWorldPosition(root).y + local_y;
-}
-
-T_FLOAT GameObject3D::ConvertZLocalToWorld(T_FLOAT local_z, GameObject3D* root) const
-{
-  return this->transform_->GetWorldPosition(root).z + local_z;
-}
-
-void GameObject3D::PushMatrixStack(GameObject3DRenderState* state)
+void GameObject3D::PushMatrixStack(GameObjectRenderState* state)
 {
   state->PushMatrix(this->transform_->GetMatrix());
-  if (this->billbording_)
-  {
-    state->GetCamera()->GetViewMatrix()->Inverse(this->calc_mat_);
-
-    (*this->calc_mat_)[3][0] = 0.0f;
-    (*this->calc_mat_)[3][1] = 0.0f;
-    (*this->calc_mat_)[3][2] = 0.0f;
-
-    state->PushMatrix(this->calc_mat_);
-  }
+  //if (this->IsBillboardingRoot())
+  //{
+  //  state->PushMatrix(state->GetCamera()->GetBillboardingMatrix());
+  //}
 }
 
-void GameObject3D::PopMatrixStack(GameObject3DRenderState* state)
+void GameObject3D::PopMatrixStack(GameObjectRenderState* state)
 {
-  if (this->billbording_)
-  {
-    state->PopMatrix();
-  }
+  //if (this->IsBillboardingRoot())
+  //{
+  //  state->PopMatrix();
+  //}
   state->PopMatrix();
 }
 
@@ -210,7 +144,7 @@ void GameObject3D::PopMatrixStack(GameObject3DRenderState* state)
 // =================================================================
 void GameObject3D::FireOnPositionChanged(GameObject* root)
 {
-  this->transform_->OnWorldPositionDirty();
+  this->transform_->OnWorldTransformDirty();
   this->OnPositionChanged(root);
   for (std::vector<GameObject3D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
   {
@@ -221,7 +155,7 @@ void GameObject3D::FireOnPositionChanged(GameObject* root)
 
 void GameObject3D::FireOnScaleChanged(GameObject* root)
 {
-  this->transform_->OnWorldPositionDirty();
+  this->transform_->OnWorldTransformDirty();
   this->OnScaleChanged(root);
   for (std::vector<GameObject3D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
   {
@@ -232,7 +166,7 @@ void GameObject3D::FireOnScaleChanged(GameObject* root)
 
 void GameObject3D::FireOnRotationChanged(GameObject* root)
 {
-  this->transform_->OnWorldPositionDirty();
+  this->transform_->OnWorldTransformDirty();
   this->OnRotationChanged(root);
   for (std::vector<GameObject3D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
   {

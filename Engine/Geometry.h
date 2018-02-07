@@ -1,7 +1,10 @@
 #ifndef HAL_ENGINE_STRUCTURE_VERTEX_H_
 #define HAL_ENGINE_STRUCTURE_VERTEX_H_
 
+#include <algorithm>
+
 #include "NativeType.h"
+#include "EasingFunctionManager.h"
 
 // =================================================================
 // Vec2
@@ -20,6 +23,61 @@ struct BaseTVec2
     : x(x)
     , y(y)
   {}
+
+  static BaseTVec2<T> EaseIn(EasingFunction::EasingFunction& easing_function, const BaseTVec2<T>& a, const BaseTVec2<T>& b, T_FLOAT t)
+  {
+    if (t <= 0.0f)
+    {
+      return a;
+    }
+    if (t >= 1.0f)
+    {
+      return b;
+    }
+    t = easing_function.In(t);
+    return a * (1.0f - t) + b * t;
+  }
+
+  static BaseTVec2<T> EaseOut(EasingFunction::EasingFunction& easing_function, const BaseTVec2<T>& a, const BaseTVec2<T>& b, T_FLOAT t)
+  {
+    if (t <= 0.0f)
+    {
+      return a;
+    }
+    if (t >= 1.0f)
+    {
+      return b;
+    }
+    t = easing_function.Out(t);
+    return a * (1.0f - t) + b * t;
+  }
+
+  static BaseTVec2<T> EaseInOut(EasingFunction::EasingFunction& easing_function, const BaseTVec2<T>& a, const BaseTVec2<T>& b, T_FLOAT t)
+  {
+    if (t <= 0.0f)
+    {
+      return a;
+    }
+    if (t >= 1.0f)
+    {
+      return b;
+    }
+    t = easing_function.InOut(t);
+    return a * (1.0f - t) + b * t;
+  }
+
+  static BaseTVec2<T> Lerp(const BaseTVec2<T>& a, const BaseTVec2<T>& b, T_FLOAT t)
+  {
+    if (t <= 0.0f)
+    {
+      return a;
+    }
+    if (t >= 1.0f)
+    {
+      return b;
+    }
+    return a * (1.0f - t) + b * t;
+  }
 
   T Length() const
   {
@@ -249,11 +307,66 @@ struct BaseTVec3
     , z(z)
   {}
 
+  static BaseTVec3<T> EaseIn(EasingFunction::EasingFunction& easing_function, const BaseTVec3<T>& a, const BaseTVec3<T>& b, T_FLOAT t)
+  {
+    if (t <= 0.0f)
+    {
+      return a;
+    }
+    if (t >= 1.0f)
+    {
+      return b;
+    }
+    t = easing_function.In(t);
+    return a * (1.0f - t) + b * t;
+  }
+
+  static BaseTVec3<T> EaseOut(EasingFunction::EasingFunction& easing_function, const BaseTVec3<T>& a, const BaseTVec3<T>& b, T_FLOAT t)
+  {
+    if (t <= 0.0f)
+    {
+      return a;
+    }
+    if (t >= 1.0f)
+    {
+      return b;
+    }
+    t = easing_function.Out(t);
+    return a * (1.0f - t) + b * t;
+  }
+
+  static BaseTVec3<T> EaseInOut(EasingFunction::EasingFunction& easing_function, const BaseTVec3<T>& a, const BaseTVec3<T>& b, T_FLOAT t)
+  {
+    if (t <= 0.0f)
+    {
+      return a;
+    }
+    if (t >= 1.0f)
+    {
+      return b;
+    }
+    t = easing_function.InOut(t);
+    return a * (1.0f - t) + b * t;
+  }
+
+  static BaseTVec3<T> Lerp(const BaseTVec3<T>& a, const BaseTVec3<T>& b, T_FLOAT t)
+  {
+    if (t <= 0.0f)
+    {
+      return a;
+    }
+    if (t >= 1.0f)
+    {
+      return b;
+    }
+    t = std::min(std::max(t, 0.0f), 1.0f);
+    return a * (1.0f - t) + b * t;
+  }
+
   bool IsZero() const
   {
     return this->x == 0.0 && this->y == 0.0 && this->z == 0.0;
   }
-
   T Length() const
   {
     return (T)sqrt(LengthSquare());
@@ -324,6 +437,10 @@ struct BaseTVec3
   const BaseTVec3 operator * (T s) const
   {
     return BaseTVec3(this->x * s, this->y * s, this->z * s);
+  }
+  const BaseTVec3 operator * (const BaseTVec3<T>& vec) const
+  {
+    return BaseTVec3(this->x * vec.x, this->y * vec.y, this->z * vec.z);
   }
   BaseTVec3& operator *= (const BaseTVec3& other)
   {

@@ -7,11 +7,11 @@ ResourcePool::ResourcePool()
   : resources_()
   , load_reserve_()
   , unload_reserve_()
+  , dynamic_resources_()
 {}
 
 ResourcePool::~ResourcePool()
 {
-
 }
 
 // =================================================================
@@ -24,13 +24,17 @@ void ResourcePool::Init()
 
 void ResourcePool::Uninit()
 {
-  for (auto itr = this->resources_.begin(), end = this->resources_.end(); itr != end; ++itr)
+  for (auto itr = this->resources_.begin(); itr != this->resources_.end(); ++itr)
   {
     itr->second->Unload();
   }
   this->resources_.clear();
   this->load_reserve_.clear();
   this->unload_reserve_.clear();
+  for (ResourceLoader* loader : this->dynamic_resources_)
+  {
+    delete loader;
+  }
 }
 
 #ifdef _DEBUG

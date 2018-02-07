@@ -11,6 +11,7 @@ public:
   DirectXInputDevice(T_UINT8 handler)
     : InputDevice(handler)
   {}
+  virtual ~DirectXInputDevice() {}
 
 public:
   virtual bool Init(LPDIRECTINPUT8 input) = 0;

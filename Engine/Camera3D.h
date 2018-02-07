@@ -3,7 +3,7 @@
 #include <deque>
 #include "Camera.h"
 #include "GameComponent.h"
-#include "GameObject3DRenderState.h"
+#include "GameObject3D.h"
 
 class Camera3D : public Camera
 {
@@ -19,19 +19,21 @@ public:
   // Methods for/from SuperClass/Interfaces
   // =================================================================
 public:
-  virtual const INativeMatrix* GetViewMatrix() override;
-  virtual const INativeMatrix* GetProjectionMatrix() override;
+  virtual const INativeMatrix* GetViewMatrix() const override;
+  virtual const INativeMatrix* GetProjectionMatrix() const override;
 
 protected:
+  virtual void SetupCamera() override;
+
+  virtual void OnViewportChanged() override;
+
   virtual void OnDrawScene(Scene* scene) override;
-  virtual void OnViewportDirty() override;
 
   // =================================================================
   // Method
   // =================================================================
 protected:
   void CheckProjectionDirty();
-  virtual void OnProjectionDirty() {}
 
 private:
   inline void OnProjectionChanged()
@@ -43,6 +45,11 @@ private:
   // setter/getter
   // =================================================================
 public:
+  inline Transform3D* GetTransform()
+  {
+    return ((GameObject3D*)this->entity_)->GetTransform();
+  }
+
   void SetFov(T_FLOAT fov);
   inline T_FLOAT GetFov() const
   {
@@ -58,13 +65,13 @@ public:
   {
     return this->z_far_;
   }
-  inline const TVec3f& GetDirection()
-  {
-    return this->direction_;
-  }
-  inline GameObject3DRenderState* GetRenderState()
+  inline GameObjectRenderState* GetRenderState()
   {
     return this->render_state_;
+  }
+  inline const INativeMatrix& GetBillboardingMatrix() const
+  {
+    return *this->billboarding_matrix_;
   }
 
 protected:
@@ -72,18 +79,18 @@ protected:
   {
     this->direction_ = direction;
   }
+
   // =================================================================
   // Data Member
   // =================================================================
 private:
-  GameObject3DRenderState* render_state_;
+  GameObjectRenderState* render_state_;
 
+  INativeMatrix* billboarding_matrix_;
   INativeMatrix* projection_matrix_;
+
   T_FLOAT fov_;
   T_FLOAT z_near_;
   T_FLOAT z_far_;
   bool projection_dirty_;
-
-protected:
-  TVec3f direction_;
 };

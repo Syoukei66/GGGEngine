@@ -38,8 +38,8 @@ public:
   void HideFinish();
 
   void Draw();
-  void Draw2DLayers(GameObject2DRenderState* state);
-  void Draw3DLayers(GameObject3DRenderState* state);
+  void Draw2DLayers(GameObjectRenderState* state);
+  void Draw3DLayers(GameObjectRenderState* state);
 
   inline void AddChild(GameObject2D* child)
   {
@@ -133,6 +133,8 @@ public:
   // Data Member
   // =================================================================
 private:
+  bool is_loaded_;
+
   GameObject2D* root2d_;
   std::vector<Camera2D*> camera2ds_;
 

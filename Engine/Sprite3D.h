@@ -1,68 +1,86 @@
 #pragma once
 
-#include "BillBoard.h"
-#include "ITextureRegion.h"
-#include "VertexBufferObject_Sprite3D.h"
+#include "GameObject3D.h"
+#include "SpriteRenderer.h"
 
-class Sprite3D : public Shape3D
+class Sprite3D : public GameObject3D
 {
-public:
-  static Sprite3D* CreateWithTexture(const Texture* texture);
-
-public:
-  Sprite3D();
-  ~Sprite3D();
   // =================================================================
-  // Methods for/from SuperClass/Interfaces
+  // Factory Method
   // =================================================================
 public:
-  virtual void PreDraw(GameObject3DRenderState* state) override;
-  virtual void NativeDraw(GameObject3DRenderState* state) override;
+  static Sprite3D* Create();
+  static Sprite3D* CreateWithTextureRegion(ITextureRegion* region, bool delete_region);
+  static Sprite3D* CreateWithMaterial(Material& material);
+  static Sprite3D* CreateWithTexture(const Texture& texture);
 
   // =================================================================
-  // Method
+  // Constructor / Destructor
   // =================================================================
-public:
-  virtual void OnVertexCoordChanged();
-  void OnTextureChanged();
-  //Spriteのサイズ(width/height)をITextureRegionに準じたものに変更します。
-  //ITextureRegionがNULLの場合、サイズは0*0になります。
-  void FitToTexture();
+protected:
+  Sprite3D() {}
 
   // =================================================================
-  // setter/getter
+  // Setter / Getter
   // =================================================================
 public:
-  void SetTextureRegion(ITextureRegion* itr);
-  inline ITextureRegion* GetTextureRegion() const
+  inline SpriteRenderer* GetSpriteRenderer() const
   {
-    return this->texture_region_;
+    return (SpriteRenderer*)this->GetRenderer();
   }
 
-  void SetWidth(T_FLOAT width);
+  // =================================================================
+  // delegate to SpriteRenderer
+  // =================================================================
+public:
+  inline void FitToTexture()
+  {
+    this->GetSpriteRenderer()->FitToTexture();
+  }
+  inline void SetTexture(const Texture& texture)
+  {
+    this->GetSpriteRenderer()->SetTexture(texture);
+  }
+  inline const Texture& GetTexture() const
+  {
+    return this->GetSpriteRenderer()->GetTexture();
+  }
+
+  inline void SetTextureRegion(ITextureRegion* region, bool delete_region)
+  {
+    this->GetSpriteRenderer()->SetTextureRegion(region, delete_region);
+  }
+  inline ITextureRegion* GetTextureRegion()
+  {
+    return this->GetSpriteRenderer()->GetTextureRegion();
+  }
+
+  inline void SetSize(const TSizef& size)
+  {
+    this->GetSpriteRenderer()->SetSize(size);
+  }
+  inline void SetSize(T_FLOAT width, T_FLOAT height)
+  {
+    this->GetSpriteRenderer()->SetSize(width, height);
+  }
+  inline const TSizef& GetSize() const
+  {
+    return this->GetSpriteRenderer()->GetSize();
+  }
+  inline void SetWidth(T_FLOAT width)
+  {
+    this->GetSpriteRenderer()->SetWidth(width);
+  }
   inline T_FLOAT GetWidth() const
   {
-    return this->size_.width;
+    return this->GetSpriteRenderer()->GetWidth();
   }
-  inline T_FLOAT GetWidthScaled() const
+  inline void SetHeight(T_FLOAT height)
   {
-    return this->size_.width * this->GetTransform()->GetScaleX();
+    this->GetSpriteRenderer()->SetHeight(height);
   }
-
-  void SetHeight(T_FLOAT height);
   inline T_FLOAT GetHeight() const
   {
-    return this->size_.height;
+    return this->GetSpriteRenderer()->GetHeight();
   }
-  inline T_FLOAT GetHeightScaled() const
-  {
-    return this->size_.height * this->GetTransform()->GetScaleY();
-  }
-
-
-private:
-  TSizef size_;
-  VertexBufferObject_Sprite3D* sprite3d_vbo_;
-  ITextureRegion* texture_region_;
-
 };

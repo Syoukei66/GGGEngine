@@ -2,9 +2,17 @@
 #define HAL_ENGINE_ENTITY_ENTITY_H_
 
 #include "NativeType.h"
-#include "BlendFunction.h"
 #include "GameComponent.h"
-#include "GameObjectRenderState.h"
+#include "Material.h"
+
+#include "Renderer.h"
+#include "AnimatedSpriteRenderer.h"
+#include "MeshRenderer.h"
+#include "SpriteRenderer.h"
+
+#include "Transform.h"
+
+class GameObjectRenderState;
 
 class GameObject : public GameComponent
 {
@@ -19,19 +27,13 @@ public:
   // Method
   // =================================================================
 public:
-  //GameObjectの座標などの初期化です
-  //保持しているオブジェクトが解放される事はありません。
-  //TODO:現状どのメンバが初期化され、どのメンバが初期化されないのかが不明瞭なので
-  //     データメンバの一部をクラス化して、(Transform等)
-  //     そのインスタンスに対する初期化という形での実装としてはどうだろうか
   virtual void Init();
-
-  //TODO: 応急処置。
-  void ApplyBlendMode(GameObjectRenderState* state);
 
   virtual void ManagedPreUpdate() = 0;
   virtual void ManagedUpdate() = 0;
   virtual void ManagedPostUpdate() = 0;
+
+  virtual void ManagedDraw(GameObjectRenderState* state);
   
   // =================================================================
   // Events
@@ -59,45 +61,88 @@ public:
     return this->visible_;
   }
 
+  inline void SetRenderer(Renderer* renderer)
+  {
+    this->renderer_ = renderer;
+  }
+  inline Renderer* GetRenderer() const
+  {
+    return this->renderer_;
+  }
+
+  // =================================================================
+  // delegate to Transform
+  // =================================================================
+  inline const INativeMatrix& GetMatrix() const
+  {
+    return this->transform_->GetMatrix();
+  }
+
+  inline const INativeMatrix& GetTranslateMatrix() const
+  {
+    return this->transform_->GetTranslateMatrix();
+  }
+
+  inline const INativeMatrix& GetRotationMatrix() const
+  {
+    return this->transform_->GetRotationMatrix();
+  }
+
+  inline const INativeMatrix& GetScaleMatrix() const
+  {
+    return this->transform_->GetScaleMatrix();
+  }
+
+  inline const INativeMatrix& GetWorldMatrix() const
+  {
+    return this->transform_->GetWorldMatrix();
+  }
+
+  // =================================================================
+  // delegate to Renderer
+  // =================================================================
+  inline void UniqueMaterial()
+  {
+    this->renderer_->UniqueMaterial();
+  }
   inline void SetLayerId(T_UINT8 layer_id)
   {
-    this->layer_id_ = layer_id;
+    this->renderer_->SetLayerId(layer_id);
   }
   inline T_UINT8 GetLayerId() const
   {
-    return this->layer_id_;
+    this->renderer_->GetLayerId();
+  }
+  inline void AddMaterial(Material& material)
+  {
+    this->renderer_->AddMaterial(material);
+  }
+  inline void SetMaterial(Material& material)
+  {
+    this->renderer_->SetMaterial(material);
+  }
+  inline void SetMaterial(T_UINT16 index, Material& material)
+  {
+    this->renderer_->SetMaterial(index, material);
+  }
+  inline Material* GetMaterial(T_UINT16 index = 0) const
+  {
+    return this->renderer_->GetMaterial(index);
+  }
+  inline T_UINT16 GetMaterialCount()
+  {
+    return this->renderer_->GetMaterialCount();
   }
 
-  inline void SetBlendFunction(BlendFunction::BlendMode src, BlendFunction::BlendMode dst)
-  {
-    this->blend_function_src_ = src;
-    this->blend_function_dst_ = dst;
-  }
-  inline void SetBlendFunctionSource(BlendFunction::BlendMode src)
-  {
-    this->blend_function_src_ = src;
-  }
-  inline BlendFunction::BlendMode GetBlendFunctionSource() const
-  {
-    return this->blend_function_src_;
-  }
-  inline void SetBlendFunctionDestination(BlendFunction::BlendMode dst)
-  {
-    this->blend_function_dst_ = dst;
-  }
-  inline BlendFunction::BlendMode GetBlendFunctionDestination() const
-  {
-    return this->blend_function_dst_;
-  }
   // =================================================================
   // Data Member
   // =================================================================
+protected:
+  Transform* transform_;
+
 private:
 	bool visible_;
-  T_UINT8 layer_id_;
-
-  BlendFunction::BlendMode blend_function_src_;
-  BlendFunction::BlendMode blend_function_dst_;
+  Renderer* renderer_;
 };
 
 #endif//HAL_ENGINE_ENTITY_ENTITY_H_

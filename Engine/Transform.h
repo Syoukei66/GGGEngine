@@ -14,7 +14,7 @@ class Transform
   // =================================================================
 public:
   Transform(GameObject* entity);
-  ~Transform();
+  virtual ~Transform();
 
   // =================================================================
   // Method
@@ -26,70 +26,72 @@ protected:
   virtual void OnInit() = 0;
 
 public:
-  //GameObjectに更新が必要な変更が行われた事を伝えるメソッドです。
-  //全ての更新は描画メソッド内で行われます。
   virtual void OnTransformChanged();
   virtual void OnScaleChanged();
   virtual void OnRotationChanged();
 
-  void OnWorldPositionDirty();
+  void OnWorldTransformDirty();
 
 protected:
-  
-  bool UpdateMatrix();
+  void UpdateMatrix();
+  void UpdateWorldMatrix();
 
   virtual void UpdateTranslateMatrix(INativeMatrix* matrix) = 0;
   virtual void UpdateRotateMatrix(INativeMatrix* matrix) = 0;
   virtual void UpdateScaleMatrix(INativeMatrix* matrix) = 0;
-  virtual void OnUpdateMatrix(INativeMatrix* matrix) = 0;
+
+  virtual const INativeMatrix* GetParentWorldMatrix() = 0;
 
   // =================================================================
   // setter/getter
   // =================================================================
 public:
-
-  inline INativeMatrix* GetMatrix()
+  inline const INativeMatrix& GetMatrix() const
   {
-    this->UpdateMatrix();
-    return this->matrix_;
+    const_cast<Transform*>(this)->UpdateMatrix();
+    return *this->matrix_;
   }
 
-  inline INativeMatrix* GetTranslateMatrix()
+  inline const INativeMatrix& GetTranslateMatrix() const
   {
-    this->UpdateMatrix();
-    return this->translate_matrix_;
+    const_cast<Transform*>(this)->UpdateMatrix();
+    return *this->translate_matrix_;
   }
 
-  inline INativeMatrix* GetRotationMatrix()
+  inline const INativeMatrix& GetRotationMatrix() const
   {
-    this->UpdateMatrix();
-    return this->rotation_matrix_;
+    const_cast<Transform*>(this)->UpdateMatrix();
+    return *this->rotation_matrix_;
   }
 
-  inline INativeMatrix* GetScaleMatrix()
+  inline const INativeMatrix& GetScaleMatrix() const
   {
-    this->UpdateMatrix();
-    return this->scale_matrix_;
+    const_cast<Transform*>(this)->UpdateMatrix();
+    return *this->scale_matrix_;
   }
 
+  inline const INativeMatrix& GetWorldMatrix() const
+  {
+    const_cast<Transform*>(this)->UpdateWorldMatrix();
+    return *this->world_matrix_;
+  }
 
   // =================================================================
   // Data Member
   // =================================================================
-protected:
-  bool world_position_dirty_;
-
 private:
   GameObject* entity_;
 
-  INativeMatrix* translate_matrix_;
-  INativeMatrix* rotation_matrix_;
-  INativeMatrix* scale_matrix_;
-  INativeMatrix* matrix_;
+  INativeMatrix* const translate_matrix_;
+  INativeMatrix* const rotation_matrix_;
+  INativeMatrix* const scale_matrix_;
+  INativeMatrix* const matrix_;
+  INativeMatrix* const world_matrix_;
 
   bool translation_dirty_;
   bool rotation_dirty_;
   bool scale_dirty_;
+  bool world_transform_dirty_;
 };
 
 #endif//HAL_ENGINE_ENTITY_TRANSFORM_H_

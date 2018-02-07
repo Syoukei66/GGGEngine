@@ -4,7 +4,7 @@
 // Constructor / Destructor
 // =================================================================
 GameComponent::GameComponent()
-  : enabled_(false)
+  : enabled_(true)
 {
 }
 

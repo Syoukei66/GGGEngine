@@ -32,58 +32,49 @@
     #include "Transform.h"
 //----2D
       #include "GameObject2D.h"
-      #include "GameObject2DRenderState.h"
       #include "Transform2D.h"
 //------Modifier
         #include "EntityModifier.h"
         #include "EntityModifierAttribute.h"
         #include "EntityModifierFactory.h"
         #include "EntityModifierManager.h"
-//------Shape
+//------Sprite
+        #include "AnimatedSprite.h"
         #include "LoopSprite.h"
-        #include "Shape.h"
-//--------Sprite
-          #include "AnimatedSprite.h"
-          #include "LoopSprite.h"
-          #include "Sprite.h"
+        #include "Sprite.h"
 //----3D
       #include "GameObject3D.h"
-      #include "GameObject3DRenderState.h"
       #include "Transform3D.h"
       #include "Transform3DRotator.h"
 //------Model
         #include "Model.h"
+        #include "ModelNode.h"
 //------Primitive
         #include "AnimatedSprite3D.h"
-        #include "BillBoard.h"
         #include "Cube3D.h"
-        #include "Line3D.h"
-        #include "MeshField.h"
         #include "Plane3D.h"
-        #include "Primitive3D.h"
-        #include "Shape.h"
         #include "Sprite3D.h"
-        #include "Triangle3D.h"
-//----Material
-      #include "Material.h"
-//------Shader
-        #include "Shader.h"
-        #include "StandardShader.h"
 //----VBO
       #include "IVertexBufferObject.h"
-//------2D
-        #include "SpriteVertexBufferObject.h"
 //------3D
-        #include "VertexBufferObject_Primitive3D_Cube.h"
-        #include "VertexBufferObject_Primitive3D_Line.h"
         #include "VertexBufferObject_Primitive3D_MeshField.h"
-        #include "VertexBufferObject_Primitive3D_Plane.h"
-        #include "VertexBufferObject_Primitive3D_Triangle.h"
-        #include "VertexBufferObject_Sprite3D.h"
 //--Light
-    #include "Light.h"
+//--Material
+    #include "Material.h"
+    #include "ShaderProperties.h"
 //--Mesh
-
+    #include "Mesh.h"
+    #include "MeshData.h"
+    #include "SubMesh.h"
+//----Data
+      #include "MeshData_Cube.h"
+      #include "MeshData_Plane.h"
+      #include "MeshData_Sprite.h"
+//--Renderer
+    #include "AnimatedSpriteRenderer.h"
+    #include "MeshRenderer.h"
+    #include "Renderer.h"
+    #include "SpriteRenderer.h"
 //Director
   #include "Director.h"
 
@@ -105,26 +96,42 @@
 //Native
   #include "INativeProcess_Graphics.h"
   #include "INativeProcess_IO.h"
-  #include "INativeProcess_Material.h"
   #include "INativeProcess_Time.h"
+  #include "NativeAssert.h"
   #include "NativeMethod.h"
+  #include "NativeObjectFactory.h"
   #include "NativeType.h"
 //--Objects
+    #include "NativeIndexBuffer.h"
     #include "NativeMatrix.h"
     #include "NativeMatrixStack.h"
+    #include "NativeVertexBuffer.h"
     #include "NativeModel.h"
     #include "NativeObject.h"
-    #include "NativeObjectFactory.h"
+    #include "NativeShader.h"
     #include "NativeTexture.h"
 
 //Resource
-  #include "CSVTokenizer.h"
-  #include "JsonParser.h"
-  #include "LoadProgressCounter.h"
-//--Pool
-    #include "ResourcePool.h"
+  #include "EngineAsset.h"
+//--File
+    #include "FileResource.h"
+    #include "ResourceLoader.h"
 //----Model
       #include "ModelData.h"
+//----CSV
+      #include "CSVData.h"
+      #include "CSVResource.h"
+      #include "CSVTokenizer.h"
+//----Json
+      #include "JsonData.h"
+      #include "JsonParser.h"
+      #include "JsonResource.h"
+//----Fbx
+      #include "FbxData.h"
+      #include "FbxMeshMaterial.h"
+      #include "FbxNodeData.h"
+      #include "FbxResource.h"
+
 //----Particle
       #include "ParticleData.h"
       #include "ParticleDataLoader.h"
@@ -144,6 +151,11 @@
 //------Atlas
         #include "TextureAtlas.h"
         #include "TextureAtlasLoader.h"
+//--Pool
+    #include "EngineResourcePool.h"
+    #include "LoadProgressCounter.h"
+    #include "ResourcePool.h"
+    #include "UserResourcePool.h"
 
 //Scene
   #include "Scene.h"
@@ -160,6 +172,11 @@
   #include "Geometry.h"
   #include "Quaternion.h"
   #include "Vertex.h"
+//--TextureRegion
+    #include "ITextureRegion.h"
+    #include "LoopTextureRegion.h"
+    #include "TextureRegion.h"
+    #include "TiledTextureRegion.h"
 
 //Util
   #include "Bresenham.h"
@@ -170,3 +187,7 @@
     #include "EasingFunctionManager.h"
 //--Singleton
     #include "Singleton.h"
+
+#include "imgui/imgui.h"
+
+#include "../../Project/Asset.h"

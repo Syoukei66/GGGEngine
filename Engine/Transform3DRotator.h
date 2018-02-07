@@ -19,6 +19,8 @@ public:
   // Methods
   // =================================================================
 public:
+  void Init();
+
   void RotateX(T_FLOAT rad);
   void RotateY(T_FLOAT rad);
   void RotateZ(T_FLOAT rad);
@@ -29,6 +31,11 @@ public:
 
   void FromRotationMatrix(INativeMatrix* matrix);
   void ToRotationMatrix(INativeMatrix* dest);
+
+  void Lerp(const Quaternion& a, const Quaternion& b, T_FLOAT t);
+  void Lerp(const Quaternion& b, T_FLOAT t);
+  void Slerp(const Quaternion& a, const Quaternion& b, T_FLOAT t);
+  void Slerp(const Quaternion& b, T_FLOAT t);
 
   const void q(const TVec3f& v, T_FLOAT rad);
 
@@ -77,6 +84,10 @@ public:
     return this->eular_angles_.z;
   }
 
+  inline const Quaternion& GetQuaternion() const
+  {
+    return this->quaternion_;
+  }
   // =================================================================
   // Data Member
   // =================================================================

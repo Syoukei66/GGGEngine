@@ -10,21 +10,16 @@
 Transform3D::Transform3D(GameObject3D* entity)
   : Transform(entity)
   , entity_(entity)
-  , direction_()
   , position_()
   , scale_()
   , scale_max_(1.0f)
-  , world_position_()
-  , matrix_applied_position_()
 {
   this->rotator_ = new Transform3DRotator(this);
-  this->world_matrix_ = INativeMatrix::Create();
 }
 
 Transform3D::~Transform3D()
 {
   delete this->rotator_;
-  delete this->world_matrix_;
 }
 
 // =================================================================
@@ -34,23 +29,20 @@ void Transform3D::OnInit()
 {
   this->position_ = TVec3f(0.0f, 0.0f, 0.0f);
   this->scale_ = TVec3f(1.0f, 1.0f, 1.0f);
-  this->rotator_->SetEularAngles(TVec3f(0.0f, 0.0f, 0.0f));
-
-  this->world_position_ = TVec3f(0.0f, 0.0f, 0.0f);
-  this->matrix_applied_position_ = TVec3f(0.0f, 0.0f, 0.0f);
+  this->rotator_->Init();
 }
 
 void Transform3D::Move(const TVec3f& value)
 {
   TVec3f v = value;
-  this->GetRotationMatrix()->Apply(&v);
+  this->GetRotationMatrix().Apply(&v);
   const TVec3f& pos = this->GetPosition();
   this->SetPosition(pos.x + v.x, pos.y + v.y, pos.z + v.z);
 }
 
 void Transform3D::Move(T_FLOAT x, T_FLOAT y, T_FLOAT z)
 {
-  this->GetRotationMatrix()->Apply(&x, &y, &z);
+  this->GetRotationMatrix().Apply(&x, &y, &z);
   const TVec3f& pos = this->GetPosition();
   this->SetPosition(pos.x + x, pos.y + y, pos.z + z);
 }
@@ -59,7 +51,7 @@ void Transform3D::MoveX(T_FLOAT x)
 {
   T_FLOAT y = 0.0f;
   T_FLOAT z = 0.0f;
-  this->GetRotationMatrix()->Apply(&x, &y, &z);
+  this->GetRotationMatrix().Apply(&x, &y, &z);
   this->SetPosition(this->GetX() + x, this->GetY() + y, this->GetZ() + z);
 }
 
@@ -67,7 +59,7 @@ void Transform3D::MoveY(T_FLOAT y)
 {
   T_FLOAT x = 0.0f;
   T_FLOAT z = 0.0f;
-  this->GetRotationMatrix()->Apply(&x, &y, &z);
+  this->GetRotationMatrix().Apply(&x, &y, &z);
   this->SetPosition(this->GetX() + x, this->GetY() + y, this->GetZ() + z);
 }
 
@@ -75,7 +67,7 @@ void Transform3D::MoveZ(T_FLOAT z)
 {
   T_FLOAT x = 0.0f;
   T_FLOAT y = 0.0f;
-  this->GetRotationMatrix()->Apply(&x, &y, &z);
+  this->GetRotationMatrix().Apply(&x, &y, &z);
   this->SetPosition(this->GetX() + x, this->GetY() + y, this->GetZ() + z);
 }
 
@@ -114,11 +106,6 @@ T_FLOAT Transform3D::MoveCircularZ(T_FLOAT z, const TVec3f& pos)
   return 0.0f;
 }
 
-void Transform3D::UpdateWorldMatrix(NativeMatrixInstance* native_instance)
-{
-  this->GetWorldMatrix()->Assign(native_instance);
-}
-
 void Transform3D::UpdateTranslateMatrix(INativeMatrix* matrix)
 {
   matrix->Translation(this->position_);
@@ -134,57 +121,19 @@ void Transform3D::UpdateRotateMatrix(INativeMatrix* matrix)
   this->rotator_->ToRotationMatrix(matrix);
 }
 
-void Transform3D::OnUpdateMatrix(INativeMatrix* matrix)
+const INativeMatrix* Transform3D::GetParentWorldMatrix()
 {
-  this->matrix_applied_position_.x = 0.0f;
-  this->matrix_applied_position_.y = 0.0f;
-  this->matrix_applied_position_.z = 0.0f;
-  matrix->Apply(&this->matrix_applied_position_);
-  matrix->Direction(&this->direction_);
+  GameObject3D* parent = this->entity_->GetParent();
+  if (!parent)
+  {
+    return nullptr;
+  }
+  return &parent->GetTransform()->GetWorldMatrix();
 }
 
 // =================================================================
 // setter/getter
 // =================================================================
-const TVec3f& Transform3D::GetMatrixAppliedPosition()
-{
-  this->UpdateMatrix();
-  return this->matrix_applied_position_;
-}
-
-void Transform3D::ApplyMatrixToPosition(TVec3f* dest)
-{
-  this->GetMatrix()->Apply(dest);
-}
-
-const TVec3f& Transform3D::GetWorldPosition(GameObject3D* root)
-{
-  if (this->world_position_dirty_)
-  {
-    this->world_position_.x = 0.0f;
-    this->world_position_.y = 0.0f;
-    this->world_position_.z = 0.0f;
-    this->entity_->ConvertPositionLocalToWorld(nullptr, &this->world_position_, root);
-    this->world_position_dirty_ = false;
-  }
-  return this->world_position_;
-}
-
-T_FLOAT Transform3D::GetWorldX(GameObject3D* root)
-{
-  return this->GetWorldPosition(root).x;
-}
-
-T_FLOAT Transform3D::GetWorldY(GameObject3D* root)
-{
-  return this->GetWorldPosition(root).y;
-}
-
-T_FLOAT Transform3D::GetWorldZ(GameObject3D* root)
-{
-  return this->GetWorldPosition(root).z;
-}
-
 void Transform3D::SetPosition(const TVec3f& position)
 {
   if (this->position_ == position)

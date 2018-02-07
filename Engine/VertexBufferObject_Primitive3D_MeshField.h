@@ -9,6 +9,7 @@ class VertexBufferObject_Primitive3D_MeshField : public IVertexBufferObject
   // =================================================================
 public:
   VertexBufferObject_Primitive3D_MeshField(T_FLOAT width, T_FLOAT height, T_UINT16 x_num, T_UINT16 y_num);
+  ~VertexBufferObject_Primitive3D_MeshField();
 
   // =================================================================
   // Methods for/from SuperClass/Interfaces
@@ -22,14 +23,14 @@ public:
   virtual const void* GetVertexes() const override;
   virtual const T_UINT16* GetIndexes() const override;
   virtual INativeProcess_Graphics::PrimitiveType GetPrimitiveType() override;
-  virtual INativeProcess_Graphics::VertexType GetVertexType() override;
+  virtual Vertex::VertexType GetVertexType() override;
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
   T_UINT32 vertexes_count_;
-  Vertex3D* vertexes_;
+  Vertex::VNCT* vertexes_;
 
   T_UINT32 indexes_count_;
   T_UINT16* indexes_;

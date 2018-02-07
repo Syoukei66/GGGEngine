@@ -12,10 +12,11 @@ Camera3D::Camera3D(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT 
   , z_near_(0.01f)
   , z_far_(1000.0f)
   , projection_dirty_(true)
-  , direction_(0.0f, 0.0f, 1.0f)
 {
+  this->entity_ = new GameObject3D();
   this->projection_matrix_ = INativeMatrix::Create();
-  this->render_state_ = new GameObject3DRenderState(this);
+  this->billboarding_matrix_ = INativeMatrix::Create();
+  this->render_state_ = new GameObjectRenderState(this);
 }
 
 Camera3D::Camera3D()
@@ -24,14 +25,16 @@ Camera3D::Camera3D()
   , z_near_(0.01f)
   , z_far_(1000.0f)
   , projection_dirty_(true)
-  , direction_(0.0f, 0.0f, 1.0f)
 {
+  this->entity_ = new GameObject3D();
   this->projection_matrix_ = INativeMatrix::Create();
-  this->render_state_ = new GameObject3DRenderState(this);
+  this->billboarding_matrix_ = INativeMatrix::Create();
+  this->render_state_ = new GameObjectRenderState(this);
 }
 
 Camera3D::~Camera3D()
 {
+  delete this->billboarding_matrix_;
   delete this->projection_matrix_;
   delete this->render_state_;
 }
@@ -39,15 +42,30 @@ Camera3D::~Camera3D()
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
-const INativeMatrix* Camera3D::GetViewMatrix()
+const INativeMatrix* Camera3D::GetViewMatrix() const 
 {
   return &INativeMatrix::Identity();
 }
 
-const INativeMatrix* Camera3D::GetProjectionMatrix()
+const INativeMatrix* Camera3D::GetProjectionMatrix() const
 {
-  this->CheckProjectionDirty();
+  const_cast<Camera3D*>(this)->CheckProjectionDirty();
   return this->projection_matrix_;
+}
+
+void Camera3D::SetupCamera()
+{
+  Camera::SetupCamera();
+  this->GetViewMatrix()->Inverse(this->billboarding_matrix_);
+
+  (*this->billboarding_matrix_)[3][0] = 0.0f;
+  (*this->billboarding_matrix_)[3][1] = 0.0f;
+  (*this->billboarding_matrix_)[3][2] = 0.0f;
+}
+
+void Camera3D::OnViewportChanged()
+{
+  this->OnProjectionChanged();
 }
 
 void Camera3D::OnDrawScene(Scene* scene)
@@ -55,11 +73,6 @@ void Camera3D::OnDrawScene(Scene* scene)
   this->render_state_->Init();
   scene->Draw3DLayers(this->render_state_);
   this->render_state_->DrawZOrderedGameObject();
-}
-
-void Camera3D::OnViewportDirty()
-{
-  this->projection_dirty_ = true;
 }
 
 // =================================================================
@@ -71,7 +84,6 @@ void Camera3D::CheckProjectionDirty()
   {
     return;
   }
-  this->OnProjectionChanged();
   this->projection_matrix_->PerspectiveFovLH(
     MathConstants::PI / this->fov_,
     this->GetViewportWidth() / this->GetViewportHeight(),

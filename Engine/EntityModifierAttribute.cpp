@@ -125,11 +125,11 @@ public:
 public:
   virtual void SetValue(GameObject2D* entity, const T_FLOAT next) const override
   {
-    entity->SetRed((T_UINT8)(next > 255.0f ? 255.0f : next));
+    entity->GetRenderer()->GetMaterial()->GetDiffuse().SetRed(next > 1.0f ? 1.0f : next);
   }
   virtual T_FLOAT GetValue(GameObject2D* entity) const override
   {
-    return (T_FLOAT)entity->GetRed();
+    return entity->GetRenderer()->GetMaterial()->GetDiffuse().GetRed();
   }
 };
 
@@ -145,11 +145,11 @@ public:
 public:
   virtual void SetValue(GameObject2D* entity, const T_FLOAT next) const override
   {
-    entity->SetGreen((T_UINT8)(next > 255.0f ? 255.0f : next));
+    entity->GetRenderer()->GetMaterial()->GetDiffuse().SetGreen(next > 1.0f ? 1.0f : next);
   }
   virtual T_FLOAT GetValue(GameObject2D* entity) const override
   {
-    return (T_FLOAT)entity->GetGreen();
+    return entity->GetRenderer()->GetMaterial()->GetDiffuse().GetGreen();
   }
 };
 
@@ -165,11 +165,11 @@ public:
 public:
   virtual void SetValue(GameObject2D* entity, const T_FLOAT next) const override
   {
-    entity->SetBlue((T_UINT8)(next > 255.0f ? 255.0f : next));
+    entity->GetRenderer()->GetMaterial()->GetDiffuse().SetBlue(next > 1.0f ? 1.0f : next);
   }
   virtual T_FLOAT GetValue(GameObject2D* entity) const override
   {
-    return (T_FLOAT)entity->GetBlue();
+    return entity->GetRenderer()->GetMaterial()->GetDiffuse().GetBlue();
   }
 };
 
@@ -185,11 +185,11 @@ public:
 public:
   virtual void SetValue(GameObject2D* entity, const T_FLOAT next) const override
   {
-    entity->SetAlpha((T_UINT8)(next > 255.0f ? 255.0f : next));
+    entity->GetRenderer()->GetMaterial()->GetDiffuse().SetAlpha(next > 1.0f ? 1.0f : next);
   }
   virtual T_FLOAT GetValue(GameObject2D* entity) const override
   {
-    return (T_FLOAT)entity->GetAlpha();
+    return entity->GetRenderer()->GetMaterial()->GetDiffuse().GetAlpha();
   }
 };
 

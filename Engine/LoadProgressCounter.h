@@ -8,10 +8,10 @@
 class ILoadingProgressCounterCallback
 {
 public:
-  virtual void OnLoadingReserved(const std::string& category, T_UINT8 weight);
-  virtual void OnLoadingStarted();
-  virtual void OnLoadingProgressed(const std::string& category, T_UINT8 weight);
-  virtual void OnLoadingFinished();
+  virtual void OnLoadingReserved(const std::string& category, T_UINT8 weight) = 0;
+  virtual void OnLoadingStarted() = 0;
+  virtual void OnLoadingProgressed(const std::string& category, T_UINT8 weight) = 0;
+  virtual void OnLoadingFinished() = 0;
 };
 
 class LoadingProgressCounter : public IResourceLoadingListener

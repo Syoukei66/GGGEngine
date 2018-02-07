@@ -99,7 +99,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <TreatWarningAsError>false</TreatWarningAsError>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
-      <AdditionalIncludeDirectories>spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Lib\include;spine-c\include;FBX\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -117,7 +117,7 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <TreatWarningAsError>false</TreatWarningAsError>
-      <AdditionalIncludeDirectories>spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Lib\include;spine-c\include;FBX\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -139,7 +139,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <TreatWarningAsError>false</TreatWarningAsError>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
-      <AdditionalIncludeDirectories>spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Lib\include;spine-c\include;FBX\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -161,7 +161,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <TreatWarningAsError>false</TreatWarningAsError>
-      <AdditionalIncludeDirectories>spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>Lib\include;spine-c\include;FBX\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -174,9 +174,9 @@
     <ClCompile Include="AnalogInput.cpp" />
     <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="AnimatedSprite3D.cpp" />
+    <ClCompile Include="AnimatedSpriteRenderer.cpp" />
     <ClCompile Include="AttachmentVertexes.cpp" />
     <ClCompile Include="BaseActivity.cpp" />
-    <ClCompile Include="BillBoard.cpp" />
     <ClCompile Include="Bresenham.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Camera2D.cpp" />
@@ -187,21 +187,43 @@
     <ClCompile Include="Collider3D.cpp" />
     <ClCompile Include="Collision2D.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="CSVData.cpp" />
+    <ClCompile Include="CSVResource.cpp" />
     <ClCompile Include="CSVTokenizer.cpp" />
     <ClCompile Include="Cube3D.cpp" />
     <ClCompile Include="DigitalInput.cpp" />
     <ClCompile Include="EasingFunction.cpp" />
     <ClCompile Include="EasingFunctionManager.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="EngineAsset.cpp" />
     <ClCompile Include="EngineAttachmentLoader.cpp" />
     <ClCompile Include="EngineInitializeSetting.cpp" />
     <ClCompile Include="EngineInputEvent.cpp" />
+    <ClCompile Include="FbxData.cpp" />
+    <ClCompile Include="FbxMeshMaterial.cpp" />
+    <ClCompile Include="FbxNodeData.cpp" />
     <ClCompile Include="GameComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObject2D.cpp" />
-    <ClCompile Include="GameObject2DRenderState.cpp" />
     <ClCompile Include="GameObject3D.cpp" />
-    <ClCompile Include="GameObject3DRenderState.cpp" />
+    <ClCompile Include="FbxResource.cpp" />
+    <ClCompile Include="imgui\imgui.cpp" />
+    <ClCompile Include="imgui\imgui_draw.cpp" />
+    <ClCompile Include="JsonData.cpp" />
+    <ClCompile Include="JsonResource.cpp" />
+    <ClCompile Include="LoopSprite.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MeshData.cpp" />
+    <ClCompile Include="MeshData_Cube.cpp" />
+    <ClCompile Include="MeshData_Plane.cpp" />
+    <ClCompile Include="MeshData_Sprite.cpp" />
+    <ClCompile Include="MeshRenderer.cpp" />
+    <ClCompile Include="MeshResource.cpp" />
+    <ClCompile Include="ModelNode.cpp" />
+    <ClCompile Include="NativeIndexBuffer.cpp" />
+    <ClCompile Include="NativeShader.cpp" />
+    <ClCompile Include="NativeVertexBuffer.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceLoader.cpp" />
     <ClCompile Include="ModelData.cpp" />
     <ClCompile Include="NativeMatrix.cpp" />
@@ -209,8 +231,11 @@
     <ClCompile Include="NativeModel.cpp" />
     <ClCompile Include="NativeTexture.cpp" />
     <ClCompile Include="ResourcePool.cpp" />
+    <ClCompile Include="ShaderResource.cpp" />
     <ClCompile Include="SpineResource.cpp" />
     <ClCompile Include="Sprite3D.cpp" />
+    <ClCompile Include="SpriteRenderer.cpp" />
+    <ClCompile Include="SubMesh.cpp" />
     <ClCompile Include="Transform3DRotator.cpp" />
     <ClCompile Include="GameObjectRenderState.cpp" />
     <ClCompile Include="EntityModifier.cpp" />
@@ -220,13 +245,9 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="InputSetting.cpp" />
     <ClCompile Include="JsonParser.cpp" />
-    <ClCompile Include="Light.cpp" />
-    <ClCompile Include="Line3D.cpp" />
     <ClCompile Include="LoadProgressCounter.cpp" />
-    <ClCompile Include="LoopSprite.cpp" />
     <ClCompile Include="LoopTextureRegion.cpp" />
     <ClCompile Include="Material.cpp" />
-    <ClCompile Include="MeshField.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="NativeMethod.cpp" />
     <ClCompile Include="ParticleData.cpp" />
@@ -234,11 +255,8 @@
     <ClCompile Include="ParticleDataManager.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Plane3D.cpp" />
-    <ClCompile Include="Primitive3D.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="SceneTransitioner.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="Shape3D.cpp" />
     <ClCompile Include="Singleton.cpp" />
     <ClCompile Include="SkeletonAnimation.cpp" />
     <ClCompile Include="spine-c\src\spine\Animation.c" />
@@ -287,31 +305,57 @@
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Transform2D.cpp" />
     <ClCompile Include="Transform3D.cpp" />
-    <ClCompile Include="Triangle3D.cpp" />
     <ClCompile Include="UpdateEvent.cpp" />
     <ClCompile Include="ITextureRegion.cpp" />
     <ClCompile Include="IVertexBufferObject.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="Shape.cpp" />
     <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="SpriteVertexBufferObject.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureRegion.cpp" />
     <ClCompile Include="TiledTextureRegion.cpp" />
     <ClCompile Include="Vertex.cpp" />
-    <ClCompile Include="VertexBufferObject_Primitive3D_Cube.cpp" />
-    <ClCompile Include="VertexBufferObject_Primitive3D_Line.cpp" />
     <ClCompile Include="VertexBufferObject_Primitive3D_MeshField.cpp" />
-    <ClCompile Include="VertexBufferObject_Primitive3D_Plane.cpp" />
-    <ClCompile Include="VertexBufferObject_Primitive3D_Triangle.cpp" />
-    <ClCompile Include="VertexBufferObject_Sprite3D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.h" />
     <ClInclude Include="AnimatedSprite3D.h" />
+    <ClInclude Include="AnimatedSpriteRenderer.h" />
+    <ClInclude Include="Bezier.h" />
+    <ClInclude Include="CSVData.h" />
+    <ClInclude Include="CSVResource.h" />
+    <ClInclude Include="Cube3D.h" />
+    <ClInclude Include="EngineResourcePool.h" />
+    <ClInclude Include="FbxData.h" />
+    <ClInclude Include="FbxMeshMaterial.h" />
+    <ClInclude Include="FbxNodeData.h" />
+    <ClInclude Include="FbxResource.h" />
+    <ClInclude Include="GameObjectFactory.h" />
+    <ClInclude Include="imgui\imconfig.h" />
+    <ClInclude Include="imgui\imgui.h" />
+    <ClInclude Include="imgui\imgui_internal.h" />
+    <ClInclude Include="imgui\stb_rect_pack.h" />
+    <ClInclude Include="imgui\stb_textedit.h" />
+    <ClInclude Include="imgui\stb_truetype.h" />
+    <ClInclude Include="ITextureRegion.h" />
+    <ClInclude Include="JsonData.h" />
+    <ClInclude Include="JsonResource.h" />
+    <ClInclude Include="LoopSprite.h" />
+    <ClInclude Include="LoopTextureRegion.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="MeshData.h" />
+    <ClInclude Include="MeshData_Cube.h" />
+    <ClInclude Include="MeshData_Plane.h" />
+    <ClInclude Include="MeshData_Sprite.h" />
+    <ClInclude Include="MeshRenderer.h" />
+    <ClInclude Include="MeshResource.h" />
+    <ClInclude Include="ModelNode.h" />
+    <ClInclude Include="NativeAssert.h" />
+    <ClInclude Include="NativeIndexBuffer.h" />
+    <ClInclude Include="NativeVertexBuffer.h" />
+    <ClInclude Include="NativeShader.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceLoader.h" />
     <ClInclude Include="FileResource.h" />
-    <ClInclude Include="BillBoard.h" />
     <ClInclude Include="BlendFunction.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Camera2D.h" />
@@ -320,7 +364,6 @@
     <ClInclude Include="Camera3D_Transformed.h" />
     <ClInclude Include="Collider3D.h" />
     <ClInclude Include="Collision3D.h" />
-    <ClInclude Include="Cube3D.h" />
     <ClInclude Include="EngineAttachmentLoader.h" />
     <ClInclude Include="AttachmentVertexes.h" />
     <ClInclude Include="BaseActivity.h" />
@@ -341,17 +384,23 @@
     <ClInclude Include="GameComponent.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObject2D.h" />
-    <ClInclude Include="GameObject2DRenderState.h" />
     <ClInclude Include="GameObject3D.h" />
-    <ClInclude Include="GameObject3DRenderState.h" />
     <ClInclude Include="Moniker.h" />
     <ClInclude Include="NativeMatrix.h" />
     <ClInclude Include="NativeModel.h" />
     <ClInclude Include="NativeObjectFactory.h" />
     <ClInclude Include="NativeMatrixStack.h" />
     <ClInclude Include="NativeObject.h" />
+    <ClInclude Include="EngineAsset.h" />
+    <ClInclude Include="ShaderProperties.h" />
+    <ClInclude Include="ShaderResource.h" />
     <ClInclude Include="SpineResource.h" />
     <ClInclude Include="Sprite3D.h" />
+    <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="SubMesh.h" />
+    <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="TextureRegion.h" />
+    <ClInclude Include="TiledTextureRegion.h" />
     <ClInclude Include="Transform3DRotator.h" />
     <ClInclude Include="GameObjectRenderState.h" />
     <ClInclude Include="EntityModifier.h" />
@@ -359,7 +408,6 @@
     <ClInclude Include="EntityModifierFactory.h" />
     <ClInclude Include="EntityModifierManager.h" />
     <ClInclude Include="HalEngine.h" />
-    <ClInclude Include="INativeProcess_Material.h" />
     <ClInclude Include="INativeProcess_Time.h" />
     <ClInclude Include="InputDevice.h" />
     <ClInclude Include="INativeProcess_IO.h" />
@@ -368,14 +416,9 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="InputSetting.h" />
     <ClInclude Include="JsonParser.h" />
-    <ClInclude Include="Light.h" />
-    <ClInclude Include="Line3D.h" />
     <ClInclude Include="LoadProgressCounter.h" />
-    <ClInclude Include="LoopSprite.h" />
-    <ClInclude Include="LoopTextureRegion.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MathConstants.h" />
-    <ClInclude Include="MeshField.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelData.h" />
     <ClInclude Include="NativeMethod.h" />
@@ -385,12 +428,9 @@
     <ClInclude Include="ParticleDataManager.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Plane3D.h" />
-    <ClInclude Include="Primitive3D.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="ResourcePool.h" />
     <ClInclude Include="SceneTransitioner.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="Shape3D.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="SkeletonAnimation.h" />
     <ClInclude Include="spine-c\include\spine\Animation.h" />
@@ -437,36 +477,166 @@
     <ClInclude Include="spine-c\src\spine\kvec.h" />
     <ClInclude Include="SpineData.h" />
     <ClInclude Include="SpineDataManager.h" />
-    <ClInclude Include="StandardShader.h" />
     <ClInclude Include="TextureAtlas.h" />
     <ClInclude Include="PoolAllocator.h" />
     <ClInclude Include="TextureAtlasLoader.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Transform2D.h" />
     <ClInclude Include="Transform3D.h" />
-    <ClInclude Include="Triangle3D.h" />
     <ClInclude Include="UpdateEvent.h" />
     <ClInclude Include="EngineInput.h" />
     <ClInclude Include="Geometry.h" />
-    <ClInclude Include="ITextureRegion.h" />
     <ClInclude Include="IVertexBufferObject.h" />
     <ClInclude Include="NativeType.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="Shape.h" />
     <ClInclude Include="Sprite.h" />
-    <ClInclude Include="SpriteVertexBufferObject.h" />
     <ClInclude Include="Texture.h" />
-    <ClInclude Include="TextureRegion.h" />
-    <ClInclude Include="TiledTextureRegion.h" />
     <ClInclude Include="AnalogInput.h" />
+    <ClInclude Include="UserResourcePool.h" />
     <ClInclude Include="Util.h" />
     <ClInclude Include="Vertex.h" />
-    <ClInclude Include="VertexBufferObject_Primitive3D_Cube.h" />
-    <ClInclude Include="VertexBufferObject_Primitive3D_Line.h" />
     <ClInclude Include="VertexBufferObject_Primitive3D_MeshField.h" />
-    <ClInclude Include="VertexBufferObject_Primitive3D_Plane.h" />
-    <ClInclude Include="VertexBufferObject_Primitive3D_Triangle.h" />
-    <ClInclude Include="VertexBufferObject_Sprite3D.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Model.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">2.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">2.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">2.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">2.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Default.fx">
+      <FileType>Document</FileType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Effect</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">2.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">2.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">2.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">2.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Particle.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">2.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">2.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">2.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">2.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Primitive.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">2.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">2.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">2.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">2.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Effect</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Sprite.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">2.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">2.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">2.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">2.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="White.fx">
+      <FileType>Document</FileType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Effect</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">2.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">2.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">2.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">2.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DefaultProperty.hlsli" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

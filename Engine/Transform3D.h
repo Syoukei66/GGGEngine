@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Transform.h"
 #include "Transform3DRotator.h"
 
@@ -17,9 +17,9 @@ public:
   // Method
   // =================================================================
 public:
-  virtual void OnInit() override;
+  void OnInit() override;
 
-  //‚±‚ê‚ç‚ÌƒJƒƒ‰‘€ìŠÖ”‚ÍŒ»Ý‚ÌˆÊ’uA‰ñ“]AƒXƒP[ƒ‹‚ðŠî€‚É‚µ‚½ƒJƒƒ‰‘€ì‚ðs‚¤
+  //ã“ã‚Œã‚‰ã®ã‚«ãƒ¡ãƒ©æ“ä½œé–¢æ•°ã¯ç¾åœ¨ã®ä½ç½®ã€å›žè»¢ã€ã‚¹ã‚±ãƒ¼ãƒ«ã‚’åŸºæº–ã«ã—ãŸã‚«ãƒ¡ãƒ©æ“ä½œã‚’è¡Œã†
   void Move(const TVec3f& move);
   void Move(T_FLOAT x, T_FLOAT y, T_FLOAT z);
   void MoveX(T_FLOAT x);
@@ -28,31 +28,22 @@ public:
 
   void MoveCircular(const TVec3f& move, const TVec3f& pos);
   void MoveCircular(T_FLOAT x, T_FLOAT y, T_FLOAT z, const TVec3f& pos);
-  //–ß‚è’l‚É‚ÍˆÚ“®Œã‚Ìpos‚Æ‚ÌŠp“x‚ª•Ô‚³‚ê‚é
+  //æˆ»ã‚Šå€¤ã«ã¯ç§»å‹•å¾Œã®posã¨ã®è§’åº¦ãŒè¿”ã•ã‚Œã‚‹
   T_FLOAT MoveCircularX(T_FLOAT x, const TVec3f& pos);
   T_FLOAT MoveCircularY(T_FLOAT y, const TVec3f& pos);
   T_FLOAT MoveCircularZ(T_FLOAT z, const TVec3f& pos);
 
-  void UpdateWorldMatrix(NativeMatrixInstance* native_instance);
-
 protected:
-  virtual void UpdateTranslateMatrix(INativeMatrix* matrix) override;
-  virtual void UpdateScaleMatrix(INativeMatrix* matrix) override;
-  virtual void UpdateRotateMatrix(INativeMatrix* matrix) override;
-  virtual void OnUpdateMatrix(INativeMatrix* matrix) override;
+  void UpdateTranslateMatrix(INativeMatrix* matrix) override;
+  void UpdateScaleMatrix(INativeMatrix* matrix) override;
+  void UpdateRotateMatrix(INativeMatrix* matrix) override;
+
+  const INativeMatrix* GetParentWorldMatrix() override;
 
   // =================================================================
   // setter/getter
   // =================================================================
 public:
-  const TVec3f& GetMatrixAppliedPosition();
-  void ApplyMatrixToPosition(TVec3f* dest);
-
-  const TVec3f& GetWorldPosition(GameObject3D* root = nullptr);
-  T_FLOAT GetWorldX(GameObject3D* root = nullptr);
-  T_FLOAT GetWorldY(GameObject3D* root = nullptr);
-  T_FLOAT GetWorldZ(GameObject3D* root = nullptr);
-
   void SetPosition(const TVec3f& position);
   void SetPosition(T_FLOAT x, T_FLOAT y, T_FLOAT z);
   inline const TVec3f& GetPosition() const
@@ -102,19 +93,117 @@ public:
     return this->scale_.z;
   }
 
-  inline const TVec3f& GetDirection()
+  // =================================================================
+  // delegate to transform matrix
+  // =================================================================
+public:
+  inline const TVec3f GetDirection() const
   {
-    return this->direction_;
+    return this->GetMatrix().GetDirection3d();
+  }
+  inline const TVec3f GetWorldPosition() const
+  {
+    return this->GetWorldMatrix().GetPosition3d();
+  }
+  inline const TVec3f GetWorldDirection() const
+  {
+    return this->GetWorldMatrix().GetDirection3d();
   }
 
-  inline INativeMatrix* GetWorldMatrix()
+  // =================================================================
+  // delegate to Transform3DRotator
+  // =================================================================
+public:
+  inline void Rotate(const TVec3f& v, T_FLOAT rad)
   {
-    return this->world_matrix_;
+    this->rotator_->q(v, rad);
+  }
+  inline void RotateX(T_FLOAT rad)
+  {
+    this->rotator_->RotateX(rad);
+  }
+  inline void RotateY(T_FLOAT rad)
+  {
+    this->rotator_->RotateY(rad);
+  }
+  inline void RotateZ(T_FLOAT rad)
+  {
+    this->rotator_->RotateZ(rad);
   }
 
-  inline Transform3DRotator* GetRotator()
+  inline void RotateXAxis(T_FLOAT rad)
   {
-    return this->rotator_;
+    this->rotator_->RotateXAxis(rad);
+  }
+  inline void RotateYAxis(T_FLOAT rad)
+  {
+    this->rotator_->RotateYAxis(rad);
+  }
+  inline void RotateZAxis(T_FLOAT rad)
+  {
+    this->rotator_->RotateZAxis(rad);
+  }
+
+  inline void LerpRotation(const Quaternion& a, const Quaternion& b, T_FLOAT t)
+  {
+    this->rotator_->Lerp(a, b, t);
+  }
+  inline void LerpRotation(const Quaternion& b, T_FLOAT t)
+  {
+    this->rotator_->Lerp(b, t);
+  }
+  inline void SlerpRotation(const Quaternion& a, const Quaternion& b, T_FLOAT t)
+  {
+    this->rotator_->Slerp(a, b, t);
+  }
+  inline void SlerpRotation(const Quaternion& b, T_FLOAT t)
+  {
+    this->rotator_->Slerp(b, t);
+  }
+
+  inline void SetEularAngles(const TVec3f& rotation)
+  {
+    this->rotator_->SetEularAngles(rotation);
+  }
+  inline void SetEularAngles(T_FLOAT x, T_FLOAT y, T_FLOAT z)
+  {
+    this->rotator_->SetEularAngles(x, y, z);
+  }
+  inline const TVec3f& GetEularAngles()
+  {
+    return this->rotator_->GetEularAngles();
+  }
+
+  inline void SetEularX(T_FLOAT x)
+  {
+    this->rotator_->SetEularX(x);
+  }
+  inline T_FLOAT GetEularX()
+  {
+    return this->rotator_->GetEularX();
+  }
+
+  inline void SetEularY(T_FLOAT y)
+  {
+    this->rotator_->SetEularY(y);
+  }
+  inline T_FLOAT GetEularY()
+  {
+    return this->rotator_->GetEularY();
+  }
+
+  inline void SetEularZ(T_FLOAT z)
+  {
+    this->rotator_->SetEularZ(z);
+  }
+  inline T_FLOAT GetEularZ()
+  {
+    return this->rotator_->GetEularZ();
+  }
+  
+  inline const Quaternion& GetQuaternion() const
+  {
+    return this->rotator_->GetQuaternion();
   }
 
   // =================================================================
@@ -123,16 +212,8 @@ public:
 private:
   GameObject3D* entity_;
 
-  TVec3f direction_;
-
   TVec3f position_;
   TVec3f scale_;
   T_FLOAT scale_max_;
   Transform3DRotator* rotator_;
-
-  TVec3f world_position_;
-
-  TVec3f matrix_applied_position_;
-
-  INativeMatrix* world_matrix_;
 };

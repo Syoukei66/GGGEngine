@@ -29,6 +29,15 @@ Transform3DRotator::~Transform3DRotator()
 // =================================================================
 // Methods
 // =================================================================
+void Transform3DRotator::Init()
+{
+  this->quaternion_ = Quaternion();
+  this->eular_angles_ = TVec3f(0.0f, 0.0f, 0.0f);
+  this->rotation_matrix_->Init();
+  this->need_rotation_matrix_update_ = false;
+  this->need_eular_angles_update_ = false;
+}
+
 void Transform3DRotator::RotateX(T_FLOAT rad)
 {
   if (rad == 0.0f)
@@ -81,6 +90,66 @@ void Transform3DRotator::ToRotationMatrix(INativeMatrix* dest)
 {
   this->PrepareRotationMatrix();
   dest->Assign(*this->rotation_matrix_);
+}
+
+void Transform3DRotator::Lerp(const Quaternion& a, const Quaternion& b, T_FLOAT t)
+{
+  Quaternion lerped = Quaternion::Lerp(a, b, t);
+  if (this->quaternion_ == lerped)
+  {
+    return;
+  }
+  this->quaternion_ = lerped;
+  this->transform_->OnRotationChanged();
+  this->need_rotation_matrix_update_ = true;
+  this->need_eular_angles_update_ = true;
+}
+
+void Transform3DRotator::Lerp(const Quaternion& b, T_FLOAT t)
+{
+  if (t <= 0.0f)
+  {
+    return;
+  }
+  Quaternion lerped = Quaternion::Lerp(this->quaternion_, b, t);
+  if (this->quaternion_ == lerped)
+  {
+    return;
+  }
+  this->quaternion_ = lerped;
+  this->transform_->OnRotationChanged();
+  this->need_rotation_matrix_update_ = true;
+  this->need_eular_angles_update_ = true;
+}
+
+void Transform3DRotator::Slerp(const Quaternion& a, const Quaternion& b, T_FLOAT t)
+{
+  Quaternion slerped = Quaternion::Slerp(a, b, t);
+  if (this->quaternion_ == slerped)
+  {
+    return;
+  }
+  this->quaternion_ = slerped;
+  this->transform_->OnRotationChanged();
+  this->need_rotation_matrix_update_ = true;
+  this->need_eular_angles_update_ = true;
+}
+
+void Transform3DRotator::Slerp(const Quaternion& b, T_FLOAT t)
+{
+  if (t <= 0.0f)
+  {
+    return;
+  }
+  Quaternion slerped = Quaternion::Slerp(this->quaternion_, b, t);
+  if (this->quaternion_ == slerped)
+  {
+    return;
+  }
+  this->quaternion_ = slerped;
+  this->transform_->OnRotationChanged();
+  this->need_rotation_matrix_update_ = true;
+  this->need_eular_angles_update_ = true;
 }
 
 const void Transform3DRotator::q(const TVec3f& v, T_FLOAT rad)

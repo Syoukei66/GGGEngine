@@ -1,16 +1,13 @@
 #include "GameObject2D.h"
-
-#include <algorithm>
+#include "GameObjectRenderState.h"
 #include "EntityModifier.h"
-#include "GameObject2DRenderState.h"
-#include "Moniker.h"
+#include "EntityModifierManager.h"
 
 // =================================================================
 // Constructor / Destructor
 // =================================================================
 GameObject2D::GameObject2D()
-  : color_(Color::WHITE)
-  , parent_(nullptr)
+  : parent_(nullptr)
   , children_()
   , zindex_(0)
   , children_zindex_dirty_(false)
@@ -33,7 +30,6 @@ GameObject2D::~GameObject2D()
 void GameObject2D::Init()
 {
   GameObject::Init();
-  this->color_ = Color::WHITE;
   this->zindex_ = 0;
   this->children_zindex_dirty_ = true;
 }
@@ -111,7 +107,7 @@ void GameObject2D::ClearChildren()
   this->children_.clear();
 }
 
-void GameObject2D::Draw(GameObject2DRenderState* state)
+void GameObject2D::Draw(GameObjectRenderState* state)
 {
   if (!this->IsVisible())
   {
@@ -120,8 +116,6 @@ void GameObject2D::Draw(GameObject2DRenderState* state)
 
   //描画前のアップデート処理
   this->UpdateChildrenZIndex();
-
-  this->PreDraw(state);
 
   this->PushMatrixStack(state);
 
@@ -136,11 +130,7 @@ void GameObject2D::Draw(GameObject2DRenderState* state)
     if (child->zindex_ == 0 && !self_already_drawed)
     {
       //2.自分自身
-      if (state->IsTargetedLayer(this->GetLayerId()))
-      {
-        this->ApplyBlendMode(state);
-        this->NativeDraw(state);
-      }
+      this->ManagedDraw(state);
       self_already_drawed = true;
     }
     if (!child->IsVisible())
@@ -152,46 +142,10 @@ void GameObject2D::Draw(GameObject2DRenderState* state)
   if (!self_already_drawed)
   {
     //2.自分自身
-    if (state->IsTargetedLayer(this->GetLayerId()))
-    {
-      this->ApplyBlendMode(state);
-      this->NativeDraw(state);
-    }
+    this->ManagedDraw(state);
   }
 
   this->PopMatrixStack(state);
-
-  this->PostDraw(state);
-}
-
-void GameObject2D::ConvertPositionLocalToWorld(const TVec2f* local, TVec2f* dest, GameObject2D* root) const
-{
-  if (local)
-  {
-    (*dest) += (*local);
-  }
-  this->transform_->ApplyMatrixToPosition(dest);
-  //(*dest) += this->GetTransform()->GetMatrixAppliedPosition();
-  if (!this->parent_ || this->parent_ == root)
-  {
-    return;
-  }
-  this->parent_->ConvertPositionLocalToWorld(nullptr, dest, root);
-}
-
-void GameObject2D::ConvertPositionLocalToWorld(T_FLOAT local_x, T_FLOAT local_y, TVec2f* dest, GameObject2D* root) const
-{
-  this->ConvertPositionLocalToWorld(&TVec2f(local_x, local_y), dest, root);
-}
-
-T_FLOAT GameObject2D::ConvertXLocalToWorld(T_FLOAT local_x, GameObject2D* root) const
-{
-  return this->transform_->GetWorldPosition(root).x + local_x;
-}
-
-T_FLOAT GameObject2D::ConvertYLocalToWorld(T_FLOAT local_y, GameObject2D* root) const
-{
-  return this->transform_->GetWorldPosition(root).y + local_y;
 }
 
 void GameObject2D::RegisterEntityModifier(EntityModifierRoot* root)
@@ -210,18 +164,16 @@ void GameObject2D::UnregisterEntityModifier(EntityModifierRoot* root)
 
 void GameObject2D::ClearEntityModifiers()
 {
-  HalEngine::Resource::GetEntityModifierManager()->ClearModifiersWithTargetEntity(this);
+  EntityModifierManager::GetInstance().ClearModifiersWithTargetEntity(this);
 }
 
-void GameObject2D::PushMatrixStack(GameObject2DRenderState* state)
+void GameObject2D::PushMatrixStack(GameObjectRenderState* state)
 {
-  state->PushColor(this->color_);
   state->PushMatrix(this->transform_->GetMatrix());
 }
 
-void GameObject2D::PopMatrixStack(GameObject2DRenderState* state)
+void GameObject2D::PopMatrixStack(GameObjectRenderState* state)
 {
-  state->PopColor();
   state->PopMatrix();
 }
 
@@ -230,7 +182,7 @@ void GameObject2D::PopMatrixStack(GameObject2DRenderState* state)
 // =================================================================
 void GameObject2D::FireOnPositionChanged(GameObject* root)
 {
-  this->transform_->OnWorldPositionDirty();
+  this->transform_->OnWorldTransformDirty();
   this->OnPositionChanged(root);
   for (std::vector<GameObject2D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
   {
@@ -241,7 +193,7 @@ void GameObject2D::FireOnPositionChanged(GameObject* root)
 
 void GameObject2D::FireOnScaleChanged(GameObject* root)
 {
-  this->transform_->OnWorldPositionDirty();
+  this->transform_->OnWorldTransformDirty();
   this->OnScaleChanged(root);
   for (std::vector<GameObject2D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
   {
@@ -252,7 +204,7 @@ void GameObject2D::FireOnScaleChanged(GameObject* root)
 
 void GameObject2D::FireOnRotationChanged(GameObject* root)
 {
-  this->transform_->OnWorldPositionDirty();
+  this->transform_->OnWorldTransformDirty();
   this->OnRotationChanged(root);
   for (std::vector<GameObject2D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
   {

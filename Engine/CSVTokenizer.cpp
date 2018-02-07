@@ -1,140 +1,53 @@
 #include "CSVTokenizer.h"
-#include <stdlib.h>
-#include <string.h>
 
 // =================================================================
 // CSVToken
 // =================================================================
+CSVToken CSVToken::Create(const std::string& str)
+{
+  if (str[0] == '\"')
+  {
+    std::string ret = std::string();
+    ret.append(str, 1, str.length() - 2);
+    return CSVToken(ret);
+  }
+  return CSVToken(str);
+}
 
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-CSVToken::CSVToken(T_UINT32 line_index, T_UINT16 token_index, const char* str, T_UINT8 len)
-  : line_index_(line_index)
-  , token_index_(token_index)
-  , exception_(NULL)
+CSVToken::CSVToken(const std::string& str)
+  : str_(str)
 {
-  const T_UINT8 strlen = len + 1;
-  this->str_ = new char[strlen];
-  for (T_UINT8 i = 0; i < len; ++i)
-  {
-    this->str_[i] = str[i];
-  }
-  this->str_[len] = '\0';
-
-  if (this->str_[0] == '\"')
-  {
-    this->trimed_str_ = new char[strlen - 2];
-    strncpy_s(this->trimed_str_, sizeof(char) * (strlen - 2), this->str_ + 1, strlen - 2);
-  }
-  else
-  {
-    this->trimed_str_ = new char[strlen];
-    strncpy_s(this->trimed_str_, sizeof(char) * strlen, this->str_, strlen);
-  }
-}
-
-CSVToken::~CSVToken()
-{
-  delete[] this->str_;
-  delete[] this->trimed_str_;
-}
-
-// =================================================================
-// Method
-// =================================================================
-void CSVToken::ThrowException(const char* message)
-{
-  if (!this->exception_)
-  {
-    return;
-  }
-  this->exception_(this, message);
 }
 
 // =================================================================
 // Setter / Getter
 // =================================================================
-T_INT32 CSVToken::GetInt32()
+T_INT32 CSVToken::ToInt32() const
 {
-  size_t len = strlen(this->str_);
-  if (len == 0)
-  {
-    this->ThrowException("int32Œ^‚É‹ó‚Ì•¶Žš—ñ‚ª“n‚³‚ê‚Ü‚µ‚½");
-    return 0;
-  }
-  char* e;
-  T_INT32 ret = strtol(this->str_, &e, 0);
-  if ((*e) != '\0')
-  {
-    this->ThrowException("ƒg[ƒNƒ“‚ðint32Œ^‚É•ÏŠ·‚Å‚«‚Ü‚¹‚ñ");
-    return 0;
-  }
-  return ret;
+  return std::stoi(this->str_);
 }
 
-T_INT64 CSVToken::GetInt64()
+T_INT64 CSVToken::ToInt64() const
 {
-  size_t len = strlen(this->str_);
-  if (len == 0)
-  {
-    this->ThrowException("int64Œ^‚É‹ó‚Ì•¶Žš—ñ‚ª“n‚³‚ê‚Ü‚µ‚½");
-    return 0;
-  }
-  char* e;
-  T_INT64 ret = strtol(this->str_, &e, 0);
-  if ((*e) != '\0')
-  {
-    this->ThrowException("ƒg[ƒNƒ“‚ðint64Œ^‚É•ÏŠ·‚Å‚«‚Ü‚¹‚ñ");
-    return 0;
-  }
-  return ret;
+  return std::stol(this->str_);
 }
 
-T_FLOAT CSVToken::GetFloat()
+T_FLOAT CSVToken::ToFloat() const
 {
-  size_t len = strlen(this->str_);
-  if (len == 0)
-  {
-    this->ThrowException("floatŒ^‚É‹ó‚Ì•¶Žš—ñ‚ª“n‚³‚ê‚Ü‚µ‚½");
-    return 0.0f;
-  }
-  char* e;
-  T_FLOAT ret = strtof(this->str_, &e);
-  if ((*e) != '\0')
-  {
-    this->ThrowException("ƒg[ƒNƒ“‚ðfloatŒ^‚É•ÏŠ·‚Å‚«‚Ü‚¹‚ñ");
-    return 0.0f;
-  }
-  return ret;
+  return std::stof(this->str_);
 }
 
-T_DOUBLE CSVToken::GetDouble()
+T_DOUBLE CSVToken::ToDouble() const
 {
-  size_t len = strlen(this->str_);
-  if (len == 0)
-  {
-    this->ThrowException("doubleŒ^‚É‹ó‚Ì•¶Žš—ñ‚ª“n‚³‚ê‚Ü‚µ‚½");
-    return 0.0;
-  }
-  char* e;
-  T_DOUBLE ret = strtod(this->str_, &e);
-  if ((*e) != '\0')
-  {
-    this->ThrowException("ƒg[ƒNƒ“‚ðdoubleŒ^‚É•ÏŠ·‚Å‚«‚Ü‚¹‚ñ");
-    return 0.0;
-  }
-  return ret;
+  return std::stod(this->str_);
 }
 
-const char* CSVToken::GetString()
+const std::string& CSVToken::ToString() const
 {
-  return this->trimed_str_;
-}
-
-void CSVToken::SetException(void(*exception)(CSVToken*, const char *message))
-{
-  this->exception_ = exception;
+  return this->str_;
 }
 
 // =================================================================
@@ -144,27 +57,42 @@ void CSVToken::SetException(void(*exception)(CSVToken*, const char *message))
 // =================================================================
 // Method
 // =================================================================
-void CSVTokenizer::Prepare(T_UINT32 line_index, const char* txt)
+CSVTokenizer::CSVTokenizer(const std::string& str)
 {
-  T_UINT8 cnt = 0;
-  T_UINT8 len = 0;
-  char strbuf[256] = {};
-  do
+  std::string strbuf = std::string();
+  const char* p = str.c_str();
+  while(*p != '\0' || *p == '\n')
   {
-    if (txt[cnt] == ',' || txt[cnt] == '\0' || txt[cnt] == '\n')
+    if (*p == ',')
     {
-      CSVToken* token = new CSVToken(line_index, (T_UINT16)this->tokens_.size(), strbuf, len);
-      token->SetException(this->exception_);
-      this->tokens_.push_back(token);
-      len = 0;
+      this->tokens_.push_back(CSVToken::Create(strbuf));
+      strbuf.clear();
     }
     else
     {
-      strbuf[len] = txt[cnt];
-      ++len;
+      strbuf.append(p, 1);
     }
-    ++cnt;
-  } while (txt[cnt-1] != '\0' && txt[cnt-1] != '\n');
+    ++p;
+  }
+  if (strbuf.length() > 0)
+  {
+    this->tokens_.push_back(CSVToken::Create(strbuf));
+  }
+  this->now_token_index_ = 0;
+}
+
+CSVTokenizer::CSVTokenizer(const CSVTokenizer& other)
+  : tokens_(other.tokens_)
+  , now_token_index_(0)
+{
+}
+
+CSVTokenizer::~CSVTokenizer()
+{
+}
+
+void CSVTokenizer::Reset()
+{
   this->now_token_index_ = 0;
 }
 
@@ -173,9 +101,9 @@ bool CSVTokenizer::HasNextToken()
   return this->now_token_index_ < this->tokens_.size();
 }
 
-CSVToken* CSVTokenizer::NextToken()
+const CSVToken& CSVTokenizer::NextToken()
 {
-  CSVToken* ret = this->tokens_[this->now_token_index_];
+  const CSVToken& ret = this->tokens_[this->now_token_index_];
   ++this->now_token_index_;
   return ret;
 }

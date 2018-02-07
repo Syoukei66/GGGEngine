@@ -72,16 +72,16 @@ void DirectXInputDevice_XInput::InputProcess(T_UINT8 handler, EngineInputState* 
 
   //thumbL
   state->PreInputAnalog(handler, this->left_);
-  const T_FLOAT thumbL_x = xstate.Gamepad.sThumbLX / 65535.0f;
-  const T_FLOAT thumbL_y = xstate.Gamepad.sThumbLY / 65535.0f;
+  const T_FLOAT thumbL_x = xstate.Gamepad.sThumbLX / 32767.0f;
+  const T_FLOAT thumbL_y = xstate.Gamepad.sThumbLY / 32767.0f;
   state->InputAnalog(handler, this->left_, 0, thumbL_x);
   state->InputAnalog(handler, this->left_, 1, thumbL_y);
   state->PostInputAnalog(handler, this->left_);
 
   //thumbR
   state->PreInputAnalog(handler, this->right_);
-  const T_FLOAT thumbR_x = xstate.Gamepad.sThumbRX / 65535.0f;
-  const T_FLOAT thumbR_y = xstate.Gamepad.sThumbRY / 65535.0f;
+  const T_FLOAT thumbR_x = xstate.Gamepad.sThumbRX / 32767.0f;
+  const T_FLOAT thumbR_y = xstate.Gamepad.sThumbRY / 32767.0f;
   state->InputAnalog(handler, this->right_, 0, thumbR_x);
   state->InputAnalog(handler, this->right_, 1, thumbR_y);
   state->PostInputAnalog(handler, this->right_);

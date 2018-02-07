@@ -2,7 +2,8 @@
 
 #include <deque>
 #include "Camera.h"
-#include "GameObject2DRenderState.h"
+#include "GameObjectRenderState.h"
+#include "GameObject2D.h"
 
 class Camera2D : public Camera
 {
@@ -18,27 +19,37 @@ public:
   // Methods for/from SuperClass/Interfaces
   // =================================================================
 public:
-  virtual void OnDrawScene(Scene* scene) override;
+  virtual const INativeMatrix* GetViewMatrix() const override;
+  virtual const INativeMatrix* GetProjectionMatrix() const override;
 
 protected:
-  virtual void OnViewportDirty() override;
-  virtual const INativeMatrix* GetViewMatrix() override;
-  virtual const INativeMatrix* GetProjectionMatrix() override;
+  virtual void OnViewportChanged() override;
+  virtual void OnDrawScene(Scene* scene) override;
 
   // =================================================================
   // Method
   // =================================================================
 public:
-  inline GameObject2DRenderState* GetRenderState()
+  inline GameObjectRenderState* GetRenderState()
   {
     return this->render_state_;
+  }
+
+  // =================================================================
+  // Setter / Getter
+  // =================================================================
+public:
+  inline Transform2D* GetTransform()
+  {
+    return ((GameObject2D*)this->entity_)->GetTransform();
   }
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
-  GameObject2DRenderState* render_state_;
+  GameObjectRenderState* render_state_;
 
   INativeMatrix* projection_matrix_;
+  bool projection_dirty_;
 };

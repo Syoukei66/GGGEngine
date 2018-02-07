@@ -108,32 +108,32 @@ EntityModifier* RotationFromTo(T_UINT32 duration, T_FLOAT from, T_FLOAT to);
 //=======================================================================
 // Color
 //=======================================================================
-EntityModifier* ColorBy(T_UINT32 duration, const Color& value);
-EntityModifier* ColorBy(T_UINT32 duration, T_INT16 value_r, T_INT16 value_g, T_INT16 value_b, T_INT16 value_a);
-EntityModifier* ColorByRed(T_UINT32 duration, T_INT16 value_r);
-EntityModifier* ColorByGreen(T_UINT32 duration, T_INT16 value_g);
-EntityModifier* ColorByBlue(T_UINT32 duration, T_INT16 value_b);
-EntityModifier* ColorByAlpha(T_UINT32 duration, T_INT16 value_a);
+EntityModifier* ColorBy(T_UINT32 duration, const Color4F& value);
+EntityModifier* ColorBy(T_UINT32 duration, T_FLOAT value_r, T_FLOAT value_g, T_FLOAT value_b, T_FLOAT value_a);
+EntityModifier* ColorByRed(T_UINT32 duration, T_FLOAT value_r);
+EntityModifier* ColorByGreen(T_UINT32 duration, T_FLOAT value_g);
+EntityModifier* ColorByBlue(T_UINT32 duration, T_FLOAT value_b);
+EntityModifier* ColorByAlpha(T_UINT32 duration, T_FLOAT value_a);
 
-EntityModifier* ColorTo(T_UINT32 duration, const Color& to);
-EntityModifier* ColorTo(T_UINT32 duration, T_UINT8 to_r, T_UINT8 to_g, T_UINT8 to_b, T_UINT8 to_a);
-EntityModifier* ColorToRed(T_UINT32 duration, T_UINT8 to_r);
-EntityModifier* ColorToGreen(T_UINT32 duration, T_UINT8 to_g);
-EntityModifier* ColorToBlue(T_UINT32 duration, T_UINT8 to_b);
-EntityModifier* ColorToAlpha(T_UINT32 duration, T_UINT8 to_a);
+EntityModifier* ColorTo(T_UINT32 duration, const Color4F& to);
+EntityModifier* ColorTo(T_UINT32 duration, T_FLOAT to_r, T_FLOAT to_g, T_FLOAT to_b, T_FLOAT to_a);
+EntityModifier* ColorToRed(T_UINT32 duration, T_FLOAT to_r);
+EntityModifier* ColorToGreen(T_UINT32 duration, T_FLOAT to_g);
+EntityModifier* ColorToBlue(T_UINT32 duration, T_FLOAT to_b);
+EntityModifier* ColorToAlpha(T_UINT32 duration, T_FLOAT to_a);
 
-EntityModifier* ColorFromBy(T_UINT32 duration, const Color& from, const Color& value);
-EntityModifier* ColorFromBy(T_UINT32 duration, T_UINT8 from_r, T_UINT8 from_g, T_UINT8 from_b, T_UINT8 from_a, T_INT16 value_r, T_INT16 value_g, T_INT16 value_b, T_INT16 value_a);
-EntityModifier* ColorFromByRed(T_UINT32 duration, T_UINT8 from_r, T_INT16 value_r);
-EntityModifier* ColorFromByGreen(T_UINT32 duration, T_UINT8 from_g, T_INT16 value_g);
-EntityModifier* ColorFromByBlue(T_UINT32 duration, T_UINT8 from_b, T_INT16 value_b);
-EntityModifier* ColorFromByAlpha(T_UINT32 duration, T_UINT8 from_a, T_INT16 value_a);
+EntityModifier* ColorFromBy(T_UINT32 duration, const Color4F& from, const Color4F& value);
+EntityModifier* ColorFromBy(T_UINT32 duration, T_FLOAT from_r, T_FLOAT from_g, T_FLOAT from_b, T_FLOAT from_a, T_FLOAT value_r, T_FLOAT value_g, T_FLOAT value_b, T_FLOAT value_a);
+EntityModifier* ColorFromByRed(T_UINT32 duration, T_FLOAT from_r, T_FLOAT value_r);
+EntityModifier* ColorFromByGreen(T_UINT32 duration, T_FLOAT from_g, T_FLOAT value_g);
+EntityModifier* ColorFromByBlue(T_UINT32 duration, T_FLOAT from_b, T_FLOAT value_b);
+EntityModifier* ColorFromByAlpha(T_UINT32 duration, T_FLOAT from_a, T_FLOAT value_a);
 
-EntityModifier* ColorFromTo(T_UINT32 duration, const Color& from, const Color& to);
-EntityModifier* ColorFromTo(T_UINT32 duration, T_UINT8 from_r, T_UINT8 from_g, T_UINT8 from_b, T_UINT8 from_a, T_UINT8 to_r, T_UINT8 to_g, T_UINT8 to_b, T_UINT8 to_a);
-EntityModifier* ColorFromToRed(T_UINT32 duration, T_UINT8 from_r, T_UINT8 to_r);
-EntityModifier* ColorFromToGreen(T_UINT32 duration, T_UINT8 from_g, T_UINT8 to_g);
-EntityModifier* ColorFromToBlue(T_UINT32 duration, T_UINT8 from_b, T_UINT8 to_b);
-EntityModifier* ColorFromToAlpha(T_UINT32 duration, T_UINT8 from_a, T_UINT8 to_a);
+EntityModifier* ColorFromTo(T_UINT32 duration, const Color4F& from, const Color4F& to);
+EntityModifier* ColorFromTo(T_UINT32 duration, T_FLOAT from_r, T_FLOAT from_g, T_FLOAT from_b, T_FLOAT from_a, T_FLOAT to_r, T_FLOAT to_g, T_FLOAT to_b, T_FLOAT to_a);
+EntityModifier* ColorFromToRed(T_UINT32 duration, T_FLOAT from_r, T_FLOAT to_r);
+EntityModifier* ColorFromToGreen(T_UINT32 duration, T_FLOAT from_g, T_FLOAT to_g);
+EntityModifier* ColorFromToBlue(T_UINT32 duration, T_FLOAT from_b, T_FLOAT to_b);
+EntityModifier* ColorFromToAlpha(T_UINT32 duration, T_FLOAT from_a, T_FLOAT to_a);
 
 }

@@ -5,7 +5,12 @@
 // =================================================================
 // Factory Method
 // =================================================================
-TextureRegion* TextureRegion::CreateWithTexture(const Texture* texture)
+TextureRegion* TextureRegion::CreateWithMaterial(const Material& material)
+{
+  return TextureRegion::CreateWithTexture(material.GetMainTexture());
+}
+
+TextureRegion* TextureRegion::CreateWithTexture(const Texture& texture)
 {
   TextureRegion* ret = new TextureRegion();
   ret->Init();
@@ -26,10 +31,10 @@ TextureRegion::~TextureRegion()
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
-void TextureRegion::OnUpdateTextureCoord()
+void TextureRegion::OnUpdateTextureCoord(const Texture* texture)
 {
-  const T_FLOAT tw = (T_FLOAT)this->GetTexture()->GetWidth();
-  const T_FLOAT th = (T_FLOAT)this->GetTexture()->GetHeight();
+  const T_FLOAT tw = (T_FLOAT)texture->GetWidth();
+  const T_FLOAT th = (T_FLOAT)texture->GetHeight();
   const T_FLOAT x = this->GetX();
   const T_FLOAT y = this->GetY();
   const T_FLOAT w = this->GetWidth();

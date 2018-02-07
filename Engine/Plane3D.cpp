@@ -1,10 +1,13 @@
 #include "Plane3D.h"
-#include "VertexBufferObject_Primitive3D_Plane.h"
+#include "MeshRenderer.h"
+#include "EngineAsset.h"
 
 // =================================================================
-// Constructor / Destructor
+// Factory Method
 // =================================================================
-Plane3D::Plane3D()
-  : Shape3D(new VertexBufferObject_Primitive3D_Plane())
+Plane3D* Plane3D::Create()
 {
+  Plane3D* ret = new Plane3D();
+  ret->SetRenderer(MeshRenderer::Create(EngineAsset::Mesh::PLANE.GetContents(), ret));
+  return ret;
 }
