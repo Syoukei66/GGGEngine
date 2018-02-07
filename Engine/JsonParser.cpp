@@ -47,13 +47,21 @@ JsonValue::JsonValue(const std::string& text, T_UINT8 depth)
   , text_(text)
 {}
 
-T_INT32 JsonValue::IntValue() const
+T_INT32 JsonValue::IntValue(T_INT32 deflt) const
 {
+  if (this->text_.length() == 0)
+  {
+    return deflt;
+  }
   return std::stoi(this->text_);
 }
 
-T_FLOAT JsonValue::FloatValue() const
+T_FLOAT JsonValue::FloatValue(T_FLOAT deflt) const
 {
+  if (this->text_.length() == 0)
+  {
+    return deflt;
+  }
   return std::stof(this->text_);
 }
 
@@ -78,6 +86,15 @@ JsonNode::~JsonNode()
   this->value_map_.clear();
 }
 
+JsonString* JsonNode::GainString(const std::string& key)
+{
+  if (this->value_map_.find(key) == this->value_map_.end())
+  {
+    this->value_map_[key] = new JsonString("", this->depth_ + 1);
+  }
+  return (JsonString*)this->value_map_.at(key);
+}
+
 JsonString* JsonNode::GetString(const std::string& key)
 {
   if (this->value_map_.find(key) == this->value_map_.end())
@@ -94,6 +111,15 @@ const JsonString* JsonNode::GetString(const std::string& key) const
     return nullptr;
   }
   return (JsonString*)this->value_map_.at(key);
+}
+
+JsonValue* JsonNode::GainValue(const std::string& key)
+{
+  if (this->value_map_.find(key) == this->value_map_.end())
+  {
+    this->value_map_[key] = new JsonValue("", this->depth_ + 1);
+  }
+  return (JsonValue*)this->value_map_.at(key);
 }
 
 JsonValue* JsonNode::GetValue(const std::string& key)
@@ -114,6 +140,15 @@ const JsonValue* JsonNode::GetValue(const std::string& key) const
   return (JsonValue*)this->value_map_.at(key);
 }
 
+JsonNode* JsonNode::GainNode(const std::string& key)
+{
+  if (this->value_map_.find(key) == this->value_map_.end())
+  {
+    this->value_map_[key] = new JsonNode(this->depth_ + 1);
+  }
+  return (JsonNode*)this->value_map_.at(key);
+}
+
 JsonNode* JsonNode::GetNode(const std::string& key)
 {
   if (this->value_map_.find(key) == this->value_map_.end())
@@ -130,6 +165,15 @@ const JsonNode* JsonNode::GetNode(const std::string& key) const
     return nullptr;
   }
   return (JsonNode*)this->value_map_.at(key);
+}
+
+JsonList* JsonNode::GainList(const std::string& key)
+{
+  if (this->value_map_.find(key) == this->value_map_.end())
+  {
+    this->value_map_[key] = new JsonList(this->depth_ + 1);
+  }
+  return (JsonList*)this->value_map_.at(key);
 }
 
 JsonList* JsonNode::GetList(const std::string& key)
@@ -369,6 +413,7 @@ std::string JsonParser::ParseString(const char** p, T_UINT8 depth)
     ++(*p);
   }
   NATIVE_ASSERT(false, "JsonParser::ParseString() : 予期せぬEOFが検出されました。");
+  return ret;
 }
 
 JsonBase* JsonParser::ParseValue(const char ** p, T_UINT8 depth)
@@ -403,6 +448,8 @@ JsonBase* JsonParser::ParseValue(const char ** p, T_UINT8 depth)
     ret.append(*p, 1);
     ++(*p);
   }
+  NATIVE_ASSERT(false, "JsonParser::ParseValue() : 予期せぬEOFが検出されました。");
+  return nullptr;
 }
 
 JsonString* JsonParser::ParseJsonString(const char** p, T_UINT8 depth)
@@ -424,6 +471,7 @@ JsonString* JsonParser::ParseJsonString(const char** p, T_UINT8 depth)
     ++(*p);
   }
   NATIVE_ASSERT(false, "JsonParser::ParseJsonString() : 予期せぬEOFが検出されました。");
+  return nullptr;
 }
 
 JsonValue* JsonParser::ParseJsonValue(const char** p, T_UINT8 depth)
@@ -444,6 +492,7 @@ JsonValue* JsonParser::ParseJsonValue(const char** p, T_UINT8 depth)
     ++(*p);
   }
   NATIVE_ASSERT(false, "JsonParser::ParseJsonValue() : 予期せぬEOFが検出されました。");
+  return nullptr;
 }
 
 JsonNode* JsonParser::ParseJsonMap(const char** p, T_UINT8 depth)
@@ -482,7 +531,12 @@ JsonNode* JsonParser::ParseJsonMap(const char** p, T_UINT8 depth)
     }
     ++(*p);
   }
+  if (depth == 0)
+  {
+    return ret;
+  }
   NATIVE_ASSERT(false, "JsonParser::ParseJsonMap() : 予期せぬEOFが検出されました。");
+  return ret;
 }
 
 JsonList* JsonParser::ParseJsonList(const char** p, T_UINT8 depth)
@@ -523,4 +577,5 @@ JsonList* JsonParser::ParseJsonList(const char** p, T_UINT8 depth)
     ++(*p);
   }
   NATIVE_ASSERT(false, "JsonParser::ParseJsonList() : 予期せぬEOFが検出されました。");
+  return ret;
 }

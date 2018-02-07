@@ -36,6 +36,11 @@ public:
   {
     return this->StringValue();
   }
+  JsonString& operator = (const std::string& s)
+  {
+    this->text_ = s;
+    return *this;
+  }
 
 public:
   const std::string& StringValue() const;
@@ -66,9 +71,20 @@ public:
     return this->FloatValue();
   }
 
+  JsonValue& operator = (const T_INT32& i)
+  {
+    this->text_ = std::to_string(i);
+    return *this;
+  }
+  JsonValue& operator = (const T_FLOAT& f)
+  {
+    this->text_ = std::to_string(f);
+    return *this;
+  }
+
 public:
-  T_INT32 IntValue() const;
-  T_FLOAT FloatValue() const;
+  T_INT32 IntValue(T_INT32 deflt = 0) const;
+  T_FLOAT FloatValue(T_FLOAT deflt = 0.0f) const;
 
 public:
   virtual const std::string ToString() const override;
@@ -95,15 +111,19 @@ public:
     this->value_map_[key] = value;
   }
 
+  JsonNode* GainNode(const std::string& key);
   JsonNode* GetNode(const std::string& key);
   const JsonNode* GetNode(const std::string& key) const;
 
+  JsonList* GainList(const std::string& key);
   JsonList* GetList(const std::string& key);
   const JsonList* GetList(const std::string& key) const;
 
+  JsonString* GainString(const std::string& key);
   JsonString* GetString(const std::string& key);
   const JsonString* GetString(const std::string& key) const;
 
+  JsonValue* GainValue(const std::string& key);
   JsonValue* GetValue(const std::string& key);
   const JsonValue* GetValue(const std::string& key) const;
 
