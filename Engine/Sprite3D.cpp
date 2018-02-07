@@ -7,7 +7,7 @@
 Sprite3D* Sprite3D::Create()
 {
   Sprite3D* ret = new Sprite3D();
-  ret->SetRenderer(new SpriteRenderer(ret));
+  ret->SetRenderer(new SpriteRenderer(ret, 0.01f));
   ret->Init();
   return ret;
 }

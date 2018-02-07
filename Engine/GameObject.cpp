@@ -31,5 +31,5 @@ void GameObject::ManagedDraw(GameObjectRenderState* state)
   {
     return;
   }
-  this->renderer_->Draw(state);
+  this->renderer_->ReserveDraw(state);
 }

@@ -10,15 +10,15 @@
 class Camera;
 class Renderer;
 class SubMesh;
+class Material;
 
 class GameObjectRenderState
 {
 private:
-  class PostDrawParam
+  class DrawParam
   {
   public:
     Renderer* renderer;
-    SubMesh* mesh_;
     T_FLOAT distance;
   };
 
@@ -91,6 +91,6 @@ private:
 
   INativeMatrix* mat_;
   //std::map<int, std::vector<PostDrawParam>> post_draw_map_;
-  //std::map<Material*, std::vector<SubMesh*>> draw_map_;
-  //std::map<int, std::map<Material*, std::vector<PostDrawParam*>>> post_draw_map_;
+  std::map<Material*, std::vector<DrawParam>> draw_map_;
+  std::map<int, std::map<Material*, std::vector<DrawParam>>> post_draw_map_;
 };

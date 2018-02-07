@@ -6,7 +6,7 @@
 AnimatedSprite* AnimatedSprite::Create()
 {
   AnimatedSprite* ret = new AnimatedSprite();
-  ret->SetRenderer(new AnimatedSpriteRenderer(ret));
+  ret->SetRenderer(new AnimatedSpriteRenderer(ret, 1.0f));
   ret->Init();
   return ret;
 }

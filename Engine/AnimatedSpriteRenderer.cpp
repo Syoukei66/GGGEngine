@@ -3,8 +3,8 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-AnimatedSpriteRenderer::AnimatedSpriteRenderer(GameObject* entity)
-  : SpriteRenderer(entity)
+AnimatedSpriteRenderer::AnimatedSpriteRenderer(GameObject* entity, T_FLOAT image_scale)
+  : SpriteRenderer(entity, image_scale)
   , frame_count_(0)
   , duration_frame_(0)
   , animation_begin_(0)

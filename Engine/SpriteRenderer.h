@@ -10,7 +10,7 @@ class SpriteRenderer : public Renderer
   // Constructor / Destructor
   // =================================================================
 public:
-  SpriteRenderer(GameObject* entity);
+  SpriteRenderer(GameObject* entity, T_FLOAT image_scale);
   ~SpriteRenderer();
 
   // =================================================================
@@ -82,5 +82,6 @@ protected:
   bool delete_region_;
   ITextureRegion* texture_region_;
   TSizef size_;
+  T_FLOAT image_scale_;
 
 };
