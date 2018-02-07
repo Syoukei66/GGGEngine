@@ -18,6 +18,7 @@
 
 #include "imgui\imgui.h"
 #include "imgui\imgui_impl_dx9.h"
+#include "imgui_ja_gryph_ranges.h"
 
 #ifdef _DEBUG
 static const T_UINT8 DEBUG_FONT_WIDTH = 16;
@@ -214,6 +215,7 @@ bool DirectXActivity::Init(const EngineOption* option)
   //imgui initialize
   ImGui_ImplDX9_Init(this->GetHWnd(), this->d3d_device_);
   ImGui::StyleColorsDark();
+  ImGui::SetupJapaneseString();
 
   return true;
 }

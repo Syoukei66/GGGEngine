@@ -209,6 +209,7 @@
     <ClCompile Include="FbxResource.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
+    <ClCompile Include="imgui_ja_gryph_ranges.cpp" />
     <ClCompile Include="JsonData.cpp" />
     <ClCompile Include="JsonResource.cpp" />
     <ClCompile Include="LoopSprite.cpp" />
@@ -336,6 +337,7 @@
     <ClInclude Include="imgui\stb_rect_pack.h" />
     <ClInclude Include="imgui\stb_textedit.h" />
     <ClInclude Include="imgui\stb_truetype.h" />
+    <ClInclude Include="imgui_ja_gryph_ranges.h" />
     <ClInclude Include="ITextureRegion.h" />
     <ClInclude Include="JsonData.h" />
     <ClInclude Include="JsonResource.h" />

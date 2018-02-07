@@ -756,6 +756,9 @@
     <ClCompile Include="JsonResource.cpp">
       <Filter>ソース ファイル\Resource\File\Json</Filter>
     </ClCompile>
+    <ClCompile Include="imgui_ja_gryph_ranges.cpp">
+      <Filter>ソース ファイル\imgui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -1294,6 +1297,9 @@
     </ClInclude>
     <ClInclude Include="JsonData.h">
       <Filter>ヘッダー ファイル\Resource\File\Json</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_ja_gryph_ranges.h">
+      <Filter>ヘッダー ファイル\imgui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
