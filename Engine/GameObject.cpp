@@ -1,7 +1,6 @@
 #include "GameObject.h"
 #include <stdlib.h>
 
-#include "EngineInitializeSetting.h"
 #include "EngineAsset.h"
 
 // =================================================================
@@ -9,8 +8,6 @@
 // =================================================================
 GameObject::GameObject()
   : visible_(true)
-  , layer_id_(EngineInitializeSetting::GetInstance().GetDefaultLayerId())
-  , material_(nullptr)
   , renderer_(nullptr)
 {
 }
@@ -34,10 +31,5 @@ void GameObject::ManagedDraw(GameObjectRenderState* state)
   {
     return;
   }
-  this->renderer_->Draw(state);
-}
-
-void GameObject::UniqueMaterial()
-{
-  this->material_ = this->material_->InitialClone();
+  this->renderer_->ReserveDraw(state);
 }

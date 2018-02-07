@@ -1,9 +1,7 @@
 #include "GameObject2D.h"
-
-#include <algorithm>
+#include "GameObjectRenderState.h"
 #include "EntityModifier.h"
-#include "GameObject2DRenderState.h"
-#include "Moniker.h"
+#include "EntityModifierManager.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -109,7 +107,7 @@ void GameObject2D::ClearChildren()
   this->children_.clear();
 }
 
-void GameObject2D::Draw(GameObject2DRenderState* state)
+void GameObject2D::Draw(GameObjectRenderState* state)
 {
   if (!this->IsVisible())
   {
@@ -132,10 +130,7 @@ void GameObject2D::Draw(GameObject2DRenderState* state)
     if (child->zindex_ == 0 && !self_already_drawed)
     {
       //2.Ž©•ªŽ©g
-      if (state->IsTargetedLayer(this->GetLayerId()))
-      {
-        this->ManagedDraw(state);
-      }
+      this->ManagedDraw(state);
       self_already_drawed = true;
     }
     if (!child->IsVisible())
@@ -147,10 +142,7 @@ void GameObject2D::Draw(GameObject2DRenderState* state)
   if (!self_already_drawed)
   {
     //2.Ž©•ªŽ©g
-    if (state->IsTargetedLayer(this->GetLayerId()))
-    {
-      this->ManagedDraw(state);
-    }
+    this->ManagedDraw(state);
   }
 
   this->PopMatrixStack(state);
@@ -172,15 +164,15 @@ void GameObject2D::UnregisterEntityModifier(EntityModifierRoot* root)
 
 void GameObject2D::ClearEntityModifiers()
 {
-  HalEngine::Resource::GetEntityModifierManager()->ClearModifiersWithTargetEntity(this);
+  EntityModifierManager::GetInstance().ClearModifiersWithTargetEntity(this);
 }
 
-void GameObject2D::PushMatrixStack(GameObject2DRenderState* state)
+void GameObject2D::PushMatrixStack(GameObjectRenderState* state)
 {
   state->PushMatrix(this->transform_->GetMatrix());
 }
 
-void GameObject2D::PopMatrixStack(GameObject2DRenderState* state)
+void GameObject2D::PopMatrixStack(GameObjectRenderState* state)
 {
   state->PopMatrix();
 }

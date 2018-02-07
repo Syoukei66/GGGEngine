@@ -1,52 +1,37 @@
 #pragma once
 
-#include <vector>
-#include <map>
-#include "GameObjectRenderState.h"
+#include "JsonParser.h"
 
-class Camera3D;
-class GameObject3D;
-
-class GameObject3DRenderState : public GameObjectRenderState
+class JsonData
 {
-private:
-  class PostDrawParam
-  {
-  public:
-    GameObject3D* object;
-    T_FLOAT distance;
-  };
-
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  GameObject3DRenderState(Camera3D* camera);
-  ~GameObject3DRenderState();
+  JsonData();
+  ~JsonData();
 
   // =================================================================
-  // Method
+  // Methods
   // =================================================================
 public:
-  void AddZCheckOrder(T_UINT8 level, GameObject3D* object);
-  void DrawZOrderedGameObject();
+  void Read(const char* path);
+  void Write(const char* path);
 
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  inline Camera3D* GetCamera() const
+  inline JsonNode* GetRoot() const
   {
-    return this->camera_;
+    return this->root_;
   }
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
-  Camera3D* const camera_;
-
-  INativeMatrix* mat_;
-  std::map<int, std::vector<PostDrawParam>> post_draw_map_;
+  std::string path_;
+  JsonNode* root_;
 
 };

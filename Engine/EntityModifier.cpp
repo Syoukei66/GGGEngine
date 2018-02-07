@@ -2,7 +2,7 @@
 #include <algorithm>
 
 #include "EasingFunctionManager.h"
-#include "Moniker.h"
+#include "EntityModifierManager.h"
 
 //=========================================================================
 // EntityModifierRoot
@@ -72,7 +72,8 @@ void EntityModifierRoot::OnRelease()
   {
     return;
   }
-  HalEngine::Resource::GetEntityModifierManager()->GetModifierRootAllocator()->Free(this);
+  
+  EntityModifierManager::GetInstance().GetModifierRootAllocator()->Free(this);
 }
 
 void EntityModifierRoot::OnFinish()
@@ -165,7 +166,7 @@ void DelayEntityModifier::OnFree()
 
 void DelayEntityModifier::Free()
 {
-  HalEngine::Resource::GetEntityModifierManager()->GetDelayModifierAllocator()->Free(this);
+  EntityModifierManager::GetInstance().GetDelayModifierAllocator()->Free(this);
 }
 
 void DelayEntityModifier::OnTimelineUpdate(GameObject2D* target, T_FLOAT progress)
@@ -197,7 +198,7 @@ void SequenceEntityModifier::OnFree()
 
 void SequenceEntityModifier::Free()
 {
-  HalEngine::Resource::GetEntityModifierManager()->GetSequenceModifierAllocator()->Free(this);
+  EntityModifierManager::GetInstance().GetSequenceModifierAllocator()->Free(this);
 }
 
 void SequenceEntityModifier::OnTimelineUpdate(GameObject2D* target, T_FLOAT progress)
@@ -253,7 +254,7 @@ void SynchronizedEntityModifier::OnFree()
 
 void SynchronizedEntityModifier::Free()
 {
-  HalEngine::Resource::GetEntityModifierManager()->GetSynchronizedModifierAllocator()->Free(this);
+  EntityModifierManager::GetInstance().GetSynchronizedModifierAllocator()->Free(this);
 }
 
 void SynchronizedEntityModifier::OnTimelineUpdate(GameObject2D* target, T_FLOAT progress)
@@ -302,7 +303,7 @@ void LoopEntityModifier::OnFree()
 
 void LoopEntityModifier::Free()
 {
-  HalEngine::Resource::GetEntityModifierManager()->GetLoopModifierAllocator()->Free(this);
+  EntityModifierManager::GetInstance().GetLoopModifierAllocator()->Free(this);
 }
 
 void LoopEntityModifier::OnTimelineUpdate(GameObject2D* target, T_FLOAT progress)
@@ -344,7 +345,7 @@ void RoundEntityModifier::OnFree()
 
 void RoundEntityModifier::Free()
 {
-  HalEngine::Resource::GetEntityModifierManager()->GetRoundModifierAllocator()->Free(this);
+  EntityModifierManager::GetInstance().GetRoundModifierAllocator()->Free(this);
 }
 
 void RoundEntityModifier::OnTimelineUpdate(GameObject2D* target, T_FLOAT progress)
@@ -441,7 +442,7 @@ void AttributeEntityModifier::OnFree()
 
 void AttributeEntityModifier::Free()
 {
-  HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierAllocator()->Free(this);
+  EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Free(this);
 }
 
 void AttributeEntityModifier::OnTimelineUpdate(GameObject2D* target, T_FLOAT progress)
@@ -479,7 +480,7 @@ void AttributeEntityModifierEx::OnFree()
 
 void AttributeEntityModifierEx::Free()
 {
-  HalEngine::Resource::GetEntityModifierManager()->GetAttributeModifierExAllocator()->Free(this);
+  EntityModifierManager::GetInstance().GetAttributeModifierExAllocator()->Free(this);
 }
 
 void AttributeEntityModifierEx::OnTimelineUpdate(GameObject2D* target, T_FLOAT progress)

@@ -1,9 +1,9 @@
 #pragma once
 
 #include <fbxsdk.h>
-#include "MeshMaterial.h"
+#include "MeshData.h"
 
-class FbxMeshMaterial : public MeshMaterial
+class FbxMeshMaterial : public MeshData
 {
   // =================================================================
   // Constructor / Destructor

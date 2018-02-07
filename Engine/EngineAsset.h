@@ -1,6 +1,7 @@
 #pragma once
 #include "ShaderResource.h"
 #include "Material.h"
+#include "MeshResource.h"
 
 namespace EngineAsset
 {
@@ -24,5 +25,12 @@ extern class Material PRIMITIVE;
 extern class Material SPRITE;
 extern class Material WHITE;
 } // namespace Material
+
+namespace Mesh
+{
+extern MeshResource QUAD;
+extern MeshResource PLANE;
+extern MeshResource CUBE;
+} // namespace Mesh
 
 } // namespace EngineAsset

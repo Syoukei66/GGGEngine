@@ -1,13 +1,27 @@
 #pragma once
 
+#include <map>
+#include <vector>
 #include "NativeType.h"
 #include "BlendFunction.h"
 #include "NativeMatrix.h"
 #include "NativeMatrixStack.h"
-#include "Camera.h"
+
+class Camera;
+class Renderer;
+class SubMesh;
+class Material;
 
 class GameObjectRenderState
 {
+private:
+  class DrawParam
+  {
+  public:
+    Renderer* renderer;
+    T_FLOAT distance;
+  };
+
   // =================================================================
   // Constructor / Destructor
   // =================================================================
@@ -22,7 +36,10 @@ public:
   virtual void Init();
   void PushMatrix(const INativeMatrix& matrix);
   void PopMatrix();
-  
+
+  void AddZCheckOrder(T_UINT8 level, Renderer* renderer);
+  void DrawZOrderedGameObject();
+
   // =================================================================
   // Setter / Getter
   // =================================================================
@@ -72,4 +89,8 @@ private:
   INativeMatrix* view_proj_matrix_;
   INativeMatrix* world_view_proj_matrix_;
 
+  INativeMatrix* mat_;
+  //std::map<int, std::vector<PostDrawParam>> post_draw_map_;
+  std::map<Material*, std::vector<DrawParam>> draw_map_;
+  std::map<int, std::map<Material*, std::vector<DrawParam>>> post_draw_map_;
 };

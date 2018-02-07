@@ -4,13 +4,18 @@
 
 #include "NativeMethod.h"
 #include "Director.h"
-#include "GameObject2DRenderState.h"
 
+// =================================================================
+// Factory Method
+// =================================================================
 SkeletonAnimation* SkeletonAnimation::CreateWithData(const SpineData* data)
 {
   return new SkeletonAnimation(data->skeleton_data);
 }
 
+// =================================================================
+// Constructor / Destructor
+// =================================================================
 SkeletonAnimation::SkeletonAnimation(spSkeletonData* data)
   : data_(data)
 {
@@ -36,25 +41,19 @@ SkeletonAnimation::~SkeletonAnimation()
   spAnimationState_dispose(this->state_);
 }
 
-void SkeletonAnimation::PreDraw(GameObject2DRenderState* state)
+// =================================================================
+// Methods for/from SuperClass/Interfaces
+// =================================================================
+void SkeletonAnimation::ManagedDraw(GameObjectRenderState* state)
 {
-  const T_FLOAT delta_time = 0.001f * Director::GetInstance()->GetEngineOption()->render_cycle * this->time_scale_;
-  spSkeleton_update(this->skeleton_, delta_time);
-  spAnimationState_update(this->state_, delta_time);
-  spAnimationState_apply(this->state_, this->skeleton_);
-  spSkeleton_updateWorldTransform(this->skeleton_);
-}
-
-void SkeletonAnimation::NativeDraw(GameObject2DRenderState* state)
-{
-  Color4F nodeColor = this->GetMaterial()->GetDiffuse();
+  Color4F nodeColor = this->GetRenderer()->GetMaterial()->GetDiffuse();
 
   AttachmentVertexes* attachment_vertexes = nullptr;
   Color4F color = Color4F();
   for (int i = 0, n = skeleton_->slotsCount; i < n; ++i)
   {
     spSlot* slot = skeleton_->drawOrder[i];
-    
+
     if (slot->attachment->type != SP_ATTACHMENT_REGION)
     {
       //RegionAttachmentˆÈŠO‚Í–¢‘Î‰ž
@@ -108,9 +107,18 @@ void SkeletonAnimation::NativeDraw(GameObject2DRenderState* state)
     //this->ApplyBlendMode(state);
     //NativeMethod::Graphics().Graphics_SetTexture(attachment_vertexes->texture_);
     NativeMethod::Graphics().Graphics_DrawSprite(state, INativeProcess_Graphics::PRIMITIVE_TRIANGLESTRIP, vertexes, attachment_vertexes->size_);
-    
+
     delete[] vertexes;
   }
+}
+
+void SkeletonAnimation::Update()
+{
+  const T_FLOAT delta_time = 0.001f * Director::GetInstance()->GetEngineOption()->render_cycle * this->time_scale_;
+  spSkeleton_update(this->skeleton_, delta_time);
+  spAnimationState_update(this->state_, delta_time);
+  spAnimationState_apply(this->state_, this->skeleton_);
+  spSkeleton_updateWorldTransform(this->skeleton_);
 }
 
 //=============================================================================

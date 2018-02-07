@@ -1,6 +1,7 @@
 #include "Camera2D.h"
 #include "NativeMethod.h"
 #include "Scene.h"
+#include "GameObjectRenderState.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -9,7 +10,8 @@ Camera2D::Camera2D(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT 
   : Camera(x, y, width, height, z_min, z_max)
   , projection_dirty_(true)
 {
-  this->render_state_ = new GameObject2DRenderState(this);
+  this->entity_ = new GameObject2D();
+  this->render_state_ = new GameObjectRenderState(this);
   this->projection_matrix_ = INativeMatrix::Create();
 }
 
@@ -17,7 +19,8 @@ Camera2D::Camera2D()
   : Camera()
   , projection_dirty_(true)
 {
-  this->render_state_ = new GameObject2DRenderState(this);
+  this->entity_ = new GameObject2D();
+  this->render_state_ = new GameObjectRenderState(this);
   this->projection_matrix_ = INativeMatrix::Create();
 }
 

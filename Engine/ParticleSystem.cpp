@@ -26,8 +26,9 @@ void Particle::OnEmission(const ParticleData* data, const Transform2D* offset)
     this->offset_y_ = offset->GetY();
   }
 
-  this->SetTextureRegion(data->region_);
-  this->FitToTexture();
+  //TODO: Œ»Ý•`‰æ•s‰Â”\
+  //this->SetTextureRegion(data->region_);
+  //this->FitToTexture();
 
   this->life_time = data->CalcValueByVariance(data->life_time, data->life_time_variance, 0) * Director::GetInstance()->GetFrameRate();
   this->life_time_rest = this->life_time;
@@ -65,10 +66,10 @@ bool Particle::OnUpdate(const ParticleData* data)
   this->life_time_rest = std::max(0.0f, this->life_time_rest - 1.0f);
   this->GetTransform()->SetScale(data->CalcValueByProgress(this->start_size, this->end_size, progress));
   this->GetTransform()->SetRotation(data->CalcValueByProgress(this->start_spin, this->end_spin, progress));
-  this->GetMaterial()->GetDiffuse().SetRed(data->CalcValueByProgress(this->start_color_r, this->end_color_r, progress));
-  this->GetMaterial()->GetDiffuse().SetGreen(data->CalcValueByProgress(this->start_color_g, this->end_color_g, progress));
-  this->GetMaterial()->GetDiffuse().SetBlue(data->CalcValueByProgress(this->start_color_b, this->end_color_b, progress));
-  this->GetMaterial()->GetDiffuse().SetAlpha(data->CalcValueByProgress(this->start_color_a, this->end_color_a, progress));
+  this->GetRenderer()->GetMaterial()->GetDiffuse().SetRed(data->CalcValueByProgress(this->start_color_r, this->end_color_r, progress));
+  this->GetRenderer()->GetMaterial()->GetDiffuse().SetGreen(data->CalcValueByProgress(this->start_color_g, this->end_color_g, progress));
+  this->GetRenderer()->GetMaterial()->GetDiffuse().SetBlue(data->CalcValueByProgress(this->start_color_b, this->end_color_b, progress));
+  this->GetRenderer()->GetMaterial()->GetDiffuse().SetAlpha(data->CalcValueByProgress(this->start_color_a, this->end_color_a, progress));
 
   return data->OnUpdate(this, progress, pre_progress - progress);
 }
@@ -172,7 +173,7 @@ void ParticleSystem::Update()
   }
 }
 
-void ParticleSystem::PushMatrixStack(GameObject2DRenderState* state)
+void ParticleSystem::PushMatrixStack(GameObjectRenderState* state)
 {
   if (this->apply_local_position_)
   {
@@ -180,7 +181,7 @@ void ParticleSystem::PushMatrixStack(GameObject2DRenderState* state)
   }
 }
 
-void ParticleSystem::PopMatrixStack(GameObject2DRenderState* state)
+void ParticleSystem::PopMatrixStack(GameObjectRenderState* state)
 {
   if (this->apply_local_position_)
   {

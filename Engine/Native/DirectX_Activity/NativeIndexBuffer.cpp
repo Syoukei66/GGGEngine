@@ -30,18 +30,21 @@ NativeIndexBuffer::~NativeIndexBuffer()
 // =================================================================
 void NativeIndexBuffer::Lock(void** dest)
 {
-  this->index_buffer_->Lock(0, 0, dest, 0);
+  HRESULT hr = this->index_buffer_->Lock(0, 0, dest, 0);
+  NATIVE_ASSERT(SUCCEEDED(hr), "IndexBufferのロックに失敗しました");
 }
 
 void NativeIndexBuffer::Unlock()
 {
-  this->index_buffer_->Unlock();
+  HRESULT hr = this->index_buffer_->Unlock();
+  NATIVE_ASSERT(SUCCEEDED(hr), "IndexBufferのアンロックに失敗しました");
 }
 
 void NativeIndexBuffer::SetIndices() const
 {
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
-  device->SetIndices(this->index_buffer_);
+  HRESULT hr = device->SetIndices(this->index_buffer_);
+  NATIVE_ASSERT(SUCCEEDED(hr), "IndexBufferのセットに失敗しました");
 }
 
 // =================================================================

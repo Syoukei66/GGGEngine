@@ -32,9 +32,9 @@ protected:
   // setter/getter
   // =================================================================
 public:
-  inline void SetTexture(const Texture* texture)
+  inline void SetTexture(const Texture& texture)
   {
-    this->texture_ = texture;
+    this->texture_ = &texture;
   }
   inline const Texture* GetTexture() const
   {

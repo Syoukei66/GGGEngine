@@ -2,7 +2,8 @@
 
 #include <deque>
 #include "Camera.h"
-#include "GameObject2DRenderState.h"
+#include "GameObjectRenderState.h"
+#include "GameObject2D.h"
 
 class Camera2D : public Camera
 {
@@ -29,16 +30,25 @@ protected:
   // Method
   // =================================================================
 public:
-  inline GameObject2DRenderState* GetRenderState()
+  inline GameObjectRenderState* GetRenderState()
   {
     return this->render_state_;
+  }
+
+  // =================================================================
+  // Setter / Getter
+  // =================================================================
+public:
+  inline Transform2D* GetTransform()
+  {
+    return ((GameObject2D*)this->entity_)->GetTransform();
   }
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
-  GameObject2DRenderState* render_state_;
+  GameObjectRenderState* render_state_;
 
   INativeMatrix* projection_matrix_;
   bool projection_dirty_;

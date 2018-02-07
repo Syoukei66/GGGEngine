@@ -63,7 +63,7 @@ void Camera3D_LookAt::CheckViewDirty()
   this->view_matrix_->Init();
   if (this->target_)
   {
-    GameObject3D* player = this->entity_->GetParent();
+    GameObject3D* player = ((GameObject3D*)this->entity_)->GetParent();
     TVec3f camera_pos = player->GetTransform()->GetWorldPosition();
     this->direction_ = (this->current_look_at_pos_ - player->GetTransform()->GetWorldPosition()).Normalized();
     camera_pos -= this->direction_ * this->GetTransform()->GetPosition().Length();
@@ -71,31 +71,31 @@ void Camera3D_LookAt::CheckViewDirty()
     this->view_matrix_->LookAtLH(
       camera_pos,
       this->current_look_at_pos_,
-      this->GetTransform()->GetWorldMatrix().GetCameraYVec()
+      this->GetEntity()->GetWorldMatrix().GetCameraYVec()
     );
   }
   //ターゲットが存在しない時の処理
   else
   {
-    GameObject3D* player = this->entity_->GetParent();
+    GameObject3D* player = ((GameObject3D*)this->entity_)->GetParent();
     if (player)
     {
       this->current_look_at_pos_ = this->look_at_pos_;
 
-      const TVec3f& camera_pos = this->GetTransform()->GetWorldPosition();
+      const TVec3f camera_pos = this->GetEntity()->GetWorldMatrix().GetPosition3d();
       TVec3f look_at_pos = this->look_at_pos_;
-      this->GetTransform()->GetWorldMatrix().Apply(&look_at_pos);
+      this->GetEntity()->GetWorldMatrix().Apply(&look_at_pos);
       this->direction_ = (look_at_pos - camera_pos).Normalized();
       this->view_matrix_->LookAtLH(
         camera_pos,
         look_at_pos,
-        this->GetTransform()->GetWorldMatrix().GetCameraYVec()
+        this->GetEntity()->GetWorldMatrix().GetCameraYVec()
       );
     }
     //プレイヤーが存在しない時の処理
     else
     {
-      this->view_matrix_->Assign(this->GetTransform()->GetWorldMatrix());
+      this->view_matrix_->Assign(this->GetEntity()->GetWorldMatrix());
       this->direction_ = this->view_matrix_->GetDirection3d();
     }
   }
@@ -105,11 +105,11 @@ void Camera3D_LookAt::CheckViewDirty()
 
 void Camera3D_LookAt::SetPlayer(GameObject3D* player)
 {
-  if (this->entity_->HasParent())
+  if (((GameObject3D*)this->entity_)->HasParent())
   {
-    this->entity_->RemoveSelf();
+    ((GameObject3D*)this->entity_)->RemoveSelf();
   }
-  player->AddChild(this->entity_);
+  player->AddChild(((GameObject3D*)this->entity_));
 }
 
 void Camera3D_LookAt::Update()

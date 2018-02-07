@@ -4,11 +4,11 @@
 #include <string>
 #include <vector>
 
+#include "NativeAssert.h"
 #include "NativeType.h"
 
 //=============================================================================
 // JsonBase
-// デストラクタ呼び出しの為など
 //=============================================================================
 class JsonBase
 {
@@ -17,7 +17,7 @@ public:
   virtual ~JsonBase() {}
 
 public:
-  virtual std::string ToString() = 0;
+  virtual const std::string ToString() const = 0;
 
 protected:
   const T_UINT8 depth_;
@@ -30,13 +30,18 @@ class JsonString : public JsonBase
 {
 public:
   JsonString(const std::string& text, T_UINT8 depth);
-  ~JsonString();
 
 public:
-  const char* StringValue();
+  operator const std::string () const
+  {
+    return this->StringValue();
+  }
 
 public:
-  virtual std::string ToString() override;
+  const std::string& StringValue() const;
+
+public:
+  virtual const std::string ToString() const override;
 
 private:
   std::string text_;
@@ -50,14 +55,23 @@ class JsonValue : public JsonBase
 {
 public:
   JsonValue(const std::string& text, T_UINT8 depth);
-  ~JsonValue();
 
 public:
-  T_INT32 IntValue();
-  T_FLOAT FloatValue();
+  operator T_INT32() const
+  {
+    return this->IntValue();
+  }
+  operator T_FLOAT() const
+  {
+    return this->FloatValue();
+  }
 
 public:
-  virtual std::string ToString() override;
+  T_INT32 IntValue() const;
+  T_FLOAT FloatValue() const;
+
+public:
+  virtual const std::string ToString() const override;
 
 private:
   std::string text_;
@@ -81,27 +95,20 @@ public:
     this->value_map_[key] = value;
   }
 
-  JsonString* GetString(const std::string& key) const
-  {
-    return (JsonString*)this->value_map_.at(key);
-  }
-  JsonValue* GetValue(const std::string& key) const
-  {
-    return (JsonValue*)this->value_map_.at(key);
-  }
+  JsonNode* GetNode(const std::string& key);
+  const JsonNode* GetNode(const std::string& key) const;
 
-  JsonNode* GetNode(const std::string& key) const
-  {
-    return (JsonNode*)this->value_map_.at(key);
-  }
+  JsonList* GetList(const std::string& key);
+  const JsonList* GetList(const std::string& key) const;
 
-  JsonList* GetList(const std::string& key) const
-  {
-    return (JsonList*)this->value_map_.at(key);
-  }
+  JsonString* GetString(const std::string& key);
+  const JsonString* GetString(const std::string& key) const;
+
+  JsonValue* GetValue(const std::string& key);
+  const JsonValue* GetValue(const std::string& key) const;
 
 public:
-  virtual std::string ToString() override;
+  virtual const std::string ToString() const override;
 
 private:
   std::map<std::string, JsonBase*> value_map_;
@@ -122,28 +129,25 @@ public:
     this->value_list_.push_back(value);
   }
 
-  const JsonValue* GetValue(T_UINT16 index) const
-  {
-    return (JsonValue*)this->value_list_[index];
-  }
+  JsonNode* GetNode(T_UINT16 index);
+  const JsonNode* GetNode(T_UINT16 index) const;
 
-  const JsonNode* GetNode(T_UINT16 index) const
-  {
-    return (JsonNode*)this->value_list_[index];
-  }
+  JsonList* GetList(T_UINT16 index);
+  const JsonList* GetList(T_UINT16 index) const;
 
-  const JsonList* GetList(T_UINT16 index) const
-  {
-    return (JsonList*)this->value_list_[index];
-  }
+  JsonString* GetString(T_UINT16 index);
+  const JsonString* GetString(T_UINT16 index) const;
 
-  const size_t GetSize()
+  JsonValue* GetValue(T_UINT16 index);
+  const JsonValue* GetValue(T_UINT16 index) const;
+
+  const size_t GetSize() const
   {
     return this->value_list_.size();
   }
 
 public:
-  virtual std::string ToString() override;
+  virtual const std::string ToString() const override;
 
 private:
   std::vector<JsonBase*> value_list_;

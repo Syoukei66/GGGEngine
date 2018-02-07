@@ -1,30 +1,27 @@
 #pragma once
 
-#include "Vertex.h"
-#include "GameObject3D.h"
+#include "FileResource.h"
+#include "JsonData.h"
 
-class IVertexBufferObject;
-
-class Primitive3D : public GameObject3D
+class JsonResource : public FileResource<JsonData>
 {
+  // =================================================================
+  // Factory Method
+  // =================================================================
+public:
+  static const JsonResource* DynamicLoad(const char* path);
+
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  Primitive3D(IVertexBufferObject* vbo);
-  virtual ~Primitive3D();
+  JsonResource(const char* path);
+  ~JsonResource();
 
   // =================================================================
-  // Methods for/from SuperClass/Interfaces
+  // Methods for/from interface/super class
   // =================================================================
-public:
-  virtual void Init() override;
-  virtual void PreDraw(GameObject3DRenderState* state) override;
-
-  // =================================================================
-  // Data Member
-  // =================================================================
-protected:
-  IVertexBufferObject* vbo_;
+private:
+  virtual JsonData* NativeLoadProcess(const std::string& path) override;
 
 };

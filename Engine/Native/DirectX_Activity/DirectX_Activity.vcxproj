@@ -202,6 +202,7 @@
     <ClCompile Include="DirectXInputDevice_Mouse.cpp" />
     <ClCompile Include="DirectXInputDevice_XInput.cpp" />
     <ClCompile Include="DirectXNativeImplements.cpp" />
+    <ClCompile Include="imgui\imgui_impl_dx9.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NativeIndexBuffer.cpp" />
     <ClCompile Include="NativeMatrix.cpp" />
@@ -224,6 +225,7 @@
     <ClInclude Include="DirectXInputDevice_Mouse.h" />
     <ClInclude Include="DirectXInputDevice_XInput.h" />
     <ClInclude Include="DirectXNativeImplements.h" />
+    <ClInclude Include="imgui\imgui_impl_dx9.h" />
     <ClInclude Include="NativeConstants.h" />
     <ClInclude Include="NativeIndexBuffer.h" />
     <ClInclude Include="NativeMatrix.h" />

@@ -10,7 +10,8 @@ class TextureRegion : public ITextureRegion
   // Factory Method
   // =================================================================
 public:
-  static TextureRegion* CreateWithTexture(const Texture* texture);
+  static TextureRegion* CreateWithMaterial(const Material& material);
+  static TextureRegion* CreateWithTexture(const Texture& texture);
 
   // =================================================================
   // Constructor / Destructor

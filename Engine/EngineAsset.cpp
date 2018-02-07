@@ -1,4 +1,7 @@
 #include "EngineAsset.h"
+#include "MeshData_Cube.h"
+#include "MeshData_Plane.h"
+#include "MeshData_Sprite.h"
 
 namespace EngineAsset
 {
@@ -22,5 +25,12 @@ class Material PRIMITIVE(Shader::PRIMITIVE, true);
 class Material SPRITE(Shader::SPRITE, true);
 class Material WHITE(Shader::WHITE, true);
 } // namespace Material
+
+namespace Mesh
+{
+class MeshResource QUAD(MeshData_Sprite::GetInstance());
+class MeshResource PLANE(MeshData_Plane::GetInstance());
+class MeshResource CUBE(MeshData_Cube::GetInstance());
+} // namespace Mesh
 
 } // namespace EngineAsset

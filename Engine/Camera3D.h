@@ -3,7 +3,6 @@
 #include <deque>
 #include "Camera.h"
 #include "GameComponent.h"
-#include "GameObject3DRenderState.h"
 #include "GameObject3D.h"
 
 class Camera3D : public Camera
@@ -48,12 +47,7 @@ private:
 public:
   inline Transform3D* GetTransform()
   {
-    return this->entity_->GetTransform();
-  }
-
-  inline const Transform3D* GetTransform() const
-  {
-    return this->entity_->GetTransform();
+    return ((GameObject3D*)this->entity_)->GetTransform();
   }
 
   void SetFov(T_FLOAT fov);
@@ -71,11 +65,7 @@ public:
   {
     return this->z_far_;
   }
-  inline const TVec3f& GetDirection() const
-  {
-    return this->direction_;
-  }
-  inline GameObject3DRenderState* GetRenderState()
+  inline GameObjectRenderState* GetRenderState()
   {
     return this->render_state_;
   }
@@ -94,7 +84,7 @@ protected:
   // Data Member
   // =================================================================
 private:
-  GameObject3DRenderState* render_state_;
+  GameObjectRenderState* render_state_;
 
   INativeMatrix* billboarding_matrix_;
   INativeMatrix* projection_matrix_;
@@ -103,9 +93,4 @@ private:
   T_FLOAT z_near_;
   T_FLOAT z_far_;
   bool projection_dirty_;
-
-protected:
-  GameObject3D* entity_;
-
-  TVec3f direction_;
 };

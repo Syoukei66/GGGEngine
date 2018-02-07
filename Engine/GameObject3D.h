@@ -5,8 +5,6 @@
 #include "Color.h"
 #include "Transform3D.h"
 
-class GameObject3DRenderState;
-
 class GameObject3D : public GameObject
 {
   // =================================================================
@@ -40,11 +38,11 @@ public:
   //全ての子GameObjectを子リストから削除します。
   virtual void ClearChildren();
 
-  virtual void Draw(GameObject3DRenderState* state);
+  virtual void Draw(GameObjectRenderState* state);
 
 protected:
-  virtual void PushMatrixStack(GameObject3DRenderState* state);
-  virtual void PopMatrixStack(GameObject3DRenderState* state);
+  virtual void PushMatrixStack(GameObjectRenderState* state);
+  virtual void PopMatrixStack(GameObjectRenderState* state);
 
   // =================================================================
   // Events
@@ -69,16 +67,17 @@ public:
 
   inline Transform3D* GetTransform()
   {
-    return this->transform_;
+    return (Transform3D*)this->transform_;
   }
-
   inline const Transform3D* GetTransform() const
   {
-    return this->transform_;
+    return (Transform3D*)this->transform_;
   }
-
+  
+  // =================================================================
+  // component getter
+  // =================================================================
 private:
-  Transform3D* transform_;
   GameObject3D* parent_;
   std::vector<GameObject3D*> children_;
 };

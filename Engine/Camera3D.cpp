@@ -12,12 +12,11 @@ Camera3D::Camera3D(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT 
   , z_near_(0.01f)
   , z_far_(1000.0f)
   , projection_dirty_(true)
-  , direction_(0.0f, 0.0f, 1.0f)
 {
   this->entity_ = new GameObject3D();
   this->projection_matrix_ = INativeMatrix::Create();
   this->billboarding_matrix_ = INativeMatrix::Create();
-  this->render_state_ = new GameObject3DRenderState(this);
+  this->render_state_ = new GameObjectRenderState(this);
 }
 
 Camera3D::Camera3D()
@@ -26,17 +25,15 @@ Camera3D::Camera3D()
   , z_near_(0.01f)
   , z_far_(1000.0f)
   , projection_dirty_(true)
-  , direction_(0.0f, 0.0f, 1.0f)
 {
   this->entity_ = new GameObject3D();
   this->projection_matrix_ = INativeMatrix::Create();
   this->billboarding_matrix_ = INativeMatrix::Create();
-  this->render_state_ = new GameObject3DRenderState(this);
+  this->render_state_ = new GameObjectRenderState(this);
 }
 
 Camera3D::~Camera3D()
 {
-  delete this->entity_;
   delete this->billboarding_matrix_;
   delete this->projection_matrix_;
   delete this->render_state_;

@@ -17,14 +17,17 @@ struct v2f
 
 float2 _UV0 = float2(0.0f, 0.0f);
 float2 _UV1 = float2(1.0f, 1.0f);
+float _Width = 1.0f;
+float _Height = 1.0f;
 
 v2f vert(appdata v)
 {
   v2f o;
+  v.vertex.x *= _Width;
+  v.vertex.y *= _Height;
   o.vertex = mul(v.vertex, _WorldViewProj);
 
-  float2 uv = _UV1 - _UV0;
-  v.uv *= uv;
+  v.uv *= _UV1 - _UV0;
   v.uv += _UV0;
   o.uv = v.uv;
   return o;

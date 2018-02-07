@@ -16,12 +16,6 @@ public:
   virtual ~ModelNode();
 
   // =================================================================
-  // Method for/from Interface/SuperClass
-  // =================================================================
-public:
-  void NativeDraw(GameObject3DRenderState* state) override;
-
-  // =================================================================
   // Method
   // =================================================================
 public:
@@ -33,6 +27,12 @@ public:
   void SetShaderForChildren(const char* name, const ShaderResource& shader);
   void SetShaderForTree(const ShaderResource& shader);
   void SetShaderForTree(const char* name, const ShaderResource& shader);
+
+  void SetMaterial(Material& material);
+  void SetMaterialForChildren(Material& material);
+  void SetMaterialForChildren(const char* name, Material& material);
+  void SetMaterialForTree(Material& material);
+  void SetMaterialForTree(const char* name, Material& material);
 
   // =================================================================
   // Data Member

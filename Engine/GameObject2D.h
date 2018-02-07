@@ -6,7 +6,6 @@
 #include "Transform2D.h"
 
 class EntityModifierRoot;
-class GameObject2DRenderState;
 
 class GameObject2D : public GameObject
 {
@@ -31,17 +30,12 @@ public:
   // Method
   // =================================================================
 public:
-  //子GameObjectを追加します。
-  //追加された子GameObjectをdeleteする機能はありません
   void AddChild(GameObject2D* child);
-  //指定した子GameObjectを子リストから削除します。
   void RemoveChild(GameObject2D* child);
-  //自身を親GameObjectの子リストから削除します。
   void RemoveSelf();
-  //全ての子GameObjectを子リストから削除します。
   void ClearChildren();
 
-  virtual void Draw(GameObject2DRenderState* state);
+  virtual void Draw(GameObjectRenderState* state);
 
 private:
   void UpdateChildrenZIndex();
@@ -52,8 +46,8 @@ public:
   void ClearEntityModifiers();
 
 protected:
-  virtual void PushMatrixStack(GameObject2DRenderState* state);
-  virtual void PopMatrixStack(GameObject2DRenderState* state);
+  virtual void PushMatrixStack(GameObjectRenderState* state);
+  virtual void PopMatrixStack(GameObjectRenderState* state);
 
   // =================================================================
   // Events
@@ -80,11 +74,11 @@ public:
 
   inline Transform2D* GetTransform()
   {
-    return this->transform_;
+    return (Transform2D*)this->transform_;
   }
   inline const Transform2D* GetTransform() const
   {
-    return this->transform_;
+    return (Transform2D*)this->transform_;
   }
 
   inline void SetZIndex(T_INT8 zindex)
@@ -101,9 +95,6 @@ public:
   }
   
 private:
-  Transform2D* transform_;
-
-
   GameObject2D* parent_;
   std::vector<GameObject2D*> children_;
 

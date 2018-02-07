@@ -6,7 +6,9 @@
 // Constructor / Destructor
 // =================================================================
 Camera::Camera(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_min, T_FLOAT z_max)
-  : viewport_clear_(true)
+  : entity_(nullptr)
+  , direction_(0.0f, 0.0f, 1.0f)
+  , viewport_clear_(true)
   , position_(x, y)
   , size_(width, height)
   , z_min_(z_min)
@@ -15,7 +17,9 @@ Camera::Camera(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_mi
 }
 
 Camera::Camera()
-  : viewport_clear_(true)
+  : entity_(nullptr)
+  , direction_(0.0f, 0.0f, 1.0f)
+  , viewport_clear_(true)
   , position_(0.0f, 0.0f)
   , size_((T_FLOAT)Director::GetInstance()->GetScreenWidth(), (T_FLOAT)Director::GetInstance()->GetScreenHeight())
   , z_min_(0.0f)
@@ -25,6 +29,7 @@ Camera::Camera()
 
 Camera::~Camera()
 {
+  delete this->entity_;
 }
 
 // =================================================================

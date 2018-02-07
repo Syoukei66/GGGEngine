@@ -1,7 +1,5 @@
 #include "GameObject3D.h"
-#include "GameObject3DRenderState.h"
-#include "NativeMethod.h"
-#include "Camera3D.h"
+#include "GameObjectRenderState.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -99,7 +97,7 @@ void GameObject3D::ClearChildren()
   this->children_.clear();
 }
 
-void GameObject3D::Draw(GameObject3DRenderState* state)
+void GameObject3D::Draw(GameObjectRenderState* state)
 { 
   if (!this->IsVisible())
   {
@@ -108,19 +106,10 @@ void GameObject3D::Draw(GameObject3DRenderState* state)
 
   this->PushMatrixStack(state);
   
-  if (state->IsTargetedLayer(this->GetLayerId()))
-  {
-    Material* const material = this->GetMaterial();
-    if (material && material->GetZTestLevel() > 0)
-    {
-      state->AddZCheckOrder(material->GetZTestLevel(), this);
-    }
-    else
-    {
-      // 自分自身の描画
-      this->ManagedDraw(state);
-    }
-  }
+
+  // 自分自身の描画
+  this->ManagedDraw(state);
+
 
   // 子の描画
   for (std::vector<GameObject3D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
@@ -132,7 +121,7 @@ void GameObject3D::Draw(GameObject3DRenderState* state)
   this->PopMatrixStack(state);
 }
 
-void GameObject3D::PushMatrixStack(GameObject3DRenderState* state)
+void GameObject3D::PushMatrixStack(GameObjectRenderState* state)
 {
   state->PushMatrix(this->transform_->GetMatrix());
   //if (this->IsBillboardingRoot())
@@ -141,7 +130,7 @@ void GameObject3D::PushMatrixStack(GameObject3DRenderState* state)
   //}
 }
 
-void GameObject3D::PopMatrixStack(GameObject3DRenderState* state)
+void GameObject3D::PopMatrixStack(GameObjectRenderState* state)
 {
   //if (this->IsBillboardingRoot())
   //{

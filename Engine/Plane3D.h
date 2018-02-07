@@ -6,17 +6,15 @@
 class Plane3D : public GameObject3D
 {
   // =================================================================
-  // Constructor / Destructor
+  // Factory Method
   // =================================================================
 public:
-  Plane3D();
-  ~Plane3D();
+  static Plane3D* Create();
 
-public:
-  void NativeDraw(GameObject3DRenderState* state) override;
-
-private:
-  MeshMaterial* mesh_material_;
-  Mesh* mesh_;
-
+  // =================================================================
+  // Constructor / Destructor
+  // =================================================================
+protected:
+  Plane3D() {}
+  
 };

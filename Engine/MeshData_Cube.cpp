@@ -109,7 +109,7 @@ static bool CUBE_VERTEXES_INITIALIZED = false;
 static Vertex::VNCT CUBE_VERTEXES[CUBE_VERTEXES_COUNT];
 static T_UINT16 CUBE_INDEXES[CUBE_VERTEX_INDEXES_COUNT];
 
-MeshMaterial_Cube::MeshMaterial_Cube()
+static void Initialize()
 {
   if (!CUBE_VERTEXES_INITIALIZED)
   {
@@ -152,35 +152,41 @@ MeshMaterial_Cube::MeshMaterial_Cube()
   }
 }
 
-T_UINT16 MeshMaterial_Cube::GetVertexesCount() const
+T_UINT16 MeshData_Cube::GetVertexesCount() const
 {
+  Initialize();
   return CUBE_VERTEXES_COUNT;
 }
 
-void MeshMaterial_Cube::SetupVertex(void* dest) const
+void MeshData_Cube::SetupVertex(void* dest) const
 {
+  Initialize();
   for (T_UINT16 i = 0; i < CUBE_VERTEXES_COUNT; ++i)
   {
     ((Vertex::VNCT*)dest)[i] = CUBE_VERTEXES[i];
   }
 }
 
-T_UINT16 MeshMaterial_Cube::GetIndicesCount() const
+T_UINT16 MeshData_Cube::GetIndicesCount() const
 {
+  Initialize();
   return CUBE_VERTEX_INDEXES_COUNT;
 }
 
-const T_UINT16* MeshMaterial_Cube::GetIndices() const
+const T_UINT16* MeshData_Cube::GetIndices() const
 {
+  Initialize();
   return CUBE_INDEXES;
 }
 
-INativeProcess_Graphics::PrimitiveType MeshMaterial_Cube::GetPrimitiveType() const
+INativeProcess_Graphics::PrimitiveType MeshData_Cube::GetPrimitiveType() const
 {
+  Initialize();
   return INativeProcess_Graphics::PRIMITIVE_TRIANGLES;
 }
 
-Vertex::VertexType MeshMaterial_Cube::GetVertexType() const
+Vertex::VertexType MeshData_Cube::GetVertexType() const
 {
+  Initialize();
   return Vertex::VERTEX_TYPE_VNCT;
 }

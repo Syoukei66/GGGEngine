@@ -1,9 +1,11 @@
 #include "MeshData.h"
+#include "SubMesh.h"
 
 // =================================================================
 // Constructor / Destructor
 // =================================================================
 MeshData::MeshData()
+  : instances_()
 {
 }
 

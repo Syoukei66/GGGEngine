@@ -36,11 +36,6 @@ inline T_UINT32 ElapsedFrameSinceSceneCreate()
 namespace Resource
 {
 
-inline EntityModifierManager* GetEntityModifierManager()
-{
-  return &EntityModifierManager::GetInstance();
-}
-
 }
 
 }// namespace HalEngine

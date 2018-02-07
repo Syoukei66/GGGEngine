@@ -38,8 +38,8 @@ public:
   void HideFinish();
 
   void Draw();
-  void Draw2DLayers(GameObject2DRenderState* state);
-  void Draw3DLayers(GameObject3DRenderState* state);
+  void Draw2DLayers(GameObjectRenderState* state);
+  void Draw3DLayers(GameObjectRenderState* state);
 
   inline void AddChild(GameObject2D* child)
   {
