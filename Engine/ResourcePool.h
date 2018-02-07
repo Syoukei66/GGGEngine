@@ -2,7 +2,9 @@
 
 #include <map>
 #include <set>
+#include <vector>
 #include "NativeType.h"
+#include "NativeAssert.h"
 #include "ResourceLoader.h"
 
 class IResourceLoadingListener
@@ -23,20 +25,11 @@ public:
 
 class ResourcePool : public IResourceLoadReserver
 {
-public:
-  static ResourcePool& GetInstance()
-  {
-    static ResourcePool self = ResourcePool();
-    return self;
-  }
-
   // =================================================================
   // Constructor / Destructor
   // =================================================================
-private:
-  ResourcePool();
-
 public:
+  ResourcePool();
   virtual ~ResourcePool();
 
   // =================================================================
@@ -63,6 +56,7 @@ public:
       ret = new T(path);
       ret->Load();
       this->resources_[path] = ret;
+      this->dynamic_resources_.push_back(ret);
     }
     return ret;
   }
@@ -72,4 +66,7 @@ private:
 
   std::map<std::string, std::set<ResourceLoader*>> load_reserve_;
   std::map<std::string, std::set<ResourceLoader*>> unload_reserve_;
+
+  //動的リソースは動的生成される為、deleteする必要がある
+  std::vector<ResourceLoader*> dynamic_resources_;
 };

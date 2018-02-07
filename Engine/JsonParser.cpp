@@ -1,6 +1,7 @@
 #include "JsonParser.h"
 
 #include "NativeType.h"
+#include "NativeAssert.h"
 
 static void ApplyDepth(std::string& str, T_UINT8 depth)
 {

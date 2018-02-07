@@ -13,13 +13,15 @@ class Sprite : public Shape
 public:
   static Sprite* Create();
   static Sprite* CreateWithTextureRegion(ITextureRegion* region);
-  static Sprite* CreateWithTexture(const Texture* texture);
+  static Sprite* CreateWithMaterial(Material* material);
+  static Sprite* CreateWithTexture(const Texture& texture);
 
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
   virtual ~Sprite();
+
 protected:
   Sprite();
 
@@ -28,9 +30,7 @@ protected:
   // =================================================================
 public:
   virtual void Init() override;
-  virtual void PreDraw(GameObject2DRenderState* state) override;
-  virtual void NativeDraw(GameObject2DRenderState* state) override;
-  virtual void PostDraw(GameObject2DRenderState* state) override;
+  virtual void Update() override;
 
   // =================================================================
   // Method
@@ -45,7 +45,6 @@ public:
   // setter/getter
   // =================================================================
 public:
-  virtual IVertexBufferObject* GetVbo() const override;
   void SetTextureRegion(ITextureRegion* itr);
   inline ITextureRegion* GetTextureRegion() const
   {
@@ -56,8 +55,8 @@ public:
   // Data Member
   // =================================================================
 private:
-  SpriteVertexBufferObject* vbo_;
   ITextureRegion* texture_region_;
+  MeshRenderer* renderer_;
 
 protected:
   //TODO:KEN,‚Ç‚¤‚É‚©‚µ‚ë

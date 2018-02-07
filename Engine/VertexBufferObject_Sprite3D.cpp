@@ -4,19 +4,19 @@
 enum { SPRITE_VERTEX_COORDS_COUNT = 4 };
 static TVec2f SPRITE_VERTEX_COORDS[SPRITE_VERTEX_COORDS_COUNT] =
 {
-  { 0.5f,  0.5f }, //0 右上
-  { 0.5f, -0.5f }, //1 右下
-  { -0.5f, -0.5f }, //2 左下
-  { -0.5f,  0.5f }, //3 左上
+  { -0.5f, -0.5f }, //0 右上
+  { -0.5f,  0.5f }, //1 右下
+  {  0.5f, -0.5f }, //2 左下
+  {  0.5f,  0.5f }, //3 左上
 };
 
 enum { SPRITE_VERTEX_TEX_COORDS_COUNT = SPRITE_VERTEX_COORDS_COUNT };
 static TVec2f SPRITE_VERTEX_TEX_COORDS[SPRITE_VERTEX_TEX_COORDS_COUNT] =
 {
   { 0.0f, 0.0f },
-  { 1.0f, 1.0f },
-  { 1.0f, 0.0f },
   { 0.0f, 1.0f },
+  { 1.0f, 0.0f },
+  { 1.0f, 1.0f },
 };
 
 enum { SPRITE_SURFS_COUNT = 1 };
@@ -24,14 +24,14 @@ enum { SPRITE_TRIANGLES_COUNT = 2 * SPRITE_SURFS_COUNT };
 enum { SPRITE_VERTEX_INDEXES_COUNT = 6 };
 static const T_UINT16 SPRITE_VERTEX_INDEXES[SPRITE_VERTEX_INDEXES_COUNT] =
 {
-  1, 3, 0,
-  0, 3, 2,
+  0, 1, 2,
+  1, 3, 2,
 };
 
 static const T_UINT16 SPRITE_VERTEX_TEX_INDEXES[SPRITE_VERTEX_INDEXES_COUNT] =
 {
-  0, 2, 1,
-  1, 2, 3,
+  0, 1, 2,
+  1, 3, 2,
 };
 
 
@@ -51,15 +51,15 @@ void VertexBufferObject_Sprite3D::OnUpdateCoord(GameObject* entity)
   const T_FLOAT x0 = -w * 0.5f;
   const T_FLOAT y0 = -h * 0.5f;
 
-  this->vertexes_[V_VERTEX_V0].coord.x = x0;
-  this->vertexes_[V_VERTEX_V1].coord.x = x0;
-  this->vertexes_[V_VERTEX_V2].coord.x = x0 + w;
-  this->vertexes_[V_VERTEX_V3].coord.x = x0 + w;
+  this->vertexes_[V_VERTEX_V0].coord[0] = x0;
+  this->vertexes_[V_VERTEX_V1].coord[0] = x0;
+  this->vertexes_[V_VERTEX_V2].coord[0] = x0 + w;
+  this->vertexes_[V_VERTEX_V3].coord[0] = x0 + w;
 
-  this->vertexes_[V_VERTEX_V0].coord.y = y0;
-  this->vertexes_[V_VERTEX_V1].coord.y = y0 + h;
-  this->vertexes_[V_VERTEX_V2].coord.y = y0;
-  this->vertexes_[V_VERTEX_V3].coord.y = y0 + h;
+  this->vertexes_[V_VERTEX_V0].coord[1] = y0;
+  this->vertexes_[V_VERTEX_V1].coord[1] = y0 + h;
+  this->vertexes_[V_VERTEX_V2].coord[1] = y0;
+  this->vertexes_[V_VERTEX_V3].coord[1] = y0 + h;
 }
 
 T_UINT32 VertexBufferObject_Sprite3D::GetVertexesCount() const
@@ -82,9 +82,9 @@ INativeProcess_Graphics::PrimitiveType VertexBufferObject_Sprite3D::GetPrimitive
   return INativeProcess_Graphics::PRIMITIVE_TRIANGLES;
 }
 
-INativeProcess_Graphics::VertexType VertexBufferObject_Sprite3D::GetVertexType()
+Vertex::VertexType VertexBufferObject_Sprite3D::GetVertexType()
 {
-  return INativeProcess_Graphics::VERTEX_TYPE_COORD_COLOR_UV;
+  return Vertex::VERTEX_TYPE_VCT;
 }
 
 void VertexBufferObject_Sprite3D::OnVertexUvDirty()
@@ -103,15 +103,15 @@ void VertexBufferObject_Sprite3D::UpdateTexture(Sprite3D* entity, ITextureRegion
   const T_FLOAT u1 = region->GetU1();
   const T_FLOAT v1 = region->GetV1();
 
-  this->vertexes_[V_VERTEX_V0].uv.x = u0;
-  this->vertexes_[V_VERTEX_V1].uv.x = u0;
-  this->vertexes_[V_VERTEX_V2].uv.x = u1;
-  this->vertexes_[V_VERTEX_V3].uv.x = u1;
+  this->vertexes_[V_VERTEX_V0].uv[0] = u0;
+  this->vertexes_[V_VERTEX_V1].uv[0] = u0;
+  this->vertexes_[V_VERTEX_V2].uv[0] = u1;
+  this->vertexes_[V_VERTEX_V3].uv[0] = u1;
 
-  this->vertexes_[V_VERTEX_V0].uv.y = v1;
-  this->vertexes_[V_VERTEX_V1].uv.y = v0;
-  this->vertexes_[V_VERTEX_V2].uv.y = v1;
-  this->vertexes_[V_VERTEX_V3].uv.y = v0;
+  this->vertexes_[V_VERTEX_V0].uv[1] = v1;
+  this->vertexes_[V_VERTEX_V1].uv[1] = v0;
+  this->vertexes_[V_VERTEX_V2].uv[1] = v1;
+  this->vertexes_[V_VERTEX_V3].uv[1] = v0;
 
   this->vertex_uv_dirty_ = false;
 }

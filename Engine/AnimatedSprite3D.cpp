@@ -1,19 +1,27 @@
 #include "AnimatedSprite3D.h"
 #include "TiledTextureRegion.h"
-#include "Moniker.h"
+#include "EngineAsset.h"
 
 // =================================================================
 // Factory Method
 // =================================================================
-AnimatedSprite3D* AnimatedSprite3D::CreateWithTexture(const Texture* texture, T_UINT8 x_num, T_UINT8 y_num)
+AnimatedSprite3D* AnimatedSprite3D::CreateWithMaterial(Material* material, T_UINT8 x_num, T_UINT8 y_num)
 {
   AnimatedSprite3D* ret = new AnimatedSprite3D();
-  TiledTextureRegion* region = TiledTextureRegion::CreateWithTexture(texture, x_num, y_num);
+  TiledTextureRegion* region = TiledTextureRegion::CreateWithMaterial(material, x_num, y_num);
   ret->Init();
+  ret->SetMaterial(*material);
   ret->SetTextureRegion(region);
   ret->SetAnimateRange(0, region->GetTileCount() - 1);
   ret->FitToTexture();
   return ret;
+}
+
+AnimatedSprite3D* AnimatedSprite3D::CreateWithTexture(const Texture& texture, T_UINT8 x_num, T_UINT8 y_num)
+{
+  Material* mat = EngineAsset::Material::SPRITE.Clone();
+  mat->SetMainTexture(texture);
+  return CreateWithMaterial(mat, x_num, y_num);
 }
 
 // =================================================================

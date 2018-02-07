@@ -1,4 +1,6 @@
 #include "NativeProcess_Time.h"
+
+#define NOMINMAX
 #include <windows.h>
 #include <windowsx.h>
 #include <d3d9.h>

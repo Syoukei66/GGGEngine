@@ -1,89 +1,70 @@
 #include "Vertex.h"
 #include <stdlib.h>
 
+namespace Vertex
+{
+
 // =================================================================
 // Vertex
 // =================================================================
-Vertex::Vertex()
+VC::VC()
   : coord()
-  , packed_color(Color::PACKED_WHITE)
+  , color(0xffffffff)
 {}
 
-Vertex::Vertex(T_FLOAT x, T_FLOAT y, T_FLOAT z)
-  : coord(x, y, z, 1.0f)
-  , packed_color(Color::PACKED_WHITE)
+VC::VC(T_FLOAT x, T_FLOAT y, T_FLOAT z)
+  : coord{ x, y, z, 1.0f }
+  , color(0xffffffff)
 {}
 
-Vertex::Vertex(const TVec4f& coord, T_PACKED_COLOR_UINT32 color)
-  : coord(coord)
-  , packed_color(color)
+VC::VC(const TVec4f& coord)
+  : coord{ coord.x, coord.y, coord.z, coord.w }
+  , color(0xffffffff)
 {}
-
-void Vertex::Init()
-{
-  this->coord = TVec4f(0.0f, 0.0f, 0.0f, 1.0f);
-  this->packed_color = Color::PACKED_WHITE;
-}
 
 // =================================================================
 // SpriteVertex
 // =================================================================
-SpriteVertex::SpriteVertex()
-  : coord()
-  , packed_color(Color::PACKED_WHITE)
-  , uv()
+VCT::VCT()
+  : coord{ 0.0f, 0.0f, 0.0f, 1.0f }
+  , color(0xffffffff)
+  , uv{0.0f, 0.0f}
 {}
 
-SpriteVertex::SpriteVertex(T_FLOAT x, T_FLOAT y, T_FLOAT z, T_FLOAT u, T_FLOAT v)
-  : coord(x, y, z, 1.0f)
-  , packed_color(Color::PACKED_WHITE)
-  , uv(u, v)
+VCT::VCT(T_FLOAT x, T_FLOAT y, T_FLOAT z, T_FLOAT u, T_FLOAT v)
+  : coord{ x, y, z, 1.0f }
+  , color(0xffffffff)
+  , uv{ u, v }
 {}
 
-SpriteVertex::SpriteVertex(const TVec4f& coord, T_PACKED_COLOR_UINT32 color, const TVec2f& uv)
-  : coord(coord)
-  , packed_color(color)
-  , uv(uv) 
+VCT::VCT(const TVec4f& coord, const TVec2f& uv)
+  : coord{ coord.x, coord.y, coord.z, coord.w }
+  , color(0xffffffff)
+  , uv{ uv.x, uv.y }
 {}
-
-void SpriteVertex::Init()
-{
-  this->coord = TVec4f(0.0f, 0.0f, 0.0f, 1.0f);
-  this->packed_color = Color::PACKED_WHITE;
-  this->uv = TVec2f(0.0f, 0.0f);
-}
 
 // =================================================================
 // Vertex3D
 // =================================================================
-Vertex3D::Vertex3D()
-  : coord()
-  , packed_color(Color::PACKED_WHITE)
-  , uv() 
-  , normal()
-{
-}
+VNCT::VNCT()
+  : coord{ 0.0f, 0.0f, 0.0f, 1.0f }
+  , normal{ 0.0f, 0.0f, 0.0f }
+  , color(0xffffffff)
+  , uv{ 0.0f, 0.0f }
+{}
 
-Vertex3D::Vertex3D(T_FLOAT x, T_FLOAT y, T_FLOAT z, T_FLOAT u, T_FLOAT v, T_FLOAT normal_x, T_FLOAT normal_y, T_FLOAT normal_z)
-  : coord(x, y, z, 1.0f)
-  , packed_color(Color::PACKED_WHITE)
-  , uv(u, v)
-  , normal(normal_x, normal_y, normal_z)
-{
-}
+VNCT::VNCT(T_FLOAT x, T_FLOAT y, T_FLOAT z, T_FLOAT u, T_FLOAT v, T_FLOAT normal_x, T_FLOAT normal_y, T_FLOAT normal_z)
+  : coord{ x, y, z, 1.0f }
+  , color(0xffffffff)
+  , normal{ normal_x, normal_y, normal_z }
+  , uv{ u, v }
+{}
 
-Vertex3D::Vertex3D(const TVec4f& coord, T_PACKED_COLOR_UINT32 color, const TVec2f& uv, const TVec3f& normal)
-  : coord(coord)
-  , packed_color(color)
-  , uv(uv)
-  , normal(normal)
-{
-}
+VNCT::VNCT(const TVec4f& coord, const TVec2f& uv, const TVec3f& normal)
+  : coord{ coord.x, coord.y, coord.z, coord.w }
+  , color(0xffffffff)
+  , normal{ normal.x, normal.y, normal.z }
+  , uv{ uv.x, uv.y }
+{}
 
-void Vertex3D::Init()
-{
-  this->coord = TVec4f(0.0f, 0.0f, 0.0f, 1.0f);
-  this->packed_color = Color::PACKED_WHITE;
-  this->uv = TVec2f(0.0f, 0.0f);
-  this->normal = TVec3f(0.0f, 0.0f, 0.0f);
-}
+} // namespace Vertex

@@ -56,17 +56,17 @@ private:
 
   T_FLOAT start_size;
   T_FLOAT start_spin;
-  T_UINT8 start_color_r;
-  T_UINT8 start_color_g;
-  T_UINT8 start_color_b;
-  T_UINT8 start_color_a;
+  T_FLOAT start_color_r;
+  T_FLOAT start_color_g;
+  T_FLOAT start_color_b;
+  T_FLOAT start_color_a;
 
   T_FLOAT end_size;
   T_FLOAT end_spin;
-  T_UINT8 end_color_r;
-  T_UINT8 end_color_g;
-  T_UINT8 end_color_b;
-  T_UINT8 end_color_a;
+  T_FLOAT end_color_r;
+  T_FLOAT end_color_g;
+  T_FLOAT end_color_b;
+  T_FLOAT end_color_a;
 };
 
 //===============================================================

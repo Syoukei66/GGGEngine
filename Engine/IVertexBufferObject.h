@@ -35,7 +35,7 @@ public:
   virtual const void* GetVertexes() const = 0;
   virtual const T_UINT16* GetIndexes() const = 0;
   virtual INativeProcess_Graphics::PrimitiveType GetPrimitiveType() = 0;
-  virtual INativeProcess_Graphics::VertexType GetVertexType() = 0;
+  virtual Vertex::VertexType GetVertexType() = 0;
   
   // =================================================================
   // Data Member

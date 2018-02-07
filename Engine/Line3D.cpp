@@ -15,9 +15,8 @@ Line3D::Line3D()
 // =================================================================
 void Line3D::NativeDraw(GameObject3DRenderState* state)
 {
-  Vertex* vertexes = (Vertex*)this->vbo_->GetVertexes();
+  Vertex::VC* vertexes = (Vertex::VC*)this->vbo_->GetVertexes();
   T_UINT32 size = this->vbo_->GetVertexesCount();
-  NativeMethod::Graphics().Graphics_SetLightingEnabled(false);
   NativeMethod::Graphics().Graphics_DrawIndexedVertexes(
     state,
     this->vbo_->GetPrimitiveType(),

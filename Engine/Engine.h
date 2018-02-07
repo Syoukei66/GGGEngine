@@ -64,7 +64,7 @@ private:
   EngineOption* option_;
 
   Scene* scene_;
-  SceneTransitioner scene_transitioner_;
+  SceneTransitioner* scene_transitioner_;
 };
 
 #endif//HAL_ENGINE_ENGINE_ENGINE_H_

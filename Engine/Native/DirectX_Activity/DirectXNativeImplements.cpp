@@ -138,10 +138,10 @@ static const DirectXInputDevice_Mouse::MouseInput MOUSE_INPUTS[XINPUT_INPUT_MAX]
 
 void DirectXNativeImplements::SetupInputDevices(DirectXInputDeviceManager* manager)
 {
-  CSVData* csv = new CSVData("keyconfig_DX9.txt");
+  CSVData csv = CSVData("keyconfig_DX9.txt");
   for (T_UINT8 i = 0; i < DX_INPUT_DATANUM; ++i)
   {
-    CSVTokenizer tokenizer = csv->GetTokenizer(i);
+    CSVTokenizer tokenizer = csv.GetTokenizer(i);
     if (!tokenizer.HasNextToken())
     {
       continue;
@@ -151,7 +151,7 @@ void DirectXNativeImplements::SetupInputDevices(DirectXInputDeviceManager* manag
     {
       continue;
     }
-    KEYBOARD_INPUTS[i].input = StringToKey(tokenizer.NextToken()->ToString());
+    KEYBOARD_INPUTS[i].input = StringToKey(tokenizer.NextToken().ToString());
   }
 
   //キーボードは1Pに対応

@@ -1,11 +1,11 @@
 #ifndef HAL_ENGINE_ACTIVITY_BASEACTIVITY_H_
 #define HAL_ENGINE_ACTIVITY_BASEACTIVITY_H_
 
+#include <fbxsdk.h>
 #include "Engine.h"
 #include "EngineInput.h"
 
 #include "INativeProcess_Graphics.h"
-#include "INativeProcess_Material.h"
 #include "INativeProcess_IO.h"
 #include "INativeProcess_Time.h"
 
@@ -26,7 +26,6 @@ public:
 
 protected:
   virtual INativeProcess_Graphics* SetupNativeProcess_Graphics() = 0;
-  virtual INativeProcess_Material* SetupNativeProcess_Material() = 0;
   virtual INativeProcess_IO* SetupNativeProcess_IO() = 0;
   virtual INativeProcess_Time* SetupNativeProcess_Time() = 0;
 
@@ -46,11 +45,18 @@ protected:
 public:
   virtual LP_DEVICE GetDevice() const = 0;
 
+  inline FbxManager* GetFbxManager() const
+  {
+    return this->fbx_manager_;
+  }
+
   // =================================================================
   // Data Member
   // =================================================================
 private:
   Engine* engine_;
+
+  FbxManager* fbx_manager_;
 
 };
 

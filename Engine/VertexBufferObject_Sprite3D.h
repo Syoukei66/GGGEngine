@@ -34,7 +34,7 @@ public:
   virtual const void* GetVertexes() const override;
   virtual const T_UINT16* GetIndexes() const override;
   virtual INativeProcess_Graphics::PrimitiveType GetPrimitiveType() override;
-  virtual INativeProcess_Graphics::VertexType GetVertexType() override;
+  virtual Vertex::VertexType GetVertexType() override;
 
   // =================================================================
   // Method
@@ -48,5 +48,5 @@ public:
   // =================================================================
 private:
   bool vertex_uv_dirty_;
-  SpriteVertex vertexes_[V_VERTEX_MAX];
+  Vertex::VCT vertexes_[V_VERTEX_MAX];
 };

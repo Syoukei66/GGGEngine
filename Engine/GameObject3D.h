@@ -32,31 +32,15 @@ public:
 public:
   //子GameObjectを追加します。
   //追加された子GameObjectをdeleteする機能はありません
-  void AddChild(GameObject3D* child);
+  virtual void AddChild(GameObject3D* child);
   //指定した子GameObjectを子リストから削除します。
-  void RemoveChild(GameObject3D* child);
+  virtual void RemoveChild(GameObject3D* child);
   //自身を親GameObjectの子リストから削除します。
-  void RemoveSelf();
+  virtual void RemoveSelf();
   //全ての子GameObjectを子リストから削除します。
-  void ClearChildren();
+  virtual void ClearChildren();
 
-  //描画メソッドです。自身と自身の子の描画処理を行います。
-  //これらのメソッドはエンジンが描画サイクルの中で呼び出す為、
-  //ユーザーが直接呼び出す機会はありません。
-  //描画を行いたい場合はGameObjectを現在のSceneをrootとした
-  //GameObjectの子GameObjectに追加してください。
-  //Drawメソッド内では以下の順番で処理が行われます。
-  //  0.VBO更新処理
-  //  1.PreDraw()
-  //  2.ZIndexが0未満の子GameObjectのDraw()
-  //  4.NativeDraw() //自身の描画処理
-  //  5.ZIndexが0以上の子GameObjectのDraw()
-  //  6.PostDraw()
   virtual void Draw(GameObject3DRenderState* state);
-
-  virtual void PreDraw(GameObject3DRenderState* state) {}
-  virtual void NativeDraw(GameObject3DRenderState* state) {}
-  virtual void PostDraw(GameObject3DRenderState* state) {}
 
 protected:
   virtual void PushMatrixStack(GameObject3DRenderState* state);
@@ -93,33 +77,8 @@ public:
     return this->transform_;
   }
 
-  inline void SetZTestFlag(bool z_test)
-  {
-    this->z_test_ = z_test;
-  }
-
-  inline bool GetZTestFlag() const
-  {
-    return this->z_test_;
-  }
-
-  inline void SetBillboardingFlag(bool billboarding)
-  {
-    this->billbording_ = billboarding;
-  }
-
-  inline bool IsBillboardingRoot() const
-  {
-    return this->billbording_;
-  }
-
-  bool IsBillboard() const;
-
 private:
   Transform3D* transform_;
   GameObject3D* parent_;
   std::vector<GameObject3D*> children_;
-
-  bool z_test_;
-  bool billbording_;
 };

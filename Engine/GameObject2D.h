@@ -41,23 +41,7 @@ public:
   //全ての子GameObjectを子リストから削除します。
   void ClearChildren();
 
-  //描画メソッドです。自身と自身の子の描画処理を行います。
-  //これらのメソッドはエンジンが描画サイクルの中で呼び出す為、
-  //ユーザーが直接呼び出す機会はありません。
-  //描画を行いたい場合はGameObjectを現在のSceneをrootとした
-  //GameObjectの子GameObjectに追加してください。
-  //Drawメソッド内では以下の順番で処理が行われます。
-  //  0.VBO更新処理
-  //  1.PreDraw()
-  //  2.ZIndexが0未満の子GameObjectのDraw()
-  //  4.NativeDraw() //自身の描画処理
-  //  5.ZIndexが0以上の子GameObjectのDraw()
-  //  6.PostDraw()
   virtual void Draw(GameObject2DRenderState* state);
-
-  virtual void PreDraw(GameObject2DRenderState* state) {}
-  virtual void NativeDraw(GameObject2DRenderState* state) {}
-  virtual void PostDraw(GameObject2DRenderState* state) {}
 
 private:
   void UpdateChildrenZIndex();
@@ -102,58 +86,7 @@ public:
   {
     return this->transform_;
   }
-  inline void SetColor(const Color& color)
-  {
-    this->color_ = color;
-  }
-  inline void SetColor(T_UINT8 r, T_UINT8 g, T_UINT8 b)
-  {
-    this->color_.SetColor(r, g, b);
-  }
-  inline void SetColor(T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a)
-  {
-    this->color_.SetColor(r, g, b, a);
-  }
-  inline const Color& GetColor() const
-  {
-    return this->color_;
-  }
-  inline void SetRed(T_UINT8 r)
-  {
-    this->color_.SetRed(r);
-  }
-  inline T_UINT8 GetRed() const
-  {
-    return this->color_.GetRed();
-  }
-  inline void SetGreen(T_UINT8 g)
-  {
-    this->color_.SetGreen(g);
-  }
-  inline T_UINT8 GetGreen() const
-  {
-    return this->color_.GetGreen();
-  }
-  inline void SetBlue(T_UINT8 b)
-  {
-    this->color_.SetBlue(b);
-  }
-  inline T_UINT8 GetBlue() const
-  {
-    return this->color_.GetBlue();
-  }
-  inline void SetAlpha(T_UINT8 a)
-  {
-    this->color_.SetAlpha(a);
-  }
-  inline T_UINT8 GetAlpha() const
-  {
-    return this->color_.GetAlpha();
-  }
-  inline T_PACKED_COLOR_UINT32 GetPackedColor()
-  {
-    return this->color_.GetPackedColor();
-  }
+
   inline void SetZIndex(T_INT8 zindex)
   {
     this->zindex_ = zindex;
@@ -170,7 +103,6 @@ public:
 private:
   Transform2D* transform_;
 
-  Color color_;
 
   GameObject2D* parent_;
   std::vector<GameObject2D*> children_;

@@ -38,7 +38,7 @@ namespace Resource
 
 inline EntityModifierManager* GetEntityModifierManager()
 {
-  return nullptr;
+  return &EntityModifierManager::GetInstance();
 }
 
 }

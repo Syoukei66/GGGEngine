@@ -9,10 +9,7 @@
 GameObject3D::GameObject3D()
   : parent_(nullptr)
   , children_()
-  , z_test_(false)
-  , billbording_(false)
 {
-  this->SetBlendFunction(BlendFunction::BL_NOBLEND, BlendFunction::BL_NOBLEND);
   this->transform_ = new Transform3D(this);
   this->transform_->Init();
 }
@@ -109,23 +106,19 @@ void GameObject3D::Draw(GameObject3DRenderState* state)
     return;
   }
 
-  //描画前のアップデート処理
-  this->PreDraw(state);
-
   this->PushMatrixStack(state);
   
   if (state->IsTargetedLayer(this->GetLayerId()))
   {
-    //TODO: Zテスト行うかどうかの判定はマテリアルに記述すべき
-    if (this->z_test_)
+    Material* const material = this->GetMaterial();
+    if (material && material->GetZTestLevel() > 0)
     {
-      state->AddZCheckOrder(this);
+      state->AddZCheckOrder(material->GetZTestLevel(), this);
     }
     else
     {
       // 自分自身の描画
-      this->ApplyBlendMode(state);
-      this->NativeDraw(state);
+      this->ManagedDraw(state);
     }
   }
 
@@ -137,25 +130,23 @@ void GameObject3D::Draw(GameObject3DRenderState* state)
   }
 
   this->PopMatrixStack(state);
-
-  this->PostDraw(state);
 }
 
 void GameObject3D::PushMatrixStack(GameObject3DRenderState* state)
 {
   state->PushMatrix(this->transform_->GetMatrix());
-  if (this->IsBillboardingRoot())
-  {
-    state->PushMatrix(state->GetCamera()->GetBillboardingMatrix());
-  }
+  //if (this->IsBillboardingRoot())
+  //{
+  //  state->PushMatrix(state->GetCamera()->GetBillboardingMatrix());
+  //}
 }
 
 void GameObject3D::PopMatrixStack(GameObject3DRenderState* state)
 {
-  if (this->IsBillboardingRoot())
-  {
-    state->PopMatrix();
-  }
+  //if (this->IsBillboardingRoot())
+  //{
+  //  state->PopMatrix();
+  //}
   state->PopMatrix();
 }
 
@@ -193,16 +184,4 @@ void GameObject3D::FireOnRotationChanged(GameObject* root)
     GameObject3D* child = (*it);
     child->FireOnRotationChanged(root);
   }
-}
-
-bool GameObject3D::IsBillboard() const
-{
-  if (this->HasParent())
-  {
-    if (this->parent_->IsBillboard())
-    {
-      return true;
-    }
-  }
-  return this->billbording_;
 }

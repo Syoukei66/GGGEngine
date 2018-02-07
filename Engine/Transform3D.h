@@ -38,7 +38,7 @@ protected:
   void UpdateScaleMatrix(INativeMatrix* matrix) override;
   void UpdateRotateMatrix(INativeMatrix* matrix) override;
 
-  INativeMatrix* GetParentWorldMatrix() override;
+  const INativeMatrix* GetParentWorldMatrix() override;
 
   // =================================================================
   // setter/getter
@@ -99,15 +99,15 @@ public:
 public:
   inline const TVec3f GetDirection() const
   {
-    return this->GetMatrix()->GetDirection3d();
+    return this->GetMatrix().GetDirection3d();
   }
   inline const TVec3f GetWorldPosition() const
   {
-    return this->GetWorldMatrix()->GetPosition3d();
+    return this->GetWorldMatrix().GetPosition3d();
   }
   inline const TVec3f GetWorldDirection() const
   {
-    return this->GetWorldMatrix()->GetDirection3d();
+    return this->GetWorldMatrix().GetDirection3d();
   }
 
   // =================================================================

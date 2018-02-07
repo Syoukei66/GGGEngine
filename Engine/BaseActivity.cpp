@@ -3,7 +3,9 @@
 
 #include "NativeMethod.h"
 #include "InputManager.h"
-#include <string.h>
+
+#include "EngineResourcePool.h"
+#include "EngineAsset.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -23,7 +25,6 @@ bool BaseActivity::Run(IEngineSetting* setting)
 {
   Director::GetInstance()->SetActivity(this);
   NativeMethod::Graphics_SetInstance(this->SetupNativeProcess_Graphics());
-  NativeMethod::Material_SetInstance(this->SetupNativeProcess_Material());
   NativeMethod::IO_SetInstance(this->SetupNativeProcess_IO());
   NativeMethod::Time_SetInstance(this->SetupNativeProcess_Time());
 
@@ -39,6 +40,8 @@ bool BaseActivity::Run(IEngineSetting* setting)
   NativeMethod::Time().FPS_Init();
 #endif
 
+  this->fbx_manager_ = FbxManager::Create();
+
   const EngineOption* option = this->engine_->GetEngineOption();
   this->ApplyEngineOption(option);
   InputManager::GetInstance()->Init(option->input_setting.Build());
@@ -47,6 +50,20 @@ bool BaseActivity::Run(IEngineSetting* setting)
   NATIVE_ASSERT(result, "アクティビティの初期化に失敗しました。");
 
   setting->OnGameInit();
+
+  IResourceLoadingListener listener = IResourceLoadingListener();
+
+  EngineResourcePool& pool = EngineResourcePool::GetInstance();
+  pool.ReserveLoad(EngineAsset::Shader::DEFAULT);
+  pool.ReserveLoad(EngineAsset::Shader::MODEL);
+  pool.ReserveLoad(EngineAsset::Shader::PARTICLE);
+  pool.ReserveLoad(EngineAsset::Shader::PRIMITIVE);
+  pool.ReserveLoad(EngineAsset::Shader::SPRITE);
+  pool.ReserveLoad(EngineAsset::Shader::WHITE);
+
+  pool.PreRealize(&listener);
+  pool.Realize(&listener);
+
   //Scene
   engine_->ChangeScene(setting->FirstScene());
   while (this->Update());
@@ -56,12 +73,13 @@ bool BaseActivity::Run(IEngineSetting* setting)
   NATIVE_ASSERT(result, "アクティビティの終了処理に失敗しました。");
   InputManager::GetInstance()->Uninit();
 
+  this->fbx_manager_->Destroy();
+
   result = this->engine_->End();
   NATIVE_ASSERT(result, "エンジンの終了処理に失敗しました。");
   delete this->engine_;
   
   NativeMethod::Graphics_DeleteInstance();
-  NativeMethod::Material_DeleteInstance();
   NativeMethod::IO_DeleteInstance();
   NativeMethod::Time_DeleteInstance();
   return true;

@@ -1,4 +1,6 @@
 #include "DirectXActivity.h"
+
+#define NOMINMAX
 #include <windows.h>
 #include <windowsx.h>
 #include <d3d9.h>
@@ -9,7 +11,6 @@
 #include <NativeMethod.h>
 
 #include "NativeProcess_Graphics.h"
-#include "NativeProcess_Material.h"
 #include "NativeProcess_IO.h"
 #include "NativeProcess_Time.h"
 
@@ -49,11 +50,6 @@ DirectXActivity::~DirectXActivity()
 INativeProcess_Graphics* DirectXActivity::SetupNativeProcess_Graphics()
 {
   return new NativeProcess_Graphics();
-}
-
-INativeProcess_Material* DirectXActivity::SetupNativeProcess_Material()
-{
-  return new NativeProcess_Material();
 }
 
 INativeProcess_IO* DirectXActivity::SetupNativeProcess_IO()
@@ -173,6 +169,9 @@ bool DirectXActivity::Init(const EngineOption* option)
   this->d3d_device_->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
   this->d3d_device_->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
 
+  this->d3d_device_->SetRenderState(D3DRS_LIGHTING, false);
+  this->d3d_device_->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+
   //テクスチャのアドレス外を参照した場合にどうするかの設定
   //g_pD3DDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, XXXXX);
   //g_pD3DDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, XXXXX);
@@ -218,21 +217,27 @@ bool DirectXActivity::Uninit()
   if (this->d3d_device_)
   {	//デバイスの解放 (重要)
     this->d3d_device_->Release();
-    this->d3d_device_ = NULL;
+    this->d3d_device_ = nullptr;
   }
   if (this->input_)
   {
     this->input_->UnloadDevices();
     delete this->input_;
-    this->input_ = NULL;
+    this->input_ = nullptr;
   }
 #ifdef _DEBUG
   if (this->debug_font_)
   {
     this->debug_font_->Release();
-    this->debug_font_ = NULL;
+    this->debug_font_ = nullptr;
   }
 #endif
+  if (this->d3d_)
+  {
+    this->d3d_->Release();
+    this->d3d_ = nullptr;
+  }
+  delete this->native_implements_;
   return true;
 }
 

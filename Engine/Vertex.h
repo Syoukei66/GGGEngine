@@ -3,44 +3,58 @@
 #include "Geometry.h"
 #include "Color.h"
 
-// =================================================================
-// Vertex
-// =================================================================
-struct Vertex
+namespace Vertex
 {
-  TVec4f coord;
-  T_PACKED_COLOR_UINT32 packed_color;
-  Vertex();
-  Vertex(T_FLOAT x, T_FLOAT y, T_FLOAT z);
-  Vertex(const TVec4f& coord, T_PACKED_COLOR_UINT32 color);
-  void Init();
+
+// V = Vertex Coord
+// C = Color
+// T = Texture Coord
+// N = Normal
+
+enum VertexType
+{
+  VERTEX_TYPE_VC,
+  VERTEX_TYPE_VCT,
+  VERTEX_TYPE_VNCT,
+
+  VERTEX_TYPE_DATANUM,
 };
 
-// =================================================================
-// SpriteVertex
-// =================================================================
-struct SpriteVertex
+struct VC
 {
-  TVec4f coord;
-  T_PACKED_COLOR_UINT32 packed_color;
-  TVec2f uv;
-  SpriteVertex();
-  SpriteVertex(T_FLOAT x, T_FLOAT y, T_FLOAT z, T_FLOAT u, T_FLOAT v);
-  SpriteVertex(const TVec4f& coord, T_PACKED_COLOR_UINT32 color, const TVec2f& uv);
-  void Init();
+  T_FLOAT coord[4];
+  T_PACKED_COLOR_UINT32 color;
+  VC();
+  VC(T_FLOAT x, T_FLOAT y, T_FLOAT z);
+  VC(const TVec4f& coord);
 };
 
-// =================================================================
-// Vertex3D
-// =================================================================
-struct Vertex3D
+struct VCT
 {
-  TVec4f coord;
-  TVec3f normal;
-  T_PACKED_COLOR_UINT32 packed_color;
-  TVec2f uv;
-  Vertex3D();
-  Vertex3D(T_FLOAT x, T_FLOAT y, T_FLOAT z, T_FLOAT u, T_FLOAT v, T_FLOAT normal_x, T_FLOAT normal_y, T_FLOAT normal_z);
-  Vertex3D(const TVec4f& coord, T_PACKED_COLOR_UINT32 color, const TVec2f& uv, const TVec3f& normal);
-  void Init();
+  T_FLOAT coord[4];
+  T_PACKED_COLOR_UINT32 color;
+  T_FLOAT uv[2];
+  VCT();
+  VCT(T_FLOAT x, T_FLOAT y, T_FLOAT z, T_FLOAT u, T_FLOAT v);
+  VCT(const TVec4f& coord, const TVec2f& uv);
 };
+
+struct VNCT
+{
+  T_FLOAT coord[4];
+  T_FLOAT normal[3];
+  T_PACKED_COLOR_UINT32 color;
+  T_FLOAT uv[2];
+  VNCT();
+  VNCT(T_FLOAT x, T_FLOAT y, T_FLOAT z, T_FLOAT u, T_FLOAT v, T_FLOAT normal_x, T_FLOAT normal_y, T_FLOAT normal_z);
+  VNCT(const TVec4f& coord, const TVec2f& uv, const TVec3f& normal);
+};
+
+static const T_UINT32 VERTEX_SIZE[Vertex::VERTEX_TYPE_DATANUM] =
+{
+  sizeof(VC),
+  sizeof(VCT),
+  sizeof(VNCT),
+};
+
+} // namespace Vertex

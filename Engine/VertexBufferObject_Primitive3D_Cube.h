@@ -23,12 +23,6 @@ public:
   virtual const void* GetVertexes() const override;
   virtual const T_UINT16* GetIndexes() const override;
   virtual INativeProcess_Graphics::PrimitiveType GetPrimitiveType() override;
-  virtual INativeProcess_Graphics::VertexType GetVertexType() override;
-
-  // =================================================================
-  // Data Member
-  // =================================================================
-private:
-  SpriteVertex* vertexes_;
+  virtual Vertex::VertexType GetVertexType() override;
 
 };

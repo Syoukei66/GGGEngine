@@ -8,35 +8,30 @@
 // =================================================================
 Camera3D_LookAt::Camera3D_LookAt(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_min, T_FLOAT z_max)
   : Camera3D(x, y, width, height, z_min, z_max)
+  , view_matrix_(INativeMatrix::Create())
   , look_at_pos_(0.0f, 0.0f, 1.0f)
   , current_look_at_pos_(0.0f, 0.0f, 1.0f)
   , target_(nullptr)
-  , target_lerp_(1.0f)
+  , target_lerp_t_(0.5f)
   , target_direction_(0.0f, 0.0f, 1.0f)
-  , camera_up_(0.0f, 1.0f, 0.0f)
   , view_dirty_(true)
 {
-  this->entity_ = new GameObject3D();
-  this->view_matrix_ = INativeMatrix::Create();
 }
 
 Camera3D_LookAt::Camera3D_LookAt()
   : Camera3D()
+  , view_matrix_(INativeMatrix::Create())
   , look_at_pos_(0.0f, 0.0f, 1.0f)
   , current_look_at_pos_(0.0f, 0.0f, 1.0f)
   , target_(nullptr)
-  , target_lerp_(1.0f)
+  , target_lerp_t_(0.5f)
   , target_direction_(0.0f, 0.0f, 1.0f)
-  , camera_up_(0.0f, 1.0f, 0.0f)
   , view_dirty_(true)
 {
-  this->entity_ = new GameObject3D();
-  this->view_matrix_ = INativeMatrix::Create();
 }
 
 Camera3D_LookAt::~Camera3D_LookAt()
 {
-  delete this->entity_;
   delete this->view_matrix_;
 }
 
@@ -68,17 +63,15 @@ void Camera3D_LookAt::CheckViewDirty()
   this->view_matrix_->Init();
   if (this->target_)
   {
+    GameObject3D* player = this->entity_->GetParent();
+    TVec3f camera_pos = player->GetTransform()->GetWorldPosition();
+    this->direction_ = (this->current_look_at_pos_ - player->GetTransform()->GetWorldPosition()).Normalized();
+    camera_pos -= this->direction_ * this->GetTransform()->GetPosition().Length();
+    camera_pos.y = std::max(camera_pos.y, player->GetTransform()->GetY());
     this->view_matrix_->LookAtLH(
-      this->GetTransform()->GetWorldPosition(),
-      this->target_->GetTransform()->GetWorldPosition(),
-      this->camera_up_
-    );
-    this->target_direction_ = this->view_matrix_->GetDirection3d();
-
-    this->view_matrix_->LookAtLH(
-      this->GetTransform()->GetWorldPosition(),
+      camera_pos,
       this->current_look_at_pos_,
-      this->camera_up_
+      this->GetTransform()->GetWorldMatrix().GetCameraYVec()
     );
   }
   //ターゲットが存在しない時の処理
@@ -89,21 +82,21 @@ void Camera3D_LookAt::CheckViewDirty()
     {
       this->current_look_at_pos_ = this->look_at_pos_;
 
-      TVec3f camera_pos = this->GetTransform()->GetWorldPosition();
+      const TVec3f& camera_pos = this->GetTransform()->GetWorldPosition();
       TVec3f look_at_pos = this->look_at_pos_;
-      this->GetTransform()->GetWorldMatrix()->Apply(&look_at_pos);
+      this->GetTransform()->GetWorldMatrix().Apply(&look_at_pos);
       this->direction_ = (look_at_pos - camera_pos).Normalized();
       this->view_matrix_->LookAtLH(
         camera_pos,
         look_at_pos,
-        this->camera_up_
+        this->GetTransform()->GetWorldMatrix().GetCameraYVec()
       );
     }
     //プレイヤーが存在しない時の処理
     else
     {
-      this->direction_ = this->entity_->GetTransform()->GetMatrix()->GetDirection3d();
-      this->entity_->GetTransform()->GetMatrix()->Inverse(this->view_matrix_);
+      this->view_matrix_->Assign(this->GetTransform()->GetWorldMatrix());
+      this->direction_ = this->view_matrix_->GetDirection3d();
     }
   }
 
@@ -123,9 +116,7 @@ void Camera3D_LookAt::Update()
 {
   if (this->target_)
   {
-    //this->current_look_at_pos_ += (this->target_->GetTransform()->GetWorldPosition() - this->current_look_at_pos_) * this->target_lerp_;
-    TVec3f pos = this->target_->GetTransform()->GetWorldPosition() - this->current_look_at_pos_;
-    this->current_look_at_pos_ += (pos * this->target_lerp_);
+    this->current_look_at_pos_ = TVec3f::Lerp(this->current_look_at_pos_, this->target_->GetTransform()->GetWorldPosition(), this->target_lerp_t_);
   }
 }
 
@@ -185,61 +176,5 @@ void Camera3D_LookAt::SetLookAtPosZ(T_FLOAT z)
     return;
   }
   this->look_at_pos_.z = z;
-  this->OnViewChanged();
-}
-
-void Camera3D_LookAt::SetCameraUp(const TVec3f& camera_up)
-{
-  if (this->camera_up_ == camera_up)
-  {
-    return;
-  }
-  this->camera_up_ = camera_up;
-  this->OnViewChanged();
-}
-
-void Camera3D_LookAt::SetCameraUp(T_FLOAT x, T_FLOAT y, T_FLOAT z)
-{
-  if (
-    this->camera_up_.x == x &&
-    this->camera_up_.y == y &&
-    this->camera_up_.z == z
-    )
-  {
-    return;
-  }
-  this->camera_up_.x = x;
-  this->camera_up_.y = y;
-  this->camera_up_.z = z;
-  this->OnViewChanged();
-}
-
-void Camera3D_LookAt::SetCameraUpX(T_FLOAT x)
-{
-  if (this->camera_up_.x == x)
-  {
-    return;
-  }
-  this->camera_up_.x = x;
-  this->OnViewChanged();
-}
-
-void Camera3D_LookAt::SetCameraUpY(T_FLOAT y)
-{
-  if (this->camera_up_.y == y)
-  {
-    return;
-  }
-  this->camera_up_.y = y;
-  this->OnViewChanged();
-}
-
-void Camera3D_LookAt::SetCameraUpZ(T_FLOAT z)
-{
-  if (this->camera_up_.z == z)
-  {
-    return;
-  }
-  this->camera_up_.z = z;
   this->OnViewChanged();
 }

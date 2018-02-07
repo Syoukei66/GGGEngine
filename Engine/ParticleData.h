@@ -15,7 +15,7 @@ public:
   virtual void OnEmission(Particle* particle, const Transform2D* offset) const = 0;
   virtual bool OnUpdate(Particle* particle, T_FLOAT progress, T_FLOAT dp) const = 0;
 
-  T_FLOAT CalcValueByVariance(T_FLOAT value, T_FLOAT variance, T_FLOAT min = T_FLOAT_MIN, T_FLOAT max = T_FLOAT_MAX) const;
+  T_FLOAT CalcValueByVariance(T_FLOAT value, T_FLOAT variance, T_FLOAT min = Limit::T_FLOAT_MIN, T_FLOAT max = Limit::T_FLOAT_MAX) const;
   inline T_FLOAT CalcValueByProgress(T_FLOAT min, T_FLOAT max, T_FLOAT progress) const
   {
     return min + (max - min) * progress;

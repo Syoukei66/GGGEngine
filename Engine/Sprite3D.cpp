@@ -2,28 +2,45 @@
 #include "TextureRegion.h"
 #include "GameObject3DRenderState.h"
 #include "Moniker.h"
+#include "EngineAsset.h"
+#include "EngineAsset.h"
 
-Sprite3D* Sprite3D::CreateWithTexture(const Texture* texture)
+Sprite3D* Sprite3D::CreateWithMaterial(Material* material)
 {
   Sprite3D* ret = new Sprite3D();
-  TextureRegion* region = TextureRegion::CreateWithTexture(texture);
+  TextureRegion* region = TextureRegion::CreateWithTexture(material->GetMainTexture());
   ret->Init();
-  ret->SetTextureRegion(region);
+  ret->SetMaterial(*material);
+  ret->SetTextureRegion(region, true);
   ret->FitToTexture();
   return ret;
 }
 
+Sprite3D* Sprite3D::CreateWithTexture(const Texture& texture)
+{
+  Material* mat = EngineAsset::Material::SPRITE.Clone();
+  mat->SetMainTexture(texture);
+  return CreateWithMaterial(mat);
+}
+
 Sprite3D::Sprite3D()
   : Shape3D(new VertexBufferObject_Sprite3D())
+  , texture_region_(nullptr)
 {
   this->sprite3d_vbo_ = (VertexBufferObject_Sprite3D*)this->vbo_;
 }
 
 Sprite3D::~Sprite3D()
 {
+  if (this->delete_region_)
+  {
+    delete this->texture_region_;
+  }
 }
 
-
+// =================================================================
+// Methods for/from SuperClass/Interfaces
+// =================================================================
 void Sprite3D::PreDraw(GameObject3DRenderState* state)
 {
   Shape3D::PreDraw(state);
@@ -31,7 +48,6 @@ void Sprite3D::PreDraw(GameObject3DRenderState* state)
   {
     return;
   }
-  const Texture* texture = this->texture_region_->GetTexture();
   if (this->texture_region_->UpdateTextureCoord())
   {
     this->sprite3d_vbo_->OnVertexUvDirty();
@@ -41,11 +57,12 @@ void Sprite3D::PreDraw(GameObject3DRenderState* state)
 
 void Sprite3D::NativeDraw(GameObject3DRenderState* state)
 {
+  if (!this->texture_region_)
+  {
+    return;
+  }
   const void* vertexes = this->vbo_->GetVertexes();
   T_UINT32 size = this->vbo_->GetVertexesCount();
-  NativeMethod::Graphics().Graphics_SetTexture(this->texture_region_->GetTexture());
-  NativeMethod::Graphics().Graphics_SetMaterial(this->GetMaterial());
-  NativeMethod::Graphics().Graphics_SetLightingEnabled(false);
   NativeMethod::Graphics().Graphics_DrawIndexedVertexes(
     state,
     this->vbo_->GetPrimitiveType(),
@@ -75,23 +92,19 @@ void Sprite3D::FitToTexture()
   {
     return;
   }
-  const Texture* texture = this->texture_region_->GetTexture();
-  if (!texture)
-  {
-    return;
-  }
-  const T_FLOAT texture_width = (T_FLOAT)texture->GetWidth() * 0.01f;
-  const T_FLOAT texture_height = (T_FLOAT)texture->GetHeight() * 0.01f;
+  const T_FLOAT texture_width = (T_FLOAT)texture_region_->GetWidth() * 0.01f;
+  const T_FLOAT texture_height = (T_FLOAT)texture_region_->GetHeight() * 0.01f;
   this->SetWidth(texture_width * (this->texture_region_->GetU1() - this->texture_region_->GetU0()));
   this->SetHeight(texture_height * (this->texture_region_->GetV1() - this->texture_region_->GetV0()));
 }
 
-void Sprite3D::SetTextureRegion(ITextureRegion* itr)
+void Sprite3D::SetTextureRegion(ITextureRegion* itr, bool delete_region)
 {
   if (this->texture_region_ == itr)
   {
     return;
   }
+  this->delete_region_ = delete_region;
   this->texture_region_ = itr;
   this->OnTextureChanged();
 }

@@ -1,54 +1,100 @@
 #include "Material.h"
+#include "GameObjectRenderState.h"
 #include "NativeMethod.h"
 
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-Material::Material()
+Material::Material(const ShaderResource& resource, bool protect)
+  : protected_(protect)
+  , shader_resource_(&resource)
+  , properties_()
+  , color_()
+  , texture_()
+  , z_test_level_(0)
+  , billbording_(false)
 {
-  this->material_delete_ = true;
-  this->material_ = NativeMethod::Material().Material_Create();
-}
-
-Material::Material(LP_MATERIAL native_material)
-{
-  this->material_delete_ = false;
-  this->material_ = native_material;
 }
 
 Material::~Material()
 {
-  if (this->material_delete_)
+  for (auto pair : this->properties_)
   {
-    NativeMethod::Material().Material_Delete(this->material_);
+    delete pair.second;
+  }
+  for (Material* clone : this->clones_)
+  {
+    delete clone;
   }
 }
 
 // =================================================================
 // Method
 // =================================================================
-void Material::Apply()
+Material* Material::Clone()
 {
-  NativeMethod::Material().Material_SetAmbient(this->material_, this->ambient_);
-  NativeMethod::Material().Material_SetDiffuse(this->material_, this->diffuse_);
+  Material* ret = new Material(*this->shader_resource_);
+  for (auto pair : this->properties_)
+  {
+    ret->properties_[pair.first] = pair.second->Clone();
+  }
+  ret->color_ = this->color_;
+  ret->texture_ = this->texture_;
+  ret->z_test_level_ = this->z_test_level_;
+  this->clones_.push_back(ret);
+  return ret;
 }
 
-void Material::SetAmbient(const Color& color)
+Material* Material::InitialClone()
 {
-  this->ambient_ = color;
+  NATIVE_ASSERT(this->shader_resource_, "シェーダーが未定義です");
+  Material* ret = new Material(*this->shader_resource_);
+  this->clones_.push_back(ret);
+  return ret;
 }
 
-void Material::SetAmbient(T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a)
+T_UINT8 Material::Begin()
 {
-  this->ambient_.SetColor(r, g, b, a);
+  INativeShader* shader = this->GetShader();
+  return shader->Begin();
 }
 
-void Material::SetDiffuse(const Color& color)
+void Material::BeginPass(T_UINT8 path_id)
 {
-  this->diffuse_ = color;
+  INativeShader* shader = this->GetShader();
+  shader->BeginPass(path_id);
+  if (path_id > 0)
+  {
+    return;
+  }
+  for (auto pair : this->properties_)
+  {
+    pair.second->Apply(shader, pair.first);
+  }
+  NativeTextureInstance* texture = this->texture_ ? this->texture_->GetContents()->GetNativeInstance() : nullptr;
+  shader->SetTexture("_MainTex", texture);
+  shader->SetColor("_Diffuse", this->color_);
 }
 
-void Material::SetDiffuse(T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a)
+void Material::SetWorldMatrix(GameObjectRenderState* state)
 {
-  this->diffuse_.SetColor(r, g, b, a);
+  INativeShader* shader = this->GetShader();
+  shader->SetMatrix("_WorldViewProj", state->GetWorldViewProjToMaterial()->GetNativeInstance());
+}
+
+void Material::CommitChanges()
+{
+  INativeShader* shader = this->GetShader();
+  shader->CommitChanges();
+}
+
+void Material::EndPass()
+{
+  INativeShader* shader = this->GetShader();
+  shader->EndPass();
+}
+
+void Material::End()
+{
+  this->GetShader()->End();
 }

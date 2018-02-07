@@ -7,11 +7,16 @@
 class Sprite3D : public Shape3D
 {
 public:
-  static Sprite3D* CreateWithTexture(const Texture* texture);
+  static Sprite3D* CreateWithMaterial(Material* material);
+  static Sprite3D* CreateWithTexture(const Texture& texture);
 
+  // =================================================================
+  // Constructor / Destructor
+  // =================================================================
 public:
   Sprite3D();
   ~Sprite3D();
+
   // =================================================================
   // Methods for/from SuperClass/Interfaces
   // =================================================================
@@ -33,7 +38,7 @@ public:
   // setter/getter
   // =================================================================
 public:
-  void SetTextureRegion(ITextureRegion* itr);
+  void SetTextureRegion(ITextureRegion* itr, bool delete_region = true);
   inline ITextureRegion* GetTextureRegion() const
   {
     return this->texture_region_;
@@ -59,8 +64,8 @@ public:
     return this->size_.height * this->GetTransform()->GetScaleY();
   }
 
-
 private:
+  bool delete_region_;
   TSizef size_;
   VertexBufferObject_Sprite3D* sprite3d_vbo_;
   ITextureRegion* texture_region_;

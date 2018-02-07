@@ -2,6 +2,9 @@
 #include "TextureRegion.h"
 #include "NativeMethod.h"
 #include "GameObject2DRenderState.h"
+#include "EngineAsset.h"
+#include "MeshRenderer.h"
+#include "MeshData_Sprite.h"
 
 // =================================================================
 // Factory Method
@@ -21,12 +24,20 @@ Sprite* Sprite::CreateWithTextureRegion(ITextureRegion* region)
   return ret;
 }
 
-Sprite* Sprite::CreateWithTexture(const Texture* texture)
+Sprite* Sprite::CreateWithMaterial(Material* material)
 {
-  TextureRegion* region = TextureRegion::CreateWithTexture(texture);
+  TextureRegion* region = TextureRegion::CreateWithTexture(material->GetMainTexture());
   Sprite* ret = Sprite::CreateWithTextureRegion(region);
+  ret->GetRenderer()->SetMaterial(*material);
   ret->delete_region_ = true;
   return ret;
+}
+
+Sprite* Sprite::CreateWithTexture(const Texture& texture)
+{
+  Material* mat = EngineAsset::Material::SPRITE.Clone();
+  mat->SetMainTexture(texture);
+  return CreateWithMaterial(mat);
 }
 
 // =================================================================
@@ -48,6 +59,10 @@ Sprite::Sprite()
 {
   this->vbo_ = SpriteVertexBufferObject::Create();
   this->delete_region_ = false;
+  this->renderer_ = new MeshRenderer();
+  this->renderer_->AddMaterial(EngineAsset::Material::SPRITE);
+  this->renderer_->SetMesh(Mesh::CreateWithMeshData(MeshData_Sprite::GetInstance()));
+  this->SetRenderer(this->renderer_);
 }
 
 // =================================================================
@@ -59,51 +74,16 @@ void Sprite::Init()
   this->texture_region_ = nullptr;
 }
 
-void Sprite::PreDraw(GameObject2DRenderState* state)
+void Sprite::Update()
 {
-  Shape::PreDraw(state);
+  Shape::Update();
   if (!this->texture_region_)
   {
     return;
   }
-  const Texture* texture = this->texture_region_->GetTexture();
-  if (this->texture_region_->UpdateTextureCoord())
-  {
-    this->vbo_->OnVertexUvDirty();
-  }
-  this->vbo_->UpdateTexture(this, this->texture_region_);
-}
-
-void Sprite::NativeDraw(GameObject2DRenderState* state)
-{
-  if (!this->texture_region_)
-  {
-    return;
-  }
-  const Texture* texture = this->texture_region_->GetTexture();
-  if (!texture)
-  {
-    return;
-  }
-  T_UINT32 color = state->GetWorldPackedColor();
-  SpriteVertex* vertexes = (SpriteVertex*)this->vbo_->GetVertexes();
-  T_UINT32 size = this->vbo_->GetVertexesCount();
-  for (T_UINT32 i = 0; i < size; ++i)
-  {
-    vertexes[i].packed_color = color;
-  }
-  NativeMethod::Graphics().Graphics_SetTexture(texture);
-  NativeMethod::Graphics().Graphics_DrawSprite(
-    state,
-    INativeProcess_Graphics::PRIMITIVE_TRIANGLESTRIP,
-    vertexes,
-    size
-  );
-}
-
-void Sprite::PostDraw(GameObject2DRenderState* state)
-{
-  Shape::PostDraw(state);
+  this->texture_region_->UpdateTextureCoord();
+  this->texture_region_->GetWidth();
+  this->texture_region_->GetHeight();
 }
 
 // =================================================================
@@ -120,13 +100,8 @@ void Sprite::FitToTexture()
   {
     return;
   }
-  const Texture* texture = this->texture_region_->GetTexture();
-  if (!texture)
-  {
-    return;
-  }
-  T_FLOAT tw = (T_FLOAT)texture->GetWidth();
-  T_FLOAT th = (T_FLOAT)texture->GetHeight();
+  T_FLOAT tw = texture_region_->GetTexture()->GetWidth();
+  T_FLOAT th = texture_region_->GetTexture()->GetHeight();
   this->SetWidth(tw * (this->texture_region_->GetU1() - this->texture_region_->GetU0()));
   this->SetHeight(th * (this->texture_region_->GetV1() - this->texture_region_->GetV0()));
 }
@@ -134,11 +109,6 @@ void Sprite::FitToTexture()
 // =================================================================
 // setter/getter
 // =================================================================
-IVertexBufferObject* Sprite::GetVbo() const
-{
-  return this->vbo_;
-}
-
 void Sprite::SetTextureRegion(ITextureRegion* itr)
 {
   if (this->texture_region_ == itr)

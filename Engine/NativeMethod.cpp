@@ -22,25 +22,6 @@ void Graphics_DeleteInstance()
   delete graphics;
 }
 
-//Material
-
-INativeProcess_Material* material;
-
-INativeProcess_Material& Material()
-{
-  return *material;
-}
-
-void Material_SetInstance(INativeProcess_Material* process)
-{
-  material = process;
-}
-
-void Material_DeleteInstance()
-{
-  delete material;
-}
-
 //IO
 
 INativeProcess_IO* io;

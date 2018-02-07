@@ -22,10 +22,10 @@ void EngineAttachmentLoader_configureAttachment(spAttachmentLoader* loader, spAt
   spRegionAttachment* region_attachment = SUB_CAST(spRegionAttachment, attachment);
   spAtlasRegion* region = (spAtlasRegion*)region_attachment->rendererObject;
   AttachmentVertexes* attachment_vertexes = new AttachmentVertexes((Texture*)region->page->rendererObject, 4);
-  SpriteVertex* vertexes = attachment_vertexes->vertexes_;
+  Vertex::VCT* vertexes = attachment_vertexes->vertexes_;
   for (int i = 0, ii = 0; i < 4; ++i, ii += 2) {
-    vertexes[i].uv.x = region_attachment->uvs[ii];
-    vertexes[i].uv.y = region_attachment->uvs[ii + 1];
+    vertexes[i].uv[0] = region_attachment->uvs[ii];
+    vertexes[i].uv[1] = region_attachment->uvs[ii + 1];
   }
   region_attachment->rendererObject = attachment_vertexes;
 }

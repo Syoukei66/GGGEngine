@@ -9,7 +9,7 @@ class CSVToken
   // Factory Method
   // =================================================================
 public:
-  static CSVToken* Create(const std::string& str);
+  static CSVToken Create(const std::string& str);
 
   // =================================================================
   // Constructor / Destructor
@@ -42,6 +42,7 @@ class CSVTokenizer
 public:
   CSVTokenizer(const std::string& str);
   CSVTokenizer(const CSVTokenizer& other);
+  ~CSVTokenizer();
 
   // =================================================================
   // Method
@@ -49,18 +50,18 @@ public:
 public:
   void Reset();
   bool HasNextToken();
-  const CSVToken* NextToken();
+  const CSVToken& NextToken();
 
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  inline std::vector<const CSVToken*>::iterator Begin()
+  inline std::vector<CSVToken>::iterator Begin()
   {
     return this->tokens_.begin();
   }
 
-  inline std::vector<const CSVToken*>::iterator End()
+  inline std::vector<CSVToken>::iterator End()
   {
     return this->tokens_.end();
   }
@@ -74,6 +75,6 @@ public:
   // Data Member
   // =================================================================
 private:
-  std::vector<const CSVToken*> tokens_;
+  std::vector<CSVToken> tokens_;
   T_UINT16 now_token_index_;
 };

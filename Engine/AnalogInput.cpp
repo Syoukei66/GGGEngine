@@ -1,7 +1,8 @@
 #include "AnalogInput.h"
 #include <algorithm>
+#include "NativeAssert.h"
 
-const AnalogInputState* AnalogInputState::NULL_INPUT = new AnalogInputState();
+const AnalogInputState AnalogInputState::NULL_INPUT = AnalogInputState();
 
 // =================================================================
 // Constructor / Destructor

@@ -87,17 +87,32 @@ NativeShader::~NativeShader()
 // =================================================================
 // Method for/from SuperClass/Interfaces
 // =================================================================
-void NativeShader::Begin()
+T_UINT8 NativeShader::Begin()
 {
   this->effect_->SetTechnique(NULL);
-  UINT path;
-  this->effect_->Begin(&path, 0);
-  this->effect_->BeginPass(0);
+  UINT path_count;
+  this->effect_->Begin(&path_count, 0);
+  return path_count;
+}
+
+void NativeShader::BeginPass(T_UINT8 path_id)
+{
+  HRESULT hr = this->effect_->BeginPass(path_id);
+  NATIVE_ASSERT(SUCCEEDED(hr), "シェーダーパスの実行に失敗しました");
+}
+
+void NativeShader::CommitChanges()
+{
+  this->effect_->CommitChanges();
+}
+
+void NativeShader::EndPass()
+{
+  this->effect_->EndPass();
 }
 
 void NativeShader::End()
 {
-  this->effect_->EndPass();
   this->effect_->End();
 }
 
@@ -133,16 +148,65 @@ void NativeShader::SetVec4f(const char* property_name, const TVec4f& vec)
 
 void NativeShader::SetColor(const char* property_name, const Color4F& color)
 {
-  this->effect_->SetFloatArray(property_name, (const T_FLOAT*)&color, 4);
+  this->effect_->SetFloatArray(property_name, color.GetColors(), 4);
 }
 
-void NativeShader::SetMatrix(const char* property_name, const INativeMatrix& matrix)
+void NativeShader::SetMatrix(const char* property_name, const NativeMatrixInstance* matrix)
 {
-  this->effect_->SetMatrix(property_name, (const D3DXMATRIX*)matrix.GetNativeInstance());
+  HRESULT hr = this->effect_->SetMatrix(property_name, (const D3DXMATRIX*)matrix);
+  NATIVE_ASSERT(SUCCEEDED(hr), "Matrixのproperty_nameに誤りがあります");
 }
 
-void NativeShader::SetTexture(const char* property_name, const INativeTexture& texture)
+void NativeShader::SetTexture(const char* property_name, NativeTextureInstance* texture)
 {
-  this->effect_->SetTexture(property_name, (LPDIRECT3DTEXTURE9)texture.GetNativeInstance());
+  HRESULT hr = this->effect_->SetTexture(property_name, (LPDIRECT3DTEXTURE9)texture);
 }
 
+void NativeShader::GetBool(const char* property_name, bool* dest)
+{
+  BOOL ret;
+  this->effect_->GetBool(property_name, &ret);
+  *dest = ret;
+}
+
+void NativeShader::GetInt(const char* property_name, T_INT32* dest)
+{
+  this->effect_->GetInt(property_name, dest);
+}
+
+void NativeShader::GetFloat(const char* property_name, T_FLOAT* dest)
+{
+  this->effect_->GetFloat(property_name, dest);
+}
+
+void NativeShader::GetVec2f(const char* property_name, TVec2f* dest)
+{
+  this->effect_->GetFloatArray(property_name, (T_FLOAT*)dest, 2);
+}
+
+void NativeShader::GetVec3f(const char* property_name, TVec3f* dest)
+{
+  this->effect_->GetFloatArray(property_name, (T_FLOAT*)dest, 3);
+}
+
+void NativeShader::GetVec4f(const char* property_name, TVec4f* dest)
+{
+  this->effect_->GetFloatArray(property_name, (T_FLOAT*)dest, 4);
+}
+
+void NativeShader::GetColor(const char* property_name, Color4F* dest)
+{
+  this->effect_->GetFloatArray(property_name, (T_FLOAT*)dest, 4);
+}
+
+void NativeShader::GetMatrix(const char* property_name, INativeMatrix* dest)
+{
+  NATIVE_ASSERT(false, "まだできていません！");
+  //this->effect_->GetMatrix(property_name, (D3DXMATRIX*)dest->GetNativeInstance());
+}
+
+void NativeShader::GetTexture(const char* property_name, INativeTexture* dest)
+{
+  NATIVE_ASSERT(false, "まだできていません！");
+  //this->effect_->GetTexture(property_name, (LPDIRECT3DBASETEXTURE9*)(&(dest->GetNativeInstance())));
+}

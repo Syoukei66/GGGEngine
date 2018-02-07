@@ -4,6 +4,7 @@
 #include "BlendFunction.h"
 #include "NativeMatrix.h"
 #include "NativeMatrixStack.h"
+#include "Camera.h"
 
 class GameObjectRenderState
 {
@@ -11,22 +12,22 @@ class GameObjectRenderState
   // Constructor / Destructor
   // =================================================================
 public:
-  GameObjectRenderState();
-  ~GameObjectRenderState();
+  GameObjectRenderState(Camera* camera);
+  virtual ~GameObjectRenderState();
 
   // =================================================================
   // Method
   // =================================================================
 public:
   virtual void Init();
-  void PushMatrix(INativeMatrix* matrix);
+  void PushMatrix(const INativeMatrix& matrix);
   void PopMatrix();
-
+  
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  void SetBlendMode(BlendFunction::BlendMode src, BlendFunction::BlendMode dst, bool force_update = false);
+  INativeMatrix* GetWorldViewProjToMaterial();
   inline LP_DEVICE GetRenderObject() const
   {
     return this->render_object_;
@@ -55,14 +56,20 @@ public:
   {
     return layer_state_ & (1 << layer_id);
   }
+  inline const Camera* GetCamera() const
+  {
+    return this->camera_;
+  }
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
+  Camera* camera_;
   T_UINT32 layer_state_;
   LP_DEVICE render_object_;
   INativeMatrixStack* matrix_stack_;
-  BlendFunction::BlendMode src_, dst_;
+  INativeMatrix* view_proj_matrix_;
+  INativeMatrix* world_view_proj_matrix_;
 
 };

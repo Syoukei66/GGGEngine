@@ -9,6 +9,11 @@ Primitive3D::Primitive3D(IVertexBufferObject* vbo)
   : vbo_(vbo)
 {}
 
+Primitive3D::~Primitive3D()
+{
+  delete this->vbo_;
+}
+
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================

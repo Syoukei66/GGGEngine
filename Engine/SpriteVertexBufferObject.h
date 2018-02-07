@@ -6,10 +6,6 @@
 
 class Shape;
 
-// TODO: 2DのオブジェクトもVertexBufferとIndexBufferを使用して描画するように切り替える
-//       あとwidth, heightの変更を頂点座標の変更ではなく、スケーリングで表現
-//       スケーリングに関しては、オブジェクトの大きさ用のスケールと、
-//       自分と子オブジェクト全体にかかるスケールの２種類を用意する方がいいのかもしれない
 class SpriteVertexBufferObject : public IVertexBufferObject
 {
 
@@ -48,7 +44,7 @@ public:
   virtual const void* GetVertexes() const override;
   virtual const T_UINT16* GetIndexes() const override;
   virtual INativeProcess_Graphics::PrimitiveType GetPrimitiveType() override;
-  virtual INativeProcess_Graphics::VertexType GetVertexType() override;
+  virtual Vertex::VertexType GetVertexType() override;
 
   // =================================================================
   // Method
@@ -62,7 +58,7 @@ public:
   // =================================================================
 private:
   bool vertex_uv_dirty_;
-  SpriteVertex vertexes_[V_VERTEX_MAX];
+  Vertex::VCT vertexes_[V_VERTEX_MAX];
 };
 
 #endif//HAL_ENGINE_SHAPE_SPRITE_VBO_SPRITEVERTEXBUFFEROBJECT_H

@@ -57,6 +57,7 @@
       #include "Transform3DRotator.h"
 //------Model
         #include "Model.h"
+        #include "ModelNode.h"
 //------Primitive
         #include "AnimatedSprite3D.h"
         #include "Cube3D.h"
@@ -69,6 +70,12 @@
         #include "Triangle3D.h"
 //----Material
       #include "Material.h"
+//----Mesh
+      #include "Mesh.h"
+      #include "MeshMaterial.h"
+//------Materials
+        #include "MeshMaterial_Cube.h"
+        #include "MeshMaterial_Plane.h"
 //----VBO
       #include "IVertexBufferObject.h"
 //------2D
@@ -81,7 +88,6 @@
         #include "VertexBufferObject_Primitive3D_Triangle.h"
         #include "VertexBufferObject_Sprite3D.h"
 //--Light
-    #include "Light.h"
 //--Mesh
 
 //Director
@@ -105,25 +111,26 @@
 //Native
   #include "INativeProcess_Graphics.h"
   #include "INativeProcess_IO.h"
-  #include "INativeProcess_Material.h"
   #include "INativeProcess_Time.h"
+  #include "NativeAssert.h"
   #include "NativeMethod.h"
   #include "NativeObjectFactory.h"
   #include "NativeType.h"
 //--Objects
+    #include "NativeIndexBuffer.h"
     #include "NativeMatrix.h"
     #include "NativeMatrixStack.h"
+    #include "NativeVertexBuffer.h"
     #include "NativeModel.h"
     #include "NativeObject.h"
     #include "NativeShader.h"
     #include "NativeTexture.h"
 
 //Resource
-  #include "LoadProgressCounter.h"
-//--Pool
+  #include "EngineAsset.h"
+//--File
     #include "FileResource.h"
     #include "ResourceLoader.h"
-    #include "ResourcePool.h"
 //----Model
       #include "ModelData.h"
 //----CSV
@@ -132,6 +139,12 @@
       #include "CSVTokenizer.h"
 //----Json
       #include "JsonParser.h"
+//----Fbx
+      #include "FbxData.h"
+      #include "FbxMeshMaterial.h"
+      #include "FbxNodeData.h"
+      #include "FbxResource.h"
+
 //----Particle
       #include "ParticleData.h"
       #include "ParticleDataLoader.h"
@@ -151,6 +164,11 @@
 //------Atlas
         #include "TextureAtlas.h"
         #include "TextureAtlasLoader.h"
+//--Pool
+    #include "EngineResourcePool.h"
+    #include "LoadProgressCounter.h"
+    #include "ResourcePool.h"
+    #include "UserResourcePool.h"
 
 //Scene
   #include "Scene.h"
@@ -177,3 +195,5 @@
     #include "EasingFunctionManager.h"
 //--Singleton
     #include "Singleton.h"
+
+#include "../../Project/Asset.h"

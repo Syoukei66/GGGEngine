@@ -9,8 +9,7 @@
 // Constructor / Destructor
 // =================================================================
 GameObject2D::GameObject2D()
-  : color_(Color::WHITE)
-  , parent_(nullptr)
+  : parent_(nullptr)
   , children_()
   , zindex_(0)
   , children_zindex_dirty_(false)
@@ -33,7 +32,6 @@ GameObject2D::~GameObject2D()
 void GameObject2D::Init()
 {
   GameObject::Init();
-  this->color_ = Color::WHITE;
   this->zindex_ = 0;
   this->children_zindex_dirty_ = true;
 }
@@ -121,8 +119,6 @@ void GameObject2D::Draw(GameObject2DRenderState* state)
   //描画前のアップデート処理
   this->UpdateChildrenZIndex();
 
-  this->PreDraw(state);
-
   this->PushMatrixStack(state);
 
   // 1.zIndexが0未満の子GameObject
@@ -138,8 +134,7 @@ void GameObject2D::Draw(GameObject2DRenderState* state)
       //2.自分自身
       if (state->IsTargetedLayer(this->GetLayerId()))
       {
-        this->ApplyBlendMode(state);
-        this->NativeDraw(state);
+        this->ManagedDraw(state);
       }
       self_already_drawed = true;
     }
@@ -154,14 +149,11 @@ void GameObject2D::Draw(GameObject2DRenderState* state)
     //2.自分自身
     if (state->IsTargetedLayer(this->GetLayerId()))
     {
-      this->ApplyBlendMode(state);
-      this->NativeDraw(state);
+      this->ManagedDraw(state);
     }
   }
 
   this->PopMatrixStack(state);
-
-  this->PostDraw(state);
 }
 
 void GameObject2D::RegisterEntityModifier(EntityModifierRoot* root)
@@ -185,13 +177,11 @@ void GameObject2D::ClearEntityModifiers()
 
 void GameObject2D::PushMatrixStack(GameObject2DRenderState* state)
 {
-  state->PushColor(this->color_);
   state->PushMatrix(this->transform_->GetMatrix());
 }
 
 void GameObject2D::PopMatrixStack(GameObject2DRenderState* state)
 {
-  state->PopColor();
   state->PopMatrix();
 }
 

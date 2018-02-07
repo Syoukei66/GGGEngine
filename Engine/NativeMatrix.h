@@ -58,7 +58,7 @@ public:
   }
 
   // =================================================================
-  // Method for/from SuperClass/Interfaces
+  // Method
   // =================================================================
 public:
   virtual void Init() = 0;
@@ -112,6 +112,12 @@ public:
   virtual const TVec2f GetPosition2d() const = 0;
   virtual const TVec3f GetPosition3d() const = 0;
   virtual const TVec4f GetPosition4d() const = 0;
+
+  virtual const TVec3f GetCameraXVec() const = 0;
+  virtual const TVec3f GetCameraYVec() const = 0;
+  virtual const TVec3f GetCameraZVec() const = 0;
+
+  virtual const TVec3f GetWorldScale() const = 0;
 
   // =================================================================
   // Setter / Getter

@@ -23,7 +23,7 @@ public:
   // Methods for/from SuperClass/Interfaces
   // =================================================================
 public:
-  virtual void OnUpdateTextureCoord() override;
+  virtual void OnUpdateTextureCoord(const Texture* texture) override;
 
 };
 

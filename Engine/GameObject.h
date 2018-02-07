@@ -2,9 +2,11 @@
 #define HAL_ENGINE_ENTITY_ENTITY_H_
 
 #include "NativeType.h"
-#include "BlendFunction.h"
 #include "GameComponent.h"
-#include "GameObjectRenderState.h"
+#include "Material.h"
+#include "Renderer.h"
+
+class GameObjectRenderState;
 
 class GameObject : public GameComponent
 {
@@ -26,13 +28,14 @@ public:
   //     そのインスタンスに対する初期化という形での実装としてはどうだろうか
   virtual void Init();
 
-  //TODO: 応急処置。
-  void ApplyBlendMode(GameObjectRenderState* state);
-
   virtual void ManagedPreUpdate() = 0;
   virtual void ManagedUpdate() = 0;
   virtual void ManagedPostUpdate() = 0;
+
+  void ManagedDraw(GameObjectRenderState* state);
   
+  void UniqueMaterial();
+
   // =================================================================
   // Events
   // =================================================================
@@ -68,36 +71,22 @@ public:
     return this->layer_id_;
   }
 
-  inline void SetBlendFunction(BlendFunction::BlendMode src, BlendFunction::BlendMode dst)
+  inline void SetRenderer(Renderer* renderer)
   {
-    this->blend_function_src_ = src;
-    this->blend_function_dst_ = dst;
+    this->renderer_ = renderer;
   }
-  inline void SetBlendFunctionSource(BlendFunction::BlendMode src)
+  inline Renderer* GetRenderer() const
   {
-    this->blend_function_src_ = src;
+    return this->renderer_;
   }
-  inline BlendFunction::BlendMode GetBlendFunctionSource() const
-  {
-    return this->blend_function_src_;
-  }
-  inline void SetBlendFunctionDestination(BlendFunction::BlendMode dst)
-  {
-    this->blend_function_dst_ = dst;
-  }
-  inline BlendFunction::BlendMode GetBlendFunctionDestination() const
-  {
-    return this->blend_function_dst_;
-  }
+
   // =================================================================
   // Data Member
   // =================================================================
 private:
 	bool visible_;
   T_UINT8 layer_id_;
-
-  BlendFunction::BlendMode blend_function_src_;
-  BlendFunction::BlendMode blend_function_dst_;
+  Renderer* renderer_;
 };
 
 #endif//HAL_ENGINE_ENTITY_ENTITY_H_

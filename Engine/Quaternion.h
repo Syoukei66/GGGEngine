@@ -13,6 +13,8 @@ public:
   static const Quaternion Eular(const TVec3f& eular_angles);
   static const Quaternion Lerp(const Quaternion a, const Quaternion b, T_FLOAT t);
   static const Quaternion Slerp(const Quaternion a, const Quaternion b, T_FLOAT t);
+  static const Quaternion LookRotation(const TVec3f& forward, const TVec3f& upwards = TVec3f(0.0f, 1.0f, 0.0f));
+
   static T_FLOAT InnerProduct(const Quaternion& a, const Quaternion& b);
 
   // =================================================================
@@ -77,6 +79,7 @@ public:
   // Methods
   // =================================================================
   void q(const TVec3f& v, T_FLOAT rad);
+
   void FromEularAngles(const TVec3f& mat);
   void FromRotationMatrix(const INativeMatrix& mat);
   void ToRotationMatrix(INativeMatrix* dest);

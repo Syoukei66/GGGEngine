@@ -9,7 +9,7 @@ class LoopTextureRegion : public ITextureRegion
   // Factory Method
   // =================================================================
 public:
-  static LoopTextureRegion* CreateWithTexture(const Texture* texture);
+  static LoopTextureRegion* CreateWithMaterial(const Material* material);
 
   // =================================================================
   // Constructor / Destructor
@@ -22,7 +22,7 @@ public:
   // Methods for/from SuperClass/Interfaces
   // =================================================================
 public:
-  virtual void OnUpdateTextureCoord() override;
+  virtual void OnUpdateTextureCoord(const Texture* texture) override;
 
   // =================================================================
   // setter/getter

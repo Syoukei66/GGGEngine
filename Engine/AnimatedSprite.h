@@ -11,18 +11,9 @@ class AnimatedSprite : public Sprite
   // =================================================================
 public:
   static AnimatedSprite* Create();
-
-  //ITextureRegionをあらかじめセットした状態でSpriteを生成します。
-  //Spriteのサイズ(width/height)はTiledTextureRegionに準じたものとなります。
-  //引数で渡したTiledTextureRegionの解放はこのクラスでは行われません。
   static AnimatedSprite* CreateWithTextureRegion(TiledTextureRegion* region);
-
-  //TextureからTiledTextureRegionを作成し、
-  //それをもとにAnimatedSpriteを生成します。
-  //SpriteのサイズはTextureの(width,height)をそれぞれ(x_num,y_num)で割ったものになります
-  //Textureの解放はこのクラスでは行われませんが、
-  //生成されたTiledTextureRegionの解放はこのクラスでは行われます。
-  static AnimatedSprite* CreateWithTexture(const Texture* texture, T_UINT8 x_num, T_UINT8 y_num);
+  static AnimatedSprite* CreateWithMaterial(Material* material, T_UINT8 x_num, T_UINT8 y_num);
+  static AnimatedSprite* CreateWithTexture(const Texture& texture, T_UINT8 x_num, T_UINT8 y_num);
 
   // =================================================================
   // Constructor / Destructor

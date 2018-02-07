@@ -29,20 +29,20 @@ void Transform3D::OnInit()
 {
   this->position_ = TVec3f(0.0f, 0.0f, 0.0f);
   this->scale_ = TVec3f(1.0f, 1.0f, 1.0f);
-  this->rotator_->SetEularAngles(TVec3f(0.0f, 0.0f, 0.0f));
+  this->rotator_->Init();
 }
 
 void Transform3D::Move(const TVec3f& value)
 {
   TVec3f v = value;
-  this->GetRotationMatrix()->Apply(&v);
+  this->GetRotationMatrix().Apply(&v);
   const TVec3f& pos = this->GetPosition();
   this->SetPosition(pos.x + v.x, pos.y + v.y, pos.z + v.z);
 }
 
 void Transform3D::Move(T_FLOAT x, T_FLOAT y, T_FLOAT z)
 {
-  this->GetRotationMatrix()->Apply(&x, &y, &z);
+  this->GetRotationMatrix().Apply(&x, &y, &z);
   const TVec3f& pos = this->GetPosition();
   this->SetPosition(pos.x + x, pos.y + y, pos.z + z);
 }
@@ -51,7 +51,7 @@ void Transform3D::MoveX(T_FLOAT x)
 {
   T_FLOAT y = 0.0f;
   T_FLOAT z = 0.0f;
-  this->GetRotationMatrix()->Apply(&x, &y, &z);
+  this->GetRotationMatrix().Apply(&x, &y, &z);
   this->SetPosition(this->GetX() + x, this->GetY() + y, this->GetZ() + z);
 }
 
@@ -59,7 +59,7 @@ void Transform3D::MoveY(T_FLOAT y)
 {
   T_FLOAT x = 0.0f;
   T_FLOAT z = 0.0f;
-  this->GetRotationMatrix()->Apply(&x, &y, &z);
+  this->GetRotationMatrix().Apply(&x, &y, &z);
   this->SetPosition(this->GetX() + x, this->GetY() + y, this->GetZ() + z);
 }
 
@@ -67,7 +67,7 @@ void Transform3D::MoveZ(T_FLOAT z)
 {
   T_FLOAT x = 0.0f;
   T_FLOAT y = 0.0f;
-  this->GetRotationMatrix()->Apply(&x, &y, &z);
+  this->GetRotationMatrix().Apply(&x, &y, &z);
   this->SetPosition(this->GetX() + x, this->GetY() + y, this->GetZ() + z);
 }
 
@@ -121,14 +121,14 @@ void Transform3D::UpdateRotateMatrix(INativeMatrix* matrix)
   this->rotator_->ToRotationMatrix(matrix);
 }
 
-INativeMatrix* Transform3D::GetParentWorldMatrix()
+const INativeMatrix* Transform3D::GetParentWorldMatrix()
 {
   GameObject3D* parent = this->entity_->GetParent();
   if (!parent)
   {
     return nullptr;
   }
-  return parent->GetTransform()->GetWorldMatrix();
+  return &parent->GetTransform()->GetWorldMatrix();
 }
 
 // =================================================================

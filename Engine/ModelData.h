@@ -1,6 +1,5 @@
 #pragma once
 
-#include <string>
 #include "NativeModel.h"
 #include "FileResource.h"
 
@@ -19,6 +18,6 @@ public:
   // Methods
   // =================================================================
 public:
-  virtual INativeModel* NativeLoadProcess(const std::string & path) override;
+  virtual INativeModel* NativeLoadProcess(const std::string& path) override;
 
 };

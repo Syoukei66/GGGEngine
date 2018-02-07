@@ -13,7 +13,7 @@
 class DigitalInputState
 {
 public:
-  static const DigitalInputState* NULL_INPUT;
+  static const DigitalInputState NULL_INPUT;
   // =================================================================
   // Constructor / Destructor
   // =================================================================

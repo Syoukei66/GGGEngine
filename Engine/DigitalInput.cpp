@@ -1,6 +1,7 @@
 #include "DigitalInput.h"
+#include "NativeAssert.h"
 
-const DigitalInputState* DigitalInputState::NULL_INPUT = new DigitalInputState();
+const DigitalInputState DigitalInputState::NULL_INPUT = DigitalInputState();
 
 // =================================================================
 // Constructor / Destructor
@@ -56,7 +57,7 @@ void DigitalInputState::InputValue(EngineInput::Digital::ID id)
 
   this->is_trigger_[id] = target & ~this->old_state_;
   this->is_release_[id] = false;
-  if (this->input_hold_[id] < T_UINT16_MAX)
+  if (this->input_hold_[id] < Limit::T_UINT16_MAX)
   {
     ++this->input_hold_[id];
   }

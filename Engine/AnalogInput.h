@@ -14,7 +14,7 @@
 class AnalogInputState
 {
 public:
-  static const AnalogInputState* NULL_INPUT;
+  static const AnalogInputState NULL_INPUT;
   // =================================================================
   // Constructor / Destructor
   // =================================================================

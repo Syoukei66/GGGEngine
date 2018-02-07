@@ -12,7 +12,7 @@ class Primitive3D : public GameObject3D
   // =================================================================
 public:
   Primitive3D(IVertexBufferObject* vbo);
-  virtual ~Primitive3D() {};
+  virtual ~Primitive3D();
 
   // =================================================================
   // Methods for/from SuperClass/Interfaces

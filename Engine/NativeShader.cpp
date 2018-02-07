@@ -1,11 +1,8 @@
 #include "NativeShader.h"
+#include "NativeObjectFactory.h"
 
-INativeShader* INativeShader::Create()
+INativeShader* INativeShader::Create(const char* path)
 {
-  return nullptr;
+  return NativeObjectFactory::CreateShader(path);
 }
 
-INativeShader* INativeShader::Create(NativeShaderInstance * instance)
-{
-  return nullptr;
-}
