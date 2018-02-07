@@ -17,13 +17,14 @@ JsonResource::JsonResource(const char* path)
 {}
 
 JsonResource::~JsonResource()
-{
-}
+{}
 
 // =================================================================
 // Methods for/from interface/super class
 // =================================================================
 JsonData* JsonResource::NativeLoadProcess(const std::string& path)
 {
-  return new JsonData(path.c_str());
+  JsonData* ret = new JsonData();
+  ret->Read(path.c_str());
+  return ret;
 }

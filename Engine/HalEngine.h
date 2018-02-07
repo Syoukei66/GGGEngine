@@ -123,7 +123,9 @@
       #include "CSVResource.h"
       #include "CSVTokenizer.h"
 //----Json
+      #include "JsonData.h"
       #include "JsonParser.h"
+      #include "JsonResource.h"
 //----Fbx
       #include "FbxData.h"
       #include "FbxMeshMaterial.h"

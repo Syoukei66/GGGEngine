@@ -8,8 +8,15 @@ class JsonData
   // Constructor / Destructor
   // =================================================================
 public:
-  JsonData(const char* path);
+  JsonData();
   ~JsonData();
+
+  // =================================================================
+  // Methods
+  // =================================================================
+public:
+  void Read(const char* path);
+  void Write(const char* path);
 
   // =================================================================
   // Setter / Getter
@@ -24,6 +31,7 @@ public:
   // Data Member
   // =================================================================
 private:
+  std::string path_;
   JsonNode* root_;
 
 };
