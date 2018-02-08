@@ -71,9 +71,17 @@ public:
   }
   void Free(T* p)
   {
-    this->allocated_.remove(p);
-    p->OnFree();
-    this->pool_.push_back(p);
+    for (typename std::list<T*>::iterator itr = this->allocated_.begin(); itr != this->allocated_.end(); ++itr)
+    {
+      if ((*itr) != p)
+      {
+        continue;
+      }
+      this->allocated_.erase(itr);
+      p->OnFree();
+      this->pool_.push_back(p);
+      return;
+    }
   }
   void Clear()
   {

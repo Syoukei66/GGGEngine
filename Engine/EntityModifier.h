@@ -39,6 +39,7 @@ public:
   void OnFinish();
 
   void Play();
+  void Reverse();
   void Pause();
   void Resume();
   void Stop();
@@ -49,13 +50,10 @@ public:
   void ClearEntityModifierListener();
 
 public:
+  bool IsFinished();
   inline const GameObject2D* GetTargetEntity() const
   {
     return this->target_;
-  }
-  bool IsFinished() const
-  {
-    return this->duration_rest_ == 0;
   }
   bool IsAttached() const
   {
@@ -72,6 +70,7 @@ private:
 
   bool is_loop_;
   bool is_pause_;
+  bool is_reverse_;
   T_UINT16 duration_;
   T_UINT16 duration_rest_;
 

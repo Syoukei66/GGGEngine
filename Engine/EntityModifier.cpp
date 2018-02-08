@@ -11,6 +11,7 @@ void EntityModifierRoot::OnAllocated()
 {
   this->is_loop_ = false;
   this->is_pause_ = false;
+  this->is_reverse_ = false;
   this->modifier_ = NULL;
   this->target_ = NULL;
   this->duration_ = 0;
@@ -26,12 +27,14 @@ void EntityModifierRoot::OnFree()
 
 bool EntityModifierRoot::OnUpdate(T_UINT16 frame_elapsed)
 {
-  if (!this->is_pause_)
+  if (this->is_pause_)
   {
-    this->duration_rest_ = std::max((T_UINT16)0, (T_UINT16)(this->duration_rest_ - frame_elapsed));
-    const T_FLOAT progress = 1.0f - (T_FLOAT)(this->duration_rest_) / (this->duration_);
-    this->modifier_->OnUpdate(this->target_, progress);
+    return true;
   }
+  this->duration_rest_ = (T_UINT16)std::max((T_INT32)0, (T_INT32)this->duration_rest_ - (T_INT32)frame_elapsed);
+  const T_UINT16 duration_rest = this->is_reverse_ ? this->duration_ - this->duration_rest_ : this->duration_rest_;
+  const T_FLOAT progress = 1.0f - (T_FLOAT)duration_rest / this->duration_;
+  this->modifier_->OnUpdate(this->target_, progress);
   return this->duration_rest_ > 0;
 }
 
@@ -57,7 +60,7 @@ void EntityModifierRoot::OnAttached(GameObject2D* target)
 
 void EntityModifierRoot::OnDetached()
 {
-  this->target_ = NULL;
+  this->target_ = nullptr;
 }
 
 void EntityModifierRoot::Release()
@@ -88,7 +91,15 @@ void EntityModifierRoot::OnFinish()
 
 void EntityModifierRoot::Play()
 {
+  this->is_reverse_ = false;
   this->duration_rest_ = this->duration_;
+  this->is_pause_ = false;
+}
+
+void EntityModifierRoot::Reverse()
+{
+  this->is_reverse_ = !this->is_reverse_;
+  this->duration_rest_ = this->duration_ - this->duration_rest_;
   this->is_pause_ = false;
 }
 
@@ -106,6 +117,7 @@ void EntityModifierRoot::Stop()
 {
   this->duration_rest_ = this->duration_;
   this->is_pause_ = true;
+  this->is_reverse_ = false;
 }
 
 void EntityModifierRoot::AddEntityModifierListener(IEntityModifierListener * listener)
@@ -129,6 +141,11 @@ void EntityModifierRoot::RemoveEntityModifierListener(IEntityModifierListener * 
 void EntityModifierRoot::ClearEntityModifierListener()
 {
   this->listeners_.clear();
+}
+
+bool EntityModifierRoot::IsFinished()
+{
+  return this->duration_rest_ == 0;
 }
 
 //=========================================================================

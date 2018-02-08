@@ -56,19 +56,41 @@ void EntityModifierManager::Uninit()
 {
   if (this->modifier_root_pool_)
   {
-    delete this->modifier_root_pool_;
-    this->modifier_root_pool_ = nullptr;
+    this->modifier_root_pool_->Clear();
   }
-
+  if (this->delay_modifier_pool_)
+  {
+    this->delay_modifier_pool_->Clear();
+  }
+  if (this->sequence_modifier_pool_)
+  {
+    this->sequence_modifier_pool_->Clear();
+  }
+  if (this->synchronized_modifier_pool_)
+  {
+    this->synchronized_modifier_pool_->Clear();
+  }
+  if (this->round_modifier_pool_)
+  {
+    this->round_modifier_pool_->Clear();
+  }
+  if (this->loop_modifier_pool_)
+  {
+    this->loop_modifier_pool_->Clear();
+  }
   if (this->attribute_modifier_pool_)
   {
-    delete this->attribute_modifier_pool_;
-    this->attribute_modifier_pool_ = nullptr;
+    this->attribute_modifier_pool_->Clear();
   }
   if (this->attribute_ex_modifier_pool_)
   {
-    delete this->attribute_ex_modifier_pool_;
-    this->attribute_ex_modifier_pool_ = nullptr;
+    this->attribute_ex_modifier_pool_->Clear();
+  }
+
+  if (this->modifier_root_pool_)
+  {
+    delete this->modifier_root_pool_;
+    this->modifier_root_pool_ = nullptr;
   }
   if (this->delay_modifier_pool_)
   {
@@ -94,6 +116,16 @@ void EntityModifierManager::Uninit()
   {
     delete this->loop_modifier_pool_;
     this->loop_modifier_pool_ = nullptr;
+  }
+  if (this->attribute_modifier_pool_)
+  {
+    delete this->attribute_modifier_pool_;
+    this->attribute_modifier_pool_ = nullptr;
+  }
+  if (this->attribute_ex_modifier_pool_)
+  {
+    delete this->attribute_ex_modifier_pool_;
+    this->attribute_ex_modifier_pool_ = nullptr;
   }
 }
 
