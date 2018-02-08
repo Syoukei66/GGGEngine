@@ -9,7 +9,7 @@
 Camera3D::Camera3D(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_min, T_FLOAT z_max)
   : Camera(x, y, width, height, z_min, z_max)
   , fov_(3.0f)
-  , z_near_(0.01f)
+  , z_near_(0.3f)
   , z_far_(1000.0f)
   , projection_dirty_(true)
 {
@@ -22,21 +22,23 @@ Camera3D::Camera3D(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT 
 Camera3D::Camera3D()
   : Camera()
   , fov_(3.0f)
-  , z_near_(0.01f)
+  , z_near_(0.3f)
   , z_far_(1000.0f)
   , projection_dirty_(true)
 {
   this->entity_ = new GameObject3D();
   this->projection_matrix_ = INativeMatrix::Create();
   this->billboarding_matrix_ = INativeMatrix::Create();
+  this->calc_2dpos_matrix_ = INativeMatrix::Create();
   this->render_state_ = new GameObjectRenderState(this);
 }
 
 Camera3D::~Camera3D()
 {
+  delete this->render_state_;
+  delete this->calc_2dpos_matrix_;
   delete this->billboarding_matrix_;
   delete this->projection_matrix_;
-  delete this->render_state_;
 }
 
 // =================================================================
@@ -96,6 +98,24 @@ void Camera3D::CheckProjectionDirty()
 // =================================================================
 // setter/getter
 // =================================================================
+const TVec3f Camera3D::Get2dPositionScale(GameObject3D* obj)
+{
+  this->calc_2dpos_matrix_->Init();
+  this->calc_2dpos_matrix_->Multiple(obj->GetTransform()->GetWorldMatrix());
+  this->calc_2dpos_matrix_->Multiple(*this->GetViewMatrix());
+  this->calc_2dpos_matrix_->Multiple(*this->GetProjectionMatrix());
+  const TVec4f pos = this->calc_2dpos_matrix_->GetPosition4d();
+  return TVec3f(pos.x / pos.w, pos.y / pos.w, pos.z / fabs(pos.w));
+}
+
+const TVec3f Camera3D::Get2dPosition(GameObject3D* obj)
+{
+  TVec3f ret = this->Get2dPositionScale(obj);
+  ret.x *= this->GetViewportWidth() * 0.5f;
+  ret.y *= this->GetViewportHeight() * 0.5f;
+  return ret;
+}
+
 void Camera3D::SetFov(T_FLOAT fov)
 {
   if (this->fov_ == fov)

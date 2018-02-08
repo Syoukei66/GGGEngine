@@ -45,6 +45,9 @@ private:
   // setter/getter
   // =================================================================
 public:
+  const TVec3f Get2dPositionScale(GameObject3D* obj);
+  const TVec3f Get2dPosition(GameObject3D* obj);
+
   inline Transform3D* GetTransform()
   {
     return ((GameObject3D*)this->entity_)->GetTransform();
@@ -88,6 +91,7 @@ private:
 
   INativeMatrix* billboarding_matrix_;
   INativeMatrix* projection_matrix_;
+  INativeMatrix* calc_2dpos_matrix_;
 
   T_FLOAT fov_;
   T_FLOAT z_near_;
