@@ -42,18 +42,17 @@ public:
       this->pool_[i] = new T();
     }
   }
-
   ~PoolAllocator()
   {
-    for (typename std::list<T*>::iterator itr = this->allocated_.begin(); itr != this->allocated_.end(); ++itr)
+    for (T* p : this->allocated_)
     {
-      (*itr)->OnFree();
-      delete (*itr);
+      p->OnFree();
+      delete p;
     }
     this->allocated_.clear();
-    for (typename std::deque<T*>::iterator itr = this->pool_.begin(); itr != this->pool_.end(); ++itr)
+    for (T* p : this->pool_)
     {
-      delete (*itr);
+      delete p;
     }
     this->pool_.clear();
   }
@@ -71,7 +70,7 @@ public:
   }
   void Free(T* p)
   {
-    for (typename std::list<T*>::iterator itr = this->allocated_.begin(); itr != this->allocated_.end(); ++itr)
+    for (typename std::list<T*>::iterator& itr = this->allocated_.begin(); itr != this->allocated_.end(); ++itr)
     {
       if ((*itr) != p)
       {
@@ -85,36 +84,12 @@ public:
   }
   void Clear()
   {
-    for (typename std::list<T*>::iterator itr = this->allocated_.begin(); itr != this->allocated_.end(); ++itr)
+    for (T* p : this->allocated_)
     {
-      (*itr)->OnFree();
-      this->pool_.push_back((*itr));
+      p->OnFree();
+      this->pool_.push_back(p);
     }
     this->allocated_.clear();
-  }
-  T* front()
-  {
-    return this->allocated_.front();
-  }
-  T* back()
-  {
-    return this->allocated_.back();
-  }
-  typename std::list<T*>::iterator begin()
-  {
-    return this->allocated_.begin();
-  }
-  typename std::list<T*>::iterator end()
-  {
-    return this->allocated_.end();
-  }
-  typename std::list<T*>::const_iterator begin() const
-  {
-    return this->allocated_.begin();
-  }
-  typename std::list<T*>::const_iterator end() const
-  {
-    return this->allocated_.end();
   }
   typename std::list<T*>::iterator erase(typename std::list<T*>::iterator itr)
   {
@@ -124,21 +99,56 @@ public:
     this->pool_.push_back(p);
     return ret;
   }
-  typename std::deque<T*>::iterator PoolBegin()
+  void Loop(std::function<void(T*)> func)
   {
-    return this->pool_.begin();
+    for (T* p : this->allocated_)
+    {
+      func(p);
+    }
   }
-  typename std::deque<T*>::iterator PoolEnd()
+  void LoopIncludingPool(std::function<void(T*)> func)
   {
-    return this->pool_.end();
+    for (T* p : this->allocated_)
+    {
+      func(p);
+    }
+    for (T* p : this->pool_)
+    {
+      func(p);
+    }
   }
-  typename std::deque<T*>::const_iterator PoolBegin() const
+  T* Select(std::function<bool(T*)> condition)
   {
-    return this->pool_.begin();
+    for (T* p : this->allocated_)
+    {
+      if (condition(p))
+      {
+        return p;
+      }
+    }
+    return nullptr;
   }
-  typename std::deque<T*>::const_iterator PoolEnd() const
+  void SelectAll(std::deque<T*>* dest, std::function<bool(T*)> condition)
   {
-    return this->pool_.end();
+    for (T* p : this->allocated_)
+    {
+      if (condition(p))
+      {
+        dest->push_back(p);
+      }
+    }
+  }
+  void RemoveIf(std::function<bool(T*)> condition)
+  {
+    for (std::list<T*>::iterator itr = this->allocated_.begin(); itr != this->allocated_.end();)
+    {
+      if (condition((*itr)))
+      {
+        ++itr;
+        continue;
+      }
+      itr = this->allocated_.erase(itr);
+    }
   }
   inline T_UINT16 GetPoolSize() const
   {

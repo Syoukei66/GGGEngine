@@ -156,17 +156,15 @@ void ParticleSystem::Update()
   {
     return;
   }
-  for (std::list<Particle*>::iterator itr = this->particles_->begin(); itr != this->particles_->end();)
+  this->particles_->RemoveIf([&](Particle* p)
   {
-    Particle* const p = (*itr);
-    if (p->OnUpdate(this->data_))
+    if (!p->OnUpdate(this->data_))
     {
-      ++itr;
-      continue;
+      return false;
     }
-    itr = this->particles_->erase(itr);
     this->RemoveChild(p);
-  }
+    return true;
+  });
   if (this->particles_->GetAllocatedCount() == 0)
   {
     this->Init();

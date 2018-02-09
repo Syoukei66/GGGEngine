@@ -144,49 +144,45 @@ void EntityModifierManager::ClearModifiers()
 
 void EntityModifierManager::ClearModifiersWithTargetEntity(GameObject2D* target)
 {
-  finished_roots_.clear();
-  for (std::list<EntityModifierRoot*>::iterator itr = this->modifier_root_pool_->begin(); itr != this->modifier_root_pool_->end(); ++itr)
-  {
-    EntityModifierRoot* const root = (*itr);
+  this->finished_roots_.clear();
+  this->modifier_root_pool_->Loop([&](EntityModifierRoot* root) {
     if (root->GetTargetEntity() != target)
     {
-      continue;
+      return;
     }
     root->OnDetached();
-    finished_roots_.push_back(root);
-  }
-  for (std::deque<EntityModifierRoot*>::iterator itr = this->finished_roots_.begin(); itr != this->finished_roots_.end(); ++itr)
+    this->finished_roots_.push_back(root);
+  });
+  for (EntityModifierRoot* root : this->finished_roots_)
   {
-    (*itr)->OnRelease();
+    root->OnRelease();
   }
-  finished_roots_.clear();
+  this->finished_roots_.clear();
 }
 
 bool EntityModifierManager::OnUpdate(T_UINT16 frame_elapsed)
 {
-  finished_roots_.clear();
-  for (std::list<EntityModifierRoot*>::iterator itr = this->modifier_root_pool_->begin(); itr != this->modifier_root_pool_->end(); ++itr)
-  {
-    EntityModifierRoot* const root = (*itr);
+  this->finished_roots_.clear();
+  this->modifier_root_pool_->Loop([&](EntityModifierRoot* root) {
     if (root->IsFinished())
     {
-      continue;
+      return;
     }
     if (!root->IsAttached())
     {
-      continue;
+      return;
     }
     if (root->OnUpdate(frame_elapsed))
     {
-      continue;
+      return;
     }
     root->OnUpdateFinish();
-    finished_roots_.push_back(root);
-  }
-  for (std::deque<EntityModifierRoot*>::iterator itr = this->finished_roots_.begin(); itr != this->finished_roots_.end(); ++itr)
+    this->finished_roots_.push_back(root);
+  });
+  for (EntityModifierRoot* root : this->finished_roots_)
   {
-    (*itr)->OnFinish();
+    root->OnFinish();
   }
-  finished_roots_.clear();
+  this->finished_roots_.clear();
   return true;
 }
