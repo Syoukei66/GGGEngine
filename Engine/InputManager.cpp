@@ -19,7 +19,7 @@ void InputState::ClearCache()
 bool InputState::AnyButton()
 {
   const DigitalInputState* digital = EngineInputState::GetInstance()->GetDigitalInput(this->player_id_);
-  for (std::map<T_UINT8, InputEntity>::iterator itr = this->entities_.begin(); itr != this->entities_.end(); ++itr)
+  for (std::unordered_map<T_UINT8, InputEntity>::iterator itr = this->entities_.begin(), end = this->entities_.end(); itr != end; ++itr)
   {
     const InputEntity& entity = itr->second;
     if (
@@ -36,7 +36,7 @@ bool InputState::AnyButton()
 bool InputState::AnyButtonDown()
 {
   const DigitalInputState* digital = EngineInputState::GetInstance()->GetDigitalInput(this->player_id_);
-  for (std::map<T_UINT8, InputEntity>::iterator itr = this->entities_.begin(); itr != this->entities_.end(); ++itr)
+  for (std::unordered_map<T_UINT8, InputEntity>::iterator itr = this->entities_.begin(), end = this->entities_.end(); itr != end; ++itr)
   {
     const InputEntity& entity = itr->second;
     if (
@@ -53,7 +53,7 @@ bool InputState::AnyButtonDown()
 bool InputState::AnyButtonUp()
 {
   const DigitalInputState* digital = EngineInputState::GetInstance()->GetDigitalInput(this->player_id_);
-  for (std::map<T_UINT8, InputEntity>::iterator itr = this->entities_.begin(); itr != this->entities_.end(); ++itr)
+  for (std::unordered_map<T_UINT8, InputEntity>::iterator itr = this->entities_.begin(), end = this->entities_.end(); itr != end; ++itr)
   {
     const InputEntity& entity = itr->second;
     if (
@@ -70,7 +70,7 @@ bool InputState::AnyButtonUp()
 bool InputState::AnyAxis()
 {
   const AnalogInputState* analog = EngineInputState::GetInstance()->GetAnalogInput(this->player_id_);
-  for (std::map<T_UINT8, InputEntity>::iterator itr = this->entities_.begin(); itr != this->entities_.end(); ++itr)
+  for (std::unordered_map<T_UINT8, InputEntity>::iterator itr = this->entities_.begin(), end = this->entities_.end(); itr != end; ++itr)
   {
     const InputEntity& entity = itr->second;
     if (analog->IsEnabled(entity.axis, entity.dimention))

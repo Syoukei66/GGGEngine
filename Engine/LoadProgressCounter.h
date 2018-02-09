@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <map>
+#include <unordered_map>
 #include "NativeType.h"
 #include "ResourcePool.h"
 
@@ -43,19 +43,19 @@ public:
   {
     return (T_FLOAT)this->task_sum_ / this->progressed_task_sum_;
   }
-  inline std::map<std::string, T_UINT32>::iterator TaskIteratorBegin()
+  inline std::unordered_map<std::string, T_UINT32>::iterator TaskIteratorBegin()
   {
     return this->category_task_sum_.begin();
   }
-  inline std::map<std::string, T_UINT32>::iterator TaskIteratorEnd()
+  inline std::unordered_map<std::string, T_UINT32>::iterator TaskIteratorEnd()
   {
     return this->category_task_sum_.end();
   }
-  inline std::map<std::string, T_UINT32>::iterator ProgressedTaskIteratorBegin()
+  inline std::unordered_map<std::string, T_UINT32>::iterator ProgressedTaskIteratorBegin()
   {
     return this->category_progressed_task_sum_.begin();
   }
-  inline std::map<std::string, T_UINT32>::iterator ProgressedTaskIteratorEnd()
+  inline std::unordered_map<std::string, T_UINT32>::iterator ProgressedTaskIteratorEnd()
   {
     return this->category_progressed_task_sum_.end();
   }
@@ -66,9 +66,9 @@ public:
 private:
   //ロード処理の合計
   T_UINT32 task_sum_;
-  std::map<std::string, T_UINT32> category_task_sum_;
+  std::unordered_map<std::string, T_UINT32> category_task_sum_;
 
   //進行済みロード処理の合計
   T_UINT32 progressed_task_sum_;
-  std::map<std::string, T_UINT32> category_progressed_task_sum_;
+  std::unordered_map<std::string, T_UINT32> category_progressed_task_sum_;
 };

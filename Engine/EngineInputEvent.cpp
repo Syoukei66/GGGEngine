@@ -13,11 +13,11 @@ EngineInputState::EngineInputState()
 // =================================================================
 void EngineInputState::Prepare()
 {
-  for (std::map<T_UINT8, AnalogInputState>::iterator itr = this->analog_input_.begin(); itr != this->analog_input_.end(); ++itr)
+  for (std::unordered_map<T_UINT8, AnalogInputState>::iterator itr = this->analog_input_.begin(), end = this->analog_input_.end(); itr != end; ++itr)
   {
     (*itr).second.Prepare();
   }
-  for (std::map<T_UINT8, DigitalInputState>::iterator itr = this->digital_input_.begin(); itr != this->digital_input_.end(); ++itr)
+  for (std::unordered_map<T_UINT8, DigitalInputState>::iterator itr = this->digital_input_.begin(), end = this->digital_input_.end(); itr != end; ++itr)
   {
     (*itr).second.Prepare();
   }

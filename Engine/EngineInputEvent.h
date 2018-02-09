@@ -1,7 +1,7 @@
 #ifndef HAL_ENGINE_SCENE_EVENT_ENGINEINPUT_ENGINEINPUTEVENT_H_
 #define HAL_ENGINE_SCENE_EVENT_ENGINEINPUT_ENGINEINPUTEVENT_H_
 
-#include <map>
+#include <unordered_map>
 #include "NativeType.h"
 #include "AnalogInput.h"
 #include "DigitalInput.h"
@@ -60,8 +60,8 @@ public:
   // Data Member
   // =================================================================
 private:
-  std::map<T_UINT8, AnalogInputState> analog_input_;
-  std::map<T_UINT8, DigitalInputState> digital_input_;
+  std::unordered_map<T_UINT8, AnalogInputState> analog_input_;
+  std::unordered_map<T_UINT8, DigitalInputState> digital_input_;
 };
 
 #endif//HAL_ENGINE_SCENE_EVENT_ENGINEINPUT_ENGINEINPUTEVENT_H_

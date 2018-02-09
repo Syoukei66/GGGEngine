@@ -1,6 +1,6 @@
 #pragma once
 
-#include <map>
+#include <unordered_map>
 #include <list>
 #include "InputSetting.h"
 
@@ -28,7 +28,7 @@ public:
 
 private:
   T_UINT8 player_id_;
-  std::map<T_UINT8, InputEntity> entities_;
+  std::unordered_map<T_UINT8, InputEntity> entities_;
 };
 
 class InputManager
