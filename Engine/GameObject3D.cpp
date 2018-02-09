@@ -28,27 +28,27 @@ void GameObject3D::Init()
 void GameObject3D::ManagedPreUpdate()
 {
   this->PreUpdate();
-  for (std::vector<GameObject3D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
+  for (GameObject3D* child : this->children_)
   {
-    (*it)->ManagedPreUpdate();
+    child->ManagedPreUpdate();
   }
 }
 
 void GameObject3D::ManagedUpdate()
 {
   this->Update();
-  for (std::vector<GameObject3D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
+  for (GameObject3D* child : this->children_)
   {
-    (*it)->ManagedUpdate();
+    child->ManagedUpdate();
   }
 }
 
 void GameObject3D::ManagedPostUpdate()
 {
   this->PostUpdate();
-  for (std::vector<GameObject3D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
+  for (GameObject3D* child : this->children_)
   {
-    (*it)->ManagedPostUpdate();
+    child->ManagedPostUpdate();
   }
 }
 
@@ -89,9 +89,8 @@ void GameObject3D::RemoveSelf()
 
 void GameObject3D::ClearChildren()
 {
-  for (std::vector<GameObject3D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
+  for (GameObject3D* child : this->children_)
   {
-    GameObject3D* child = (*it);
     child->parent_ = nullptr;
   }
   this->children_.clear();
@@ -112,9 +111,8 @@ void GameObject3D::Draw(GameObjectRenderState* state)
 
 
   // 子の描画
-  for (std::vector<GameObject3D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
+  for (GameObject3D* child : this->children_)
   {
-    GameObject3D* child = (*it);
     child->Draw(state);
   }
 
@@ -146,9 +144,8 @@ void GameObject3D::FireOnPositionChanged(GameObject* root)
 {
   this->transform_->OnWorldTransformDirty();
   this->OnPositionChanged(root);
-  for (std::vector<GameObject3D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
+  for (GameObject3D* child : this->children_)
   {
-    GameObject3D* child = (*it);
     child->FireOnPositionChanged(root);
   }
 }
@@ -157,9 +154,8 @@ void GameObject3D::FireOnScaleChanged(GameObject* root)
 {
   this->transform_->OnWorldTransformDirty();
   this->OnScaleChanged(root);
-  for (std::vector<GameObject3D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
+  for (GameObject3D* child : this->children_)
   {
-    GameObject3D* child = (*it);
     child->FireOnScaleChanged(root);
   }
 }
@@ -168,9 +164,8 @@ void GameObject3D::FireOnRotationChanged(GameObject* root)
 {
   this->transform_->OnWorldTransformDirty();
   this->OnRotationChanged(root);
-  for (std::vector<GameObject3D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
+  for (GameObject3D* child : this->children_)
   {
-    GameObject3D* child = (*it);
     child->FireOnRotationChanged(root);
   }
 }

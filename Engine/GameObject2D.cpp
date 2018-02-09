@@ -37,27 +37,27 @@ void GameObject2D::Init()
 void GameObject2D::ManagedPreUpdate()
 {
   this->PreUpdate();
-  for (std::vector<GameObject2D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
+  for (GameObject2D* child : this->children_)
   {
-    (*it)->ManagedPreUpdate();
+    child->ManagedPreUpdate();
   }
 }
 
 void GameObject2D::ManagedUpdate()
 {
   this->Update();
-  for (std::vector<GameObject2D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
+  for (GameObject2D* child : this->children_)
   {
-    (*it)->ManagedUpdate();
+    child->ManagedUpdate();
   }
 }
 
 void GameObject2D::ManagedPostUpdate()
 {
   this->PostUpdate();
-  for (std::vector<GameObject2D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
+  for (GameObject2D* child : this->children_)
   {
-    (*it)->ManagedPostUpdate();
+    child->ManagedPostUpdate();
   }
 }
 
@@ -124,9 +124,8 @@ void GameObject2D::Draw(GameObjectRenderState* state)
   // 3.zIndex‚ª0ˆÈã‚ÌqGameObject
   //‚Æ‚¢‚¤‡˜‚Å•`‰æ‚ğs‚¤
   bool self_already_drawed = false;
-  for (std::vector<GameObject2D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
+  for (GameObject2D* child : this->children_)
   {
-    GameObject2D* child = (*it);
     if (child->zindex_ == 0 && !self_already_drawed)
     {
       //2.©•ª©g
@@ -184,9 +183,8 @@ void GameObject2D::FireOnPositionChanged(GameObject* root)
 {
   this->transform_->OnWorldTransformDirty();
   this->OnPositionChanged(root);
-  for (std::vector<GameObject2D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
+  for (GameObject2D* child : this->children_)
   {
-    GameObject2D* child = (*it);
     child->FireOnPositionChanged(root);
   }
 }
@@ -195,9 +193,8 @@ void GameObject2D::FireOnScaleChanged(GameObject* root)
 {
   this->transform_->OnWorldTransformDirty();
   this->OnScaleChanged(root);
-  for (std::vector<GameObject2D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
+  for (GameObject2D* child : this->children_)
   {
-    GameObject2D* child = (*it);
     child->FireOnScaleChanged(root);
   }
 }
@@ -206,9 +203,8 @@ void GameObject2D::FireOnRotationChanged(GameObject* root)
 {
   this->transform_->OnWorldTransformDirty();
   this->OnRotationChanged(root);
-  for (std::vector<GameObject2D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
+  for (GameObject2D* child : this->children_)
   {
-    GameObject2D* child = (*it);
     child->FireOnRotationChanged(root);
   }
 }
