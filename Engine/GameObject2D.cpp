@@ -99,9 +99,8 @@ void GameObject2D::RemoveSelf()
 
 void GameObject2D::ClearChildren()
 {
-  for (std::vector<GameObject2D*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
+  for (GameObject2D* child : this->children_)
   {
-    GameObject2D* child = (*it);
     child->parent_ = nullptr;
   }
   this->children_.clear();

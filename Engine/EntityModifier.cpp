@@ -40,9 +40,9 @@ bool EntityModifierRoot::OnUpdate(T_UINT16 frame_elapsed)
 
 void EntityModifierRoot::OnUpdateFinish()
 {
-  for (std::deque<IEntityModifierListener*>::iterator itr = this->listeners_.begin(); itr != this->listeners_.end(); ++itr)
+  for (std::function<void()>& listener : this->listeners_)
   {
-    (*itr)->OnModifierFinished(this, this->target_);
+    listener();
   }
 }
 
@@ -120,22 +120,9 @@ void EntityModifierRoot::Stop()
   this->is_reverse_ = false;
 }
 
-void EntityModifierRoot::AddEntityModifierListener(IEntityModifierListener * listener)
+void EntityModifierRoot::AddEntityModifierListener(std::function<void()> listener)
 {
   this->listeners_.push_back(listener);
-}
-
-void EntityModifierRoot::RemoveEntityModifierListener(IEntityModifierListener * listener)
-{
-  for (std::deque<IEntityModifierListener*>::iterator itr = this->listeners_.begin(); itr != this->listeners_.end(); ++itr)
-  {
-    if ((*itr) != listener)
-    {
-      continue;
-    }
-    this->listeners_.erase(itr);
-    return;
-  }
 }
 
 void EntityModifierRoot::ClearEntityModifierListener()
@@ -205,9 +192,8 @@ void SequenceEntityModifier::OnAllocated()
 
 void SequenceEntityModifier::OnFree()
 {
-  for (std::vector<EntityModifier*>::iterator itr = this->modifiers_.begin(); itr != this->modifiers_.end(); ++itr)
+  for (EntityModifier* modifier : this->modifiers_)
   {
-    EntityModifier* const modifier = (*itr);
     modifier->Free();
   }
   this->modifiers_.clear();
@@ -221,9 +207,8 @@ void SequenceEntityModifier::Free()
 void SequenceEntityModifier::OnTimelineUpdate(GameObject2D* target, T_FLOAT progress)
 {
   const T_FLOAT duration = (T_FLOAT)this->GetDuration();
-  for (std::vector<EntityModifier*>::iterator itr = this->modifiers_.begin(); itr != this->modifiers_.end(); ++itr)
+  for (EntityModifier* modifier : this->modifiers_)
   {
-    EntityModifier* const modifier = (*itr);
     const T_FLOAT progress_rate = modifier->GetDuration() / duration;
     if (progress < progress_rate)
     {
@@ -243,9 +228,9 @@ void SequenceEntityModifier::Register(EntityModifier* modifier)
 void SequenceEntityModifier::Prepare()
 {
   T_UINT16 need_power_sum = 0;
-  for (std::vector<EntityModifier*>::iterator itr = this->modifiers_.begin(); itr != this->modifiers_.end(); ++itr)
+  for (EntityModifier* modifier : this->modifiers_)
   {
-    need_power_sum += (*itr)->GetDuration();
+    need_power_sum += modifier->GetDuration();
   }
   EntityModifier::BasePrepare(need_power_sum);
 }
@@ -261,9 +246,8 @@ void SynchronizedEntityModifier::OnAllocated()
 
 void SynchronizedEntityModifier::OnFree()
 {
-  for (std::vector<EntityModifier*>::iterator itr = this->modifiers_.begin(); itr != this->modifiers_.end(); ++itr)
+  for (EntityModifier* modifier : this->modifiers_)
   {
-    EntityModifier* const modifier = (*itr);
     modifier->Free();
   }
   this->modifiers_.clear();
@@ -277,9 +261,8 @@ void SynchronizedEntityModifier::Free()
 void SynchronizedEntityModifier::OnTimelineUpdate(GameObject2D* target, T_FLOAT progress)
 {
   const T_FLOAT duration = (T_FLOAT)this->GetDuration();
-  for (std::vector<EntityModifier*>::iterator itr = this->modifiers_.begin(); itr != this->modifiers_.end(); ++itr)
+  for (EntityModifier* modifier : this->modifiers_)
   {
-    EntityModifier* const modifier = (*itr);
     const T_FLOAT progress_rate = duration / modifier->GetDuration();
     const T_FLOAT finally_progress = std::min(1.0f, progress * progress_rate);
     modifier->OnUpdate(target, finally_progress);
@@ -294,9 +277,9 @@ void SynchronizedEntityModifier::Register(EntityModifier* modifier)
 void SynchronizedEntityModifier::Prepare()
 {
   T_UINT16 need_power_max = 0;
-  for (std::vector<EntityModifier*>::iterator itr = this->modifiers_.begin(); itr != this->modifiers_.end(); ++itr)
+  for (EntityModifier* modifier : this->modifiers_)
   {
-    need_power_max = std::max(need_power_max, (*itr)->GetDuration());
+    need_power_max = std::max(need_power_max, modifier->GetDuration());
   }
   EntityModifier::BasePrepare(need_power_max);
 }

@@ -8,13 +8,6 @@
 
 class GameObject2D;
 class EntityModifier;
-class EntityModifierRoot;
-
-class IEntityModifierListener
-{
-public:
-  virtual void OnModifierFinished(EntityModifierRoot* root, GameObject2D* target) = 0;
-};
 
 //=========================================================================
 // EntityModifierRoot
@@ -45,8 +38,7 @@ public:
   void Stop();
 
 public:
-  void AddEntityModifierListener(IEntityModifierListener* listener);
-  void RemoveEntityModifierListener(IEntityModifierListener* listener);
+  void AddEntityModifierListener(std::function<void()> listener);
   void ClearEntityModifierListener();
 
 public:
@@ -75,7 +67,7 @@ private:
   T_UINT16 duration_rest_;
 
   T_UINT8 reference_count_;
-  std::deque<IEntityModifierListener*> listeners_;
+  std::deque<std::function<void()>> listeners_;
 };
 
 //=========================================================================
