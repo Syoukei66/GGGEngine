@@ -1,6 +1,6 @@
 #pragma once
 
-#include <map>
+#include <unordered_map>
 #include <set>
 #include <vector>
 #include "NativeType.h"
@@ -62,10 +62,10 @@ public:
   }
 
 private:
-  std::map<std::string, ResourceLoader*> resources_;
+  std::unordered_map<std::string, ResourceLoader*> resources_;
 
-  std::map<std::string, std::set<ResourceLoader*>> load_reserve_;
-  std::map<std::string, std::set<ResourceLoader*>> unload_reserve_;
+  std::unordered_map<std::string, std::set<ResourceLoader*>> load_reserve_;
+  std::unordered_map<std::string, std::set<ResourceLoader*>> unload_reserve_;
 
   //動的リソースは動的生成される為、deleteする必要がある
   std::vector<ResourceLoader*> dynamic_resources_;
