@@ -196,6 +196,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="DirectXActivity.cpp" />
     <ClCompile Include="DirectXInputDeviceManager.cpp" />
     <ClCompile Include="DirectXInputDevice_Keyboard.cpp" />
@@ -213,10 +214,12 @@
     <ClCompile Include="NativeProcess_Graphics.cpp" />
     <ClCompile Include="NativeProcess_Time.cpp" />
     <ClCompile Include="NativeShader.cpp" />
+    <ClCompile Include="NativeSound.cpp" />
     <ClCompile Include="NativeTexture.cpp" />
     <ClCompile Include="NativeVertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AudioManager.h" />
     <ClInclude Include="DirectXActivity.h" />
     <ClInclude Include="DirectXDirector.h" />
     <ClInclude Include="DirectXInputDevice.h" />
@@ -235,6 +238,7 @@
     <ClInclude Include="NativeProcess_Graphics.h" />
     <ClInclude Include="NativeProcess_Time.h" />
     <ClInclude Include="NativeShader.h" />
+    <ClInclude Include="NativeSound.h" />
     <ClInclude Include="NativeTexture.h" />
     <ClInclude Include="NativeVertexBuffer.h" />
   </ItemGroup>

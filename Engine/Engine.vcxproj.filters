@@ -322,6 +322,12 @@
     <Filter Include="ソース ファイル\imgui">
       <UniqueIdentifier>{9b8d6292-1ea3-490e-b5b9-de8fa4dfc578}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Resource\File\Sound">
+      <UniqueIdentifier>{cf3d5124-1948-4e4a-81ea-9a50a2b00dcd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Resource\File\Sound">
+      <UniqueIdentifier>{899c36ae-ee59-4928-859c-bb5753da65bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IVertexBufferObject.cpp">
@@ -758,6 +764,12 @@
     </ClCompile>
     <ClCompile Include="imgui_ja_gryph_ranges.cpp">
       <Filter>ソース ファイル\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeSound.cpp">
+      <Filter>ソース ファイル\Native\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundResource.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1300,6 +1312,12 @@
     </ClInclude>
     <ClInclude Include="imgui_ja_gryph_ranges.h">
       <Filter>ヘッダー ファイル\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeSound.h">
+      <Filter>ヘッダー ファイル\Native\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundResource.h">
+      <Filter>ヘッダー ファイル\Resource\File\Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

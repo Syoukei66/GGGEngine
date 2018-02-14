@@ -46,6 +46,12 @@
     <Filter Include="ソース ファイル\imgui">
       <UniqueIdentifier>{a8f48a2e-1d6f-4b9d-b6ef-09b6e36da362}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Audio">
+      <UniqueIdentifier>{5051f13f-ac95-4d0c-8463-e2f9f98d200a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Audio">
+      <UniqueIdentifier>{3df6a896-d539-432a-b8fa-93a314025ec0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectXActivity.cpp">
@@ -104,6 +110,12 @@
     </ClCompile>
     <ClCompile Include="imgui\imgui_impl_dx9.cpp">
       <Filter>ソース ファイル\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeSound.cpp">
+      <Filter>ソース ファイル\Native\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioManager.cpp">
+      <Filter>ソース ファイル\Audio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +178,12 @@
     </ClInclude>
     <ClInclude Include="imgui\imgui_impl_dx9.h">
       <Filter>ヘッダー ファイル\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeSound.h">
+      <Filter>ヘッダー ファイル\Native\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioManager.h">
+      <Filter>ヘッダー ファイル\Audio</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
