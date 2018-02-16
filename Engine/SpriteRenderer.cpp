@@ -27,8 +27,8 @@ void SpriteRenderer::EditProperty(T_UINT8 material_index, T_UINT8 pass_index, Ma
 {
   material->Vec2fProperty("_UV0") = this->texture_region_->GetUV0();
   material->Vec2fProperty("_UV1") = this->texture_region_->GetUV1();
-  material->FloatProperty("_Width") = this->size_.width * image_scale_;
-  material->FloatProperty("_Height") = this->size_.height * image_scale_;
+  material->FloatProperty("_Width") = this->size_.width;
+  material->FloatProperty("_Height") = this->size_.height;
 }
 
 void SpriteRenderer::DrawSubset(T_UINT8 material_index, T_UINT8 pass_index)
@@ -47,8 +47,8 @@ void SpriteRenderer::FitToTexture()
     return;
   }
   this->SetTexture(*texture);
-  const T_FLOAT tw = (T_FLOAT)texture->GetWidth();
-  const T_FLOAT th = (T_FLOAT)texture->GetHeight();
+  const T_FLOAT tw = (T_FLOAT)texture->GetWidth() * this->image_scale_;
+  const T_FLOAT th = (T_FLOAT)texture->GetHeight() * this->image_scale_;
   this->SetWidth(tw * (this->texture_region_->GetUV1().x - this->texture_region_->GetUV0().x));
   this->SetHeight(th * (this->texture_region_->GetUV1().y - this->texture_region_->GetUV0().y));
 }
