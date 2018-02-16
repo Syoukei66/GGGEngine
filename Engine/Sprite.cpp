@@ -33,7 +33,5 @@ Sprite* Sprite::CreateWithMaterial(Material& material)
 Sprite* Sprite::CreateWithTexture(const Texture& texture)
 {
   TextureRegion* region = TextureRegion::CreateWithTexture(texture);
-  Sprite* ret = Sprite::CreateWithTextureRegion(region, true);
-  SpriteRenderer* renderer = ret->GetSpriteRenderer();
-  return ret;
+  return Sprite::CreateWithTextureRegion(region, true);
 }

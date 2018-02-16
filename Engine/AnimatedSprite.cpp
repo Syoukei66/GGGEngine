@@ -33,7 +33,5 @@ AnimatedSprite* AnimatedSprite::CreateWithMaterial(Material& material, T_UINT8 x
 AnimatedSprite* AnimatedSprite::CreateWithTexture(const Texture& texture, T_UINT8 x_num, T_UINT8 y_num)
 {
   TiledTextureRegion* region = TiledTextureRegion::CreateWithTexture(texture, x_num, y_num);
-  AnimatedSprite* ret = AnimatedSprite::CreateWithTextureRegion(region, true);
-  AnimatedSpriteRenderer* renderer = ret->GetAnimatedSpriteRenderer();
-  return ret;
+  return AnimatedSprite::CreateWithTextureRegion(region, true);
 }
