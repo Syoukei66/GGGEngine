@@ -47,7 +47,7 @@ public:
   inline void SetTarget(GameObject3D* target)
   {
     this->target_ = target;
-    this->target_direction_ = (this->target_->GetTransform()->GetWorldPosition() - this->GetEntity()->GetWorldMatrix().GetPosition3d()).Normalized();
+    this->target_direction_ = !this->target_ ? this->target_direction_ : (this->target_->GetTransform()->GetWorldPosition() - this->GetEntity()->GetWorldMatrix().GetPosition3d()).Normalized();
   }
 
   void SetLookAtPos(const TVec3f& look_at_pos);
