@@ -15,6 +15,7 @@
 #include "NativeProcess_Time.h"
 
 #include "DirectXDirector.h"
+#include "AudioManager.h"
 
 #include "imgui\imgui.h"
 #include "imgui\imgui_impl_dx9.h"
@@ -217,11 +218,15 @@ bool DirectXActivity::Init(const EngineOption* option)
   ImGui::StyleColorsDark();
   ImGui::SetupJapaneseString();
 
+  AudioManager::GetInstance().Init();
+
   return true;
 }
 
 bool DirectXActivity::Uninit()
 {
+  AudioManager::GetInstance().Uninit();
+
   //imgui uninitialize
   ImGui_ImplDX9_Shutdown();
 

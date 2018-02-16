@@ -223,6 +223,7 @@
     <ClCompile Include="ModelNode.cpp" />
     <ClCompile Include="NativeIndexBuffer.cpp" />
     <ClCompile Include="NativeShader.cpp" />
+    <ClCompile Include="NativeSound.cpp" />
     <ClCompile Include="NativeVertexBuffer.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceLoader.cpp" />
@@ -233,6 +234,7 @@
     <ClCompile Include="NativeTexture.cpp" />
     <ClCompile Include="ResourcePool.cpp" />
     <ClCompile Include="ShaderResource.cpp" />
+    <ClCompile Include="SoundResource.cpp" />
     <ClCompile Include="SpineResource.cpp" />
     <ClCompile Include="Sprite3D.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
@@ -353,6 +355,7 @@
     <ClInclude Include="ModelNode.h" />
     <ClInclude Include="NativeAssert.h" />
     <ClInclude Include="NativeIndexBuffer.h" />
+    <ClInclude Include="NativeSound.h" />
     <ClInclude Include="NativeVertexBuffer.h" />
     <ClInclude Include="NativeShader.h" />
     <ClInclude Include="Renderer.h" />
@@ -396,6 +399,7 @@
     <ClInclude Include="EngineAsset.h" />
     <ClInclude Include="ShaderProperties.h" />
     <ClInclude Include="ShaderResource.h" />
+    <ClInclude Include="SoundResource.h" />
     <ClInclude Include="SpineResource.h" />
     <ClInclude Include="Sprite3D.h" />
     <ClInclude Include="SpriteRenderer.h" />

@@ -45,6 +45,21 @@ struct InputEntity
     , dimention(dimention)
   {}
 
+  //コンストラクタその１　アナログ片側のみ入力タイプ
+  InputEntity(
+    T_UINT8 id,
+    EngineInput::Digital::ID positive_button,
+    EngineInput::Analog::ID axis,
+    T_UINT8 dimention
+  )
+    : input_id(id)
+    , negative_button(-1)
+    , positive_button(positive_button)
+    , axis(axis)
+    , dimention(dimention)
+  {}
+
+
   InputEntity()
     : input_id(-1)
     , negative_button(-1)

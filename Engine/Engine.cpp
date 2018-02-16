@@ -3,8 +3,6 @@
 #include "EasingFunctionManager.h"
 #include "EntityModifierManager.h"
 #include "ParticleDataManager.h"
-#include "EngineResourcePool.h"
-#include "UserResourcePool.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -28,8 +26,6 @@ bool Engine::Init(IEngineSetting* setting)
   this->option_ = new EngineOption();
   setting->SetupEngineOption(this->option_);
 
-  EngineResourcePool::GetInstance().Init();
-  UserResourcePool::GetInstance().Init();
   EntityModifierManager::GetInstance().Init(&this->option_->entity_modifier_option);
   EasingFunctionManager::GetInstance()->Load(this->option_->render_cycle);
 
@@ -43,8 +39,6 @@ bool Engine::End()
 
   EasingFunctionManager::GetInstance()->Unload();
   EntityModifierManager::GetInstance().Uninit();
-  UserResourcePool::GetInstance().Uninit();
-  EngineResourcePool::GetInstance().Uninit();
 
   delete this->option_;
   return true;

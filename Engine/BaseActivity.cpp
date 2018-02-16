@@ -7,6 +7,9 @@
 #include "EngineResourcePool.h"
 #include "EngineAsset.h"
 
+#include "EngineResourcePool.h"
+#include "UserResourcePool.h"
+
 // =================================================================
 // Constructor / Destructor
 // =================================================================
@@ -49,6 +52,9 @@ bool BaseActivity::Run(IEngineSetting* setting)
   //Acitivity
   NATIVE_ASSERT(result, "アクティビティの初期化に失敗しました。");
 
+  EngineResourcePool::GetInstance().Init();
+  UserResourcePool::GetInstance().Init();
+
   setting->OnGameInit();
 
   IResourceLoadingListener listener = IResourceLoadingListener();
@@ -72,6 +78,9 @@ bool BaseActivity::Run(IEngineSetting* setting)
   engine_->ChangeScene(setting->FirstScene());
   while (this->Update());
   setting->OnGameFinal();
+
+  UserResourcePool::GetInstance().Uninit();
+  EngineResourcePool::GetInstance().Uninit();
 
   result = this->Uninit();
   NATIVE_ASSERT(result, "アクティビティの終了処理に失敗しました。");

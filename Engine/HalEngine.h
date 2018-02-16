@@ -109,6 +109,7 @@
     #include "NativeModel.h"
     #include "NativeObject.h"
     #include "NativeShader.h"
+    #include "NativeShader.h"
     #include "NativeTexture.h"
 
 //Resource
@@ -131,12 +132,13 @@
       #include "FbxMeshMaterial.h"
       #include "FbxNodeData.h"
       #include "FbxResource.h"
-
 //----Particle
       #include "ParticleData.h"
       #include "ParticleDataLoader.h"
       #include "ParticleDataManager.h"
       #include "ParticleSystem.h"
+//----Shader
+      #include "ShaderResource.h"
 //----Spine
       #include "AttachmentVertexes.h"
       #include "EngineAttachmentLoader.h"
@@ -144,6 +146,8 @@
       #include "SpineData.h"
       #include "SpineDataManager.h"
       #include "SpineResource.h"
+//----Sound
+      #include "SoundResource.h"
 //------c
         #include <spine\spine.h>
 //----Texture

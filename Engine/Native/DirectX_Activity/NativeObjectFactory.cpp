@@ -1,5 +1,6 @@
 #include "..\..\NativeObjectFactory.h"
 #include "..\..\NativeObjectFactory.h"
+#include "..\..\NativeObjectFactory.h"
 #include <NativeObjectFactory.h>
 
 #include "NativeIndexBuffer.h"
@@ -9,6 +10,7 @@
 #include "NativeTexture.h"
 #include "NativeModel_x.h"
 #include "NativeShader.h"
+#include "NativeSound.h"
 
 INativeMatrix* NativeObjectFactory::CreateMatrix()
 {
@@ -44,6 +46,11 @@ INativeIndexBuffer* NativeObjectFactory::CreateIndexBuffer(T_UINT32 indexes_coun
 INativeTexture* NativeObjectFactory::CreateTexture(const char* path)
 {
   return new NativeTexture(path);
+}
+
+INativeSound* NativeObjectFactory::CreateSound(const char* path)
+{
+  return new NativeSound(path);
 }
 
 INativeModel* NativeObjectFactory::CreateModel(const char* directory_path, const char* name, const char* extension)
