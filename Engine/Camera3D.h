@@ -45,8 +45,8 @@ private:
   // setter/getter
   // =================================================================
 public:
-  const TVec3f Get2dPositionScale(GameObject3D* obj);
-  const TVec3f Get2dPosition(GameObject3D* obj);
+  const TVec3f Get2dPositionScale(const GameObject3D* obj) const;
+  const TVec3f Get2dPosition(const GameObject3D* obj) const;
 
   inline Transform3D* GetTransform()
   {

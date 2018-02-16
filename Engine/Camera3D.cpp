@@ -98,7 +98,7 @@ void Camera3D::CheckProjectionDirty()
 // =================================================================
 // setter/getter
 // =================================================================
-const TVec3f Camera3D::Get2dPositionScale(GameObject3D* obj)
+const TVec3f Camera3D::Get2dPositionScale(const GameObject3D* obj) const
 {
   this->calc_2dpos_matrix_->Init();
   this->calc_2dpos_matrix_->Multiple(obj->GetTransform()->GetWorldMatrix());
@@ -108,7 +108,7 @@ const TVec3f Camera3D::Get2dPositionScale(GameObject3D* obj)
   return TVec3f(pos.x / pos.w, pos.y / pos.w, pos.z / fabs(pos.w));
 }
 
-const TVec3f Camera3D::Get2dPosition(GameObject3D* obj)
+const TVec3f Camera3D::Get2dPosition(const GameObject3D* obj) const
 {
   TVec3f ret = this->Get2dPositionScale(obj);
   ret.x *= this->GetViewportWidth() * 0.5f;
