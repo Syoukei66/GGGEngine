@@ -117,6 +117,9 @@
     <ClCompile Include="AudioManager.cpp">
       <Filter>ソース ファイル\Audio</Filter>
     </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectXActivity.h">
@@ -184,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="AudioManager.h">
       <Filter>ヘッダー ファイル\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

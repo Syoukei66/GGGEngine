@@ -1,8 +1,6 @@
 #ifndef HAL_DIRECTX_DIRECTXACTIVITY_H_
 #define HAL_DIRECTX_DIRECTXACTIVITY_H_
 
-#include <d3d9.h>
-#include <d3dx9.h>
 #include <BaseActivity.h>
 #include "DirectXNativeImplements.h"
 #include "DirectXInputDeviceManager.h"
