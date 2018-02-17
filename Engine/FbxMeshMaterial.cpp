@@ -135,6 +135,67 @@ FbxMeshMaterial::FbxMeshMaterial(FbxMesh* mesh)
         }
       }
     }
+    //’¸“_ƒJƒ‰[‚ÌŽæ“¾
+    FbxLayerElementVertexColor* color_element = layer->GetVertexColors();
+    if (color_element)
+    {
+      T_UINT16 color_count = color_element->GetDirectArray().GetCount();
+      T_UINT16 color_index_count = color_element->GetIndexArray().GetCount();
+
+      FbxLayerElement::EMappingMode mapping_mode = color_element->GetMappingMode();
+      FbxLayerElement::EReferenceMode reference_mode = color_element->GetReferenceMode();
+      Color4F color = Color4F();
+      if (mapping_mode == FbxLayerElement::eByPolygonVertex)
+      {
+        if (reference_mode == FbxLayerElement::eDirect)
+        {
+          for (T_UINT16 i = 0; i < color_count; ++i)
+          {
+            color.SetRed((T_FLOAT)color_element->GetDirectArray().GetAt(i)[0]);
+            color.SetGreen((T_FLOAT)color_element->GetDirectArray().GetAt(i)[1]);
+            color.SetBlue((T_FLOAT)color_element->GetDirectArray().GetAt(i)[2]);
+            color.SetAlpha((T_FLOAT)color_element->GetDirectArray().GetAt(i)[3]);
+            this->vertexes_[i].color = color.GetPackedColor();
+          }
+        }
+        else if (reference_mode == FbxLayerElement::eIndexToDirect)
+        {
+          for (T_UINT16 i = 0; i < color_index_count; ++i)
+          {
+            color.SetRed((T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[0]);
+            color.SetGreen((T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[1]);
+            color.SetBlue((T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[2]);
+            color.SetAlpha((T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[3]);
+            this->vertexes_[i].color = color.GetPackedColor();
+          }
+        }
+      }
+      else if (mapping_mode == FbxLayerElement::eByControlPoint)
+      {
+        if (reference_mode == FbxLayerElement::eDirect)
+        {
+          for (T_UINT16 i = 0; i < color_count; ++i)
+          {
+            color.SetRed((T_FLOAT)color_element->GetDirectArray().GetAt(i)[0]);
+            color.SetGreen((T_FLOAT)color_element->GetDirectArray().GetAt(i)[1]);
+            color.SetBlue((T_FLOAT)color_element->GetDirectArray().GetAt(i)[2]);
+            color.SetAlpha((T_FLOAT)color_element->GetDirectArray().GetAt(i)[3]);
+            this->vertexes_[i].color = color.GetPackedColor();
+          }
+        }
+        else if (reference_mode == FbxLayerElement::eIndexToDirect)
+        {
+          for (T_UINT16 i = 0; i < color_index_count; ++i)
+          {
+            color.SetRed((T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[0]);
+            color.SetGreen((T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[1]);
+            color.SetBlue((T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[2]);
+            color.SetAlpha((T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[3]);
+            this->vertexes_[i].color = color.GetPackedColor();
+          }
+        }
+      }
+    }
   }
 }
 

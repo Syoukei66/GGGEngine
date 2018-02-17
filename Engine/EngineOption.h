@@ -36,9 +36,11 @@ public:
     option->render_cycle = this->RenderCycle();
     this->InputSetting(&option->input_setting);
   }
+  virtual void OnEngineInit() {};
+  virtual void OnEngineFinal() {};
 
-  virtual void OnGameInit() = 0;
-  virtual void OnGameFinal() = 0;
+  virtual void OnGameInit() {};
+  virtual void OnGameFinal() {};
 
   virtual void InputSetting(InputSettingBuilder* setting) = 0;
   virtual Scene* FirstScene() = 0;

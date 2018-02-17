@@ -1,4 +1,5 @@
 #include "Color.h"
+#include "NativeMethod.h"
 
 // =================================================================
 // Constants
@@ -46,6 +47,19 @@ Color4F::Color4F(T_FLOAT r, T_FLOAT g, T_FLOAT b, T_FLOAT a)
 // =================================================================
 // Setter / Getter
 // =================================================================
+T_PACKED_COLOR_UINT32 Color4F::GetPackedColor()
+{
+  T_PACKED_COLOR_UINT32 ret;
+  NativeMethod::Graphics().Graphics_PackColor4u8(
+    &ret,
+    this->col_[0] * 255,
+    this->col_[1] * 255,
+    this->col_[2] * 255,
+    this->col_[3] * 255
+  );
+  return ret;
+}
+
 void Color4F::SetColor(T_FLOAT r, T_FLOAT g, T_FLOAT b)
 {
   this->col_[0] = std::min(1.0f, std::max(0.0f, r));

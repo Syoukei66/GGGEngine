@@ -1,17 +1,18 @@
-#include "ResourceLoader.h"
+#include "FileLoader.h"
 
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-ResourceLoader::ResourceLoader(const std::string& category, const std::string& path)
-  : category_(category)
+FileLoader::FileLoader(const std::string& category, const std::string& path)
+  : ResourceLoader(category)
   , path_(path)
+  , reference_count_(0)
 {}
 
 // =================================================================
 // Methods
 // =================================================================
-void ResourceLoader::Load()
+void FileLoader::Load()
 {
   if (this->IsLoaded())
   {
@@ -20,11 +21,21 @@ void ResourceLoader::Load()
   this->LoadProcess(this->path_);
 }
 
-void ResourceLoader::Unload()
+void FileLoader::Unload()
 {
   if (!this->IsLoaded())
   {
     return;
   }
   this->UnloadProcess();
+}
+
+void FileLoader::Retain()
+{
+  this->reference_count_++;
+}
+
+void FileLoader::Release()
+{
+  this->reference_count_--;
 }

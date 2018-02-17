@@ -1,7 +1,7 @@
 #include "SpineResource.h"
 #include "UserResourcePool.h"
 
-const SpineResource* SpineResource::DynamicLoad(const char* path)
+SpineResource* SpineResource::DynamicLoad(const char* path)
 {
   return UserResourcePool::GetInstance().DynamicLoad<SpineResource>(path);
 }

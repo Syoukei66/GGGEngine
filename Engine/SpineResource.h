@@ -6,7 +6,7 @@
 class SpineResource : public FileResource<SpineData>
 {
 public:
-  static const SpineResource* DynamicLoad(const char* path);
+  static SpineResource* DynamicLoad(const char* path);
 
 public:
   SpineResource(const char* path);

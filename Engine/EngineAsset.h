@@ -9,7 +9,8 @@ namespace EngineAsset
 namespace Shader
 {
 extern const ShaderResource DEFAULT;
-extern const ShaderResource MODEL;
+extern const ShaderResource LAMBERT;
+extern const ShaderResource PHONG;
 extern const ShaderResource PARTICLE;
 extern const ShaderResource PRIMITIVE;
 extern const ShaderResource SPRITE;
@@ -19,7 +20,8 @@ extern const ShaderResource WHITE;
 namespace Material
 {
 extern class Material DEFAULT;
-extern class Material MODEL;
+extern class Material LAMBERT;
+extern class Material PHONG;
 extern class Material PARTICLE;
 extern class Material PRIMITIVE;
 extern class Material SPRITE;

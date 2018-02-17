@@ -1,11 +1,16 @@
 #pragma once
 
 #include <unordered_map>
-#include <set>
+#include <unordered_set>
 #include <vector>
 #include "NativeType.h"
 #include "NativeAssert.h"
 #include "ResourceLoader.h"
+#include "FileLoader.h"
+
+#ifdef _DEBUG
+#include <fstream>
+#endif
 
 class IResourceLoadingListener
 {
@@ -20,7 +25,7 @@ public:
 class IResourceLoadReserver
 {
 public:
-  virtual void ReserveLoad(const ResourceLoader& resource) = 0;
+  virtual void ReserveLoad(const FileLoader& resource) = 0;
 };
 
 class ResourcePool : public IResourceLoadReserver
@@ -39,8 +44,10 @@ public:
   void Init();
   void Uninit();
 
+  void Update();
+
   //ロード予約を行う
-  void ReserveLoad(const ResourceLoader& resource) override;
+  void ReserveLoad(const FileLoader& resource) override;
   //ロード/アンロード予約を作成
   //loaded_resources_release … 既にロード済みのリソースを解放する場合true
   void PreRealize(IResourceLoadingListener* listener, bool loaded_resources_release = true);
@@ -48,25 +55,28 @@ public:
   void Realize(IResourceLoadingListener* listener);
 
   template<class T>
-  const T* DynamicLoad(const char* path)
+  T* DynamicLoad(const char* path)
   {
-    T* ret = (T*)this->resources_[path];
+    T* ret = (T*)this->dynamic_resources_[path];
     if (!ret)
     {
+#ifdef _DEBUG
+      std::ifstream ifs(path);
+      NATIVE_ASSERT(ifs.is_open(), "ファイルパスが間違えています");
+#endif
       ret = new T(path);
       ret->Load();
-      this->resources_[path] = ret;
-      this->dynamic_resources_.push_back(ret);
+      this->dynamic_resources_[path] = ret;
     }
+    ret->Retain();
     return ret;
   }
 
 private:
-  std::unordered_map<std::string, ResourceLoader*> resources_;
-
-  std::unordered_map<std::string, std::set<ResourceLoader*>> load_reserve_;
-  std::unordered_map<std::string, std::set<ResourceLoader*>> unload_reserve_;
+  std::unordered_map<std::string, FileLoader*> resources_;
+  std::unordered_map<std::string, std::unordered_set<FileLoader*>> load_reserve_;
+  std::unordered_map<std::string, std::unordered_set<FileLoader*>> unload_reserve_;
 
   //動的リソースは動的生成される為、deleteする必要がある
-  std::vector<ResourceLoader*> dynamic_resources_;
+  std::unordered_map<std::string, FileLoader*> dynamic_resources_;
 };

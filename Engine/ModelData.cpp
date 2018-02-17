@@ -2,7 +2,7 @@
 #include "Director.h"
 #include "UserResourcePool.h"
 
-const ModelData* ModelData::DynamicLoad(const char* path)
+ModelData* ModelData::DynamicLoad(const char* path)
 {
   return UserResourcePool::GetInstance().DynamicLoad<ModelData>(path);
 }

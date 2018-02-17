@@ -9,7 +9,7 @@ class FbxResource : public FileResource<FbxData>
   // Factory Method
   // =================================================================
 public:
-  static const FbxResource* DynamicLoad(const char* path);
+  static FbxResource* DynamicLoad(const char* path);
 
   // =================================================================
   // Constructor / Destructor

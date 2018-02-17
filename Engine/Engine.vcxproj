@@ -226,7 +226,7 @@
     <ClCompile Include="NativeSound.cpp" />
     <ClCompile Include="NativeVertexBuffer.cpp" />
     <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="ResourceLoader.cpp" />
+    <ClCompile Include="FileLoader.cpp" />
     <ClCompile Include="ModelData.cpp" />
     <ClCompile Include="NativeMatrix.cpp" />
     <ClCompile Include="NativeMatrixStack.cpp" />
@@ -359,7 +359,7 @@
     <ClInclude Include="NativeVertexBuffer.h" />
     <ClInclude Include="NativeShader.h" />
     <ClInclude Include="Renderer.h" />
-    <ClInclude Include="ResourceLoader.h" />
+    <ClInclude Include="FileLoader.h" />
     <ClInclude Include="FileResource.h" />
     <ClInclude Include="BlendFunction.h" />
     <ClInclude Include="Camera.h" />
@@ -397,6 +397,7 @@
     <ClInclude Include="NativeMatrixStack.h" />
     <ClInclude Include="NativeObject.h" />
     <ClInclude Include="EngineAsset.h" />
+    <ClInclude Include="ResourceLoader.h" />
     <ClInclude Include="ShaderProperties.h" />
     <ClInclude Include="ShaderResource.h" />
     <ClInclude Include="SoundResource.h" />
@@ -504,7 +505,7 @@
     <ClInclude Include="VertexBufferObject_Primitive3D_MeshField.h" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Model.fx">
+    <FxCompile Include="Lambert.fx">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
@@ -572,6 +573,28 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Phong.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">2.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">2.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">2.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">2.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\Asset\shader\default\%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Effect</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
     </FxCompile>
     <FxCompile Include="Primitive.fx">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

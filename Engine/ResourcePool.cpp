@@ -24,29 +24,47 @@ void ResourcePool::Init()
 
 void ResourcePool::Uninit()
 {
-  for (auto itr = this->resources_.begin(); itr != this->resources_.end(); ++itr)
+  for (auto& pair : this->resources_)
   {
-    itr->second->Unload();
+    pair.second->Unload();
   }
   this->resources_.clear();
   this->load_reserve_.clear();
   this->unload_reserve_.clear();
-  for (ResourceLoader* loader : this->dynamic_resources_)
+  for (auto& pair : this->dynamic_resources_)
   {
-    delete loader;
+    pair.second->Unload();
+    delete pair.second;
+  }
+  this->dynamic_resources_.clear();
+}
+
+void ResourcePool::Update()
+{
+  std::vector<std::string> delete_resources = std::vector<std::string>();
+  for (auto& pair : this->dynamic_resources_)
+  {
+    if (pair.second->GetReferenceCount() > 0)
+    {
+      continue;
+    }
+    pair.second->Unload();
+    delete pair.second;
+    delete_resources.push_back(pair.first);
+  }
+  for (std::string& str : delete_resources)
+  {
+    this->dynamic_resources_.erase(str);
   }
 }
 
-#ifdef _DEBUG
-#include <fstream>
-#endif
-void ResourcePool::ReserveLoad(const ResourceLoader& resource)
+void ResourcePool::ReserveLoad(const FileLoader& resource)
 {
 #ifdef _DEBUG
   std::ifstream ifs(resource.GetPath());
   NATIVE_ASSERT(ifs.is_open(), "ファイルパスが間違えています");
 #endif
-  this->load_reserve_[resource.GetCategory()].insert(const_cast<ResourceLoader*>(&resource));
+  this->load_reserve_[resource.GetCategory()].insert(const_cast<FileLoader*>(&resource));
 }
 
 //loaded_resources_release … 既にロード済みのリソースを解放する場合true

@@ -7,7 +7,7 @@
 class SoundResource : public FileResource<INativeSound>
 {
 public:
-  static const SoundResource* DynamicLoad(const char* path);
+  static SoundResource* DynamicLoad(const char* path);
 
   // =================================================================
   // Constructor / Destructor

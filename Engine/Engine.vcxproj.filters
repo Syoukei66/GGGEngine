@@ -672,9 +672,6 @@
     <ClCompile Include="SpineResource.cpp">
       <Filter>ソース ファイル\Resource\File\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceLoader.cpp">
-      <Filter>ソース ファイル\Resource\File</Filter>
-    </ClCompile>
     <ClCompile Include="JsonParser.cpp">
       <Filter>ソース ファイル\Resource\File\Json</Filter>
     </ClCompile>
@@ -770,6 +767,9 @@
     </ClCompile>
     <ClCompile Include="SoundResource.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="FileLoader.cpp">
+      <Filter>ソース ファイル\Resource\File</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1196,9 +1196,6 @@
     <ClInclude Include="EngineAsset.h">
       <Filter>ヘッダー ファイル\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceLoader.h">
-      <Filter>ヘッダー ファイル\Resource\File</Filter>
-    </ClInclude>
     <ClInclude Include="LoadProgressCounter.h">
       <Filter>ヘッダー ファイル\Resource\Pool</Filter>
     </ClInclude>
@@ -1319,12 +1316,15 @@
     <ClInclude Include="SoundResource.h">
       <Filter>ヘッダー ファイル\Resource\File\Sound</Filter>
     </ClInclude>
+    <ClInclude Include="FileLoader.h">
+      <Filter>ヘッダー ファイル\Resource\File</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceLoader.h">
+      <Filter>ヘッダー ファイル\Resource\File</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Default.fx">
-      <Filter>リソース ファイル\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="Model.fx">
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
     <FxCompile Include="White.fx">
@@ -1337,6 +1337,12 @@
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
     <FxCompile Include="Sprite.fx">
+      <Filter>リソース ファイル\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Lambert.fx">
+      <Filter>リソース ファイル\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Phong.fx">
       <Filter>リソース ファイル\Shader</Filter>
     </FxCompile>
   </ItemGroup>

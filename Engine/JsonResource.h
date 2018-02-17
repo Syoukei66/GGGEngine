@@ -9,7 +9,7 @@ class JsonResource : public FileResource<JsonData>
   // Factory Method
   // =================================================================
 public:
-  static const JsonResource* DynamicLoad(const char* path);
+  static JsonResource* DynamicLoad(const char* path);
 
   // =================================================================
   // Constructor / Destructor

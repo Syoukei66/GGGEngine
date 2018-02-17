@@ -9,7 +9,8 @@ namespace EngineAsset
 namespace Shader
 {
 const ShaderResource DEFAULT("Asset/shader/default/Default.cso");
-const ShaderResource MODEL("Asset/shader/default/Model.cso");
+const ShaderResource LAMBERT("Asset/shader/default/Lambert.cso");
+const ShaderResource PHONG("Asset/shader/default/Phong.cso");
 const ShaderResource PARTICLE("Asset/shader/default/Particle.cso");
 const ShaderResource PRIMITIVE("Asset/shader/default/Primitive.cso");
 const ShaderResource SPRITE("Asset/shader/default/Sprite.cso");
@@ -19,7 +20,8 @@ const ShaderResource WHITE("Asset/shader/default/White.cso");
 namespace Material
 {
 class Material DEFAULT(Shader::DEFAULT, true);
-class Material MODEL(Shader::MODEL, true);
+class Material LAMBERT(Shader::LAMBERT, true);
+class Material PHONG(Shader::PHONG, true);
 class Material PARTICLE(Shader::PARTICLE, true);
 class Material PRIMITIVE(Shader::PRIMITIVE, true);
 class Material SPRITE(Shader::SPRITE, true);

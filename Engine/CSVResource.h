@@ -9,7 +9,7 @@ class CSVResource : public FileResource<CSVData>
   // Factory Method
   // =================================================================
 public:
-  static const CSVResource* DynamicLoad(const char* path);
+  static CSVResource* DynamicLoad(const char* path);
 
   // =================================================================
   // Constructor / Destructor

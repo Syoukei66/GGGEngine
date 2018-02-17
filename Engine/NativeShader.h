@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include "Geometry.h"
 #include "NativeObject.h"
 #include "Color.h"
@@ -65,5 +66,18 @@ public:
   virtual void GetColor(const char* property_name, Color4F* dest) = 0;
   virtual void GetMatrix(const char* property_name, INativeMatrix* dest) = 0;
   virtual void GetTexture(const char* property_name, INativeTexture* dest) = 0;
+
+public:
+  inline void SetName(const std::string& name)
+  {
+    this->name_ = name;
+  }
+  inline const std::string& GetName() const
+  {
+    return this->name_;
+  }
+
+private:
+  std::string name_;
 
 };

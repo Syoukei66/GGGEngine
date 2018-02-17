@@ -4,7 +4,7 @@
 // =================================================================
 // Factory Method
 // =================================================================
-const JsonResource* JsonResource::DynamicLoad(const char* path)
+JsonResource* JsonResource::DynamicLoad(const char* path)
 {
   return UserResourcePool::GetInstance().DynamicLoad<JsonResource>(path);
 }

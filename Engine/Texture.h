@@ -8,7 +8,7 @@
 class Texture : public FileResource<INativeTexture>
 {
 public:
-  static const Texture* DynamicLoad(const char* path);
+  static Texture* DynamicLoad(const char* path);
 
   // =================================================================
   // Constructor / Destructor
