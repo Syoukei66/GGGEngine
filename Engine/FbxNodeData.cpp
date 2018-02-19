@@ -9,7 +9,22 @@ FbxNodeData::FbxNodeData(FbxNode* node)
   , child_count_(node->GetChildCount())
   , mesh_(nullptr)
   , mesh_materials_(nullptr)
+  , translate_(0.0f, 0.0f, 0.0f)
+  , scaling_(1.0f, 1.0f, 1.0f)
+  , rotation_(0.0f, 0.0f, 0.0f)
 {
+  this->translate_.x = node->LclTranslation.Get()[0];
+  this->translate_.y = node->LclTranslation.Get()[1];
+  this->translate_.z = node->LclTranslation.Get()[2];
+
+  this->scaling_.x = node->LclScaling.Get()[0];
+  this->scaling_.y = node->LclScaling.Get()[1];
+  this->scaling_.z = node->LclScaling.Get()[2];
+
+  this->rotation_.x = node->LclRotation.Get()[0];
+  this->rotation_.y = node->LclRotation.Get()[1];
+  this->rotation_.z = node->LclRotation.Get()[2];
+
   this->mesh_material_count_ = 0;
   T_UINT16 attribute_count = node->GetNodeAttributeCount();
   for (T_UINT16 i = 0; i < attribute_count; ++i)

@@ -54,6 +54,21 @@ public:
     return this->material_count_;
   }
 
+  inline const TVec3f& GetTranslate() const
+  {
+    return this->translate_;
+  }
+
+  inline const TVec3f& GetScaling() const
+  {
+    return this->scaling_;
+  }
+
+  inline const TVec3f& GetRotation() const
+  {
+    return this->rotation_;
+  }
+
   // =================================================================
   // Data Member
   // =================================================================
@@ -67,6 +82,10 @@ private:
 
   Material** material_;
   T_UINT8 material_count_;
+
+  TVec3f translate_;
+  TVec3f scaling_;
+  TVec3f rotation_;
 
   //Color4F ambient_;
   //T_FLOAT ambient_factor_;
