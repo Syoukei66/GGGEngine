@@ -94,7 +94,7 @@ void GameObjectRenderState::DrawZOrderedGameObject()
         else
         {
           this->PushMatrix(param.renderer->GetEntity()->GetWorldMatrix());
-          param.renderer->GetEntity()->ManagedDraw(this);
+          param.renderer->Draw(this);
           this->PopMatrix();
         }
       }
