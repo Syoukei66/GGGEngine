@@ -1,8 +1,9 @@
 #include "ShaderResource.h"
+#include "UserResourcePool.h"
 
-const ShaderResource* ShaderResource::DynamicLoad(const char* path)
+ShaderResource* ShaderResource::DynamicLoad(const char* path)
 {
-  return nullptr;
+  return UserResourcePool::GetInstance().DynamicLoad<ShaderResource>(path);
 }
 
 // =================================================================

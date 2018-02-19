@@ -1,6 +1,8 @@
 #include "Material.h"
 #include "GameObjectRenderState.h"
 #include "NativeMethod.h"
+#include "Camera.h"
+#include "GameObject.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -77,6 +79,9 @@ void Material::SetDefaultProperties(GameObjectRenderState* state)
 {
   INativeShader* shader = this->GetShader();
   shader->SetMatrix("_WorldViewProj", state->GetWorldViewProjToMaterial()->GetNativeInstance());
+
+  shader->SetMatrix("_World", state->GetMatrixStack()->GetTop());
+  shader->SetVec3f("_CameraPosition", state->GetCamera()->GetEntity()->GetWorldMatrix().GetPosition3d());
 
   NativeTextureInstance* texture = this->texture_ ? this->texture_->GetContents()->GetNativeInstance() : nullptr;
   shader->SetTexture("_MainTex", texture);

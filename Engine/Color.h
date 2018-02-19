@@ -141,6 +141,7 @@ public:
   // Setter / Getter
   // =================================================================
 public:
+  T_PACKED_COLOR_UINT32 GetPackedColor();
   void SetColor(T_FLOAT r, T_FLOAT g, T_FLOAT b);
   void SetColor(T_FLOAT r, T_FLOAT g, T_FLOAT b, T_FLOAT a);
   void GetColors(T_FLOAT color[4]) const;

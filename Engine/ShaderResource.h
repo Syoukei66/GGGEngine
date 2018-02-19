@@ -6,7 +6,7 @@
 class ShaderResource : public FileResource<INativeShader>
 {
 public:
-  static const ShaderResource* DynamicLoad(const char* path);
+  static ShaderResource* DynamicLoad(const char* path);
 
   // =================================================================
   // Constructor / Destructor

@@ -4,7 +4,7 @@
 // =================================================================
 // Factory Method
 // =================================================================
-const CSVResource* CSVResource::DynamicLoad(const char* path)
+CSVResource* CSVResource::DynamicLoad(const char* path)
 {
   return UserResourcePool::GetInstance().DynamicLoad<CSVResource>(path);
 }

@@ -44,9 +44,29 @@ public:
     return this->mesh_;
   }
 
-  inline Material* GetMaterial() const
+  inline Material* GetMaterial(T_UINT8 index) const
   {
-    return this->material_;
+    return this->material_[index];
+  }
+
+  inline T_UINT8 GetMaterialCount() const
+  {
+    return this->material_count_;
+  }
+
+  inline const TVec3f& GetTranslate() const
+  {
+    return this->translate_;
+  }
+
+  inline const TVec3f& GetScaling() const
+  {
+    return this->scaling_;
+  }
+
+  inline const TVec3f& GetRotation() const
+  {
+    return this->rotation_;
   }
 
   // =================================================================
@@ -56,10 +76,16 @@ private:
   FbxNode* node_;
   const T_UINT8 child_count_;
   FbxNodeData** children_;
-  FbxMeshMaterial* mesh_material_;
+  FbxMeshMaterial** mesh_materials_;
+  T_UINT8 mesh_material_count_;
   Mesh* mesh_;
 
-  Material* material_;
+  Material** material_;
+  T_UINT8 material_count_;
+
+  TVec3f translate_;
+  TVec3f scaling_;
+  TVec3f rotation_;
 
   //Color4F ambient_;
   //T_FLOAT ambient_factor_;

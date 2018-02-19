@@ -33,6 +33,8 @@ bool BaseActivity::Run(IEngineSetting* setting)
 
   bool result = false;
 
+  setting->OnEngineInit();
+
   //Engine
   this->engine_ = new Engine();
   Director::GetInstance()->SetEngine(this->engine_);
@@ -61,7 +63,8 @@ bool BaseActivity::Run(IEngineSetting* setting)
 
   EngineResourcePool& pool = EngineResourcePool::GetInstance();
   pool.ReserveLoad(EngineAsset::Shader::DEFAULT);
-  pool.ReserveLoad(EngineAsset::Shader::MODEL);
+  pool.ReserveLoad(EngineAsset::Shader::LAMBERT);
+  pool.ReserveLoad(EngineAsset::Shader::PHONG);
   pool.ReserveLoad(EngineAsset::Shader::PARTICLE);
   pool.ReserveLoad(EngineAsset::Shader::PRIMITIVE);
   pool.ReserveLoad(EngineAsset::Shader::SPRITE);
@@ -91,6 +94,8 @@ bool BaseActivity::Run(IEngineSetting* setting)
   result = this->engine_->End();
   NATIVE_ASSERT(result, "エンジンの終了処理に失敗しました。");
   delete this->engine_;
+
+  setting->OnEngineFinal();
   
   NativeMethod::Graphics_DeleteInstance();
   NativeMethod::IO_DeleteInstance();
@@ -143,5 +148,6 @@ bool BaseActivity::Update()
   NativeMethod::Time().FPS_PostUpdate();
 #endif
 
+  UserResourcePool::GetInstance().Update();
   return true;
 }

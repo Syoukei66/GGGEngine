@@ -6,7 +6,7 @@
 class ModelData : public FileResource<INativeModel>
 {
 public:
-  static const ModelData* DynamicLoad(const char* path);
+  static ModelData* DynamicLoad(const char* path);
 
   // =================================================================
   // Constructor / Destructor

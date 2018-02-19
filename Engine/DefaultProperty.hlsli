@@ -9,8 +9,16 @@ sampler _MainTexSampler = sampler_state
 };
 #endif
 
+#ifdef _WORLD
+float4x4 _World;
+#endif
+
 #ifdef _WORLD_VIEW_PROJ
 float4x4 _WorldViewProj;
+#endif
+
+#ifdef _CAMERA
+float4 _CameraPosition = float4(0.0f, 0.0f, 0.0f, 1.0f);
 #endif
 
 #ifdef _LIGHT_PHONG
@@ -40,13 +48,12 @@ float4 _Diffuse = float4(1.0f, 1.0f, 1.0f, 1.0f);
 #endif
 
 #ifdef _AMBIENT
-float4 _WorldAmbient = float4(1.0f, 1.0f, 1.0f, 1.0f);
+float4 _Ambient = float4(0.0f, 0.0f, 0.0f, 1.0f);
 #endif
 
 #ifdef _LIGHT_PARAMS
-float3 _LightPosition = float3(1.0f, 1.0f, -1.0f);
+float4 _LightPosition = float4(1.0f, 1.0f, -1.0f, 1.0f);
 float _LightBrightness = 500.0f;
 float3 _LightDirection = float3(0.0f, 0.0f, 1.0f);
 float4 _LightDiffuse = float4(1.0f, 1.0f, 1.0f, 1.0f);
 #endif
-

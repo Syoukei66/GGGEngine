@@ -4,7 +4,7 @@
 // =================================================================
 // Factory Method
 // =================================================================
-const FbxResource* FbxResource::DynamicLoad(const char* path)
+FbxResource* FbxResource::DynamicLoad(const char* path)
 {
   return UserResourcePool::GetInstance().DynamicLoad<FbxResource>(path);
 }

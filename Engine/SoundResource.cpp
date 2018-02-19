@@ -1,7 +1,7 @@
 #include "SoundResource.h"
 #include "UserResourcePool.h"
 
-const SoundResource* SoundResource::DynamicLoad(const char* path)
+SoundResource* SoundResource::DynamicLoad(const char* path)
 {
   return UserResourcePool::GetInstance().DynamicLoad<SoundResource>(path);
 }

@@ -154,7 +154,6 @@ void NativeShader::SetColor(const char* property_name, const Color4F& color)
 void NativeShader::SetMatrix(const char* property_name, const NativeMatrixInstance* matrix)
 {
   HRESULT hr = this->effect_->SetMatrix(property_name, (const D3DXMATRIX*)matrix);
-  NATIVE_ASSERT(SUCCEEDED(hr), "Matrix‚Ìproperty_name‚ÉŒë‚è‚ª‚ ‚è‚Ü‚·");
 }
 
 void NativeShader::SetTexture(const char* property_name, NativeTextureInstance* texture)

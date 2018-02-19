@@ -1,18 +1,18 @@
 #pragma once
 
 #include "NativeAssert.h"
-#include "ResourceLoader.h"
+#include "FileLoader.h"
 #include "ResourcePool.h"
 
 template<class T>
-class FileResource : public ResourceLoader
+class FileResource : public FileLoader
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
   FileResource(const char* category, const char* path)
-    : ResourceLoader(category, path)
+    : FileLoader(category, path)
     , obj_(nullptr)
   {}
   virtual ~FileResource()
