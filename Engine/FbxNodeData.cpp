@@ -21,9 +21,9 @@ FbxNodeData::FbxNodeData(FbxNode* node)
   this->scaling_.y = node->LclScaling.Get()[1];
   this->scaling_.z = node->LclScaling.Get()[2];
 
-  this->rotation_.x = node->LclRotation.Get()[0];
-  this->rotation_.y = node->LclRotation.Get()[1];
-  this->rotation_.z = node->LclRotation.Get()[2];
+  this->rotation_.x = MathConstants::DegToRad(node->LclRotation.Get()[0]);
+  this->rotation_.y = MathConstants::DegToRad(node->LclRotation.Get()[1]);
+  this->rotation_.z = MathConstants::DegToRad(node->LclRotation.Get()[2]);
 
   this->mesh_material_count_ = 0;
   T_UINT16 attribute_count = node->GetNodeAttributeCount();
