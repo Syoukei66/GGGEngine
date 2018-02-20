@@ -25,7 +25,9 @@ ModelNode::ModelNode(const FbxNodeData& node)
   }
   this->GetTransform()->SetPosition(node.GetTranslate());
   this->GetTransform()->SetScale(node.GetScaling());
-  this->GetTransform()->SetEularAngles(node.GetRotation());
+  this->GetTransform()->RotateX(node.GetRotation().x);
+  this->GetTransform()->RotateY(node.GetRotation().y);
+  this->GetTransform()->RotateZ(node.GetRotation().z);
 }
 
 ModelNode::~ModelNode()
