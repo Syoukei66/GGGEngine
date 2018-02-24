@@ -14,5 +14,6 @@ inline bool Sphare_Sphare(const TVec3f& ap, T_FLOAT ar, const TVec3f& bp, T_FLOA
   return dx * dx + dy * dy + dz * dz <= r * r;
 }
 
+bool Ray_Sphare(const TVec3f& ray_offset, const TVec3f& direction, const TVec3f& sphare_pos, float radius, TVec3f* intersection);
 
 }

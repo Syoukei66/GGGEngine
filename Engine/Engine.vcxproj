@@ -186,6 +186,7 @@
     <ClCompile Include="Camera3D_Transformed.cpp" />
     <ClCompile Include="Collider3D.cpp" />
     <ClCompile Include="Collision2D.cpp" />
+    <ClCompile Include="Collision3D.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="CSVData.cpp" />
     <ClCompile Include="CSVResource.cpp" />

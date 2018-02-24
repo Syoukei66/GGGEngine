@@ -34,6 +34,11 @@ public:
   void SetMaterialForTree(Material& material);
   void SetMaterialForTree(const char* name, Material& material);
 
+  void SetLayerIdForChildren(T_UINT8 id);
+  void SetLayerIdForChildren(const char* name, T_UINT8 id);
+  void SetLayerIdForTree(T_UINT8 id);
+  void SetLayerIdForTree(const char* name, T_UINT8 id);
+
   // =================================================================
   // Data Member
   // =================================================================

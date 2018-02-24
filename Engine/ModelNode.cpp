@@ -25,7 +25,9 @@ ModelNode::ModelNode(const FbxNodeData& node)
   }
   this->GetTransform()->SetPosition(node.GetTranslate());
   this->GetTransform()->SetScale(node.GetScaling());
-  this->GetTransform()->SetEularAngles(node.GetRotation());
+  this->GetTransform()->RotateX(node.GetRotation().x);
+  this->GetTransform()->RotateY(node.GetRotation().y);
+  this->GetTransform()->RotateZ(node.GetRotation().z);
 }
 
 ModelNode::~ModelNode()
@@ -157,5 +159,45 @@ void ModelNode::SetMaterialForTree(const char* name, Material& material)
   for (T_UINT8 i = 0; i < this->child_count_; ++i)
   {
     this->children_[i]->SetMaterialForTree(name, material);
+  }
+}
+
+void ModelNode::SetLayerIdForChildren(T_UINT8 id)
+{
+  for (T_UINT8 i = 0; i < this->child_count_; ++i)
+  {
+    this->children_[i]->SetLayerId(id);
+  }
+}
+
+void ModelNode::SetLayerIdForChildren(const char* name, T_UINT8 id)
+{
+  for (T_UINT8 i = 0; i < this->child_count_; ++i)
+  {
+    if (strcmp(this->children_[i]->node_.GetName(), name) == 0)
+    {
+      this->children_[i]->SetLayerId(id);
+    }
+  }
+}
+
+void ModelNode::SetLayerIdForTree(T_UINT8 id)
+{
+  this->SetLayerId(id);
+  for (T_UINT8 i = 0; i < this->child_count_; ++i)
+  {
+    this->children_[i]->SetLayerIdForTree(id);
+  }
+}
+
+void ModelNode::SetLayerIdForTree(const char* name, T_UINT8 id)
+{
+  if (strcmp(this->node_.GetName(), name) == 0)
+  {
+    this->SetLayerId(id);
+  }
+  for (T_UINT8 i = 0; i < this->child_count_; ++i)
+  {
+    this->children_[i]->SetLayerIdForTree(name, id);
   }
 }
