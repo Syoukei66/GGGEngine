@@ -771,6 +771,9 @@
     <ClCompile Include="FileLoader.cpp">
       <Filter>ソース ファイル\Resource\File</Filter>
     </ClCompile>
+    <ClCompile Include="Collision3D.cpp">
+      <Filter>ソース ファイル\Component\Collision\3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
