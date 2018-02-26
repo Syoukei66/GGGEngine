@@ -87,10 +87,11 @@ bool DirectXActivity::ApplyEngineOption(const EngineOption* option)
   RegisterClassEx(&wcex);
   DWORD windowStyle = WS_OVERLAPPEDWINDOW & ~WS_MINIMIZEBOX & ~WS_MAXIMIZEBOX;
   RECT wr = { 0, 0, option->window_size.width, option->window_size.height };
+  this->window_rect_ = wr;
+
+  AdjustWindowRectEx(&wr, windowStyle, false, 0);
   int windowWidth = wr.right - wr.left;
   int windowHeight = wr.bottom - wr.top;
-
-  AdjustWindowRect(&wr, windowStyle, true);
 
   RECT dr;
   GetWindowRect(GetDesktopWindow(), &dr);
@@ -143,7 +144,7 @@ bool DirectXActivity::Init(const EngineOption* option)
   //デバイスのプレゼンテーションパラメータを取得
   ZeroMemory(&d3dpp, sizeof(d3dpp));
   d3dpp.BackBufferWidth = this->window_rect_.right - this->window_rect_.left;
-  d3dpp.BackBufferHeight = this->window_rect_.top - this->window_rect_.bottom;
+  d3dpp.BackBufferHeight = this->window_rect_.bottom - this->window_rect_.top;
   d3dpp.BackBufferFormat = d3ddm.Format;
   d3dpp.BackBufferCount = 1;
   d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
