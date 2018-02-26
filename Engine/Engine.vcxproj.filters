@@ -304,9 +304,6 @@
     <Filter Include="ソース ファイル\Component\Mesh\Data">
       <UniqueIdentifier>{3a91ce83-cc9a-4db8-908b-efaa9272a9a4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Component\GameObject\2D\Sprite">
-      <UniqueIdentifier>{932e395f-6641-43f3-94ba-5bb95627a9aa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Component\GameObject\2D\Sprite">
       <UniqueIdentifier>{de137ee1-ada0-471b-a47e-6de5b9f8601a}</UniqueIdentifier>
     </Filter>
@@ -327,6 +324,9 @@
     </Filter>
     <Filter Include="ソース ファイル\Resource\File\Sound">
       <UniqueIdentifier>{899c36ae-ee59-4928-859c-bb5753da65bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Component\GameObject\2D\Sprite">
+      <UniqueIdentifier>{932e395f-6641-43f3-94ba-5bb95627a9aa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
