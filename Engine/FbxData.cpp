@@ -23,10 +23,10 @@ FbxData* FbxData::Create(const char* path)
   FbxGeometryConverter converter = FbxGeometryConverter(manager);
   converter.Triangulate(ret, true);
   converter.RemoveBadPolygonsFromMeshes(ret);
+  converter.RecenterSceneToWorldCenter(ret, 0.01f);
   bool result = converter.SplitMeshesPerMaterial(ret, true);
 
   importer->Destroy();
-
   return new FbxData(ret);
 }
 
