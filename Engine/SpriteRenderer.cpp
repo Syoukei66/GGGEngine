@@ -25,6 +25,10 @@ SpriteRenderer::~SpriteRenderer()
 // =================================================================
 void SpriteRenderer::EditProperty(T_UINT8 material_index, T_UINT8 pass_index, Material* material)
 {
+  if (this->texture_region_)
+  {
+    this->GetMaterial()->SetMainTexture(*this->texture_region_->GetTexture());
+  }
   material->Vec2fProperty("_UV0") = this->texture_region_->GetUV0();
   material->Vec2fProperty("_UV1") = this->texture_region_->GetUV1();
   material->FloatProperty("_Width") = this->size_.width;
@@ -46,7 +50,7 @@ void SpriteRenderer::FitToTexture()
   {
     return;
   }
-  this->SetTexture(*texture);
+  this->GetTextureRegion()->FitToTexture();
   const T_FLOAT tw = (T_FLOAT)texture->GetWidth() * this->image_scale_;
   const T_FLOAT th = (T_FLOAT)texture->GetHeight() * this->image_scale_;
   this->SetWidth(tw * (this->texture_region_->GetUV1().x - this->texture_region_->GetUV0().x));
@@ -56,7 +60,7 @@ void SpriteRenderer::FitToTexture()
 // =================================================================
 // setter/getter
 // =================================================================
-void SpriteRenderer::SetTextureRegion(ITextureRegion * region, bool delete_region)
+void SpriteRenderer::SetTextureRegion(ITextureRegion* region, bool delete_region)
 {
   if (this->delete_region_)
   {

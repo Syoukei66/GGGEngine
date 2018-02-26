@@ -38,6 +38,7 @@ public:
 
   inline void SetTexture(const Texture& texture)
   {
+    this->texture_region_->SetTexture(texture);
     this->GetMaterial()->SetMainTexture(texture);
   }
   inline const Texture& GetTexture() const
