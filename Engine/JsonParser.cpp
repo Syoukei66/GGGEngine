@@ -1,14 +1,6 @@
-#include "JsonParser.h"
+ï»¿#include "JsonParser.h"
 
 #include "NativeType.h"
-
-static void ApplyDepth(std::string& str, T_UINT8 depth)
-{
-  for (T_UINT8 i = 0; i < depth; ++i)
-  {
-    str.append("  ");
-  }
-}
 
 //=============================================================================
 // JsonBase
@@ -16,6 +8,19 @@ static void ApplyDepth(std::string& str, T_UINT8 depth)
 JsonBase::JsonBase(T_UINT8 depth)
   : depth_(depth)
 {}
+
+void JsonBase::Release()
+{
+  delete this;
+}
+
+void JsonBase::ApplyDepth(std::string& str, T_UINT8 depth) const
+{
+  for (T_UINT8 i = 0; i < depth; ++i)
+  {
+    str.append("  ");
+  }
+}
 
 //=============================================================================
 // JsonString
@@ -65,6 +70,23 @@ T_FLOAT JsonValue::FloatValue(T_FLOAT deflt) const
   return std::stof(this->text_);
 }
 
+bool JsonValue::BoolValue(bool deflt) const
+{
+  if (this->text_.length() == 0)
+  {
+    return deflt;
+  }
+  if (this->text_ == "true")
+  {
+    return true;
+  }
+  if (this->text_ == "false")
+  {
+    return false;
+  }
+  return std::stoi(this->text_) == 1;
+}
+
 const std::string JsonValue::ToString() const
 {
   return this->text_;
@@ -81,123 +103,14 @@ JsonNode::~JsonNode()
 {
   for (std::map<std::string, JsonBase*>::iterator itr = this->value_map_.begin(); itr != this->value_map_.end(); ++itr)
   {
-    delete itr->second;
+    itr->second->Release();
   }
   this->value_map_.clear();
-}
-
-JsonString* JsonNode::GainString(const std::string& key)
-{
-  if (this->value_map_.find(key) == this->value_map_.end())
-  {
-    this->value_map_[key] = new JsonString("", this->depth_ + 1);
-  }
-  return (JsonString*)this->value_map_.at(key);
-}
-
-JsonString* JsonNode::GetString(const std::string& key)
-{
-  if (this->value_map_.find(key) == this->value_map_.end())
-  {
-    return nullptr;
-  }
-  return (JsonString*)this->value_map_.at(key);
-}
-
-const JsonString* JsonNode::GetString(const std::string& key) const
-{
-  if (this->value_map_.find(key) == this->value_map_.end())
-  {
-    return nullptr;
-  }
-  return (JsonString*)this->value_map_.at(key);
-}
-
-JsonValue* JsonNode::GainValue(const std::string& key)
-{
-  if (this->value_map_.find(key) == this->value_map_.end())
-  {
-    this->value_map_[key] = new JsonValue("", this->depth_ + 1);
-  }
-  return (JsonValue*)this->value_map_.at(key);
-}
-
-JsonValue* JsonNode::GetValue(const std::string& key)
-{
-  if (this->value_map_.find(key) == this->value_map_.end())
-  {
-    return nullptr;
-  }
-  return (JsonValue*)this->value_map_.at(key);
-}
-
-const JsonValue* JsonNode::GetValue(const std::string& key) const
-{
-  if (this->value_map_.find(key) == this->value_map_.end())
-  {
-    return nullptr;
-  }
-  return (JsonValue*)this->value_map_.at(key);
-}
-
-JsonNode* JsonNode::GainNode(const std::string& key)
-{
-  if (this->value_map_.find(key) == this->value_map_.end())
-  {
-    this->value_map_[key] = new JsonNode(this->depth_ + 1);
-  }
-  return (JsonNode*)this->value_map_.at(key);
-}
-
-JsonNode* JsonNode::GetNode(const std::string& key)
-{
-  if (this->value_map_.find(key) == this->value_map_.end())
-  {
-    return nullptr;
-  }
-  return (JsonNode*)this->value_map_.at(key);
-}
-
-const JsonNode* JsonNode::GetNode(const std::string& key) const
-{
-  if (this->value_map_.find(key) == this->value_map_.end())
-  {
-    return nullptr;
-  }
-  return (JsonNode*)this->value_map_.at(key);
-}
-
-JsonList* JsonNode::GainList(const std::string& key)
-{
-  if (this->value_map_.find(key) == this->value_map_.end())
-  {
-    this->value_map_[key] = new JsonList(this->depth_ + 1);
-  }
-  return (JsonList*)this->value_map_.at(key);
-}
-
-JsonList* JsonNode::GetList(const std::string& key)
-{
-  if (this->value_map_.find(key) == this->value_map_.end())
-  {
-    return nullptr;
-  }
-  return (JsonList*)this->value_map_.at(key);
-}
-
-const JsonList* JsonNode::GetList(const std::string& key) const
-{
-  if (this->value_map_.find(key) == this->value_map_.end())
-  {
-    return nullptr;
-  }
-  return (JsonList*)this->value_map_.at(key);
 }
 
 const std::string JsonNode::ToString() const
 {
   std::string ret = std::string();
-  ApplyDepth(ret, this->depth_);
   ret.append("{");
   bool first = true;
   for (std::map<std::string, JsonBase*>::const_iterator itr = this->value_map_.begin(); itr != this->value_map_.end(); ++itr)
@@ -210,6 +123,7 @@ const std::string JsonNode::ToString() const
     {
       ret.append(",");
     }
+    ret.append("\n");
     ApplyDepth(ret, this->depth_ + 1);
     ret.append("\"");
     ret.append(itr->first);
@@ -217,189 +131,64 @@ const std::string JsonNode::ToString() const
     ret.append(": ");
     ret.append(itr->second->ToString());
   }
+  ret.append("\n");
   ApplyDepth(ret, this->depth_);
-  ret.append("}\n");
-  return ret;
-}
-
-//=============================================================================
-// JsonList
-//=============================================================================
-JsonList::JsonList(T_UINT8 depth)
-  : JsonBase(depth)
-{}
-
-
-JsonList::~JsonList()
-{
-  for (std::vector<JsonBase*>::iterator itr = this->value_list_.begin(); itr != this->value_list_.end(); ++itr)
-  {
-    delete (*itr);
-  }
-  this->value_list_.clear();
-}
-
-JsonString* JsonList::GetString(T_UINT16 index)
-{
-  if (index >= this->value_list_.size())
-  {
-    return nullptr;
-  }
-  return (JsonString*)this->value_list_[index];
-}
-
-const JsonString* JsonList::GetString(T_UINT16 index) const
-{
-  if (index >= this->value_list_.size())
-  {
-    return nullptr;
-  }
-  return (JsonString*)this->value_list_[index];
-}
-
-JsonValue* JsonList::GetValue(T_UINT16 index)
-{
-  if (index >= this->value_list_.size())
-  {
-    return nullptr;
-  }
-  return (JsonValue*)this->value_list_[index];
-}
-
-const JsonValue* JsonList::GetValue(T_UINT16 index) const
-{
-  if (index >= this->value_list_.size())
-  {
-    return nullptr;
-  }
-  return (JsonValue*)this->value_list_[index];
-}
-
-JsonNode* JsonList::GetNode(T_UINT16 index)
-{
-  if (index >= this->value_list_.size())
-  {
-    return nullptr;
-  }
-  return (JsonNode*)this->value_list_[index];
-}
-
-const JsonNode* JsonList::GetNode(T_UINT16 index) const
-{
-  if (index >= this->value_list_.size())
-  {
-    return nullptr;
-  }
-  return (JsonNode*)this->value_list_[index];
-}
-
-JsonList* JsonList::GetList(T_UINT16 index)
-{
-  if (index >= this->value_list_.size())
-  {
-    return nullptr;
-  }
-  return (JsonList*)this->value_list_[index];
-}
-
-const JsonList* JsonList::GetList(T_UINT16 index) const
-{
-  if (index >= this->value_list_.size())
-  {
-    return nullptr;
-  }
-  return (JsonList*)this->value_list_[index];
-}
-
-const std::string JsonList::ToString() const
-{
-  std::string ret = std::string();
-  ApplyDepth(ret, this->depth_);
-  ret.append("[\n");
-  bool first = true;
-  for (std::vector<JsonBase*>::const_iterator itr = this->value_list_.begin(); itr != this->value_list_.end(); ++itr)
-  {
-    ApplyDepth(ret, this->depth_);
-    if (first)
-    {
-      first = false;
-    }
-    else
-    {
-      ret.append(",\n");
-    }
-    ret.append((*itr)->ToString());
-  }
-  ret.append("]");
+  ret.append("}");
   return ret;
 }
 
 //=============================================================================
 // JsonParser
-// ƒfƒXƒgƒ‰ƒNƒ^ŒÄ‚Ño‚µ‚Ìˆ×‚È‚Ç
 //=============================================================================
-static bool EndOfFile(char c)
+inline static bool EndOfFile(char c)
 {
   return c == '\0';
 }
-
-static bool Escape(char c)
+inline static bool Escape(char c)
 {
   return c == '\n' || c == '\t' || c == ' ';
 }
-
-static bool IsStringBracket(char c)
+inline static bool IsStringBracket(char c)
 {
   return c == '\"';
 }
-
-static bool IsNumberBegin(char c)
+inline static bool IsNumberBegin(char c)
 {
   return ('0' <= c && c <= '9') || c == '.' || c == '-';
 }
-
-static bool IsComma(char c)
+inline static bool IsComma(char c)
 {
   return c == ',';
 }
-
-static bool IsValueSeparator(char c)
+inline static bool IsValueSeparator(char c)
 {
   return c == ':';
 }
-
-static bool IsListBracketLeft(char c)
+inline static bool IsListBracketLeft(char c)
 {
   return c == '[';
 }
-
-static bool IsListBracketRight(char c)
+inline static bool IsListBracketRight(char c)
 {
   return c == ']';
 }
-
-static bool IsMapBracketLeft(char c)
+inline static bool IsMapBracketLeft(char c)
 {
   return c == '{';
 }
-
-static bool IsMapBracketRight(char c)
+inline static bool IsMapBracketRight(char c)
 {
   return c == '}';
 }
 
-JsonNode* JsonParser::Parse(const char* json_text)
-{
-  const char* p = &json_text[0];
-  while (IsMapBracketLeft(*p))
-  {
-    p++;
-  }
-  p++;
-  return this->ParseJsonMap(&p, 0);
-}
+std::string ParseString(const char** p, T_UINT8 depth);
+JsonBase* ParseValue(const char** p, T_UINT8 depth);
+JsonString* ParseJsonString(const char** p, T_UINT8 depth);
+JsonValue* ParseJsonValue(const char** p, T_UINT8 depth);
+JsonNode* ParseJsonMap(const char** p, T_UINT8 depth);
+JsonList<JsonBase>* ParseJsonList(const char** p, T_UINT8 depth);
 
-std::string JsonParser::ParseString(const char** p, T_UINT8 depth)
+static std::string ParseString(const char** p, T_UINT8 depth)
 {
   std::string ret = std::string();
   while (!EndOfFile(**p))
@@ -412,11 +201,11 @@ std::string JsonParser::ParseString(const char** p, T_UINT8 depth)
     ret.append(*p, 1);
     ++(*p);
   }
-  NATIVE_ASSERT(false, "JsonParser::ParseString() : —\Šú‚¹‚ÊEOF‚ªŒŸo‚³‚ê‚Ü‚µ‚½B");
+  NATIVE_ASSERT(false, "JsonParser::ParseString() : äºˆæœŸã›ã¬EOFãŒæ¤œå‡ºã•ã‚Œã¾ã—ãŸã€‚");
   return ret;
 }
 
-JsonBase* JsonParser::ParseValue(const char ** p, T_UINT8 depth)
+static JsonBase* ParseValue(const char** p, T_UINT8 depth)
 {
   std::string ret = std::string();
   while (!EndOfFile(**p))
@@ -428,31 +217,31 @@ JsonBase* JsonParser::ParseValue(const char ** p, T_UINT8 depth)
     }
     if (IsNumberBegin(**p))
     {
-      return this->ParseJsonValue(&(*p), depth);
+      return ParseJsonValue(&(*p), depth);
     }
     if (IsStringBracket(**p))
     {
       ++(*p);
-      return this->ParseJsonString(&(*p), depth);
+      return ParseJsonString(&(*p), depth);
     }
     if (IsMapBracketLeft(**p))
     {
       ++(*p);
-      return this->ParseJsonMap(&(*p), depth);
+      return ParseJsonMap(&(*p), depth);
     }
     if (IsListBracketLeft(**p))
     {
       ++(*p);
-      return this->ParseJsonList(&(*p), depth);
+      return ParseJsonList(&(*p), depth);
     }
     ret.append(*p, 1);
     ++(*p);
   }
-  NATIVE_ASSERT(false, "JsonParser::ParseValue() : —\Šú‚¹‚ÊEOF‚ªŒŸo‚³‚ê‚Ü‚µ‚½B");
+  NATIVE_ASSERT(false, "JsonParser::ParseValue() : äºˆæœŸã›ã¬EOFãŒæ¤œå‡ºã•ã‚Œã¾ã—ãŸã€‚");
   return nullptr;
 }
 
-JsonString* JsonParser::ParseJsonString(const char** p, T_UINT8 depth)
+static JsonString* ParseJsonString(const char** p, T_UINT8 depth)
 {
   std::string ret = std::string();
   while (!EndOfFile(**p))
@@ -465,16 +254,16 @@ JsonString* JsonParser::ParseJsonString(const char** p, T_UINT8 depth)
     if (IsStringBracket(**p))
     {
       ++(*p);
-      return new JsonString(ret, depth);
+      return JsonString::Create(ret, depth);
     }
     ret.append(*p, 1);
     ++(*p);
   }
-  NATIVE_ASSERT(false, "JsonParser::ParseJsonString() : —\Šú‚¹‚ÊEOF‚ªŒŸo‚³‚ê‚Ü‚µ‚½B");
+  NATIVE_ASSERT(false, "JsonParser::ParseJsonString() : äºˆæœŸã›ã¬EOFãŒæ¤œå‡ºã•ã‚Œã¾ã—ãŸã€‚");
   return nullptr;
 }
 
-JsonValue* JsonParser::ParseJsonValue(const char** p, T_UINT8 depth)
+static JsonValue* ParseJsonValue(const char** p, T_UINT8 depth)
 {
   std::string ret = std::string();
   while (!EndOfFile(**p))
@@ -482,22 +271,22 @@ JsonValue* JsonParser::ParseJsonValue(const char** p, T_UINT8 depth)
     if (Escape(**p))
     {
       ++(*p);
-      return new JsonValue(ret, depth);
+      return JsonValue::Create(ret, depth);
     }
     if (IsComma(**p))
     {
-      return new JsonValue(ret, depth);
+      return JsonValue::Create(ret, depth);
     }
     ret.append(*p, 1);
     ++(*p);
   }
-  NATIVE_ASSERT(false, "JsonParser::ParseJsonValue() : —\Šú‚¹‚ÊEOF‚ªŒŸo‚³‚ê‚Ü‚µ‚½B");
+  NATIVE_ASSERT(false, "JsonParser::ParseJsonValue() : äºˆæœŸã›ã¬EOFãŒæ¤œå‡ºã•ã‚Œã¾ã—ãŸã€‚");
   return nullptr;
 }
 
-JsonNode* JsonParser::ParseJsonMap(const char** p, T_UINT8 depth)
+static JsonNode* ParseJsonMap(const char** p, T_UINT8 depth)
 {
-  JsonNode* ret = new JsonNode(depth);
+  JsonNode* ret = JsonNode::Create(depth);
   std::string key = std::string();
   while (!EndOfFile(**p))
   {
@@ -519,14 +308,14 @@ JsonNode* JsonParser::ParseJsonMap(const char** p, T_UINT8 depth)
     if (IsStringBracket(**p))
     {
       ++(*p);
-      key = this->ParseString(&(*p), depth);
+      key = ParseString(&(*p), depth);
       continue;
     }
     if (IsValueSeparator(**p))
     {
       ++(*p);
-      JsonBase* value = this->ParseValue(&(*p), depth);
-      ret->Set(key, value);
+      JsonBase* value = ParseValue(&(*p), depth);
+      ret->Put(key, value);
       continue;
     }
     ++(*p);
@@ -535,13 +324,13 @@ JsonNode* JsonParser::ParseJsonMap(const char** p, T_UINT8 depth)
   {
     return ret;
   }
-  NATIVE_ASSERT(false, "JsonParser::ParseJsonMap() : —\Šú‚¹‚ÊEOF‚ªŒŸo‚³‚ê‚Ü‚µ‚½B");
+  NATIVE_ASSERT(false, "JsonParser::ParseJsonMap() : äºˆæœŸã›ã¬EOFãŒæ¤œå‡ºã•ã‚Œã¾ã—ãŸã€‚");
   return ret;
 }
 
-JsonList* JsonParser::ParseJsonList(const char** p, T_UINT8 depth)
+static JsonList<JsonBase>* ParseJsonList(const char** p, T_UINT8 depth)
 {
-  JsonList* ret = new JsonList(depth);
+  JsonList<JsonBase>* ret = JsonList<JsonBase>::Create(depth);
   while (!EndOfFile(**p))
   {
     if (Escape(**p))
@@ -557,25 +346,36 @@ JsonList* JsonParser::ParseJsonList(const char** p, T_UINT8 depth)
     if (IsMapBracketLeft(**p))
     {
       ++(*p);
-      JsonNode* json_map = this->ParseJsonMap(&(*p), depth);
+      JsonBase* json_map = ParseJsonMap(&(*p), depth);
       ret->Add(json_map);
       continue;
     }
     if (IsListBracketLeft(**p))
     {
       ++(*p);
-      JsonList* json_list = this->ParseJsonList(&(*p), depth);
+      JsonList<JsonBase>* json_list = ParseJsonList(&(*p), depth);
       ret->Add(json_list);
       continue;
     }
     if (!IsComma(**p))
     {
-      JsonBase* value = this->ParseValue(&(*p), depth);
+      JsonBase* value = ParseValue(&(*p), depth);
       ret->Add(value);
       continue;
     }
     ++(*p);
   }
-  NATIVE_ASSERT(false, "JsonParser::ParseJsonList() : —\Šú‚¹‚ÊEOF‚ªŒŸo‚³‚ê‚Ü‚µ‚½B");
+  NATIVE_ASSERT(false, "JsonParser::ParseJsonList() : äºˆæœŸã›ã¬EOFãŒæ¤œå‡ºã•ã‚Œã¾ã—ãŸã€‚");
   return ret;
+}
+
+JsonNode* JsonParser::Parse(const char* json_text)
+{
+  const char* p = &json_text[0];
+  while (IsMapBracketLeft(*p))
+  {
+    p++;
+  }
+  p++;
+  return ParseJsonMap(&p, 0);
 }

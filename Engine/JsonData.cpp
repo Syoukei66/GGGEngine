@@ -10,7 +10,7 @@ JsonData::JsonData()
 
 JsonData::~JsonData()
 {
-  delete this->root_;
+  this->root_->Release();
 }
 
 void JsonData::Read(const char* path)
