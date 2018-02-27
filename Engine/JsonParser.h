@@ -176,7 +176,25 @@ public:
     }
     return this->value_list_[index];
   }
-
+  T* Gain(T_UINT16 index)
+  {
+    if (index >= this->value_list_.size())
+    {
+      this->value_list_.push_back(T::Create(this->depth_ + 1));
+    }
+    return this->value_list_[index];
+  }
+  bool Gain(T_UINT16 index, T** dest)
+  {
+    bool created = false;
+    while (index >= this->value_list_.size())
+    {
+      this->value_list_.push_back(T::Create(this->depth_ + 1));
+      created = true;
+    }
+    *dest = this->value_list_[index];
+    return created;
+  }
   inline const size_t GetSize() const
   {
     return this->value_list_.size();
