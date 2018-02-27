@@ -140,11 +140,14 @@ bool DirectXActivity::Init(const EngineOption* option)
   {
     return false;
   }
-  
+
+  RECT rect;
+  GetClientRect(this->GetHWnd(), &rect);
+
   //デバイスのプレゼンテーションパラメータを取得
   ZeroMemory(&d3dpp, sizeof(d3dpp));
-  d3dpp.BackBufferWidth = this->window_rect_.right - this->window_rect_.left;
-  d3dpp.BackBufferHeight = this->window_rect_.bottom - this->window_rect_.top;
+  d3dpp.BackBufferWidth = rect.right - rect.left;
+  d3dpp.BackBufferHeight = rect.bottom - rect.top;
   d3dpp.BackBufferFormat = d3ddm.Format;
   d3dpp.BackBufferCount = 1;
   d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
