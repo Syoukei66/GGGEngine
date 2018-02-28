@@ -3,12 +3,13 @@
 
 #include "DirectXDirector.h"
 
-DirectXInputDevice_Mouse::DirectXInputDevice_Mouse(T_UINT8 handler, const MouseInput* mouse_inputs, T_UINT8 mouse_inputs_count, EngineInput::Analog::ID move_input_id, EngineInput::Analog::ID screen_input_id)
+DirectXInputDevice_Mouse::DirectXInputDevice_Mouse(T_UINT8 handler, const MouseInput* mouse_inputs, T_UINT8 mouse_inputs_count, EngineInput::Analog::ID move_input_id, EngineInput::Analog::ID screen_input_id, bool bind)
   : DirectXInputDevice(handler)
   , mouse_inputs_(mouse_inputs)
   , mouse_inputs_count_(mouse_inputs_count)
   , move_input_id_(move_input_id)
   , position_input_id_(position_input_id_)
+  , bind_(bind)
 {}
 
 bool DirectXInputDevice_Mouse::Init(LPDIRECTINPUT8 input)
@@ -49,45 +50,49 @@ bool DirectXInputDevice_Mouse::Init(LPDIRECTINPUT8 input)
   //デバイスを取得する
   this->device_->Acquire();
 
-  ShowCursor(false);
-  
-  // マウス移動範囲の設定
-  RECT rc;
-  GetWindowRect(hwnd, &rc);
+  if (this->bind_)
+  {
+    // マウス移動範囲の設定
+    RECT rc;
+    GetWindowRect(hwnd, &rc);
 
-  //RECT client; 
-  //GetClientRect(hwnd, &client);
+    //RECT client; 
+    //GetClientRect(hwnd, &client);
 
-  //T_FLOAT client_w = client.right - client.left;
-  //T_FLOAT client_h = client.bottom - client.top;
+    //T_FLOAT client_w = client.right - client.left;
+    //T_FLOAT client_h = client.bottom - client.top;
 
-  //POINT point;
-  //point.x = client.left;
-  //point.y = client.top;
-  //ClientToScreen(hwnd, &point);
+    //POINT point;
+    //point.x = client.left;
+    //point.y = client.top;
+    //ClientToScreen(hwnd, &point);
 
-  //rc.left = point.x + client_w * 0.25f;
-  //rc.right = rc.left + client_w * 0.5f;
-  //rc.top = point.y + client_h * 0.25f;
-  //rc.bottom = rc.top + client_h * 0.5f;
+    //rc.left = point.x + client_w * 0.25f;
+    //rc.right = rc.left + client_w * 0.5f;
+    //rc.top = point.y + client_h * 0.25f;
+    //rc.bottom = rc.top + client_h * 0.5f;
 
-  T_FLOAT rc_w = (T_FLOAT)rc.right - (T_FLOAT)rc.left;
-  T_FLOAT rc_h = (T_FLOAT)rc.bottom - (T_FLOAT)rc.top;
-  rc.left += (LONG)(rc_w * 0.5f);
-  rc.right = rc.left;
-  rc.top += (LONG)(rc_h * 0.5f);
-  rc.bottom = rc.top;
-  ClipCursor(&rc);
+    T_FLOAT rc_w = (T_FLOAT)rc.right - (T_FLOAT)rc.left;
+    T_FLOAT rc_h = (T_FLOAT)rc.bottom - (T_FLOAT)rc.top;
+    rc.left += (LONG)(rc_w * 0.5f);
+    rc.right = rc.left;
+    rc.top += (LONG)(rc_h * 0.5f);
+    rc.bottom = rc.top;
+    ClipCursor(&rc);
 
-  // マウス移動範囲の解除
+    ShowCursor(false);
+  }
 
   return true;
 }
 
 bool DirectXInputDevice_Mouse::Uninit(LPDIRECTINPUT8 input)
 {
-  ClipCursor(NULL);
-  ShowCursor(true);
+  if (this->bind_)
+  {
+    ClipCursor(NULL);
+    ShowCursor(true);
+  }
   if (this->device_)
   {
     this->device_->Release();
@@ -106,19 +111,19 @@ void DirectXInputDevice_Mouse::InputProcess(T_UINT8 handler, EngineInputState* s
   }
   for (int i = 0; i < this->mouse_inputs_count_; ++i)
   {
+    state->PreInputDigital(handler, this->mouse_inputs_[i].id);
     if (mouse_state.rgbButtons[this->mouse_inputs_[i].input] & 0x80)
     {
-      state->PreInputDigital(handler, this->mouse_inputs_[i].id);
       state->InputDigital(handler, this->mouse_inputs_[i].id);
-      state->PostInputDigital(handler, this->mouse_inputs_[i].id);
     }
+    state->PostInputDigital(handler, this->mouse_inputs_[i].id);
   }
   const T_FLOAT w = (T_FLOAT)Director::GetInstance()->GetScreenWidth();
   const T_FLOAT h = (T_FLOAT)Director::GetInstance()->GetScreenHeight();
 
   state->PreInputAnalog(handler, this->move_input_id_);
-  state->InputAnalog(handler, this->move_input_id_, 0, mouse_state.lX / w);
-  state->InputAnalog(handler, this->move_input_id_, 1, mouse_state.lY / h);
+  state->InputAnalog(handler, this->move_input_id_, 0, mouse_state.lX);
+  state->InputAnalog(handler, this->move_input_id_, 1, mouse_state.lY);
   state->PostInputAnalog(handler, this->move_input_id_);
 
   state->PreInputAnalog(handler, this->position_input_id_);

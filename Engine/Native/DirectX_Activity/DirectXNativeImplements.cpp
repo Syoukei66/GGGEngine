@@ -131,9 +131,9 @@ static const DirectXInputDevice_XInput::XInputInput XINPUT_INPUTS[XINPUT_INPUT_M
 };
 
 enum { MOUSE_INPUT_MAX = 1 };
-static const DirectXInputDevice_Mouse::MouseInput MOUSE_INPUTS[XINPUT_INPUT_MAX] =
+static const DirectXInputDevice_Mouse::MouseInput MOUSE_INPUTS[MOUSE_INPUT_MAX] =
 {
-  { Digital::ID_X, DirectXInputDevice_Mouse::MOUSE_RGB_BUTTON_LEFT }
+  { Digital::ID_S5, DirectXInputDevice_Mouse::MOUSE_RGB_BUTTON_LEFT }
 };
 
 void DirectXNativeImplements::SetupInputDevices(DirectXInputDeviceManager* manager)
@@ -157,7 +157,8 @@ void DirectXNativeImplements::SetupInputDevices(DirectXInputDeviceManager* manag
   //キーボードは1Pに対応
   manager->LoadDevice(new DirectXInputDevice_KeyBoard(0, KEYBOARD_INPUTS, KEYBOARD_INPUT_MAX));
   
-  //manager->LoadDevice(new DirectXInputDevice_Mouse(0, MOUSE_INPUTS, 1, Analog::ID_SCREEN_1_XY, Analog::ID_SCREEN_0_XY));
+  //マウスはデバッグ用のみ
+  manager->LoadDevice(new DirectXInputDevice_Mouse(0, MOUSE_INPUTS, MOUSE_INPUT_MAX, Analog::ID_SCREEN_1_XY, Analog::ID_SCREEN_0_XY));
 
   //ジョイスティックは(1P～4P)
   manager->LoadDevice(new DirectXInputDevice_XInput(0, 0, XINPUT_INPUTS, XINPUT_INPUT_MAX, Analog::ID_L_0_XY, Analog::ID_R_0_XY, Analog::ID_C_0_XY));
