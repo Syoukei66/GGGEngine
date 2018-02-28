@@ -67,17 +67,17 @@ void Transform3DRotator::RotateZ(T_FLOAT rad)
 
 void Transform3DRotator::RotateXAxis(T_FLOAT rad)
 {
-  this->SetEularX(this->GetEularX() + rad);
+  this->SetEularX(this->GetEularX() + rad * MathConstants::RAD_TO_DEG);
 }
 
 void Transform3DRotator::RotateYAxis(T_FLOAT rad)
 {
-  this->SetEularY(this->GetEularY() + rad);
+  this->SetEularY(this->GetEularY() + rad * MathConstants::RAD_TO_DEG);
 }
 
 void Transform3DRotator::RotateZAxis(T_FLOAT rad)
 {
-  this->SetEularZ(this->GetEularZ() + rad);
+  this->SetEularZ(this->GetEularZ() + rad * MathConstants::RAD_TO_DEG);
 }
 
 void Transform3DRotator::FromRotationMatrix(INativeMatrix* matrix)
@@ -202,13 +202,14 @@ void Transform3DRotator::PrepareEularAngles()
   const T_FLOAT m32 = (*this->rotation_matrix_)[2][1];
   const T_FLOAT m33 = (*this->rotation_matrix_)[2][2];
 
-  if (m32 == 1.0f)
+  const float eps = 0.001f;
+  if (fabs(m32 - 1.0f) < eps)
   {
     this->eular_angles_.x = MathConstants::PI_1_2;
     this->eular_angles_.y = 0.0f;
     this->eular_angles_.z = atan2f(m21, m11);
   }
-  else if (m32 == -1.0f)
+  else if (fabs(m32 + 1.0f) < eps)
   {
     this->eular_angles_.x = -MathConstants::PI_1_2;
     this->eular_angles_.y = 0.0f;
@@ -221,13 +222,14 @@ void Transform3DRotator::PrepareEularAngles()
     this->eular_angles_.z = atan2f(-m12, m22);
   }
 
+  this->eular_angles_ *= MathConstants::RAD_TO_DEG;
   this->need_eular_angles_update_ = false;
 }
 
 
 void Transform3DRotator::SetEularAngles(const TVec3f& rotation)
 {
-  this->rotation_matrix_->Rotation(rotation);
+  this->rotation_matrix_->Rotation(rotation * MathConstants::DEG_TO_RAD);
 
   this->FromRotationMatrix();
 
@@ -237,7 +239,11 @@ void Transform3DRotator::SetEularAngles(const TVec3f& rotation)
 
 void Transform3DRotator::SetEularAngles(T_FLOAT x, T_FLOAT y, T_FLOAT z)
 {
-  this->rotation_matrix_->Rotation(x, y, z);
+  this->rotation_matrix_->Rotation(
+    x * MathConstants::DEG_TO_RAD,
+    y * MathConstants::DEG_TO_RAD,
+    z * MathConstants::DEG_TO_RAD
+  );
 
   this->FromRotationMatrix();
 
@@ -249,21 +255,42 @@ void Transform3DRotator::SetEularAngles(T_FLOAT x, T_FLOAT y, T_FLOAT z)
 
 void Transform3DRotator::SetEularX(T_FLOAT x)
 {
-  this->rotation_matrix_->Rotation(x, this->eular_angles_.y, this->eular_angles_.z);
+  this->rotation_matrix_->Rotation(
+    x * MathConstants::DEG_TO_RAD,
+    this->eular_angles_.y * MathConstants::DEG_TO_RAD,
+    this->eular_angles_.z * MathConstants::DEG_TO_RAD
+  );
 
   this->FromRotationMatrix();
+
+  this->eular_angles_.x = x;
+  this->need_eular_angles_update_ = false;
 }
 
 void Transform3DRotator::SetEularY(T_FLOAT y)
 {
-  this->rotation_matrix_->Rotation(this->eular_angles_.x, y, this->eular_angles_.z);
+  this->rotation_matrix_->Rotation(
+    this->eular_angles_.x * MathConstants::DEG_TO_RAD,
+    y * MathConstants::DEG_TO_RAD,
+    this->eular_angles_.z * MathConstants::DEG_TO_RAD
+  );
 
   this->FromRotationMatrix();
+
+  this->eular_angles_.y = y;
+  this->need_eular_angles_update_ = false;
 }
 
 void Transform3DRotator::SetEularZ(T_FLOAT z)
 {
-  this->rotation_matrix_->Rotation(this->eular_angles_.x, this->eular_angles_.y, z);
+  this->rotation_matrix_->Rotation(
+    this->eular_angles_.x * MathConstants::DEG_TO_RAD,
+    this->eular_angles_.y * MathConstants::DEG_TO_RAD,
+    z * MathConstants::DEG_TO_RAD
+  );
 
   this->FromRotationMatrix();
+
+  this->eular_angles_.z = z;
+  this->need_eular_angles_update_ = false;
 }
