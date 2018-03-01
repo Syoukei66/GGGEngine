@@ -19,6 +19,7 @@ float4x4 _WorldViewProj;
 
 #ifdef _CAMERA
 float4 _CameraPosition = float4(0.0f, 0.0f, 0.0f, 1.0f);
+float3 _CameraDirection = float3(0.0f, 0.0f, 1.0f);
 #endif
 
 #ifdef _LIGHT_PHONG
