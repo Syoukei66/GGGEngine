@@ -278,6 +278,10 @@ public:
   {
     return this->Gain<JsonNode>(key);
   }
+  inline bool GainNode(const std::string& key, JsonNode** dest)
+  {
+    return this->Gain<JsonNode>(key, dest);
+  }
   inline JsonNode* GetNode(const std::string& key)
   {
     return this->Get<JsonNode>(key);
@@ -301,6 +305,11 @@ public:
   inline JsonList<T>* GainList(const std::string& key)
   {
     return Gain<JsonList<T>>(key);
+  }
+  template <class T>
+  inline bool GainList(const std::string& key, JsonList<T>** dest)
+  {
+    return Gain<JsonList<T>>(key, dest);
   }
   template <class T>
   inline JsonList<T>* GetList(const std::string& key)
@@ -328,6 +337,10 @@ public:
   inline JsonString* GainString(const std::string& key)
   {
     return this->Gain<JsonString>(key);
+  }
+  inline bool GainString(const std::string& key, JsonString** dest)
+  {
+    return this->Gain<JsonString>(key, dest);
   }
   inline JsonString* GetString(const std::string& key)
   {
@@ -362,6 +375,10 @@ public:
   {
     return this->Gain<JsonValue>(key);
   }
+  inline bool GainValue(const std::string& key, JsonValue** dest)
+  {
+    return this->Gain<JsonValue>(key, dest);
+  }
   inline JsonValue* GetValue(const std::string& key)
   {
     return this->Get<JsonValue>(key);
@@ -393,6 +410,18 @@ private:
       this->value_map_[key] = T::Create(this->depth_ + 1);
     }
     return (T*)this->value_map_.at(key);
+  }
+  template <class T>
+  bool Gain(const std::string& key, T** dest)
+  {
+    bool created = false;
+    if (this->value_map_.find(key) == this->value_map_.end())
+    {
+      this->value_map_[key] = T::Create(this->depth_ + 1);
+      created = true;
+    }
+    *dest = (T*)this->value_map_.at(key);
+    return created;
   }
   template <class T>
   T* Get(const std::string& key)
