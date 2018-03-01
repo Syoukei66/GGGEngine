@@ -64,15 +64,28 @@ void Camera3D_LookAt::CheckViewDirty()
   if (this->target_)
   {
     GameObject3D* player = ((GameObject3D*)this->entity_)->GetParent();
-    TVec3f camera_pos = player->GetTransform()->GetWorldPosition();
-    this->direction_ = (this->current_look_at_pos_ - player->GetTransform()->GetWorldPosition()).Normalized();
-    camera_pos -= this->direction_ * this->GetTransform()->GetPosition().Length();
-    camera_pos.y = std::max(camera_pos.y, player->GetTransform()->GetY());
-    this->view_matrix_->LookAtLH(
-      camera_pos,
-      this->current_look_at_pos_,
-      this->GetEntity()->GetWorldMatrix().GetCameraYVec()
-    );
+    if (player)
+    {
+      TVec3f camera_pos = player->GetTransform()->GetWorldPosition();
+      this->direction_ = (this->current_look_at_pos_ - player->GetTransform()->GetWorldPosition()).Normalized();
+      camera_pos -= this->direction_ * this->GetTransform()->GetPosition().Length();
+      camera_pos.y = std::max(camera_pos.y, player->GetTransform()->GetY());
+      this->view_matrix_->LookAtLH(
+        camera_pos,
+        this->current_look_at_pos_,
+        this->GetEntity()->GetWorldMatrix().GetCameraYVec()
+      );
+    }
+    else
+    {
+      TVec3f camera_pos = this->GetTransform()->GetWorldPosition();
+      this->direction_ = (this->current_look_at_pos_ - camera_pos).Normalized();
+      this->view_matrix_->LookAtLH(
+        camera_pos,
+        this->current_look_at_pos_,
+        this->GetEntity()->GetWorldMatrix().GetCameraYVec()
+      );
+    }
   }
   //ターゲットが存在しない時の処理
   else
