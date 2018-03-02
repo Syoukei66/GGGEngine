@@ -52,7 +52,10 @@ public:
   {
     return ((GameObject3D*)this->entity_)->GetTransform();
   }
-
+  inline const Transform3D* GetTransform() const
+  {
+    return ((GameObject3D*)this->entity_)->GetTransform();
+  }
   void SetFov(T_FLOAT fov);
   inline T_FLOAT GetFov() const
   {
