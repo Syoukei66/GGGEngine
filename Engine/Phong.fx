@@ -16,32 +16,35 @@ struct v2f
 {
   float2 uv : TEXCOORD0;
   float4 vertex : SV_POSITION;
-  float3 normal : NORMAL0;
   float4 color : COLOR0;
 };
 
 float _ModelScale = 1.0f;
 
+float4 calcPhongLighting(float4 diffuse, float3 N, float3 V, float3 R)
+{
+  float4 Ia = _Ambient * _AmbientFactor;
+  float4 Id = diffuse * saturate(dot(N, _LightDirection));
+  float4 Is = _Specular * _SpecularFactor * pow(saturate(dot(R, V)), _Power) * _Reflection * _ReflectionFactor;
+
+  return Ia + (Id + Is) * _LightDiffuse;
+}
+
 v2f vert(appdata v)
 {
   v2f o;
   o.vertex = mul(v.vertex, _WorldViewProj);
-  o.normal = normalize(mul(v.normal, _World));
-  o.color = _Diffuse * _DiffuseFactor;
+  float3 N = normalize(mul(v.normal, _World));
+  float3 V = normalize(_CameraPosition - o.vertex);
+  float3 R = reflect(-_LightDirection, N);
+  o.color = calcPhongLighting(_Diffuse * _DiffuseFactor, N, V, R);
   o.uv = v.uv;
   return o;
 }
 
 float4 frag(v2f i) : SV_TARGET
 {
-  float L = dot(i.normal, _LightDirection);
-  return i.color * max(0, L) + _Ambient * _AmbientFactor;
-  //float3 N = normalize(i.normal);
-  //float3 R = 2 * N * dot(_LightDirection, N) - _LightDirection;
-  //float4 P = mul(float4(0.0f, 0.0f, 0.0f, 1.0f), _World);
-  //float3 V = normalize(P - _CameraPosition);
-  //float4 L = _Specular * _SpecularFactor * pow(dot(R, V), _Power) * _Reflection * _ReflectionFactor * _LightDiffuse;
-  //return i.color * L * _Transparent * _TransparentFactor;
+  return i.color;
 }
 
 technique Default
