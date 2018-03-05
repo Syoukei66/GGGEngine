@@ -20,7 +20,7 @@ public:
   // =================================================================
 public:
   virtual INativeSound* NativeLoadProcess(const std::string& path) override;
-  inline void Play(T_UINT8 loop_count = 1)
+  inline void Play(T_UINT8 loop_count = 0)
   {
     return this->GetContents()->Play(loop_count);
   }

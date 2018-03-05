@@ -26,7 +26,7 @@ public:
   // Methods
   // =================================================================
 public:
-  virtual void Play(T_UINT8 loop_count = 1) = 0;
+  virtual void Play(T_UINT8 loop_count = 0) = 0;
   virtual void Stop() = 0;
   virtual void Pause() = 0;
   virtual void Resume() = 0;
