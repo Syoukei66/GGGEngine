@@ -328,6 +328,24 @@
     <Filter Include="ソース ファイル\Component\GameObject\2D\Sprite">
       <UniqueIdentifier>{932e395f-6641-43f3-94ba-5bb95627a9aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Native\Objects\Texture">
+      <UniqueIdentifier>{218161b8-91dc-42ca-805b-49883a393ec1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Native\Objects\Texture">
+      <UniqueIdentifier>{512ffe46-9b10-4d3a-a160-0cc98a2ff944}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Native\Objects\Buffer">
+      <UniqueIdentifier>{3ef0007b-3be9-4a65-8cbe-10f1fa3e1656}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Native\Objects\Buffer">
+      <UniqueIdentifier>{c4463880-843a-46cb-b0be-c9e2aa138715}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Native\Objects\Matrix">
+      <UniqueIdentifier>{c4686790-cb76-41ab-b0fa-665c04c96f0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Native\Objects\Matrix">
+      <UniqueIdentifier>{fdd551e1-c5a7-40cd-af96-88c21e04b7f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IVertexBufferObject.cpp">
@@ -624,12 +642,6 @@
     <ClCompile Include="Transform3DRotator.cpp">
       <Filter>ソース ファイル\Component\GameObject\3D</Filter>
     </ClCompile>
-    <ClCompile Include="NativeMatrix.cpp">
-      <Filter>ソース ファイル\Native\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="NativeTexture.cpp">
-      <Filter>ソース ファイル\Native\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Sprite3D.cpp">
       <Filter>ソース ファイル\Component\GameObject\3D\Primitive</Filter>
     </ClCompile>
@@ -644,9 +656,6 @@
     </ClCompile>
     <ClCompile Include="Collider3D.cpp">
       <Filter>ソース ファイル\Component\Collision\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="NativeMatrixStack.cpp">
-      <Filter>ソース ファイル\Native\Objects</Filter>
     </ClCompile>
     <ClCompile Include="NativeModel.cpp">
       <Filter>ソース ファイル\Native\Objects</Filter>
@@ -686,12 +695,6 @@
     </ClCompile>
     <ClCompile Include="FbxData.cpp">
       <Filter>ソース ファイル\Resource\File\FBX</Filter>
-    </ClCompile>
-    <ClCompile Include="NativeVertexBuffer.cpp">
-      <Filter>ソース ファイル\Native\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="NativeIndexBuffer.cpp">
-      <Filter>ソース ファイル\Native\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>ソース ファイル\Component\Mesh</Filter>
@@ -773,6 +776,24 @@
     </ClCompile>
     <ClCompile Include="Collision3D.cpp">
       <Filter>ソース ファイル\Component\Collision\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeTexture.cpp">
+      <Filter>ソース ファイル\Native\Objects\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeRenderTexture.cpp">
+      <Filter>ソース ファイル\Native\Objects\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeVertexBuffer.cpp">
+      <Filter>ソース ファイル\Native\Objects\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeIndexBuffer.cpp">
+      <Filter>ソース ファイル\Native\Objects\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeMatrix.cpp">
+      <Filter>ソース ファイル\Native\Objects\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeMatrixStack.cpp">
+      <Filter>ソース ファイル\Native\Objects\Matrix</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1106,17 +1127,8 @@
     <ClInclude Include="InputSetting.h">
       <Filter>ヘッダー ファイル\Input</Filter>
     </ClInclude>
-    <ClInclude Include="NativeTexture.h">
-      <Filter>ヘッダー ファイル\Native\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Transform3DRotator.h">
       <Filter>ヘッダー ファイル\Component\GameObject\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeMatrix.h">
-      <Filter>ヘッダー ファイル\Native\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeMatrixStack.h">
-      <Filter>ヘッダー ファイル\Native\Objects</Filter>
     </ClInclude>
     <ClInclude Include="NativeObject.h">
       <Filter>ヘッダー ファイル\Native\Objects</Filter>
@@ -1213,12 +1225,6 @@
     </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>ヘッダー ファイル\Component\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeVertexBuffer.h">
-      <Filter>ヘッダー ファイル\Native\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeIndexBuffer.h">
-      <Filter>ヘッダー ファイル\Native\Objects</Filter>
     </ClInclude>
     <ClInclude Include="ModelNode.h">
       <Filter>ヘッダー ファイル\Component\GameObject\3D\Model</Filter>
@@ -1324,6 +1330,24 @@
     </ClInclude>
     <ClInclude Include="ResourceLoader.h">
       <Filter>ヘッダー ファイル\Resource\File</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeTexture.h">
+      <Filter>ヘッダー ファイル\Native\Objects\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeRenderTexture.h">
+      <Filter>ヘッダー ファイル\Native\Objects\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeIndexBuffer.h">
+      <Filter>ヘッダー ファイル\Native\Objects\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeVertexBuffer.h">
+      <Filter>ヘッダー ファイル\Native\Objects\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeMatrixStack.h">
+      <Filter>ヘッダー ファイル\Native\Objects\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeMatrix.h">
+      <Filter>ヘッダー ファイル\Native\Objects\Matrix</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

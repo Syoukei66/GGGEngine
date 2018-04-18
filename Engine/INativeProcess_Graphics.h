@@ -8,6 +8,7 @@
 #include "Texture.h"
 
 #include "NativeTexture.h"
+#include "NativeRenderTexture.h"
 #include "NativeMatrix.h"
 
 class INativeProcess_Graphics
@@ -74,6 +75,11 @@ public:
 
   virtual void Graphics_DrawVertexes(GameObjectRenderState* state, PrimitiveType primitive_type, Vertex::VertexType vertex_type, const void* vertexes, T_UINT16 vertexes_count) = 0;
   virtual void Graphics_DrawIndexedVertexes(GameObjectRenderState* state, PrimitiveType primitive_type, Vertex::VertexType vertex_type, const void* vertexes, T_UINT16 vertexes_count, const T_UINT16* indexes) = 0;
+
+  virtual void Blit(INativeTexture* source, INativeRenderTexture* dest) = 0;
+  virtual void Blit(INativeTexture* source, INativeRenderTexture* dest, Material* mat, T_UINT8 pass = -1) = 0;
+  virtual void Blit(INativeTexture* source, Material* mat, T_UINT8 pass = -1) = 0;
+
 };
 
 #endif//HAL_ENGINE_NATIVE_NATIVEPROCESS_GRAPHICS_H_

@@ -1,30 +1,29 @@
 #pragma once
 
-#include "NativeObject.h"
+#include "NativeTexture.h"
 
-struct NativeTextureInstance { void* p; };
-
-class INativeTexture : public NativeObject<NativeTextureInstance>
+class INativeRenderTexture : public INativeTexture
 {
   // =================================================================
   // Static Method
   // =================================================================
 public:
-  static INativeTexture* Create(const char* path);
+  static INativeRenderTexture* Create(T_UINT16 width, T_UINT16 height);
 
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  INativeTexture(NativeTextureInstance* instance)
-    : NativeObject<NativeTextureInstance>(instance)
+  INativeRenderTexture(NativeTextureInstance* instance)
+    : INativeTexture(instance)
   {}
-  virtual ~INativeTexture() {}
+  virtual ~INativeRenderTexture() {}
 
   // =================================================================
   // Methods
   // =================================================================
 public:
-  virtual T_UINT16 GetWidth() const = 0;
-  virtual T_UINT16 GetHeight() const = 0;
+  virtual void RenderBegin(bool clear = false) = 0;
+  virtual void RenderEnd() = 0;
+
 };

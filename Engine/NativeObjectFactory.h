@@ -2,6 +2,7 @@
 
 #include "NativeMatrix.h"
 #include "NativeTexture.h"
+#include "NativeRenderTexture.h"
 #include "NativeSound.h"
 #include "NativeMatrixStack.h"
 #include "NativeModel.h"
@@ -22,6 +23,7 @@ INativeVertexBuffer* CreateVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_
 INativeIndexBuffer* CreateIndexBuffer(T_UINT32 indexes_count);
 
 INativeTexture* CreateTexture(const char* path);
+INativeRenderTexture* CreateRenderTexture(T_UINT16 width, T_UINT16 height);
 
 INativeSound* CreateSound(const char* path);
 

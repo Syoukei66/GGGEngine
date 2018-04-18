@@ -8,6 +8,7 @@
 #include "NativeMatrixStack.h"
 #include "NativeVertexBuffer.h"
 #include "NativeTexture.h"
+#include "NativeRenderTexture.h"
 #include "NativeModel_x.h"
 #include "NativeShader.h"
 #include "NativeSound.h"
@@ -46,6 +47,11 @@ INativeIndexBuffer* NativeObjectFactory::CreateIndexBuffer(T_UINT32 indexes_coun
 INativeTexture* NativeObjectFactory::CreateTexture(const char* path)
 {
   return new NativeTexture(path);
+}
+
+INativeRenderTexture* NativeObjectFactory::CreateRenderTexture(T_UINT16 width, T_UINT16 height)
+{
+  return new NativeRenderTexture(width, height);
 }
 
 INativeSound* NativeObjectFactory::CreateSound(const char* path)

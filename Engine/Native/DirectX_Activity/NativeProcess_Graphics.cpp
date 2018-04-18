@@ -133,3 +133,21 @@ void NativeProcess_Graphics::Graphics_DrawIndexedVertexes(GameObjectRenderState*
   );
 }
 
+void NativeProcess_Graphics::Blit(INativeTexture* source, INativeRenderTexture* dest)
+{
+  //dest->RenderBegin();
+  //dest->RenderEnd();
+}
+
+void NativeProcess_Graphics::Blit(INativeTexture* source, INativeRenderTexture* dest, Material* mat, T_UINT8 pass)
+{
+  //dest->RenderBegin();
+  //dest->RenderEnd();
+}
+
+void NativeProcess_Graphics::Blit(INativeTexture* source, Material* mat, T_UINT8 pass)
+{
+  //dest->RenderBegin();
+  //dest->RenderEnd();
+}
+

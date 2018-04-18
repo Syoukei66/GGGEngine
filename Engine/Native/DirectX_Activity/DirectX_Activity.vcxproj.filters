@@ -52,6 +52,24 @@
     <Filter Include="ソース ファイル\Audio">
       <UniqueIdentifier>{3df6a896-d539-432a-b8fa-93a314025ec0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Native\Objects\Texture">
+      <UniqueIdentifier>{7ac6add6-c169-496c-aecd-e5f152943af0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Native\Objects\Texture">
+      <UniqueIdentifier>{3a364c52-0ea7-4d73-855b-14c561b417e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Native\Objects\Buffer">
+      <UniqueIdentifier>{6af917ce-1859-410e-bfd6-696221736002}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Native\Objects\Buffer">
+      <UniqueIdentifier>{bdca15bb-e345-486d-9ad2-12c2572e438a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Native\Objects\Matrix">
+      <UniqueIdentifier>{86114b84-beb8-465d-a766-ae6ab4e00119}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Native\Objects\Matrix">
+      <UniqueIdentifier>{0b0c531d-c2d3-4868-a250-a85f2e44d536}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectXActivity.cpp">
@@ -84,16 +102,7 @@
     <ClCompile Include="NativeProcess_Graphics.cpp">
       <Filter>ソース ファイル\Native</Filter>
     </ClCompile>
-    <ClCompile Include="NativeMatrix.cpp">
-      <Filter>ソース ファイル\Native\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="NativeMatrixStack.cpp">
-      <Filter>ソース ファイル\Native\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="NativeShader.cpp">
-      <Filter>ソース ファイル\Native\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="NativeTexture.cpp">
       <Filter>ソース ファイル\Native\Objects</Filter>
     </ClCompile>
     <ClCompile Include="NativeModel_x.cpp">
@@ -101,12 +110,6 @@
     </ClCompile>
     <ClCompile Include="NativeObjectFactory.cpp">
       <Filter>ソース ファイル\Native</Filter>
-    </ClCompile>
-    <ClCompile Include="NativeVertexBuffer.cpp">
-      <Filter>ソース ファイル\Native\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="NativeIndexBuffer.cpp">
-      <Filter>ソース ファイル\Native\Objects</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui_impl_dx9.cpp">
       <Filter>ソース ファイル\imgui</Filter>
@@ -119,6 +122,24 @@
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeTexture.cpp">
+      <Filter>ソース ファイル\Native\Objects\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeRenderTexture.cpp">
+      <Filter>ソース ファイル\Native\Objects\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeVertexBuffer.cpp">
+      <Filter>ソース ファイル\Native\Objects\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeIndexBuffer.cpp">
+      <Filter>ソース ファイル\Native\Objects\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeMatrix.cpp">
+      <Filter>ソース ファイル\Native\Objects\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeMatrixStack.cpp">
+      <Filter>ソース ファイル\Native\Objects\Matrix</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,29 +176,14 @@
     <ClInclude Include="NativeProcess_Time.h">
       <Filter>ヘッダー ファイル\Native</Filter>
     </ClInclude>
-    <ClInclude Include="NativeMatrix.h">
-      <Filter>ヘッダー ファイル\Native\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeMatrixStack.h">
-      <Filter>ヘッダー ファイル\Native\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeTexture.h">
-      <Filter>ヘッダー ファイル\Native\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="NativeShader.h">
       <Filter>ヘッダー ファイル\Native\Objects</Filter>
     </ClInclude>
     <ClInclude Include="NativeModel_x.h">
       <Filter>ヘッダー ファイル\Native\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="NativeVertexBuffer.h">
-      <Filter>ヘッダー ファイル\Native\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="NativeConstants.h">
       <Filter>ヘッダー ファイル\Native</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeIndexBuffer.h">
-      <Filter>ヘッダー ファイル\Native\Objects</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imgui_impl_dx9.h">
       <Filter>ヘッダー ファイル\imgui</Filter>
@@ -190,6 +196,24 @@
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeTexture.h">
+      <Filter>ヘッダー ファイル\Native\Objects\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeRenderTexture.h">
+      <Filter>ヘッダー ファイル\Native\Objects\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeIndexBuffer.h">
+      <Filter>ヘッダー ファイル\Native\Objects\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeVertexBuffer.h">
+      <Filter>ヘッダー ファイル\Native\Objects\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeMatrix.h">
+      <Filter>ヘッダー ファイル\Native\Objects\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeMatrixStack.h">
+      <Filter>ヘッダー ファイル\Native\Objects\Matrix</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

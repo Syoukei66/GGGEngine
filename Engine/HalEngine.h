@@ -102,15 +102,19 @@
   #include "NativeObjectFactory.h"
   #include "NativeType.h"
 //--Objects
-    #include "NativeIndexBuffer.h"
-    #include "NativeMatrix.h"
-    #include "NativeMatrixStack.h"
-    #include "NativeVertexBuffer.h"
     #include "NativeModel.h"
     #include "NativeObject.h"
     #include "NativeShader.h"
     #include "NativeShader.h"
-    #include "NativeTexture.h"
+//----Buffer
+      #include "NativeIndexBuffer.h"
+      #include "NativeVertexBuffer.h"
+//----Matrix
+      #include "NativeMatrix.h"
+      #include "NativeMatrixStack.h"
+//----Texture
+      #include "NativeRenderTexture.h"
+      #include "NativeTexture.h"
 
 //Resource
   #include "EngineAsset.h"

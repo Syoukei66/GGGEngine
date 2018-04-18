@@ -26,14 +26,10 @@ public:
 
   virtual void Graphics_DrawVertexes(GameObjectRenderState* state, PrimitiveType primitive_type, Vertex::VertexType vertex_type, const void* vertexes, T_UINT16 vertexes_count) override;
   virtual void Graphics_DrawIndexedVertexes(GameObjectRenderState* state, PrimitiveType primitive_type, Vertex::VertexType vertex_type, const void* vertexes, T_UINT16 vertexes_count, const T_UINT16* indexes) override;
-
-  // =================================================================
-  // DataMembers
-  // =================================================================
-private:
-  LPDIRECT3DTEXTURE9 texture_;
-  const D3DMATERIAL9* material_;
   
+  virtual void Blit(INativeTexture* source, INativeRenderTexture* dest) override;
+  virtual void Blit(INativeTexture* source, INativeRenderTexture* dest, Material* mat, T_UINT8 pass) override;
+  virtual void Blit(INativeTexture* source, Material* mat, T_UINT8 pass) override;
 };
 
 #endif//HAL_DIRECTX_ACTIVITY_NATIVE_NATIVEPROCESS_GRAPHICS_H_
