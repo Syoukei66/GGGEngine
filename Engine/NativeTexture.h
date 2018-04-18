@@ -1,5 +1,6 @@
 #pragma once
 
+#include "NativeType.h"
 #include "NativeObject.h"
 
 struct NativeTextureInstance { void* p; };

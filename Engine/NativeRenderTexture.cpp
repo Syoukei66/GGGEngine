@@ -4,5 +4,5 @@
 
 INativeRenderTexture* INativeRenderTexture::Create(T_UINT16 width, T_UINT16 height)
 {
-  return NativeObjectFactory::CreateDynamicTexture(width, height);
+  return NativeObjectFactory::CreateRenderTexture(width, height);
 }

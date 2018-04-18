@@ -4,6 +4,7 @@
 #include "Geometry.h"
 #include "GameComponent.h"
 #include "NativeMatrix.h"
+#include "NativeRenderTexture.h"
 
 class Scene;
 class GameObject;
@@ -48,6 +49,16 @@ public:
   inline bool IsViewportClear() const
   {
     return this->viewport_clear_;
+  }
+
+  inline void SetTargetTexture(INativeRenderTexture* texture)
+  {
+    this->target_texture_ = texture;
+  }
+
+  inline INativeRenderTexture* GetTargetTexture() const
+  {
+    return this->target_texture_;
   }
 
   void SetViewportPosition(const TVec2f& position);
@@ -124,6 +135,7 @@ protected:
   TVec3f direction_;
 
 private:
+  INativeRenderTexture* target_texture_;
   bool viewport_clear_;
   TVec2f position_;
   TSizef size_;

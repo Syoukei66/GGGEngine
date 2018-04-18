@@ -8,6 +8,7 @@
 Camera::Camera(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_min, T_FLOAT z_max)
   : entity_(nullptr)
   , direction_(0.0f, 0.0f, 1.0f)
+  , target_texture_(nullptr)
   , viewport_clear_(true)
   , position_(x, y)
   , size_(width, height)
@@ -19,6 +20,7 @@ Camera::Camera(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_mi
 Camera::Camera()
   : entity_(nullptr)
   , direction_(0.0f, 0.0f, 1.0f)
+  , target_texture_(nullptr)
   , viewport_clear_(true)
   , position_(0.0f, 0.0f)
   , size_((T_FLOAT)Director::GetInstance()->GetScreenWidth(), (T_FLOAT)Director::GetInstance()->GetScreenHeight())
@@ -46,11 +48,19 @@ void Camera::DrawScene(Scene* scene)
     return;
   }
   this->SetupCamera();
+  if (this->target_texture_)
+  {
+    this->target_texture_->RenderBegin();
+  }
   if (this->viewport_clear_)
   {
     NativeMethod::Graphics().Graphics_Clear();
   }
   this->OnDrawScene(scene);
+  if (this->target_texture_)
+  {
+    this->target_texture_->RenderEnd();
+  }
 }
 
 void Camera::SetupCamera()
