@@ -1,4 +1,5 @@
 #include "ResourcePool.h"
+#include <thread>
 
 // =================================================================
 // Constructor / Destructor
@@ -112,28 +113,36 @@ void ResourcePool::Realize(IResourceLoadingListener* listener)
   listener->OnLoadingStarted();
 
   //アンロード処理
-  for (auto itr = this->unload_reserve_.begin(), end = this->unload_reserve_.end(); itr != end; ++itr)
+  std::thread unload_thread([&]()
   {
-    for (auto itr2 = itr->second.begin(), end2 = itr->second.end(); itr2 != end2; ++itr2)
+    for (auto itr = this->unload_reserve_.begin(), end = this->unload_reserve_.end(); itr != end; ++itr)
     {
-      (*itr2)->Unload();
-      this->resources_.erase((*itr2)->GetPath());
-      listener->OnLoadingProgressed(itr->first, 1);
+      for (auto itr2 = itr->second.begin(), end2 = itr->second.end(); itr2 != end2; ++itr2)
+      {
+        (*itr2)->Unload();
+        this->resources_.erase((*itr2)->GetPath());
+        listener->OnLoadingProgressed(itr->first, 1);
+      }
     }
-  }
-
+  });
   //ロード処理
-  for (auto itr = this->load_reserve_.begin(), end = this->load_reserve_.end(); itr != end; ++itr)
+  std::thread load_thread([&]()
   {
-    for (auto itr2 = itr->second.begin(), end2 = itr->second.end(); itr2 != end2; ++itr2)
+    for (auto itr = this->load_reserve_.begin(), end = this->load_reserve_.end(); itr != end; ++itr)
     {
-      (*itr2)->Load();
-      this->resources_[(*itr2)->GetPath()] = (*itr2);
-      listener->OnLoadingProgressed(itr->first, 1);
+      for (auto itr2 = itr->second.begin(), end2 = itr->second.end(); itr2 != end2; ++itr2)
+      {
+        (*itr2)->Load();
+        this->resources_[(*itr2)->GetPath()] = (*itr2);
+        listener->OnLoadingProgressed(itr->first, 1);
+      }
     }
-  }
+  });
 
+  load_thread.join();
   this->load_reserve_.clear();
+
+  unload_thread.join();
   this->unload_reserve_.clear();
 
   listener->OnLoadingFinished();
