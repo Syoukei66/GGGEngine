@@ -1,6 +1,7 @@
 #include "GameObjectRenderState.h"
-#include "GameObject.h"
 
+#include <ppl.h>
+#include "GameObject.h"
 #include "Director.h"
 #include "NativeMethod.h"
 #include "Renderer.h"
@@ -71,9 +72,10 @@ void GameObjectRenderState::DrawZOrderedGameObject()
 {
   for (auto pair : this->post_draw_map_)
   {
+    //concurrency::parallel_for_each(pair.second.begin(), pair.second.end(), [&](std::pair<Material*, std::vector<DrawParam>> &pair2)
     for (auto pair2 : pair.second)
     {
-      std::sort(pair2.second.begin(), pair2.second.end(), [](const DrawParam& a, const DrawParam& b) {
+      concurrency::parallel_sort(pair2.second.begin(), pair2.second.end(), [](const DrawParam& a, const DrawParam& b) {
         return a.distance > b.distance;
       });
       for (DrawParam param : pair2.second)
