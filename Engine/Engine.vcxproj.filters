@@ -105,9 +105,6 @@
     <Filter Include="ソース ファイル\Component\Camera">
       <UniqueIdentifier>{67e9b2d6-ba51-47f8-ab0a-c6f74485233a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Component\Camera\2D">
-      <UniqueIdentifier>{9031b82b-78ed-4c68-87ab-986f08c9951d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Component\Camera\3D">
       <UniqueIdentifier>{6f803f75-8ca4-455a-9348-cc70672d7c77}</UniqueIdentifier>
     </Filter>
@@ -345,6 +342,9 @@
     </Filter>
     <Filter Include="ソース ファイル\Native\Objects\Matrix">
       <UniqueIdentifier>{fdd551e1-c5a7-40cd-af96-88c21e04b7f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Component\Camera\2D">
+      <UniqueIdentifier>{9031b82b-78ed-4c68-87ab-986f08c9951d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
