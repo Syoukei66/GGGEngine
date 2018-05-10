@@ -12,7 +12,14 @@ static T_UINT16 CalcTwoPowerValue(T_UINT16 val)
   return t;
 }
 
-static NativeTextureInstance* CreateTexture(T_UINT16 width, T_UINT16 height)
+static D3DFORMAT TEXTURE_FORMATS[INativeRenderTexture::TEXTURE_FORMAT_DATANUM] =
+{
+  D3DFMT_A8B8G8R8,
+  D3DFMT_A16B16G16R16,
+  D3DFMT_A16B16G16R16F,
+};
+
+static NativeTextureInstance* CreateTexture(T_UINT16 width, T_UINT16 height, INativeRenderTexture::Format format)
 {
   width = CalcTwoPowerValue(width);
   height = CalcTwoPowerValue(height);
@@ -42,8 +49,8 @@ static NativeTextureInstance* CreateTexture(T_UINT16 width, T_UINT16 height)
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-NativeRenderTexture::NativeRenderTexture(T_UINT16 width, T_UINT16 height)
-  : INativeRenderTexture(CreateTexture(width, height))
+NativeRenderTexture::NativeRenderTexture(T_UINT16 width, T_UINT16 height, INativeRenderTexture::Format format)
+  : INativeRenderTexture(CreateTexture(width, height, format))
   , surface_temp_(nullptr)
   , depth_surface_temp_(nullptr)
 {

@@ -49,9 +49,9 @@ INativeTexture* NativeObjectFactory::CreateTexture(const char* path)
   return new NativeTexture(path);
 }
 
-INativeRenderTexture* NativeObjectFactory::CreateRenderTexture(T_UINT16 width, T_UINT16 height)
+INativeRenderTexture* NativeObjectFactory::CreateRenderTexture(T_UINT16 width, T_UINT16 height, INativeRenderTexture::Format format)
 {
-  return new NativeRenderTexture(width, height);
+  return new NativeRenderTexture(width, height, format);
 }
 
 INativeSound* NativeObjectFactory::CreateSound(const char* path)

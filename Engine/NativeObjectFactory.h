@@ -23,7 +23,7 @@ INativeVertexBuffer* CreateVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_
 INativeIndexBuffer* CreateIndexBuffer(T_UINT32 indexes_count);
 
 INativeTexture* CreateTexture(const char* path);
-INativeRenderTexture* CreateRenderTexture(T_UINT16 width, T_UINT16 height);
+INativeRenderTexture* CreateRenderTexture(T_UINT16 width, T_UINT16 height, INativeRenderTexture::Format format);
 
 INativeSound* CreateSound(const char* path);
 

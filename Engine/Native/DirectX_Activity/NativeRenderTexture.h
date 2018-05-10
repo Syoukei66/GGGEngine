@@ -11,7 +11,7 @@ class NativeRenderTexture : public INativeRenderTexture
   // Constructor / Destructor
   // =================================================================
 public:
-  NativeRenderTexture(T_UINT16 width, T_UINT16 height);
+  NativeRenderTexture(T_UINT16 width, T_UINT16 height, INativeRenderTexture::Format format);
   ~NativeRenderTexture();
 
   // =================================================================
