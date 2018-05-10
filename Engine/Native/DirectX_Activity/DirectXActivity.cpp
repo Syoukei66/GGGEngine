@@ -269,9 +269,12 @@ bool DirectXActivity::FrameEnabled()
     DispatchMessage(&this->msg_);
     return false;
   }
-  //imgui
-  ImGui_ImplDX9_NewFrame();
   return true;
+}
+
+void DirectXActivity::ImGuiNewFrame()
+{
+  ImGui_ImplDX9_NewFrame();
 }
 
 bool DirectXActivity::ContinueEnabled()
@@ -281,9 +284,6 @@ bool DirectXActivity::ContinueEnabled()
 
 bool DirectXActivity::PreDraw()
 {
-  //imgui
-  ImGui::EndFrame();
-
   if (SUCCEEDED(this->d3d_device_->BeginScene()))
   {
     return true;
@@ -317,6 +317,11 @@ void DirectXActivity::PostDraw()
 
   this->d3d_device_->EndScene();
   this->d3d_device_->Present(NULL, NULL, NULL, NULL);
+}
+
+void DirectXActivity::ImGuiEndFrame()
+{
+  ImGui::EndFrame();
 }
 
 void DirectXActivity::InputProcess(EngineInputState* state)

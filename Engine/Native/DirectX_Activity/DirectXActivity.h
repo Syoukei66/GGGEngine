@@ -25,9 +25,11 @@ protected:
   virtual bool Init(const EngineOption* option) override;
   virtual bool Uninit() override;
   virtual bool FrameEnabled() override;
+  virtual void ImGuiNewFrame() override;
   virtual bool ContinueEnabled() override;
   virtual bool PreDraw() override;
   virtual void PostDraw() override;
+  virtual void ImGuiEndFrame() override;
   virtual void InputProcess(EngineInputState* state) override;
 
 private:
