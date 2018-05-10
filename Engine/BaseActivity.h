@@ -33,11 +33,14 @@ protected:
   virtual bool Init(const EngineOption* option) = 0;
   virtual bool Uninit() = 0;
   virtual bool FrameEnabled() = 0;
+  virtual void ImGuiNewFrame() = 0;
   virtual bool ContinueEnabled() = 0;
   virtual bool PreDraw() = 0;
   virtual void PostDraw() = 0;
+  virtual void ImGuiEndFrame() = 0;
   virtual void InputProcess(EngineInputState* state) = 0;
   bool Update();
+  bool Draw();
   
   // =================================================================
   // Setter / Getter

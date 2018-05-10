@@ -1,4 +1,7 @@
 #include "BaseActivity.h"
+
+#include <thread>
+
 #include "Director.h"
 
 #include "NativeMethod.h"
@@ -114,6 +117,8 @@ bool BaseActivity::Update()
     return true;
   }
 
+  this->ImGuiNewFrame();
+
 #ifdef _DEBUG
   NativeMethod::Time().FPS_PreUpdate();
 #endif
@@ -132,22 +137,37 @@ bool BaseActivity::Update()
   EngineInputState::GetInstance()->Prepare();
   this->InputProcess(EngineInputState::GetInstance());
 
+  //std::thread update_thread(&Engine::OnUpdate, this->engine_);
+  //std::thread draw_thread(&BaseActivity::Draw, this);
+  //update_thread.join();
+  //draw_thread.join();
+
   this->engine_->OnUpdate();
-  if (this->engine_->DrawWait())
-  {
-    if (this->PreDraw())
-    {
-      NativeMethod::Graphics().Graphics_SetViewport(0.0f, 0.0f, this->engine_->GetScreenWidth(), this->engine_->GetScreenHeight(), 0.0f, 1.0f);
-      NativeMethod::Graphics().Graphics_Clear();
-      this->engine_->OnDraw();
-      this->PostDraw();
-    }
-  }
+  this->Draw();
+
+  this->ImGuiEndFrame();
 
 #ifdef _DEBUG
   NativeMethod::Time().FPS_PostUpdate();
 #endif
 
   UserResourcePool::GetInstance().Update();
+  return true;
+}
+
+bool BaseActivity::Draw()
+{
+  if (!this->engine_->DrawWait())
+  {
+    return false;
+  }
+  if (!this->PreDraw())
+  {
+    return false;
+  }
+  NativeMethod::Graphics().Graphics_SetViewport(0.0f, 0.0f, this->engine_->GetScreenWidth(), this->engine_->GetScreenHeight(), 0.0f, 1.0f);
+  NativeMethod::Graphics().Graphics_Clear();
+  this->engine_->OnDraw();
+  this->PostDraw();
   return true;
 }
