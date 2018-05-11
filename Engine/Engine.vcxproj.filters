@@ -405,9 +405,6 @@
     <ClCompile Include="EntityModifierFactory.cpp">
       <Filter>ソース ファイル\Component\GameObject\2D\Modifier</Filter>
     </ClCompile>
-    <ClCompile Include="LoopTextureRegion.cpp">
-      <Filter>ソース ファイル\Structure\TextureRegion</Filter>
-    </ClCompile>
     <ClCompile Include="EntityModifierAttribute.cpp">
       <Filter>ソース ファイル\Component\GameObject\2D\Modifier</Filter>
     </ClCompile>
@@ -875,9 +872,6 @@
     <ClInclude Include="PoolAllocator.h">
       <Filter>ヘッダー ファイル\Allocator</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>ヘッダー ファイル\Resource\File\Texture</Filter>
-    </ClInclude>
     <ClInclude Include="TextureAtlas.h">
       <Filter>ヘッダー ファイル\Resource\File\Texture\Atlas</Filter>
     </ClInclude>
@@ -1178,9 +1172,6 @@
     <ClInclude Include="NativeObjectFactory.h">
       <Filter>ヘッダー ファイル\Native</Filter>
     </ClInclude>
-    <ClInclude Include="TextureManager.h">
-      <Filter>ヘッダー ファイル\Resource\File\Texture</Filter>
-    </ClInclude>
     <ClInclude Include="ParticleData.h">
       <Filter>ヘッダー ファイル\Resource\File\Particle</Filter>
     </ClInclude>
@@ -1277,9 +1268,6 @@
     <ClInclude Include="ITextureRegion.h">
       <Filter>ヘッダー ファイル\Structure\TextureRegion</Filter>
     </ClInclude>
-    <ClInclude Include="LoopTextureRegion.h">
-      <Filter>ヘッダー ファイル\Structure\TextureRegion</Filter>
-    </ClInclude>
     <ClInclude Include="TextureRegion.h">
       <Filter>ヘッダー ファイル\Structure\TextureRegion</Filter>
     </ClInclude>
@@ -1348,6 +1336,9 @@
     </ClInclude>
     <ClInclude Include="NativeMatrix.h">
       <Filter>ヘッダー ファイル\Native\Objects\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureResource.h">
+      <Filter>ヘッダー ファイル\Resource\File\Texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,7 @@
 
 #include "GameObject2D.h"
 #include "SpriteRenderer.h"
+#include "TextureResource.h"
 
 class Sprite : public GameObject2D
 {
@@ -10,9 +11,10 @@ class Sprite : public GameObject2D
   // =================================================================
 public:
   static Sprite* Create();
+  static Sprite* CreateWithResource(const TextureResource& texture);
+  static Sprite* CreateWithTexture(const INativeTexture* texture);
   static Sprite* CreateWithTextureRegion(ITextureRegion* region, bool delete_region);
   static Sprite* CreateWithMaterial(Material& material);
-  static Sprite* CreateWithTexture(const Texture& texture);
 
   // =================================================================
   // Constructor / Destructor
@@ -37,11 +39,11 @@ public:
   {
     this->GetSpriteRenderer()->FitToTexture();
   }
-  inline void SetTexture(const Texture& texture)
+  inline void SetTexture(const INativeTexture* texture)
   {
     this->GetSpriteRenderer()->SetTexture(texture);
   }
-  inline const Texture& GetTexture() const
+  inline const INativeTexture* GetTexture() const
   {
     return this->GetSpriteRenderer()->GetTexture();
   }

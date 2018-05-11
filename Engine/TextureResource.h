@@ -5,16 +5,16 @@
 #include "NativeTexture.h"
 #include "FileResource.h"
 
-class Texture : public FileResource<INativeTexture>
+class TextureResource : public FileResource<INativeTexture>
 {
 public:
-  static Texture* DynamicLoad(const char* path);
+  static TextureResource* DynamicLoad(const char* path);
 
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  Texture(const char* path);
+  TextureResource(const char* path);
 
   // =================================================================
   // Methods

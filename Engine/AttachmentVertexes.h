@@ -1,16 +1,16 @@
 #pragma once
 
-#include "Texture.h"
+#include "TextureResource.h"
 #include "Vertex.h"
 
 class AttachmentVertexes
 {
 public:
-  AttachmentVertexes(Texture* texture, T_UINT8 vertexes_count);
+  AttachmentVertexes(TextureResource* texture, T_UINT8 vertexes_count);
   ~AttachmentVertexes();
 
 public:
   Vertex::VCT* vertexes_;
   T_UINT8 size_;
-  Texture* texture_;
+  TextureResource* texture_;
 };

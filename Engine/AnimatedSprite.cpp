@@ -11,6 +11,17 @@ AnimatedSprite* AnimatedSprite::Create()
   return ret;
 }
 
+AnimatedSprite* AnimatedSprite::CreateWithResource(const TextureResource& texture, T_UINT8 x_num, T_UINT8 y_num)
+{
+  return AnimatedSprite::CreateWithTexture(texture.GetContents(), x_num, y_num);
+}
+
+AnimatedSprite* AnimatedSprite::CreateWithTexture(const INativeTexture* texture, T_UINT8 x_num, T_UINT8 y_num)
+{
+  TiledTextureRegion* region = TiledTextureRegion::CreateWithTexture(texture, x_num, y_num);
+  return AnimatedSprite::CreateWithTextureRegion(region, true);
+}
+
 AnimatedSprite* AnimatedSprite::CreateWithTextureRegion(TiledTextureRegion* region, bool delete_region)
 {
   AnimatedSprite* ret = AnimatedSprite::Create();
@@ -28,10 +39,4 @@ AnimatedSprite* AnimatedSprite::CreateWithMaterial(Material& material, T_UINT8 x
   AnimatedSpriteRenderer* renderer = ret->GetAnimatedSpriteRenderer();
   renderer->SetMaterial(material);
   return ret;
-}
-
-AnimatedSprite* AnimatedSprite::CreateWithTexture(const Texture& texture, T_UINT8 x_num, T_UINT8 y_num)
-{
-  TiledTextureRegion* region = TiledTextureRegion::CreateWithTexture(texture, x_num, y_num);
-  return AnimatedSprite::CreateWithTextureRegion(region, true);
 }

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "NativeType.h"
-#include "Texture.h"
+#include "TextureResource.h"
 #include "ParticleSystem.h"
 
 //===============================================================

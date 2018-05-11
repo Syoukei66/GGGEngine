@@ -1,6 +1,6 @@
 #include "AttachmentVertexes.h"
 
-AttachmentVertexes::AttachmentVertexes(Texture* texture, T_UINT8 vertexes_count)
+AttachmentVertexes::AttachmentVertexes(TextureResource* texture, T_UINT8 vertexes_count)
   : texture_(texture)
   , size_(vertexes_count)
 {

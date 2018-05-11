@@ -12,6 +12,17 @@ Sprite3D* Sprite3D::Create()
   return ret;
 }
 
+Sprite3D* Sprite3D::CreateWithResource(const TextureResource& texture)
+{
+  return Sprite3D::CreateWithTexture(texture.GetContents());
+}
+
+Sprite3D* Sprite3D::CreateWithTexture(const INativeTexture* texture)
+{
+  TextureRegion* region = TextureRegion::CreateWithTexture(texture);
+  return Sprite3D::CreateWithTextureRegion(region, true);
+}
+
 Sprite3D* Sprite3D::CreateWithTextureRegion(ITextureRegion* region, bool delete_region)
 {
   Sprite3D* ret = Sprite3D::Create();
@@ -28,10 +39,4 @@ Sprite3D* Sprite3D::CreateWithMaterial(Material& material)
   SpriteRenderer* renderer = ret->GetSpriteRenderer();
   renderer->SetMaterial(material);
   return ret;
-}
-
-Sprite3D* Sprite3D::CreateWithTexture(const Texture& texture)
-{
-  TextureRegion* region = TextureRegion::CreateWithTexture(texture);
-  return Sprite3D::CreateWithTextureRegion(region, true);
 }

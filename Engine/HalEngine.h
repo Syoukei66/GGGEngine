@@ -155,7 +155,7 @@
 //------c
         #include <spine\spine.h>
 //----Texture
-      #include "Texture.h"
+      #include "TextureResource.h"
 //------Atlas
         #include "TextureAtlas.h"
         #include "TextureAtlasLoader.h"
@@ -182,7 +182,6 @@
   #include "Vertex.h"
 //--TextureRegion
     #include "ITextureRegion.h"
-    #include "LoopTextureRegion.h"
     #include "TextureRegion.h"
     #include "TiledTextureRegion.h"
 

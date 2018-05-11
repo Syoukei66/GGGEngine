@@ -26,17 +26,17 @@ public:
   void OnTextureCoordDirty();
 
 protected:
-  virtual void OnUpdateTextureCoord(const Texture* texture) = 0;
+  virtual void OnUpdateTextureCoord(const INativeTexture* texture) = 0;
 
   // =================================================================
   // setter/getter
   // =================================================================
 public:
-  inline void SetTexture(const Texture& texture)
+  inline void SetTexture(const INativeTexture* texture)
   {
-    this->texture_ = &texture;
+    this->texture_ = texture;
   }
-  inline const Texture* GetTexture() const
+  inline const INativeTexture* GetTexture() const
   {
     return this->texture_;
   }
@@ -101,7 +101,7 @@ public:
   // Data Member
   // =================================================================
 private:
-  const Texture* texture_;
+  const INativeTexture* texture_;
   TAreaf texture_region_;
   TVec2f uv0_, uv1_;
   bool texture_coord_dirty_;

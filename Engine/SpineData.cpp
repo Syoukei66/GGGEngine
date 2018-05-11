@@ -11,7 +11,7 @@
 
 void _spAtlasPage_createTexture(spAtlasPage* self, const char* path)
 {
-  Texture* texture = new Texture(path);
+  TextureResource* texture = new TextureResource(path);
   texture->Load();
   self->rendererObject = (void*)texture;
   self->width = texture->GetWidth();

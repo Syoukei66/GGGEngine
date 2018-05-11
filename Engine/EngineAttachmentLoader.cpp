@@ -21,7 +21,7 @@ void EngineAttachmentLoader_configureAttachment(spAttachmentLoader* loader, spAt
   }
   spRegionAttachment* region_attachment = SUB_CAST(spRegionAttachment, attachment);
   spAtlasRegion* region = (spAtlasRegion*)region_attachment->rendererObject;
-  AttachmentVertexes* attachment_vertexes = new AttachmentVertexes((Texture*)region->page->rendererObject, 4);
+  AttachmentVertexes* attachment_vertexes = new AttachmentVertexes((TextureResource*)region->page->rendererObject, 4);
   Vertex::VCT* vertexes = attachment_vertexes->vertexes_;
   for (int i = 0, ii = 0; i < 4; ++i, ii += 2) {
     vertexes[i].uv[0] = region_attachment->uvs[ii];

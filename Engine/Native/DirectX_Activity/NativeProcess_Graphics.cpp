@@ -2,7 +2,6 @@
 
 #include <d3d9.h>
 #include <d3dx9.h>
-#include <Texture.h>
 #include <ITextureRegion.h>
 #include <Director.h>
 #include "DirectXDirector.h"

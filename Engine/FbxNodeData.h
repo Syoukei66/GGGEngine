@@ -3,6 +3,8 @@
 #include "fbxsdk.h"
 #include "Mesh.h"
 #include "FbxMeshMaterial.h"
+#include "TextureResource.h"
+
 
 class FbxNodeData
 {
@@ -110,9 +112,9 @@ private:
   //Color4F transparent_;
   //T_FLOAT transparent_factor_;
 
-  Texture* normal_map_;
-  Texture* bump_map_;
-  Texture* texture_;
+  TextureResource* normal_map_;
+  TextureResource* bump_map_;
+  TextureResource* texture_;
 
   FbxNodeData* parent_;
 };

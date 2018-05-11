@@ -251,7 +251,6 @@
     <ClCompile Include="InputSetting.cpp" />
     <ClCompile Include="JsonParser.cpp" />
     <ClCompile Include="LoadProgressCounter.cpp" />
-    <ClCompile Include="LoopTextureRegion.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="NativeMethod.cpp" />
@@ -346,7 +345,6 @@
     <ClInclude Include="JsonData.h" />
     <ClInclude Include="JsonResource.h" />
     <ClInclude Include="LoopSprite.h" />
-    <ClInclude Include="LoopTextureRegion.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshData.h" />
     <ClInclude Include="MeshData_Cube.h" />
@@ -408,7 +406,6 @@
     <ClInclude Include="Sprite3D.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="SubMesh.h" />
-    <ClInclude Include="TextureManager.h" />
     <ClInclude Include="TextureRegion.h" />
     <ClInclude Include="TiledTextureRegion.h" />
     <ClInclude Include="Transform3DRotator.h" />
@@ -500,7 +497,7 @@
     <ClInclude Include="NativeType.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sprite.h" />
-    <ClInclude Include="Texture.h" />
+    <ClInclude Include="TextureResource.h" />
     <ClInclude Include="AnalogInput.h" />
     <ClInclude Include="UserResourcePool.h" />
     <ClInclude Include="Util.h" />

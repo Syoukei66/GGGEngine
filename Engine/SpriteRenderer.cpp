@@ -27,7 +27,7 @@ void SpriteRenderer::EditProperty(T_UINT8 material_index, T_UINT8 pass_index, Ma
 {
   if (this->texture_region_)
   {
-    this->GetMaterial()->SetMainTexture(*this->texture_region_->GetTexture());
+    this->GetMaterial()->SetMainTexture(this->texture_region_->GetTexture());
     //const Texture* texture = this->GetTextureRegion()->GetTexture();
     //const T_FLOAT tw = (T_FLOAT)texture->GetWidth() * this->image_scale_;
     //const T_FLOAT th = (T_FLOAT)texture->GetHeight() * this->image_scale_;
@@ -50,7 +50,7 @@ void SpriteRenderer::DrawSubset(T_UINT8 material_index, T_UINT8 pass_index)
 // =================================================================
 void SpriteRenderer::FitToTexture()
 {
-  const Texture* texture = this->GetTextureRegion()->GetTexture();
+  const INativeTexture* texture = this->GetTextureRegion()->GetTexture();
   if (!texture)
   {
     return;

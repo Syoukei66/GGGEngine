@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Texture.h"
 #include "Renderer.h"
 #include "ITextureRegion.h"
 
@@ -36,12 +35,12 @@ public:
     return this->texture_region_;
   }
 
-  inline void SetTexture(const Texture& texture)
+  inline void SetTexture(const INativeTexture* texture)
   {
     this->texture_region_->SetTexture(texture);
     this->GetMaterial()->SetMainTexture(texture);
   }
-  inline const Texture& GetTexture() const
+  inline const INativeTexture* GetTexture() const
   {
     return this->GetMaterial()->GetMainTexture();
   }

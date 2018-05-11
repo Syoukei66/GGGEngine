@@ -38,7 +38,7 @@ bool ITextureRegion::UpdateTextureCoord()
   {
     return false;
   }
-  const Texture* texture = this->GetTexture();
+  const INativeTexture* texture = this->GetTexture();
   if (!texture)
   {
     return true;

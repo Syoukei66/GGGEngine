@@ -5,7 +5,6 @@
 #include "GameObjectRenderState.h"
 #include "Vertex.h"
 #include "Material.h"
-#include "Texture.h"
 
 #include "NativeTexture.h"
 #include "NativeRenderTexture.h"

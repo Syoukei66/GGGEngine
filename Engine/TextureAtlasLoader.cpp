@@ -5,7 +5,6 @@
 #include "NativeMethod.h"
 #include "Director.h"
 #include "Moniker.h"
-#include "Texture.h"
 
 static bool IsSpace(char c)
 {
@@ -61,9 +60,9 @@ TextureAtlas* TextureAtlasLoader::Load(const char* directory_path, const char* a
   }
   texture_path.append(texture_file_name);
 
-  Texture* texture = new Texture(texture_path.c_str());
+  TextureResource* texture = new TextureResource(texture_path.c_str());
   texture->Load();
-  TextureAtlas* ret = new TextureAtlas(texture);
+  TextureAtlas* ret = new TextureAtlas(texture->GetContents());
   while (!EndOfFile(*p))
   {
     if (IsSpace(*p) || IsEnter(*p))

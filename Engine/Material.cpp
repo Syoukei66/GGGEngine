@@ -84,7 +84,7 @@ void Material::SetDefaultProperties(GameObjectRenderState* state)
   shader->SetVec4f("_CameraPosition", state->GetCamera()->GetEntity()->GetWorldMatrix().GetPosition4d());
   shader->SetVec3f("_CameraDirection", state->GetCamera()->GetEntity()->GetWorldMatrix().GetDirection3d());
 
-  NativeTextureInstance* texture = this->texture_ ? this->texture_->GetContents()->GetNativeInstance() : nullptr;
+  NativeTextureInstance* texture = this->texture_ ? this->texture_->GetNativeInstance() : nullptr;
   shader->SetTexture("_MainTex", texture);
 
   shader->SetColor("_Diffuse", this->color_);

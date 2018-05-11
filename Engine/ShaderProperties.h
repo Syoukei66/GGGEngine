@@ -296,10 +296,10 @@ public:
   }
 };
 
-class ShaderProperty_texture : public ShaderProperty_native<Texture>
+class ShaderProperty_texture : public ShaderProperty_native<INativeTexture>
 {
 public:
-  const ShaderProperty_texture& operator = (const Texture* b)
+  const ShaderProperty_texture& operator = (const INativeTexture* b)
   {
     ShaderProperty_native::operator=(b);
     return *this;
@@ -311,7 +311,7 @@ public:
     {
       return;
     }
-    shader->SetTexture(property_name.c_str(), this->value_->GetContents()->GetNativeInstance());
+    shader->SetTexture(property_name.c_str(), this->value_->GetNativeInstance());
   }
   ShaderProperty* Clone() override
   {

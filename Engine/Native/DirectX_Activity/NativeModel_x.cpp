@@ -50,7 +50,7 @@ NativeModel_x::NativeModel_x(const char* asset_path, const char* name)
     this->materials_[i]->FloatProperty("_SpecularPower") = mat.Power;
     std::string texture_path = asset_path;
     texture_path.append(materials[i].pTextureFilename);
-    this->materials_[i]->SetMainTexture(*Texture::DynamicLoad(texture_path.c_str()));
+    this->materials_[i]->SetMainTexture(TextureResource::DynamicLoad(texture_path.c_str())->GetContents());
   }
 }
 

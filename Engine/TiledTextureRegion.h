@@ -3,6 +3,7 @@
 
 #include "NativeType.h"
 #include "ITextureRegion.h"
+#include "TextureResource.h"
 
 class TiledTextureRegion : public ITextureRegion
 {
@@ -19,7 +20,8 @@ public:
   // =================================================================
 public:
   static TiledTextureRegion* CreateWithMaterial(const Material& material, T_UINT8 x_num, T_UINT8 y_num);
-  static TiledTextureRegion* CreateWithTexture(const Texture& texture, T_UINT8 x_num, T_UINT8 y_num);
+  static TiledTextureRegion* CreateWithResource(const TextureResource& texture, T_UINT8 x_num, T_UINT8 y_num);
+  static TiledTextureRegion* CreateWithTexture(const INativeTexture* texture, T_UINT8 x_num, T_UINT8 y_num);
 
   // =================================================================
   // Constructor / Destructor
@@ -32,7 +34,7 @@ public:
   // Methods for/from SuperClass/Interfaces
   // =================================================================
 public:
-  virtual void OnUpdateTextureCoord(const Texture* texture) override;
+  virtual void OnUpdateTextureCoord(const INativeTexture* texture) override;
 
 private:
   T_UINT16 CalcCurrentIndex();
