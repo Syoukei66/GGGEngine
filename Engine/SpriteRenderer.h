@@ -35,11 +35,7 @@ public:
     return this->texture_region_;
   }
 
-  inline void SetTexture(const INativeTexture* texture)
-  {
-    this->texture_region_->SetTexture(texture);
-    this->GetMaterial()->SetMainTexture(texture);
-  }
+  void SetTexture(const INativeTexture* texture);
   inline const INativeTexture* GetTexture() const
   {
     return this->GetMaterial()->GetMainTexture();

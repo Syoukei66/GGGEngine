@@ -314,7 +314,7 @@
     <ClCompile Include="IVertexBufferObject.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TextureResource.cpp" />
     <ClCompile Include="TextureRegion.cpp" />
     <ClCompile Include="TiledTextureRegion.cpp" />
     <ClCompile Include="Vertex.cpp" />

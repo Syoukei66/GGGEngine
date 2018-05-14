@@ -1,4 +1,4 @@
-#include "Texture.h"
+#include "TextureResource.h"
 #include "NativeType.h"
 #include "UserResourcePool.h"
 

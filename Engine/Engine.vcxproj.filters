@@ -414,9 +414,6 @@
     <ClCompile Include="ParticleData.cpp">
       <Filter>ソース ファイル\Resource\File\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>ソース ファイル\Resource\File\Texture</Filter>
-    </ClCompile>
     <ClCompile Include="TextureAtlas.cpp">
       <Filter>ソース ファイル\Resource\File\Texture\Atlas</Filter>
     </ClCompile>
@@ -791,6 +788,9 @@
     </ClCompile>
     <ClCompile Include="NativeMatrixStack.cpp">
       <Filter>ソース ファイル\Native\Objects\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureResource.cpp">
+      <Filter>ソース ファイル\Resource\File\Texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -34,7 +34,7 @@ static NativeTextureInstance* CreateTexture(T_UINT16 width, T_UINT16 height, INa
     height,
     0,
     D3DUSAGE_RENDERTARGET,
-    D3DFMT_A8R8G8B8,
+    TEXTURE_FORMATS[format],
     D3DPOOL_DEFAULT,
     &texture);
 

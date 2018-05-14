@@ -1,5 +1,6 @@
 #include "SpriteRenderer.h"
 #include "EngineAsset.h"
+#include "TextureRegion.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -73,4 +74,18 @@ void SpriteRenderer::SetTextureRegion(ITextureRegion* region, bool delete_region
   }
   this->texture_region_ = region;
   this->delete_region_ = delete_region;
+}
+
+void SpriteRenderer::SetTexture(const INativeTexture* texture)
+{
+  if (!this->texture_region_)
+  {
+    this->texture_region_ = TextureRegion::CreateWithTexture(texture);
+    this->delete_region_ = true;
+  }
+  else
+  {
+    this->texture_region_->SetTexture(texture);
+  }
+  this->GetMaterial()->SetMainTexture(texture);
 }
