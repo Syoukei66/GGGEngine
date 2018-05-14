@@ -2,15 +2,6 @@
 
 #include <Director.h>
 
-static T_UINT16 CalcTwoPowerValue(T_UINT16 val)
-{
-  T_UINT16 t = 1;
-  while (t < val)
-  {
-    t <<= 1;
-  }
-  return t;
-}
 
 static D3DFORMAT TEXTURE_FORMATS[INativeRenderTexture::TEXTURE_FORMAT_DATANUM] =
 {
@@ -21,8 +12,8 @@ static D3DFORMAT TEXTURE_FORMATS[INativeRenderTexture::TEXTURE_FORMAT_DATANUM] =
 
 static NativeTextureInstance* CreateTexture(T_UINT16 width, T_UINT16 height, INativeRenderTexture::Format format)
 {
-  width = CalcTwoPowerValue(width);
-  height = CalcTwoPowerValue(height);
+  width = Util::CalcTwoPowerValue(width);
+  height = Util::CalcTwoPowerValue(height);
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
 
   //
@@ -38,10 +29,7 @@ static NativeTextureInstance* CreateTexture(T_UINT16 width, T_UINT16 height, INa
     D3DPOOL_DEFAULT,
     &texture);
 
-  if (FAILED(hr))
-  {
-    NATIVE_ASSERT(false, "テクスチャの作成に失敗しました");
-  }
+  NATIVE_ASSERT(SUCCEEDED(hr), "テクスチャの作成に失敗しました");
 
   return (NativeTextureInstance*)texture;
 }
@@ -56,6 +44,9 @@ NativeRenderTexture::NativeRenderTexture(T_UINT16 width, T_UINT16 height, INativ
 {
   LPDIRECT3DTEXTURE9 texture = this->GetNativeInstance<IDirect3DTexture9>();
   texture->GetLevelDesc(0, &this->desc_);
+
+  this->size_.width = width;
+  this->size_.height = height;
 
   width = (T_UINT16)this->desc_.Width;
   height = (T_UINT16)this->desc_.Height;
@@ -97,10 +88,20 @@ NativeRenderTexture::~NativeRenderTexture()
 // =================================================================
 T_UINT16 NativeRenderTexture::GetWidth() const
 {
-  return (T_UINT16)this->desc_.Width;
+  return (T_UINT16)this->size_.width;
 }
 
 T_UINT16 NativeRenderTexture::GetHeight() const
+{
+  return (T_UINT16)this->size_.height;
+}
+
+T_UINT16 NativeRenderTexture::GetTwoPoweredWidth() const
+{
+  return (T_UINT16)this->desc_.Width;
+}
+
+T_UINT16 NativeRenderTexture::GetTwoPoweredHeight() const
 {
   return (T_UINT16)this->desc_.Height;
 }

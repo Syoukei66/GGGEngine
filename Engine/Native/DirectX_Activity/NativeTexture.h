@@ -20,10 +20,14 @@ public:
 public:
   virtual T_UINT16 GetWidth() const override;
   virtual T_UINT16 GetHeight() const override;
+  virtual T_UINT16 GetTwoPoweredWidth() const override;
+  virtual T_UINT16 GetTwoPoweredHeight() const override;
 
   // =================================================================
   // Data Members
   // =================================================================
 private:
+  D3DXIMAGE_INFO info_;
   D3DSURFACE_DESC desc_;
+
 };

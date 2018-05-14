@@ -13,6 +13,9 @@ class INativeTexture : public NativeObject<NativeTextureInstance>
 public:
   static INativeTexture* Create(const char* path);
 
+protected:
+  static T_UINT16 CalcTwoPowerValue(T_UINT16 val);
+
   // =================================================================
   // Constructor / Destructor
   // =================================================================
@@ -28,4 +31,6 @@ public:
 public:
   virtual T_UINT16 GetWidth() const = 0;
   virtual T_UINT16 GetHeight() const = 0;
+  virtual T_UINT16 GetTwoPoweredWidth() const = 0;
+  virtual T_UINT16 GetTwoPoweredHeight() const = 0;
 };

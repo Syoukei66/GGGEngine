@@ -70,6 +70,14 @@ public:
   {
     return this->size_.height;
   }
+  inline void SetImageScale(T_FLOAT scale)
+  {
+    this->image_scale_ = scale;
+  }
+  inline T_FLOAT GetImageScale() const
+  {
+    return this->image_scale_;
+  }
 
   // =================================================================
   // Data Member
