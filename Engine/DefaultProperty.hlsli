@@ -9,6 +9,17 @@ sampler _MainTexSampler = sampler_state
 };
 #endif
 
+#ifdef _MAIN_TEXTURE_POINT
+texture _MainTex;
+sampler _MainTexSampler = sampler_state
+{
+  Texture = _MainTex;
+  MipFilter = POINT;
+  MinFilter = POINT;
+  MagFilter = POINT;
+};
+#endif
+
 #ifdef _WORLD
 float4x4 _World;
 #endif
