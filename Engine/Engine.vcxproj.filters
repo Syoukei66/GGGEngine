@@ -108,57 +108,6 @@
     <Filter Include="ソース ファイル\Component\Camera\3D">
       <UniqueIdentifier>{6f803f75-8ca4-455a-9348-cc70672d7c77}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Component\GameObject">
-      <UniqueIdentifier>{73881a59-1756-4a0d-b5ee-717ef61ba364}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Component\GameObject\3D">
-      <UniqueIdentifier>{887ec1d6-1b51-494e-907a-fa3cab0e64aa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Component\GameObject\3D\Primitive">
-      <UniqueIdentifier>{d8d02f28-3142-4320-8da9-c76c3e9dc771}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Component\GameObject\3D\Model">
-      <UniqueIdentifier>{3b71dc71-e34b-4a4d-aff1-181b31f8ca0f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Component\GameObject\2D">
-      <UniqueIdentifier>{af227e00-ddba-4234-a38b-d341c72201dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Component\GameObject\2D\Modifier">
-      <UniqueIdentifier>{92cbe9b1-107f-473a-8e31-acb6b2972df1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Component\GameObject\VBO">
-      <UniqueIdentifier>{4e11bb03-1909-48f1-9515-a7770c5a3581}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Component\GameObject\VBO\3D">
-      <UniqueIdentifier>{bb04d39f-d1f5-40f8-8946-23fa0100ee9e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Component\GameObject">
-      <UniqueIdentifier>{9bec477f-2789-42a8-9b6f-79ecb3619942}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Component\GameObject\3D">
-      <UniqueIdentifier>{3c706006-4efe-4493-b667-5d976cc902a0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Component\GameObject\3D\Primitive">
-      <UniqueIdentifier>{78624ef6-d74a-4d41-bc39-b3a7323a1543}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Component\GameObject\3D\Model">
-      <UniqueIdentifier>{a5699b47-5d21-4edc-a84b-b1fd0c55d763}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Component\GameObject\2D">
-      <UniqueIdentifier>{a3de45e9-224a-4825-9ac5-1b2e22593596}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Component\GameObject\2D\Modifier">
-      <UniqueIdentifier>{bd78d597-0b56-45f3-b7cc-c18023f53d1c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Component\GameObject\VBO">
-      <UniqueIdentifier>{b490f347-22cd-4859-b798-13b91c494fea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Component\GameObject\VBO\3D">
-      <UniqueIdentifier>{8ceb2489-02cd-454a-b028-c45af4518ccd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Component\Light">
-      <UniqueIdentifier>{e98418f6-332a-4a2e-a9c9-32c2092c0183}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Component\Light">
       <UniqueIdentifier>{7a45de9f-6862-48e1-b894-8900bcc654a9}</UniqueIdentifier>
     </Filter>
@@ -301,9 +250,6 @@
     <Filter Include="ソース ファイル\Component\Mesh\Data">
       <UniqueIdentifier>{3a91ce83-cc9a-4db8-908b-efaa9272a9a4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Component\GameObject\2D\Sprite">
-      <UniqueIdentifier>{de137ee1-ada0-471b-a47e-6de5b9f8601a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Structure\TextureRegion">
       <UniqueIdentifier>{df6a36de-e2ed-4483-be0c-e234bc860b5d}</UniqueIdentifier>
     </Filter>
@@ -321,9 +267,6 @@
     </Filter>
     <Filter Include="ソース ファイル\Resource\File\Sound">
       <UniqueIdentifier>{899c36ae-ee59-4928-859c-bb5753da65bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Component\GameObject\2D\Sprite">
-      <UniqueIdentifier>{932e395f-6641-43f3-94ba-5bb95627a9aa}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Native\Objects\Texture">
       <UniqueIdentifier>{218161b8-91dc-42ca-805b-49883a393ec1}</UniqueIdentifier>
@@ -346,10 +289,64 @@
     <Filter Include="ソース ファイル\Component\Camera\2D">
       <UniqueIdentifier>{9031b82b-78ed-4c68-87ab-986f08c9951d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject">
+      <UniqueIdentifier>{73881a59-1756-4a0d-b5ee-717ef61ba364}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\3D">
+      <UniqueIdentifier>{887ec1d6-1b51-494e-907a-fa3cab0e64aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\3D\Primitive">
+      <UniqueIdentifier>{d8d02f28-3142-4320-8da9-c76c3e9dc771}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\3D\Model">
+      <UniqueIdentifier>{3b71dc71-e34b-4a4d-aff1-181b31f8ca0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\2D">
+      <UniqueIdentifier>{af227e00-ddba-4234-a38b-d341c72201dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\2D\Modifier">
+      <UniqueIdentifier>{92cbe9b1-107f-473a-8e31-acb6b2972df1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\2D\Sprite">
+      <UniqueIdentifier>{de137ee1-ada0-471b-a47e-6de5b9f8601a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\VBO">
+      <UniqueIdentifier>{4e11bb03-1909-48f1-9515-a7770c5a3581}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameObject\VBO\3D">
+      <UniqueIdentifier>{bb04d39f-d1f5-40f8-8946-23fa0100ee9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject">
+      <UniqueIdentifier>{9bec477f-2789-42a8-9b6f-79ecb3619942}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject\3D">
+      <UniqueIdentifier>{3c706006-4efe-4493-b667-5d976cc902a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject\3D\Primitive">
+      <UniqueIdentifier>{78624ef6-d74a-4d41-bc39-b3a7323a1543}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject\3D\Model">
+      <UniqueIdentifier>{a5699b47-5d21-4edc-a84b-b1fd0c55d763}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject\2D">
+      <UniqueIdentifier>{a3de45e9-224a-4825-9ac5-1b2e22593596}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject\2D\Modifier">
+      <UniqueIdentifier>{bd78d597-0b56-45f3-b7cc-c18023f53d1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject\2D\Sprite">
+      <UniqueIdentifier>{932e395f-6641-43f3-94ba-5bb95627a9aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject\VBO">
+      <UniqueIdentifier>{b490f347-22cd-4859-b798-13b91c494fea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameObject\VBO\3D">
+      <UniqueIdentifier>{8ceb2489-02cd-454a-b028-c45af4518ccd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IVertexBufferObject.cpp">
-      <Filter>ソース ファイル\Component\GameObject\VBO</Filter>
+      <Filter>ソース ファイル\GameObject\VBO</Filter>
     </ClCompile>
     <ClCompile Include="ITextureRegion.cpp">
       <Filter>ソース ファイル\Structure\TextureRegion</Filter>
@@ -388,7 +385,7 @@
       <Filter>ソース ファイル\Scene\Event\Update</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
-      <Filter>ソース ファイル\Component\GameObject</Filter>
+      <Filter>ソース ファイル\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="NativeMethod.cpp">
       <Filter>ソース ファイル\Native</Filter>
@@ -397,16 +394,16 @@
       <Filter>ソース ファイル\Structure</Filter>
     </ClCompile>
     <ClCompile Include="EntityModifier.cpp">
-      <Filter>ソース ファイル\Component\GameObject\2D\Modifier</Filter>
+      <Filter>ソース ファイル\GameObject\2D\Modifier</Filter>
     </ClCompile>
     <ClCompile Include="EntityModifierManager.cpp">
-      <Filter>ソース ファイル\Component\GameObject\2D\Modifier</Filter>
+      <Filter>ソース ファイル\GameObject\2D\Modifier</Filter>
     </ClCompile>
     <ClCompile Include="EntityModifierFactory.cpp">
-      <Filter>ソース ファイル\Component\GameObject\2D\Modifier</Filter>
+      <Filter>ソース ファイル\GameObject\2D\Modifier</Filter>
     </ClCompile>
     <ClCompile Include="EntityModifierAttribute.cpp">
-      <Filter>ソース ファイル\Component\GameObject\2D\Modifier</Filter>
+      <Filter>ソース ファイル\GameObject\2D\Modifier</Filter>
     </ClCompile>
     <ClCompile Include="ParticleSystem.cpp">
       <Filter>ソース ファイル\Resource\File\Particle</Filter>
@@ -568,13 +565,13 @@
       <Filter>ソース ファイル\Component\Camera\2D</Filter>
     </ClCompile>
     <ClCompile Include="Transform2D.cpp">
-      <Filter>ソース ファイル\Component\GameObject\2D</Filter>
+      <Filter>ソース ファイル\GameObject\2D</Filter>
     </ClCompile>
     <ClCompile Include="Camera2D.cpp">
       <Filter>ソース ファイル\Component\Camera\2D</Filter>
     </ClCompile>
     <ClCompile Include="Transform3D.cpp">
-      <Filter>ソース ファイル\Component\GameObject\3D</Filter>
+      <Filter>ソース ファイル\GameObject\3D</Filter>
     </ClCompile>
     <ClCompile Include="Camera3D.cpp">
       <Filter>ソース ファイル\Component\Camera\3D</Filter>
@@ -583,7 +580,7 @@
       <Filter>ソース ファイル\Component\Camera\3D</Filter>
     </ClCompile>
     <ClCompile Include="Plane3D.cpp">
-      <Filter>ソース ファイル\Component\GameObject\3D\Primitive</Filter>
+      <Filter>ソース ファイル\GameObject\3D\Primitive</Filter>
     </ClCompile>
     <ClCompile Include="Camera3D_LookAt.cpp">
       <Filter>ソース ファイル\Component\Camera\3D</Filter>
@@ -592,28 +589,28 @@
       <Filter>ソース ファイル\Component\Material</Filter>
     </ClCompile>
     <ClCompile Include="GameObject3D.cpp">
-      <Filter>ソース ファイル\Component\GameObject\3D</Filter>
+      <Filter>ソース ファイル\GameObject\3D</Filter>
     </ClCompile>
     <ClCompile Include="Model.cpp">
-      <Filter>ソース ファイル\Component\GameObject\3D\Model</Filter>
+      <Filter>ソース ファイル\GameObject\3D\Model</Filter>
     </ClCompile>
     <ClCompile Include="GameObjectRenderState.cpp">
-      <Filter>ソース ファイル\Component\GameObject</Filter>
+      <Filter>ソース ファイル\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>ソース ファイル\Component\GameObject</Filter>
+      <Filter>ソース ファイル\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>ソース ファイル\Component\Camera</Filter>
     </ClCompile>
     <ClCompile Include="VertexBufferObject_Primitive3D_MeshField.cpp">
-      <Filter>ソース ファイル\Component\GameObject\VBO\3D</Filter>
+      <Filter>ソース ファイル\GameObject\VBO\3D</Filter>
     </ClCompile>
     <ClCompile Include="Quaternion.cpp">
       <Filter>ソース ファイル\Structure</Filter>
     </ClCompile>
     <ClCompile Include="GameObject2D.cpp">
-      <Filter>ソース ファイル\Component\GameObject\2D</Filter>
+      <Filter>ソース ファイル\GameObject\2D</Filter>
     </ClCompile>
     <ClCompile Include="Singleton.cpp">
       <Filter>ソース ファイル\Util\Singleton</Filter>
@@ -634,13 +631,13 @@
       <Filter>ソース ファイル\Input</Filter>
     </ClCompile>
     <ClCompile Include="Transform3DRotator.cpp">
-      <Filter>ソース ファイル\Component\GameObject\3D</Filter>
+      <Filter>ソース ファイル\GameObject\3D</Filter>
     </ClCompile>
     <ClCompile Include="Sprite3D.cpp">
-      <Filter>ソース ファイル\Component\GameObject\3D\Primitive</Filter>
+      <Filter>ソース ファイル\GameObject\3D\Primitive</Filter>
     </ClCompile>
     <ClCompile Include="AnimatedSprite3D.cpp">
-      <Filter>ソース ファイル\Component\GameObject\3D\Primitive</Filter>
+      <Filter>ソース ファイル\GameObject\3D\Primitive</Filter>
     </ClCompile>
     <ClCompile Include="Collision2D.cpp">
       <Filter>ソース ファイル\Component\Collision\2D</Filter>
@@ -700,10 +697,10 @@
       <Filter>ソース ファイル\Resource\File\FBX</Filter>
     </ClCompile>
     <ClCompile Include="Cube3D.cpp">
-      <Filter>ソース ファイル\Component\GameObject\3D\Primitive</Filter>
+      <Filter>ソース ファイル\GameObject\3D\Primitive</Filter>
     </ClCompile>
     <ClCompile Include="ModelNode.cpp">
-      <Filter>ソース ファイル\Component\GameObject\3D\Model</Filter>
+      <Filter>ソース ファイル\GameObject\3D\Model</Filter>
     </ClCompile>
     <ClCompile Include="SubMesh.cpp">
       <Filter>ソース ファイル\Component\Mesh</Filter>
@@ -733,13 +730,13 @@
       <Filter>ソース ファイル\Component\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
-      <Filter>ソース ファイル\Component\GameObject\2D\Sprite</Filter>
+      <Filter>ソース ファイル\GameObject\2D\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="AnimatedSprite.cpp">
-      <Filter>ソース ファイル\Component\GameObject\2D\Sprite</Filter>
+      <Filter>ソース ファイル\GameObject\2D\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="LoopSprite.cpp">
-      <Filter>ソース ファイル\Component\GameObject\2D\Sprite</Filter>
+      <Filter>ソース ファイル\GameObject\2D\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="MeshResource.cpp">
       <Filter>ソース ファイル</Filter>
@@ -819,10 +816,10 @@
       <Filter>ヘッダー ファイル\Structure</Filter>
     </ClInclude>
     <ClInclude Include="IVertexBufferObject.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\VBO</Filter>
+      <Filter>ヘッダー ファイル\GameObject\VBO</Filter>
     </ClInclude>
     <ClInclude Include="AnimatedSprite.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\2D\Sprite</Filter>
+      <Filter>ヘッダー ファイル\GameObject\2D\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="BaseActivity.h">
       <Filter>ヘッダー ファイル\Activity</Filter>
@@ -843,7 +840,7 @@
       <Filter>ヘッダー ファイル\Director</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
-      <Filter>ヘッダー ファイル\Component\GameObject</Filter>
+      <Filter>ヘッダー ファイル\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="INativeProcess_Graphics.h">
       <Filter>ヘッダー ファイル\Native</Filter>
@@ -852,22 +849,22 @@
       <Filter>ヘッダー ファイル\Native</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\2D\Sprite</Filter>
+      <Filter>ヘッダー ファイル\GameObject\2D\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="MathConstants.h">
       <Filter>ヘッダー ファイル\Util</Filter>
     </ClInclude>
     <ClInclude Include="EntityModifier.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\2D\Modifier</Filter>
+      <Filter>ヘッダー ファイル\GameObject\2D\Modifier</Filter>
     </ClInclude>
     <ClInclude Include="EntityModifierManager.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\2D\Modifier</Filter>
+      <Filter>ヘッダー ファイル\GameObject\2D\Modifier</Filter>
     </ClInclude>
     <ClInclude Include="EntityModifierFactory.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\2D\Modifier</Filter>
+      <Filter>ヘッダー ファイル\GameObject\2D\Modifier</Filter>
     </ClInclude>
     <ClInclude Include="EntityModifierAttribute.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\2D\Modifier</Filter>
+      <Filter>ヘッダー ファイル\GameObject\2D\Modifier</Filter>
     </ClInclude>
     <ClInclude Include="PoolAllocator.h">
       <Filter>ヘッダー ファイル\Allocator</Filter>
@@ -1050,10 +1047,10 @@
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Transform2D.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\2D</Filter>
+      <Filter>ヘッダー ファイル\GameObject\2D</Filter>
     </ClInclude>
     <ClInclude Include="Transform3D.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\3D</Filter>
+      <Filter>ヘッダー ファイル\GameObject\3D</Filter>
     </ClInclude>
     <ClInclude Include="Camera2D.h">
       <Filter>ヘッダー ファイル\Component\Camera\2D</Filter>
@@ -1065,7 +1062,7 @@
       <Filter>ヘッダー ファイル\Component\Camera\3D</Filter>
     </ClInclude>
     <ClInclude Include="Plane3D.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\3D\Primitive</Filter>
+      <Filter>ヘッダー ファイル\GameObject\3D\Primitive</Filter>
     </ClInclude>
     <ClInclude Include="Camera3D_LookAt.h">
       <Filter>ヘッダー ファイル\Component\Camera\3D</Filter>
@@ -1074,28 +1071,28 @@
       <Filter>ヘッダー ファイル\Component\Material</Filter>
     </ClInclude>
     <ClInclude Include="GameObject3D.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\3D</Filter>
+      <Filter>ヘッダー ファイル\GameObject\3D</Filter>
     </ClInclude>
     <ClInclude Include="Model.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\3D\Model</Filter>
+      <Filter>ヘッダー ファイル\GameObject\3D\Model</Filter>
     </ClInclude>
     <ClInclude Include="ModelData.h">
       <Filter>ヘッダー ファイル\Resource\File\Model</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>ヘッダー ファイル\Component\GameObject</Filter>
+      <Filter>ヘッダー ファイル\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="GameObjectRenderState.h">
-      <Filter>ヘッダー ファイル\Component\GameObject</Filter>
+      <Filter>ヘッダー ファイル\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="VertexBufferObject_Primitive3D_MeshField.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\VBO\3D</Filter>
+      <Filter>ヘッダー ファイル\GameObject\VBO\3D</Filter>
     </ClInclude>
     <ClInclude Include="Quaternion.h">
       <Filter>ヘッダー ファイル\Structure</Filter>
     </ClInclude>
     <ClInclude Include="GameObject2D.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\2D</Filter>
+      <Filter>ヘッダー ファイル\GameObject\2D</Filter>
     </ClInclude>
     <ClInclude Include="EngineInitializeSetting.h">
       <Filter>ヘッダー ファイル\Engine</Filter>
@@ -1122,16 +1119,16 @@
       <Filter>ヘッダー ファイル\Input</Filter>
     </ClInclude>
     <ClInclude Include="Transform3DRotator.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\3D</Filter>
+      <Filter>ヘッダー ファイル\GameObject\3D</Filter>
     </ClInclude>
     <ClInclude Include="NativeObject.h">
       <Filter>ヘッダー ファイル\Native\Objects</Filter>
     </ClInclude>
     <ClInclude Include="AnimatedSprite3D.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\3D\Primitive</Filter>
+      <Filter>ヘッダー ファイル\GameObject\3D\Primitive</Filter>
     </ClInclude>
     <ClInclude Include="Sprite3D.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\3D\Primitive</Filter>
+      <Filter>ヘッダー ファイル\GameObject\3D\Primitive</Filter>
     </ClInclude>
     <ClInclude Include="Collider2D.h">
       <Filter>ヘッダー ファイル\Component\Collision\2D</Filter>
@@ -1218,7 +1215,7 @@
       <Filter>ヘッダー ファイル\Component\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="ModelNode.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\3D\Model</Filter>
+      <Filter>ヘッダー ファイル\GameObject\3D\Model</Filter>
     </ClInclude>
     <ClInclude Include="FbxNodeData.h">
       <Filter>ヘッダー ファイル\Resource\File\FBX</Filter>
@@ -1233,7 +1230,7 @@
       <Filter>ヘッダー ファイル\Component\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Cube3D.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\3D\Primitive</Filter>
+      <Filter>ヘッダー ファイル\GameObject\3D\Primitive</Filter>
     </ClInclude>
     <ClInclude Include="NativeAssert.h">
       <Filter>ヘッダー ファイル\Native</Filter>
@@ -1263,7 +1260,7 @@
       <Filter>ヘッダー ファイル\Component\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="GameObjectFactory.h">
-      <Filter>ヘッダー ファイル\Component\GameObject</Filter>
+      <Filter>ヘッダー ファイル\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="ITextureRegion.h">
       <Filter>ヘッダー ファイル\Structure\TextureRegion</Filter>
@@ -1275,7 +1272,7 @@
       <Filter>ヘッダー ファイル\Structure\TextureRegion</Filter>
     </ClInclude>
     <ClInclude Include="LoopSprite.h">
-      <Filter>ヘッダー ファイル\Component\GameObject\2D\Sprite</Filter>
+      <Filter>ヘッダー ファイル\GameObject\2D\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="MeshResource.h">
       <Filter>ヘッダー ファイル\Component\Mesh</Filter>
