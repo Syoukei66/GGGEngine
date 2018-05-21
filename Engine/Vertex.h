@@ -6,6 +6,12 @@
 namespace Vertex
 {
 
+// 
+// 
+// 
+// 
+// 
+
 // V = Vertex Coord
 // C = Color
 // T = Texture Coord
@@ -13,8 +19,14 @@ namespace Vertex
 
 enum VertexType
 {
+  VERTEX_TYPE_V,
+  VERTEX_TYPE_VT,
+  VERTEX_TYPE_VNT,
+  VERTEX_TYPE_VNT,
+
   VERTEX_TYPE_VC,
   VERTEX_TYPE_VCT,
+  VERTEX_TYPE_VNCT,
   VERTEX_TYPE_VNCT,
 
   VERTEX_TYPE_DATANUM,
