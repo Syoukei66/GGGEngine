@@ -17,6 +17,8 @@ public:
   // Method
   // =================================================================
 public:
+  Mesh* Clone();
+
   void AddSubMesh(SubMesh* mesh);
   void DrawSubMesh(T_UINT16 index) const;
 
@@ -38,5 +40,7 @@ public:
   // Data Member
   // =================================================================
 private:
+  Mesh* orginal_;
+
   std::vector<SubMesh*> sub_meshes_;
 };

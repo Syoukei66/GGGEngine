@@ -4,17 +4,30 @@
 // Constructor / Destructor
 // =================================================================
 Mesh::Mesh()
-  : sub_meshes_()
+  : orginal_(nullptr)
+  , sub_meshes_()
 {}
 
 Mesh::Mesh(const MeshData& data)
-  : sub_meshes_()
+  : orginal_(nullptr)
+  , sub_meshes_()
 {
   this->AddSubMesh(data.CreateSubMesh());
 }
 
 Mesh::~Mesh()
 {
+}
+
+Mesh* Mesh::Clone()
+{
+  Mesh* clone = new Mesh();
+  clone->orginal_ = this;
+  for (SubMesh* sub_mesh : this->sub_meshes_)
+  {
+    clone->AddSubMesh(sub_mesh->Clone());
+  }
+  return clone;
 }
 
 // =================================================================
