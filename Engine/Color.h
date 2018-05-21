@@ -104,6 +104,16 @@ public:
     return *this;
   }
 
+  bool operator== (const Color4F& other)
+  {
+    return
+      this->col_[0] == other.col_[0] &&
+      this->col_[1] == other.col_[1] &&
+      this->col_[2] == other.col_[2] &&
+      this->col_[3] == other.col_[3]
+      ;
+  }
+
   // =================================================================
   // Method
   // =================================================================
