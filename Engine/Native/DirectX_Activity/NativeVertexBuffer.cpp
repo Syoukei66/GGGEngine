@@ -35,17 +35,15 @@ static void VertexBufferLock(IDirect3DVertexBuffer9* vertex_buffer, T** vertices
 {
 }
 
-void NativeVertexBuffer::LoadMesh(const SubMesh& mesh)
+void NativeVertexBuffer::Lock(void ** dest)
 {
-  if (mesh.HasNormals())
-  {
-
-  }
- 
   HRESULT hr = this->vertex_buffer_->Lock(0, 0, dest, 0);
   NATIVE_ASSERT(SUCCEEDED(hr), "VertexBufferのロックに失敗しました");
+}
 
-  hr = this->vertex_buffer_->Unlock();
+void NativeVertexBuffer::Unlock()
+{
+  HRESULT hr = this->vertex_buffer_->Unlock();
   NATIVE_ASSERT(SUCCEEDED(hr), "VertexBufferのアンロックに失敗しました");
 }
 

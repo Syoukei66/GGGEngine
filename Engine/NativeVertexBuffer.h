@@ -37,10 +37,8 @@ private:
   // Method
   // =================================================================
 public:
-  //virtual void Lock(void** dest) = 0;
-  //virtual void Unlock() = 0;
-
-  virtual void LoadMesh(const SubMesh& mesh) = 0;
+  virtual void Lock(void** dest) = 0;
+  virtual void Unlock() = 0;
 
   virtual void SetStreamSource() const = 0;
 

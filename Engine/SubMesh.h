@@ -39,85 +39,7 @@ protected:
   void CommitVertices() const;
   void CommitIndices() const;
 
-  // =================================================================
-  // setter/getter
-  // =================================================================
-public:
-  inline const INativeVertexBuffer* GetVertexBuffer() const
-  {
-    return this->vertex_buffer_;
-  }
 
-  inline const INativeIndexBuffer* GetIndexBuffer() const
-  {
-    return this->index_buffer_;
-  }
-
-  void SetVertex(int vertex_index, const TVec4f& vertex);
-  inline const TVec4f& GetVertex(int vertex_index) const
-  {
-    NATIVE_ASSERT(this->vertices_, "PrepareVertices()が呼ばれていません。");
-    return this->vertices_[vertex_index];
-  }
-  inline bool HasVertices() const
-  {
-    return this->vertices_;
-  }
-
-  void SetNormal(int vertex_index, const TVec3f& normal);
-  inline const TVec3f& GetNormal(int vertex_index) const
-  {
-    NATIVE_ASSERT(this->normals_, "PrepareNormals()が呼ばれていません。");
-    return this->normals_[vertex_index];
-  }
-  inline bool HasNormals() const
-  {
-    return this->normals_;
-  }
-
-  void SetUv(int vertex_index, const TVec2f& uv);
-  inline const TVec2f& GetUv(int vertex_index) const
-  {
-    NATIVE_ASSERT(this->uvs_, "PrepareUvs()が呼ばれていません。");
-    return this->uvs_[vertex_index];
-  }
-  inline bool HasUvs() const
-  {
-    return this->uvs_;
-  }
-
-  void SetUv2(int vertex_index, const TVec2f& uv2);
-  inline const TVec2f& GetUv2(int vertex_index) const
-  {
-    NATIVE_ASSERT(this->uv2s_, "PrepareUv2s()が呼ばれていません。");
-    return this->uv2s_[vertex_index];
-  }
-  inline bool HasUv2s() const
-  {
-    return this->uv2s_;
-  }
-
-  void SetTangent(int vertex_index, const TVec3f& tangent);
-  inline const TVec3f& GetTangent(int vertex_index) const
-  {
-    NATIVE_ASSERT(this->tangents_, "PrepareTangents()が呼ばれていません。");
-    return this->tangents_[vertex_index];
-  }
-  inline bool HasTangents() const
-  {
-    return this->tangents_;
-  }
-
-  void SetColor(int vertex_index, const Color4F& tangent);
-  inline const Color4F& GetColor(int vertex_index) const
-  {
-    NATIVE_ASSERT(this->colors_, "PrepareColors()が呼ばれていません。");
-    return this->colors_[vertex_index];
-  }
-  inline bool HasColors() const
-  {
-    return this->colors_;
-  }
 
   // =================================================================
   // Data Member
@@ -125,10 +47,7 @@ public:
 private:
   const SubMesh* orginal_;
 
-  INativeVertexBuffer* vertex_buffer_;
-  INativeIndexBuffer* index_buffer_;
 
-  Vertex::VertexType type_;
 
   /* ============================================
     nullptrではないパラメータに応じて

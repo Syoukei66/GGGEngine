@@ -1,5 +1,11 @@
 #include "SubMesh.h"
 
+
+/*
+  memo
+  サブメッシュはインデックスバッファの集まり
+*/
+
 SubMesh::SubMesh(MeshData* data)
   : orginal_()
   , vertex_buffer_()
@@ -131,17 +137,6 @@ SubMesh::~SubMesh()
 // =================================================================
 // Method
 // =================================================================
-SubMesh* SubMesh::Clone()
-{
-  return new SubMesh(*this);
-}
-
-void SubMesh::Draw() const
-{
-  this->vertex_buffer_->SetStreamSource();
-  this->index_buffer_->SetIndices();
-  this->vertex_buffer_->DrawIndexedPrimitive(this->index_buffer_, INativeProcess_Graphics::PRIMITIVE_TRIANGLES);
-}
 
 void SubMesh::Init(T_UINT16 vertices_count, T_UINT16 indices_count)
 {
@@ -263,71 +258,3 @@ void SubMesh::CommitIndices() const
 {
 }
 
-// =================================================================
-// setter/getter
-// =================================================================
-void SubMesh::SetVertex(int vertex_index, const TVec4f& vertex)
-{
-  NATIVE_ASSERT(this->vertices_, "PrepareVertices()が呼ばれていません。");
-  if (this->vertices_[vertex_index] == vertex)
-  {
-    return;
-  }
-  this->vertices_[vertex_index] = vertex;
-  this->vertices_dirty_ = true;
-}
-
-void SubMesh::SetNormal(int vertex_index, const TVec3f& normal)
-{
-  NATIVE_ASSERT(this->normals_, "PrepareNormals()が呼ばれていません。");
-  if (this->normals_[vertex_index] == normal)
-  {
-    return;
-  }
-  this->normals_[vertex_index] = normal;
-  this->vertices_dirty_ = true;
-}
-
-void SubMesh::SetUv(int vertex_index, const TVec2f& uv)
-{
-  NATIVE_ASSERT(this->uvs_, "PrepareUvs()が呼ばれていません。");
-  if (this->uvs_[vertex_index] == uv)
-  {
-    return;
-  }
-  this->uvs_[vertex_index] = uv;
-  this->vertices_dirty_ = true;
-}
-
-void SubMesh::SetUv2(int vertex_index, const TVec2f& uv2)
-{
-  NATIVE_ASSERT(this->uv2s_, "PrepareUv2s()が呼ばれていません。");
-  if (this->uv2s_[vertex_index] == uv2)
-  {
-    return;
-  }
-  this->uv2s_[vertex_index] = uv2;
-  this->vertices_dirty_ = true;
-}
-
-void SubMesh::SetTangent(int vertex_index, const TVec3f& tangent)
-{
-  NATIVE_ASSERT(this->tangents_, "PrepareTangents()が呼ばれていません。");
-  if (this->tangents_[vertex_index] == tangent)
-  {
-    return;
-  }
-  this->tangents_[vertex_index] = tangent;
-  this->vertices_dirty_ = true;
-}
-
-void SubMesh::SetColor(int vertex_index, const Color4F& color)
-{
-  NATIVE_ASSERT(this->colors_, "PrepareColors()が呼ばれていません。");
-  if (this->colors_[vertex_index] == color)
-  {
-    return;
-  }
-  this->colors_[vertex_index] = color;
-  this->vertices_dirty_ = true;
-}

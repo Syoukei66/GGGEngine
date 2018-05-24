@@ -18,7 +18,8 @@ public:
   // Method
   // =================================================================
 public:
-  virtual void LoadMesh(const SubMesh& mesh) override;
+  virtual void Lock(void** dest) override;
+  virtual void Unlock() override;
 
   virtual void SetStreamSource() const override;
   virtual void DrawPrimitive(INativeProcess_Graphics::PrimitiveType primitive_type) const override;
