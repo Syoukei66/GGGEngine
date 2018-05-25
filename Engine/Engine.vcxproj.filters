@@ -702,9 +702,6 @@
     <ClCompile Include="ModelNode.cpp">
       <Filter>ソース ファイル\GameObject\3D\Model</Filter>
     </ClCompile>
-    <ClCompile Include="SubMesh.cpp">
-      <Filter>ソース ファイル\Component\Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="MeshData_Plane.cpp">
       <Filter>ソース ファイル\Component\Mesh\Data</Filter>
     </ClCompile>
@@ -1234,9 +1231,6 @@
     </ClInclude>
     <ClInclude Include="NativeAssert.h">
       <Filter>ヘッダー ファイル\Native</Filter>
-    </ClInclude>
-    <ClInclude Include="SubMesh.h">
-      <Filter>ヘッダー ファイル\Component\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="MeshData.h">
       <Filter>ヘッダー ファイル\Component\Mesh</Filter>

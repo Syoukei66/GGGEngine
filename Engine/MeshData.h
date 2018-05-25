@@ -2,8 +2,7 @@
 
 #include <vector>
 #include "INativeProcess_Graphics.h"
-
-class SubMesh;
+#include "Mesh.h"
 
 class MeshData
 {
@@ -18,20 +17,19 @@ public:
   // Method
   // =================================================================
 public:
-  SubMesh* CreateSubMesh() const;
+  Mesh* CreateMesh() const;
 
 public:
-  virtual T_UINT16 GetVertexesCount() const = 0;
-  virtual void SetupVertex(void* dest) const = 0;
-  virtual T_UINT16 GetIndicesCount() const = 0;
-  virtual const T_UINT16* GetIndices() const = 0;
+  virtual T_UINT32 GetVertexCount() const = 0;
+  virtual T_UINT32 GetIndexCount() const = 0;
   virtual INativeProcess_Graphics::PrimitiveType GetPrimitiveType() const = 0;
-  virtual Vertex::VertexType GetVertexType() const = 0;
+  virtual T_UINT32 GetVertexFormat() const = 0;
+  virtual void SetupMesh(Mesh* dest) const = 0;
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
-  std::vector<SubMesh*> instances_;
+  std::vector<Mesh*> instances_;
 
 };

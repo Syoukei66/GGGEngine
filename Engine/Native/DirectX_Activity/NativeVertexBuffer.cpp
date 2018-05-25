@@ -1,41 +1,130 @@
 #include "NativeVertexBuffer.h"
+
+#include <vector>
+
 #include "Director.h"
 #include "NativeConstants.h"
 
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_count, Vertex::VertexType vertex_type)
+NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_count, T_UINT32 format)
   : vertex_count_(vertex_count)
   , polygon_count_(polygon_count)
-  , vertex_type_(vertex_type)
+  , format_(format)
 {
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
+
+  std::vector<D3DVERTEXELEMENT9> elements = std::vector<D3DVERTEXELEMENT9>();
+
+  T_UINT32 offset = 0;
+
+  if (format & Mesh::V_ATTR_POSITION)
+  {
+    D3DVERTEXELEMENT9 element = { 0, offset,
+      D3DDECLTYPE_FLOAT3,
+      D3DDECLMETHOD_DEFAULT,
+      D3DDECLUSAGE_POSITION,
+      0 };
+    elements.push_back(element);
+    offset += Mesh::VERTEX_ATTRIBUTE_SIZE[Mesh::V_ATTR_POSITION];
+  }
+  if (format & Mesh::V_ATTR_NORMAL)
+  {
+    D3DVERTEXELEMENT9 element = { 0, offset,
+      D3DDECLTYPE_FLOAT3,
+      D3DDECLMETHOD_DEFAULT,
+      D3DDECLUSAGE_NORMAL,
+      0 };
+    elements.push_back(element);
+    offset += Mesh::VERTEX_ATTRIBUTE_SIZE[Mesh::V_ATTR_NORMAL];
+  }
+  if (format & Mesh::V_ATTR_UV)
+  {
+    D3DVERTEXELEMENT9 element = { 0, offset,
+      D3DDECLTYPE_FLOAT2,
+      D3DDECLMETHOD_DEFAULT,
+      D3DDECLUSAGE_TEXCOORD,
+      0 };
+    elements.push_back(element);
+    offset += Mesh::VERTEX_ATTRIBUTE_SIZE[Mesh::V_ATTR_UV];
+  }
+  if (format & Mesh::V_ATTR_UV2)
+  {
+    D3DVERTEXELEMENT9 element = { 0, offset,
+      D3DDECLTYPE_FLOAT2,
+      D3DDECLMETHOD_DEFAULT,
+      D3DDECLUSAGE_TEXCOORD,
+      1 };
+    elements.push_back(element);
+    offset += Mesh::VERTEX_ATTRIBUTE_SIZE[Mesh::V_ATTR_UV2];
+  }
+  if (format & Mesh::V_ATTR_UV3)
+  {
+    D3DVERTEXELEMENT9 element = { 0, offset,
+      D3DDECLTYPE_FLOAT2,
+      D3DDECLMETHOD_DEFAULT,
+      D3DDECLUSAGE_TEXCOORD,
+      2 };
+    elements.push_back(element);
+    offset += Mesh::VERTEX_ATTRIBUTE_SIZE[Mesh::V_ATTR_UV3];
+  }
+  if (format & Mesh::V_ATTR_UV4)
+  {
+    D3DVERTEXELEMENT9 element = { 0, offset,
+      D3DDECLTYPE_FLOAT2,
+      D3DDECLMETHOD_DEFAULT,
+      D3DDECLUSAGE_TEXCOORD,
+      3 };
+    elements.push_back(element);
+    offset += Mesh::VERTEX_ATTRIBUTE_SIZE[Mesh::V_ATTR_UV4];
+  }
+  if (format & Mesh::V_ATTR_TANGENTS)
+  {
+    D3DVERTEXELEMENT9 element = { 0, offset,
+      D3DDECLTYPE_FLOAT3,
+      D3DDECLMETHOD_DEFAULT,
+      D3DDECLUSAGE_TANGENT,
+      0 };
+    elements.push_back(element);
+    offset += Mesh::VERTEX_ATTRIBUTE_SIZE[Mesh::V_ATTR_TANGENTS];
+  }
+  if (format & Mesh::V_ATTR_COLOR)
+  {
+    D3DVERTEXELEMENT9 element = { 0, offset,
+      D3DDECLTYPE_D3DCOLOR,
+      D3DDECLMETHOD_DEFAULT,
+      D3DDECLUSAGE_COLOR,
+      0 };
+    elements.push_back(element);
+    offset += Mesh::VERTEX_ATTRIBUTE_SIZE[Mesh::V_ATTR_COLOR];
+  }
+  this->stride_ = offset;
+
   HRESULT hr = device->CreateVertexBuffer(
-    Vertex::VERTEX_SIZE[vertex_type] * vertex_count,
+    this->stride_ * vertex_count,
     0,
-    NativeConstants::FVF_TYPES[vertex_type],
+    0,
     D3DPOOL_MANAGED,
     &this->vertex_buffer_,
     NULL
   );
   NATIVE_ASSERT(SUCCEEDED(hr), "VertexBufferの作成に失敗しました");
+
+  hr = device->CreateVertexDeclaration(&elements.front(), &this->vertex_declaration_);
+  NATIVE_ASSERT(SUCCEEDED(hr), "頂点フォーマットの作成に失敗しました");
 }
 
 NativeVertexBuffer::~NativeVertexBuffer()
 {
+  this->vertex_declaration_->Release();
   this->vertex_buffer_->Release();
 }
 
 // =================================================================
 // Method
 // =================================================================
-template <class T>
-static void VertexBufferLock(IDirect3DVertexBuffer9* vertex_buffer, T** vertices)
-{
-}
-
-void NativeVertexBuffer::Lock(void ** dest)
+void NativeVertexBuffer::Lock(void** dest)
 {
   HRESULT hr = this->vertex_buffer_->Lock(0, 0, dest, 0);
   NATIVE_ASSERT(SUCCEEDED(hr), "VertexBufferのロックに失敗しました");
@@ -50,9 +139,10 @@ void NativeVertexBuffer::Unlock()
 void NativeVertexBuffer::SetStreamSource() const
 {
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
-  HRESULT hr = device->SetStreamSource(0, this->vertex_buffer_, 0, Vertex::VERTEX_SIZE[this->vertex_type_]);
+  HRESULT hr = device->SetVertexDeclaration(this->vertex_declaration_);
+  NATIVE_ASSERT(SUCCEEDED(hr), "頂点宣言のセットに失敗しました");
+  hr = device->SetStreamSource(0, this->vertex_buffer_, 0, this->stride_);
   NATIVE_ASSERT(SUCCEEDED(hr), "VertexBufferのセットに失敗しました");
-  device->SetFVF(NativeConstants::FVF_TYPES[this->vertex_type_]);
 }
 
 void NativeVertexBuffer::DrawPrimitive(INativeProcess_Graphics::PrimitiveType primitive_type) const

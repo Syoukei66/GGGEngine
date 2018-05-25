@@ -1,7 +1,12 @@
 #pragma once
 
 #include <vector>
-#include "SubMesh.h"
+#include "NativeType.h"
+#include "NativeAssert.h"
+#include "Geometry.h"
+#include "Color.h"
+#include "NativeVertexBuffer.h"
+#include "NativeIndexBuffer.h"
 
 class Mesh
 {
@@ -14,12 +19,16 @@ public:
     V_ATTR_UV2 = 1 << 3,
     V_ATTR_UV3 = 1 << 4,
     V_ATTR_UV4 = 1 << 5,
-    V_ATTR_TANGENTS = 1 << 6,
+    V_ATTR_TANGENT = 1 << 6,
     V_ATTR_COLOR = 1 << 7,
-    V_ATTR_BINDPOSE = 1 << 8,
-    V_ATTR_BINDWEIGHT = 1 << 9,
-    V_ATTR_BOUND = 1 << 10,
+    //V_ATTR_BINDPOSE = 1 << 8,
+    //V_ATTR_BINDWEIGHT = 1 << 9,
+    //V_ATTR_BOUND = 1 << 10,
   };
+
+  enum { V_ATTR_DATANUM = 8 };
+
+  static const T_UINT32 VERTEX_ATTRIBUTE_SIZE[V_ATTR_DATANUM];
 
   // =================================================================
   // Constructor / Destructor
@@ -28,6 +37,10 @@ public:
   Mesh();
   ~Mesh();
 
+private:
+  //Cloneメソッドを使用すること
+  Mesh(const Mesh& other) {}
+
   // =================================================================
   // Method
   // =================================================================
@@ -35,9 +48,10 @@ public:
   void Clear();
   void ClearVertices();
   void ClearIndices();
+
   Mesh* Clone();
 
-  void CreateVertices(T_UINT32 vertex_count, T_UINT32 format);
+  void CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT32 format, INativeProcess_Graphics::PrimitiveType primitive_type = INativeProcess_Graphics::PRIMITIVE_TRIANGLES);
   inline void CreateIndices(T_UINT32 index_count)
   {
     this->CreateIndices(1, &index_count);
@@ -55,14 +69,14 @@ public:
 public:
   //Vertex Buffer
 
-  void SetVertex(T_UINT32 vertex_index, const TVec4f& vertex);
-  void SetVertices(const TVec4f* vertices);
-  inline const TVec4f& GetVertex(T_UINT32 vertex_index) const
+  void SetVertex(T_UINT32 vertex_index, const TVec3f& vertex);
+  void SetVertices(const TVec3f* vertices);
+  inline const TVec3f& GetVertex(T_UINT32 vertex_index) const
   {
     NATIVE_ASSERT(this->HasVertices(), "頂点フォーマットで定義されていない属性が呼び出されました");
     return this->vertices_[vertex_index];
   }
-  inline const TVec4f* GetVertices() const
+  inline const TVec3f* GetVertices() const
   {
     NATIVE_ASSERT(this->HasVertices(), "頂点フォーマットで定義されていない属性が呼び出されました");
     return this->vertices_;
@@ -247,12 +261,14 @@ public:
   // Data Member
   // =================================================================
 private:
-  Mesh* orginal_;
+  const Mesh* orginal_;
 
   T_UINT32 format_;
+  INativeProcess_Graphics::PrimitiveType primitive_type_;
+  T_UINT32 polygon_count_;
 
   T_UINT32 vertex_count_;
-  TVec4f* vertices_;
+  TVec3f* vertices_;
   TVec3f* normals_;
   TVec2f* uvs_;
   TVec2f* uv2s_;

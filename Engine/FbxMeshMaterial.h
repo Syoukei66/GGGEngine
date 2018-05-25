@@ -16,12 +16,11 @@ public:
   // Method for/from Interface/SuperClass
   // =================================================================
 public:
-  virtual T_UINT16 GetVertexesCount() const override;
-  virtual void SetupVertex(void* dest) const override;
-  virtual T_UINT16 GetIndicesCount() const override;
-  virtual const T_UINT16* GetIndices() const override;
+  virtual T_UINT32 GetVertexCount() const override;
+  virtual T_UINT32 GetIndexCount() const override;
   virtual INativeProcess_Graphics::PrimitiveType GetPrimitiveType() const override;
-  virtual Vertex::VertexType GetVertexType() const override;
+  virtual T_UINT32 GetVertexFormat() const override;
+  virtual void SetupMesh(Mesh* dest) const override;
 
   // =================================================================
   // Data Member

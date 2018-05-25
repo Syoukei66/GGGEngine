@@ -25,33 +25,33 @@ public:
     PRIMITIVE_DATANUM,
   };
 
-  static int PRIMITIVE_SURF_NUM(INativeProcess_Graphics::PrimitiveType type, int num)
+  static int PRIMITIVE_SURF_NUM(INativeProcess_Graphics::PrimitiveType type, int vertex_count)
   {
     if (type == PRIMITIVE_POINTS)
     {
-      return num;
+      return vertex_count;
     }
     if (type == PRIMITIVE_LINES)
     {
-      return num;
+      return vertex_count;
     }
     if (type == PRIMITIVE_LINESTRIP)
     {
-      return num;
+      return vertex_count;
     }
     if (type == PRIMITIVE_TRIANGLES)
     {
-      return num / 3;
+      return vertex_count / 3;
     }
     if (type == PRIMITIVE_TRIANGLESTRIP)
     {
-      return num - 2;
+      return vertex_count - 2;
     }
     if (type == PRIMITIVE_TRIANGLEFAN)
     {
-      return num - 2;
+      return vertex_count - 2;
     }
-    return num;
+    return vertex_count;
   }
 
   // =================================================================

@@ -19,7 +19,7 @@ const INativeMatrix& GetIdentityMatrix();
 
 INativeMatrixStack* CreateMatrixStack();
 
-INativeVertexBuffer* CreateVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_count, Vertex::VertexType vertex_type);
+INativeVertexBuffer* CreateVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_count, T_UINT32 vertex_size);
 INativeIndexBuffer* CreateIndexBuffer(T_UINT32 indexes_count);
 
 INativeTexture* CreateTexture(const char* path);
