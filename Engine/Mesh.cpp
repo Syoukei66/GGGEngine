@@ -1,16 +1,5 @@
 #include "Mesh.h"
-
-const T_UINT32 Mesh::VERTEX_ATTRIBUTE_SIZE[Mesh::V_ATTR_DATANUM] = 
-{
-  sizeof(T_FLOAT) * 3,  // POSITION
-  sizeof(T_FLOAT) * 3,  // NORMAL
-  sizeof(T_FLOAT) * 2,  // UV
-  sizeof(T_FLOAT) * 2,  // UV2
-  sizeof(T_FLOAT) * 2,  // UV3
-  sizeof(T_FLOAT) * 2,  // UV4
-  sizeof(T_FLOAT) * 3,  // TANGENTS
-  sizeof(T_UINT32),     // COLOR
-};
+#include "GraphicsConstants.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -98,6 +87,7 @@ void Mesh::ClearIndices()
 Mesh* Mesh::Clone()
 {
   Mesh* clone = new Mesh();
+
   clone->orginal_ = this;
   clone->CreateVertices(this->vertex_count_, this->format_, this->primitive_type_);
   clone->CreateIndices(this->submesh_count_, this->index_counts_);
@@ -133,10 +123,11 @@ Mesh* Mesh::Clone()
   {
     clone->SetColors(this->colors_);
   }
+  clone->CommitChanges();
   return clone;
 }
 
-void Mesh::CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT32 format, INativeProcess_Graphics::PrimitiveType primitive_type)
+void Mesh::CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT32 format, GraphicsConstants::PrimitiveType primitive_type)
 {
   this->ClearVertices();
 
@@ -144,6 +135,8 @@ void Mesh::CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT3
   this->polygon_count_ = polygon_count;
   this->format_ = format;
   this->primitive_type_ = primitive_type;
+
+  using namespace GraphicsConstants;
 
   if (format & V_ATTR_POSITION)
   {
@@ -171,7 +164,7 @@ void Mesh::CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT3
   }
   if (format & V_ATTR_TANGENT)
   {
-    this->tangents_ = new TVec3f[vertex_count]{};
+    this->tangents_ = new TVec4f[vertex_count]{};
   }
   if (format & V_ATTR_COLOR)
   {
@@ -180,7 +173,7 @@ void Mesh::CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT3
   this->vertex_buffer_ = INativeVertexBuffer::Create(
     vertex_count, 
     polygon_count,
-    primitive_type
+    format
   );
   this->vertices_dirty_ = true;
 }
@@ -204,6 +197,8 @@ void Mesh::CreateIndices(T_UINT8 submesh_count, T_UINT32* index_counts)
 
 void Mesh::CommitChanges()
 {
+  using namespace GraphicsConstants;
+
   if (this->vertices_dirty_)
   {
     void* dest;
@@ -217,7 +212,7 @@ void Mesh::CommitChanges()
         vertex[0] = this->vertices_[i].x;
         vertex[1] = this->vertices_[i].y;
         vertex[2] = this->vertices_[i].z;
-        p += VERTEX_ATTRIBUTE_SIZE[V_ATTR_POSITION];
+        p += VERTEX_ATTRIBUTE_SIZE(V_ATTR_POSITION);
       }
       if (this->format_ & V_ATTR_NORMAL)
       {
@@ -225,35 +220,35 @@ void Mesh::CommitChanges()
         normal[0] = this->normals_[i].x;
         normal[1] = this->normals_[i].y;
         normal[2] = this->normals_[i].z;
-        p += VERTEX_ATTRIBUTE_SIZE[V_ATTR_NORMAL];
+        p += VERTEX_ATTRIBUTE_SIZE(V_ATTR_NORMAL);
       }
       if (this->format_ & V_ATTR_UV)
       {
         T_FLOAT* uv = (T_FLOAT*)p;
         uv[0] = this->uvs_[i].x;
         uv[1] = this->uvs_[i].y;
-        p += VERTEX_ATTRIBUTE_SIZE[V_ATTR_UV];
+        p += VERTEX_ATTRIBUTE_SIZE(V_ATTR_UV);
       }
       if (this->format_ & V_ATTR_UV2)
       {
         T_FLOAT* uv2 = (T_FLOAT*)p;
         uv2[0] = this->uv2s_[i].x;
         uv2[1] = this->uv2s_[i].y;
-        p += VERTEX_ATTRIBUTE_SIZE[V_ATTR_UV2];
+        p += VERTEX_ATTRIBUTE_SIZE(V_ATTR_UV2);
       }
       if (this->format_ & V_ATTR_UV3)
       {
         T_FLOAT* uv3 = (T_FLOAT*)p;
         uv3[0] = this->uv3s_[i].x;
         uv3[1] = this->uv3s_[i].y;
-        p += VERTEX_ATTRIBUTE_SIZE[V_ATTR_UV3];
+        p += VERTEX_ATTRIBUTE_SIZE(V_ATTR_UV3);
       }
       if (this->format_ & V_ATTR_UV4)
       {
         T_FLOAT* uv4 = (T_FLOAT*)p;
         uv4[0] = this->uv4s_[i].x;
         uv4[1] = this->uv4s_[i].y;
-        p += VERTEX_ATTRIBUTE_SIZE[V_ATTR_UV4];
+        p += VERTEX_ATTRIBUTE_SIZE(V_ATTR_UV4);
       }
       if (this->format_ & V_ATTR_TANGENT)
       {
@@ -261,13 +256,14 @@ void Mesh::CommitChanges()
         tangent[0] = this->tangents_[i].x;
         tangent[1] = this->tangents_[i].y;
         tangent[2] = this->tangents_[i].z;
-        p += VERTEX_ATTRIBUTE_SIZE[V_ATTR_TANGENT];
+        tangent[3] = this->tangents_[i].w;
+        p += VERTEX_ATTRIBUTE_SIZE(V_ATTR_TANGENT);
       }
       if (this->format_ & V_ATTR_COLOR)
       {
         T_UINT32* color = (T_UINT32*)p;
         color[0] = this->colors_[i].GetPackedColor();
-        p += VERTEX_ATTRIBUTE_SIZE[V_ATTR_COLOR];
+        p += VERTEX_ATTRIBUTE_SIZE(V_ATTR_COLOR);
       }
     }
     this->vertex_buffer_->Unlock();
@@ -297,8 +293,9 @@ void Mesh::SetStreamSource() const
 
 void Mesh::DrawSubset(T_UINT8 index) const
 {
+  NATIVE_ASSERT(index < this->submesh_count_, "インデックス指定がサブメッシュの最大個数を超過しました。");
   this->index_buffers_[index]->SetIndices();
-  this->vertex_buffer_->DrawIndexedPrimitive(this->index_buffers_[index], INativeProcess_Graphics::PRIMITIVE_TRIANGLES);
+  this->vertex_buffer_->DrawIndexedPrimitive(this->index_buffers_[index], this->primitive_type_);
 }
 
 // =================================================================
@@ -454,7 +451,7 @@ void Mesh::SetUv4s(const TVec2f* uv4s)
   }
 }
 
-void Mesh::SetTangent(T_UINT32 vertex_index, const TVec3f& tangent)
+void Mesh::SetTangent(T_UINT32 vertex_index, const TVec4f& tangent)
 {
   NATIVE_ASSERT(this->HasTangents(), "頂点フォーマットで定義されていない属性が呼び出されました");
   if (this->tangents_[vertex_index] == tangent)
@@ -465,7 +462,7 @@ void Mesh::SetTangent(T_UINT32 vertex_index, const TVec3f& tangent)
   this->vertices_dirty_ = true;
 }
 
-void Mesh::SetTangents(const TVec3f* tangents)
+void Mesh::SetTangents(const TVec4f* tangents)
 {
   NATIVE_ASSERT(this->HasTangents(), "頂点フォーマットで定義されていない属性が呼び出されました");
   for (T_UINT32 i = 0; i < this->vertex_count_; ++i)
@@ -506,7 +503,7 @@ void Mesh::SetColors(const Color4F* colors)
 
 void Mesh::SetIndex(T_UINT8 submesh_index, T_UINT32 index_index, T_UINT32 index)
 {
-  NATIVE_ASSERT(this->submesh_count_ < submesh_index, "インデックス指定がサブメッシュの最大個数を超過しました。");
+  NATIVE_ASSERT(submesh_index < this->submesh_count_, "インデックス指定がサブメッシュの最大個数を超過しました。");
   if (this->indices_[submesh_index][index_index] == index)
   {
     return;
@@ -517,7 +514,7 @@ void Mesh::SetIndex(T_UINT8 submesh_index, T_UINT32 index_index, T_UINT32 index)
 
 void Mesh::SetIndices(T_UINT8 submesh_index, T_UINT32* indices)
 {
-  NATIVE_ASSERT(this->submesh_count_ < submesh_index, "インデックス指定がサブメッシュの最大個数を超過しました。");
+  NATIVE_ASSERT(submesh_index < this->submesh_count_, "インデックス指定がサブメッシュの最大個数を超過しました。");
   for (T_UINT32 i = 0; i < this->index_counts_[submesh_index]; ++i)
   {
     if (this->indices_[submesh_index][i] == indices[i])

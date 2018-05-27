@@ -38,9 +38,14 @@ void SpriteRenderer::EditProperty(T_UINT8 material_index, T_UINT8 pass_index, Ma
   material->FloatProperty("_Height") = this->size_.height * this->image_scale_;
 }
 
+void SpriteRenderer::SetStreamSource()
+{
+  EngineAsset::Mesh::QUAD.GetContents().SetStreamSource();
+}
+
 void SpriteRenderer::DrawSubset(T_UINT8 material_index, T_UINT8 pass_index)
 {
-  EngineAsset::Mesh::QUAD.GetContents().DrawSubMesh(material_index);
+  EngineAsset::Mesh::QUAD.GetContents().DrawSubset(material_index);
 }
 
 // =================================================================

@@ -3,8 +3,8 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-MeshResource::MeshResource(const MeshData& data)
-  : data_(data)
+MeshResource::MeshResource(const MeshBuilder* builder)
+  : builder_(builder)
   , mesh_(nullptr)
 {
 }
@@ -12,6 +12,7 @@ MeshResource::MeshResource(const MeshData& data)
 MeshResource::~MeshResource()
 {
   delete this->mesh_;
+  delete this->builder_;
 }
 
 // =================================================================
@@ -19,7 +20,7 @@ MeshResource::~MeshResource()
 // =================================================================
 void MeshResource::Load()
 {
-  this->mesh_ = new Mesh(this->data_);
+  this->mesh_ = this->builder_->Create();
 }
 
 void MeshResource::Unload()

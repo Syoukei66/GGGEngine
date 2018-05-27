@@ -17,6 +17,7 @@ public:
   // =================================================================
 public:
   virtual void EditProperty(T_UINT8 material_index, T_UINT8 pass_index, Material* material) override;
+  virtual void SetStreamSource() override;
   virtual void DrawSubset(T_UINT8 material_index, T_UINT8 pass_index) override;
 
   // =================================================================

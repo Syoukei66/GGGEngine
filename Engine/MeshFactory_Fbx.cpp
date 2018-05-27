@@ -1,33 +1,39 @@
-#include "FbxMeshMaterial.h"
-#include "Director.h"
+#include "MeshFactory_Fbx.h"
+#include "GraphicsConstants.h"
 
-// =================================================================
-// Constructor / Destructor
-// =================================================================
-FbxMeshMaterial::FbxMeshMaterial(FbxMesh* mesh)
+Mesh* MeshFactory::Fbx::Create(FbxMesh* mesh)
 {
-  const T_UINT16 polygon_count = mesh->GetPolygonCount();
-  this->indices_count_ = mesh->GetPolygonVertexCount();
-  this->indices_ = new T_UINT16[this->indices_count_];
-  for (T_UINT16 i = 0; i < this->indices_count_; ++i)
+  const T_UINT32 polygon_count = mesh->GetPolygonCount();
+  const T_UINT32 index_count = mesh->GetPolygonVertexCount();
+  const T_UINT16 vertex_count = index_count;
+
+  Mesh* ret = new Mesh();
+  ret->CreateVertices(
+    vertex_count,
+    polygon_count,
+    GraphicsConstants::V_FORMAT_PNUC
+  );
+  ret->CreateIndices(index_count);
+
+  //マテリアル毎のインデックスを取得できるはず
+  for (T_UINT16 i = 0; i < index_count; ++i)
   {
-    this->indices_[i] = i;
+    ret->SetIndex(i, i);
   }
 
-  this->vertexes_count_ = this->indices_count_;
-  //this->vertexes_count_ = mesh->GetControlPointsCount();
   FbxVector4* src = mesh->GetControlPoints();
 
   const T_INT32* polygon_indices = mesh->GetPolygonVertices();
-  this->vertexes_ = new Vertex::VNCT[this->vertexes_count_];
-  for (T_UINT16 i = 0; i < this->vertexes_count_; ++i)
+  for (T_UINT16 i = 0; i < vertex_count; ++i)
   {
-    this->vertexes_[i].coord[0] = (T_FLOAT)src[polygon_indices[i]][0];
-    this->vertexes_[i].coord[1] = (T_FLOAT)src[polygon_indices[i]][1];
-    this->vertexes_[i].coord[2] = (T_FLOAT)src[polygon_indices[i]][2];
-    this->vertexes_[i].coord[3] = 1.0f;
+    ret->SetVertex(i, 
+    {
+      (T_FLOAT)src[polygon_indices[i]][0],
+      (T_FLOAT)src[polygon_indices[i]][1],
+      (T_FLOAT)src[polygon_indices[i]][2],
+    });
   }
-  
+
   T_UINT8 layer_count = mesh->GetLayerCount();
   for (T_UINT8 i = 0; i < layer_count; ++i)
   {
@@ -49,18 +55,24 @@ FbxMeshMaterial::FbxMeshMaterial(FbxMesh* mesh)
         {
           for (T_UINT16 i = 0; i < normal_count; ++i)
           {
-            this->vertexes_[i].normal[0] = (T_FLOAT)normal_element->GetDirectArray().GetAt(i)[0];
-            this->vertexes_[i].normal[1] = (T_FLOAT)normal_element->GetDirectArray().GetAt(i)[1];
-            this->vertexes_[i].normal[2] = (T_FLOAT)normal_element->GetDirectArray().GetAt(i)[2];
+            ret->SetNormal(i,
+            {
+              (T_FLOAT)normal_element->GetDirectArray().GetAt(i)[0],
+              (T_FLOAT)normal_element->GetDirectArray().GetAt(i)[1],
+              (T_FLOAT)normal_element->GetDirectArray().GetAt(i)[2],
+            });
           }
         }
         else if (reference_mode == FbxLayerElement::eIndexToDirect)
         {
           for (T_UINT16 i = 0; i < normal_count; ++i)
           {
-            this->vertexes_[i].normal[0] = (T_FLOAT)normal_element->GetDirectArray().GetAt(normal_element->GetIndexArray().GetAt(i))[0];
-            this->vertexes_[i].normal[1] = (T_FLOAT)normal_element->GetDirectArray().GetAt(normal_element->GetIndexArray().GetAt(i))[1];
-            this->vertexes_[i].normal[2] = (T_FLOAT)normal_element->GetDirectArray().GetAt(normal_element->GetIndexArray().GetAt(i))[2];
+            ret->SetNormal(i,
+            {
+              (T_FLOAT)normal_element->GetDirectArray().GetAt(normal_element->GetIndexArray().GetAt(i))[0],
+              (T_FLOAT)normal_element->GetDirectArray().GetAt(normal_element->GetIndexArray().GetAt(i))[1],
+              (T_FLOAT)normal_element->GetDirectArray().GetAt(normal_element->GetIndexArray().GetAt(i))[2],
+            });
           }
         }
       }
@@ -70,19 +82,22 @@ FbxMeshMaterial::FbxMeshMaterial(FbxMesh* mesh)
         {
           for (T_UINT16 i = 0; i < normal_count; ++i)
           {
-            this->vertexes_[i].normal[0] = (T_FLOAT)normal_element->GetDirectArray().GetAt(i)[0];
-            this->vertexes_[i].normal[1] = (T_FLOAT)normal_element->GetDirectArray().GetAt(i)[1];
-            this->vertexes_[i].normal[2] = (T_FLOAT)normal_element->GetDirectArray().GetAt(i)[2];
+            ret->SetNormal(i,
+            {
+              (T_FLOAT)normal_element->GetDirectArray().GetAt(i)[0],
+              (T_FLOAT)normal_element->GetDirectArray().GetAt(i)[1],
+              (T_FLOAT)normal_element->GetDirectArray().GetAt(i)[2],
+            });
           }
         }
         else if (reference_mode == FbxLayerElement::eIndexToDirect)
         {
-          for (T_UINT16 i = 0; i < normal_index_count; ++i)
+          ret->SetNormal(i,
           {
-            this->vertexes_[i].normal[0] = (T_FLOAT)normal_element->GetDirectArray().GetAt(normal_element->GetIndexArray().GetAt(i))[0];
-            this->vertexes_[i].normal[1] = (T_FLOAT)normal_element->GetDirectArray().GetAt(normal_element->GetIndexArray().GetAt(i))[1];
-            this->vertexes_[i].normal[2] = (T_FLOAT)normal_element->GetDirectArray().GetAt(normal_element->GetIndexArray().GetAt(i))[2];
-          }
+            (T_FLOAT)normal_element->GetDirectArray().GetAt(normal_element->GetIndexArray().GetAt(i))[0],
+            (T_FLOAT)normal_element->GetDirectArray().GetAt(normal_element->GetIndexArray().GetAt(i))[1],
+            (T_FLOAT)normal_element->GetDirectArray().GetAt(normal_element->GetIndexArray().GetAt(i))[2],
+          });
         }
       }
     }
@@ -95,23 +110,29 @@ FbxMeshMaterial::FbxMeshMaterial(FbxMesh* mesh)
 
       FbxLayerElement::EMappingMode mapping_mode = uv_element->GetMappingMode();
       FbxLayerElement::EReferenceMode reference_mode = uv_element->GetReferenceMode();
-      
+
       if (mapping_mode == FbxLayerElement::eByPolygonVertex)
       {
         if (reference_mode == FbxLayerElement::eDirect)
         {
           for (T_UINT16 i = 0; i < uv_count; ++i)
           {
-            this->vertexes_[i].uv[0] = (T_FLOAT)uv_element->GetDirectArray().GetAt(i)[0];
-            this->vertexes_[i].uv[1] = (T_FLOAT)uv_element->GetDirectArray().GetAt(i)[1];
+            ret->SetUv(i,
+            {
+              (T_FLOAT)uv_element->GetDirectArray().GetAt(i)[0],
+              (T_FLOAT)uv_element->GetDirectArray().GetAt(i)[1]
+            });
           }
         }
         else if (reference_mode == FbxLayerElement::eIndexToDirect)
         {
           for (T_UINT16 i = 0; i < uv_index_count; ++i)
           {
-            this->vertexes_[i].uv[0] = (T_FLOAT)uv_element->GetDirectArray().GetAt(uv_element->GetIndexArray().GetAt(i))[0];
-            this->vertexes_[i].uv[1] = (T_FLOAT)uv_element->GetDirectArray().GetAt(uv_element->GetIndexArray().GetAt(i))[1];
+            ret->SetUv(i,
+            {
+              (T_FLOAT)uv_element->GetDirectArray().GetAt(uv_element->GetIndexArray().GetAt(i))[0],
+              (T_FLOAT)uv_element->GetDirectArray().GetAt(uv_element->GetIndexArray().GetAt(i))[1]
+            });
           }
         }
       }
@@ -121,16 +142,22 @@ FbxMeshMaterial::FbxMeshMaterial(FbxMesh* mesh)
         {
           for (T_UINT16 i = 0; i < uv_count; ++i)
           {
-            this->vertexes_[i].uv[0] = (T_FLOAT)uv_element->GetDirectArray().GetAt(i)[0];
-            this->vertexes_[i].uv[1] = (T_FLOAT)uv_element->GetDirectArray().GetAt(i)[1];
+            ret->SetUv(i,
+            {
+              (T_FLOAT)uv_element->GetDirectArray().GetAt(i)[0],
+              (T_FLOAT)uv_element->GetDirectArray().GetAt(i)[1]
+            });
           }
         }
         else if (reference_mode == FbxLayerElement::eIndexToDirect)
         {
           for (T_UINT16 i = 0; i < uv_index_count; ++i)
           {
-            this->vertexes_[i].uv[0] = (T_FLOAT)uv_element->GetDirectArray().GetAt(uv_element->GetIndexArray().GetAt(i))[0];
-            this->vertexes_[i].uv[1] = (T_FLOAT)uv_element->GetDirectArray().GetAt(uv_element->GetIndexArray().GetAt(i))[1];
+            ret->SetUv(i,
+            {
+              (T_FLOAT)uv_element->GetDirectArray().GetAt(uv_element->GetIndexArray().GetAt(i))[0],
+              (T_FLOAT)uv_element->GetDirectArray().GetAt(uv_element->GetIndexArray().GetAt(i))[1]
+            });
           }
         }
       }
@@ -155,7 +182,7 @@ FbxMeshMaterial::FbxMeshMaterial(FbxMesh* mesh)
             color.SetGreen((T_FLOAT)color_element->GetDirectArray().GetAt(i)[1]);
             color.SetBlue((T_FLOAT)color_element->GetDirectArray().GetAt(i)[2]);
             color.SetAlpha((T_FLOAT)color_element->GetDirectArray().GetAt(i)[3]);
-            this->vertexes_[i].color = color.GetPackedColor();
+            ret->SetColor(i, color);
           }
         }
         else if (reference_mode == FbxLayerElement::eIndexToDirect)
@@ -166,7 +193,7 @@ FbxMeshMaterial::FbxMeshMaterial(FbxMesh* mesh)
             color.SetGreen((T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[1]);
             color.SetBlue((T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[2]);
             color.SetAlpha((T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[3]);
-            this->vertexes_[i].color = color.GetPackedColor();
+            ret->SetColor(i, color);
           }
         }
       }
@@ -180,7 +207,7 @@ FbxMeshMaterial::FbxMeshMaterial(FbxMesh* mesh)
             color.SetGreen((T_FLOAT)color_element->GetDirectArray().GetAt(i)[1]);
             color.SetBlue((T_FLOAT)color_element->GetDirectArray().GetAt(i)[2]);
             color.SetAlpha((T_FLOAT)color_element->GetDirectArray().GetAt(i)[3]);
-            this->vertexes_[i].color = color.GetPackedColor();
+            ret->SetColor(i, color);
           }
         }
         else if (reference_mode == FbxLayerElement::eIndexToDirect)
@@ -191,52 +218,14 @@ FbxMeshMaterial::FbxMeshMaterial(FbxMesh* mesh)
             color.SetGreen((T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[1]);
             color.SetBlue((T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[2]);
             color.SetAlpha((T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[3]);
-            this->vertexes_[i].color = color.GetPackedColor();
+            ret->SetColor(i, color);
           }
         }
       }
     }
   }
-}
 
-FbxMeshMaterial::~FbxMeshMaterial()
-{
-  delete[] this->indices_;
-  delete[] this->vertexes_;
-}
+  ret->CommitChanges();
 
-// =================================================================
-// Method for/from Interface/SuperClass
-// =================================================================
-T_UINT16 FbxMeshMaterial::GetVertexesCount() const
-{
-  return this->vertexes_count_;
-}
-
-void FbxMeshMaterial::SetupVertex(void* dest) const
-{
-  for (T_UINT16 i = 0; i < this->vertexes_count_; ++i)
-  {
-    ((Vertex::VNCT*)dest)[i] = this->vertexes_[i];
-  }
-}
-
-T_UINT16 FbxMeshMaterial::GetIndicesCount() const
-{
-  return this->indices_count_;
-}
-
-const T_UINT16* FbxMeshMaterial::GetIndices() const
-{
-  return this->indices_;
-}
-
-INativeProcess_Graphics::PrimitiveType FbxMeshMaterial::GetPrimitiveType() const
-{
-  return INativeProcess_Graphics::PRIMITIVE_TRIANGLES;
-}
-
-Vertex::VertexType FbxMeshMaterial::GetVertexType() const
-{
-  return Vertex::VERTEX_TYPE_VNCT;
+  return ret;
 }

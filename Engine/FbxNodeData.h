@@ -2,9 +2,8 @@
 
 #include "fbxsdk.h"
 #include "Mesh.h"
-#include "FbxMeshMaterial.h"
 #include "TextureResource.h"
-
+#include "Material.h"
 
 class FbxNodeData
 {
@@ -78,8 +77,6 @@ private:
   FbxNode* node_;
   const T_UINT8 child_count_;
   FbxNodeData** children_;
-  FbxMeshMaterial** mesh_materials_;
-  T_UINT8 mesh_material_count_;
   Mesh* mesh_;
 
   Material** material_;

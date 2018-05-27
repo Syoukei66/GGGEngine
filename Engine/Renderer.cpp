@@ -36,6 +36,7 @@ void Renderer::ReserveDraw(GameObjectRenderState* state)
 
 void Renderer::Draw(GameObjectRenderState* state)
 {
+  this->SetStreamSource();
   const T_UINT8 material_count = this->materials_.size();
   for (T_UINT8 i = 0; i < material_count; ++i)
   {

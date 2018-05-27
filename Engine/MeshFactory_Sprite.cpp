@@ -1,12 +1,13 @@
-#include "MeshData_Sprite.h"
+#include "MeshFactory_Sprite.h"
+#include "GraphicsConstants.h"
 
 enum { SPRITE_VERTEX_COORDS_COUNT = 4 };
 static TVec2f SPRITE_VERTEX_COORDS[SPRITE_VERTEX_COORDS_COUNT] =
 {
   { -0.5f, 0.5f }, //0 左上
   { -0.5f,-0.5f }, //1 左下
-  {  0.5f, 0.5f }, //2 右上
-  {  0.5f,-0.5f }, //3 右下
+  { 0.5f, 0.5f }, //2 右上
+  { 0.5f,-0.5f }, //3 右下
 };
 
 enum { SPRITE_VERTEX_TEX_COORDS_COUNT = SPRITE_VERTEX_COORDS_COUNT };
@@ -35,7 +36,8 @@ static const T_UINT16 PLANE_VERTEX_TEX_INDEXES[SPRITE_VERTEX_INDEXES_COUNT] =
 
 enum { SPRITE_VERTEXES_COUNT = 4 * SPRITE_SURFS_COUNT };
 static bool SPRITE_VERTEXES_INITIALIZED = false;
-static Vertex::VCT SPRITE_VERTEXES[SPRITE_VERTEXES_COUNT];
+static TVec3f SPRITE_VERTEXES[SPRITE_VERTEXES_COUNT];
+static TVec2f SPRITE_UVS[SPRITE_VERTEXES_COUNT];
 static T_UINT16 SPRITE_INDEXES[SPRITE_VERTEX_INDEXES_COUNT];
 
 static void Initialize()
@@ -59,12 +61,11 @@ static void Initialize()
       TVec2f uv = SPRITE_VERTEX_TEX_COORDS[vertexTexIndex];
       if (temp[vertexIndex][vertexTexIndex] == -1)
       {
-        SPRITE_VERTEXES[index].coord[0] = coord.x;
-        SPRITE_VERTEXES[index].coord[1] = coord.y;
-        SPRITE_VERTEXES[index].coord[2] = 0.0f;
-        SPRITE_VERTEXES[index].coord[3] = 1.0f;
-        SPRITE_VERTEXES[index].uv[0] = uv.x;
-        SPRITE_VERTEXES[index].uv[1] = uv.y;
+        SPRITE_VERTEXES[index].x = coord.x;
+        SPRITE_VERTEXES[index].y = coord.y;
+        SPRITE_VERTEXES[index].z = 0.0f;
+        SPRITE_UVS[index].x = uv.x;
+        SPRITE_UVS[index].y = uv.y;
         temp[vertexIndex][vertexTexIndex] = index;
         index++;
       }
@@ -74,41 +75,22 @@ static void Initialize()
   }
 }
 
-T_UINT16 MeshData_Sprite::GetVertexesCount() const
+Mesh* MeshFactory::Sprite::Create()
 {
   Initialize();
-  return SPRITE_VERTEXES_COUNT;
-}
-
-void MeshData_Sprite::SetupVertex(void* dest) const
-{
-  Initialize();
-  for (T_UINT16 i = 0; i < SPRITE_VERTEXES_COUNT; ++i)
+  Mesh* ret = new Mesh();
+  using namespace GraphicsConstants;
+  ret->CreateVertices(
+    SPRITE_VERTEXES_COUNT,
+    PRIMITIVE_SURF_NUM(PRIMITIVE_TRIANGLES, SPRITE_VERTEX_INDEXES_COUNT),
+    GraphicsConstants::V_FORMAT_PU
+  );
+  ret->CreateIndices(SPRITE_VERTEX_INDEXES_COUNT);
+  for (T_UINT32 i = 0; i < SPRITE_VERTEXES_COUNT; ++i)
   {
-    ((Vertex::VCT*)dest)[i] = SPRITE_VERTEXES[i];
+    ret->SetVertex(i, SPRITE_VERTEXES[i]);
+    ret->SetUv(i, SPRITE_UVS[i]);
   }
-}
-
-T_UINT16 MeshData_Sprite::GetIndicesCount() const
-{
-  Initialize();
-  return SPRITE_VERTEX_INDEXES_COUNT;
-}
-
-const T_UINT16* MeshData_Sprite::GetIndices() const
-{
-  Initialize();
-  return SPRITE_INDEXES;
-}
-
-INativeProcess_Graphics::PrimitiveType MeshData_Sprite::GetPrimitiveType() const
-{
-  Initialize();
-  return INativeProcess_Graphics::PRIMITIVE_TRIANGLES;
-}
-
-Vertex::VertexType MeshData_Sprite::GetVertexType() const
-{
-  Initialize();
-  return Vertex::VERTEX_TYPE_VCT;
+  ret->CommitChanges();
+  return ret;
 }

@@ -1,5 +1,6 @@
 #include "FbxNodeData.h"
 #include "EngineAsset.h"
+#include "MeshFactory_Fbx.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -8,7 +9,6 @@ FbxNodeData::FbxNodeData(FbxNode* node)
   : node_(node)
   , child_count_(node->GetChildCount())
   , mesh_(nullptr)
-  , mesh_materials_(nullptr)
   , translate_(0.0f, 0.0f, 0.0f)
   , scaling_(1.0f, 1.0f, 1.0f)
   , rotation_(0.0f, 0.0f, 0.0f)
@@ -25,30 +25,16 @@ FbxNodeData::FbxNodeData(FbxNode* node)
   this->rotation_.y = MathConstants::DegToRad(node->LclRotation.Get()[1]);
   this->rotation_.z = MathConstants::DegToRad(node->LclRotation.Get()[2]);
 
-  this->mesh_material_count_ = 0;
   T_UINT16 attribute_count = node->GetNodeAttributeCount();
+  T_UINT8 mesh_index = 0;
   for (T_UINT16 i = 0; i < attribute_count; ++i)
   {
     FbxNodeAttribute* attr = node->GetNodeAttributeByIndex(i);
     if (attr->GetClassId().Is(FbxMesh::ClassId))
     {
-      ++this->mesh_material_count_;
-    }
-  }
-  if (this->mesh_material_count_ > 0)
-  {
-    this->mesh_ = new Mesh();
-    this->mesh_materials_ = new FbxMeshMaterial*[this->mesh_material_count_]();
-    T_UINT8 mesh_index = 0;
-    for (T_UINT16 i = 0; i < attribute_count; ++i)
-    {
-      FbxNodeAttribute* attr = node->GetNodeAttributeByIndex(i);
-      if (attr->GetClassId().Is(FbxMesh::ClassId))
-      {
-        this->mesh_materials_[mesh_index] = new FbxMeshMaterial((FbxMesh*)attr);
-        this->mesh_->AddSubMesh(this->mesh_materials_[mesh_index]->CreateSubMesh());
-        ++mesh_index;
-      }
+      FbxMesh* mesh = (FbxMesh*)attr;
+      this->mesh_ = MeshFactory::Fbx::Create(mesh);
+      ++mesh_index;
     }
   }
   this->children_ = new FbxNodeData*[this->child_count_];
@@ -145,11 +131,6 @@ FbxNodeData::~FbxNodeData()
 {
   delete[] this->material_;
   delete this->mesh_;
-  for (T_UINT8 i = 0; i < this->mesh_material_count_; ++i)
-  {
-    delete this->mesh_materials_[i];
-  }
-  delete[] this->mesh_materials_;
   for (T_UINT8 i = 0; i < this->child_count_; ++i)
   {
     delete this->children_[i];

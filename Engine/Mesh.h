@@ -7,29 +7,10 @@
 #include "Color.h"
 #include "NativeVertexBuffer.h"
 #include "NativeIndexBuffer.h"
+#include "GraphicsConstants.h"
 
 class Mesh
 {
-public:
-  enum VertexAttribute
-  {
-    V_ATTR_POSITION = 1 << 0,
-    V_ATTR_NORMAL = 1 << 1,
-    V_ATTR_UV = 1 << 2,
-    V_ATTR_UV2 = 1 << 3,
-    V_ATTR_UV3 = 1 << 4,
-    V_ATTR_UV4 = 1 << 5,
-    V_ATTR_TANGENT = 1 << 6,
-    V_ATTR_COLOR = 1 << 7,
-    //V_ATTR_BINDPOSE = 1 << 8,
-    //V_ATTR_BINDWEIGHT = 1 << 9,
-    //V_ATTR_BOUND = 1 << 10,
-  };
-
-  enum { V_ATTR_DATANUM = 8 };
-
-  static const T_UINT32 VERTEX_ATTRIBUTE_SIZE[V_ATTR_DATANUM];
-
   // =================================================================
   // Constructor / Destructor
   // =================================================================
@@ -51,7 +32,11 @@ public:
 
   Mesh* Clone();
 
-  void CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT32 format, INativeProcess_Graphics::PrimitiveType primitive_type = INativeProcess_Graphics::PRIMITIVE_TRIANGLES);
+  void CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT32 format, GraphicsConstants::PrimitiveType primitive_type = GraphicsConstants::PRIMITIVE_TRIANGLES);
+  inline void CreateVerticesWithIndex(T_UINT32 vertex_count, T_UINT32 index_count, T_UINT32 format, GraphicsConstants::PrimitiveType primitive_type = GraphicsConstants::PRIMITIVE_TRIANGLES)
+  {
+    CreateVertices(vertex_count, GraphicsConstants::PRIMITIVE_SURF_NUM(primitive_type, index_count), format, primitive_type);
+  }
   inline void CreateIndices(T_UINT32 index_count)
   {
     this->CreateIndices(1, &index_count);
@@ -171,14 +156,14 @@ public:
     return this->uv4s_;
   }
 
-  void SetTangent(T_UINT32 vertex_index, const TVec3f& tangent);
-  void SetTangents(const TVec3f* tangents);
-  inline const TVec3f& GetTangent(T_UINT32 vertex_index) const
+  void SetTangent(T_UINT32 vertex_index, const TVec4f& tangent);
+  void SetTangents(const TVec4f* tangents);
+  inline const TVec4f& GetTangent(T_UINT32 vertex_index) const
   {
     NATIVE_ASSERT(this->HasTangents(), "頂点フォーマットで定義されていない属性が呼び出されました");
     return this->tangents_[vertex_index];
   }
-  inline const TVec3f* GetTangents() const
+  inline const TVec4f* GetTangents() const
   {
     NATIVE_ASSERT(this->HasTangents(), "頂点フォーマットで定義されていない属性が呼び出されました");
     return this->tangents_;
@@ -264,7 +249,7 @@ private:
   const Mesh* orginal_;
 
   T_UINT32 format_;
-  INativeProcess_Graphics::PrimitiveType primitive_type_;
+  GraphicsConstants::PrimitiveType primitive_type_;
   T_UINT32 polygon_count_;
 
   T_UINT32 vertex_count_;
@@ -274,7 +259,8 @@ private:
   TVec2f* uv2s_;
   TVec2f* uv3s_;
   TVec2f* uv4s_;
-  TVec3f* tangents_;
+  //wは法線マップのミラーリングに使用(Unityを参考)
+  TVec4f* tangents_;
   Color4F* colors_;
   //bindPoses
   //boneWeights

@@ -6,7 +6,6 @@
 #include "NativeMethod.h"
 #include "Renderer.h"
 #include "Camera.h"
-#include "SubMesh.h"
 #include "Camera3D.h"
 
 // =================================================================

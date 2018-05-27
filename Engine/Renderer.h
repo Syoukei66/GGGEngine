@@ -24,6 +24,7 @@ public:
 
 protected:
   virtual void EditProperty(T_UINT8 material_index, T_UINT8 pass_index, Material* material) = 0;
+  virtual void SetStreamSource() = 0;
   virtual void DrawSubset(T_UINT8 material_index, T_UINT8 pass_index) = 0;
 
   // =================================================================

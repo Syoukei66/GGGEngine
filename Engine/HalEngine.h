@@ -54,22 +54,23 @@
         #include "Cube3D.h"
         #include "Plane3D.h"
         #include "Sprite3D.h"
-//----VBO
-      #include "IVertexBufferObject.h"
-//------3D
-        #include "VertexBufferObject_Primitive3D_MeshField.h"
 //--Light
 //--Material
     #include "Material.h"
     #include "ShaderProperties.h"
 //--Mesh
     #include "Mesh.h"
-    #include "MeshData.h"
-    #include "SubMesh.h"
-//----Data
-      #include "MeshData_Cube.h"
-      #include "MeshData_Plane.h"
-      #include "MeshData_Sprite.h"
+    #include "MeshResource.h"
+//----Builder
+      #include "MeshBuilder.h"
+      #include "MeshBuilder_Cube.h"
+      #include "MeshBuilder_Plane.h"
+      #include "MeshBuilder_Sprite.h"
+//----Factory
+      #include "MeshFactory_Cube.h"
+      #include "MeshFactory_Fbx.h"
+      #include "MeshFactory_Plane.h"
+      #include "MeshFactory_Sprite.h"
 //--Renderer
     #include "AnimatedSpriteRenderer.h"
     #include "MeshRenderer.h"
@@ -133,7 +134,6 @@
       #include "JsonResource.h"
 //----Fbx
       #include "FbxData.h"
-      #include "FbxMeshMaterial.h"
       #include "FbxNodeData.h"
       #include "FbxResource.h"
 //----Particle
@@ -179,7 +179,6 @@
   #include "Color.h"
   #include "Geometry.h"
   #include "Quaternion.h"
-  #include "Vertex.h"
 //--TextureRegion
     #include "ITextureRegion.h"
     #include "TextureRegion.h"
@@ -187,6 +186,7 @@
 
 //Util
   #include "Bresenham.h"
+  #include "GraphicsConstants.h"
   #include "MathConstants.h"
   #include "Util.h"
 //--EasingFunction

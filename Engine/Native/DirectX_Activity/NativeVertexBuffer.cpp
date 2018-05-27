@@ -17,9 +17,11 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
 
   std::vector<D3DVERTEXELEMENT9> elements = std::vector<D3DVERTEXELEMENT9>();
 
-  T_UINT32 offset = 0;
+  WORD offset = 0;
 
-  if (format & Mesh::V_ATTR_POSITION)
+  using namespace GraphicsConstants;
+
+  if (format & V_ATTR_POSITION)
   {
     D3DVERTEXELEMENT9 element = { 0, offset,
       D3DDECLTYPE_FLOAT3,
@@ -27,9 +29,9 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
       D3DDECLUSAGE_POSITION,
       0 };
     elements.push_back(element);
-    offset += Mesh::VERTEX_ATTRIBUTE_SIZE[Mesh::V_ATTR_POSITION];
+    offset += VERTEX_ATTRIBUTE_SIZE(V_ATTR_POSITION);
   }
-  if (format & Mesh::V_ATTR_NORMAL)
+  if (format & V_ATTR_NORMAL)
   {
     D3DVERTEXELEMENT9 element = { 0, offset,
       D3DDECLTYPE_FLOAT3,
@@ -37,9 +39,9 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
       D3DDECLUSAGE_NORMAL,
       0 };
     elements.push_back(element);
-    offset += Mesh::VERTEX_ATTRIBUTE_SIZE[Mesh::V_ATTR_NORMAL];
+    offset += VERTEX_ATTRIBUTE_SIZE(V_ATTR_NORMAL);
   }
-  if (format & Mesh::V_ATTR_UV)
+  if (format & V_ATTR_UV)
   {
     D3DVERTEXELEMENT9 element = { 0, offset,
       D3DDECLTYPE_FLOAT2,
@@ -47,9 +49,9 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
       D3DDECLUSAGE_TEXCOORD,
       0 };
     elements.push_back(element);
-    offset += Mesh::VERTEX_ATTRIBUTE_SIZE[Mesh::V_ATTR_UV];
+    offset +=VERTEX_ATTRIBUTE_SIZE(V_ATTR_UV);
   }
-  if (format & Mesh::V_ATTR_UV2)
+  if (format & V_ATTR_UV2)
   {
     D3DVERTEXELEMENT9 element = { 0, offset,
       D3DDECLTYPE_FLOAT2,
@@ -57,9 +59,9 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
       D3DDECLUSAGE_TEXCOORD,
       1 };
     elements.push_back(element);
-    offset += Mesh::VERTEX_ATTRIBUTE_SIZE[Mesh::V_ATTR_UV2];
+    offset += VERTEX_ATTRIBUTE_SIZE(V_ATTR_UV2);
   }
-  if (format & Mesh::V_ATTR_UV3)
+  if (format & V_ATTR_UV3)
   {
     D3DVERTEXELEMENT9 element = { 0, offset,
       D3DDECLTYPE_FLOAT2,
@@ -67,9 +69,9 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
       D3DDECLUSAGE_TEXCOORD,
       2 };
     elements.push_back(element);
-    offset += Mesh::VERTEX_ATTRIBUTE_SIZE[Mesh::V_ATTR_UV3];
+    offset += VERTEX_ATTRIBUTE_SIZE(V_ATTR_UV3);
   }
-  if (format & Mesh::V_ATTR_UV4)
+  if (format & V_ATTR_UV4)
   {
     D3DVERTEXELEMENT9 element = { 0, offset,
       D3DDECLTYPE_FLOAT2,
@@ -77,19 +79,19 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
       D3DDECLUSAGE_TEXCOORD,
       3 };
     elements.push_back(element);
-    offset += Mesh::VERTEX_ATTRIBUTE_SIZE[Mesh::V_ATTR_UV4];
+    offset += VERTEX_ATTRIBUTE_SIZE(V_ATTR_UV4);
   }
-  if (format & Mesh::V_ATTR_TANGENTS)
+  if (format & V_ATTR_TANGENT)
   {
     D3DVERTEXELEMENT9 element = { 0, offset,
-      D3DDECLTYPE_FLOAT3,
+      D3DDECLTYPE_FLOAT4,
       D3DDECLMETHOD_DEFAULT,
       D3DDECLUSAGE_TANGENT,
       0 };
     elements.push_back(element);
-    offset += Mesh::VERTEX_ATTRIBUTE_SIZE[Mesh::V_ATTR_TANGENTS];
+    offset += VERTEX_ATTRIBUTE_SIZE(V_ATTR_TANGENT);
   }
-  if (format & Mesh::V_ATTR_COLOR)
+  if (format & V_ATTR_COLOR)
   {
     D3DVERTEXELEMENT9 element = { 0, offset,
       D3DDECLTYPE_D3DCOLOR,
@@ -97,8 +99,10 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
       D3DDECLUSAGE_COLOR,
       0 };
     elements.push_back(element);
-    offset += Mesh::VERTEX_ATTRIBUTE_SIZE[Mesh::V_ATTR_COLOR];
+    offset += VERTEX_ATTRIBUTE_SIZE(V_ATTR_COLOR);
   }
+
+  elements.push_back(D3DDECL_END());
   this->stride_ = offset;
 
   HRESULT hr = device->CreateVertexBuffer(
@@ -145,7 +149,7 @@ void NativeVertexBuffer::SetStreamSource() const
   NATIVE_ASSERT(SUCCEEDED(hr), "VertexBuffer‚ÌƒZƒbƒg‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 }
 
-void NativeVertexBuffer::DrawPrimitive(INativeProcess_Graphics::PrimitiveType primitive_type) const
+void NativeVertexBuffer::DrawPrimitive(GraphicsConstants::PrimitiveType primitive_type) const
 {
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
   HRESULT hr = device->DrawPrimitive(
@@ -156,7 +160,7 @@ void NativeVertexBuffer::DrawPrimitive(INativeProcess_Graphics::PrimitiveType pr
   NATIVE_ASSERT(SUCCEEDED(hr), "•`‰æ‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 }
 
-void NativeVertexBuffer::DrawIndexedPrimitive(const INativeIndexBuffer* index_buffer, INativeProcess_Graphics::PrimitiveType primitive_type) const
+void NativeVertexBuffer::DrawIndexedPrimitive(const INativeIndexBuffer* index_buffer, GraphicsConstants::PrimitiveType primitive_type) const
 {
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
   const T_UINT32 vertex_count = index_buffer->GetVertexesCount();

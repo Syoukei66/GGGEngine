@@ -22,8 +22,8 @@ public:
   virtual void Unlock() override;
 
   virtual void SetStreamSource() const override;
-  virtual void DrawPrimitive(INativeProcess_Graphics::PrimitiveType primitive_type) const override;
-  virtual void DrawIndexedPrimitive(const INativeIndexBuffer* index_buffer, INativeProcess_Graphics::PrimitiveType primitive_type) const override;
+  virtual void DrawPrimitive(GraphicsConstants::PrimitiveType primitive_type) const override;
+  virtual void DrawIndexedPrimitive(const INativeIndexBuffer* index_buffer, GraphicsConstants::PrimitiveType primitive_type) const override;
 
   // =================================================================
   // Data Member

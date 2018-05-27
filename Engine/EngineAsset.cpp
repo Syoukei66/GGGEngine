@@ -1,7 +1,8 @@
 #include "EngineAsset.h"
-#include "MeshData_Cube.h"
-#include "MeshData_Plane.h"
-#include "MeshData_Sprite.h"
+#include "MeshBuilder_Cube.h"
+#include "MeshBuilder_Plane.h"
+#include "MeshBuilder_Sprite.h"
+#include "GraphicsConstants.h"
 
 namespace EngineAsset
 {
@@ -30,9 +31,9 @@ class Material WHITE(Shader::WHITE, true);
 
 namespace Mesh
 {
-class MeshResource QUAD(MeshData_Sprite::GetInstance());
-class MeshResource PLANE(MeshData_Plane::GetInstance());
-class MeshResource CUBE(MeshData_Cube::GetInstance());
+class MeshResource QUAD(new MeshBuilder_Sprite());
+class MeshResource PLANE(new MeshBuilder_Plane(GraphicsConstants::V_FORMAT_PNUTC, 1.0f, 1.0f, 1, 1));
+class MeshResource CUBE(new MeshBuilder_Cube(GraphicsConstants::V_FORMAT_PNUTC, 1.0f, 1.0f, 1.0f, 1, 1, 1));
 } // namespace Mesh
 
 } // namespace EngineAsset

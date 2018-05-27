@@ -244,12 +244,6 @@
     <Filter Include="ヘッダー ファイル\Resource\File\FBX">
       <UniqueIdentifier>{814bdfde-d3b1-4f0a-b904-ec0a773089d9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Component\Mesh\Data">
-      <UniqueIdentifier>{f23d124f-9ae3-4d18-96e8-47c1b6f7cd66}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Component\Mesh\Data">
-      <UniqueIdentifier>{3a91ce83-cc9a-4db8-908b-efaa9272a9a4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Structure\TextureRegion">
       <UniqueIdentifier>{df6a36de-e2ed-4483-be0c-e234bc860b5d}</UniqueIdentifier>
     </Filter>
@@ -310,12 +304,6 @@
     <Filter Include="ヘッダー ファイル\GameObject\2D\Sprite">
       <UniqueIdentifier>{de137ee1-ada0-471b-a47e-6de5b9f8601a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\GameObject\VBO">
-      <UniqueIdentifier>{4e11bb03-1909-48f1-9515-a7770c5a3581}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\GameObject\VBO\3D">
-      <UniqueIdentifier>{bb04d39f-d1f5-40f8-8946-23fa0100ee9e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\GameObject">
       <UniqueIdentifier>{9bec477f-2789-42a8-9b6f-79ecb3619942}</UniqueIdentifier>
     </Filter>
@@ -337,17 +325,20 @@
     <Filter Include="ソース ファイル\GameObject\2D\Sprite">
       <UniqueIdentifier>{932e395f-6641-43f3-94ba-5bb95627a9aa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\GameObject\VBO">
-      <UniqueIdentifier>{b490f347-22cd-4859-b798-13b91c494fea}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Component\Mesh\Factory">
+      <UniqueIdentifier>{3a91ce83-cc9a-4db8-908b-efaa9272a9a4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\GameObject\VBO\3D">
-      <UniqueIdentifier>{8ceb2489-02cd-454a-b028-c45af4518ccd}</UniqueIdentifier>
+    <Filter Include="ヘッダー ファイル\Component\Mesh\Factory">
+      <UniqueIdentifier>{f23d124f-9ae3-4d18-96e8-47c1b6f7cd66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Component\Mesh\Builder">
+      <UniqueIdentifier>{bc87b738-a55b-4d22-ae35-40f05b8a0c24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Component\Mesh\Builder">
+      <UniqueIdentifier>{c32d8cac-be28-4fa5-95ca-b686cd22a33a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="IVertexBufferObject.cpp">
-      <Filter>ソース ファイル\GameObject\VBO</Filter>
-    </ClCompile>
     <ClCompile Include="ITextureRegion.cpp">
       <Filter>ソース ファイル\Structure\TextureRegion</Filter>
     </ClCompile>
@@ -389,9 +380,6 @@
     </ClCompile>
     <ClCompile Include="NativeMethod.cpp">
       <Filter>ソース ファイル\Native</Filter>
-    </ClCompile>
-    <ClCompile Include="Vertex.cpp">
-      <Filter>ソース ファイル\Structure</Filter>
     </ClCompile>
     <ClCompile Include="EntityModifier.cpp">
       <Filter>ソース ファイル\GameObject\2D\Modifier</Filter>
@@ -603,9 +591,6 @@
     <ClCompile Include="Camera.cpp">
       <Filter>ソース ファイル\Component\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="VertexBufferObject_Primitive3D_MeshField.cpp">
-      <Filter>ソース ファイル\GameObject\VBO\3D</Filter>
-    </ClCompile>
     <ClCompile Include="Quaternion.cpp">
       <Filter>ソース ファイル\Structure</Filter>
     </ClCompile>
@@ -693,29 +678,14 @@
     <ClCompile Include="FbxNodeData.cpp">
       <Filter>ソース ファイル\Resource\File\FBX</Filter>
     </ClCompile>
-    <ClCompile Include="FbxMeshMaterial.cpp">
-      <Filter>ソース ファイル\Resource\File\FBX</Filter>
-    </ClCompile>
     <ClCompile Include="Cube3D.cpp">
       <Filter>ソース ファイル\GameObject\3D\Primitive</Filter>
     </ClCompile>
     <ClCompile Include="ModelNode.cpp">
       <Filter>ソース ファイル\GameObject\3D\Model</Filter>
     </ClCompile>
-    <ClCompile Include="MeshData_Plane.cpp">
-      <Filter>ソース ファイル\Component\Mesh\Data</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshData_Cube.cpp">
-      <Filter>ソース ファイル\Component\Mesh\Data</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshData_Sprite.cpp">
-      <Filter>ソース ファイル\Component\Mesh\Data</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>ソース ファイル\Component\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshData.cpp">
-      <Filter>ソース ファイル\Component\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="MeshRenderer.cpp">
       <Filter>ソース ファイル\Component\Renderer</Filter>
@@ -735,9 +705,6 @@
     <ClCompile Include="LoopSprite.cpp">
       <Filter>ソース ファイル\GameObject\2D\Sprite</Filter>
     </ClCompile>
-    <ClCompile Include="MeshResource.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="imgui\imgui.cpp">
       <Filter>ソース ファイル\imgui</Filter>
     </ClCompile>
@@ -755,9 +722,6 @@
     </ClCompile>
     <ClCompile Include="NativeSound.cpp">
       <Filter>ソース ファイル\Native\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundResource.cpp">
-      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="FileLoader.cpp">
       <Filter>ソース ファイル\Resource\File</Filter>
@@ -786,6 +750,33 @@
     <ClCompile Include="TextureResource.cpp">
       <Filter>ソース ファイル\Resource\File\Texture</Filter>
     </ClCompile>
+    <ClCompile Include="SoundResource.cpp">
+      <Filter>ソース ファイル\Resource\File\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshResource.cpp">
+      <Filter>ソース ファイル\Component\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshFactory_Fbx.cpp">
+      <Filter>ソース ファイル\Component\Mesh\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshFactory_Sprite.cpp">
+      <Filter>ソース ファイル\Component\Mesh\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshBuilder_Plane.cpp">
+      <Filter>ソース ファイル\Component\Mesh\Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshFactory_Plane.cpp">
+      <Filter>ソース ファイル\Component\Mesh\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshBuilder_Sprite.cpp">
+      <Filter>ソース ファイル\Component\Mesh\Builder</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshFactory_Cube.cpp">
+      <Filter>ソース ファイル\Component\Mesh\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshBuilder_Cube.cpp">
+      <Filter>ソース ファイル\Component\Mesh\Builder</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -808,12 +799,6 @@
     </ClInclude>
     <ClInclude Include="Bresenham.h">
       <Filter>ヘッダー ファイル\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="Vertex.h">
-      <Filter>ヘッダー ファイル\Structure</Filter>
-    </ClInclude>
-    <ClInclude Include="IVertexBufferObject.h">
-      <Filter>ヘッダー ファイル\GameObject\VBO</Filter>
     </ClInclude>
     <ClInclude Include="AnimatedSprite.h">
       <Filter>ヘッダー ファイル\GameObject\2D\Sprite</Filter>
@@ -1082,9 +1067,6 @@
     <ClInclude Include="GameObjectRenderState.h">
       <Filter>ヘッダー ファイル\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="VertexBufferObject_Primitive3D_MeshField.h">
-      <Filter>ヘッダー ファイル\GameObject\VBO\3D</Filter>
-    </ClInclude>
     <ClInclude Include="Quaternion.h">
       <Filter>ヘッダー ファイル\Structure</Filter>
     </ClInclude>
@@ -1217,9 +1199,6 @@
     <ClInclude Include="FbxNodeData.h">
       <Filter>ヘッダー ファイル\Resource\File\FBX</Filter>
     </ClInclude>
-    <ClInclude Include="FbxMeshMaterial.h">
-      <Filter>ヘッダー ファイル\Resource\File\FBX</Filter>
-    </ClInclude>
     <ClInclude Include="Bezier.h">
       <Filter>ヘッダー ファイル\Util</Filter>
     </ClInclude>
@@ -1232,20 +1211,8 @@
     <ClInclude Include="NativeAssert.h">
       <Filter>ヘッダー ファイル\Native</Filter>
     </ClInclude>
-    <ClInclude Include="MeshData.h">
-      <Filter>ヘッダー ファイル\Component\Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="MeshRenderer.h">
       <Filter>ヘッダー ファイル\Component\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshData_Plane.h">
-      <Filter>ヘッダー ファイル\Component\Mesh\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshData_Cube.h">
-      <Filter>ヘッダー ファイル\Component\Mesh\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshData_Sprite.h">
-      <Filter>ヘッダー ファイル\Component\Mesh\Data</Filter>
     </ClInclude>
     <ClInclude Include="SpriteRenderer.h">
       <Filter>ヘッダー ファイル\Component\Renderer</Filter>
@@ -1330,6 +1297,33 @@
     </ClInclude>
     <ClInclude Include="TextureResource.h">
       <Filter>ヘッダー ファイル\Resource\File\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshFactory_Fbx.h">
+      <Filter>ヘッダー ファイル\Component\Mesh\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshFactory_Sprite.h">
+      <Filter>ヘッダー ファイル\Component\Mesh\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsConstants.h">
+      <Filter>ヘッダー ファイル\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshFactory_Plane.h">
+      <Filter>ヘッダー ファイル\Component\Mesh\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshBuilder.h">
+      <Filter>ヘッダー ファイル\Component\Mesh\Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshBuilder_Plane.h">
+      <Filter>ヘッダー ファイル\Component\Mesh\Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshBuilder_Sprite.h">
+      <Filter>ヘッダー ファイル\Component\Mesh\Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshFactory_Cube.h">
+      <Filter>ヘッダー ファイル\Component\Mesh\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshBuilder_Cube.h">
+      <Filter>ヘッダー ファイル\Component\Mesh\Builder</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

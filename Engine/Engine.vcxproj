@@ -22,7 +22,7 @@
     <ProjectGuid>{3D96EF11-F5C9-4990-BE01-5279DADD6D52}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Engine</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -201,7 +201,6 @@
     <ClCompile Include="EngineInitializeSetting.cpp" />
     <ClCompile Include="EngineInputEvent.cpp" />
     <ClCompile Include="FbxData.cpp" />
-    <ClCompile Include="FbxMeshMaterial.cpp" />
     <ClCompile Include="FbxNodeData.cpp" />
     <ClCompile Include="GameComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -215,10 +214,13 @@
     <ClCompile Include="JsonResource.cpp" />
     <ClCompile Include="LoopSprite.cpp" />
     <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="MeshData.cpp" />
-    <ClCompile Include="MeshData_Cube.cpp" />
-    <ClCompile Include="MeshData_Plane.cpp" />
-    <ClCompile Include="MeshData_Sprite.cpp" />
+    <ClCompile Include="MeshBuilder_Cube.cpp" />
+    <ClCompile Include="MeshBuilder_Plane.cpp" />
+    <ClCompile Include="MeshBuilder_Sprite.cpp" />
+    <ClCompile Include="MeshFactory_Cube.cpp" />
+    <ClCompile Include="MeshFactory_Fbx.cpp" />
+    <ClCompile Include="MeshFactory_Plane.cpp" />
+    <ClCompile Include="MeshFactory_Sprite.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="MeshResource.cpp" />
     <ClCompile Include="ModelNode.cpp" />
@@ -310,14 +312,11 @@
     <ClCompile Include="Transform3D.cpp" />
     <ClCompile Include="UpdateEvent.cpp" />
     <ClCompile Include="ITextureRegion.cpp" />
-    <ClCompile Include="IVertexBufferObject.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="TextureResource.cpp" />
     <ClCompile Include="TextureRegion.cpp" />
     <ClCompile Include="TiledTextureRegion.cpp" />
-    <ClCompile Include="Vertex.cpp" />
-    <ClCompile Include="VertexBufferObject_Primitive3D_MeshField.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.h" />
@@ -329,10 +328,10 @@
     <ClInclude Include="Cube3D.h" />
     <ClInclude Include="EngineResourcePool.h" />
     <ClInclude Include="FbxData.h" />
-    <ClInclude Include="FbxMeshMaterial.h" />
     <ClInclude Include="FbxNodeData.h" />
     <ClInclude Include="FbxResource.h" />
     <ClInclude Include="GameObjectFactory.h" />
+    <ClInclude Include="GraphicsConstants.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_internal.h" />
@@ -345,10 +344,14 @@
     <ClInclude Include="JsonResource.h" />
     <ClInclude Include="LoopSprite.h" />
     <ClInclude Include="Mesh.h" />
-    <ClInclude Include="MeshData.h" />
-    <ClInclude Include="MeshData_Cube.h" />
-    <ClInclude Include="MeshData_Plane.h" />
-    <ClInclude Include="MeshData_Sprite.h" />
+    <ClInclude Include="MeshBuilder.h" />
+    <ClInclude Include="MeshBuilder_Cube.h" />
+    <ClInclude Include="MeshBuilder_Plane.h" />
+    <ClInclude Include="MeshBuilder_Sprite.h" />
+    <ClInclude Include="MeshFactory_Cube.h" />
+    <ClInclude Include="MeshFactory_Fbx.h" />
+    <ClInclude Include="MeshFactory_Plane.h" />
+    <ClInclude Include="MeshFactory_Sprite.h" />
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="MeshResource.h" />
     <ClInclude Include="ModelNode.h" />
@@ -491,7 +494,6 @@
     <ClInclude Include="UpdateEvent.h" />
     <ClInclude Include="EngineInput.h" />
     <ClInclude Include="Geometry.h" />
-    <ClInclude Include="IVertexBufferObject.h" />
     <ClInclude Include="NativeType.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sprite.h" />
@@ -499,8 +501,6 @@
     <ClInclude Include="AnalogInput.h" />
     <ClInclude Include="UserResourcePool.h" />
     <ClInclude Include="Util.h" />
-    <ClInclude Include="Vertex.h" />
-    <ClInclude Include="VertexBufferObject_Primitive3D_MeshField.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Lambert.fx">

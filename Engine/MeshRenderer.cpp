@@ -26,11 +26,20 @@ void MeshRenderer::EditProperty(T_UINT8 material_index, T_UINT8 pass_index, Mate
 {
 }
 
+void MeshRenderer::SetStreamSource()
+{
+  if (!this->mesh_)
+  {
+    return;
+  }
+  this->mesh_->SetStreamSource();
+}
+
 void MeshRenderer::DrawSubset(T_UINT8 material_index, T_UINT8 pass_index)
 {
   if (!this->mesh_)
   {
     return;
   }
-  this->mesh_->DrawSubMesh(material_index);
+  this->mesh_->DrawSubset(material_index);
 }

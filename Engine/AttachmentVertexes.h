@@ -1,16 +1,19 @@
 #pragma once
 
 #include "TextureResource.h"
-#include "Vertex.h"
+#include "Color.h"
+#include "Geometry.h"
 
 class AttachmentVertexes
 {
 public:
-  AttachmentVertexes(TextureResource* texture, T_UINT8 vertexes_count);
+  AttachmentVertexes(TextureResource* texture, T_UINT8 vertices_count);
   ~AttachmentVertexes();
 
 public:
-  Vertex::VCT* vertexes_;
+  TVec3f* positions_;
+  Color4F* colors_;
+  TVec2f* uvs_;
   T_UINT8 size_;
   TextureResource* texture_;
 };

@@ -76,6 +76,8 @@ void SkeletonAnimation::ManagedDraw(GameObjectRenderState* state)
       continue;
     }
 
+    //TODO:ƒŒƒ“ƒ_ƒŠƒ“ƒO‚ÌÝŒv‚ªˆÀ’è‚µ‚½‚çì‚è’¼‚·
+
     //switch (slot->data->blendMode) {
     //case SP_BLEND_MODE_ADDITIVE:
     //  this->GetMaterial()->SetBlendFunction(BlendFunction::BLEND_ADD_SRC, BlendFunction::BLEND_ADD_DST);
@@ -90,25 +92,23 @@ void SkeletonAnimation::ManagedDraw(GameObjectRenderState* state)
     //  this->GetMaterial()->SetBlendFunction(BlendFunction::BLEND_DEFAULT_SRC, BlendFunction::BLEND_DEFAULT_DST);
     //}
 
-    attachment_vertexes = this->GetAttachmentVertexes(attachment);
-    Vertex::VCT* vertexes = new Vertex::VCT[attachment_vertexes->size_]();
-    for (int j = 0; j < attachment_vertexes->size_; ++j)
-    {
-      vertexes[j] = attachment_vertexes->vertexes_[j];
-    }
+    //attachment_vertexes = this->GetAttachmentVertexes(attachment);
+    //Vertex::VCT* vertexes = new Vertex::VCT[attachment_vertexes->size_]();
+    //for (int j = 0; j < attachment_vertexes->size_; ++j)
+    //{
+    //  vertexes[j] = attachment_vertexes->vertexes_[j];
+    //}
 
-    spRegionAttachment_computeWorldVertices(attachment, slot->bone, (float*)vertexes, 0, sizeof(Vertex::VCT) / sizeof(float));
+    //spRegionAttachment_computeWorldVertices(attachment, slot->bone, (float*)vertexes, 0, sizeof(Vertex::VCT) / sizeof(float));
 
-    for (int j = 0; j < attachment_vertexes->size_; ++j)
-    {
-      NativeMethod::Graphics().Graphics_PackColor4u8(&vertexes[j].color, color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha());
-    }
+    //for (int j = 0; j < attachment_vertexes->size_; ++j)
+    //{
+    //  NativeMethod::Graphics().Graphics_PackColor4u8(&vertexes[j].color, color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha());
+    //}
 
-    //this->ApplyBlendMode(state);
-    //NativeMethod::Graphics().Graphics_SetTexture(attachment_vertexes->texture_);
-    NativeMethod::Graphics().Graphics_DrawSprite(state, INativeProcess_Graphics::PRIMITIVE_TRIANGLESTRIP, vertexes, attachment_vertexes->size_);
+    //NativeMethod::Graphics().Graphics_DrawSprite(state, INativeProcess_Graphics::PRIMITIVE_TRIANGLESTRIP, vertexes, attachment_vertexes->size_);
 
-    delete[] vertexes;
+    //delete[] vertexes;
   }
 }
 

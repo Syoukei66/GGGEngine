@@ -4,7 +4,7 @@
 
 #include "Geometry.h"
 #include "NativeObject.h"
-#include "INativeProcess_Graphics.h"
+#include "GraphicsConstants.h"
 #include "NativeIndexBuffer.h"
 
 struct NativeVertexBufferInstance { void* p; };
@@ -42,7 +42,7 @@ public:
 
   virtual void SetStreamSource() const = 0;
 
-  virtual void DrawPrimitive(INativeProcess_Graphics::PrimitiveType primitive_type) const = 0;
-  virtual void DrawIndexedPrimitive(const INativeIndexBuffer* index_buffer, INativeProcess_Graphics::PrimitiveType primitive_type) const = 0;
+  virtual void DrawPrimitive(GraphicsConstants::PrimitiveType primitive_type) const = 0;
+  virtual void DrawIndexedPrimitive(const INativeIndexBuffer* index_buffer, GraphicsConstants::PrimitiveType primitive_type) const = 0;
 
 };
