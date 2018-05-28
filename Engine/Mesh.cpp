@@ -286,6 +286,55 @@ void Mesh::CommitChanges()
   }
 }
 
+void Mesh::RecalculateNormals()
+{
+  NATIVE_ASSERT(this->primitive_type_ == GraphicsConstants::PRIMITIVE_TRIANGLES, "まだできてません！");
+
+  NATIVE_ASSERT(this->format_ & GraphicsConstants::V_ATTR_NORMAL, "フォーマットに法線情報が含まれていません");
+  
+  TVec3f* surf_normals = new TVec3f[this->polygon_count_];
+  for (T_UINT32 i = 0; i < this->vertex_count_; ++i)
+  {
+    this->normals_[i] = TVec3f::zero;
+  }
+  for (T_UINT8 i = 0; i < this->submesh_count_; ++i)
+  {
+    T_UINT32 s = 0;
+    for (T_UINT32 j = 0; j < this->index_counts_[i]; j += 3, ++s)
+    {
+      TVec3f v0 = this->vertices_[this->indices_[i][j]];
+      TVec3f v1 = this->vertices_[this->indices_[i][j + 1]];
+      TVec3f v2 = this->vertices_[this->indices_[i][j + 2]];
+      TVec3f vv1 = v1 - v0;
+      TVec3f vv2 = v2 - v1;
+      surf_normals[s] = TVec3f::OuterProduct(vv1, vv2).Normalized();
+    }
+    s = 0;
+    for (T_UINT32 j = 0; j < this->index_counts_[i]; j += 3, ++s)
+    {
+      this->normals_[this->indices_[i][j]] += surf_normals[s];
+      this->normals_[this->indices_[i][j + 1]] += surf_normals[s];
+      this->normals_[this->indices_[i][j + 2]] += surf_normals[s];
+    }
+  }
+  for (T_UINT32 i = 0; i < this->vertex_count_; ++i)
+  {
+    this->normals_[i] = this->normals_[i].Normalized();
+  }
+  if (this->format_ & GraphicsConstants::V_ATTR_TANGENT)
+  {
+    for (T_UINT32 i = 0; i < this->vertex_count_; ++i)
+    {
+      const TVec3f normal = this->normals_[i];
+      const TVec3f tangent = normal.x == 0.0f && normal.z == 0.0f ? TVec3f::OuterProduct(normal, TVec3f::forward) : TVec3f::OuterProduct(normal, TVec3f::up);
+      this->tangents_[i].x = tangent.x;
+      this->tangents_[i].y = tangent.y;
+      this->tangents_[i].z = tangent.z;
+      this->tangents_[i].w = 1.0f;
+    }
+  }
+}
+
 void Mesh::SetStreamSource() const
 {
   this->vertex_buffer_->SetStreamSource();

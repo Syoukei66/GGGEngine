@@ -95,6 +95,15 @@ void Camera3D::CheckProjectionDirty()
   this->projection_dirty_ = false;
 }
 
+TVec3f Camera3D::CalcRayVector(const TVec2f& screen_position)
+{
+  this->calc_2dpos_matrix_->Init();
+  this->calc_2dpos_matrix_->Translation(screen_position);
+  this->calc_2dpos_matrix_->MultipleReverse(*this->GetProjectionMatrix());
+  this->calc_2dpos_matrix_->MultipleReverse(*this->GetViewMatrix());
+  return this->calc_2dpos_matrix_->GetPosition3d();
+}
+
 // =================================================================
 // setter/getter
 // =================================================================

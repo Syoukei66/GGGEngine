@@ -777,6 +777,9 @@
     <ClCompile Include="MeshBuilder_Cube.cpp">
       <Filter>ソース ファイル\Component\Mesh\Builder</Filter>
     </ClCompile>
+    <ClCompile Include="Noise.cpp">
+      <Filter>ソース ファイル\Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -1324,6 +1327,9 @@
     </ClInclude>
     <ClInclude Include="MeshBuilder_Cube.h">
       <Filter>ヘッダー ファイル\Component\Mesh\Builder</Filter>
+    </ClInclude>
+    <ClInclude Include="Noise.h">
+      <Filter>ヘッダー ファイル\Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

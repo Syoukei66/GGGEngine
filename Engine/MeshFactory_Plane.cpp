@@ -32,9 +32,9 @@ Mesh* MeshFactory::Plane::Create(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale
       if (format & V_ATTR_POSITION)
       {
         ret->SetVertex(i, { 
-          ((T_FLOAT)x - resolution_x * 0.5f) * scale_x,
+          ((T_FLOAT)x - resolution_x * 0.5f) * scale_x / resolution_x,
           0.0f,
-          ((T_FLOAT)y - resolution_y * 0.5f) * scale_y
+          ((T_FLOAT)y - resolution_y * 0.5f) * scale_y / resolution_y
         });
       }
       if (format & V_ATTR_NORMAL)

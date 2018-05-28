@@ -188,6 +188,7 @@
   #include "Bresenham.h"
   #include "GraphicsConstants.h"
   #include "MathConstants.h"
+  #include "Noise.h"
   #include "Util.h"
 //--EasingFunction
     #include "EasingFunction.h"

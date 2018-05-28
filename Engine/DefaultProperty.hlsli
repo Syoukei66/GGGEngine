@@ -20,6 +20,28 @@ sampler _MainTexSampler = sampler_state
 };
 #endif
 
+#ifdef _NORMAL_TEXTURE
+texture _NormalTex;
+sampler _NormalTexSampler = sampler_state
+{
+  Texture = _NormalTex;
+  MipFilter = LINEAR;
+  MinFilter = LINEAR;
+  MagFilter = LINEAR;
+};
+#endif
+
+#ifdef _NORMAL_TEXTURE_POINT
+texture _NormalTex;
+sampler _NormalTexSampler = sampler_state
+{
+  Texture = _NormalTex;
+  MipFilter = POINT;
+  MinFilter = POINT;
+  MagFilter = POINT;
+};
+#endif
+
 #ifdef _WORLD
 float4x4 _World;
 #endif

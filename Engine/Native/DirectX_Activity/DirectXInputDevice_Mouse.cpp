@@ -127,9 +127,26 @@ void DirectXInputDevice_Mouse::InputProcess(T_UINT8 handler, EngineInputState* s
   state->PostInputAnalog(handler, this->move_input_id_);
 
   state->PreInputAnalog(handler, this->position_input_id_);
-  const T_FLOAT pre_x = state->GetAnalogInput(handler)->GetOldValue(this->position_input_id_, 0);
-  const T_FLOAT pre_y = state->GetAnalogInput(handler)->GetOldValue(this->position_input_id_, 1);
-  state->InputAnalog(handler, this->position_input_id_, 0, pre_x + (mouse_state.lX / w - 0.5f));
-  state->InputAnalog(handler, this->position_input_id_, 1, pre_y - (mouse_state.lY / h - 0.5f));
+  POINT pos;
+  if (GetCursorPos(&pos))
+  {
+    HWND hwnd = DirectXDirector::GetInstance().GetHWnd();
+    RECT rc;
+    GetWindowRect(hwnd, &rc);
+
+    RECT client; 
+    GetClientRect(hwnd, &client);
+    T_FLOAT edge = ((rc.right - rc.left) - (client.right - client.left)) * 0.5f;
+    pos.x -= (rc.left + edge);
+    pos.y -= (rc.top + ((rc.bottom - rc.top) - (client.bottom - client.top)) - edge);
+
+    state->InputAnalog(handler, this->position_input_id_, 0, (pos.x / w - 0.5f) * 2.0f);
+    state->InputAnalog(handler, this->position_input_id_, 1, (pos.y / h - 0.5f) * 2.0f);
+  }
+
+  //const T_FLOAT pre_x = state->GetAnalogInput(handler)->GetOldValue(this->position_input_id_, 0);
+  //const T_FLOAT pre_y = state->GetAnalogInput(handler)->GetOldValue(this->position_input_id_, 1);
+  //state->InputAnalog(handler, this->position_input_id_, 0, pre_x + (mouse_state.lX / w));
+  //state->InputAnalog(handler, this->position_input_id_, 1, pre_y - (mouse_state.lY / h));
   state->PostInputAnalog(handler, this->position_input_id_);
 }

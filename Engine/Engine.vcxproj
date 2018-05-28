@@ -22,7 +22,7 @@
     <ProjectGuid>{3D96EF11-F5C9-4990-BE01-5279DADD6D52}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Engine</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -229,6 +229,7 @@
     <ClCompile Include="NativeShader.cpp" />
     <ClCompile Include="NativeSound.cpp" />
     <ClCompile Include="NativeVertexBuffer.cpp" />
+    <ClCompile Include="Noise.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="FileLoader.cpp" />
     <ClCompile Include="ModelData.cpp" />
@@ -361,6 +362,7 @@
     <ClInclude Include="NativeSound.h" />
     <ClInclude Include="NativeVertexBuffer.h" />
     <ClInclude Include="NativeShader.h" />
+    <ClInclude Include="Noise.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="FileLoader.h" />
     <ClInclude Include="FileResource.h" />

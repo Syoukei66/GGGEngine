@@ -44,6 +44,7 @@ public:
   void CreateIndices(T_UINT8 submesh_count, T_UINT32* index_counts);
 
   void CommitChanges();
+  void RecalculateNormals();
 
   void SetStreamSource() const;
   void DrawSubset(T_UINT8 index) const;

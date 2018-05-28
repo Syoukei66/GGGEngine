@@ -32,6 +32,9 @@ protected:
   // =================================================================
   // Method
   // =================================================================
+public:
+  TVec3f CalcRayVector(const TVec2f& screen_position);
+
 protected:
   void CheckProjectionDirty();
 
