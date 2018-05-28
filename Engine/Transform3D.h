@@ -26,12 +26,7 @@ public:
   void MoveY(T_FLOAT y);
   void MoveZ(T_FLOAT z);
 
-  void MoveCircular(const TVec3f& move, const TVec3f& pos);
-  void MoveCircular(T_FLOAT x, T_FLOAT y, T_FLOAT z, const TVec3f& pos);
-  //戻り値には移動後のposとの角度が返される
-  T_FLOAT MoveCircularX(T_FLOAT x, const TVec3f& pos);
-  T_FLOAT MoveCircularY(T_FLOAT y, const TVec3f& pos);
-  T_FLOAT MoveCircularZ(T_FLOAT z, const TVec3f& pos);
+  void LookAt(const TVec3f& target, T_FLOAT eps = 0.01f);
 
 protected:
   void UpdateTranslateMatrix(INativeMatrix* matrix) override;
@@ -116,7 +111,7 @@ public:
 public:
   inline void Rotate(const TVec3f& v, T_FLOAT rad)
   {
-    this->rotator_->q(v, rad);
+    this->rotator_->Rotate(v, rad);
   }
   inline void RotateX(T_FLOAT rad)
   {

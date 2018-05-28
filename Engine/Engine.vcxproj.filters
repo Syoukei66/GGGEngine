@@ -1064,9 +1064,6 @@
     <ClInclude Include="ModelData.h">
       <Filter>ヘッダー ファイル\Resource\File\Model</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="GameObjectRenderState.h">
       <Filter>ヘッダー ファイル\GameObject</Filter>
     </ClInclude>
@@ -1330,6 +1327,9 @@
     </ClInclude>
     <ClInclude Include="Noise.h">
       <Filter>ヘッダー ファイル\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>ヘッダー ファイル\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

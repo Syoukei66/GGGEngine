@@ -44,7 +44,7 @@ void Transform3DRotator::RotateX(T_FLOAT rad)
   {
     return;
   }
-  this->q(X_AXIS, rad);
+  this->Rotate(X_AXIS, rad);
 }
 
 void Transform3DRotator::RotateY(T_FLOAT rad)
@@ -53,7 +53,7 @@ void Transform3DRotator::RotateY(T_FLOAT rad)
   {
     return;
   }
-  this->q(Y_AXIS, rad);
+  this->Rotate(Y_AXIS, rad);
 }
 
 void Transform3DRotator::RotateZ(T_FLOAT rad)
@@ -62,7 +62,7 @@ void Transform3DRotator::RotateZ(T_FLOAT rad)
   {
     return;
   }
-  this->q(Z_AXIS, rad);
+  this->Rotate(Z_AXIS, rad);
 }
 
 void Transform3DRotator::RotateXAxis(T_FLOAT rad)
@@ -152,7 +152,7 @@ void Transform3DRotator::Slerp(const Quaternion& b, T_FLOAT t)
   this->need_eular_angles_update_ = true;
 }
 
-const void Transform3DRotator::q(const TVec3f& v, T_FLOAT rad)
+const void Transform3DRotator::Rotate(const TVec3f& v, T_FLOAT rad)
 {
   if (rad == 0.0f)
   {

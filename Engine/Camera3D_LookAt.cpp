@@ -68,8 +68,8 @@ void Camera3D_LookAt::CheckViewDirty()
     {
       TVec3f camera_pos = player->GetTransform()->GetWorldPosition();
       this->direction_ = (this->current_look_at_pos_ - player->GetTransform()->GetWorldPosition()).Normalized();
-      camera_pos -= this->direction_ * this->GetTransform()->GetPosition().Length();
-      camera_pos.y = std::max(camera_pos.y, player->GetTransform()->GetY());
+      //camera_pos -= this->direction_ * this->GetTransform()->GetPosition().Length();
+      //camera_pos.y = std::max(camera_pos.y, player->GetTransform()->GetY());
       this->view_matrix_->LookAtLH(
         camera_pos,
         this->current_look_at_pos_,

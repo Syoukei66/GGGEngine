@@ -71,39 +71,18 @@ void Transform3D::MoveZ(T_FLOAT z)
   this->SetPosition(this->GetX() + x, this->GetY() + y, this->GetZ() + z);
 }
 
-void Transform3D::MoveCircular(const TVec3f& move, const TVec3f& pos)
+void Transform3D::LookAt(const TVec3f& target, T_FLOAT eps)
 {
-
-}
-
-void Transform3D::MoveCircular(T_FLOAT x, T_FLOAT y, T_FLOAT z, const TVec3f& pos)
-{
-}
-
-T_FLOAT Transform3D::MoveCircularX(T_FLOAT x, const TVec3f& pos)
-{
-  const T_FLOAT x_distance = pos.x - this->position_.x;
-  const T_FLOAT z_distance = pos.z - this->position_.z;
-  const T_FLOAT xz_r = sqrtf(x_distance * x_distance + z_distance * z_distance);
-  //‰~Žü = 2 * PI * xz_r
-  //ˆÚ“®—Êx‚Æ‰~Žü‚Ì”ä—¦ = x / ‰~Žü
-  //ŠpˆÚ“®—Ê = ˆÚ“®—Êx‚Æ‰~Žü‚Ì”ä—¦ * (2 * PI)
-  //        = x / ‰~Žü * (2 * PI)
-  //        = x / ((2 * PI) * xz_r) * (2 * PI)
-  //        = x / xz_r;
-  const T_FLOAT xz_ang = atan2f(x_distance, z_distance) - x / xz_r;
-  this->SetPosition(pos.x - sin(xz_ang) * xz_r, this->GetY(), pos.z - cos(xz_ang) * xz_r);
-  return xz_ang;
-}
-
-T_FLOAT Transform3D::MoveCircularY(T_FLOAT y, const TVec3f& pos)
-{
-  return 0.0f;
-}
-
-T_FLOAT Transform3D::MoveCircularZ(T_FLOAT z, const TVec3f& pos)
-{
-  return 0.0f;
+  const TVec3f target_direction = (target - this->GetWorldPosition()).Normalized();
+  const TVec3f direction = this->GetWorldDirection().Normalized();
+  T_FLOAT dot = TVec3f::InnerProduct(direction, target_direction);
+  if (1.0f - eps < fabs(dot))
+  {
+    return;
+  }
+  T_FLOAT rad = acosf(dot);
+  TVec3f v = TVec3f::OuterProduct(direction, target_direction);
+  this->rotator_->Rotate(v.Normalized(), rad);
 }
 
 void Transform3D::UpdateTranslateMatrix(INativeMatrix* matrix)

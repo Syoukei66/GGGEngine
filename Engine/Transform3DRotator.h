@@ -37,7 +37,7 @@ public:
   void Slerp(const Quaternion& a, const Quaternion& b, T_FLOAT t);
   void Slerp(const Quaternion& b, T_FLOAT t);
 
-  const void q(const TVec3f& v, T_FLOAT rad);
+  const void Rotate(const TVec3f& v, T_FLOAT rad);
 
 private:
 
