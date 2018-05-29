@@ -15,8 +15,7 @@ Transform3DRotator::Transform3DRotator(Transform3D* transform)
   : transform_(transform)
   , quaternion_()
   , eular_angles_(0.0f, 0.0f, 0.0f)
-  , need_rotation_matrix_update_(false)
-  , need_eular_angles_update_(false)
+  , master_flag_(MASTER_EULAR | MASTER_MATRIX | MASTER_QUATERNION)
 {
   this->rotation_matrix_ = INativeMatrix::Create();
 }
@@ -34,8 +33,8 @@ void Transform3DRotator::Init()
   this->quaternion_ = Quaternion();
   this->eular_angles_ = TVec3f(0.0f, 0.0f, 0.0f);
   this->rotation_matrix_->Init();
-  this->need_rotation_matrix_update_ = false;
-  this->need_eular_angles_update_ = false;
+  this->master_flag_ = MASTER_EULAR | MASTER_MATRIX | MASTER_QUATERNION;
+  this->transform_->OnRotationChanged();
 }
 
 void Transform3DRotator::RotateX(T_FLOAT rad)
@@ -65,25 +64,25 @@ void Transform3DRotator::RotateZ(T_FLOAT rad)
   this->Rotate(Z_AXIS, rad);
 }
 
-void Transform3DRotator::RotateXAxis(T_FLOAT rad)
+void Transform3DRotator::Rotate(const TVec3f& v, T_FLOAT rad)
 {
-  this->SetEularX(this->GetEularX() + rad * MathConstants::RAD_TO_DEG);
-}
+  if (rad == 0.0f)
+  {
+    return;
+  }
+  this->PrepareQuaternion();
+  this->quaternion_.q(v, rad);
 
-void Transform3DRotator::RotateYAxis(T_FLOAT rad)
-{
-  this->SetEularY(this->GetEularY() + rad * MathConstants::RAD_TO_DEG);
-}
-
-void Transform3DRotator::RotateZAxis(T_FLOAT rad)
-{
-  this->SetEularZ(this->GetEularZ() + rad * MathConstants::RAD_TO_DEG);
+  this->master_flag_ = MASTER_QUATERNION;
+  this->transform_->OnRotationChanged();
 }
 
 void Transform3DRotator::FromRotationMatrix(INativeMatrix* matrix)
 {
   this->rotation_matrix_->Assign(*matrix);
-  this->FromRotationMatrix();
+
+  this->master_flag_ = MASTER_MATRIX;
+  this->transform_->OnRotationChanged();
 }
 
 void Transform3DRotator::ToRotationMatrix(INativeMatrix* dest)
@@ -94,15 +93,16 @@ void Transform3DRotator::ToRotationMatrix(INativeMatrix* dest)
 
 void Transform3DRotator::Lerp(const Quaternion& a, const Quaternion& b, T_FLOAT t)
 {
+  this->PrepareQuaternion();
   Quaternion lerped = Quaternion::Lerp(a, b, t);
   if (this->quaternion_ == lerped)
   {
     return;
   }
   this->quaternion_ = lerped;
+
+  this->master_flag_ = MASTER_QUATERNION;
   this->transform_->OnRotationChanged();
-  this->need_rotation_matrix_update_ = true;
-  this->need_eular_angles_update_ = true;
 }
 
 void Transform3DRotator::Lerp(const Quaternion& b, T_FLOAT t)
@@ -111,28 +111,30 @@ void Transform3DRotator::Lerp(const Quaternion& b, T_FLOAT t)
   {
     return;
   }
+  this->PrepareQuaternion();
   Quaternion lerped = Quaternion::Lerp(this->quaternion_, b, t);
   if (this->quaternion_ == lerped)
   {
     return;
   }
   this->quaternion_ = lerped;
+
+  this->master_flag_ = MASTER_QUATERNION;
   this->transform_->OnRotationChanged();
-  this->need_rotation_matrix_update_ = true;
-  this->need_eular_angles_update_ = true;
 }
 
 void Transform3DRotator::Slerp(const Quaternion& a, const Quaternion& b, T_FLOAT t)
 {
+  this->PrepareQuaternion();
   Quaternion slerped = Quaternion::Slerp(a, b, t);
   if (this->quaternion_ == slerped)
   {
     return;
   }
   this->quaternion_ = slerped;
+
+  this->master_flag_ = MASTER_QUATERNION;
   this->transform_->OnRotationChanged();
-  this->need_rotation_matrix_update_ = true;
-  this->need_eular_angles_update_ = true;
 }
 
 void Transform3DRotator::Slerp(const Quaternion& b, T_FLOAT t)
@@ -141,55 +143,59 @@ void Transform3DRotator::Slerp(const Quaternion& b, T_FLOAT t)
   {
     return;
   }
+  this->PrepareQuaternion();
   Quaternion slerped = Quaternion::Slerp(this->quaternion_, b, t);
   if (this->quaternion_ == slerped)
   {
     return;
   }
   this->quaternion_ = slerped;
+
+  this->master_flag_ = MASTER_QUATERNION;
   this->transform_->OnRotationChanged();
-  this->need_rotation_matrix_update_ = true;
-  this->need_eular_angles_update_ = true;
 }
 
-const void Transform3DRotator::Rotate(const TVec3f& v, T_FLOAT rad)
+void Transform3DRotator::PrepareQuaternion()
 {
-  if (rad == 0.0f)
+  if (this->master_flag_ & MASTER_QUATERNION)
   {
     return;
   }
-  this->quaternion_.q(v, rad);
-  this->transform_->OnRotationChanged();
-  this->need_rotation_matrix_update_ = true;
-  this->need_eular_angles_update_ = true;
-}
-
-void Transform3DRotator::FromRotationMatrix()
-{
+  this->PrepareRotationMatrix();
   this->quaternion_.FromRotationMatrix(*this->rotation_matrix_);
-  this->transform_->OnRotationChanged();
-  this->need_rotation_matrix_update_ = false;
-  this->need_eular_angles_update_ = true;
+  this->master_flag_ |= MASTER_QUATERNION;
 }
 
 void Transform3DRotator::PrepareRotationMatrix()
 {
-  if (!this->need_rotation_matrix_update_)
+  if (this->master_flag_ & MASTER_MATRIX)
   {
     return;
   }
-  this->quaternion_.ToRotationMatrix(this->rotation_matrix_);
-  this->need_eular_angles_update_ = true;
-  this->need_rotation_matrix_update_ = false;
+  if (this->master_flag_ & MASTER_EULAR)
+  {
+    this->rotation_matrix_->Init();
+    this->rotation_matrix_->Rotation(this->eular_angles_ * MathConstants::DEG_TO_RAD);
+  }
+  else if (this->master_flag_ & MASTER_QUATERNION)
+  {
+    this->quaternion_.ToRotationMatrix(this->rotation_matrix_);
+  }
+  else
+  {
+    NATIVE_ASSERT(false, "正しい角度データが存在しません。");
+  }
+  this->master_flag_ |= MASTER_MATRIX;
 }
 
 void Transform3DRotator::PrepareEularAngles()
 {
-  this->PrepareRotationMatrix();
-  if (!this->need_eular_angles_update_)
+  if (this->master_flag_ & MASTER_EULAR)
   {
     return;
   }
+  this->PrepareRotationMatrix();
+
   const T_FLOAT m11 = (*this->rotation_matrix_)[0][0];
   const T_FLOAT m12 = (*this->rotation_matrix_)[0][1];
   const T_FLOAT m13 = (*this->rotation_matrix_)[0][2];
@@ -223,74 +229,42 @@ void Transform3DRotator::PrepareEularAngles()
   }
 
   this->eular_angles_ *= MathConstants::RAD_TO_DEG;
-  this->need_eular_angles_update_ = false;
+  this->master_flag_ |= MASTER_EULAR;
 }
-
 
 void Transform3DRotator::SetEularAngles(const TVec3f& rotation)
 {
-  this->rotation_matrix_->Rotation(rotation * MathConstants::DEG_TO_RAD);
-
-  this->FromRotationMatrix();
-
   this->eular_angles_ = rotation;
-  this->need_eular_angles_update_ = false;
+  this->master_flag_ = MASTER_EULAR;
+  this->transform_->OnRotationChanged();
 }
 
 void Transform3DRotator::SetEularAngles(T_FLOAT x, T_FLOAT y, T_FLOAT z)
 {
-  this->rotation_matrix_->Rotation(
-    x * MathConstants::DEG_TO_RAD,
-    y * MathConstants::DEG_TO_RAD,
-    z * MathConstants::DEG_TO_RAD
-  );
-
-  this->FromRotationMatrix();
-
   this->eular_angles_.x = x;
   this->eular_angles_.y = y;
   this->eular_angles_.z = z;
-  this->need_eular_angles_update_ = false;
+  this->master_flag_ = MASTER_EULAR;
+  this->transform_->OnRotationChanged();
 }
 
 void Transform3DRotator::SetEularX(T_FLOAT x)
 {
-  this->rotation_matrix_->Rotation(
-    x * MathConstants::DEG_TO_RAD,
-    this->eular_angles_.y * MathConstants::DEG_TO_RAD,
-    this->eular_angles_.z * MathConstants::DEG_TO_RAD
-  );
-
-  this->FromRotationMatrix();
-
   this->eular_angles_.x = x;
-  this->need_eular_angles_update_ = false;
+  this->master_flag_ = MASTER_EULAR;
+  this->transform_->OnRotationChanged();
 }
 
 void Transform3DRotator::SetEularY(T_FLOAT y)
 {
-  this->rotation_matrix_->Rotation(
-    this->eular_angles_.x * MathConstants::DEG_TO_RAD,
-    y * MathConstants::DEG_TO_RAD,
-    this->eular_angles_.z * MathConstants::DEG_TO_RAD
-  );
-
-  this->FromRotationMatrix();
-
   this->eular_angles_.y = y;
-  this->need_eular_angles_update_ = false;
+  this->master_flag_ = MASTER_EULAR;
+  this->transform_->OnRotationChanged();
 }
 
 void Transform3DRotator::SetEularZ(T_FLOAT z)
 {
-  this->rotation_matrix_->Rotation(
-    this->eular_angles_.x * MathConstants::DEG_TO_RAD,
-    this->eular_angles_.y * MathConstants::DEG_TO_RAD,
-    z * MathConstants::DEG_TO_RAD
-  );
-
-  this->FromRotationMatrix();
-
   this->eular_angles_.z = z;
-  this->need_eular_angles_update_ = false;
+  this->master_flag_ = MASTER_EULAR;
+  this->transform_->OnRotationChanged();
 }

@@ -3,6 +3,7 @@
 
 #include "GameObject3D.h"
 #include "MathConstants.h"
+#include "imgui\imgui.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -71,18 +72,19 @@ void Transform3D::MoveZ(T_FLOAT z)
   this->SetPosition(this->GetX() + x, this->GetY() + y, this->GetZ() + z);
 }
 
-void Transform3D::LookAt(const TVec3f& target, T_FLOAT eps)
+void Transform3D::LookAt(const TVec3f& target, const TVec3f& up)
 {
-  const TVec3f target_direction = (target - this->GetWorldPosition()).Normalized();
-  const TVec3f direction = this->GetWorldDirection().Normalized();
-  T_FLOAT dot = TVec3f::InnerProduct(direction, target_direction);
-  if (1.0f - eps < fabs(dot))
-  {
-    return;
-  }
-  T_FLOAT rad = acosf(dot);
-  TVec3f v = TVec3f::OuterProduct(direction, target_direction);
-  this->rotator_->Rotate(v.Normalized(), rad);
+  const TVec3f z = (target - this->GetWorldPosition()).Normalized();
+  const TVec3f x = TVec3f::OuterProduct(up, z);
+  const TVec3f y = TVec3f::OuterProduct(z, x);
+
+  INativeMatrix* mat = INativeMatrix::Create();
+  (*mat)[0][0] = x.x;  (*mat)[1][0] = y.x;  (*mat)[2][0] = z.x;
+  (*mat)[0][1] = x.y;  (*mat)[1][1] = y.y;  (*mat)[2][1] = z.y;
+  (*mat)[0][2] = x.z;  (*mat)[1][2] = y.z;  (*mat)[2][2] = z.z;
+  this->rotator_->FromRotationMatrix(mat);
+
+  delete mat;
 }
 
 void Transform3D::UpdateTranslateMatrix(INativeMatrix* matrix)

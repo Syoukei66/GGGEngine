@@ -26,7 +26,7 @@ public:
   void MoveY(T_FLOAT y);
   void MoveZ(T_FLOAT z);
 
-  void LookAt(const TVec3f& target, T_FLOAT eps = 0.01f);
+  void LookAt(const TVec3f& target, const TVec3f& up = TVec3f::up);
 
 protected:
   void UpdateTranslateMatrix(INativeMatrix* matrix) override;
@@ -124,19 +124,6 @@ public:
   inline void RotateZ(T_FLOAT rad)
   {
     this->rotator_->RotateZ(rad);
-  }
-
-  inline void RotateXAxis(T_FLOAT rad)
-  {
-    this->rotator_->RotateXAxis(rad);
-  }
-  inline void RotateYAxis(T_FLOAT rad)
-  {
-    this->rotator_->RotateYAxis(rad);
-  }
-  inline void RotateZAxis(T_FLOAT rad)
-  {
-    this->rotator_->RotateZAxis(rad);
   }
 
   inline void LerpRotation(const Quaternion& a, const Quaternion& b, T_FLOAT t)
