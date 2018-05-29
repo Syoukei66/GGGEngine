@@ -194,9 +194,6 @@
     <ClInclude Include="AudioManager.h">
       <Filter>ヘッダー ファイル\Audio</Filter>
     </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="NativeTexture.h">
       <Filter>ヘッダー ファイル\Native\Objects\Texture</Filter>
     </ClInclude>
@@ -214,6 +211,9 @@
     </ClInclude>
     <ClInclude Include="NativeMatrixStack.h">
       <Filter>ヘッダー ファイル\Native\Objects\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

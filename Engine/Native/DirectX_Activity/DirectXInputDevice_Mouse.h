@@ -21,8 +21,12 @@ public:
 
 public:
   DirectXInputDevice_Mouse(
-    T_UINT8 handler, const MouseInput* mouse_inputs, T_UINT8 mouse_inputs_count,
-    EngineInput::Analog::ID move_input_id, EngineInput::Analog::ID screen_input_id,
+    T_UINT8 handler,
+    const MouseInput* mouse_inputs,
+    T_UINT8 mouse_inputs_count,
+    EngineInput::Analog::ID move_input_id,
+    EngineInput::Analog::ID screen_input_id,
+    EngineInput::Analog::ID wheel_input_id,
     bool bind = false);
 
 public:
@@ -35,5 +39,6 @@ private:
   T_UINT8 mouse_inputs_count_;
   EngineInput::Analog::ID move_input_id_;
   EngineInput::Analog::ID position_input_id_;
+  EngineInput::Analog::ID wheel_input_id_;
   bool bind_;
 };

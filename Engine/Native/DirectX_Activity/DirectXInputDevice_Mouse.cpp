@@ -3,12 +3,21 @@
 
 #include "DirectXDirector.h"
 
-DirectXInputDevice_Mouse::DirectXInputDevice_Mouse(T_UINT8 handler, const MouseInput* mouse_inputs, T_UINT8 mouse_inputs_count, EngineInput::Analog::ID move_input_id, EngineInput::Analog::ID screen_input_id, bool bind)
+DirectXInputDevice_Mouse::DirectXInputDevice_Mouse(
+  T_UINT8 handler,
+  const MouseInput* mouse_inputs,
+  T_UINT8 mouse_inputs_count,
+  EngineInput::Analog::ID move_input_id,
+  EngineInput::Analog::ID screen_input_id,
+  EngineInput::Analog::ID wheel_input_id,
+  bool bind
+)
   : DirectXInputDevice(handler)
   , mouse_inputs_(mouse_inputs)
   , mouse_inputs_count_(mouse_inputs_count)
   , move_input_id_(move_input_id)
-  , position_input_id_(position_input_id_)
+  , position_input_id_(screen_input_id)
+  , wheel_input_id_(wheel_input_id)
   , bind_(bind)
 {}
 
@@ -148,5 +157,10 @@ void DirectXInputDevice_Mouse::InputProcess(T_UINT8 handler, EngineInputState* s
   //const T_FLOAT pre_y = state->GetAnalogInput(handler)->GetOldValue(this->position_input_id_, 1);
   //state->InputAnalog(handler, this->position_input_id_, 0, pre_x + (mouse_state.lX / w));
   //state->InputAnalog(handler, this->position_input_id_, 1, pre_y - (mouse_state.lY / h));
+
   state->PostInputAnalog(handler, this->position_input_id_);
+
+  state->PreInputAnalog(handler, this->wheel_input_id_);
+  state->InputAnalog(handler, this->wheel_input_id_, 0, mouse_state.lZ * 0.1f);
+  state->PostInputAnalog(handler, this->wheel_input_id_);
 }
