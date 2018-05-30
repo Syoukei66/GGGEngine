@@ -337,6 +337,24 @@
     <Filter Include="ソース ファイル\Component\Mesh\Builder">
       <UniqueIdentifier>{c32d8cac-be28-4fa5-95ca-b686cd22a33a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Util\Noise">
+      <UniqueIdentifier>{52e55bb5-74a3-4589-9e9c-89facca7646e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Util\Noise">
+      <UniqueIdentifier>{e411dfee-619e-401b-a2d1-8c4d0c473f05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Util\Rondom">
+      <UniqueIdentifier>{9b921e03-1cb2-4473-9ddc-97e89322b5d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Util\Random">
+      <UniqueIdentifier>{a8e0c72a-425a-462f-bdb2-1124fa509b8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Structure\Color">
+      <UniqueIdentifier>{c572f169-a427-4f5f-b5d3-20f688bdeaee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Structure\Color">
+      <UniqueIdentifier>{8aff19d6-ed47-4b41-9717-c3fce5fa0703}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ITextureRegion.cpp">
@@ -353,9 +371,6 @@
     </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>ソース ファイル\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Color.cpp">
-      <Filter>ソース ファイル\Structure</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>ソース ファイル\Scene</Filter>
@@ -777,8 +792,17 @@
     <ClCompile Include="MeshBuilder_Cube.cpp">
       <Filter>ソース ファイル\Component\Mesh\Builder</Filter>
     </ClCompile>
-    <ClCompile Include="Noise.cpp">
-      <Filter>ソース ファイル\Util</Filter>
+    <ClCompile Include="PerlinNoiseGenerator.cpp">
+      <Filter>ソース ファイル\Util\Noise</Filter>
+    </ClCompile>
+    <ClCompile Include="RandomGenerator.cpp">
+      <Filter>ソース ファイル\Util\Random</Filter>
+    </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>ソース ファイル\Structure\Color</Filter>
+    </ClCompile>
+    <ClCompile Include="Gradient.cpp">
+      <Filter>ソース ファイル\Structure\Color</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -787,9 +811,6 @@
     </ClInclude>
     <ClInclude Include="Util.h">
       <Filter>ヘッダー ファイル\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="Color.h">
-      <Filter>ヘッダー ファイル\Structure</Filter>
     </ClInclude>
     <ClInclude Include="Geometry.h">
       <Filter>ヘッダー ファイル\Structure</Filter>
@@ -1325,11 +1346,20 @@
     <ClInclude Include="MeshBuilder_Cube.h">
       <Filter>ヘッダー ファイル\Component\Mesh\Builder</Filter>
     </ClInclude>
-    <ClInclude Include="Noise.h">
-      <Filter>ヘッダー ファイル\Util</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>ヘッダー ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="RandomGenerator.h">
+      <Filter>ヘッダー ファイル\Util\Rondom</Filter>
+    </ClInclude>
+    <ClInclude Include="PerlinNoiseGenerator.h">
+      <Filter>ヘッダー ファイル\Util\Noise</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>ヘッダー ファイル\Structure\Color</Filter>
+    </ClInclude>
+    <ClInclude Include="Gradient.h">
+      <Filter>ヘッダー ファイル\Structure\Color</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

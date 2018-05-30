@@ -10,6 +10,7 @@ class MeshRenderer : public Renderer
   // =================================================================
 public:
   static MeshRenderer* Create(const Mesh& mesh, GameObject* entity);
+  static MeshRenderer* Create(const Mesh* mesh, GameObject* entity);
 
   // =================================================================
   // Constructor / Destructor
@@ -32,6 +33,10 @@ public:
   inline void SetMesh(const Mesh& mesh)
   {
     this->mesh_ = &mesh;
+  }
+  inline void SetMesh(const Mesh* mesh)
+  {
+    this->mesh_ = mesh;
   }
 
   // =================================================================

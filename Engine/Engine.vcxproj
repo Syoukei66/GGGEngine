@@ -207,6 +207,7 @@
     <ClCompile Include="GameObject2D.cpp" />
     <ClCompile Include="GameObject3D.cpp" />
     <ClCompile Include="FbxResource.cpp" />
+    <ClCompile Include="Gradient.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
     <ClCompile Include="imgui_ja_gryph_ranges.cpp" />
@@ -229,7 +230,8 @@
     <ClCompile Include="NativeShader.cpp" />
     <ClCompile Include="NativeSound.cpp" />
     <ClCompile Include="NativeVertexBuffer.cpp" />
-    <ClCompile Include="Noise.cpp" />
+    <ClCompile Include="PerlinNoiseGenerator.cpp" />
+    <ClCompile Include="RandomGenerator.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="FileLoader.cpp" />
     <ClCompile Include="ModelData.cpp" />
@@ -332,6 +334,7 @@
     <ClInclude Include="FbxNodeData.h" />
     <ClInclude Include="FbxResource.h" />
     <ClInclude Include="GameObjectFactory.h" />
+    <ClInclude Include="Gradient.h" />
     <ClInclude Include="GraphicsConstants.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
@@ -362,7 +365,8 @@
     <ClInclude Include="NativeSound.h" />
     <ClInclude Include="NativeVertexBuffer.h" />
     <ClInclude Include="NativeShader.h" />
-    <ClInclude Include="Noise.h" />
+    <ClInclude Include="PerlinNoiseGenerator.h" />
+    <ClInclude Include="RandomGenerator.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="FileLoader.h" />
     <ClInclude Include="FileResource.h" />

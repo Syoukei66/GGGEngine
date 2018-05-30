@@ -5,6 +5,8 @@
 #include <time.h>
 
 #include "NativeType.h"
+#include "RandomGenerator.h"
+#include "PerlinNoiseGenerator.h"
 
 namespace Util
 {
@@ -22,44 +24,16 @@ namespace Util
     return value;
   }
 
-  static bool RANDOM_INITIALIZED = false;
-  
-  inline void RandomInit()
+  inline RondomGenerator& Rondom()
   {
-    //srand(time(0));
-    RANDOM_INITIALIZED = true;
+    static RondomGenerator generator;
+    return generator;
   }
 
-  inline T_INT32 GetRandom(T_INT32 min, T_INT32 max)
+  inline PerlinNoiseGenerator& PerlinNoise()
   {
-    if (!RANDOM_INITIALIZED)
-    {
-      RandomInit();
-    }
-    return min + (T_INT32)(((T_DOUBLE)rand() / (RAND_MAX + 1)) * (T_DOUBLE)(max - min));
-  }
-
-  inline T_FLOAT GetRandom(T_FLOAT min, T_FLOAT max)
-  {
-    if (!RANDOM_INITIALIZED)
-    {
-      RandomInit();
-    }
-    return min + (T_FLOAT)(((T_DOUBLE)rand() / (RAND_MAX + 1)) * (T_DOUBLE)(max - min));
-  }
-
-  inline T_DOUBLE GetRandom(T_DOUBLE min, T_DOUBLE max)
-  {
-    if (!RANDOM_INITIALIZED)
-    {
-      RandomInit();
-    }
-    return min + (T_DOUBLE)(((T_DOUBLE)rand() / (RAND_MAX + 1)) * (T_DOUBLE)(max - min));
-  }
-
-  inline T_UINT32 GetRandom(T_UINT32 max)
-  {
-    return GetRandom(0, max);
+    static PerlinNoiseGenerator generator;
+    return generator;
   }
 
   inline T_UINT16 CalcTwoPowerValue(T_UINT16 val)

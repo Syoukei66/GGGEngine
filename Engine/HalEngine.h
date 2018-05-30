@@ -176,9 +176,11 @@
 
 //Structure
   #include "BlendFunction.h"
-  #include "Color.h"
   #include "Geometry.h"
   #include "Quaternion.h"
+//--Color
+    #include "Color.h"
+    #include "Gradient.h"
 //--TextureRegion
     #include "ITextureRegion.h"
     #include "TextureRegion.h"
@@ -188,8 +190,11 @@
   #include "Bresenham.h"
   #include "GraphicsConstants.h"
   #include "MathConstants.h"
-  #include "Noise.h"
   #include "Util.h"
+//--Random
+    #include "RandomGenerator.h"
+//--Noise
+    #include "PerlinNoiseGenerator.h"
 //--EasingFunction
     #include "EasingFunction.h"
     #include "EasingFunctionManager.h"
