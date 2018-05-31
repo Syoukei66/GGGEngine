@@ -43,14 +43,15 @@ void Mesh::Clear()
 
 void Mesh::ClearVertices()
 {
-  delete this->vertices_;
-  delete this->normals_;
-  delete this->uvs_;
-  delete this->uv2s_;
-  delete this->uv3s_;
-  delete this->uv4s_;
-  delete this->tangents_;
-  delete this->colors_;
+  delete[] this->vertices_;
+  delete[] this->normals_;
+  delete[] this->uvs_;
+  delete[] this->uv2s_;
+  delete[] this->uv3s_;
+  delete[] this->uv4s_;
+  delete[] this->tangents_;
+  delete[] this->colors_;
+
   delete this->vertex_buffer_;
 
   this->vertex_count_ = 0;
@@ -72,10 +73,12 @@ void Mesh::ClearIndices()
   for (T_UINT8 i = 0; i < this->submesh_count_; ++i)
   {
     delete[] this->indices_[i];
+    delete this->index_buffers_[i];
   }
   delete[] this->indices_;
   delete[] this->index_counts_;
   delete[] this->index_buffers_;
+  delete[] this->indices_dirties_;
 
   this->submesh_count_ = 0;
   this->indices_ = nullptr;
@@ -333,6 +336,7 @@ void Mesh::RecalculateNormals()
       this->tangents_[i].w = 1.0f;
     }
   }
+  delete[] surf_normals;
 }
 
 void Mesh::SetStreamSource() const
