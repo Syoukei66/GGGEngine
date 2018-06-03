@@ -108,8 +108,17 @@ void Camera3D_LookAt::CheckViewDirty()
     //ƒvƒŒƒCƒ„[‚ª‘¶Ý‚µ‚È‚¢Žž‚Ìˆ—
     else
     {
-      this->view_matrix_->Assign(this->GetEntity()->GetWorldMatrix());
-      this->direction_ = this->view_matrix_->GetDirection3d();
+      this->current_look_at_pos_ = this->look_at_pos_;
+
+      const TVec3f camera_pos = this->GetEntity()->GetWorldMatrix().GetPosition3d();
+      TVec3f look_at_pos = this->look_at_pos_;
+      this->GetEntity()->GetWorldMatrix().Apply(&look_at_pos);
+      this->direction_ = (look_at_pos - camera_pos).Normalized();
+      this->view_matrix_->LookAtLH(
+        camera_pos,
+        look_at_pos,
+        this->GetEntity()->GetWorldMatrix().GetCameraYVec()
+      );
     }
   }
 
