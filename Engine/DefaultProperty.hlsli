@@ -20,6 +20,20 @@ sampler _MainTexSampler = sampler_state
 };
 #endif
 
+#ifdef _MAIN_TEXTURE_ANISOTROPIC
+texture _MainTex;
+sampler _MainTexSampler = sampler_state
+{
+  Texture = _MainTex;
+  MaxAnisotropy = _MAIN_TEXTURE_ANISOTROPIC;
+  AddressU = Wrap;
+  AddressV = Wrap;
+  MipFilter = ANISOTROPIC;
+  MinFilter = ANISOTROPIC;
+  MagFilter = ANISOTROPIC;
+};
+#endif
+
 #ifdef _NORMAL_TEXTURE
 texture _NormalTex;
 sampler _NormalTexSampler = sampler_state
