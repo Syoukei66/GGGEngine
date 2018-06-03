@@ -91,6 +91,10 @@ Mesh* MeshFactory::Sprite::Create()
     ret->SetVertex(i, SPRITE_VERTEXES[i]);
     ret->SetUv(i, SPRITE_UVS[i]);
   }
+  for (T_UINT32 i = 0; i < SPRITE_VERTEX_INDEXES_COUNT; ++i)
+  {
+    ret->SetIndex(i, SPRITE_INDEXES[i]);
+  }
   ret->CommitChanges();
   return ret;
 }

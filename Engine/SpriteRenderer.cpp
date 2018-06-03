@@ -25,6 +25,23 @@ SpriteRenderer::~SpriteRenderer()
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
+void SpriteRenderer::Draw(GameObjectRenderState* state)
+{
+  EngineAsset::Mesh::QUAD.GetContents().SetStreamSource();
+  Material* material = this->materials_[0];
+  T_UINT8 pass_count = material->Begin();
+  for (T_UINT8 j = 0; j < pass_count; ++j)
+  {
+    material->BeginPass(j);
+    material->SetDefaultProperties(state);
+    this->EditProperty(0, j, material);
+    material->CommitChanges();
+    EngineAsset::Mesh::QUAD.GetContents().DrawSubset(0);
+    material->EndPass();
+  }
+  material->End();
+}
+
 void SpriteRenderer::EditProperty(T_UINT8 material_index, T_UINT8 pass_index, Material* material)
 {
   if (!this->texture_region_)
@@ -36,16 +53,6 @@ void SpriteRenderer::EditProperty(T_UINT8 material_index, T_UINT8 pass_index, Ma
   material->Vec2fProperty("_UV1") = this->texture_region_->GetUV1();
   material->FloatProperty("_Width") = this->size_.width * this->image_scale_;
   material->FloatProperty("_Height") = this->size_.height * this->image_scale_;
-}
-
-void SpriteRenderer::SetStreamSource()
-{
-  EngineAsset::Mesh::QUAD.GetContents().SetStreamSource();
-}
-
-void SpriteRenderer::DrawSubset(T_UINT8 material_index, T_UINT8 pass_index)
-{
-  EngineAsset::Mesh::QUAD.GetContents().DrawSubset(material_index);
 }
 
 // =================================================================

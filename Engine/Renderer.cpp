@@ -34,27 +34,6 @@ void Renderer::ReserveDraw(GameObjectRenderState* state)
   this->Draw(state);
 }
 
-void Renderer::Draw(GameObjectRenderState* state)
-{
-  this->SetStreamSource();
-  const T_UINT8 material_count = this->materials_.size();
-  for (T_UINT8 i = 0; i < material_count; ++i)
-  {
-    Material* material = this->materials_[i];
-    T_UINT8 pass_count = material->Begin();
-    for (T_UINT8 j = 0; j < pass_count; ++j)
-    {
-      material->BeginPass(j);
-      material->SetDefaultProperties(state);
-      this->EditProperty(i, j, material);
-      material->CommitChanges();
-      this->DrawSubset(i, j);
-      material->EndPass();
-    }
-    material->End();
-  }
-}
-
 void Renderer::UniqueMaterial()
 {
   T_UINT8 material_count = this->GetMaterialCount();

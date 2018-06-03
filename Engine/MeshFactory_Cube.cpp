@@ -1,6 +1,6 @@
 #include "MeshFactory_Cube.h"
 
-static void CreateFaceVertices(T_UINT32 i, const TVec3f& normal, T_UINT32 format, const TVec3f& scale, T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, const TVec3f& tile_count, Mesh* dest)
+static void CreateFaceVertices(T_UINT32& i, const TVec3f& normal, T_UINT32 format, const TVec3f& scale, T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, const TVec3f& tile_count, Mesh* dest)
 {
   using namespace GraphicsConstants;
 

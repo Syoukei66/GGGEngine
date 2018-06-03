@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "NativeType.h"
+#include "IMesh.h"
 #include "NativeAssert.h"
 #include "Geometry.h"
 #include "Color.h"
@@ -9,7 +9,7 @@
 #include "NativeIndexBuffer.h"
 #include "GraphicsConstants.h"
 
-class Mesh
+class Mesh : public IMesh
 {
   // =================================================================
   // Constructor / Destructor
@@ -46,8 +46,8 @@ public:
   void CommitChanges();
   void RecalculateNormals();
 
-  void SetStreamSource() const;
-  void DrawSubset(T_UINT8 index) const;
+  virtual void SetStreamSource() const override;
+  virtual void DrawSubset(T_UINT8 index) const override;
 
   // =================================================================
   // setter/getter

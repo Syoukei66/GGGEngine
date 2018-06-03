@@ -19,13 +19,14 @@ public:
   // =================================================================
 public:
   void ReserveDraw(GameObjectRenderState* state);
-  void Draw(GameObjectRenderState* state);
   void UniqueMaterial();
-
+  
+  virtual void Draw(GameObjectRenderState* state) = 0;
+/*
 protected:
   virtual void EditProperty(T_UINT8 material_index, T_UINT8 pass_index, Material* material) = 0;
   virtual void SetStreamSource() = 0;
-  virtual void DrawSubset(T_UINT8 material_index, T_UINT8 pass_index) = 0;
+  virtual void DrawSubset(T_UINT8 material_index, T_UINT8 pass_index) = 0;*/
 
   // =================================================================
   // setter/getter
@@ -66,7 +67,7 @@ public:
   // =================================================================
   // Data Member
   // =================================================================
-private:
+protected:
   GameObject* entity_;
   T_UINT8 layer_id_;
   std::vector<Material*> materials_;

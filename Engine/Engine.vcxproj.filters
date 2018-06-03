@@ -1361,6 +1361,12 @@
     <ClInclude Include="Gradient.h">
       <Filter>ヘッダー ファイル\Structure\Color</Filter>
     </ClInclude>
+    <ClInclude Include="IMesh.h">
+      <Filter>ヘッダー ファイル\Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Mathf.h">
+      <Filter>ヘッダー ファイル\Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Default.fx">
