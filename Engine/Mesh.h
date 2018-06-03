@@ -44,7 +44,7 @@ public:
   void CreateIndices(T_UINT8 submesh_count, T_UINT32* index_counts);
 
   void CommitChanges();
-  void RecalculateNormals();
+  void RecalculateNormals(bool save_face_normals = false);
 
   virtual void SetStreamSource() const override;
   virtual void DrawSubset(T_UINT8 index) const override;
@@ -252,6 +252,7 @@ private:
   T_UINT32 format_;
   GraphicsConstants::PrimitiveType primitive_type_;
   T_UINT32 polygon_count_;
+  TVec3f* face_normals_;
 
   T_UINT32 vertex_count_;
   TVec3f* vertices_;

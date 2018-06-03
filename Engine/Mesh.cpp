@@ -8,6 +8,8 @@ Mesh::Mesh()
   : orginal_()
   , format_()
   , primitive_type_()
+  , polygon_count_()
+  , face_normals_()
   , vertex_count_()
   , vertices_()
   , normals_()
@@ -70,6 +72,7 @@ void Mesh::ClearVertices()
 
 void Mesh::ClearIndices()
 {
+  delete[] this->face_normals_;
   for (T_UINT8 i = 0; i < this->submesh_count_; ++i)
   {
     delete[] this->indices_[i];
@@ -80,6 +83,7 @@ void Mesh::ClearIndices()
   delete[] this->index_buffers_;
   delete[] this->indices_dirties_;
 
+  this->face_normals_ = nullptr;
   this->submesh_count_ = 0;
   this->indices_ = nullptr;
   this->index_counts_ = nullptr;
@@ -289,13 +293,16 @@ void Mesh::CommitChanges()
   }
 }
 
-void Mesh::RecalculateNormals()
+void Mesh::RecalculateNormals(bool save_face_normals)
 {
   NATIVE_ASSERT(this->primitive_type_ == GraphicsConstants::PRIMITIVE_TRIANGLES, "まだできてません！");
 
   NATIVE_ASSERT(this->format_ & GraphicsConstants::V_ATTR_NORMAL, "フォーマットに法線情報が含まれていません");
   
-  TVec3f* surf_normals = new TVec3f[this->polygon_count_];
+  if (!this->face_normals_)
+  {
+    this->face_normals_ = new TVec3f[this->polygon_count_];
+  }
   for (T_UINT32 i = 0; i < this->vertex_count_; ++i)
   {
     this->normals_[i] = TVec3f::zero;
@@ -310,14 +317,14 @@ void Mesh::RecalculateNormals()
       TVec3f v2 = this->vertices_[this->indices_[i][j + 2]];
       TVec3f vv1 = v1 - v0;
       TVec3f vv2 = v2 - v1;
-      surf_normals[s] = TVec3f::OuterProduct(vv1, vv2).Normalized();
+      this->face_normals_[s] = TVec3f::OuterProduct(vv1, vv2).Normalized();
     }
     s = 0;
     for (T_UINT32 j = 0; j < this->index_counts_[i]; j += 3, ++s)
     {
-      this->normals_[this->indices_[i][j]] += surf_normals[s];
-      this->normals_[this->indices_[i][j + 1]] += surf_normals[s];
-      this->normals_[this->indices_[i][j + 2]] += surf_normals[s];
+      this->normals_[this->indices_[i][j]] += this->face_normals_[s];
+      this->normals_[this->indices_[i][j + 1]] += this->face_normals_[s];
+      this->normals_[this->indices_[i][j + 2]] += this->face_normals_[s];
     }
   }
   for (T_UINT32 i = 0; i < this->vertex_count_; ++i)
@@ -336,7 +343,11 @@ void Mesh::RecalculateNormals()
       this->tangents_[i].w = 1.0f;
     }
   }
-  delete[] surf_normals;
+  if (!save_face_normals)
+  {
+    delete[] this->face_normals_;
+    this->face_normals_ = nullptr;
+  }
 }
 
 void Mesh::SetStreamSource() const
