@@ -21,7 +21,7 @@ public:
   GradientTable& AddColor(T_FLOAT location, const Color4F& color);
   void RemoveColor(const GradientTable& id);
   void RemoveColor(T_UINT8 id);
-  Color4F Evaluate(T_FLOAT time);
+  Color4F Evaluate(T_FLOAT time) const;
 
 private:
   T_UINT8 id_max_;

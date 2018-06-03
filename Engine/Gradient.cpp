@@ -40,10 +40,10 @@ void Gradient::RemoveColor(T_UINT8 id)
   }
 }
 
-Color4F Gradient::Evaluate(T_FLOAT time)
+Color4F Gradient::Evaluate(T_FLOAT time) const
 {
   GradientTable prev = this->table_.front();
-  for (GradientTable& table : this->table_)
+  for (const GradientTable& table : this->table_)
   {
     if (time < table.location)
     {
