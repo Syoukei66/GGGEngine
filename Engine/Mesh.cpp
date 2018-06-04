@@ -331,18 +331,18 @@ void Mesh::RecalculateNormals(bool save_face_normals)
   {
     this->normals_[i] = this->normals_[i].Normalized();
   }
-  if (this->format_ & GraphicsConstants::V_ATTR_TANGENT)
-  {
-    for (T_UINT32 i = 0; i < this->vertex_count_; ++i)
-    {
-      const TVec3f normal = this->normals_[i];
-      const TVec3f tangent = normal.x == 0.0f && normal.z == 0.0f ? TVec3f::OuterProduct(normal, TVec3f::forward) : TVec3f::OuterProduct(normal, TVec3f::up);
-      this->tangents_[i].x = tangent.x;
-      this->tangents_[i].y = tangent.y;
-      this->tangents_[i].z = tangent.z;
-      this->tangents_[i].w = 1.0f;
-    }
-  }
+  //if (this->format_ & GraphicsConstants::V_ATTR_TANGENT)
+  //{
+  //  for (T_UINT32 i = 0; i < this->vertex_count_; ++i)
+  //  {
+  //    const TVec3f normal = this->normals_[i];
+  //    const TVec3f tangent = normal.x == 0.0f && normal.z == 0.0f ? TVec3f::OuterProduct(normal, TVec3f::forward) : TVec3f::OuterProduct(normal, TVec3f::up);
+  //    this->tangents_[i].x = tangent.x;
+  //    this->tangents_[i].y = tangent.y;
+  //    this->tangents_[i].z = tangent.z;
+  //    this->tangents_[i].w = 1.0f;
+  //  }
+  //}
   if (!save_face_normals)
   {
     delete[] this->face_normals_;
