@@ -174,3 +174,8 @@ void NativeVertexBuffer::DrawIndexedPrimitive(const INativeIndexBuffer* index_bu
   );
   NATIVE_ASSERT(SUCCEEDED(hr), "•`‰æ‚É¸”s‚µ‚Ü‚µ‚½");
 }
+
+T_UINT32 NativeVertexBuffer::GetMemorySize() const
+{
+  return this->stride_ * this->vertex_count_;
+}

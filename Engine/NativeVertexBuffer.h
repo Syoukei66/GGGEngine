@@ -45,4 +45,6 @@ public:
   virtual void DrawPrimitive(GraphicsConstants::PrimitiveType primitive_type) const = 0;
   virtual void DrawIndexedPrimitive(const INativeIndexBuffer* index_buffer, GraphicsConstants::PrimitiveType primitive_type) const = 0;
 
+  virtual T_UINT32 GetMemorySize() const = 0;
+
 };

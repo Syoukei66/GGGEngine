@@ -362,6 +362,27 @@ void Mesh::DrawSubset(T_UINT8 index) const
   this->vertex_buffer_->DrawIndexedPrimitive(this->index_buffers_[index], this->primitive_type_);
 }
 
+T_UINT32 Mesh::GetMemorySize()
+{
+  T_UINT32 ret = 0;
+  if (this->vertex_buffer_)
+  {
+    ret += this->vertex_buffer_->GetMemorySize();
+  }
+  if (this->index_buffers_)
+  {
+    for (T_UINT8 i = 0; i < this->submesh_count_; ++i)
+    {
+      if (!this->index_buffers_[i])
+      {
+        continue;
+      }
+      ret += sizeof(T_UINT32) * this->index_buffers_[i]->GetVertexesCount();
+    }
+  }
+  return ret;
+}
+
 // =================================================================
 // setter/getter
 // =================================================================

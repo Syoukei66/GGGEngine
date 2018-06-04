@@ -49,6 +49,8 @@ public:
   virtual void SetStreamSource() const override;
   virtual void DrawSubset(T_UINT8 index) const override;
 
+  T_UINT32 GetMemorySize();
+
   // =================================================================
   // setter/getter
   // =================================================================
