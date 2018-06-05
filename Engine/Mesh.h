@@ -55,6 +55,15 @@ public:
   // setter/getter
   // =================================================================
 public:
+  inline void SetPrimitiveType(GraphicsConstants::PrimitiveType type)
+  {
+    this->primitive_type_ = type;
+  }
+  inline GraphicsConstants::PrimitiveType GetPrimitiveType() const
+  {
+    return this->primitive_type_;
+  }
+
   //Vertex Buffer
 
   void SetVertex(T_UINT32 vertex_index, const TVec3f& vertex);

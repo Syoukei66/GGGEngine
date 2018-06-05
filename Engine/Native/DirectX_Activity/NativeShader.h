@@ -24,6 +24,8 @@ public:
   virtual void EndPass() override;
   virtual void End() override;
 
+  virtual void SetTechnique(const std::string& technique) override;
+
   virtual void SetBool(const char* property_name, bool val) override;
   virtual void SetInt(const char* property_name, T_INT32 val) override;
   virtual void SetFloat(const char* property_name, T_FLOAT val) override;

@@ -43,6 +43,8 @@ public:
   virtual void EndPass() = 0;
   virtual void End() = 0;
 
+  virtual void SetTechnique(const std::string& technique_name) = 0;
+
   virtual void SetBool(const char* property_name, bool val) = 0;
   virtual void SetInt(const char* property_name, T_INT32 val) = 0;
   virtual void SetFloat(const char* property_name, T_FLOAT val) = 0;

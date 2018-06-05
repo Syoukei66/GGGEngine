@@ -46,6 +46,15 @@ public:
     return this->shader_resource_->GetContents();
   }
 
+  inline void SetTechnique(const std::string& technique)
+  {
+    this->technique_ = technique;
+  }
+  inline const std::string& GetTechnique() const
+  {
+    return this->technique_;
+  }
+
   template <class T>
   T& GetShaderProperty(const std::string& property_name) const
   {
@@ -210,6 +219,8 @@ protected:
   const bool protected_;
   const ShaderResource* shader_resource_;
   std::unordered_map<std::string, ShaderProperty*> properties_;
+
+  std::string technique_;
 
   Color4F color_;
   const INativeTexture* texture_;

@@ -11,6 +11,7 @@ Material::Material(const ShaderResource& resource, bool protect)
   : protected_(protect)
   , shader_resource_(&resource)
   , properties_()
+  , technique_("Default")
   , color_()
   , texture_()
   , z_test_level_(0)
@@ -58,6 +59,7 @@ Material* Material::InitialClone()
 T_UINT8 Material::Begin()
 {
   INativeShader* shader = this->GetShader();
+  shader->SetTechnique(this->technique_);
   return shader->Begin();
 }
 

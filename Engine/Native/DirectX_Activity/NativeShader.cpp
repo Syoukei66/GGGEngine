@@ -116,6 +116,11 @@ void NativeShader::End()
   this->effect_->End();
 }
 
+void NativeShader::SetTechnique(const std::string& technique)
+{
+  this->effect_->SetTechnique(technique.c_str());
+}
+
 void NativeShader::SetBool(const char* property_name, bool val)
 {
   this->effect_->SetBool(property_name, val);
