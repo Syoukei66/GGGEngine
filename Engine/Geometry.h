@@ -327,7 +327,7 @@ struct BaseTVec3
       return b;
     }
     t = easing_function.In(t);
-    return a * (1.0f - t) + b * t;
+    return a + (b - a) * t;
   }
 
   static BaseTVec3<T> EaseOut(EasingFunction::EasingFunction& easing_function, const BaseTVec3<T>& a, const BaseTVec3<T>& b, T_FLOAT t)
@@ -341,7 +341,7 @@ struct BaseTVec3
       return b;
     }
     t = easing_function.Out(t);
-    return a * (1.0f - t) + b * t;
+    return a + (b - a) * t;
   }
 
   static BaseTVec3<T> EaseInOut(EasingFunction::EasingFunction& easing_function, const BaseTVec3<T>& a, const BaseTVec3<T>& b, T_FLOAT t)
@@ -355,7 +355,7 @@ struct BaseTVec3
       return b;
     }
     t = easing_function.InOut(t);
-    return a * (1.0f - t) + b * t;
+    return a + (b - a) * t;
   }
 
   static BaseTVec3<T> Lerp(const BaseTVec3<T>& a, const BaseTVec3<T>& b, T_FLOAT t)
@@ -369,7 +369,7 @@ struct BaseTVec3
       return b;
     }
     t = std::min(std::max(t, 0.0f), 1.0f);
-    return a * (1.0f - t) + b * t;
+    return a + (b - a) * t;
   }
 
   bool IsZero() const

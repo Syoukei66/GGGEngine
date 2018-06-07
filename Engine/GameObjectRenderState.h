@@ -63,7 +63,7 @@ public:
   }
   inline void RemoveTargetLayerId(T_UINT8 layer_id)
   {
-    layer_state_ |= 1 << layer_id;
+    layer_state_ &= ~(1 << layer_id);
   }
   inline void ClearTargetLayerIds()
   {

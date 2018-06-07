@@ -64,6 +64,16 @@ public:
     return this->primitive_type_;
   }
 
+  inline T_UINT32 GetFaceCount() const
+  {
+    return this->polygon_count_;
+  }
+
+  inline const TVec3f& GetFaceNormal(T_UINT32 index) const
+  {
+    return this->face_normals_[index];
+  }
+
   //Vertex Buffer
 
   void SetVertex(T_UINT32 vertex_index, const TVec3f& vertex);
@@ -218,7 +228,7 @@ public:
   void SetIndices(T_UINT8 submesh_index, T_UINT32* indices);
   inline T_UINT32 GetIndex(T_UINT8 submesh_index, T_UINT32 index_index) const
   {
-    NATIVE_ASSERT(this->submesh_count_ < submesh_index, "インデックス指定がサブメッシュの最大個数を超過しました。");
+    NATIVE_ASSERT(submesh_index < this->submesh_count_, "インデックス指定がサブメッシュの最大個数を超過しました。");
     return this->indices_[submesh_index][index_index];
   }
 
@@ -237,12 +247,12 @@ public:
 
   inline const T_UINT32* GetIndices(T_UINT8 submesh_index = 0) const
   {
-    NATIVE_ASSERT(this->submesh_count_ < submesh_index, "インデックス指定がサブメッシュの最大個数を超過しました。");
+    NATIVE_ASSERT(submesh_index < this->submesh_count_, "インデックス指定がサブメッシュの最大個数を超過しました。");
     return this->indices_[submesh_index];
   }
   inline T_UINT32 GetIndexCount(T_UINT8 submesh_index = 0) const
   {
-    NATIVE_ASSERT(this->submesh_count_ < submesh_index, "インデックス指定がサブメッシュの最大個数を超過しました。");
+    NATIVE_ASSERT(submesh_index < this->submesh_count_, "インデックス指定がサブメッシュの最大個数を超過しました。");
     return this->index_counts_[submesh_index];
   }
   inline T_UINT8 GetSubmeshCount() const
