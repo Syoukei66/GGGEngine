@@ -33,7 +33,7 @@ FbxNodeData::FbxNodeData(FbxNode* node)
     if (attr->GetClassId().Is(FbxMesh::ClassId))
     {
       FbxMesh* mesh = (FbxMesh*)attr;
-      this->mesh_ = MeshFactory::Fbx::Create(mesh);
+      this->mesh_ = MeshFactory::Fbx::Create(mesh, true);
       ++mesh_index;
     }
   }

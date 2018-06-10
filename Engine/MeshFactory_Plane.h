@@ -13,11 +13,17 @@ namespace Plane
 // UV4 UV1‚Æ“¯‚¶
 
 //
-Mesh* Create(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale_y);
+Mesh* Create(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale_y, T_UINT32 resolution_x, T_UINT32 resolution_y, T_FLOAT tile_count_x, T_FLOAT tile_count_y, bool readonly);
 //
-Mesh* Create(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale_y, T_UINT32 resolution_x, T_UINT32 resolution_y);
+inline Mesh* Create(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale_y, T_UINT32 resolution_x, T_UINT32 resolution_y, bool readonly)
+{
+  return Create(format, scale_x, scale_y, resolution_x, resolution_y, resolution_x, resolution_y, readonly);
+}
 //
-Mesh* Create(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale_y, T_UINT32 resolution_x, T_UINT32 resolution_y, T_FLOAT tile_count_x, T_FLOAT tile_count_y);
+inline Mesh* Create(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale_y, bool readonly)
+{
+  return Create(format, scale_x, scale_y, scale_x, scale_y, readonly);
+}
 
 }
 }

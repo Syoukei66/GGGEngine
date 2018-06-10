@@ -112,7 +112,13 @@ static void CreateTriangles(T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT
   CreateFaceTriangles(t, v, TVec3f::down, resolution_x, resolution_y, resolution_z, dest);
 }
 
-Mesh* MeshFactory::Cube::Create(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale_y, T_FLOAT scale_z, T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, T_FLOAT tile_count_x, T_FLOAT tile_count_y, T_FLOAT tile_count_z)
+Mesh* MeshFactory::Cube::Create(
+  T_UINT32 format,
+  T_FLOAT scale_x, T_FLOAT scale_y, T_FLOAT scale_z,
+  T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z,
+  T_FLOAT tile_count_x, T_FLOAT tile_count_y, T_FLOAT tile_count_z,
+  bool readonly
+)
 {
   Mesh* ret = new Mesh();
 
@@ -137,6 +143,6 @@ Mesh* MeshFactory::Cube::Create(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale_
   CreateVertices(format, { scale_x, scale_y, scale_z }, resolution_x, resolution_y, resolution_z, { tile_count_x, tile_count_y, tile_count_z }, ret);
   CreateTriangles(resolution_x, resolution_y, resolution_z, ret);
 
-  ret->CommitChanges();
+  ret->CommitChanges(readonly);
   return ret;
 }

@@ -27,10 +27,10 @@ private:
   // =================================================================
 public:
   void Clear();
-  void ClearVertices();
-  void ClearIndices();
+  void ClearVertices(bool clear_buffer);
+  void ClearIndices(bool clear_buffer);
 
-  Mesh* Clone();
+  Mesh* Clone(bool readonly);
 
   void CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT32 format, GraphicsConstants::PrimitiveType primitive_type = GraphicsConstants::PRIMITIVE_TRIANGLES);
   inline void CreateVerticesWithIndex(T_UINT32 vertex_count, T_UINT32 index_count, T_UINT32 format, GraphicsConstants::PrimitiveType primitive_type = GraphicsConstants::PRIMITIVE_TRIANGLES)
@@ -43,13 +43,15 @@ public:
   }
   void CreateIndices(T_UINT8 submesh_count, T_UINT32* index_counts);
 
-  void CommitChanges();
+  void CommitChanges(bool readonly);
   void RecalculateNormals(bool save_face_normals = false);
+  void RecalculateTangents();
 
   virtual void SetStreamSource() const override;
   virtual void DrawSubset(T_UINT8 index) const override;
 
-  T_UINT32 GetMemorySize();
+  T_UINT32 GetMemorySize() const;
+  T_UINT32 GetVideoMemorySize() const;
 
   // =================================================================
   // setter/getter

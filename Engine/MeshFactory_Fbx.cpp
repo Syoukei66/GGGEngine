@@ -1,7 +1,7 @@
 #include "MeshFactory_Fbx.h"
 #include "GraphicsConstants.h"
 
-Mesh* MeshFactory::Fbx::Create(FbxMesh* mesh)
+Mesh* MeshFactory::Fbx::Create(FbxMesh* mesh, bool readonly)
 {
   const T_UINT32 polygon_count = mesh->GetPolygonCount();
   const T_UINT32 index_count = mesh->GetPolygonVertexCount();
@@ -225,7 +225,7 @@ Mesh* MeshFactory::Fbx::Create(FbxMesh* mesh)
     }
   }
 
-  ret->CommitChanges();
+  ret->CommitChanges(readonly);
 
   return ret;
 }

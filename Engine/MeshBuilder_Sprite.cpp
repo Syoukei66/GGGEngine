@@ -7,5 +7,5 @@ MeshBuilder_Sprite::MeshBuilder_Sprite()
 
 Mesh* MeshBuilder_Sprite::Create() const
 {
-  return MeshFactory::Sprite::Create();
+  return MeshFactory::Sprite::Create(true);
 }

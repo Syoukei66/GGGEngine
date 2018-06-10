@@ -1,17 +1,12 @@
 #include "MeshFactory_Plane.h"
 
-
-Mesh* MeshFactory::Plane::Create(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale_y)
-{
-  return Create(format, scale_x, scale_y, scale_x, scale_y);
-}
-
-Mesh* MeshFactory::Plane::Create(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale_y, T_UINT32 resolution_x, T_UINT32 resolution_y)
-{
-  return Create(format, scale_x, scale_y, resolution_x, resolution_y, resolution_x, resolution_y);
-}
-
-Mesh* MeshFactory::Plane::Create(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale_y, T_UINT32 resolution_x, T_UINT32 resolution_y, T_FLOAT tile_count_x, T_FLOAT tile_count_y)
+Mesh* MeshFactory::Plane::Create(
+  T_UINT32 format,
+  T_FLOAT scale_x, T_FLOAT scale_y,
+  T_UINT32 resolution_x, T_UINT32 resolution_y,
+  T_FLOAT tile_count_x, T_FLOAT tile_count_y,
+  bool readonly
+)
 {
   Mesh* ret = new Mesh();
   const T_UINT32 vertex_count = (resolution_x + 1) * (resolution_y + 1);
@@ -83,6 +78,6 @@ Mesh* MeshFactory::Plane::Create(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale
       ret->SetIndex(ti + 5, vi + resolution_x + 2);
     }
   }
-  ret->CommitChanges();
+  ret->CommitChanges(readonly);
   return ret;
 }
