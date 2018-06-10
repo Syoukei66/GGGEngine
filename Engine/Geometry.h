@@ -517,6 +517,15 @@ typedef BaseTVec3<T_FLOAT> TVec3f;
 template<typename T>
 struct BaseTVec4
 {
+  static const BaseTVec4<T> zero;
+  static const BaseTVec4<T> one;
+  static const BaseTVec4<T> forward;
+  static const BaseTVec4<T> back;
+  static const BaseTVec4<T> right;
+  static const BaseTVec4<T> left;
+  static const BaseTVec4<T> up;
+  static const BaseTVec4<T> down;
+
   T x, y, z, w;
   BaseTVec4()
     : x(0)
@@ -620,6 +629,24 @@ struct BaseTVec4
     return this->x == other.x && this->y == other.y && this->z == other.z && this->w == other.w;
   }
 };
+
+
+template<typename T>
+const BaseTVec4<T> BaseTVec4<T>::zero =    BaseTVec4<T>(0, 0, 0, 0);
+template<typename T>
+const BaseTVec4<T> BaseTVec4<T>::one =     BaseTVec4<T>(1, 1, 1, 1);
+template<typename T>
+const BaseTVec4<T> BaseTVec4<T>::forward = BaseTVec4<T>(0, 0, 1, 0);
+template<typename T>
+const BaseTVec4<T> BaseTVec4<T>::back =    BaseTVec4<T>(0, 0, -1, 0);
+template<typename T>
+const BaseTVec4<T> BaseTVec4<T>::right =   BaseTVec4<T>(1, 0, 0, 0);
+template<typename T>
+const BaseTVec4<T> BaseTVec4<T>::left =    BaseTVec4<T>(-1, 0, 0, 0);
+template<typename T>
+const BaseTVec4<T> BaseTVec4<T>::up =      BaseTVec4<T>(0, 1, 0, 0);
+template<typename T>
+const BaseTVec4<T> BaseTVec4<T>::down =    BaseTVec4<T>(0, -1, 0, 0);
 
 typedef BaseTVec4<T_INT32> TVec4;
 typedef BaseTVec4<T_FLOAT> TVec4f;
