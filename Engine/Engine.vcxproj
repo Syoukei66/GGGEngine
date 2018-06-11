@@ -349,6 +349,7 @@
     <ClInclude Include="JsonResource.h" />
     <ClInclude Include="LoopSprite.h" />
     <ClInclude Include="Mathf.h" />
+    <ClInclude Include="Matrix.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshBuilder.h" />
     <ClInclude Include="MeshBuilder_Cube.h" />

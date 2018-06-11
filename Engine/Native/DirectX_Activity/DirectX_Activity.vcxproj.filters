@@ -141,6 +141,9 @@
     <ClCompile Include="NativeMatrixStack.cpp">
       <Filter>ソース ファイル\Native\Objects\Matrix</Filter>
     </ClCompile>
+    <ClCompile Include="Matrix.cpp">
+      <Filter>ソース ファイル\Native\Objects\Matrix</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectXActivity.h">

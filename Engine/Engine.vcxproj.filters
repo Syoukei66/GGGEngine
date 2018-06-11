@@ -87,9 +87,6 @@
     <Filter Include="ヘッダー ファイル\Activity">
       <UniqueIdentifier>{01cfeda8-85e9-4fc1-be35-9e3c19909ae8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Director">
-      <UniqueIdentifier>{b8d79364-1f64-44c0-b322-e001361dedc0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Allocator">
       <UniqueIdentifier>{cc98758f-6ca1-4c0f-97cb-e8b8a1d1ffbb}</UniqueIdentifier>
     </Filter>
@@ -355,6 +352,15 @@
     <Filter Include="ソース ファイル\Structure\Color">
       <UniqueIdentifier>{8aff19d6-ed47-4b41-9717-c3fce5fa0703}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Structure\Math">
+      <UniqueIdentifier>{084edaa8-c46d-4500-9a61-d0f3c16ad924}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Structure\Math">
+      <UniqueIdentifier>{3541ff14-662e-46ce-a0db-226fde2d86f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Engine\Director">
+      <UniqueIdentifier>{b8d79364-1f64-44c0-b322-e001361dedc0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ITextureRegion.cpp">
@@ -606,9 +612,6 @@
     <ClCompile Include="Camera.cpp">
       <Filter>ソース ファイル\Component\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Quaternion.cpp">
-      <Filter>ソース ファイル\Structure</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject2D.cpp">
       <Filter>ソース ファイル\GameObject\2D</Filter>
     </ClCompile>
@@ -804,6 +807,9 @@
     <ClCompile Include="Gradient.cpp">
       <Filter>ソース ファイル\Structure\Color</Filter>
     </ClCompile>
+    <ClCompile Include="Quaternion.cpp">
+      <Filter>ソース ファイル\Structure\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -811,9 +817,6 @@
     </ClInclude>
     <ClInclude Include="Util.h">
       <Filter>ヘッダー ファイル\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="Geometry.h">
-      <Filter>ヘッダー ファイル\Structure</Filter>
     </ClInclude>
     <ClInclude Include="EngineOption.h">
       <Filter>ヘッダー ファイル\Engine</Filter>
@@ -843,7 +846,7 @@
       <Filter>ヘッダー ファイル\Scene\Event\Update</Filter>
     </ClInclude>
     <ClInclude Include="Director.h">
-      <Filter>ヘッダー ファイル\Director</Filter>
+      <Filter>ヘッダー ファイル\Engine\Director</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>ヘッダー ファイル\GameObject</Filter>
@@ -1087,9 +1090,6 @@
     </ClInclude>
     <ClInclude Include="GameObjectRenderState.h">
       <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Quaternion.h">
-      <Filter>ヘッダー ファイル\Structure</Filter>
     </ClInclude>
     <ClInclude Include="GameObject2D.h">
       <Filter>ヘッダー ファイル\GameObject\2D</Filter>
@@ -1366,6 +1366,15 @@
     </ClInclude>
     <ClInclude Include="Mathf.h">
       <Filter>ヘッダー ファイル\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Quaternion.h">
+      <Filter>ヘッダー ファイル\Structure\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry.h">
+      <Filter>ヘッダー ファイル\Structure\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.h">
+      <Filter>ヘッダー ファイル\Structure\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

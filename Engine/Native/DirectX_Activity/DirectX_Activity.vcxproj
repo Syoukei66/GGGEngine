@@ -205,6 +205,7 @@
     <ClCompile Include="DirectXNativeImplements.cpp" />
     <ClCompile Include="imgui\imgui_impl_dx9.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="NativeRenderTexture.cpp" />
     <ClCompile Include="NativeIndexBuffer.cpp" />
     <ClCompile Include="NativeMatrix.cpp" />
