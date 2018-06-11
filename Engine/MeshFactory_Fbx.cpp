@@ -178,10 +178,10 @@ Mesh* MeshFactory::Fbx::Create(FbxMesh* mesh)
         {
           for (T_UINT16 i = 0; i < color_count; ++i)
           {
-            color.SetRed((T_FLOAT)color_element->GetDirectArray().GetAt(i)[0]);
-            color.SetGreen((T_FLOAT)color_element->GetDirectArray().GetAt(i)[1]);
-            color.SetBlue((T_FLOAT)color_element->GetDirectArray().GetAt(i)[2]);
-            color.SetAlpha((T_FLOAT)color_element->GetDirectArray().GetAt(i)[3]);
+            color.r = (T_FLOAT)color_element->GetDirectArray().GetAt(i)[0];
+            color.g = (T_FLOAT)color_element->GetDirectArray().GetAt(i)[1];
+            color.b = (T_FLOAT)color_element->GetDirectArray().GetAt(i)[2];
+            color.a = (T_FLOAT)color_element->GetDirectArray().GetAt(i)[3];
             ret->SetColor(i, color);
           }
         }
@@ -189,10 +189,10 @@ Mesh* MeshFactory::Fbx::Create(FbxMesh* mesh)
         {
           for (T_UINT16 i = 0; i < color_index_count; ++i)
           {
-            color.SetRed((T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[0]);
-            color.SetGreen((T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[1]);
-            color.SetBlue((T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[2]);
-            color.SetAlpha((T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[3]);
+            color.r = (T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[0];
+            color.g = (T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[1];
+            color.b = (T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[2];
+            color.a = (T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[3];
             ret->SetColor(i, color);
           }
         }
@@ -203,10 +203,10 @@ Mesh* MeshFactory::Fbx::Create(FbxMesh* mesh)
         {
           for (T_UINT16 i = 0; i < color_count; ++i)
           {
-            color.SetRed((T_FLOAT)color_element->GetDirectArray().GetAt(i)[0]);
-            color.SetGreen((T_FLOAT)color_element->GetDirectArray().GetAt(i)[1]);
-            color.SetBlue((T_FLOAT)color_element->GetDirectArray().GetAt(i)[2]);
-            color.SetAlpha((T_FLOAT)color_element->GetDirectArray().GetAt(i)[3]);
+            color.r = (T_FLOAT)color_element->GetDirectArray().GetAt(i)[0];
+            color.g = (T_FLOAT)color_element->GetDirectArray().GetAt(i)[1];
+            color.b = (T_FLOAT)color_element->GetDirectArray().GetAt(i)[2];
+            color.a = (T_FLOAT)color_element->GetDirectArray().GetAt(i)[3];
             ret->SetColor(i, color);
           }
         }
@@ -214,10 +214,10 @@ Mesh* MeshFactory::Fbx::Create(FbxMesh* mesh)
         {
           for (T_UINT16 i = 0; i < color_index_count; ++i)
           {
-            color.SetRed((T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[0]);
-            color.SetGreen((T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[1]);
-            color.SetBlue((T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[2]);
-            color.SetAlpha((T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[3]);
+            color.r = (T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[0];
+            color.g = (T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[1];
+            color.b = (T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[2];
+            color.a = (T_FLOAT)color_element->GetDirectArray().GetAt(color_element->GetIndexArray().GetAt(i))[3];
             ret->SetColor(i, color);
           }
         }

@@ -61,18 +61,18 @@ void SkeletonAnimation::ManagedDraw(GameObjectRenderState* state)
     }
     spRegionAttachment* attachment = (spRegionAttachment*)slot->attachment;
 
-    color.SetRed(attachment->color.r);
-    color.SetGreen(attachment->color.g);
-    color.SetBlue(attachment->color.b);
-    color.SetAlpha(attachment->color.a);
-    color.SetAlpha(
-      color.GetAlpha() *
-      nodeColor.GetAlpha() *
+    color.r = attachment->color.r;
+    color.g = attachment->color.g;
+    color.b = attachment->color.b;
+    color.a = attachment->color.a;
+    color.a = 
+      color.a *
+      nodeColor.a *
       this->skeleton_->color.a *
       slot->color.a
-    );
+    ;
     // skip rendering if the color of this attachment is 0
-    if (color.GetAlpha() == 0.0f) {
+    if (color.a <= 0.0f) {
       continue;
     }
 

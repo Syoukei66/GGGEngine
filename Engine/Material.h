@@ -175,12 +175,17 @@ public:
   inline void SetDiffuse(T_FLOAT r, T_FLOAT g, T_FLOAT b)
   {
     NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
-    this->color_.SetColor(r, g, b);
+    this->color_.r = r;
+    this->color_.g = g;
+    this->color_.b = b;
   }
   inline void SetDiffuse(T_FLOAT r, T_FLOAT g, T_FLOAT b, T_FLOAT a)
   {
     NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
-    this->color_.SetColor(r, g, b, a);
+    this->color_.r = r;
+    this->color_.g = g;
+    this->color_.b = b;
+    this->color_.a = a;
   }
   inline Color4F& GetDiffuse()
   {

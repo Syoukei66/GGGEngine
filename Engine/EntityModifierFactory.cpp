@@ -502,7 +502,7 @@ EntityModifier* RotationFromTo(T_UINT32 duration, T_FLOAT from, T_FLOAT to)
 //=======================================================================
 EntityModifier* ColorBy(T_UINT32 duration, const Color4F& value)
 {
-  return ColorBy(duration, value.GetRed(), value.GetGreen(), value.GetBlue(), value.GetAlpha());
+  return ColorBy(duration, value.r, value.g, value.b, value.a);
 }
 
 EntityModifier* ColorBy(T_UINT32 duration, T_FLOAT value_r, T_FLOAT value_g, T_FLOAT value_b, T_FLOAT value_a)
@@ -561,7 +561,7 @@ EntityModifier* ColorByAlpha(T_UINT32 duration, T_FLOAT value_a)
 
 EntityModifier* ColorTo(T_UINT32 duration, const Color4F& to)
 {
-  return ColorTo(duration, to.GetRed(), to.GetGreen(), to.GetBlue(), to.GetAlpha());
+  return ColorTo(duration, to.r, to.g, to.b, to.a);
 }
 
 EntityModifier* ColorTo(T_UINT32 duration, T_FLOAT to_r, T_FLOAT to_g, T_FLOAT to_b, T_FLOAT to_a)
@@ -622,10 +622,10 @@ EntityModifier* ColorFromBy(T_UINT32 duration, const Color4F& from, const Color4
 {
   return ColorFromBy(
     duration,
-    from.GetRed(), value.GetRed(),
-    from.GetGreen(), value.GetGreen(),
-    from.GetBlue(), value.GetBlue(),
-    from.GetAlpha(), value.GetAlpha()
+    from.r, value.r,
+    from.g, value.g,
+    from.b, value.b,
+    from.a, value.a
   );
 }
 
@@ -686,10 +686,10 @@ EntityModifier* ColorFromByAlpha(T_UINT32 duration, T_FLOAT from_a, T_FLOAT valu
 EntityModifier* ColorFromTo(T_UINT32 duration, const Color4F& from, const Color4F& to)
 {
   return Synchronized(
-    ColorFromToRed(duration, from.GetRed(), to.GetRed()),
-    ColorFromToGreen(duration, from.GetGreen(), to.GetGreen()),
-    ColorFromToBlue(duration, from.GetBlue(), to.GetBlue()),
-    ColorFromToAlpha(duration, from.GetAlpha(), to.GetAlpha())
+    ColorFromToRed(duration,   from.r, to.r),
+    ColorFromToGreen(duration, from.g, to.g),
+    ColorFromToBlue(duration,  from.b, to.b),
+    ColorFromToAlpha(duration, from.a, to.a)
   );
 }
 

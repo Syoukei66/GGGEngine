@@ -66,10 +66,10 @@ bool Particle::OnUpdate(const ParticleData* data)
   this->life_time_rest = std::max(0.0f, this->life_time_rest - 1.0f);
   this->GetTransform()->SetScale(data->CalcValueByProgress(this->start_size, this->end_size, progress));
   this->GetTransform()->SetRotation(data->CalcValueByProgress(this->start_spin, this->end_spin, progress));
-  this->GetRenderer()->GetMaterial()->GetDiffuse().SetRed(data->CalcValueByProgress(this->start_color_r, this->end_color_r, progress));
-  this->GetRenderer()->GetMaterial()->GetDiffuse().SetGreen(data->CalcValueByProgress(this->start_color_g, this->end_color_g, progress));
-  this->GetRenderer()->GetMaterial()->GetDiffuse().SetBlue(data->CalcValueByProgress(this->start_color_b, this->end_color_b, progress));
-  this->GetRenderer()->GetMaterial()->GetDiffuse().SetAlpha(data->CalcValueByProgress(this->start_color_a, this->end_color_a, progress));
+  this->GetRenderer()->GetMaterial()->GetDiffuse().r = data->CalcValueByProgress(this->start_color_r, this->end_color_r, progress);
+  this->GetRenderer()->GetMaterial()->GetDiffuse().g = data->CalcValueByProgress(this->start_color_g, this->end_color_g, progress);
+  this->GetRenderer()->GetMaterial()->GetDiffuse().b = data->CalcValueByProgress(this->start_color_b, this->end_color_b, progress);
+  this->GetRenderer()->GetMaterial()->GetDiffuse().a = data->CalcValueByProgress(this->start_color_a, this->end_color_a, progress);
 
   return data->OnUpdate(this, progress, pre_progress - progress);
 }
