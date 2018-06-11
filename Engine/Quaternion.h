@@ -3,7 +3,7 @@
 #include "Geometry.h"
 #include "NativeMatrix.h"
 
-struct Quaternion
+union Quaternion
 {
   // =================================================================
   // Static Member
@@ -81,6 +81,8 @@ public:
   void q(const TVec3f& v, T_FLOAT rad);
 
   void FromEularAngles(const TVec3f& mat);
+  
+  //TODO: Matrix‘¤‚ÉˆÚ“®‚·‚é‚×‚«‚©
   void FromRotationMatrix(const INativeMatrix& mat);
   void ToRotationMatrix(INativeMatrix* dest);
 
@@ -94,6 +96,10 @@ public:
   // =================================================================
   // Data Members
   // =================================================================
-  TVec3f v_;
-  T_FLOAT w_;
+  struct
+  {
+    TVec3f v_;
+    T_FLOAT w_;
+  };
+  T_FLOAT val[4];
 };
