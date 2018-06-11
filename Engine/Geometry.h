@@ -10,9 +10,13 @@
 // Vec2
 // =================================================================
 template <typename T>
-struct BaseTVec2
+union BaseTVec2
 {
-  T x, y;
+  struct
+  {
+    T x, y;
+  };
+  T vec[2];
 
   BaseTVec2()
     : x(0)
@@ -181,9 +185,13 @@ typedef BaseTVec2<T_FLOAT> TVec2f;
 // Size
 // =================================================================
 template <typename T>
-struct BaseTSize
+union BaseTSize
 {
-  T width, height;
+  struct
+  {
+    T width, height;
+  };
+  T vec[2];
 
   BaseTSize()
     : width(0)
@@ -292,7 +300,7 @@ typedef BaseTSize<T_FLOAT> TSizef;
 // Vec3
 // =================================================================
 template<typename T>
-struct BaseTVec3
+union BaseTVec3
 {
   static const BaseTVec3<T> zero;
   static const BaseTVec3<T> one;
@@ -303,7 +311,12 @@ struct BaseTVec3
   static const BaseTVec3<T> up;
   static const BaseTVec3<T> down;
 
-  T x, y, z;
+  struct
+  {
+    T x, y, z;
+  };
+  T vec[3];
+
   BaseTVec3()
     : x(0)
     , y(0)
@@ -515,9 +528,14 @@ typedef BaseTVec3<T_FLOAT> TVec3f;
 // Vec4
 // =================================================================
 template<typename T>
-struct BaseTVec4
+union BaseTVec4
 {
-  T x, y, z, w;
+  struct
+  {
+    T x, y, z, w;
+  };
+  T vec[4];
+
   BaseTVec4()
     : x(0)
     , y(0)
