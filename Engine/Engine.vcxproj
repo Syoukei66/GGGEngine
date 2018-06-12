@@ -100,6 +100,8 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <AdditionalIncludeDirectories>Lib\include;spine-c\include;FBX\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -118,6 +120,8 @@
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <TreatWarningAsError>false</TreatWarningAsError>
       <AdditionalIncludeDirectories>Lib\include;spine-c\include;FBX\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -140,6 +144,8 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <AdditionalIncludeDirectories>Lib\include;spine-c\include;FBX\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -162,6 +168,8 @@
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <TreatWarningAsError>false</TreatWarningAsError>
       <AdditionalIncludeDirectories>Lib\include;spine-c\include;FBX\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
