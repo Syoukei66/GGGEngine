@@ -7,6 +7,18 @@
 union Matrix4x4
 {
 public:
+  struct
+  {
+    T_FLOAT _11, _12, _13, _14;
+    T_FLOAT _21, _22, _23, _24;
+    T_FLOAT _31, _32, _33, _34;
+    T_FLOAT _41, _42, _43, _44;
+  };
+
+  T_FLOAT m[4][4];
+
+  T_FLOAT v[16];
+public:
   static const Matrix4x4 identity;
   static const Matrix4x4 zero;
 
@@ -92,16 +104,4 @@ public:
 
   TVec3f GetWorldScale() const;
 
-public:
-  struct 
-  {
-    T_FLOAT _11, _12, _13, _14;
-    T_FLOAT _21, _22, _23, _24;
-    T_FLOAT _31, _32, _33, _34;
-    T_FLOAT _41, _42, _43, _44;
-  };
-
-  T_FLOAT m[4][4];
-
-  T_FLOAT v[16];
 };

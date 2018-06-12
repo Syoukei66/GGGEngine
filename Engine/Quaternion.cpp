@@ -6,23 +6,8 @@
 #include "MathConstants.h"
 
 // =================================================================
-// Static Member
-// =================================================================
-const Quaternion Quaternion::Identity = Quaternion();
-
-// =================================================================
 // Constructor / Destructor
 // =================================================================
-
-const Quaternion Quaternion::Eular(const TVec3f& eular_angles)
-{
-  Quaternion ret = Quaternion();
-  ret.q(TVec3f(0.0f, 0.0f, 1.0f), eular_angles.z);
-  ret.q(TVec3f(1.0f, 0.0f, 0.0f), eular_angles.x);
-  ret.q(TVec3f(0.0f, 1.0f, 0.0f), eular_angles.y);
-  return ret;
-}
-
 const Quaternion Quaternion::Lerp(Quaternion a, Quaternion b, T_FLOAT t)
 {
   a = a.Normalized();
@@ -45,29 +30,6 @@ const Quaternion Quaternion::Lerp(Quaternion a, Quaternion b, T_FLOAT t)
   return (a * (1.0f - t) + b * -t);
 }
 
-const Quaternion Quaternion::Slerp(Quaternion a, Quaternion b, T_FLOAT t)
-{
-  a = a.Normalized();
-  b = b.Normalized();
-  NATIVE_ASSERT(a.IsNormal(), "QuaternionÇ™ê≥ãKâªÇ≥ÇÍÇƒÇ¢Ç‹ÇπÇÒ");
-  NATIVE_ASSERT(b.IsNormal(), "QuaternionÇ™ê≥ãKâªÇ≥ÇÍÇƒÇ¢Ç‹ÇπÇÒ");
-  if (t <= 0.0f)
-  {
-    return a;
-  }
-  if (t >= 1.0f)
-  {
-    return b;
-  }
-  const T_FLOAT r = acosf(InnerProduct(a, b));
-  const T_FLOAT invsin_r = 1.0f / sinf(r);
-  if (fabs(r) < MathConstants::PI_1_2)
-  {
-    return (a * (sin((1.0f - t) * r) * invsin_r) + b * (sin(t * r) * invsin_r));
-  }
-  return (a * (sin((1.0f - t) * r) * invsin_r) + b * -(sin(t * r) * invsin_r));
-}
-
 const Quaternion Quaternion::LookRotation(const TVec3f& forward, const TVec3f& upwards)
 {
   const TVec3f n_upwards = upwards.Normalized();
@@ -82,59 +44,9 @@ const Quaternion Quaternion::LookRotation(const TVec3f& forward, const TVec3f& u
   return y;
 }
 
-T_FLOAT Quaternion::InnerProduct(const Quaternion& a, const Quaternion& b)
-{
-  return TVec3f::InnerProduct(a.v_, b.v_) + a.w_ * b.w_;
-}
-
-Quaternion::Quaternion()
-  : Quaternion(TVec3f(0.0f, 0.0f, 0.0f), 1.0f)
-{}
-
-Quaternion::Quaternion(const Quaternion& q)
-  : v_(q.v_)
-  , w_(q.w_)
-{}
-
-Quaternion::Quaternion(const TVec3f& v, T_FLOAT rad)
-{
-  const T_FLOAT sin_ = sinf(rad / 2.0f);
-  const T_FLOAT cos_ = cosf(rad / 2.0f);
-  this->v_ = v.Normalized() * sin_;
-  this->w_ = cos_;
-}
-
-Quaternion::Quaternion(T_FLOAT x, T_FLOAT y, T_FLOAT z, T_FLOAT w)
-  : v_(x, y, z)
-  , w_(w)
-{}
-
 // =================================================================
 // Methods
 // =================================================================
-void Quaternion::q(const TVec3f& v, T_FLOAT rad)
-{
-  *this = this->Normalized() * Quaternion(v, rad);
-}
-
-void Quaternion::FromEularAngles(const TVec3f& mat)
-{
-  const T_FLOAT sin_ = sinf(0.0f);
-  const T_FLOAT cos_ = cosf(0.0f);
-  this->v_ = mat.Normalized() * sin_;
-  this->w_ = cos_;
-  float cosY = cosf(mat.y / 2.0f);
-  float sinY = sinf(mat.y / 2.0f);
-  float cosP = cosf(mat.x / 2.0f);
-  float sinP = sinf(mat.x / 2.0f);
-  float cosR = cosf(mat.z / 2.0f);
-  float sinR = sinf(mat.z / 2.0f);
-  this->v_.x = cosR * sinP * cosY + sinR * cosP * sinY;
-  this->v_.y = cosR * cosP * sinY - sinR * sinP * cosY;
-  this->v_.z = sinR * cosP * cosY - cosR * sinP * sinY;
-  this->w_ = cosR * cosP * cosY + sinR * sinP * sinY;
-}
-
 void Quaternion::FromRotationMatrix(const INativeMatrix& mat)
 {
   const T_FLOAT m11 = mat[0][0];
@@ -249,41 +161,4 @@ void Quaternion::ToRotationMatrix(INativeMatrix* dest)
   (*dest)[2][0] = m31;
   (*dest)[2][1] = m32;
   (*dest)[2][2] = m33;
-}
-
-T_FLOAT Quaternion::ScalarSquare() const
-{
-  return
-    this->v_.x * this->v_.x +
-    this->v_.y * this->v_.y +
-    this->v_.z * this->v_.z +
-    this->w_ * this->w_;
-}
-
-T_FLOAT Quaternion::Scalar() const
-{
-  return sqrtf(this->ScalarSquare());
-}
-
-const Quaternion Quaternion::Conjugated() const
-{
-  Quaternion ret = Quaternion();
-  ret.v_ = -this->v_;
-  ret.w_ = this->w_;
-  return ret;
-}
-
-const Quaternion Quaternion::Inversed() const
-{
-  return this->Conjugated() / this->ScalarSquare();
-}
-
-const Quaternion Quaternion::Normalized() const
-{
-  return *this / this->Scalar();
-}
-
-bool Quaternion::IsNormal(T_FLOAT eps) const
-{
-  return fabs(1.0f - this->Scalar()) < eps;
 }

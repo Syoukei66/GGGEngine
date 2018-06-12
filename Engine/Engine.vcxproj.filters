@@ -1379,8 +1379,6 @@
     <ClInclude Include="Matrix.h">
       <Filter>ヘッダー ファイル\Structure\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Eigen\Core" />
-    <ClInclude Include="Eigen\Geometry" />
     <ClInclude Include="Vector2.h">
       <Filter>ヘッダー ファイル\Structure\Math</Filter>
     </ClInclude>
@@ -1389,6 +1387,12 @@
     </ClInclude>
     <ClInclude Include="Vector4.h">
       <Filter>ヘッダー ファイル\Structure\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\Core">
+      <Filter>ヘッダー ファイル\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\Geometry">
+      <Filter>ヘッダー ファイル\Eigen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1417,6 +1421,9 @@
   <ItemGroup>
     <None Include="DefaultProperty.hlsli">
       <Filter>リソース ファイル\Shader</Filter>
+    </None>
+    <None Include="Eigen\Dense">
+      <Filter>ヘッダー ファイル\Eigen</Filter>
     </None>
   </ItemGroup>
 </Project>

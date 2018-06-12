@@ -50,8 +50,6 @@ public:
   // Data Member
   // =================================================================
 private:
-  GameObjectRenderState* render_state_;
-
   INativeMatrix* projection_matrix_;
   bool projection_dirty_;
 };

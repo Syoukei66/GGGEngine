@@ -6,12 +6,14 @@
 #include "NativeType.h"
 
 #include "EasingFunction.h"
+
 template<typename T>
 union TVec3
 {
   // =================================================================
   // Constants
   // =================================================================
+public:
   static const TVec3<T> zero;
   static const TVec3<T> one;
   static const TVec3<T> forward;
@@ -24,6 +26,7 @@ union TVec3
   // =================================================================
   // Data Members
   // =================================================================
+public:
   struct
   {
     T x, y, z;
@@ -34,6 +37,7 @@ union TVec3
   // =================================================================
   // Constructor
   // =================================================================
+public:
   TVec3()
     : eigen(0, 0, 0)
   {}
@@ -49,6 +53,7 @@ union TVec3
   // =================================================================
   // Copy Constructor / Assign operator
   // =================================================================
+public:
   TVec3(const TVec3<T>& other)
     : eigen(other.eigen)
   {}
@@ -62,6 +67,7 @@ union TVec3
   // =================================================================
   // Cast Operator
   // =================================================================
+public:
   operator Eigen::Matrix<T, 3, 1>() const
   {
     return this->eigen;
@@ -70,6 +76,7 @@ union TVec3
   // =================================================================
   // Static Methods
   // =================================================================
+public:
   static TVec3<T> EaseIn(EasingFunction::EasingFunction& easing_function, const TVec3<T>& a, const TVec3<T>& b, T_FLOAT t)
   {
     if (t <= 0.0f)
@@ -136,27 +143,9 @@ union TVec3
   }
 
   // =================================================================
-  // Methods
-  // =================================================================
-  inline T Length() const
-  {
-    return this->eigen.norm();
-  }
-  inline T LengthSquare() const
-  {
-    return this->eigen.squaredNorm();
-  }
-  inline TVec3<T> Normalized() const
-  {
-    return TVec3<T>(this->eigen.normalized());
-  }
-  inline bool IsZero() const
-  {
-    return this->eigen.isZero();
-  }
-  // =================================================================
   // Operator
   // =================================================================
+public:
   //+
   inline const TVec3<T> operator + () const
   {
@@ -218,7 +207,7 @@ union TVec3
   }
   inline TVec3<T>& operator /= (const T& other)
   {
-    this->eigen /= other.eigen;
+    this->eigen /= other;
     return *this;
   }
   //‚Q€==
@@ -226,6 +215,27 @@ union TVec3
   {
     return this->eigen == other.eigen;
   }
+
+  // =================================================================
+  // Methods
+  // =================================================================
+ public:
+   inline T Length() const
+   {
+     return this->eigen.norm();
+   }
+   inline T LengthSquare() const
+   {
+     return this->eigen.squaredNorm();
+   }
+   inline TVec3<T> Normalized() const
+   {
+     return TVec3<T>(this->eigen.normalized());
+   }
+   inline bool IsZero() const
+   {
+     return this->eigen.isZero();
+   }
 };
 
 // =================================================================

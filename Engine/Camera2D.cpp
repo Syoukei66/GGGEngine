@@ -25,11 +25,10 @@ Camera2D::Camera2D()
 
 Camera2D::~Camera2D()
 {
-  delete this->render_state_;
   delete this->projection_matrix_;
 }
 
-bool Camera2D::FrustumCulling(const TVec3f& positive, const TVec3f& negative, T_INT8* first_index = nullptr) const
+bool Camera2D::FrustumCulling(const TVec3f& positive, const TVec3f& negative, T_INT8* first_index) const
 {
   return Collision2D::Rect(
     positive.x, positive.y, negative.x - positive.x, negative.y - positive.y,

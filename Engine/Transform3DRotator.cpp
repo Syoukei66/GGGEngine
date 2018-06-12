@@ -71,7 +71,7 @@ void Transform3DRotator::Rotate(const TVec3f& v, T_FLOAT rad)
     return;
   }
   this->PrepareQuaternion();
-  this->quaternion_.q(v, rad);
+  this->quaternion_ *= Quaternion(v, rad);
 
   this->master_flag_ = MASTER_QUATERNION;
   this->transform_->OnRotationChanged();

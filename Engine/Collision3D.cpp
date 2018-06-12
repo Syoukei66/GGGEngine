@@ -38,75 +38,74 @@ bool Ray_Sphare(const TVec3f& ray_offset, const TVec3f& direction, const TVec3f&
 bool Frustum_AABB(const INativeMatrix* mat, const TVec3f& positive, const TVec3f& negative, T_INT8* first_index)
 {
   //http://edom18.hateblo.jp/entry/2017/10/29/112908
-
   // 0: Left, 1: Right, 2: Bottm, 3: Top
-  for (T_UINT8 i = 0; i < 4; i++)
-  {
-    T_FLOAT a, b, c, d;
-    const T_UINT8 r = i / 2;
-    if (i % 2 == 0)
-    {
-      // •½–Ê‚Ì•û’öŽ®
-      // ax + by + cz + d = 0
-      a = (*mat)[3][0] - (*mat)[r][0];
-      b = (*mat)[3][1] - (*mat)[r][1];
-      c = (*mat)[3][2] - (*mat)[r][2];
-      d = (*mat)[3][3] - (*mat)[r][3];
-    }
-    else
-    {
-      a = (*mat)[3][0] + (*mat)[r][0];
-      b = (*mat)[3][1] + (*mat)[r][1];
-      c = (*mat)[3][2] + (*mat)[r][2];
-      d = (*mat)[3][3] + (*mat)[r][3];
-    }
-    const TVec3f normal = -TVec3f(a, b, c).Normalized();
-    const TVec3f offset = 
-    const T_FLOAT dp = TVec3f::InnerProduct(positive, normal);
-    if (dp < 0)
-    {
-      return State.Outside;
-    }
+  //for (T_UINT8 i = 0; i < 4; i++)
+  //{
+  //  T_FLOAT a, b, c, d;
+  //  const T_UINT8 r = i / 2;
+  //  if (i % 2 == 0)
+  //  {
+  //    // •½–Ê‚Ì•û’öŽ®
+  //    // ax + by + cz + d = 0
+  //    a = (*mat)[3][0] - (*mat)[r][0];
+  //    b = (*mat)[3][1] - (*mat)[r][1];
+  //    c = (*mat)[3][2] - (*mat)[r][2];
+  //    d = (*mat)[3][3] - (*mat)[r][3];
+  //  }
+  //  else
+  //  {
+  //    a = (*mat)[3][0] + (*mat)[r][0];
+  //    b = (*mat)[3][1] + (*mat)[r][1];
+  //    c = (*mat)[3][2] + (*mat)[r][2];
+  //    d = (*mat)[3][3] + (*mat)[r][3];
+  //  }
+  //  const TVec3f normal = -TVec3f(a, b, c).Normalized();
+  //  const TVec3f offset = 
+  //  const T_FLOAT dp = TVec3f::InnerProduct(positive, normal);
+  //  if (dp < 0)
+  //  {
+  //    return State.Outside;
+  //  }
 
-    float dn = planes[i].GetDistanceToPoint(vn);
-    if (dn < 0)
-    {
-      result = State.Intersect;
-    }
-  }
-
-
-  for (int i = 0; i < 4; i++)
-  {
-    float a, b, c, d;
-    int r = i / 2;
-    if (i % 2 == 0)
-    {
-      // •½–Ê‚Ì•û’öŽ®
-      // ax + by + cz + d = 0
-      a = pmat[3, 0] - pmat[r, 0];
-      b = pmat[3, 1] - pmat[r, 1];
-      c = pmat[3, 2] - pmat[r, 2];
-      d = pmat[3, 3] - pmat[r, 3];
-    }
-    else
-    {
-      a = pmat[3, 0] + pmat[r, 0];
-      b = pmat[3, 1] + pmat[r, 1];
-      c = pmat[3, 2] + pmat[r, 2];
-      d = pmat[3, 3] + pmat[r, 3];
-    }
-
-    Vector3 normal = -new Vector3(a, b, c).normalized;
-    normal = eyeTrans.rotation * normal;
-
-    result[i] = new Plane(normal, eyeTrans.position);
-  }
+  //  float dn = planes[i].GetDistanceToPoint(vn);
+  //  if (dn < 0)
+  //  {
+  //    result = State.Intersect;
+  //  }
+  //}
 
 
+  //for (int i = 0; i < 4; i++)
+  //{
+  //  float a, b, c, d;
+  //  int r = i / 2;
+  //  if (i % 2 == 0)
+  //  {
+  //    // •½–Ê‚Ì•û’öŽ®
+  //    // ax + by + cz + d = 0
+  //    a = pmat[3, 0] - pmat[r, 0];
+  //    b = pmat[3, 1] - pmat[r, 1];
+  //    c = pmat[3, 2] - pmat[r, 2];
+  //    d = pmat[3, 3] - pmat[r, 3];
+  //  }
+  //  else
+  //  {
+  //    a = pmat[3, 0] + pmat[r, 0];
+  //    b = pmat[3, 1] + pmat[r, 1];
+  //    c = pmat[3, 2] + pmat[r, 2];
+  //    d = pmat[3, 3] + pmat[r, 3];
+  //  }
 
-  TVec3f p = positive;
-  proj->Apply(&p);
+  //  Vector3 normal = -new Vector3(a, b, c).normalized;
+  //  normal = eyeTrans.rotation * normal;
+
+  //  result[i] = new Plane(normal, eyeTrans.position);
+  //}
+
+
+
+  //TVec3f p = positive;
+  //proj->Apply(&p);
 
   return 0;
 }

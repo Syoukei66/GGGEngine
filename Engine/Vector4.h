@@ -13,6 +13,7 @@ union TVec4
   // =================================================================
   // Constants
   // =================================================================
+public:
   static const TVec4<T> zero;
   static const TVec4<T> one;
   static const TVec4<T> forward;
@@ -25,6 +26,7 @@ union TVec4
   // =================================================================
   // Data Members
   // =================================================================
+public:
   struct
   {
     T x, y, z, w;
@@ -35,6 +37,7 @@ union TVec4
   // =================================================================
   // Constructor
   // =================================================================
+public:
   TVec4()
     : eigen(0, 0, 0, 0)
   {}
@@ -50,6 +53,7 @@ union TVec4
   // =================================================================
   // Copy Constructor / Assign operator
   // =================================================================
+public:
   TVec4(const TVec4<T>& other)
     : eigen(other.eigen)
   {}
@@ -63,13 +67,16 @@ union TVec4
   // =================================================================
   // Cast Operator
   // =================================================================
-  operator Eigen::Matrix<T, 4, 1>() const
+public:
+  inline operator Eigen::Matrix<T, 4, 1>() const
   {
     return this->eigen;
   }
+
   // =================================================================
   // Static Methods
   // =================================================================
+public:
   static TVec4<T> EaseIn(EasingFunction::EasingFunction& easing_function, const TVec4<T>& a, const TVec4<T>& b, T_FLOAT t)
   {
     if (t <= 0.0f)
@@ -136,27 +143,9 @@ union TVec4
   }
 
   // =================================================================
-  // Methods
-  // =================================================================
-  inline T Length() const
-  {
-    return this->eigen.norm();
-  }
-  inline T LengthSquare() const
-  {
-    return this->eigen.squaredNorm();
-  }
-  inline TVec4<T> Normalized() const
-  {
-    return TVec4<T>(this->eigen.normalized());
-  }
-  inline bool IsZero() const
-  {
-    return this->eigen.isZero();
-  }
-  // =================================================================
   // Operator
   // =================================================================
+public:
   //+
   inline const TVec4<T> operator + () const
   {
@@ -221,6 +210,27 @@ union TVec4
   inline bool operator == (const TVec4<T>& other) const
   {
     return this->eigen == other.eigen;
+  }
+
+  // =================================================================
+  // Methods
+  // =================================================================
+public:
+  inline T Length() const
+  {
+    return this->eigen.norm();
+  }
+  inline T LengthSquare() const
+  {
+    return this->eigen.squaredNorm();
+  }
+  inline TVec4<T> Normalized() const
+  {
+    return TVec4<T>(this->eigen.normalized());
+  }
+  inline bool IsZero() const
+  {
+    return this->eigen.isZero();
   }
 };
 
