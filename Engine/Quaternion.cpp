@@ -91,6 +91,11 @@ Quaternion::Quaternion()
   : Quaternion(TVec3f(0.0f, 0.0f, 0.0f), 1.0f)
 {}
 
+Quaternion::Quaternion(const Quaternion& q)
+  : v_(q.v_)
+  , w_(q.w_)
+{}
+
 Quaternion::Quaternion(const TVec3f& v, T_FLOAT rad)
 {
   const T_FLOAT sin_ = sinf(rad / 2.0f);

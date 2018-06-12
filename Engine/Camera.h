@@ -1,11 +1,15 @@
 #pragma once
 
-#include "NativeType.h"
-#include "Geometry.h"
 #include "GameComponent.h"
+
+#include "NativeType.h"
 #include "NativeMatrix.h"
 #include "NativeRenderTexture.h"
 #include "GameObjectRenderState.h"
+
+#include "Geometry.h"
+#include "Vector2.h"
+#include "Vector3.h"
 
 class Scene;
 class GameObject;
