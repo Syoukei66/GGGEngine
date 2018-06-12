@@ -10,9 +10,13 @@
 // Vec2
 // =================================================================
 template <typename T>
-struct BaseTVec2
+union BaseTVec2
 {
-  T x, y;
+  struct
+  {
+    T x, y;
+  };
+  T vec[2];
 
   BaseTVec2()
     : x(0)
@@ -100,17 +104,17 @@ struct BaseTVec2
   {
     return this->x == 0.0 && this->y == 0.0;
   }
-  //’P€+
+  //â€™PÂâ‚¬+
   const BaseTVec2 operator + () const
   {
     return *this;
   }
-  //’P€-
+  //â€™PÂâ‚¬-
   const BaseTVec2 operator - () const
   {
     return BaseTVec2(-this->x, -this->y);
   }
-  //2€+
+  //2Ââ‚¬+
   const BaseTVec2 operator + (const BaseTVec2& other) const
   {
     return BaseTVec2(this->x + other.x, this->y + other.y);
@@ -121,7 +125,7 @@ struct BaseTVec2
     this->y += other.y;
     return *this;
   }
-  //2€-
+  //2Ââ‚¬-
   const BaseTVec2 operator - (const BaseTVec2& other) const
   {
     return BaseTVec2(this->x - other.x, this->y - other.y);
@@ -132,7 +136,7 @@ struct BaseTVec2
     this->y -= other.y;
     return *this;
   }
-  //2€*
+  //2Ââ‚¬*
   const BaseTVec2 operator * (T s) const
   {
     return BaseTVec2(this->x * s, this->y * s);
@@ -149,7 +153,7 @@ struct BaseTVec2
     this->y *= other;
     return *this;
   }
-  //2€/
+  //2Ââ‚¬/
   const BaseTVec2 operator / (T s) const
   {
     return BaseTVec2(this->x / s, this->y / s);
@@ -166,7 +170,7 @@ struct BaseTVec2
     this->y /= other;
     return *this;
   }
-  //2€==
+  //2Ââ‚¬==
   bool operator == (const BaseTVec2& other) const
   {
     return this->x == other.x && this->y == other.y;
@@ -181,9 +185,13 @@ typedef BaseTVec2<T_FLOAT> TVec2f;
 // Size
 // =================================================================
 template <typename T>
-struct BaseTSize
+union BaseTSize
 {
-  T width, height;
+  struct
+  {
+    T width, height;
+  };
+  T vec[2];
 
   BaseTSize()
     : width(0)
@@ -198,17 +206,17 @@ struct BaseTSize
   {
     return this->width == 0 && this->height == 0;
   }
-  //’P€+
+  //â€™PÂâ‚¬+
   const BaseTSize operator + () const
   {
     return *this;
   }
-  //’P€-
+  //â€™PÂâ‚¬-
   const BaseTSize operator - () const
   {
     return BaseTSize(-this->width, -this->height);
   }
-  //2€+
+  //2Ââ‚¬+
   const BaseTSize operator + (const BaseTSize& other) const
   {
     return BaseTSize(this->width + other.width, this->height + other.height);
@@ -219,7 +227,7 @@ struct BaseTSize
     this->height += other.height;
     return *this;
   }
-  //2€-
+  //2Ââ‚¬-
   const BaseTSize operator - (const BaseTSize& other) const
   {
     return BaseTSize(this->width - other.width, this->height - other.height);
@@ -230,7 +238,7 @@ struct BaseTSize
     this->height -= other.height;
     return *this;
   }
-  //2€*
+  //2Ââ‚¬*
   const BaseTSize operator * (const BaseTSize& other) const
   {
     return BaseTSize(this->width * other.width, this->height * other.height);
@@ -261,7 +269,7 @@ struct BaseTSize
     this->height *= s;
     return *this;
   }
-  //2€/
+  //2Ââ‚¬/
   const BaseTSize operator / (const BaseTSize& other) const
   {
     return BaseTSize(this->width / other.width, this->height / other.height);
@@ -278,7 +286,7 @@ struct BaseTSize
     this->height /= other;
     return *this;
   }
-  //2€==
+  //2Ââ‚¬==
   bool operator == (const BaseTSize& other) const
   {
     return this->width == other.width && this->height == other.height;
@@ -292,7 +300,7 @@ typedef BaseTSize<T_FLOAT> TSizef;
 // Vec3
 // =================================================================
 template<typename T>
-struct BaseTVec3
+union BaseTVec3
 {
   static const BaseTVec3<T> zero;
   static const BaseTVec3<T> one;
@@ -303,7 +311,12 @@ struct BaseTVec3
   static const BaseTVec3<T> up;
   static const BaseTVec3<T> down;
 
-  T x, y, z;
+  struct
+  {
+    T x, y, z;
+  };
+  T vec[3];
+
   BaseTVec3()
     : x(0)
     , y(0)
@@ -408,17 +421,17 @@ struct BaseTVec3
     );
   }
 
-  //’P€+
+  //â€™PÂâ‚¬+
   const BaseTVec3 operator + () const
   {
     return *this;
   }
-  //’P€-
+  //â€™PÂâ‚¬-
   const BaseTVec3 operator - () const
   {
     return BaseTVec3(-this->x, -this->y, -this->z);
   }
-  //2€+
+  //2Ââ‚¬+
   const BaseTVec3 operator + (const BaseTVec3& other) const
   {
     return BaseTVec3(this->x + other.x, this->y + other.y, this->z + other.z);
@@ -430,7 +443,7 @@ struct BaseTVec3
     this->z += other.z;
     return *this;
   }
-  //2€-
+  //2Ââ‚¬-
   const BaseTVec3 operator - (const BaseTVec3& other) const
   {
     return BaseTVec3(this->x - other.x, this->y - other.y, this->z - other.z);
@@ -442,7 +455,7 @@ struct BaseTVec3
     this->z -= other.z;
     return *this;
   }
-  //2€*
+  //2Ââ‚¬*
   const BaseTVec3 operator * (T s) const
   {
     return BaseTVec3(this->x * s, this->y * s, this->z * s);
@@ -465,7 +478,7 @@ struct BaseTVec3
     this->z *= other;
     return *this;
   }
-  //2€/
+  //2Ââ‚¬/
   const BaseTVec3 operator / (T s) const
   {
     return BaseTVec3(this->x / s, this->y / s, this->z / s);
@@ -484,7 +497,7 @@ struct BaseTVec3
     this->z /= other;
     return *this;
   }
-  //2€==
+  //2Ââ‚¬==
   bool operator == (const BaseTVec3& other) const
   {
     return this->x == other.x && this->y == other.y && this->z == other.z;
@@ -515,8 +528,14 @@ typedef BaseTVec3<T_FLOAT> TVec3f;
 // Vec4
 // =================================================================
 template<typename T>
-struct BaseTVec4
+union BaseTVec4
 {
+  struct
+  {
+    T x, y, z, w;
+  };
+  T vec[4];
+
   static const BaseTVec4<T> zero;
   static const BaseTVec4<T> one;
   static const BaseTVec4<T> forward;
@@ -527,6 +546,7 @@ struct BaseTVec4
   static const BaseTVec4<T> down;
 
   T x, y, z, w;
+  
   BaseTVec4()
     : x(0)
     , y(0)
@@ -545,17 +565,17 @@ struct BaseTVec4
   {
     return this->x == 0.0 && this->y == 0.0 && this->z == 0.0 && this->w == 0.0;
   }
-  //’P€+
+  //â€™PÂâ‚¬+
   const BaseTVec4 operator + () const
   {
     return *this;
   }
-  //’P€-
+  //â€™PÂâ‚¬-
   const BaseTVec4 operator - () const
   {
     return BaseTVec4(-this->x, -this->y, -this->z, -this->w);
   }
-  //2€+
+  //2Ââ‚¬+
   const BaseTVec4 operator + (const BaseTVec4& other) const
   {
     return BaseTVec4(this->x + other.x, this->y + other.y, this->z + other.z, this->w + other.w);
@@ -568,7 +588,7 @@ struct BaseTVec4
     this->w += other.w;
     return *this;
   }
-  //2€-
+  //2Ââ‚¬-
   const BaseTVec4 operator - (const BaseTVec4& other) const
   {
     return BaseTVec4(this->x - other.x, this->y - other.y, this->z - other.z, this->w - other.w);
@@ -581,7 +601,7 @@ struct BaseTVec4
     this->w -= other.w;
     return *this;
   }
-  //2€*
+  //2Ââ‚¬*
   const BaseTVec4 operator * (T s) const
   {
     return BaseTVec4(this->x * s, this->y * s, this->z * s, this->w * s);
@@ -602,7 +622,7 @@ struct BaseTVec4
     this->w *= other;
     return *this;
   }
-  //2€/
+  //2Ââ‚¬/
   const BaseTVec4 operator / (T s) const
   {
     return BaseTVec4(this->x / s, this->y / s, this->z / s, this->w / s);
@@ -623,7 +643,7 @@ struct BaseTVec4
     this->w /= other;
     return *this;
   }
-  //2€==
+  //2Ââ‚¬==
   bool operator == (const BaseTVec4& other) const
   {
     return this->x == other.x && this->y == other.y && this->z == other.z && this->w == other.w;

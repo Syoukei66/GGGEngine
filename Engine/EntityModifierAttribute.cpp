@@ -125,11 +125,11 @@ public:
 public:
   virtual void SetValue(GameObject2D* entity, const T_FLOAT next) const override
   {
-    entity->GetRenderer()->GetMaterial()->GetDiffuse().SetRed(next > 1.0f ? 1.0f : next);
+    entity->GetRenderer()->GetMaterial()->GetDiffuse().r = next > 1.0f ? 1.0f : next;
   }
   virtual T_FLOAT GetValue(GameObject2D* entity) const override
   {
-    return entity->GetRenderer()->GetMaterial()->GetDiffuse().GetRed();
+    return entity->GetRenderer()->GetMaterial()->GetDiffuse().r;
   }
 };
 
@@ -145,11 +145,11 @@ public:
 public:
   virtual void SetValue(GameObject2D* entity, const T_FLOAT next) const override
   {
-    entity->GetRenderer()->GetMaterial()->GetDiffuse().SetGreen(next > 1.0f ? 1.0f : next);
+    entity->GetRenderer()->GetMaterial()->GetDiffuse().g = next > 1.0f ? 1.0f : next;
   }
   virtual T_FLOAT GetValue(GameObject2D* entity) const override
   {
-    return entity->GetRenderer()->GetMaterial()->GetDiffuse().GetGreen();
+    return entity->GetRenderer()->GetMaterial()->GetDiffuse().g;
   }
 };
 
@@ -165,11 +165,11 @@ public:
 public:
   virtual void SetValue(GameObject2D* entity, const T_FLOAT next) const override
   {
-    entity->GetRenderer()->GetMaterial()->GetDiffuse().SetBlue(next > 1.0f ? 1.0f : next);
+    entity->GetRenderer()->GetMaterial()->GetDiffuse().b = next > 1.0f ? 1.0f : next;
   }
   virtual T_FLOAT GetValue(GameObject2D* entity) const override
   {
-    return entity->GetRenderer()->GetMaterial()->GetDiffuse().GetBlue();
+    return entity->GetRenderer()->GetMaterial()->GetDiffuse().b;
   }
 };
 
@@ -185,11 +185,11 @@ public:
 public:
   virtual void SetValue(GameObject2D* entity, const T_FLOAT next) const override
   {
-    entity->GetRenderer()->GetMaterial()->GetDiffuse().SetAlpha(next > 1.0f ? 1.0f : next);
+    entity->GetRenderer()->GetMaterial()->GetDiffuse().a = next > 1.0f ? 1.0f : next;
   }
   virtual T_FLOAT GetValue(GameObject2D* entity) const override
   {
-    return entity->GetRenderer()->GetMaterial()->GetDiffuse().GetAlpha();
+    return entity->GetRenderer()->GetMaterial()->GetDiffuse().a;
   }
 };
 
