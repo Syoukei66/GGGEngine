@@ -139,7 +139,7 @@ EntityModifier* Round(EntityModifier* target)
 //=======================================================================
 EntityModifier* ScaleMove(T_UINT32 duration, const TVec2f& value)
 {
-  return ScaleMove(duration, value.x, value.y);
+  return ScaleMove(duration, value.x(), value.y());
 }
 
 EntityModifier* ScaleMove(T_UINT32 duration, T_FLOAT value)
@@ -179,7 +179,7 @@ EntityModifier* ScaleMoveY(T_UINT32 duration, T_FLOAT value_y)
 
 EntityModifier* ScaleTo(T_UINT32 duration, const TVec2f& to)
 {
-  return ScaleTo(duration, to.x, to.y);
+  return ScaleTo(duration, to.x(), to.y());
 }
 
 EntityModifier* ScaleTo(T_UINT32 duration, T_FLOAT to)
@@ -219,7 +219,7 @@ EntityModifier* ScaleToY(T_UINT32 duration,  T_FLOAT to_y)
 
 EntityModifier* ScaleFromMove(T_UINT32 duration, const TVec2f& from, const TVec2f& value)
 {
-  return ScaleFromMove(duration, from.x, from.y, value.x, value.y);
+  return ScaleFromMove(duration, from.x(), from.y(), value.x(), value.y());
 }
 
 EntityModifier* ScaleFromMove(T_UINT32 duration, T_FLOAT from, T_FLOAT value)
@@ -259,7 +259,7 @@ EntityModifier* ScaleFromMoveY(T_UINT32 duration, T_FLOAT from_y, T_FLOAT value_
 
 EntityModifier* ScaleFromTo(T_UINT32 duration, const TVec2f& from, const TVec2f& to)
 {
-  return ScaleFromTo(duration, from.x, from.y, to.x, to.y);
+  return ScaleFromTo(duration, from.x(), from.y(), to.x(), to.y());
 }
 
 EntityModifier* ScaleFromTo(T_UINT32 duration, T_FLOAT from, T_FLOAT to)
@@ -302,7 +302,7 @@ EntityModifier* ScaleFromToY(T_UINT32 duration, T_FLOAT from_y, T_FLOAT to_y)
 //=======================================================================
 EntityModifier* TranslateBy(T_UINT32 duration, const TVec2f & value)
 {
-  return TranslateBy(duration, value.x, value.y);
+  return TranslateBy(duration, value.x(), value.y());
 }
 
 EntityModifier* TranslateBy(T_UINT32 duration, T_FLOAT value)
@@ -342,7 +342,7 @@ EntityModifier* TranslateByY(T_UINT32 duration, T_FLOAT value_y)
 
 EntityModifier* TranslateTo(T_UINT32 duration, const TVec2f & to)
 {
-  return TranslateTo(duration, to.x, to.y);
+  return TranslateTo(duration, to.x(), to.y());
 }
 
 EntityModifier* TranslateTo(T_UINT32 duration, T_FLOAT to)
@@ -382,7 +382,7 @@ EntityModifier* TranslateToY(T_UINT32 duration, T_FLOAT to_y)
 
 EntityModifier* TranslateFromBy(T_UINT32 duration, const TVec2f& from, const TVec2f& value)
 {
-  return TranslateFromBy(duration, from.x, from.y, value.x, value.y);
+  return TranslateFromBy(duration, from.x(), from.y(), value.x(), value.y());
 }
 
 EntityModifier* TranslateFromBy(T_UINT32 duration, T_FLOAT from_x, T_FLOAT from_y, T_FLOAT value_x, T_FLOAT value_y)
@@ -417,7 +417,7 @@ EntityModifier* TranslateFromByY(T_UINT32 duration, T_FLOAT from_y, T_FLOAT valu
 
 EntityModifier* TranslateFromTo(T_UINT32 duration, const TVec2f& from, const TVec2f& to)
 {
-  return TranslateFromTo(duration, from.x, from.y, to.x, to.y);
+  return TranslateFromTo(duration, from.x(), from.y(), to.x(), to.y());
 }
 
 EntityModifier* TranslateFromTo(T_UINT32 duration, T_FLOAT from_x, T_FLOAT from_y, T_FLOAT to_x, T_FLOAT to_y)

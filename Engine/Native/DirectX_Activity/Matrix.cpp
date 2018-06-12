@@ -57,9 +57,9 @@ Matrix4x4 Matrix4x4::Rotate(T_FLOAT x, T_FLOAT y)
 Matrix4x4 Matrix4x4::Rotate(const TVec2f& value)
 {
   Matrix4x4 ret;
-  D3DXMatrixRotationX(reinterpret_cast<D3DXMATRIX*>(&ret), value.x);
+  D3DXMatrixRotationX(reinterpret_cast<D3DXMATRIX*>(&ret), value.x());
   Matrix4x4 mat;
-  D3DXMatrixRotationY(reinterpret_cast<D3DXMATRIX*>(&mat), value.y);
+  D3DXMatrixRotationY(reinterpret_cast<D3DXMATRIX*>(&mat), value.y());
   D3DXMatrixMultiply(reinterpret_cast<D3DXMATRIX*>(&ret), reinterpret_cast<D3DXMATRIX*>(&mat), reinterpret_cast<D3DXMATRIX*>(&ret));
   return ret;
 }
@@ -135,7 +135,7 @@ Matrix4x4 Matrix4x4::Scale(T_FLOAT x, T_FLOAT y)
 Matrix4x4 Matrix4x4::Scale(const TVec2f& value)
 {
   Matrix4x4 ret;
-  D3DXMatrixScaling(reinterpret_cast<D3DXMATRIX*>(&ret), value.x, value.y, 1.0f);
+  D3DXMatrixScaling(reinterpret_cast<D3DXMATRIX*>(&ret), value.x(), value.y(), 1.0f);
   return ret;
 }
 
@@ -184,7 +184,7 @@ Matrix4x4 Matrix4x4::Translate(T_FLOAT x, T_FLOAT y)
 Matrix4x4 Matrix4x4::Translate(const TVec2f& value)
 {
   Matrix4x4 ret;
-  D3DXMatrixTranslation(reinterpret_cast<D3DXMATRIX*>(&ret), value.x, value.y, 0.0f);
+  D3DXMatrixTranslation(reinterpret_cast<D3DXMATRIX*>(&ret), value.x(), value.y(), 0.0f);
   return ret;
 }
 
@@ -305,10 +305,10 @@ Matrix4x4 Matrix4x4::operator*(const Matrix4x4& other) const
 TVec2f Matrix4x4::operator*(const TVec2f& f) const
 {
   TVec2f ret = f;
-  const T_FLOAT x = ret.x;
-  const T_FLOAT y = ret.y;
-  ret.x = (x * this->_11) + (y * this->_21) + this->_41;
-  ret.y = (x * this->_12) + (y * this->_22) + this->_42;
+  const T_FLOAT x = ret.x();
+  const T_FLOAT y = ret.y();
+  ret.x() = (x * this->_11) + (y * this->_21) + this->_41;
+  ret.y() = (x * this->_12) + (y * this->_22) + this->_42;
   return ret;
 }
 
@@ -327,14 +327,14 @@ TVec3f Matrix4x4::operator*(const TVec3f& f) const
 TVec4f Matrix4x4::operator*(const TVec4f& f) const
 {
   TVec4f ret = f;
-  const T_FLOAT x = ret.x;
-  const T_FLOAT y = ret.y;
-  const T_FLOAT z = ret.z;
-  const T_FLOAT w = ret.w;
-  ret.x = (x * this->_11) + (y * this->_21) + (z * this->_31) + (w * this->_41);
-  ret.y = (x * this->_12) + (y * this->_22) + (z * this->_32) + (w * this->_42);
-  ret.z = (x * this->_13) + (y * this->_23) + (z * this->_33) + (w * this->_43);
-  ret.w = (x * this->_14) + (y * this->_24) + (z * this->_34) + (w * this->_44);
+  const T_FLOAT x = ret.x();
+  const T_FLOAT y = ret.y();
+  const T_FLOAT z = ret.z();
+  const T_FLOAT w = ret.w();
+  ret.x() = (x * this->_11) + (y * this->_21) + (z * this->_31) + (w * this->_41);
+  ret.y() = (x * this->_12) + (y * this->_22) + (z * this->_32) + (w * this->_42);
+  ret.z() = (x * this->_13) + (y * this->_23) + (z * this->_33) + (w * this->_43);
+  ret.w() = (x * this->_14) + (y * this->_24) + (z * this->_34) + (w * this->_44);
   return ret;
 }
 

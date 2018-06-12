@@ -26,8 +26,8 @@ void Transform2D::OnInit()
 void Transform2D::UpdateTranslateMatrix(INativeMatrix* matrix)
 {
   matrix->Translation(
-    this->position_.x,
-    this->position_.y,
+    this->position_.x(),
+    this->position_.y(),
     0.0f
   );
 }
@@ -35,8 +35,8 @@ void Transform2D::UpdateTranslateMatrix(INativeMatrix* matrix)
 void Transform2D::UpdateScaleMatrix(INativeMatrix* matrix)
 {
   matrix->Scaling(
-    this->scale_.x,
-    this->scale_.y,
+    this->scale_.x(),
+    this->scale_.y(),
     1.0f
   );
 }
@@ -76,34 +76,34 @@ void Transform2D::SetPositon(const TVec2f& position)
 void Transform2D::SetPositon(T_FLOAT x, T_FLOAT y)
 {
   if (
-    this->position_.x == x &&
-    this->position_.y == y
+    this->position_.x() == x &&
+    this->position_.y() == y
     )
   {
     return;
   }
-  this->position_.x = x;
-  this->position_.y = y;
+  this->position_.x() = x;
+  this->position_.y() = y;
   this->OnTransformChanged();
 }
 
 void Transform2D::SetX(T_FLOAT x)
 {
-  if (this->position_.x == x)
+  if (this->position_.x() == x)
   {
     return;
   }
-  this->position_.x = x;
+  this->position_.x() = x;
   this->OnTransformChanged();
 }
 
 void Transform2D::SetY(T_FLOAT y)
 {
-  if (this->position_.y == y)
+  if (this->position_.y() == y)
   {
     return;
   }
-  this->position_.y = y;
+  this->position_.y() = y;
   this->OnTransformChanged();
 }
 
@@ -120,48 +120,48 @@ void Transform2D::SetScale(const TVec2f& scale)
 void Transform2D::SetScale(T_FLOAT scale)
 {
   if (
-    this->scale_.x == scale &&
-    this->scale_.y == scale
+    this->scale_.x() == scale &&
+    this->scale_.y() == scale
     )
   {
     return;
   }
-  this->scale_.x = scale;
-  this->scale_.y = scale;
+  this->scale_.x() = scale;
+  this->scale_.y() = scale;
   this->OnScaleChanged();
 }
 
 void Transform2D::SetScale(T_FLOAT scale_x, T_FLOAT scale_y)
 {
   if (
-    this->scale_.x == scale_x &&
-    this->scale_.y == scale_y
+    this->scale_.x() == scale_x &&
+    this->scale_.y() == scale_y
     )
   {
     return;
   }
-  this->scale_.x = scale_x;
-  this->scale_.y = scale_y;
+  this->scale_.x() = scale_x;
+  this->scale_.y() = scale_y;
   this->OnScaleChanged();
 }
 
 void Transform2D::SetScaleX(T_FLOAT scale_x)
 {
-  if (this->scale_.x == scale_x)
+  if (this->scale_.x() == scale_x)
   {
     return;
   }
-  this->scale_.x = scale_x;
+  this->scale_.x() = scale_x;
   this->OnScaleChanged();
 }
 
 void Transform2D::SetScaleY(T_FLOAT scale_y)
 {
-  if (this->scale_.y == scale_y)
+  if (this->scale_.y() == scale_y)
   {
     return;
   }
-  this->scale_.y = scale_y;
+  this->scale_.y() = scale_y;
   this->OnScaleChanged();
 }
 

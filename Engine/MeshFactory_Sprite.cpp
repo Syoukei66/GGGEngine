@@ -61,11 +61,11 @@ static void Initialize()
       TVec2f uv = SPRITE_VERTEX_TEX_COORDS[vertexTexIndex];
       if (temp[vertexIndex][vertexTexIndex] == -1)
       {
-        SPRITE_VERTEXES[index].x = coord.x;
-        SPRITE_VERTEXES[index].y = coord.y;
+        SPRITE_VERTEXES[index].x = coord.x();
+        SPRITE_VERTEXES[index].y = coord.y();
         SPRITE_VERTEXES[index].z = 0.0f;
-        SPRITE_UVS[index].x = uv.x;
-        SPRITE_UVS[index].y = uv.y;
+        SPRITE_UVS[index].x() = uv.x();
+        SPRITE_UVS[index].y() = uv.y();
         temp[vertexIndex][vertexTexIndex] = index;
         index++;
       }

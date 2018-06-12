@@ -71,13 +71,13 @@ public:
   void SetViewportX(T_FLOAT x);
   inline T_FLOAT GetViewportX() const
   {
-    return this->position_.x;
+    return this->position_.x();
   }
 
   void SetViewportY(T_FLOAT y);
   inline T_FLOAT GetViewportY() const
   {
-    return this->position_.y;
+    return this->position_.y();
   } 
 
   void SetViewportSize(const TSizef& size);

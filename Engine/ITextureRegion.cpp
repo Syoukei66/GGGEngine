@@ -58,21 +58,21 @@ void ITextureRegion::OnTextureCoordDirty()
 // =================================================================
 void ITextureRegion::SetX(T_FLOAT x)
 {
-  if (this->texture_region_.pos.x == x)
+  if (this->texture_region_.x == x)
   {
     return;
   }
-  this->texture_region_.pos.x = x;
+  this->texture_region_.x = x;
   this->OnTextureCoordDirty();
 }
 
 void ITextureRegion::SetY(T_FLOAT y)
 {
-  if (this->texture_region_.pos.y == y)
+  if (this->texture_region_.y == y)
   {
     return;
   }
-  this->texture_region_.pos.y = y;
+  this->texture_region_.y = y;
   this->OnTextureCoordDirty();
 }
 

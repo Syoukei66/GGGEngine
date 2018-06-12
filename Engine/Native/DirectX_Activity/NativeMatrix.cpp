@@ -76,7 +76,7 @@ void NativeMatrix::Translation(T_FLOAT x, T_FLOAT y)
 
 void NativeMatrix::Translation(const TVec2f& value)
 {
-  D3DXMatrixTranslation(this->mat_, value.x, value.y, 0.0f);
+  D3DXMatrixTranslation(this->mat_, value.x(), value.y(), 0.0f);
 }
 
 void NativeMatrix::Translation(T_FLOAT x, T_FLOAT y, T_FLOAT z)
@@ -116,7 +116,7 @@ void NativeMatrix::Scaling(T_FLOAT x, T_FLOAT y)
 
 void NativeMatrix::Scaling(const TVec2f& value)
 {
-  D3DXMatrixScaling(this->mat_, value.x, value.y, 1.0f);
+  D3DXMatrixScaling(this->mat_, value.x(), value.y(), 1.0f);
 }
 
 void NativeMatrix::Scaling(T_FLOAT x, T_FLOAT y, T_FLOAT z)
@@ -155,10 +155,10 @@ void NativeMatrix::Rotation(T_FLOAT x, T_FLOAT y)
 
 void NativeMatrix::Rotation(const TVec2f& value)
 {
-  D3DXMatrixRotationX(this->mat_, value.x);
+  D3DXMatrixRotationX(this->mat_, value.x());
 
   D3DXMATRIX mat;
-  D3DXMatrixRotationY(&mat, value.y);
+  D3DXMatrixRotationY(&mat, value.y());
   D3DXMatrixMultiply(this->mat_, &mat, this->mat_);
 }
 
@@ -234,10 +234,10 @@ void NativeMatrix::OrthoLH(T_FLOAT width, T_FLOAT height, T_FLOAT z_near, T_FLOA
 
 void NativeMatrix::Apply(TVec2f* dest) const
 {
-  const T_FLOAT x = dest->x;
-  const T_FLOAT y = dest->y;
-  dest->x = (x * this->mat_->_11) + (y * this->mat_->_21) + this->mat_->_41;
-  dest->y = (x * this->mat_->_12) + (y * this->mat_->_22) + this->mat_->_42;
+  const T_FLOAT x = dest->x();
+  const T_FLOAT y = dest->y();
+  dest->x() = (x * this->mat_->_11) + (y * this->mat_->_21) + this->mat_->_41;
+  dest->y() = (x * this->mat_->_12) + (y * this->mat_->_22) + this->mat_->_42;
 }
 
 void NativeMatrix::Apply(TVec3f* dest) const
@@ -252,14 +252,14 @@ void NativeMatrix::Apply(TVec3f* dest) const
 
 void NativeMatrix::Apply(TVec4f* dest) const
 {
-  const T_FLOAT x = dest->x;
-  const T_FLOAT y = dest->y;
-  const T_FLOAT z = dest->z;
-  const T_FLOAT w = dest->w;
-  dest->x = (x * this->mat_->_11) + (y * this->mat_->_21) + (z * this->mat_->_31) + (w * this->mat_->_41);
-  dest->y = (x * this->mat_->_12) + (y * this->mat_->_22) + (z * this->mat_->_32) + (w * this->mat_->_42);
-  dest->z = (x * this->mat_->_13) + (y * this->mat_->_23) + (z * this->mat_->_33) + (w * this->mat_->_43);
-  dest->w = (x * this->mat_->_14) + (y * this->mat_->_24) + (z * this->mat_->_34) + (w * this->mat_->_44);
+  const T_FLOAT x = dest->x();
+  const T_FLOAT y = dest->y();
+  const T_FLOAT z = dest->z();
+  const T_FLOAT w = dest->w();
+  dest->x() = (x * this->mat_->_11) + (y * this->mat_->_21) + (z * this->mat_->_31) + (w * this->mat_->_41);
+  dest->y() = (x * this->mat_->_12) + (y * this->mat_->_22) + (z * this->mat_->_32) + (w * this->mat_->_42);
+  dest->z() = (x * this->mat_->_13) + (y * this->mat_->_23) + (z * this->mat_->_33) + (w * this->mat_->_43);
+  dest->w() = (x * this->mat_->_14) + (y * this->mat_->_24) + (z * this->mat_->_34) + (w * this->mat_->_44);
 }
 
 void NativeMatrix::Apply(T_FLOAT* dest_x, T_FLOAT* dest_y) const

@@ -78,7 +78,9 @@ TextureAtlas* TextureAtlasLoader::Load(const char* directory_path, const char* a
     std::string orig = this->GetDataText(&p);
     std::string offset = this->GetDataText(&p);
     std::string index = this->GetDataText(&p);
-    region.area.pos = this->StrToTVec2(xy);
+    TVec2i vec = this->StrToTVec2(xy);
+    region.area.x = vec.x();
+    region.area.y = vec.y();
     region.area.size = this->StrToTSize(size);
     ret->Register(key, region);
   }
@@ -192,9 +194,9 @@ const TSize TextureAtlasLoader::StrToTSize(const std::string& str)
   return ret;
 }
 
-const TVec2 TextureAtlasLoader::StrToTVec2(const std::string& str)
+const TVec2i TextureAtlasLoader::StrToTVec2(const std::string& str)
 {
-  TVec2 ret = TVec2();
+  TVec2i ret = TVec2i();
   std::string buf;
   buf.clear();
   char* p_head = new char[str.size() + 1];
@@ -210,14 +212,14 @@ const TVec2 TextureAtlasLoader::StrToTVec2(const std::string& str)
     if (IsComma(*p))
     {
       ++p;
-      ret.x = std::stoi(buf);
+      ret.x() = std::stoi(buf);
       buf.clear();
       continue;
     }
     buf.append(p, 1);
     ++p;
   }
-  ret.y = std::stoi(buf);
+  ret.y() = std::stoi(buf);
   delete[] p_head;
   return ret;
 }
