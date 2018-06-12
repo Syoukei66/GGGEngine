@@ -81,6 +81,7 @@
 
 //Eigen
   #include "Eigen/Core"
+  #include "Eigen\Geometry"
 
 //Engine
   #include "Engine.h"

@@ -5,6 +5,8 @@
 
 #include "NativeType.h"
 #include "EasingFunctionManager.h"
+#include "Eigen\Core"
+#include "Eigen\Geometry"
 
 // =================================================================
 // Vec2
@@ -316,18 +318,29 @@ union BaseTVec3
     T x, y, z;
   };
   T vec[3];
+  Eigen::Matrix<T, 3, 1> eigen;
 
   BaseTVec3()
-    : x(0)
-    , y(0)
-    , z(0)
+    : eigen(0, 0, 0)
   {}
 
   BaseTVec3(T x, T y, T z)
-    : x(x)
-    , y(y)
-    , z(z)
+    : eigen(x, y, z)
   {}
+
+  BaseTVec3(const Eigen::Matrix<T, 3, 1>& eigen)
+    : eigen(eigen)
+  {}
+
+  BaseTVec3(const BaseTVec3<T>& other)
+    : eigen(other.eigen)
+  {}
+
+  BaseTVec3<T>& operator = (const BaseTVec3<T>& other)
+  {
+    this->eigen = other.eigen;
+    return *this;
+  }
 
   static BaseTVec3<T> EaseIn(EasingFunction::EasingFunction& easing_function, const BaseTVec3<T>& a, const BaseTVec3<T>& b, T_FLOAT t)
   {
@@ -340,7 +353,7 @@ union BaseTVec3
       return b;
     }
     t = easing_function.In(t);
-    return a + (b - a) * t;
+    return BaseTVec3<T>(a.eigen + (b.eigen - a.eigen) * t);
   }
 
   static BaseTVec3<T> EaseOut(EasingFunction::EasingFunction& easing_function, const BaseTVec3<T>& a, const BaseTVec3<T>& b, T_FLOAT t)
@@ -354,7 +367,7 @@ union BaseTVec3
       return b;
     }
     t = easing_function.Out(t);
-    return a + (b - a) * t;
+    return BaseTVec3<T>(a.eigen + (b.eigen - a.eigen) * t);
   }
 
   static BaseTVec3<T> EaseInOut(EasingFunction::EasingFunction& easing_function, const BaseTVec3<T>& a, const BaseTVec3<T>& b, T_FLOAT t)
@@ -368,7 +381,7 @@ union BaseTVec3
       return b;
     }
     t = easing_function.InOut(t);
-    return a + (b - a) * t;
+    return BaseTVec3<T>(a.eigen + (b.eigen - a.eigen) * t);
   }
 
   static BaseTVec3<T> Lerp(const BaseTVec3<T>& a, const BaseTVec3<T>& b, T_FLOAT t)
@@ -382,7 +395,7 @@ union BaseTVec3
       return b;
     }
     t = std::min(std::max(t, 0.0f), 1.0f);
-    return a + (b - a) * t;
+    return BaseTVec3<T>(a.eigen + (b.eigen - a.eigen) * t);
   }
 
   bool IsZero() const
@@ -391,116 +404,95 @@ union BaseTVec3
   }
   T Length() const
   {
-    return (T)sqrt(LengthSquare());
+    return this->eigen.norm();
   }
   T LengthSquare() const
   {
-    return this->x * this->x + this->y * this->y + this->z * this->z;
+    return this->eigen.squaredNorm();
   }
-  BaseTVec3 Normalized() const
+  BaseTVec3<T> Normalized() const
   {
-    T length = Length();
-    if (length == 0.0)
-    {
-      return BaseTVec3((T)0.0, (T)0.0, (T)0.0);
-    }
-    return *this / length;
+    return BaseTVec3<T>(this->eigen.normalized());
   }
 
-  static T_FLOAT InnerProduct(const BaseTVec3& a, const BaseTVec3& b)
+  static T_FLOAT InnerProduct(const BaseTVec3<T>& a, const BaseTVec3<T>& b)
   {
-    return a.x * b.x + a.y * b.y + a.z * b.z;
+    return a.eigen.dot(b.eigen);
   }
 
-  static BaseTVec3 OuterProduct(const BaseTVec3& a, const BaseTVec3& b)
+  static BaseTVec3<T> OuterProduct(const BaseTVec3<T>& a, const BaseTVec3<T>& b)
   {
-    return BaseTVec3(
-      a.y * b.z - b.y * a.z,
-     -a.x * b.z + b.x * a.z,
-      a.x * b.y - b.x * a.y
-    );
+    return BaseTVec3<T>(a.eigen.cross(b.eigen));
   }
 
   //’P€+
-  const BaseTVec3 operator + () const
+  const BaseTVec3<T> operator + () const
   {
     return *this;
   }
   //’P€-
-  const BaseTVec3 operator - () const
+  const BaseTVec3<T> operator - () const
   {
-    return BaseTVec3(-this->x, -this->y, -this->z);
+    return BaseTVec3<T>(-this->eigen);
   }
   //2€+
-  const BaseTVec3 operator + (const BaseTVec3& other) const
+  const BaseTVec3<T> operator + (const BaseTVec3<T>& other) const
   {
-    return BaseTVec3(this->x + other.x, this->y + other.y, this->z + other.z);
+    return BaseTVec3<T>(this->eigen + other.eigen);
   }
-  BaseTVec3& operator += (const BaseTVec3& other)
+  BaseTVec3<T>& operator += (const BaseTVec3<T>& other)
   {
-    this->x += other.x;
-    this->y += other.y;
-    this->z += other.z;
+    this->eigen += other.eigen;
     return *this;
   }
   //2€-
-  const BaseTVec3 operator - (const BaseTVec3& other) const
+  const BaseTVec3<T> operator - (const BaseTVec3<T>& other) const
   {
-    return BaseTVec3(this->x - other.x, this->y - other.y, this->z - other.z);
+    return BaseTVec3<T>(this->eigen - other.eigen);
   }
-  BaseTVec3& operator -= (const BaseTVec3& other)
+  BaseTVec3<T>& operator -= (const BaseTVec3<T>& other)
   {
-    this->x -= other.x;
-    this->y -= other.y;
-    this->z -= other.z;
+    this->eigen -= other.eigen;
     return *this;
   }
   //2€*
-  const BaseTVec3 operator * (T s) const
+  const BaseTVec3<T> operator * (T s) const
   {
-    return BaseTVec3(this->x * s, this->y * s, this->z * s);
+    return BaseTVec3<T>(this->eigen * s);
   }
-  const BaseTVec3 operator * (const BaseTVec3<T>& vec) const
+  const BaseTVec3<T> operator * (const BaseTVec3<T>& vec) const
   {
-    return BaseTVec3(this->x * vec.x, this->y * vec.y, this->z * vec.z);
+    return BaseTVec3<T>(this->eigen * vec.eigen);
   }
-  BaseTVec3& operator *= (const BaseTVec3& other)
+  BaseTVec3<T>& operator *= (const BaseTVec3<T>& other)
   {
-    this->x *= other.x;
-    this->y *= other.y;
-    this->z *= other.z;
+    this->eigen *= other.eigen;
     return *this;
   }
-  BaseTVec3& operator *= (const T& other)
+  BaseTVec3<T>& operator *= (const T& other)
   {
-    this->x *= other;
-    this->y *= other;
-    this->z *= other;
+    this->eigen *= other;
     return *this;
   }
   //2€/
-  const BaseTVec3 operator / (T s) const
+  const BaseTVec3<T> operator / (T s) const
   {
-    return BaseTVec3(this->x / s, this->y / s, this->z / s);
+    return BaseTVec3<T>(this->eigen / s);
   }
-  BaseTVec3& operator /= (const BaseTVec3& other)
+  BaseTVec3<T>& operator /= (const BaseTVec3<T>& other)
   {
-    this->x /= other.x;
-    this->y /= other.y;
-    this->z /= other.z;
+    this->eigen /= other.eigen;
     return *this;
   }
-  BaseTVec3& operator /= (const T& other)
+  BaseTVec3<T>& operator /= (const T& other)
   {
-    this->x /= other;
-    this->y /= other;
-    this->z /= other;
+    this->eigen /= other.eigen;
     return *this;
   }
   //2€==
-  bool operator == (const BaseTVec3& other) const
+  bool operator == (const BaseTVec3<T>& other) const
   {
-    return this->x == other.x && this->y == other.y && this->z == other.z;
+    return this->eigen == other.eigen;
   }
 };
 
@@ -647,7 +639,6 @@ union BaseTVec4
     return this->x == other.x && this->y == other.y && this->z == other.z && this->w == other.w;
   }
 };
-
 
 template<typename T>
 const BaseTVec4<T> BaseTVec4<T>::zero =    BaseTVec4<T>(0, 0, 0, 0);

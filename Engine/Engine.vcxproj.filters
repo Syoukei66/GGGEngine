@@ -1410,5 +1410,8 @@
     <None Include="Eigen\Core">
       <Filter>ヘッダー ファイル\Eigen</Filter>
     </None>
+    <None Include="Eigen\Geometry">
+      <Filter>ヘッダー ファイル\Eigen</Filter>
+    </None>
   </ItemGroup>
 </Project>
