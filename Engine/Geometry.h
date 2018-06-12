@@ -530,12 +530,6 @@ typedef BaseTVec3<T_FLOAT> TVec3f;
 template<typename T>
 union BaseTVec4
 {
-  struct
-  {
-    T x, y, z, w;
-  };
-  T vec[4];
-
   static const BaseTVec4<T> zero;
   static const BaseTVec4<T> one;
   static const BaseTVec4<T> forward;
@@ -545,8 +539,12 @@ union BaseTVec4
   static const BaseTVec4<T> up;
   static const BaseTVec4<T> down;
 
-  T x, y, z, w;
-  
+  struct
+  {
+    T x, y, z, w;
+  };
+  T vec[4];
+
   BaseTVec4()
     : x(0)
     , y(0)

@@ -361,6 +361,9 @@
     <Filter Include="ヘッダー ファイル\Engine\Director">
       <UniqueIdentifier>{b8d79364-1f64-44c0-b322-e001361dedc0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Eigen">
+      <UniqueIdentifier>{65527833-19ab-41a2-851a-fefb9bbdf9de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ITextureRegion.cpp">
@@ -1403,6 +1406,9 @@
   <ItemGroup>
     <None Include="DefaultProperty.hlsli">
       <Filter>リソース ファイル\Shader</Filter>
+    </None>
+    <None Include="Eigen\Core">
+      <Filter>ヘッダー ファイル\Eigen</Filter>
     </None>
   </ItemGroup>
 </Project>

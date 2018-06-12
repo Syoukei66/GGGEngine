@@ -79,6 +79,9 @@
 //Director
   #include "Director.h"
 
+//Eigen
+  #include "Eigen/Core"
+
 //Engine
   #include "Engine.h"
   #include "EngineInitializeSetting.h"
