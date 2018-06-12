@@ -124,12 +124,12 @@ bool Point_Polygon(T_FLOAT ax, T_FLOAT ay, T_FLOAT bx, T_FLOAT by, const TVec2f*
   //頂点数1であれば点として判定
   if (bv_num == 1)
   {
-    return Point(bx + bv[0].x(), by + bv[0].y(), ax, ay);
+    return Point(bx + bv[0].x, by + bv[0].y, ax, ay);
   }
   //頂点数2であれば線分として判定
   if (bv_num == 2)
   {
-    return Point_Line(bx + bv[0].x(), by + bv[0].y(), bx + bv[1].x(), by + bv[1].y(), ax, ay);
+    return Point_Line(bx + bv[0].x, by + bv[0].y, bx + bv[1].x, by + bv[1].y, ax, ay);
   }
   //線分に対して点の位置が全て(右側|左側)で判定
   bool all_right = true;
@@ -138,7 +138,7 @@ bool Point_Polygon(T_FLOAT ax, T_FLOAT ay, T_FLOAT bx, T_FLOAT by, const TVec2f*
   {
     const TVec2f& v1 = bv[i];
     const TVec2f& v2 = bv[(i + 1) % bv_num];
-    if ((v2.x() - v1.x()) * (ay - (by + v1.y())) - (ax - (bx + v1.x())) * (v2.y() - v1.y()) > 0)
+    if ((v2.x - v1.x) * (ay - (by + v1.y)) - (ax - (bx + v1.x)) * (v2.y - v1.y) > 0)
     {
       all_right = false;
     }
@@ -156,9 +156,9 @@ bool Line_Circle(T_FLOAT ax1, T_FLOAT ay1, T_FLOAT ax2, T_FLOAT ay2, T_FLOAT bx,
   const TVec2f pq = TVec2f(ax1 - ax2, ay1 - ay2);
   const TVec2f pm = TVec2f(ax1 - bx, ay1 - by);
 
-  const T_FLOAT inner = InnerProduct(pq.x(), pq.y(), pm.x(), pm.y());
-  const T_FLOAT pqd2 = pq.norm();
-  const T_FLOAT pmd2 = pm.norm();
+  const T_FLOAT inner = InnerProduct(pq.x, pq.y, pm.x, pm.y);
+  const T_FLOAT pqd2 = pq.LengthSquare();
+  const T_FLOAT pmd2 = pm.LengthSquare();
 
   const T_FLOAT k = inner / pqd2;
 
@@ -213,12 +213,12 @@ bool Line_Polygon(T_FLOAT ax1, T_FLOAT ay1, T_FLOAT ax2, T_FLOAT ay2, T_FLOAT bx
   //頂点数1であれば点として判定
   if (bv_num == 1)
   {
-    return Point_Line(bx + bv[0].x(), by + bv[0].y(), ax1, ay1, ax2, ay2);
+    return Point_Line(bx + bv[0].x, by + bv[0].y, ax1, ay1, ax2, ay2);
   }
   //頂点数2であれば線分として判定
   if (bv_num == 2)
   {
-    return Line(bx + bv[0].x(), by + bv[0].y(), bx + bv[1].x(), by + bv[1].y(), ax1, ay1, ax2, ay2);
+    return Line(bx + bv[0].x, by + bv[0].y, bx + bv[1].x, by + bv[1].y, ax1, ay1, ax2, ay2);
   }
 
   //始点か終点の片方だけが多角形の内側に含まれているケースは
@@ -240,7 +240,7 @@ bool Line_Polygon(T_FLOAT ax1, T_FLOAT ay1, T_FLOAT ax2, T_FLOAT ay2, T_FLOAT bx
   for (T_UINT16 i = 0; i < bv_num; ++i)
   {
     const T_UINT16 j = (i + 1) % bv_num;
-    if (Line(ax1, ay1, ax2, ay2, bx + bv[i].x(), by + bv[i].y(), bx + bv[j].x(), by + bv[j].y()))
+    if (Line(ax1, ay1, ax2, ay2, bx + bv[i].x, by + bv[i].y, bx + bv[j].x, by + bv[j].y))
     {
       return true;
     }
@@ -295,17 +295,17 @@ bool Circle_Polygon(T_FLOAT ax, T_FLOAT ay, T_FLOAT ar, T_FLOAT bx, T_FLOAT by, 
   //頂点数1であれば点として判定
   if (bv_num == 1)
   {
-    return Point_Circle(bx + bv[0].x(), by + bv[0].y(), ax, ay, ar);
+    return Point_Circle(bx + bv[0].x, by + bv[0].y, ax, ay, ar);
   }
   //頂点数2であれば線分として判定
   if (bv_num == 2)
   {
-    return Line_Circle(bx + bv[0].x(), by + bv[0].y(), bx + bv[1].x(), by + bv[1].y(), ax, ay, ar);
+    return Line_Circle(bx + bv[0].x, by + bv[0].y, bx + bv[1].x, by + bv[1].y, ax, ay, ar);
   }
   //各頂点と円の当たり判定
   for (T_UINT16 i = 0; i < bv_num; ++i)
   {
-    if (Point_Circle(bx + bv[i].x(), by + bv[i].y(), ax, ay, ar))
+    if (Point_Circle(bx + bv[i].x, by + bv[i].y, ax, ay, ar))
     {
       return true;
     }
@@ -319,7 +319,7 @@ bool Circle_Polygon(T_FLOAT ax, T_FLOAT ay, T_FLOAT ar, T_FLOAT bx, T_FLOAT by, 
   for (T_UINT16 i = 0; i < bv_num; ++i)
   {
     const T_UINT16 j = (i + 1) % bv_num;
-    if (Line_Circle(ax, ay, ar, bx + bv[i].x(), by + bv[i].y(), bx + bv[j].x(), by + bv[j].y()))
+    if (Line_Circle(ax, ay, ar, bx + bv[i].x, by + bv[i].y, bx + bv[j].x, by + bv[j].y))
     {
       return true;
     }
@@ -338,17 +338,17 @@ bool Rect_Polygon(T_FLOAT ax, T_FLOAT ay, T_FLOAT aw, T_FLOAT ah, T_FLOAT bx, T_
   //頂点数1であれば点として判定
   if (bv_num == 1)
   {
-    return Point_Rect(bx + bv[0].x(), by + bv[0].y(), ax, ay, aw, ah);
+    return Point_Rect(bx + bv[0].x, by + bv[0].y, ax, ay, aw, ah);
   }
   //頂点数2であれば線分として判定
   if (bv_num == 2)
   {
-    return Line_Rect(bx + bv[0].x(), by + bv[0].y(), bx + bv[1].x(), by + bv[1].y(), ax, ay, aw, ah);
+    return Line_Rect(bx + bv[0].x, by + bv[0].y, bx + bv[1].x, by + bv[1].y, ax, ay, aw, ah);
   }
   //各頂点と四角形の当たり判定
   for (T_UINT16 i = 0; i < bv_num; ++i)
   {
-    if (Point_Rect(bx + bv[i].x(), by + bv[i].y(), ax, ay, aw, ah))
+    if (Point_Rect(bx + bv[i].x, by + bv[i].y, ax, ay, aw, ah))
     {
       return true;
     }
@@ -362,7 +362,7 @@ bool Rect_Polygon(T_FLOAT ax, T_FLOAT ay, T_FLOAT aw, T_FLOAT ah, T_FLOAT bx, T_
   for (T_UINT16 i = 0; i < bv_num; ++i)
   {
     const T_UINT16 j = (i + 1) % bv_num;
-    if (Line_Rect(ax, ay, aw, ah, bx + bv[i].x(), by + bv[i].y(), bx + bv[j].x(), by + bv[j].y()))
+    if (Line_Rect(ax, ay, aw, ah, bx + bv[i].x, by + bv[i].y, bx + bv[j].x, by + bv[j].y))
     {
       return true;
     }
@@ -381,20 +381,20 @@ bool Polygon(T_FLOAT ax, T_FLOAT ay, const TVec2f* av, T_UINT16 av_num, T_FLOAT 
   //avの頂点数1であれば点として判定
   if (av_num == 1)
   {
-    return Point_Polygon(ax + av[0].x(), ay + av[0].y(), bx, by, bv, bv_num);
+    return Point_Polygon(ax + av[0].x, ay + av[0].y, bx, by, bv, bv_num);
   }
   //avの頂点数2であれば線分として判定
   if (av_num == 2)
   {
-    return Line_Polygon(ax + av[0].x(), ay + av[0].y(), ax + av[1].x(), ay + av[1].y(), bx, by, bv, bv_num);
+    return Line_Polygon(ax + av[0].x, ay + av[0].y, ax + av[1].x, ay + av[1].y, bx, by, bv, bv_num);
   }
   //多角形の中点と多角形の当たり判定
   T_FLOAT x_sum = 0;
   T_FLOAT y_sum = 0;
   for (T_UINT16 i = 0; i < av_num; ++i)
   {
-    x_sum += av[i].x();
-    y_sum += av[i].y();
+    x_sum += av[i].x;
+    y_sum += av[i].y;
   }
   if (Point_Polygon(ax + x_sum / av_num, ay + y_sum / av_num, bx, by, bv, bv_num))
   {
@@ -404,7 +404,7 @@ bool Polygon(T_FLOAT ax, T_FLOAT ay, const TVec2f* av, T_UINT16 av_num, T_FLOAT 
   for (T_UINT16 i = 0; i < av_num; ++i)
   {
     const T_UINT16 j = (i + 1) % av_num;
-    if (Line_Polygon(ax + av[i].x(), ay + av[i].y(), ax + av[j].x(), ay + av[j].y(), bx, by, bv, bv_num))
+    if (Line_Polygon(ax + av[i].x, ay + av[i].y, ax + av[j].x, ay + av[j].y, bx, by, bv, bv_num))
     {
       return true;
     }

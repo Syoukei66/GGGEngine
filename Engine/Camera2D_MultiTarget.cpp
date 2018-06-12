@@ -62,13 +62,13 @@ void Camera2D_MultiTarget::Update()
   for (GameObject2D* target : this->target_entities_)
   {
     TVec2f target_world = target->GetTransform()->GetWorldPosition() - this->view_->GetTransform()->GetWorldPosition();
-    min.x() = std::min(min.x(), target_world.x());
-    min.y() = std::min(min.y(), target_world.y());
-    max.x() = std::max(max.x(), target_world.x());
-    max.y() = std::max(max.y(), target_world.y());
+    min.x = std::min(min.x, target_world.x);
+    min.y = std::min(min.y, target_world.y);
+    max.x = std::max(max.x, target_world.x);
+    max.y = std::max(max.y, target_world.y);
   }
-  T_FLOAT width = max.x() - min.x();
-  T_FLOAT height = max.y() - min.y();
+  T_FLOAT width = max.x - min.x;
+  T_FLOAT height = max.y - min.y;
   const T_FLOAT center_x = width * 0.5f;
   const T_FLOAT center_y = height * 0.5f;
   width += this->padding_ * 2;
@@ -82,8 +82,8 @@ void Camera2D_MultiTarget::Update()
   {
     this->SetZoom(1.0f);
   }
-  this->position_.x() = -(min.x() + center_x) * this->zoom_;
-  this->position_.y() = -(min.y() + center_y) * this->zoom_;
+  this->position_.x = -(min.x + center_x) * this->zoom_;
+  this->position_.y = -(min.y + center_y) * this->zoom_;
   return;
 }
 

@@ -43,19 +43,19 @@ public:
 
   inline void SetU0(T_FLOAT u0)
   {
-    this->uv0_.x() = u0;
+    this->uv0_.x = u0;
   }
   void SetV0(T_FLOAT v0)
   {
-    this->uv0_.y() = v0;
+    this->uv0_.y = v0;
   }
   void SetU1(T_FLOAT u1)
   {
-    this->uv1_.x() = u1;
+    this->uv1_.x = u1;
   }
   void SetV1(T_FLOAT v1)
   {
-    this->uv1_.y() = v1;
+    this->uv1_.y = v1;
   }
   const TVec2f& GetUV0() const
   {
@@ -71,12 +71,12 @@ public:
   void SetX(T_FLOAT x);
   inline T_FLOAT GetX() const
   {
-    return this->texture_region_.x;
+    return this->texture_region_.pos.x;
   }
   void SetY(T_FLOAT y);
   inline T_FLOAT GetY() const
   {
-    return this->texture_region_.y;
+    return this->texture_region_.pos.y;
   }
   inline void SetSize(const TSizef& size)
   {

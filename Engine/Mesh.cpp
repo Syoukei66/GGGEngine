@@ -245,38 +245,38 @@ void Mesh::CommitChanges(bool readonly)
       if (this->format_ & V_ATTR_UV)
       {
         T_FLOAT* uv = (T_FLOAT*)p;
-        uv[0] = this->uvs_[i].x();
-        uv[1] = this->uvs_[i].y();
+        uv[0] = this->uvs_[i].x;
+        uv[1] = this->uvs_[i].y;
         p += VERTEX_ATTRIBUTE_SIZE(V_ATTR_UV);
       }
       if (this->format_ & V_ATTR_UV2)
       {
         T_FLOAT* uv2 = (T_FLOAT*)p;
-        uv2[0] = this->uv2s_[i].x();
-        uv2[1] = this->uv2s_[i].y();
+        uv2[0] = this->uv2s_[i].x;
+        uv2[1] = this->uv2s_[i].y;
         p += VERTEX_ATTRIBUTE_SIZE(V_ATTR_UV2);
       }
       if (this->format_ & V_ATTR_UV3)
       {
         T_FLOAT* uv3 = (T_FLOAT*)p;
-        uv3[0] = this->uv3s_[i].x();
-        uv3[1] = this->uv3s_[i].y();
+        uv3[0] = this->uv3s_[i].x;
+        uv3[1] = this->uv3s_[i].y;
         p += VERTEX_ATTRIBUTE_SIZE(V_ATTR_UV3);
       }
       if (this->format_ & V_ATTR_UV4)
       {
         T_FLOAT* uv4 = (T_FLOAT*)p;
-        uv4[0] = this->uv4s_[i].x();
-        uv4[1] = this->uv4s_[i].y();
+        uv4[0] = this->uv4s_[i].x;
+        uv4[1] = this->uv4s_[i].y;
         p += VERTEX_ATTRIBUTE_SIZE(V_ATTR_UV4);
       }
       if (this->format_ & V_ATTR_TANGENT)
       {
         T_FLOAT* tangent = (T_FLOAT*)p;
-        tangent[0] = this->tangents_[i].x();
-        tangent[1] = this->tangents_[i].y();
-        tangent[2] = this->tangents_[i].z();
-        tangent[3] = this->tangents_[i].w();
+        tangent[0] = this->tangents_[i].x;
+        tangent[1] = this->tangents_[i].y;
+        tangent[2] = this->tangents_[i].z;
+        tangent[3] = this->tangents_[i].w;
         p += VERTEX_ATTRIBUTE_SIZE(V_ATTR_TANGENT);
       }
       if (this->format_ & V_ATTR_COLOR)
@@ -389,11 +389,11 @@ void Mesh::RecalculateTangents()
       const T_FLOAT z0 = v1.z - v0.z;
       const T_FLOAT z1 = v2.z - v0.z;
 
-      const T_FLOAT s0 = w1.x() - w0.x();
-      const T_FLOAT s1 = w2.x() - w0.x();
+      const T_FLOAT s0 = w1.x - w0.x;
+      const T_FLOAT s1 = w2.x - w0.x;
 
-      const T_FLOAT t0 = w1.y() - w0.y();
-      const T_FLOAT t1 = w2.y() - w0.y();
+      const T_FLOAT t0 = w1.y - w0.y;
+      const T_FLOAT t1 = w2.y - w0.y;
 
       const T_FLOAT div = s0 * t1 - s1 * t0;
       const T_FLOAT r = div == 0.0f ? 0.0f : 1.0f / div;
@@ -425,7 +425,7 @@ void Mesh::RecalculateTangents()
       const TVec3f t = tan0[index];
       const TVec3f tmp = (t - n * TVec3f::InnerProduct(n, t)).Normalized();
       this->tangents_[index] = TVec4f(tmp.x, tmp.y, tmp.z, 0.0f);
-      this->tangents_[index].w() = (TVec3f::InnerProduct(TVec3f::OuterProduct(n, t), tan1[index]) < 0.0f) ? -1.0f : 1.0f;
+      this->tangents_[index].w = (TVec3f::InnerProduct(TVec3f::OuterProduct(n, t), tan1[index]) < 0.0f) ? -1.0f : 1.0f;
     }
     delete[] tan0;
     delete[] tan1;

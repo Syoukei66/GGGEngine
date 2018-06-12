@@ -114,7 +114,7 @@ const TVec3f Camera3D::Get2dPositionScale(const GameObject3D* obj) const
   this->calc_2dpos_matrix_->Multiple(*this->GetViewMatrix());
   this->calc_2dpos_matrix_->Multiple(*this->GetProjectionMatrix());
   const TVec4f pos = this->calc_2dpos_matrix_->GetPosition4d();
-  return TVec3f(pos.x() / pos.w(), pos.y() / pos.w(), pos.z() / fabs(pos.w()));
+  return TVec3f(pos.x / pos.w, pos.y / pos.w, pos.z / fabs(pos.w));
 }
 
 const TVec3f Camera3D::Get2dPosition(const GameObject3D* obj) const

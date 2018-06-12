@@ -5,13 +5,181 @@
 
 #include "NativeType.h"
 #include "EasingFunctionManager.h"
-#include "Eigen\Core"
 
 // =================================================================
 // Vec2
 // =================================================================
-typedef Eigen::Vector2f TVec2f;
-typedef Eigen::Vector2i TVec2i;
+template <typename T>
+union BaseTVec2
+{
+  struct
+  {
+    T x, y;
+  };
+  T vec[2];
+
+  BaseTVec2()
+    : x(0)
+    , y(0)
+  {}
+
+  BaseTVec2(T x, T y)
+    : x(x)
+    , y(y)
+  {}
+
+  static BaseTVec2<T> EaseIn(EasingFunction::EasingFunction& easing_function, const BaseTVec2<T>& a, const BaseTVec2<T>& b, T_FLOAT t)
+  {
+    if (t <= 0.0f)
+    {
+      return a;
+    }
+    if (t >= 1.0f)
+    {
+      return b;
+    }
+    t = easing_function.In(t);
+    return a * (1.0f - t) + b * t;
+  }
+
+  static BaseTVec2<T> EaseOut(EasingFunction::EasingFunction& easing_function, const BaseTVec2<T>& a, const BaseTVec2<T>& b, T_FLOAT t)
+  {
+    if (t <= 0.0f)
+    {
+      return a;
+    }
+    if (t >= 1.0f)
+    {
+      return b;
+    }
+    t = easing_function.Out(t);
+    return a * (1.0f - t) + b * t;
+  }
+
+  static BaseTVec2<T> EaseInOut(EasingFunction::EasingFunction& easing_function, const BaseTVec2<T>& a, const BaseTVec2<T>& b, T_FLOAT t)
+  {
+    if (t <= 0.0f)
+    {
+      return a;
+    }
+    if (t >= 1.0f)
+    {
+      return b;
+    }
+    t = easing_function.InOut(t);
+    return a * (1.0f - t) + b * t;
+  }
+
+  static BaseTVec2<T> Lerp(const BaseTVec2<T>& a, const BaseTVec2<T>& b, T_FLOAT t)
+  {
+    if (t <= 0.0f)
+    {
+      return a;
+    }
+    if (t >= 1.0f)
+    {
+      return b;
+    }
+    return a * (1.0f - t) + b * t;
+  }
+
+  T Length() const
+  {
+    return sqrt(LengthSquare());
+  }
+  T LengthSquare() const
+  {
+    return this->x * this->x + this->y * this->y;
+  }
+  BaseTVec2 Normalized() const
+  {
+    T length = Length();
+    if (length == 0.0)
+    {
+      return BaseTVec2((T)0.0, (T)0.0);
+    }
+    return *this / length;
+  }
+  bool IsZero() const
+  {
+    return this->x == 0.0 && this->y == 0.0;
+  }
+  //’P€+
+  const BaseTVec2 operator + () const
+  {
+    return *this;
+  }
+  //’P€-
+  const BaseTVec2 operator - () const
+  {
+    return BaseTVec2(-this->x, -this->y);
+  }
+  //2€+
+  const BaseTVec2 operator + (const BaseTVec2& other) const
+  {
+    return BaseTVec2(this->x + other.x, this->y + other.y);
+  }
+  BaseTVec2& operator += (const BaseTVec2& other)
+  {
+    this->x += other.x;
+    this->y += other.y;
+    return *this;
+  }
+  //2€-
+  const BaseTVec2 operator - (const BaseTVec2& other) const
+  {
+    return BaseTVec2(this->x - other.x, this->y - other.y);
+  }
+  BaseTVec2& operator -= (const BaseTVec2& other)
+  {
+    this->x -= other.x;
+    this->y -= other.y;
+    return *this;
+  }
+  //2€*
+  const BaseTVec2 operator * (T s) const
+  {
+    return BaseTVec2(this->x * s, this->y * s);
+  }
+  BaseTVec2& operator *= (const BaseTVec2& other)
+  {
+    this->x *= other.x;
+    this->y *= other.y;
+    return *this;
+  }
+  BaseTVec2& operator *= (const T& other)
+  {
+    this->x *= other;
+    this->y *= other;
+    return *this;
+  }
+  //2€/
+  const BaseTVec2 operator / (T s) const
+  {
+    return BaseTVec2(this->x / s, this->y / s);
+  }
+  BaseTVec2& operator /= (const BaseTVec2& other)
+  {
+    this->x /= other.x;
+    this->y /= other.y;
+    return *this;
+  }
+  BaseTVec2& operator /= (const T& other)
+  {
+    this->x /= other;
+    this->y /= other;
+    return *this;
+  }
+  //2€==
+  bool operator == (const BaseTVec2& other) const
+  {
+    return this->x == other.x && this->y == other.y;
+  }
+};
+
+typedef BaseTVec2<T_INT32> TVec2;
+typedef BaseTVec2<T_FLOAT> TVec2f;
+
 
 // =================================================================
 // Size
@@ -75,6 +243,10 @@ union BaseTSize
   {
     return BaseTSize(this->width * other.width, this->height * other.height);
   }
+  const BaseTSize operator * (const BaseTVec2<T>& vec) const
+  {
+    return BaseTSize(this->width * vec.x, this->height * vec.y);
+  } 
   const BaseTSize operator * (T s) const
   {
     return BaseTSize(this->width * s, this->height * s);
@@ -355,8 +527,147 @@ typedef BaseTVec3<T_FLOAT> TVec3f;
 // =================================================================
 // Vec4
 // =================================================================
-typedef Eigen::Vector4f TVec4f;
-typedef Eigen::Vector4i TVec4i;
+template<typename T>
+union BaseTVec4
+{
+  static const BaseTVec4<T> zero;
+  static const BaseTVec4<T> one;
+  static const BaseTVec4<T> forward;
+  static const BaseTVec4<T> back;
+  static const BaseTVec4<T> right;
+  static const BaseTVec4<T> left;
+  static const BaseTVec4<T> up;
+  static const BaseTVec4<T> down;
+
+  struct
+  {
+    T x, y, z, w;
+  };
+  T vec[4];
+
+  BaseTVec4()
+    : x(0)
+    , y(0)
+    , z(0)
+    , w(0)
+  {}
+
+  BaseTVec4(T x, T y, T z, T w)
+    : x(x)
+    , y(y)
+    , z(z)
+    , w(w)
+  {}
+
+  bool IsZero() const
+  {
+    return this->x == 0.0 && this->y == 0.0 && this->z == 0.0 && this->w == 0.0;
+  }
+  //’P€+
+  const BaseTVec4 operator + () const
+  {
+    return *this;
+  }
+  //’P€-
+  const BaseTVec4 operator - () const
+  {
+    return BaseTVec4(-this->x, -this->y, -this->z, -this->w);
+  }
+  //2€+
+  const BaseTVec4 operator + (const BaseTVec4& other) const
+  {
+    return BaseTVec4(this->x + other.x, this->y + other.y, this->z + other.z, this->w + other.w);
+  }
+  BaseTVec4& operator += (const BaseTVec4& other)
+  {
+    this->x += other.x;
+    this->y += other.y;
+    this->z += other.z;
+    this->w += other.w;
+    return *this;
+  }
+  //2€-
+  const BaseTVec4 operator - (const BaseTVec4& other) const
+  {
+    return BaseTVec4(this->x - other.x, this->y - other.y, this->z - other.z, this->w - other.w);
+  }
+  BaseTVec4& operator -= (const BaseTVec4& other)
+  {
+    this->x -= other.x;
+    this->y -= other.y;
+    this->z -= other.z;
+    this->w -= other.w;
+    return *this;
+  }
+  //2€*
+  const BaseTVec4 operator * (T s) const
+  {
+    return BaseTVec4(this->x * s, this->y * s, this->z * s, this->w * s);
+  }
+  BaseTVec4& operator *= (const BaseTVec4& other)
+  {
+    this->x *= other.x;
+    this->y *= other.y;
+    this->z *= other.z;
+    this->w *= other.w;
+    return *this;
+  }
+  BaseTVec4& operator *= (const T& other)
+  {
+    this->x *= other;
+    this->y *= other;
+    this->z *= other;
+    this->w *= other;
+    return *this;
+  }
+  //2€/
+  const BaseTVec4 operator / (T s) const
+  {
+    return BaseTVec4(this->x / s, this->y / s, this->z / s, this->w / s);
+  }
+  BaseTVec4& operator /= (const BaseTVec4& other)
+  {
+    this->x /= other.x;
+    this->y /= other.y;
+    this->z /= other.z;
+    this->w /= other.w;
+    return *this;
+  }
+  BaseTVec4& operator /= (const T& other)
+  {
+    this->x /= other;
+    this->y /= other;
+    this->z /= other;
+    this->w /= other;
+    return *this;
+  }
+  //2€==
+  bool operator == (const BaseTVec4& other) const
+  {
+    return this->x == other.x && this->y == other.y && this->z == other.z && this->w == other.w;
+  }
+};
+
+
+template<typename T>
+const BaseTVec4<T> BaseTVec4<T>::zero =    BaseTVec4<T>(0, 0, 0, 0);
+template<typename T>
+const BaseTVec4<T> BaseTVec4<T>::one =     BaseTVec4<T>(1, 1, 1, 1);
+template<typename T>
+const BaseTVec4<T> BaseTVec4<T>::forward = BaseTVec4<T>(0, 0, 1, 0);
+template<typename T>
+const BaseTVec4<T> BaseTVec4<T>::back =    BaseTVec4<T>(0, 0, -1, 0);
+template<typename T>
+const BaseTVec4<T> BaseTVec4<T>::right =   BaseTVec4<T>(1, 0, 0, 0);
+template<typename T>
+const BaseTVec4<T> BaseTVec4<T>::left =    BaseTVec4<T>(-1, 0, 0, 0);
+template<typename T>
+const BaseTVec4<T> BaseTVec4<T>::up =      BaseTVec4<T>(0, 1, 0, 0);
+template<typename T>
+const BaseTVec4<T> BaseTVec4<T>::down =    BaseTVec4<T>(0, -1, 0, 0);
+
+typedef BaseTVec4<T_INT32> TVec4;
+typedef BaseTVec4<T_FLOAT> TVec4f;
 
 // =================================================================
 // Area
@@ -365,17 +676,14 @@ template <typename T>
 struct BaseTArea
 {
   BaseTArea(T x, T y, T w, T h)
-    : x(x)
-    , y(y)
+    : pos(x, y)
     , size(w, h)
   {}
   BaseTArea()
-    : x()
-    , y()
+    : pos()
     , size()
   {}
-
-  T x, y;
+  BaseTVec2<T> pos;
   BaseTSize<T> size;
 };
 

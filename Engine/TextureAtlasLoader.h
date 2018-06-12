@@ -18,7 +18,7 @@ protected:
   const std::string TextureRepeat(char** p);
 
   const TSize StrToTSize(const std::string& str);
-  const TVec2i StrToTVec2(const std::string& str);
+  const TVec2 StrToTVec2(const std::string& str);
 
 private:
   

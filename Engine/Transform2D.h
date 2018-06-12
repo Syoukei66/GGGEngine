@@ -40,13 +40,13 @@ public:
   void SetX(T_FLOAT x);
   inline T_FLOAT GetX() const
   {
-    return this->position_.x();
+    return this->position_.x;
   }
 
   void SetY(T_FLOAT y);
   inline T_FLOAT GetY() const
   {
-    return this->position_.y();
+    return this->position_.y;
   }
 
   void SetScale(const TVec2f& scale);
@@ -60,13 +60,13 @@ public:
   void SetScaleX(T_FLOAT scale_x);
   inline T_FLOAT GetScaleX() const
   {
-    return this->scale_.x();
+    return this->scale_.x;
   }
 
   void SetScaleY(T_FLOAT scale_y);
   inline T_FLOAT GetScaleY() const
   {
-    return this->scale_.y();
+    return this->scale_.y;
   }
 
   void SetRotation(T_FLOAT rotation);

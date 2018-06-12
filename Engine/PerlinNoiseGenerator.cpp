@@ -95,17 +95,17 @@ static TVec2f gradients2D[] = {
   { -1.0f,  1.0f },
   {  0.0f,  1.0f },
   {  0.0f, -1.0f },
-  TVec2f( 1.0f,  1.0f).normalized(),
-  TVec2f(-1.0f,  1.0f).normalized(),
-  TVec2f( 1.0f, -1.0f).normalized(),
-  TVec2f(-1.0f, -1.0f).normalized(),
+  TVec2f( 1.0f,  1.0f).Normalized(),
+  TVec2f(-1.0f,  1.0f).Normalized(),
+  TVec2f( 1.0f, -1.0f).Normalized(),
+  TVec2f(-1.0f, -1.0f).Normalized(),
 };
 
 static const int gradientsMask2D = 7;
 
 static T_FLOAT Dot(const TVec2f& g, T_FLOAT x, T_FLOAT y)
 {
-  return g.x() * x + g.y() * y;
+  return g.x * x + g.y * y;
 }
 
 T_FLOAT PerlinNoiseGenerator::Noise1D(T_FLOAT x, T_FLOAT frequency)

@@ -66,8 +66,8 @@ void Camera::DrawScene(Scene* scene)
 void Camera::SetupCamera()
 {
   NativeMethod::Graphics().Graphics_SetViewport(
-    this->position_.x(),
-    this->position_.y(),
+    this->position_.x,
+    this->position_.y,
     this->size_.width,
     this->size_.height,
     this->z_min_,
@@ -92,32 +92,32 @@ void Camera::SetViewportPosition(const TVec2f& position)
 
 void Camera::SetViewportPosition(T_FLOAT x, T_FLOAT y)
 {
-  if (this->position_.x() == x && this->position_.y() == y)
+  if (this->position_.x == x && this->position_.y == y)
   {
     return;
   }
-  this->position_.x() = x;
-  this->position_.y() = y;
+  this->position_.x = x;
+  this->position_.y = y;
   this->OnViewportChanged();
 }
 
 void Camera::SetViewportX(T_FLOAT x)
 {
-  if (this->position_.x() == x)
+  if (this->position_.x == x)
   {
     return;
   }
-  this->position_.x() = x;
+  this->position_.x = x;
   this->OnViewportChanged();
 }
 
 void Camera::SetViewportY(T_FLOAT y)
 {
-  if (this->position_.y() == y)
+  if (this->position_.y == y)
   {
     return;
   }
-  this->position_.y() = y;
+  this->position_.y = y;
   this->OnViewportChanged();
 }
 
