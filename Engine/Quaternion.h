@@ -21,12 +21,20 @@ public:
   // Constructor / Destructor
   // =================================================================
   Quaternion();
+  Quaternion(const Quaternion& q);
   Quaternion(const TVec3f& v, T_FLOAT rad);
   Quaternion(T_FLOAT x, T_FLOAT y, T_FLOAT z, T_FLOAT w);
 
   // =================================================================
   // Operator
   // =================================================================
+  Quaternion operator= (const Quaternion& other)
+  {
+    this->v_ = other.v_;
+    this->w_ = other.w_;
+    return *this;
+  }
+
   bool operator == (const Quaternion& other) const
   {
     return

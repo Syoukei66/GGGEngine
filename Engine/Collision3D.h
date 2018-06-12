@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Geometry.h"
+#include "Vector3.h"
 
 namespace Collision3D
 {

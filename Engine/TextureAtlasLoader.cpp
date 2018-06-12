@@ -192,9 +192,9 @@ const TSize TextureAtlasLoader::StrToTSize(const std::string& str)
   return ret;
 }
 
-const TVec2 TextureAtlasLoader::StrToTVec2(const std::string& str)
+const TVec2i TextureAtlasLoader::StrToTVec2(const std::string& str)
 {
-  TVec2 ret = TVec2();
+  TVec2i ret = TVec2i();
   std::string buf;
   buf.clear();
   char* p_head = new char[str.size() + 1];

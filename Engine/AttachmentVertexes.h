@@ -2,7 +2,9 @@
 
 #include "TextureResource.h"
 #include "Color.h"
-#include "Geometry.h"
+
+#include "Vector2.h"
+#include "Vector3.h"
 
 class AttachmentVertexes
 {

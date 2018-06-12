@@ -2,11 +2,16 @@
 
 #include <vector>
 #include "IMesh.h"
+
 #include "NativeAssert.h"
-#include "Geometry.h"
-#include "Color.h"
 #include "NativeVertexBuffer.h"
 #include "NativeIndexBuffer.h"
+
+#include "Vector2.h"
+#include "Vector3.h"
+#include "Vector4.h"
+#include "Color.h"
+
 #include "GraphicsConstants.h"
 
 class Mesh : public IMesh

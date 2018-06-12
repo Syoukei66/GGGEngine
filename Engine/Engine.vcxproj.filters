@@ -361,6 +361,9 @@
     <Filter Include="ヘッダー ファイル\Engine\Director">
       <UniqueIdentifier>{b8d79364-1f64-44c0-b322-e001361dedc0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Eigen">
+      <UniqueIdentifier>{65527833-19ab-41a2-851a-fefb9bbdf9de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ITextureRegion.cpp">
@@ -1374,6 +1377,17 @@
       <Filter>ヘッダー ファイル\Structure\Math</Filter>
     </ClInclude>
     <ClInclude Include="Matrix.h">
+      <Filter>ヘッダー ファイル\Structure\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Eigen\Core" />
+    <ClInclude Include="Eigen\Geometry" />
+    <ClInclude Include="Vector2.h">
+      <Filter>ヘッダー ファイル\Structure\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>ヘッダー ファイル\Structure\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector4.h">
       <Filter>ヘッダー ファイル\Structure\Math</Filter>
     </ClInclude>
   </ItemGroup>

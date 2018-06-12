@@ -45,12 +45,12 @@ inline Mesh* Create(T_UINT32 format, const TVec3f& scale, bool readonly)
   return Create(format, scale.x, scale.y, scale.z, readonly);
 }
 //
-inline Mesh* Create(T_UINT32 format, const TVec3f& scale, const TVec3& resolution, bool readonly)
+inline Mesh* Create(T_UINT32 format, const TVec3f& scale, const TVec3i& resolution, bool readonly)
 {
   return Create(format, scale.x, scale.y, scale.z, resolution.x, resolution.y, resolution.z, readonly);
 }
 //
-inline Mesh* Create(T_UINT32 format, const TVec3f& scale, const TVec3& resolution, const TVec3f& tile_count, bool readonly)
+inline Mesh* Create(T_UINT32 format, const TVec3f& scale, const TVec3i& resolution, const TVec3f& tile_count, bool readonly)
 {
   return Create(format, scale.x, scale.y, scale.z, resolution.x, resolution.y, resolution.z, tile_count.x, tile_count.y, tile_count.z, readonly);
 }
