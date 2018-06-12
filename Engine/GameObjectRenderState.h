@@ -77,6 +77,10 @@ public:
   {
     return this->camera_;
   }
+  inline const INativeMatrix* GetViewProjMatrix() const
+  {
+    return this->view_proj_matrix_;
+  }
 
   // =================================================================
   // Data Member

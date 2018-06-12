@@ -110,6 +110,7 @@ void GameObjectRenderState::DrawZOrderedGameObject()
 // =================================================================
 INativeMatrix* GameObjectRenderState::GetWorldViewProjToMaterial()
 {
+  //TODO:MatrixStack‚ðŽg‚í‚È‚­‚Ä‚àWorldMatrix‚ðŽg‚¦‚Î‚æ‚¢‚Ì‚Å‚Í
   this->world_view_proj_matrix_->Assign(this->matrix_stack_->GetTop());
   this->world_view_proj_matrix_->Multiple(*this->view_proj_matrix_);
   return this->world_view_proj_matrix_;

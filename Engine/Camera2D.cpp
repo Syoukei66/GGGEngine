@@ -2,6 +2,7 @@
 #include "NativeMethod.h"
 #include "Scene.h"
 #include "GameObjectRenderState.h"
+#include "Collision2D.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -11,7 +12,6 @@ Camera2D::Camera2D(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT 
   , projection_dirty_(true)
 {
   this->entity_ = new GameObject2D();
-  this->render_state_ = new GameObjectRenderState(this);
   this->projection_matrix_ = INativeMatrix::Create();
 }
 
@@ -20,7 +20,6 @@ Camera2D::Camera2D()
   , projection_dirty_(true)
 {
   this->entity_ = new GameObject2D();
-  this->render_state_ = new GameObjectRenderState(this);
   this->projection_matrix_ = INativeMatrix::Create();
 }
 
@@ -28,6 +27,14 @@ Camera2D::~Camera2D()
 {
   delete this->render_state_;
   delete this->projection_matrix_;
+}
+
+bool Camera2D::FrustumCulling(const TVec3f& positive, const TVec3f& negative, T_INT8* first_index = nullptr) const
+{
+  return Collision2D::Rect(
+    positive.x, positive.y, negative.x - positive.x, negative.y - positive.y,
+    this->GetViewportX(), this->GetViewportY(), this->GetViewportWidth(), this->GetViewportHeight()
+  );
 }
 
 // =================================================================

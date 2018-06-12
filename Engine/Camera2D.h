@@ -19,6 +19,8 @@ public:
   // Methods for/from SuperClass/Interfaces
   // =================================================================
 public:
+  virtual bool FrustumCulling(const TVec3f& positive, const TVec3f& negative, T_INT8* first_index = nullptr) const override;
+
   virtual const INativeMatrix* GetViewMatrix() const override;
   virtual const INativeMatrix* GetProjectionMatrix() const override;
 

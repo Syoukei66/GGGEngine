@@ -5,6 +5,7 @@
 #include "GameComponent.h"
 #include "NativeMatrix.h"
 #include "NativeRenderTexture.h"
+#include "GameObjectRenderState.h"
 
 class Scene;
 class GameObject;
@@ -23,9 +24,9 @@ public:
   // Method
   // =================================================================
 public:
-  void SetupViewProjMatrix();
   void DrawScene(Scene* scene);
 
+  virtual bool FrustumCulling(const TVec3f& positive, const TVec3f& negative, T_INT8* first_index = nullptr) const = 0;
   virtual const INativeMatrix* GetViewMatrix() const = 0;
   virtual const INativeMatrix* GetProjectionMatrix() const = 0;
 
@@ -126,11 +127,20 @@ public:
     return this->entity_;
   }
 
+  inline GameObjectRenderState* GetRenderState()
+  {
+    return this->render_state_;
+  }
+  inline const GameObjectRenderState* GetRenderState() const
+  {
+    return this->render_state_;
+  }
 
   // =================================================================
   // Data Member
   // =================================================================
 protected:
+  GameObjectRenderState* render_state_;
   GameObject* entity_;
   TVec3f direction_;
 

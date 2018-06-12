@@ -19,6 +19,8 @@ public:
   // Methods for/from SuperClass/Interfaces
   // =================================================================
 public:
+  virtual bool FrustumCulling(const TVec3f& positive, const TVec3f& negative, T_INT8* first_index = nullptr) const override;
+
   virtual const INativeMatrix* GetViewMatrix() const override;
   virtual const INativeMatrix* GetProjectionMatrix() const override;
 
@@ -74,10 +76,6 @@ public:
   {
     return this->z_far_;
   }
-  inline GameObjectRenderState* GetRenderState()
-  {
-    return this->render_state_;
-  }
   inline const INativeMatrix& GetBillboardingMatrix() const
   {
     return *this->billboarding_matrix_;
@@ -93,7 +91,6 @@ protected:
   // Data Member
   // =================================================================
 private:
-  GameObjectRenderState* render_state_;
 
   INativeMatrix* billboarding_matrix_;
   INativeMatrix* projection_matrix_;

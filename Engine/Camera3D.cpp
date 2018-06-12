@@ -2,6 +2,7 @@
 #include "MathConstants.h"
 #include "NativeMethod.h"
 #include "Scene.h"
+#include "Collision3D.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -16,7 +17,6 @@ Camera3D::Camera3D(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT 
   this->entity_ = new GameObject3D();
   this->projection_matrix_ = INativeMatrix::Create();
   this->billboarding_matrix_ = INativeMatrix::Create();
-  this->render_state_ = new GameObjectRenderState(this);
 }
 
 Camera3D::Camera3D()
@@ -30,12 +30,10 @@ Camera3D::Camera3D()
   this->projection_matrix_ = INativeMatrix::Create();
   this->billboarding_matrix_ = INativeMatrix::Create();
   this->calc_2dpos_matrix_ = INativeMatrix::Create();
-  this->render_state_ = new GameObjectRenderState(this);
 }
 
 Camera3D::~Camera3D()
 {
-  delete this->render_state_;
   delete this->calc_2dpos_matrix_;
   delete this->billboarding_matrix_;
   delete this->projection_matrix_;
@@ -44,6 +42,11 @@ Camera3D::~Camera3D()
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
+bool Camera3D::FrustumCulling(const TVec3f& positive, const TVec3f& negative, T_INT8* first_index) const
+{
+  return Collision3D::Frustum_AABB(this->render_state_->GetViewProjMatrix(), positive, negative, first_index);
+}
+
 const INativeMatrix* Camera3D::GetViewMatrix() const 
 {
   return &INativeMatrix::Identity();
