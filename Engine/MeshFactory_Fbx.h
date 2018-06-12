@@ -7,6 +7,6 @@ namespace MeshFactory
 {
 namespace Fbx
 {
-Mesh* Create(FbxMesh* mesh);
+Mesh* Create(FbxMesh* mesh, bool readonly);
 }
 }

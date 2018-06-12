@@ -3,7 +3,7 @@
 #include "MathConstants.h"
 #include <math.h>
 
-namespace Collision
+namespace Collision2D
 {
 
 //汎用
@@ -23,12 +23,12 @@ static T_FLOAT OuterProduct(T_FLOAT ax, T_FLOAT ay, T_FLOAT bx, T_FLOAT by)
 }
 
 //同じプリミティブ同士(Polygon以外)
-bool Collision_Point(T_FLOAT ax, T_FLOAT ay, T_FLOAT bx, T_FLOAT by)
+bool Point(T_FLOAT ax, T_FLOAT ay, T_FLOAT bx, T_FLOAT by)
 {
   return ax == bx && ay == by;
 }
 
-bool Collision_Line(T_FLOAT ax1, T_FLOAT ay1, T_FLOAT ax2, T_FLOAT ay2, T_FLOAT bx1, T_FLOAT by1, T_FLOAT bx2, T_FLOAT by2)
+bool Line(T_FLOAT ax1, T_FLOAT ay1, T_FLOAT ax2, T_FLOAT ay2, T_FLOAT bx1, T_FLOAT by1, T_FLOAT bx2, T_FLOAT by2)
 {
   const T_FLOAT v1dx = bx1 - ax1;
   const T_FLOAT v1dy = by1 - ay1;
@@ -59,7 +59,7 @@ bool Collision_Line(T_FLOAT ax1, T_FLOAT ay1, T_FLOAT ax2, T_FLOAT ay2, T_FLOAT 
   return true;
 }
 
-bool Collision_Circle(T_FLOAT ax, T_FLOAT ay, T_FLOAT ar, T_FLOAT bx, T_FLOAT by, T_FLOAT br)
+bool Circle(T_FLOAT ax, T_FLOAT ay, T_FLOAT ar, T_FLOAT bx, T_FLOAT by, T_FLOAT br)
 {
   if (ar == 0.0f || br == 0.0f)
   {
@@ -73,7 +73,7 @@ bool Collision_Circle(T_FLOAT ax, T_FLOAT ay, T_FLOAT ar, T_FLOAT bx, T_FLOAT by
   return dx * dx + dy * dy <= r * r;
 }
 
-bool Collision_Rect(T_FLOAT ax, T_FLOAT ay, T_FLOAT aw, T_FLOAT ah, T_FLOAT bx, T_FLOAT by, T_FLOAT bw, T_FLOAT bh)
+bool Rect(T_FLOAT ax, T_FLOAT ay, T_FLOAT aw, T_FLOAT ah, T_FLOAT bx, T_FLOAT by, T_FLOAT bw, T_FLOAT bh)
 {
   const T_FLOAT ax_min = ax;
   const T_FLOAT ax_max = ax + aw;
@@ -90,12 +90,12 @@ bool Collision_Rect(T_FLOAT ax, T_FLOAT ay, T_FLOAT aw, T_FLOAT ah, T_FLOAT bx, 
 }
 
 //Point
-bool Collision_Point_Circle(T_FLOAT ax, T_FLOAT ay, T_FLOAT bx, T_FLOAT by, T_FLOAT br)
+bool Point_Circle(T_FLOAT ax, T_FLOAT ay, T_FLOAT bx, T_FLOAT by, T_FLOAT br)
 {
-  return Collision_Circle(ax, ay, 0, bx, by, br);
+  return Circle(ax, ay, 0, bx, by, br);
 }
 
-bool Collision_Point_Line(T_FLOAT ax, T_FLOAT ay, T_FLOAT bx1, T_FLOAT by1, T_FLOAT bx2, T_FLOAT by2)
+bool Point_Line(T_FLOAT ax, T_FLOAT ay, T_FLOAT bx1, T_FLOAT by1, T_FLOAT bx2, T_FLOAT by2)
 {
   const T_FLOAT l1_square = Square(bx2 - bx1) + Square(by2 - by1);
   const T_FLOAT l2_square = Square(ax - bx1) + Square(ay - by1);
@@ -109,12 +109,12 @@ bool Collision_Point_Line(T_FLOAT ax, T_FLOAT ay, T_FLOAT bx1, T_FLOAT by1, T_FL
   return fabs(jdg - sqrt(l1_l2_square)) <= eps;
 }
 
-bool Collision_Point_Rect(T_FLOAT ax, T_FLOAT ay, T_FLOAT bx, T_FLOAT by, T_FLOAT bw, T_FLOAT bh)
+bool Point_Rect(T_FLOAT ax, T_FLOAT ay, T_FLOAT bx, T_FLOAT by, T_FLOAT bw, T_FLOAT bh)
 {
-  return Collision_Rect(ax, ay, 0, 0, bx, by, bw, bh);
+  return Rect(ax, ay, 0, 0, bx, by, bw, bh);
 }
 
-bool Collision_Point_Polygon(T_FLOAT ax, T_FLOAT ay, T_FLOAT bx, T_FLOAT by, const TVec2f* bv, T_UINT16 bv_num)
+bool Point_Polygon(T_FLOAT ax, T_FLOAT ay, T_FLOAT bx, T_FLOAT by, const TVec2f* bv, T_UINT16 bv_num)
 {
   //頂点数0なら判定を行わない
   if (bv_num == 0)
@@ -124,12 +124,12 @@ bool Collision_Point_Polygon(T_FLOAT ax, T_FLOAT ay, T_FLOAT bx, T_FLOAT by, con
   //頂点数1であれば点として判定
   if (bv_num == 1)
   {
-    return Collision_Point(bx + bv[0].x, by + bv[0].y, ax, ay);
+    return Point(bx + bv[0].x, by + bv[0].y, ax, ay);
   }
   //頂点数2であれば線分として判定
   if (bv_num == 2)
   {
-    return Collision_Point_Line(bx + bv[0].x, by + bv[0].y, bx + bv[1].x, by + bv[1].y, ax, ay);
+    return Point_Line(bx + bv[0].x, by + bv[0].y, bx + bv[1].x, by + bv[1].y, ax, ay);
   }
   //線分に対して点の位置が全て(右側|左側)で判定
   bool all_right = true;
@@ -151,7 +151,7 @@ bool Collision_Point_Polygon(T_FLOAT ax, T_FLOAT ay, T_FLOAT bx, T_FLOAT by, con
 }
 
 //Line
-bool Collision_Line_Circle(T_FLOAT ax1, T_FLOAT ay1, T_FLOAT ax2, T_FLOAT ay2, T_FLOAT bx, T_FLOAT by, T_FLOAT br)
+bool Line_Circle(T_FLOAT ax1, T_FLOAT ay1, T_FLOAT ax2, T_FLOAT ay2, T_FLOAT bx, T_FLOAT by, T_FLOAT br)
 {
   const TVec2f pq = TVec2f(ax1 - ax2, ay1 - ay2);
   const TVec2f pm = TVec2f(ax1 - bx, ay1 - by);
@@ -174,16 +174,16 @@ bool Collision_Line_Circle(T_FLOAT ax1, T_FLOAT ay1, T_FLOAT ax2, T_FLOAT ay2, T
   return d2 < br * br;
 }
 
-bool Collision_Line_Rect(T_FLOAT ax1, T_FLOAT ay1, T_FLOAT ax2, T_FLOAT ay2, T_FLOAT bx, T_FLOAT by, T_FLOAT bw, T_FLOAT bh)
+bool Line_Rect(T_FLOAT ax1, T_FLOAT ay1, T_FLOAT ax2, T_FLOAT ay2, T_FLOAT bx, T_FLOAT by, T_FLOAT bw, T_FLOAT bh)
 {
   //始点と四角形の当たり判定
-  if (Collision_Point_Rect(ax1, ay1, bx, by, bw, bh))
+  if (Point_Rect(ax1, ay1, bx, by, bw, bh))
   {
     return true;
   }
 
   //終点と四角形の当たり判定
-  if (Collision_Point_Rect(ax2, ay2, bx, by, bw, bh))
+  if (Point_Rect(ax2, ay2, bx, by, bw, bh))
   {
     return true;
   }
@@ -194,16 +194,16 @@ bool Collision_Line_Rect(T_FLOAT ax1, T_FLOAT ay1, T_FLOAT ax2, T_FLOAT ay2, T_F
   //線分と四角形の対角線の当たり判定を行う
 
   //線分と対角線1
-  if (Collision_Line(ax1, ay1, ax2, ay2, bx, by, bx + bw, by + bh))
+  if (Line(ax1, ay1, ax2, ay2, bx, by, bx + bw, by + bh))
   {
     return true;
   }
 
   //線分と対角線2
-  return Collision_Line(ax1, ay1, ax2, ay2, bx + bw, by, bx, by + bh);
+  return Line(ax1, ay1, ax2, ay2, bx + bw, by, bx, by + bh);
 }
 
-bool Collision_Line_Polygon(T_FLOAT ax1, T_FLOAT ay1, T_FLOAT ax2, T_FLOAT ay2, T_FLOAT bx, T_FLOAT by, const TVec2f* bv, T_UINT16 bv_num)
+bool Line_Polygon(T_FLOAT ax1, T_FLOAT ay1, T_FLOAT ax2, T_FLOAT ay2, T_FLOAT bx, T_FLOAT by, const TVec2f* bv, T_UINT16 bv_num)
 {
   //頂点数0なら判定を行わない
   if (bv_num == 0)
@@ -213,12 +213,12 @@ bool Collision_Line_Polygon(T_FLOAT ax1, T_FLOAT ay1, T_FLOAT ax2, T_FLOAT ay2, 
   //頂点数1であれば点として判定
   if (bv_num == 1)
   {
-    return Collision_Point_Line(bx + bv[0].x, by + bv[0].y, ax1, ay1, ax2, ay2);
+    return Point_Line(bx + bv[0].x, by + bv[0].y, ax1, ay1, ax2, ay2);
   }
   //頂点数2であれば線分として判定
   if (bv_num == 2)
   {
-    return Collision_Line(bx + bv[0].x, by + bv[0].y, bx + bv[1].x, by + bv[1].y, ax1, ay1, ax2, ay2);
+    return Line(bx + bv[0].x, by + bv[0].y, bx + bv[1].x, by + bv[1].y, ax1, ay1, ax2, ay2);
   }
 
   //始点か終点の片方だけが多角形の内側に含まれているケースは
@@ -226,12 +226,12 @@ bool Collision_Line_Polygon(T_FLOAT ax1, T_FLOAT ay1, T_FLOAT ax2, T_FLOAT ay2, 
   //始点と終点のどちらかが多角形の内側にあるかどうかだけを判定すればいい
 
   //始点と多角形の判定
-  if (Collision_Point_Polygon(ax1, ay1, bx, by, bv, bv_num))
+  if (Point_Polygon(ax1, ay1, bx, by, bv, bv_num))
   {
     return true;
   }
   //終点と多角形の判定
-  if (Collision_Point_Polygon(ax2, ay2, bx, by, bv, bv_num))
+  if (Point_Polygon(ax2, ay2, bx, by, bv, bv_num))
   {
     return true;
   }
@@ -240,7 +240,7 @@ bool Collision_Line_Polygon(T_FLOAT ax1, T_FLOAT ay1, T_FLOAT ax2, T_FLOAT ay2, 
   for (T_UINT16 i = 0; i < bv_num; ++i)
   {
     const T_UINT16 j = (i + 1) % bv_num;
-    if (Collision_Line(ax1, ay1, ax2, ay2, bx + bv[i].x, by + bv[i].y, bx + bv[j].x, by + bv[j].y))
+    if (Line(ax1, ay1, ax2, ay2, bx + bv[i].x, by + bv[i].y, bx + bv[j].x, by + bv[j].y))
     {
       return true;
     }
@@ -250,42 +250,42 @@ bool Collision_Line_Polygon(T_FLOAT ax1, T_FLOAT ay1, T_FLOAT ax2, T_FLOAT ay2, 
 }
 
 //Circle
-bool Collision_Circle_Rect(T_FLOAT ax, T_FLOAT ay, T_FLOAT ar, T_FLOAT bx, T_FLOAT by, T_FLOAT bw, T_FLOAT bh)
+bool Circle_Rect(T_FLOAT ax, T_FLOAT ay, T_FLOAT ar, T_FLOAT bx, T_FLOAT by, T_FLOAT bw, T_FLOAT bh)
 {
   //縦長と円
-  if (Collision_Point_Rect(ax, ay, bx, by - ar, bw, bh + ar * 2))
+  if (Point_Rect(ax, ay, bx, by - ar, bw, bh + ar * 2))
   {
     return true;
   }
   //横長と円
-  if (Collision_Point_Rect(ax, ay, bx - ar, by, bw + ar * 2, bh))
+  if (Point_Rect(ax, ay, bx - ar, by, bw + ar * 2, bh))
   {
     return true;
   }
   //左上の頂点と円
-  if (Collision_Point_Circle(bx, by, ax, ay, ar))
+  if (Point_Circle(bx, by, ax, ay, ar))
   {
     return true;
   }
   //右上の頂点と円
-  if (Collision_Point_Circle(bx + bw, by, ax, ay, ar))
+  if (Point_Circle(bx + bw, by, ax, ay, ar))
   {
     return true;
   }
   //左下の頂点と円
-  if (Collision_Point_Circle(bx, by + bh, ax, ay, ar))
+  if (Point_Circle(bx, by + bh, ax, ay, ar))
   {
     return true;
   }
   //右下の頂点と円
-  if (Collision_Point_Circle(bx + bw, by + bh, ax, ay, ar))
+  if (Point_Circle(bx + bw, by + bh, ax, ay, ar))
   {
     return true;
   }
   return false;
 }
 
-bool Collision_Circle_Polygon(T_FLOAT ax, T_FLOAT ay, T_FLOAT ar, T_FLOAT bx, T_FLOAT by, const TVec2f* bv, T_UINT16 bv_num)
+bool Circle_Polygon(T_FLOAT ax, T_FLOAT ay, T_FLOAT ar, T_FLOAT bx, T_FLOAT by, const TVec2f* bv, T_UINT16 bv_num)
 {
   //頂点数0なら判定を行わない
   if (bv_num == 0)
@@ -295,23 +295,23 @@ bool Collision_Circle_Polygon(T_FLOAT ax, T_FLOAT ay, T_FLOAT ar, T_FLOAT bx, T_
   //頂点数1であれば点として判定
   if (bv_num == 1)
   {
-    return Collision_Point_Circle(bx + bv[0].x, by + bv[0].y, ax, ay, ar);
+    return Point_Circle(bx + bv[0].x, by + bv[0].y, ax, ay, ar);
   }
   //頂点数2であれば線分として判定
   if (bv_num == 2)
   {
-    return Collision_Line_Circle(bx + bv[0].x, by + bv[0].y, bx + bv[1].x, by + bv[1].y, ax, ay, ar);
+    return Line_Circle(bx + bv[0].x, by + bv[0].y, bx + bv[1].x, by + bv[1].y, ax, ay, ar);
   }
   //各頂点と円の当たり判定
   for (T_UINT16 i = 0; i < bv_num; ++i)
   {
-    if (Collision_Point_Circle(bx + bv[i].x, by + bv[i].y, ax, ay, ar))
+    if (Point_Circle(bx + bv[i].x, by + bv[i].y, ax, ay, ar))
     {
       return true;
     }
   }
   //中点と多角形の判定
-  if (Collision_Point_Polygon(ax, ay, bx, by, bv, bv_num))
+  if (Point_Polygon(ax, ay, bx, by, bv, bv_num))
   {
     return true;
   }
@@ -319,7 +319,7 @@ bool Collision_Circle_Polygon(T_FLOAT ax, T_FLOAT ay, T_FLOAT ar, T_FLOAT bx, T_
   for (T_UINT16 i = 0; i < bv_num; ++i)
   {
     const T_UINT16 j = (i + 1) % bv_num;
-    if (Collision_Line_Circle(ax, ay, ar, bx + bv[i].x, by + bv[i].y, bx + bv[j].x, by + bv[j].y))
+    if (Line_Circle(ax, ay, ar, bx + bv[i].x, by + bv[i].y, bx + bv[j].x, by + bv[j].y))
     {
       return true;
     }
@@ -328,7 +328,7 @@ bool Collision_Circle_Polygon(T_FLOAT ax, T_FLOAT ay, T_FLOAT ar, T_FLOAT bx, T_
 }
 
 //Rect
-bool Collision_Rect_Polygon(T_FLOAT ax, T_FLOAT ay, T_FLOAT aw, T_FLOAT ah, T_FLOAT bx, T_FLOAT by, const TVec2f* bv, T_UINT16 bv_num)
+bool Rect_Polygon(T_FLOAT ax, T_FLOAT ay, T_FLOAT aw, T_FLOAT ah, T_FLOAT bx, T_FLOAT by, const TVec2f* bv, T_UINT16 bv_num)
 {
   //頂点数0なら判定を行わない
   if (bv_num == 0)
@@ -338,23 +338,23 @@ bool Collision_Rect_Polygon(T_FLOAT ax, T_FLOAT ay, T_FLOAT aw, T_FLOAT ah, T_FL
   //頂点数1であれば点として判定
   if (bv_num == 1)
   {
-    return Collision_Point_Rect(bx + bv[0].x, by + bv[0].y, ax, ay, aw, ah);
+    return Point_Rect(bx + bv[0].x, by + bv[0].y, ax, ay, aw, ah);
   }
   //頂点数2であれば線分として判定
   if (bv_num == 2)
   {
-    return Collision_Line_Rect(bx + bv[0].x, by + bv[0].y, bx + bv[1].x, by + bv[1].y, ax, ay, aw, ah);
+    return Line_Rect(bx + bv[0].x, by + bv[0].y, bx + bv[1].x, by + bv[1].y, ax, ay, aw, ah);
   }
   //各頂点と四角形の当たり判定
   for (T_UINT16 i = 0; i < bv_num; ++i)
   {
-    if (Collision_Point_Rect(bx + bv[i].x, by + bv[i].y, ax, ay, aw, ah))
+    if (Point_Rect(bx + bv[i].x, by + bv[i].y, ax, ay, aw, ah))
     {
       return true;
     }
   }
   //四角形の中心と多角形の判定
-  if (Collision_Point_Polygon(ax + aw * 0.5f, ay + ah * 0.5f, bx, by, bv, bv_num))
+  if (Point_Polygon(ax + aw * 0.5f, ay + ah * 0.5f, bx, by, bv, bv_num))
   {
     return true;
   }
@@ -362,7 +362,7 @@ bool Collision_Rect_Polygon(T_FLOAT ax, T_FLOAT ay, T_FLOAT aw, T_FLOAT ah, T_FL
   for (T_UINT16 i = 0; i < bv_num; ++i)
   {
     const T_UINT16 j = (i + 1) % bv_num;
-    if (Collision_Line_Rect(ax, ay, aw, ah, bx + bv[i].x, by + bv[i].y, bx + bv[j].x, by + bv[j].y))
+    if (Line_Rect(ax, ay, aw, ah, bx + bv[i].x, by + bv[i].y, bx + bv[j].x, by + bv[j].y))
     {
       return true;
     }
@@ -371,7 +371,7 @@ bool Collision_Rect_Polygon(T_FLOAT ax, T_FLOAT ay, T_FLOAT aw, T_FLOAT ah, T_FL
 }
 
 //Polygon同士
-bool Collision_Polygon(T_FLOAT ax, T_FLOAT ay, const TVec2f* av, T_UINT16 av_num, T_FLOAT bx, T_FLOAT by, const TVec2f* bv, T_UINT16 bv_num)
+bool Polygon(T_FLOAT ax, T_FLOAT ay, const TVec2f* av, T_UINT16 av_num, T_FLOAT bx, T_FLOAT by, const TVec2f* bv, T_UINT16 bv_num)
 {
   //avの頂点数0なら判定を行わない
   if (av_num == 0)
@@ -381,12 +381,12 @@ bool Collision_Polygon(T_FLOAT ax, T_FLOAT ay, const TVec2f* av, T_UINT16 av_num
   //avの頂点数1であれば点として判定
   if (av_num == 1)
   {
-    return Collision_Point_Polygon(ax + av[0].x, ay + av[0].y, bx, by, bv, bv_num);
+    return Point_Polygon(ax + av[0].x, ay + av[0].y, bx, by, bv, bv_num);
   }
   //avの頂点数2であれば線分として判定
   if (av_num == 2)
   {
-    return Collision_Line_Polygon(ax + av[0].x, ay + av[0].y, ax + av[1].x, ay + av[1].y, bx, by, bv, bv_num);
+    return Line_Polygon(ax + av[0].x, ay + av[0].y, ax + av[1].x, ay + av[1].y, bx, by, bv, bv_num);
   }
   //多角形の中点と多角形の当たり判定
   T_FLOAT x_sum = 0;
@@ -396,7 +396,7 @@ bool Collision_Polygon(T_FLOAT ax, T_FLOAT ay, const TVec2f* av, T_UINT16 av_num
     x_sum += av[i].x;
     y_sum += av[i].y;
   }
-  if (Collision_Point_Polygon(ax + x_sum / av_num, ay + y_sum / av_num, bx, by, bv, bv_num))
+  if (Point_Polygon(ax + x_sum / av_num, ay + y_sum / av_num, bx, by, bv, bv_num))
   {
     return true;
   }
@@ -404,7 +404,7 @@ bool Collision_Polygon(T_FLOAT ax, T_FLOAT ay, const TVec2f* av, T_UINT16 av_num
   for (T_UINT16 i = 0; i < av_num; ++i)
   {
     const T_UINT16 j = (i + 1) % av_num;
-    if (Collision_Line_Polygon(ax + av[i].x, ay + av[i].y, ax + av[j].x, ay + av[j].y, bx, by, bv, bv_num))
+    if (Line_Polygon(ax + av[i].x, ay + av[i].y, ax + av[j].x, ay + av[j].y, bx, by, bv, bv_num))
     {
       return true;
     }
@@ -434,7 +434,7 @@ bool Prepare(ICollider2D& a, ICollider2D& b)
 //ラフチェック
 bool RoughCheck(ICollider2D& a, ICollider2D& b)
 {
-  return Collision_Circle(a.BoundX(), a.BoundY(), a.BoundRadius(), b.BoundX(), b.BoundY(), b.BoundRadius());
+  return Circle(a.BoundX(), a.BoundY(), a.BoundRadius(), b.BoundX(), b.BoundY(), b.BoundRadius());
 }
 
 #define ROUGH_CHECK \
@@ -452,169 +452,169 @@ bool RoughCheck(ICollider2D& a, ICollider2D& b)
 bool Point_Point(IPointCollider2D& a, IPointCollider2D& b)
 {
   PREPARE
-  return Collision_Point(POINT(a), POINT(b));
+  return Point(POINT(a), POINT(b));
 }
 
 bool Point_Line(IPointCollider2D& a, ILineCollider2D& b)
 {
   PREPARE
   ROUGH_CHECK
-  return Collision_Point_Line(POINT(a), LINE(b));
+  return Point_Line(POINT(a), LINE(b));
 }
 
 bool Point_Circle(IPointCollider2D& a, ICircleCollider2D& b)
 {
   PREPARE
-  return Collision_Point_Circle(POINT(a), CIRCLE(b));
+  return Point_Circle(POINT(a), CIRCLE(b));
 }
 
 bool Point_Rect(IPointCollider2D& a, IRectCollider2D& b)
 {
   PREPARE
-  return Collision_Point_Rect(POINT(a), RECT(b));
+  return Point_Rect(POINT(a), RECT(b));
 }
 
 bool Point_Polygon(IPointCollider2D& a, IPolygonCollider2D& b)
 {
   PREPARE
   ROUGH_CHECK
-  return Collision_Point_Polygon(POINT(a), POLYGON(b));
+  return Point_Polygon(POINT(a), POLYGON(b));
 }
 
 bool Line_Point(ILineCollider2D& a, IPointCollider2D& b)
 {
   PREPARE
   ROUGH_CHECK
-  return Collision_Point_Line(POINT(b), LINE(a));
+  return Point_Line(POINT(b), LINE(a));
 }
 
 bool Line_Line(ILineCollider2D& a, ILineCollider2D& b)
 {
   PREPARE
   ROUGH_CHECK
-  return Collision_Line(LINE(a), LINE(b));
+  return Line(LINE(a), LINE(b));
 }
 
 bool Line_Circle(ILineCollider2D& a, ICircleCollider2D& b)
 {
   PREPARE
   ROUGH_CHECK
-  return Collision_Line_Circle(LINE(a), CIRCLE(b));
+  return Line_Circle(LINE(a), CIRCLE(b));
 }
 
 bool Line_Rect(ILineCollider2D& a, IRectCollider2D& b)
 {
   PREPARE
   ROUGH_CHECK
-  return Collision_Line_Rect(LINE(a), RECT(b));
+  return Line_Rect(LINE(a), RECT(b));
 }
 
 bool Line_Polygon(ILineCollider2D& a, IPolygonCollider2D& b)
 {
   PREPARE
   ROUGH_CHECK
-  return Collision_Line_Polygon(LINE(a), POLYGON(b));
+  return Line_Polygon(LINE(a), POLYGON(b));
 }
 
 bool Circle_Point(ICircleCollider2D& a, IPointCollider2D& b)
 {
   PREPARE
-  return Collision_Point_Circle(POINT(b), CIRCLE(a));
+  return Point_Circle(POINT(b), CIRCLE(a));
 }
 
 bool Circle_Line(ICircleCollider2D& a, ILineCollider2D& b)
 {
   PREPARE
   ROUGH_CHECK
-  return Collision_Line_Circle(LINE(b), CIRCLE(a));
+  return Line_Circle(LINE(b), CIRCLE(a));
 }
 
 bool Circle_Circle(ICircleCollider2D& a, ICircleCollider2D& b)
 {
   PREPARE
-  return Collision_Circle(CIRCLE(a), CIRCLE(b));
+  return Circle(CIRCLE(a), CIRCLE(b));
 }
 
 bool Circle_Rect(ICircleCollider2D& a, IRectCollider2D& b)
 {
   PREPARE
   ROUGH_CHECK
-  return Collision_Circle_Rect(CIRCLE(a), RECT(b));
+  return Circle_Rect(CIRCLE(a), RECT(b));
 }
 
 bool Circle_Polygon(ICircleCollider2D& a, IPolygonCollider2D& b)
 {
   PREPARE
   ROUGH_CHECK
-  return Collision_Circle_Polygon(CIRCLE(a), POLYGON(b));
+  return Circle_Polygon(CIRCLE(a), POLYGON(b));
 }
 
 bool Rect_Point(IRectCollider2D& a, IPointCollider2D& b)
 {
   PREPARE
-  return Collision_Point_Rect(POINT(b), RECT(a));
+  return Point_Rect(POINT(b), RECT(a));
 }
 
 bool Rect_Line(IRectCollider2D& a, ILineCollider2D& b)
 {
   PREPARE
   ROUGH_CHECK
-  return Collision_Line_Rect(LINE(b), RECT(a));
+  return Line_Rect(LINE(b), RECT(a));
 }
 
 bool Rect_Circle(IRectCollider2D& a, ICircleCollider2D& b)
 {
   PREPARE
   ROUGH_CHECK
-  return Collision_Circle_Rect(CIRCLE(b), RECT(a));
+  return Circle_Rect(CIRCLE(b), RECT(a));
 }
 
 bool Rect_Rect(IRectCollider2D& a, IRectCollider2D& b)
 {
   PREPARE
-  return Collision_Rect(RECT(a), RECT(b));
+  return Rect(RECT(a), RECT(b));
 }
 
 bool Rect_Polygon(IRectCollider2D& a, IPolygonCollider2D& b)
 {
   PREPARE
   ROUGH_CHECK
-  return Collision_Rect_Polygon(RECT(a), POLYGON(b));
+  return Rect_Polygon(RECT(a), POLYGON(b));
 }
 
 bool Polygon_Point(IPolygonCollider2D& a, IPointCollider2D& b)
 {
   PREPARE
   ROUGH_CHECK
-  return Collision_Point_Polygon(POINT(b), POLYGON(a));
+  return Point_Polygon(POINT(b), POLYGON(a));
 }
 
 bool Polygon_Line(IPolygonCollider2D& a, ILineCollider2D& b)
 {
   PREPARE
   ROUGH_CHECK
-  return Collision_Line_Polygon(LINE(b), POLYGON(a));
+  return Line_Polygon(LINE(b), POLYGON(a));
 }
 
 bool Polygon_Circle(IPolygonCollider2D& a, ICircleCollider2D& b)
 {
   PREPARE
   ROUGH_CHECK
-  return Collision_Circle_Polygon(CIRCLE(b), POLYGON(a));
+  return Circle_Polygon(CIRCLE(b), POLYGON(a));
 }
 
 bool Polygon_Rect(IPolygonCollider2D& a, IRectCollider2D& b)
 {
   PREPARE
   ROUGH_CHECK
-  return Collision_Rect_Polygon(RECT(b), POLYGON(a));
+  return Rect_Polygon(RECT(b), POLYGON(a));
 }
 
 bool Polygon_Polygon(IPolygonCollider2D& a, IPolygonCollider2D& b)
 {
   PREPARE
   ROUGH_CHECK
-  return Collision_Polygon(POLYGON(a), POLYGON(b));
+  return Polygon(POLYGON(a), POLYGON(b));
 }
 
 }

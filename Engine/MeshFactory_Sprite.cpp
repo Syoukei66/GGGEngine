@@ -75,7 +75,7 @@ static void Initialize()
   }
 }
 
-Mesh* MeshFactory::Sprite::Create()
+Mesh* MeshFactory::Sprite::Create(bool readonly)
 {
   Initialize();
   Mesh* ret = new Mesh();
@@ -95,6 +95,6 @@ Mesh* MeshFactory::Sprite::Create()
   {
     ret->SetIndex(i, SPRITE_INDEXES[i]);
   }
-  ret->CommitChanges();
+  ret->CommitChanges(readonly);
   return ret;
 }

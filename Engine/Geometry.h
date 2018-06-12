@@ -104,17 +104,17 @@ union BaseTVec2
   {
     return this->x == 0.0 && this->y == 0.0;
   }
-  //’P€+
+  //â€™PÂâ‚¬+
   const BaseTVec2 operator + () const
   {
     return *this;
   }
-  //’P€-
+  //â€™PÂâ‚¬-
   const BaseTVec2 operator - () const
   {
     return BaseTVec2(-this->x, -this->y);
   }
-  //2€+
+  //2Ââ‚¬+
   const BaseTVec2 operator + (const BaseTVec2& other) const
   {
     return BaseTVec2(this->x + other.x, this->y + other.y);
@@ -125,7 +125,7 @@ union BaseTVec2
     this->y += other.y;
     return *this;
   }
-  //2€-
+  //2Ââ‚¬-
   const BaseTVec2 operator - (const BaseTVec2& other) const
   {
     return BaseTVec2(this->x - other.x, this->y - other.y);
@@ -136,7 +136,7 @@ union BaseTVec2
     this->y -= other.y;
     return *this;
   }
-  //2€*
+  //2Ââ‚¬*
   const BaseTVec2 operator * (T s) const
   {
     return BaseTVec2(this->x * s, this->y * s);
@@ -153,7 +153,7 @@ union BaseTVec2
     this->y *= other;
     return *this;
   }
-  //2€/
+  //2Ââ‚¬/
   const BaseTVec2 operator / (T s) const
   {
     return BaseTVec2(this->x / s, this->y / s);
@@ -170,7 +170,7 @@ union BaseTVec2
     this->y /= other;
     return *this;
   }
-  //2€==
+  //2Ââ‚¬==
   bool operator == (const BaseTVec2& other) const
   {
     return this->x == other.x && this->y == other.y;
@@ -206,17 +206,17 @@ union BaseTSize
   {
     return this->width == 0 && this->height == 0;
   }
-  //’P€+
+  //â€™PÂâ‚¬+
   const BaseTSize operator + () const
   {
     return *this;
   }
-  //’P€-
+  //â€™PÂâ‚¬-
   const BaseTSize operator - () const
   {
     return BaseTSize(-this->width, -this->height);
   }
-  //2€+
+  //2Ââ‚¬+
   const BaseTSize operator + (const BaseTSize& other) const
   {
     return BaseTSize(this->width + other.width, this->height + other.height);
@@ -227,7 +227,7 @@ union BaseTSize
     this->height += other.height;
     return *this;
   }
-  //2€-
+  //2Ââ‚¬-
   const BaseTSize operator - (const BaseTSize& other) const
   {
     return BaseTSize(this->width - other.width, this->height - other.height);
@@ -238,7 +238,7 @@ union BaseTSize
     this->height -= other.height;
     return *this;
   }
-  //2€*
+  //2Ââ‚¬*
   const BaseTSize operator * (const BaseTSize& other) const
   {
     return BaseTSize(this->width * other.width, this->height * other.height);
@@ -269,7 +269,7 @@ union BaseTSize
     this->height *= s;
     return *this;
   }
-  //2€/
+  //2Ââ‚¬/
   const BaseTSize operator / (const BaseTSize& other) const
   {
     return BaseTSize(this->width / other.width, this->height / other.height);
@@ -286,7 +286,7 @@ union BaseTSize
     this->height /= other;
     return *this;
   }
-  //2€==
+  //2Ââ‚¬==
   bool operator == (const BaseTSize& other) const
   {
     return this->width == other.width && this->height == other.height;
@@ -421,17 +421,17 @@ union BaseTVec3
     );
   }
 
-  //’P€+
+  //â€™PÂâ‚¬+
   const BaseTVec3 operator + () const
   {
     return *this;
   }
-  //’P€-
+  //â€™PÂâ‚¬-
   const BaseTVec3 operator - () const
   {
     return BaseTVec3(-this->x, -this->y, -this->z);
   }
-  //2€+
+  //2Ââ‚¬+
   const BaseTVec3 operator + (const BaseTVec3& other) const
   {
     return BaseTVec3(this->x + other.x, this->y + other.y, this->z + other.z);
@@ -443,7 +443,7 @@ union BaseTVec3
     this->z += other.z;
     return *this;
   }
-  //2€-
+  //2Ââ‚¬-
   const BaseTVec3 operator - (const BaseTVec3& other) const
   {
     return BaseTVec3(this->x - other.x, this->y - other.y, this->z - other.z);
@@ -455,7 +455,7 @@ union BaseTVec3
     this->z -= other.z;
     return *this;
   }
-  //2€*
+  //2Ââ‚¬*
   const BaseTVec3 operator * (T s) const
   {
     return BaseTVec3(this->x * s, this->y * s, this->z * s);
@@ -478,7 +478,7 @@ union BaseTVec3
     this->z *= other;
     return *this;
   }
-  //2€/
+  //2Ââ‚¬/
   const BaseTVec3 operator / (T s) const
   {
     return BaseTVec3(this->x / s, this->y / s, this->z / s);
@@ -497,7 +497,7 @@ union BaseTVec3
     this->z /= other;
     return *this;
   }
-  //2€==
+  //2Ââ‚¬==
   bool operator == (const BaseTVec3& other) const
   {
     return this->x == other.x && this->y == other.y && this->z == other.z;
@@ -536,6 +536,17 @@ union BaseTVec4
   };
   T vec[4];
 
+  static const BaseTVec4<T> zero;
+  static const BaseTVec4<T> one;
+  static const BaseTVec4<T> forward;
+  static const BaseTVec4<T> back;
+  static const BaseTVec4<T> right;
+  static const BaseTVec4<T> left;
+  static const BaseTVec4<T> up;
+  static const BaseTVec4<T> down;
+
+  T x, y, z, w;
+  
   BaseTVec4()
     : x(0)
     , y(0)
@@ -554,17 +565,17 @@ union BaseTVec4
   {
     return this->x == 0.0 && this->y == 0.0 && this->z == 0.0 && this->w == 0.0;
   }
-  //’P€+
+  //â€™PÂâ‚¬+
   const BaseTVec4 operator + () const
   {
     return *this;
   }
-  //’P€-
+  //â€™PÂâ‚¬-
   const BaseTVec4 operator - () const
   {
     return BaseTVec4(-this->x, -this->y, -this->z, -this->w);
   }
-  //2€+
+  //2Ââ‚¬+
   const BaseTVec4 operator + (const BaseTVec4& other) const
   {
     return BaseTVec4(this->x + other.x, this->y + other.y, this->z + other.z, this->w + other.w);
@@ -577,7 +588,7 @@ union BaseTVec4
     this->w += other.w;
     return *this;
   }
-  //2€-
+  //2Ââ‚¬-
   const BaseTVec4 operator - (const BaseTVec4& other) const
   {
     return BaseTVec4(this->x - other.x, this->y - other.y, this->z - other.z, this->w - other.w);
@@ -590,7 +601,7 @@ union BaseTVec4
     this->w -= other.w;
     return *this;
   }
-  //2€*
+  //2Ââ‚¬*
   const BaseTVec4 operator * (T s) const
   {
     return BaseTVec4(this->x * s, this->y * s, this->z * s, this->w * s);
@@ -611,7 +622,7 @@ union BaseTVec4
     this->w *= other;
     return *this;
   }
-  //2€/
+  //2Ââ‚¬/
   const BaseTVec4 operator / (T s) const
   {
     return BaseTVec4(this->x / s, this->y / s, this->z / s, this->w / s);
@@ -632,12 +643,30 @@ union BaseTVec4
     this->w /= other;
     return *this;
   }
-  //2€==
+  //2Ââ‚¬==
   bool operator == (const BaseTVec4& other) const
   {
     return this->x == other.x && this->y == other.y && this->z == other.z && this->w == other.w;
   }
 };
+
+
+template<typename T>
+const BaseTVec4<T> BaseTVec4<T>::zero =    BaseTVec4<T>(0, 0, 0, 0);
+template<typename T>
+const BaseTVec4<T> BaseTVec4<T>::one =     BaseTVec4<T>(1, 1, 1, 1);
+template<typename T>
+const BaseTVec4<T> BaseTVec4<T>::forward = BaseTVec4<T>(0, 0, 1, 0);
+template<typename T>
+const BaseTVec4<T> BaseTVec4<T>::back =    BaseTVec4<T>(0, 0, -1, 0);
+template<typename T>
+const BaseTVec4<T> BaseTVec4<T>::right =   BaseTVec4<T>(1, 0, 0, 0);
+template<typename T>
+const BaseTVec4<T> BaseTVec4<T>::left =    BaseTVec4<T>(-1, 0, 0, 0);
+template<typename T>
+const BaseTVec4<T> BaseTVec4<T>::up =      BaseTVec4<T>(0, 1, 0, 0);
+template<typename T>
+const BaseTVec4<T> BaseTVec4<T>::down =    BaseTVec4<T>(0, -1, 0, 0);
 
 typedef BaseTVec4<T_INT32> TVec4;
 typedef BaseTVec4<T_FLOAT> TVec4f;

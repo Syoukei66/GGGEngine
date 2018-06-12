@@ -39,11 +39,11 @@ Mesh::~Mesh()
 // =================================================================
 void Mesh::Clear()
 {
-  this->ClearVertices();
-  this->ClearIndices();
+  this->ClearVertices(true);
+  this->ClearIndices(true);
 }
 
-void Mesh::ClearVertices()
+void Mesh::ClearVertices(bool clear_buffer)
 {
   delete[] this->vertices_;
   delete[] this->normals_;
@@ -54,9 +54,6 @@ void Mesh::ClearVertices()
   delete[] this->tangents_;
   delete[] this->colors_;
 
-  delete this->vertex_buffer_;
-
-  this->vertex_count_ = 0;
   this->vertices_ = nullptr;
   this->normals_ = nullptr;
   this->uvs_ = nullptr;
@@ -65,33 +62,49 @@ void Mesh::ClearVertices()
   this->uv4s_ = nullptr;
   this->tangents_ = nullptr;
   this->colors_ = nullptr;
-  this->vertex_buffer_ = nullptr;
 
   this->vertices_dirty_ = false;
+
+  if (clear_buffer)
+  {
+    this->vertex_count_ = 0;
+    delete this->vertex_buffer_;
+    this->vertex_buffer_ = nullptr;
+  }
 }
 
-void Mesh::ClearIndices()
+void Mesh::ClearIndices(bool clear_buffer)
 {
   delete[] this->face_normals_;
-  for (T_UINT8 i = 0; i < this->submesh_count_; ++i)
+  if (this->indices_)
   {
-    delete[] this->indices_[i];
-    delete this->index_buffers_[i];
+    for (T_UINT8 i = 0; i < this->submesh_count_; ++i)
+    {
+      delete[] this->indices_[i];
+    }
+    delete[] this->indices_;
+    delete[] this->index_counts_;
+    delete[] this->indices_dirties_;
   }
-  delete[] this->indices_;
-  delete[] this->index_counts_;
-  delete[] this->index_buffers_;
-  delete[] this->indices_dirties_;
 
   this->face_normals_ = nullptr;
-  this->submesh_count_ = 0;
   this->indices_ = nullptr;
   this->index_counts_ = nullptr;
-  this->index_buffers_ = nullptr;
   this->indices_dirties_ = nullptr;
+
+  if (clear_buffer)
+  {
+    for (T_UINT8 i = 0; i < this->submesh_count_; ++i)
+    {
+      delete this->index_buffers_[i];
+    }
+    delete[] this->index_buffers_;
+    this->index_buffers_ = nullptr;
+    this->submesh_count_ = 0;
+  }
 }
 
-Mesh* Mesh::Clone()
+Mesh* Mesh::Clone(bool readonly)
 {
   Mesh* clone = new Mesh();
 
@@ -130,13 +143,13 @@ Mesh* Mesh::Clone()
   {
     clone->SetColors(this->colors_);
   }
-  clone->CommitChanges();
+  clone->CommitChanges(readonly);
   return clone;
 }
 
 void Mesh::CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT32 format, GraphicsConstants::PrimitiveType primitive_type)
 {
-  this->ClearVertices();
+  this->ClearVertices(true);
 
   this->vertex_count_ = vertex_count;
   this->polygon_count_ = polygon_count;
@@ -187,7 +200,7 @@ void Mesh::CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT3
 
 void Mesh::CreateIndices(T_UINT8 submesh_count, T_UINT32* index_counts)
 {
-  this->ClearIndices();
+  this->ClearIndices(true);
   this->submesh_count_ = submesh_count;
   this->index_counts_ = new T_UINT32[submesh_count]{};
   this->indices_ = new T_UINT32*[submesh_count]{};
@@ -202,7 +215,7 @@ void Mesh::CreateIndices(T_UINT8 submesh_count, T_UINT32* index_counts)
   }
 }
 
-void Mesh::CommitChanges()
+void Mesh::CommitChanges(bool readonly)
 {
   using namespace GraphicsConstants;
 
@@ -291,6 +304,11 @@ void Mesh::CommitChanges()
     this->index_buffers_[i]->Unlock();
     this->indices_dirties_[i] = false;
   }
+  if (readonly)
+  {
+    this->ClearVertices(false);
+    this->ClearIndices(false);
+  }
 }
 
 void Mesh::RecalculateNormals(bool save_face_normals)
@@ -309,8 +327,7 @@ void Mesh::RecalculateNormals(bool save_face_normals)
   }
   for (T_UINT8 i = 0; i < this->submesh_count_; ++i)
   {
-    T_UINT32 s = 0;
-    for (T_UINT32 j = 0; j < this->index_counts_[i]; j += 3, ++s)
+    for (T_UINT32 j = 0, s = 0; j < this->index_counts_[i]; j += 3, ++s)
     {
       TVec3f v0 = this->vertices_[this->indices_[i][j]];
       TVec3f v1 = this->vertices_[this->indices_[i][j + 1]];
@@ -318,10 +335,6 @@ void Mesh::RecalculateNormals(bool save_face_normals)
       TVec3f vv1 = v1 - v0;
       TVec3f vv2 = v2 - v1;
       this->face_normals_[s] = TVec3f::OuterProduct(vv1, vv2).Normalized();
-    }
-    s = 0;
-    for (T_UINT32 j = 0; j < this->index_counts_[i]; j += 3, ++s)
-    {
       this->normals_[this->indices_[i][j]] += this->face_normals_[s];
       this->normals_[this->indices_[i][j + 1]] += this->face_normals_[s];
       this->normals_[this->indices_[i][j + 2]] += this->face_normals_[s];
@@ -331,22 +344,91 @@ void Mesh::RecalculateNormals(bool save_face_normals)
   {
     this->normals_[i] = this->normals_[i].Normalized();
   }
-  //if (this->format_ & GraphicsConstants::V_ATTR_TANGENT)
-  //{
-  //  for (T_UINT32 i = 0; i < this->vertex_count_; ++i)
-  //  {
-  //    const TVec3f normal = this->normals_[i];
-  //    const TVec3f tangent = normal.x == 0.0f && normal.z == 0.0f ? TVec3f::OuterProduct(normal, TVec3f::forward) : TVec3f::OuterProduct(normal, TVec3f::up);
-  //    this->tangents_[i].x = tangent.x;
-  //    this->tangents_[i].y = tangent.y;
-  //    this->tangents_[i].z = tangent.z;
-  //    this->tangents_[i].w = 1.0f;
-  //  }
-  //}
   if (!save_face_normals)
   {
     delete[] this->face_normals_;
     this->face_normals_ = nullptr;
+  }
+}
+
+void Mesh::RecalculateTangents()
+{
+  NATIVE_ASSERT(this->primitive_type_ == GraphicsConstants::PRIMITIVE_TRIANGLES, "まだできてません！");
+
+  NATIVE_ASSERT(this->format_ & GraphicsConstants::V_ATTR_NORMAL, "フォーマットに法線情報が含まれていません");
+  NATIVE_ASSERT(this->format_ & GraphicsConstants::V_ATTR_TANGENT, "フォーマットにtangentベクトル情報が含まれていません");
+
+  /*
+  https://answers.unity.com/questions/7789/calculating-tangents-vector4.html
+  */
+  for (T_UINT8 i = 0; i < this->submesh_count_; ++i)
+  {
+    TVec3f* tan0 = new TVec3f[this->index_counts_[i]];
+    TVec3f* tan1 = new TVec3f[this->index_counts_[i]];
+    
+    for (T_UINT32 j = 0; j < this->index_counts_[i]; j += 3)
+    {
+      const T_UINT32 i0 = this->indices_[i][j + 0];
+      const T_UINT32 i1 = this->indices_[i][j + 1];
+      const T_UINT32 i2 = this->indices_[i][j + 2];
+
+      const TVec3f& v0 = this->vertices_[i0];
+      const TVec3f& v1 = this->vertices_[i1];
+      const TVec3f& v2 = this->vertices_[i2];
+
+      const TVec2f& w0 = this->uvs_[i0];
+      const TVec2f& w1 = this->uvs_[i1];
+      const TVec2f& w2 = this->uvs_[i2];
+
+      const T_FLOAT x0 = v1.x - v0.x;
+      const T_FLOAT x1 = v2.x - v0.x;
+
+      const T_FLOAT y0 = v1.y - v0.y;
+      const T_FLOAT y1 = v2.y - v0.y;
+
+      const T_FLOAT z0 = v1.z - v0.z;
+      const T_FLOAT z1 = v2.z - v0.z;
+
+      const T_FLOAT s0 = w1.x - w0.x;
+      const T_FLOAT s1 = w2.x - w0.x;
+
+      const T_FLOAT t0 = w1.y - w0.y;
+      const T_FLOAT t1 = w2.y - w0.y;
+
+      const T_FLOAT div = s0 * t1 - s1 * t0;
+      const T_FLOAT r = div == 0.0f ? 0.0f : 1.0f / div;
+
+      const TVec3f sdir = TVec3f(
+        (t1 * x0 - t0 * x1) * r,
+        (t1 * y0 - t0 * y1) * r,
+        (t1 * z0 - t0 * z1) * r
+      );
+      const TVec3f tdir = TVec3f(
+        (s0 * x1 - s1 * x0) * r,
+        (s0 * y1 - s1 * y0) * r,
+        (s0 * z1 - s1 * z0) * r
+      );
+
+      tan0[i0] += sdir;
+      tan0[i1] += sdir;
+      tan0[i2] += sdir;
+
+      tan1[i0] += tdir;
+      tan1[i1] += tdir;
+      tan1[i2] += tdir;
+    }
+
+    for (T_UINT32 j = 0; j < this->index_counts_[i]; j++)
+    {
+      const T_UINT32 index = this->indices_[i][j];
+      const TVec3f n = this->normals_[index];
+      const TVec3f t = tan0[index];
+      const TVec3f tmp = (t - n * TVec3f::InnerProduct(n, t)).Normalized();
+      this->tangents_[index] = TVec4f(tmp.x, tmp.y, tmp.z, 0.0f);
+      this->tangents_[index].w = (TVec3f::InnerProduct(TVec3f::OuterProduct(n, t), tan1[index]) < 0.0f) ? -1.0f : 1.0f;
+    }
+    delete[] tan0;
+    delete[] tan1;
   }
 }
 
@@ -362,7 +444,59 @@ void Mesh::DrawSubset(T_UINT8 index) const
   this->vertex_buffer_->DrawIndexedPrimitive(this->index_buffers_[index], this->primitive_type_);
 }
 
-T_UINT32 Mesh::GetMemorySize()
+T_UINT32 Mesh::GetMemorySize() const
+{
+  T_UINT32 ret = sizeof(Mesh);
+  using namespace GraphicsConstants;
+  if (this->vertices_)
+  {
+    ret += VERTEX_ATTRIBUTE_SIZE(V_ATTR_POSITION) * this->vertex_count_;
+  }
+  if (this->normals_)
+  {
+    ret += VERTEX_ATTRIBUTE_SIZE(V_ATTR_NORMAL) * this->vertex_count_;
+  }
+  if (this->uvs_)
+  {
+    ret += VERTEX_ATTRIBUTE_SIZE(V_ATTR_UV) * this->vertex_count_;
+  }
+  if (this->uv2s_)
+  {
+    ret += VERTEX_ATTRIBUTE_SIZE(V_ATTR_UV2) * this->vertex_count_;
+  }
+  if (this->uv3s_)
+  {
+    ret += VERTEX_ATTRIBUTE_SIZE(V_ATTR_UV3) * this->vertex_count_;
+  }
+  if (this->uv4s_)
+  {
+    ret += VERTEX_ATTRIBUTE_SIZE(V_ATTR_UV4) * this->vertex_count_;
+  }
+  if (this->tangents_)
+  {
+    ret += VERTEX_ATTRIBUTE_SIZE(V_ATTR_TANGENT) * this->vertex_count_;
+  }
+  if (this->colors_)
+  {
+    ret += VERTEX_ATTRIBUTE_SIZE(V_ATTR_COLOR) * this->vertex_count_;
+  }
+  if (this->face_normals_)
+  {
+    ret += sizeof(TVec3f) * this->polygon_count_;
+  }
+  if (this->indices_)
+  {
+    for (T_UINT8 i = 0; i < submesh_count_; ++i)
+    {
+      ret += sizeof(T_UINT32) * this->index_counts_[i];
+    }
+    ret += sizeof(T_UINT32) * this->submesh_count_;
+    ret += sizeof(bool) * this->submesh_count_;
+  }
+  return ret;
+}
+
+T_UINT32 Mesh::GetVideoMemorySize() const
 {
   T_UINT32 ret = 0;
   if (this->vertex_buffer_)

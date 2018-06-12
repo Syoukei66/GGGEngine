@@ -6,6 +6,6 @@ namespace MeshFactory
 {
 namespace Sprite
 {
-Mesh* Create();
+Mesh* Create(bool readonly);
 }
 }

@@ -13,6 +13,7 @@ class Renderer : public GameComponent
   // =================================================================
 public:
   Renderer(GameObject* entity);
+  virtual ~Renderer() {}
 
   // =================================================================
   // Method
