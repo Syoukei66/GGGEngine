@@ -510,6 +510,9 @@
     <ClInclude Include="AnalogInput.h" />
     <ClInclude Include="UserResourcePool.h" />
     <ClInclude Include="Util.h" />
+    <ClInclude Include="Vector2.h" />
+    <ClInclude Include="Vector3.h" />
+    <ClInclude Include="Vector4.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Lambert.fx">
