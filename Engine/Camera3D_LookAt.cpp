@@ -90,36 +90,17 @@ void Camera3D_LookAt::CheckViewDirty()
   //ターゲットが存在しない時の処理
   else
   {
-    GameObject3D* player = ((GameObject3D*)this->entity_)->GetParent();
-    if (player)
-    {
-      this->current_look_at_pos_ = this->look_at_pos_;
+    this->current_look_at_pos_ = this->look_at_pos_;
 
-      const TVec3f camera_pos = this->GetEntity()->GetWorldMatrix().GetPosition3d();
-      TVec3f look_at_pos = this->look_at_pos_;
-      this->GetEntity()->GetWorldMatrix().Apply(&look_at_pos);
-      this->direction_ = (look_at_pos - camera_pos).Normalized();
-      this->view_matrix_->LookAtLH(
-        camera_pos,
-        look_at_pos,
-        this->GetEntity()->GetWorldMatrix().GetCameraYVec()
-      );
-    }
-    //プレイヤーが存在しない時の処理
-    else
-    {
-      this->current_look_at_pos_ = this->look_at_pos_;
-
-      const TVec3f camera_pos = this->GetEntity()->GetWorldMatrix().GetPosition3d();
-      TVec3f look_at_pos = this->look_at_pos_;
-      this->GetEntity()->GetWorldMatrix().Apply(&look_at_pos);
-      this->direction_ = (look_at_pos - camera_pos).Normalized();
-      this->view_matrix_->LookAtLH(
-        camera_pos,
-        look_at_pos,
-        this->GetEntity()->GetWorldMatrix().GetCameraYVec()
-      );
-    }
+    const TVec3f camera_pos = this->GetEntity()->GetWorldMatrix().GetPosition3d();
+    TVec3f look_at_pos = this->look_at_pos_;
+    this->GetEntity()->GetWorldMatrix().Apply(&look_at_pos);
+    this->direction_ = (look_at_pos - camera_pos).Normalized();
+    this->view_matrix_->LookAtLH(
+      camera_pos,
+      look_at_pos,
+      this->GetEntity()->GetWorldMatrix().GetCameraYVec()
+    );
   }
 
   this->view_dirty_ = false;
