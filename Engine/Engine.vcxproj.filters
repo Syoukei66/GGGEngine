@@ -364,6 +364,9 @@
     <Filter Include="ヘッダー ファイル\Eigen">
       <UniqueIdentifier>{65527833-19ab-41a2-851a-fefb9bbdf9de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Structure\Math\Matrix">
+      <UniqueIdentifier>{2558d164-d3fd-4d0c-af07-b1b595b85123}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ITextureRegion.cpp">
@@ -1376,9 +1379,6 @@
     <ClInclude Include="Geometry.h">
       <Filter>ヘッダー ファイル\Structure\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Matrix.h">
-      <Filter>ヘッダー ファイル\Structure\Math</Filter>
-    </ClInclude>
     <ClInclude Include="Vector2.h">
       <Filter>ヘッダー ファイル\Structure\Math</Filter>
     </ClInclude>
@@ -1395,6 +1395,18 @@
       <Filter>ヘッダー ファイル\Eigen</Filter>
     </ClInclude>
     <ClInclude Include="Eigen\Dense.h" />
+    <ClInclude Include="TranslationMatrix.h">
+      <Filter>ヘッダー ファイル\Structure\Math\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix4x4.h">
+      <Filter>ヘッダー ファイル\Structure\Math\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix4x3.h">
+      <Filter>ヘッダー ファイル\Structure\Math\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="ScalingMatrix.h">
+      <Filter>ヘッダー ファイル\Structure\Math\Matrix</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Default.fx">

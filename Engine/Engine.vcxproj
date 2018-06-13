@@ -100,8 +100,8 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <AdditionalIncludeDirectories>Lib\include;spine-c\include;FBX\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
-      <OpenMPSupport>true</OpenMPSupport>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <OpenMPSupport>false</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -120,8 +120,8 @@
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <TreatWarningAsError>false</TreatWarningAsError>
       <AdditionalIncludeDirectories>Lib\include;spine-c\include;FBX\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
-      <OpenMPSupport>true</OpenMPSupport>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <OpenMPSupport>false</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -357,7 +357,8 @@
     <ClInclude Include="JsonResource.h" />
     <ClInclude Include="LoopSprite.h" />
     <ClInclude Include="Mathf.h" />
-    <ClInclude Include="Matrix.h" />
+    <ClInclude Include="Matrix4x3.h" />
+    <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshBuilder.h" />
     <ClInclude Include="MeshBuilder_Cube.h" />
@@ -418,6 +419,7 @@
     <ClInclude Include="NativeObject.h" />
     <ClInclude Include="EngineAsset.h" />
     <ClInclude Include="ResourceLoader.h" />
+    <ClInclude Include="ScalingMatrix.h" />
     <ClInclude Include="ShaderProperties.h" />
     <ClInclude Include="ShaderResource.h" />
     <ClInclude Include="SoundResource.h" />
@@ -508,6 +510,7 @@
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Transform2D.h" />
     <ClInclude Include="Transform3D.h" />
+    <ClInclude Include="TranslationMatrix.h" />
     <ClInclude Include="UpdateEvent.h" />
     <ClInclude Include="EngineInput.h" />
     <ClInclude Include="Geometry.h" />
