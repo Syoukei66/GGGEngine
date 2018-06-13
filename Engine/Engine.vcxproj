@@ -684,13 +684,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DefaultProperty.hlsli" />
-    <ClInclude Include="Eigen\Core">
+    <ClInclude Include="Eigen\Core.h">
       <FileType>Document</FileType>
     </ClInclude>
-    <ClInclude Include="Eigen\Geometry">
+    <ClInclude Include="Eigen\Geometry.h">
       <FileType>Document</FileType>
     </ClInclude>
-    <ClInclude Include="Eigen\Dense">
+    <ClInclude Include="Eigen\Dense.h">
       <FileType>Document</FileType>
     </ClInclude>
   </ItemGroup>

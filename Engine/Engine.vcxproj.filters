@@ -1388,12 +1388,13 @@
     <ClInclude Include="Vector4.h">
       <Filter>ヘッダー ファイル\Structure\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Eigen\Core">
+    <ClInclude Include="Eigen\Geometry.h">
       <Filter>ヘッダー ファイル\Eigen</Filter>
     </ClInclude>
-    <ClInclude Include="Eigen\Geometry">
+    <ClInclude Include="Eigen\Core.h">
       <Filter>ヘッダー ファイル\Eigen</Filter>
     </ClInclude>
+    <ClInclude Include="Eigen\Dense.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Default.fx">
@@ -1421,9 +1422,6 @@
   <ItemGroup>
     <None Include="DefaultProperty.hlsli">
       <Filter>リソース ファイル\Shader</Filter>
-    </None>
-    <None Include="Eigen\Dense">
-      <Filter>ヘッダー ファイル\Eigen</Filter>
     </None>
   </ItemGroup>
 </Project>

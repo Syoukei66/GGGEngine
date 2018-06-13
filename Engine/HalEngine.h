@@ -80,8 +80,8 @@
   #include "Director.h"
 
 //Eigen
-  #include "Eigen/Core"
-  #include "Eigen\Geometry"
+  #include "Eigen\Core.h"
+  #include "Eigen\Geometry.h"
 
 //Engine
   #include "Engine.h"

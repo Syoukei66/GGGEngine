@@ -8,7 +8,7 @@
 #ifndef EIGEN_GEOMETRY_MODULE_H
 #define EIGEN_GEOMETRY_MODULE_H
 
-#include "Core"
+#include "Core.h"
 
 #include "src/Core/util/DisableStupidWarnings.h"
 
