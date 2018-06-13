@@ -8,28 +8,6 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-const Quaternion Quaternion::Lerp(Quaternion a, Quaternion b, T_FLOAT t)
-{
-  a = a.Normalized();
-  b = b.Normalized();
-  NATIVE_ASSERT(a.IsNormal(), "QuaternionÇ™ê≥ãKâªÇ≥ÇÍÇƒÇ¢Ç‹ÇπÇÒ");
-  NATIVE_ASSERT(b.IsNormal(), "QuaternionÇ™ê≥ãKâªÇ≥ÇÍÇƒÇ¢Ç‹ÇπÇÒ");
-  if (t <= 0.0f)
-  {
-    return a;
-  }
-  if (t >= 1.0f)
-  {
-    return b;
-  }
-  const T_FLOAT r = acosf(InnerProduct(a, b));
-  if (fabs(r) <= MathConstants::PI_1_2)
-  {
-    return (a * (1.0f - t) + b * t);
-  }
-  return (a * (1.0f - t) + b * -t);
-}
-
 const Quaternion Quaternion::LookRotation(const TVec3f& forward, const TVec3f& upwards)
 {
   const TVec3f n_upwards = upwards.Normalized();

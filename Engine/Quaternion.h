@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Eigen\Core"
-#include "Eigen\Geometry"
+#include "Eigen\Core.h"
+#include "Eigen\Geometry.h"
 
 #include "NativeMatrix.h"
 #include "Vector3.h"
@@ -37,8 +37,12 @@ public:
     : eigen(eigen)
   {}
   Quaternion(const TVec3f& v, T_FLOAT rad)
-    : eigen(rad, v.x, v.y, v.z)
-  {}
+  {
+    const T_FLOAT sin_ = sinf(rad / 2.0f);
+    const T_FLOAT cos_ = cosf(rad / 2.0f);
+    this->v_ = v.Normalized() * sin_;
+    this->w_ = cos_;
+  }
   Quaternion(T_FLOAT x, T_FLOAT y, T_FLOAT z, T_FLOAT w)
     : eigen(w, x, y, z)
   {}
@@ -72,36 +76,56 @@ public:
 public:
   static const Quaternion Eular(const TVec3f& eular_angles)
   {
-    Quaternion ret = Quaternion();
-    const T_FLOAT sin_ = sinf(0.0f);
-    const T_FLOAT cos_ = cosf(0.0f);
-    ret.v_ = eular_angles.Normalized() * sin_;
-    ret.w_ = cos_;
-    float cosY = cosf(eular_angles.y / 2.0f);
-    float sinY = sinf(eular_angles.y / 2.0f);
-    float cosP = cosf(eular_angles.x / 2.0f);
-    float sinP = sinf(eular_angles.x / 2.0f);
-    float cosR = cosf(eular_angles.z / 2.0f);
-    float sinR = sinf(eular_angles.z / 2.0f);
-    ret.v_.x = cosR * sinP * cosY + sinR * cosP * sinY;
-    ret.v_.y = cosR * cosP * sinY - sinR * sinP * cosY;
-    ret.v_.z = sinR * cosP * cosY - cosR * sinP * sinY;
-    ret.w_ = cosR * cosP * cosY + sinR * sinP * sinY;
-    return ret;
+    using namespace Eigen;
+    Quaternionf q = AngleAxisf(eular_angles.z, Vector3f::UnitZ())
+    * AngleAxisf(eular_angles.x, Vector3f::UnitX())
+    * AngleAxisf(eular_angles.y, Vector3f::UnitY());
+    return q;
   }
   //static const Quaternion Lerp(const Quaternion a, const Quaternion b, T_FLOAT t)
   //{
   //  return a + (b - a) * t;
   //}
-  static const Quaternion Lerp(const Quaternion a, const Quaternion b, T_FLOAT t);
-  static inline const Quaternion Slerp(const Quaternion a, const Quaternion b, T_FLOAT t)
+  static inline const Quaternion Lerp(const Quaternion& a, const Quaternion& b, T_FLOAT t)
   {
-    return Quaternion(a.eigen.slerp(t, b.eigen));
+    if (t <= 0.0f)
+    {
+      return a;
+    }
+    if (t >= 1.0f)
+    {
+      return b;
+    }
+    const T_FLOAT r = acosf(InnerProduct(a, b));
+    if (fabs(r) <= MathConstants::PI_1_2)
+    {
+      return (a + (b - a) * t).Normalized();
+    }
+    return (a + (b - a) * -t).Normalized();
+  }
+  static inline const Quaternion Slerp(const Quaternion& a, const Quaternion& b, T_FLOAT t)
+  {
+    if (t <= 0.0f)
+    {
+      return a;
+    }
+    if (t >= 1.0f)
+    {
+      return b;
+    }
+    const T_FLOAT r = acosf(InnerProduct(a, b));
+    if (fabs(r) <= MathConstants::PI_1_2)
+    {
+      return Quaternion(a.eigen.slerp(t, b.eigen));
+    }
+    return Quaternion(a.eigen.slerp(-t, b.eigen));
   }
   static const Quaternion LookRotation(const TVec3f& forward, const TVec3f& upwards = TVec3f(0.0f, 1.0f, 0.0f));
 
   static inline T_FLOAT InnerProduct(const Quaternion& a, const Quaternion& b)
   {
+    //return a.v_.x * b.v_.x + a.v_.y * b.v_.y + a.v_.z * b.v_.z + a.w_ * b.w_;
+    //return TVec3f::InnerProduct(a.v_, b.v_) + a.w_ * b.w_;
     return a.eigen.dot(b.eigen);
   }
 
@@ -160,11 +184,7 @@ public:
   }
   inline const Quaternion operator * (const Quaternion& other) const
   {
-    Quaternion ret = Quaternion();
-    ret.v_ = TVec3f::OuterProduct(this->v_, other.v_) + this->v_ * other.w_ + other.v_ * this->w_;
-    ret.w_ = this->w_ * other.w_ - TVec3f::InnerProduct(this->v_, other.v_);
-    return ret;
-    //return Quaternion(this->eigen * other.eigen);
+    return Quaternion(this->eigen * other.eigen);
   }
   inline Quaternion& operator *= (const Quaternion& other)
   {
