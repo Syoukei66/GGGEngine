@@ -84,6 +84,6 @@ protected:
   // Data Member
   // =================================================================
 private:
-  D3DXMATRIX* mat_;
+  D3DXMATRIX mat_;
   
 };
