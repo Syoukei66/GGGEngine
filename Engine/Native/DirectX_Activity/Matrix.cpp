@@ -294,14 +294,14 @@
 //
 //TVec3f Matrix4x4::operator*(const TVec3f& f) const
 //{
-//  TVec3f ret = f;
-//  const T_FLOAT x = ret.x;
-//  const T_FLOAT y = ret.y;
-//  const T_FLOAT z = ret.z;
-//  ret.x = (x * this->_11) + (y * this->_21) + (z * this->_31) + this->_41;
-//  ret.y = (x * this->_12) + (y * this->_22) + (z * this->_32) + this->_42;
-//  ret.z = (x * this->_13) + (y * this->_23) + (z * this->_33) + this->_43;
-//  return ret;
+  //TVec3f ret = f;
+  //const T_FLOAT x = ret.x;
+  //const T_FLOAT y = ret.y;
+  //const T_FLOAT z = ret.z;
+  //ret.x = (x * this->_11) + (y * this->_21) + (z * this->_31) + this->_41;
+  //ret.y = (x * this->_12) + (y * this->_22) + (z * this->_32) + this->_42;
+  //ret.z = (x * this->_13) + (y * this->_23) + (z * this->_33) + this->_43;
+  //return ret;
 //}
 //
 //TVec4f Matrix4x4::operator*(const TVec4f& f) const

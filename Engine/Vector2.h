@@ -7,6 +7,8 @@
 
 #include "EasingFunction.h"
 
+#include "Vector4.h"
+
 template <typename T>
 union TVec2
 {
@@ -68,6 +70,12 @@ public:
 public:
   operator Eigen::Matrix<T, 2, 1>() const
   {
+    return this->eigen;
+  }
+  operator Eigen::Matrix<T, 4, 1>() const
+  {
+    Eigen::Matrix<T, 4, 1> ret = this->eigen;
+    ret[3] = 1.0f;
     return this->eigen;
   }
 
@@ -220,6 +228,15 @@ public:
   {
     return this->eigen.isZero();
   }
+  //inline TVec4f ToVector4() const
+  //{
+  //  Eigen::Matrix<T, 4, 1> ret;
+  //  ret[0] = this->eigen[0];
+  //  ret[1] = this->eigen[1];
+  //  ret[2] = 0.0f;
+  //  ret[3] = 1.0f;
+  //  return TVec4<T>(this->eigen);
+  //}
 };
 
 // =================================================================

@@ -816,6 +816,9 @@
     <ClCompile Include="Quaternion.cpp">
       <Filter>ソース ファイル\Structure\Math</Filter>
     </ClCompile>
+    <ClCompile Include="Matrix4x4.cpp">
+      <Filter>ソース ファイル\Structure\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -1409,6 +1412,9 @@
     <ClInclude Include="Eigen\Dense.h">
       <Filter>ヘッダー ファイル\Eigen</Filter>
     </ClInclude>
+    <ClInclude Include="Matrix4x4.inl">
+      <Filter>ヘッダー ファイル\Structure\Math\Matrix</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Default.fx">
@@ -1436,9 +1442,6 @@
   <ItemGroup>
     <None Include="DefaultProperty.hlsli">
       <Filter>リソース ファイル\Shader</Filter>
-    </None>
-    <None Include="Matrix4x4.inl">
-      <Filter>ソース ファイル\Structure\Math</Filter>
     </None>
   </ItemGroup>
 </Project>

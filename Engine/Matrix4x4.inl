@@ -1,4 +1,4 @@
-#include "Matrix4x4.h"
+#pragma once
 
 #include "TranslationMatrix.h"
 #include "Quaternion.h"
@@ -10,9 +10,6 @@
 //  ret = ScalingMatrix(s.eigen) * q.eigen * TranslationMatrix(pos.eigen);
 //  return Matrix4x4(ret.matrix());
 //}
-
-const Matrix4x4 Matrix4x4::identity = Matrix4x4(Eigen::Matrix4f::Identity());
-const Matrix4x4 Matrix4x4::zero = Matrix4x4(Eigen::Matrix4f::Zero());
 
 Matrix4x4 Matrix4x4::TRS(const TranslationMatrix& t, const Quaternion& r, const ScalingMatrix& s)
 {

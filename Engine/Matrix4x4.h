@@ -195,11 +195,23 @@ public:
   }
   inline TVec2f operator * (const TVec2f& f) const
   {
-    return TVec2f(this->eigen * f.eigen);
+    TVec2f ret = f;
+    const T_FLOAT x = ret.x;
+    const T_FLOAT y = ret.y;
+    ret.x = (x * this->_11) + (y * this->_21) + this->_41;
+    ret.y = (x * this->_12) + (y * this->_22) + this->_42;
+    return ret;
   }
   inline TVec3f operator * (const TVec3f& f) const
   {
-    return TVec3f(this->eigen * f.eigen);
+    TVec3f ret = f;
+    const T_FLOAT x = ret.x;
+    const T_FLOAT y = ret.y;
+    const T_FLOAT z = ret.z;
+    ret.x = (x * this->_11) + (y * this->_21) + (z * this->_31) + this->_41;
+    ret.y = (x * this->_12) + (y * this->_22) + (z * this->_32) + this->_42;
+    ret.z = (x * this->_13) + (y * this->_23) + (z * this->_33) + this->_43;
+    return ret;
   }
   inline TVec4f operator * (const TVec4f& f) const
   {

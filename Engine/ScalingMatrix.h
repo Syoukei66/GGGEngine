@@ -73,17 +73,17 @@ public:
   {
     return this->eigen;
   }
-  inline operator Matrix4x4() const
-  {
-    return Matrix4x4(Eigen::Matrix4f(this->eigen.toDenseMatrix()));
-  }
+  //inline operator Matrix4x4() const
+  //{
+  //  return Matrix4x4(Eigen::Matrix4f(this->eigen.toDenseMatrix()));
+  //}
 
   // =================================================================
   // Methods
   // =================================================================
 public:
-  inline Matrix4x4 ToMatrix()
-  {
-    return Matrix4x4(Eigen::Matrix4f(this->eigen.toDenseMatrix()));
-  }
+  //inline Matrix4x4 ToMatrix()
+  //{
+  //  return Matrix4x4(Eigen::Matrix4f(this->eigen.toDenseMatrix()));
+  //}
 };
