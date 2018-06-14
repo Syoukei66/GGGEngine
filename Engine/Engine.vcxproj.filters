@@ -1435,5 +1435,8 @@
     <None Include="DefaultProperty.hlsli">
       <Filter>リソース ファイル\Shader</Filter>
     </None>
+    <None Include="Matrix4x4.inl">
+      <Filter>ソース ファイル\Structure\Math</Filter>
+    </None>
   </ItemGroup>
 </Project>

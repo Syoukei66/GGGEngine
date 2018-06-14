@@ -58,7 +58,7 @@ public:
     : eigen(other.eigen)
   {}
 
-  TVec3<T>& operator = (const TVec3<T>& other)
+  inline TVec3<T>& operator = (const TVec3<T>& other)
   {
     this->eigen = other.eigen;
     return *this;

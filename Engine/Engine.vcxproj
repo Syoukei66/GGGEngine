@@ -696,6 +696,7 @@
     <ClInclude Include="Eigen\Dense.h">
       <FileType>Document</FileType>
     </ClInclude>
+    <None Include="Matrix4x4.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

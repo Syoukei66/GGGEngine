@@ -7,6 +7,7 @@
 
 #include "Vector2.h"
 #include "Vector3.h"
+#include "Matrix4x4.h"  
 
 union ScalingMatrix
 {
@@ -31,44 +32,61 @@ public:
   // Constructor
   // =================================================================
 public:
-  //ScalingMatrix(T_FLOAT value)
-  //  : eigen
-  //{
-  //  return Matrix4x4(Eigen::Scaling(value, value, value));
-  //}
-  //ScalingMatrix(T_FLOAT x, T_FLOAT y)
-  //{
-  //  return Matrix4x4(Eigen::Scaling(x, y, 1.0f));
-  //}
-  //ScalingMatrix(const TVec2f& value)
-  //{
-  //  return Matrix4x4(Eigen::Scaling(value.x, value.y, 1.0f));
-  //}
-  //ScalingMatrix(T_FLOAT x, T_FLOAT y, T_FLOAT z)
-  //{
-  //  return Matrix4x4(Eigen::Scaling(x, y, z));
-  //}
-  //ScalingMatrix(const TVec3f& value)
-  //{
-  //  return Matrix4x4(Eigen::Scaling(value.x, value.y, value.z));
-  //}
-  //ScalingMatrix(T_FLOAT x)
-  //{
-  //  return Matrix4x4(Eigen::Scaling(x, 1.0f, 1.0f));
-  //}
-  //ScalingMatrix(T_FLOAT y)
-  //{
-  //  return Matrix4x4(Eigen::Scaling(1.0f, y, 1.0f));
-  //}
-  //ScalingMatrix(T_FLOAT z)
-  //{
-  //  return Matrix4x4(Eigen::Scaling(1.0f, 1.0f, z));
-  //}
-
+  ScalingMatrix(T_FLOAT value)
+    : eigen(Eigen::Scaling(value, value, value))
+  {}
+  ScalingMatrix(T_FLOAT x, T_FLOAT y)
+    : eigen(Eigen::Scaling(x, y, 1.0f))
+  {}
+  ScalingMatrix(const TVec2f& value)
+    : eigen(Eigen::Scaling(value.x, value.y, 1.0f))
+  {}
+  ScalingMatrix(T_FLOAT x, T_FLOAT y, T_FLOAT z)
+    : eigen(Eigen::Scaling(x, y, z))
+  {}
+  ScalingMatrix(const TVec3f& value)
+    : eigen(Eigen::Scaling(value.x, value.y, value.z))
+  {}
+  ScalingMatrix(const Eigen::Vector3f& eigen)
+    : eigen(eigen)
+  {}
+  ScalingMatrix(const Eigen::Vector3f& eigen)
+    : eigen(eigen)
+  {}
 
   // =================================================================
   // Copy Constructor / Assign operator
   // =================================================================
 public:
+  ScalingMatrix(const ScalingMatrix& other)
+    : eigen(other.eigen)
+  {}
 
+  inline ScalingMatrix& operator = (const ScalingMatrix& other)
+  {
+    this->eigen = other.eigen;
+    return *this;
+  }
+
+  // =================================================================
+  // Cast Operator
+  // =================================================================
+public:
+  inline operator Eigen::DiagonalMatrix<T_FLOAT, 3>() const
+  {
+    return this->eigen;
+  }
+  inline operator Matrix4x4() const
+  {
+    return Matrix4x4(Eigen::Matrix4f(this->eigen.toDenseMatrix()));
+  }
+
+  // =================================================================
+  // Methods
+  // =================================================================
+public:
+  inline Matrix4x4 ToMatrix()
+  {
+    return Matrix4x4(Eigen::Matrix4f(this->eigen.toDenseMatrix()));
+  }
 };

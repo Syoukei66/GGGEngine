@@ -2,7 +2,14 @@
 
 #include "NativeType.h"
 #include "Geometry.h"
-#include "Quaternion.h"
+
+#include "Vector2.h"  
+#include "Vector3.h"  
+#include "Vector4.h"  
+
+union TranslationMatrix;
+union Quaternion;
+union ScalingMatrix;
 
 union Matrix4x4
 {
@@ -91,17 +98,67 @@ public:
 public:
   static inline Matrix4x4 Frustum(T_FLOAT left, T_FLOAT right, T_FLOAT bottom, T_FLOAT top, T_FLOAT z_near, T_FLOAT z_far)
   {
-  }
-  static inline Matrix4x4 LookAt(const TVec3f& from, const TVec3f& to, const TVec3f& up)
-  {
+    Eigen::Matrix4f ret = Eigen::Matrix4f::Zero();
+    ret(0, 0) = (2.0f * z_near) / (right - left);
+    ret(1, 1) = (2.0f * z_near) / (top - bottom);
+    ret(0, 2) = (right + left) / (right - left);
+    ret(1, 2) = (top + bottom) / (top - bottom);
+    ret(2, 2) = -(z_far + z_near) / (z_far - z_near);
+    ret(3, 2) = -1.0f;
+    ret(2, 3) = -(2.0 * z_far * z_near) / (z_far - z_near);
+    return ret;
   }
   static inline Matrix4x4 Ortho(T_FLOAT left, T_FLOAT right, T_FLOAT bottom, T_FLOAT top, T_FLOAT z_near, T_FLOAT z_far)
   {
+    Eigen::Matrix4f ret = Eigen::Matrix4f::Zero();
+    ret(0, 0) = 2.0f / (right - left);
+    ret(1, 1) = 2.0f / (top - bottom);
+    ret(2, 2) = -2.0f / (z_far - z_near);
+    ret(3, 0) = -(right + left) / (right - left);
+    ret(3, 1) = -(top + bottom) / (top - bottom);
+    ret(3, 2) = -(z_far + z_near) / (z_far - z_near);
+    ret(3, 3) = 1.0f;
+    return ret;
   }
   static inline Matrix4x4 Perspective(T_FLOAT fov, T_FLOAT aspect, T_FLOAT z_near, T_FLOAT z_far)
   {
+    Eigen::Matrix4f ret = Eigen::Matrix4f::Zero();
+    const T_FLOAT h = 1.0f / tanf(fov * 0.5f);
+    const T_FLOAT w = h / aspect;
+    ret(0, 0) = w;
+    ret(1, 1) = h;
+    ret(2, 2) = z_far / (z_far - z_near);
+    ret(2, 3) = 1.0f;
+    ret(3, 2) = -z_near * z_far / (z_far - z_near);
+    return ret;
   }
-  static inline Matrix4x4 TRS(const TVec3f& pos, const Quaternion& q, const TVec3f& s);
+  static inline Matrix4x4 LookAt(const TVec3f& eye, const TVec3f& at, const TVec3f& up)
+  {
+    const TVec3f z_axis = (at - eye).Normalized();
+    const TVec3f x_axis = (TVec3f::OuterProduct(up, z_axis)).Normalized();
+    const TVec3f y_axis = TVec3f::OuterProduct(z_axis, x_axis);
+    Eigen::Matrix4f ret = Eigen::Matrix4f::Zero();
+
+    ret(0, 0) = x_axis.x;
+    ret(0, 1) = y_axis.x;
+    ret(0, 2) = z_axis.x;
+
+    ret(1, 0) = x_axis.y;
+    ret(1, 1) = y_axis.y;
+    ret(1, 2) = z_axis.y;
+
+    ret(2, 0) = x_axis.z;
+    ret(2, 1) = y_axis.z;
+    ret(2, 2) = z_axis.z;
+
+    ret(3, 0) = -TVec3f::InnerProduct(x_axis, eye);
+    ret(3, 1) = -TVec3f::InnerProduct(y_axis, eye);
+    ret(3, 2) = -TVec3f::InnerProduct(z_axis, eye);
+    ret(3, 3) = 1.0f;
+
+    return ret;
+  }
+  static inline Matrix4x4 TRS(const TranslationMatrix& t, const Quaternion& r, const ScalingMatrix& s);
 
   // =================================================================
   // Operator
@@ -211,3 +268,5 @@ public:
   }
 
 };
+
+#include "Matrix4x4.inl"
