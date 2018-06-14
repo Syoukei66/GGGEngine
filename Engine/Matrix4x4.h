@@ -40,11 +40,13 @@ public:
   // =================================================================
 public:
   Matrix4x4()
-    : eigen(Eigen::Matrix4f::Identity())
-  {}
+  {
+    //this->eigen = Eigen::Matrix4f::Identity();
+  }
   Matrix4x4(const Eigen::Matrix4f& mat)
-    : eigen(mat)
-  {}
+  {
+    //this->eigen = mat;
+  }
   Matrix4x4(const T_FLOAT m[4][4])
     : _11(m[0][0]), _12(m[0][1]), _13(m[0][2]), _14(m[0][3])
     , _21(m[1][0]), _22(m[1][1]), _23(m[1][2]), _24(m[1][3])
@@ -213,6 +215,9 @@ public:
     return this->eigen != other.eigen;
   }
 
+  // =================================================================
+  // Methods
+  // =================================================================
 public:
   inline Matrix4x4 Inverse() const
   {
@@ -221,6 +226,160 @@ public:
   inline Matrix4x4 Transpose() const
   {
     return Matrix4x4(this->eigen.transpose());
+  }
+
+  inline void Translation(T_FLOAT x, T_FLOAT y)
+  {
+    *this = Matrix4x4::identity;
+    this->_14 = x;
+    this->_24 = y;
+  }
+  inline void Translation(const TVec2f& value)
+  {
+    *this = Matrix4x4::identity;
+    this->_14 = value.x;
+    this->_24 = value.y;
+  }
+  inline void Translation(T_FLOAT x, T_FLOAT y, T_FLOAT z)
+  {
+    *this = Matrix4x4::identity;
+    this->_14 = x;
+    this->_24 = y;
+    this->_34 = z;
+  }
+  inline void Translation(const TVec3f& value)
+  {
+    *this = Matrix4x4::identity;
+    this->_14 = value.x;
+    this->_24 = value.y;
+    this->_34 = value.z;
+  }
+  inline void TranslationX(T_FLOAT x)
+  {
+    *this = Matrix4x4::identity;
+    this->_14 = x;
+  }
+  inline void TranslationY(T_FLOAT y)
+  {
+    *this = Matrix4x4::identity;
+    this->_24 = y;
+  }
+  inline void TranslationZ(T_FLOAT z)
+  {
+    *this = Matrix4x4::identity;
+    this->_34 = z;
+  }
+
+  inline void Scaling(T_FLOAT value)
+  {
+    *this = Matrix4x4::identity;
+    this->_11 = value;
+    this->_22 = value;
+    this->_33 = value;
+  }
+  inline void Scaling(T_FLOAT x, T_FLOAT y)
+  {
+    *this = Matrix4x4::identity;
+    this->_11 = x;
+    this->_22 = y;
+  }
+  inline void Scaling(const TVec2f& value)
+  {
+    *this = Matrix4x4::identity;
+    this->_11 = value.x;
+    this->_22 = value.y;
+  }
+  inline void Scaling(T_FLOAT x, T_FLOAT y, T_FLOAT z)
+  {
+    *this = Matrix4x4::identity;
+    this->_11 = x;
+    this->_22 = y;
+    this->_33 = z;
+  }
+  inline void Scaling(const TVec3f& value)
+  {
+    *this = Matrix4x4::identity;
+    this->_11 = value.x;
+    this->_22 = value.y;
+    this->_33 = value.z;
+  }
+  inline void ScalingX(T_FLOAT x)
+  {
+    *this = Matrix4x4::identity;
+    this->_11 = x;
+  }
+  inline void ScalingY(T_FLOAT y)
+  {
+    *this = Matrix4x4::identity;
+    this->_22 = y;
+  }
+  inline void ScalingZ(T_FLOAT z)
+  {
+    *this = Matrix4x4::identity;
+    this->_33 = z;
+  }
+
+  inline void Rotation(T_FLOAT x, T_FLOAT y)
+  {
+    //this->RotationY(y);
+    //Matrix4x4 y_mat = *this;
+    //this->RotationX(x);
+    //this->eigen = this->eigen * y_mat.eigen;
+  }
+  inline void Rotation(const TVec2f& value)
+  {
+    //this->RotationY(value.y);
+    //Matrix4x4 y_mat = *this;
+    //this->RotationX(value.x);
+    //this->eigen = this->eigen * y_mat.eigen;
+  }
+  inline void Rotation(T_FLOAT x, T_FLOAT y, T_FLOAT z)
+  {
+    //this->RotationY(y);
+    //Matrix4x4 y_mat = *this;
+    //this->RotationX(x);
+    //Matrix4x4 x_mat = *this;
+    //this->RotationZ(z);
+    //this->eigen = this->eigen * x_mat.eigen * y_mat.eigen;
+  }
+  inline void Rotation(const TVec3f& value)
+  {
+    //this->RotationY(value.y);
+    //Matrix4x4 y_mat = *this;
+    //this->RotationX(value.x);
+    //Matrix4x4 x_mat = *this;
+    //this->RotationZ(value.z);
+    //this->eigen = this->eigen * x_mat.eigen * y_mat.eigen;
+  }
+  inline void RotationX(T_FLOAT x)
+  {
+    //const T_FLOAT sin_x = sinf(x);
+    //const T_FLOAT cos_x = cosf(x);
+    //*this = Matrix4x4::identity;
+    //this->_22 = cos_x;
+    //this->_23 = sin_x;
+    //this->_32 =-sin_x;
+    //this->_33 = cos_x;
+  }
+  inline void RotationY(T_FLOAT y)
+  {
+    //const T_FLOAT sin_y = sinf(y);
+    //const T_FLOAT cos_y = cosf(y);
+    //*this = Matrix4x4::identity;
+    //this->_11 = cos_y;
+    //this->_13 =-sin_y;
+    //this->_31 = sin_y;
+    //this->_33 = cos_y;
+  }
+  inline void RotationZ(T_FLOAT z)
+  {
+    //const T_FLOAT sin_z = sinf(z);
+    //const T_FLOAT cos_z = cosf(z);
+    //*this = Matrix4x4::identity;
+    //this->_11 = cos_z;
+    //this->_12 = sin_z;
+    //this->_21 =-sin_z;
+    //this->_22 = cos_z;
   }
 
   inline TVec2f GetDirection2d() const

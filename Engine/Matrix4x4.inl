@@ -11,6 +11,9 @@
 //  return Matrix4x4(ret.matrix());
 //}
 
+const Matrix4x4 Matrix4x4::identity = Matrix4x4(Eigen::Matrix4f::Identity());
+const Matrix4x4 Matrix4x4::zero = Matrix4x4(Eigen::Matrix4f::Zero());
+
 Matrix4x4 Matrix4x4::TRS(const TranslationMatrix& t, const Quaternion& r, const ScalingMatrix& s)
 {
   Eigen::Affine3f ret;

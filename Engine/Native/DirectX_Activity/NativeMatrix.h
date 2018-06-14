@@ -4,6 +4,7 @@
 #include <d3dx9.h>
 
 #include <NativeMatrix.h>
+#include <Matrix4x4.h>
 
 class NativeMatrix : public INativeMatrix
 {
@@ -84,6 +85,6 @@ protected:
   // Data Member
   // =================================================================
 private:
-  D3DXMATRIX mat_;
+  Matrix4x4 mat_;
   
 };

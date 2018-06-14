@@ -48,10 +48,6 @@ public:
     : eigen(x, y, z)
   {}
 
-  TranslationMatrix(const TVec2f& value)
-    : eigen(value.x, value.y, 0.0f)
-  {}
-
   TranslationMatrix(const Eigen::Vector3f& eigen)
     : eigen(eigen)
   {}

@@ -50,9 +50,6 @@ public:
   ScalingMatrix(const Eigen::Vector3f& eigen)
     : eigen(eigen)
   {}
-  ScalingMatrix(const Eigen::Vector3f& eigen)
-    : eigen(eigen)
-  {}
 
   // =================================================================
   // Copy Constructor / Assign operator

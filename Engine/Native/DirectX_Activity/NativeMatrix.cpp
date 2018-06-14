@@ -8,20 +8,20 @@
 // =================================================================
 NativeMatrix::NativeMatrix()
 {
-  this->SetNativeInstance<D3DXMATRIX>(&this->mat_);
+  this->SetNativeInstance<Matrix4x4>(&this->mat_);
   this->Init();
 }
 
 NativeMatrix::NativeMatrix(NativeMatrixInstance* instance)
   : INativeMatrix(instance)
 {
-  this->mat_ = *GetNativeInstance<D3DXMATRIX>();
+  this->mat_ = *GetNativeInstance<Matrix4x4>();
 }
 
 NativeMatrix::NativeMatrix(const NativeMatrix& mat)
   : INativeMatrix(mat.GetNativeInstance())
 {
-  this->mat_ = *GetNativeInstance<D3DXMATRIX>();
+  this->mat_ = *GetNativeInstance<Matrix4x4>();
 }
 
 NativeMatrix::~NativeMatrix()
@@ -32,202 +32,164 @@ NativeMatrix::~NativeMatrix()
 // =================================================================
 void NativeMatrix::Init()
 {
-  D3DXMatrixIdentity(&this->mat_);
+  this->mat_ = this->mat_.identity;
 }
 
 void NativeMatrix::Assign(NativeMatrixInstance* mat)
 {
-  D3DXMatrixIdentity(&this->mat_);
-  D3DXMatrixMultiply(&this->mat_, &this->mat_, (D3DXMATRIX*)mat);
+  this->mat_ = *((Matrix4x4*)mat);
 }
 
 void NativeMatrix::Assign(const INativeMatrix& mat)
 {
-  D3DXMatrixIdentity(&this->mat_);
-  D3DXMatrixMultiply(&this->mat_, &this->mat_, &((const NativeMatrix&)mat).mat_);
+  this->mat_ = *((Matrix4x4*)mat.GetNativeInstance());
 }
 
 void NativeMatrix::Multiple(const INativeMatrix& mat)
 {
-  D3DXMatrixMultiply(&this->mat_, &this->mat_, &((const NativeMatrix&)mat).mat_);
+  this->mat_ *= *((Matrix4x4*)mat.GetNativeInstance());
 }
 
 void NativeMatrix::MultipleReverse(const INativeMatrix & mat)
 {
-  D3DXMatrixMultiply(&this->mat_, &((const NativeMatrix&)mat).mat_, &this->mat_);
+  this->mat_ = *((Matrix4x4*)mat.GetNativeInstance()) * this->mat_;
 }
 
 void NativeMatrix::Inverse()
 {
-  D3DXMatrixInverse(&this->mat_, nullptr, &this->mat_);
+  this->mat_ = this->mat_.Inverse();
 }
 
 void NativeMatrix::Inverse(INativeMatrix* dest) const
 {
-  D3DXMatrixInverse(&((NativeMatrix*)dest)->mat_, nullptr, &this->mat_);
+  *((Matrix4x4*)dest->GetNativeInstance()) = this->mat_.Inverse();
 }
 
 void NativeMatrix::Translation(T_FLOAT x, T_FLOAT y)
 {
-  D3DXMatrixTranslation(&this->mat_, x, y, 0.0f);
+  this->mat_.Translation(x, y);
 }
 
 void NativeMatrix::Translation(const TVec2f& value)
 {
-  D3DXMatrixTranslation(&this->mat_, value.x, value.y, 0.0f);
+  this->mat_.Translation(value.x, value.y);
 }
 
 void NativeMatrix::Translation(T_FLOAT x, T_FLOAT y, T_FLOAT z)
 {
-  D3DXMatrixTranslation(&this->mat_, x, y, z);
+  this->mat_.Translation(x, y, z);
 }
 
 void NativeMatrix::Translation(const TVec3f& value)
 {
-  D3DXMatrixTranslation(&this->mat_, value.x, value.y, value.z);
+  this->mat_.Translation(value.x, value.y, value.z);
 }
 
 void NativeMatrix::TranslationX(T_FLOAT x)
 {
-  D3DXMatrixTranslation(&this->mat_, x, 0.0f, 0.0f);
+  this->mat_.TranslationX(x);
 }
 
 void NativeMatrix::TranslationY(T_FLOAT y)
 {
-  D3DXMatrixTranslation(&this->mat_, 0.0f, y, 0.0f);
+  this->mat_.TranslationY(y);
 }
 
 void NativeMatrix::TranslationZ(T_FLOAT z)
 {
-  D3DXMatrixTranslation(&this->mat_, 0.0f, 0.0f, z);
+  this->mat_.TranslationZ(z);
 }
 
 void NativeMatrix::Scaling(T_FLOAT value)
 {
-  D3DXMatrixScaling(&this->mat_, value, value, value);
+  this->mat_.Scaling(value);
 }
 
 void NativeMatrix::Scaling(T_FLOAT x, T_FLOAT y)
 {
-  D3DXMatrixScaling(&this->mat_, x, y, 1.0f);
+  this->mat_.Scaling(x, y);
 }
 
 void NativeMatrix::Scaling(const TVec2f& value)
 {
-  D3DXMatrixScaling(&this->mat_, value.x, value.y, 1.0f);
+  this->mat_.Scaling(value);
 }
 
 void NativeMatrix::Scaling(T_FLOAT x, T_FLOAT y, T_FLOAT z)
 {
-  D3DXMatrixScaling(&this->mat_, x, y, z);
+  this->mat_.Scaling(x, y, z);
 }
 
 void NativeMatrix::Scaling(const TVec3f& value)
 {
-  D3DXMatrixScaling(&this->mat_, value.x, value.y, value.z);
+  this->mat_.Scaling(value);
 }
 
 void NativeMatrix::ScalingX(T_FLOAT x)
 {
-  D3DXMatrixScaling(&this->mat_, x, 1.0f, 1.0f);
+  this->mat_.ScalingX(x);
 }
 
 void NativeMatrix::ScalingY(T_FLOAT y)
 {
-  D3DXMatrixScaling(&this->mat_, 1.0f, y, 1.0f);
+  this->mat_.ScalingY(y);
 }
 
 void NativeMatrix::ScalingZ(T_FLOAT z)
 {
-  D3DXMatrixScaling(&this->mat_, 1.0f, 1.0f, z);
+  this->mat_.ScalingZ(z);
 }
 
 void NativeMatrix::Rotation(T_FLOAT x, T_FLOAT y)
 {
-  D3DXMatrixRotationX(&this->mat_, x);
-
-  D3DXMATRIX mat;
-  D3DXMatrixRotationY(&mat, y);
-  D3DXMatrixMultiply(&this->mat_, &mat, &this->mat_);
+  this->mat_.Rotation(x, y);
 }
 
 void NativeMatrix::Rotation(const TVec2f& value)
 {
-  D3DXMatrixRotationX(&this->mat_, value.x);
-
-  D3DXMATRIX mat;
-  D3DXMatrixRotationY(&mat, value.y);
-  D3DXMatrixMultiply(&this->mat_, &mat, &this->mat_);
+  this->mat_.Rotation(value.x, value.y);
 }
 
 void NativeMatrix::Rotation(T_FLOAT x, T_FLOAT y, T_FLOAT z)
 {
-  D3DXMatrixRotationZ(&this->mat_, z);
-
-  D3DXMATRIX mat;
-  D3DXMatrixRotationX(&mat, x);
-  D3DXMatrixMultiply(&this->mat_, &mat, &this->mat_);
-  D3DXMatrixRotationY(&mat, y);
-  D3DXMatrixMultiply(&this->mat_, &mat, &this->mat_);
+  this->mat_.Rotation(x, y, z);
 }
 
 void NativeMatrix::Rotation(const TVec3f& value)
 {
-  D3DXMatrixRotationZ(&this->mat_, value.z);
-
-  D3DXMATRIX mat;
-  D3DXMatrixRotationX(&mat, value.x);
-  D3DXMatrixMultiply(&this->mat_, &mat, &this->mat_);
-  D3DXMatrixRotationY(&mat, value.y);
-  D3DXMatrixMultiply(&this->mat_, &mat, &this->mat_);
+  this->mat_.Rotation(value.x, value.y, value.z);
 }
 
 void NativeMatrix::RotationX(T_FLOAT x)
 {
-  D3DXMatrixRotationX(&this->mat_, x);
+  this->mat_.RotationX(x);
 }
 
 void NativeMatrix::RotationY(T_FLOAT y)
 {
-  D3DXMatrixRotationY(&this->mat_, y);
+  this->mat_.RotationY(y);
 }
 
 void NativeMatrix::RotationZ(T_FLOAT z)
 {
-  D3DXMatrixRotationZ(&this->mat_, z);
+  this->mat_.RotationZ(z);
 }
-
 
 void NativeMatrix::LookAtLH(const TVec3f& camera_pos, const TVec3f& camera_at, const TVec3f& camera_up)
 {
-  D3DXMatrixLookAtLH(
-    &this->mat_,
-    &D3DXVECTOR3(camera_pos.x, camera_pos.y, camera_pos.z),
-    &D3DXVECTOR3(camera_at.x, camera_at.y, camera_at.z),
-    &D3DXVECTOR3(camera_up.x, camera_up.y, camera_up.z)
-  );
+  this->mat_.LookAt(camera_pos, camera_at, camera_up);
 }
 
 void NativeMatrix::PerspectiveFovLH(T_FLOAT field_of_view_y, T_FLOAT aspect_ratio, T_FLOAT z_near, T_FLOAT z_far)
 {
-  D3DXMatrixPerspectiveFovLH(
-    &this->mat_,
-    field_of_view_y,
-    aspect_ratio,
-    z_near,
-    z_far
-  );
+  this->mat_.Perspective(field_of_view_y, aspect_ratio, z_far, z_far);
 }
 
 void NativeMatrix::OrthoLH(T_FLOAT width, T_FLOAT height, T_FLOAT z_near, T_FLOAT z_far)
 {
-  D3DXMatrixOrthoLH(
-    &this->mat_,
-    width,
-    height,
-    z_near,
-    z_far
-  );
+  const T_FLOAT x = width * 0.5f;
+  const T_FLOAT y = height * 0.5f;
+  this->mat_.Ortho(-x, x, -y, y, z_near, z_far);
 }
 
 void NativeMatrix::Apply(TVec2f* dest) const
