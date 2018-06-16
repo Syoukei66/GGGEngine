@@ -20,8 +20,6 @@ public:
 public:
   virtual T_UINT16 GetWidth() const override;
   virtual T_UINT16 GetHeight() const override;
-  virtual T_UINT16 GetTwoPoweredWidth() const override;
-  virtual T_UINT16 GetTwoPoweredHeight() const override;
 
   virtual void RenderBegin(bool clear) override;
   virtual void RenderEnd() override;
@@ -30,8 +28,6 @@ public:
   // Data Members
   // =================================================================
 private:
-  TSize size_;
-
   D3DSURFACE_DESC desc_;
   LPDIRECT3DTEXTURE9 texture_;
   LPDIRECT3DSURFACE9 texture_surface_;

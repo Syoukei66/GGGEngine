@@ -38,8 +38,8 @@ TextureRegion::~TextureRegion()
 // =================================================================
 void TextureRegion::OnUpdateTextureCoord(const INativeTexture* texture)
 {
-  const T_FLOAT tw = (T_FLOAT)texture->GetTwoPoweredWidth();
-  const T_FLOAT th = (T_FLOAT)texture->GetTwoPoweredHeight();
+  const T_FLOAT tw = (T_FLOAT)texture->GetWidth();
+  const T_FLOAT th = (T_FLOAT)texture->GetHeight();
   const T_FLOAT x = this->GetX();
   const T_FLOAT y = this->GetY();
   const T_FLOAT w = this->GetWidth();
