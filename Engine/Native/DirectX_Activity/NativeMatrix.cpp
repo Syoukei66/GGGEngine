@@ -177,19 +177,19 @@ void NativeMatrix::RotationZ(T_FLOAT z)
 
 void NativeMatrix::LookAtLH(const TVec3f& camera_pos, const TVec3f& camera_at, const TVec3f& camera_up)
 {
-  this->mat_.LookAt(camera_pos, camera_at, camera_up);
+  this->mat_ = Matrix4x4::LookAt(camera_pos, camera_at, camera_up);
 }
 
 void NativeMatrix::PerspectiveFovLH(T_FLOAT field_of_view_y, T_FLOAT aspect_ratio, T_FLOAT z_near, T_FLOAT z_far)
 {
-  this->mat_.Perspective(field_of_view_y, aspect_ratio, z_far, z_far);
+  this->mat_ = Matrix4x4::Perspective(field_of_view_y, aspect_ratio, z_near, z_far);
 }
 
 void NativeMatrix::OrthoLH(T_FLOAT width, T_FLOAT height, T_FLOAT z_near, T_FLOAT z_far)
 {
   const T_FLOAT x = width * 0.5f;
   const T_FLOAT y = height * 0.5f;
-  this->mat_.Ortho(-x, x, -y, y, z_near, z_far);
+  this->mat_ = Matrix4x4::Ortho(-x, x, -y, y, z_near, z_far);
 }
 
 void NativeMatrix::Apply(TVec2f* dest) const

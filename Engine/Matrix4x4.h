@@ -33,7 +33,7 @@ public:
   };
   T_FLOAT m[4][4];
   T_FLOAT v[16];
-  Eigen::Matrix4f eigen;
+  Eigen::Matrix<T_FLOAT, 4, 4, Eigen::RowMajor> eigen;
 
   // =================================================================
   // Constructor
@@ -41,11 +41,11 @@ public:
 public:
   Matrix4x4()
   {
-    //this->eigen = Eigen::Matrix4f::Identity();
+    this->eigen = Eigen::Matrix<T_FLOAT, 4, 4, Eigen::RowMajor>::Identity();
   }
-  Matrix4x4(const Eigen::Matrix4f& mat)
+  Matrix4x4(const Eigen::Matrix<T_FLOAT, 4, 4, Eigen::RowMajor>& mat)
   {
-    //this->eigen = mat;
+    this->eigen = mat;
   }
   Matrix4x4(const T_FLOAT m[4][4])
     : _11(m[0][0]), _12(m[0][1]), _13(m[0][2]), _14(m[0][3])
@@ -100,7 +100,7 @@ public:
 public:
   static inline Matrix4x4 Frustum(T_FLOAT left, T_FLOAT right, T_FLOAT bottom, T_FLOAT top, T_FLOAT z_near, T_FLOAT z_far)
   {
-    Eigen::Matrix4f ret = Eigen::Matrix4f::Zero();
+    Eigen::Matrix<T_FLOAT, 4, 4, Eigen::RowMajor> ret = Eigen::Matrix<T_FLOAT, 4, 4, Eigen::RowMajor>::Zero();
     ret(0, 0) = (2.0f * z_near) / (right - left);
     ret(1, 1) = (2.0f * z_near) / (top - bottom);
     ret(0, 2) = (right + left) / (right - left);
@@ -110,25 +110,25 @@ public:
     ret(2, 3) = -(2.0 * z_far * z_near) / (z_far - z_near);
     return ret;
   }
-  static inline Matrix4x4 Ortho(T_FLOAT left, T_FLOAT right, T_FLOAT bottom, T_FLOAT top, T_FLOAT z_near, T_FLOAT z_far)
+  static Matrix4x4 Ortho(T_FLOAT left, T_FLOAT right, T_FLOAT bottom, T_FLOAT top, T_FLOAT z_near, T_FLOAT z_far)
   {
-    Eigen::Matrix4f ret = Eigen::Matrix4f::Zero();
+    Eigen::Matrix<T_FLOAT, 4, 4, Eigen::RowMajor> ret = Eigen::Matrix<T_FLOAT, 4, 4, Eigen::RowMajor>::Zero();
     ret(0, 0) = 2.0f / (right - left);
     ret(1, 1) = 2.0f / (top - bottom);
     ret(2, 2) = -2.0f / (z_far - z_near);
-    ret(3, 0) = -(right + left) / (right - left);
-    ret(3, 1) = -(top + bottom) / (top - bottom);
-    ret(3, 2) = -(z_far + z_near) / (z_far - z_near);
+    ret(0, 3) = -(right + left) / (right - left);
+    ret(1, 3) = -(top + bottom) / (top - bottom);
+    ret(2, 3) = -(z_far + z_near) / (z_far - z_near);
     ret(3, 3) = 1.0f;
-    return ret;
+    return Matrix4x4(ret);
   }
   static inline Matrix4x4 Perspective(T_FLOAT fov, T_FLOAT aspect, T_FLOAT z_near, T_FLOAT z_far)
   {
-    Eigen::Matrix4f ret = Eigen::Matrix4f::Zero();
-    const T_FLOAT h = 1.0f / tanf(fov * 0.5f);
-    const T_FLOAT w = h / aspect;
-    ret(0, 0) = w;
-    ret(1, 1) = h;
+    Eigen::Matrix<T_FLOAT, 4, 4, Eigen::RowMajor> ret = Eigen::Matrix<T_FLOAT, 4, 4, Eigen::RowMajor>::Zero();
+    const T_FLOAT y_scale = 1.0f / tanf(fov * 0.5f);
+    const T_FLOAT x_scale = y_scale / aspect;
+    ret(0, 0) = x_scale;
+    ret(1, 1) = y_scale;
     ret(2, 2) = z_far / (z_far - z_near);
     ret(2, 3) = 1.0f;
     ret(3, 2) = -z_near * z_far / (z_far - z_near);
@@ -139,7 +139,7 @@ public:
     const TVec3f z_axis = (at - eye).Normalized();
     const TVec3f x_axis = (TVec3f::OuterProduct(up, z_axis)).Normalized();
     const TVec3f y_axis = TVec3f::OuterProduct(z_axis, x_axis);
-    Eigen::Matrix4f ret = Eigen::Matrix4f::Zero();
+    Eigen::Matrix<T_FLOAT, 4, 4, Eigen::RowMajor> ret = Eigen::Matrix<T_FLOAT, 4, 4, Eigen::RowMajor>::Zero();
 
     ret(0, 0) = x_axis.x;
     ret(0, 1) = y_axis.x;
@@ -243,43 +243,43 @@ public:
   inline void Translation(T_FLOAT x, T_FLOAT y)
   {
     *this = Matrix4x4::identity;
-    this->_14 = x;
-    this->_24 = y;
+    this->_41 = x;
+    this->_42 = y;
   }
   inline void Translation(const TVec2f& value)
   {
     *this = Matrix4x4::identity;
-    this->_14 = value.x;
-    this->_24 = value.y;
+    this->_41 = value.x;
+    this->_42 = value.y;
   }
   inline void Translation(T_FLOAT x, T_FLOAT y, T_FLOAT z)
   {
     *this = Matrix4x4::identity;
-    this->_14 = x;
-    this->_24 = y;
-    this->_34 = z;
+    this->_41 = x;
+    this->_42 = y;
+    this->_43 = z;
   }
   inline void Translation(const TVec3f& value)
   {
     *this = Matrix4x4::identity;
-    this->_14 = value.x;
-    this->_24 = value.y;
-    this->_34 = value.z;
+    this->_41 = value.x;
+    this->_42 = value.y;
+    this->_43 = value.z;
   }
   inline void TranslationX(T_FLOAT x)
   {
     *this = Matrix4x4::identity;
-    this->_14 = x;
+    this->_41 = x;
   }
   inline void TranslationY(T_FLOAT y)
   {
     *this = Matrix4x4::identity;
-    this->_24 = y;
+    this->_42 = y;
   }
   inline void TranslationZ(T_FLOAT z)
   {
     *this = Matrix4x4::identity;
-    this->_34 = z;
+    this->_43 = z;
   }
 
   inline void Scaling(T_FLOAT value)
@@ -333,65 +333,65 @@ public:
 
   inline void Rotation(T_FLOAT x, T_FLOAT y)
   {
-    //this->RotationY(y);
-    //Matrix4x4 y_mat = *this;
-    //this->RotationX(x);
-    //this->eigen = this->eigen * y_mat.eigen;
+    this->RotationY(y);
+    Matrix4x4 y_mat = *this;
+    this->RotationX(x);
+    this->eigen = this->eigen * y_mat.eigen;
   }
   inline void Rotation(const TVec2f& value)
   {
-    //this->RotationY(value.y);
-    //Matrix4x4 y_mat = *this;
-    //this->RotationX(value.x);
-    //this->eigen = this->eigen * y_mat.eigen;
+    this->RotationY(value.y);
+    Matrix4x4 y_mat = *this;
+    this->RotationX(value.x);
+    this->eigen = this->eigen * y_mat.eigen;
   }
   inline void Rotation(T_FLOAT x, T_FLOAT y, T_FLOAT z)
   {
-    //this->RotationY(y);
-    //Matrix4x4 y_mat = *this;
-    //this->RotationX(x);
-    //Matrix4x4 x_mat = *this;
-    //this->RotationZ(z);
-    //this->eigen = this->eigen * x_mat.eigen * y_mat.eigen;
+    this->RotationY(y);
+    Matrix4x4 y_mat = *this;
+    this->RotationX(x);
+    Matrix4x4 x_mat = *this;
+    this->RotationZ(z);
+    this->eigen = this->eigen * x_mat.eigen * y_mat.eigen;
   }
   inline void Rotation(const TVec3f& value)
   {
-    //this->RotationY(value.y);
-    //Matrix4x4 y_mat = *this;
-    //this->RotationX(value.x);
-    //Matrix4x4 x_mat = *this;
-    //this->RotationZ(value.z);
-    //this->eigen = this->eigen * x_mat.eigen * y_mat.eigen;
+    this->RotationY(value.y);
+    Matrix4x4 y_mat = *this;
+    this->RotationX(value.x);
+    Matrix4x4 x_mat = *this;
+    this->RotationZ(value.z);
+    this->eigen = this->eigen * x_mat.eigen * y_mat.eigen;
   }
   inline void RotationX(T_FLOAT x)
   {
-    //const T_FLOAT sin_x = sinf(x);
-    //const T_FLOAT cos_x = cosf(x);
-    //*this = Matrix4x4::identity;
-    //this->_22 = cos_x;
-    //this->_23 = sin_x;
-    //this->_32 =-sin_x;
-    //this->_33 = cos_x;
+    const T_FLOAT sin_x = sinf(x);
+    const T_FLOAT cos_x = cosf(x);
+    *this = Matrix4x4::identity;
+    this->_22 = cos_x;
+    this->_23 = sin_x;
+    this->_32 =-sin_x;
+    this->_33 = cos_x;
   }
   inline void RotationY(T_FLOAT y)
   {
-    //const T_FLOAT sin_y = sinf(y);
-    //const T_FLOAT cos_y = cosf(y);
-    //*this = Matrix4x4::identity;
-    //this->_11 = cos_y;
-    //this->_13 =-sin_y;
-    //this->_31 = sin_y;
-    //this->_33 = cos_y;
+    const T_FLOAT sin_y = sinf(y);
+    const T_FLOAT cos_y = cosf(y);
+    *this = Matrix4x4::identity;
+    this->_11 = cos_y;
+    this->_13 =-sin_y;
+    this->_31 = sin_y;
+    this->_33 = cos_y;
   }
   inline void RotationZ(T_FLOAT z)
   {
-    //const T_FLOAT sin_z = sinf(z);
-    //const T_FLOAT cos_z = cosf(z);
-    //*this = Matrix4x4::identity;
-    //this->_11 = cos_z;
-    //this->_12 = sin_z;
-    //this->_21 =-sin_z;
-    //this->_22 = cos_z;
+    const T_FLOAT sin_z = sinf(z);
+    const T_FLOAT cos_z = cosf(z);
+    *this = Matrix4x4::identity;
+    this->_11 = cos_z;
+    this->_12 = sin_z;
+    this->_21 =-sin_z;
+    this->_22 = cos_z;
   }
 
   inline TVec2f GetDirection2d() const
