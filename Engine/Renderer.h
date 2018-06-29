@@ -44,7 +44,7 @@ public:
 
   inline void AddMaterial(Material& material)
   {
-    this->materials_.push_back(&material);
+    this->materials_.emplace_back(&material);
   }
   void SetMaterial(Material& material);
   inline void SetMaterial(T_UINT16 index, Material& material)

@@ -53,14 +53,14 @@ void GameObjectRenderState::AddZCheckOrder(T_UINT8 level, Renderer* renderer)
 
   if (level == 0)
   {
-    this->draw_map_[renderer->GetMaterial()].push_back(param);
+    this->draw_map_[renderer->GetMaterial()].emplace_back(param);
     return;
   }
   TVec3f distance = renderer->GetEntity()->GetWorldMatrix().GetPosition3d();
   distance -= this->camera_->GetEntity()->GetWorldMatrix().GetPosition3d();
 
   param.distance = TVec3f::InnerProduct(distance, this->camera_->GetDirection());
-  this->post_draw_map_[level][renderer->GetMaterial()].push_back(param);
+  this->post_draw_map_[level][renderer->GetMaterial()].emplace_back(param);
 }
 
 void GameObjectRenderState::DrawZOrderedGameObject()

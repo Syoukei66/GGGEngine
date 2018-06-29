@@ -44,7 +44,7 @@ Material* Material::Clone()
   ret->color_ = this->color_;
   ret->texture_ = this->texture_;
   ret->z_test_level_ = this->z_test_level_;
-  this->clones_.push_back(ret);
+  this->clones_.emplace_back(ret);
   return ret;
 }
 
@@ -52,7 +52,7 @@ Material* Material::InitialClone()
 {
   NATIVE_ASSERT(this->shader_resource_, "シェーダーが未定義です");
   Material* ret = new Material(*this->shader_resource_);
-  this->clones_.push_back(ret);
+  this->clones_.emplace_back(ret);
   return ret;
 }
 

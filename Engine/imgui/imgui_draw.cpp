@@ -353,7 +353,7 @@ void ImDrawList::AddDrawCmd()
     draw_cmd.TextureId = GetCurrentTextureId();
 
     IM_ASSERT(draw_cmd.ClipRect.x <= draw_cmd.ClipRect.z && draw_cmd.ClipRect.y <= draw_cmd.ClipRect.w);
-    CmdBuffer.push_back(draw_cmd);
+    CmdBuffer.emplace_back(draw_cmd);
 }
 
 void ImDrawList::AddCallback(ImDrawCallback callback, void* callback_data)
@@ -428,7 +428,7 @@ void ImDrawList::PushClipRect(ImVec2 cr_min, ImVec2 cr_max, bool intersect_with_
     cr.z = ImMax(cr.x, cr.z);
     cr.w = ImMax(cr.y, cr.w);
 
-    _ClipRectStack.push_back(cr);
+    _ClipRectStack.emplace_back(cr);
     UpdateClipRect();
 }
 
@@ -446,7 +446,7 @@ void ImDrawList::PopClipRect()
 
 void ImDrawList::PushTextureID(const ImTextureID& texture_id)
 {
-    _TextureIdStack.push_back(texture_id);
+    _TextureIdStack.emplace_back(texture_id);
     UpdateTextureID();
 }
 
@@ -485,7 +485,7 @@ void ImDrawList::ChannelsSplit(int channels_count)
             ImDrawCmd draw_cmd;
             draw_cmd.ClipRect = _ClipRectStack.back();
             draw_cmd.TextureId = _TextureIdStack.back();
-            _Channels[i].CmdBuffer.push_back(draw_cmd);
+            _Channels[i].CmdBuffer.emplace_back(draw_cmd);
         }
     }
 }
@@ -861,14 +861,14 @@ void ImDrawList::PathArcToFast(const ImVec2& centre, float radius, int a_min_of_
 {
     if (radius == 0.0f || a_min_of_12 > a_max_of_12)
     {
-        _Path.push_back(centre);
+        _Path.emplace_back(centre);
         return;
     }
     _Path.reserve(_Path.Size + (a_max_of_12 - a_min_of_12 + 1));
     for (int a = a_min_of_12; a <= a_max_of_12; a++)
     {
         const ImVec2& c = _Data->CircleVtx12[a % IM_ARRAYSIZE(_Data->CircleVtx12)];
-        _Path.push_back(ImVec2(centre.x + c.x * radius, centre.y + c.y * radius));
+        _Path.emplace_back(ImVec2(centre.x + c.x * radius, centre.y + c.y * radius));
     }
 }
 
@@ -876,14 +876,14 @@ void ImDrawList::PathArcTo(const ImVec2& centre, float radius, float a_min, floa
 {
     if (radius == 0.0f)
     {
-        _Path.push_back(centre);
+        _Path.emplace_back(centre);
         return;
     }
     _Path.reserve(_Path.Size + (num_segments + 1));
     for (int i = 0; i <= num_segments; i++)
     {
         const float a = a_min + ((float)i / (float)num_segments) * (a_max - a_min);
-        _Path.push_back(ImVec2(centre.x + cosf(a) * radius, centre.y + sinf(a) * radius));
+        _Path.emplace_back(ImVec2(centre.x + cosf(a) * radius, centre.y + sinf(a) * radius));
     }
 }
 
@@ -897,7 +897,7 @@ static void PathBezierToCasteljau(ImVector<ImVec2>* path, float x1, float y1, fl
     d3 = (d3 >= 0) ? d3 : -d3;
     if ((d2+d3) * (d2+d3) < tess_tol * (dx*dx + dy*dy))
     {
-        path->push_back(ImVec2(x4, y4));
+        path->emplace_back(ImVec2(x4, y4));
     }
     else if (level < 10)
     {
@@ -932,7 +932,7 @@ void ImDrawList::PathBezierCurveTo(const ImVec2& p2, const ImVec2& p3, const ImV
             float w2 = 3*u*u*t;
             float w3 = 3*u*t*t;
             float w4 = t*t*t;
-            _Path.push_back(ImVec2(w1*p1.x + w2*p2.x + w3*p3.x + w4*p4.x, w1*p1.y + w2*p2.y + w3*p3.y + w4*p4.y));
+            _Path.emplace_back(ImVec2(w1*p1.x + w2*p2.x + w3*p3.x + w4*p4.x, w1*p1.y + w2*p2.y + w3*p3.y + w4*p4.y));
         }
     }
 }
@@ -1464,11 +1464,11 @@ ImFont* ImFontAtlas::AddFont(const ImFontConfig* font_cfg)
 
     // Create new font
     if (!font_cfg->MergeMode)
-        Fonts.push_back(IM_NEW(ImFont));
+        Fonts.emplace_back(IM_NEW(ImFont));
     else
         IM_ASSERT(!Fonts.empty()); // When using MergeMode make sure that a font has already been added before. You can use ImGui::GetIO().Fonts->AddFontDefault() to add the default imgui font.
 
-    ConfigData.push_back(*font_cfg);
+    ConfigData.emplace_back(*font_cfg);
     ImFontConfig& new_font_cfg = ConfigData.back();
     if (!new_font_cfg.DstFont)
         new_font_cfg.DstFont = Fonts.back();
@@ -1581,7 +1581,7 @@ int ImFontAtlas::AddCustomRectRegular(unsigned int id, int width, int height)
     r.ID = id;
     r.Width = (unsigned short)width;
     r.Height = (unsigned short)height;
-    CustomRects.push_back(r);
+    CustomRects.emplace_back(r);
     return CustomRects.Size - 1; // Return index
 }
 
@@ -1597,7 +1597,7 @@ int ImFontAtlas::AddCustomRectFontGlyph(ImFont* font, ImWchar id, int width, int
     r.GlyphAdvanceX = advance_x;
     r.GlyphOffset = offset;
     r.Font = font;
-    CustomRects.push_back(r);
+    CustomRects.emplace_back(r);
     return CustomRects.Size - 1; // Return index
 }
 
@@ -2093,12 +2093,12 @@ void ImFontAtlas::GlyphRangesBuilder::BuildRanges(ImVector<ImWchar>* out_ranges)
     for (int n = 0; n < 0x10000; n++)
         if (GetBit(n))
         {
-            out_ranges->push_back((ImWchar)n);
+            out_ranges->emplace_back((ImWchar)n);
             while (n < 0x10000 && GetBit(n + 1))
                 n++;
-            out_ranges->push_back((ImWchar)n);
+            out_ranges->emplace_back((ImWchar)n);
         }
-    out_ranges->push_back(0);
+    out_ranges->emplace_back(0);
 }
 
 //-----------------------------------------------------------------------------

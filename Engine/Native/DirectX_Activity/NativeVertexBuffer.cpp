@@ -28,7 +28,7 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
       D3DDECLMETHOD_DEFAULT,
       D3DDECLUSAGE_POSITION,
       0 };
-    elements.push_back(element);
+    elements.emplace_back(element);
     offset += VERTEX_ATTRIBUTE_SIZE(V_ATTR_POSITION);
   }
   if (format & V_ATTR_NORMAL)
@@ -38,7 +38,7 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
       D3DDECLMETHOD_DEFAULT,
       D3DDECLUSAGE_NORMAL,
       0 };
-    elements.push_back(element);
+    elements.emplace_back(element);
     offset += VERTEX_ATTRIBUTE_SIZE(V_ATTR_NORMAL);
   }
   if (format & V_ATTR_UV)
@@ -48,7 +48,7 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
       D3DDECLMETHOD_DEFAULT,
       D3DDECLUSAGE_TEXCOORD,
       0 };
-    elements.push_back(element);
+    elements.emplace_back(element);
     offset +=VERTEX_ATTRIBUTE_SIZE(V_ATTR_UV);
   }
   if (format & V_ATTR_UV2)
@@ -58,7 +58,7 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
       D3DDECLMETHOD_DEFAULT,
       D3DDECLUSAGE_TEXCOORD,
       1 };
-    elements.push_back(element);
+    elements.emplace_back(element);
     offset += VERTEX_ATTRIBUTE_SIZE(V_ATTR_UV2);
   }
   if (format & V_ATTR_UV3)
@@ -68,7 +68,7 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
       D3DDECLMETHOD_DEFAULT,
       D3DDECLUSAGE_TEXCOORD,
       2 };
-    elements.push_back(element);
+    elements.emplace_back(element);
     offset += VERTEX_ATTRIBUTE_SIZE(V_ATTR_UV3);
   }
   if (format & V_ATTR_UV4)
@@ -78,7 +78,7 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
       D3DDECLMETHOD_DEFAULT,
       D3DDECLUSAGE_TEXCOORD,
       3 };
-    elements.push_back(element);
+    elements.emplace_back(element);
     offset += VERTEX_ATTRIBUTE_SIZE(V_ATTR_UV4);
   }
   if (format & V_ATTR_TANGENT)
@@ -88,7 +88,7 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
       D3DDECLMETHOD_DEFAULT,
       D3DDECLUSAGE_TANGENT,
       0 };
-    elements.push_back(element);
+    elements.emplace_back(element);
     offset += VERTEX_ATTRIBUTE_SIZE(V_ATTR_TANGENT);
   }
   if (format & V_ATTR_COLOR)
@@ -98,7 +98,7 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
       D3DDECLMETHOD_DEFAULT,
       D3DDECLUSAGE_COLOR,
       0 };
-    elements.push_back(element);
+    elements.emplace_back(element);
     offset += VERTEX_ATTRIBUTE_SIZE(V_ATTR_COLOR);
   }
 

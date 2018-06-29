@@ -151,7 +151,7 @@ void EntityModifierManager::ClearModifiersWithTargetEntity(GameObject2D* target)
       return;
     }
     root->OnDetached();
-    this->finished_roots_.push_back(root);
+    this->finished_roots_.emplace_back(root);
   });
   for (EntityModifierRoot* root : this->finished_roots_)
   {
@@ -177,7 +177,7 @@ bool EntityModifierManager::OnUpdate(T_UINT16 frame_elapsed)
       return;
     }
     root->OnUpdateFinish();
-    this->finished_roots_.push_back(root);
+    this->finished_roots_.emplace_back(root);
   });
   for (EntityModifierRoot* root : this->finished_roots_)
   {

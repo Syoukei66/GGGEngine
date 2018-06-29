@@ -55,7 +55,7 @@ void GameObject3D::ManagedPostUpdate()
 void GameObject3D::AddChild(GameObject3D* child)
 {
   child->parent_ = this;
-  this->children_.push_back(child);
+  this->children_.emplace_back(child);
   child->FireOnPositionChanged(this);
   child->FireOnScaleChanged(this);
   child->FireOnRotationChanged(this);

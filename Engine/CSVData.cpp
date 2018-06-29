@@ -22,7 +22,7 @@ CSVData::CSVData(const char* path)
       delete tokenizer;
       continue;
     }
-    this->tokenizers_.push_back(tokenizer);
+    this->tokenizers_.emplace_back(tokenizer);
   }
   NATIVE_ASSERT(this->tokenizers_.size() > 0, "CSVƒtƒ@ƒCƒ‹‚Ì“Ç‚Ýž‚Ý‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 }

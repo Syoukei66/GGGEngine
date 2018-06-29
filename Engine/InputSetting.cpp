@@ -14,5 +14,5 @@ void InputSettingBuilder::Register(const InputEntity* entity, T_UINT8 size)
 
 void InputSettingBuilder::Register(const InputEntity& entity)
 {
-  this->setting_.entities_.push_back(entity);
+  this->setting_.entities_.emplace_back(entity);
 }

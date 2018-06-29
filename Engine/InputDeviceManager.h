@@ -36,7 +36,7 @@ public:
     {
       return false;
     }
-    this->devices_.push_back(device);
+    this->devices_.emplace_back(device);
     return true;
   }
   inline bool UnloadDevice(T* device)

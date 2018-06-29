@@ -11,6 +11,11 @@ public:
     T_UINT8 id;
     T_FLOAT location;
     Color4F color;
+    GradientTable(T_UINT8 id, T_FLOAT location, Color4F color)
+      : id(id)
+      , location(location)
+      , color(color)
+    {}
   };
 
 public:

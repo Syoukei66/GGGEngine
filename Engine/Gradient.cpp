@@ -14,7 +14,7 @@ void Gradient::Reset()
 
 Gradient::GradientTable& Gradient::AddColor(T_FLOAT location, const Color4F& color)
 {
-  this->table_.push_back({this->id_max_, location, color});
+  this->table_.emplace_back(this->id_max_, location, color);
   GradientTable& ret = this->table_.back();
   std::sort(this->table_.begin(), this->table_.end(), [](const GradientTable& a, const GradientTable& b) {
     return a.location < b.location;

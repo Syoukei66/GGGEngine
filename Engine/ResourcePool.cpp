@@ -51,7 +51,7 @@ void ResourcePool::Update()
     }
     pair.second->Unload();
     delete pair.second;
-    delete_resources.push_back(pair.first);
+    delete_resources.emplace_back(pair.first);
   }
   for (std::string& str : delete_resources)
   {

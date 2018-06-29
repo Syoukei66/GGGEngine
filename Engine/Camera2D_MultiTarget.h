@@ -39,7 +39,7 @@ protected:
 public:
   inline void AddTargetEntity(GameObject2D* target)
   {
-    this->target_entities_.push_back(target);
+    this->target_entities_.emplace_back(target);
   }
   inline void RemoveTargetEntity(GameObject2D* target)
   {

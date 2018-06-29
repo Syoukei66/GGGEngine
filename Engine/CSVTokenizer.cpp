@@ -65,7 +65,7 @@ CSVTokenizer::CSVTokenizer(const std::string& str)
   {
     if (*p == ',')
     {
-      this->tokens_.push_back(CSVToken::Create(strbuf));
+      this->tokens_.emplace_back(CSVToken::Create(strbuf));
       strbuf.clear();
     }
     else
@@ -76,7 +76,7 @@ CSVTokenizer::CSVTokenizer(const std::string& str)
   }
   if (strbuf.length() > 0)
   {
-    this->tokens_.push_back(CSVToken::Create(strbuf));
+    this->tokens_.emplace_back(CSVToken::Create(strbuf));
   }
   this->now_token_index_ = 0;
 }

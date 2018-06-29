@@ -64,7 +64,7 @@ void GameObject2D::ManagedPostUpdate()
 void GameObject2D::AddChild(GameObject2D* child)
 {
   child->parent_ = this;
-  this->children_.push_back(child);
+  this->children_.emplace_back(child);
   this->OnChildrenZIndexChanged();
   child->FireOnPositionChanged(this);
   child->FireOnScaleChanged(this);

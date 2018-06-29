@@ -66,11 +66,11 @@ public:
 
   inline void AddCamera(Camera2D* camera)
   {
-    this->cameras_.push_back(camera);
+    this->cameras_.emplace_back(camera);
   }
   inline void AddCamera(Camera3D* camera)
   {
-    this->cameras_.push_back(camera);
+    this->cameras_.emplace_back(camera);
   }
   void RemoveCamera(Camera2D* camera)
   {
