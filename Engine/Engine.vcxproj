@@ -244,7 +244,6 @@
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="FileLoader.cpp" />
     <ClCompile Include="ModelData.cpp" />
-    <ClCompile Include="NativeMatrix.cpp" />
     <ClCompile Include="NativeMatrixStack.cpp" />
     <ClCompile Include="NativeModel.cpp" />
     <ClCompile Include="NativeTexture.cpp" />
@@ -413,7 +412,6 @@
     <ClInclude Include="GameObject2D.h" />
     <ClInclude Include="GameObject3D.h" />
     <ClInclude Include="Moniker.h" />
-    <ClInclude Include="NativeMatrix.h" />
     <ClInclude Include="NativeModel.h" />
     <ClInclude Include="NativeObjectFactory.h" />
     <ClInclude Include="NativeMatrixStack.h" />

@@ -1,11 +1,12 @@
 #pragma once
 
 #include <string>
-#include "Geometry.h"
-#include "NativeObject.h"
-#include "Color.h"
-#include "NativeMatrix.h"
 #include "NativeTexture.h"
+#include "Matrix4x4.h"
+#include "Vector2.h"
+#include "Vector3.h"
+#include "Vector4.h"
+#include "Color.h"
 
 struct NativeShaderInstance { void* p; };
 
@@ -54,7 +55,7 @@ public:
   virtual void SetVec4f(const char* property_name, const TVec4f& vec) = 0;
 
   virtual void SetColor(const char* property_name, const Color4F& color) = 0;
-  virtual void SetMatrix(const char* property_name, const NativeMatrixInstance* matrix) = 0;
+  virtual void SetMatrix(const char* property_name, const Matrix4x4& matrix) = 0;
   virtual void SetTexture(const char* property_name, NativeTextureInstance* texture) = 0;
 
   virtual void GetBool(const char* property_name, bool* dest) = 0;
@@ -66,7 +67,7 @@ public:
   virtual void GetVec4f(const char* property_name, TVec4f* dest) = 0;
 
   virtual void GetColor(const char* property_name, Color4F* dest) = 0;
-  virtual void GetMatrix(const char* property_name, INativeMatrix* dest) = 0;
+  virtual void GetMatrix(const char* property_name, Matrix4x4* dest) = 0;
   virtual void GetTexture(const char* property_name, INativeTexture* dest) = 0;
 
 public:

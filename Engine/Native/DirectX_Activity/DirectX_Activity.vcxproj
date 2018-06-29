@@ -213,10 +213,8 @@
     <ClCompile Include="DirectXNativeImplements.cpp" />
     <ClCompile Include="imgui\imgui_impl_dx9.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="NativeRenderTexture.cpp" />
     <ClCompile Include="NativeIndexBuffer.cpp" />
-    <ClCompile Include="NativeMatrix.cpp" />
     <ClCompile Include="NativeMatrixStack.cpp" />
     <ClCompile Include="NativeModel_x.cpp" />
     <ClCompile Include="NativeObjectFactory.cpp" />
@@ -248,7 +246,6 @@
     <ClInclude Include="NativeConstants.h" />
     <ClInclude Include="NativeRenderTexture.h" />
     <ClInclude Include="NativeIndexBuffer.h" />
-    <ClInclude Include="NativeMatrix.h" />
     <ClInclude Include="NativeMatrixStack.h" />
     <ClInclude Include="NativeModel_x.h" />
     <ClInclude Include="NativeProcess_IO.h" />

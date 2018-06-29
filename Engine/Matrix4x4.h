@@ -107,8 +107,18 @@ public:
     ret(1, 2) = (top + bottom) / (top - bottom);
     ret(2, 2) = -(z_far + z_near) / (z_far - z_near);
     ret(3, 2) = -1.0f;
-    ret(2, 3) = -(2.0 * z_far * z_near) / (z_far - z_near);
+    ret(2, 3) = -(2.0f * z_far * z_near) / (z_far - z_near);
     return ret;
+  }
+  static Matrix4x4 Ortho(T_FLOAT width, T_FLOAT height, T_FLOAT z_near, T_FLOAT z_far)
+  {
+    Eigen::Matrix<T_FLOAT, 4, 4, Eigen::RowMajor> ret = Eigen::Matrix<T_FLOAT, 4, 4, Eigen::RowMajor>::Zero();
+    ret(0, 0) = 2.0f / width;
+    ret(1, 1) = 2.0f / height;
+    ret(2, 2) = -2.0f / (z_far - z_near);
+    ret(2, 3) = -(z_far + z_near) / (z_far - z_near);
+    ret(3, 3) = 1.0f;
+    return Matrix4x4(ret);
   }
   static Matrix4x4 Ortho(T_FLOAT left, T_FLOAT right, T_FLOAT bottom, T_FLOAT top, T_FLOAT z_near, T_FLOAT z_far)
   {

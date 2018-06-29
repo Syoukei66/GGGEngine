@@ -1,11 +1,12 @@
 #pragma once
 
 #include "NativeObject.h"
-#include "NativeMatrix.h"
+
+#include "Matrix4x4.h"
 
 struct NativeMatrixStackInstance { void* p; };
 
-class INativeMatrixStack : public NativeObject<NativeMatrixInstance>
+class INativeMatrixStack : public NativeObject<NativeMatrixStackInstance>
 {
   // =================================================================
   // Static Method
@@ -17,7 +18,7 @@ public:
   // Constructor / Destructor
   // =================================================================
 public:
-  INativeMatrixStack(NativeMatrixInstance* instance)
+  INativeMatrixStack(NativeMatrixStackInstance* instance)
     : NativeObject(instance)
   {}
 
@@ -36,8 +37,8 @@ private:
   // Method
   // =================================================================
 public:
-  virtual void Push(NativeMatrixInstance* mat) = 0;
+  virtual void Push(const Matrix4x4& mat) = 0;
   virtual void Pop() = 0;
-  virtual NativeMatrixInstance* GetTop() = 0;
+  virtual const Matrix4x4& GetTop() = 0;
 
 };

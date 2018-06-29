@@ -135,13 +135,7 @@
     <ClCompile Include="NativeIndexBuffer.cpp">
       <Filter>ソース ファイル\Native\Objects\Buffer</Filter>
     </ClCompile>
-    <ClCompile Include="NativeMatrix.cpp">
-      <Filter>ソース ファイル\Native\Objects\Matrix</Filter>
-    </ClCompile>
     <ClCompile Include="NativeMatrixStack.cpp">
-      <Filter>ソース ファイル\Native\Objects\Matrix</Filter>
-    </ClCompile>
-    <ClCompile Include="Matrix.cpp">
       <Filter>ソース ファイル\Native\Objects\Matrix</Filter>
     </ClCompile>
   </ItemGroup>
@@ -208,9 +202,6 @@
     </ClInclude>
     <ClInclude Include="NativeVertexBuffer.h">
       <Filter>ヘッダー ファイル\Native\Objects\Buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeMatrix.h">
-      <Filter>ヘッダー ファイル\Native\Objects\Matrix</Filter>
     </ClInclude>
     <ClInclude Include="NativeMatrixStack.h">
       <Filter>ヘッダー ファイル\Native\Objects\Matrix</Filter>

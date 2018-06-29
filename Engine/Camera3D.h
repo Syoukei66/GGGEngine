@@ -21,8 +21,8 @@ public:
 public:
   virtual bool FrustumCulling(const TVec3f& positive, const TVec3f& negative, T_INT8* first_index = nullptr) const override;
 
-  virtual const INativeMatrix* GetViewMatrix() const override;
-  virtual const INativeMatrix* GetProjectionMatrix() const override;
+  virtual const Matrix4x4& GetViewMatrix() const override;
+  virtual const Matrix4x4& GetProjectionMatrix() const override;
 
 protected:
   virtual void SetupCamera() override;
@@ -76,9 +76,9 @@ public:
   {
     return this->z_far_;
   }
-  inline const INativeMatrix& GetBillboardingMatrix() const
+  inline const Matrix4x4& GetBillboardingMatrix() const
   {
-    return *this->billboarding_matrix_;
+    return this->billboarding_matrix_;
   }
 
 protected:
@@ -91,10 +91,8 @@ protected:
   // Data Member
   // =================================================================
 private:
-
-  INativeMatrix* billboarding_matrix_;
-  INativeMatrix* projection_matrix_;
-  INativeMatrix* calc_2dpos_matrix_;
+  Matrix4x4 billboarding_matrix_;
+  Matrix4x4 projection_matrix_;
 
   T_FLOAT fov_;
   T_FLOAT z_near_;

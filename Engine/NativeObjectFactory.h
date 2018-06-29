@@ -1,6 +1,5 @@
 #pragma once
 
-#include "NativeMatrix.h"
 #include "NativeTexture.h"
 #include "NativeRenderTexture.h"
 #include "NativeSound.h"
@@ -12,10 +11,6 @@
 
 namespace NativeObjectFactory
 {
-
-INativeMatrix* CreateMatrix();
-INativeMatrix* CreateMatrix(NativeMatrixInstance* instance);
-const INativeMatrix& GetIdentityMatrix();
 
 INativeMatrixStack* CreateMatrixStack();
 

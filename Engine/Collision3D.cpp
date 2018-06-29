@@ -35,7 +35,7 @@ bool Ray_Sphare(const TVec3f& ray_offset, const TVec3f& direction, const TVec3f&
   return true;
 }
 
-bool Frustum_AABB(const INativeMatrix* mat, const TVec3f& positive, const TVec3f& negative, T_INT8* first_index)
+bool Frustum_AABB(const Matrix4x4& mat, const TVec3f& positive, const TVec3f& negative, T_INT8* first_index)
 {
   //http://edom18.hateblo.jp/entry/2017/10/29/112908
   // 0: Left, 1: Right, 2: Bottm, 3: Top

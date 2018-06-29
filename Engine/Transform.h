@@ -2,8 +2,7 @@
 #define HAL_ENGINE_ENTITY_TRANSFORM_H_
 
 #include "NativeType.h"
-#include "Geometry.h"
-#include "NativeMatrix.h"
+#include "Matrix4x4.h"
 
 class GameObject;
 
@@ -36,44 +35,44 @@ protected:
   void UpdateMatrix();
   void UpdateWorldMatrix();
 
-  virtual void UpdateTranslateMatrix(INativeMatrix* matrix) = 0;
-  virtual void UpdateRotateMatrix(INativeMatrix* matrix) = 0;
-  virtual void UpdateScaleMatrix(INativeMatrix* matrix) = 0;
+  virtual void UpdateTranslateMatrix(Matrix4x4* matrix) = 0;
+  virtual void UpdateRotateMatrix(Matrix4x4* matrix) = 0;
+  virtual void UpdateScaleMatrix(Matrix4x4* matrix) = 0;
 
-  virtual const INativeMatrix* GetParentWorldMatrix() = 0;
+  virtual const Matrix4x4& GetParentWorldMatrix() = 0;
 
   // =================================================================
   // setter/getter
   // =================================================================
 public:
-  inline const INativeMatrix& GetMatrix() const
+  inline const Matrix4x4& GetMatrix() const
   {
     const_cast<Transform*>(this)->UpdateMatrix();
-    return *this->matrix_;
+    return this->matrix_;
   }
 
-  inline const INativeMatrix& GetTranslateMatrix() const
+  inline const Matrix4x4& GetTranslateMatrix() const
   {
     const_cast<Transform*>(this)->UpdateMatrix();
-    return *this->translate_matrix_;
+    return this->translate_matrix_;
   }
 
-  inline const INativeMatrix& GetRotationMatrix() const
+  inline const Matrix4x4& GetRotationMatrix() const
   {
     const_cast<Transform*>(this)->UpdateMatrix();
-    return *this->rotation_matrix_;
+    return this->rotation_matrix_;
   }
 
-  inline const INativeMatrix& GetScaleMatrix() const
+  inline const Matrix4x4& GetScaleMatrix() const
   {
     const_cast<Transform*>(this)->UpdateMatrix();
-    return *this->scale_matrix_;
+    return this->scale_matrix_;
   }
 
-  inline const INativeMatrix& GetWorldMatrix() const
+  inline const Matrix4x4& GetWorldMatrix() const
   {
     const_cast<Transform*>(this)->UpdateWorldMatrix();
-    return *this->world_matrix_;
+    return this->world_matrix_;
   }
 
   // =================================================================
@@ -82,11 +81,11 @@ public:
 private:
   GameObject* entity_;
 
-  INativeMatrix* const translate_matrix_;
-  INativeMatrix* const rotation_matrix_;
-  INativeMatrix* const scale_matrix_;
-  INativeMatrix* const matrix_;
-  INativeMatrix* const world_matrix_;
+  Matrix4x4 translate_matrix_;
+  Matrix4x4 rotation_matrix_;
+  Matrix4x4 scale_matrix_;
+  Matrix4x4 matrix_;
+  Matrix4x4 world_matrix_;
 
   bool translation_dirty_;
   bool rotation_dirty_;

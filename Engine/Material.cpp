@@ -80,7 +80,7 @@ void Material::BeginPass(T_UINT8 path_id)
 void Material::SetDefaultProperties(GameObjectRenderState* state)
 {
   INativeShader* shader = this->GetShader();
-  shader->SetMatrix("_WorldViewProj", state->GetWorldViewProjToMaterial()->GetNativeInstance());
+  shader->SetMatrix("_WorldViewProj", state->GetWorldViewProjToMaterial());
 
   shader->SetMatrix("_World", state->GetMatrixStack()->GetTop());
   shader->SetVec4f("_CameraPosition", state->GetCamera()->GetEntity()->GetWorldMatrix().GetPosition4d());

@@ -9,23 +9,22 @@
 // =================================================================
 Camera2D::Camera2D(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_min, T_FLOAT z_max)
   : Camera(x, y, width, height, z_min, z_max)
+  , projection_matrix_()
   , projection_dirty_(true)
 {
   this->entity_ = new GameObject2D();
-  this->projection_matrix_ = INativeMatrix::Create();
 }
 
 Camera2D::Camera2D()
   : Camera()
+  , projection_matrix_()
   , projection_dirty_(true)
 {
   this->entity_ = new GameObject2D();
-  this->projection_matrix_ = INativeMatrix::Create();
 }
 
 Camera2D::~Camera2D()
 {
-  delete this->projection_matrix_;
 }
 
 bool Camera2D::FrustumCulling(const TVec3f& positive, const TVec3f& negative, T_INT8* first_index) const
@@ -39,17 +38,17 @@ bool Camera2D::FrustumCulling(const TVec3f& positive, const TVec3f& negative, T_
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
-const INativeMatrix* Camera2D::GetViewMatrix() const 
+const Matrix4x4& Camera2D::GetViewMatrix() const
 {
-  return &INativeMatrix::Identity();
+  return Matrix4x4::identity;
 }
 
-const INativeMatrix* Camera2D::GetProjectionMatrix() const
+const Matrix4x4& Camera2D::GetProjectionMatrix() const
 {
   if (this->projection_dirty_)
   {
     Camera2D* const this_ = const_cast<Camera2D*>(this);
-    this_->projection_matrix_->OrthoLH(
+    this_->projection_matrix_ =  Matrix4x4::Ortho(
       this->GetViewportWidth(),
       this->GetViewportHeight(),
       0.0f,

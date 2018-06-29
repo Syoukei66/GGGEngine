@@ -237,6 +237,31 @@ public:
   }
 };
 
+class ShaderProperty_matrix : public ShaderProperty_struct<Matrix4x4>
+{
+public:
+  const ShaderProperty_matrix& operator = (const Matrix4x4& b)
+  {
+    ShaderProperty_struct::operator=(b);
+    return *this;
+  }
+public:
+  void Apply(INativeShader* shader, const std::string& property_name) override
+  {
+    if (!this->value_)
+    {
+      return;
+    }
+    shader->SetMatrix(property_name.c_str(), this->value_);
+  }
+  ShaderProperty* Clone() override
+  {
+    ShaderProperty_matrix* ret = new ShaderProperty_matrix();
+    ret->value_ = this->value_;
+    return ret;
+  }
+};
+
 // =================================================================
 // object
 // =================================================================
@@ -272,31 +297,6 @@ public:
 
 protected:
   const T* value_;
-};
-
-class ShaderProperty_matrix : public ShaderProperty_native<INativeMatrix>
-{
-public:
-  const ShaderProperty_matrix& operator = (const INativeMatrix* b)
-  {
-    ShaderProperty_native::operator=(b);
-    return *this;
-  }
-public:
-  void Apply(INativeShader* shader, const std::string& property_name) override
-  {
-    if (!this->value_)
-    {
-      return;
-    }
-    shader->SetMatrix(property_name.c_str(), this->value_->GetNativeInstance());
-  }
-  ShaderProperty* Clone() override
-  {
-    ShaderProperty_matrix* ret = new ShaderProperty_matrix();
-    ret->value_ = this->value_;
-    return ret;
-  }
 };
 
 class ShaderProperty_texture : public ShaderProperty_native<INativeTexture>

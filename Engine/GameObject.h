@@ -73,27 +73,27 @@ public:
   // =================================================================
   // delegate to Transform
   // =================================================================
-  inline const INativeMatrix& GetMatrix() const
+  inline const Matrix4x4& GetMatrix() const
   {
     return this->transform_->GetMatrix();
   }
 
-  inline const INativeMatrix& GetTranslateMatrix() const
+  inline const Matrix4x4& GetTranslateMatrix() const
   {
     return this->transform_->GetTranslateMatrix();
   }
 
-  inline const INativeMatrix& GetRotationMatrix() const
+  inline const Matrix4x4& GetRotationMatrix() const
   {
     return this->transform_->GetRotationMatrix();
   }
 
-  inline const INativeMatrix& GetScaleMatrix() const
+  inline const Matrix4x4& GetScaleMatrix() const
   {
     return this->transform_->GetScaleMatrix();
   }
 
-  inline const INativeMatrix& GetWorldMatrix() const
+  inline const Matrix4x4& GetWorldMatrix() const
   {
     return this->transform_->GetWorldMatrix();
   }

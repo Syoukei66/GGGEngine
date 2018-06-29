@@ -115,7 +115,6 @@
       #include "NativeIndexBuffer.h"
       #include "NativeVertexBuffer.h"
 //----Matrix
-      #include "NativeMatrix.h"
       #include "NativeMatrixStack.h"
 //----Texture
       #include "NativeRenderTexture.h"
@@ -189,6 +188,7 @@
     #include "Vector2.h"
     #include "Vector3.h"
     #include "Vector4.h"
+    #include "Matrix4x4.h"
 //--TextureRegion
     #include "ITextureRegion.h"
     #include "TextureRegion.h"

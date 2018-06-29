@@ -1,7 +1,7 @@
 #pragma once
 
-#include "NativeMatrix.h"
 #include "Vector3.h"
+#include "Matrix4x4.h"
 
 namespace Collision3D
 {
@@ -14,6 +14,6 @@ bool Ray_Sphare(const TVec3f& ray_offset, const TVec3f& direction, const TVec3f&
 //前回判定されたインデックスを最初に判定する事で、判定の高速化が行える
 //nullptrの場合は高速化無しで実行
 //1 left 2 right 3 bottom 4 top 5 near 6 far 
-bool Frustum_AABB(const INativeMatrix* view_proj_matrix, const TVec3f& positive, const TVec3f& negative, T_INT8* first_index = nullptr);
+bool Frustum_AABB(const Matrix4x4& view_proj_matrix, const TVec3f& positive, const TVec3f& negative, T_INT8* first_index = nullptr);
 
 }

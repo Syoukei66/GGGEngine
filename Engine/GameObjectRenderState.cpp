@@ -14,20 +14,16 @@
 GameObjectRenderState::GameObjectRenderState(Camera* camera)
   : camera_(camera)
   , layer_state_(1)
+  , view_proj_matrix_()
+  , world_view_proj_matrix_()
 //  , post_draw_map_()
 {
   this->matrix_stack_ = INativeMatrixStack::Create();
-  this->view_proj_matrix_ = INativeMatrix::Create();
-  this->world_view_proj_matrix_ = INativeMatrix::Create();
-  this->mat_ = INativeMatrix::Create();
 }
 
 GameObjectRenderState::~GameObjectRenderState()
 {
   delete this->matrix_stack_;
-  delete this->view_proj_matrix_;
-  delete this->world_view_proj_matrix_;
-  delete this->mat_;
 }
 
 // =================================================================
@@ -36,13 +32,13 @@ GameObjectRenderState::~GameObjectRenderState()
 void GameObjectRenderState::Init()
 {
   this->render_object_ = Director::GetInstance()->GetDevice();
-  this->view_proj_matrix_->Assign(*this->camera_->GetViewMatrix());
-  this->view_proj_matrix_->Multiple(*this->camera_->GetProjectionMatrix());
+  this->view_proj_matrix_ = this->camera_->GetViewMatrix();
+  this->view_proj_matrix_ *= this->camera_->GetProjectionMatrix();
 }
 
-void GameObjectRenderState::PushMatrix(const INativeMatrix& matrix)
+void GameObjectRenderState::PushMatrix(const Matrix4x4& matrix)
 {
-  this->matrix_stack_->Push(matrix.GetNativeInstance());
+  this->matrix_stack_->Push(matrix);
 }
 
 void GameObjectRenderState::PopMatrix()
@@ -81,9 +77,9 @@ void GameObjectRenderState::DrawZOrderedGameObject()
       {
         if (param.renderer->GetMaterial()->IsBillboard())
         {
-          param.renderer->GetEntity()->GetRotationMatrix().Inverse(this->mat_);
+          Matrix4x4 inv_rotation_matrix = param.renderer->GetEntity()->GetRotationMatrix().Inverse();
           this->PushMatrix(param.renderer->GetEntity()->GetWorldMatrix());
-          this->PushMatrix(*this->mat_);
+          this->PushMatrix(inv_rotation_matrix);
           this->PushMatrix(((Camera3D*)this->camera_)->GetBillboardingMatrix());
           this->PushMatrix(param.renderer->GetEntity()->GetRotationMatrix());
           param.renderer->Draw(this);
@@ -108,11 +104,11 @@ void GameObjectRenderState::DrawZOrderedGameObject()
 // =================================================================
 // Setter / Getter
 // =================================================================
-INativeMatrix* GameObjectRenderState::GetWorldViewProjToMaterial()
+const Matrix4x4& GameObjectRenderState::GetWorldViewProjToMaterial()
 {
   //TODO:MatrixStack‚ðŽg‚í‚È‚­‚Ä‚àWorldMatrix‚ðŽg‚¦‚Î‚æ‚¢‚Ì‚Å‚Í
-  this->world_view_proj_matrix_->Assign(this->matrix_stack_->GetTop());
-  this->world_view_proj_matrix_->Multiple(*this->view_proj_matrix_);
+  this->world_view_proj_matrix_ = this->matrix_stack_->GetTop();
+  this->world_view_proj_matrix_ *= this->view_proj_matrix_;
   return this->world_view_proj_matrix_;
 }
 

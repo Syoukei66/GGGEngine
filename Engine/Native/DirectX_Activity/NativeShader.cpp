@@ -156,9 +156,9 @@ void NativeShader::SetColor(const char* property_name, const Color4F& color)
   this->effect_->SetFloatArray(property_name, color.col, 4);
 }
 
-void NativeShader::SetMatrix(const char* property_name, const NativeMatrixInstance* matrix)
+void NativeShader::SetMatrix(const char* property_name, const Matrix4x4& matrix)
 {
-  HRESULT hr = this->effect_->SetMatrix(property_name, (const D3DXMATRIX*)matrix);
+  HRESULT hr = this->effect_->SetMatrix(property_name, (const D3DXMATRIX*)&matrix);
 }
 
 void NativeShader::SetTexture(const char* property_name, NativeTextureInstance* texture)
@@ -203,10 +203,9 @@ void NativeShader::GetColor(const char* property_name, Color4F* dest)
   this->effect_->GetFloatArray(property_name, dest->col, 4);
 }
 
-void NativeShader::GetMatrix(const char* property_name, INativeMatrix* dest)
+void NativeShader::GetMatrix(const char* property_name, Matrix4x4* dest)
 {
-  NATIVE_ASSERT(false, "‚Ü‚¾‚Å‚«‚Ä‚¢‚Ü‚¹‚ñI");
-  //this->effect_->GetMatrix(property_name, (D3DXMATRIX*)dest->GetNativeInstance());
+  this->effect_->GetMatrix(property_name, (D3DXMATRIX*)dest);
 }
 
 void NativeShader::GetTexture(const char* property_name, INativeTexture* dest)

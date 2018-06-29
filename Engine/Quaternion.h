@@ -3,7 +3,7 @@
 #include "Eigen\Core.h"
 #include "Eigen\Geometry.h"
 
-#include "NativeMatrix.h"
+#include "Matrix4x4.h"
 #include "Vector3.h"
 
 union Quaternion
@@ -221,8 +221,8 @@ public:
   // =================================================================
 
   //TODO: Matrix‘¤‚ÉˆÚ“®‚·‚é‚×‚«‚©
-  void FromRotationMatrix(const INativeMatrix& mat);
-  void ToRotationMatrix(INativeMatrix* dest);
+  void FromRotationMatrix(const Matrix4x4& mat);
+  void ToRotationMatrix(Matrix4x4* dest);
 
   inline T_FLOAT ScalarSquare() const
   {

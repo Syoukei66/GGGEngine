@@ -33,8 +33,8 @@ public:
   void RotateZ(T_FLOAT rad);
   void Rotate(const TVec3f& v, T_FLOAT rad);
 
-  void FromRotationMatrix(INativeMatrix* matrix);
-  void ToRotationMatrix(INativeMatrix* dest);
+  void FromRotationMatrix(const Matrix4x4& matrix);
+  void ToRotationMatrix(Matrix4x4* dest);
 
   void Lerp(const Quaternion& a, const Quaternion& b, T_FLOAT t);
   void Lerp(const Quaternion& b, T_FLOAT t);
@@ -85,7 +85,7 @@ public:
     return this->quaternion_;
   }
 
-  inline const INativeMatrix* GetRotationMatrix() const
+  inline const Matrix4x4& GetRotationMatrix() const
   {
     const_cast<Transform3DRotator*>(this)->PrepareRotationMatrix();
     return this->rotation_matrix_;
@@ -95,7 +95,7 @@ public:
   // =================================================================
 private:
   Transform3D* transform_;
-  INativeMatrix* rotation_matrix_;
+  Matrix4x4 rotation_matrix_;
   Quaternion quaternion_;
   TVec3f eular_angles_;
   T_UINT32 master_flag_;

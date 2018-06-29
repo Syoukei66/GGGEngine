@@ -13,16 +13,15 @@ static const TVec3f Z_AXIS = TVec3f(0.0f, 0.0f, 1.0f);
 // =================================================================
 Transform3DRotator::Transform3DRotator(Transform3D* transform)
   : transform_(transform)
+  , rotation_matrix_()
   , quaternion_()
   , eular_angles_(0.0f, 0.0f, 0.0f)
   , master_flag_(MASTER_EULAR | MASTER_MATRIX | MASTER_QUATERNION)
 {
-  this->rotation_matrix_ = INativeMatrix::Create();
 }
 
 Transform3DRotator::~Transform3DRotator()
 {
-  delete this->rotation_matrix_;
 }
 
 // =================================================================
@@ -32,7 +31,7 @@ void Transform3DRotator::Init()
 {
   this->quaternion_ = Quaternion();
   this->eular_angles_ = TVec3f(0.0f, 0.0f, 0.0f);
-  this->rotation_matrix_->Init();
+  this->rotation_matrix_ = Matrix4x4::identity;
   this->master_flag_ = MASTER_EULAR | MASTER_MATRIX | MASTER_QUATERNION;
   this->transform_->OnRotationChanged();
 }
@@ -77,18 +76,18 @@ void Transform3DRotator::Rotate(const TVec3f& v, T_FLOAT rad)
   this->transform_->OnRotationChanged();
 }
 
-void Transform3DRotator::FromRotationMatrix(INativeMatrix* matrix)
+void Transform3DRotator::FromRotationMatrix(const Matrix4x4& matrix)
 {
-  this->rotation_matrix_->Assign(*matrix);
+  this->rotation_matrix_ = matrix;
 
   this->master_flag_ = MASTER_MATRIX;
   this->transform_->OnRotationChanged();
 }
 
-void Transform3DRotator::ToRotationMatrix(INativeMatrix* dest)
+void Transform3DRotator::ToRotationMatrix(Matrix4x4* dest)
 {
   this->PrepareRotationMatrix();
-  dest->Assign(*this->rotation_matrix_);
+  (*dest) = this->rotation_matrix_;
 }
 
 void Transform3DRotator::Lerp(const Quaternion& a, const Quaternion& b, T_FLOAT t)
@@ -162,7 +161,7 @@ void Transform3DRotator::PrepareQuaternion()
     return;
   }
   this->PrepareRotationMatrix();
-  this->quaternion_.FromRotationMatrix(*this->rotation_matrix_);
+  this->quaternion_.FromRotationMatrix(this->rotation_matrix_);
   this->master_flag_ |= MASTER_QUATERNION;
 }
 
@@ -174,12 +173,12 @@ void Transform3DRotator::PrepareRotationMatrix()
   }
   if (this->master_flag_ & MASTER_EULAR)
   {
-    this->rotation_matrix_->Init();
-    this->rotation_matrix_->Rotation(this->eular_angles_ * MathConstants::DEG_TO_RAD);
+    this->rotation_matrix_ = Matrix4x4::identity;
+    this->rotation_matrix_.Rotation(this->eular_angles_ * MathConstants::DEG_TO_RAD);
   }
   else if (this->master_flag_ & MASTER_QUATERNION)
   {
-    this->quaternion_.ToRotationMatrix(this->rotation_matrix_);
+    this->quaternion_.ToRotationMatrix(&this->rotation_matrix_);
   }
   else
   {
@@ -196,17 +195,17 @@ void Transform3DRotator::PrepareEularAngles()
   }
   this->PrepareRotationMatrix();
 
-  const T_FLOAT m11 = (*this->rotation_matrix_)[0][0];
-  const T_FLOAT m12 = (*this->rotation_matrix_)[0][1];
-  const T_FLOAT m13 = (*this->rotation_matrix_)[0][2];
+  const T_FLOAT m11 = this->rotation_matrix_._11;
+  const T_FLOAT m12 = this->rotation_matrix_._12;
+  const T_FLOAT m13 = this->rotation_matrix_._13;
 
-  const T_FLOAT m21 = (*this->rotation_matrix_)[1][0];
-  const T_FLOAT m22 = (*this->rotation_matrix_)[1][1];
-  const T_FLOAT m23 = (*this->rotation_matrix_)[1][2];
+  const T_FLOAT m21 = this->rotation_matrix_._21;
+  const T_FLOAT m22 = this->rotation_matrix_._22;
+  const T_FLOAT m23 = this->rotation_matrix_._23;
 
-  const T_FLOAT m31 = (*this->rotation_matrix_)[2][0];
-  const T_FLOAT m32 = (*this->rotation_matrix_)[2][1];
-  const T_FLOAT m33 = (*this->rotation_matrix_)[2][2];
+  const T_FLOAT m31 = this->rotation_matrix_._31;
+  const T_FLOAT m32 = this->rotation_matrix_._32;
+  const T_FLOAT m33 = this->rotation_matrix_._33;
 
   const float eps = 0.001f;
   if (fabs(m32 - 1.0f) < eps)

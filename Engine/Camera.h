@@ -3,13 +3,13 @@
 #include "GameComponent.h"
 
 #include "NativeType.h"
-#include "NativeMatrix.h"
 #include "NativeRenderTexture.h"
 #include "GameObjectRenderState.h"
 
 #include "Geometry.h"
 #include "Vector2.h"
 #include "Vector3.h"
+#include "Matrix4x4.h"
 
 class Scene;
 class GameObject;
@@ -31,8 +31,8 @@ public:
   void DrawScene(Scene* scene);
 
   virtual bool FrustumCulling(const TVec3f& positive, const TVec3f& negative, T_INT8* first_index = nullptr) const = 0;
-  virtual const INativeMatrix* GetViewMatrix() const = 0;
-  virtual const INativeMatrix* GetProjectionMatrix() const = 0;
+  virtual const Matrix4x4& GetViewMatrix() const = 0;
+  virtual const Matrix4x4& GetProjectionMatrix() const = 0;
 
 protected:
 

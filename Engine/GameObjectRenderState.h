@@ -4,7 +4,6 @@
 #include <vector>
 #include "NativeType.h"
 #include "BlendFunction.h"
-#include "NativeMatrix.h"
 #include "NativeMatrixStack.h"
 
 class Camera;
@@ -34,7 +33,7 @@ public:
   // =================================================================
 public:
   virtual void Init();
-  void PushMatrix(const INativeMatrix& matrix);
+  void PushMatrix(const Matrix4x4& matrix);
   void PopMatrix();
 
   void AddZCheckOrder(T_UINT8 level, Renderer* renderer);
@@ -44,7 +43,7 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  INativeMatrix* GetWorldViewProjToMaterial();
+  const Matrix4x4& GetWorldViewProjToMaterial();
   inline LP_DEVICE GetRenderObject() const
   {
     return this->render_object_;
@@ -77,7 +76,7 @@ public:
   {
     return this->camera_;
   }
-  inline const INativeMatrix* GetViewProjMatrix() const
+  inline const Matrix4x4& GetViewProjMatrix() const
   {
     return this->view_proj_matrix_;
   }
@@ -90,10 +89,9 @@ private:
   T_UINT32 layer_state_;
   LP_DEVICE render_object_;
   INativeMatrixStack* matrix_stack_;
-  INativeMatrix* view_proj_matrix_;
-  INativeMatrix* world_view_proj_matrix_;
+  Matrix4x4 view_proj_matrix_;
+  Matrix4x4 world_view_proj_matrix_;
 
-  INativeMatrix* mat_;
   //std::map<int, std::vector<PostDrawParam>> post_draw_map_;
   std::map<Material*, std::vector<DrawParam>> draw_map_;
   std::map<int, std::map<Material*, std::vector<DrawParam>>> post_draw_map_;

@@ -7,7 +7,6 @@
 
 #include "NativeTexture.h"
 #include "NativeRenderTexture.h"
-#include "NativeMatrix.h"
 
 class INativeProcess_Graphics
 {

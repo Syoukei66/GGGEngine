@@ -9,34 +9,30 @@
 // =================================================================
 Camera3D::Camera3D(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_min, T_FLOAT z_max)
   : Camera(x, y, width, height, z_min, z_max)
+  , billboarding_matrix_()
+  , projection_matrix_()
   , fov_(3.0f)
   , z_near_(0.3f)
   , z_far_(1000.0f)
   , projection_dirty_(true)
 {
   this->entity_ = new GameObject3D();
-  this->projection_matrix_ = INativeMatrix::Create();
-  this->billboarding_matrix_ = INativeMatrix::Create();
 }
 
 Camera3D::Camera3D()
   : Camera()
+  , billboarding_matrix_()
+  , projection_matrix_()
   , fov_(3.0f)
   , z_near_(0.3f)
   , z_far_(1000.0f)
   , projection_dirty_(true)
 {
   this->entity_ = new GameObject3D();
-  this->projection_matrix_ = INativeMatrix::Create();
-  this->billboarding_matrix_ = INativeMatrix::Create();
-  this->calc_2dpos_matrix_ = INativeMatrix::Create();
 }
 
 Camera3D::~Camera3D()
 {
-  delete this->calc_2dpos_matrix_;
-  delete this->billboarding_matrix_;
-  delete this->projection_matrix_;
 }
 
 // =================================================================
@@ -47,12 +43,12 @@ bool Camera3D::FrustumCulling(const TVec3f& positive, const TVec3f& negative, T_
   return Collision3D::Frustum_AABB(this->render_state_->GetViewProjMatrix(), positive, negative, first_index);
 }
 
-const INativeMatrix* Camera3D::GetViewMatrix() const 
+const Matrix4x4& Camera3D::GetViewMatrix() const
 {
-  return &INativeMatrix::Identity();
+  return Matrix4x4::identity;
 }
 
-const INativeMatrix* Camera3D::GetProjectionMatrix() const
+const Matrix4x4& Camera3D::GetProjectionMatrix() const
 {
   const_cast<Camera3D*>(this)->CheckProjectionDirty();
   return this->projection_matrix_;
@@ -61,11 +57,11 @@ const INativeMatrix* Camera3D::GetProjectionMatrix() const
 void Camera3D::SetupCamera()
 {
   Camera::SetupCamera();
-  this->GetViewMatrix()->Inverse(this->billboarding_matrix_);
+  this->billboarding_matrix_ = this->GetViewMatrix().Inverse();
 
-  (*this->billboarding_matrix_)[3][0] = 0.0f;
-  (*this->billboarding_matrix_)[3][1] = 0.0f;
-  (*this->billboarding_matrix_)[3][2] = 0.0f;
+  this->billboarding_matrix_._41 = 0.0f;
+  this->billboarding_matrix_._42 = 0.0f;
+  this->billboarding_matrix_._43 = 0.0f;
 }
 
 void Camera3D::OnViewportChanged()
@@ -89,7 +85,7 @@ void Camera3D::CheckProjectionDirty()
   {
     return;
   }
-  this->projection_matrix_->PerspectiveFovLH(
+  this->projection_matrix_ = Matrix4x4::Perspective(
     MathConstants::PI / this->fov_,
     this->GetViewportWidth() / this->GetViewportHeight(),
     this->z_near_,
@@ -100,11 +96,11 @@ void Camera3D::CheckProjectionDirty()
 
 TVec3f Camera3D::CalcRayVector(const TVec2f& screen_position)
 {
-  this->calc_2dpos_matrix_->Init();
-  this->calc_2dpos_matrix_->Translation(screen_position);
-  this->calc_2dpos_matrix_->MultipleReverse(*this->GetProjectionMatrix());
-  this->calc_2dpos_matrix_->MultipleReverse(*this->GetViewMatrix());
-  return this->calc_2dpos_matrix_->GetPosition3d();
+  Matrix4x4 ret;
+  ret.Translation(screen_position);
+  ret = this->GetProjectionMatrix() * ret;
+  ret = this->GetViewMatrix() * ret;
+  return ret.GetPosition3d();
 }
 
 // =================================================================
@@ -112,11 +108,11 @@ TVec3f Camera3D::CalcRayVector(const TVec2f& screen_position)
 // =================================================================
 const TVec3f Camera3D::Get2dPositionScale(const GameObject3D* obj) const
 {
-  this->calc_2dpos_matrix_->Init();
-  this->calc_2dpos_matrix_->Multiple(obj->GetTransform()->GetWorldMatrix());
-  this->calc_2dpos_matrix_->Multiple(*this->GetViewMatrix());
-  this->calc_2dpos_matrix_->Multiple(*this->GetProjectionMatrix());
-  const TVec4f pos = this->calc_2dpos_matrix_->GetPosition4d();
+  Matrix4x4 ret;
+  ret = obj->GetTransform()->GetWorldMatrix();
+  ret *= this->GetViewMatrix();
+  ret *= this->GetProjectionMatrix();
+  const TVec4f pos = ret.GetPosition4d();
   return TVec3f(pos.x / pos.w, pos.y / pos.w, pos.z / fabs(pos.w));
 }
 

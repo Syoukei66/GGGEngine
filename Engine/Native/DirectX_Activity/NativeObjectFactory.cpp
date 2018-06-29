@@ -1,10 +1,6 @@
 #include "..\..\NativeObjectFactory.h"
-#include "..\..\NativeObjectFactory.h"
-#include "..\..\NativeObjectFactory.h"
-#include <NativeObjectFactory.h>
 
 #include "NativeIndexBuffer.h"
-#include "NativeMatrix.h"
 #include "NativeMatrixStack.h"
 #include "NativeVertexBuffer.h"
 #include "NativeTexture.h"
@@ -12,22 +8,6 @@
 #include "NativeModel_x.h"
 #include "NativeShader.h"
 #include "NativeSound.h"
-
-INativeMatrix* NativeObjectFactory::CreateMatrix()
-{
-  return new NativeMatrix();
-}
-
-INativeMatrix* NativeObjectFactory::CreateMatrix(NativeMatrixInstance* instance)
-{
-  return new NativeMatrix(instance);
-}
-
-const INativeMatrix& NativeObjectFactory::GetIdentityMatrix()
-{
-  static NativeMatrix identity = NativeMatrix();
-  return identity;
-}
 
 INativeMatrixStack* NativeObjectFactory::CreateMatrixStack()
 {

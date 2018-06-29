@@ -25,26 +25,26 @@ const Quaternion Quaternion::LookRotation(const TVec3f& forward, const TVec3f& u
 // =================================================================
 // Methods
 // =================================================================
-void Quaternion::FromRotationMatrix(const INativeMatrix& mat)
+void Quaternion::FromRotationMatrix(const Matrix4x4& mat)
 {
-  const T_FLOAT m11 = mat[0][0];
-  const T_FLOAT m12 = mat[0][1];
-  const T_FLOAT m13 = mat[0][2];
+  const T_FLOAT m11 = mat._11;
+  const T_FLOAT m12 = mat._12;
+  const T_FLOAT m13 = mat._13;
 
-  const T_FLOAT m21 = mat[1][0];
-  const T_FLOAT m22 = mat[1][1];
-  const T_FLOAT m23 = mat[1][2];
+  const T_FLOAT m21 = mat._21;
+  const T_FLOAT m22 = mat._22;
+  const T_FLOAT m23 = mat._23;
 
-  const T_FLOAT m31 = mat[2][0];
-  const T_FLOAT m32 = mat[2][1];
-  const T_FLOAT m33 = mat[2][2];
+  const T_FLOAT m31 = mat._31;
+  const T_FLOAT m32 = mat._32;
+  const T_FLOAT m33 = mat._33;
 
   // ç≈ëÂê¨ï™Çåüçı
   T_FLOAT elem[4]; // 0:x, 1:y, 2:z, 3:w
-  elem[0] = m11 - m22 - m33 + 1.0f;
+  elem[0] =  m11 - m22 - m33 + 1.0f;
   elem[1] = -m11 + m22 - m33 + 1.0f;
   elem[2] = -m11 - m22 + m33 + 1.0f;
-  elem[3] = m11 + m22 + m33 + 1.0f;
+  elem[3] =  m11 + m22 + m33 + 1.0f;
 
   T_UINT8 biggest_index = 0;
   for (T_UINT8 i = 1; i < 4; ++i) {
@@ -98,45 +98,31 @@ void Quaternion::FromRotationMatrix(const INativeMatrix& mat)
   }
 }
 
-void Quaternion::ToRotationMatrix(INativeMatrix* dest)
+void Quaternion::ToRotationMatrix(Matrix4x4* dest)
 {
   *this = this->Normalized();
   const T_FLOAT qx = this->v_.x;
   const T_FLOAT qy = this->v_.y;
   const T_FLOAT qz = this->v_.z;
   const T_FLOAT qw = this->w_;
-  //            m11 = 1.0f - 2.0f * qy * qy - 2.0f * qz * qz;
-  const T_FLOAT m11 = 1.0f - 2.0f * qy * qy - 2.0f * qz * qz;
-  //            m12 = 2.0f * qx * qy + 2.0f * qw * qz;
-  const T_FLOAT m12 = 2.0f * qx * qy + 2.0f * qw * qz;
-  //            m13 = 2.0f * qx * qz - 2.0f * qw * qy
-  const T_FLOAT m13 = 2.0f * qx * qz - 2.0f * qw * qy;
 
-  //            m21 = 2.0f * qx * qy - 2.0f * qw * qz;
-  const T_FLOAT m21 = 2.0f * qx * qy - 2.0f * qw * qz;
-  //            m22 = 1.0f - 2.0f * qx * qx - 2.0f * qz * qz;
-  const T_FLOAT m22 = 1.0f - 2.0f * qx * qx - 2.0f * qz * qz;
-  //            m23 = 2.0f * qy * qz + 2.0f * qw * qx;
-  const T_FLOAT m23 = 2.0f * qy * qz + 2.0f * qw * qx;
+  dest->_11 = 1.0f - 2.0f * qy * qy - 2.0f * qz * qz;
+  dest->_12 = 2.0f * qx * qy + 2.0f * qw * qz;
+  dest->_13 = 2.0f * qx * qz - 2.0f * qw * qy;
+  dest->_14 = 0.0f;
 
-  //            m31 = 2.0f * qx * qz + 2.0f * qw * qy;
-  const T_FLOAT m31 = 2.0f * qx * qz + 2.0f * qw * qy;
-  //            m32 = 2.0f * qy * qz - 2.0f * qw * qx;
-  const T_FLOAT m32 = 2.0f * qy * qz - 2.0f * qw * qx;
-  //            m33 = 1.0f - 2.0f * qx * qx - 2.0f * qy * qy;
-  const T_FLOAT m33 = 1.0f - 2.0f * qx * qx - 2.0f * qy * qy;
+  dest->_21 = 2.0f * qx * qy - 2.0f * qw * qz;
+  dest->_22 = 1.0f - 2.0f * qx * qx - 2.0f * qz * qz;
+  dest->_23 = 2.0f * qy * qz + 2.0f * qw * qx;
+  dest->_24 = 0.0f;
 
-  dest->Init();
+  dest->_31 = 2.0f * qx * qz + 2.0f * qw * qy;
+  dest->_32 = 2.0f * qy * qz - 2.0f * qw * qx;
+  dest->_33 = 1.0f - 2.0f * qx * qx - 2.0f * qy * qy;
+  dest->_34 = 0.0f;
 
-  (*dest)[0][0] = m11;
-  (*dest)[0][1] = m12;
-  (*dest)[0][2] = m13;
-
-  (*dest)[1][0] = m21;
-  (*dest)[1][1] = m22;
-  (*dest)[1][2] = m23;
-
-  (*dest)[2][0] = m31;
-  (*dest)[2][1] = m32;
-  (*dest)[2][2] = m33;
+  dest->_41 = 0.0f;
+  dest->_42 = 0.0f;
+  dest->_43 = 0.0f;
+  dest->_44 = 1.0f;
 }

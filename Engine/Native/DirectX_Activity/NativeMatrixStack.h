@@ -15,7 +15,7 @@ public:
   // Method
   // =================================================================
 public:
-  virtual void Push(NativeMatrixInstance* mat) override;
+  virtual void Push(const Matrix4x4& mat) override;
   virtual void Pop() override;
-  virtual NativeMatrixInstance* GetTop() override;
+  virtual const Matrix4x4& GetTop() override;
 };

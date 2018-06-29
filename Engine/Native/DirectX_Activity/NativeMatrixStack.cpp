@@ -23,10 +23,10 @@ NativeMatrixStack::~NativeMatrixStack()
 // =================================================================
 // Method
 // =================================================================
-void NativeMatrixStack::Push(NativeMatrixInstance* mat)
+void NativeMatrixStack::Push(const Matrix4x4& mat)
 {
   this->stack_->Push();
-  this->stack_->MultMatrixLocal((D3DXMATRIX*)mat);
+  this->stack_->MultMatrixLocal((const D3DXMATRIX*)&mat);
 }
 
 void NativeMatrixStack::Pop()
@@ -34,7 +34,7 @@ void NativeMatrixStack::Pop()
   this->stack_->Pop();
 }
 
-NativeMatrixInstance* NativeMatrixStack::GetTop()
+const Matrix4x4& NativeMatrixStack::GetTop()
 {
-  return (NativeMatrixInstance*)this->stack_->GetTop();
+  return (const Matrix4x4&)*this->stack_->GetTop();
 }
