@@ -120,7 +120,7 @@
       #include "NativeRenderTexture.h"
       #include "NativeTexture.h"
 
-//Resource
+//Asset
   #include "EngineAsset.h"
 //--File
     #include "FileResource.h"
