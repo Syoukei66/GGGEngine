@@ -425,7 +425,9 @@
     <ClInclude Include="SpineResource.h" />
     <ClInclude Include="Sprite3D.h" />
     <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureRegion.h" />
+    <ClInclude Include="TextureSource.h" />
     <ClInclude Include="TiledTextureRegion.h" />
     <ClInclude Include="Transform3DRotator.h" />
     <ClInclude Include="GameObjectRenderState.h" />

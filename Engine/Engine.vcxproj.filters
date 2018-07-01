@@ -367,6 +367,15 @@
     <Filter Include="ソース ファイル\Asset\File\Sound">
       <UniqueIdentifier>{899c36ae-ee59-4928-859c-bb5753da65bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Resource">
+      <UniqueIdentifier>{7d51020d-4c47-4225-9dbb-dc4f9d88ff3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Resource">
+      <UniqueIdentifier>{4a8329cb-f7a6-429d-88ab-e35e3d402256}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Resource\Texture">
+      <UniqueIdentifier>{228b2568-cff3-49dd-a40c-284fc68c867e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ITextureRegion.cpp">
@@ -1408,6 +1417,12 @@
     </ClInclude>
     <ClInclude Include="Matrix4x4.inl">
       <Filter>ヘッダー ファイル\Structure\Math\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>ヘッダー ファイル\Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureSource.h">
+      <Filter>ヘッダー ファイル\Resource\Texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
