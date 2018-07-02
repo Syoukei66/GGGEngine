@@ -52,9 +52,6 @@
     <Filter Include="ソース ファイル\Audio">
       <UniqueIdentifier>{3df6a896-d539-432a-b8fa-93a314025ec0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Native\Objects\Texture">
-      <UniqueIdentifier>{7ac6add6-c169-496c-aecd-e5f152943af0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Native\Objects\Buffer">
       <UniqueIdentifier>{6af917ce-1859-410e-bfd6-696221736002}</UniqueIdentifier>
     </Filter>
@@ -104,9 +101,6 @@
     </ClCompile>
     <ClCompile Include="NativeIndexBuffer.cpp">
       <Filter>ソース ファイル\Native\Objects\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderBuffer.cpp">
-      <Filter>ソース ファイル\Native\Objects\Texture</Filter>
     </ClCompile>
     <ClCompile Include="NativeProcess.cpp">
       <Filter>ソース ファイル\Native</Filter>

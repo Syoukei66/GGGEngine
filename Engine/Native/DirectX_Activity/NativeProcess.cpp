@@ -268,6 +268,38 @@ void GetTextureSize(void* native_obj, T_UINT16* width_dest, T_UINT16* height_des
   (*height_dest) = desc.Height;
 }
 
+void* CreateColorBuffer(Texture* texture)
+{
+  LPDIRECT3DTEXTURE9 tex = (LPDIRECT3DTEXTURE9)texture->GetNativeObject();
+  LPDIRECT3DSURFACE9 surf;
+  HRESULT hr = tex->GetSurfaceLevel(0, &surf);
+  NATIVE_ASSERT(SUCCEEDED(hr), "テクスチャのサーフェイスの取得に失敗しました");
+  return  surf;
+}
+
+void* CreateDepthBuffer(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format)
+{
+  LPDIRECT3DSURFACE9 surf;
+  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
+  HRESULT hr = device->CreateDepthStencilSurface(
+    width,
+    height,
+    NativeConstants::TEXTURE_FORMATS[format],
+    D3DMULTISAMPLE_NONE,
+    0,
+    TRUE,
+    &surf,
+    nullptr
+  );
+  NATIVE_ASSERT(SUCCEEDED(hr), "深度バッファの作成に失敗しました");
+  return surf;
+}
+
+void DeleteRenderBuffer(void* native_obj)
+{
+  ((LPDIRECT3DSURFACE9)native_obj)->Release();
+}
+
 }
 
 //=========================================================================================

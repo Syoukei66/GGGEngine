@@ -20,7 +20,7 @@ Texture::Texture(T_UINT16 width, T_UINT16 height, void* native_obj)
   , height_(height)
 {
   NativeProcess::Resource::GetTextureSize(native_obj, &this->two_powered_width_, &this->two_powered_height_);
-  this->color_buffer_ = new RenderBuffer(this);
+  this->color_buffer_ = RenderBuffer::CreateColorBuffer(this);
 }
 
 Texture::~Texture()

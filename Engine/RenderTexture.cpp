@@ -9,7 +9,7 @@ RenderTexture* RenderTexture::Create(T_UINT16 width, T_UINT16 height, GraphicsCo
 RenderTexture::RenderTexture(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format)
   : Texture(width, height, NativeProcess::Resource::CreateTexture(width, height, format))
 {
-  this->depth_buffer_ = new RenderBuffer(this->GetTwoPoweredWidth(), this->GetTwoPoweredHeight(), GraphicsConstants::TEX_FORMAT_D16);
+  this->depth_buffer_ = RenderBuffer::CreateDepthBuffer(this->GetTwoPoweredWidth(), this->GetTwoPoweredHeight(), GraphicsConstants::TEX_FORMAT_D16);
 }
 
 RenderTexture::~RenderTexture()

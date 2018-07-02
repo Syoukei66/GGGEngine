@@ -241,6 +241,7 @@
     <ClCompile Include="NativeVertexBuffer.cpp" />
     <ClCompile Include="PerlinNoiseGenerator.cpp" />
     <ClCompile Include="RandomGenerator.cpp" />
+    <ClCompile Include="RenderBuffer.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="FileLoader.cpp" />
     <ClCompile Include="RenderTexture.cpp" />

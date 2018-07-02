@@ -2,7 +2,6 @@
 
 #include <spine/extension.h>
 
-#include "NativeMethod.h"
 #include "Director.h"
 
 // =================================================================

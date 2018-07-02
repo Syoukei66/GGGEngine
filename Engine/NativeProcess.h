@@ -45,6 +45,10 @@ void* CreateTexture(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureF
 void DeleteTexture(void* native_obj);
 void GetTextureSize(const std::string& path, T_UINT16* width_dest, T_UINT16* height_dest);
 void GetTextureSize(void* native_obj, T_UINT16* width_dest, T_UINT16* height_dest);
+
+void* CreateColorBuffer(Texture* texture);
+void* CreateDepthBuffer(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format);
+void DeleteRenderBuffer(void* native_obj);
 } // namespace Resource
 
 namespace Factory

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "NativeType.h"
+
 namespace GraphicsConstants
 {
 

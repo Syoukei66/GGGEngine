@@ -7,8 +7,13 @@ class Texture;
 class RenderBuffer
 {
 public:
-  RenderBuffer(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format);
-  RenderBuffer(Texture* texture);
+  static RenderBuffer* CreateColorBuffer(Texture* texture);
+  static RenderBuffer* CreateDepthBuffer(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format);
+
+private:
+  RenderBuffer(void* native_obj);
+
+public:
   ~RenderBuffer();
 
 public:

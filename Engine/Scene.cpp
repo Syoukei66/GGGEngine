@@ -6,7 +6,6 @@
 #include "Camera.h"
 #include "Camera2D.h"
 #include "Camera3D.h"
-#include "NativeMethod.h"
 #include "UserResourcePool.h"
 
 // =================================================================

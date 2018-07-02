@@ -2,7 +2,6 @@
 #include <ppl.h>
 
 #include "GameObjectRenderState.h"
-#include "NativeMethod.h"
 #include "Director.h"
 #include "Renderer.h"
 #include "Camera3D.h"
