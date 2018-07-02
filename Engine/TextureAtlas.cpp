@@ -20,7 +20,7 @@ TextureAtlas* TextureAtlas::CreateWithAtlasFile(const char* path)
   return nullptr;
 }
 
-TextureAtlas::TextureAtlas(const INativeTexture* texture)
+TextureAtlas::TextureAtlas(const Texture* texture)
   : texture_(texture)
 {}
 

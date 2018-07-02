@@ -4,9 +4,7 @@
 #include "NativeType.h"
 #include "GameObjectRenderState.h"
 #include "Material.h"
-
-#include "NativeTexture.h"
-#include "NativeRenderTexture.h"
+#include "RenderBuffer.h"
 
 class INativeProcess_Graphics
 {
@@ -22,9 +20,8 @@ public:
 
   virtual void Graphics_PackColor4u8(T_PACKED_COLOR_UINT32* color, T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a) = 0;
 
-  virtual void Blit(INativeTexture* source, INativeRenderTexture* dest) = 0;
-  virtual void Blit(INativeTexture* source, INativeRenderTexture* dest, Material* mat, T_UINT8 pass = -1) = 0;
-  virtual void Blit(INativeTexture* source, Material* mat, T_UINT8 pass = -1) = 0;
+  virtual void SetRenderTarget(RenderBuffer* color_buffer, RenderBuffer* depth_buffer, bool clear) = 0;
+  virtual void ResetRenderTarget() = 0;
 
 };
 

@@ -17,10 +17,10 @@ public:
   virtual void Graphics_SetViewport(T_FLOAT x, T_FLOAT y, T_FLOAT w, T_FLOAT h, T_FLOAT minZ, T_FLOAT maxZ) override;
 
   virtual void Graphics_PackColor4u8(T_PACKED_COLOR_UINT32* color, T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a) override;
-  
-  virtual void Blit(INativeTexture* source, INativeRenderTexture* dest) override;
-  virtual void Blit(INativeTexture* source, INativeRenderTexture* dest, Material* mat, T_UINT8 pass) override;
-  virtual void Blit(INativeTexture* source, Material* mat, T_UINT8 pass) override;
+
+  virtual void SetRenderTarget(RenderBuffer* color_buffer, RenderBuffer* depth_buffer, bool clear) override;
+  virtual void ResetRenderTarget() override;
+
 };
 
 #endif//HAL_DIRECTX_ACTIVITY_NATIVE_NATIVEPROCESS_GRAPHICS_H_

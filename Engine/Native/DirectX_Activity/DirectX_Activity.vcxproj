@@ -213,7 +213,6 @@
     <ClCompile Include="DirectXNativeImplements.cpp" />
     <ClCompile Include="imgui\imgui_impl_dx9.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="NativeRenderTexture.cpp" />
     <ClCompile Include="NativeIndexBuffer.cpp" />
     <ClCompile Include="NativeObjectFactory.cpp" />
     <ClCompile Include="NativeProcess_IO.cpp" />
@@ -221,14 +220,16 @@
     <ClCompile Include="NativeProcess_Time.cpp" />
     <ClCompile Include="NativeShader.cpp" />
     <ClCompile Include="NativeSound.cpp" />
-    <ClCompile Include="NativeTexture.cpp" />
     <ClCompile Include="NativeVertexBuffer.cpp" />
+    <ClCompile Include="RenderBuffer.cpp" />
+    <ClCompile Include="RenderTexture.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioManager.h" />
@@ -242,14 +243,12 @@
     <ClInclude Include="DirectXNativeImplements.h" />
     <ClInclude Include="imgui\imgui_impl_dx9.h" />
     <ClInclude Include="NativeConstants.h" />
-    <ClInclude Include="NativeRenderTexture.h" />
     <ClInclude Include="NativeIndexBuffer.h" />
     <ClInclude Include="NativeProcess_IO.h" />
     <ClInclude Include="NativeProcess_Graphics.h" />
     <ClInclude Include="NativeProcess_Time.h" />
     <ClInclude Include="NativeShader.h" />
     <ClInclude Include="NativeSound.h" />
-    <ClInclude Include="NativeTexture.h" />
     <ClInclude Include="NativeVertexBuffer.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>

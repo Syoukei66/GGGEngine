@@ -114,9 +114,6 @@
 //----Buffer
       #include "NativeIndexBuffer.h"
       #include "NativeVertexBuffer.h"
-//----Texture
-      #include "NativeRenderTexture.h"
-      #include "NativeTexture.h"
 
 //Asset
   #include "EngineAsset.h"
@@ -163,7 +160,12 @@
     #include "LoadProgressCounter.h"
     #include "ResourcePool.h"
     #include "UserResourcePool.h"
-
+//Resource
+//--Texture
+    #include "RenderBuffer.h"
+    #include "RenderTexture.h"
+    #include "Texture.h"
+    #include "TextureSource.h"
 //Scene
   #include "Scene.h"
   #include "SceneTransitioner.h"

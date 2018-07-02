@@ -12,7 +12,7 @@ class Sprite : public GameObject2D
 public:
   static Sprite* Create();
   static Sprite* CreateWithResource(const TextureResource& texture);
-  static Sprite* CreateWithTexture(const INativeTexture* texture);
+  static Sprite* CreateWithTexture(const Texture* texture);
   static Sprite* CreateWithTextureRegion(ITextureRegion* region, bool delete_region);
   static Sprite* CreateWithMaterial(Material& material);
 
@@ -39,11 +39,11 @@ public:
   {
     this->GetSpriteRenderer()->FitToTexture();
   }
-  inline void SetTexture(const INativeTexture* texture)
+  inline void SetTexture(const Texture* texture)
   {
     this->GetSpriteRenderer()->SetTexture(texture);
   }
-  inline const INativeTexture* GetTexture() const
+  inline const Texture* GetTexture() const
   {
     return this->GetSpriteRenderer()->GetTexture();
   }

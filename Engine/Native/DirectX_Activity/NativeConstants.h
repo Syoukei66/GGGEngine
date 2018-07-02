@@ -3,7 +3,6 @@
 #include <d3d9.h>
 #include "INativeProcess_Graphics.h"
 
-
 namespace NativeConstants
 {
 
@@ -15,6 +14,14 @@ static const D3DPRIMITIVETYPE PRIMITIVE_TYPES[GraphicsConstants::PRIMITIVE_DATAN
   D3DPT_TRIANGLELIST,
   D3DPT_TRIANGLESTRIP,
   D3DPT_TRIANGLEFAN,
+};
+
+static D3DFORMAT TEXTURE_FORMATS[GraphicsConstants::TEX_FORMAT_DATANUM] =
+{
+  D3DFMT_D16,
+  D3DFMT_A8B8G8R8,
+  D3DFMT_A16B16G16R16,
+  D3DFMT_A16B16G16R16F,
 };
 
 }

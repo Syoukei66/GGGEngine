@@ -17,7 +17,7 @@ Sprite3D* Sprite3D::CreateWithResource(const TextureResource& texture)
   return Sprite3D::CreateWithTexture(texture.GetContents());
 }
 
-Sprite3D* Sprite3D::CreateWithTexture(const INativeTexture* texture)
+Sprite3D* Sprite3D::CreateWithTexture(const Texture* texture)
 {
   TextureRegion* region = TextureRegion::CreateWithTexture(texture);
   return Sprite3D::CreateWithTextureRegion(region, true);

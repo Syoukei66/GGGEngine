@@ -36,7 +36,7 @@ public:
 
   virtual void SetColor(const char* property_name, const Color4F& color) override;
   virtual void SetMatrix(const char* property_name, const Matrix4x4& matrix) override;
-  virtual void SetTexture(const char* property_name, NativeTextureInstance* texture) override;
+  virtual void SetTexture(const char* property_name, const Texture* texture) override;
 
   virtual void GetBool(const char* property_name, bool* dest) override;
   virtual void GetInt(const char* property_name, T_INT32* dest) override;
@@ -48,7 +48,7 @@ public:
 
   virtual void GetColor(const char* property_name, Color4F* dest) override;
   virtual void GetMatrix(const char* property_name, Matrix4x4* dest) override;
-  virtual void GetTexture(const char* property_name, INativeTexture* dest) override;
+  virtual void GetTexture(const char* property_name, void* native_dest) override;
 
   // =================================================================
   // Data Members

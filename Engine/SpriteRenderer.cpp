@@ -60,7 +60,7 @@ void SpriteRenderer::EditProperty(T_UINT8 material_index, T_UINT8 pass_index, Ma
 // =================================================================
 void SpriteRenderer::FitToTexture()
 {
-  const INativeTexture* texture = this->GetTextureRegion()->GetTexture();
+  const Texture* texture = this->GetTextureRegion()->GetTexture();
   if (!texture)
   {
     return;
@@ -83,7 +83,7 @@ void SpriteRenderer::SetTextureRegion(ITextureRegion* region, bool delete_region
   this->delete_region_ = delete_region;
 }
 
-void SpriteRenderer::SetTexture(const INativeTexture* texture)
+void SpriteRenderer::SetTexture(const Texture* texture)
 {
   if (!this->texture_region_)
   {

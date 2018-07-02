@@ -161,9 +161,9 @@ void NativeShader::SetMatrix(const char* property_name, const Matrix4x4& matrix)
   HRESULT hr = this->effect_->SetMatrix(property_name, (const D3DXMATRIX*)&matrix);
 }
 
-void NativeShader::SetTexture(const char* property_name, NativeTextureInstance* texture)
+void NativeShader::SetTexture(const char* property_name, const Texture* texture)
 {
-  HRESULT hr = this->effect_->SetTexture(property_name, (LPDIRECT3DTEXTURE9)texture);
+  HRESULT hr = this->effect_->SetTexture(property_name, texture ? (LPDIRECT3DTEXTURE9)texture->GetNativeObject() : nullptr);
 }
 
 void NativeShader::GetBool(const char* property_name, bool* dest)
@@ -208,8 +208,8 @@ void NativeShader::GetMatrix(const char* property_name, Matrix4x4* dest)
   this->effect_->GetMatrix(property_name, (D3DXMATRIX*)dest);
 }
 
-void NativeShader::GetTexture(const char* property_name, INativeTexture* dest)
+void NativeShader::GetTexture(const char* property_name, void* dest)
 {
   NATIVE_ASSERT(false, "‚Ü‚¾‚Å‚«‚Ä‚¢‚Ü‚¹‚ñI");
-  //this->effect_->GetTexture(property_name, (LPDIRECT3DBASETEXTURE9*)(&(dest->GetNativeInstance())));
+  this->effect_->GetTexture(property_name, (LPDIRECT3DBASETEXTURE9*)(&(dest)));
 }

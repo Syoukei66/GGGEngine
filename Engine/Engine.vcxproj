@@ -235,7 +235,6 @@
     <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="MeshResource.cpp" />
     <ClCompile Include="ModelNode.cpp" />
-    <ClCompile Include="NativeRenderTexture.cpp" />
     <ClCompile Include="NativeIndexBuffer.cpp" />
     <ClCompile Include="NativeShader.cpp" />
     <ClCompile Include="NativeSound.cpp" />
@@ -244,7 +243,6 @@
     <ClCompile Include="RandomGenerator.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="FileLoader.cpp" />
-    <ClCompile Include="NativeTexture.cpp" />
     <ClCompile Include="ResourcePool.cpp" />
     <ClCompile Include="ShaderResource.cpp" />
     <ClCompile Include="SoundResource.cpp" />
@@ -371,13 +369,13 @@
     <ClInclude Include="MeshResource.h" />
     <ClInclude Include="ModelNode.h" />
     <ClInclude Include="NativeAssert.h" />
-    <ClInclude Include="NativeRenderTexture.h" />
     <ClInclude Include="NativeIndexBuffer.h" />
     <ClInclude Include="NativeSound.h" />
     <ClInclude Include="NativeVertexBuffer.h" />
     <ClInclude Include="NativeShader.h" />
     <ClInclude Include="PerlinNoiseGenerator.h" />
     <ClInclude Include="RandomGenerator.h" />
+    <ClInclude Include="RenderBuffer.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="FileLoader.h" />
     <ClInclude Include="FileResource.h" />
@@ -414,6 +412,7 @@
     <ClInclude Include="NativeObjectFactory.h" />
     <ClInclude Include="NativeObject.h" />
     <ClInclude Include="EngineAsset.h" />
+    <ClInclude Include="RenderTexture.h" />
     <ClInclude Include="ResourceLoader.h" />
     <ClInclude Include="ScalingMatrix.h" />
     <ClInclude Include="ShaderProperties.h" />
@@ -422,7 +421,9 @@
     <ClInclude Include="SpineResource.h" />
     <ClInclude Include="Sprite3D.h" />
     <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureRegion.h" />
+    <ClInclude Include="TextureSource.h" />
     <ClInclude Include="TiledTextureRegion.h" />
     <ClInclude Include="Transform3DRotator.h" />
     <ClInclude Include="GameObjectRenderState.h" />
@@ -444,7 +445,6 @@
     <ClInclude Include="MathConstants.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="NativeMethod.h" />
-    <ClInclude Include="NativeTexture.h" />
     <ClInclude Include="ParticleData.h" />
     <ClInclude Include="ParticleDataLoader.h" />
     <ClInclude Include="ParticleDataManager.h" />

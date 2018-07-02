@@ -4,6 +4,7 @@
 #include "NativeType.h"
 #include "ITextureRegion.h"
 #include "TextureResource.h"
+#include "Material.h"
 
 class TextureRegion : public ITextureRegion
 {
@@ -13,7 +14,7 @@ class TextureRegion : public ITextureRegion
 public:
   static TextureRegion* CreateWithMaterial(const Material& material);
   static TextureRegion* CreateWithResource(const TextureResource& texture);
-  static TextureRegion* CreateWithTexture(const INativeTexture* texture);
+  static TextureRegion* CreateWithTexture(const Texture* texture);
 
   // =================================================================
   // Constructor / Destructor
@@ -26,7 +27,7 @@ public:
   // Methods for/from SuperClass/Interfaces
   // =================================================================
 public:
-  virtual void OnUpdateTextureCoord(const INativeTexture* texture) override;
+  virtual void OnUpdateTextureCoord(const Texture* texture) override;
 
 };
 

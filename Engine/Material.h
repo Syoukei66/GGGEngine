@@ -158,12 +158,12 @@ public:
     return this->GetShaderProperty<ShaderProperty_texture>(property_name);
   }
 
-  inline void SetMainTexture(const INativeTexture* texture)
+  inline void SetMainTexture(const Texture* texture)
   {
     NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
     this->texture_ = texture;
   }
-  inline const INativeTexture* GetMainTexture() const
+  inline const Texture* GetMainTexture() const
   {
     return this->texture_;
   }
@@ -229,7 +229,7 @@ protected:
   std::string technique_;
 
   Color4F color_;
-  const INativeTexture* texture_;
+  const Texture* texture_;
 
   GraphicsConstants::RenderQueue queue_;
   bool billbording_;

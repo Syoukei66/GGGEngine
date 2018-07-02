@@ -175,12 +175,6 @@
     <Filter Include="ソース ファイル\imgui">
       <UniqueIdentifier>{9b8d6292-1ea3-490e-b5b9-de8fa4dfc578}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Native\Objects\Texture">
-      <UniqueIdentifier>{218161b8-91dc-42ca-805b-49883a393ec1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Native\Objects\Texture">
-      <UniqueIdentifier>{512ffe46-9b10-4d3a-a160-0cc98a2ff944}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Native\Objects\Buffer">
       <UniqueIdentifier>{3ef0007b-3be9-4a65-8cbe-10f1fa3e1656}</UniqueIdentifier>
     </Filter>
@@ -354,6 +348,12 @@
     </Filter>
     <Filter Include="ソース ファイル\Asset\File\Sound">
       <UniqueIdentifier>{899c36ae-ee59-4928-859c-bb5753da65bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Resource">
+      <UniqueIdentifier>{4a8329cb-f7a6-429d-88ab-e35e3d402256}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Resource\Texture">
+      <UniqueIdentifier>{228b2568-cff3-49dd-a40c-284fc68c867e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -734,12 +734,6 @@
     </ClCompile>
     <ClCompile Include="Collision3D.cpp">
       <Filter>ソース ファイル\Component\Collision\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="NativeTexture.cpp">
-      <Filter>ソース ファイル\Native\Objects\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="NativeRenderTexture.cpp">
-      <Filter>ソース ファイル\Native\Objects\Texture</Filter>
     </ClCompile>
     <ClCompile Include="NativeVertexBuffer.cpp">
       <Filter>ソース ファイル\Native\Objects\Buffer</Filter>
@@ -1280,12 +1274,6 @@
     <ClInclude Include="ResourceLoader.h">
       <Filter>ヘッダー ファイル\Asset\File</Filter>
     </ClInclude>
-    <ClInclude Include="NativeTexture.h">
-      <Filter>ヘッダー ファイル\Native\Objects\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeRenderTexture.h">
-      <Filter>ヘッダー ファイル\Native\Objects\Texture</Filter>
-    </ClInclude>
     <ClInclude Include="NativeIndexBuffer.h">
       <Filter>ヘッダー ファイル\Native\Objects\Buffer</Filter>
     </ClInclude>
@@ -1384,6 +1372,18 @@
     </ClInclude>
     <ClInclude Include="GameObjectRenderQueue.h">
       <Filter>ヘッダー ファイル\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureSource.h">
+      <Filter>ヘッダー ファイル\Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>ヘッダー ファイル\Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTexture.h">
+      <Filter>ヘッダー ファイル\Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderBuffer.h">
+      <Filter>ヘッダー ファイル\Resource\Texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

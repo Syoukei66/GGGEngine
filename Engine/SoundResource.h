@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-#include "NativeTexture.h"
 #include "FileResource.h"
 #include "NativeSound.h"
 

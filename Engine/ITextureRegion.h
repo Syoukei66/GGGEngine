@@ -1,8 +1,8 @@
-#ifndef HAL_ENGINE_ENTITY_SHAPE_SPRITE_TEXTUREREGION_ITEXTUREREGION_H_
-#define HAL_ENGINE_ENTITY_SHAPE_SPRITE_TEXTUREREGION_ITEXTUREREGION_H_
+#pragma once
 
 #include "NativeType.h"
-#include "Material.h"
+#include "Geometry.h"
+#include "Texture.h"
 
 class ITextureRegion
 {
@@ -26,17 +26,17 @@ public:
   void OnTextureCoordDirty();
 
 protected:
-  virtual void OnUpdateTextureCoord(const INativeTexture* texture) = 0;
+  virtual void OnUpdateTextureCoord(const Texture* texture) = 0;
 
   // =================================================================
   // setter/getter
   // =================================================================
 public:
-  inline void SetTexture(const INativeTexture* texture)
+  inline void SetTexture(const Texture* texture)
   {
     this->texture_ = texture;
   }
-  inline const INativeTexture* GetTexture() const
+  inline const Texture* GetTexture() const
   {
     return this->texture_;
   }
@@ -101,10 +101,8 @@ public:
   // Data Member
   // =================================================================
 private:
-  const INativeTexture* texture_;
+  const Texture* texture_;
   TAreaf texture_region_;
   TVec2f uv0_, uv1_;
   bool texture_coord_dirty_;
 };
-
-#endif//HAL_ENGINE_ENTITY_SHAPE_SPRITE_TEXTUREREGION_ITEXTUREREGION_H_

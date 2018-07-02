@@ -3,7 +3,7 @@
 #include "GameComponent.h"
 
 #include "NativeType.h"
-#include "NativeRenderTexture.h"
+#include "RenderTexture.h"
 #include "GameObjectRenderState.h"
 
 #include "Geometry.h"
@@ -56,12 +56,12 @@ public:
     return this->viewport_clear_;
   }
 
-  inline void SetTargetTexture(INativeRenderTexture* texture)
+  inline void SetTargetTexture(RenderTexture* texture)
   {
     this->target_texture_ = texture;
   }
 
-  inline INativeRenderTexture* GetTargetTexture() const
+  inline RenderTexture* GetTargetTexture() const
   {
     return this->target_texture_;
   }
@@ -149,7 +149,7 @@ protected:
   TVec3f direction_;
 
 private:
-  INativeRenderTexture* target_texture_;
+  RenderTexture* target_texture_;
   bool viewport_clear_;
   TVec2f position_;
   TSizef size_;

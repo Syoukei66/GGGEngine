@@ -266,10 +266,10 @@ public:
 // object
 // =================================================================
 template<typename T>
-class ShaderProperty_native : public ShaderProperty
+class ShaderProperty_object : public ShaderProperty
 {
 public:
-  ShaderProperty_native()
+  ShaderProperty_object()
     : value_()
   {}
 
@@ -299,12 +299,12 @@ protected:
   const T* value_;
 };
 
-class ShaderProperty_texture : public ShaderProperty_native<INativeTexture>
+class ShaderProperty_texture : public ShaderProperty_object<Texture>
 {
 public:
-  const ShaderProperty_texture& operator = (const INativeTexture* b)
+  const ShaderProperty_texture& operator = (const Texture* b)
   {
-    ShaderProperty_native::operator=(b);
+    ShaderProperty_object::operator=(b);
     return *this;
   }
 public:
@@ -314,7 +314,7 @@ public:
     {
       return;
     }
-    shader->SetTexture(property_name.c_str(), this->value_->GetNativeInstance());
+    shader->SetTexture(property_name.c_str(), this->value_);
   }
   ShaderProperty* Clone() override
   {

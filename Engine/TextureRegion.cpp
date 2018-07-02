@@ -15,7 +15,7 @@ TextureRegion* TextureRegion::CreateWithResource(const TextureResource& texture)
   return TextureRegion::CreateWithTexture(texture.GetContents());
 }
 
-TextureRegion* TextureRegion::CreateWithTexture(const INativeTexture* texture)
+TextureRegion* TextureRegion::CreateWithTexture(const Texture* texture)
 {
   TextureRegion* ret = new TextureRegion();
   ret->Init();
@@ -36,7 +36,7 @@ TextureRegion::~TextureRegion()
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
-void TextureRegion::OnUpdateTextureCoord(const INativeTexture* texture)
+void TextureRegion::OnUpdateTextureCoord(const Texture* texture)
 {
   const T_FLOAT tw = (T_FLOAT)texture->GetTwoPoweredWidth();
   const T_FLOAT th = (T_FLOAT)texture->GetTwoPoweredHeight();

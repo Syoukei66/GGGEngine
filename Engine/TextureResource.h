@@ -2,10 +2,10 @@
 #define HAL_ENGINE_RESOURCE_TEXTURE_H_
 
 #include <string>
-#include "NativeTexture.h"
 #include "FileResource.h"
+#include "Texture.h"
 
-class TextureResource : public FileResource<INativeTexture>
+class TextureResource : public FileResource<Texture>
 {
 public:
   static TextureResource* DynamicLoad(const char* path);
@@ -20,7 +20,7 @@ public:
   // Methods
   // =================================================================
 public:
-  virtual INativeTexture* NativeLoadProcess(const std::string& path) override;
+  virtual Texture* NativeLoadProcess(const std::string& path) override;
 
   // =================================================================
   // Setter / Getter

@@ -12,10 +12,20 @@ enum RenderQueue
   RQ_GEOMETRY_LAST,
   RQ_TRANSPARENT = RQ_GEOMETRY_LAST,
   RQ_OVERLAY,
+
   RQ_DATANUM,
 };
 
-//TODO: GraphicsConstants‚ÉˆÚ“®‚·‚é‚×‚«
+enum TextureFormat
+{
+  TEX_FORMAT_D16,
+  TEX_FORMAT_R8G8B8A8,
+  TEX_FORMAT_R16G16B16A16,
+  TEX_FORMAT_R16G16B16A16F,
+
+  TEX_FORMAT_DATANUM,
+};
+
 enum VertexAttribute
 {
   V_ATTR_POSITION = 1 << 0,
