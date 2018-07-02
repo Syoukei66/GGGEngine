@@ -26,7 +26,7 @@ public:
 
 private:
   virtual void SetStreamSource() const;
-  virtual void DrawSubset(T_UINT8 material_index, T_UINT8 pass_index) const;
+  virtual void DrawSubset(T_UINT8 submesh_index) const;
 
   // =================================================================
   // setter/getter

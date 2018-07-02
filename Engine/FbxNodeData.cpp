@@ -25,18 +25,7 @@ FbxNodeData::FbxNodeData(FbxNode* node)
   this->rotation_.y = MathConstants::DegToRad(node->LclRotation.Get()[1]);
   this->rotation_.z = MathConstants::DegToRad(node->LclRotation.Get()[2]);
 
-  T_UINT16 attribute_count = node->GetNodeAttributeCount();
-  T_UINT8 mesh_index = 0;
-  for (T_UINT16 i = 0; i < attribute_count; ++i)
-  {
-    FbxNodeAttribute* attr = node->GetNodeAttributeByIndex(i);
-    if (attr->GetClassId().Is(FbxMesh::ClassId))
-    {
-      FbxMesh* mesh = (FbxMesh*)attr;
-      this->mesh_ = MeshFactory::Fbx::Create(mesh, true);
-      ++mesh_index;
-    }
-  }
+  this->mesh_ = MeshFactory::Fbx::Create(node, true);
   this->children_ = new FbxNodeData*[this->child_count_];
   for (T_UINT8 i = 0; i < this->child_count_; ++i)
   {
