@@ -184,6 +184,93 @@ void ResetRenderTarget()
 } // namespace Graphics
 
 //=========================================================================================
+// Resource
+//=========================================================================================
+namespace Resource
+{
+
+void* TextureLoad(const std::string& path)
+{
+  LP_DEVICE device = Director::GetInstance()->GetDevice();
+  LPDIRECT3DTEXTURE9 dest = nullptr;
+
+  HRESULT hr = D3DXCreateTextureFromFileEx(
+    (LPDIRECT3DDEVICE9)device,
+    path.c_str(),
+    D3DX_DEFAULT,
+    D3DX_DEFAULT,
+    D3DX_DEFAULT,
+    0,
+    D3DFMT_UNKNOWN,
+    D3DPOOL_MANAGED,
+    D3DX_FILTER_NONE,
+    D3DX_DEFAULT,
+    0,
+    NULL,
+    NULL,
+    &dest);
+
+  NATIVE_ASSERT(SUCCEEDED(hr), "テクスチャのロードに失敗しました");
+
+  return dest;
+}
+
+void* CreateTexture(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format)
+{
+  using namespace NativeConstants;
+  width = Util::CalcTwoPowerValue(width);
+  height = Util::CalcTwoPowerValue(height);
+  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
+
+  //
+  LPDIRECT3DTEXTURE9 texture = nullptr;
+
+  HRESULT hr = D3DXCreateTexture(
+    (LPDIRECT3DDEVICE9)device,
+    width,
+    height,
+    0,
+    D3DUSAGE_RENDERTARGET,
+    TEXTURE_FORMATS[format],
+    D3DPOOL_DEFAULT,
+    &texture);
+
+  NATIVE_ASSERT(SUCCEEDED(hr), "テクスチャの作成に失敗しました");
+
+  return texture;
+}
+
+void DeleteTexture(void* native_obj)
+{
+  ((LPDIRECT3DTEXTURE9)native_obj)->Release();
+}
+
+void GetTextureSize(const std::string& path, T_UINT16* width_dest, T_UINT16* height_dest)
+{
+  D3DXIMAGE_INFO info;
+  HRESULT hr = D3DXGetImageInfoFromFile(
+    path.c_str(),
+    &info
+  );
+  NATIVE_ASSERT(SUCCEEDED(hr), "テクスチャサイズの取得に失敗しました");
+  (*width_dest) = info.Width;
+  (*height_dest) = info.Height;
+}
+
+void GetTextureSize(void* native_obj, T_UINT16* width_dest, T_UINT16* height_dest)
+{
+  LPDIRECT3DTEXTURE9 tex = (LPDIRECT3DTEXTURE9)native_obj;
+
+  D3DSURFACE_DESC desc;
+  HRESULT hr = tex->GetLevelDesc(0, &desc);
+  NATIVE_ASSERT(SUCCEEDED(hr), "テクスチャの情報の取得に失敗しました");
+  (*width_dest) = desc.Width;
+  (*height_dest) = desc.Height;
+}
+
+}
+
+//=========================================================================================
 // Factory
 //=========================================================================================
 namespace Factory

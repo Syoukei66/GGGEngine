@@ -105,12 +105,6 @@
     <ClCompile Include="NativeIndexBuffer.cpp">
       <Filter>ソース ファイル\Native\Objects\Buffer</Filter>
     </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>ソース ファイル\Native\Objects\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderTexture.cpp">
-      <Filter>ソース ファイル\Native\Objects\Texture</Filter>
-    </ClCompile>
     <ClCompile Include="RenderBuffer.cpp">
       <Filter>ソース ファイル\Native\Objects\Texture</Filter>
     </ClCompile>

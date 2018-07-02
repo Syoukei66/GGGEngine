@@ -355,6 +355,9 @@
     <Filter Include="ヘッダー ファイル\Resource\Texture">
       <UniqueIdentifier>{228b2568-cff3-49dd-a40c-284fc68c867e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Resource">
+      <UniqueIdentifier>{34f60015-9d9d-4ee4-a0e2-a72e2e859143}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ITextureRegion.cpp">
@@ -788,6 +791,12 @@
     </ClCompile>
     <ClCompile Include="GameObjectRenderQueue.cpp">
       <Filter>ソース ファイル\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTexture.cpp">
+      <Filter>ソース ファイル\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>ソース ファイル\Resource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

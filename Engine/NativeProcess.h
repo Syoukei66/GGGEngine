@@ -38,6 +38,15 @@ void SetRenderTarget(RenderBuffer* color_buffer, RenderBuffer* depth_buffer, boo
 void ResetRenderTarget();
 } // namespace Graphics
 
+namespace Resource
+{
+void* TextureLoad(const std::string& path);
+void* CreateTexture(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format);
+void DeleteTexture(void* native_obj);
+void GetTextureSize(const std::string& path, T_UINT16* width_dest, T_UINT16* height_dest);
+void GetTextureSize(void* native_obj, T_UINT16* width_dest, T_UINT16* height_dest);
+} // namespace Resource
+
 namespace Factory
 {
 INativeVertexBuffer* CreateVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_count, T_UINT32 format);
