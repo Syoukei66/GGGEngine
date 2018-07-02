@@ -100,12 +100,8 @@
   #include "InputSetting.h"
 
 //Native
-  #include "INativeProcess_Graphics.h"
-  #include "INativeProcess_IO.h"
-  #include "INativeProcess_Time.h"
+  #include "NativeProcess.h"
   #include "NativeAssert.h"
-  #include "NativeMethod.h"
-  #include "NativeObjectFactory.h"
   #include "NativeType.h"
 //--Objects
     #include "NativeObject.h"

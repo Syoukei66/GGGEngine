@@ -1,5 +1,4 @@
 #include "Camera2D.h"
-#include "NativeMethod.h"
 #include "Scene.h"
 #include "GameObjectRenderState.h"
 #include "Collision2D.h"

@@ -1,5 +1,5 @@
 #include "Color.h"
-#include "NativeMethod.h"
+#include "NativeProcess.h"
 
 // =================================================================
 // Constants
@@ -50,7 +50,7 @@ Color4F::Color4F(T_FLOAT r, T_FLOAT g, T_FLOAT b, T_FLOAT a)
 T_PACKED_COLOR_UINT32 Color4F::GetPackedColor()
 {
   T_PACKED_COLOR_UINT32 ret;
-  NativeMethod::Graphics().Graphics_PackColor4u8(
+  NativeProcess::Graphics::PackColor4u8(
     &ret,
     this->col[0] * 255,
     this->col[1] * 255,

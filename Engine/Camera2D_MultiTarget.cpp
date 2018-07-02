@@ -2,7 +2,6 @@
 #include <algorithm>
 
 #include "Director.h"
-#include "NativeMethod.h"
 #include "GameObject2D.h"
 
 static const T_FLOAT ZOOM_RATE = 0.8f;

@@ -1,6 +1,5 @@
 #include "Material.h"
 #include "GameObjectRenderState.h"
-#include "NativeMethod.h"
 #include "Camera.h"
 #include "GameObject.h"
 

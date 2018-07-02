@@ -393,9 +393,6 @@
     <ClCompile Include="Transform.cpp">
       <Filter>ソース ファイル\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="NativeMethod.cpp">
-      <Filter>ソース ファイル\Native</Filter>
-    </ClCompile>
     <ClCompile Include="EntityModifier.cpp">
       <Filter>ソース ファイル\GameObject\2D\Modifier</Filter>
     </ClCompile>
@@ -833,12 +830,6 @@
     <ClInclude Include="Transform.h">
       <Filter>ヘッダー ファイル\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="INativeProcess_Graphics.h">
-      <Filter>ヘッダー ファイル\Native</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeMethod.h">
-      <Filter>ヘッダー ファイル\Native</Filter>
-    </ClInclude>
     <ClInclude Include="Sprite.h">
       <Filter>ヘッダー ファイル\GameObject\2D\Sprite</Filter>
     </ClInclude>
@@ -865,9 +856,6 @@
     </ClInclude>
     <ClInclude Include="TextureAtlasLoader.h">
       <Filter>ヘッダー ファイル\Asset\File\Texture\Atlas</Filter>
-    </ClInclude>
-    <ClInclude Include="INativeProcess_IO.h">
-      <Filter>ヘッダー ファイル\Native</Filter>
     </ClInclude>
     <ClInclude Include="spine-c\include\spine\Animation.h">
       <Filter>ヘッダー ファイル\Asset\File\Spine\c</Filter>
@@ -1025,9 +1013,6 @@
     <ClInclude Include="InputDeviceManager.h">
       <Filter>ヘッダー ファイル\Engine\Input</Filter>
     </ClInclude>
-    <ClInclude Include="INativeProcess_Time.h">
-      <Filter>ヘッダー ファイル\Native</Filter>
-    </ClInclude>
     <ClInclude Include="Camera2D_MultiTarget.h">
       <Filter>ヘッダー ファイル\Component\Camera\2D</Filter>
     </ClInclude>
@@ -1141,9 +1126,6 @@
     </ClInclude>
     <ClInclude Include="NativeShader.h">
       <Filter>ヘッダー ファイル\Native\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeObjectFactory.h">
-      <Filter>ヘッダー ファイル\Native</Filter>
     </ClInclude>
     <ClInclude Include="ParticleData.h">
       <Filter>ヘッダー ファイル\Asset\File\Particle</Filter>
@@ -1384,6 +1366,9 @@
     </ClInclude>
     <ClInclude Include="RenderBuffer.h">
       <Filter>ヘッダー ファイル\Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeProcess.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

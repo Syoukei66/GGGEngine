@@ -1,5 +1,4 @@
 #include "Camera3D_LookAt.h"
-#include "NativeMethod.h"
 #include "MathConstants.h"
 #include "Director.h"
 

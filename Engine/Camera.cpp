@@ -1,6 +1,6 @@
 #include "Camera.h"
 #include "Director.h"
-#include "NativeMethod.h"
+#include "NativeProcess.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -53,7 +53,7 @@ void Camera::DrawScene(Scene* scene)
   this->SetupCamera();
   if (this->viewport_clear_)
   {
-    NativeMethod::Graphics().Graphics_Clear();
+    NativeProcess::Graphics::ViewportClear();
   }
   this->OnDrawScene(scene);
   if (this->target_texture_)
@@ -64,7 +64,7 @@ void Camera::DrawScene(Scene* scene)
 
 void Camera::SetupCamera()
 {
-  NativeMethod::Graphics().Graphics_SetViewport(
+  NativeProcess::Graphics::SetViewport(
     this->position_.x,
     this->position_.y,
     this->size_.width,

@@ -1,6 +1,7 @@
 #include "..\..\RenderTexture.h"
 #include <RenderTexture.h>
 #include "NativeConstants.h"
+#include "NativeProcess.h"
 
 RenderTexture* RenderTexture::Create(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format)
 {
@@ -45,10 +46,10 @@ RenderTexture::~RenderTexture()
 
 void RenderTexture::RenderBegin(bool clear)
 {
-  NativeMethod::Graphics().SetRenderTarget(this->GetColorBuffer(), this->depth_buffer_, clear);
+  NativeProcess::Graphics::SetRenderTarget(this->GetColorBuffer(), this->depth_buffer_, clear);
 }
 
 void RenderTexture::RenderEnd()
 {
-  NativeMethod::Graphics().ResetRenderTarget();
+  NativeProcess::Graphics::ResetRenderTarget();
 }

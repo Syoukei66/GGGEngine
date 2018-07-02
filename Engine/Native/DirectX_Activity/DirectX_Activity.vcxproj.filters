@@ -69,9 +69,6 @@
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="NativeProcess_IO.cpp">
-      <Filter>ソース ファイル\Native</Filter>
-    </ClCompile>
     <ClCompile Include="DirectXInputDeviceManager.cpp">
       <Filter>ソース ファイル\Input</Filter>
     </ClCompile>
@@ -87,17 +84,8 @@
     <ClCompile Include="DirectXInputDevice_XInput.cpp">
       <Filter>ソース ファイル\Input\Device</Filter>
     </ClCompile>
-    <ClCompile Include="NativeProcess_Time.cpp">
-      <Filter>ソース ファイル\Native</Filter>
-    </ClCompile>
-    <ClCompile Include="NativeProcess_Graphics.cpp">
-      <Filter>ソース ファイル\Native</Filter>
-    </ClCompile>
     <ClCompile Include="NativeShader.cpp">
       <Filter>ソース ファイル\Native\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="NativeObjectFactory.cpp">
-      <Filter>ソース ファイル\Native</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui_impl_dx9.cpp">
       <Filter>ソース ファイル\imgui</Filter>
@@ -126,16 +114,13 @@
     <ClCompile Include="RenderBuffer.cpp">
       <Filter>ソース ファイル\Native\Objects\Texture</Filter>
     </ClCompile>
+    <ClCompile Include="NativeProcess.cpp">
+      <Filter>ソース ファイル\Native</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectXActivity.h">
       <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeProcess_Graphics.h">
-      <Filter>ヘッダー ファイル\Native</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeProcess_IO.h">
-      <Filter>ヘッダー ファイル\Native</Filter>
     </ClInclude>
     <ClInclude Include="DirectXInputDeviceManager.h">
       <Filter>ヘッダー ファイル\Input</Filter>
@@ -157,9 +142,6 @@
     </ClInclude>
     <ClInclude Include="DirectXInputDevice_XInput.h">
       <Filter>ヘッダー ファイル\Input\Device</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeProcess_Time.h">
-      <Filter>ヘッダー ファイル\Native</Filter>
     </ClInclude>
     <ClInclude Include="NativeShader.h">
       <Filter>ヘッダー ファイル\Native\Objects</Filter>

@@ -18,9 +18,6 @@ public:
   // Methods for/from SuperClass/Interfaces
   // =================================================================
 protected:
-  virtual INativeProcess_Graphics* SetupNativeProcess_Graphics() override;
-  virtual INativeProcess_IO* SetupNativeProcess_IO() override;
-  virtual INativeProcess_Time* SetupNativeProcess_Time() override;
   virtual bool ApplyEngineOption(const EngineOption* option) override;
   virtual bool Init(const EngineOption* option) override;
   virtual bool Uninit() override;

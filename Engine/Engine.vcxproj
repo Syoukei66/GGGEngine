@@ -261,7 +261,6 @@
     <ClCompile Include="LoadProgressCounter.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Model.cpp" />
-    <ClCompile Include="NativeMethod.cpp" />
     <ClCompile Include="ParticleData.cpp" />
     <ClCompile Include="ParticleDataLoader.cpp" />
     <ClCompile Include="ParticleDataManager.cpp" />
@@ -370,6 +369,7 @@
     <ClInclude Include="ModelNode.h" />
     <ClInclude Include="NativeAssert.h" />
     <ClInclude Include="NativeIndexBuffer.h" />
+    <ClInclude Include="NativeProcess.h" />
     <ClInclude Include="NativeSound.h" />
     <ClInclude Include="NativeVertexBuffer.h" />
     <ClInclude Include="NativeShader.h" />
@@ -409,7 +409,6 @@
     <ClInclude Include="GameObject2D.h" />
     <ClInclude Include="GameObject3D.h" />
     <ClInclude Include="Moniker.h" />
-    <ClInclude Include="NativeObjectFactory.h" />
     <ClInclude Include="NativeObject.h" />
     <ClInclude Include="EngineAsset.h" />
     <ClInclude Include="RenderTexture.h" />
@@ -432,10 +431,7 @@
     <ClInclude Include="EntityModifierFactory.h" />
     <ClInclude Include="EntityModifierManager.h" />
     <ClInclude Include="HalEngine.h" />
-    <ClInclude Include="INativeProcess_Time.h" />
     <ClInclude Include="InputDevice.h" />
-    <ClInclude Include="INativeProcess_IO.h" />
-    <ClInclude Include="INativeProcess_Graphics.h" />
     <ClInclude Include="InputDeviceManager.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="InputSetting.h" />
@@ -444,7 +440,6 @@
     <ClInclude Include="Material.h" />
     <ClInclude Include="MathConstants.h" />
     <ClInclude Include="Model.h" />
-    <ClInclude Include="NativeMethod.h" />
     <ClInclude Include="ParticleData.h" />
     <ClInclude Include="ParticleDataLoader.h" />
     <ClInclude Include="ParticleDataManager.h" />

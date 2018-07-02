@@ -214,10 +214,7 @@
     <ClCompile Include="imgui\imgui_impl_dx9.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NativeIndexBuffer.cpp" />
-    <ClCompile Include="NativeObjectFactory.cpp" />
-    <ClCompile Include="NativeProcess_IO.cpp" />
-    <ClCompile Include="NativeProcess_Graphics.cpp" />
-    <ClCompile Include="NativeProcess_Time.cpp" />
+    <ClCompile Include="NativeProcess.cpp" />
     <ClCompile Include="NativeShader.cpp" />
     <ClCompile Include="NativeSound.cpp" />
     <ClCompile Include="NativeVertexBuffer.cpp" />
@@ -244,9 +241,6 @@
     <ClInclude Include="imgui\imgui_impl_dx9.h" />
     <ClInclude Include="NativeConstants.h" />
     <ClInclude Include="NativeIndexBuffer.h" />
-    <ClInclude Include="NativeProcess_IO.h" />
-    <ClInclude Include="NativeProcess_Graphics.h" />
-    <ClInclude Include="NativeProcess_Time.h" />
     <ClInclude Include="NativeShader.h" />
     <ClInclude Include="NativeSound.h" />
     <ClInclude Include="NativeVertexBuffer.h" />
