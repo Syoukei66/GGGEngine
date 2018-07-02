@@ -3,6 +3,18 @@
 namespace GraphicsConstants
 {
 
+enum RenderQueue
+{
+  RQ_GEOMETRY_BEGIN,
+  RQ_BACKGROUND = RQ_GEOMETRY_BEGIN,
+  RQ_GEOMETRY,
+  RQ_ALPHA_TEST,
+  RQ_GEOMETRY_LAST,
+  RQ_TRANSPARENT = RQ_GEOMETRY_LAST,
+  RQ_OVERLAY,
+  RQ_DATANUM,
+};
+
 //TODO: GraphicsConstants‚ÉˆÚ“®‚·‚é‚×‚«
 enum VertexAttribute
 {

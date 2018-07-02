@@ -29,6 +29,7 @@
 //--GameObject
     #include "GameObject.h"
     #include "GameObjectRenderState.h"
+    #include "GameObjectRenderQueue.h"
     #include "Transform.h"
 //----2D
       #include "GameObject2D.h"
@@ -107,15 +108,12 @@
   #include "NativeObjectFactory.h"
   #include "NativeType.h"
 //--Objects
-    #include "NativeModel.h"
     #include "NativeObject.h"
     #include "NativeShader.h"
     #include "NativeShader.h"
 //----Buffer
       #include "NativeIndexBuffer.h"
       #include "NativeVertexBuffer.h"
-//----Matrix
-      #include "NativeMatrixStack.h"
 //----Texture
       #include "NativeRenderTexture.h"
       #include "NativeTexture.h"
@@ -125,8 +123,6 @@
 //--File
     #include "FileResource.h"
     #include "ResourceLoader.h"
-//----Model
-      #include "ModelData.h"
 //----CSV
       #include "CSVData.h"
       #include "CSVResource.h"

@@ -25,7 +25,7 @@ SpriteRenderer::~SpriteRenderer()
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
-void SpriteRenderer::Draw(GameObjectRenderState* state)
+void SpriteRenderer::Draw(GameObjectRenderState* state) const
 {
   EngineAsset::Mesh::QUAD.GetContents().SetStreamSource();
   Material* material = this->materials_[0];
@@ -42,13 +42,13 @@ void SpriteRenderer::Draw(GameObjectRenderState* state)
   material->End();
 }
 
-void SpriteRenderer::EditProperty(T_UINT8 material_index, T_UINT8 pass_index, Material* material)
+void SpriteRenderer::EditProperty(T_UINT8 material_index, T_UINT8 pass_index, Material* material) const
 {
   if (!this->texture_region_)
   {
     return;
   }
-  this->GetMaterial()->SetMainTexture(this->texture_region_->GetTexture());
+  material->SetMainTexture(this->texture_region_->GetTexture());
   material->Vec2fProperty("_UV0") = this->texture_region_->GetUV0();
   material->Vec2fProperty("_UV1") = this->texture_region_->GetUV1();
   material->FloatProperty("_Width") = this->size_.width * this->image_scale_;

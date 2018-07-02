@@ -116,8 +116,6 @@ void GameObject2D::Draw(GameObjectRenderState* state)
   //描画前のアップデート処理
   this->UpdateChildrenZIndex();
 
-  this->PushMatrixStack(state);
-
   // 1.zIndexが0未満の子GameObject
   // 2.自分自身
   // 3.zIndexが0以上の子GameObject
@@ -142,8 +140,6 @@ void GameObject2D::Draw(GameObjectRenderState* state)
     //2.自分自身
     this->ManagedDraw(state);
   }
-
-  this->PopMatrixStack(state);
 }
 
 void GameObject2D::RegisterEntityModifier(EntityModifierRoot* root)
@@ -163,16 +159,6 @@ void GameObject2D::UnregisterEntityModifier(EntityModifierRoot* root)
 void GameObject2D::ClearEntityModifiers()
 {
   EntityModifierManager::GetInstance().ClearModifiersWithTargetEntity(this);
-}
-
-void GameObject2D::PushMatrixStack(GameObjectRenderState* state)
-{
-  state->PushMatrix(this->transform_->GetMatrix());
-}
-
-void GameObject2D::PopMatrixStack(GameObjectRenderState* state)
-{
-  state->PopMatrix();
 }
 
 // =================================================================

@@ -85,10 +85,6 @@ public:
 
   void Update() override;
 
-protected:
-  virtual void PushMatrixStack(GameObjectRenderState* state) override;
-  virtual void PopMatrixStack(GameObjectRenderState* state) override;
-
 public:
   void SetApplyLocalPosition(bool apply_local_position)
   {
@@ -100,6 +96,7 @@ private:
   T_FLOAT time_count_;
   T_FLOAT duration_;
   PoolAllocator<Particle>* particles_;
+  //TODO:ã@î\ÇµÇ»Ç¢ÇÃÇ≈ParticleRendererÇ»ÇËâΩÇ»ÇËçÏÇ¡ÇƒÇ»ÇÒÇ∆Ç©Ç∑ÇÈ
   bool apply_local_position_;
 };
 

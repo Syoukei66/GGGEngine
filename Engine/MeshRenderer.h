@@ -22,11 +22,11 @@ protected:
   // Method
   // =================================================================
 public:
-  virtual void Draw(GameObjectRenderState* state) override;
+  virtual void Draw(GameObjectRenderState* state) const override;
 
 private:
-  virtual void SetStreamSource();
-  virtual void DrawSubset(T_UINT8 material_index, T_UINT8 pass_index);
+  virtual void SetStreamSource() const;
+  virtual void DrawSubset(T_UINT8 material_index, T_UINT8 pass_index) const;
 
   // =================================================================
   // setter/getter

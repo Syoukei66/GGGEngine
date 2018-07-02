@@ -68,5 +68,6 @@ void Camera2D::OnDrawScene(Scene* scene)
 {
   this->render_state_->Init();
   scene->Draw2DLayers(this->render_state_);
+  this->render_state_->Draw();
 }
 

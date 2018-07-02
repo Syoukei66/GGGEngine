@@ -187,12 +187,6 @@
     <Filter Include="ヘッダー ファイル\Native\Objects\Buffer">
       <UniqueIdentifier>{c4463880-843a-46cb-b0be-c9e2aa138715}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Native\Objects\Matrix">
-      <UniqueIdentifier>{c4686790-cb76-41ab-b0fa-665c04c96f0d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Native\Objects\Matrix">
-      <UniqueIdentifier>{fdd551e1-c5a7-40cd-af96-88c21e04b7f2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Component\Camera\2D">
       <UniqueIdentifier>{9031b82b-78ed-4c68-87ab-986f08c9951d}</UniqueIdentifier>
     </Filter>
@@ -307,9 +301,6 @@
     <Filter Include="ヘッダー ファイル\Asset\File\Texture\Atlas">
       <UniqueIdentifier>{8c6957c3-fa2e-45fc-8e03-96f4f7a5f773}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\File\Model">
-      <UniqueIdentifier>{75a7fd5d-323e-4480-a5c6-da5ab6295f15}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Asset\File\CSV">
       <UniqueIdentifier>{284a2b53-9873-42cc-be04-f303f4fa5064}</UniqueIdentifier>
     </Filter>
@@ -336,9 +327,6 @@
     </Filter>
     <Filter Include="ソース ファイル\Asset\File\CSV">
       <UniqueIdentifier>{ed66e4a2-1614-449c-8a12-154f8cfce1bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Asset\File\Model">
-      <UniqueIdentifier>{3e3adae3-f231-45a4-aed6-e5dc38e59ae3}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Asset\File\Particle">
       <UniqueIdentifier>{a4071fa6-c860-4735-bdef-396c016ff26c}</UniqueIdentifier>
@@ -651,14 +639,8 @@
     <ClCompile Include="Collision2D.cpp">
       <Filter>ソース ファイル\Component\Collision\2D</Filter>
     </ClCompile>
-    <ClCompile Include="ModelData.cpp">
-      <Filter>ソース ファイル\Asset\File\Model</Filter>
-    </ClCompile>
     <ClCompile Include="Collider3D.cpp">
       <Filter>ソース ファイル\Component\Collision\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="NativeModel.cpp">
-      <Filter>ソース ファイル\Native\Objects</Filter>
     </ClCompile>
     <ClCompile Include="ResourcePool.cpp">
       <Filter>ソース ファイル\Asset\Pool</Filter>
@@ -765,9 +747,6 @@
     <ClCompile Include="NativeIndexBuffer.cpp">
       <Filter>ソース ファイル\Native\Objects\Buffer</Filter>
     </ClCompile>
-    <ClCompile Include="NativeMatrixStack.cpp">
-      <Filter>ソース ファイル\Native\Objects\Matrix</Filter>
-    </ClCompile>
     <ClCompile Include="TextureResource.cpp">
       <Filter>ソース ファイル\Asset\File\Texture</Filter>
     </ClCompile>
@@ -815,6 +794,9 @@
     </ClCompile>
     <ClCompile Include="Matrix4x4.cpp">
       <Filter>ソース ファイル\Structure\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectRenderQueue.cpp">
+      <Filter>ソース ファイル\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1091,9 +1073,6 @@
     <ClInclude Include="Model.h">
       <Filter>ヘッダー ファイル\GameObject\3D\Model</Filter>
     </ClInclude>
-    <ClInclude Include="ModelData.h">
-      <Filter>ヘッダー ファイル\Asset\File\Model</Filter>
-    </ClInclude>
     <ClInclude Include="GameObjectRenderState.h">
       <Filter>ヘッダー ファイル\GameObject</Filter>
     </ClInclude>
@@ -1147,9 +1126,6 @@
     </ClInclude>
     <ClInclude Include="Collision3D.h">
       <Filter>ヘッダー ファイル\Component\Collision\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeModel.h">
-      <Filter>ヘッダー ファイル\Native\Objects</Filter>
     </ClInclude>
     <ClInclude Include="Moniker.h">
       <Filter>ヘッダー ファイル</Filter>
@@ -1316,9 +1292,6 @@
     <ClInclude Include="NativeVertexBuffer.h">
       <Filter>ヘッダー ファイル\Native\Objects\Buffer</Filter>
     </ClInclude>
-    <ClInclude Include="NativeMatrixStack.h">
-      <Filter>ヘッダー ファイル\Native\Objects\Matrix</Filter>
-    </ClInclude>
     <ClInclude Include="TextureResource.h">
       <Filter>ヘッダー ファイル\Asset\File\Texture</Filter>
     </ClInclude>
@@ -1408,6 +1381,9 @@
     </ClInclude>
     <ClInclude Include="Matrix4x4.inl">
       <Filter>ヘッダー ファイル\Structure\Math\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectRenderQueue.h">
+      <Filter>ヘッダー ファイル\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

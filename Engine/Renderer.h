@@ -22,7 +22,7 @@ public:
   void ReserveDraw(GameObjectRenderState* state);
   void UniqueMaterial();
   
-  virtual void Draw(GameObjectRenderState* state) = 0;
+  virtual void Draw(GameObjectRenderState* state) const = 0;
 /*
 protected:
   virtual void EditProperty(T_UINT8 material_index, T_UINT8 pass_index, Material* material) = 0;
@@ -61,6 +61,11 @@ public:
   }
 
   inline GameObject* GetEntity()
+  {
+    return this->entity_;
+  }
+
+  inline const GameObject* GetEntity() const
   {
     return this->entity_;
   }

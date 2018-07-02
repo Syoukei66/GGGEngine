@@ -64,12 +64,6 @@
     <Filter Include="ソース ファイル\Native\Objects\Buffer">
       <UniqueIdentifier>{bdca15bb-e345-486d-9ad2-12c2572e438a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Native\Objects\Matrix">
-      <UniqueIdentifier>{86114b84-beb8-465d-a766-ae6ab4e00119}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Native\Objects\Matrix">
-      <UniqueIdentifier>{0b0c531d-c2d3-4868-a250-a85f2e44d536}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectXActivity.cpp">
@@ -105,9 +99,6 @@
     <ClCompile Include="NativeShader.cpp">
       <Filter>ソース ファイル\Native\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="NativeModel_x.cpp">
-      <Filter>ソース ファイル\Native\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="NativeObjectFactory.cpp">
       <Filter>ソース ファイル\Native</Filter>
     </ClCompile>
@@ -134,9 +125,6 @@
     </ClCompile>
     <ClCompile Include="NativeIndexBuffer.cpp">
       <Filter>ソース ファイル\Native\Objects\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="NativeMatrixStack.cpp">
-      <Filter>ソース ファイル\Native\Objects\Matrix</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -176,9 +164,6 @@
     <ClInclude Include="NativeShader.h">
       <Filter>ヘッダー ファイル\Native\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="NativeModel_x.h">
-      <Filter>ヘッダー ファイル\Native\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="NativeConstants.h">
       <Filter>ヘッダー ファイル\Native</Filter>
     </ClInclude>
@@ -202,9 +187,6 @@
     </ClInclude>
     <ClInclude Include="NativeVertexBuffer.h">
       <Filter>ヘッダー ファイル\Native\Objects\Buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeMatrixStack.h">
-      <Filter>ヘッダー ファイル\Native\Objects\Matrix</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>ヘッダー ファイル</Filter>

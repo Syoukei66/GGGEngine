@@ -215,8 +215,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NativeRenderTexture.cpp" />
     <ClCompile Include="NativeIndexBuffer.cpp" />
-    <ClCompile Include="NativeMatrixStack.cpp" />
-    <ClCompile Include="NativeModel_x.cpp" />
     <ClCompile Include="NativeObjectFactory.cpp" />
     <ClCompile Include="NativeProcess_IO.cpp" />
     <ClCompile Include="NativeProcess_Graphics.cpp" />
@@ -246,8 +244,6 @@
     <ClInclude Include="NativeConstants.h" />
     <ClInclude Include="NativeRenderTexture.h" />
     <ClInclude Include="NativeIndexBuffer.h" />
-    <ClInclude Include="NativeMatrixStack.h" />
-    <ClInclude Include="NativeModel_x.h" />
     <ClInclude Include="NativeProcess_IO.h" />
     <ClInclude Include="NativeProcess_Graphics.h" />
     <ClInclude Include="NativeProcess_Time.h" />

@@ -73,7 +73,7 @@ void Camera3D::OnDrawScene(Scene* scene)
 {
   this->render_state_->Init();
   scene->Draw3DLayers(this->render_state_);
-  this->render_state_->DrawZOrderedGameObject();
+  this->render_state_->Draw();
 }
 
 // =================================================================

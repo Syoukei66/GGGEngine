@@ -6,6 +6,7 @@
 #include "Color.h"
 #include "ShaderResource.h"
 #include "ShaderProperties.h"
+#include "GraphicsConstants.h"
 
 class GameObjectRenderState;
 
@@ -197,14 +198,14 @@ public:
     return this->color_;
   }
 
-  inline void SetZTestLevel(T_UINT8 level)
+  inline void SetRenderQueue(GraphicsConstants::RenderQueue queue)
   {
     NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
-    this->z_test_level_ = level;
+    this->queue_ = queue;
   }
-  inline T_UINT8 GetZTestLevel() const
+  inline GraphicsConstants::RenderQueue GetRenderQueue() const
   {
-    return this->z_test_level_;
+    return this->queue_;
   }
 
   inline void SetBillboardingFlag(bool billboarding)
@@ -230,7 +231,7 @@ protected:
   Color4F color_;
   const INativeTexture* texture_;
 
-  T_UINT8 z_test_level_;
+  GraphicsConstants::RenderQueue queue_;
   bool billbording_;
 
   std::vector<Material*> clones_;

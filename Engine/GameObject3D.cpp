@@ -103,38 +103,14 @@ void GameObject3D::Draw(GameObjectRenderState* state)
     return;
   }
 
-  this->PushMatrixStack(state);
-  
-
   // 自分自身の描画
   this->ManagedDraw(state);
-
 
   // 子の描画
   for (GameObject3D* child : this->children_)
   {
     child->Draw(state);
   }
-
-  this->PopMatrixStack(state);
-}
-
-void GameObject3D::PushMatrixStack(GameObjectRenderState* state)
-{
-  state->PushMatrix(this->transform_->GetMatrix());
-  //if (this->IsBillboardingRoot())
-  //{
-  //  state->PushMatrix(state->GetCamera()->GetBillboardingMatrix());
-  //}
-}
-
-void GameObject3D::PopMatrixStack(GameObjectRenderState* state)
-{
-  //if (this->IsBillboardingRoot())
-  //{
-  //  state->PopMatrix();
-  //}
-  state->PopMatrix();
 }
 
 // =================================================================

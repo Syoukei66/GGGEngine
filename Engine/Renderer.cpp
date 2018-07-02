@@ -26,12 +26,7 @@ void Renderer::ReserveDraw(GameObjectRenderState* state)
   {
     return;
   }
-  if (material->GetZTestLevel() > 0)
-  {
-    state->AddZCheckOrder(material->GetZTestLevel(), this);
-    return;
-  }
-  this->Draw(state);
+  state->AddQueue(this);
 }
 
 void Renderer::UniqueMaterial()

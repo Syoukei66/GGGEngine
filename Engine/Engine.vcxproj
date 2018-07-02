@@ -215,6 +215,7 @@
     <ClCompile Include="GameObject2D.cpp" />
     <ClCompile Include="GameObject3D.cpp" />
     <ClCompile Include="FbxResource.cpp" />
+    <ClCompile Include="GameObjectRenderQueue.cpp" />
     <ClCompile Include="Gradient.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
@@ -243,9 +244,6 @@
     <ClCompile Include="RandomGenerator.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="FileLoader.cpp" />
-    <ClCompile Include="ModelData.cpp" />
-    <ClCompile Include="NativeMatrixStack.cpp" />
-    <ClCompile Include="NativeModel.cpp" />
     <ClCompile Include="NativeTexture.cpp" />
     <ClCompile Include="ResourcePool.cpp" />
     <ClCompile Include="ShaderResource.cpp" />
@@ -342,6 +340,7 @@
     <ClInclude Include="FbxNodeData.h" />
     <ClInclude Include="FbxResource.h" />
     <ClInclude Include="GameObjectFactory.h" />
+    <ClInclude Include="GameObjectRenderQueue.h" />
     <ClInclude Include="Gradient.h" />
     <ClInclude Include="GraphicsConstants.h" />
     <ClInclude Include="IMesh.h" />
@@ -412,9 +411,7 @@
     <ClInclude Include="GameObject2D.h" />
     <ClInclude Include="GameObject3D.h" />
     <ClInclude Include="Moniker.h" />
-    <ClInclude Include="NativeModel.h" />
     <ClInclude Include="NativeObjectFactory.h" />
-    <ClInclude Include="NativeMatrixStack.h" />
     <ClInclude Include="NativeObject.h" />
     <ClInclude Include="EngineAsset.h" />
     <ClInclude Include="ResourceLoader.h" />
@@ -446,7 +443,6 @@
     <ClInclude Include="Material.h" />
     <ClInclude Include="MathConstants.h" />
     <ClInclude Include="Model.h" />
-    <ClInclude Include="ModelData.h" />
     <ClInclude Include="NativeMethod.h" />
     <ClInclude Include="NativeTexture.h" />
     <ClInclude Include="ParticleData.h" />
