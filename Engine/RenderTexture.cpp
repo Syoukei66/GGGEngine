@@ -3,13 +3,18 @@
 
 RenderTexture* RenderTexture::Create(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format)
 {
-  return new RenderTexture(width, height, format);
+  return new RenderTexture(width, height, format, GraphicsConstants::TEX_FORMAT_D16);
 }
 
-RenderTexture::RenderTexture(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format)
+RenderTexture * RenderTexture::Create(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format, GraphicsConstants::TextureFormat depth_format)
+{
+  return new RenderTexture(width, height, format, depth_format);
+}
+
+RenderTexture::RenderTexture(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format, GraphicsConstants::TextureFormat depth_format)
   : Texture(width, height, NativeProcess::Resource::CreateTexture(width, height, format))
 {
-  this->depth_buffer_ = RenderBuffer::CreateDepthBuffer(this->GetTwoPoweredWidth(), this->GetTwoPoweredHeight(), GraphicsConstants::TEX_FORMAT_D16);
+  this->depth_buffer_ = RenderBuffer::CreateDepthBuffer(this->GetTwoPoweredWidth(), this->GetTwoPoweredHeight(), depth_format);
 }
 
 RenderTexture::~RenderTexture()
