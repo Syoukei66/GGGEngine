@@ -138,17 +138,17 @@ void NativeShader::SetFloat(const char* property_name, T_FLOAT val)
 
 void NativeShader::SetVec2f(const char* property_name, const TVec2f& vec)
 {
-  this->effect_->SetFloatArray(property_name, vec.vec, 2);
+  this->effect_->SetFloatArray(property_name, vec.data, 2);
 }
 
 void NativeShader::SetVec3f(const char* property_name, const TVec3f& vec)
 {
-  this->effect_->SetFloatArray(property_name, vec.vec, 3);
+  this->effect_->SetFloatArray(property_name, vec.data, 3);
 }
 
 void NativeShader::SetVec4f(const char* property_name, const TVec4f& vec)
 {
-  this->effect_->SetFloatArray(property_name, vec.vec, 4);
+  this->effect_->SetFloatArray(property_name, vec.data, 4);
 }
 
 void NativeShader::SetColor(const char* property_name, const Color4F& color)
@@ -185,17 +185,17 @@ void NativeShader::GetFloat(const char* property_name, T_FLOAT* dest)
 
 void NativeShader::GetVec2f(const char* property_name, TVec2f* dest)
 {
-  this->effect_->GetFloatArray(property_name, dest->vec, 2);
+  this->effect_->GetFloatArray(property_name, dest->data, 2);
 }
 
 void NativeShader::GetVec3f(const char* property_name, TVec3f* dest)
 {
-  this->effect_->GetFloatArray(property_name, dest->vec, 3);
+  this->effect_->GetFloatArray(property_name, dest->data, 3);
 }
 
 void NativeShader::GetVec4f(const char* property_name, TVec4f* dest)
 {
-  this->effect_->GetFloatArray(property_name, dest->vec, 4);
+  this->effect_->GetFloatArray(property_name, dest->data, 4);
 }
 
 void NativeShader::GetColor(const char* property_name, Color4F* dest)

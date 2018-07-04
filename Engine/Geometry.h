@@ -16,7 +16,7 @@ union BaseTSize
   {
     T width, height;
   };
-  T vec[2];
+  T data[2];
 
   BaseTSize()
     : width(0)

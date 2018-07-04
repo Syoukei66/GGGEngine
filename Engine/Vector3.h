@@ -33,7 +33,7 @@ public:
   {
     T x, y, z;
   };
-  T vec[3];
+  T data[3];
   Eigen::Matrix<T, 3, 1> eigen;
 
   // =================================================================
@@ -183,9 +183,9 @@ public:
   {
     return TVec3<T>(this->eigen * s);
   }
-  inline const TVec3<T> operator * (const TVec3<T>& vec) const
+  inline const TVec3<T> operator * (const TVec3<T>& data) const
   {
-    return TVec3<T>(this->eigen * vec.eigen);
+    return TVec3<T>(this->eigen * data.eigen);
   }
   inline TVec3<T>& operator *= (const TVec3<T>& other)
   {
