@@ -62,6 +62,16 @@ namespace Util
     return GetRandom(0, max);
   }
 
+  inline T_UINT16 CalcTwoPowerValue(T_UINT16 val)
+  {
+    T_UINT16 t = 1;
+    while (t < val)
+    {
+      t <<= 1;
+    }
+    return t;
+  }
+
 };
 
 #endif//HAL_ENGINE_UTIL_UTIL_H

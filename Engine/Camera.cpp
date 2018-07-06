@@ -47,11 +47,11 @@ void Camera::DrawScene(Scene* scene)
   {
     return;
   }
-  this->SetupCamera();
   if (this->target_texture_)
   {
     this->target_texture_->RenderBegin();
   }
+  this->SetupCamera();
   if (this->viewport_clear_)
   {
     NativeMethod::Graphics().Graphics_Clear();
