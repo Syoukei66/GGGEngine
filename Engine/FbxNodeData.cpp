@@ -72,7 +72,7 @@ FbxNodeData::FbxNodeData(FbxNode* node)
       //);
       this->material_[i]->FloatProperty("_AmbientFactor") = surface->AmbientFactor.Get();
 
-      this->material_[i]->ColorProperty("_Emissive") = Color4F(
+      this->material_[i]->ColorProperty("_Emissive") = TColor(
         surface->Emissive.Get()[0],
         surface->Emissive.Get()[1],
         surface->Emissive.Get()[2]
@@ -90,7 +90,7 @@ FbxNodeData::FbxNodeData(FbxNode* node)
     {
       FbxSurfacePhong* surface = (FbxSurfacePhong*)material;
       
-      this->material_[i]->ColorProperty("_Specular") = Color4F(
+      this->material_[i]->ColorProperty("_Specular") = TColor(
         surface->Specular.Get()[0],
         surface->Specular.Get()[1],
         surface->Specular.Get()[2]
@@ -99,14 +99,14 @@ FbxNodeData::FbxNodeData(FbxNode* node)
 
       this->material_[i]->FloatProperty("_Power") = surface->Shininess.Get();
       
-      this->material_[i]->ColorProperty("_Reflection") = Color4F(
+      this->material_[i]->ColorProperty("_Reflection") = TColor(
         surface->Reflection.Get()[0],
         surface->Reflection.Get()[1],
         surface->Reflection.Get()[2]
       );
       this->material_[i]->FloatProperty("_ReflectionFactor") = surface->ReflectionFactor.Get();
 
-      this->material_[i]->ColorProperty("_Transparent") = Color4F(
+      this->material_[i]->ColorProperty("_Transparent") = TColor(
         surface->TransparentColor.Get()[0],
         surface->TransparentColor.Get()[1],
         surface->TransparentColor.Get()[2]

@@ -58,7 +58,7 @@ Mesh* MeshFactory::Plane::Create(
       }
       if (format & V_ATTR_COLOR)
       {
-        ret->SetColor(i, Color4F::WHITE);
+        ret->SetColor(i, TColor::WHITE);
       }
     }
   }

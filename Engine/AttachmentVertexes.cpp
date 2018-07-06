@@ -6,7 +6,7 @@ AttachmentVertexes::AttachmentVertexes(TextureResource* texture, T_UINT8 vertice
 {
   this->positions_ = new TVec3f[vertices_count]();
   this->uvs_ = new TVec2f[vertices_count]();
-  this->colors_ = new Color4F[vertices_count]();
+  this->colors_ = new TColor[vertices_count]();
 }
 
 AttachmentVertexes::~AttachmentVertexes()

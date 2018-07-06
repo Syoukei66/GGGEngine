@@ -21,9 +21,9 @@ void GameObjectRenderQueue::Draw(GameObjectRenderState* state)
     return;
   }
 
-  //concurrency::parallel_sort(this->queue_.begin(), this->queue_.end(), [](const DrawParam& a, const DrawParam& b) {
-  //  return a.renderer->GetMaterial() > b.renderer->GetMaterial();
-  //});
+  concurrency::parallel_sort(this->queue_.begin(), this->queue_.end(), [](const DrawParam& a, const DrawParam& b) {
+    return a.distance < b.distance;
+  });
 
   for (const DrawParam& param : this->queue_)
   {

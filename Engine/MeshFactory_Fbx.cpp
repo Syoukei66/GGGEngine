@@ -228,7 +228,7 @@ Mesh* MeshFactory::Fbx::Create(FbxNode* node, bool readonly)
 
           FbxLayerElement::EMappingMode mapping_mode = color_element->GetMappingMode();
           FbxLayerElement::EReferenceMode reference_mode = color_element->GetReferenceMode();
-          Color4F color = Color4F();
+          TColor color = TColor();
           if (mapping_mode == FbxLayerElement::eByPolygonVertex)
           {
             if (reference_mode == FbxLayerElement::eDirect)

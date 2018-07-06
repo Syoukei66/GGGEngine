@@ -500,7 +500,7 @@ EntityModifier* RotationFromTo(T_UINT32 duration, T_FLOAT from, T_FLOAT to)
 //=======================================================================
 // Color
 //=======================================================================
-EntityModifier* ColorBy(T_UINT32 duration, const Color4F& value)
+EntityModifier* ColorBy(T_UINT32 duration, const TColor& value)
 {
   return ColorBy(duration, value.r, value.g, value.b, value.a);
 }
@@ -559,7 +559,7 @@ EntityModifier* ColorByAlpha(T_UINT32 duration, T_FLOAT value_a)
   return ret;
 }
 
-EntityModifier* ColorTo(T_UINT32 duration, const Color4F& to)
+EntityModifier* ColorTo(T_UINT32 duration, const TColor& to)
 {
   return ColorTo(duration, to.r, to.g, to.b, to.a);
 }
@@ -618,7 +618,7 @@ EntityModifier* ColorToAlpha(T_UINT32 duration, T_FLOAT to_a)
   return ret;
 }
 
-EntityModifier* ColorFromBy(T_UINT32 duration, const Color4F& from, const Color4F& value)
+EntityModifier* ColorFromBy(T_UINT32 duration, const TColor& from, const TColor& value)
 {
   return ColorFromBy(
     duration,
@@ -683,7 +683,7 @@ EntityModifier* ColorFromByAlpha(T_UINT32 duration, T_FLOAT from_a, T_FLOAT valu
   return ret;
 }
 
-EntityModifier* ColorFromTo(T_UINT32 duration, const Color4F& from, const Color4F& to)
+EntityModifier* ColorFromTo(T_UINT32 duration, const TColor& from, const TColor& to)
 {
   return Synchronized(
     ColorFromToRed(duration,   from.r, to.r),

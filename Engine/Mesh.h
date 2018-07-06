@@ -202,14 +202,14 @@ public:
     return this->tangents_;
   }
 
-  void SetColor(T_UINT32 vertex_index, const Color4F& tangent);
-  void SetColors(const Color4F* colors);
-  inline const Color4F& GetColor(T_UINT32 vertex_index) const
+  void SetColor(T_UINT32 vertex_index, const TColor& tangent);
+  void SetColors(const TColor* colors);
+  inline const TColor& GetColor(T_UINT32 vertex_index) const
   {
     NATIVE_ASSERT(this->HasColors(), "頂点フォーマットで定義されていない属性が呼び出されました");
     return this->colors_[vertex_index];
   }
-  inline const Color4F* GetColors() const
+  inline const TColor* GetColors() const
   {
     NATIVE_ASSERT(this->HasColors(), "頂点フォーマットで定義されていない属性が呼び出されました");
     return this->colors_;
@@ -291,7 +291,7 @@ private:
   TVec2f* uv4s_;
   //wは法線マップのミラーリングに使用(Unityを参考)
   TVec4f* tangents_;
-  Color4F* colors_;
+  TColor* colors_;
   //bindPoses
   //boneWeights
   //bounds

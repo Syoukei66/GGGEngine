@@ -14,7 +14,7 @@ public:
 
 public:
   TVec3f* positions_;
-  Color4F* colors_;
+  TColor* colors_;
   TVec2f* uvs_;
   T_UINT8 size_;
   TextureResource* texture_;

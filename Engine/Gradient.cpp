@@ -12,7 +12,7 @@ void Gradient::Reset()
   this->table_.clear();
 }
 
-Gradient::GradientTable& Gradient::AddColor(T_FLOAT location, const Color4F& color)
+Gradient::GradientTable& Gradient::AddColor(T_FLOAT location, const TColor& color)
 {
   this->table_.emplace_back(this->id_max_, location, color);
   GradientTable& ret = this->table_.back();
@@ -40,7 +40,7 @@ void Gradient::RemoveColor(T_UINT8 id)
   }
 }
 
-Color4F Gradient::Evaluate(T_FLOAT time) const
+TColor Gradient::Evaluate(T_FLOAT time) const
 {
   GradientTable prev = this->table_.front();
   for (const GradientTable& table : this->table_)
@@ -51,7 +51,7 @@ Color4F Gradient::Evaluate(T_FLOAT time) const
       {
         return table.color;
       }
-      return Color4F::Lerp(
+      return TColor::Lerp(
         prev.color, table.color,
         (time - prev.location) / (table.location - prev.location)
       );

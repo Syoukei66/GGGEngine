@@ -4,32 +4,32 @@
 #undef min
 #undef max
 
-union Color4F
+union TColor
 {
   // =================================================================
   // Constants
   // =================================================================
 public:
-  static const Color4F WHITE;
-  static const Color4F GRAY;
-  static const Color4F BLACK;
+  static const TColor WHITE;
+  static const TColor GRAY;
+  static const TColor BLACK;
 
-  static const Color4F RED;
-  static const Color4F GREEN;
-  static const Color4F BLUE;
-  static const Color4F YELLOW;
-  static const Color4F LIGHT_BLUE;
-  static const Color4F PINK;
-  static const Color4F PURPLE;
+  static const TColor RED;
+  static const TColor GREEN;
+  static const TColor BLUE;
+  static const TColor YELLOW;
+  static const TColor LIGHT_BLUE;
+  static const TColor PINK;
+  static const TColor PURPLE;
 
   // =================================================================
   // Create Method
   // =================================================================
 public:
-  static Color4F CreateBy4BitFormat(T_UINT8 r, T_UINT8 g, T_UINT8 b);
-  static Color4F CreateBy4BitFormat(T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a);
+  static TColor CreateBy4BitFormat(T_UINT8 r, T_UINT8 g, T_UINT8 b);
+  static TColor CreateBy4BitFormat(T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a);
 
-  inline static Color4F Lerp(const Color4F& a, const Color4F&b, T_FLOAT t)
+  inline static TColor Lerp(const TColor& a, const TColor&b, T_FLOAT t)
   {
     return a * (1 - t) + b * t;
   }
@@ -38,79 +38,79 @@ public:
   // Constructor / Destructor
   // =================================================================
 public:
-  Color4F();
-  Color4F(T_FLOAT r, T_FLOAT g, T_FLOAT b);
-  Color4F(T_FLOAT r, T_FLOAT g, T_FLOAT b, T_FLOAT a);
+  TColor();
+  TColor(T_FLOAT r, T_FLOAT g, T_FLOAT b);
+  TColor(T_FLOAT r, T_FLOAT g, T_FLOAT b, T_FLOAT a);
 
   // =================================================================
   // Operators
   // =================================================================
 public:
-  const Color4F operator+ (const Color4F& other) const
+  const TColor operator+ (const TColor& other) const
   {
-    return Color4F(
-      this->col[0] + other.col[0],
-      this->col[1] + other.col[1],
-      this->col[2] + other.col[2],
-      this->col[3] + other.col[3]
+    return TColor(
+      this->data[0] + other.data[0],
+      this->data[1] + other.data[1],
+      this->data[2] + other.data[2],
+      this->data[3] + other.data[3]
     );
   }
 
-  const Color4F operator* (T_FLOAT v) const
+  const TColor operator* (T_FLOAT v) const
   {
-    return Color4F(
-      this->col[0] * v,
-      this->col[1] * v,
-      this->col[2] * v,
-      this->col[3] * v
+    return TColor(
+      this->data[0] * v,
+      this->data[1] * v,
+      this->data[2] * v,
+      this->data[3] * v
     );
   }
 
-  const Color4F operator* (const Color4F& other) const
+  const TColor operator* (const TColor& other) const
   {
-    return Color4F(
-      this->col[0] * other.col[0],
-      this->col[1] * other.col[1],
-      this->col[2] * other.col[2],
-      this->col[3] * other.col[3]
+    return TColor(
+      this->data[0] * other.data[0],
+      this->data[1] * other.data[1],
+      this->data[2] * other.data[2],
+      this->data[3] * other.data[3]
     );
   }
   
-  Color4F& operator*= (const Color4F& other)
+  TColor& operator*= (const TColor& other)
   {
-    this->col[0] = this->col[0] * other.col[0];
-    this->col[1] = this->col[1] * other.col[1];
-    this->col[2] = this->col[2] * other.col[2];
-    this->col[3] = this->col[3] * other.col[3];
+    this->data[0] = this->data[0] * other.data[0];
+    this->data[1] = this->data[1] * other.data[1];
+    this->data[2] = this->data[2] * other.data[2];
+    this->data[3] = this->data[3] * other.data[3];
     return *this;
   }
 
-  const Color4F operator/ (const Color4F& other) const
+  const TColor operator/ (const TColor& other) const
   {
-    return Color4F(
-      this->col[0] / other.col[0],
-      this->col[1] / other.col[1],
-      this->col[2] / other.col[2],
-      this->col[3] / other.col[3]
+    return TColor(
+      this->data[0] / other.data[0],
+      this->data[1] / other.data[1],
+      this->data[2] / other.data[2],
+      this->data[3] / other.data[3]
     );
   }
 
-  Color4F& operator/= (const Color4F& other)
+  TColor& operator/= (const TColor& other)
   {
-    this->col[0] = this->col[0] / other.col[0];
-    this->col[1] = this->col[1] / other.col[1];
-    this->col[2] = this->col[2] / other.col[2];
-    this->col[3] = this->col[3] / other.col[3];
+    this->data[0] = this->data[0] / other.data[0];
+    this->data[1] = this->data[1] / other.data[1];
+    this->data[2] = this->data[2] / other.data[2];
+    this->data[3] = this->data[3] / other.data[3];
     return *this;
   }
 
-  bool operator== (const Color4F& other)
+  bool operator== (const TColor& other)
   {
     return
-      this->col[0] == other.col[0] &&
-      this->col[1] == other.col[1] &&
-      this->col[2] == other.col[2] &&
-      this->col[3] == other.col[3]
+      this->data[0] == other.data[0] &&
+      this->data[1] == other.data[1] &&
+      this->data[2] == other.data[2] &&
+      this->data[3] == other.data[3]
       ;
   }
 
@@ -118,32 +118,32 @@ public:
   // Method
   // =================================================================
 public:
-  inline bool Equals(const Color4F& c) const
+  inline bool Equals(const TColor& c) const
   {
     return 
-      this->col[0] == c.col[0] &&
-      this->col[1] == c.col[1] &&
-      this->col[2] == c.col[2] &&
-      this->col[3] == c.col[3]
+      this->data[0] == c.data[0] &&
+      this->data[1] == c.data[1] &&
+      this->data[2] == c.data[2] &&
+      this->data[3] == c.data[3]
       ;
   }
 
   inline bool Equals(T_FLOAT r, T_FLOAT g, T_FLOAT b) const
   {
     return 
-      this->col[0] == r &&
-      this->col[1] == g &&
-      this->col[2] == b
+      this->data[0] == r &&
+      this->data[1] == g &&
+      this->data[2] == b
       ;
   }
 
   inline bool Equals(T_FLOAT r, T_FLOAT g, T_FLOAT b, T_FLOAT a) const
   {
     return
-      this->col[0] == r &&
-      this->col[1] == g &&
-      this->col[2] == b &&
-      this->col[3] == a
+      this->data[0] == r &&
+      this->data[1] == g &&
+      this->data[2] == b &&
+      this->data[3] == a
       ;
   }
 
@@ -161,6 +161,6 @@ public:
   {
     T_FLOAT r, g, b, a;
   };
-  T_FLOAT col[4];
+  T_FLOAT data[4];
 
 };

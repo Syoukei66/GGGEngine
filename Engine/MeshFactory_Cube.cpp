@@ -51,7 +51,7 @@ static void CreateFaceVertices(T_UINT32& i, const TVec3f& normal, T_UINT32 forma
       }
       if (format & V_ATTR_COLOR)
       {
-        dest->SetColor(i, Color4F::WHITE);
+        dest->SetColor(i, TColor::WHITE);
       }
     }
   }

@@ -188,7 +188,7 @@ void Mesh::CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT3
   }
   if (format & V_ATTR_COLOR)
   {
-    this->colors_ = new Color4F[vertex_count]{};
+    this->colors_ = new TColor[vertex_count]{};
   }
   this->vertex_buffer_ = INativeVertexBuffer::Create(
     vertex_count, 
@@ -695,7 +695,7 @@ void Mesh::SetTangents(const TVec4f* tangents)
   }
 }
 
-void Mesh::SetColor(T_UINT32 vertex_index, const Color4F& color)
+void Mesh::SetColor(T_UINT32 vertex_index, const TColor& color)
 {
   NATIVE_ASSERT(this->HasColors(), "頂点フォーマットで定義されていない属性が呼び出されました");
   if (this->colors_[vertex_index] == color)
@@ -706,7 +706,7 @@ void Mesh::SetColor(T_UINT32 vertex_index, const Color4F& color)
   this->vertices_dirty_ = true;
 }
 
-void Mesh::SetColors(const Color4F* colors)
+void Mesh::SetColors(const TColor* colors)
 {
   NATIVE_ASSERT(this->HasColors(), "頂点フォーマットで定義されていない属性が呼び出されました");
   for (T_UINT32 i = 0; i < this->vertex_count_; ++i)

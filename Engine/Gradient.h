@@ -10,8 +10,8 @@ public:
   {
     T_UINT8 id;
     T_FLOAT location;
-    Color4F color;
-    GradientTable(T_UINT8 id, T_FLOAT location, Color4F color)
+    TColor color;
+    GradientTable(T_UINT8 id, T_FLOAT location, TColor color)
       : id(id)
       , location(location)
       , color(color)
@@ -23,10 +23,10 @@ public:
 
 public:
   void Reset();
-  GradientTable& AddColor(T_FLOAT location, const Color4F& color);
+  GradientTable& AddColor(T_FLOAT location, const TColor& color);
   void RemoveColor(const GradientTable& id);
   void RemoveColor(T_UINT8 id);
-  Color4F Evaluate(T_FLOAT time) const;
+  TColor Evaluate(T_FLOAT time) const;
 
 private:
   T_UINT8 id_max_;

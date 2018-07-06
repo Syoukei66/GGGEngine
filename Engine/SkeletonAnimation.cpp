@@ -45,10 +45,10 @@ SkeletonAnimation::~SkeletonAnimation()
 // =================================================================
 void SkeletonAnimation::ManagedDraw(GameObjectRenderState* state)
 {
-  Color4F nodeColor = this->GetRenderer()->GetMaterial()->GetDiffuse();
+  TColor nodeColor = this->GetRenderer()->GetMaterial()->GetDiffuse();
 
   AttachmentVertexes* attachment_vertexes = nullptr;
-  Color4F color = Color4F();
+  TColor color = TColor();
   for (int i = 0, n = skeleton_->slotsCount; i < n; ++i)
   {
     spSlot* slot = skeleton_->drawOrder[i];
