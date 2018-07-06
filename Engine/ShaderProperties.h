@@ -62,7 +62,7 @@ public:
 public:
   void Apply(INativeShader* shader, const std::string& property_name) override
   {
-    shader->SetBool(property_name.c_str(), this->value_);
+    shader->SetBool(property_name, this->value_);
   }
   ShaderProperty* Clone() override
   {
@@ -84,7 +84,7 @@ public:
 public:
   void Apply(INativeShader* shader, const std::string& property_name) override
   {
-    shader->SetInt(property_name.c_str(), this->value_);
+    shader->SetInt(property_name, this->value_);
   }
   ShaderProperty* Clone() override
   {
@@ -106,7 +106,7 @@ public:
 public:
   void Apply(INativeShader* shader, const std::string& property_name) override
   {
-    shader->SetFloat(property_name.c_str(), this->value_);
+    shader->SetFloat(property_name, this->value_);
   }
   ShaderProperty* Clone() override
   {
@@ -164,7 +164,7 @@ public:
 public:
   void Apply(INativeShader* shader, const std::string& property_name) override
   {
-    shader->SetVec2f(property_name.c_str(), this->value_);
+    shader->SetVec2f(property_name, this->value_);
   }
   ShaderProperty* Clone() override
   {
@@ -185,7 +185,7 @@ public:
 public:
   void Apply(INativeShader* shader, const std::string& property_name) override
   {
-    shader->SetVec3f(property_name.c_str(), this->value_);
+    shader->SetVec3f(property_name, this->value_);
   }
   ShaderProperty* Clone() override
   {
@@ -206,7 +206,7 @@ public:
 public:
   void Apply(INativeShader* shader, const std::string& property_name) override
   {
-    shader->SetVec4f(property_name.c_str(), this->value_);
+    shader->SetVec4f(property_name, this->value_);
   }
   ShaderProperty* Clone() override
   {
@@ -216,10 +216,10 @@ public:
   }
 };
 
-class ShaderProperty_color : public ShaderProperty_struct<Color4F>
+class ShaderProperty_color : public ShaderProperty_struct<TColor>
 {
 public:
-  const ShaderProperty_color& operator = (const Color4F& b)
+  const ShaderProperty_color& operator = (const TColor& b)
   {
     ShaderProperty_struct::operator=(b);
     return *this;
@@ -227,7 +227,7 @@ public:
 public:
   void Apply(INativeShader* shader, const std::string& property_name) override
   {
-    shader->SetColor(property_name.c_str(), this->value_);
+    shader->SetColor(property_name, this->value_);
   }
   ShaderProperty* Clone() override
   {
@@ -252,7 +252,7 @@ public:
     {
       return;
     }
-    shader->SetMatrix(property_name.c_str(), this->value_);
+    shader->SetMatrix(property_name, this->value_);
   }
   ShaderProperty* Clone() override
   {
@@ -314,7 +314,7 @@ public:
     {
       return;
     }
-    shader->SetTexture(property_name.c_str(), this->value_);
+    shader->SetTexture(property_name, this->value_);
   }
   ShaderProperty* Clone() override
   {

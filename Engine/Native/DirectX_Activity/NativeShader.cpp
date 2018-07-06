@@ -89,9 +89,9 @@ NativeShader::~NativeShader()
 // =================================================================
 T_UINT8 NativeShader::Begin()
 {
-  this->effect_->SetTechnique(NULL);
   UINT path_count;
-  this->effect_->Begin(&path_count, 0);
+  HRESULT hr = this->effect_->Begin(&path_count, 0);
+  NATIVE_ASSERT(SUCCEEDED(hr), "シェーダーの開始に失敗しました");
   return path_count;
 }
 
@@ -103,113 +103,241 @@ void NativeShader::BeginPass(T_UINT8 path_id)
 
 void NativeShader::CommitChanges()
 {
-  this->effect_->CommitChanges();
+  HRESULT hr = this->effect_->CommitChanges();
+  NATIVE_ASSERT(SUCCEEDED(hr), "シェーダープロパティの転送に失敗しました");
 }
 
 void NativeShader::EndPass()
 {
-  this->effect_->EndPass();
+  HRESULT hr = this->effect_->EndPass();
+  NATIVE_ASSERT(SUCCEEDED(hr), "シェーダーパスの終了に失敗しました");
 }
 
 void NativeShader::End()
 {
-  this->effect_->End();
+  HRESULT hr = this->effect_->End();
+  NATIVE_ASSERT(SUCCEEDED(hr), "シェーダーの開始に失敗しました");
 }
 
 void NativeShader::SetTechnique(const std::string& technique)
 {
-  this->effect_->SetTechnique(technique.c_str());
+  HRESULT hr = this->effect_->SetTechnique(technique.c_str());
+  NATIVE_ASSERT(SUCCEEDED(hr), "テクニックの設定に失敗しました");
 }
 
-void NativeShader::SetBool(const char* property_name, bool val)
+void NativeShader::SetBool(const std::string& property_name, bool val)
 {
-  this->effect_->SetBool(property_name, val);
+  D3DXHANDLE handle = GetHandle(property_name);
+  if (!handle)
+  {
+    return;
+  }
+  HRESULT hr = this->effect_->SetBool(handle, val);
+  NATIVE_ASSERT(SUCCEEDED(hr), "boolプロパティの転送に失敗しました");
 }
 
-void NativeShader::SetInt(const char* property_name, T_INT32 val)
+void NativeShader::SetInt(const std::string& property_name, T_INT32 val)
 {
-  this->effect_->SetInt(property_name, val);
+  D3DXHANDLE handle = GetHandle(property_name);
+  if (!handle)
+  {
+    return;
+  }
+  HRESULT hr = this->effect_->SetInt(handle, val);
+  NATIVE_ASSERT(SUCCEEDED(hr), "intプロパティの転送に失敗しました");
 }
 
-void NativeShader::SetFloat(const char* property_name, T_FLOAT val)
+void NativeShader::SetFloat(const std::string& property_name, T_FLOAT val)
 {
-  this->effect_->SetFloat(property_name, val);
+  D3DXHANDLE handle = GetHandle(property_name);
+  if (!handle)
+  {
+    return;
+  }
+  HRESULT hr = this->effect_->SetFloat(handle, val);
+  NATIVE_ASSERT(SUCCEEDED(hr), "floatプロパティの転送に失敗しました");
 }
 
-void NativeShader::SetVec2f(const char* property_name, const TVec2f& vec)
+void NativeShader::SetVec2f(const std::string& property_name, const TVec2f& vec)
 {
-  this->effect_->SetFloatArray(property_name, vec.data, 2);
+  D3DXHANDLE handle = GetHandle(property_name);
+  if (!handle)
+  {
+    return;
+  }
+  HRESULT hr = this->effect_->SetFloatArray(handle, vec.data, 2);
+  NATIVE_ASSERT(SUCCEEDED(hr), "TVec2fプロパティの転送に失敗しました");
 }
 
-void NativeShader::SetVec3f(const char* property_name, const TVec3f& vec)
+void NativeShader::SetVec3f(const std::string& property_name, const TVec3f& vec)
 {
-  this->effect_->SetFloatArray(property_name, vec.data, 3);
+  D3DXHANDLE handle = GetHandle(property_name);
+  if (!handle)
+  {
+    return;
+  }
+  HRESULT hr = this->effect_->SetFloatArray(handle, vec.data, 3);
+  NATIVE_ASSERT(SUCCEEDED(hr), "TVec3fプロパティの転送に失敗しました");
 }
 
-void NativeShader::SetVec4f(const char* property_name, const TVec4f& vec)
+void NativeShader::SetVec4f(const std::string& property_name, const TVec4f& vec)
 {
-  this->effect_->SetFloatArray(property_name, vec.data, 4);
+  D3DXHANDLE handle = GetHandle(property_name);
+  if (!handle)
+  {
+    return;
+  }
+  HRESULT hr = this->effect_->SetFloatArray(handle, vec.data, 4);
+  NATIVE_ASSERT(SUCCEEDED(hr), "TVec4fプロパティの転送に失敗しました");
 }
 
-void NativeShader::SetColor(const char* property_name, const Color4F& color)
+void NativeShader::SetColor(const std::string& property_name, const TColor& color)
 {
-  this->effect_->SetFloatArray(property_name, color.col, 4);
+  D3DXHANDLE handle = GetHandle(property_name);
+  if (!handle)
+  {
+    return;
+  }
+  HRESULT hr = this->effect_->SetFloatArray(handle, color.data, 4);
+  NATIVE_ASSERT(SUCCEEDED(hr), "TColorプロパティの転送に失敗しました");
 }
 
-void NativeShader::SetMatrix(const char* property_name, const Matrix4x4& matrix)
+void NativeShader::SetMatrix(const std::string& property_name, const Matrix4x4& matrix)
 {
-  HRESULT hr = this->effect_->SetMatrix(property_name, (const D3DXMATRIX*)&matrix);
+  D3DXHANDLE handle = GetHandle(property_name);
+  if (!handle)
+  {
+    return;
+  }
+  HRESULT hr = this->effect_->SetMatrix(handle, (const D3DXMATRIX*)&matrix);
+  NATIVE_ASSERT(SUCCEEDED(hr), "Matrix4x4プロパティの転送に失敗しました");
 }
 
-void NativeShader::SetTexture(const char* property_name, const Texture* texture)
+void NativeShader::SetTexture(const std::string& property_name, const Texture* texture)
 {
-  HRESULT hr = this->effect_->SetTexture(property_name, texture ? (LPDIRECT3DTEXTURE9)texture->GetNativeObject() : nullptr);
+  D3DXHANDLE handle = GetHandle(property_name);
+  if (!handle)
+  {
+    return;
+  }
+  HRESULT hr = this->effect_->SetTexture(handle, texture ? (LPDIRECT3DTEXTURE9)texture->GetNativeObject() : nullptr);
+  NATIVE_ASSERT(SUCCEEDED(hr), "Textureプロパティの転送に失敗しました");
 }
 
-void NativeShader::GetBool(const char* property_name, bool* dest)
+void NativeShader::GetBool(const std::string& property_name, bool* dest)
 {
+  D3DXHANDLE handle = GetHandle(property_name);
+  if (!handle)
+  {
+    return;
+  }
   BOOL ret;
-  this->effect_->GetBool(property_name, &ret);
+  this->effect_->GetBool(handle, &ret);
   *dest = ret;
 }
 
-void NativeShader::GetInt(const char* property_name, T_INT32* dest)
+void NativeShader::GetInt(const std::string& property_name, T_INT32* dest)
 {
-  this->effect_->GetInt(property_name, dest);
+  D3DXHANDLE handle = GetHandle(property_name);
+  if (!handle)
+  {
+    return;
+  }
+  this->effect_->GetInt(handle, dest);
 }
 
-void NativeShader::GetFloat(const char* property_name, T_FLOAT* dest)
+void NativeShader::GetFloat(const std::string& property_name, T_FLOAT* dest)
 {
-  this->effect_->GetFloat(property_name, dest);
+  D3DXHANDLE handle = GetHandle(property_name);
+  if (!handle)
+  {
+    return;
+  }
+  this->effect_->GetFloat(handle, dest);
 }
 
-void NativeShader::GetVec2f(const char* property_name, TVec2f* dest)
+void NativeShader::GetVec2f(const std::string& property_name, TVec2f* dest)
 {
-  this->effect_->GetFloatArray(property_name, dest->data, 2);
+  D3DXHANDLE handle = GetHandle(property_name);
+  if (!handle)
+  {
+    return;
+  }
+  this->effect_->GetFloatArray(handle, dest->data, 2);
 }
 
-void NativeShader::GetVec3f(const char* property_name, TVec3f* dest)
+void NativeShader::GetVec3f(const std::string& property_name, TVec3f* dest)
 {
-  this->effect_->GetFloatArray(property_name, dest->data, 3);
+  D3DXHANDLE handle = GetHandle(property_name);
+  if (!handle)
+  {
+    return;
+  }
+  this->effect_->GetFloatArray(handle, dest->data, 3);
 }
 
-void NativeShader::GetVec4f(const char* property_name, TVec4f* dest)
+void NativeShader::GetVec4f(const std::string& property_name, TVec4f* dest)
 {
-  this->effect_->GetFloatArray(property_name, dest->data, 4);
+  D3DXHANDLE handle = GetHandle(property_name);
+  if (!handle)
+  {
+    return;
+  }
+  this->effect_->GetFloatArray(handle, dest->data, 4);
 }
 
-void NativeShader::GetColor(const char* property_name, Color4F* dest)
+void NativeShader::GetColor(const std::string& property_name, TColor* dest)
 {
-  this->effect_->GetFloatArray(property_name, dest->col, 4);
+  D3DXHANDLE handle = GetHandle(property_name);
+  if (!handle)
+  {
+    return;
+  }
+  this->effect_->GetFloatArray(handle, dest->data, 4);
 }
 
-void NativeShader::GetMatrix(const char* property_name, Matrix4x4* dest)
+void NativeShader::GetMatrix(const std::string& property_name, Matrix4x4* dest)
 {
-  this->effect_->GetMatrix(property_name, (D3DXMATRIX*)dest);
+  D3DXHANDLE handle = GetHandle(property_name);
+  if (!handle)
+  {
+    return;
+  }
+  this->effect_->GetMatrix(handle, (D3DXMATRIX*)dest);
 }
 
-void NativeShader::GetTexture(const char* property_name, void* dest)
+void NativeShader::GetTexture(const std::string& property_name, void* dest)
 {
+  D3DXHANDLE handle = GetHandle(property_name);
+  if (!handle)
+  {
+    return;
+  }
   NATIVE_ASSERT(false, "まだできていません！");
-  this->effect_->GetTexture(property_name, (LPDIRECT3DBASETEXTURE9*)(&(dest)));
+  this->effect_->GetTexture(handle, (LPDIRECT3DBASETEXTURE9*)(&(dest)));
+}
+
+D3DXHANDLE NativeShader::GetHandle(const std::string& property_name)
+{
+  if (this->bad_property_ids_.find(property_name) != this->bad_property_ids_.end())
+  {
+    return NULL;
+  }
+  auto pair = this->property_handles_.find(property_name);
+  //プロパティが登録されていたらハンドルを返す
+  if (pair != this->property_handles_.end())
+  {
+    return pair->second;
+  }
+  D3DXHANDLE ret = this->effect_->GetParameterByName(NULL, property_name.c_str());
+  if (ret)
+  {
+    this->property_handles_.emplace(
+      std::piecewise_construct,
+      std::forward_as_tuple(property_name),
+      std::forward_as_tuple(ret));
+    return ret;
+  }
+  this->bad_property_ids_.insert(property_name);
+  return NULL;
 }

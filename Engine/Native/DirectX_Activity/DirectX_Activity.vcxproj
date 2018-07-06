@@ -94,7 +94,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
-    <LibraryPath>$(DXSDK_DIR)Lib\x64;$(IncludePath);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(DXSDK_DIR)Lib\x64;$(LibraryPath)</LibraryPath>
     <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <IntDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
   </PropertyGroup>

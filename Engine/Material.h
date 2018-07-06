@@ -168,7 +168,7 @@ public:
     return this->texture_;
   }
 
-  inline void SetDiffuse(const Color4F& color)
+  inline void SetDiffuse(const TColor& color)
   {
     NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
     this->color_ = color;
@@ -188,12 +188,12 @@ public:
     this->color_.b = b;
     this->color_.a = a;
   }
-  inline Color4F& GetDiffuse()
+  inline TColor& GetDiffuse()
   {
     NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
     return this->color_;
   }
-  inline const Color4F& GetDiffuse() const
+  inline const TColor& GetDiffuse() const
   {
     return this->color_;
   }
@@ -228,7 +228,7 @@ protected:
 
   std::string technique_;
 
-  Color4F color_;
+  TColor color_;
   const Texture* texture_;
 
   GraphicsConstants::RenderQueue queue_;
