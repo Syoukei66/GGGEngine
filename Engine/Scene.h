@@ -9,8 +9,9 @@
 
 #include "ResourcePool.h"
 
-class Camera2D;
-class Camera3D;
+#include "Camera.h"
+#include "Camera2D.h"
+#include "Camera3D.h"
 
 // =================================================================
 // Scene
@@ -65,38 +66,37 @@ public:
 
   inline void AddCamera(Camera2D* camera)
   {
-    this->camera2ds_.push_back(camera);
+    this->cameras_.emplace_back(camera);
   }
   inline void AddCamera(Camera3D* camera)
   {
-    this->camera3ds_.push_back(camera);
+    this->cameras_.emplace_back(camera);
   }
   void RemoveCamera(Camera2D* camera)
   {
-    for (std::vector<Camera2D*>::iterator itr = this->camera2ds_.begin(); itr != this->camera2ds_.end(); ++itr)
+    for (std::vector<Camera*>::iterator itr = this->cameras_.begin(); itr != this->cameras_.end(); ++itr)
     {
       if (camera == (*itr))
       {
-        this->camera2ds_.erase(itr);
+        this->cameras_.erase(itr);
         return;
       }
     }
   }
   void RemoveCamera(Camera3D* camera)
   {
-    for (std::vector<Camera3D*>::iterator itr = this->camera3ds_.begin(); itr != this->camera3ds_.end(); ++itr)
+    for (std::vector<Camera*>::iterator itr = this->cameras_.begin(); itr != this->cameras_.end(); ++itr)
     {
       if (camera == (*itr))
       {
-        this->camera3ds_.erase(itr);
+        this->cameras_.erase(itr);
         return;
       }
     }
   }
   inline void ClearCamera()
   {
-    this->camera2ds_.clear();
-    this->camera3ds_.clear();
+    this->cameras_.clear();
   }
 
   virtual void PreUpdate() {}
@@ -136,10 +136,8 @@ private:
   bool is_loaded_;
 
   GameObject2D* root2d_;
-  std::vector<Camera2D*> camera2ds_;
-
   GameObject3D* root3d_;
-  std::vector<Camera3D*> camera3ds_;
+  std::vector<Camera*> cameras_;
 };
 
 #endif//HAL_ENGINE_SCENE_SCENE_H_

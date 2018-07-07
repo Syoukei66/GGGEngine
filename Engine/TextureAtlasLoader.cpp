@@ -2,7 +2,7 @@
 #include "TextureAtlasLoader.h"
 #include <string>
 #include <string.h>
-#include "NativeMethod.h"
+#include "NativeProcess.h"
 #include "Director.h"
 #include "Moniker.h"
 
@@ -41,7 +41,7 @@ TextureAtlas* TextureAtlasLoader::Load(const char* directory_path, const char* a
   }
   atlas_file_path.append(atlas_file_name);
 
-  std::string str = NativeMethod::IO().TextFile_Read(atlas_file_path.c_str());
+  std::string str = NativeProcess::IO::TextFile_Read(atlas_file_path.c_str());
   T_UINT32 length = (T_UINT32)str.length();
   char* p_head = new char[str.size() + 1];
   char* p = p_head;
@@ -192,9 +192,9 @@ const TSize TextureAtlasLoader::StrToTSize(const std::string& str)
   return ret;
 }
 
-const TVec2 TextureAtlasLoader::StrToTVec2(const std::string& str)
+const TVec2i TextureAtlasLoader::StrToTVec2(const std::string& str)
 {
-  TVec2 ret = TVec2();
+  TVec2i ret = TVec2i();
   std::string buf;
   buf.clear();
   char* p_head = new char[str.size() + 1];

@@ -17,7 +17,7 @@ TextureResource::TextureResource(const char* path)
 // =================================================================
 // Methods
 // =================================================================
-INativeTexture* TextureResource::NativeLoadProcess(const std::string& path)
+Texture* TextureResource::NativeLoadProcess(const std::string& path)
 {
-  return INativeTexture::Create(path.c_str());
+  return Texture::Create(path.c_str());
 }

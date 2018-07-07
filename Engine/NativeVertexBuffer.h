@@ -4,7 +4,7 @@
 
 #include "Geometry.h"
 #include "NativeObject.h"
-#include "INativeProcess_Graphics.h"
+#include "GraphicsConstants.h"
 #include "NativeIndexBuffer.h"
 
 struct NativeVertexBufferInstance { void* p; };
@@ -15,7 +15,7 @@ class INativeVertexBuffer : public NativeObject<NativeVertexBufferInstance>
   // Static Method
   // =================================================================
 public:
-  static INativeVertexBuffer* Create(T_UINT16 vertex_count, T_UINT16 polygon_count, Vertex::VertexType vertex_type);
+  static INativeVertexBuffer* Create(T_UINT16 vertex_count, T_UINT16 polygon_count, T_UINT32 format);
 
   // =================================================================
   // Constructor / Destructor
@@ -42,7 +42,9 @@ public:
 
   virtual void SetStreamSource() const = 0;
 
-  virtual void DrawPrimitive(INativeProcess_Graphics::PrimitiveType primitive_type) const = 0;
-  virtual void DrawIndexedPrimitive(const INativeIndexBuffer* index_buffer, INativeProcess_Graphics::PrimitiveType primitive_type) const = 0;
+  virtual void DrawPrimitive(GraphicsConstants::PrimitiveType primitive_type) const = 0;
+  virtual void DrawIndexedPrimitive(const INativeIndexBuffer* index_buffer, GraphicsConstants::PrimitiveType primitive_type) const = 0;
+
+  virtual T_UINT32 GetMemorySize() const = 0;
 
 };

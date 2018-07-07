@@ -16,7 +16,7 @@ AnimatedSprite* AnimatedSprite::CreateWithResource(const TextureResource& textur
   return AnimatedSprite::CreateWithTexture(texture.GetContents(), x_num, y_num);
 }
 
-AnimatedSprite* AnimatedSprite::CreateWithTexture(const INativeTexture* texture, T_UINT8 x_num, T_UINT8 y_num)
+AnimatedSprite* AnimatedSprite::CreateWithTexture(const Texture* texture, T_UINT8 x_num, T_UINT8 y_num)
 {
   TiledTextureRegion* region = TiledTextureRegion::CreateWithTexture(texture, x_num, y_num);
   return AnimatedSprite::CreateWithTextureRegion(region, true);

@@ -1,17 +1,17 @@
 #include "AttachmentVertexes.h"
 
-AttachmentVertexes::AttachmentVertexes(TextureResource* texture, T_UINT8 vertexes_count)
+AttachmentVertexes::AttachmentVertexes(TextureResource* texture, T_UINT8 vertices_count)
   : texture_(texture)
-  , size_(vertexes_count)
+  , size_(vertices_count)
 {
-  this->vertexes_ = new Vertex::VCT[vertexes_count]();
-  for (T_UINT8 i = 0; i < vertexes_count; ++i)
-  {
-    this->vertexes_[i] = Vertex::VCT();
-  }
+  this->positions_ = new TVec3f[vertices_count]();
+  this->uvs_ = new TVec2f[vertices_count]();
+  this->colors_ = new TColor[vertices_count]();
 }
 
 AttachmentVertexes::~AttachmentVertexes()
 {
-  delete[] this->vertexes_;
+  delete[] this->colors_;
+  delete[] this->uvs_;
+  delete[] this->positions_;
 }

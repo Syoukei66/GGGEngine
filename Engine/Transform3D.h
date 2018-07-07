@@ -1,4 +1,6 @@
 ﻿#pragma once
+
+#include "Vector3.h"
 #include "Transform.h"
 #include "Transform3DRotator.h"
 
@@ -26,19 +28,14 @@ public:
   void MoveY(T_FLOAT y);
   void MoveZ(T_FLOAT z);
 
-  void MoveCircular(const TVec3f& move, const TVec3f& pos);
-  void MoveCircular(T_FLOAT x, T_FLOAT y, T_FLOAT z, const TVec3f& pos);
-  //戻り値には移動後のposとの角度が返される
-  T_FLOAT MoveCircularX(T_FLOAT x, const TVec3f& pos);
-  T_FLOAT MoveCircularY(T_FLOAT y, const TVec3f& pos);
-  T_FLOAT MoveCircularZ(T_FLOAT z, const TVec3f& pos);
+  void LookAt(const TVec3f& target, const TVec3f& up = TVec3f::up);
 
 protected:
-  void UpdateTranslateMatrix(INativeMatrix* matrix) override;
-  void UpdateScaleMatrix(INativeMatrix* matrix) override;
-  void UpdateRotateMatrix(INativeMatrix* matrix) override;
+  void UpdateTranslateMatrix(Matrix4x4* matrix) override;
+  void UpdateScaleMatrix(Matrix4x4* matrix) override;
+  void UpdateRotateMatrix(Matrix4x4* matrix) override;
 
-  const INativeMatrix* GetParentWorldMatrix() override;
+  const Matrix4x4& GetParentWorldMatrix() override;
 
   // =================================================================
   // setter/getter
@@ -116,7 +113,7 @@ public:
 public:
   inline void Rotate(const TVec3f& v, T_FLOAT rad)
   {
-    this->rotator_->q(v, rad);
+    this->rotator_->Rotate(v, rad);
   }
   inline void RotateX(T_FLOAT rad)
   {
@@ -129,19 +126,6 @@ public:
   inline void RotateZ(T_FLOAT rad)
   {
     this->rotator_->RotateZ(rad);
-  }
-
-  inline void RotateXAxis(T_FLOAT rad)
-  {
-    this->rotator_->RotateXAxis(rad);
-  }
-  inline void RotateYAxis(T_FLOAT rad)
-  {
-    this->rotator_->RotateYAxis(rad);
-  }
-  inline void RotateZAxis(T_FLOAT rad)
-  {
-    this->rotator_->RotateZAxis(rad);
   }
 
   inline void LerpRotation(const Quaternion& a, const Quaternion& b, T_FLOAT t)

@@ -1,10 +1,15 @@
 #pragma once
 
-#include "NativeType.h"
-#include "Geometry.h"
 #include "GameComponent.h"
-#include "NativeMatrix.h"
-#include "NativeRenderTexture.h"
+
+#include "NativeType.h"
+#include "RenderTexture.h"
+#include "GameObjectRenderState.h"
+
+#include "Geometry.h"
+#include "Vector2.h"
+#include "Vector3.h"
+#include "Matrix4x4.h"
 
 class Scene;
 class GameObject;
@@ -23,11 +28,11 @@ public:
   // Method
   // =================================================================
 public:
-  void SetupViewProjMatrix();
   void DrawScene(Scene* scene);
 
-  virtual const INativeMatrix* GetViewMatrix() const = 0;
-  virtual const INativeMatrix* GetProjectionMatrix() const = 0;
+  virtual bool FrustumCulling(const TVec3f& positive, const TVec3f& negative, T_INT8* first_index = nullptr) const = 0;
+  virtual const Matrix4x4& GetViewMatrix() const = 0;
+  virtual const Matrix4x4& GetProjectionMatrix() const = 0;
 
 protected:
 
@@ -51,12 +56,12 @@ public:
     return this->viewport_clear_;
   }
 
-  inline void SetTargetTexture(INativeRenderTexture* texture)
+  inline void SetTargetTexture(RenderTexture* texture)
   {
     this->target_texture_ = texture;
   }
 
-  inline INativeRenderTexture* GetTargetTexture() const
+  inline RenderTexture* GetTargetTexture() const
   {
     return this->target_texture_;
   }
@@ -126,16 +131,25 @@ public:
     return this->entity_;
   }
 
+  inline GameObjectRenderState* GetRenderState()
+  {
+    return this->render_state_;
+  }
+  inline const GameObjectRenderState* GetRenderState() const
+  {
+    return this->render_state_;
+  }
 
   // =================================================================
   // Data Member
   // =================================================================
 protected:
+  GameObjectRenderState* render_state_;
   GameObject* entity_;
   TVec3f direction_;
 
 private:
-  INativeRenderTexture* target_texture_;
+  RenderTexture* target_texture_;
   bool viewport_clear_;
   TVec2f position_;
   TSizef size_;

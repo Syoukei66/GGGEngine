@@ -19,8 +19,10 @@ public:
   // Methods for/from SuperClass/Interfaces
   // =================================================================
 public:
-  virtual const INativeMatrix* GetViewMatrix() const override;
-  virtual const INativeMatrix* GetProjectionMatrix() const override;
+  virtual bool FrustumCulling(const TVec3f& positive, const TVec3f& negative, T_INT8* first_index = nullptr) const override;
+
+  virtual const Matrix4x4& GetViewMatrix() const override;
+  virtual const Matrix4x4& GetProjectionMatrix() const override;
 
 protected:
   virtual void SetupCamera() override;
@@ -32,6 +34,9 @@ protected:
   // =================================================================
   // Method
   // =================================================================
+public:
+  TVec3f CalcRayVector(const TVec2f& screen_position);
+
 protected:
   void CheckProjectionDirty();
 
@@ -71,13 +76,9 @@ public:
   {
     return this->z_far_;
   }
-  inline GameObjectRenderState* GetRenderState()
+  inline const Matrix4x4& GetBillboardingMatrix() const
   {
-    return this->render_state_;
-  }
-  inline const INativeMatrix& GetBillboardingMatrix() const
-  {
-    return *this->billboarding_matrix_;
+    return this->billboarding_matrix_;
   }
 
 protected:
@@ -90,11 +91,8 @@ protected:
   // Data Member
   // =================================================================
 private:
-  GameObjectRenderState* render_state_;
-
-  INativeMatrix* billboarding_matrix_;
-  INativeMatrix* projection_matrix_;
-  INativeMatrix* calc_2dpos_matrix_;
+  Matrix4x4 billboarding_matrix_;
+  Matrix4x4 projection_matrix_;
 
   T_FLOAT fov_;
   T_FLOAT z_near_;

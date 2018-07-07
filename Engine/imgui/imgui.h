@@ -1081,10 +1081,10 @@ public:
         Capacity = new_capacity;
     }
 
-    // NB: &v cannot be pointing inside the ImVector Data itself! e.g. v.push_back(v[10]) is forbidden.
-    inline void                 push_back(const value_type& v)  { if (Size == Capacity) reserve(_grow_capacity(Size + 1)); Data[Size++] = v; }
+    // NB: &v cannot be pointing inside the ImVector Data itself! e.g. v.emplace_back(v[10]) is forbidden.
+    inline void                 emplace_back(const value_type& v)  { if (Size == Capacity) reserve(_grow_capacity(Size + 1)); Data[Size++] = v; }
     inline void                 pop_back()                      { IM_ASSERT(Size > 0); Size--; }
-    inline void                 push_front(const value_type& v) { if (Size == 0) push_back(v); else insert(Data, v); }
+    inline void                 push_front(const value_type& v) { if (Size == 0) emplace_back(v); else insert(Data, v); }
 
     inline iterator             erase(const_iterator it)        { IM_ASSERT(it >= Data && it < Data+Size); const ptrdiff_t off = it - Data; memmove(Data + off, Data + off + 1, ((size_t)Size - (size_t)off - 1) * sizeof(value_type)); Size--; return Data + off; }
     inline iterator             insert(const_iterator it, const value_type& v)  { IM_ASSERT(it >= Data && it <= Data+Size); const ptrdiff_t off = it - Data; if (Size == Capacity) reserve(_grow_capacity(Size + 1)); if (off < (int)Size) memmove(Data + off + 1, Data + off, ((size_t)Size - (size_t)off) * sizeof(value_type)); Data[off] = v; Size++; return Data + off; }
@@ -1144,13 +1144,13 @@ struct ImGuiTextBuffer
 {
     ImVector<char>      Buf;
 
-    ImGuiTextBuffer()   { Buf.push_back(0); }
+    ImGuiTextBuffer()   { Buf.emplace_back(0); }
     inline char         operator[](int i) { return Buf.Data[i]; }
     const char*         begin() const { return &Buf.front(); }
     const char*         end() const { return &Buf.back(); }      // Buf is zero-terminated, so end() will point on the zero-terminator
     int                 size() const { return Buf.Size - 1; }
     bool                empty() { return Buf.Size <= 1; }
-    void                clear() { Buf.clear(); Buf.push_back(0); }
+    void                clear() { Buf.clear(); Buf.emplace_back(0); }
     void                reserve(int capacity) { Buf.reserve(capacity); }
     const char*         c_str() const { return Buf.Data; }
     IMGUI_API void      appendf(const char* fmt, ...) IM_FMTARGS(2);
@@ -1467,8 +1467,8 @@ struct ImDrawList
 
     // Stateful path API, add points then finish with PathFill() or PathStroke()
     inline    void  PathClear()                                                 { _Path.resize(0); }
-    inline    void  PathLineTo(const ImVec2& pos)                               { _Path.push_back(pos); }
-    inline    void  PathLineToMergeDuplicate(const ImVec2& pos)                 { if (_Path.Size == 0 || memcmp(&_Path[_Path.Size-1], &pos, 8) != 0) _Path.push_back(pos); }
+    inline    void  PathLineTo(const ImVec2& pos)                               { _Path.emplace_back(pos); }
+    inline    void  PathLineToMergeDuplicate(const ImVec2& pos)                 { if (_Path.Size == 0 || memcmp(&_Path[_Path.Size-1], &pos, 8) != 0) _Path.emplace_back(pos); }
     inline    void  PathFillConvex(ImU32 col)                                   { AddConvexPolyFilled(_Path.Data, _Path.Size, col); PathClear(); }
     inline    void  PathStroke(ImU32 col, bool closed, float thickness = 1.0f)  { AddPolyline(_Path.Data, _Path.Size, col, closed, thickness); PathClear(); }
     IMGUI_API void  PathArcTo(const ImVec2& centre, float radius, float a_min, float a_max, int num_segments = 10);

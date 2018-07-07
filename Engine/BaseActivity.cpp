@@ -4,7 +4,7 @@
 
 #include "Director.h"
 
-#include "NativeMethod.h"
+#include "NativeProcess.h"
 #include "InputManager.h"
 
 #include "EngineResourcePool.h"
@@ -30,9 +30,6 @@ BaseActivity::~BaseActivity()
 bool BaseActivity::Run(IEngineSetting* setting)
 {
   Director::GetInstance()->SetActivity(this);
-  NativeMethod::Graphics_SetInstance(this->SetupNativeProcess_Graphics());
-  NativeMethod::IO_SetInstance(this->SetupNativeProcess_IO());
-  NativeMethod::Time_SetInstance(this->SetupNativeProcess_Time());
 
   bool result = false;
 
@@ -45,7 +42,7 @@ bool BaseActivity::Run(IEngineSetting* setting)
   NATIVE_ASSERT(result, "ƒGƒ“ƒWƒ“‚Ì‰Šú‰»‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
 #ifdef _DEBUG
-  NativeMethod::Time().FPS_Init();
+  NativeProcess::Time::FPS_Init();
 #endif
 
   this->fbx_manager_ = FbxManager::Create();
@@ -100,9 +97,6 @@ bool BaseActivity::Run(IEngineSetting* setting)
 
   setting->OnEngineFinal();
   
-  NativeMethod::Graphics_DeleteInstance();
-  NativeMethod::IO_DeleteInstance();
-  NativeMethod::Time_DeleteInstance();
   return true;
 }
 
@@ -120,7 +114,7 @@ bool BaseActivity::Update()
   this->ImGuiNewFrame();
 
 #ifdef _DEBUG
-  NativeMethod::Time().FPS_PreUpdate();
+  NativeProcess::Time::FPS_PreUpdate();
 #endif
 
   //TODO:‰¼A’x‰„‚ð•`‰æ‚É”½‰f‚³‚¹‚é‚©‚Ç‚¤‚©‚ÍÝ’è‚Å•Ï‚¦‚ê‚é‚æ‚¤‚É
@@ -148,7 +142,7 @@ bool BaseActivity::Update()
   this->ImGuiEndFrame();
 
 #ifdef _DEBUG
-  NativeMethod::Time().FPS_PostUpdate();
+  NativeProcess::Time::FPS_PostUpdate();
 #endif
 
   UserResourcePool::GetInstance().Update();
@@ -165,8 +159,8 @@ bool BaseActivity::Draw()
   {
     return false;
   }
-  NativeMethod::Graphics().Graphics_SetViewport(0.0f, 0.0f, this->engine_->GetScreenWidth(), this->engine_->GetScreenHeight(), 0.0f, 1.0f);
-  NativeMethod::Graphics().Graphics_Clear();
+  NativeProcess::Graphics::SetViewport(0.0f, 0.0f, this->engine_->GetScreenWidth(), this->engine_->GetScreenHeight(), 0.0f, 1.0f);
+  NativeProcess::Graphics::ViewportClear();
   this->engine_->OnDraw();
   this->PostDraw();
   return true;

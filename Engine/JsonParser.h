@@ -157,14 +157,14 @@ private:
 public:
   T* Add(T* value)
   {
-    this->value_list_.push_back(value);
+    this->value_list_.emplace_back(value);
     return value;
   }
 
   T* Add()
   {
     T* ret = T::Create(this->depth_ + 1);
-    this->value_list_.push_back(ret);
+    this->value_list_.emplace_back(ret);
     return ret;
   }
 
@@ -180,7 +180,7 @@ public:
   {
     if (index >= this->value_list_.size())
     {
-      this->value_list_.push_back(T::Create(this->depth_ + 1));
+      this->value_list_.emplace_back(T::Create(this->depth_ + 1));
     }
     return this->value_list_[index];
   }
@@ -189,7 +189,7 @@ public:
     bool created = false;
     while (index >= this->value_list_.size())
     {
-      this->value_list_.push_back(T::Create(this->depth_ + 1));
+      this->value_list_.emplace_back(T::Create(this->depth_ + 1));
       created = true;
     }
     *dest = this->value_list_[index];

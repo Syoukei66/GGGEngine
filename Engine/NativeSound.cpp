@@ -1,7 +1,7 @@
 #include "NativeSound.h"
-#include "NativeObjectFactory.h"
+#include "NativeProcess.h"
 
 INativeSound* INativeSound::Create(const char* path)
 {
-  return NativeObjectFactory::CreateSound(path);
+  return NativeProcess::Factory::CreateSound(path);
 }

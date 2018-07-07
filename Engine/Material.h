@@ -6,6 +6,7 @@
 #include "Color.h"
 #include "ShaderResource.h"
 #include "ShaderProperties.h"
+#include "GraphicsConstants.h"
 
 class GameObjectRenderState;
 
@@ -44,6 +45,15 @@ public:
   inline INativeShader* GetShader()
   {
     return this->shader_resource_->GetContents();
+  }
+
+  inline void SetTechnique(const std::string& technique)
+  {
+    this->technique_ = technique;
+  }
+  inline const std::string& GetTechnique() const
+  {
+    return this->technique_;
   }
 
   template <class T>
@@ -148,17 +158,17 @@ public:
     return this->GetShaderProperty<ShaderProperty_texture>(property_name);
   }
 
-  inline void SetMainTexture(const INativeTexture* texture)
+  inline void SetMainTexture(const Texture* texture)
   {
     NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
     this->texture_ = texture;
   }
-  inline const INativeTexture* GetMainTexture() const
+  inline const Texture* GetMainTexture() const
   {
     return this->texture_;
   }
 
-  inline void SetDiffuse(const Color4F& color)
+  inline void SetDiffuse(const TColor& color)
   {
     NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
     this->color_ = color;
@@ -166,31 +176,36 @@ public:
   inline void SetDiffuse(T_FLOAT r, T_FLOAT g, T_FLOAT b)
   {
     NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
-    this->color_.SetColor(r, g, b);
+    this->color_.r = r;
+    this->color_.g = g;
+    this->color_.b = b;
   }
   inline void SetDiffuse(T_FLOAT r, T_FLOAT g, T_FLOAT b, T_FLOAT a)
   {
     NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
-    this->color_.SetColor(r, g, b, a);
+    this->color_.r = r;
+    this->color_.g = g;
+    this->color_.b = b;
+    this->color_.a = a;
   }
-  inline Color4F& GetDiffuse()
+  inline TColor& GetDiffuse()
   {
     NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
     return this->color_;
   }
-  inline const Color4F& GetDiffuse() const
+  inline const TColor& GetDiffuse() const
   {
     return this->color_;
   }
 
-  inline void SetZTestLevel(T_UINT8 level)
+  inline void SetRenderQueue(GraphicsConstants::RenderQueue queue)
   {
     NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
-    this->z_test_level_ = level;
+    this->queue_ = queue;
   }
-  inline T_UINT8 GetZTestLevel() const
+  inline GraphicsConstants::RenderQueue GetRenderQueue() const
   {
-    return this->z_test_level_;
+    return this->queue_;
   }
 
   inline void SetBillboardingFlag(bool billboarding)
@@ -211,10 +226,12 @@ protected:
   const ShaderResource* shader_resource_;
   std::unordered_map<std::string, ShaderProperty*> properties_;
 
-  Color4F color_;
-  const INativeTexture* texture_;
+  std::string technique_;
 
-  T_UINT8 z_test_level_;
+  TColor color_;
+  const Texture* texture_;
+
+  GraphicsConstants::RenderQueue queue_;
   bool billbording_;
 
   std::vector<Material*> clones_;

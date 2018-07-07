@@ -2,6 +2,7 @@
 
 #include "ResourceLoader.h"
 #include "Mesh.h"
+#include "MeshBuilder.h"
 
 class MeshResource
 {
@@ -9,7 +10,7 @@ class MeshResource
   // Constructor / Destructor
   // =================================================================
 public:
-  MeshResource(const MeshData& data);
+  MeshResource(const MeshBuilder* builder);
   ~MeshResource();
 
   // =================================================================
@@ -30,6 +31,7 @@ public:
   }
 
 private:
-  const MeshData& data_;
+  const MeshBuilder* builder_;
   Mesh* mesh_;
+
 };

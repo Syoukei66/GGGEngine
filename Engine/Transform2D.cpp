@@ -1,6 +1,5 @@
 #include "Transform2D.h"
 #include "GameObject2D.h"
-#include "NativeMethod.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -23,7 +22,7 @@ void Transform2D::OnInit()
   this->rotation_ = 0.0f;
 }
 
-void Transform2D::UpdateTranslateMatrix(INativeMatrix* matrix)
+void Transform2D::UpdateTranslateMatrix(Matrix4x4* matrix)
 {
   matrix->Translation(
     this->position_.x,
@@ -32,7 +31,7 @@ void Transform2D::UpdateTranslateMatrix(INativeMatrix* matrix)
   );
 }
 
-void Transform2D::UpdateScaleMatrix(INativeMatrix* matrix)
+void Transform2D::UpdateScaleMatrix(Matrix4x4* matrix)
 {
   matrix->Scaling(
     this->scale_.x,
@@ -41,7 +40,7 @@ void Transform2D::UpdateScaleMatrix(INativeMatrix* matrix)
   );
 }
 
-void Transform2D::UpdateRotateMatrix(INativeMatrix* matrix)
+void Transform2D::UpdateRotateMatrix(Matrix4x4* matrix)
 {
   matrix->Rotation(
     0.0f,
@@ -50,14 +49,14 @@ void Transform2D::UpdateRotateMatrix(INativeMatrix* matrix)
   );
 }
 
-const INativeMatrix* Transform2D::GetParentWorldMatrix()
+const Matrix4x4& Transform2D::GetParentWorldMatrix()
 {
   GameObject2D* parent = this->entity_->GetParent();
   if (!parent)
   {
-    return nullptr;
+    return Matrix4x4::identity;
   }
-  return &parent->GetTransform()->GetWorldMatrix();
+  return parent->GetTransform()->GetWorldMatrix();
 }
 
 // =================================================================

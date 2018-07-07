@@ -6,21 +6,16 @@
 // =================================================================
 Transform::Transform(GameObject* entity)
   : entity_(entity)
-  , translate_matrix_(INativeMatrix::Create())
-  , scale_matrix_(INativeMatrix::Create())
-  , rotation_matrix_(INativeMatrix::Create())
-  , matrix_(INativeMatrix::Create())
-  , world_matrix_(INativeMatrix::Create())
+  , translate_matrix_()
+  , scale_matrix_()
+  , rotation_matrix_()
+  , matrix_()
+  , world_matrix_()
 {
 }
 
 Transform::~Transform()
 {
-  delete this->translate_matrix_;
-  delete this->scale_matrix_;
-  delete this->rotation_matrix_;
-  delete this->matrix_;
-  delete this->world_matrix_;
 }
 
 // =================================================================
@@ -63,31 +58,31 @@ void Transform::UpdateMatrix()
   bool matrix_dirty = false;
   if (this->translation_dirty_)
   {
-    this->translate_matrix_->Init();
-    this->UpdateTranslateMatrix(this->translate_matrix_);
+    this->translate_matrix_ = Matrix4x4::identity;
+    this->UpdateTranslateMatrix(&this->translate_matrix_);
     this->translation_dirty_ = false;
     matrix_dirty = true;
   }
   if (this->scale_dirty_)
   {
-    this->scale_matrix_->Init();
-    this->UpdateScaleMatrix(this->scale_matrix_);
+    this->scale_matrix_ = Matrix4x4::identity;
+    this->UpdateScaleMatrix(&this->scale_matrix_);
     this->scale_dirty_ = false;
     matrix_dirty = true;
   }
   if (this->rotation_dirty_)
   {
-    this->rotation_matrix_->Init();
-    this->UpdateRotateMatrix(this->rotation_matrix_);
+    this->rotation_matrix_ = Matrix4x4::identity;
+    this->UpdateRotateMatrix(&this->rotation_matrix_);
     this->rotation_dirty_ = false;
     matrix_dirty = true;
   }
   if (matrix_dirty)
   {
-    this->matrix_->Init();
-    this->matrix_->Multiple(*this->scale_matrix_);
-    this->matrix_->Multiple(*this->rotation_matrix_);
-    this->matrix_->Multiple(*this->translate_matrix_);
+    this->matrix_ = Matrix4x4::identity;
+    this->matrix_ *= this->scale_matrix_;
+    this->matrix_ *= this->rotation_matrix_;
+    this->matrix_ *= this->translate_matrix_;
   }
 }
 
@@ -97,11 +92,11 @@ void Transform::UpdateWorldMatrix()
   {
     return;
   }
-  this->world_matrix_->Assign(this->GetMatrix());
-  const INativeMatrix* parent_world_matrix = this->GetParentWorldMatrix();
+  this->world_matrix_ = this->GetMatrix();
+  const Matrix4x4& parent_world_matrix = this->GetParentWorldMatrix();
   if (parent_world_matrix)
   {
-    this->world_matrix_->Multiple(*parent_world_matrix);
+    this->world_matrix_ *= parent_world_matrix;
   }
   this->world_transform_dirty_ = false;
 }

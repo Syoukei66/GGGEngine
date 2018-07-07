@@ -11,7 +11,7 @@ class NativeVertexBuffer : public INativeVertexBuffer
   // Constructor / Destructor
   // =================================================================
 public:
-  NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_count, Vertex::VertexType vertex_type);
+  NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_count, T_UINT32 format);
   ~NativeVertexBuffer();
 
   // =================================================================
@@ -22,16 +22,19 @@ public:
   virtual void Unlock() override;
 
   virtual void SetStreamSource() const override;
-  virtual void DrawPrimitive(INativeProcess_Graphics::PrimitiveType primitive_type) const override;
-  virtual void DrawIndexedPrimitive(const INativeIndexBuffer* index_buffer, INativeProcess_Graphics::PrimitiveType primitive_type) const override;
-
+  virtual void DrawPrimitive(GraphicsConstants::PrimitiveType primitive_type) const override;
+  virtual void DrawIndexedPrimitive(const INativeIndexBuffer* index_buffer, GraphicsConstants::PrimitiveType primitive_type) const override;
+  
+  virtual T_UINT32 GetMemorySize() const override;
+  
   // =================================================================
   // Data Member
   // =================================================================
 private:
   const T_UINT16 vertex_count_;
   const T_UINT16 polygon_count_;
-  const Vertex::VertexType vertex_type_;
+  const T_UINT32 format_;
+  T_UINT32 stride_;
   IDirect3DVertexBuffer9* vertex_buffer_;
-
+  IDirect3DVertexDeclaration9* vertex_declaration_;
 };

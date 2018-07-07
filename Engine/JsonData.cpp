@@ -1,5 +1,5 @@
 #include "JsonData.h"
-#include "NativeMethod.h"
+#include "NativeProcess.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -16,7 +16,7 @@ JsonData::~JsonData()
 void JsonData::Read(const char* path)
 {
   JsonParser parser = JsonParser();
-  std::string str = NativeMethod::IO().TextFile_Read(path);
+  std::string str = NativeProcess::IO::TextFile_Read(path);
   this->root_ = parser.Parse(str.c_str());
 }
 
@@ -27,5 +27,5 @@ void JsonData::Write(const char* path)
     return;
   }
   std::string str = this->root_->ToString();
-  NativeMethod::IO().TextFile_Write(path, str);
+  NativeProcess::IO::TextFile_Write(path, str);
 }

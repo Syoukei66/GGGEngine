@@ -40,10 +40,6 @@ public:
 
   virtual void Draw(GameObjectRenderState* state);
 
-protected:
-  virtual void PushMatrixStack(GameObjectRenderState* state);
-  virtual void PopMatrixStack(GameObjectRenderState* state);
-
   // =================================================================
   // Events
   // =================================================================

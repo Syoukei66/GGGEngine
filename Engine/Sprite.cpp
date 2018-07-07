@@ -18,7 +18,7 @@ Sprite* Sprite::CreateWithResource(const TextureResource& texture)
   return Sprite::CreateWithTextureRegion(region, true);
 }
 
-Sprite* Sprite::CreateWithTexture(const INativeTexture* texture)
+Sprite* Sprite::CreateWithTexture(const Texture* texture)
 {
   TextureRegion* region = TextureRegion::CreateWithTexture(texture);
   return Sprite::CreateWithTextureRegion(region, true);

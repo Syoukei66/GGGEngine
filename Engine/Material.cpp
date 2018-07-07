@@ -1,6 +1,5 @@
 #include "Material.h"
 #include "GameObjectRenderState.h"
-#include "NativeMethod.h"
 #include "Camera.h"
 #include "GameObject.h"
 
@@ -11,9 +10,10 @@ Material::Material(const ShaderResource& resource, bool protect)
   : protected_(protect)
   , shader_resource_(&resource)
   , properties_()
+  , technique_("Default")
   , color_()
   , texture_()
-  , z_test_level_(0)
+  , queue_(GraphicsConstants::RenderQueue::RQ_GEOMETRY)
   , billbording_(false)
 {
 }
@@ -42,8 +42,8 @@ Material* Material::Clone()
   }
   ret->color_ = this->color_;
   ret->texture_ = this->texture_;
-  ret->z_test_level_ = this->z_test_level_;
-  this->clones_.push_back(ret);
+  ret->queue_ = this->queue_;
+  this->clones_.emplace_back(ret);
   return ret;
 }
 
@@ -51,13 +51,14 @@ Material* Material::InitialClone()
 {
   NATIVE_ASSERT(this->shader_resource_, "シェーダーが未定義です");
   Material* ret = new Material(*this->shader_resource_);
-  this->clones_.push_back(ret);
+  this->clones_.emplace_back(ret);
   return ret;
 }
 
 T_UINT8 Material::Begin()
 {
   INativeShader* shader = this->GetShader();
+  shader->SetTechnique(this->technique_);
   return shader->Begin();
 }
 
@@ -78,14 +79,13 @@ void Material::BeginPass(T_UINT8 path_id)
 void Material::SetDefaultProperties(GameObjectRenderState* state)
 {
   INativeShader* shader = this->GetShader();
-  shader->SetMatrix("_WorldViewProj", state->GetWorldViewProjToMaterial()->GetNativeInstance());
+  shader->SetMatrix("_World", state->GetWorldMatrix());
+  shader->SetMatrix("_WorldViewProj", state->GetWorldMatrix() * state->GetViewProjMatrix());
 
-  shader->SetMatrix("_World", state->GetMatrixStack()->GetTop());
   shader->SetVec4f("_CameraPosition", state->GetCamera()->GetEntity()->GetWorldMatrix().GetPosition4d());
   shader->SetVec3f("_CameraDirection", state->GetCamera()->GetEntity()->GetWorldMatrix().GetDirection3d());
 
-  NativeTextureInstance* texture = this->texture_ ? this->texture_->GetNativeInstance() : nullptr;
-  shader->SetTexture("_MainTex", texture);
+  shader->SetTexture("_MainTex", this->texture_);
 
   shader->SetColor("_Diffuse", this->color_);
 }

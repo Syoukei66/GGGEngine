@@ -3,6 +3,7 @@
 
 #include "GameObject3D.h"
 #include "MathConstants.h"
+#include "imgui\imgui.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -34,101 +35,65 @@ void Transform3D::OnInit()
 
 void Transform3D::Move(const TVec3f& value)
 {
-  TVec3f v = value;
-  this->GetRotationMatrix().Apply(&v);
-  const TVec3f& pos = this->GetPosition();
-  this->SetPosition(pos.x + v.x, pos.y + v.y, pos.z + v.z);
+  this->SetPosition(this->GetPosition() + this->GetRotationMatrix() * value);
 }
 
 void Transform3D::Move(T_FLOAT x, T_FLOAT y, T_FLOAT z)
 {
-  this->GetRotationMatrix().Apply(&x, &y, &z);
-  const TVec3f& pos = this->GetPosition();
-  this->SetPosition(pos.x + x, pos.y + y, pos.z + z);
+  this->SetPosition(this->GetPosition() + this->GetRotationMatrix() * TVec3f(x, y, z));
 }
 
 void Transform3D::MoveX(T_FLOAT x)
 {
-  T_FLOAT y = 0.0f;
-  T_FLOAT z = 0.0f;
-  this->GetRotationMatrix().Apply(&x, &y, &z);
-  this->SetPosition(this->GetX() + x, this->GetY() + y, this->GetZ() + z);
+  this->SetPosition(this->GetPosition() + this->GetRotationMatrix() * TVec3f(x, 0.0f, 0.0f));
 }
 
 void Transform3D::MoveY(T_FLOAT y)
 {
-  T_FLOAT x = 0.0f;
-  T_FLOAT z = 0.0f;
-  this->GetRotationMatrix().Apply(&x, &y, &z);
-  this->SetPosition(this->GetX() + x, this->GetY() + y, this->GetZ() + z);
+  this->SetPosition(this->GetPosition() + this->GetRotationMatrix() * TVec3f(0.0f, y, 0.0f));
 }
 
 void Transform3D::MoveZ(T_FLOAT z)
 {
-  T_FLOAT x = 0.0f;
-  T_FLOAT y = 0.0f;
-  this->GetRotationMatrix().Apply(&x, &y, &z);
-  this->SetPosition(this->GetX() + x, this->GetY() + y, this->GetZ() + z);
+  this->SetPosition(this->GetPosition() + this->GetRotationMatrix() * TVec3f(0.0f, 0.0f, z));
 }
 
-void Transform3D::MoveCircular(const TVec3f& move, const TVec3f& pos)
+void Transform3D::LookAt(const TVec3f& target, const TVec3f& up)
 {
+  const TVec3f z = (target - this->GetWorldPosition()).Normalized();
+  const TVec3f x = TVec3f::OuterProduct(up, z);
+  const TVec3f y = TVec3f::OuterProduct(z, x);
 
+  Matrix4x4 mat = Matrix4x4::identity;
+  mat._11 = x.x; mat._21 = y.x; mat._31 = z.x;
+  mat._12 = x.y; mat._22 = y.y; mat._32 = z.y;
+  mat._13 = x.z; mat._23 = y.z; mat._33 = z.z;
+  this->rotator_->FromRotationMatrix(mat);
 }
 
-void Transform3D::MoveCircular(T_FLOAT x, T_FLOAT y, T_FLOAT z, const TVec3f& pos)
-{
-}
-
-T_FLOAT Transform3D::MoveCircularX(T_FLOAT x, const TVec3f& pos)
-{
-  const T_FLOAT x_distance = pos.x - this->position_.x;
-  const T_FLOAT z_distance = pos.z - this->position_.z;
-  const T_FLOAT xz_r = sqrtf(x_distance * x_distance + z_distance * z_distance);
-  //‰~Žü = 2 * PI * xz_r
-  //ˆÚ“®—Êx‚Æ‰~Žü‚Ì”ä—¦ = x / ‰~Žü
-  //ŠpˆÚ“®—Ê = ˆÚ“®—Êx‚Æ‰~Žü‚Ì”ä—¦ * (2 * PI)
-  //        = x / ‰~Žü * (2 * PI)
-  //        = x / ((2 * PI) * xz_r) * (2 * PI)
-  //        = x / xz_r;
-  const T_FLOAT xz_ang = atan2f(x_distance, z_distance) - x / xz_r;
-  this->SetPosition(pos.x - sin(xz_ang) * xz_r, this->GetY(), pos.z - cos(xz_ang) * xz_r);
-  return xz_ang;
-}
-
-T_FLOAT Transform3D::MoveCircularY(T_FLOAT y, const TVec3f& pos)
-{
-  return 0.0f;
-}
-
-T_FLOAT Transform3D::MoveCircularZ(T_FLOAT z, const TVec3f& pos)
-{
-  return 0.0f;
-}
-
-void Transform3D::UpdateTranslateMatrix(INativeMatrix* matrix)
+void Transform3D::UpdateTranslateMatrix(Matrix4x4* matrix)
 {
   matrix->Translation(this->position_);
 }
 
-void Transform3D::UpdateScaleMatrix(INativeMatrix* matrix)
+void Transform3D::UpdateScaleMatrix(Matrix4x4* matrix)
 {
   matrix->Scaling(this->scale_);
 }
 
-void Transform3D::UpdateRotateMatrix(INativeMatrix* matrix)
+void Transform3D::UpdateRotateMatrix(Matrix4x4* matrix)
 {
   this->rotator_->ToRotationMatrix(matrix);
 }
 
-const INativeMatrix* Transform3D::GetParentWorldMatrix()
+const Matrix4x4& Transform3D::GetParentWorldMatrix()
 {
   GameObject3D* parent = this->entity_->GetParent();
   if (!parent)
   {
-    return nullptr;
+    return Matrix4x4::identity;
   }
-  return &parent->GetTransform()->GetWorldMatrix();
+  return parent->GetTransform()->GetWorldMatrix();
 }
 
 // =================================================================

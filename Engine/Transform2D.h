@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Vector2.h"
 #include "Transform.h"
 
 class GameObject2D;
@@ -20,11 +21,11 @@ public:
   void OnInit() override;
 
 protected:
-  void UpdateTranslateMatrix(INativeMatrix* matrix) override;
-  void UpdateScaleMatrix(INativeMatrix* matrix) override;
-  void UpdateRotateMatrix(INativeMatrix* matrix) override;
+  void UpdateTranslateMatrix(Matrix4x4* matrix) override;
+  void UpdateScaleMatrix(Matrix4x4* matrix) override;
+  void UpdateRotateMatrix(Matrix4x4* matrix) override;
 
-  const INativeMatrix* GetParentWorldMatrix() override;
+  const Matrix4x4& GetParentWorldMatrix() override;
 
   // =================================================================
   // setter/getter

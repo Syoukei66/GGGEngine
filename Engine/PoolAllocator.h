@@ -64,7 +64,7 @@ public:
     }
     T* ret = this->pool_.back();
     this->pool_.pop_back();
-    this->allocated_.push_back(ret);
+    this->allocated_.emplace_back(ret);
     ret->OnAllocated();
     return ret;
   }
@@ -78,7 +78,7 @@ public:
       }
       this->allocated_.erase(itr);
       p->OnFree();
-      this->pool_.push_back(p);
+      this->pool_.emplace_back(p);
       return;
     }
   }
@@ -87,7 +87,7 @@ public:
     for (T* p : this->allocated_)
     {
       p->OnFree();
-      this->pool_.push_back(p);
+      this->pool_.emplace_back(p);
     }
     this->allocated_.clear();
   }
@@ -96,7 +96,7 @@ public:
     T* p = (*itr);
     std::list<T*>::iterator ret = this->allocated_.erase(itr);
     p->OnFree();
-    this->pool_.push_back(p);
+    this->pool_.emplace_back(p);
     return ret;
   }
   void Loop(std::function<void(T*)> func)
@@ -134,7 +134,7 @@ public:
     {
       if (condition(p))
       {
-        dest->push_back(p);
+        dest->emplace_back(p);
       }
     }
   }

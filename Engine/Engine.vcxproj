@@ -100,6 +100,8 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <AdditionalIncludeDirectories>Lib\include;spine-c\include;FBX\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <OpenMPSupport>false</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -118,6 +120,8 @@
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <TreatWarningAsError>false</TreatWarningAsError>
       <AdditionalIncludeDirectories>Lib\include;spine-c\include;FBX\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <OpenMPSupport>false</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -140,6 +144,8 @@
       <TreatWarningAsError>false</TreatWarningAsError>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <AdditionalIncludeDirectories>Lib\include;spine-c\include;FBX\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -162,6 +168,8 @@
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <TreatWarningAsError>false</TreatWarningAsError>
       <AdditionalIncludeDirectories>Lib\include;spine-c\include;FBX\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -201,46 +209,49 @@
     <ClCompile Include="EngineInitializeSetting.cpp" />
     <ClCompile Include="EngineInputEvent.cpp" />
     <ClCompile Include="FbxData.cpp" />
-    <ClCompile Include="FbxMeshMaterial.cpp" />
     <ClCompile Include="FbxNodeData.cpp" />
     <ClCompile Include="GameComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObject2D.cpp" />
     <ClCompile Include="GameObject3D.cpp" />
     <ClCompile Include="FbxResource.cpp" />
+    <ClCompile Include="GameObjectRenderQueue.cpp" />
+    <ClCompile Include="Gradient.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
     <ClCompile Include="imgui_ja_gryph_ranges.cpp" />
     <ClCompile Include="JsonData.cpp" />
     <ClCompile Include="JsonResource.cpp" />
     <ClCompile Include="LoopSprite.cpp" />
+    <ClCompile Include="Matrix4x4.cpp" />
     <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="MeshData.cpp" />
-    <ClCompile Include="MeshData_Cube.cpp" />
-    <ClCompile Include="MeshData_Plane.cpp" />
-    <ClCompile Include="MeshData_Sprite.cpp" />
+    <ClCompile Include="MeshBuilder_Cube.cpp" />
+    <ClCompile Include="MeshBuilder_Plane.cpp" />
+    <ClCompile Include="MeshBuilder_Sprite.cpp" />
+    <ClCompile Include="MeshFactory_Cube.cpp" />
+    <ClCompile Include="MeshFactory_Fbx.cpp" />
+    <ClCompile Include="MeshFactory_Plane.cpp" />
+    <ClCompile Include="MeshFactory_Sprite.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="MeshResource.cpp" />
     <ClCompile Include="ModelNode.cpp" />
-    <ClCompile Include="NativeRenderTexture.cpp" />
     <ClCompile Include="NativeIndexBuffer.cpp" />
     <ClCompile Include="NativeShader.cpp" />
     <ClCompile Include="NativeSound.cpp" />
     <ClCompile Include="NativeVertexBuffer.cpp" />
+    <ClCompile Include="PerlinNoiseGenerator.cpp" />
+    <ClCompile Include="RandomGenerator.cpp" />
+    <ClCompile Include="RenderBuffer.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="FileLoader.cpp" />
-    <ClCompile Include="ModelData.cpp" />
-    <ClCompile Include="NativeMatrix.cpp" />
-    <ClCompile Include="NativeMatrixStack.cpp" />
-    <ClCompile Include="NativeModel.cpp" />
-    <ClCompile Include="NativeTexture.cpp" />
+    <ClCompile Include="RenderTexture.cpp" />
     <ClCompile Include="ResourcePool.cpp" />
     <ClCompile Include="ShaderResource.cpp" />
     <ClCompile Include="SoundResource.cpp" />
     <ClCompile Include="SpineResource.cpp" />
     <ClCompile Include="Sprite3D.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
-    <ClCompile Include="SubMesh.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Transform3DRotator.cpp" />
     <ClCompile Include="GameObjectRenderState.cpp" />
     <ClCompile Include="EntityModifier.cpp" />
@@ -253,7 +264,6 @@
     <ClCompile Include="LoadProgressCounter.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Model.cpp" />
-    <ClCompile Include="NativeMethod.cpp" />
     <ClCompile Include="ParticleData.cpp" />
     <ClCompile Include="ParticleDataLoader.cpp" />
     <ClCompile Include="ParticleDataManager.cpp" />
@@ -311,14 +321,11 @@
     <ClCompile Include="Transform3D.cpp" />
     <ClCompile Include="UpdateEvent.cpp" />
     <ClCompile Include="ITextureRegion.cpp" />
-    <ClCompile Include="IVertexBufferObject.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="TextureResource.cpp" />
     <ClCompile Include="TextureRegion.cpp" />
     <ClCompile Include="TiledTextureRegion.cpp" />
-    <ClCompile Include="Vertex.cpp" />
-    <ClCompile Include="VertexBufferObject_Primitive3D_MeshField.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.h" />
@@ -330,10 +337,13 @@
     <ClInclude Include="Cube3D.h" />
     <ClInclude Include="EngineResourcePool.h" />
     <ClInclude Include="FbxData.h" />
-    <ClInclude Include="FbxMeshMaterial.h" />
     <ClInclude Include="FbxNodeData.h" />
     <ClInclude Include="FbxResource.h" />
     <ClInclude Include="GameObjectFactory.h" />
+    <ClInclude Include="GameObjectRenderQueue.h" />
+    <ClInclude Include="Gradient.h" />
+    <ClInclude Include="GraphicsConstants.h" />
+    <ClInclude Include="IMesh.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
     <ClInclude Include="imgui\imgui_internal.h" />
@@ -345,20 +355,30 @@
     <ClInclude Include="JsonData.h" />
     <ClInclude Include="JsonResource.h" />
     <ClInclude Include="LoopSprite.h" />
+    <ClInclude Include="Mathf.h" />
+    <ClInclude Include="Matrix4x3.h" />
+    <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="Mesh.h" />
-    <ClInclude Include="MeshData.h" />
-    <ClInclude Include="MeshData_Cube.h" />
-    <ClInclude Include="MeshData_Plane.h" />
-    <ClInclude Include="MeshData_Sprite.h" />
+    <ClInclude Include="MeshBuilder.h" />
+    <ClInclude Include="MeshBuilder_Cube.h" />
+    <ClInclude Include="MeshBuilder_Plane.h" />
+    <ClInclude Include="MeshBuilder_Sprite.h" />
+    <ClInclude Include="MeshFactory_Cube.h" />
+    <ClInclude Include="MeshFactory_Fbx.h" />
+    <ClInclude Include="MeshFactory_Plane.h" />
+    <ClInclude Include="MeshFactory_Sprite.h" />
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="MeshResource.h" />
     <ClInclude Include="ModelNode.h" />
     <ClInclude Include="NativeAssert.h" />
-    <ClInclude Include="NativeRenderTexture.h" />
     <ClInclude Include="NativeIndexBuffer.h" />
+    <ClInclude Include="NativeProcess.h" />
     <ClInclude Include="NativeSound.h" />
     <ClInclude Include="NativeVertexBuffer.h" />
     <ClInclude Include="NativeShader.h" />
+    <ClInclude Include="PerlinNoiseGenerator.h" />
+    <ClInclude Include="RandomGenerator.h" />
+    <ClInclude Include="RenderBuffer.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="FileLoader.h" />
     <ClInclude Include="FileResource.h" />
@@ -392,21 +412,20 @@
     <ClInclude Include="GameObject2D.h" />
     <ClInclude Include="GameObject3D.h" />
     <ClInclude Include="Moniker.h" />
-    <ClInclude Include="NativeMatrix.h" />
-    <ClInclude Include="NativeModel.h" />
-    <ClInclude Include="NativeObjectFactory.h" />
-    <ClInclude Include="NativeMatrixStack.h" />
     <ClInclude Include="NativeObject.h" />
     <ClInclude Include="EngineAsset.h" />
+    <ClInclude Include="RenderTexture.h" />
     <ClInclude Include="ResourceLoader.h" />
+    <ClInclude Include="ScalingMatrix.h" />
     <ClInclude Include="ShaderProperties.h" />
     <ClInclude Include="ShaderResource.h" />
     <ClInclude Include="SoundResource.h" />
     <ClInclude Include="SpineResource.h" />
     <ClInclude Include="Sprite3D.h" />
     <ClInclude Include="SpriteRenderer.h" />
-    <ClInclude Include="SubMesh.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureRegion.h" />
+    <ClInclude Include="TextureSource.h" />
     <ClInclude Include="TiledTextureRegion.h" />
     <ClInclude Include="Transform3DRotator.h" />
     <ClInclude Include="GameObjectRenderState.h" />
@@ -415,10 +434,7 @@
     <ClInclude Include="EntityModifierFactory.h" />
     <ClInclude Include="EntityModifierManager.h" />
     <ClInclude Include="HalEngine.h" />
-    <ClInclude Include="INativeProcess_Time.h" />
     <ClInclude Include="InputDevice.h" />
-    <ClInclude Include="INativeProcess_IO.h" />
-    <ClInclude Include="INativeProcess_Graphics.h" />
     <ClInclude Include="InputDeviceManager.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="InputSetting.h" />
@@ -427,9 +443,6 @@
     <ClInclude Include="Material.h" />
     <ClInclude Include="MathConstants.h" />
     <ClInclude Include="Model.h" />
-    <ClInclude Include="ModelData.h" />
-    <ClInclude Include="NativeMethod.h" />
-    <ClInclude Include="NativeTexture.h" />
     <ClInclude Include="ParticleData.h" />
     <ClInclude Include="ParticleDataLoader.h" />
     <ClInclude Include="ParticleDataManager.h" />
@@ -490,10 +503,10 @@
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Transform2D.h" />
     <ClInclude Include="Transform3D.h" />
+    <ClInclude Include="TranslationMatrix.h" />
     <ClInclude Include="UpdateEvent.h" />
     <ClInclude Include="EngineInput.h" />
     <ClInclude Include="Geometry.h" />
-    <ClInclude Include="IVertexBufferObject.h" />
     <ClInclude Include="NativeType.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sprite.h" />
@@ -501,8 +514,9 @@
     <ClInclude Include="AnalogInput.h" />
     <ClInclude Include="UserResourcePool.h" />
     <ClInclude Include="Util.h" />
-    <ClInclude Include="Vertex.h" />
-    <ClInclude Include="VertexBufferObject_Primitive3D_MeshField.h" />
+    <ClInclude Include="Vector2.h" />
+    <ClInclude Include="Vector3.h" />
+    <ClInclude Include="Vector4.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Lambert.fx">
@@ -666,6 +680,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DefaultProperty.hlsli" />
+    <ClInclude Include="Eigen\Core.h">
+      <FileType>Document</FileType>
+    </ClInclude>
+    <ClInclude Include="Eigen\Geometry.h">
+      <FileType>Document</FileType>
+    </ClInclude>
+    <ClInclude Include="Eigen\Dense.h">
+      <FileType>Document</FileType>
+    </ClInclude>
+    <ClInclude Include="Matrix4x4.inl">
+      <FileType>Document</FileType>
+    </ClInclude>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

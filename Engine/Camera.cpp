@@ -1,6 +1,6 @@
 #include "Camera.h"
 #include "Director.h"
-#include "NativeMethod.h"
+#include "NativeProcess.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -15,6 +15,7 @@ Camera::Camera(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_mi
   , z_min_(z_min)
   , z_max_(z_max)
 {
+  this->render_state_ = new GameObjectRenderState(this);
 }
 
 Camera::Camera()
@@ -27,20 +28,18 @@ Camera::Camera()
   , z_min_(0.0f)
   , z_max_(1.0f)
 {
+  this->render_state_ = new GameObjectRenderState(this);
 }
 
 Camera::~Camera()
 {
   delete this->entity_;
+  delete this->render_state_;
 }
 
 // =================================================================
 // Method
 // =================================================================
-void Camera::SetupViewProjMatrix()
-{
-}
-
 void Camera::DrawScene(Scene* scene)
 {
   if (!this->IsEnabled())
@@ -54,7 +53,7 @@ void Camera::DrawScene(Scene* scene)
   this->SetupCamera();
   if (this->viewport_clear_)
   {
-    NativeMethod::Graphics().Graphics_Clear();
+    NativeProcess::Graphics::ViewportClear();
   }
   this->OnDrawScene(scene);
   if (this->target_texture_)
@@ -65,7 +64,7 @@ void Camera::DrawScene(Scene* scene)
 
 void Camera::SetupCamera()
 {
-  NativeMethod::Graphics().Graphics_SetViewport(
+  NativeProcess::Graphics::SetViewport(
     this->position_.x,
     this->position_.y,
     this->size_.width,

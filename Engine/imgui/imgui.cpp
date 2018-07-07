@@ -1599,13 +1599,13 @@ void ImGuiTextFilter::TextRange::split(char separator, ImVector<TextRange>& out)
     {
         if (*we == separator)
         {
-            out.push_back(TextRange(wb, we));
+            out.emplace_back(TextRange(wb, we));
             wb = we + 1;
         }
         we++;
     }
     if (wb != we)
-        out.push_back(TextRange(wb, we));
+        out.emplace_back(TextRange(wb, we));
 }
 
 void ImGuiTextFilter::Build()
@@ -1835,7 +1835,7 @@ ImGuiWindow::ImGuiWindow(ImGuiContext* context, const char* name)
 {
     Name = ImStrdup(name);
     ID = ImHash(name, 0);
-    IDStack.push_back(ID);
+    IDStack.emplace_back(ID);
     Flags = 0;
     PosFloat = Pos = ImVec2(0.0f, 0.0f);
     Size = SizeFull = ImVec2(0.0f, 0.0f);
@@ -2698,7 +2698,7 @@ ImGuiWindowSettings* ImGui::FindWindowSettings(ImGuiID id)
 static ImGuiWindowSettings* AddWindowSettings(const char* name)
 {
     ImGuiContext& g = *GImGui;
-    g.SettingsWindows.push_back(ImGuiWindowSettings());
+    g.SettingsWindows.emplace_back(ImGuiWindowSettings());
     ImGuiWindowSettings* settings = &g.SettingsWindows.back();
     settings->Name = ImStrdup(name);
     settings->Id = ImHash(name, 0);
@@ -2840,7 +2840,7 @@ static int ChildWindowComparer(const void* lhs, const void* rhs)
 
 static void AddWindowToSortedBuffer(ImVector<ImGuiWindow*>* out_sorted_windows, ImGuiWindow* window)
 {
-    out_sorted_windows->push_back(window);
+    out_sorted_windows->emplace_back(window);
     if (window->Active)
     {
         int count = window->DC.ChildWindows.Size;
@@ -2885,7 +2885,7 @@ static void AddDrawListToDrawData(ImVector<ImDrawList*>* out_render_list, ImDraw
     if (sizeof(ImDrawIdx) == 2)
         IM_ASSERT(draw_list->_VtxCurrentIdx < (1 << 16) && "Too many vertices in ImDrawList using 16-bit indices. Read comment above");
 
-    out_render_list->push_back(draw_list);
+    out_render_list->emplace_back(draw_list);
 }
 
 static void AddWindowToDrawData(ImVector<ImDrawList*>* out_render_list, ImGuiWindow* window)
@@ -3758,7 +3758,7 @@ void ImGui::OpenPopupEx(ImGuiID id)
 
     if (g.OpenPopupStack.Size < current_stack_size + 1)
     {
-        g.OpenPopupStack.push_back(popup_ref);
+        g.OpenPopupStack.emplace_back(popup_ref);
     }
     else
     {
@@ -4217,7 +4217,7 @@ static ImGuiWindow* CreateNewWindow(const char* name, ImVec2 size, ImGuiWindowFl
     if (flags & ImGuiWindowFlags_NoBringToFrontOnFocus)
         g.Windows.insert(g.Windows.begin(), window); // Quite slow but rare and only once
     else
-        g.Windows.push_back(window);
+        g.Windows.emplace_back(window);
     return window;
 }
 
@@ -4503,14 +4503,14 @@ bool ImGui::Begin(const char* name, bool* p_open, ImGuiWindowFlags flags)
     IM_ASSERT(parent_window != NULL || !(flags & ImGuiWindowFlags_ChildWindow));
 
     // Add to stack
-    g.CurrentWindowStack.push_back(window);
+    g.CurrentWindowStack.emplace_back(window);
     SetCurrentWindow(window);
     CheckStacksSize(window, true);
     if (flags & ImGuiWindowFlags_Popup)
     {
         ImGuiPopupRef& popup_ref = g.OpenPopupStack[g.CurrentPopupStack.Size];
         popup_ref.Window = window;
-        g.CurrentPopupStack.push_back(popup_ref);
+        g.CurrentPopupStack.emplace_back(popup_ref);
         window->PopupId = popup_ref.PopupId;
     }
 
@@ -4691,7 +4691,7 @@ bool ImGui::Begin(const char* name, bool* p_open, ImGuiWindowFlags flags)
         if (flags & ImGuiWindowFlags_ChildWindow)
         {
             window->BeginOrderWithinParent = parent_window->DC.ChildWindows.Size;
-            parent_window->DC.ChildWindows.push_back(window);
+            parent_window->DC.ChildWindows.emplace_back(window);
             if (!(flags & ImGuiWindowFlags_Popup) && !window_pos_set_by_api && !window_is_child_tooltip)
                 window->Pos = window->PosFloat = parent_window->DC.CursorPos;
         }
@@ -4901,7 +4901,7 @@ bool ImGui::Begin(const char* name, bool* p_open, ImGuiWindowFlags flags)
         if ((flags & ImGuiWindowFlags_ChildWindow) && (window->DC.ItemFlags != parent_window->DC.ItemFlags))
         {
             window->DC.ItemFlags = parent_window->DC.ItemFlags;
-            window->DC.ItemFlagsStack.push_back(window->DC.ItemFlags);
+            window->DC.ItemFlagsStack.emplace_back(window->DC.ItemFlags);
         }
 
         if (window->AutoFitFramesX > 0)
@@ -5170,7 +5170,7 @@ void ImGui::BringWindowToFront(ImGuiWindow* window)
         if (g.Windows[i] == window)
         {
             g.Windows.erase(g.Windows.Data + i);
-            g.Windows.push_back(window);
+            g.Windows.emplace_back(window);
             break;
         }
 }
@@ -5230,7 +5230,7 @@ void ImGui::PushItemWidth(float item_width)
 {
     ImGuiWindow* window = GetCurrentWindow();
     window->DC.ItemWidth = (item_width == 0.0f ? window->ItemWidthDefault : item_width);
-    window->DC.ItemWidthStack.push_back(window->DC.ItemWidth);
+    window->DC.ItemWidthStack.emplace_back(window->DC.ItemWidth);
 }
 
 void ImGui::PushMultiItemsWidths(int components, float w_full)
@@ -5241,9 +5241,9 @@ void ImGui::PushMultiItemsWidths(int components, float w_full)
         w_full = CalcItemWidth();
     const float w_item_one  = ImMax(1.0f, (float)(int)((w_full - (style.ItemInnerSpacing.x) * (components-1)) / (float)components));
     const float w_item_last = ImMax(1.0f, (float)(int)(w_full - (w_item_one + style.ItemInnerSpacing.x) * (components-1)));
-    window->DC.ItemWidthStack.push_back(w_item_last);
+    window->DC.ItemWidthStack.emplace_back(w_item_last);
     for (int i = 0; i < components-1; i++)
-        window->DC.ItemWidthStack.push_back(w_item_one);
+        window->DC.ItemWidthStack.emplace_back(w_item_one);
     window->DC.ItemWidth = window->DC.ItemWidthStack.back();
 }
 
@@ -5295,7 +5295,7 @@ void ImGui::PushFont(ImFont* font)
     if (!font)
         font = GetDefaultFont();
     SetCurrentFont(font);
-    g.FontStack.push_back(font);
+    g.FontStack.emplace_back(font);
     g.CurrentWindow->DrawList->PushTextureID(font->ContainerAtlas->TexID);
 }
 
@@ -5314,7 +5314,7 @@ void ImGui::PushItemFlag(ImGuiItemFlags option, bool enabled)
         window->DC.ItemFlags |= option;
     else
         window->DC.ItemFlags &= ~option;
-    window->DC.ItemFlagsStack.push_back(window->DC.ItemFlags);
+    window->DC.ItemFlagsStack.emplace_back(window->DC.ItemFlags);
 }
 
 void ImGui::PopItemFlag()
@@ -5348,7 +5348,7 @@ void ImGui::PushTextWrapPos(float wrap_pos_x)
 {
     ImGuiWindow* window = GetCurrentWindow();
     window->DC.TextWrapPos = wrap_pos_x;
-    window->DC.TextWrapPosStack.push_back(wrap_pos_x);
+    window->DC.TextWrapPosStack.emplace_back(wrap_pos_x);
 }
 
 void ImGui::PopTextWrapPos()
@@ -5365,7 +5365,7 @@ void ImGui::PushStyleColor(ImGuiCol idx, ImU32 col)
     ImGuiColMod backup;
     backup.Col = idx;
     backup.BackupValue = g.Style.Colors[idx];
-    g.ColorModifiers.push_back(backup);
+    g.ColorModifiers.emplace_back(backup);
     g.Style.Colors[idx] = ColorConvertU32ToFloat4(col);
 }
 
@@ -5375,7 +5375,7 @@ void ImGui::PushStyleColor(ImGuiCol idx, const ImVec4& col)
     ImGuiColMod backup;
     backup.Col = idx;
     backup.BackupValue = g.Style.Colors[idx];
-    g.ColorModifiers.push_back(backup);
+    g.ColorModifiers.emplace_back(backup);
     g.Style.Colors[idx] = col;
 }
 
@@ -5437,7 +5437,7 @@ void ImGui::PushStyleVar(ImGuiStyleVar idx, float val)
     {
         ImGuiContext& g = *GImGui;
         float* pvar = (float*)var_info->GetVarPtr(&g.Style);
-        g.StyleModifiers.push_back(ImGuiStyleMod(idx, *pvar));
+        g.StyleModifiers.emplace_back(ImGuiStyleMod(idx, *pvar));
         *pvar = val;
         return;
     }
@@ -5451,7 +5451,7 @@ void ImGui::PushStyleVar(ImGuiStyleVar idx, const ImVec2& val)
     {
         ImGuiContext& g = *GImGui;
         ImVec2* pvar = (ImVec2*)var_info->GetVarPtr(&g.Style);
-        g.StyleModifiers.push_back(ImGuiStyleMod(idx, *pvar));
+        g.StyleModifiers.emplace_back(ImGuiStyleMod(idx, *pvar));
         *pvar = val;
         return;
     }
@@ -6980,26 +6980,26 @@ void ImGui::SetNextTreeNodeOpen(bool is_open, ImGuiCond cond)
 void ImGui::PushID(const char* str_id)
 {
     ImGuiWindow* window = GetCurrentWindowRead();
-    window->IDStack.push_back(window->GetID(str_id));
+    window->IDStack.emplace_back(window->GetID(str_id));
 }
 
 void ImGui::PushID(const char* str_id_begin, const char* str_id_end)
 {
     ImGuiWindow* window = GetCurrentWindowRead();
-    window->IDStack.push_back(window->GetID(str_id_begin, str_id_end));
+    window->IDStack.emplace_back(window->GetID(str_id_begin, str_id_end));
 }
 
 void ImGui::PushID(const void* ptr_id)
 {
     ImGuiWindow* window = GetCurrentWindowRead();
-    window->IDStack.push_back(window->GetID(ptr_id));
+    window->IDStack.emplace_back(window->GetID(ptr_id));
 }
 
 void ImGui::PushID(int int_id)
 {
     const void* ptr_id = (void*)(intptr_t)int_id;
     ImGuiWindow* window = GetCurrentWindowRead();
-    window->IDStack.push_back(window->GetID(ptr_id));
+    window->IDStack.emplace_back(window->GetID(ptr_id));
 }
 
 void ImGui::PopID()
@@ -11055,7 +11055,7 @@ static ImGuiColumnsSet* FindOrAddColumnsSet(ImGuiWindow* window, ImGuiID id)
         if (window->ColumnsStorage[n].ID == id)
             return &window->ColumnsStorage[n];
 
-    window->ColumnsStorage.push_back(ImGuiColumnsSet());
+    window->ColumnsStorage.emplace_back(ImGuiColumnsSet());
     ImGuiColumnsSet* columns = &window->ColumnsStorage.back();
     columns->ID = id;
     return columns;
@@ -11107,7 +11107,7 @@ void ImGui::BeginColumns(const char* str_id, int columns_count, ImGuiColumnsFlag
         {
             ImGuiColumnData column;
             column.OffsetNorm = n / (float)columns_count;
-            columns->Columns.push_back(column);
+            columns->Columns.emplace_back(column);
         }
     }
 
@@ -11253,7 +11253,7 @@ void ImGui::TreePushRawID(ImGuiID id)
     ImGuiWindow* window = GetCurrentWindow();
     Indent();
     window->DC.TreeDepth++;
-    window->IDStack.push_back(id);
+    window->IDStack.emplace_back(id);
 }
 
 void ImGui::TreePop()

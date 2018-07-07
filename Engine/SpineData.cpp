@@ -4,7 +4,7 @@
 
 #include "TextureResource.h"
 #include "EngineAttachmentLoader.h"
-#include "NativeMethod.h"
+#include "NativeProcess.h"
 #include "Director.h"
 #include "Moniker.h"
 
@@ -25,7 +25,7 @@ void _spAtlasPage_disposeTexture(spAtlasPage* self)
 
 char* _spUtil_readFile(const char* path, int* length)
 {
-  std::string str = NativeMethod::IO().TextFile_Read(path);
+  std::string str = NativeProcess::IO::TextFile_Read(path);
   (*length) = (int)str.length();
   char* ret = new char[*length + 1];
   strcpy(ret, str.c_str());

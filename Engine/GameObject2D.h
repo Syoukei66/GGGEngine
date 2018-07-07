@@ -45,10 +45,6 @@ public:
   void UnregisterEntityModifier(EntityModifierRoot* root);
   void ClearEntityModifiers();
 
-protected:
-  virtual void PushMatrixStack(GameObjectRenderState* state);
-  virtual void PopMatrixStack(GameObjectRenderState* state);
-
   // =================================================================
   // Events
   // =================================================================

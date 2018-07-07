@@ -1,5 +1,6 @@
 #include "FbxNodeData.h"
 #include "EngineAsset.h"
+#include "MeshFactory_Fbx.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -8,7 +9,6 @@ FbxNodeData::FbxNodeData(FbxNode* node)
   : node_(node)
   , child_count_(node->GetChildCount())
   , mesh_(nullptr)
-  , mesh_materials_(nullptr)
   , translate_(0.0f, 0.0f, 0.0f)
   , scaling_(1.0f, 1.0f, 1.0f)
   , rotation_(0.0f, 0.0f, 0.0f)
@@ -25,32 +25,7 @@ FbxNodeData::FbxNodeData(FbxNode* node)
   this->rotation_.y = MathConstants::DegToRad(node->LclRotation.Get()[1]);
   this->rotation_.z = MathConstants::DegToRad(node->LclRotation.Get()[2]);
 
-  this->mesh_material_count_ = 0;
-  T_UINT16 attribute_count = node->GetNodeAttributeCount();
-  for (T_UINT16 i = 0; i < attribute_count; ++i)
-  {
-    FbxNodeAttribute* attr = node->GetNodeAttributeByIndex(i);
-    if (attr->GetClassId().Is(FbxMesh::ClassId))
-    {
-      ++this->mesh_material_count_;
-    }
-  }
-  if (this->mesh_material_count_ > 0)
-  {
-    this->mesh_ = new Mesh();
-    this->mesh_materials_ = new FbxMeshMaterial*[this->mesh_material_count_]();
-    T_UINT8 mesh_index = 0;
-    for (T_UINT16 i = 0; i < attribute_count; ++i)
-    {
-      FbxNodeAttribute* attr = node->GetNodeAttributeByIndex(i);
-      if (attr->GetClassId().Is(FbxMesh::ClassId))
-      {
-        this->mesh_materials_[mesh_index] = new FbxMeshMaterial((FbxMesh*)attr);
-        this->mesh_->AddSubMesh(this->mesh_materials_[mesh_index]->CreateSubMesh());
-        ++mesh_index;
-      }
-    }
-  }
+  this->mesh_ = MeshFactory::Fbx::Create(node, true);
   this->children_ = new FbxNodeData*[this->child_count_];
   for (T_UINT8 i = 0; i < this->child_count_; ++i)
   {
@@ -97,7 +72,7 @@ FbxNodeData::FbxNodeData(FbxNode* node)
       //);
       this->material_[i]->FloatProperty("_AmbientFactor") = surface->AmbientFactor.Get();
 
-      this->material_[i]->ColorProperty("_Emissive") = Color4F(
+      this->material_[i]->ColorProperty("_Emissive") = TColor(
         surface->Emissive.Get()[0],
         surface->Emissive.Get()[1],
         surface->Emissive.Get()[2]
@@ -115,7 +90,7 @@ FbxNodeData::FbxNodeData(FbxNode* node)
     {
       FbxSurfacePhong* surface = (FbxSurfacePhong*)material;
       
-      this->material_[i]->ColorProperty("_Specular") = Color4F(
+      this->material_[i]->ColorProperty("_Specular") = TColor(
         surface->Specular.Get()[0],
         surface->Specular.Get()[1],
         surface->Specular.Get()[2]
@@ -124,14 +99,14 @@ FbxNodeData::FbxNodeData(FbxNode* node)
 
       this->material_[i]->FloatProperty("_Power") = surface->Shininess.Get();
       
-      this->material_[i]->ColorProperty("_Reflection") = Color4F(
+      this->material_[i]->ColorProperty("_Reflection") = TColor(
         surface->Reflection.Get()[0],
         surface->Reflection.Get()[1],
         surface->Reflection.Get()[2]
       );
       this->material_[i]->FloatProperty("_ReflectionFactor") = surface->ReflectionFactor.Get();
 
-      this->material_[i]->ColorProperty("_Transparent") = Color4F(
+      this->material_[i]->ColorProperty("_Transparent") = TColor(
         surface->TransparentColor.Get()[0],
         surface->TransparentColor.Get()[1],
         surface->TransparentColor.Get()[2]
@@ -145,11 +120,6 @@ FbxNodeData::~FbxNodeData()
 {
   delete[] this->material_;
   delete this->mesh_;
-  for (T_UINT8 i = 0; i < this->mesh_material_count_; ++i)
-  {
-    delete this->mesh_materials_[i];
-  }
-  delete[] this->mesh_materials_;
   for (T_UINT8 i = 0; i < this->child_count_; ++i)
   {
     delete this->children_[i];

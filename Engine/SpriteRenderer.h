@@ -16,8 +16,10 @@ public:
   // Methods for/from SuperClass/Interfaces
   // =================================================================
 public:
-  virtual void EditProperty(T_UINT8 material_index, T_UINT8 pass_index, Material* material) override;
-  virtual void DrawSubset(T_UINT8 material_index, T_UINT8 pass_index) override;
+  virtual void Draw(GameObjectRenderState* state) const override;
+
+private:
+  virtual void EditProperty(T_UINT8 material_index, T_UINT8 pass_index, Material* material) const;
 
   // =================================================================
   // Method
@@ -35,8 +37,8 @@ public:
     return this->texture_region_;
   }
 
-  void SetTexture(const INativeTexture* texture);
-  inline const INativeTexture* GetTexture() const
+  void SetTexture(const Texture* texture);
+  inline const Texture* GetTexture() const
   {
     return this->GetMaterial()->GetMainTexture();
   }

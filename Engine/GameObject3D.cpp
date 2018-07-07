@@ -55,7 +55,7 @@ void GameObject3D::ManagedPostUpdate()
 void GameObject3D::AddChild(GameObject3D* child)
 {
   child->parent_ = this;
-  this->children_.push_back(child);
+  this->children_.emplace_back(child);
   child->FireOnPositionChanged(this);
   child->FireOnScaleChanged(this);
   child->FireOnRotationChanged(this);
@@ -103,38 +103,14 @@ void GameObject3D::Draw(GameObjectRenderState* state)
     return;
   }
 
-  this->PushMatrixStack(state);
-  
-
   // 自分自身の描画
   this->ManagedDraw(state);
-
 
   // 子の描画
   for (GameObject3D* child : this->children_)
   {
     child->Draw(state);
   }
-
-  this->PopMatrixStack(state);
-}
-
-void GameObject3D::PushMatrixStack(GameObjectRenderState* state)
-{
-  state->PushMatrix(this->transform_->GetMatrix());
-  //if (this->IsBillboardingRoot())
-  //{
-  //  state->PushMatrix(state->GetCamera()->GetBillboardingMatrix());
-  //}
-}
-
-void GameObject3D::PopMatrixStack(GameObjectRenderState* state)
-{
-  //if (this->IsBillboardingRoot())
-  //{
-  //  state->PopMatrix();
-  //}
-  state->PopMatrix();
 }
 
 // =================================================================

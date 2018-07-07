@@ -13,18 +13,21 @@ class Renderer : public GameComponent
   // =================================================================
 public:
   Renderer(GameObject* entity);
+  virtual ~Renderer() {}
 
   // =================================================================
   // Method
   // =================================================================
 public:
   void ReserveDraw(GameObjectRenderState* state);
-  void Draw(GameObjectRenderState* state);
   void UniqueMaterial();
-
+  
+  virtual void Draw(GameObjectRenderState* state) const = 0;
+/*
 protected:
   virtual void EditProperty(T_UINT8 material_index, T_UINT8 pass_index, Material* material) = 0;
-  virtual void DrawSubset(T_UINT8 material_index, T_UINT8 pass_index) = 0;
+  virtual void SetStreamSource() = 0;
+  virtual void DrawSubset(T_UINT8 material_index, T_UINT8 pass_index) = 0;*/
 
   // =================================================================
   // setter/getter
@@ -41,7 +44,7 @@ public:
 
   inline void AddMaterial(Material& material)
   {
-    this->materials_.push_back(&material);
+    this->materials_.emplace_back(&material);
   }
   void SetMaterial(Material& material);
   inline void SetMaterial(T_UINT16 index, Material& material)
@@ -62,10 +65,15 @@ public:
     return this->entity_;
   }
 
+  inline const GameObject* GetEntity() const
+  {
+    return this->entity_;
+  }
+
   // =================================================================
   // Data Member
   // =================================================================
-private:
+protected:
   GameObject* entity_;
   T_UINT8 layer_id_;
   std::vector<Material*> materials_;

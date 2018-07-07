@@ -10,7 +10,7 @@ ModelNode::ModelNode(const FbxNodeData& node)
   , child_count_(node.GetChildCount())
   , parent_(nullptr)
 {
-  this->SetRenderer(MeshRenderer::Create(*node.GetMesh(), this));
+  this->SetRenderer(MeshRenderer::Create(node.GetMesh(), this));
   T_UINT8 material_count = node.GetMaterialCount();
   for (T_UINT8 i = 0; i < material_count; ++i)
   {

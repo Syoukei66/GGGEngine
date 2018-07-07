@@ -1,26 +1,18 @@
 #pragma once
 
-#include <map>
-#include <vector>
 #include "NativeType.h"
 #include "BlendFunction.h"
-#include "NativeMatrix.h"
-#include "NativeMatrixStack.h"
+#include "GameObjectRenderQueue.h"
+#include "GraphicsConstants.h"
+
+#include "Matrix4x4.h"
 
 class Camera;
 class Renderer;
-class SubMesh;
-class Material;
 
+//TODO:ƒJƒƒ‰‚ÆØ‚è—£‚µ‚½•û‚ª‚¢‚¢
 class GameObjectRenderState
 {
-private:
-  class DrawParam
-  {
-  public:
-    Renderer* renderer;
-    T_FLOAT distance;
-  };
 
   // =================================================================
   // Constructor / Destructor
@@ -33,26 +25,23 @@ public:
   // Method
   // =================================================================
 public:
-  virtual void Init();
-  void PushMatrix(const INativeMatrix& matrix);
-  void PopMatrix();
+  void Init();
+  void Draw();
+  void AddQueue(const Renderer* renderer);
 
-  void AddZCheckOrder(T_UINT8 level, Renderer* renderer);
-  void DrawZOrderedGameObject();
+  inline void SetWorldMatrix(const Matrix4x4& model)
+  {
+    this->world_matrix_ = model;
+  }
+  inline void PushWorldMatrix(const Matrix4x4& model)
+  {
+    this->world_matrix_ *= model;
+  }
 
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  INativeMatrix* GetWorldViewProjToMaterial();
-  inline LP_DEVICE GetRenderObject() const
-  {
-    return this->render_object_;
-  }
-  inline INativeMatrixStack* GetMatrixStack()
-  {
-    return this->matrix_stack_;
-  }
   inline void AddTargetLayerId(T_UINT8 layer_id)
   {
     layer_state_ |= 1 << layer_id;
@@ -63,7 +52,7 @@ public:
   }
   inline void RemoveTargetLayerId(T_UINT8 layer_id)
   {
-    layer_state_ |= 1 << layer_id;
+    layer_state_ &= ~(1 << layer_id);
   }
   inline void ClearTargetLayerIds()
   {
@@ -77,6 +66,14 @@ public:
   {
     return this->camera_;
   }
+  inline const Matrix4x4& GetViewProjMatrix() const
+  {
+    return this->view_proj_matrix_;
+  }
+  inline const Matrix4x4& GetWorldMatrix() const
+  {
+    return this->world_matrix_;
+  }
 
   // =================================================================
   // Data Member
@@ -84,13 +81,8 @@ public:
 private:
   Camera* camera_;
   T_UINT32 layer_state_;
-  LP_DEVICE render_object_;
-  INativeMatrixStack* matrix_stack_;
-  INativeMatrix* view_proj_matrix_;
-  INativeMatrix* world_view_proj_matrix_;
+  Matrix4x4 view_proj_matrix_;
+  Matrix4x4 world_matrix_;
 
-  INativeMatrix* mat_;
-  //std::map<int, std::vector<PostDrawParam>> post_draw_map_;
-  std::map<Material*, std::vector<DrawParam>> draw_map_;
-  std::map<int, std::map<Material*, std::vector<DrawParam>>> post_draw_map_;
+  GameObjectRenderQueue* queues_[GraphicsConstants::RQ_DATANUM];
 };

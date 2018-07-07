@@ -7,11 +7,6 @@
 #include <d3dx9.h>
 #include <Color.h>
 #include <Director.h>
-#include <NativeMethod.h>
-
-#include "NativeProcess_Graphics.h"
-#include "NativeProcess_IO.h"
-#include "NativeProcess_Time.h"
 
 #include "DirectXDirector.h"
 #include "AudioManager.h"
@@ -51,21 +46,6 @@ DirectXActivity::~DirectXActivity()
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
-INativeProcess_Graphics* DirectXActivity::SetupNativeProcess_Graphics()
-{
-  return new NativeProcess_Graphics();
-}
-
-INativeProcess_IO* DirectXActivity::SetupNativeProcess_IO()
-{
-  return new NativeProcess_IO();
-}
-
-INativeProcess_Time* DirectXActivity::SetupNativeProcess_Time()
-{
-  return new NativeProcess_Time();
-}
-
 bool DirectXActivity::ApplyEngineOption(const EngineOption* option)
 {
   WNDCLASSEX wcex;
@@ -303,7 +283,7 @@ void DirectXActivity::PostDraw()
   this->d3d_device_->SetViewport(&viewport);
 
   const T_UINT8 edge = 2;
-  const std::string debug_text = std::to_string(NativeMethod::Time().FPS_GetValue());
+  const std::string debug_text = std::to_string(NativeProcess::Time::FPS_GetValue());
   this->DrawFPS(debug_text.c_str(), -edge, -edge, 0xFF000000);
   this->DrawFPS(debug_text.c_str(), edge, -edge, 0xFF000000);
   this->DrawFPS(debug_text.c_str(), -edge, edge, 0xFF000000);

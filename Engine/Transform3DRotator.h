@@ -1,12 +1,19 @@
 #pragma once
 
-#include "Geometry.h"
+#include "Vector3.h"
 #include "Quaternion.h"
 
 class Transform3D;
 
 class Transform3DRotator
 {
+private:
+  enum
+  {
+    MASTER_QUATERNION = 1 << 0,
+    MASTER_EULAR      = 1 << 1,
+    MASTER_MATRIX     = 1 << 2,
+  };
 
   // =================================================================
   // Constructor / Destructor
@@ -24,32 +31,20 @@ public:
   void RotateX(T_FLOAT rad);
   void RotateY(T_FLOAT rad);
   void RotateZ(T_FLOAT rad);
+  void Rotate(const TVec3f& v, T_FLOAT rad);
 
-  void RotateXAxis(T_FLOAT rad);
-  void RotateYAxis(T_FLOAT rad);
-  void RotateZAxis(T_FLOAT rad);
-
-  void FromRotationMatrix(INativeMatrix* matrix);
-  void ToRotationMatrix(INativeMatrix* dest);
+  void FromRotationMatrix(const Matrix4x4& matrix);
+  void ToRotationMatrix(Matrix4x4* dest);
 
   void Lerp(const Quaternion& a, const Quaternion& b, T_FLOAT t);
   void Lerp(const Quaternion& b, T_FLOAT t);
   void Slerp(const Quaternion& a, const Quaternion& b, T_FLOAT t);
   void Slerp(const Quaternion& b, T_FLOAT t);
 
-  const void q(const TVec3f& v, T_FLOAT rad);
-
 private:
-
-  //Matrix‚É‡‚í‚¹‚ÄTransform3DRotator‚Ì’l‚ð•Ï‰»‚³‚¹‚é
-  void FromRotationMatrix();
-
-  //Transform3DRotator‚Ì’l‚É‡‚í‚¹‚ÄMatrix‚ðì¬
+  void PrepareQuaternion();
   void PrepareRotationMatrix();
-
-  //Transform3DRotator‚Ì’l‚É‡‚í‚¹‚ÄEularAngles‚ðì¬
   void PrepareEularAngles();
-
 
   // =================================================================
   // setter/getter
@@ -57,45 +52,51 @@ private:
 public:
   void SetEularAngles(const TVec3f& rotation);
   void SetEularAngles(T_FLOAT x, T_FLOAT y, T_FLOAT z);
-  inline const TVec3f& GetEularAngles()
+  inline const TVec3f& GetEularAngles() const
   {
-    this->PrepareEularAngles();
+    const_cast<Transform3DRotator*>(this)->PrepareEularAngles();
     return this->eular_angles_;
   }
 
   void SetEularX(T_FLOAT x);
-  inline T_FLOAT GetEularX()
+  inline T_FLOAT GetEularX() const
   {
-    this->PrepareEularAngles();
+    const_cast<Transform3DRotator*>(this)->PrepareEularAngles();
     return this->eular_angles_.x;
   }
 
   void SetEularY(T_FLOAT y);
-  inline T_FLOAT GetEularY()
+  inline T_FLOAT GetEularY() const
   {
-    this->PrepareEularAngles();
+    const_cast<Transform3DRotator*>(this)->PrepareEularAngles();
     return this->eular_angles_.y;
   }
 
   void SetEularZ(T_FLOAT z);
-  inline T_FLOAT GetEularZ()
+  inline T_FLOAT GetEularZ() const
   {
-    this->PrepareEularAngles();
+    const_cast<Transform3DRotator*>(this)->PrepareEularAngles();
     return this->eular_angles_.z;
   }
 
   inline const Quaternion& GetQuaternion() const
   {
+    const_cast<Transform3DRotator*>(this)->PrepareQuaternion();
     return this->quaternion_;
+  }
+
+  inline const Matrix4x4& GetRotationMatrix() const
+  {
+    const_cast<Transform3DRotator*>(this)->PrepareRotationMatrix();
+    return this->rotation_matrix_;
   }
   // =================================================================
   // Data Member
   // =================================================================
 private:
   Transform3D* transform_;
-  INativeMatrix* rotation_matrix_;
+  Matrix4x4 rotation_matrix_;
   Quaternion quaternion_;
   TVec3f eular_angles_;
-  bool need_rotation_matrix_update_;
-  bool need_eular_angles_update_;
+  T_UINT32 master_flag_;
 };

@@ -2,7 +2,6 @@
 
 #include <spine/extension.h>
 
-#include "NativeMethod.h"
 #include "Director.h"
 
 // =================================================================
@@ -46,10 +45,10 @@ SkeletonAnimation::~SkeletonAnimation()
 // =================================================================
 void SkeletonAnimation::ManagedDraw(GameObjectRenderState* state)
 {
-  Color4F nodeColor = this->GetRenderer()->GetMaterial()->GetDiffuse();
+  TColor nodeColor = this->GetRenderer()->GetMaterial()->GetDiffuse();
 
   AttachmentVertexes* attachment_vertexes = nullptr;
-  Color4F color = Color4F();
+  TColor color = TColor();
   for (int i = 0, n = skeleton_->slotsCount; i < n; ++i)
   {
     spSlot* slot = skeleton_->drawOrder[i];
@@ -61,20 +60,22 @@ void SkeletonAnimation::ManagedDraw(GameObjectRenderState* state)
     }
     spRegionAttachment* attachment = (spRegionAttachment*)slot->attachment;
 
-    color.SetRed(attachment->color.r);
-    color.SetGreen(attachment->color.g);
-    color.SetBlue(attachment->color.b);
-    color.SetAlpha(attachment->color.a);
-    color.SetAlpha(
-      color.GetAlpha() *
-      nodeColor.GetAlpha() *
+    color.r = attachment->color.r;
+    color.g = attachment->color.g;
+    color.b = attachment->color.b;
+    color.a = attachment->color.a;
+    color.a = 
+      color.a *
+      nodeColor.a *
       this->skeleton_->color.a *
       slot->color.a
-    );
+    ;
     // skip rendering if the color of this attachment is 0
-    if (color.GetAlpha() == 0.0f) {
+    if (color.a <= 0.0f) {
       continue;
     }
+
+    //TODO:ƒŒƒ“ƒ_ƒŠƒ“ƒO‚ÌÝŒv‚ªˆÀ’è‚µ‚½‚çì‚è’¼‚·
 
     //switch (slot->data->blendMode) {
     //case SP_BLEND_MODE_ADDITIVE:
@@ -90,25 +91,23 @@ void SkeletonAnimation::ManagedDraw(GameObjectRenderState* state)
     //  this->GetMaterial()->SetBlendFunction(BlendFunction::BLEND_DEFAULT_SRC, BlendFunction::BLEND_DEFAULT_DST);
     //}
 
-    attachment_vertexes = this->GetAttachmentVertexes(attachment);
-    Vertex::VCT* vertexes = new Vertex::VCT[attachment_vertexes->size_]();
-    for (int j = 0; j < attachment_vertexes->size_; ++j)
-    {
-      vertexes[j] = attachment_vertexes->vertexes_[j];
-    }
+    //attachment_vertexes = this->GetAttachmentVertexes(attachment);
+    //Vertex::VCT* vertexes = new Vertex::VCT[attachment_vertexes->size_]();
+    //for (int j = 0; j < attachment_vertexes->size_; ++j)
+    //{
+    //  vertexes[j] = attachment_vertexes->vertexes_[j];
+    //}
 
-    spRegionAttachment_computeWorldVertices(attachment, slot->bone, (float*)vertexes, 0, sizeof(Vertex::VCT) / sizeof(float));
+    //spRegionAttachment_computeWorldVertices(attachment, slot->bone, (float*)vertexes, 0, sizeof(Vertex::VCT) / sizeof(float));
 
-    for (int j = 0; j < attachment_vertexes->size_; ++j)
-    {
-      NativeMethod::Graphics().Graphics_PackColor4u8(&vertexes[j].color, color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha());
-    }
+    //for (int j = 0; j < attachment_vertexes->size_; ++j)
+    //{
+    //  NativeMethod::Graphics().Graphics_PackColor4u8(&vertexes[j].color, color.GetRed(), color.GetGreen(), color.GetBlue(), color.GetAlpha());
+    //}
 
-    //this->ApplyBlendMode(state);
-    //NativeMethod::Graphics().Graphics_SetTexture(attachment_vertexes->texture_);
-    NativeMethod::Graphics().Graphics_DrawSprite(state, INativeProcess_Graphics::PRIMITIVE_TRIANGLESTRIP, vertexes, attachment_vertexes->size_);
+    //NativeMethod::Graphics().Graphics_DrawSprite(state, INativeProcess_Graphics::PRIMITIVE_TRIANGLESTRIP, vertexes, attachment_vertexes->size_);
 
-    delete[] vertexes;
+    //delete[] vertexes;
   }
 }
 

@@ -16,7 +16,7 @@ public:
   // Methods for/from SuperClass/Interfaces
   // =================================================================
 public:
-  virtual INativeMatrix* GetViewMatrix() const override;
+  virtual const Matrix4x4& GetViewMatrix() const override;
 
 protected:
   virtual void SetupCamera() override;
@@ -95,7 +95,7 @@ public:
   // Data Member
   // =================================================================
 private:
-  INativeMatrix* const view_matrix_;
+  Matrix4x4 view_matrix_;
 
   TVec3f look_at_pos_;
   TVec3f current_look_at_pos_;

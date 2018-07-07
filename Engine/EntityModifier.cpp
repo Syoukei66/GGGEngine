@@ -122,7 +122,7 @@ void EntityModifierRoot::Stop()
 
 void EntityModifierRoot::AddEntityModifierListener(std::function<void()> listener)
 {
-  this->listeners_.push_back(listener);
+  this->listeners_.emplace_back(listener);
 }
 
 void EntityModifierRoot::ClearEntityModifierListener()
@@ -222,7 +222,7 @@ void SequenceEntityModifier::OnTimelineUpdate(GameObject2D* target, T_FLOAT prog
 
 void SequenceEntityModifier::Register(EntityModifier* modifier)
 {
-  this->modifiers_.push_back(modifier);
+  this->modifiers_.emplace_back(modifier);
 }
 
 void SequenceEntityModifier::Prepare()
@@ -271,7 +271,7 @@ void SynchronizedEntityModifier::OnTimelineUpdate(GameObject2D* target, T_FLOAT 
 
 void SynchronizedEntityModifier::Register(EntityModifier* modifier)
 {
-  this->modifiers_.push_back(modifier);
+  this->modifiers_.emplace_back(modifier);
 }
 
 void SynchronizedEntityModifier::Prepare()

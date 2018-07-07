@@ -1,8 +1,8 @@
 #include "ParticleDataLoader.h"
-#include "NativeMethod.h"
 #include "JsonParser.h"
 #include "MathConstants.h"
 #include "UserResourcePool.h"
+#include "NativeProcess.h"
 
 enum EmitterType
 {
@@ -24,7 +24,7 @@ ParticleDataLoader::ParticleDataLoader(const char* path)
 
 ParticleData* ParticleDataLoader::NativeLoadProcess(const std::string& path)
 {
-  std::string str = NativeMethod::IO().TextFile_Read(path.c_str());
+  std::string str = NativeProcess::IO::TextFile_Read(path.c_str());
   JsonParser parser;
   JsonNode* json = parser.Parse(str.c_str());
 

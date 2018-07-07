@@ -1,5 +1,4 @@
 #include "Camera3D_LookAt.h"
-#include "NativeMethod.h"
 #include "MathConstants.h"
 #include "Director.h"
 
@@ -8,7 +7,7 @@
 // =================================================================
 Camera3D_LookAt::Camera3D_LookAt(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_min, T_FLOAT z_max)
   : Camera3D(x, y, width, height, z_min, z_max)
-  , view_matrix_(INativeMatrix::Create())
+  , view_matrix_()
   , look_at_pos_(0.0f, 0.0f, 1.0f)
   , current_look_at_pos_(0.0f, 0.0f, 1.0f)
   , target_(nullptr)
@@ -20,7 +19,7 @@ Camera3D_LookAt::Camera3D_LookAt(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT he
 
 Camera3D_LookAt::Camera3D_LookAt()
   : Camera3D()
-  , view_matrix_(INativeMatrix::Create())
+  , view_matrix_()
   , look_at_pos_(0.0f, 0.0f, 1.0f)
   , current_look_at_pos_(0.0f, 0.0f, 1.0f)
   , target_(nullptr)
@@ -32,13 +31,12 @@ Camera3D_LookAt::Camera3D_LookAt()
 
 Camera3D_LookAt::~Camera3D_LookAt()
 {
-  delete this->view_matrix_;
 }
 
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
-INativeMatrix* Camera3D_LookAt::GetViewMatrix() const
+const Matrix4x4& Camera3D_LookAt::GetViewMatrix() const
 {
   const_cast<Camera3D_LookAt*>(this)->CheckViewDirty();
   return this->view_matrix_;
@@ -60,7 +58,7 @@ void Camera3D_LookAt::CheckViewDirty()
     return;
   }
 
-  this->view_matrix_->Init();
+  this->view_matrix_ = Matrix4x4::identity;
   if (this->target_)
   {
     GameObject3D* player = ((GameObject3D*)this->entity_)->GetParent();
@@ -68,9 +66,9 @@ void Camera3D_LookAt::CheckViewDirty()
     {
       TVec3f camera_pos = player->GetTransform()->GetWorldPosition();
       this->direction_ = (this->current_look_at_pos_ - player->GetTransform()->GetWorldPosition()).Normalized();
-      camera_pos -= this->direction_ * this->GetTransform()->GetPosition().Length();
-      camera_pos.y = std::max(camera_pos.y, player->GetTransform()->GetY());
-      this->view_matrix_->LookAtLH(
+      //camera_pos -= this->direction_ * this->GetTransform()->GetPosition().Length();
+      //camera_pos.y = std::max(camera_pos.y, player->GetTransform()->GetY());
+      this->view_matrix_ = Matrix4x4::LookAt(
         camera_pos,
         this->current_look_at_pos_,
         this->GetEntity()->GetWorldMatrix().GetCameraYVec()
@@ -80,7 +78,7 @@ void Camera3D_LookAt::CheckViewDirty()
     {
       TVec3f camera_pos = this->GetTransform()->GetWorldPosition();
       this->direction_ = (this->current_look_at_pos_ - camera_pos).Normalized();
-      this->view_matrix_->LookAtLH(
+      this->view_matrix_ = Matrix4x4::LookAt(
         camera_pos,
         this->current_look_at_pos_,
         this->GetEntity()->GetWorldMatrix().GetCameraYVec()
@@ -90,27 +88,17 @@ void Camera3D_LookAt::CheckViewDirty()
   //ターゲットが存在しない時の処理
   else
   {
-    GameObject3D* player = ((GameObject3D*)this->entity_)->GetParent();
-    if (player)
-    {
-      this->current_look_at_pos_ = this->look_at_pos_;
+    this->current_look_at_pos_ = this->look_at_pos_;
 
-      const TVec3f camera_pos = this->GetEntity()->GetWorldMatrix().GetPosition3d();
-      TVec3f look_at_pos = this->look_at_pos_;
-      this->GetEntity()->GetWorldMatrix().Apply(&look_at_pos);
-      this->direction_ = (look_at_pos - camera_pos).Normalized();
-      this->view_matrix_->LookAtLH(
-        camera_pos,
-        look_at_pos,
-        this->GetEntity()->GetWorldMatrix().GetCameraYVec()
-      );
-    }
-    //プレイヤーが存在しない時の処理
-    else
-    {
-      this->view_matrix_->Assign(this->GetEntity()->GetWorldMatrix());
-      this->direction_ = this->view_matrix_->GetDirection3d();
-    }
+    const TVec3f camera_pos = this->GetEntity()->GetWorldMatrix().GetPosition3d();
+    TVec3f look_at_pos = this->look_at_pos_;
+    look_at_pos = this->GetEntity()->GetWorldMatrix() * look_at_pos;
+    this->direction_ = (look_at_pos - camera_pos).Normalized();
+    this->view_matrix_ = Matrix4x4::LookAt(
+      camera_pos,
+      look_at_pos,
+      this->GetEntity()->GetWorldMatrix().GetCameraYVec()
+    );
   }
 
   this->view_dirty_ = false;

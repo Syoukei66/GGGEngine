@@ -2,6 +2,9 @@
 
 #include <string>
 #include "NativeShader.h"
+#include "Vector2.h"
+#include "Vector3.h"
+#include "Vector4.h"
 
 class ShaderProperty
 {
@@ -59,7 +62,7 @@ public:
 public:
   void Apply(INativeShader* shader, const std::string& property_name) override
   {
-    shader->SetBool(property_name.c_str(), this->value_);
+    shader->SetBool(property_name, this->value_);
   }
   ShaderProperty* Clone() override
   {
@@ -81,7 +84,7 @@ public:
 public:
   void Apply(INativeShader* shader, const std::string& property_name) override
   {
-    shader->SetInt(property_name.c_str(), this->value_);
+    shader->SetInt(property_name, this->value_);
   }
   ShaderProperty* Clone() override
   {
@@ -103,7 +106,7 @@ public:
 public:
   void Apply(INativeShader* shader, const std::string& property_name) override
   {
-    shader->SetFloat(property_name.c_str(), this->value_);
+    shader->SetFloat(property_name, this->value_);
   }
   ShaderProperty* Clone() override
   {
@@ -161,7 +164,7 @@ public:
 public:
   void Apply(INativeShader* shader, const std::string& property_name) override
   {
-    shader->SetVec2f(property_name.c_str(), this->value_);
+    shader->SetVec2f(property_name, this->value_);
   }
   ShaderProperty* Clone() override
   {
@@ -182,7 +185,7 @@ public:
 public:
   void Apply(INativeShader* shader, const std::string& property_name) override
   {
-    shader->SetVec3f(property_name.c_str(), this->value_);
+    shader->SetVec3f(property_name, this->value_);
   }
   ShaderProperty* Clone() override
   {
@@ -203,7 +206,7 @@ public:
 public:
   void Apply(INativeShader* shader, const std::string& property_name) override
   {
-    shader->SetVec4f(property_name.c_str(), this->value_);
+    shader->SetVec4f(property_name, this->value_);
   }
   ShaderProperty* Clone() override
   {
@@ -213,10 +216,10 @@ public:
   }
 };
 
-class ShaderProperty_color : public ShaderProperty_struct<Color4F>
+class ShaderProperty_color : public ShaderProperty_struct<TColor>
 {
 public:
-  const ShaderProperty_color& operator = (const Color4F& b)
+  const ShaderProperty_color& operator = (const TColor& b)
   {
     ShaderProperty_struct::operator=(b);
     return *this;
@@ -224,7 +227,7 @@ public:
 public:
   void Apply(INativeShader* shader, const std::string& property_name) override
   {
-    shader->SetColor(property_name.c_str(), this->value_);
+    shader->SetColor(property_name, this->value_);
   }
   ShaderProperty* Clone() override
   {
@@ -234,14 +237,39 @@ public:
   }
 };
 
+class ShaderProperty_matrix : public ShaderProperty_struct<Matrix4x4>
+{
+public:
+  const ShaderProperty_matrix& operator = (const Matrix4x4& b)
+  {
+    ShaderProperty_struct::operator=(b);
+    return *this;
+  }
+public:
+  void Apply(INativeShader* shader, const std::string& property_name) override
+  {
+    if (!this->value_)
+    {
+      return;
+    }
+    shader->SetMatrix(property_name, this->value_);
+  }
+  ShaderProperty* Clone() override
+  {
+    ShaderProperty_matrix* ret = new ShaderProperty_matrix();
+    ret->value_ = this->value_;
+    return ret;
+  }
+};
+
 // =================================================================
 // object
 // =================================================================
 template<typename T>
-class ShaderProperty_native : public ShaderProperty
+class ShaderProperty_object : public ShaderProperty
 {
 public:
-  ShaderProperty_native()
+  ShaderProperty_object()
     : value_()
   {}
 
@@ -271,12 +299,12 @@ protected:
   const T* value_;
 };
 
-class ShaderProperty_matrix : public ShaderProperty_native<INativeMatrix>
+class ShaderProperty_texture : public ShaderProperty_object<Texture>
 {
 public:
-  const ShaderProperty_matrix& operator = (const INativeMatrix* b)
+  const ShaderProperty_texture& operator = (const Texture* b)
   {
-    ShaderProperty_native::operator=(b);
+    ShaderProperty_object::operator=(b);
     return *this;
   }
 public:
@@ -286,32 +314,7 @@ public:
     {
       return;
     }
-    shader->SetMatrix(property_name.c_str(), this->value_->GetNativeInstance());
-  }
-  ShaderProperty* Clone() override
-  {
-    ShaderProperty_matrix* ret = new ShaderProperty_matrix();
-    ret->value_ = this->value_;
-    return ret;
-  }
-};
-
-class ShaderProperty_texture : public ShaderProperty_native<INativeTexture>
-{
-public:
-  const ShaderProperty_texture& operator = (const INativeTexture* b)
-  {
-    ShaderProperty_native::operator=(b);
-    return *this;
-  }
-public:
-  void Apply(INativeShader* shader, const std::string& property_name) override
-  {
-    if (!this->value_)
-    {
-      return;
-    }
-    shader->SetTexture(property_name.c_str(), this->value_->GetNativeInstance());
+    shader->SetTexture(property_name, this->value_);
   }
   ShaderProperty* Clone() override
   {

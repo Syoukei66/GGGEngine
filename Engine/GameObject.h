@@ -29,15 +29,18 @@ public:
 public:
   virtual void Init();
 
+  //TODO:アップデート処理はタスクスレッドにタスクを渡す事で実現するように変更する
   virtual void ManagedPreUpdate() = 0;
   virtual void ManagedUpdate() = 0;
   virtual void ManagedPostUpdate() = 0;
 
+  //TODO:描画処理は描画スレッドに描画コマンドを送信する事で実現するように変更(Rendererが行う)
   virtual void ManagedDraw(GameObjectRenderState* state);
   
   // =================================================================
   // Events
   // =================================================================
+  //TODO:これらをここに置くのは適切か 親子関係をTransform側に移譲するべきか
 public:
   virtual void FireOnPositionChanged(GameObject* root) = 0;
   virtual void FireOnScaleChanged(GameObject* root) = 0;
@@ -73,27 +76,27 @@ public:
   // =================================================================
   // delegate to Transform
   // =================================================================
-  inline const INativeMatrix& GetMatrix() const
+  inline const Matrix4x4& GetMatrix() const
   {
     return this->transform_->GetMatrix();
   }
 
-  inline const INativeMatrix& GetTranslateMatrix() const
+  inline const Matrix4x4& GetTranslateMatrix() const
   {
     return this->transform_->GetTranslateMatrix();
   }
 
-  inline const INativeMatrix& GetRotationMatrix() const
+  inline const Matrix4x4& GetRotationMatrix() const
   {
     return this->transform_->GetRotationMatrix();
   }
 
-  inline const INativeMatrix& GetScaleMatrix() const
+  inline const Matrix4x4& GetScaleMatrix() const
   {
     return this->transform_->GetScaleMatrix();
   }
 
-  inline const INativeMatrix& GetWorldMatrix() const
+  inline const Matrix4x4& GetWorldMatrix() const
   {
     return this->transform_->GetWorldMatrix();
   }

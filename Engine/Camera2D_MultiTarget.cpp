@@ -2,7 +2,6 @@
 #include <algorithm>
 
 #include "Director.h"
-#include "NativeMethod.h"
 #include "GameObject2D.h"
 
 static const T_FLOAT ZOOM_RATE = 0.8f;
@@ -14,26 +13,28 @@ Camera2D_MultiTarget::Camera2D_MultiTarget(T_FLOAT x, T_FLOAT y, T_FLOAT width, 
   : Camera2D(x, y, width, height, z_min, z_max)
   , view_(nullptr)
   , target_entities_()
+  , translate_()
+  , scale_()
+  , view_matrix_()
+  , position_()
   , zoom_(1.0f)
   , next_zoom_(1.0f)
   , padding_(0.0f)
 {
-  this->translate_ = INativeMatrix::Create();
-  this->scale_ = INativeMatrix::Create();
-  this->view_matrix_ = INativeMatrix::Create();
 }
 
 Camera2D_MultiTarget::Camera2D_MultiTarget()
   : Camera2D()
   , view_(nullptr)
   , target_entities_()
+  , translate_()
+  , scale_()
+  , view_matrix_()
+  , position_()
   , zoom_(1.0f)
   , next_zoom_(1.0f)
   , padding_(0.0f)
 {
-  this->translate_ = INativeMatrix::Create();
-  this->scale_ = INativeMatrix::Create();
-  this->view_matrix_ = INativeMatrix::Create();
 }
 
 Camera2D_MultiTarget::~Camera2D_MultiTarget()
@@ -87,7 +88,7 @@ void Camera2D_MultiTarget::Update()
   return;
 }
 
-INativeMatrix* Camera2D_MultiTarget::GetViewMatrix() const
+const Matrix4x4& Camera2D_MultiTarget::GetViewMatrix() const
 {
   return this->view_matrix_;
 }
@@ -102,10 +103,9 @@ void Camera2D_MultiTarget::SetViewEntity(GameObject2D* view_)
 
 void Camera2D_MultiTarget::OnUpdateZoom()
 {
-  this->scale_->Scaling(this->zoom_, this->zoom_, 1.0f);
-  this->translate_->Translation(this->position_);
+  this->scale_.Scaling(this->zoom_, this->zoom_, 1.0f);
+  this->translate_.Translation(this->position_);
 
-  this->view_matrix_->Init();
-  this->view_matrix_->Multiple(*this->scale_);
-  this->view_matrix_->Multiple(*this->translate_);
+  this->view_matrix_ = this->scale_;
+  this->view_matrix_ *= this->translate_;
 }
