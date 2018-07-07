@@ -24,7 +24,7 @@ namespace Util
     return value;
   }
 
-  inline RondomGenerator& Rondom()
+  inline RondomGenerator& Random()
   {
     static RondomGenerator generator;
     return generator;

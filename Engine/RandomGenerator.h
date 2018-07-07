@@ -13,6 +13,8 @@ public:
   void Init(T_UINT32 seed);
 
   T_UINT32 Value();
+  //0.0f ~ 1.0f
+  T_FLOAT NormalizedValue();
   T_UINT32 Range(T_UINT32 radius);
   T_UINT32 Range(T_UINT32 min, T_UINT32 max);
   T_INT32 Range(T_INT32 radius);

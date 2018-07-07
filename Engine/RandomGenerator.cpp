@@ -30,32 +30,37 @@ T_UINT32 RondomGenerator::Value()
   return this->current_;
 }
 
+T_FLOAT RondomGenerator::NormalizedValue()
+{
+  return (T_FLOAT)this->Value() / Limit::T_UINT32_MAX;
+}
+
 T_UINT32 RondomGenerator::Range(T_UINT32 radius)
 {
-  return this->Value() % radius;
+  return (T_UINT32)(radius * (1.0f - this->NormalizedValue() * 2.0f));
 }
 
 T_UINT32 RondomGenerator::Range(T_UINT32 min, T_UINT32 max)
 {
-  return min + (this->Value() % (max  - min));
+  return (T_UINT32)(min + this->NormalizedValue() * (max - min));
 }
 
 T_INT32 RondomGenerator::Range(T_INT32 radius)
 {
-  return this->Value() % radius;
+  return (T_INT32)(radius * (1.0f - this->NormalizedValue() * 2.0f));
 }
 
 T_INT32 RondomGenerator::Range(T_INT32 min, T_INT32 max)
 {
-  return min + (this->Value() % (max - min));
+  return (T_INT32)(min + this->NormalizedValue() * (max - min));
 }
 
 T_FLOAT RondomGenerator::Range(T_FLOAT radius)
 {
-  return fmod(this->Value(), radius);
+  return (T_FLOAT)(radius * (1.0f - this->NormalizedValue() * 2.0f));
 }
 
 T_FLOAT RondomGenerator::Range(T_FLOAT min, T_FLOAT max)
 {
-  return min + fmod(this->Value(), max - min);
+  return (T_FLOAT)(min + this->NormalizedValue() * (max - min));
 }
