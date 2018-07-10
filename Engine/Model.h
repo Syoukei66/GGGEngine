@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ModelNode.h"
-#include "FbxResource.h"
+#include "ModelResource.h"
 
 class Model : public ModelNode
 {
@@ -9,7 +9,7 @@ class Model : public ModelNode
   // Constructor / Destructor
   // =================================================================
 public:
-  Model(const FbxResource& data);
+  Model(const ModelResource& data);
   ~Model();
 
   // =================================================================
@@ -21,6 +21,6 @@ public:
   // Data Member
   // =================================================================
 private:
-  const FbxResource& data_;
+  const ModelResource& data_;
 
 };

@@ -5,9 +5,9 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-ModelNode::ModelNode(const FbxNodeData& node)
+ModelNode::ModelNode(const ModelNodeData& node)
   : node_(node)
-  , child_count_(node.GetChildCount())
+  , child_count_(node.child_count_)
   , parent_(nullptr)
 {
   this->SetRenderer(MeshRenderer::Create(node.GetMesh(), this));
@@ -72,12 +72,12 @@ ModelNode* ModelNode::FindFromTree(const char* name)
   return nullptr;
 }
 
-void ModelNode::SetShader(const ShaderResource& shader)
+void ModelNode::SetShader(const ShaderAsset& shader)
 {  
   this->GetRenderer()->GetMaterial()->SetShader(shader);
 }
 
-void ModelNode::SetShaderForChildren(const ShaderResource& shader)
+void ModelNode::SetShaderForChildren(const ShaderAsset& shader)
 {
   for (T_UINT8 i = 0; i < this->child_count_; ++i)
   {
@@ -85,7 +85,7 @@ void ModelNode::SetShaderForChildren(const ShaderResource& shader)
   }
 }
 
-void ModelNode::SetShaderForChildren(const char* name, const ShaderResource& shader)
+void ModelNode::SetShaderForChildren(const char* name, const ShaderAsset& shader)
 {
   for (T_UINT8 i = 0; i < this->child_count_; ++i)
   {
@@ -96,7 +96,7 @@ void ModelNode::SetShaderForChildren(const char* name, const ShaderResource& sha
   }
 }
 
-void ModelNode::SetShaderForTree(const ShaderResource& shader)
+void ModelNode::SetShaderForTree(const ShaderAsset& shader)
 {
   this->SetShader(shader);
   for (T_UINT8 i = 0; i < this->child_count_; ++i)
@@ -105,7 +105,7 @@ void ModelNode::SetShaderForTree(const ShaderResource& shader)
   }
 }
 
-void ModelNode::SetShaderForTree(const char* name, const ShaderResource& shader)
+void ModelNode::SetShaderForTree(const char* name, const ShaderAsset& shader)
 {
   if (strcmp(this->node_.GetName(), name) == 0)
   {

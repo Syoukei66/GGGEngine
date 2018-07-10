@@ -8,13 +8,13 @@ namespace EngineAsset
 
 namespace Shader
 {
-extern const ShaderResource DEFAULT;
-extern const ShaderResource LAMBERT;
-extern const ShaderResource PHONG;
-extern const ShaderResource PARTICLE;
-extern const ShaderResource PRIMITIVE;
-extern const ShaderResource SPRITE;
-extern const ShaderResource WHITE;
+extern const ShaderAsset DEFAULT;
+extern const ShaderAsset LAMBERT;
+extern const ShaderAsset PHONG;
+extern const ShaderAsset PARTICLE;
+extern const ShaderAsset PRIMITIVE;
+extern const ShaderAsset SPRITE;
+extern const ShaderAsset WHITE;
 } // namespace Shader
 
 namespace Material

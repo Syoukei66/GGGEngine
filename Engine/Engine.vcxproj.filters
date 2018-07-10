@@ -169,12 +169,6 @@
     <Filter Include="ヘッダー ファイル\Structure\TextureRegion">
       <UniqueIdentifier>{7273ed17-f1d8-4bc4-9cd0-fba0bfe2fb14}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\imgui">
-      <UniqueIdentifier>{600f7942-ecdb-4bfe-b65f-8adf17794c36}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\imgui">
-      <UniqueIdentifier>{9b8d6292-1ea3-490e-b5b9-de8fa4dfc578}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Native\Objects\Buffer">
       <UniqueIdentifier>{3ef0007b-3be9-4a65-8cbe-10f1fa3e1656}</UniqueIdentifier>
     </Filter>
@@ -265,9 +259,6 @@
     <Filter Include="ヘッダー ファイル\Engine\Director">
       <UniqueIdentifier>{b8d79364-1f64-44c0-b322-e001361dedc0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Eigen">
-      <UniqueIdentifier>{65527833-19ab-41a2-851a-fefb9bbdf9de}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Structure\Math\Matrix">
       <UniqueIdentifier>{2558d164-d3fd-4d0c-af07-b1b595b85123}</UniqueIdentifier>
     </Filter>
@@ -300,9 +291,6 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\Asset\File\Json">
       <UniqueIdentifier>{abdbaedf-2883-48f3-bb36-6fbd94829992}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\File\FBX">
-      <UniqueIdentifier>{814bdfde-d3b1-4f0a-b904-ec0a773089d9}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Asset\File\Sound">
       <UniqueIdentifier>{cf3d5124-1948-4e4a-81ea-9a50a2b00dcd}</UniqueIdentifier>
@@ -343,9 +331,6 @@
     <Filter Include="ソース ファイル\Asset\File\Json">
       <UniqueIdentifier>{cd5ff153-464c-40d2-8b8c-874db93e472a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Asset\File\FBX">
-      <UniqueIdentifier>{cea5a778-e900-4dd5-8bcc-3b2aacd94fb2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Asset\File\Sound">
       <UniqueIdentifier>{899c36ae-ee59-4928-859c-bb5753da65bb}</UniqueIdentifier>
     </Filter>
@@ -357,6 +342,39 @@
     </Filter>
     <Filter Include="ソース ファイル\Resource">
       <UniqueIdentifier>{34f60015-9d9d-4ee4-a0e2-a72e2e859143}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Asset\File\Model">
+      <UniqueIdentifier>{bd575692-2e33-472e-a351-fdbb4ea7b767}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Asset\File\Model">
+      <UniqueIdentifier>{41eb3d1c-cb92-4757-9bbf-43a06c183f7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\ThirdPirty">
+      <UniqueIdentifier>{9b538748-b535-4ded-bb86-e8872a50c944}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\ThirdPirty\Cereal">
+      <UniqueIdentifier>{47f36dff-764d-4fdf-8568-0a757b36f341}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\ThirdPirty\Eigen">
+      <UniqueIdentifier>{65527833-19ab-41a2-851a-fefb9bbdf9de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ThirdPirty">
+      <UniqueIdentifier>{9852c34d-21fd-4bb8-88de-6d4a3d984da9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ThirdPirty\imgui">
+      <UniqueIdentifier>{9b8d6292-1ea3-490e-b5b9-de8fa4dfc578}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\ThirdPirty\imgui">
+      <UniqueIdentifier>{600f7942-ecdb-4bfe-b65f-8adf17794c36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\ThirdPirty\Cereal\Model">
+      <UniqueIdentifier>{1d99413f-cb0b-4471-b4a8-bd02cc9492bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ThirdPirty\Cereal">
+      <UniqueIdentifier>{e5937725-c665-4a00-ae67-4b98c78a18df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ThirdPirty\Cereal\Model">
+      <UniqueIdentifier>{13e91083-3594-4535-af50-df3f4683fb8f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -672,17 +690,8 @@
     <ClCompile Include="EngineAsset.cpp">
       <Filter>ソース ファイル\Asset</Filter>
     </ClCompile>
-    <ClCompile Include="FbxResource.cpp">
-      <Filter>ソース ファイル\Asset\File\FBX</Filter>
-    </ClCompile>
-    <ClCompile Include="FbxData.cpp">
-      <Filter>ソース ファイル\Asset\File\FBX</Filter>
-    </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>ソース ファイル\Component\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="FbxNodeData.cpp">
-      <Filter>ソース ファイル\Asset\File\FBX</Filter>
     </ClCompile>
     <ClCompile Include="Cube3D.cpp">
       <Filter>ソース ファイル\GameObject\3D\Primitive</Filter>
@@ -712,10 +721,10 @@
       <Filter>ソース ファイル\GameObject\2D\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui.cpp">
-      <Filter>ソース ファイル\imgui</Filter>
+      <Filter>ソース ファイル\ThirdPirty\imgui</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui_draw.cpp">
-      <Filter>ソース ファイル\imgui</Filter>
+      <Filter>ソース ファイル\ThirdPirty\imgui</Filter>
     </ClCompile>
     <ClCompile Include="JsonData.cpp">
       <Filter>ソース ファイル\Asset\File\Json</Filter>
@@ -724,7 +733,7 @@
       <Filter>ソース ファイル\Asset\File\Json</Filter>
     </ClCompile>
     <ClCompile Include="imgui_ja_gryph_ranges.cpp">
-      <Filter>ソース ファイル\imgui</Filter>
+      <Filter>ソース ファイル\ThirdPirty\imgui</Filter>
     </ClCompile>
     <ClCompile Include="NativeSound.cpp">
       <Filter>ソース ファイル\Native\Objects</Filter>
@@ -749,9 +758,6 @@
     </ClCompile>
     <ClCompile Include="MeshResource.cpp">
       <Filter>ソース ファイル\Component\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshFactory_Fbx.cpp">
-      <Filter>ソース ファイル\Component\Mesh\Factory</Filter>
     </ClCompile>
     <ClCompile Include="MeshFactory_Sprite.cpp">
       <Filter>ソース ファイル\Component\Mesh\Factory</Filter>
@@ -800,6 +806,15 @@
     </ClCompile>
     <ClCompile Include="RenderBuffer.cpp">
       <Filter>ソース ファイル\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="CerealBinaryModelImporter.cpp">
+      <Filter>ソース ファイル\ThirdPirty\Cereal\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelResource.cpp">
+      <Filter>ソース ファイル\Asset\File\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshFactory_Model.cpp">
+      <Filter>ソース ファイル\Component\Mesh\Factory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1175,20 +1190,11 @@
     <ClInclude Include="ShaderProperties.h">
       <Filter>ヘッダー ファイル\Component\Material</Filter>
     </ClInclude>
-    <ClInclude Include="FbxResource.h">
-      <Filter>ヘッダー ファイル\Asset\File\FBX</Filter>
-    </ClInclude>
-    <ClInclude Include="FbxData.h">
-      <Filter>ヘッダー ファイル\Asset\File\FBX</Filter>
-    </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>ヘッダー ファイル\Component\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="ModelNode.h">
       <Filter>ヘッダー ファイル\GameObject\3D\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="FbxNodeData.h">
-      <Filter>ヘッダー ファイル\Asset\File\FBX</Filter>
     </ClInclude>
     <ClInclude Include="Bezier.h">
       <Filter>ヘッダー ファイル\Util</Filter>
@@ -1230,22 +1236,22 @@
       <Filter>ヘッダー ファイル\Component\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imgui.h">
-      <Filter>ヘッダー ファイル\imgui</Filter>
+      <Filter>ヘッダー ファイル\ThirdPirty\imgui</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imgui_internal.h">
-      <Filter>ヘッダー ファイル\imgui</Filter>
+      <Filter>ヘッダー ファイル\ThirdPirty\imgui</Filter>
     </ClInclude>
     <ClInclude Include="imgui\stb_rect_pack.h">
-      <Filter>ヘッダー ファイル\imgui</Filter>
+      <Filter>ヘッダー ファイル\ThirdPirty\imgui</Filter>
     </ClInclude>
     <ClInclude Include="imgui\stb_textedit.h">
-      <Filter>ヘッダー ファイル\imgui</Filter>
+      <Filter>ヘッダー ファイル\ThirdPirty\imgui</Filter>
     </ClInclude>
     <ClInclude Include="imgui\stb_truetype.h">
-      <Filter>ヘッダー ファイル\imgui</Filter>
+      <Filter>ヘッダー ファイル\ThirdPirty\imgui</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imconfig.h">
-      <Filter>ヘッダー ファイル\imgui</Filter>
+      <Filter>ヘッダー ファイル\ThirdPirty\imgui</Filter>
     </ClInclude>
     <ClInclude Include="JsonResource.h">
       <Filter>ヘッダー ファイル\Asset\File\Json</Filter>
@@ -1254,7 +1260,7 @@
       <Filter>ヘッダー ファイル\Asset\File\Json</Filter>
     </ClInclude>
     <ClInclude Include="imgui_ja_gryph_ranges.h">
-      <Filter>ヘッダー ファイル\imgui</Filter>
+      <Filter>ヘッダー ファイル\ThirdPirty\imgui</Filter>
     </ClInclude>
     <ClInclude Include="NativeSound.h">
       <Filter>ヘッダー ファイル\Native\Objects</Filter>
@@ -1276,9 +1282,6 @@
     </ClInclude>
     <ClInclude Include="TextureResource.h">
       <Filter>ヘッダー ファイル\Asset\File\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshFactory_Fbx.h">
-      <Filter>ヘッダー ファイル\Component\Mesh\Factory</Filter>
     </ClInclude>
     <ClInclude Include="MeshFactory_Sprite.h">
       <Filter>ヘッダー ファイル\Component\Mesh\Factory</Filter>
@@ -1341,10 +1344,10 @@
       <Filter>ヘッダー ファイル\Structure\Math</Filter>
     </ClInclude>
     <ClInclude Include="Eigen\Geometry.h">
-      <Filter>ヘッダー ファイル\Eigen</Filter>
+      <Filter>ヘッダー ファイル\ThirdPirty\Eigen</Filter>
     </ClInclude>
     <ClInclude Include="Eigen\Core.h">
-      <Filter>ヘッダー ファイル\Eigen</Filter>
+      <Filter>ヘッダー ファイル\ThirdPirty\Eigen</Filter>
     </ClInclude>
     <ClInclude Include="TranslationMatrix.h">
       <Filter>ヘッダー ファイル\Structure\Math\Matrix</Filter>
@@ -1359,7 +1362,7 @@
       <Filter>ヘッダー ファイル\Structure\Math\Matrix</Filter>
     </ClInclude>
     <ClInclude Include="Eigen\Dense.h">
-      <Filter>ヘッダー ファイル\Eigen</Filter>
+      <Filter>ヘッダー ファイル\ThirdPirty\Eigen</Filter>
     </ClInclude>
     <ClInclude Include="Matrix4x4.inl">
       <Filter>ヘッダー ファイル\Structure\Math\Matrix</Filter>
@@ -1381,6 +1384,24 @@
     </ClInclude>
     <ClInclude Include="NativeProcess.h">
       <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="CerealIO.h">
+      <Filter>ヘッダー ファイル\ThirdPirty\Cereal</Filter>
+    </ClInclude>
+    <ClInclude Include="CerealBinaryModelArchive.h">
+      <Filter>ヘッダー ファイル\ThirdPirty\Cereal\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="CerealBinaryModelImporter.h">
+      <Filter>ヘッダー ファイル\ThirdPirty\Cereal\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelResource.h">
+      <Filter>ヘッダー ファイル\Asset\File\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelData.h">
+      <Filter>ヘッダー ファイル\Asset\File\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshFactory_Model.h">
+      <Filter>ヘッダー ファイル\Component\Mesh\Factory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

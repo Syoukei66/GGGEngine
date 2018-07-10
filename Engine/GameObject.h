@@ -40,7 +40,6 @@ public:
   // =================================================================
   // Events
   // =================================================================
-  //TODO:これらをここに置くのは適切か 親子関係をTransform側に移譲するべきか
 public:
   virtual void FireOnPositionChanged(GameObject* root) = 0;
   virtual void FireOnScaleChanged(GameObject* root) = 0;
@@ -50,6 +49,11 @@ protected:
   virtual void OnPositionChanged(GameObject* root) {}
   virtual void OnScaleChanged(GameObject* root) {}
   virtual void OnRotationChanged(GameObject* root) {}
+  
+  // =================================================================
+  // Hierarchy 
+  // =================================================================
+public:
 
   // =================================================================
   // Setter / Getter
