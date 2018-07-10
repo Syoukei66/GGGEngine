@@ -14,7 +14,7 @@
 
 class GameObjectRenderState;
 
-class GameObject : public GameComponent
+class GameObject
 {
   // =================================================================
   // Constructor / Destructor
@@ -29,27 +29,33 @@ public:
 public:
   virtual void Init();
 
+  // =================================================================
+  // Events
+  // =================================================================
+public:
+  //TODO:描画処理は描画スレッドに描画コマンドを送信する事で実現するように変更(Rendererが行う)
+  virtual void ManagedDraw(GameObjectRenderState* state);
+
   //TODO:アップデート処理はタスクスレッドにタスクを渡す事で実現するように変更する
   virtual void ManagedPreUpdate() = 0;
   virtual void ManagedUpdate() = 0;
   virtual void ManagedPostUpdate() = 0;
 
-  //TODO:描画処理は描画スレッドに描画コマンドを送信する事で実現するように変更(Rendererが行う)
-  virtual void ManagedDraw(GameObjectRenderState* state);
-  
-  // =================================================================
-  // Events
-  // =================================================================
   //TODO:これらをここに置くのは適切か 親子関係をTransform側に移譲するべきか
-public:
-  virtual void FireOnPositionChanged(GameObject* root) = 0;
-  virtual void FireOnScaleChanged(GameObject* root) = 0;
-  virtual void FireOnRotationChanged(GameObject* root) = 0;
+  virtual void FireOnPositionChanged() = 0;
+  virtual void FireOnScaleChanged() = 0;
+  virtual void FireOnRotationChanged() = 0;
 
 protected:
-  virtual void OnPositionChanged(GameObject* root) {}
-  virtual void OnScaleChanged(GameObject* root) {}
-  virtual void OnRotationChanged(GameObject* root) {}
+  virtual void Draw(GameObjectRenderState* state) {}
+
+  virtual void PreUpdate() {}
+  virtual void Update() {}
+  virtual void PostUpdate() {}
+
+  virtual void OnPositionChanged() {}
+  virtual void OnScaleChanged() {}
+  virtual void OnRotationChanged() {}
 
   // =================================================================
   // Setter / Getter

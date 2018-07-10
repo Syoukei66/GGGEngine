@@ -22,10 +22,6 @@ public:
 public:
   virtual void Init() override;
 
-  virtual void ManagedPreUpdate() override;
-  virtual void ManagedUpdate() override;
-  virtual void ManagedPostUpdate() override;
-
   // =================================================================
   // Method
   // =================================================================
@@ -34,8 +30,6 @@ public:
   void RemoveChild(GameObject2D* child);
   void RemoveSelf();
   void ClearChildren();
-
-  virtual void Draw(GameObjectRenderState* state);
 
 private:
   void UpdateChildrenZIndex();
@@ -49,11 +43,18 @@ public:
   // Events
   // =================================================================
 public:
-  virtual void FireOnPositionChanged(GameObject* root) override;
-  virtual void FireOnScaleChanged(GameObject* root) override;
-  virtual void FireOnRotationChanged(GameObject* root) override;
+  virtual void ManagedPreUpdate() override;
+  virtual void ManagedUpdate() override;
+  virtual void ManagedPostUpdate() override;
+
+  virtual void FireOnPositionChanged() override;
+  virtual void FireOnScaleChanged() override;
+  virtual void FireOnRotationChanged() override;
 
   virtual void OnChildrenZIndexChanged();
+
+protected:
+  virtual void Draw(GameObjectRenderState* state);
 
   // =================================================================
   // Setter / Getter

@@ -18,10 +18,7 @@ GameObject2D::GameObject2D()
 
 GameObject2D::~GameObject2D()
 {
-  if (this->transform_)
-  {
-    delete this->transform_;
-  }
+  delete this->transform_;
 }
 
 // =================================================================
@@ -34,41 +31,14 @@ void GameObject2D::Init()
   this->children_zindex_dirty_ = true;
 }
 
-void GameObject2D::ManagedPreUpdate()
-{
-  this->PreUpdate();
-  for (GameObject2D* child : this->children_)
-  {
-    child->ManagedPreUpdate();
-  }
-}
-
-void GameObject2D::ManagedUpdate()
-{
-  this->Update();
-  for (GameObject2D* child : this->children_)
-  {
-    child->ManagedUpdate();
-  }
-}
-
-void GameObject2D::ManagedPostUpdate()
-{
-  this->PostUpdate();
-  for (GameObject2D* child : this->children_)
-  {
-    child->ManagedPostUpdate();
-  }
-}
-
 void GameObject2D::AddChild(GameObject2D* child)
 {
   child->parent_ = this;
   this->children_.emplace_back(child);
   this->OnChildrenZIndexChanged();
-  child->FireOnPositionChanged(this);
-  child->FireOnScaleChanged(this);
-  child->FireOnRotationChanged(this);
+  child->FireOnPositionChanged();
+  child->FireOnScaleChanged();
+  child->FireOnRotationChanged();
 }
 
 void GameObject2D::RemoveChild(GameObject2D* child)
@@ -106,6 +76,100 @@ void GameObject2D::ClearChildren()
   this->children_.clear();
 }
 
+void GameObject2D::RegisterEntityModifier(EntityModifierRoot* root)
+{
+  root->OnAttached(this);
+}
+
+void GameObject2D::UnregisterEntityModifier(EntityModifierRoot* root)
+{
+  if (root->GetTargetEntity() != this)
+  {
+    return;
+  }
+  root->OnDetached();
+}
+
+void GameObject2D::ClearEntityModifiers()
+{
+  EntityModifierManager::GetInstance().ClearModifiersWithTargetEntity(this);
+}
+
+// =================================================================
+// Events
+// =================================================================
+void GameObject2D::ManagedPreUpdate()
+{
+  this->PreUpdate();
+  for (GameObject2D* child : this->children_)
+  {
+    child->ManagedPreUpdate();
+  }
+}
+
+void GameObject2D::ManagedUpdate()
+{
+  this->Update();
+  for (GameObject2D* child : this->children_)
+  {
+    child->ManagedUpdate();
+  }
+}
+
+void GameObject2D::ManagedPostUpdate()
+{
+  this->PostUpdate();
+  for (GameObject2D* child : this->children_)
+  {
+    child->ManagedPostUpdate();
+  }
+}
+
+void GameObject2D::FireOnPositionChanged()
+{
+  this->transform_->OnWorldTransformDirty();
+  this->OnPositionChanged();
+  for (GameObject2D* child : this->children_)
+  {
+    child->FireOnPositionChanged();
+  }
+}
+
+void GameObject2D::FireOnScaleChanged()
+{
+  this->transform_->OnWorldTransformDirty();
+  this->OnScaleChanged();
+  for (GameObject2D* child : this->children_)
+  {
+    child->FireOnScaleChanged();
+  }
+}
+
+void GameObject2D::FireOnRotationChanged()
+{
+  this->transform_->OnWorldTransformDirty();
+  this->OnRotationChanged();
+  for (GameObject2D* child : this->children_)
+  {
+    child->FireOnRotationChanged();
+  }
+}
+
+void GameObject2D::OnChildrenZIndexChanged()
+{
+  this->children_zindex_dirty_ = true;
+}
+
+void GameObject2D::UpdateChildrenZIndex()
+{
+  if (!this->children_zindex_dirty_)
+  {
+    return;
+  }
+  std::sort(this->children_.begin(), this->children_.end(), [](GameObject2D* a, GameObject2D* b){ return a->zindex_ < b->zindex_; });
+  this->children_zindex_dirty_ = false;
+}
+
 void GameObject2D::Draw(GameObjectRenderState* state)
 {
   if (!this->IsVisible())
@@ -129,10 +193,6 @@ void GameObject2D::Draw(GameObjectRenderState* state)
       this->ManagedDraw(state);
       self_already_drawed = true;
     }
-    if (!child->IsVisible())
-    {
-      continue;
-    }
     child->Draw(state);
   }
   if (!self_already_drawed)
@@ -140,71 +200,4 @@ void GameObject2D::Draw(GameObjectRenderState* state)
     //2.©•ª©g
     this->ManagedDraw(state);
   }
-}
-
-void GameObject2D::RegisterEntityModifier(EntityModifierRoot* root)
-{
-  root->OnAttached(this);
-}
-
-void GameObject2D::UnregisterEntityModifier(EntityModifierRoot* root)
-{
-  if (root->GetTargetEntity() != this)
-  {
-    return;
-  }
-  root->OnDetached();
-}
-
-void GameObject2D::ClearEntityModifiers()
-{
-  EntityModifierManager::GetInstance().ClearModifiersWithTargetEntity(this);
-}
-
-// =================================================================
-// Events
-// =================================================================
-void GameObject2D::FireOnPositionChanged(GameObject* root)
-{
-  this->transform_->OnWorldTransformDirty();
-  this->OnPositionChanged(root);
-  for (GameObject2D* child : this->children_)
-  {
-    child->FireOnPositionChanged(root);
-  }
-}
-
-void GameObject2D::FireOnScaleChanged(GameObject* root)
-{
-  this->transform_->OnWorldTransformDirty();
-  this->OnScaleChanged(root);
-  for (GameObject2D* child : this->children_)
-  {
-    child->FireOnScaleChanged(root);
-  }
-}
-
-void GameObject2D::FireOnRotationChanged(GameObject* root)
-{
-  this->transform_->OnWorldTransformDirty();
-  this->OnRotationChanged(root);
-  for (GameObject2D* child : this->children_)
-  {
-    child->FireOnRotationChanged(root);
-  }
-}
-
-void GameObject2D::OnChildrenZIndexChanged()
-{
-  this->children_zindex_dirty_ = true;
-}
-
-void GameObject2D::UpdateChildrenZIndex()
-{
-  if (!this->children_zindex_dirty_)
-  {
-    return;
-  }
-  std::sort(this->children_.begin(), this->children_.end(), [](GameObject2D* a, GameObject2D* b){ return a->zindex_ < b->zindex_; });
-  this->children_zindex_dirty_ = false;
 }

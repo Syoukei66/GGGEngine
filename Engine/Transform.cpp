@@ -32,19 +32,19 @@ void Transform::Init()
 
 void Transform::OnTransformChanged()
 {
-  this->entity_->FireOnPositionChanged(this->entity_);
+  this->entity_->FireOnPositionChanged();
   this->translation_dirty_ = true;
 }
 
 void Transform::OnScaleChanged()
 {
-  this->entity_->FireOnScaleChanged(this->entity_);
+  this->entity_->FireOnScaleChanged();
   this->scale_dirty_ = true;
 }
 
 void Transform::OnRotationChanged()
 {
-  this->entity_->FireOnRotationChanged(this->entity_);
+  this->entity_->FireOnRotationChanged();
   this->rotation_dirty_ = true;
 }
 
