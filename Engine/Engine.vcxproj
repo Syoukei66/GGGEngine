@@ -192,10 +192,12 @@
     <ClCompile Include="Camera3D.cpp" />
     <ClCompile Include="Camera3D_LookAt.cpp" />
     <ClCompile Include="Camera3D_Transformed.cpp" />
+    <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="Collider3D.cpp" />
     <ClCompile Include="Collision2D.cpp" />
     <ClCompile Include="Collision3D.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="CommandBuffer.cpp" />
     <ClCompile Include="CSVData.cpp" />
     <ClCompile Include="CSVResource.cpp" />
     <ClCompile Include="CSVTokenizer.cpp" />
@@ -215,7 +217,9 @@
     <ClCompile Include="GameObject2D.cpp" />
     <ClCompile Include="GameObject3D.cpp" />
     <ClCompile Include="FbxResource.cpp" />
-    <ClCompile Include="GameObjectRenderQueue.cpp" />
+    <ClCompile Include="RenderCommand.cpp" />
+    <ClCompile Include="RenderCommand_DrawMesh.cpp" />
+    <ClCompile Include="RenderQueue.cpp" />
     <ClCompile Include="Gradient.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
@@ -244,6 +248,7 @@
     <ClCompile Include="RenderBuffer.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="FileLoader.cpp" />
+    <ClCompile Include="RendererManager.cpp" />
     <ClCompile Include="RenderTexture.cpp" />
     <ClCompile Include="ResourcePool.cpp" />
     <ClCompile Include="ShaderResource.cpp" />
@@ -253,7 +258,7 @@
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Transform3DRotator.cpp" />
-    <ClCompile Include="GameObjectRenderState.cpp" />
+    <ClCompile Include="RenderState.cpp" />
     <ClCompile Include="EntityModifier.cpp" />
     <ClCompile Include="EntityModifierAttribute.cpp" />
     <ClCompile Include="EntityModifierFactory.cpp" />
@@ -332,6 +337,10 @@
     <ClInclude Include="AnimatedSprite3D.h" />
     <ClInclude Include="AnimatedSpriteRenderer.h" />
     <ClInclude Include="Bezier.h" />
+    <ClInclude Include="CameraManager.h" />
+    <ClInclude Include="CommandBuffer.h" />
+    <ClInclude Include="RenderCommand_DrawMesh.h" />
+    <ClInclude Include="RenderQueue.h" />
     <ClInclude Include="CSVData.h" />
     <ClInclude Include="CSVResource.h" />
     <ClInclude Include="Cube3D.h" />
@@ -339,8 +348,8 @@
     <ClInclude Include="FbxData.h" />
     <ClInclude Include="FbxNodeData.h" />
     <ClInclude Include="FbxResource.h" />
-    <ClInclude Include="GameObjectFactory.h" />
-    <ClInclude Include="GameObjectRenderQueue.h" />
+    <ClInclude Include="RenderCommand.h" />
+    <ClInclude Include="RenderPipeline.h" />
     <ClInclude Include="Gradient.h" />
     <ClInclude Include="GraphicsConstants.h" />
     <ClInclude Include="IMesh.h" />
@@ -414,6 +423,7 @@
     <ClInclude Include="Moniker.h" />
     <ClInclude Include="NativeObject.h" />
     <ClInclude Include="EngineAsset.h" />
+    <ClInclude Include="RendererManager.h" />
     <ClInclude Include="RenderTexture.h" />
     <ClInclude Include="ResourceLoader.h" />
     <ClInclude Include="ScalingMatrix.h" />
@@ -428,7 +438,7 @@
     <ClInclude Include="TextureSource.h" />
     <ClInclude Include="TiledTextureRegion.h" />
     <ClInclude Include="Transform3DRotator.h" />
-    <ClInclude Include="GameObjectRenderState.h" />
+    <ClInclude Include="RenderState.h" />
     <ClInclude Include="EntityModifier.h" />
     <ClInclude Include="EntityModifierAttribute.h" />
     <ClInclude Include="EntityModifierFactory.h" />
@@ -517,6 +527,7 @@
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Vector4.h" />
+    <ClInclude Include="Viewport.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Lambert.fx">

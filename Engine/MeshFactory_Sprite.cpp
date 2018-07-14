@@ -79,11 +79,11 @@ Mesh* MeshFactory::Sprite::Create(bool readonly)
 {
   Initialize();
   Mesh* ret = new Mesh();
-  using namespace GraphicsConstants;
+  using namespace Graphics;
   ret->CreateVertices(
     SPRITE_VERTEXES_COUNT,
     PRIMITIVE_SURF_NUM(PRIMITIVE_TRIANGLES, SPRITE_VERTEX_INDEXES_COUNT),
-    GraphicsConstants::V_FORMAT_PU
+    Graphics::V_FORMAT_PU
   );
   ret->CreateIndices(SPRITE_VERTEX_INDEXES_COUNT);
   for (T_UINT32 i = 0; i < SPRITE_VERTEXES_COUNT; ++i)

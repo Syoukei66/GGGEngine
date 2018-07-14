@@ -6,7 +6,7 @@ RenderBuffer* RenderBuffer::CreateColorBuffer(Texture* texture)
   return new RenderBuffer(NativeProcess::Resource::CreateColorBuffer(texture));
 }
 
-RenderBuffer* RenderBuffer::CreateDepthBuffer(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format)
+RenderBuffer* RenderBuffer::CreateDepthBuffer(T_UINT16 width, T_UINT16 height, Graphics::TextureFormat format)
 {
   return new RenderBuffer(NativeProcess::Resource::CreateDepthBuffer(width, height, format));
 }

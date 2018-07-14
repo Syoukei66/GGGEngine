@@ -44,6 +44,7 @@ public:
   {
     return this->native_obj_;
   }
+
   inline T_UINT16 GetWidth() const
   {
     return this->width_;
@@ -52,6 +53,7 @@ public:
   {
     return this->height_;
   }
+
   inline T_UINT16 GetTwoPoweredWidth() const
   {
     return two_powered_width_;
@@ -60,6 +62,7 @@ public:
   {
     return two_powered_height_;
   }
+
   inline RenderBuffer* GetColorBuffer()
   {
     return this->color_buffer_;

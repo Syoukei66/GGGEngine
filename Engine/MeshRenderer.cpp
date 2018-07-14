@@ -29,12 +29,13 @@ MeshRenderer::MeshRenderer(GameObject* entity)
 // =================================================================
 // Method
 // =================================================================
-void MeshRenderer::Draw(GameObjectRenderState* state) const
+void MeshRenderer::Submit(CommandBuffer* buf) const
 {
   if (!this->mesh_)
   {
     return;
   }
+
   this->SetStreamSource();
   const T_UINT8 material_count = this->materials_.size();
   for (T_UINT8 i = 0; i < material_count; ++i)
@@ -51,14 +52,4 @@ void MeshRenderer::Draw(GameObjectRenderState* state) const
     }
     material->End();
   }
-}
-
-void MeshRenderer::SetStreamSource() const
-{
-  this->mesh_->SetStreamSource();
-}
-
-void MeshRenderer::DrawSubset(T_UINT8 submesh_index) const
-{
-  this->mesh_->DrawSubset(submesh_index);
 }

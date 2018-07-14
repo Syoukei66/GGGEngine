@@ -16,7 +16,7 @@ public:
   // Methods for/from SuperClass/Interfaces
   // =================================================================
 public:
-  virtual void Draw(GameObjectRenderState* state) const override;
+  virtual void Draw(RenderState* state) const override;
 
 private:
   virtual void EditProperty(T_UINT8 material_index, T_UINT8 pass_index, Material* material) const;

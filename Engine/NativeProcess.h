@@ -3,6 +3,8 @@
 #include <string>
 
 #include "NativeType.h"
+#include "Viewport.h"
+
 #include "RenderBuffer.h"
 
 #include "NativeSound.h"
@@ -32,22 +34,22 @@ void TextFile_Write(const char* path, const std::string& str);
 namespace Graphics
 {
 void ViewportClear();
-void SetViewport(T_FLOAT x, T_FLOAT y, T_FLOAT w, T_FLOAT h, T_FLOAT minZ, T_FLOAT maxZ);
+void SetViewport(const Viewport& view_port);
 void PackColor4u8(T_PACKED_COLOR_UINT32* color, T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a);
-void SetRenderTarget(RenderBuffer* color_buffer, RenderBuffer* depth_buffer, bool clear);
+void SetRenderTarget(RenderBuffer* color_buffer, RenderBuffer* depth_buffer);
 void ResetRenderTarget();
 } // namespace Graphics
 
 namespace Resource
 {
 void* TextureLoad(const std::string& path);
-void* CreateTexture(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format);
+void* CreateTexture(T_UINT16 width, T_UINT16 height, Graphics::TextureFormat format);
 void DeleteTexture(void* native_obj);
 void GetTextureSize(const std::string& path, T_UINT16* width_dest, T_UINT16* height_dest);
 void GetTextureSize(void* native_obj, T_UINT16* width_dest, T_UINT16* height_dest);
 
 void* CreateColorBuffer(Texture* texture);
-void* CreateDepthBuffer(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format);
+void* CreateDepthBuffer(T_UINT16 width, T_UINT16 height, Graphics::TextureFormat format);
 void DeleteRenderBuffer(void* native_obj);
 } // namespace Resource
 

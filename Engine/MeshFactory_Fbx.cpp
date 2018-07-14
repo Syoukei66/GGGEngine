@@ -45,7 +45,7 @@ Mesh* MeshFactory::Fbx::Create(FbxNode* node, bool readonly)
   ret->CreateVertices(
     vertex_count_sum,
     polygon_count_sum,
-    GraphicsConstants::V_FORMAT_PNUC
+    Graphics::V_FORMAT_PNUC
   );
   ret->CreateIndices(submesh_count, index_counts);
 

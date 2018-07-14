@@ -37,10 +37,10 @@ public:
 
   Mesh* Clone(bool readonly);
 
-  void CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT32 format, GraphicsConstants::PrimitiveType primitive_type = GraphicsConstants::PRIMITIVE_TRIANGLES);
-  inline void CreateVerticesWithIndex(T_UINT32 vertex_count, T_UINT32 index_count, T_UINT32 format, GraphicsConstants::PrimitiveType primitive_type = GraphicsConstants::PRIMITIVE_TRIANGLES)
+  void CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT32 format, Graphics::PrimitiveType primitive_type = Graphics::PRIMITIVE_TRIANGLES);
+  inline void CreateVerticesWithIndex(T_UINT32 vertex_count, T_UINT32 index_count, T_UINT32 format, Graphics::PrimitiveType primitive_type = Graphics::PRIMITIVE_TRIANGLES)
   {
-    CreateVertices(vertex_count, GraphicsConstants::PRIMITIVE_SURF_NUM(primitive_type, index_count), format, primitive_type);
+    CreateVertices(vertex_count, Graphics::PRIMITIVE_SURF_NUM(primitive_type, index_count), format, primitive_type);
   }
   inline void CreateIndices(T_UINT32 index_count)
   {
@@ -62,11 +62,11 @@ public:
   // setter/getter
   // =================================================================
 public:
-  inline void SetPrimitiveType(GraphicsConstants::PrimitiveType type)
+  inline void SetPrimitiveType(Graphics::PrimitiveType type)
   {
     this->primitive_type_ = type;
   }
-  inline GraphicsConstants::PrimitiveType GetPrimitiveType() const
+  inline Graphics::PrimitiveType GetPrimitiveType() const
   {
     return this->primitive_type_;
   }
@@ -278,7 +278,7 @@ private:
   const Mesh* orginal_;
 
   T_UINT32 format_;
-  GraphicsConstants::PrimitiveType primitive_type_;
+  Graphics::PrimitiveType primitive_type_;
   T_UINT32 polygon_count_;
   TVec3f* face_normals_;
 

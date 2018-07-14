@@ -12,7 +12,7 @@ Mesh* MeshFactory::Plane::Create(
   const T_UINT32 vertex_count = (resolution_x + 1) * (resolution_y + 1);
   const T_UINT32 index_count = resolution_x * resolution_y * 6;
 
-  using namespace GraphicsConstants;
+  using namespace Graphics;
   ret->CreateVerticesWithIndex(
     vertex_count,
     index_count,

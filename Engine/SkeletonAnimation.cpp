@@ -43,7 +43,7 @@ SkeletonAnimation::~SkeletonAnimation()
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
-void SkeletonAnimation::ManagedDraw(GameObjectRenderState* state)
+void SkeletonAnimation::ManagedDraw(RenderState* state)
 {
   TColor nodeColor = this->GetRenderer()->GetMaterial()->GetDiffuse();
 

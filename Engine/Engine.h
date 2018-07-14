@@ -1,5 +1,4 @@
-#ifndef HAL_ENGINE_ENGINE_ENGINE_H_
-#define HAL_ENGINE_ENGINE_ENGINE_H_
+#pragma once
 
 #include "NativeType.h"
 #include "EngineOption.h"
@@ -65,6 +64,6 @@ private:
 
   Scene* scene_;
   SceneTransitioner* scene_transitioner_;
+
 };
 
-#endif//HAL_ENGINE_ENGINE_ENGINE_H_

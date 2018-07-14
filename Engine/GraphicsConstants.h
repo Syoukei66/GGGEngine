@@ -2,20 +2,21 @@
 
 #include "NativeType.h"
 
-namespace GraphicsConstants
+namespace Graphics
 {
 
-enum RenderQueue
+//描画タイプ
+enum RenderAttribute
 {
-  RQ_GEOMETRY_BEGIN,
-  RQ_BACKGROUND = RQ_GEOMETRY_BEGIN,
-  RQ_GEOMETRY,
-  RQ_ALPHA_TEST,
-  RQ_GEOMETRY_LAST,
-  RQ_TRANSPARENT = RQ_GEOMETRY_LAST,
-  RQ_OVERLAY,
+  //不透明
+  R_ATTR_BACKGROUND,
+  R_ATTR_GEOMETRY,
+  R_ATTR_ALPHA_TEST,
+  //透明
+  R_ATTR_TRANSPARENT,
+  R_ATTR_OVERLAY,
 
-  RQ_DATANUM,
+  R_ATTR_DATANUM,
 };
 
 enum TextureFormat

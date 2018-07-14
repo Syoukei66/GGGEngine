@@ -1,28 +1,48 @@
 #pragma once
 
+class GameObject;
+
 class GameComponent
 {
+protected:
+  enum Type
+  {
+    RENDERER,
+    CAMERA,
+  };
+
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  GameComponent();
-  virtual ~GameComponent() {}
+  void Release();
 
-  // =================================================================
-  // Events
-  // =================================================================
-public:
-  virtual void PreUpdate() {}
-  virtual void Update() {}
-  virtual void PostUpdate() {}
+protected:
+  GameComponent(GameObject* entity);
+  virtual ~GameComponent();
 
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  void SetEnabled(bool enabled);
+  inline GameObject* GetGameObject()
+  {
+    return this->entity_;
+  }
 
+  inline const GameObject* GetGameObject() const 
+  {
+    return this->entity_;
+  }
+
+  inline void SetEnabled(bool enabled)
+  {
+    if (this->enabled_ == enabled)
+    {
+      return;
+    }
+    this->enabled_ = enabled;
+  }
   inline bool IsEnabled() const
   {
     return this->enabled_;
@@ -32,6 +52,7 @@ public:
   // Data Member
   // =================================================================
 private:
+  GameObject* entity_;
   bool enabled_;
 
 };

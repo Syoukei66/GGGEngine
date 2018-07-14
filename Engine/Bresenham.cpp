@@ -1,6 +1,6 @@
 #include "Bresenham.h"
 
-void line_bresenham(GameObjectRenderState* state, T_FLOAT toX, T_FLOAT toY)
+void line_bresenham(RenderState* state, T_FLOAT toX, T_FLOAT toY)
 {
 	//const T_FLOAT fromX = state->position.x;
 	//const T_FLOAT fromY = state->position.y;

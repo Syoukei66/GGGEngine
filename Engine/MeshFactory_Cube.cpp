@@ -2,7 +2,7 @@
 
 static void CreateFaceVertices(T_UINT32& i, const TVec3f& normal, T_UINT32 format, const TVec3f& scale, T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, const TVec3f& tile_count, Mesh* dest)
 {
-  using namespace GraphicsConstants;
+  using namespace Graphics;
 
   const TVec3f tangent = normal.x == 0.0f && normal.z == 0.0f ? TVec3f::OuterProduct(normal, TVec3f::forward) : TVec3f::OuterProduct(normal, TVec3f::up);
   const TVec3f binormal = TVec3f::OuterProduct(tangent, normal);

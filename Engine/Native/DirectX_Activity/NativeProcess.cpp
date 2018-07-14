@@ -114,16 +114,16 @@ void ViewportClear()
   );
 }
 
-void SetViewport(T_FLOAT x, T_FLOAT y, T_FLOAT w, T_FLOAT h, T_FLOAT minZ, T_FLOAT maxZ)
+void SetViewport(const Viewport& view_port)
 {
   const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
   D3DVIEWPORT9 viewport;
-  viewport.X = (DWORD)x;
-  viewport.Y = (DWORD)y;
-  viewport.Width = (DWORD)w;
-  viewport.Height = (DWORD)h;
-  viewport.MinZ = minZ;
-  viewport.MaxZ = maxZ;
+  viewport.X = (DWORD)view_port.position.x;
+  viewport.Y = (DWORD)view_port.position.y;
+  viewport.Width = (DWORD)view_port.size.width;
+  viewport.Height = (DWORD)view_port.size.height;
+  viewport.MinZ = view_port.z_min;
+  viewport.MaxZ = view_port.z_max;
   device->SetViewport(&viewport);
 }
 
@@ -135,7 +135,7 @@ void PackColor4u8(T_PACKED_COLOR_UINT32* color, T_UINT8 r, T_UINT8 g, T_UINT8 b,
 static LPDIRECT3DSURFACE9 temp_color_buffer = nullptr;
 static LPDIRECT3DSURFACE9 temp_depth_buffer = nullptr;
 
-void SetRenderTarget(RenderBuffer* color_buffer, RenderBuffer* depth_buffer, bool clear)
+void SetRenderTarget(RenderBuffer* color_buffer, RenderBuffer* depth_buffer)
 {
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
   device->EndScene();
@@ -152,16 +152,6 @@ void SetRenderTarget(RenderBuffer* color_buffer, RenderBuffer* depth_buffer, boo
   NATIVE_ASSERT(SUCCEEDED(hr), "深度バッファの設定に失敗しました");
 
   device->BeginScene();
-
-  if (clear)
-  {
-    device->Clear(0,
-      NULL,
-      D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
-      D3DCOLOR_ARGB(0, 255, 0, 0),
-      1.0f,
-      0);
-  }
 }
 
 void ResetRenderTarget()
@@ -215,7 +205,7 @@ void* TextureLoad(const std::string& path)
   return dest;
 }
 
-void* CreateTexture(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format)
+void* CreateTexture(T_UINT16 width, T_UINT16 height, Graphics::TextureFormat format)
 {
   using namespace NativeConstants;
   width = Util::CalcTwoPowerValue(width);
@@ -277,7 +267,7 @@ void* CreateColorBuffer(Texture* texture)
   return  surf;
 }
 
-void* CreateDepthBuffer(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format)
+void* CreateDepthBuffer(T_UINT16 width, T_UINT16 height, Graphics::TextureFormat format)
 {
   LPDIRECT3DSURFACE9 surf;
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();

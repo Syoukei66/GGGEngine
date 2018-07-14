@@ -42,8 +42,8 @@ public:
 
   virtual void SetStreamSource() const = 0;
 
-  virtual void DrawPrimitive(GraphicsConstants::PrimitiveType primitive_type) const = 0;
-  virtual void DrawIndexedPrimitive(const INativeIndexBuffer* index_buffer, GraphicsConstants::PrimitiveType primitive_type) const = 0;
+  virtual void DrawPrimitive(Graphics::PrimitiveType primitive_type) const = 0;
+  virtual void DrawIndexedPrimitive(const INativeIndexBuffer* index_buffer, Graphics::PrimitiveType primitive_type) const = 0;
 
   virtual T_UINT32 GetMemorySize() const = 0;
 

@@ -26,7 +26,7 @@ public:
   // Methods for/from SuperClass/Interfaces
   // =================================================================
 public:
-  virtual void ManagedDraw(GameObjectRenderState* state) override;
+  virtual void ManagedDraw(RenderState* state) override;
   virtual void Update() override;
 
   //=============================================================================

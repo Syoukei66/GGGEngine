@@ -1,51 +1,54 @@
 #pragma once
 
+#include <vector>
+
 #include "Renderer.h"
-#include "Mesh.h"
+#include "RenderCommand.h"
+#include "CommandBuffer.h"
 
-class MeshRenderer : public Renderer
+class Scene;
+class RenderState;
+
+//Renderer‚©‚çCommandBuffer‚ðì¬‚µ‚½•û‚ª‚¢‚¢‚Ì‚©‚à
+class RendererManager
 {
-  // =================================================================
-  // Factory Method
-  // =================================================================
-public:
-  static MeshRenderer* Create(const Mesh& mesh, GameObject* entity);
-  static MeshRenderer* Create(const Mesh* mesh, GameObject* entity);
-
   // =================================================================
   // Constructor / Destructor
   // =================================================================
-protected:
-  MeshRenderer(GameObject* entity);
+public:
+  RendererManager(Scene* scene);
+  ~RendererManager();
 
   // =================================================================
   // Method
   // =================================================================
 public:
-  virtual void Submit(CommandBuffer* buf) const override;
+  void Update();
+  void Draw();
+
+  void AddRenderer(Renderer* renderer);
+  void RemoveRenderer(Renderer* renderer);
+
+  void AddRenderState(RenderState* state);
+  void RemoveRenderState(RenderState* state);
+  void ClearRenderState();
 
   // =================================================================
   // setter/getter
   // =================================================================
 public:
-  inline const Mesh* GetMesh() const
+  inline CommandBuffer* GetCommandBuffer()
   {
-    return this->mesh_;
-  }
-
-  inline void SetMesh(const Mesh& mesh)
-  {
-    this->mesh_ = &mesh;
-  }
-  inline void SetMesh(const Mesh* mesh)
-  {
-    this->mesh_ = mesh;
+    return this->command_buffer_;
   }
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
-  const Mesh* mesh_;
+  Scene* scene_;
+  std::vector<Renderer*> renderers_;
+  CommandBuffer* command_buffer_;
 
+  std::vector<RenderState*> render_states_;
 };

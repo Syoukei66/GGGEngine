@@ -1,5 +1,5 @@
 #include "Material.h"
-#include "GameObjectRenderState.h"
+#include "RenderState.h"
 #include "Camera.h"
 #include "GameObject.h"
 
@@ -13,8 +13,8 @@ Material::Material(const ShaderResource& resource, bool protect)
   , technique_("Default")
   , color_()
   , texture_()
-  , queue_(GraphicsConstants::RenderQueue::RQ_GEOMETRY)
-  , billbording_(false)
+  , clones_()
+  , attribute_(Graphics::RenderAttribute::R_ATTR_GEOMETRY)
 {
 }
 
@@ -42,7 +42,7 @@ Material* Material::Clone()
   }
   ret->color_ = this->color_;
   ret->texture_ = this->texture_;
-  ret->queue_ = this->queue_;
+  ret->attribute_ = this->attribute_;
   this->clones_.emplace_back(ret);
   return ret;
 }
@@ -76,14 +76,15 @@ void Material::BeginPass(T_UINT8 path_id)
   }
 }
 
-void Material::SetDefaultProperties(GameObjectRenderState* state)
+void Material::SetDefaultProperties(RenderState* state)
 {
   INativeShader* shader = this->GetShader();
   shader->SetMatrix("_World", state->GetWorldMatrix());
-  shader->SetMatrix("_WorldViewProj", state->GetWorldMatrix() * state->GetViewProjMatrix());
+  //TODO:æŽZ‚ÍGPU‘¤‚É‚â‚ç‚¹‚½•û‚ª‘‚¢‚Ì‚Å‚Í
+  shader->SetMatrix("_WorldViewProj", state->GetWorldMatrix() * state->GetViewMatrix() * state->getProjectionMatrix());
 
-  shader->SetVec4f("_CameraPosition", state->GetCamera()->GetEntity()->GetWorldMatrix().GetPosition4d());
-  shader->SetVec3f("_CameraDirection", state->GetCamera()->GetEntity()->GetWorldMatrix().GetDirection3d());
+  shader->SetVec4f("_CameraPosition", state->GetViewMatrix().GetPosition4d());
+  shader->SetVec3f("_CameraDirection", state->GetViewMatrix().GetDirection3d());
 
   shader->SetTexture("_MainTex", this->texture_);
 

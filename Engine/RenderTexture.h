@@ -7,18 +7,24 @@
 class RenderTexture : public Texture
 {
 public:
-  static RenderTexture* Create(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format);
-  static RenderTexture* Create(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format, GraphicsConstants::TextureFormat depth_format);
+  static RenderTexture* Create(T_UINT16 width, T_UINT16 height, Graphics::TextureFormat format);
+  static RenderTexture* Create(T_UINT16 width, T_UINT16 height, Graphics::TextureFormat format, Graphics::TextureFormat depth_format);
 
 protected:
-  RenderTexture(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format, GraphicsConstants::TextureFormat depth_format);
+  RenderTexture(T_UINT16 width, T_UINT16 height, Graphics::TextureFormat format, Graphics::TextureFormat depth_format);
 
 public:
   virtual ~RenderTexture();
 
 public:
-  void RenderBegin(bool clear = false);
-  void RenderEnd();
+  inline RenderBuffer* GetDepthBuffer()
+  {
+    return this->depth_buffer_;
+  }
+  inline const RenderBuffer* GetDepthBuffer() const
+  {
+    return this->depth_buffer_;
+  }
 
 private:
   RenderBuffer* depth_buffer_;

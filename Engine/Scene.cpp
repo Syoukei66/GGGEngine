@@ -1,12 +1,8 @@
 #include "Scene.h"
-#include <stdlib.h>
-#include <math.h>
 
 #include "Engine.h"
-#include "Camera.h"
-#include "Camera2D.h"
-#include "Camera3D.h"
 #include "UserResourcePool.h"
+#include "GameObject2D.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -14,24 +10,38 @@
 Scene::Scene()
   : is_loaded_(false)
 {
-  this->root2d_ = new GameObject2D();
-  this->root3d_ = new GameObject3D();
+  //Root用のゲームオブジェクトを用意する必要があるかもしれない
+  this->root_ = new GameObject2D();
 }
 
 Scene::~Scene()
 {
-  if (this->root2d_)
+  if (this->root_)
   {
-    delete this->root2d_;
-  }
-  if (this->root3d_)
-  {
-    delete this->root3d_;
+    delete this->root_;
   }
 }
 
 // =================================================================
 // Method
+// =================================================================
+void Scene::AddChild(GameObject* child)
+{
+  this->root_->AddChild(child);
+}
+
+void Scene::RemoveChild(GameObject* child)
+{
+  this->root_->RemoveChild(child);
+}
+
+void Scene::ClearChildren()
+{
+  this->root_->ClearChildren();
+}
+
+// =================================================================
+// Event
 // =================================================================
 void Scene::Load(IResourceLoadingListener* listener)
 {
@@ -84,35 +94,20 @@ void Scene::HideFinish()
   this->OnHideFinish();
 }
 
-void Scene::Draw()
-{
-  for (std::vector<Camera*>::iterator itr = this->cameras_.begin(); itr != this->cameras_.end(); ++itr)
-  {
-    (*itr)->DrawScene(this);
-  }
-}
-
-void Scene::Draw2DLayers(GameObjectRenderState* state)
-{
-  this->root2d_->Draw(state);
-}
-
-void Scene::Draw3DLayers(GameObjectRenderState* state)
-{
-  this->root3d_->Draw(state);
-}
-
 void Scene::OnUpdateEvent()
 {
   this->PreUpdate();
-  this->root2d_->ManagedPreUpdate();
-  this->root3d_->ManagedPreUpdate();
+  this->root_->ManagedPreUpdate();
 
   this->Update();
-  this->root2d_->ManagedUpdate();
-  this->root3d_->ManagedUpdate();
+  this->root_->ManagedUpdate();
 
   this->PostUpdate();
-  this->root2d_->ManagedPostUpdate();
-  this->root3d_->ManagedPostUpdate();
+  this->root_->ManagedPostUpdate();
+}
+
+void Scene::Draw()
+{
+  this->camera_manager_->Draw();
+  this->renderer_manager_->Draw();
 }

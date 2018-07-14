@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObject3D.h"
+#include "TextureResource.h"
 #include "SpriteRenderer.h"
 
 class Sprite3D : public GameObject3D

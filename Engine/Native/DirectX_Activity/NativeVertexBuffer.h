@@ -22,8 +22,8 @@ public:
   virtual void Unlock() override;
 
   virtual void SetStreamSource() const override;
-  virtual void DrawPrimitive(GraphicsConstants::PrimitiveType primitive_type) const override;
-  virtual void DrawIndexedPrimitive(const INativeIndexBuffer* index_buffer, GraphicsConstants::PrimitiveType primitive_type) const override;
+  virtual void DrawPrimitive(Graphics::PrimitiveType primitive_type) const override;
+  virtual void DrawIndexedPrimitive(const INativeIndexBuffer* index_buffer, Graphics::PrimitiveType primitive_type) const override;
   
   virtual T_UINT32 GetMemorySize() const override;
   

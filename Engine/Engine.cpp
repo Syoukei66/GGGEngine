@@ -63,7 +63,6 @@ void Engine::OnUpdate()
   }
   //EntityModifierManager::GetInstance().OnUpdate(UpdateEventState::GetInstance()->GetDeltaTime());
   EntityModifierManager::GetInstance().OnUpdate(1);
-  now_scene->OnInputEvent();
   now_scene->OnUpdateEvent();
 }
 

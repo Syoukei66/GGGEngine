@@ -6,21 +6,21 @@
 
 class GameObject2D;
 
+//TODO:ëΩï™ê≥èÌÇ…ìÆçÏÇµÇ»Ç¢
 class Camera2D_MultiTarget : public Camera2D
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  Camera2D_MultiTarget(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_min, T_FLOAT z_max);
-  Camera2D_MultiTarget();
+  Camera2D_MultiTarget(GameObject* entity);
   ~Camera2D_MultiTarget();
 
   // =================================================================
   // Methods for/from SuperClass/Interfaces
   // =================================================================
 public:
-  virtual void Update() override;
+  virtual void SetupCamera() override;
 
   virtual const Matrix4x4& GetViewMatrix() const override;
 

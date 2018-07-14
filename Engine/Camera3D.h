@@ -1,9 +1,6 @@
 #pragma once
 
-#include <deque>
 #include "Camera.h"
-#include "GameComponent.h"
-#include "GameObject3D.h"
 
 class Camera3D : public Camera
 {
@@ -11,32 +8,22 @@ class Camera3D : public Camera
   // Constructor / Destructor
   // =================================================================
 public:
-  Camera3D(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_min, T_FLOAT z_max);
-  Camera3D();
+  Camera3D(GameObject* entity);
   virtual ~Camera3D();
 
   // =================================================================
   // Methods for/from SuperClass/Interfaces
   // =================================================================
 public:
-  virtual bool FrustumCulling(const TVec3f& positive, const TVec3f& negative, T_INT8* first_index = nullptr) const override;
-
   virtual const Matrix4x4& GetViewMatrix() const override;
   virtual const Matrix4x4& GetProjectionMatrix() const override;
 
 protected:
   virtual void SetupCamera() override;
 
-  virtual void OnViewportChanged() override;
-
-  virtual void OnDrawScene(Scene* scene) override;
-
   // =================================================================
   // Method
   // =================================================================
-public:
-  TVec3f CalcRayVector(const TVec2f& screen_position);
-
 protected:
   void CheckProjectionDirty();
 
@@ -50,17 +37,6 @@ private:
   // setter/getter
   // =================================================================
 public:
-  const TVec3f Get2dPositionScale(const GameObject3D* obj) const;
-  const TVec3f Get2dPosition(const GameObject3D* obj) const;
-
-  inline Transform3D* GetTransform()
-  {
-    return ((GameObject3D*)this->entity_)->GetTransform();
-  }
-  inline const Transform3D* GetTransform() const
-  {
-    return ((GameObject3D*)this->entity_)->GetTransform();
-  }
   void SetFov(T_FLOAT fov);
   inline T_FLOAT GetFov() const
   {
@@ -79,12 +55,6 @@ public:
   inline const Matrix4x4& GetBillboardingMatrix() const
   {
     return this->billboarding_matrix_;
-  }
-
-protected:
-  inline void SetDirection(const TVec3f& direction)
-  {
-    this->direction_ = direction;
   }
 
   // =================================================================

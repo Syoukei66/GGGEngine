@@ -17,6 +17,19 @@ typedef uint_fast64_t T_UINT64;
 typedef float T_FLOAT;
 typedef double T_DOUBLE;
 
+typedef int8_t T_INT8_FIXED;
+typedef int16_t T_INT16_FIXED;
+typedef int32_t T_INT32_FIXED;
+typedef int64_t T_INT64_FIXED;
+
+typedef uint8_t T_UINT8_FIXED;
+typedef uint16_t T_UINT16_FIXED;
+typedef uint32_t T_UINT32_FIXED;
+typedef uint64_t T_UINT64_FIXED;
+
+typedef float T_FLOAT_FIXED;
+typedef double T_DOUBLE_FIXED;
+
 namespace Limit
 {
 

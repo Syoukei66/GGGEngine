@@ -8,7 +8,7 @@
 #include "ShaderProperties.h"
 #include "GraphicsConstants.h"
 
-class GameObjectRenderState;
+class RenderState;
 
 class Material
 {
@@ -28,7 +28,7 @@ public:
 
   T_UINT8 Begin();
   void BeginPass(T_UINT8 path_id);
-  void SetDefaultProperties(GameObjectRenderState* state);
+  void SetDefaultProperties(RenderState* state);
   void CommitChanges();
   void EndPass();
   void End();
@@ -198,26 +198,16 @@ public:
     return this->color_;
   }
 
-  inline void SetRenderQueue(GraphicsConstants::RenderQueue queue)
+  inline void SetRenderAttribute(Graphics::RenderAttribute attribute)
   {
     NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
-    this->queue_ = queue;
+    this->attribute_ = attribute;
   }
-  inline GraphicsConstants::RenderQueue GetRenderQueue() const
+  inline Graphics::RenderAttribute GetRenderAttribute() const
   {
-    return this->queue_;
+    return this->attribute_;
   }
 
-  inline void SetBillboardingFlag(bool billboarding)
-  {
-    NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
-    this->billbording_ = billboarding;
-  }
-
-  inline bool IsBillboard() const
-  {
-    return this->billbording_;
-  }
   // =================================================================
   // Data Member
   // =================================================================
@@ -231,8 +221,8 @@ protected:
   TColor color_;
   const Texture* texture_;
 
-  GraphicsConstants::RenderQueue queue_;
-  bool billbording_;
-
   std::vector<Material*> clones_;
+
+  Graphics::RenderAttribute attribute_;
+
 };

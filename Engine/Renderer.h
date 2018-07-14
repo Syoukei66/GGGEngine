@@ -1,13 +1,15 @@
 #pragma once
 
+#include "GameObject.h"
 #include "GameComponent.h"
 #include "Material.h"
 
-class GameObjectRenderState;
-class GameObject;
+class CommandBuffer;
 
 class Renderer : public GameComponent
 {
+public:
+
   // =================================================================
   // Constructor / Destructor
   // =================================================================
@@ -19,15 +21,8 @@ public:
   // Method
   // =================================================================
 public:
-  void ReserveDraw(GameObjectRenderState* state);
   void UniqueMaterial();
-  
-  virtual void Draw(GameObjectRenderState* state) const = 0;
-/*
-protected:
-  virtual void EditProperty(T_UINT8 material_index, T_UINT8 pass_index, Material* material) = 0;
-  virtual void SetStreamSource() = 0;
-  virtual void DrawSubset(T_UINT8 material_index, T_UINT8 pass_index) = 0;*/
+  virtual void Submit(CommandBuffer* buf) const = 0;
 
   // =================================================================
   // setter/getter
@@ -40,6 +35,15 @@ public:
   inline T_UINT8 GetLayerId() const
   {
     return this->layer_id_;
+  }
+
+  inline void SetIndexId(T_UINT8 index_id)
+  {
+    this->index_id_ = index_id;
+  }
+  inline T_UINT8 GetIndexId() const
+  {
+    return this->index_id_;
   }
 
   inline void AddMaterial(Material& material)
@@ -55,27 +59,30 @@ public:
   {
     return this->materials_[index];
   }
-  inline T_UINT16 GetMaterialCount()
+  inline T_UINT8 GetMaterialCount()
   {
-    return (T_UINT16)this->materials_.size();
+    return (T_UINT8)this->materials_.size();
   }
 
-  inline GameObject* GetEntity()
+  inline void SetBillboardingFlag(bool billboarding)
   {
-    return this->entity_;
+    this->billbording_ = billboarding;
   }
 
-  inline const GameObject* GetEntity() const
+  inline bool IsBillboard() const
   {
-    return this->entity_;
+    return this->billbording_;
   }
-
   // =================================================================
   // Data Member
   // =================================================================
 protected:
-  GameObject* entity_;
+  //フィルタリングに使用
   T_UINT8 layer_id_;
+  //ソートに使用
+  T_UINT8 index_id_;
+
   std::vector<Material*> materials_;
+  bool billbording_;
 
 };

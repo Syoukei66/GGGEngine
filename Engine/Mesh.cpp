@@ -147,7 +147,7 @@ Mesh* Mesh::Clone(bool readonly)
   return clone;
 }
 
-void Mesh::CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT32 format, GraphicsConstants::PrimitiveType primitive_type)
+void Mesh::CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT32 format, Graphics::PrimitiveType primitive_type)
 {
   this->ClearVertices(true);
 
@@ -156,7 +156,7 @@ void Mesh::CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT3
   this->format_ = format;
   this->primitive_type_ = primitive_type;
 
-  using namespace GraphicsConstants;
+  using namespace Graphics;
 
   if (format & V_ATTR_POSITION)
   {
@@ -217,7 +217,7 @@ void Mesh::CreateIndices(T_UINT8 submesh_count, T_UINT32* index_counts)
 
 void Mesh::CommitChanges(bool readonly)
 {
-  using namespace GraphicsConstants;
+  using namespace Graphics;
 
   if (this->vertices_dirty_)
   {
@@ -313,9 +313,9 @@ void Mesh::CommitChanges(bool readonly)
 
 void Mesh::RecalculateNormals(bool save_face_normals)
 {
-  NATIVE_ASSERT(this->primitive_type_ == GraphicsConstants::PRIMITIVE_TRIANGLES, "まだできてません！");
+  NATIVE_ASSERT(this->primitive_type_ == Graphics::PRIMITIVE_TRIANGLES, "まだできてません！");
 
-  NATIVE_ASSERT(this->format_ & GraphicsConstants::V_ATTR_NORMAL, "フォーマットに法線情報が含まれていません");
+  NATIVE_ASSERT(this->format_ & Graphics::V_ATTR_NORMAL, "フォーマットに法線情報が含まれていません");
   
   if (!this->face_normals_)
   {
@@ -353,10 +353,10 @@ void Mesh::RecalculateNormals(bool save_face_normals)
 
 void Mesh::RecalculateTangents()
 {
-  NATIVE_ASSERT(this->primitive_type_ == GraphicsConstants::PRIMITIVE_TRIANGLES, "まだできてません！");
+  NATIVE_ASSERT(this->primitive_type_ == Graphics::PRIMITIVE_TRIANGLES, "まだできてません！");
 
-  NATIVE_ASSERT(this->format_ & GraphicsConstants::V_ATTR_NORMAL, "フォーマットに法線情報が含まれていません");
-  NATIVE_ASSERT(this->format_ & GraphicsConstants::V_ATTR_TANGENT, "フォーマットにtangentベクトル情報が含まれていません");
+  NATIVE_ASSERT(this->format_ & Graphics::V_ATTR_NORMAL, "フォーマットに法線情報が含まれていません");
+  NATIVE_ASSERT(this->format_ & Graphics::V_ATTR_TANGENT, "フォーマットにtangentベクトル情報が含まれていません");
 
   /*
   https://answers.unity.com/questions/7789/calculating-tangents-vector4.html
@@ -447,7 +447,7 @@ void Mesh::DrawSubset(T_UINT8 index) const
 T_UINT32 Mesh::GetMemorySize() const
 {
   T_UINT32 ret = sizeof(Mesh);
-  using namespace GraphicsConstants;
+  using namespace Graphics;
   if (this->vertices_)
   {
     ret += VERTEX_ATTRIBUTE_SIZE(V_ATTR_POSITION) * this->vertex_count_;

@@ -3,19 +3,17 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-GameComponent::GameComponent()
-  : enabled_(true)
+void GameComponent::Release()
+{
+  delete this;
+}
+
+GameComponent::GameComponent(GameObject* entity)
+  : entity_(entity)
+  , enabled_(true)
 {
 }
 
-// =================================================================
-// Setter / Getter
-// =================================================================
-void GameComponent::SetEnabled(bool enabled)
+GameComponent::~GameComponent()
 {
-  if (this->enabled_ == enabled)
-  {
-    return;
-  }
-  this->enabled_ = enabled;
 }

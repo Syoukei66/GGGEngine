@@ -8,7 +8,7 @@ class RenderBuffer
 {
 public:
   static RenderBuffer* CreateColorBuffer(Texture* texture);
-  static RenderBuffer* CreateDepthBuffer(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format);
+  static RenderBuffer* CreateDepthBuffer(T_UINT16 width, T_UINT16 height, Graphics::TextureFormat format);
 
 private:
   RenderBuffer(void* native_obj);

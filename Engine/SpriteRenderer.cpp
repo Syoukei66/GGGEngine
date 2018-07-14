@@ -25,7 +25,7 @@ SpriteRenderer::~SpriteRenderer()
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
-void SpriteRenderer::Draw(GameObjectRenderState* state) const
+void SpriteRenderer::Draw(RenderState* state) const
 {
   EngineAsset::Mesh::QUAD.GetContents().SetStreamSource();
   Material* material = this->materials_[0];
