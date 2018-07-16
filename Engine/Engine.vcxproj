@@ -250,6 +250,7 @@
     <ClCompile Include="SpineResource.cpp" />
     <ClCompile Include="Sprite3D.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
+    <ClCompile Include="StaticMesh.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Transform3DRotator.cpp" />
     <ClCompile Include="GameObjectRenderState.cpp" />
@@ -369,6 +370,7 @@
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="MeshResource.h" />
     <ClInclude Include="ModelData.h" />
+    <ClInclude Include="ModelInstance.h" />
     <ClInclude Include="ModelNode.h" />
     <ClInclude Include="ModelResource.h" />
     <ClInclude Include="NativeAssert.h" />
@@ -424,6 +426,7 @@
     <ClInclude Include="SpineResource.h" />
     <ClInclude Include="Sprite3D.h" />
     <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="StaticMesh.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureRegion.h" />
     <ClInclude Include="TextureSource.h" />

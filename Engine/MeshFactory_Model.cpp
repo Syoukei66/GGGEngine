@@ -4,7 +4,7 @@
 Mesh* MeshFactory::Model::Create(ModelData* model, ModelNodeData* node, bool readonly)
 {
   using namespace GraphicsConstants;
-  Mesh* ret = new Mesh();
+  Mesh* mesh = new Mesh();
  
   T_UINT32 format = 0;
 

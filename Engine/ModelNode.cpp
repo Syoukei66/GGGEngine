@@ -5,9 +5,9 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-ModelNode::ModelNode(const ModelNodeData& node)
+ModelNode::ModelNode(const ModelNodeData* node)
   : node_(node)
-  , child_count_(node.child_count_)
+  , child_count_(node->child_count_)
   , parent_(nullptr)
 {
   this->SetRenderer(MeshRenderer::Create(node.GetMesh(), this));

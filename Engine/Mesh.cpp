@@ -1,6 +1,8 @@
 #include "Mesh.h"
 #include "GraphicsConstants.h"
 
+#include "StaticMesh.h"
+
 // =================================================================
 // Constructor / Destructor
 // =================================================================
@@ -145,6 +147,11 @@ Mesh* Mesh::Clone(bool readonly)
   }
   clone->CommitChanges(readonly);
   return clone;
+}
+
+StaticMesh* Mesh::CloneStatic()
+{
+  return new StaticMesh(this->vertex_buffer_, this->index_buffers_, this->submesh_count_);
 }
 
 void Mesh::CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT32 format, GraphicsConstants::PrimitiveType primitive_type)

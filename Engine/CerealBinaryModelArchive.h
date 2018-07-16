@@ -312,9 +312,7 @@ void serialize(Archive& archive, ModelNodeData& data)
   if (data.submesh_count_ > 0)
   {
     SAFE_NEW(data.mesh_indices_, T_UINT32[data.submesh_count_]);
-    SAFE_NEW(data.material_indices_, T_UINT32[data.submesh_count_]);
     archive(cereal::binary_data(data.mesh_indices_, sizeof(T_UINT32) * data.submesh_count_));
-    archive(cereal::binary_data(data.material_indices_, sizeof(T_UINT32) * data.submesh_count_));
   }
   archive(data.child_count_);
   if (data.child_count_ > 0)

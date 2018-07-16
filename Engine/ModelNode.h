@@ -13,7 +13,7 @@ class ModelNode : public GameObject3D
   // Constructor / Destructor
   // =================================================================
 public:
-  ModelNode(const ModelNodeData& node);
+  ModelNode(const ModelNodeData* node);
   virtual ~ModelNode();
 
   // =================================================================
@@ -44,7 +44,7 @@ public:
   // Data Member
   // =================================================================
 private:
-  const ModelNodeData& node_;
+  const ModelNodeData* const node_;
   const T_UINT8 child_count_;
   ModelNode** children_;
 
