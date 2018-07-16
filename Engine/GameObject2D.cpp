@@ -18,10 +18,7 @@ GameObject2D::GameObject2D()
 
 GameObject2D::~GameObject2D()
 {
-  if (this->transform_)
-  {
-    delete this->transform_;
-  }
+  delete this->transform_;
 }
 
 // =================================================================
@@ -34,41 +31,14 @@ void GameObject2D::Init()
   this->children_zindex_dirty_ = true;
 }
 
-void GameObject2D::ManagedPreUpdate()
-{
-  this->PreUpdate();
-  for (GameObject2D* child : this->children_)
-  {
-    child->ManagedPreUpdate();
-  }
-}
-
-void GameObject2D::ManagedUpdate()
-{
-  this->Update();
-  for (GameObject2D* child : this->children_)
-  {
-    child->ManagedUpdate();
-  }
-}
-
-void GameObject2D::ManagedPostUpdate()
-{
-  this->PostUpdate();
-  for (GameObject2D* child : this->children_)
-  {
-    child->ManagedPostUpdate();
-  }
-}
-
 void GameObject2D::AddChild(GameObject2D* child)
 {
   child->parent_ = this;
   this->children_.emplace_back(child);
   this->OnChildrenZIndexChanged();
-  child->FireOnPositionChanged(this);
-  child->FireOnScaleChanged(this);
-  child->FireOnRotationChanged(this);
+  child->FireOnPositionChanged();
+  child->FireOnScaleChanged();
+  child->FireOnRotationChanged();
 }
 
 void GameObject2D::RemoveChild(GameObject2D* child)
@@ -106,42 +76,6 @@ void GameObject2D::ClearChildren()
   this->children_.clear();
 }
 
-void GameObject2D::Draw(GameObjectRenderState* state)
-{
-  if (!this->IsVisible())
-  {
-    return;
-  }
-
-  //描画前のアップデート処理
-  this->UpdateChildrenZIndex();
-
-  // 1.zIndexが0未満の子GameObject
-  // 2.自分自身
-  // 3.zIndexが0以上の子GameObject
-  //という順序で描画を行う
-  bool self_already_drawed = false;
-  for (GameObject2D* child : this->children_)
-  {
-    if (child->zindex_ == 0 && !self_already_drawed)
-    {
-      //2.自分自身
-      this->ManagedDraw(state);
-      self_already_drawed = true;
-    }
-    if (!child->IsVisible())
-    {
-      continue;
-    }
-    child->Draw(state);
-  }
-  if (!self_already_drawed)
-  {
-    //2.自分自身
-    this->ManagedDraw(state);
-  }
-}
-
 void GameObject2D::RegisterEntityModifier(EntityModifierRoot* root)
 {
   root->OnAttached(this);
@@ -164,33 +98,93 @@ void GameObject2D::ClearEntityModifiers()
 // =================================================================
 // Events
 // =================================================================
-void GameObject2D::FireOnPositionChanged(GameObject* root)
+
+void GameObject2D::ManagedDraw(GameObjectRenderState* state)
 {
-  this->transform_->OnWorldTransformDirty();
-  this->OnPositionChanged(root);
+  if (!this->IsVisible())
+  {
+    return;
+  }
+
+  //描画前のアップデート処理
+  this->UpdateChildrenZIndex();
+
+  // 1.zIndexが0未満の子GameObject
+  // 2.自分自身
+  // 3.zIndexが0以上の子GameObject
+  //という順序で描画を行う
+  bool self_already_drawed = false;
   for (GameObject2D* child : this->children_)
   {
-    child->FireOnPositionChanged(root);
+    if (child->zindex_ == 0 && !self_already_drawed)
+    {
+      //2.自分自身
+      this->Draw(state);
+      self_already_drawed = true;
+    }
+    child->ManagedDraw(state);
+  }
+  if (!self_already_drawed)
+  {
+    //2.自分自身
+    this->Draw(state);
   }
 }
 
-void GameObject2D::FireOnScaleChanged(GameObject* root)
+void GameObject2D::ManagedPreUpdate()
 {
-  this->transform_->OnWorldTransformDirty();
-  this->OnScaleChanged(root);
+  this->PreUpdate();
   for (GameObject2D* child : this->children_)
   {
-    child->FireOnScaleChanged(root);
+    child->ManagedPreUpdate();
   }
 }
 
-void GameObject2D::FireOnRotationChanged(GameObject* root)
+void GameObject2D::ManagedUpdate()
 {
-  this->transform_->OnWorldTransformDirty();
-  this->OnRotationChanged(root);
+  this->Update();
   for (GameObject2D* child : this->children_)
   {
-    child->FireOnRotationChanged(root);
+    child->ManagedUpdate();
+  }
+}
+
+void GameObject2D::ManagedPostUpdate()
+{
+  this->PostUpdate();
+  for (GameObject2D* child : this->children_)
+  {
+    child->ManagedPostUpdate();
+  }
+}
+
+void GameObject2D::FireOnPositionChanged()
+{
+  this->transform_->OnWorldTransformDirty();
+  this->OnPositionChanged();
+  for (GameObject2D* child : this->children_)
+  {
+    child->FireOnPositionChanged();
+  }
+}
+
+void GameObject2D::FireOnScaleChanged()
+{
+  this->transform_->OnWorldTransformDirty();
+  this->OnScaleChanged();
+  for (GameObject2D* child : this->children_)
+  {
+    child->FireOnScaleChanged();
+  }
+}
+
+void GameObject2D::FireOnRotationChanged()
+{
+  this->transform_->OnWorldTransformDirty();
+  this->OnRotationChanged();
+  for (GameObject2D* child : this->children_)
+  {
+    child->FireOnRotationChanged();
   }
 }
 

@@ -20,33 +20,28 @@ public:
 public:
   virtual void Init() override;
 
-  virtual void ManagedPreUpdate() override;
-  virtual void ManagedUpdate() override;
-  virtual void ManagedPostUpdate() override;
-
   // =================================================================
   // Method
   // =================================================================
 public:
-  //子GameObjectを追加します。
-  //追加された子GameObjectをdeleteする機能はありません
   virtual void AddChild(GameObject3D* child);
-  //指定した子GameObjectを子リストから削除します。
   virtual void RemoveChild(GameObject3D* child);
-  //自身を親GameObjectの子リストから削除します。
   virtual void RemoveSelf();
-  //全ての子GameObjectを子リストから削除します。
   virtual void ClearChildren();
-
-  virtual void Draw(GameObjectRenderState* state);
 
   // =================================================================
   // Events
   // =================================================================
 public:
-  virtual void FireOnPositionChanged(GameObject* root) override;
-  virtual void FireOnScaleChanged(GameObject* root) override;
-  virtual void FireOnRotationChanged(GameObject* root) override;
+  virtual void ManagedDraw(GameObjectRenderState* state) override;
+
+  virtual void ManagedPreUpdate() override;
+  virtual void ManagedUpdate() override;
+  virtual void ManagedPostUpdate() override;
+
+  virtual void FireOnPositionChanged() override;
+  virtual void FireOnScaleChanged() override;
+  virtual void FireOnRotationChanged() override;
 
   // =================================================================
   // Setter / Getter

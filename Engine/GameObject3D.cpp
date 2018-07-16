@@ -25,40 +25,13 @@ void GameObject3D::Init()
   GameObject::Init();
 }
 
-void GameObject3D::ManagedPreUpdate()
-{
-  this->PreUpdate();
-  for (GameObject3D* child : this->children_)
-  {
-    child->ManagedPreUpdate();
-  }
-}
-
-void GameObject3D::ManagedUpdate()
-{
-  this->Update();
-  for (GameObject3D* child : this->children_)
-  {
-    child->ManagedUpdate();
-  }
-}
-
-void GameObject3D::ManagedPostUpdate()
-{
-  this->PostUpdate();
-  for (GameObject3D* child : this->children_)
-  {
-    child->ManagedPostUpdate();
-  }
-}
-
 void GameObject3D::AddChild(GameObject3D* child)
 {
   child->parent_ = this;
   this->children_.emplace_back(child);
-  child->FireOnPositionChanged(this);
-  child->FireOnScaleChanged(this);
-  child->FireOnRotationChanged(this);
+  child->FireOnPositionChanged();
+  child->FireOnScaleChanged();
+  child->FireOnRotationChanged();
 }
 
 void GameObject3D::RemoveChild(GameObject3D* child)
@@ -96,52 +69,79 @@ void GameObject3D::ClearChildren()
   this->children_.clear();
 }
 
-void GameObject3D::Draw(GameObjectRenderState* state)
-{ 
+// =================================================================
+// Events
+// =================================================================
+void GameObject3D::ManagedDraw(GameObjectRenderState* state)
+{
   if (!this->IsVisible())
   {
     return;
   }
 
   // 自分自身の描画
-  this->ManagedDraw(state);
+  this->Draw(state);
 
   // 子の描画
   for (GameObject3D* child : this->children_)
   {
-    child->Draw(state);
+    child->ManagedDraw(state);
   }
 }
 
-// =================================================================
-// Events
-// =================================================================
-void GameObject3D::FireOnPositionChanged(GameObject* root)
+void GameObject3D::ManagedPreUpdate()
 {
-  this->transform_->OnWorldTransformDirty();
-  this->OnPositionChanged(root);
+  this->PreUpdate();
   for (GameObject3D* child : this->children_)
   {
-    child->FireOnPositionChanged(root);
+    child->ManagedPreUpdate();
   }
 }
 
-void GameObject3D::FireOnScaleChanged(GameObject* root)
+void GameObject3D::ManagedUpdate()
 {
-  this->transform_->OnWorldTransformDirty();
-  this->OnScaleChanged(root);
+  this->Update();
   for (GameObject3D* child : this->children_)
   {
-    child->FireOnScaleChanged(root);
+    child->ManagedUpdate();
   }
 }
 
-void GameObject3D::FireOnRotationChanged(GameObject* root)
+void GameObject3D::ManagedPostUpdate()
 {
-  this->transform_->OnWorldTransformDirty();
-  this->OnRotationChanged(root);
+  this->PostUpdate();
   for (GameObject3D* child : this->children_)
   {
-    child->FireOnRotationChanged(root);
+    child->ManagedPostUpdate();
+  }
+}
+
+void GameObject3D::FireOnPositionChanged()
+{
+  this->transform_->OnWorldTransformDirty();
+  this->OnPositionChanged();
+  for (GameObject3D* child : this->children_)
+  {
+    child->FireOnPositionChanged();
+  }
+}
+
+void GameObject3D::FireOnScaleChanged()
+{
+  this->transform_->OnWorldTransformDirty();
+  this->OnScaleChanged();
+  for (GameObject3D* child : this->children_)
+  {
+    child->FireOnScaleChanged();
+  }
+}
+
+void GameObject3D::FireOnRotationChanged()
+{
+  this->transform_->OnWorldTransformDirty();
+  this->OnRotationChanged();
+  for (GameObject3D* child : this->children_)
+  {
+    child->FireOnRotationChanged();
   }
 }

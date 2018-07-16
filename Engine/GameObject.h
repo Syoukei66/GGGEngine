@@ -14,7 +14,7 @@
 
 class GameObjectRenderState;
 
-class GameObject : public GameComponent
+class GameObject
 {
   // =================================================================
   // Constructor / Destructor
@@ -29,14 +29,25 @@ public:
 public:
   virtual void Init();
 
-  //TODO:�A�b�v�f�[�g�����̓^�X�N�X���b�h�Ƀ^�X�N��n�����Ŏ�������悤�ɕύX����
+  // =================================================================
+  // Events
+  // =================================================================
+public:
+  //TODO:描画処理は描画スレッドに描画コマンドを送信する事で実現するように変更(Rendererが行う)
+  virtual void ManagedDraw(GameObjectRenderState* state) = 0;
+
+  //TODO:アップデート処理はタスクスレッドにタスクを渡す事で実現するように変更する
   virtual void ManagedPreUpdate() = 0;
   virtual void ManagedUpdate() = 0;
   virtual void ManagedPostUpdate() = 0;
 
-  //TODO:�`�揈���͕`��X���b�h�ɕ`��R�}���h�𑗐M���鎖�Ŏ�������悤�ɕύX(Renderer���s��)
-  virtual void ManagedDraw(GameObjectRenderState* state);
-  
+protected:
+  void Draw(GameObjectRenderState* state);
+
+  virtual void PreUpdate() {}
+  virtual void Update() {}
+  virtual void PostUpdate() {}
+
   // =================================================================
   // Events
   // =================================================================
