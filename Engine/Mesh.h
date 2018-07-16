@@ -14,6 +14,8 @@
 
 #include "GraphicsConstants.h"
 
+class StaticMesh;
+
 class Mesh : public IMesh
 {
   // =================================================================
@@ -36,6 +38,7 @@ public:
   void ClearIndices(bool clear_buffer);
 
   Mesh* Clone(bool readonly);
+  StaticMesh* CloneStatic();
 
   void CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT32 format, GraphicsConstants::PrimitiveType primitive_type = GraphicsConstants::PRIMITIVE_TRIANGLES);
   inline void CreateVerticesWithIndex(T_UINT32 vertex_count, T_UINT32 index_count, T_UINT32 format, GraphicsConstants::PrimitiveType primitive_type = GraphicsConstants::PRIMITIVE_TRIANGLES)

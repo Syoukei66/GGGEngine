@@ -6,7 +6,7 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-Material::Material(const ShaderResource& resource, bool protect)
+Material::Material(const ShaderAsset& resource, bool protect)
   : protected_(protect)
   , shader_resource_(&resource)
   , properties_()

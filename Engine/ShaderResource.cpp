@@ -1,15 +1,15 @@
 #include "ShaderResource.h"
 #include "UserResourcePool.h"
 
-ShaderResource* ShaderResource::DynamicLoad(const char* path)
+ShaderAsset* ShaderAsset::DynamicLoad(const char* path)
 {
-  return UserResourcePool::GetInstance().DynamicLoad<ShaderResource>(path);
+  return UserResourcePool::GetInstance().DynamicLoad<ShaderAsset>(path);
 }
 
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-ShaderResource::ShaderResource(const char* path)
+ShaderAsset::ShaderAsset(const char* path)
   : FileResource("ShaderData", path)
 {
 }
@@ -17,7 +17,7 @@ ShaderResource::ShaderResource(const char* path)
 // =================================================================
 // Methods
 // =================================================================
-INativeShader* ShaderResource::NativeLoadProcess(const std::string& path)
+INativeShader* ShaderAsset::NativeLoadProcess(const std::string& path)
 {
   return INativeShader::Create(path.c_str());
 }

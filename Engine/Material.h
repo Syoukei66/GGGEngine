@@ -16,7 +16,7 @@ class Material
   // Constructor / Destructor
   // =================================================================
 public:
-  Material(const ShaderResource& resource, bool protect = false);
+  Material(const ShaderAsset& resource, bool protect = false);
   ~Material();
 
   // =================================================================
@@ -37,7 +37,7 @@ public:
   // setter/getter
   // =================================================================
 public:
-  inline void SetShader(const ShaderResource& shader)
+  inline void SetShader(const ShaderAsset& shader)
   {
     this->shader_resource_ = &shader;
   }
@@ -223,7 +223,7 @@ public:
   // =================================================================
 protected:
   const bool protected_;
-  const ShaderResource* shader_resource_;
+  const ShaderAsset* shader_resource_;
   std::unordered_map<std::string, ShaderProperty*> properties_;
 
   std::string technique_;

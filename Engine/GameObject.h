@@ -33,18 +33,13 @@ public:
   // Events
   // =================================================================
 public:
-  //TODO:•`‰æˆ—‚Í•`‰æƒXƒŒƒbƒh‚É•`‰æƒRƒ}ƒ“ƒh‚ð‘—M‚·‚éŽ–‚ÅŽÀŒ»‚·‚é‚æ‚¤‚É•ÏX(Renderer‚ªs‚¤)
+  //TODO:æç”»å‡¦ç†ã¯æç”»ã‚¹ãƒ¬ãƒƒãƒ‰ã«æç”»ã‚³ãƒžãƒ³ãƒ‰ã‚’é€ä¿¡ã™ã‚‹äº‹ã§å®Ÿç¾ã™ã‚‹ã‚ˆã†ã«å¤‰æ›´(RendererãŒè¡Œã†)
   virtual void ManagedDraw(GameObjectRenderState* state) = 0;
 
-  //TODO:ƒAƒbƒvƒf[ƒgˆ—‚Íƒ^ƒXƒNƒXƒŒƒbƒh‚Éƒ^ƒXƒN‚ð“n‚·Ž–‚ÅŽÀŒ»‚·‚é‚æ‚¤‚É•ÏX‚·‚é
+  //TODO:ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆå‡¦ç†ã¯ã‚¿ã‚¹ã‚¯ã‚¹ãƒ¬ãƒƒãƒ‰ã«ã‚¿ã‚¹ã‚¯ã‚’æ¸¡ã™äº‹ã§å®Ÿç¾ã™ã‚‹ã‚ˆã†ã«å¤‰æ›´ã™ã‚‹
   virtual void ManagedPreUpdate() = 0;
   virtual void ManagedUpdate() = 0;
   virtual void ManagedPostUpdate() = 0;
-
-  //TODO:‚±‚ê‚ç‚ð‚±‚±‚É’u‚­‚Ì‚Í“KØ‚© eŽqŠÖŒW‚ðTransform‘¤‚ÉˆÚ÷‚·‚é‚×‚«‚©
-  virtual void FireOnPositionChanged() = 0;
-  virtual void FireOnScaleChanged() = 0;
-  virtual void FireOnRotationChanged() = 0;
 
 protected:
   void Draw(GameObjectRenderState* state);
@@ -53,9 +48,23 @@ protected:
   virtual void Update() {}
   virtual void PostUpdate() {}
 
-  virtual void OnPositionChanged() {}
-  virtual void OnScaleChanged() {}
-  virtual void OnRotationChanged() {}
+  // =================================================================
+  // Events
+  // =================================================================
+public:
+  virtual void FireOnPositionChanged(GameObject* root) = 0;
+  virtual void FireOnScaleChanged(GameObject* root) = 0;
+  virtual void FireOnRotationChanged(GameObject* root) = 0;
+
+protected:
+  virtual void OnPositionChanged(GameObject* root) {}
+  virtual void OnScaleChanged(GameObject* root) {}
+  virtual void OnRotationChanged(GameObject* root) {}
+  
+  // =================================================================
+  // Hierarchy 
+  // =================================================================
+public:
 
   // =================================================================
   // Setter / Getter

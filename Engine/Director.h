@@ -61,11 +61,6 @@ public:
     return this->activity_->GetDevice();
   }
 
-  inline FbxManager* GetFbxManager() const
-  {
-    return this->activity_->GetFbxManager();
-  }
-
   inline T_UINT8 GetFrameRate() const
   {
     //TODO: ‰Â•Ï‚É‚µ‚½‚¢

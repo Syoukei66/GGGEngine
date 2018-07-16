@@ -2,9 +2,10 @@
 
 #include <string>
 #include <map>
-#include <fbxsdk.h>
 #include "GameObject3D.h"
-#include "FbxNodeData.h"
+#include "ModelData.h"
+
+class Model;
 
 class ModelNode : public GameObject3D
 {
@@ -12,7 +13,7 @@ class ModelNode : public GameObject3D
   // Constructor / Destructor
   // =================================================================
 public:
-  ModelNode(const FbxNodeData& node);
+  ModelNode(const ModelNodeData* node);
   virtual ~ModelNode();
 
   // =================================================================
@@ -22,11 +23,11 @@ public:
   ModelNode* FindFromChildren(const char* name);
   ModelNode* FindFromTree(const char* name);
 
-  void SetShader(const ShaderResource& shader);
-  void SetShaderForChildren(const ShaderResource& shader);
-  void SetShaderForChildren(const char* name, const ShaderResource& shader);
-  void SetShaderForTree(const ShaderResource& shader);
-  void SetShaderForTree(const char* name, const ShaderResource& shader);
+  void SetShader(const ShaderAsset& shader);
+  void SetShaderForChildren(const ShaderAsset& shader);
+  void SetShaderForChildren(const char* name, const ShaderAsset& shader);
+  void SetShaderForTree(const ShaderAsset& shader);
+  void SetShaderForTree(const char* name, const ShaderAsset& shader);
 
   void SetMaterial(Material& material);
   void SetMaterialForChildren(Material& material);
@@ -43,7 +44,7 @@ public:
   // Data Member
   // =================================================================
 private:
-  const FbxNodeData& node_;
+  const ModelNodeData* const node_;
   const T_UINT8 child_count_;
   ModelNode** children_;
 

@@ -1,23 +1,23 @@
 #pragma once
 
-#include "NativeShader.h"
+#include <string>
 #include "FileResource.h"
+#include "ModelData.h"
 
-class ShaderAsset : public FileResource<INativeShader>
+class ModelResource : public FileResource<ModelData>
 {
 public:
-  static ShaderAsset* DynamicLoad(const char* path);
+  static ModelResource* DynamicLoad(const char* path);
 
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  ShaderAsset(const char* path);
+  ModelResource(const char* path);
 
   // =================================================================
   // Methods
   // =================================================================
-public:
-  virtual INativeShader* NativeLoadProcess(const std::string& path) override;
-
+  virtual ModelData* NativeLoadProcess(const std::string& path) override;
+ 
 };

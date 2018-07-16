@@ -32,7 +32,7 @@ public:
     T_FLOAT _41, _42, _43, _44;
   };
   T_FLOAT m[4][4];
-  T_FLOAT v[16];
+  T_FLOAT data[16];
   Eigen::Matrix<T_FLOAT, 4, 4, Eigen::RowMajor> eigen;
 
   // =================================================================
@@ -187,11 +187,11 @@ public:
 
   inline operator T_FLOAT* ()
   {
-    return this->v;
+    return this->data;
   }
   inline operator const T_FLOAT* () const
   {
-    return this->v;
+    return this->data;
   }
 
   inline Matrix4x4& operator *= (const Matrix4x4& other)
