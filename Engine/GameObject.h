@@ -34,7 +34,7 @@ public:
   // =================================================================
 public:
   //TODO:描画処理は描画スレッドに描画コマンドを送信する事で実現するように変更(Rendererが行う)
-  virtual void ManagedDraw(GameObjectRenderState* state);
+  virtual void ManagedDraw(GameObjectRenderState* state) = 0;
 
   //TODO:アップデート処理はタスクスレッドにタスクを渡す事で実現するように変更する
   virtual void ManagedPreUpdate() = 0;
@@ -47,7 +47,7 @@ public:
   virtual void FireOnRotationChanged() = 0;
 
 protected:
-  virtual void Draw(GameObjectRenderState* state) {}
+  void Draw(GameObjectRenderState* state);
 
   virtual void PreUpdate() {}
   virtual void Update() {}

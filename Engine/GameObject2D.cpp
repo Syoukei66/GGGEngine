@@ -98,6 +98,39 @@ void GameObject2D::ClearEntityModifiers()
 // =================================================================
 // Events
 // =================================================================
+
+void GameObject2D::ManagedDraw(GameObjectRenderState* state)
+{
+  if (!this->IsVisible())
+  {
+    return;
+  }
+
+  //描画前のアップデート処理
+  this->UpdateChildrenZIndex();
+
+  // 1.zIndexが0未満の子GameObject
+  // 2.自分自身
+  // 3.zIndexが0以上の子GameObject
+  //という順序で描画を行う
+  bool self_already_drawed = false;
+  for (GameObject2D* child : this->children_)
+  {
+    if (child->zindex_ == 0 && !self_already_drawed)
+    {
+      //2.自分自身
+      this->Draw(state);
+      self_already_drawed = true;
+    }
+    child->ManagedDraw(state);
+  }
+  if (!self_already_drawed)
+  {
+    //2.自分自身
+    this->Draw(state);
+  }
+}
+
 void GameObject2D::ManagedPreUpdate()
 {
   this->PreUpdate();
@@ -168,36 +201,4 @@ void GameObject2D::UpdateChildrenZIndex()
   }
   std::sort(this->children_.begin(), this->children_.end(), [](GameObject2D* a, GameObject2D* b){ return a->zindex_ < b->zindex_; });
   this->children_zindex_dirty_ = false;
-}
-
-void GameObject2D::Draw(GameObjectRenderState* state)
-{
-  if (!this->IsVisible())
-  {
-    return;
-  }
-
-  //描画前のアップデート処理
-  this->UpdateChildrenZIndex();
-
-  // 1.zIndexが0未満の子GameObject
-  // 2.自分自身
-  // 3.zIndexが0以上の子GameObject
-  //という順序で描画を行う
-  bool self_already_drawed = false;
-  for (GameObject2D* child : this->children_)
-  {
-    if (child->zindex_ == 0 && !self_already_drawed)
-    {
-      //2.自分自身
-      this->ManagedDraw(state);
-      self_already_drawed = true;
-    }
-    child->Draw(state);
-  }
-  if (!self_already_drawed)
-  {
-    //2.自分自身
-    this->ManagedDraw(state);
-  }
 }

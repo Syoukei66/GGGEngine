@@ -72,6 +72,23 @@ void GameObject3D::ClearChildren()
 // =================================================================
 // Events
 // =================================================================
+void GameObject3D::ManagedDraw(GameObjectRenderState* state)
+{
+  if (!this->IsVisible())
+  {
+    return;
+  }
+
+  // 自分自身の描画
+  this->Draw(state);
+
+  // 子の描画
+  for (GameObject3D* child : this->children_)
+  {
+    child->ManagedDraw(state);
+  }
+}
+
 void GameObject3D::ManagedPreUpdate()
 {
   this->PreUpdate();
@@ -126,22 +143,5 @@ void GameObject3D::FireOnRotationChanged()
   for (GameObject3D* child : this->children_)
   {
     child->FireOnRotationChanged();
-  }
-}
-
-void GameObject3D::Draw(GameObjectRenderState* state)
-{
-  if (!this->IsVisible())
-  {
-    return;
-  }
-
-  // 自分自身の描画
-  this->ManagedDraw(state);
-
-  // 子の描画
-  for (GameObject3D* child : this->children_)
-  {
-    child->Draw(state);
   }
 }

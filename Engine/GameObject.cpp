@@ -25,7 +25,7 @@ void GameObject::Init()
   this->visible_ = true;
 }
 
-void GameObject::ManagedDraw(GameObjectRenderState* state)
+void GameObject::Draw(GameObjectRenderState* state)
 {
   if (!this->renderer_)
   {

@@ -43,6 +43,7 @@ public:
   // Events
   // =================================================================
 public:
+  virtual void ManagedDraw(GameObjectRenderState* state) override;
   virtual void ManagedPreUpdate() override;
   virtual void ManagedUpdate() override;
   virtual void ManagedPostUpdate() override;
@@ -52,9 +53,6 @@ public:
   virtual void FireOnRotationChanged() override;
 
   virtual void OnChildrenZIndexChanged();
-
-protected:
-  virtual void Draw(GameObjectRenderState* state);
 
   // =================================================================
   // Setter / Getter
