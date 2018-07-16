@@ -44,13 +44,14 @@ public:
   // =================================================================
 public:
   virtual void ManagedDraw(GameObjectRenderState* state) override;
+
   virtual void ManagedPreUpdate() override;
   virtual void ManagedUpdate() override;
   virtual void ManagedPostUpdate() override;
 
-  virtual void FireOnPositionChanged() override;
-  virtual void FireOnScaleChanged() override;
-  virtual void FireOnRotationChanged() override;
+  virtual void FireOnPositionChanged(GameObject* root) override;
+  virtual void FireOnScaleChanged(GameObject* root) override;
+  virtual void FireOnRotationChanged(GameObject* root) override;
 
   virtual void OnChildrenZIndexChanged();
 

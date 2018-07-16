@@ -39,9 +39,9 @@ public:
   virtual void ManagedUpdate() override;
   virtual void ManagedPostUpdate() override;
 
-  virtual void FireOnPositionChanged() override;
-  virtual void FireOnScaleChanged() override;
-  virtual void FireOnRotationChanged() override;
+  virtual void FireOnPositionChanged(GameObject* root) override;
+  virtual void FireOnScaleChanged(GameObject* root) override;
+  virtual void FireOnRotationChanged(GameObject* root) override;
 
   // =================================================================
   // Setter / Getter

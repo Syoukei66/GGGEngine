@@ -816,8 +816,11 @@
     <ClCompile Include="MeshFactory_Model.cpp">
       <Filter>ソース ファイル\Component\Mesh\Factory</Filter>
     </ClCompile>
+    <ClCompile Include="ModelSource.cpp">
+      <Filter>ソース ファイル\Asset\File\Model</Filter>
+    </ClCompile>
     <ClCompile Include="StaticMesh.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Component\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1406,11 +1409,11 @@
     <ClInclude Include="MeshFactory_Model.h">
       <Filter>ヘッダー ファイル\Component\Mesh\Factory</Filter>
     </ClInclude>
-    <ClInclude Include="ModelInstance.h">
-      <Filter>ヘッダー ファイル\Asset\File\Model</Filter>
-    </ClInclude>
     <ClInclude Include="StaticMesh.h">
       <Filter>ヘッダー ファイル\Component\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelSource.h">
+      <Filter>ヘッダー ファイル\Asset\File\Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

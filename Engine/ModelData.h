@@ -302,3 +302,25 @@ struct ModelData
   T_UINT32 mesh_count_;
   ModelMeshData** meshes_;
 };
+
+/*
+ModelData
+{
+  ModelNodeData* root_;
+
+  T_UINT32 material_count_;
+  ModelMaterialData** materials_;
+
+  T_UINT32 vertex_count_;
+  //GraphicsConstants‚©‚çŽæ“¾
+  T_UINT32 vertex_format_;
+  T_UINT32 polygon_count_;
+  T_FLOAT* vertices_;
+
+  T_UINT32 submesh_count_;
+  T_UINT32* index_counts_;
+  T_UINT32** indices_;
+}
+
+
+*/

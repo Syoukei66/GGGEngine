@@ -234,6 +234,7 @@
     <ClCompile Include="MeshResource.cpp" />
     <ClCompile Include="ModelNode.cpp" />
     <ClCompile Include="ModelResource.cpp" />
+    <ClCompile Include="ModelSource.cpp" />
     <ClCompile Include="NativeIndexBuffer.cpp" />
     <ClCompile Include="NativeShader.cpp" />
     <ClCompile Include="NativeSound.cpp" />
@@ -370,7 +371,7 @@
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="MeshResource.h" />
     <ClInclude Include="ModelData.h" />
-    <ClInclude Include="ModelInstance.h" />
+    <ClInclude Include="ModelSource.h" />
     <ClInclude Include="ModelNode.h" />
     <ClInclude Include="ModelResource.h" />
     <ClInclude Include="NativeAssert.h" />

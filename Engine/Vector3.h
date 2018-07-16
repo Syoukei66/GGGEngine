@@ -7,7 +7,7 @@
 
 #include "EasingFunction.h"
 
-#include "Vector4.h"
+#include "Vector2.h"
 
 template<typename T>
 union TVec3
@@ -50,6 +50,10 @@ public:
 
   TVec3(const Eigen::Matrix<T, 3, 1>& eigen)
     : eigen(eigen)
+  {}
+
+  TVec3(const TVec2& vec2, T_FLOAT z)
+    : eigen(vec2.x, vec2.y, z)
   {}
 
   // =================================================================
