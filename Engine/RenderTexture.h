@@ -1,17 +1,17 @@
 #pragma once
 
-#include "Texture.h"
-#include "RenderBuffer.h"
-#include "GraphicsConstants.h"
+#include "../Common/Texture.h"
+#include "../Common/RenderBuffer.h"
+#include "../Common/GraphicsConstants.h"
 
 class RenderTexture : public Texture
 {
 public:
-  static RenderTexture* Create(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format);
-  static RenderTexture* Create(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format, GraphicsConstants::TextureFormat depth_format);
+  static RenderTexture* Create(T_UINT16 width, T_UINT16 height, Graphics::TextureFormat format);
+  static RenderTexture* Create(T_UINT16 width, T_UINT16 height, Graphics::TextureFormat format, Graphics::TextureFormat depth_format);
 
 protected:
-  RenderTexture(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format, GraphicsConstants::TextureFormat depth_format);
+  RenderTexture(T_UINT16 width, T_UINT16 height, Graphics::TextureFormat format, Graphics::TextureFormat depth_format);
 
 public:
   virtual ~RenderTexture();

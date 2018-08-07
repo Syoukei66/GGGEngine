@@ -1,7 +1,7 @@
 #pragma once
 
 #include "EngineInputEvent.h"
-#include "NativeType.h"
+#include "../Common/NativeType.h"
 
 class InputDevice
 {

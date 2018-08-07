@@ -19,7 +19,7 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
 
   WORD offset = 0;
 
-  using namespace GraphicsConstants;
+  using namespace Graphics;
 
   if (format & V_ATTR_POSITION)
   {
@@ -149,7 +149,7 @@ void NativeVertexBuffer::SetStreamSource() const
   NATIVE_ASSERT(SUCCEEDED(hr), "VertexBuffer‚ÌƒZƒbƒg‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 }
 
-void NativeVertexBuffer::DrawPrimitive(GraphicsConstants::PrimitiveType primitive_type) const
+void NativeVertexBuffer::DrawPrimitive(Graphics::PrimitiveType primitive_type) const
 {
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
   HRESULT hr = device->DrawPrimitive(
@@ -160,7 +160,7 @@ void NativeVertexBuffer::DrawPrimitive(GraphicsConstants::PrimitiveType primitiv
   NATIVE_ASSERT(SUCCEEDED(hr), "•`‰æ‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 }
 
-void NativeVertexBuffer::DrawIndexedPrimitive(const INativeIndexBuffer* index_buffer, GraphicsConstants::PrimitiveType primitive_type) const
+void NativeVertexBuffer::DrawIndexedPrimitive(const INativeIndexBuffer* index_buffer, Graphics::PrimitiveType primitive_type) const
 {
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
   const T_UINT32 vertex_count = index_buffer->GetVertexesCount();

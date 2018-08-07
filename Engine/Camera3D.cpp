@@ -1,5 +1,5 @@
 #include "Camera3D.h"
-#include "MathConstants.h"
+#include "../Common/MathConstants.h"
 #include "Scene.h"
 #include "Collision3D.h"
 

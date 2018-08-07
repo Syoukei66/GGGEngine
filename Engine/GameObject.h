@@ -1,7 +1,7 @@
 #ifndef HAL_ENGINE_ENTITY_ENTITY_H_
 #define HAL_ENGINE_ENTITY_ENTITY_H_
 
-#include "NativeType.h"
+#include "../Common/NativeType.h"
 #include "GameComponent.h"
 #include "Material.h"
 

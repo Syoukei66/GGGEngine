@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Geometry.h"
+#include "../Common/Geometry.h"
 #include "RandomGenerator.h"
 
 class PerlinNoiseGenerator

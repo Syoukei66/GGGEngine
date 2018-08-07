@@ -1,0 +1,29 @@
+#pragma once
+
+#include <vector>
+
+#include "AssetProgramGenerator_difinition.h"
+
+namespace AssetProgram
+{
+
+class NamespaceGenerator
+{
+public:
+  NamespaceGenerator() = default;
+
+public:
+  inline void AddAsset(const std::string& asset_name, const std::string& class_name)
+  {
+    this->namespaces_.emplace_back(asset_name, class_name);
+  }
+
+public:
+  std::string CreateProgram(const std::function<std::string(const DefinitionGenerator&)>& func) const;
+
+private:
+  std::vector<DefinitionGenerator> namespaces_;
+};
+
+}
+

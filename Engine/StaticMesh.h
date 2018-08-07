@@ -3,8 +3,8 @@
 #include "IMesh.h"
 #include "Mesh.h"
 
-#include "NativeVertexBuffer.h"
-#include "NativeIndexBuffer.h"
+#include "../Common/NativeVertexBuffer.h"
+#include "../Common/NativeIndexBuffer.h"
 
 class StaticMesh : public IMesh
 {

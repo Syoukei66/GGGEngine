@@ -2,7 +2,7 @@
 #include "TextureAtlasLoader.h"
 #include <string>
 #include <string.h>
-#include "NativeProcess.h"
+#include "../Common/NativeProcess.h"
 #include "Director.h"
 #include "Moniker.h"
 

@@ -2,7 +2,7 @@
 
 #include <spine\SkeletonData.h>
 
-#include "NativeType.h"
+#include "../Common/NativeType.h"
 #include "EngineAttachmentLoader.h"
 #include "SpineData.h"
 

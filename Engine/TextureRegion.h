@@ -1,7 +1,7 @@
 #ifndef HAL_ENGINE_ENTITY_SHAPE_SPRITE_TEXTUREREGION_TEXTUREREGION_H_
 #define HAL_ENGINE_ENTITY_SHAPE_SPRITE_TEXTUREREGION_TEXTUREREGION_H_
 
-#include "NativeType.h"
+#include "../Common/NativeType.h"
 #include "ITextureRegion.h"
 #include "TextureResource.h"
 #include "Material.h"

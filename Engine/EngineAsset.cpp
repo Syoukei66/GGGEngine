@@ -2,7 +2,7 @@
 #include "MeshBuilder_Cube.h"
 #include "MeshBuilder_Plane.h"
 #include "MeshBuilder_Sprite.h"
-#include "GraphicsConstants.h"
+#include "../Common/GraphicsConstants.h"
 
 namespace EngineAsset
 {
@@ -32,8 +32,8 @@ class Material WHITE(Shader::WHITE, true);
 namespace Mesh
 {
 class MeshResource QUAD(new MeshBuilder_Sprite());
-class MeshResource PLANE(new MeshBuilder_Plane(GraphicsConstants::V_FORMAT_PNUTC, 1.0f, 1.0f, 1, 1));
-class MeshResource CUBE(new MeshBuilder_Cube(GraphicsConstants::V_FORMAT_PNUTC, 1.0f, 1.0f, 1.0f, 1, 1, 1));
+class MeshResource PLANE(new MeshBuilder_Plane(Graphics::V_FORMAT_PNUTC, 1.0f, 1.0f, 1, 1));
+class MeshResource CUBE(new MeshBuilder_Cube(Graphics::V_FORMAT_PNUTC, 1.0f, 1.0f, 1.0f, 1, 1, 1));
 } // namespace Mesh
 
 } // namespace EngineAsset

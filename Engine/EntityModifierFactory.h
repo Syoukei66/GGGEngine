@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Geometry.h"
-#include "Color.h"
+#include "../Common/Geometry.h"
+#include "../Common/Color.h"
 #include "EntityModifier.h"
 
 namespace EntityModifierFactory

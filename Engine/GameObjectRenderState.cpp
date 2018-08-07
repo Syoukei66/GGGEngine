@@ -12,7 +12,7 @@ GameObjectRenderState::GameObjectRenderState(Camera* camera)
   , view_proj_matrix_(Matrix4x4::identity)
   , world_matrix_(Matrix4x4::identity)
 {
-  for (T_UINT8 i = 0; i < GraphicsConstants::RQ_DATANUM; ++i)
+  for (T_UINT8 i = 0; i < Graphics::RQ_DATANUM; ++i)
   {
     this->queues_[i] = new GameObjectRenderQueue();
   }
@@ -20,7 +20,7 @@ GameObjectRenderState::GameObjectRenderState(Camera* camera)
 
 GameObjectRenderState::~GameObjectRenderState()
 {
-  for (T_UINT8 i = 0; i < GraphicsConstants::RQ_DATANUM; ++i)
+  for (T_UINT8 i = 0; i < Graphics::RQ_DATANUM; ++i)
   {
     delete this->queues_[i];
   }
@@ -37,7 +37,7 @@ void GameObjectRenderState::Init()
 
 void GameObjectRenderState::Draw()
 {
-  using namespace GraphicsConstants;
+  using namespace Graphics;
   for (T_UINT8 i = RQ_GEOMETRY_BEGIN; i < RQ_GEOMETRY_LAST; ++i)
   {
     queues_[i]->Draw(this);
@@ -50,7 +50,7 @@ void GameObjectRenderState::Draw()
 
 void GameObjectRenderState::AddQueue(const Renderer* renderer)
 {
-  using namespace GraphicsConstants;
+  using namespace Graphics;
   RenderQueue queue = renderer->GetMaterial()->GetRenderQueue();
   if (queue < RQ_GEOMETRY_LAST)
   {

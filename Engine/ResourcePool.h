@@ -3,8 +3,8 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
-#include "NativeType.h"
-#include "NativeAssert.h"
+#include "../Common/NativeType.h"
+#include "../Common/NativeAssert.h"
 #include "ResourceLoader.h"
 #include "FileLoader.h"
 

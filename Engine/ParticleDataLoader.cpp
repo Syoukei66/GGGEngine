@@ -1,8 +1,8 @@
 #include "ParticleDataLoader.h"
 #include "JsonParser.h"
-#include "MathConstants.h"
+#include "../Common/MathConstants.h"
 #include "UserResourcePool.h"
-#include "NativeProcess.h"
+#include "../Common/NativeProcess.h"
 
 enum EmitterType
 {

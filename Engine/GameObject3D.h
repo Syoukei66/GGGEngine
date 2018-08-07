@@ -2,7 +2,7 @@
 
 #include <vector>
 #include "GameObject.h"
-#include "Color.h"
+#include "../Common/Color.h"
 #include "Transform3D.h"
 
 class GameObject3D : public GameObject

@@ -2,11 +2,11 @@
 
 #include <unordered_map>
 
-#include "NativeAssert.h"
-#include "Color.h"
+#include "../Common/NativeAssert.h"
+#include "../Common/Color.h"
+#include "../Common/GraphicsConstants.h"
 #include "ShaderResource.h"
 #include "ShaderProperties.h"
-#include "GraphicsConstants.h"
 
 class GameObjectRenderState;
 
@@ -198,12 +198,12 @@ public:
     return this->color_;
   }
 
-  inline void SetRenderQueue(GraphicsConstants::RenderQueue queue)
+  inline void SetRenderQueue(Graphics::RenderQueue queue)
   {
     NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
     this->queue_ = queue;
   }
-  inline GraphicsConstants::RenderQueue GetRenderQueue() const
+  inline Graphics::RenderQueue GetRenderQueue() const
   {
     return this->queue_;
   }
@@ -231,7 +231,7 @@ protected:
   TColor color_;
   const Texture* texture_;
 
-  GraphicsConstants::RenderQueue queue_;
+  Graphics::RenderQueue queue_;
   bool billbording_;
 
   std::vector<Material*> clones_;

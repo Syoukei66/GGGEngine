@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include "NativeType.h"
+#include "../Common/NativeType.h"
 #include "RandomGenerator.h"
 #include "PerlinNoiseGenerator.h"
 

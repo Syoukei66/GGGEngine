@@ -2,7 +2,7 @@
 
 #include <vector>
 #include "GameObject.h"
-#include "Color.h"
+#include "../Common/Color.h"
 #include "Transform2D.h"
 
 class EntityModifierRoot;

@@ -1,6 +1,6 @@
 ﻿#include "JsonParser.h"
 
-#include "NativeType.h"
+#include "../Common/NativeType.h"
 
 //=============================================================================
 // JsonBase

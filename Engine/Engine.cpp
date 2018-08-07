@@ -1,6 +1,6 @@
 #include "Engine.h"
 #include "Director.h"
-#include "EasingFunctionManager.h"
+#include "../Common/EasingFunctionManager.h"
 #include "EntityModifierManager.h"
 #include "ParticleDataManager.h"
 

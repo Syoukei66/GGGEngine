@@ -36,9 +36,9 @@ void GameObject2D::AddChild(GameObject2D* child)
   child->parent_ = this;
   this->children_.emplace_back(child);
   this->OnChildrenZIndexChanged();
-  child->FireOnPositionChanged();
-  child->FireOnScaleChanged();
-  child->FireOnRotationChanged();
+  child->FireOnPositionChanged(this);
+  child->FireOnScaleChanged(this);
+  child->FireOnRotationChanged(this);
 }
 
 void GameObject2D::RemoveChild(GameObject2D* child)
@@ -158,33 +158,33 @@ void GameObject2D::ManagedPostUpdate()
   }
 }
 
-void GameObject2D::FireOnPositionChanged()
+void GameObject2D::FireOnPositionChanged(GameObject* root)
 {
   this->transform_->OnWorldTransformDirty();
-  this->OnPositionChanged();
+  this->OnPositionChanged(root);
   for (GameObject2D* child : this->children_)
   {
-    child->FireOnPositionChanged();
+    child->FireOnPositionChanged(root);
   }
 }
 
-void GameObject2D::FireOnScaleChanged()
+void GameObject2D::FireOnScaleChanged(GameObject* root)
 {
   this->transform_->OnWorldTransformDirty();
-  this->OnScaleChanged();
+  this->OnScaleChanged(root);
   for (GameObject2D* child : this->children_)
   {
-    child->FireOnScaleChanged();
+    child->FireOnScaleChanged(root);
   }
 }
 
-void GameObject2D::FireOnRotationChanged()
+void GameObject2D::FireOnRotationChanged(GameObject* root)
 {
   this->transform_->OnWorldTransformDirty();
-  this->OnRotationChanged();
+  this->OnRotationChanged(root);
   for (GameObject2D* child : this->children_)
   {
-    child->FireOnRotationChanged();
+    child->FireOnRotationChanged(root);
   }
 }
 

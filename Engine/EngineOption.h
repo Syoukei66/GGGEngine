@@ -1,7 +1,7 @@
 #ifndef HAL_ENGINE_ENGINE_ENGINEOPTION_H_
 #define HAL_ENGINE_ENGINE_ENGINEOPTION_H_
 
-#include "Geometry.h"
+#include "../Common/Geometry.h"
 #include "Scene.h"
 #include "EntityModifierManager.h"
 #include "InputSetting.h"

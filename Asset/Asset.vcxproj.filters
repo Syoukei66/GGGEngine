@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Cereal">
+      <UniqueIdentifier>{3ce282e7-1cd0-470f-941c-2c062a4b3739}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Model">
+      <UniqueIdentifier>{9150fe6c-3df6-42cc-9bcf-8a161927b583}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Model">
+      <UniqueIdentifier>{6bc82edb-9629-4a75-8ef1-46d9f9f3ba2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Model\Static">
+      <UniqueIdentifier>{f2739183-0fe1-421c-9817-400aaa3e77d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Model\Static">
+      <UniqueIdentifier>{8aee2864-367d-4267-8106-bdefbd263b71}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CerealArchiveMacro.hpp">
+      <Filter>ヘッダー ファイル\Cereal</Filter>
+    </ClInclude>
+    <ClInclude Include="CerealBinaryModelArchive.h">
+      <Filter>ヘッダー ファイル\Cereal</Filter>
+    </ClInclude>
+    <ClInclude Include="CerealIO.h">
+      <Filter>ヘッダー ファイル\Cereal</Filter>
+    </ClInclude>
+    <ClInclude Include="CerealStructArchive.hpp">
+      <Filter>ヘッダー ファイル\Cereal</Filter>
+    </ClInclude>
+    <ClInclude Include="CerealStaticModelIO.h">
+      <Filter>ヘッダー ファイル\Model\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticModelData.h">
+      <Filter>ヘッダー ファイル\Model\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelData.h">
+      <Filter>ヘッダー ファイル\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelAnimationData.h">
+      <Filter>ヘッダー ファイル\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelConstants.h">
+      <Filter>ヘッダー ファイル\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelMaterialData.h">
+      <Filter>ヘッダー ファイル\Model</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CerealStaticModelIO.cpp">
+      <Filter>ソース ファイル\Model\Static</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -1,10 +1,10 @@
 #pragma once
 
 #include "TextureResource.h"
-#include "Color.h"
+#include "../Common/Color.h"
 
-#include "Vector2.h"
-#include "Vector3.h"
+#include "../Common/Vector2.h"
+#include "../Common/Vector3.h"
 
 class AttachmentVertexes
 {

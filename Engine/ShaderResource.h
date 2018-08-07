@@ -1,6 +1,6 @@
 #pragma once
 
-#include "NativeShader.h"
+#include "../Common/NativeShader.h"
 #include "FileResource.h"
 
 class ShaderAsset : public FileResource<INativeShader>

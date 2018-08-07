@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
-#include "NativeType.h"
+#include "../Common/NativeType.h"
 
 class CSVToken
 {

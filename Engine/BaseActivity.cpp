@@ -4,7 +4,7 @@
 
 #include "Director.h"
 
-#include "NativeProcess.h"
+#include "../Common/NativeProcess.h"
 #include "InputManager.h"
 
 #include "EngineResourcePool.h"

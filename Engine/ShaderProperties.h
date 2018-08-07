@@ -1,10 +1,10 @@
 #pragma once
 
 #include <string>
-#include "NativeShader.h"
-#include "Vector2.h"
-#include "Vector3.h"
-#include "Vector4.h"
+#include "../Common/NativeShader.h"
+#include "../Common/Vector2.h"
+#include "../Common/Vector3.h"
+#include "../Common/Vector4.h"
 
 class ShaderProperty
 {

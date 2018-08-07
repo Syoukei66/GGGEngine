@@ -215,7 +215,7 @@ void* TextureLoad(const std::string& path)
   return dest;
 }
 
-void* CreateTexture(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format)
+void* CreateTexture(T_UINT16 width, T_UINT16 height, Graphics::TextureFormat format)
 {
   using namespace NativeConstants;
   width = Util::CalcTwoPowerValue(width);
@@ -277,7 +277,7 @@ void* CreateColorBuffer(Texture* texture)
   return  surf;
 }
 
-void* CreateDepthBuffer(T_UINT16 width, T_UINT16 height, GraphicsConstants::TextureFormat format)
+void* CreateDepthBuffer(T_UINT16 width, T_UINT16 height, Graphics::TextureFormat format)
 {
   LPDIRECT3DSURFACE9 surf;
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();

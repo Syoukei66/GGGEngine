@@ -1,6 +1,6 @@
 #include "Collision2D.h"
 #include "Collider2D.h"
-#include "MathConstants.h"
+#include "../Common/MathConstants.h"
 #include <math.h>
 
 namespace Collision2D

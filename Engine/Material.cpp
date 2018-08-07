@@ -13,7 +13,7 @@ Material::Material(const ShaderAsset& resource, bool protect)
   , technique_("Default")
   , color_()
   , texture_()
-  , queue_(GraphicsConstants::RenderQueue::RQ_GEOMETRY)
+  , queue_(Graphics::RenderQueue::RQ_GEOMETRY)
   , billbording_(false)
 {
 }

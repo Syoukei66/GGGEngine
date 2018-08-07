@@ -1,10 +1,10 @@
 #ifndef HAL_ENGINE_ENGINE_ENGINE_H_
 #define HAL_ENGINE_ENGINE_ENGINE_H_
 
-#include "NativeType.h"
+#include "../Common/NativeType.h"
+#include "../Common/Geometry.h"
 #include "EngineOption.h"
 #include "EngineInput.h"
-#include "Geometry.h"
 #include "Scene.h"
 
 class Engine

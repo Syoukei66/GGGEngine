@@ -2,7 +2,7 @@
 #include <algorithm> 
 
 #include "GameObject3D.h"
-#include "MathConstants.h"
+#include "../Common/MathConstants.h"
 #include "imgui\imgui.h"
 
 // =================================================================

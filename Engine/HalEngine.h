@@ -69,7 +69,6 @@
       #include "MeshBuilder_Sprite.h"
 //----Factory
       #include "MeshFactory_Cube.h"
-      #include "MeshFactory_Fbx.h"
       #include "MeshFactory_Plane.h"
       #include "MeshFactory_Sprite.h"
 //--Renderer
@@ -106,16 +105,16 @@
   #include "InputSetting.h"
 
 //Native
-  #include "NativeProcess.h"
-  #include "NativeAssert.h"
-  #include "NativeType.h"
+  #include "../Common/NativeProcess.h"
+  #include "../Common/NativeAssert.h"
+  #include "../Common/NativeType.h"
 //--Objects
-    #include "NativeObject.h"
-    #include "NativeShader.h"
-    #include "NativeShader.h"
+    #include "../Common/NativeObject.h"
+    #include "../Common/NativeShader.h"
+    #include "../Common/NativeShader.h"
 //----Buffer
-      #include "NativeIndexBuffer.h"
-      #include "NativeVertexBuffer.h"
+      #include "../Common/NativeIndexBuffer.h"
+      #include "../Common/NativeVertexBuffer.h"
 
 //Asset
   #include "EngineAsset.h"
@@ -130,10 +129,6 @@
       #include "JsonData.h"
       #include "JsonParser.h"
       #include "JsonResource.h"
-//----Fbx
-      #include "FbxData.h"
-      #include "FbxNodeData.h"
-      #include "FbxResource.h"
 //----Model
       #include "ModelData.h"
       #include "ModelResource.h"
@@ -167,9 +162,9 @@
     #include "UserResourcePool.h"
 //Resource
 //--Texture
-    #include "RenderBuffer.h"
+    #include "../Common/RenderBuffer.h"
+    #include "../Common/Texture.h"
     #include "RenderTexture.h"
-    #include "Texture.h"
     #include "TextureSource.h"
 //Scene
   #include "Scene.h"
@@ -181,33 +176,33 @@
       #include "UpdateEvent.h"
 
 //Structure
-  #include "BlendFunction.h"
+  #include "../Common/BlendFunction.h"
 //--Color
-    #include "Color.h"
-    #include "Gradient.h"
+    #include "../Common/Color.h"
+    #include "../Common/Gradient.h"
 //--Math
-    #include "Geometry.h"
-    #include "Quaternion.h"
-    #include "Vector2.h"
-    #include "Vector3.h"
-    #include "Vector4.h"
-    #include "Matrix4x4.h"
+    #include "../Common/Geometry.h"
+    #include "../Common/Quaternion.h"
+    #include "../Common/Vector2.h"
+    #include "../Common/Vector3.h"
+    #include "../Common/Vector4.h"
+    #include "../Common/Matrix4x4.h"
 //--TextureRegion
     #include "ITextureRegion.h"
     #include "TextureRegion.h"
     #include "TiledTextureRegion.h"
 
 //Util
-  #include "Bresenham.h"
-  #include "GraphicsConstants.h"
-  #include "MathConstants.h"
+  #include "../Common/Bresenham.h"
+  #include "../Common/GraphicsConstants.h"
+  #include "../Common/MathConstants.h"
   #include "Util.h"
 //--Random
     #include "RandomGenerator.h"
 //--Noise
     #include "PerlinNoiseGenerator.h"
 //--EasingFunction
-    #include "EasingFunction.h"
-    #include "EasingFunctionManager.h"
+    #include "../Common/EasingFunction.h"
+    #include "../Common/EasingFunctionManager.h"
 //--Singleton
     #include "Singleton.h"

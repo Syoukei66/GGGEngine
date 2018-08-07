@@ -2,7 +2,7 @@
 
 #include <string>
 #include <unordered_map>
-#include "NativeType.h"
+#include "../Common/NativeType.h"
 #include "ResourcePool.h"
 
 class ILoadingProgressCounterCallback

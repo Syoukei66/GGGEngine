@@ -1,7 +1,7 @@
 #pragma once
 
-#include "NativeType.h"
-#include "Geometry.h"
+#include "../Common/NativeType.h"
+#include "../Common/Geometry.h"
 
 //当たり判定の処理はパフォーマンスに大きく関わるので
 //Engine側では管理/実装を行わない

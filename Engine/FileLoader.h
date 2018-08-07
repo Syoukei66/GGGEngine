@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "NativeType.h"
+#include "../Common/NativeType.h"
 #include "ResourceLoader.h"
 
 class FileLoader : public ResourceLoader

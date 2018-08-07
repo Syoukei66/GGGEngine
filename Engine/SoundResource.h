@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
+#include "../Common/NativeSound.h"
 #include "FileResource.h"
-#include "NativeSound.h"
 
 class SoundResource : public FileResource<INativeSound>
 {

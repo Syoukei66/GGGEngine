@@ -2,8 +2,8 @@
 
 #include <map>
 #include <string>
-#include "NativeType.h"
-#include "Geometry.h"
+#include "../Common/NativeType.h"
+#include "../Common/Geometry.h"
 #include "TextureRegion.h"
 
 /*

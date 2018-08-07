@@ -1,11 +1,11 @@
 #pragma once
 
-#include "NativeType.h"
-#include "BlendFunction.h"
-#include "GameObjectRenderQueue.h"
-#include "GraphicsConstants.h"
+#include "../Common/NativeType.h"
+#include "../Common/BlendFunction.h"
+#include "../Common/GraphicsConstants.h"
+#include "../Common/Matrix4x4.h"
 
-#include "Matrix4x4.h"
+#include "GameObjectRenderQueue.h"
 
 class Camera;
 class Renderer;
@@ -84,5 +84,5 @@ private:
   Matrix4x4 view_proj_matrix_;
   Matrix4x4 world_matrix_;
 
-  GameObjectRenderQueue* queues_[GraphicsConstants::RQ_DATANUM];
+  GameObjectRenderQueue* queues_[Graphics::RQ_DATANUM];
 };

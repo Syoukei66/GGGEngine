@@ -29,9 +29,9 @@ void GameObject3D::AddChild(GameObject3D* child)
 {
   child->parent_ = this;
   this->children_.emplace_back(child);
-  child->FireOnPositionChanged();
-  child->FireOnScaleChanged();
-  child->FireOnRotationChanged();
+  child->FireOnPositionChanged(this);
+  child->FireOnScaleChanged(this);
+  child->FireOnRotationChanged(this);
 }
 
 void GameObject3D::RemoveChild(GameObject3D* child)
@@ -116,32 +116,32 @@ void GameObject3D::ManagedPostUpdate()
   }
 }
 
-void GameObject3D::FireOnPositionChanged()
+void GameObject3D::FireOnPositionChanged(GameObject* root)
 {
   this->transform_->OnWorldTransformDirty();
-  this->OnPositionChanged();
+  this->OnPositionChanged(root);
   for (GameObject3D* child : this->children_)
   {
-    child->FireOnPositionChanged();
+    child->FireOnPositionChanged(root);
   }
 }
 
-void GameObject3D::FireOnScaleChanged()
+void GameObject3D::FireOnScaleChanged(GameObject* root)
 {
   this->transform_->OnWorldTransformDirty();
-  this->OnScaleChanged();
+  this->OnScaleChanged(root);
   for (GameObject3D* child : this->children_)
   {
-    child->FireOnScaleChanged();
+    child->FireOnScaleChanged(root);
   }
 }
 
-void GameObject3D::FireOnRotationChanged()
+void GameObject3D::FireOnRotationChanged(GameObject* root)
 {
   this->transform_->OnWorldTransformDirty();
-  this->OnRotationChanged();
+  this->OnRotationChanged(root);
   for (GameObject3D* child : this->children_)
   {
-    child->FireOnRotationChanged();
+    child->FireOnRotationChanged(root);
   }
 }

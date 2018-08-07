@@ -4,8 +4,8 @@
 #include <string>
 #include <vector>
 
-#include "NativeAssert.h"
-#include "NativeType.h"
+#include "../Common/NativeAssert.h"
+#include "../Common/NativeType.h"
 
 //=============================================================================
 // JsonBase

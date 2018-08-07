@@ -2,8 +2,8 @@
 #define HAL_ENGINE_RESOURCE_TEXTURE_H_
 
 #include <string>
+#include "../Common/Texture.h"
 #include "FileResource.h"
-#include "Texture.h"
 
 class TextureResource : public FileResource<Texture>
 {

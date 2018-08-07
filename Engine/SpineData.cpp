@@ -4,7 +4,7 @@
 
 #include "TextureResource.h"
 #include "EngineAttachmentLoader.h"
-#include "NativeProcess.h"
+#include "../Common/NativeProcess.h"
 #include "Director.h"
 #include "Moniker.h"
 

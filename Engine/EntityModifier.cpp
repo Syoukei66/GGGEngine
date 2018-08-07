@@ -1,7 +1,7 @@
 ﻿#include "EntityModifier.h"
 #include <algorithm>
 
-#include "EasingFunctionManager.h"
+#include "../Common/EasingFunctionManager.h"
 #include "EntityModifierManager.h"
 
 //=========================================================================
