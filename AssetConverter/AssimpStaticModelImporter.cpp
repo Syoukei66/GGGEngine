@@ -15,6 +15,28 @@ namespace ModelImporter
 
 namespace Assimp
 {
+static void ImportTexture(AssetInfo* info, const aiMaterial* material, aiTextureType type, T_UINT8 index)
+{
+  aiString path;
+  aiTextureMapping mapping;
+  T_UINT32 uv_index;
+  T_FLOAT blend;
+  aiTextureOp op;
+  aiTextureMapMode map_mode;
+  T_UINT32 flags;
+  aiGetMaterialTexture(material, type, index, &path, &mapping, &uv_index, &blend, &op, &map_mode, &flags);
+
+  const std::string full_path = info->directory_path + path.C_Str();
+
+  dest->unique_id_ = AssetManager::GetInstance().GetInfomation(full_path)->meta_data->unique_id;
+  dest->uv_index_ = index;
+  dest->flags_ = ConvertTextureFlags(flags);
+  dest->map_mode_ = ConvertTextureMapMode(map_mode);
+  dest->type_ = ConvertTextureType(type);
+
+  info->meta_data->references.emplace(full_path);
+}
+
 //=============================================================================
 // MaterialData
 //=============================================================================
@@ -28,7 +50,7 @@ static void ImportMaterial(AssetInfo* info, const aiMaterial* material, StaticMo
   if (AI_SUCCESS == aiGetMaterialColor(material, AI_MATKEY_COLOR_DIFFUSE, &color))
   {
     dest->tint_ = ToTColor(color);
-    //colors.emplace_back(COL_TYPE_DIFFUSE, ToTColor(color));
+  //  colors.emplace_back(COL_TYPE_DIFFUSE, ToTColor(color));
   }
   //if (AI_SUCCESS == aiGetMaterialColor(material, AI_MATKEY_COLOR_SPECULAR, &color))
   //{
@@ -41,40 +63,12 @@ static void ImportMaterial(AssetInfo* info, const aiMaterial* material, StaticMo
   if (AI_SUCCESS == aiGetMaterialColor(material, AI_MATKEY_COLOR_EMISSIVE, &color))
   {
     dest->emission_ = ToTColor(color);
-    ///colors.emplace_back(COL_TYPE_EMISSIVE, ToTColor(color));
+  //  colors.emplace_back(COL_TYPE_EMISSIVE, ToTColor(color));
   }
   //if (AI_SUCCESS == aiGetMaterialColor(material, AI_MATKEY_COLOR_TRANSPARENT, &color))
   //{
   //  colors.emplace_back(COL_TYPE_TRANSPARENT, ToTColor(color));
   //}
-
-  dest->color_count_ = colors.size();
-  if (dest->color_count_ > 0)
-  {
-    dest->color_types_ = new T_UINT8[dest->color_count_]();
-    dest->colors_ = new TColor[dest->color_count_]();
-    for (T_UINT32 i = 0; i < dest->color_count_; ++i)
-    {
-      auto& pair = colors[i];
-      dest->color_types_[i] = pair.first;
-      dest->colors_[i] = pair.second;
-    }
-  }
-
-  //Other Colors
-  float fltValue;
-  if (AI_SUCCESS == aiGetMaterialFloat(material, AI_MATKEY_OPACITY, &fltValue))
-  {
-    dest->opacity_ = fltValue;
-  }
-  if (AI_SUCCESS == aiGetMaterialFloat(material, AI_MATKEY_SHININESS, &fltValue))
-  {
-    dest->shininess_ = fltValue;
-  }
-  if (AI_SUCCESS == aiGetMaterialFloat(material, AI_MATKEY_SHININESS_STRENGTH, &fltValue))
-  {
-    dest->shininess_strength_ = fltValue;
-  }
 
   //Textures
   std::vector<std::pair<aiTextureType, T_UINT8>> textures = std::vector<std::pair<aiTextureType, T_UINT8>>();
@@ -96,20 +90,9 @@ static void ImportMaterial(AssetInfo* info, const aiMaterial* material, StaticMo
     for (T_UINT8 i = 0; i < dest->texture_count_; ++i)
     {
       const auto& pair = textures[i];
-      ImportTexture(info, material, pair.first, pair.second, &dest->texture_datas_[i]);
     }
   }
 
-  //Others
-  int intvalue;
-  if (AI_SUCCESS == aiGetMaterialInteger(material, AI_MATKEY_SHADING_MODEL, &intvalue))
-  {
-    dest->shading_mode_ = ConvertShadingMode((aiShadingMode)intvalue);
-  }
-  if (AI_SUCCESS == aiGetMaterialInteger(material, AI_MATKEY_TWOSIDED, &intvalue))
-  {
-    dest->twosided_ = intvalue != 0;
-  }
 }
 
 //=============================================================================
