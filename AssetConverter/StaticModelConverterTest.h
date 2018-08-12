@@ -10,6 +10,5 @@ public:
   void Compare(const StaticModelData& a, const StaticModelData& b);
 
 private:
-  void Compare(const StaticModelTextureData& a, const StaticModelTextureData& b);
   void Compare(const StaticModelMaterialData& a, const StaticModelMaterialData& b);
 };

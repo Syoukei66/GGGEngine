@@ -10,11 +10,6 @@ AssetProgram::DefinitionGenerator::~DefinitionGenerator()
 {
 }
 
-static std::string CreateFilePath(AssetInfo* info)
-{
-  return std::to_string(info->meta_data->unique_id) + "." + info->extension;
-}
-
 std::string AssetProgram::DefinitionGenerator::CreateHeaderProgram(AssetInfo* info) const
 {
   return "extern " + this->CreateTypeName() + " " + info->program_id + ";\n";
@@ -22,7 +17,7 @@ std::string AssetProgram::DefinitionGenerator::CreateHeaderProgram(AssetInfo* in
 
 std::string AssetProgram::DefinitionGenerator::CreateCppProgram(AssetInfo* info) const
 {
-  return this->CreateTypeName() + " " + info->program_id + "(\"" + CreateFilePath(info) + "\");\n";
+  return this->CreateTypeName() + " " + info->program_id + "(" + std::to_string(info->meta_data->unique_id) + ", \"" + info->extension + "\");\n";
 }
 
 std::string AssetProgram::DefinitionGenerator::CreateTypeName() const

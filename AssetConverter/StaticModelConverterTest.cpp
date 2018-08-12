@@ -7,41 +7,51 @@ void StaticModelConverterTest::Compare(const StaticModelData& a, const StaticMod
   COMPARE_ATTR(vertex_format_);
   COMPARE_ATTR(vertex_size_);
   COMPARE_ATTR(vertex_count_);
-  COMPARE_ATTRS(vertices_, vertex_count_);
+  COMPARE_ATTRS(data_, vertex_count_ * a.vertex_size_);
   COMPARE_ATTR(polygon_count_);
   COMPARE_ATTR(index_count_);
   COMPARE_ATTRS(indices_, index_count_);
   COMPARE_ATTR(submesh_count_);
   COMPARE_ATTRS(submesh_index_counts_, submesh_count_);
+  COMPARE_ATTRS(submesh_material_indices_, submesh_count_);
   COMPARE_ATTR(bounds_);
   COMPARE_ATTR(material_count_);
   COMPARE_ATTRS(materials_, material_count_);
   PopState();
 }
 
-void StaticModelConverterTest::Compare(const StaticModelTextureData& a, const StaticModelTextureData& b)
-{
-  PushState("StaticModelTextureData");
-  COMPARE_ATTR(unique_id_);
-  COMPARE_ATTR(uv_index_);
-  COMPARE_ATTR(flags_);
-  COMPARE_ATTR(map_mode_);
-  COMPARE_ATTR(type_);
-  PopState();
-}
-
 void StaticModelConverterTest::Compare(const StaticModelMaterialData& a, const StaticModelMaterialData& b)
 {
   PushState("StaticModelMaterialData");
-  COMPARE_ATTR(opacity_);
-  COMPARE_ATTR(shininess_);
-  COMPARE_ATTR(shininess_strength_);
-  COMPARE_ATTR(color_count_);
-  COMPARE_ATTRS(color_types_, color_count_);
-  COMPARE_ATTRS(colors_, color_count_);
-  COMPARE_ATTR(texture_count_);
-  COMPARE_ATTRS(texture_datas_, texture_count_);
-  COMPARE_ATTR(shading_mode_);
-  COMPARE_ATTR(twosided_);
+  COMPARE_ATTR(tint_);
+  COMPARE_ATTR(albedo_map_);
+
+  COMPARE_ATTR(normal_map_);
+  COMPARE_ATTR(bump_scale_);
+
+  COMPARE_ATTR(metallic_map_);
+  COMPARE_ATTR(metallic_);
+
+  COMPARE_ATTR(smoothness_source_);
+  COMPARE_ATTR(smoothness_);
+
+  COMPARE_ATTR(emission_map_);
+  COMPARE_ATTR(emission_);
+
+  COMPARE_ATTR(occlusion_map_);
+  COMPARE_ATTR(occlusion_strength_);
+
+  COMPARE_ATTR(tiling_);
+  COMPARE_ATTR(tiling_offset_);
+
+  COMPARE_ATTR(detail_albedo_map_);
+  COMPARE_ATTR(detail_normal_map_);
+  COMPARE_ATTR(detail_bump_scale_);
+  COMPARE_ATTR(detail_mask_map_);
+
+  COMPARE_ATTR(detail_tiling_);
+  COMPARE_ATTR(detail_tiling_offset_);
+
+  COMPARE_ATTR(alpha_cutoff_);
   PopState();
 }

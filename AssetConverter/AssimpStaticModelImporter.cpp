@@ -15,7 +15,7 @@ namespace ModelImporter
 
 namespace Assimp
 {
-static void ImportTexture(AssetInfo* info, const aiMaterial* material, aiTextureType type, T_UINT8 index)
+static T_UINT32 ImportTexture(AssetInfo* info, const aiMaterial* material, aiTextureType type)
 {
   aiString path;
   aiTextureMapping mapping;
@@ -24,17 +24,19 @@ static void ImportTexture(AssetInfo* info, const aiMaterial* material, aiTexture
   aiTextureOp op;
   aiTextureMapMode map_mode;
   T_UINT32 flags;
-  aiGetMaterialTexture(material, type, index, &path, &mapping, &uv_index, &blend, &op, &map_mode, &flags);
 
-  const std::string full_path = info->directory_path + path.C_Str();
-
-  dest->unique_id_ = AssetManager::GetInstance().GetInfomation(full_path)->meta_data->unique_id;
-  dest->uv_index_ = index;
-  dest->flags_ = ConvertTextureFlags(flags);
-  dest->map_mode_ = ConvertTextureMapMode(map_mode);
-  dest->type_ = ConvertTextureType(type);
-
-  info->meta_data->references.emplace(full_path);
+  T_UINT32 ret = 0;
+  for (T_UINT8 i = 0; i < 8; ++i)
+  {
+    if (AI_SUCCESS == aiGetMaterialTexture(material, type, i, &path, &mapping, &uv_index, &blend, &op, &map_mode, &flags))
+    {
+      NATIVE_ASSERT(ret == 0, "テクスチャが想定していたより多いです");
+      const std::string full_path = info->directory_path + path.C_Str();
+      info->meta_data->references.emplace(full_path);
+      ret = AssetManager::GetInstance().GetInfomation(full_path)->meta_data->unique_id;
+    }
+  }
+  return ret;
 }
 
 //=============================================================================
@@ -45,54 +47,43 @@ static void ImportMaterial(AssetInfo* info, const aiMaterial* material, StaticMo
   using namespace ModelConstants;
 
   //Colors
-  //std::vector<std::pair<ColorType, TColor>> colors = std::vector<std::pair<ColorType, TColor>>();
   aiColor4D color;
   if (AI_SUCCESS == aiGetMaterialColor(material, AI_MATKEY_COLOR_DIFFUSE, &color))
   {
     dest->tint_ = ToTColor(color);
-  //  colors.emplace_back(COL_TYPE_DIFFUSE, ToTColor(color));
   }
-  //if (AI_SUCCESS == aiGetMaterialColor(material, AI_MATKEY_COLOR_SPECULAR, &color))
-  //{
-  //  colors.emplace_back(COL_TYPE_SPECULAR, ToTColor(color));
-  //}
-  //if (AI_SUCCESS == aiGetMaterialColor(material, AI_MATKEY_COLOR_AMBIENT, &color))
-  //{
-  //  colors.emplace_back(COL_TYPE_AMBIENT, ToTColor(color));
-  //}
-  if (AI_SUCCESS == aiGetMaterialColor(material, AI_MATKEY_COLOR_EMISSIVE, &color))
+  dest->albedo_map_ = ImportTexture(info, material, aiTextureType_DIFFUSE);
+
+  dest->normal_map_ = ImportTexture(info, material, aiTextureType_NORMALS);
+  aiGetMaterialFloat(material, AI_MATKEY_BUMPSCALING, &dest->bump_scale_);
+
+  dest->metallic_map_ = ImportTexture(info, material, aiTextureType_SPECULAR);
+  aiGetMaterialFloat(material, "mat.metallic", 0, 0, &dest->metallic_);
+
+  dest->smoothness_source_ = 0;
+  aiGetMaterialFloat(material, "mat.smoothness", 0, 0, &dest->smoothness_);
+
+  dest->emission_map_ = ImportTexture(info, material, aiTextureType_EMISSIVE);
+  if (AI_SUCCESS == aiGetMaterialColor(material, AI_MATKEY_COLOR_DIFFUSE, &color))
   {
     dest->emission_ = ToTColor(color);
-  //  colors.emplace_back(COL_TYPE_EMISSIVE, ToTColor(color));
-  }
-  //if (AI_SUCCESS == aiGetMaterialColor(material, AI_MATKEY_COLOR_TRANSPARENT, &color))
-  //{
-  //  colors.emplace_back(COL_TYPE_TRANSPARENT, ToTColor(color));
-  //}
-
-  //Textures
-  std::vector<std::pair<aiTextureType, T_UINT8>> textures = std::vector<std::pair<aiTextureType, T_UINT8>>();
-  aiString path;
-  for (T_UINT32 i = 0; i < AI_TEXTURE_TYPE_MAX; ++i)
-  {
-    const aiTextureType type = (aiTextureType)i;
-    const T_UINT8 texture_count = material->GetTextureCount(type);
-    for (T_UINT8 index = 0; index < texture_count; ++index)
-    {
-      textures.emplace_back(type, index);
-    }
   }
 
-  dest->texture_count_ = textures.size();
-  if (dest->texture_count_ > 0)
-  {
-    dest->texture_datas_ = new StaticModelTextureData[dest->texture_count_]();
-    for (T_UINT8 i = 0; i < dest->texture_count_; ++i)
-    {
-      const auto& pair = textures[i];
-    }
-  }
+  dest->occlusion_map_ = ImportTexture(info, material, aiTextureType_LIGHTMAP);
+  aiGetMaterialFloat(material, "mat.occlusion_strength", 0, 0, &dest->smoothness_);
 
+  dest->tiling_ = TVec2f(1.0f, 1.0f);
+  dest->tiling_offset_ = TVec2f(0.0f, 0.0f);
+
+  dest->detail_albedo_map_ = 0;
+  dest->detail_normal_map_ = 0;
+  dest->detail_bump_scale_ = 0.0f;
+  dest->detail_mask_map_ = 0;
+
+  dest->detail_tiling_ = TVec2f(1.0f, 1.0f);
+  dest->detail_tiling_offset_ = TVec2f(0.0f, 0.0f);
+
+  dest->alpha_cutoff_ = 0.0f;
 }
 
 //=============================================================================
@@ -111,6 +102,7 @@ StaticModelData* ImportStaticModel(AssetInfo* info, const aiScene* scene)
 
   ret->submesh_count_ = scene->mNumMeshes;
   ret->submesh_index_counts_ = new T_UINT32[ret->submesh_count_]();
+  ret->submesh_material_indices_ = new T_UINT8[ret->submesh_count_]();
   //
   for (T_UINT32 m = 0; m < scene->mNumMeshes; ++m)
   {
@@ -121,6 +113,7 @@ StaticModelData* ImportStaticModel(AssetInfo* info, const aiScene* scene)
     {
       ret->index_count_ += mesh->mFaces[f].mNumIndices;
       ret->submesh_index_counts_[m] += mesh->mFaces[f].mNumIndices;
+      ret->submesh_material_indices_[m] = mesh->mMaterialIndex;
     }
 
     if (!(ret->vertex_format_ & V_ATTR_POSITION) && mesh->HasPositions())
@@ -176,7 +169,7 @@ StaticModelData* ImportStaticModel(AssetInfo* info, const aiScene* scene)
   TVec3f max = { 0.0f, 0.0f, 0.0f };
 
   //
-  ret->vertices_ = new T_FLOAT[ret->vertex_count_ * ret->vertex_size_]();
+  ret->data_ = new T_FLOAT[ret->vertex_count_ * ret->vertex_size_]();
   ret->indices_ = new T_UINT32[ret->index_count_]();
   for (T_UINT32 m = 0, vi = 0, ii = 0; m < scene->mNumMeshes; ++m)
   {
@@ -188,9 +181,9 @@ StaticModelData* ImportStaticModel(AssetInfo* info, const aiScene* scene)
       //mesh
       if (ret->vertex_format_ & V_ATTR_POSITION)
       {
-        ret->vertices_[vi + 0] = mesh->mVertices[v].x;
-        ret->vertices_[vi + 1] = mesh->mVertices[v].y;
-        ret->vertices_[vi + 2] = mesh->mVertices[v].z;
+        ret->data_[vi + 0] = mesh->mVertices[v].x;
+        ret->data_[vi + 1] = mesh->mVertices[v].y;
+        ret->data_[vi + 2] = mesh->mVertices[v].z;
 
         min.x = std::min(min.x, mesh->mVertices[v].x);
         min.y = std::min(min.y, mesh->mVertices[v].y);
@@ -204,47 +197,47 @@ StaticModelData* ImportStaticModel(AssetInfo* info, const aiScene* scene)
       }
       if (ret->vertex_format_ & V_ATTR_NORMAL)
       {
-        ret->vertices_[vi + 0] = mesh->mNormals[v].x;
-        ret->vertices_[vi + 1] = mesh->mNormals[v].y;
-        ret->vertices_[vi + 2] = mesh->mNormals[v].z;
+        ret->data_[vi + 0] = mesh->mNormals[v].x;
+        ret->data_[vi + 1] = mesh->mNormals[v].y;
+        ret->data_[vi + 2] = mesh->mNormals[v].z;
         vi += V_ATTRSIZE_NORMAL;
       }
       if (ret->vertex_format_ & V_ATTR_UV)
       {
-        ret->vertices_[vi + 0] = mesh->mTextureCoords[0][v].x;
-        ret->vertices_[vi + 1] = mesh->mTextureCoords[0][v].y;
+        ret->data_[vi + 0] = mesh->mTextureCoords[0][v].x;
+        ret->data_[vi + 1] = mesh->mTextureCoords[0][v].y;
         vi += V_ATTRSIZE_UV;
       }
       if (ret->vertex_format_ & V_ATTR_UV2)
       {
-        ret->vertices_[vi + 0] = mesh->mTextureCoords[1][v].x;
-        ret->vertices_[vi + 1] = mesh->mTextureCoords[1][v].y;
+        ret->data_[vi + 0] = mesh->mTextureCoords[1][v].x;
+        ret->data_[vi + 1] = mesh->mTextureCoords[1][v].y;
         vi += V_ATTRSIZE_UV2;
       }
       if (ret->vertex_format_ & V_ATTR_UV3)
       {
-        ret->vertices_[vi + 0] = mesh->mTextureCoords[2][v].x;
-        ret->vertices_[vi + 1] = mesh->mTextureCoords[2][v].y;
+        ret->data_[vi + 0] = mesh->mTextureCoords[2][v].x;
+        ret->data_[vi + 1] = mesh->mTextureCoords[2][v].y;
         vi += V_ATTRSIZE_UV3;
       }
       if (ret->vertex_format_ & V_ATTR_UV4)
       {
-        ret->vertices_[vi + 0] = mesh->mTextureCoords[3][v].x;
-        ret->vertices_[vi + 1] = mesh->mTextureCoords[3][v].y;
+        ret->data_[vi + 0] = mesh->mTextureCoords[3][v].x;
+        ret->data_[vi + 1] = mesh->mTextureCoords[3][v].y;
         vi += V_ATTRSIZE_UV4;
       }
       if (ret->vertex_format_ & V_ATTR_TANGENT)
       {
         //TODO:
-        ret->vertices_[vi + 0] = mesh->mTangents[v].x;
-        ret->vertices_[vi + 1] = mesh->mTangents[v].y;
-        ret->vertices_[vi + 2] = mesh->mTangents[v].z;
-        ret->vertices_[vi + 3] = 0.0f;
+        ret->data_[vi + 0] = mesh->mTangents[v].x;
+        ret->data_[vi + 1] = mesh->mTangents[v].y;
+        ret->data_[vi + 2] = mesh->mTangents[v].z;
+        ret->data_[vi + 3] = 0.0f;
         vi += V_ATTRSIZE_TANGENT;
       }
       if (ret->vertex_format_ & V_ATTR_COLOR)
       {
-        ret->vertices_[vi + 0] =
+        ret->data_[vi + 0] =
           (((T_UINT8)(mesh->mColors[0][v].a * 0xff) & 0xff) << 24) |
           (((T_UINT8)(mesh->mColors[0][v].r * 0xff) & 0xff) << 16) |
           (((T_UINT8)(mesh->mColors[0][v].g * 0xff) & 0xff) << 8) |
