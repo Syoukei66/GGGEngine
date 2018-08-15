@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../Common/NativeType.h"
-#include "../Common/Geometry.h"
-#include "../Common/Texture.h"
+#include "../Core/NativeType.h"
+#include "../Core/Geometry.h"
+#include "../Core/Texture.h"
 
 class ITextureRegion
 {

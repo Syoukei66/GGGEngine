@@ -1,6 +1,6 @@
 #include "Camera.h"
 #include "Director.h"
-#include "../Common/NativeProcess.h"
+#include "../Core/NativeProcess.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -24,7 +24,7 @@ Camera::Camera()
   , target_texture_(nullptr)
   , viewport_clear_(true)
   , position_(0.0f, 0.0f)
-  , size_((T_FLOAT)Director::GetInstance()->GetScreenWidth(), (T_FLOAT)Director::GetInstance()->GetScreenHeight())
+  , size_((T_FLOAT)Director::GetScreenWidth(), (T_FLOAT)Director::GetScreenHeight())
   , z_min_(0.0f)
   , z_max_(1.0f)
 {

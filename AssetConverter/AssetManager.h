@@ -5,7 +5,7 @@
 #include <functional>
 #include <iostream>
 
-#include "../Common/HashUtil.h"
+#include "../Core/HashUtil.h"
 #include "BaseConverter.h"
 #include "AssetInfo.h"
 #include "Setting.h"

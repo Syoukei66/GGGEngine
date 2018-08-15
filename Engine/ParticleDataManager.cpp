@@ -1,7 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "ParticleDataManager.h"
 #include "Director.h"
-#include "ParticleDataLoader.h"
 #include "TextureAtlasLoader.h"
 
 ParticleDataManager::ParticleDataManager()
@@ -59,7 +58,7 @@ void ParticleDataManager::Load()
   //}
   //this->is_already_loaded_ = true;
   //char atlas_path[256] = {};
-  //Director::GetInstance()->GetEngineOption()->asset_path.GetParticlePath("", atlas_path);
+  //Director::->GetEngineOption()->asset_path.GetParticlePath("", atlas_path);
   //TextureAtlasLoader loader = TextureAtlasLoader();
   //this->texture_atlas_ = loader.Load(atlas_path, this->atlas_path_);
 
@@ -67,7 +66,7 @@ void ParticleDataManager::Load()
   //for (T_UINT8 i = 0; i < this->size_; ++i)
   //{
   //  char particle_path[256] = {};
-  //  Director::GetInstance()->GetEngineOption()->asset_path.GetParticlePath(this->paths_[i], particle_path);
+  //  Director::->GetEngineOption()->asset_path.GetParticlePath(this->paths_[i], particle_path);
   //  const ParticleDataLoader* loader = ParticleDataLoader::DynamicLoad(particle_path);
   //  //TODO: Atlas‚ð‚È‚ñ‚Æ‚©‚µ‚Ä“Ç‚Ýž‚Ü‚¹‚é
   //  this->datas_[i] = loader->GetContents();

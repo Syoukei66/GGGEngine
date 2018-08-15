@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Common/Vector2.h"
+#include "../Core/Vector2.h"
 #include "Transform.h"
 
 class GameObject2D;

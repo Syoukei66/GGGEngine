@@ -1,6 +1,6 @@
 #pragma once
-#include "ShaderResource.h"
-#include "Material.h"
+#include "../Asset/Material.h"
+#include "../Asset/AssetContainer.h"
 #include "MeshResource.h"
 
 namespace EngineAsset
@@ -8,22 +8,20 @@ namespace EngineAsset
 
 namespace Shader
 {
-extern const ShaderAsset DEFAULT;
-extern const ShaderAsset LAMBERT;
-extern const ShaderAsset PHONG;
-extern const ShaderAsset PARTICLE;
-extern const ShaderAsset PRIMITIVE;
-extern const ShaderAsset SPRITE;
-extern const ShaderAsset WHITE;
+using T_ = INativeShader;
+using Cont_ = const AssetContainer<T_>*;
+extern Cont_ UNLIT;
+extern Cont_ LAMBERT;
+extern Cont_ PHONG;
+extern Cont_ SPRITE;
+extern Cont_ WHITE;
 } // namespace Shader
 
 namespace Material
 {
-extern class Material DEFAULT;
+extern class Material UNLIT;
 extern class Material LAMBERT;
 extern class Material PHONG;
-extern class Material PARTICLE;
-extern class Material PRIMITIVE;
 extern class Material SPRITE;
 extern class Material WHITE;
 } // namespace Material
@@ -34,5 +32,8 @@ extern MeshResource QUAD;
 extern MeshResource PLANE;
 extern MeshResource CUBE;
 } // namespace Mesh
+
+void Load();
+void Unload();
 
 } // namespace EngineAsset

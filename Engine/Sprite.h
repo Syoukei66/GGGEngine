@@ -2,7 +2,6 @@
 
 #include "GameObject2D.h"
 #include "SpriteRenderer.h"
-#include "TextureResource.h"
 
 class Sprite : public GameObject2D
 {
@@ -11,7 +10,6 @@ class Sprite : public GameObject2D
   // =================================================================
 public:
   static Sprite* Create();
-  static Sprite* CreateWithResource(const TextureResource& texture);
   static Sprite* CreateWithTexture(const Texture* texture);
   static Sprite* CreateWithTextureRegion(ITextureRegion* region, bool delete_region);
   static Sprite* CreateWithMaterial(Material& material);

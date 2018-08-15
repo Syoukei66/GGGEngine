@@ -10,7 +10,6 @@ class Sprite3D : public GameObject3D
   // =================================================================
 public:
   static Sprite3D* Create();
-  static Sprite3D* CreateWithResource(const TextureResource& texture);
   static Sprite3D* CreateWithTexture(const Texture* texture);
   static Sprite3D* CreateWithTextureRegion(ITextureRegion* region, bool delete_region);
   static Sprite3D* CreateWithMaterial(Material& material);

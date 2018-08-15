@@ -2,11 +2,11 @@
 
 #include "GameComponent.h"
 
-#include "../Common/NativeType.h"
-#include "../Common/Geometry.h"
-#include "../Common/Vector2.h"
-#include "../Common/Vector3.h"
-#include "../Common/Matrix4x4.h"
+#include "../Core/NativeType.h"
+#include "../Core/Geometry.h"
+#include "../Core/Vector2.h"
+#include "../Core/Vector3.h"
+#include "../Core/Matrix4x4.h"
 #include "RenderTexture.h"
 #include "GameObjectRenderState.h"
 

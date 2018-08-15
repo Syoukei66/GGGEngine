@@ -4,14 +4,9 @@
 
 #include "Director.h"
 
-#include "../Common/NativeProcess.h"
+#include "../Core/NativeProcess.h"
 #include "InputManager.h"
-
-#include "EngineResourcePool.h"
 #include "EngineAsset.h"
-
-#include "EngineResourcePool.h"
-#include "UserResourcePool.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -29,7 +24,7 @@ BaseActivity::~BaseActivity()
 // =================================================================
 bool BaseActivity::Run(IEngineSetting* setting)
 {
-  Director::GetInstance()->SetActivity(this);
+  Director::SetActivity(this);
 
   bool result = false;
 
@@ -37,7 +32,7 @@ bool BaseActivity::Run(IEngineSetting* setting)
 
   //Engine
   this->engine_ = new Engine();
-  Director::GetInstance()->SetEngine(this->engine_);
+  Director::SetEngine(this->engine_);
   result = this->engine_->Init(setting);
   NATIVE_ASSERT(result, "エンジンの初期化に失敗しました。");
 
@@ -52,36 +47,18 @@ bool BaseActivity::Run(IEngineSetting* setting)
   //Acitivity
   NATIVE_ASSERT(result, "アクティビティの初期化に失敗しました。");
 
-  EngineResourcePool::GetInstance().Init();
-  UserResourcePool::GetInstance().Init();
-
   setting->OnGameInit();
 
-  IResourceLoadingListener listener = IResourceLoadingListener();
-
-  EngineResourcePool& pool = EngineResourcePool::GetInstance();
-  pool.ReserveLoad(EngineAsset::Shader::DEFAULT);
-  pool.ReserveLoad(EngineAsset::Shader::LAMBERT);
-  pool.ReserveLoad(EngineAsset::Shader::PHONG);
-  pool.ReserveLoad(EngineAsset::Shader::PARTICLE);
-  pool.ReserveLoad(EngineAsset::Shader::PRIMITIVE);
-  pool.ReserveLoad(EngineAsset::Shader::SPRITE);
-  pool.ReserveLoad(EngineAsset::Shader::WHITE);
-
-  pool.PreRealize(&listener);
-  pool.Realize(&listener);
-
-  EngineAsset::Mesh::CUBE.Load();
-  EngineAsset::Mesh::PLANE.Load();
-  EngineAsset::Mesh::QUAD.Load();
+  EngineAsset::Load();
 
   //Scene
   engine_->ChangeScene(setting->FirstScene());
   while (this->Update());
   setting->OnGameFinal();
 
-  UserResourcePool::GetInstance().Uninit();
-  EngineResourcePool::GetInstance().Uninit();
+  EngineAsset::Unload();
+
+  AssetManager::GetInstance().Uninit();
 
   result = this->Uninit();
   NATIVE_ASSERT(result, "アクティビティの終了処理に失敗しました。");
@@ -141,7 +118,7 @@ bool BaseActivity::Update()
   NativeProcess::Time::FPS_PostUpdate();
 #endif
 
-  UserResourcePool::GetInstance().Update();
+  AssetManager::GetInstance().Update();
   return true;
 }
 

@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "../Common/Bounds.h"
-#include "../Common/Color.h"
+#include "../Core/Bounds.h"
+#include "../Core/Color.h"
 #include "ModelConstants.h"
 
 /*

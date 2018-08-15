@@ -1,4 +1,4 @@
-#include <NativeProcess.h>
+#include "../Core/NativeProcess.h"
 
 #define NOMINMAX
 #include <windows.h>
@@ -41,7 +41,7 @@ static LARGE_INTEGER time_freq_;
 
 void FPS_Init()
 {
-  fps_ = Director::GetInstance()->GetFrameRate();
+  fps_ = Director::GetFrameRate();
   QueryPerformanceFrequency(&time_freq_);
   QueryPerformanceCounter(&time_start_);
 }
@@ -105,7 +105,7 @@ namespace Graphics
 
 void ViewportClear()
 {
-  const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
+  const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
   device->Clear(
     0, NULL,
     (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER),
@@ -116,7 +116,7 @@ void ViewportClear()
 
 void SetViewport(T_FLOAT x, T_FLOAT y, T_FLOAT w, T_FLOAT h, T_FLOAT minZ, T_FLOAT maxZ)
 {
-  const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
+  const LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
   D3DVIEWPORT9 viewport;
   viewport.X = (DWORD)x;
   viewport.Y = (DWORD)y;
@@ -137,7 +137,7 @@ static LPDIRECT3DSURFACE9 temp_depth_buffer = nullptr;
 
 void SetRenderTarget(RenderBuffer* color_buffer, RenderBuffer* depth_buffer, bool clear)
 {
-  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
+  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
   device->EndScene();
 
   //現在の各バッファを保持しておく
@@ -166,7 +166,7 @@ void SetRenderTarget(RenderBuffer* color_buffer, RenderBuffer* depth_buffer, boo
 
 void ResetRenderTarget()
 {
-  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
+  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
 
   device->EndScene();
 
@@ -189,14 +189,14 @@ void ResetRenderTarget()
 namespace Resource
 {
 
-void* TextureLoad(const std::string& path)
+void* TextureLoad(const char* path)
 {
-  LP_DEVICE device = Director::GetInstance()->GetDevice();
+  LP_DEVICE device = Director::GetDevice();
   LPDIRECT3DTEXTURE9 dest = nullptr;
 
   HRESULT hr = D3DXCreateTextureFromFileEx(
     (LPDIRECT3DDEVICE9)device,
-    path.c_str(),
+    path,
     D3DX_DEFAULT,
     D3DX_DEFAULT,
     D3DX_DEFAULT,
@@ -215,12 +215,12 @@ void* TextureLoad(const std::string& path)
   return dest;
 }
 
-void* CreateTexture(T_UINT16 width, T_UINT16 height, Graphics::TextureFormat format)
+void* CreateTexture(T_UINT16 width, T_UINT16 height, RenderBuffer::Format format)
 {
   using namespace NativeConstants;
   width = Util::CalcTwoPowerValue(width);
   height = Util::CalcTwoPowerValue(height);
-  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
+  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
 
   //
   LPDIRECT3DTEXTURE9 texture = nullptr;
@@ -245,11 +245,11 @@ void DeleteTexture(void* native_obj)
   ((LPDIRECT3DTEXTURE9)native_obj)->Release();
 }
 
-void GetTextureSize(const std::string& path, T_UINT16* width_dest, T_UINT16* height_dest)
+void GetTextureSize(const char* path, T_UINT16* width_dest, T_UINT16* height_dest)
 {
   D3DXIMAGE_INFO info;
   HRESULT hr = D3DXGetImageInfoFromFile(
-    path.c_str(),
+    path,
     &info
   );
   NATIVE_ASSERT(SUCCEEDED(hr), "テクスチャサイズの取得に失敗しました");
@@ -277,10 +277,10 @@ void* CreateColorBuffer(Texture* texture)
   return  surf;
 }
 
-void* CreateDepthBuffer(T_UINT16 width, T_UINT16 height, Graphics::TextureFormat format)
+void* CreateDepthBuffer(T_UINT16 width, T_UINT16 height, RenderBuffer::Format format)
 {
   LPDIRECT3DSURFACE9 surf;
-  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
+  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
   HRESULT hr = device->CreateDepthStencilSurface(
     width,
     height,

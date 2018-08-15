@@ -1,8 +1,8 @@
 #ifndef HAL_ENGINE_ENTITY_TRANSFORM_H_
 #define HAL_ENGINE_ENTITY_TRANSFORM_H_
 
-#include "../Common/NativeType.h"
-#include "../Common/Matrix4x4.h"
+#include "../Core/NativeType.h"
+#include "../Core/Matrix4x4.h"
 
 class GameObject;
 

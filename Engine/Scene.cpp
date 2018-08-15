@@ -6,7 +6,6 @@
 #include "Camera.h"
 #include "Camera2D.h"
 #include "Camera3D.h"
-#include "UserResourcePool.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -33,15 +32,17 @@ Scene::~Scene()
 // =================================================================
 // Method
 // =================================================================
-void Scene::Load(IResourceLoadingListener* listener)
+void Scene::Load(IAssetLoadingListener* listener)
 {
   if (this->is_loaded_)
   {
     return;
   }
-  this->OnLoad(&UserResourcePool::GetInstance());
-  UserResourcePool::GetInstance().PreRealize(listener);
-  UserResourcePool::GetInstance().Realize(listener);
+
+  this->OnLoad(&AssetManager::GetInstance());
+
+  AssetManager::GetInstance().PreRealize(listener);
+  AssetManager::GetInstance().Realize(listener);
   this->OnSetup();
   this->is_loaded_ = true;
 }

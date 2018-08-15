@@ -1,5 +1,4 @@
 #include "AnimatedSprite3D.h"
-#include "EngineAsset.h"
 
 // =================================================================
 // Factory Method
@@ -7,13 +6,8 @@
 AnimatedSprite3D* AnimatedSprite3D::Create()
 {
   AnimatedSprite3D* ret = new AnimatedSprite3D();
-  ret->SetRenderer(new AnimatedSpriteRenderer(ret, 0.01f));
+  ret->SetRenderer(new AnimatedSpriteRenderer(ret));
   return ret;
-}
-
-AnimatedSprite3D* AnimatedSprite3D::CreateWithResource(const TextureResource& texture, T_UINT8 x_num, T_UINT8 y_num)
-{
-  return AnimatedSprite3D::CreateWithTexture(texture.GetContents(), x_num, y_num);
 }
 
 AnimatedSprite3D* AnimatedSprite3D::CreateWithTexture(const Texture* texture, T_UINT8 x_num, T_UINT8 y_num)

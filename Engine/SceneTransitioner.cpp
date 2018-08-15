@@ -89,13 +89,13 @@ void SceneTransitioner::OnHideFinish()
   }
   this->now_scene_ = this->next_scene_;
   this->next_scene_ = nullptr;
-  Director::GetInstance()->SetNowScene(this->now_scene_);
+  Director::SetNowScene(this->now_scene_);
   if (this->now_scene_)
   {
-    //TODO:ローディングシーンなどを渡す
-    IResourceLoadingListener listener = IResourceLoadingListener();
     this->state_ = SCENE_TRANSITION_LOADING;
-    this->now_scene_->Load(&listener);
+
+    //TODO:ローディングシーンなどを渡す
+    this->now_scene_->Load(nullptr);
     this->state_ = SCENE_TRANSITION_ON_SHOW;
     return;
   }

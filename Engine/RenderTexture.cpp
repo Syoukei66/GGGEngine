@@ -1,17 +1,17 @@
 #include "RenderTexture.h"
-#include "../Common/NativeProcess.h"
+#include "../Core/NativeProcess.h"
 
-RenderTexture* RenderTexture::Create(T_UINT16 width, T_UINT16 height, Graphics::TextureFormat format)
+RenderTexture* RenderTexture::Create(T_UINT16 width, T_UINT16 height, RenderBuffer::Format format)
 {
-  return new RenderTexture(width, height, format, Graphics::TEX_FORMAT_D16);
+  return new RenderTexture(width, height, format, RenderBuffer::FORMAT_D16);
 }
 
-RenderTexture * RenderTexture::Create(T_UINT16 width, T_UINT16 height, Graphics::TextureFormat format, Graphics::TextureFormat depth_format)
+RenderTexture * RenderTexture::Create(T_UINT16 width, T_UINT16 height, RenderBuffer::Format format, RenderBuffer::Format depth_format)
 {
   return new RenderTexture(width, height, format, depth_format);
 }
 
-RenderTexture::RenderTexture(T_UINT16 width, T_UINT16 height, Graphics::TextureFormat format, Graphics::TextureFormat depth_format)
+RenderTexture::RenderTexture(T_UINT16 width, T_UINT16 height, RenderBuffer::Format format, RenderBuffer::Format depth_format)
   : Texture(width, height, NativeProcess::Resource::CreateTexture(width, height, format))
 {
   this->depth_buffer_ = RenderBuffer::CreateDepthBuffer(this->GetTwoPoweredWidth(), this->GetTwoPoweredHeight(), depth_format);

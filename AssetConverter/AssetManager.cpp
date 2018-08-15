@@ -26,10 +26,6 @@ static AssetMetaData* LoadMetaData(const std::string& path)
 
 AssetManager::~AssetManager()
 {
-  for (BaseConverter* converter : this->converters_)
-  {
-    delete converter;
-  }
   for (auto& pair : this->informations_)
   {
     delete pair.second->meta_data;
@@ -98,8 +94,8 @@ void AssetManager::ScanAssetFolder()
     upper_filename = upper_filename.substr(0, pos);
 
     //プログラム生成時の名前(ID)の作成
-    //(.*[^\\.] + )\\.([^\\.] + $)
-    info->program_id = std::regex_replace(upper_filename, std::regex("[\\\\,/]"), "_");
+    //プログラムで使用できない文字を変換
+    info->program_id = std::regex_replace(upper_filename, std::regex("[^a-zA-Z0-9]+"), "_");
 
     info->meta_data = LoadMetaData(info->full_path + "." + META_DATA_EXTENSION);
     if (info->meta_data->unique_id != unique_id)

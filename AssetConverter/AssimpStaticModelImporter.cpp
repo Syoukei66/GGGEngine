@@ -1,9 +1,9 @@
 #include "AssimpStaticModelImporter.h"
 #include <assimp\mesh.h>
 
-#include "../Common/GraphicsConstants.h"
-#include "../Common/NativeAssert.h"
-#include "../Common/Color.h"
+#include "../Core/GraphicsConstants.h"
+#include "../Core/NativeAssert.h"
+#include "../Core/Color.h"
 
 #include "AssetManager.h"
 

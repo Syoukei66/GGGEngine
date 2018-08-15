@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../Common/NativeType.h"
-#include "../Common/BlendFunction.h"
-#include "../Common/GraphicsConstants.h"
-#include "../Common/Matrix4x4.h"
+#include "../Core/NativeType.h"
+#include "../Core/BlendFunction.h"
+#include "../Core/GraphicsConstants.h"
+#include "../Core/Matrix4x4.h"
 
 #include "GameObjectRenderQueue.h"
 

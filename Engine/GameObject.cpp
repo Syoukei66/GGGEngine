@@ -1,8 +1,6 @@
 #include "GameObject.h"
 #include <stdlib.h>
 
-#include "EngineAsset.h"
-
 // =================================================================
 // Constructor / Destructor
 // =================================================================

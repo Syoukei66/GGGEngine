@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "AssetProgramGenerator_difinition.h"
+#include "AssetProgramGenerator_definition.h"
 
 namespace AssetProgram
 {
@@ -19,7 +19,8 @@ public:
   }
 
 public:
-  std::string CreateProgram(const std::function<std::string(const DefinitionGenerator&)>& func) const;
+  std::string CreateHeaderProgram(const std::function<std::string(const DefinitionGenerator&)>& func) const;
+  std::string CreateCppProgram(const std::function<std::string(const DefinitionGenerator&)>& func) const;
 
 private:
   std::vector<DefinitionGenerator> namespaces_;

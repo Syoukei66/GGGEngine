@@ -276,8 +276,8 @@ void DirectXActivity::PostDraw()
   D3DVIEWPORT9 viewport;
   viewport.X = 0;
   viewport.Y = 0;
-  viewport.Width = (DWORD)Director::GetInstance()->GetScreenWidth();
-  viewport.Height = (DWORD)Director::GetInstance()->GetScreenHeight();
+  viewport.Width = (DWORD)Director::->GetScreenWidth();
+  viewport.Height = (DWORD)Director::->GetScreenHeight();
   viewport.MinZ = 0.0f;
   viewport.MaxZ = 1.0f;
   this->d3d_device_->SetViewport(&viewport);
@@ -311,8 +311,8 @@ void DirectXActivity::InputProcess(EngineInputState* state)
 void DirectXActivity::DrawFPS(const char* text, T_FLOAT x, T_FLOAT y, T_UINT32 color)
 {
 #ifdef _DEBUG
-  const T_UINT16 width = Director::GetInstance()->GetScreenWidth();
-  const T_UINT16 height = Director::GetInstance()->GetScreenHeight();
+  const T_UINT16 width = Director::->GetScreenWidth();
+  const T_UINT16 height = Director::->GetScreenHeight();
   RECT rect = { (LONG)x, (LONG)y, (LONG)(x + width), (LONG)(y + height) };
 
   this->debug_font_->DrawText(

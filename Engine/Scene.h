@@ -1,13 +1,12 @@
-#ifndef HAL_ENGINE_SCENE_SCENE_H_
-#define HAL_ENGINE_SCENE_SCENE_H_
+#pragma once
+
+#include "../Asset/AssetManager.h"
 
 #include "GameObject2D.h"
 #include "GameObject3D.h"
 #include "InputManager.h"
 #include "UpdateEvent.h"
 #include "SceneTransitioner.h"
-
-#include "ResourcePool.h"
 
 #include "Camera.h"
 #include "Camera2D.h"
@@ -31,7 +30,7 @@ public:
   // Method
   // =================================================================
 public:
-  void Load(IResourceLoadingListener* listener);
+  void Load(IAssetLoadingListener* listener);
   void Unload();
   void Show(ISceneShowListener* listener);
   void ShowFinish();
@@ -108,7 +107,7 @@ public:
   void OnUpdateEvent();
 
 protected:
-  virtual void OnLoad(IResourceLoadReserver* resource) = 0;
+  virtual void OnLoad(IAssetLoadReserver* resource) = 0;
   virtual void OnSetup() = 0;
   virtual void OnUnload() = 0;
   virtual void OnShow(ISceneShowListener* listener) = 0;
@@ -139,5 +138,3 @@ private:
   GameObject3D* root3d_;
   std::vector<Camera*> cameras_;
 };
-
-#endif//HAL_ENGINE_SCENE_SCENE_H_

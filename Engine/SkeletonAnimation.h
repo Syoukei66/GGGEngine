@@ -2,10 +2,10 @@
 
 #include <spine/spine.h>
 #include <string>
+#include "../Asset/AttachmentVertexes.h"
+#include "../Asset/SpineData.h"
 
 #include "GameObject2D.h"
-#include "AttachmentVertexes.h"
-#include "SpineData.h"
 
 class SkeletonAnimation : public GameObject2D
 {

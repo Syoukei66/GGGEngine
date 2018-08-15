@@ -13,7 +13,7 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
   , polygon_count_(polygon_count)
   , format_(format)
 {
-  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
+  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::->GetDevice();
 
   std::vector<D3DVERTEXELEMENT9> elements = std::vector<D3DVERTEXELEMENT9>();
 
@@ -142,7 +142,7 @@ void NativeVertexBuffer::Unlock()
 
 void NativeVertexBuffer::SetStreamSource() const
 {
-  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
+  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::->GetDevice();
   HRESULT hr = device->SetVertexDeclaration(this->vertex_declaration_);
   NATIVE_ASSERT(SUCCEEDED(hr), "頂点宣言のセットに失敗しました");
   hr = device->SetStreamSource(0, this->vertex_buffer_, 0, this->stride_);
@@ -151,7 +151,7 @@ void NativeVertexBuffer::SetStreamSource() const
 
 void NativeVertexBuffer::DrawPrimitive(Graphics::PrimitiveType primitive_type) const
 {
-  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
+  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::->GetDevice();
   HRESULT hr = device->DrawPrimitive(
     NativeConstants::PRIMITIVE_TYPES[primitive_type],
     0,
@@ -162,7 +162,7 @@ void NativeVertexBuffer::DrawPrimitive(Graphics::PrimitiveType primitive_type) c
 
 void NativeVertexBuffer::DrawIndexedPrimitive(const INativeIndexBuffer* index_buffer, Graphics::PrimitiveType primitive_type) const
 {
-  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
+  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::->GetDevice();
   const T_UINT32 vertex_count = index_buffer->GetVertexesCount();
   HRESULT hr = device->DrawIndexedPrimitive(
     NativeConstants::PRIMITIVE_TYPES[primitive_type],

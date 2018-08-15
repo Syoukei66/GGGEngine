@@ -127,8 +127,8 @@ void DirectXInputDevice_Mouse::InputProcess(T_UINT8 handler, EngineInputState* s
     }
     state->PostInputDigital(handler, this->mouse_inputs_[i].id);
   }
-  const T_FLOAT w = (T_FLOAT)Director::GetInstance()->GetScreenWidth();
-  const T_FLOAT h = (T_FLOAT)Director::GetInstance()->GetScreenHeight();
+  const T_FLOAT w = (T_FLOAT)Director::->GetScreenWidth();
+  const T_FLOAT h = (T_FLOAT)Director::->GetScreenHeight();
 
   state->PreInputAnalog(handler, this->move_input_id_);
   state->InputAnalog(handler, this->move_input_id_, 0, mouse_state.lX * 0.1f);

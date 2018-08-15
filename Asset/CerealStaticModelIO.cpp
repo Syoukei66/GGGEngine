@@ -6,7 +6,7 @@
 
 #include "CerealIO.h"
 
-#include "../Common/NativeAssert.h"
+#include "../Core/NativeAssert.h"
 
 //=============================================================================
 // MaterialData

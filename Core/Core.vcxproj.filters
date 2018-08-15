@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Resource">
+      <UniqueIdentifier>{7b34303c-b779-423c-9faa-0a416cf0c89f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Resource">
+      <UniqueIdentifier>{cb5681e8-b2a5-4a08-84d6-967d620fa005}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Resource\Math">
+      <UniqueIdentifier>{9300a498-6219-407e-b8a4-87f60fb75bdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Resource\Math">
+      <UniqueIdentifier>{e46ff8c2-d8c8-4a66-b351-6c1dc5295086}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Constants">
+      <UniqueIdentifier>{91b2caf7-8e07-4964-9ef1-119f9627fcff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Constants">
+      <UniqueIdentifier>{88ba363e-eaf4-4d32-ab5d-ffb10707ef5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Resource\Render">
+      <UniqueIdentifier>{5cda3739-d8c6-4439-9a19-33a5b92ebdf3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Resource\Sound">
+      <UniqueIdentifier>{ec0d9868-13b4-4763-a5aa-9fa2223de879}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Resource\Sound">
+      <UniqueIdentifier>{ffbfc417-9d65-4fb0-aea4-73c51c57781e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Resource\Render">
+      <UniqueIdentifier>{3bc23f59-8077-431d-8de0-34f3eca1e3d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Resource\Buffer">
+      <UniqueIdentifier>{88c419d0-91f7-4446-87ae-1f8a92ab28ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Resource\Buffer">
+      <UniqueIdentifier>{b0e50e13-b7ed-4e60-b296-af459c48e386}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Resource\Shader">
+      <UniqueIdentifier>{00d58585-4d51-4fc5-9de6-6258151f5c2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Resource\Shader">
+      <UniqueIdentifier>{da07c896-f775-4be1-949e-a447e109c36e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Native">
+      <UniqueIdentifier>{b65b07b8-d0ac-48c9-9553-a0e3b9f926cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Native">
+      <UniqueIdentifier>{e0ff16f5-4948-48eb-a861-5cf6138068f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Resource\Color">
+      <UniqueIdentifier>{095b1fb2-7ac9-404f-b902-4c11b8ac367d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Resource\Color">
+      <UniqueIdentifier>{2e3cf0cd-9f8e-4fc7-ba2a-a1ae6357603a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Resource\Easing">
+      <UniqueIdentifier>{b7e75d04-80f6-42e7-8957-88368c6b20d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Resource\Easing">
+      <UniqueIdentifier>{067a3163-7d05-4516-b019-b311d7b5100b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\ThirdPirty">
+      <UniqueIdentifier>{66e6eb79-326c-4acf-9117-5cd9e1f74a44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\ThirdPirty\Cereal">
+      <UniqueIdentifier>{832f56b1-9778-43e8-8fd2-a826c676ab60}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Vector4.h">
+      <Filter>ヘッダー ファイル\Resource\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>ヘッダー ファイル\Resource\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>ヘッダー ファイル\Resource\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="TranslationMatrix.h">
+      <Filter>ヘッダー ファイル\Resource\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="ScalingMatrix.h">
+      <Filter>ヘッダー ファイル\Resource\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Quaternion.h">
+      <Filter>ヘッダー ファイル\Resource\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeType.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderBuffer.h">
+      <Filter>ヘッダー ファイル\Resource\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeSound.h">
+      <Filter>ヘッダー ファイル\Resource\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>ヘッダー ファイル\Resource\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix4x4.h">
+      <Filter>ヘッダー ファイル\Resource\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Bounds.h">
+      <Filter>ヘッダー ファイル\Resource\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Bezier.h">
+      <Filter>ヘッダー ファイル\Resource\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Bresenham.h">
+      <Filter>ヘッダー ファイル\Resource\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry.h">
+      <Filter>ヘッダー ファイル\Resource\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeVertexBuffer.h">
+      <Filter>ヘッダー ファイル\Resource\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeIndexBuffer.h">
+      <Filter>ヘッダー ファイル\Resource\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeShader.h">
+      <Filter>ヘッダー ファイル\Resource\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeProcess.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeObject.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="BlendFunction.h">
+      <Filter>ヘッダー ファイル\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="Gradient.h">
+      <Filter>ヘッダー ファイル\Resource\Color</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>ヘッダー ファイル\Resource\Color</Filter>
+    </ClInclude>
+    <ClInclude Include="EasingFunctionManager.h">
+      <Filter>ヘッダー ファイル\Resource\Easing</Filter>
+    </ClInclude>
+    <ClInclude Include="EasingFunction.h">
+      <Filter>ヘッダー ファイル\Resource\Easing</Filter>
+    </ClInclude>
+    <ClInclude Include="MathConstants.h">
+      <Filter>ヘッダー ファイル\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="HashUtil.h">
+      <Filter>ヘッダー ファイル\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeAssert.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsConstants.h">
+      <Filter>ヘッダー ファイル\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix4x3.h">
+      <Filter>ヘッダー ファイル\Resource\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="CerealArchiveMacro.hpp">
+      <Filter>ヘッダー ファイル\ThirdPirty\Cereal</Filter>
+    </ClInclude>
+    <ClInclude Include="CerealIO.h">
+      <Filter>ヘッダー ファイル\ThirdPirty\Cereal</Filter>
+    </ClInclude>
+    <ClInclude Include="CerealStructArchive.hpp">
+      <Filter>ヘッダー ファイル\ThirdPirty\Cereal</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Bresenham.cpp">
+      <Filter>ソース ファイル\Resource\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix4x4.cpp">
+      <Filter>ソース ファイル\Resource\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Quaternion.cpp">
+      <Filter>ソース ファイル\Resource\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderBuffer.cpp">
+      <Filter>ソース ファイル\Resource\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>ソース ファイル\Resource\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeVertexBuffer.cpp">
+      <Filter>ソース ファイル\Resource\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeIndexBuffer.cpp">
+      <Filter>ソース ファイル\Resource\Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeShader.cpp">
+      <Filter>ソース ファイル\Resource\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="NativeSound.cpp">
+      <Filter>ソース ファイル\Resource\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>ソース ファイル\Resource\Color</Filter>
+    </ClCompile>
+    <ClCompile Include="Gradient.cpp">
+      <Filter>ソース ファイル\Resource\Color</Filter>
+    </ClCompile>
+    <ClCompile Include="EasingFunction.cpp">
+      <Filter>ソース ファイル\Resource\Easing</Filter>
+    </ClCompile>
+    <ClCompile Include="EasingFunctionManager.cpp">
+      <Filter>ソース ファイル\Resource\Easing</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Matrix4x4.inl">
+      <Filter>ヘッダー ファイル\Resource\Math</Filter>
+    </None>
+  </ItemGroup>
+</Project>

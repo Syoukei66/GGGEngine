@@ -7,14 +7,9 @@
 Sprite3D* Sprite3D::Create()
 {
   Sprite3D* ret = new Sprite3D();
-  ret->SetRenderer(new SpriteRenderer(ret, 0.01f));
+  ret->SetRenderer(new SpriteRenderer(ret));
   ret->Init();
   return ret;
-}
-
-Sprite3D* Sprite3D::CreateWithResource(const TextureResource& texture)
-{
-  return Sprite3D::CreateWithTexture(texture.GetContents());
 }
 
 Sprite3D* Sprite3D::CreateWithTexture(const Texture* texture)

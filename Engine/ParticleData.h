@@ -1,7 +1,6 @@
 #pragma once
 
-#include "../Common/NativeType.h"
-#include "TextureResource.h"
+#include "../Core/NativeType.h"
 #include "ParticleSystem.h"
 
 //===============================================================
@@ -9,6 +8,9 @@
 //===============================================================
 class ParticleData
 {
+public:
+  static ParticleData* Create(const std::string& path);
+
 public:
   ParticleData();
   

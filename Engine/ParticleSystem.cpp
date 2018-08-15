@@ -1,5 +1,5 @@
 #include "ParticleSystem.h"
-#include "../Common/MathConstants.h"
+#include "../Core/MathConstants.h"
 #include "ParticleData.h"
 #include "Director.h"
 #include "Moniker.h"
@@ -30,7 +30,7 @@ void Particle::OnEmission(const ParticleData* data, const Transform2D* offset)
   //this->SetTextureRegion(data->region_);
   //this->FitToTexture();
 
-  this->life_time = data->CalcValueByVariance(data->life_time, data->life_time_variance, 0) * Director::GetInstance()->GetFrameRate();
+  this->life_time = data->CalcValueByVariance(data->life_time, data->life_time_variance, 0) * Director::GetFrameRate();
   this->life_time_rest = this->life_time;
 
   this->start_size = data->CalcValueByVariance(data->start_size, data->start_size_variance, 0) * 0.01f;
@@ -66,10 +66,10 @@ bool Particle::OnUpdate(const ParticleData* data)
   this->life_time_rest = std::max(0.0f, this->life_time_rest - 1.0f);
   this->GetTransform()->SetScale(data->CalcValueByProgress(this->start_size, this->end_size, progress));
   this->GetTransform()->SetRotation(data->CalcValueByProgress(this->start_spin, this->end_spin, progress));
-  this->GetRenderer()->GetMaterial()->GetDiffuse().r = data->CalcValueByProgress(this->start_color_r, this->end_color_r, progress);
-  this->GetRenderer()->GetMaterial()->GetDiffuse().g = data->CalcValueByProgress(this->start_color_g, this->end_color_g, progress);
-  this->GetRenderer()->GetMaterial()->GetDiffuse().b = data->CalcValueByProgress(this->start_color_b, this->end_color_b, progress);
-  this->GetRenderer()->GetMaterial()->GetDiffuse().a = data->CalcValueByProgress(this->start_color_a, this->end_color_a, progress);
+  this->GetRenderer()->GetMaterial()->GetMainColor().r = data->CalcValueByProgress(this->start_color_r, this->end_color_r, progress);
+  this->GetRenderer()->GetMaterial()->GetMainColor().g = data->CalcValueByProgress(this->start_color_g, this->end_color_g, progress);
+  this->GetRenderer()->GetMaterial()->GetMainColor().b = data->CalcValueByProgress(this->start_color_b, this->end_color_b, progress);
+  this->GetRenderer()->GetMaterial()->GetMainColor().a = data->CalcValueByProgress(this->start_color_a, this->end_color_a, progress);
 
   return data->OnUpdate(this, progress, pre_progress - progress);
 }
@@ -122,7 +122,7 @@ void ParticleSystem::Init()
   }
   else
   {
-    this->duration_ = this->data_->duration * Director::GetInstance()->GetFrameRate();
+    this->duration_ = this->data_->duration * Director::GetFrameRate();
   }
 }
 
@@ -131,7 +131,7 @@ void ParticleSystem::Update()
   if (this->data_->duration == -1.0f || this->duration_ > 0.0f)
   {
     this->duration_ -= 1.0f;
-    const T_FLOAT emission_time = (T_FLOAT)Director::GetInstance()->GetFrameRate() * this->data_->life_time / this->data_->max_particles;
+    const T_FLOAT emission_time = (T_FLOAT)Director::GetFrameRate() * this->data_->life_time / this->data_->max_particles;
     this->time_count_ += 1.0f;
     while (this->time_count_ > emission_time)
     {

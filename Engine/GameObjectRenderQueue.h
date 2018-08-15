@@ -2,9 +2,9 @@
 
 #include <vector>
 #include <unordered_map>
-#include "../Common/NativeType.h"
+#include "../Core/NativeType.h"
 
-class Material;
+class CustomMaterial;
 class Renderer;
 class Camera;
 class GameObjectRenderState;

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GameComponent.h"
-#include "Material.h"
+#include "../Asset/Material.h"
 
 class GameObjectRenderState;
 class GameObject;
@@ -22,12 +22,15 @@ public:
   void ReserveDraw(GameObjectRenderState* state);
   void UniqueMaterial();
   
-  virtual void Draw(GameObjectRenderState* state) const = 0;
-/*
+  void Draw(GameObjectRenderState* state) const;
+
 protected:
-  virtual void EditProperty(T_UINT8 material_index, T_UINT8 pass_index, Material* material) = 0;
-  virtual void SetStreamSource() = 0;
-  virtual void DrawSubset(T_UINT8 material_index, T_UINT8 pass_index) = 0;*/
+  virtual bool SetStreamSource() const = 0;
+  virtual void SetProperties(Material* material) const = 0;
+  virtual void DrawSubset(T_UINT8 submesh_index) const = 0;
+
+private:
+  void SetDefaultProperties(GameObjectRenderState* state, Material* material) const;
 
   // =================================================================
   // setter/getter
@@ -46,7 +49,14 @@ public:
   {
     this->materials_.emplace_back(&material);
   }
-  void SetMaterial(Material& material);
+  inline void SetMaterial(Material& material)
+  {
+    if (this->materials_.size() == 0)
+    {
+      this->materials_.emplace_back(nullptr);
+    }
+    this->materials_[0] = &material;
+  }
   inline void SetMaterial(T_UINT16 index, Material& material)
   {
     this->materials_[index] = &material;

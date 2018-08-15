@@ -7,7 +7,7 @@
 NativeIndexBuffer::NativeIndexBuffer(T_UINT16 vertex_count)
   : vertex_count_(vertex_count)
 {
-  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
+  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::->GetDevice();
   HRESULT hr = device->CreateIndexBuffer(
     sizeof(T_UINT32) * vertex_count,
     0,
@@ -41,7 +41,7 @@ void NativeIndexBuffer::Unlock()
 
 void NativeIndexBuffer::SetIndices() const
 {
-  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
+  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::->GetDevice();
   HRESULT hr = device->SetIndices(this->index_buffer_);
   NATIVE_ASSERT(SUCCEEDED(hr), "IndexBuffer‚ÌƒZƒbƒg‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 }

@@ -1,15 +1,9 @@
-#ifndef HAL_ENGINE_ENTITY_ENTITY_H_
-#define HAL_ENGINE_ENTITY_ENTITY_H_
+﻿#pragma once
 
-#include "../Common/NativeType.h"
+#include "../Core/NativeType.h"
 #include "GameComponent.h"
-#include "Material.h"
 
 #include "Renderer.h"
-#include "AnimatedSpriteRenderer.h"
-#include "MeshRenderer.h"
-#include "SpriteRenderer.h"
-
 #include "Transform.h"
 
 class GameObjectRenderState;
@@ -162,5 +156,3 @@ private:
 	bool visible_;
   Renderer* renderer_;
 };
-
-#endif//HAL_ENGINE_ENTITY_ENTITY_H_

@@ -2,6 +2,8 @@
 
 #include "EngineInitializeSetting.h"
 #include "GameObjectRenderState.h"
+#include "Camera.h"
+#include "GameObject.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -38,14 +40,44 @@ void Renderer::UniqueMaterial()
   }
 }
 
-// =================================================================
-// setter/getter
-// =================================================================
-void Renderer::SetMaterial(Material& material)
+void Renderer::Draw(GameObjectRenderState* state) const
 {
-  if (this->materials_.size() == 0)
+  if (!this->SetStreamSource())
   {
-    this->materials_.emplace_back(nullptr);
+    return;
   }
-  this->materials_[0] = &material;
+  //TODO:マルチパスレンダリングが間違えてるので要修正
+  const T_UINT8 material_count = this->materials_.size();
+  for (T_UINT8 i = 0; i < material_count; ++i)
+  {
+    Material* material = this->materials_[i];
+    T_UINT8 pass_count = material->Begin();
+    for (T_UINT8 j = 0; j < pass_count; ++j)
+    {
+      material->BeginPass(j);
+      this->SetDefaultProperties(state, material);
+      material->CommitChanges();
+      this->DrawSubset(i);
+      material->EndPass();
+    }
+    material->End();
+  }
+}
+
+void Renderer::SetDefaultProperties(GameObjectRenderState* state, Material* material) const
+{
+  this->SetProperties(material);
+
+  INativeShader* shader = material->GetShader();
+  material->SetProperties(shader);
+
+  //Materialをゲーム内処理から独立させる為、こちら側でプロパティの設定を行う
+  shader->SetTexture("_MainTex", material->GetMainTexture());
+  shader->SetBool("_IsBillbord", material->IsBillboard());
+
+  shader->SetMatrix("_World", state->GetWorldMatrix());
+  shader->SetMatrix("_WorldViewProj", state->GetWorldMatrix() * state->GetViewProjMatrix());
+
+  shader->SetVec4f("_CameraPosition", state->GetCamera()->GetEntity()->GetWorldMatrix().GetPosition4d());
+  shader->SetVec3f("_CameraDirection", state->GetCamera()->GetEntity()->GetWorldMatrix().GetDirection3d());
 }

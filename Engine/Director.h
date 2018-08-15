@@ -10,11 +10,11 @@ class Director
   // =================================================================
   // Factory Method
   // =================================================================
-public:
-  static inline Director* GetInstance()
+private:
+  static inline Director& GetInstance()
   {
     static Director self;
-    return &self;
+    return self;
   }
 
   // =================================================================
@@ -27,64 +27,64 @@ private:
   // Method
   // =================================================================
 public:
-  inline void ChangeScene(Scene* next)
+  static inline void ChangeScene(Scene* next)
   {
-    this->engine_->ChangeScene(next);
+    GetInstance().engine_->ChangeScene(next);
   }
 
   // =================================================================
   // setter/getter
   // =================================================================
 public:
-  inline void SetNowScene(Scene* scene)
+  static inline void SetNowScene(Scene* scene)
   {
-    this->now_scene_ = scene;
+    GetInstance().now_scene_ = scene;
   }
 
-  inline void SetActivity(BaseActivity* activity)
+  static inline void SetActivity(BaseActivity* activity)
   {
-    this->activity_ = activity;
+    GetInstance().activity_ = activity;
   }
 
-  inline void SetEngine(Engine* engine)
+  static inline void SetEngine(Engine* engine)
   {
-    this->engine_ = engine;
+    GetInstance().engine_ = engine;
   }
 
-  inline const EngineOption* GetEngineOption()
+  static inline const EngineOption* GetEngineOption()
   {
-    return this->engine_->GetEngineOption();
+    return GetInstance().engine_->GetEngineOption();
   }
 
-  inline LP_DEVICE GetDevice() const
+  static inline LP_DEVICE GetDevice()
   {
-    return this->activity_->GetDevice();
+    return GetInstance().activity_->GetDevice();
   }
 
-  inline T_UINT8 GetFrameRate() const
+  static inline T_UINT8 GetFrameRate()
   {
     //TODO: ‰Â•Ï‚É‚µ‚½‚¢
     return 60;
   }
 
-  inline Scene* GetNowScene() const
+  static inline Scene* GetNowScene()
   {
-    return this->engine_->GetNowScene();
+    return GetInstance().engine_->GetNowScene();
   }
 
-  inline const TSize& GetScreenSize() const
+  static inline const TSize& GetScreenSize() 
   {
-    return this->engine_->GetScreenSize();
+    return GetInstance().engine_->GetScreenSize();
   }
 
-  inline T_UINT16 GetScreenWidth() const
+  static inline T_UINT16 GetScreenWidth()
   {
-    return this->engine_->GetScreenWidth();
+    return GetInstance().engine_->GetScreenWidth();
   }
 
-  inline T_UINT16 GetScreenHeight() const
+  static inline T_UINT16 GetScreenHeight() 
   {
-    return this->engine_->GetScreenHeight();
+    return GetInstance().engine_->GetScreenHeight();
   }
 
   // =================================================================

@@ -1,10 +1,8 @@
-#ifndef HAL_ENGINE_ENTITY_SHAPE_SPRITE_TEXTUREREGION_TILEDTEXTUREREGION_H_
-#define HAL_ENGINE_ENTITY_SHAPE_SPRITE_TEXTUREREGION_TILEDTEXTUREREGION_H_
+#pragma once
 
-#include "../Common/NativeType.h"
+#include "../Core/NativeType.h"
+#include "../Asset/Material.h"
 #include "ITextureRegion.h"
-#include "TextureResource.h"
-#include "Material.h"
 
 class TiledTextureRegion : public ITextureRegion
 {
@@ -21,7 +19,6 @@ public:
   // =================================================================
 public:
   static TiledTextureRegion* CreateWithMaterial(const Material& material, T_UINT8 x_num, T_UINT8 y_num);
-  static TiledTextureRegion* CreateWithResource(const TextureResource& texture, T_UINT8 x_num, T_UINT8 y_num);
   static TiledTextureRegion* CreateWithTexture(const Texture* texture, T_UINT8 x_num, T_UINT8 y_num);
 
   // =================================================================
@@ -78,4 +75,3 @@ private:
   TiledTextureRegionFormat format_;
 };
 
-#endif//HAL_ENGINE_ENTITY_SHAPE_SPRITE_TEXTUREREGION_TILEDTEXTUREREGION_H_

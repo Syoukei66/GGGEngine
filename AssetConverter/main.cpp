@@ -85,15 +85,20 @@ int main()
   AssetManager* asset_manager = &AssetManager::GetInstance();
 
   asset_manager->Init(setting);
-  asset_manager->AddConverter(new StaticModelConverter());
-
-  NotConverter texture_converter = NotConverter({ "jpg", "png" }, "Texture", "TextureResource");
-  NotConverter csv_converter = NotConverter({ "csv" }, "CSV", "CsvResource");
-  NotConverter json_converter = NotConverter({ "json" }, "JSON", "JsonResource");
+  
+  StaticModelConverter static_model_converter = StaticModelConverter();
+  NotConverter texture_converter = NotConverter({ "jpg", "png" }, "Texture", "Texture");
+  NotConverter sound_converter = NotConverter({ "wav", "mp3" }, "Sound", "INativeSound");
+  NotConverter shader_converter = NotConverter({ "cso" }, "Shader", "INativeShader");
+  NotConverter csv_converter = NotConverter({ "csv" }, "CSV", "CsvData");
+  NotConverter json_converter = NotConverter({ "json" }, "JSON", "JsonData");
 
   RuntimeSetting::SetDebugFlag(RuntimeSetting::CONVERTER_TEST);
 
+  asset_manager->AddConverter(&static_model_converter);
   asset_manager->AddConverter(&texture_converter);
+  asset_manager->AddConverter(&sound_converter);
+  asset_manager->AddConverter(&shader_converter);
   asset_manager->AddConverter(&csv_converter);
   asset_manager->AddConverter(&json_converter);
 
@@ -124,6 +129,24 @@ int main()
   std::cout << "//======================================" << std::endl;
   std::cout << cpp << std::endl;
 
+  //write headder program
+  const std::string header_path = setting->project_path + "/" + "Asset.h";
+  std::ofstream output_header(header_path);
+  if (output_header)
+  {
+    output_header << header;
+    output_header.close();
+  }
+
+  //write headder program
+  const std::string cpp_path = setting->project_path + "/" + "Asset.cpp";
+  std::ofstream output_cpp(cpp_path);
+  if (output_cpp)
+  {
+    output_cpp << cpp;
+    output_cpp.close();
+  }
+
   delete setting;
 
   std::cout << "\n終了するには何かキーを押してください。" << std::endl;
@@ -132,7 +155,7 @@ int main()
   return 0;
 }
 
-#include "../Common/NativeProcess.h"
+#include "../Core/NativeProcess.h"
 
 void NativeProcess::Graphics::PackColor4u8(T_PACKED_COLOR_UINT32* color, T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a)
 {

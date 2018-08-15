@@ -2,9 +2,7 @@
 #include "TextureAtlasLoader.h"
 #include <string>
 #include <string.h>
-#include "../Common/NativeProcess.h"
-#include "Director.h"
-#include "Moniker.h"
+#include "../Core/NativeProcess.h"
 
 static bool IsSpace(char c)
 {
@@ -60,30 +58,31 @@ TextureAtlas* TextureAtlasLoader::Load(const char* directory_path, const char* a
   }
   texture_path.append(texture_file_name);
 
-  TextureResource* texture = new TextureResource(texture_path.c_str());
-  texture->Load();
-  TextureAtlas* ret = new TextureAtlas(texture->GetContents());
-  while (!EndOfFile(*p))
-  {
-    if (IsSpace(*p) || IsEnter(*p))
-    {
-      ++p;
-      continue;
-    }
-    AtlasRegion region = AtlasRegion();
-    std::string key = this->GetText(&p);
-    std::string rotate = this->GetDataText(&p);
-    std::string xy = this->GetDataText(&p);
-    std::string size = this->GetDataText(&p);
-    std::string orig = this->GetDataText(&p);
-    std::string offset = this->GetDataText(&p);
-    std::string index = this->GetDataText(&p);
-    region.area.pos = this->StrToTVec2(xy);
-    region.area.size = this->StrToTSize(size);
-    ret->Register(key, region);
-  }
-  delete[] p_head;
-  return ret;
+  //TextureAsset* texture = new TextureAsset(texture_path.c_str());
+  //texture->Load();
+  //TextureAtlas* ret = new TextureAtlas(texture->GetContents());
+  //while (!EndOfFile(*p))
+  //{
+  //  if (IsSpace(*p) || IsEnter(*p))
+  //  {
+  //    ++p;
+  //    continue;
+  //  }
+  //  AtlasRegion region = AtlasRegion();
+  //  std::string key = this->GetText(&p);
+  //  std::string rotate = this->GetDataText(&p);
+  //  std::string xy = this->GetDataText(&p);
+  //  std::string size = this->GetDataText(&p);
+  //  std::string orig = this->GetDataText(&p);
+  //  std::string offset = this->GetDataText(&p);
+  //  std::string index = this->GetDataText(&p);
+  //  region.area.pos = this->StrToTVec2(xy);
+  //  region.area.size = this->StrToTSize(size);
+  //  ret->Register(key, region);
+  //}
+  //delete[] p_head;
+  //return ret;
+  return nullptr;
 }
 
 const std::string TextureAtlasLoader::GetText(char ** p)

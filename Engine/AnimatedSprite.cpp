@@ -6,14 +6,9 @@
 AnimatedSprite* AnimatedSprite::Create()
 {
   AnimatedSprite* ret = new AnimatedSprite();
-  ret->SetRenderer(new AnimatedSpriteRenderer(ret, 1.0f));
+  ret->SetRenderer(new AnimatedSpriteRenderer(ret));
   ret->Init();
   return ret;
-}
-
-AnimatedSprite* AnimatedSprite::CreateWithResource(const TextureResource& texture, T_UINT8 x_num, T_UINT8 y_num)
-{
-  return AnimatedSprite::CreateWithTexture(texture.GetContents(), x_num, y_num);
 }
 
 AnimatedSprite* AnimatedSprite::CreateWithTexture(const Texture* texture, T_UINT8 x_num, T_UINT8 y_num)

@@ -1,6 +1,6 @@
 #include "Engine.h"
 #include "Director.h"
-#include "../Common/EasingFunctionManager.h"
+#include "../Core/EasingFunctionManager.h"
 #include "EntityModifierManager.h"
 #include "ParticleDataManager.h"
 
@@ -55,7 +55,7 @@ void Engine::OnUpdate()
   {
     this->scene_ = this->scene_transitioner_->Transition();
   }
-  LP_DEVICE render_object = Director::GetInstance()->GetDevice();
+  LP_DEVICE render_object = Director::GetDevice();
   Scene* now_scene = this->GetNowScene();
   if (!now_scene)
   {

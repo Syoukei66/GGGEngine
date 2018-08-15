@@ -3,7 +3,7 @@
 #include <list>
 #include <deque>
 #include <functional>
-#include "../Common/NativeType.h"
+#include "../Core/NativeType.h"
 
 //=======================================================================================
 // PoolAllocator‚ğg—p‚·‚éˆ×‚Ì—vŒ

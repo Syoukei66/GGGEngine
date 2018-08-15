@@ -158,7 +158,7 @@
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="AssetMetaData.h" />
     <ClInclude Include="AssetProgramGenerator.h" />
-    <ClInclude Include="AssetProgramGenerator_difinition.h" />
+    <ClInclude Include="AssetProgramGenerator_definition.h" />
     <ClInclude Include="AssetProgramGenerator_namespace.h" />
     <ClInclude Include="AssimpMaterialSystemImporter.h" />
     <ClInclude Include="AssimpMathImporter.h" />
@@ -179,7 +179,7 @@
   <ItemGroup>
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="AssetProgramGenerator.cpp" />
-    <ClCompile Include="AssetProgramGenerator_difinition.cpp" />
+    <ClCompile Include="AssetProgramGenerator_definition.cpp" />
     <ClCompile Include="AssetProgramGenerator_namespace.cpp" />
     <ClCompile Include="AssimpMaterialSystemImporter.cpp" />
     <ClCompile Include="AssimpMathImporter.cpp" />
@@ -199,9 +199,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Asset\Asset.vcxproj">
       <Project>{ca34ad9a-2aa7-41fa-a6bb-dbc64c9d52ed}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Common\Common.vcxproj">
-      <Project>{1d9bff12-96cf-46c2-bfbd-688b091c3baa}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

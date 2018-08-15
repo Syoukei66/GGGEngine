@@ -52,6 +52,7 @@ private:
   bool controled_;
 };
 
+//TODO:İŒv‚ª‹C‚¿ˆ«‚¢‚Ì‚ÅŒã‚Å’¼‚·
 class SceneTransitioner : public ISceneShowListener, public ISceneHideListener
 {
 private:

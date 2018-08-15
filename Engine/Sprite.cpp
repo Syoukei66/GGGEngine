@@ -7,15 +7,9 @@
 Sprite* Sprite::Create()
 {
   Sprite* ret = new Sprite();
-  ret->SetRenderer(new SpriteRenderer(ret, 1.0f));
+  ret->SetRenderer(new SpriteRenderer(ret));
   ret->Init();
   return ret;
-}
-
-Sprite* Sprite::CreateWithResource(const TextureResource& texture)
-{
-  TextureRegion* region = TextureRegion::CreateWithTexture(texture.GetContents());
-  return Sprite::CreateWithTextureRegion(region, true);
 }
 
 Sprite* Sprite::CreateWithTexture(const Texture* texture)

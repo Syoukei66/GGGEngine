@@ -1,5 +1,4 @@
 #include "MeshRenderer.h"
-#include "EngineAsset.h"
 
 // =================================================================
 // Factory Method
@@ -29,33 +28,18 @@ MeshRenderer::MeshRenderer(GameObject* entity)
 // =================================================================
 // Method
 // =================================================================
-void MeshRenderer::Draw(GameObjectRenderState* state) const
+bool MeshRenderer::SetStreamSource() const
 {
   if (!this->mesh_)
   {
-    return;
+    return false;
   }
-  this->SetStreamSource();
-  const T_UINT8 material_count = this->materials_.size();
-  for (T_UINT8 i = 0; i < material_count; ++i)
-  {
-    Material* material = this->materials_[i];
-    T_UINT8 pass_count = material->Begin();
-    for (T_UINT8 j = 0; j < pass_count; ++j)
-    {
-      material->BeginPass(j);
-      material->SetDefaultProperties(state);
-      material->CommitChanges();
-      this->DrawSubset(i);
-      material->EndPass();
-    }
-    material->End();
-  }
+  this->mesh_->SetStreamSource();
+  return true;
 }
 
-void MeshRenderer::SetStreamSource() const
+void MeshRenderer::SetProperties(Material* material) const
 {
-  this->mesh_->SetStreamSource();
 }
 
 void MeshRenderer::DrawSubset(T_UINT8 submesh_index) const

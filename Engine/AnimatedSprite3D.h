@@ -10,7 +10,6 @@ class AnimatedSprite3D : public Sprite3D
   // =================================================================
 public:
   static AnimatedSprite3D* Create();
-  static AnimatedSprite3D* CreateWithResource(const TextureResource& texture, T_UINT8 x_num, T_UINT8 y_num);
   static AnimatedSprite3D* CreateWithTexture(const Texture* texture, T_UINT8 x_num, T_UINT8 y_num);
   static AnimatedSprite3D* CreateWithTextureRegion(TiledTextureRegion* region, bool delete_region);
   static AnimatedSprite3D* CreateWithMaterial(Material& material, T_UINT8 x_num, T_UINT8 y_num);

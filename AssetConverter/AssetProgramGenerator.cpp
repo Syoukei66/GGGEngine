@@ -11,7 +11,7 @@ void AssetProgram::Generator::Generate(const AssetManager& asset_manager, std::s
   //Asset.h
   //======================================
   header->append("#pragma once\n");
-  header->append("#include <" + asset_manager.GetSetting()->engine_name + ".h>\n");
+  //header->append("#include <" + asset_manager.GetSetting()->engine_name + ".h>\n");
   std::set<std::string> includes = std::set<std::string>();
   asset_manager.VisitConverter([&](const BaseConverter* converter)
   {

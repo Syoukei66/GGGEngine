@@ -37,7 +37,7 @@ void BaseConverter::Convert() const
 
 std::string BaseConverter::CreateHeaderProgram() const
 {
-  return this->program_generator_.CreateProgram([&](const AssetProgram::DefinitionGenerator& generator)
+  return this->program_generator_.CreateHeaderProgram([&](const AssetProgram::DefinitionGenerator& generator)
   {
     std::string ret;
     for (AssetInfo* info : this->target_infomations_)
@@ -50,7 +50,7 @@ std::string BaseConverter::CreateHeaderProgram() const
 
 std::string BaseConverter::CreateCppProgram() const
 {
-  return this->program_generator_.CreateProgram([&](const AssetProgram::DefinitionGenerator& generator)
+  return this->program_generator_.CreateCppProgram([&](const AssetProgram::DefinitionGenerator& generator)
   {
     std::string ret;
     for (AssetInfo* info : this->target_infomations_)

@@ -11,11 +11,6 @@ TiledTextureRegion* TiledTextureRegion::CreateWithMaterial(const Material& mater
   return TiledTextureRegion::CreateWithTexture(material.GetMainTexture(), x_num, y_num);
 }
 
-TiledTextureRegion* TiledTextureRegion::CreateWithResource(const TextureResource& texture, T_UINT8 x_num, T_UINT8 y_num)
-{
-  return TiledTextureRegion::CreateWithTexture(texture.GetContents(), x_num, y_num);
-}
-
 TiledTextureRegion* TiledTextureRegion::CreateWithTexture(const Texture* texture, T_UINT8 x_num, T_UINT8 y_num)
 {
   TiledTextureRegion* ret = new TiledTextureRegion();

@@ -7,7 +7,7 @@
 namespace GameObjectFactory
 {
 
-GameObject2D* CreateSprite(const TextureResource& texture);
-GameObject2D* CreateAnimatedSprite(const TextureResource& texture, T_UINT8 x_num, T_UINT8 y_num);
+GameObject2D* CreateSprite(const TextureAsset& texture);
+GameObject2D* CreateAnimatedSprite(const TextureAsset& texture, T_UINT8 x_num, T_UINT8 y_num);
 
 }

@@ -3,7 +3,7 @@
 
 //inline static LPDIRECT3DVERTEXSHADER9 CompileVertexShader(const char* path)
 //{
-//  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
+//  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::->GetDevice();
 //  LPDIRECT3DVERTEXSHADER9 ret = nullptr;
 //  LPD3DXCONSTANTTABLE constant_table = nullptr;
 //  LPD3DXBUFFER code = nullptr;
@@ -28,7 +28,7 @@
 //
 //inline static LPDIRECT3DPIXELSHADER9 CompilePixelShader(const char* path)
 //{
-//  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
+//  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::->GetDevice();
 //  LPDIRECT3DPIXELSHADER9 ret = nullptr;
 //  LPD3DXCONSTANTTABLE constant_table = nullptr;
 //  LPD3DXBUFFER code = nullptr;
@@ -53,7 +53,7 @@
 
 static NativeShaderInstance* ShaderLoad(const char* path)
 {
-  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetInstance()->GetDevice();
+  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
   LPD3DXEFFECT dest = nullptr;
 
   HRESULT hr = D3DXCreateEffectFromFile(

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Common/NativeType.h"
+#include "../Core/NativeType.h"
 
 class GameObject2D;
 

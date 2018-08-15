@@ -2,7 +2,7 @@
 #define HAL_ENGINE_SCENE_EVENT_ENGINEINPUT_ANALOGINPUTEVENT_H_
 
 #include <math.h>
-#include "../Common/NativeType.h"
+#include "../Core/NativeType.h"
 #include "EngineInput.h"
 
 // =================================================================

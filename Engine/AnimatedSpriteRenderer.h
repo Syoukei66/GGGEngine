@@ -9,7 +9,7 @@ class AnimatedSpriteRenderer : public SpriteRenderer
   // Constructor / Destructor
   // =================================================================
 public:
-  AnimatedSpriteRenderer(GameObject* entity, T_FLOAT image_scale);
+  AnimatedSpriteRenderer(GameObject* entity);
 
   // =================================================================
   // Methods for/from SuperClass/Interfaces

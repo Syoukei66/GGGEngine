@@ -1,5 +1,5 @@
 #include "NativeSound.h"
-#include "../Common/NativeAssert.h"
+#include "../Core/NativeAssert.h"
 #include "AudioManager.h"
 
 //=============================================================================

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "../Common/EasingFunction.h"
+#include "../Core/EasingFunction.h"
 #include "UpdateEvent.h"
 #include "EntityModifierAttribute.h"
 #include "PoolAllocator.h"

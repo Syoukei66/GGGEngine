@@ -1,10 +1,8 @@
-#ifndef HAL_ENGINE_ENTITY_SHAPE_SPRITE_TEXTUREREGION_TEXTUREREGION_H_
-#define HAL_ENGINE_ENTITY_SHAPE_SPRITE_TEXTUREREGION_TEXTUREREGION_H_
+#pragma once
 
-#include "../Common/NativeType.h"
+#include "../Core/NativeType.h"
+#include "../Asset/Material.h"
 #include "ITextureRegion.h"
-#include "TextureResource.h"
-#include "Material.h"
 
 class TextureRegion : public ITextureRegion
 {
@@ -13,7 +11,6 @@ class TextureRegion : public ITextureRegion
   // =================================================================
 public:
   static TextureRegion* CreateWithMaterial(const Material& material);
-  static TextureRegion* CreateWithResource(const TextureResource& texture);
   static TextureRegion* CreateWithTexture(const Texture* texture);
 
   // =================================================================
@@ -31,5 +28,4 @@ public:
 
 };
 
-#endif//HAL_ENGINE_ENTITY_SHAPE_SPRITE_TEXTUREREGION_TEXTUREREGION_H_
 

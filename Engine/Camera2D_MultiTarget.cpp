@@ -74,7 +74,7 @@ void Camera2D_MultiTarget::Update()
   const T_FLOAT center_y = height * 0.5f;
   width += this->padding_ * 2;
   height += this->padding_ * 2;
-  const TSize& screen_size = Director::GetInstance()->GetScreenSize();
+  const TSize& screen_size = Director::GetScreenSize();
   if (width > screen_size.width || height > screen_size.height)
   {
     this->SetZoom(std::min(screen_size.width / width, screen_size.height / height));

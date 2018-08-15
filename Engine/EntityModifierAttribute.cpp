@@ -125,11 +125,11 @@ public:
 public:
   virtual void SetValue(GameObject2D* entity, const T_FLOAT next) const override
   {
-    entity->GetRenderer()->GetMaterial()->GetDiffuse().r = next > 1.0f ? 1.0f : next;
+    entity->GetRenderer()->GetMaterial()->GetMainColor().r = next > 1.0f ? 1.0f : next;
   }
   virtual T_FLOAT GetValue(GameObject2D* entity) const override
   {
-    return entity->GetRenderer()->GetMaterial()->GetDiffuse().r;
+    return entity->GetRenderer()->GetMaterial()->GetMainColor().r;
   }
 };
 
@@ -145,11 +145,11 @@ public:
 public:
   virtual void SetValue(GameObject2D* entity, const T_FLOAT next) const override
   {
-    entity->GetRenderer()->GetMaterial()->GetDiffuse().g = next > 1.0f ? 1.0f : next;
+    entity->GetRenderer()->GetMaterial()->GetMainColor().g = next > 1.0f ? 1.0f : next;
   }
   virtual T_FLOAT GetValue(GameObject2D* entity) const override
   {
-    return entity->GetRenderer()->GetMaterial()->GetDiffuse().g;
+    return entity->GetRenderer()->GetMaterial()->GetMainColor().g;
   }
 };
 
@@ -165,11 +165,11 @@ public:
 public:
   virtual void SetValue(GameObject2D* entity, const T_FLOAT next) const override
   {
-    entity->GetRenderer()->GetMaterial()->GetDiffuse().b = next > 1.0f ? 1.0f : next;
+    entity->GetRenderer()->GetMaterial()->GetMainColor().b = next > 1.0f ? 1.0f : next;
   }
   virtual T_FLOAT GetValue(GameObject2D* entity) const override
   {
-    return entity->GetRenderer()->GetMaterial()->GetDiffuse().b;
+    return entity->GetRenderer()->GetMaterial()->GetMainColor().b;
   }
 };
 
@@ -185,11 +185,11 @@ public:
 public:
   virtual void SetValue(GameObject2D* entity, const T_FLOAT next) const override
   {
-    entity->GetRenderer()->GetMaterial()->GetDiffuse().a = next > 1.0f ? 1.0f : next;
+    entity->GetRenderer()->GetMaterial()->GetMainColor().a = next > 1.0f ? 1.0f : next;
   }
   virtual T_FLOAT GetValue(GameObject2D* entity) const override
   {
-    return entity->GetRenderer()->GetMaterial()->GetDiffuse().a;
+    return entity->GetRenderer()->GetMaterial()->GetMainColor().a;
   }
 };
 

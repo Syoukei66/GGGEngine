@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../Asset/ModelConstants.h"
-#include "../Common/NativeType.h"
+#include "../Core/NativeType.h"
 
 enum aiBlendMode;
 enum aiShadingMode;

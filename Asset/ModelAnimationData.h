@@ -2,12 +2,12 @@
 
 #include <string>
 
-#include "../Common/NativeType.h"
+#include "../Core/NativeType.h"
 
 #include "Vector2.h"
 #include "Vector3.h"
 #include "Vector4.h"
-#include "../Common/Color.h"
+#include "../Core/Color.h"
 #include "Matrix4x4.h"
 #include "Bounds.h"
 #include "Quaternion.h"

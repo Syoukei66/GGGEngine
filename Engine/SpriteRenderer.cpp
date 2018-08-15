@@ -1,15 +1,14 @@
 #include "SpriteRenderer.h"
-#include "EngineAsset.h"
 #include "TextureRegion.h"
+#include "EngineAsset.h"
 
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-SpriteRenderer::SpriteRenderer(GameObject* entity, T_FLOAT image_scale)
+SpriteRenderer::SpriteRenderer(GameObject* entity)
   : Renderer(entity)
   , texture_region_(nullptr)
   , size_(1.0f, 1.0f)
-  , image_scale_(image_scale)
 {
   this->SetMaterial(*EngineAsset::Material::SPRITE.Clone());
 }
@@ -25,34 +24,28 @@ SpriteRenderer::~SpriteRenderer()
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
-void SpriteRenderer::Draw(GameObjectRenderState* state) const
+bool SpriteRenderer::SetStreamSource() const
 {
   EngineAsset::Mesh::QUAD.GetContents().SetStreamSource();
-  Material* material = this->materials_[0];
-  T_UINT8 pass_count = material->Begin();
-  for (T_UINT8 j = 0; j < pass_count; ++j)
-  {
-    material->BeginPass(j);
-    material->SetDefaultProperties(state);
-    this->EditProperty(0, j, material);
-    material->CommitChanges();
-    EngineAsset::Mesh::QUAD.GetContents().DrawSubset(0);
-    material->EndPass();
-  }
-  material->End();
+  return true;
 }
 
-void SpriteRenderer::EditProperty(T_UINT8 material_index, T_UINT8 pass_index, Material* material) const
+void SpriteRenderer::SetProperties(Material* material) const
 {
   if (!this->texture_region_)
   {
     return;
   }
   material->SetMainTexture(this->texture_region_->GetTexture());
-  material->Vec2fProperty("_UV0") = this->texture_region_->GetUV0();
-  material->Vec2fProperty("_UV1") = this->texture_region_->GetUV1();
-  material->FloatProperty("_Width") = this->size_.width * this->image_scale_;
-  material->FloatProperty("_Height") = this->size_.height * this->image_scale_;
+  const TVec2f& uv0 = this->texture_region_->GetUV0();
+  const TVec2f& uv1 = this->texture_region_->GetUV1();
+  material->SetTilingOffset(uv0);
+  material->SetTiling({ 1.0f / (uv1.x - uv0.x), 1.0f / (uv1.y - uv0.y) });
+}
+
+void SpriteRenderer::DrawSubset(T_UINT8 submesh_index) const
+{
+  EngineAsset::Mesh::QUAD.GetContents().DrawSubset(submesh_index);
 }
 
 // =================================================================

@@ -4,9 +4,9 @@
 #include <assimp\vector3.h>
 #include <assimp\color4.h>
 
-#include "../Common/Vector2.h"
-#include "../Common/Vector3.h"
-#include "../Common/Color.h"
+#include "../Core/Vector2.h"
+#include "../Core/Vector3.h"
+#include "../Core/Color.h"
 
 namespace ModelImporter
 {

@@ -45,7 +45,7 @@ SkeletonAnimation::~SkeletonAnimation()
 // =================================================================
 void SkeletonAnimation::ManagedDraw(GameObjectRenderState* state)
 {
-  TColor nodeColor = this->GetRenderer()->GetMaterial()->GetDiffuse();
+  TColor nodeColor = this->GetRenderer()->GetMaterial()->GetMainColor();
 
   AttachmentVertexes* attachment_vertexes = nullptr;
   TColor color = TColor();
@@ -113,7 +113,7 @@ void SkeletonAnimation::ManagedDraw(GameObjectRenderState* state)
 
 void SkeletonAnimation::Update()
 {
-  const T_FLOAT delta_time = 0.001f * Director::GetInstance()->GetEngineOption()->render_cycle * this->time_scale_;
+  const T_FLOAT delta_time = 0.001f * Director::GetEngineOption()->render_cycle * this->time_scale_;
   spSkeleton_update(this->skeleton_, delta_time);
   spAnimationState_update(this->state_, delta_time);
   spAnimationState_apply(this->state_, this->skeleton_);

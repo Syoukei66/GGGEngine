@@ -2,12 +2,12 @@
 
 #include <string>
 #include <vector>
-#include "../Common/Vector2.h"
-#include "../Common/Vector3.h"
-#include "../Common/Vector4.h"
-#include "../Common/Color.h"
-#include "../Common/Matrix4x4.h"
-#include "../Common/Bounds.h"
+#include "../Core/Vector2.h"
+#include "../Core/Vector3.h"
+#include "../Core/Vector4.h"
+#include "../Core/Color.h"
+#include "../Core/Matrix4x4.h"
+#include "../Core/Bounds.h"
 
 class BaseConverterTest
 {

@@ -6,7 +6,7 @@
 #include <assimp\scene.h>
 #include <assimp\postprocess.h>
 
-#include "../Common/GraphicsConstants.h"
+#include "../Core/GraphicsConstants.h"
 #include "../Asset/ModelMaterialData.h"
 
 //=============================================================================

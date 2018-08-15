@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Common/Vector3.h"
-#include "../Common/Quaternion.h"
+#include "../Core/Vector3.h"
+#include "../Core/Quaternion.h"
 
 class Transform3D;
 

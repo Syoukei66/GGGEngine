@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <unordered_set>
-#include "../Common/NativeType.h"
+#include "../Core/NativeType.h"
 
 #include "Cereal\cereal.hpp"
 #include "Cereal\archives\json.hpp"

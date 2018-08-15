@@ -9,18 +9,17 @@ class SpriteRenderer : public Renderer
   // Constructor / Destructor
   // =================================================================
 public:
-  SpriteRenderer(GameObject* entity, T_FLOAT image_scale);
+  SpriteRenderer(GameObject* entity);
   ~SpriteRenderer();
 
   // =================================================================
   // Methods for/from SuperClass/Interfaces
   // =================================================================
-public:
-  virtual void Draw(GameObjectRenderState* state) const override;
-
-private:
-  virtual void EditProperty(T_UINT8 material_index, T_UINT8 pass_index, Material* material) const;
-
+protected:
+  virtual bool SetStreamSource() const override;
+  virtual void SetProperties(Material* material) const override;
+  virtual void DrawSubset(T_UINT8 submesh_index) const override;
+ 
   // =================================================================
   // Method
   // =================================================================
@@ -72,14 +71,6 @@ public:
   {
     return this->size_.height;
   }
-  inline void SetImageScale(T_FLOAT scale)
-  {
-    this->image_scale_ = scale;
-  }
-  inline T_FLOAT GetImageScale() const
-  {
-    return this->image_scale_;
-  }
 
   // =================================================================
   // Data Member
@@ -88,6 +79,5 @@ protected:
   bool delete_region_;
   ITextureRegion* texture_region_;
   TSizef size_;
-  T_FLOAT image_scale_;
 
 };

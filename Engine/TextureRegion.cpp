@@ -10,11 +10,6 @@ TextureRegion* TextureRegion::CreateWithMaterial(const Material& material)
   return TextureRegion::CreateWithTexture(material.GetMainTexture());
 }
 
-TextureRegion* TextureRegion::CreateWithResource(const TextureResource& texture)
-{
-  return TextureRegion::CreateWithTexture(texture.GetContents());
-}
-
 TextureRegion* TextureRegion::CreateWithTexture(const Texture* texture)
 {
   TextureRegion* ret = new TextureRegion();

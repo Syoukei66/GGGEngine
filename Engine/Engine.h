@@ -1,8 +1,8 @@
 #ifndef HAL_ENGINE_ENGINE_ENGINE_H_
 #define HAL_ENGINE_ENGINE_ENGINE_H_
 
-#include "../Common/NativeType.h"
-#include "../Common/Geometry.h"
+#include "../Core/NativeType.h"
+#include "../Core/Geometry.h"
 #include "EngineOption.h"
 #include "EngineInput.h"
 #include "Scene.h"

@@ -147,9 +147,6 @@
     <ClInclude Include="AssetProgramGenerator.h">
       <Filter>ヘッダー ファイル\ProgramGenerator</Filter>
     </ClInclude>
-    <ClInclude Include="AssetProgramGenerator_difinition.h">
-      <Filter>ヘッダー ファイル\ProgramGenerator</Filter>
-    </ClInclude>
     <ClInclude Include="AssetProgramGenerator_namespace.h">
       <Filter>ヘッダー ファイル\ProgramGenerator</Filter>
     </ClInclude>
@@ -170,6 +167,9 @@
     </ClInclude>
     <ClInclude Include="RuntimeSetting.h">
       <Filter>ヘッダー ファイル\Setting</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetProgramGenerator_definition.h">
+      <Filter>ヘッダー ファイル\ProgramGenerator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -215,9 +215,6 @@
     <ClCompile Include="AssetProgramGenerator.cpp">
       <Filter>ソース ファイル\ProgramGenerator</Filter>
     </ClCompile>
-    <ClCompile Include="AssetProgramGenerator_difinition.cpp">
-      <Filter>ソース ファイル\ProgramGenerator</Filter>
-    </ClCompile>
     <ClCompile Include="AssetProgramGenerator_namespace.cpp">
       <Filter>ソース ファイル\ProgramGenerator</Filter>
     </ClCompile>
@@ -226,6 +223,9 @@
     </ClCompile>
     <ClCompile Include="FileUtil.cpp">
       <Filter>ソース ファイル\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetProgramGenerator_definition.cpp">
+      <Filter>ソース ファイル\ProgramGenerator</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

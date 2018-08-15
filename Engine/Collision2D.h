@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Common/Vector2.h"
+#include "../Core/Vector2.h"
 #include "Collider2D.h"
 
 //Collider A_B‚Å”»’è‚ğs‚¤
