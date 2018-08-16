@@ -1,12 +1,11 @@
 #include "CerealStaticModelIO.h"
 
-#include "CerealStructArchive.hpp"
-#include "CerealArchiveMacro.hpp"
-#include "StaticModelData.h"
-
-#include "CerealIO.h"
-
+#include "../Core/CerealStructArchive.hpp"
+#include "../Core/CerealArchiveMacro.hpp"
+#include "../Core/CerealIO.h"
 #include "../Core/NativeAssert.h"
+
+#include "StaticModelData.h"
 
 //=============================================================================
 // MaterialData

@@ -10,7 +10,7 @@ class AnimatedSprite : public Sprite
   // =================================================================
 public:
   static AnimatedSprite* Create();
-  static AnimatedSprite* CreateWithTexture(const Texture* texture, T_UINT8 x_num, T_UINT8 y_num);
+  static AnimatedSprite* CreateWithTexture(const rcTexture* texture, T_UINT8 x_num, T_UINT8 y_num);
   static AnimatedSprite* CreateWithTextureRegion(TiledTextureRegion* region, bool delete_region);
   static AnimatedSprite* CreateWithMaterial(Material& material, T_UINT8 x_num, T_UINT8 y_num);
 

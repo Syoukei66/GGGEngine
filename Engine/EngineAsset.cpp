@@ -9,7 +9,7 @@
 namespace EngineAsset
 {
 
-namespace Shader
+namespace rcShader
 {
 Cont_ UNLIT = AssetManager::GetInstance().RegisterEngineAsset<T_>(Util::Hash::GetHash("Asset/shader/default/Unlit.cso"), "cso");
 Cont_ LAMBERT = AssetManager::GetInstance().RegisterEngineAsset<T_>(Util::Hash::GetHash("Asset/shader/default/Lambert.cso"), "cso");
@@ -20,14 +20,14 @@ Cont_ WHITE = AssetManager::GetInstance().RegisterEngineAsset<T_>(Util::Hash::Ge
 
 namespace Material
 {
-class Material UNLIT(Shader::UNLIT->GetContents(), true);
-class Material LAMBERT(Shader::LAMBERT->GetContents(), true);
-class Material PHONG(Shader::PHONG->GetContents(), true);
-class Material SPRITE(Shader::SPRITE->GetContents(), true);
-class Material WHITE(Shader::WHITE->GetContents(), true);
+class Material UNLIT(rcShader::UNLIT->GetContents(), true);
+class Material LAMBERT(rcShader::LAMBERT->GetContents(), true);
+class Material PHONG(rcShader::PHONG->GetContents(), true);
+class Material SPRITE(rcShader::SPRITE->GetContents(), true);
+class Material WHITE(rcShader::WHITE->GetContents(), true);
 } // namespace Material
 
-namespace Mesh
+namespace rcCustomMesh
 {
 class MeshResource QUAD(new MeshBuilder_Sprite());
 class MeshResource PLANE(new MeshBuilder_Plane(Graphics::V_FORMAT_PNUTC, 1.0f, 1.0f, 1, 1));
@@ -36,9 +36,9 @@ class MeshResource CUBE(new MeshBuilder_Cube(Graphics::V_FORMAT_PNUTC, 1.0f, 1.0
 
 void Load()
 {
-  Mesh::QUAD.Load();
-  Mesh::PLANE.Load();
-  Mesh::CUBE.Load();
+  rcCustomMesh::QUAD.Load();
+  rcCustomMesh::PLANE.Load();
+  rcCustomMesh::CUBE.Load();
 }
 
 void Unload()

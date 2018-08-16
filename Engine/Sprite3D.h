@@ -10,7 +10,7 @@ class Sprite3D : public GameObject3D
   // =================================================================
 public:
   static Sprite3D* Create();
-  static Sprite3D* CreateWithTexture(const Texture* texture);
+  static Sprite3D* CreateWithTexture(const rcTexture* texture);
   static Sprite3D* CreateWithTextureRegion(ITextureRegion* region, bool delete_region);
   static Sprite3D* CreateWithMaterial(Material& material);
 
@@ -37,11 +37,11 @@ public:
   {
     this->GetSpriteRenderer()->FitToTexture();
   }
-  inline void SetTexture(const Texture* texture)
+  inline void SetTexture(const rcTexture* texture)
   {
     this->GetSpriteRenderer()->SetTexture(texture);
   }
-  inline const Texture* GetTexture() const
+  inline const rcTexture* GetTexture() const
   {
     return this->GetSpriteRenderer()->GetTexture();
   }

@@ -217,24 +217,6 @@
     <Filter Include="ヘッダー ファイル\ThirdPirty\Spine">
       <UniqueIdentifier>{1492e0cf-d233-48a5-9031-daab12c503e3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Resource\Mesh">
-      <UniqueIdentifier>{1722a2d1-b78c-4c7d-b4c0-fd8f83a20eab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Resource\Mesh\Factory">
-      <UniqueIdentifier>{3a91ce83-cc9a-4db8-908b-efaa9272a9a4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Resource\Mesh\Builder">
-      <UniqueIdentifier>{c32d8cac-be28-4fa5-95ca-b686cd22a33a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Resource\Mesh">
-      <UniqueIdentifier>{367859c9-91a8-48d2-b4ca-273a6a701684}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Resource\Mesh\Factory">
-      <UniqueIdentifier>{f23d124f-9ae3-4d18-96e8-47c1b6f7cd66}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Resource\Mesh\Builder">
-      <UniqueIdentifier>{bc87b738-a55b-4d22-ae35-40f05b8a0c24}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Resource\Texture">
       <UniqueIdentifier>{3cb16865-8a77-4a30-8d2f-48cedc350ca3}</UniqueIdentifier>
     </Filter>
@@ -405,9 +387,6 @@
     <ClCompile Include="Collider3D.cpp">
       <Filter>ソース ファイル\Component\Collision\3D</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>ソース ファイル\Resource\Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="Cube3D.cpp">
       <Filter>ソース ファイル\GameObject\3D\Primitive</Filter>
     </ClCompile>
@@ -441,27 +420,6 @@
     <ClCompile Include="Collision3D.cpp">
       <Filter>ソース ファイル\Component\Collision\3D</Filter>
     </ClCompile>
-    <ClCompile Include="MeshResource.cpp">
-      <Filter>ソース ファイル\Resource\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshFactory_Sprite.cpp">
-      <Filter>ソース ファイル\Resource\Mesh\Factory</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshBuilder_Plane.cpp">
-      <Filter>ソース ファイル\Resource\Mesh\Builder</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshFactory_Plane.cpp">
-      <Filter>ソース ファイル\Resource\Mesh\Factory</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshBuilder_Sprite.cpp">
-      <Filter>ソース ファイル\Resource\Mesh\Builder</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshFactory_Cube.cpp">
-      <Filter>ソース ファイル\Resource\Mesh\Factory</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshBuilder_Cube.cpp">
-      <Filter>ソース ファイル\Resource\Mesh\Builder</Filter>
-    </ClCompile>
     <ClCompile Include="PerlinNoiseGenerator.cpp">
       <Filter>ソース ファイル\Util\Noise</Filter>
     </ClCompile>
@@ -470,9 +428,6 @@
     </ClCompile>
     <ClCompile Include="GameObjectRenderQueue.cpp">
       <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticMesh.cpp">
-      <Filter>ソース ファイル\Resource\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="..\ThirdPerson\imgui\imgui.cpp">
       <Filter>ソース ファイル\ThirdPirty\imgui</Filter>
@@ -596,9 +551,6 @@
     </ClCompile>
     <ClCompile Include="..\ThirdPerson\spine-c\src\spine\VertexEffect.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderTexture.cpp">
-      <Filter>ソース ファイル\Resource\Texture</Filter>
     </ClCompile>
     <ClCompile Include="ModelSource.cpp">
       <Filter>ソース ファイル\Resource\Model</Filter>
@@ -785,9 +737,6 @@
     <ClInclude Include="ParticleSystem.h">
       <Filter>ヘッダー ファイル\Resource\Particle</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>ヘッダー ファイル\Resource\Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="ModelNode.h">
       <Filter>ヘッダー ファイル\GameObject\3D\Model</Filter>
     </ClInclude>
@@ -842,27 +791,6 @@
     <ClInclude Include="imgui_ja_gryph_ranges.h">
       <Filter>ヘッダー ファイル\ThirdPirty\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="MeshFactory_Sprite.h">
-      <Filter>ヘッダー ファイル\Resource\Mesh\Factory</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshFactory_Plane.h">
-      <Filter>ヘッダー ファイル\Resource\Mesh\Factory</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshBuilder.h">
-      <Filter>ヘッダー ファイル\Resource\Mesh\Builder</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshBuilder_Plane.h">
-      <Filter>ヘッダー ファイル\Resource\Mesh\Builder</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshBuilder_Sprite.h">
-      <Filter>ヘッダー ファイル\Resource\Mesh\Builder</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshFactory_Cube.h">
-      <Filter>ヘッダー ファイル\Resource\Mesh\Factory</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshBuilder_Cube.h">
-      <Filter>ヘッダー ファイル\Resource\Mesh\Builder</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>ヘッダー ファイル\GameObject</Filter>
     </ClInclude>
@@ -871,9 +799,6 @@
     </ClInclude>
     <ClInclude Include="PerlinNoiseGenerator.h">
       <Filter>ヘッダー ファイル\Util\Noise</Filter>
-    </ClInclude>
-    <ClInclude Include="IMesh.h">
-      <Filter>ヘッダー ファイル\Resource\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="Mathf.h">
       <Filter>ヘッダー ファイル\Util</Filter>
@@ -889,15 +814,6 @@
     </ClInclude>
     <ClInclude Include="GameObjectRenderQueue.h">
       <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureSource.h">
-      <Filter>ヘッダー ファイル\Resource\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderTexture.h">
-      <Filter>ヘッダー ファイル\Resource\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticMesh.h">
-      <Filter>ヘッダー ファイル\Resource\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="ModelSource.h">
       <Filter>ヘッダー ファイル\Resource\Model</Filter>
@@ -1030,9 +946,6 @@
     </ClInclude>
     <ClInclude Include="StaticModelResource.h">
       <Filter>ヘッダー ファイル\Resource\Model\Static</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshResource.h">
-      <Filter>ヘッダー ファイル\Resource\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="EngineAsset.h">
       <Filter>ヘッダー ファイル\Engine</Filter>

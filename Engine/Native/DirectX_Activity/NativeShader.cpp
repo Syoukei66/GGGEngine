@@ -1,82 +1,12 @@
 #include "NativeShader.h"
 #include "Director.h"
 
-//inline static LPDIRECT3DVERTEXSHADER9 CompileVertexShader(const char* path)
-//{
-//  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::->GetDevice();
-//  LPDIRECT3DVERTEXSHADER9 ret = nullptr;
-//  LPD3DXCONSTANTTABLE constant_table = nullptr;
-//  LPD3DXBUFFER code = nullptr;
-//  HRESULT hr = D3DXCompileShaderFromFile(
-//    path,
-//    NULL,
-//    NULL,
-//    "vert",
-//    "vs_2_0",
-//    D3DXSHADER_SKIPVALIDATION,
-//    &code,
-//    NULL,
-//    &constant_table
-//  );
-//  NATIVE_ASSERT(SUCCEEDED(hr), "シェーダーのロードに失敗しました");
-//
-//  hr = device->CreateVertexShader((DWORD*)code->GetBufferPointer(), &ret);
-//  code->Release();
-//
-//  return ret;
-//}
-//
-//inline static LPDIRECT3DPIXELSHADER9 CompilePixelShader(const char* path)
-//{
-//  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::->GetDevice();
-//  LPDIRECT3DPIXELSHADER9 ret = nullptr;
-//  LPD3DXCONSTANTTABLE constant_table = nullptr;
-//  LPD3DXBUFFER code = nullptr;
-//  HRESULT hr = D3DXCompileShaderFromFile(
-//    path,
-//    NULL,
-//    NULL,
-//    "frag",
-//    "ps_2_0",
-//    D3DXSHADER_SKIPVALIDATION,
-//    &code,
-//    NULL,
-//    &constant_table
-//  );
-//  NATIVE_ASSERT(SUCCEEDED(hr), "シェーダーのロードに失敗しました");
-//
-//  hr = device->CreatePixelShader((DWORD*)code->GetBufferPointer(), &ret);
-//  code->Release();
-//
-//  return ret;
-//}
-
-static NativeShaderInstance* ShaderLoad(const char* path)
-{
-  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
-  LPD3DXEFFECT dest = nullptr;
-
-  HRESULT hr = D3DXCreateEffectFromFile(
-    device,
-    path,
-    NULL,
-    NULL,
-    D3DXSHADER_SKIPVALIDATION,
-    NULL,
-    &dest,
-    NULL
-  );
-  NATIVE_ASSERT(SUCCEEDED(hr), "シェーダーのロードに失敗しました");
-  return (NativeShaderInstance*)dest;
-}
-
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-NativeShader::NativeShader(const char* path)
-  : INativeShader(ShaderLoad(path))
+NativeShader::NativeShader(LPD3DXEFFECT effect)
 {
-  this->effect_ = this->GetNativeInstance<ID3DXEffect>();
+  this->effect_ = effect;
 }
 
 NativeShader::~NativeShader()
@@ -213,7 +143,7 @@ void NativeShader::SetMatrix(const std::string& property_name, const Matrix4x4& 
   NATIVE_ASSERT(SUCCEEDED(hr), "Matrix4x4プロパティの転送に失敗しました");
 }
 
-void NativeShader::SetTexture(const std::string& property_name, const Texture* texture)
+void NativeShader::SetTexture(const std::string& property_name, const rcTexture* texture)
 {
   D3DXHANDLE handle = GetHandle(property_name);
   if (!handle)
@@ -221,7 +151,7 @@ void NativeShader::SetTexture(const std::string& property_name, const Texture* t
     return;
   }
   HRESULT hr = this->effect_->SetTexture(handle, texture ? (LPDIRECT3DTEXTURE9)texture->GetNativeObject() : nullptr);
-  NATIVE_ASSERT(SUCCEEDED(hr), "Textureプロパティの転送に失敗しました");
+  NATIVE_ASSERT(SUCCEEDED(hr), "rcTextureプロパティの転送に失敗しました");
 }
 
 void NativeShader::GetBool(const std::string& property_name, bool* dest)

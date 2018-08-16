@@ -55,12 +55,12 @@ public:
     return this->viewport_clear_;
   }
 
-  inline void SetTargetTexture(RenderTexture* texture)
+  inline void SetTargetTexture(rcRenderTexture* texture)
   {
     this->target_texture_ = texture;
   }
 
-  inline RenderTexture* GetTargetTexture() const
+  inline rcRenderTexture* GetTargetTexture() const
   {
     return this->target_texture_;
   }
@@ -148,7 +148,7 @@ protected:
   TVec3f direction_;
 
 private:
-  RenderTexture* target_texture_;
+  rcRenderTexture* target_texture_;
   bool viewport_clear_;
   TVec2f position_;
   TSizef size_;

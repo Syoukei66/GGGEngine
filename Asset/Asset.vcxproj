@@ -143,7 +143,6 @@
     <ClInclude Include="AttachmentVertexes.h" />
     <ClInclude Include="IAssetContainer.h" />
     <ClInclude Include="LoadProgressCounter.h" />
-    <ClInclude Include="Material.h" />
     <ClInclude Include="CerealBinaryModelArchive.h" />
     <ClInclude Include="CerealStaticModelIO.h" />
     <ClInclude Include="CSVData.h" />
@@ -151,25 +150,13 @@
     <ClInclude Include="EngineAttachmentLoader.h" />
     <ClInclude Include="JsonData.h" />
     <ClInclude Include="JsonParser.h" />
-    <ClInclude Include="CustomMaterial.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="MeshBuilder.h" />
-    <ClInclude Include="MeshBuilder_Cube.h" />
-    <ClInclude Include="MeshBuilder_Plane.h" />
-    <ClInclude Include="MeshBuilder_Sprite.h" />
-    <ClInclude Include="MeshFactory_Cube.h" />
-    <ClInclude Include="MeshFactory_Plane.h" />
-    <ClInclude Include="MeshFactory_Sprite.h" />
-    <ClInclude Include="MeshResource.h" />
     <ClInclude Include="ModelAnimationData.h" />
     <ClInclude Include="ModelConstants.h" />
     <ClInclude Include="ModelData.h" />
     <ClInclude Include="ModelMaterialData.h" />
     <ClInclude Include="ModelSource.h" />
-    <ClInclude Include="ShaderProperties.h" />
     <ClInclude Include="SpineData.h" />
     <ClInclude Include="StandardMaterial.h" />
-    <ClInclude Include="StaticMesh.h" />
     <ClInclude Include="StaticModelData.h" />
     <ClInclude Include="StaticModelResource.h" />
   </ItemGroup>
@@ -177,27 +164,21 @@
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="AttachmentVertexes.cpp" />
     <ClCompile Include="LoadProgressCounter.cpp" />
-    <ClCompile Include="Material.cpp" />
     <ClCompile Include="CerealStaticModelIO.cpp" />
     <ClCompile Include="CSVData.cpp" />
     <ClCompile Include="CSVTokenizer.cpp" />
     <ClCompile Include="EngineAttachmentLoader.cpp" />
     <ClCompile Include="JsonData.cpp" />
     <ClCompile Include="JsonParser.cpp" />
-    <ClCompile Include="CustomMaterial.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="MeshBuilder_Cube.cpp" />
-    <ClCompile Include="MeshBuilder_Plane.cpp" />
-    <ClCompile Include="MeshBuilder_Sprite.cpp" />
-    <ClCompile Include="MeshFactory_Cube.cpp" />
-    <ClCompile Include="MeshFactory_Plane.cpp" />
-    <ClCompile Include="MeshFactory_Sprite.cpp" />
-    <ClCompile Include="MeshResource.cpp" />
     <ClCompile Include="ModelSource.cpp" />
     <ClCompile Include="SpineData.cpp" />
     <ClCompile Include="StandardMaterial.cpp" />
-    <ClCompile Include="StaticMesh.cpp" />
     <ClCompile Include="StaticModelResource.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.vcxproj">
+      <Project>{ed60a9ab-7765-4071-a74f-16ae746c727f}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

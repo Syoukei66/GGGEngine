@@ -3,9 +3,9 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 
-#include <NativeVertexBuffer.h>
+#include <../Core/VertexBuffer.h>
 
-class NativeVertexBuffer : public INativeVertexBuffer
+class NativeVertexBuffer : public rcVertexBuffer
 {
   // =================================================================
   // Constructor / Destructor
@@ -23,9 +23,14 @@ public:
 
   virtual void SetStreamSource() const override;
   virtual void DrawPrimitive(Graphics::PrimitiveType primitive_type) const override;
-  virtual void DrawIndexedPrimitive(const INativeIndexBuffer* index_buffer, Graphics::PrimitiveType primitive_type) const override;
-  
-  virtual T_UINT32 GetMemorySize() const override;
+  virtual void DrawIndexedPrimitive(const rcIndexBuffer* index_buffer, Graphics::PrimitiveType primitive_type) const override;
+
+  // =================================================================
+  // Getter / Setter
+  // =================================================================
+public:
+  virtual size_t GetMemorySize() const override;
+  virtual size_t GetVideoMemorySize() const override;
   
   // =================================================================
   // Data Member

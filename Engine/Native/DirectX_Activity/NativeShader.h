@@ -5,15 +5,15 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include <NativeShader.h>
+#include <../Core/Shader.h>
 
-class NativeShader : public INativeShader 
+class NativeShader : public rcShader 
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  NativeShader(const char* path);
+  NativeShader(LPD3DXEFFECT effect);
   ~NativeShader();
   
   // =================================================================
@@ -38,7 +38,7 @@ public:
 
   virtual void SetColor(const std::string& property_name, const TColor& color) override;
   virtual void SetMatrix(const std::string& property_name, const Matrix4x4& matrix) override;
-  virtual void SetTexture(const std::string& property_name, const Texture* texture) override;
+  virtual void SetTexture(const std::string& property_name, const rcTexture* texture) override;
 
   virtual void GetBool(const std::string& property_name, bool* dest) override;
   virtual void GetInt(const std::string& property_name, T_INT32* dest) override;
@@ -54,6 +54,21 @@ public:
 
 private:
   D3DXHANDLE GetHandle(const std::string& property_name);
+
+  // =================================================================
+  // Getter / Setter
+  // =================================================================
+public:
+  virtual size_t GetMemorySize() const override
+  {
+    //TODO:Œµ–§‚¶‚á‚È‚¢
+    return sizeof(NativeShader);
+  }
+  virtual size_t GetVideoMemorySize() const override
+  {
+    //TODO:Œµ–§‚¶‚á‚È‚¢
+    return 0;
+  }
 
   // =================================================================
   // Data Members

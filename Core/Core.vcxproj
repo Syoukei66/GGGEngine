@@ -71,19 +71,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)\..\lib\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
-    <IntDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\mid</IntDir>
+    <IntDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)\..\lib\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
-    <IntDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\mid</IntDir>
+    <IntDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)\..\lib\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
-    <IntDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\mid</IntDir>
+    <IntDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)\..\lib\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
-    <IntDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\mid</IntDir>
+    <IntDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -145,26 +145,43 @@
     <ClInclude Include="CerealIO.h" />
     <ClInclude Include="CerealStructArchive.hpp" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="CustomMaterial.h" />
     <ClInclude Include="EasingFunction.h" />
     <ClInclude Include="EasingFunctionManager.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="Gradient.h" />
     <ClInclude Include="GraphicsConstants.h" />
     <ClInclude Include="HashUtil.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Material.h" />
     <ClInclude Include="MathConstants.h" />
     <ClInclude Include="Matrix4x3.h" />
     <ClInclude Include="Matrix4x4.h" />
+    <ClInclude Include="CustomMesh.h" />
+    <ClInclude Include="MeshBuilder.h" />
+    <ClInclude Include="MeshBuilder_Cube.h" />
+    <ClInclude Include="MeshBuilder_Plane.h" />
+    <ClInclude Include="MeshBuilder_Sprite.h" />
+    <ClInclude Include="MeshFactory_Cube.h" />
+    <ClInclude Include="MeshFactory_Plane.h" />
+    <ClInclude Include="MeshFactory_Sprite.h" />
+    <ClInclude Include="MeshResource.h" />
     <ClInclude Include="NativeAssert.h" />
-    <ClInclude Include="NativeIndexBuffer.h" />
-    <ClInclude Include="NativeObject.h" />
+    <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="NativeProcess.h" />
-    <ClInclude Include="NativeShader.h" />
-    <ClInclude Include="NativeSound.h" />
+    <ClInclude Include="RenderTexture.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="NativeType.h" />
-    <ClInclude Include="NativeVertexBuffer.h" />
+    <ClInclude Include="TextureSource.h" />
+    <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RenderBuffer.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="ScalingMatrix.h" />
+    <ClInclude Include="ShaderProperties.h" />
+    <ClInclude Include="StaticMesh.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TranslationMatrix.h" />
     <ClInclude Include="Vector2.h" />
@@ -174,17 +191,31 @@
   <ItemGroup>
     <ClCompile Include="Bresenham.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="CustomMaterial.cpp" />
     <ClCompile Include="EasingFunction.cpp" />
     <ClCompile Include="EasingFunctionManager.cpp" />
     <ClCompile Include="Gradient.cpp" />
+    <ClCompile Include="Material.cpp" />
     <ClCompile Include="Matrix4x4.cpp" />
-    <ClCompile Include="NativeIndexBuffer.cpp" />
-    <ClCompile Include="NativeShader.cpp" />
-    <ClCompile Include="NativeSound.cpp" />
-    <ClCompile Include="NativeVertexBuffer.cpp" />
+    <ClCompile Include="CustomMesh.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MeshBuilder_Cube.cpp" />
+    <ClCompile Include="MeshBuilder_Plane.cpp" />
+    <ClCompile Include="MeshBuilder_Sprite.cpp" />
+    <ClCompile Include="MeshFactory_Cube.cpp" />
+    <ClCompile Include="MeshFactory_Plane.cpp" />
+    <ClCompile Include="MeshFactory_Sprite.cpp" />
+    <ClCompile Include="MeshResource.cpp" />
+    <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="RenderBuffer.cpp" />
+    <ClCompile Include="RenderTexture.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="StaticMesh.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="VertexBuffer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

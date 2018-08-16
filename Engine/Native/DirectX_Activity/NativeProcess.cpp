@@ -135,8 +135,25 @@ void PackColor4u8(T_PACKED_COLOR_UINT32* color, T_UINT8 r, T_UINT8 g, T_UINT8 b,
 static LPDIRECT3DSURFACE9 temp_color_buffer = nullptr;
 static LPDIRECT3DSURFACE9 temp_depth_buffer = nullptr;
 
-void SetRenderTarget(RenderBuffer* color_buffer, RenderBuffer* depth_buffer, bool clear)
+static rcRenderBuffer* use_color_buffer = nullptr;
+static rcRenderBuffer* use_depth_stencil_buffer = nullptr;
+
+void SetRenderTarget(rcRenderBuffer* color_buffer, rcRenderBuffer* depth_stencil_buffer, bool clear)
 {
+  if (use_color_buffer)
+  {
+    use_color_buffer->Release();
+  }
+  use_color_buffer = color_buffer;
+  use_color_buffer->Retain();
+
+  if (use_depth_stencil_buffer)
+  {
+    use_depth_stencil_buffer->Release();
+  }
+  use_depth_stencil_buffer = depth_stencil_buffer;
+  use_depth_stencil_buffer->Retain();
+
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
   device->EndScene();
 
@@ -145,10 +162,10 @@ void SetRenderTarget(RenderBuffer* color_buffer, RenderBuffer* depth_buffer, boo
   device->GetRenderTarget(0, &temp_color_buffer);
   device->GetDepthStencilSurface(&temp_depth_buffer);
 
-  HRESULT hr = device->SetRenderTarget(0, (LPDIRECT3DSURFACE9)color_buffer->GetNativeObject());
+  HRESULT hr = device->SetRenderTarget(0, (LPDIRECT3DSURFACE9)use_color_buffer->GetNativeObject());
   NATIVE_ASSERT(SUCCEEDED(hr), "レンダ―ターゲットの設定に失敗しました");
 
-  hr = device->SetDepthStencilSurface((LPDIRECT3DSURFACE9)depth_buffer->GetNativeObject());
+  hr = device->SetDepthStencilSurface((LPDIRECT3DSURFACE9)use_depth_stencil_buffer->GetNativeObject());
   NATIVE_ASSERT(SUCCEEDED(hr), "深度バッファの設定に失敗しました");
 
   device->BeginScene();
@@ -178,6 +195,18 @@ void ResetRenderTarget()
   temp_color_buffer = nullptr;
   temp_depth_buffer = nullptr;
 
+  if (use_color_buffer)
+  {
+    use_color_buffer->Release();
+    use_color_buffer = nullptr;
+  }
+
+  if (use_depth_stencil_buffer)
+  {
+    use_depth_stencil_buffer->Release();
+    use_depth_stencil_buffer = nullptr;
+  }
+
   device->BeginScene();
 }
 
@@ -189,11 +218,18 @@ void ResetRenderTarget()
 namespace Resource
 {
 
-void* TextureLoad(const char* path)
+rcTexture* TextureLoad(const char* path)
 {
   LP_DEVICE device = Director::GetDevice();
-  LPDIRECT3DTEXTURE9 dest = nullptr;
 
+  D3DXIMAGE_INFO info;
+  HRESULT hr = D3DXGetImageInfoFromFile(
+    path,
+    &info
+  );
+  NATIVE_ASSERT(SUCCEEDED(hr), "テクスチャサイズの取得に失敗しました");
+
+  LPDIRECT3DTEXTURE9 tex = nullptr;
   HRESULT hr = D3DXCreateTextureFromFileEx(
     (LPDIRECT3DDEVICE9)device,
     path,
@@ -208,58 +244,21 @@ void* TextureLoad(const char* path)
     0,
     NULL,
     NULL,
-    &dest);
+    &tex);
 
   NATIVE_ASSERT(SUCCEEDED(hr), "テクスチャのロードに失敗しました");
 
-  return dest;
+  return rcTexture::Create((T_UINT16)info.Width, (T_UINT16)info.Height, tex);
 }
 
-void* CreateTexture(T_UINT16 width, T_UINT16 height, RenderBuffer::Format format)
+void DeleteTexture(rcTexture* texture)
 {
-  using namespace NativeConstants;
-  width = Util::CalcTwoPowerValue(width);
-  height = Util::CalcTwoPowerValue(height);
-  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
-
-  //
-  LPDIRECT3DTEXTURE9 texture = nullptr;
-
-  HRESULT hr = D3DXCreateTexture(
-    (LPDIRECT3DDEVICE9)device,
-    width,
-    height,
-    0,
-    D3DUSAGE_RENDERTARGET,
-    TEXTURE_FORMATS[format],
-    D3DPOOL_DEFAULT,
-    &texture);
-
-  NATIVE_ASSERT(SUCCEEDED(hr), "テクスチャの作成に失敗しました");
-
-  return texture;
+  ((LPDIRECT3DTEXTURE9)texture->GetNativeObject())->Release();
 }
 
-void DeleteTexture(void* native_obj)
+void GetTextureSize(rcTexture* texture, T_UINT16* width_dest, T_UINT16* height_dest)
 {
-  ((LPDIRECT3DTEXTURE9)native_obj)->Release();
-}
-
-void GetTextureSize(const char* path, T_UINT16* width_dest, T_UINT16* height_dest)
-{
-  D3DXIMAGE_INFO info;
-  HRESULT hr = D3DXGetImageInfoFromFile(
-    path,
-    &info
-  );
-  NATIVE_ASSERT(SUCCEEDED(hr), "テクスチャサイズの取得に失敗しました");
-  (*width_dest) = info.Width;
-  (*height_dest) = info.Height;
-}
-
-void GetTextureSize(void* native_obj, T_UINT16* width_dest, T_UINT16* height_dest)
-{
-  LPDIRECT3DTEXTURE9 tex = (LPDIRECT3DTEXTURE9)native_obj;
+  LPDIRECT3DTEXTURE9 tex = (LPDIRECT3DTEXTURE9)texture->GetNativeObject();
 
   D3DSURFACE_DESC desc;
   HRESULT hr = tex->GetLevelDesc(0, &desc);
@@ -268,16 +267,16 @@ void GetTextureSize(void* native_obj, T_UINT16* width_dest, T_UINT16* height_des
   (*height_dest) = desc.Height;
 }
 
-void* CreateColorBuffer(Texture* texture)
+rcRenderBuffer* CreateColorBuffer(rcTexture* texture)
 {
   LPDIRECT3DTEXTURE9 tex = (LPDIRECT3DTEXTURE9)texture->GetNativeObject();
   LPDIRECT3DSURFACE9 surf;
   HRESULT hr = tex->GetSurfaceLevel(0, &surf);
   NATIVE_ASSERT(SUCCEEDED(hr), "テクスチャのサーフェイスの取得に失敗しました");
-  return  surf;
+  return rcRenderBuffer::Create(surf);
 }
 
-void* CreateDepthBuffer(T_UINT16 width, T_UINT16 height, RenderBuffer::Format format)
+rcRenderBuffer* CreateDepthStencilBuffer(T_UINT16 width, T_UINT16 height, rcRenderBuffer::Format format)
 {
   LPDIRECT3DSURFACE9 surf;
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
@@ -292,39 +291,73 @@ void* CreateDepthBuffer(T_UINT16 width, T_UINT16 height, RenderBuffer::Format fo
     nullptr
   );
   NATIVE_ASSERT(SUCCEEDED(hr), "深度バッファの作成に失敗しました");
-  return surf;
+  return rcRenderBuffer::Create(surf);
 }
 
-void DeleteRenderBuffer(void* native_obj)
+void DeleteRenderBuffer(rcRenderBuffer* render_buffer)
 {
-  ((LPDIRECT3DSURFACE9)native_obj)->Release();
+  ((LPDIRECT3DSURFACE9)render_buffer->GetNativeObject())->Release();
 }
 
+rcRenderTexture* CreateRenderTexture(T_UINT16 width, T_UINT16 height, rcRenderBuffer::Format format, rcRenderBuffer::Format depth_format)
+{
+  using namespace NativeConstants;
+  width = Util::CalcTwoPowerValue(width);
+  height = Util::CalcTwoPowerValue(height);
+  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
+
+  //
+  LPDIRECT3DTEXTURE9 tex = nullptr;
+
+  HRESULT hr = D3DXCreateTexture(
+    (LPDIRECT3DDEVICE9)device,
+    width,
+    height,
+    0,
+    D3DUSAGE_RENDERTARGET,
+    TEXTURE_FORMATS[format],
+    D3DPOOL_DEFAULT,
+    &tex);
+
+  NATIVE_ASSERT(SUCCEEDED(hr), "テクスチャの作成に失敗しました");
+
+  return rcRenderTexture::Create(width, height, tex, depth_format);
 }
 
-//=========================================================================================
-// Factory
-//=========================================================================================
-namespace Factory
+rcShader* ShaderLoad(const char* path)
 {
+  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
+  LPD3DXEFFECT dest = nullptr;
 
-INativeVertexBuffer* CreateVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_count, T_UINT32 format)
-{
-  return new NativeVertexBuffer(vertex_count, polygon_count, format);
+  HRESULT hr = D3DXCreateEffectFromFile(
+    device,
+    path,
+    NULL,
+    NULL,
+    D3DXSHADER_SKIPVALIDATION,
+    NULL,
+    &dest,
+    NULL
+  );
+  NATIVE_ASSERT(SUCCEEDED(hr), "シェーダーのロードに失敗しました");
+  rcShader* ret = new NativeShader(dest);
+  return ret;
 }
-INativeIndexBuffer* CreateIndexBuffer(T_UINT32 indexes_count)
-{
-  return new NativeIndexBuffer(indexes_count);
-}
-INativeSound* CreateSound(const char* path)
+
+rcSound* SoundLoad(const char* path)
 {
   return new NativeSound(path);
 }
-INativeShader* CreateShader(const char* path)
+
+rcVertexBuffer* CreateVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_count, T_UINT32 format)
 {
-  return new NativeShader(path);
+  return new NativeVertexBuffer(vertex_count, polygon_count, format);
 }
 
-} // namespace Factory
+rcIndexBuffer* CreateIndexBuffer(T_UINT32 indexes_count)
+{
+  return new NativeIndexBuffer(indexes_count);
+}
+}
 
 } // namespace NativeProcess

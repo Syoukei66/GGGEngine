@@ -1,22 +1,32 @@
 #include "RenderBuffer.h"
 #include "NativeProcess.h"
 
-RenderBuffer* RenderBuffer::CreateColorBuffer(Texture* texture)
+// =================================================================
+// Constructor / Destructor
+// =================================================================
+rcRenderBuffer* rcRenderBuffer::CreateColorBuffer(rcTexture* texture)
 {
-  return new RenderBuffer(NativeProcess::Resource::CreateColorBuffer(texture));
+  return NativeProcess::Resource::CreateColorBuffer(texture);
 }
 
-RenderBuffer* RenderBuffer::CreateDepthBuffer(T_UINT16 width, T_UINT16 height, Format format)
+rcRenderBuffer* rcRenderBuffer::CreateDepthStencilBuffer(T_UINT16 width, T_UINT16 height, Format format)
 {
-  return new RenderBuffer(NativeProcess::Resource::CreateDepthBuffer(width, height, format));
+  return NativeProcess::Resource::CreateDepthStencilBuffer(width, height, format);
 }
 
-RenderBuffer::RenderBuffer(void* native_obj)
+rcRenderBuffer* rcRenderBuffer::Create(void* native_obj)
+{
+  rcRenderBuffer* ret = new rcRenderBuffer(native_obj);
+  ret->Resource::Init();
+  return ret;
+}
+
+rcRenderBuffer::rcRenderBuffer(void* native_obj)
   : native_obj_(native_obj)
 {
 }
 
-RenderBuffer::~RenderBuffer()
+rcRenderBuffer::~rcRenderBuffer()
 {
-  NativeProcess::Resource::DeleteRenderBuffer(this->native_obj_);
+  NativeProcess::Resource::DeleteRenderBuffer(this);
 }

@@ -1,10 +1,10 @@
 #pragma once
 
-#include "GraphicsConstants.h"
+#include "Resource.h"
 
-class Texture;
+class rcTexture;
 
-class RenderBuffer
+class rcRenderBuffer : public Resource
 {
 public:
   enum Format
@@ -23,14 +23,13 @@ public:
   // Constructor / Destructor
   // =================================================================
 public:
-  static RenderBuffer* CreateColorBuffer(Texture* texture);
-  static RenderBuffer* CreateDepthBuffer(T_UINT16 width, T_UINT16 height, Format format);
+  static rcRenderBuffer* CreateColorBuffer(rcTexture* texture);
+  static rcRenderBuffer* CreateDepthStencilBuffer(T_UINT16 width, T_UINT16 height, Format format);
+  static rcRenderBuffer* Create(void* native_obj);
 
-private:
-  RenderBuffer(void* native_obj);
-
-public:
-  ~RenderBuffer();
+protected:
+  rcRenderBuffer(void* native_obj);
+  virtual ~rcRenderBuffer();
 
   // =================================================================
   // Getter / Setter
@@ -40,16 +39,26 @@ public:
   {
     return this->native_obj_;
   }
-
   inline const void* GetNativeObject() const
   {
     return this->native_obj_;
   }
 
+  virtual size_t GetMemorySize() const override
+  {
+    //TODO:Œµ–§‚¶‚á‚È‚¢
+    return sizeof(rcRenderBuffer);
+  }
+  virtual size_t GetVideoMemorySize() const override
+  {
+    //TODO:Œµ–§‚¶‚á‚È‚¢
+    return 0;
+  }
+
   // =================================================================
   // Data Members
   // =================================================================
-private:
+protected:
   void* native_obj_;
 
 };

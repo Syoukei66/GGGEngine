@@ -11,7 +11,7 @@ TiledTextureRegion* TiledTextureRegion::CreateWithMaterial(const Material& mater
   return TiledTextureRegion::CreateWithTexture(material.GetMainTexture(), x_num, y_num);
 }
 
-TiledTextureRegion* TiledTextureRegion::CreateWithTexture(const Texture* texture, T_UINT8 x_num, T_UINT8 y_num)
+TiledTextureRegion* TiledTextureRegion::CreateWithTexture(const rcTexture* texture, T_UINT8 x_num, T_UINT8 y_num)
 {
   TiledTextureRegion* ret = new TiledTextureRegion();
   ret->Init();
@@ -39,7 +39,7 @@ TiledTextureRegion::~TiledTextureRegion()
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
-void TiledTextureRegion::OnUpdateTextureCoord(const Texture* texture)
+void TiledTextureRegion::OnUpdateTextureCoord(const rcTexture* texture)
 {
   const T_FLOAT tw = (T_FLOAT)texture->GetWidth();
   const T_FLOAT th = (T_FLOAT)texture->GetHeight();

@@ -91,7 +91,6 @@ static HRESULT ReadChunkData(HANDLE hFile, void *pBuffer, DWORD dwBuffersize, DW
 }
 
 NativeSound::NativeSound(const char* path)
-  : INativeSound(nullptr)
 {
   HANDLE hFile;
   DWORD dwChunkSize = 0;

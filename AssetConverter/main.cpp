@@ -87,9 +87,9 @@ int main()
   asset_manager->Init(setting);
   
   StaticModelConverter static_model_converter = StaticModelConverter();
-  NotConverter texture_converter = NotConverter({ "jpg", "png" }, "Texture", "Texture");
-  NotConverter sound_converter = NotConverter({ "wav", "mp3" }, "Sound", "INativeSound");
-  NotConverter shader_converter = NotConverter({ "cso" }, "Shader", "INativeShader");
+  NotConverter texture_converter = NotConverter({ "jpg", "png" }, "rcTexture", "rcTexture");
+  NotConverter sound_converter = NotConverter({ "wav", "mp3" }, "rcSound", "rcSound");
+  NotConverter shader_converter = NotConverter({ "cso" }, "rcShader", "rcShader");
   NotConverter csv_converter = NotConverter({ "csv" }, "CSV", "CsvData");
   NotConverter json_converter = NotConverter({ "json" }, "JSON", "JsonData");
 

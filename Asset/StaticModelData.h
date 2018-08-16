@@ -107,9 +107,9 @@ struct StaticModelData
   }
 
   T_UINT32 vertex_format_;
-  T_UINT32 vertex_size_;
+  size_t vertex_size_;
   T_UINT32 vertex_count_;
-  T_FLOAT* data_;
+  unsigned char* data_;
 
   T_UINT32 polygon_count_;
 

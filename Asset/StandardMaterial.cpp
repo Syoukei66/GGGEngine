@@ -1,6 +1,6 @@
 #include "StandardMaterial.h"
 
-StandardMaterial::StandardMaterial(INativeShader* resource, bool protect)
+StandardMaterial::StandardMaterial(rcShader* resource, bool protect)
   : Material(resource, protect)
 {
 }
@@ -9,7 +9,7 @@ StandardMaterial::~StandardMaterial()
 {
 }
 
-Material* StandardMaterial::CreateClone(INativeShader* shader)
+Material* StandardMaterial::CreateClone(rcShader* shader)
 {
   return new StandardMaterial(shader);
 }
@@ -43,7 +43,7 @@ void StandardMaterial::CopyPropertiesToClone(Material* clone)
   ret->SetAlphaCutoff(this->GetAlphaCutoff());
 }
 
-void StandardMaterial::SetProperties(INativeShader* shader)
+void StandardMaterial::SetProperties(rcShader* shader)
 {
   shader->SetTexture("_NormalMap", this->normal_map_);
   shader->SetFloat("_BumpScale", this->bump_scale_);

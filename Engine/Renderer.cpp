@@ -68,7 +68,7 @@ void Renderer::SetDefaultProperties(GameObjectRenderState* state, Material* mate
 {
   this->SetProperties(material);
 
-  INativeShader* shader = material->GetShader();
+  rcShader* shader = material->GetShader();
   material->SetProperties(shader);
 
   //Materialをゲーム内処理から独立させる為、こちら側でプロパティの設定を行う

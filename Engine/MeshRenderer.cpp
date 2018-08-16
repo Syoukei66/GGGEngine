@@ -3,14 +3,14 @@
 // =================================================================
 // Factory Method
 // =================================================================
-MeshRenderer* MeshRenderer::Create(const Mesh& mesh, GameObject* entity)
+MeshRenderer* MeshRenderer::Create(const rcCustomMesh& mesh, GameObject* entity)
 {
   MeshRenderer* ret = new MeshRenderer(entity);
   ret->SetMesh(mesh);
   return ret;
 }
 
-MeshRenderer* MeshRenderer::Create(const Mesh* mesh, GameObject* entity)
+MeshRenderer* MeshRenderer::Create(const rcCustomMesh* mesh, GameObject* entity)
 {
   MeshRenderer* ret = new MeshRenderer(entity);
   ret->SetMesh(mesh);

@@ -26,7 +26,7 @@ public:
   static TextureAtlas* CreateWithAtlasFile(const char* path);
 
 public:
-  TextureAtlas(const Texture* texture);
+  TextureAtlas(const rcTexture* texture);
 
 public:
   void Register(const std::string& path, const AtlasRegion& region);
@@ -35,6 +35,6 @@ public:
   TextureRegion* GetTextureRegion(const std::string& path) const;
 
 private:
-  const Texture* texture_;
+  const rcTexture* texture_;
   std::map<std::string, AtlasRegion> region_map_;
 };

@@ -9,8 +9,8 @@ class MeshRenderer : public Renderer
   // Factory Method
   // =================================================================
 public:
-  static MeshRenderer* Create(const Mesh& mesh, GameObject* entity);
-  static MeshRenderer* Create(const Mesh* mesh, GameObject* entity);
+  static MeshRenderer* Create(const rcCustomMesh& mesh, GameObject* entity);
+  static MeshRenderer* Create(const rcCustomMesh* mesh, GameObject* entity);
 
   // =================================================================
   // Constructor / Destructor
@@ -30,11 +30,11 @@ protected:
   // setter/getter
   // =================================================================
 public:
-  inline void SetMesh(const Mesh& mesh)
+  inline void SetMesh(const rcCustomMesh& mesh)
   {
     this->mesh_ = &mesh;
   }
-  inline void SetMesh(const Mesh* mesh)
+  inline void SetMesh(const rcCustomMesh* mesh)
   {
     this->mesh_ = mesh;
   }
@@ -43,6 +43,6 @@ public:
   // Data Member
   // =================================================================
 private:
-  const Mesh* mesh_;
+  const rcCustomMesh* mesh_;
 
 };

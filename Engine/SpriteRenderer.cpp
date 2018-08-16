@@ -26,7 +26,7 @@ SpriteRenderer::~SpriteRenderer()
 // =================================================================
 bool SpriteRenderer::SetStreamSource() const
 {
-  EngineAsset::Mesh::QUAD.GetContents().SetStreamSource();
+  EngineAsset::rcCustomMesh::QUAD.GetContents().SetStreamSource();
   return true;
 }
 
@@ -45,7 +45,7 @@ void SpriteRenderer::SetProperties(Material* material) const
 
 void SpriteRenderer::DrawSubset(T_UINT8 submesh_index) const
 {
-  EngineAsset::Mesh::QUAD.GetContents().DrawSubset(submesh_index);
+  EngineAsset::rcCustomMesh::QUAD.GetContents().DrawSubset(submesh_index);
 }
 
 // =================================================================
@@ -53,7 +53,7 @@ void SpriteRenderer::DrawSubset(T_UINT8 submesh_index) const
 // =================================================================
 void SpriteRenderer::FitToTexture()
 {
-  const Texture* texture = this->GetTextureRegion()->GetTexture();
+  const rcTexture* texture = this->GetTextureRegion()->GetTexture();
   if (!texture)
   {
     return;
@@ -76,7 +76,7 @@ void SpriteRenderer::SetTextureRegion(ITextureRegion* region, bool delete_region
   this->delete_region_ = delete_region;
 }
 
-void SpriteRenderer::SetTexture(const Texture* texture)
+void SpriteRenderer::SetTexture(const rcTexture* texture)
 {
   if (!this->texture_region_)
   {

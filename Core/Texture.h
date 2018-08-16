@@ -2,9 +2,10 @@
 
 #include <string>
 #include "NativeType.h"
+#include "Resource.h"
 #include "RenderBuffer.h"
 
-class Texture
+class rcTexture : public Resource
 {
 public:
   enum FilterMode
@@ -26,16 +27,12 @@ public:
   // Constructor / Destructor
   // =================================================================
 public:
-  static Texture* Create(const char* path);
-  static Texture* Create(T_UINT16 width, T_UINT16 height, void* native_obj);
-  inline void Release()
-  {
-    delete this;
-  }
+  static rcTexture* Create(const char* path);
+  static rcTexture* Create(T_UINT16 width, T_UINT16 height, void* native_obj);
 
 protected:
-  Texture(T_UINT16 width, T_UINT16 height, void* native_obj);
-  virtual ~Texture();
+  rcTexture(T_UINT16 width, T_UINT16 height, void* native_obj);
+  virtual ~rcTexture();
 
   // =================================================================
   // Getter / Setter
@@ -49,6 +46,7 @@ public:
   {
     return this->native_obj_;
   }
+
   inline T_UINT16 GetWidth() const
   {
     return this->width_;
@@ -65,27 +63,39 @@ public:
   {
     return two_powered_height_;
   }
-  inline RenderBuffer* GetColorBuffer()
+  inline rcRenderBuffer* GetColorBuffer()
   {
     return this->color_buffer_;
   }
-  inline const RenderBuffer* GetColorBuffer() const
+  inline const rcRenderBuffer* GetColorBuffer() const
   {
     return this->color_buffer_;
+  }
+
+  virtual size_t GetMemorySize() const override
+  {
+    //TODO:厳密じゃない
+    return sizeof(rcTexture);
+  }
+  virtual size_t GetVideoMemorySize() const override
+  {
+    //TODO:厳密じゃない
+    return 0;
   }
 
   // =================================================================
   // Data Members
   // =================================================================
-private:
+protected:
   void* native_obj_;
+
   T_UINT16 width_;
   T_UINT16 height_;
 
   T_UINT16 two_powered_width_;
   T_UINT16 two_powered_height_;
 
-  RenderBuffer* color_buffer_;
+  rcRenderBuffer* color_buffer_;
 
   //ライトマップの更新などの為に、
   //テクスチャの変更を検出するのに使用

@@ -13,7 +13,7 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
   , polygon_count_(polygon_count)
   , format_(format)
 {
-  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::->GetDevice();
+  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
 
   std::vector<D3DVERTEXELEMENT9> elements = std::vector<D3DVERTEXELEMENT9>();
 
@@ -29,7 +29,7 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
       D3DDECLUSAGE_POSITION,
       0 };
     elements.emplace_back(element);
-    offset += VERTEX_ATTRIBUTE_SIZE(V_ATTR_POSITION);
+    offset += V_ATTRSIZE_POSITION;
   }
   if (format & V_ATTR_NORMAL)
   {
@@ -39,7 +39,7 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
       D3DDECLUSAGE_NORMAL,
       0 };
     elements.emplace_back(element);
-    offset += VERTEX_ATTRIBUTE_SIZE(V_ATTR_NORMAL);
+    offset += V_ATTRSIZE_NORMAL;
   }
   if (format & V_ATTR_UV)
   {
@@ -49,7 +49,7 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
       D3DDECLUSAGE_TEXCOORD,
       0 };
     elements.emplace_back(element);
-    offset +=VERTEX_ATTRIBUTE_SIZE(V_ATTR_UV);
+    offset += V_ATTRSIZE_UV;
   }
   if (format & V_ATTR_UV2)
   {
@@ -59,7 +59,7 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
       D3DDECLUSAGE_TEXCOORD,
       1 };
     elements.emplace_back(element);
-    offset += VERTEX_ATTRIBUTE_SIZE(V_ATTR_UV2);
+    offset += V_ATTRSIZE_UV2;
   }
   if (format & V_ATTR_UV3)
   {
@@ -69,7 +69,7 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
       D3DDECLUSAGE_TEXCOORD,
       2 };
     elements.emplace_back(element);
-    offset += VERTEX_ATTRIBUTE_SIZE(V_ATTR_UV3);
+    offset += V_ATTRSIZE_UV3;
   }
   if (format & V_ATTR_UV4)
   {
@@ -79,7 +79,7 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
       D3DDECLUSAGE_TEXCOORD,
       3 };
     elements.emplace_back(element);
-    offset += VERTEX_ATTRIBUTE_SIZE(V_ATTR_UV4);
+    offset += V_ATTRSIZE_UV4;
   }
   if (format & V_ATTR_TANGENT)
   {
@@ -89,7 +89,7 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
       D3DDECLUSAGE_TANGENT,
       0 };
     elements.emplace_back(element);
-    offset += VERTEX_ATTRIBUTE_SIZE(V_ATTR_TANGENT);
+    offset += V_ATTRSIZE_TANGENT;
   }
   if (format & V_ATTR_COLOR)
   {
@@ -99,7 +99,7 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_c
       D3DDECLUSAGE_COLOR,
       0 };
     elements.emplace_back(element);
-    offset += VERTEX_ATTRIBUTE_SIZE(V_ATTR_COLOR);
+    offset += V_ATTRSIZE_COLOR;
   }
 
   elements.push_back(D3DDECL_END());
@@ -142,7 +142,7 @@ void NativeVertexBuffer::Unlock()
 
 void NativeVertexBuffer::SetStreamSource() const
 {
-  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::->GetDevice();
+  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
   HRESULT hr = device->SetVertexDeclaration(this->vertex_declaration_);
   NATIVE_ASSERT(SUCCEEDED(hr), "’¸“_éŒ¾‚ÌƒZƒbƒg‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
   hr = device->SetStreamSource(0, this->vertex_buffer_, 0, this->stride_);
@@ -151,7 +151,7 @@ void NativeVertexBuffer::SetStreamSource() const
 
 void NativeVertexBuffer::DrawPrimitive(Graphics::PrimitiveType primitive_type) const
 {
-  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::->GetDevice();
+  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
   HRESULT hr = device->DrawPrimitive(
     NativeConstants::PRIMITIVE_TYPES[primitive_type],
     0,
@@ -160,9 +160,9 @@ void NativeVertexBuffer::DrawPrimitive(Graphics::PrimitiveType primitive_type) c
   NATIVE_ASSERT(SUCCEEDED(hr), "•`‰æ‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 }
 
-void NativeVertexBuffer::DrawIndexedPrimitive(const INativeIndexBuffer* index_buffer, Graphics::PrimitiveType primitive_type) const
+void NativeVertexBuffer::DrawIndexedPrimitive(const rcIndexBuffer* index_buffer, Graphics::PrimitiveType primitive_type) const
 {
-  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::->GetDevice();
+  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
   const T_UINT32 vertex_count = index_buffer->GetVertexesCount();
   HRESULT hr = device->DrawIndexedPrimitive(
     NativeConstants::PRIMITIVE_TYPES[primitive_type],
@@ -175,7 +175,17 @@ void NativeVertexBuffer::DrawIndexedPrimitive(const INativeIndexBuffer* index_bu
   NATIVE_ASSERT(SUCCEEDED(hr), "•`‰æ‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 }
 
-T_UINT32 NativeVertexBuffer::GetMemorySize() const
+// =================================================================
+// Getter / Setter
+// =================================================================
+size_t NativeVertexBuffer::GetMemorySize() const
 {
+  //TODO:Œµ–§‚¶‚á‚È‚¢‚©‚à
+  return sizeof(NativeVertexBuffer);
+}
+
+size_t NativeVertexBuffer::GetVideoMemorySize() const
+{
+  //TODO:Œµ–§‚¶‚á‚È‚¢‚©‚à
   return this->stride_ * this->vertex_count_;
 }

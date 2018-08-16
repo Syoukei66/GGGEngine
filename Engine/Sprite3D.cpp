@@ -12,7 +12,7 @@ Sprite3D* Sprite3D::Create()
   return ret;
 }
 
-Sprite3D* Sprite3D::CreateWithTexture(const Texture* texture)
+Sprite3D* Sprite3D::CreateWithTexture(const rcTexture* texture)
 {
   TextureRegion* region = TextureRegion::CreateWithTexture(texture);
   return Sprite3D::CreateWithTextureRegion(region, true);

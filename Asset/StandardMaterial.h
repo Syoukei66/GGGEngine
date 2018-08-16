@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "Material.h"
+#include "../Core/Material.h"
 
 class StandardMaterial : public Material
 {
@@ -9,18 +9,18 @@ class StandardMaterial : public Material
   // Constructor / Destructor
   // =================================================================
 public:
-  StandardMaterial(INativeShader* resource, bool protect = false);
+  StandardMaterial(rcShader* resource, bool protect = false);
   virtual ~StandardMaterial();
 
   // =================================================================
   // Methods
   // =================================================================
 protected:
-  virtual Material* CreateClone(INativeShader* shader) override;
+  virtual Material* CreateClone(rcShader* shader) override;
   virtual void CopyPropertiesToClone(Material* clone) override;
 
 public:
-  virtual void SetProperties(INativeShader* shader) override;
+  virtual void SetProperties(rcShader* shader) override;
 
   // =================================================================
   // setter/getter
@@ -35,20 +35,20 @@ public:
     return this->GetMainColor();
   }
 
-  inline void SetAlbedoMap(const Texture* texture)
+  inline void SetAlbedoMap(const rcTexture* texture)
   {
     this->SetMainTexture(texture);
   }
-  inline const Texture* GetAlbedoMap() const
+  inline const rcTexture* GetAlbedoMap() const
   {
     return this->GetMainTexture();
   }
 
-  inline void SetNormalMap(const Texture* texture)
+  inline void SetNormalMap(const rcTexture* texture)
   {
     this->normal_map_ = texture;
   }
-  inline const Texture* GetNormalMap() const
+  inline const rcTexture* GetNormalMap() const
   {
     return this->normal_map_;
   }
@@ -62,11 +62,11 @@ public:
     return this->bump_scale_;
   }
 
-  inline void SetMetallicMap(const Texture* texture)
+  inline void SetMetallicMap(const rcTexture* texture)
   {
     this->metallic_map_ = texture;
   }
-  inline const Texture* GetMetallicMap() const
+  inline const rcTexture* GetMetallicMap() const
   {
     return this->metallic_map_;
   }
@@ -80,11 +80,11 @@ public:
     return this->metallic_;
   }
 
-  inline void SetEmissionMap(const Texture* emission_map)
+  inline void SetEmissionMap(const rcTexture* emission_map)
   {
     this->emission_map_ = emission_map;
   }
-  inline const Texture* GetEmissionMap() const
+  inline const rcTexture* GetEmissionMap() const
   {
     return this->emission_map_;
   }
@@ -98,11 +98,11 @@ public:
     return this->emission_;
   }
 
-  inline void SetOcclusionMap(const Texture* emission_map)
+  inline void SetOcclusionMap(const rcTexture* emission_map)
   {
     this->emission_map_ = emission_map;
   }
-  inline const Texture* GetOcclusionMap() const
+  inline const rcTexture* GetOcclusionMap() const
   {
     return this->emission_map_;
   }
@@ -116,20 +116,20 @@ public:
     return this->occlusion_strength_;
   }
 
-  inline void SetDetailAlbedoMap(const Texture* texture)
+  inline void SetDetailAlbedoMap(const rcTexture* texture)
   {
     this->detail_albedo_map_ = texture;
   }
-  inline const Texture* GetDetailAlbedoMap() const
+  inline const rcTexture* GetDetailAlbedoMap() const
   {
     return this->detail_albedo_map_;
   }
 
-  inline void SetDetailNormalMap(const Texture* texture)
+  inline void SetDetailNormalMap(const rcTexture* texture)
   {
     this->detail_normal_map_ = texture;
   }
-  inline const Texture* GetDetailNormalMap() const
+  inline const rcTexture* GetDetailNormalMap() const
   {
     return this->detail_normal_map_;
   }
@@ -143,11 +143,11 @@ public:
     return this->detail_bump_scale_;
   }
 
-  inline void SetDetailMaskMap(const Texture* texture)
+  inline void SetDetailMaskMap(const rcTexture* texture)
   {
     this->detail_mask_map_ = texture;
   }
-  inline const Texture* GetDetailMaskMap() const
+  inline const rcTexture* GetDetailMaskMap() const
   {
     return this->detail_mask_map_;
   }
@@ -183,22 +183,22 @@ public:
   // Data Member
   // =================================================================
 private:
-  const Texture* normal_map_;
+  const rcTexture* normal_map_;
   T_FLOAT bump_scale_;
 
-  const Texture* metallic_map_;
+  const rcTexture* metallic_map_;
   T_FLOAT metallic_;
 
-  const Texture* emission_map_;
+  const rcTexture* emission_map_;
   TColor emission_;
 
-  const Texture* occlusion_map_;
+  const rcTexture* occlusion_map_;
   T_FLOAT occlusion_strength_;
 
-  const Texture* detail_albedo_map_;
-  const Texture* detail_normal_map_;
+  const rcTexture* detail_albedo_map_;
+  const rcTexture* detail_normal_map_;
   T_FLOAT detail_bump_scale_;
-  const Texture* detail_mask_map_;
+  const rcTexture* detail_mask_map_;
 
   TVec2f detail_tiling_;
   TVec2f detail_tiling_offset_;

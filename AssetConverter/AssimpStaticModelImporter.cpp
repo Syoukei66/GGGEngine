@@ -169,9 +169,10 @@ StaticModelData* ImportStaticModel(AssetInfo* info, const aiScene* scene)
   TVec3f max = { 0.0f, 0.0f, 0.0f };
 
   //
-  ret->data_ = new T_FLOAT[ret->vertex_count_ * ret->vertex_size_]();
+  ret->data_ = new unsigned char[ret->vertex_count_ * ret->vertex_size_]();
   ret->indices_ = new T_UINT32[ret->index_count_]();
-  for (T_UINT32 m = 0, vi = 0, ii = 0; m < scene->mNumMeshes; ++m)
+  unsigned char* p = ret->data_;
+  for (T_UINT32 m = 0, ii = 0; m < scene->mNumMeshes; ++m)
   {
     const aiMesh* mesh = scene->mMeshes[m];
 
@@ -181,9 +182,11 @@ StaticModelData* ImportStaticModel(AssetInfo* info, const aiScene* scene)
       //mesh
       if (ret->vertex_format_ & V_ATTR_POSITION)
       {
-        ret->data_[vi + 0] = mesh->mVertices[v].x;
-        ret->data_[vi + 1] = mesh->mVertices[v].y;
-        ret->data_[vi + 2] = mesh->mVertices[v].z;
+        T_FLOAT* vertex = (T_FLOAT*)p;
+        vertex[0] = mesh->mVertices[v].x;
+        vertex[1] = mesh->mVertices[v].y;
+        vertex[2] = mesh->mVertices[v].z;
+        p += V_ATTRSIZE_POSITION;
 
         min.x = std::min(min.x, mesh->mVertices[v].x);
         min.y = std::min(min.y, mesh->mVertices[v].y);
@@ -192,57 +195,62 @@ StaticModelData* ImportStaticModel(AssetInfo* info, const aiScene* scene)
         max.x = std::max(max.x, mesh->mVertices[v].x);
         max.y = std::max(max.y, mesh->mVertices[v].y);
         max.z = std::max(max.z, mesh->mVertices[v].z);
-
-        vi += V_ATTRSIZE_POSITION;
       }
       if (ret->vertex_format_ & V_ATTR_NORMAL)
       {
-        ret->data_[vi + 0] = mesh->mNormals[v].x;
-        ret->data_[vi + 1] = mesh->mNormals[v].y;
-        ret->data_[vi + 2] = mesh->mNormals[v].z;
-        vi += V_ATTRSIZE_NORMAL;
+        T_FLOAT* normal = (T_FLOAT*)p;
+        normal[0] = mesh->mNormals[v].x;
+        normal[1] = mesh->mNormals[v].y;
+        normal[2] = mesh->mNormals[v].z;
+        p += V_ATTRSIZE_NORMAL;
       }
       if (ret->vertex_format_ & V_ATTR_UV)
       {
-        ret->data_[vi + 0] = mesh->mTextureCoords[0][v].x;
-        ret->data_[vi + 1] = mesh->mTextureCoords[0][v].y;
-        vi += V_ATTRSIZE_UV;
+        T_FLOAT* uv = (T_FLOAT*)p;
+        uv[0] = mesh->mTextureCoords[0][v].x;
+        uv[1] = mesh->mTextureCoords[0][v].y;
+        p += V_ATTRSIZE_UV;
       }
       if (ret->vertex_format_ & V_ATTR_UV2)
       {
-        ret->data_[vi + 0] = mesh->mTextureCoords[1][v].x;
-        ret->data_[vi + 1] = mesh->mTextureCoords[1][v].y;
-        vi += V_ATTRSIZE_UV2;
+        T_FLOAT* uv2 = (T_FLOAT*)p;
+        uv2[0] = mesh->mTextureCoords[1][v].x;
+        uv2[1] = mesh->mTextureCoords[1][v].y;
+        p += V_ATTRSIZE_UV2;
       }
       if (ret->vertex_format_ & V_ATTR_UV3)
       {
-        ret->data_[vi + 0] = mesh->mTextureCoords[2][v].x;
-        ret->data_[vi + 1] = mesh->mTextureCoords[2][v].y;
-        vi += V_ATTRSIZE_UV3;
+        T_FLOAT* uv3 = (T_FLOAT*)p;
+        uv3[0] = mesh->mTextureCoords[2][v].x;
+        uv3[1] = mesh->mTextureCoords[2][v].y;
+        p += V_ATTRSIZE_UV3;
       }
       if (ret->vertex_format_ & V_ATTR_UV4)
       {
-        ret->data_[vi + 0] = mesh->mTextureCoords[3][v].x;
-        ret->data_[vi + 1] = mesh->mTextureCoords[3][v].y;
-        vi += V_ATTRSIZE_UV4;
+        T_FLOAT* uv4 = (T_FLOAT*)p;
+        uv4[0] = mesh->mTextureCoords[3][v].x;
+        uv4[1] = mesh->mTextureCoords[3][v].y;
+        p += V_ATTRSIZE_UV4;
       }
       if (ret->vertex_format_ & V_ATTR_TANGENT)
       {
         //TODO:
-        ret->data_[vi + 0] = mesh->mTangents[v].x;
-        ret->data_[vi + 1] = mesh->mTangents[v].y;
-        ret->data_[vi + 2] = mesh->mTangents[v].z;
-        ret->data_[vi + 3] = 0.0f;
-        vi += V_ATTRSIZE_TANGENT;
+        T_FLOAT* tangent = (T_FLOAT*)p;
+        tangent[0] = mesh->mTangents[v].x;
+        tangent[1] = mesh->mTangents[v].y;
+        tangent[2] = mesh->mTangents[v].z;
+        tangent[3] = 0.0f;
+        p += V_ATTRSIZE_TANGENT;
       }
       if (ret->vertex_format_ & V_ATTR_COLOR)
       {
-        ret->data_[vi + 0] =
+        T_UINT32* color = (T_UINT32*)p;
+        color[0] =
           (((T_UINT8)(mesh->mColors[0][v].a * 0xff) & 0xff) << 24) |
           (((T_UINT8)(mesh->mColors[0][v].r * 0xff) & 0xff) << 16) |
           (((T_UINT8)(mesh->mColors[0][v].g * 0xff) & 0xff) << 8) |
           (((T_UINT8)(mesh->mColors[0][v].b * 0xff) & 0xff) << 0);
-        vi += V_ATTRSIZE_COLOR;
+        p += V_ATTRSIZE_COLOR;
       }
     }
     //

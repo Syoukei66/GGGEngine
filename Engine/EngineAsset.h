@@ -6,9 +6,9 @@
 namespace EngineAsset
 {
 
-namespace Shader
+namespace rcShader
 {
-using T_ = INativeShader;
+using T_ = rcShader;
 using Cont_ = const AssetContainer<T_>*;
 extern Cont_ UNLIT;
 extern Cont_ LAMBERT;
@@ -26,7 +26,7 @@ extern class Material SPRITE;
 extern class Material WHITE;
 } // namespace Material
 
-namespace Mesh
+namespace rcCustomMesh
 {
 extern MeshResource QUAD;
 extern MeshResource PLANE;

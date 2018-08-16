@@ -1,9 +1,9 @@
 #pragma once
 
 #include <XAudio2.h>
-#include <NativeSound.h>
+#include <../Core/Sound.h>
 
-class NativeSound : public INativeSound
+class NativeSound : public rcSound
 {
   // =================================================================
   // Constructor / Destructor
@@ -16,7 +16,7 @@ public:
   // Method for/from SuperClass/Interfaces
   // =================================================================
 public:
-  virtual void Play(T_UINT8 loop_count = 0) override;
+  virtual void Play(T_UINT8 loop_count) override;
   virtual void Stop() override;
   virtual void Pause() override;
   virtual void Resume() override;

@@ -33,15 +33,15 @@ enum VertexAttribute
 
 enum VertexAttrSize
 {
-  V_ATTRSIZE_POSITION = 3,
-  V_ATTRSIZE_NORMAL = 3,
-  V_ATTRSIZE_UV = 2,
-  V_ATTRSIZE_UV2 = 2,
-  V_ATTRSIZE_UV3 = 2,
-  V_ATTRSIZE_UV4 = 2,
-  V_ATTRSIZE_TANGENT = 4,
-  V_ATTRSIZE_COLOR = 1,
-  V_ATTRSIZE_BONE_WEIGHTS = 8,
+  V_ATTRSIZE_POSITION = 3 * sizeof(T_FLOAT),
+  V_ATTRSIZE_NORMAL = 3 * sizeof(T_FLOAT),
+  V_ATTRSIZE_UV = 2 * sizeof(T_FLOAT),
+  V_ATTRSIZE_UV2 = 2 * sizeof(T_FLOAT),
+  V_ATTRSIZE_UV3 = 2 * sizeof(T_FLOAT),
+  V_ATTRSIZE_UV4 = 2 * sizeof(T_FLOAT),
+  V_ATTRSIZE_TANGENT = 4 * sizeof(T_FLOAT),
+  V_ATTRSIZE_COLOR = 1 * sizeof(T_UINT32),
+  V_ATTRSIZE_BONE_WEIGHTS = 8 * sizeof(T_FLOAT),
 };
 
 enum { V_ATTR_DATANUM = 8 };
@@ -62,28 +62,6 @@ enum VertexFormat
   V_FORMAT_PNUT = V_ATTR_POSITION | V_ATTR_NORMAL | V_ATTR_UV | V_ATTR_TANGENT,
   V_FORMAT_PNTC = V_ATTR_POSITION | V_ATTR_NORMAL | V_ATTR_TANGENT | V_ATTR_COLOR,
   V_FORMAT_PNUTC = V_ATTR_POSITION | V_ATTR_NORMAL | V_ATTR_UV | V_ATTR_TANGENT | V_ATTR_COLOR,
-};
-
-static const T_UINT32 VERTEX_ATTRIBUTE_SIZE(T_UINT32 attr)
-{
-  static T_UINT32 SIZES[V_ATTR_DATANUM] =
-  {
-    sizeof(T_FLOAT) * 3,  // POSITION
-    sizeof(T_FLOAT) * 3,  // NORMAL
-    sizeof(T_FLOAT) * 2,  // UV
-    sizeof(T_FLOAT) * 2,  // UV2
-    sizeof(T_FLOAT) * 2,  // UV3
-    sizeof(T_FLOAT) * 2,  // UV4
-    sizeof(T_FLOAT) * 4,  // TANGENTS
-    sizeof(T_UINT32),     // COLOR
-  };
-  T_UINT32 index = 0;
-  while (attr > 1)
-  {
-    attr >>= 1;
-    ++index;
-  }
-  return SIZES[index];
 };
 
 enum PrimitiveType

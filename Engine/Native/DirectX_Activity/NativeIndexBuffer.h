@@ -5,7 +5,7 @@
 
 #include <NativeIndexBuffer.h>
 
-class NativeIndexBuffer : public INativeIndexBuffer
+class NativeIndexBuffer : public rcIndexBuffer
 {
   // =================================================================
   // Constructor / Destructor

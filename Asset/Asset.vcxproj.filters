@@ -49,35 +49,17 @@
     <Filter Include="ヘッダー ファイル\Asset\JSON">
       <UniqueIdentifier>{6006ef03-f60b-46b8-b96d-7fa8a389c6f2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Resource">
-      <UniqueIdentifier>{d49664ff-5b53-449d-956e-b82e6c8e20ac}</UniqueIdentifier>
+    <Filter Include="ヘッダー ファイル\Data">
+      <UniqueIdentifier>{9a21b66e-94de-407e-a1a6-0b78b6cb655f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Resource">
-      <UniqueIdentifier>{f67f6e5b-a7c4-4faa-af2e-bf282f6a9642}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\Material">
-      <UniqueIdentifier>{604d7214-023f-4d0b-9395-9e84b989736b}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Data">
+      <UniqueIdentifier>{c1fb7da1-445c-4243-9f17-762e423ee724}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Asset\Material">
-      <UniqueIdentifier>{68c85261-0ed0-4355-b337-162d1dd06b2f}</UniqueIdentifier>
+      <UniqueIdentifier>{6f6d9171-82c8-414e-bf92-4f30a59d63b6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Asset\Mesh">
-      <UniqueIdentifier>{5119f351-4b55-4709-b164-1a014994f91c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Asset\Mesh\Factory">
-      <UniqueIdentifier>{0b0bc42c-a101-44b3-be53-962737360067}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Asset\Mesh\Builder">
-      <UniqueIdentifier>{17ed3276-f15f-4450-a067-c8ab497dce34}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\Mesh">
-      <UniqueIdentifier>{05be7659-24b7-471e-97b6-dd39fb24792b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\Mesh\Factory">
-      <UniqueIdentifier>{f59e3eec-53a3-413d-950a-b501eee03c92}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\Mesh\Builder">
-      <UniqueIdentifier>{26af2d9e-2442-463f-a189-0c5616065822}</UniqueIdentifier>
+    <Filter Include="ヘッダー ファイル\Asset\Material">
+      <UniqueIdentifier>{058b4487-27a8-40ef-85f7-5ddaec7d82da}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -123,65 +105,26 @@
     <ClInclude Include="CerealBinaryModelArchive.h">
       <Filter>ヘッダー ファイル\Asset\Model</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderProperties.h">
-      <Filter>ヘッダー ファイル\Asset\Material</Filter>
+    <ClInclude Include="ModelSource.h">
+      <Filter>ヘッダー ファイル\Asset\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticModelResource.h">
+      <Filter>ヘッダー ファイル\Asset\Model\Static</Filter>
     </ClInclude>
     <ClInclude Include="StandardMaterial.h">
       <Filter>ヘッダー ファイル\Asset\Material</Filter>
     </ClInclude>
-    <ClInclude Include="CustomMaterial.h">
-      <Filter>ヘッダー ファイル\Asset\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="Material.h">
-      <Filter>ヘッダー ファイル\Asset\Material</Filter>
+    <ClInclude Include="AssetContainer.h">
+      <Filter>ヘッダー ファイル\Asset</Filter>
     </ClInclude>
     <ClInclude Include="AssetManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetContainer.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Asset</Filter>
     </ClInclude>
     <ClInclude Include="IAssetContainer.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\Asset</Filter>
     </ClInclude>
     <ClInclude Include="LoadProgressCounter.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>ヘッダー ファイル\Asset\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshResource.h">
-      <Filter>ヘッダー ファイル\Asset\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshFactory_Cube.h">
-      <Filter>ヘッダー ファイル\Asset\Mesh\Factory</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshFactory_Plane.h">
-      <Filter>ヘッダー ファイル\Asset\Mesh\Factory</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshFactory_Sprite.h">
-      <Filter>ヘッダー ファイル\Asset\Mesh\Factory</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshBuilder_Cube.h">
-      <Filter>ヘッダー ファイル\Asset\Mesh\Builder</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshBuilder_Plane.h">
-      <Filter>ヘッダー ファイル\Asset\Mesh\Builder</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshBuilder_Sprite.h">
-      <Filter>ヘッダー ファイル\Asset\Mesh\Builder</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshBuilder.h">
-      <Filter>ヘッダー ファイル\Asset\Mesh\Builder</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelSource.h">
-      <Filter>ヘッダー ファイル\Asset\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticMesh.h">
-      <Filter>ヘッダー ファイル\Asset\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticModelResource.h">
-      <Filter>ヘッダー ファイル\Asset\Model\Static</Filter>
+      <Filter>ヘッダー ファイル\Asset</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -209,53 +152,20 @@
     <ClCompile Include="JsonParser.cpp">
       <Filter>ソース ファイル\Asset\JSON</Filter>
     </ClCompile>
-    <ClCompile Include="StandardMaterial.cpp">
-      <Filter>ソース ファイル\Asset\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="CustomMaterial.cpp">
-      <Filter>ソース ファイル\Asset\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="Material.cpp">
-      <Filter>ソース ファイル\Asset\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="AssetManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="LoadProgressCounter.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshResource.cpp">
-      <Filter>ソース ファイル\Asset\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>ソース ファイル\Asset\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshFactory_Cube.cpp">
-      <Filter>ソース ファイル\Asset\Mesh\Factory</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshFactory_Plane.cpp">
-      <Filter>ソース ファイル\Asset\Mesh\Factory</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshFactory_Sprite.cpp">
-      <Filter>ソース ファイル\Asset\Mesh\Factory</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshBuilder_Cube.cpp">
-      <Filter>ソース ファイル\Asset\Mesh\Builder</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshBuilder_Plane.cpp">
-      <Filter>ソース ファイル\Asset\Mesh\Builder</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshBuilder_Sprite.cpp">
-      <Filter>ソース ファイル\Asset\Mesh\Builder</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticMesh.cpp">
-      <Filter>ソース ファイル\Asset\Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="StaticModelResource.cpp">
       <Filter>ソース ファイル\Asset\Model\Static</Filter>
     </ClCompile>
     <ClCompile Include="ModelSource.cpp">
       <Filter>ソース ファイル\Asset\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="StandardMaterial.cpp">
+      <Filter>ソース ファイル\Asset\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetManager.cpp">
+      <Filter>ソース ファイル\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadProgressCounter.cpp">
+      <Filter>ソース ファイル\Asset</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
