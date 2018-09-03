@@ -1,3 +1,4 @@
+#include "..\Core\StaticMeshData.h"
 #include "CerealStaticModelIO.h"
 
 #include "../Core/CerealStructArchive.hpp"

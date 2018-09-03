@@ -2,9 +2,9 @@
 #include "NativeProcess.h"
 
 // =================================================================
-// Constructor / Destructor
+// Factory Method
 // =================================================================
-rcShader* rcShader::Create(const char* path)
+rcShader* rcShader::CreateFromFile(const char* path)
 {
   rcShader* ret = NativeProcess::Resource::ShaderLoad(path);
   ret->Resource::Init();

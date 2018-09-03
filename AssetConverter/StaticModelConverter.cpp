@@ -15,7 +15,7 @@
 StaticModelConverter::StaticModelConverter()
   : importer_(new Assimp::Importer())
 {
-  this->GetNamespaceGenerator().AddAsset("StaticModel", "StaticModelResource");
+  this->GetNamespaceGenerator().AddAsset("StaticModel", "StaticModelAsset");
 }
 
 StaticModelConverter::~StaticModelConverter()

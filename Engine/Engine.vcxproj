@@ -249,13 +249,9 @@
     <ClCompile Include="LoopSprite.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="ModelNode.cpp" />
-    <ClCompile Include="ModelSource.cpp" />
-    <ClCompile Include="PerlinNoiseGenerator.cpp" />
-    <ClCompile Include="RandomGenerator.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Sprite3D.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
-    <ClCompile Include="StaticModelResource.cpp" />
     <ClCompile Include="Transform3DRotator.cpp" />
     <ClCompile Include="GameObjectRenderState.cpp" />
     <ClCompile Include="EntityModifier.cpp" />
@@ -265,24 +261,15 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="InputSetting.cpp" />
     <ClCompile Include="Model.cpp" />
-    <ClCompile Include="ParticleData.cpp" />
-    <ClCompile Include="ParticleDataManager.cpp" />
-    <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Plane3D.cpp" />
     <ClCompile Include="SceneTransitioner.cpp" />
-    <ClCompile Include="Singleton.cpp" />
     <ClCompile Include="SkeletonAnimation.cpp" />
-    <ClCompile Include="TextureAtlas.cpp" />
-    <ClCompile Include="TextureAtlasLoader.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Transform2D.cpp" />
     <ClCompile Include="Transform3D.cpp" />
     <ClCompile Include="UpdateEvent.cpp" />
-    <ClCompile Include="ITextureRegion.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="TextureRegion.cpp" />
-    <ClCompile Include="TiledTextureRegion.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ThirdPerson\spine-c\include\spine\Animation.h" />
@@ -341,15 +328,9 @@
     <ClInclude Include="imgui\stb_textedit.h" />
     <ClInclude Include="imgui\stb_truetype.h" />
     <ClInclude Include="imgui_ja_gryph_ranges.h" />
-    <ClInclude Include="ITextureRegion.h" />
     <ClInclude Include="LoopSprite.h" />
-    <ClInclude Include="Mathf.h" />
     <ClInclude Include="MeshRenderer.h" />
-    <ClInclude Include="ModelSource.h" />
     <ClInclude Include="ModelNode.h" />
-    <ClInclude Include="StaticModelResource.h" />
-    <ClInclude Include="PerlinNoiseGenerator.h" />
-    <ClInclude Include="RandomGenerator.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Camera2D.h" />
@@ -375,8 +356,6 @@
     <ClInclude Include="Moniker.h" />
     <ClInclude Include="Sprite3D.h" />
     <ClInclude Include="SpriteRenderer.h" />
-    <ClInclude Include="TextureRegion.h" />
-    <ClInclude Include="TiledTextureRegion.h" />
     <ClInclude Include="Transform3DRotator.h" />
     <ClInclude Include="GameObjectRenderState.h" />
     <ClInclude Include="EntityModifier.h" />
@@ -389,16 +368,10 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="InputSetting.h" />
     <ClInclude Include="Model.h" />
-    <ClInclude Include="ParticleData.h" />
-    <ClInclude Include="ParticleDataManager.h" />
-    <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Plane3D.h" />
     <ClInclude Include="SceneTransitioner.h" />
-    <ClInclude Include="Singleton.h" />
     <ClInclude Include="SkeletonAnimation.h" />
-    <ClInclude Include="TextureAtlas.h" />
     <ClInclude Include="PoolAllocator.h" />
-    <ClInclude Include="TextureAtlasLoader.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Transform2D.h" />
     <ClInclude Include="Transform3D.h" />
@@ -407,7 +380,6 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="AnalogInput.h" />
-    <ClInclude Include="Util.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Lambert.fx">

@@ -88,9 +88,6 @@
     <Filter Include="ヘッダー ファイル\Asset\_Base\Converter">
       <UniqueIdentifier>{a1fdd16a-c879-4bfa-ab8f-87539877a2f2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\_Base\Test">
-      <UniqueIdentifier>{bf47216f-da60-4008-9927-a61b4810b959}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Assimp">
       <UniqueIdentifier>{508a2cf0-873b-4e8e-b8f1-9fc2062abf37}</UniqueIdentifier>
     </Filter>
@@ -116,9 +113,6 @@
     </ClInclude>
     <ClInclude Include="BaseConverter.h">
       <Filter>ヘッダー ファイル\Asset\_Base\Converter</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseConverterTest.h">
-      <Filter>ヘッダー ファイル\Asset\_Base\Test</Filter>
     </ClInclude>
     <ClInclude Include="AssetInfo.h">
       <Filter>ヘッダー ファイル\Asset</Filter>
@@ -153,9 +147,6 @@
     <ClInclude Include="IAssetProgramGenerator.h">
       <Filter>ヘッダー ファイル\ProgramGenerator</Filter>
     </ClInclude>
-    <ClInclude Include="ConverterTestMacro.hpp">
-      <Filter>ヘッダー ファイル\Asset\_Base\Test</Filter>
-    </ClInclude>
     <ClInclude Include="FileUtil.h">
       <Filter>ヘッダー ファイル\Util</Filter>
     </ClInclude>
@@ -184,9 +175,6 @@
     </ClCompile>
     <ClCompile Include="NotConverter.cpp">
       <Filter>ソース ファイル\Asset\_Base\Converter</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseConverterTest.cpp">
-      <Filter>ソース ファイル\Asset\_Base\Test</Filter>
     </ClCompile>
     <ClCompile Include="StaticModelConverterTest.cpp">
       <Filter>ソース ファイル\Asset\Model\Test</Filter>
@@ -226,6 +214,9 @@
     </ClCompile>
     <ClCompile Include="AssetProgramGenerator_definition.cpp">
       <Filter>ソース ファイル\ProgramGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="SerealizerTest.cpp">
+      <Filter>ソース ファイル\Asset\_Base\Test</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

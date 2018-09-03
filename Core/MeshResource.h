@@ -23,7 +23,7 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  inline rcCustomMesh& GetContents() const
+  inline rcStaticMesh& GetContents() const
   {
     NATIVE_ASSERT(this->mesh_, "メッシュがロードされていません");
     return *this->mesh_;
@@ -31,6 +31,6 @@ public:
 
 private:
   const MeshBuilder* builder_;
-  rcCustomMesh* mesh_;
+  rcStaticMesh* mesh_;
 
 };

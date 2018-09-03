@@ -20,11 +20,14 @@ class rcStaticMesh;
 class rcCustomMesh : public rcMesh
 {
   // =================================================================
-  // Constructor / Destructor
+  // Factory Method
   // =================================================================
 public:
   static rcCustomMesh* Create();
 
+  // =================================================================
+  // Constructor / Destructor
+  // =================================================================
 protected:
   rcCustomMesh();
   virtual ~rcCustomMesh();

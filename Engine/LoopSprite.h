@@ -11,7 +11,7 @@
 //public:
 //  static LoopSprite* Create();
 //  static LoopSprite* CreateWithTextureRegion(LoopTextureRegion* region);
-//  static LoopSprite* CreateWithMaterial(Material* material);
+//  static LoopSprite* CreateWithMaterial(rcMaterial* material);
 //  static LoopSprite* CreateWithTexture(const Texture& texture);
 //
 //  // =================================================================

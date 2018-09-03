@@ -139,41 +139,26 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AssetContainer.h" />
-    <ClInclude Include="AssetManager.h" />
-    <ClInclude Include="AttachmentVertexes.h" />
+    <ClInclude Include="OldAssetManager.h" />
     <ClInclude Include="IAssetContainer.h" />
     <ClInclude Include="LoadProgressCounter.h" />
     <ClInclude Include="CerealBinaryModelArchive.h" />
     <ClInclude Include="CerealStaticModelIO.h" />
-    <ClInclude Include="CSVData.h" />
-    <ClInclude Include="CSVTokenizer.h" />
-    <ClInclude Include="EngineAttachmentLoader.h" />
-    <ClInclude Include="JsonData.h" />
-    <ClInclude Include="JsonParser.h" />
     <ClInclude Include="ModelAnimationData.h" />
     <ClInclude Include="ModelConstants.h" />
     <ClInclude Include="ModelData.h" />
     <ClInclude Include="ModelMaterialData.h" />
     <ClInclude Include="ModelSource.h" />
-    <ClInclude Include="SpineData.h" />
     <ClInclude Include="StandardMaterial.h" />
     <ClInclude Include="StaticModelData.h" />
     <ClInclude Include="StaticModelResource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AssetManager.cpp" />
-    <ClCompile Include="AttachmentVertexes.cpp" />
+    <ClCompile Include="OldAssetManager.cpp" />
     <ClCompile Include="LoadProgressCounter.cpp" />
     <ClCompile Include="CerealStaticModelIO.cpp" />
-    <ClCompile Include="CSVData.cpp" />
-    <ClCompile Include="CSVTokenizer.cpp" />
-    <ClCompile Include="EngineAttachmentLoader.cpp" />
-    <ClCompile Include="JsonData.cpp" />
-    <ClCompile Include="JsonParser.cpp" />
     <ClCompile Include="ModelSource.cpp" />
-    <ClCompile Include="SpineData.cpp" />
     <ClCompile Include="StandardMaterial.cpp" />
-    <ClCompile Include="StaticModelResource.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.vcxproj">

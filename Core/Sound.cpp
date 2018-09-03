@@ -2,9 +2,9 @@
 #include "NativeProcess.h"
 
 // =================================================================
-// Constructor / Destructor
+// Factory Method
 // =================================================================
-rcSound* rcSound::Create(const char* path)
+rcSound* rcSound::CreateFromFile(const char* path)
 {
   rcSound* ret = NativeProcess::Resource::SoundLoad(path);
   ret->Resource::Init();

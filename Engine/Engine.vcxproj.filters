@@ -26,9 +26,6 @@
     <Filter Include="ソース ファイル\Scene\Event\EngineInput">
       <UniqueIdentifier>{430171ff-bf19-4c95-8051-a08f65b8c052}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Util">
-      <UniqueIdentifier>{ee3f7439-c31b-4001-b8f4-d5959ab48152}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Engine\Input">
       <UniqueIdentifier>{5ea11ecd-1d5d-41bd-80ce-9c085e1250bd}</UniqueIdentifier>
     </Filter>
@@ -41,9 +38,6 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\Engine\Input">
       <UniqueIdentifier>{5e576f55-eec3-4466-a306-c7d4abc510bf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Util">
-      <UniqueIdentifier>{9cffaaca-4cb8-4cd2-a9f4-67da4c19f87a}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Scene">
       <UniqueIdentifier>{38fd56d6-452c-49f0-a6e0-da45f0f688d3}</UniqueIdentifier>
@@ -89,12 +83,6 @@
     </Filter>
     <Filter Include="ソース ファイル\Component\Collision">
       <UniqueIdentifier>{06b6f220-3fd5-4a5e-a313-cbf1982d6a82}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Util\Singleton">
-      <UniqueIdentifier>{916e1cb8-16fe-4b54-99bf-e8bdb4463430}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Util\Singleton">
-      <UniqueIdentifier>{d42fb95a-b5e7-407e-a4d3-417f03a23f7a}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Input">
       <UniqueIdentifier>{1f4d491b-e8be-4ac1-bc2e-7bd3a713aeff}</UniqueIdentifier>
@@ -172,29 +160,8 @@
     <Filter Include="ソース ファイル\GameObject\2D\Sprite">
       <UniqueIdentifier>{932e395f-6641-43f3-94ba-5bb95627a9aa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Util\Noise">
-      <UniqueIdentifier>{52e55bb5-74a3-4589-9e9c-89facca7646e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Util\Noise">
-      <UniqueIdentifier>{e411dfee-619e-401b-a2d1-8c4d0c473f05}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Util\Rondom">
-      <UniqueIdentifier>{9b921e03-1cb2-4473-9ddc-97e89322b5d7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Util\Random">
-      <UniqueIdentifier>{a8e0c72a-425a-462f-bdb2-1124fa509b8b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Engine\Director">
       <UniqueIdentifier>{b8d79364-1f64-44c0-b322-e001361dedc0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Resource">
-      <UniqueIdentifier>{4a8329cb-f7a6-429d-88ab-e35e3d402256}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Resource\Texture">
-      <UniqueIdentifier>{228b2568-cff3-49dd-a40c-284fc68c867e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Resource">
-      <UniqueIdentifier>{34f60015-9d9d-4ee4-a0e2-a72e2e859143}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\ThirdPirty">
       <UniqueIdentifier>{9b538748-b535-4ded-bb86-e8872a50c944}</UniqueIdentifier>
@@ -217,56 +184,14 @@
     <Filter Include="ヘッダー ファイル\ThirdPirty\Spine">
       <UniqueIdentifier>{1492e0cf-d233-48a5-9031-daab12c503e3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Resource\Texture">
-      <UniqueIdentifier>{3cb16865-8a77-4a30-8d2f-48cedc350ca3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Resource\Model">
-      <UniqueIdentifier>{b71ae101-142a-46b3-a26b-b72d7774552e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Resource\Model\Static">
-      <UniqueIdentifier>{31f9ec5d-e3b2-450f-8faf-b90a04cc8f4d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Resource\Particle">
-      <UniqueIdentifier>{36e5a314-0011-41e8-8618-c6c386f6942c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\GameObject\2D\Spine">
       <UniqueIdentifier>{33f99194-e046-47c6-ae1c-0e36a84103cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Resource\Texture\Atlas">
-      <UniqueIdentifier>{5cbc1636-9bd6-4948-b546-c437d76e0c06}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Resource\Model">
-      <UniqueIdentifier>{bd575692-2e33-472e-a351-fdbb4ea7b767}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Resource\Model\Static">
-      <UniqueIdentifier>{5476ed3a-c8bd-49b8-8ff3-acd8ed41c7ac}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\GameObject\2D\Spine">
       <UniqueIdentifier>{1fd74c9e-e5ab-4bd8-9df9-85249d069f22}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Resource\Texture\Atlas">
-      <UniqueIdentifier>{8c6957c3-fa2e-45fc-8e03-96f4f7a5f773}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Resource\Particle">
-      <UniqueIdentifier>{de6af76a-5702-4695-bb04-9e03753866f9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Resource\Texture\Region">
-      <UniqueIdentifier>{df6a36de-e2ed-4483-be0c-e234bc860b5d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Resource\Texture\Region">
-      <UniqueIdentifier>{7273ed17-f1d8-4bc4-9cd0-fba0bfe2fb14}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ITextureRegion.cpp">
-      <Filter>ソース ファイル\Resource\Texture\Region</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureRegion.cpp">
-      <Filter>ソース ファイル\Resource\Texture\Region</Filter>
-    </ClCompile>
-    <ClCompile Include="TiledTextureRegion.cpp">
-      <Filter>ソース ファイル\Resource\Texture\Region</Filter>
-    </ClCompile>
     <ClCompile Include="BaseActivity.cpp">
       <Filter>ソース ファイル\Activity</Filter>
     </ClCompile>
@@ -296,12 +221,6 @@
     </ClCompile>
     <ClCompile Include="EntityModifierAttribute.cpp">
       <Filter>ソース ファイル\GameObject\2D\Modifier</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureAtlas.cpp">
-      <Filter>ソース ファイル\Resource\Texture\Atlas</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureAtlasLoader.cpp">
-      <Filter>ソース ファイル\Resource\Texture\Atlas</Filter>
     </ClCompile>
     <ClCompile Include="SkeletonAnimation.cpp">
       <Filter>ソース ファイル\GameObject\2D\Spine</Filter>
@@ -353,9 +272,6 @@
     </ClCompile>
     <ClCompile Include="GameObject2D.cpp">
       <Filter>ソース ファイル\GameObject\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Singleton.cpp">
-      <Filter>ソース ファイル\Util\Singleton</Filter>
     </ClCompile>
     <ClCompile Include="SceneTransitioner.cpp">
       <Filter>ソース ファイル\Scene</Filter>
@@ -419,12 +335,6 @@
     </ClCompile>
     <ClCompile Include="Collision3D.cpp">
       <Filter>ソース ファイル\Component\Collision\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="PerlinNoiseGenerator.cpp">
-      <Filter>ソース ファイル\Util\Noise</Filter>
-    </ClCompile>
-    <ClCompile Include="RandomGenerator.cpp">
-      <Filter>ソース ファイル\Util\Random</Filter>
     </ClCompile>
     <ClCompile Include="GameObjectRenderQueue.cpp">
       <Filter>ソース ファイル\GameObject</Filter>
@@ -552,21 +462,6 @@
     <ClCompile Include="..\ThirdPerson\spine-c\src\spine\VertexEffect.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="ModelSource.cpp">
-      <Filter>ソース ファイル\Resource\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticModelResource.cpp">
-      <Filter>ソース ファイル\Resource\Model\Static</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleData.cpp">
-      <Filter>ソース ファイル\Resource\Particle</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleDataManager.cpp">
-      <Filter>ソース ファイル\Resource\Particle</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleSystem.cpp">
-      <Filter>ソース ファイル\Resource\Particle</Filter>
-    </ClCompile>
     <ClCompile Include="EngineAsset.cpp">
       <Filter>ソース ファイル\Engine</Filter>
     </ClCompile>
@@ -574,9 +469,6 @@
   <ItemGroup>
     <ClInclude Include="Engine.h">
       <Filter>ヘッダー ファイル\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Util.h">
-      <Filter>ヘッダー ファイル\Util</Filter>
     </ClInclude>
     <ClInclude Include="EngineOption.h">
       <Filter>ヘッダー ファイル\Engine</Filter>
@@ -616,12 +508,6 @@
     </ClInclude>
     <ClInclude Include="PoolAllocator.h">
       <Filter>ヘッダー ファイル\Allocator</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureAtlas.h">
-      <Filter>ヘッダー ファイル\Resource\Texture\Atlas</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureAtlasLoader.h">
-      <Filter>ヘッダー ファイル\Resource\Texture\Atlas</Filter>
     </ClInclude>
     <ClInclude Include="SkeletonAnimation.h">
       <Filter>ヘッダー ファイル\GameObject\2D\Spine</Filter>
@@ -689,9 +575,6 @@
     <ClInclude Include="GameComponent.h">
       <Filter>ヘッダー ファイル\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Singleton.h">
-      <Filter>ヘッダー ファイル\Util\Singleton</Filter>
-    </ClInclude>
     <ClInclude Include="SceneTransitioner.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
@@ -728,15 +611,6 @@
     <ClInclude Include="Moniker.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleData.h">
-      <Filter>ヘッダー ファイル\Resource\Particle</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleDataManager.h">
-      <Filter>ヘッダー ファイル\Resource\Particle</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleSystem.h">
-      <Filter>ヘッダー ファイル\Resource\Particle</Filter>
-    </ClInclude>
     <ClInclude Include="ModelNode.h">
       <Filter>ヘッダー ファイル\GameObject\3D\Model</Filter>
     </ClInclude>
@@ -757,15 +631,6 @@
     </ClInclude>
     <ClInclude Include="GameObjectFactory.h">
       <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="ITextureRegion.h">
-      <Filter>ヘッダー ファイル\Resource\Texture\Region</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureRegion.h">
-      <Filter>ヘッダー ファイル\Resource\Texture\Region</Filter>
-    </ClInclude>
-    <ClInclude Include="TiledTextureRegion.h">
-      <Filter>ヘッダー ファイル\Resource\Texture\Region</Filter>
     </ClInclude>
     <ClInclude Include="LoopSprite.h">
       <Filter>ヘッダー ファイル\GameObject\2D\Sprite</Filter>
@@ -794,15 +659,6 @@
     <ClInclude Include="GameObject.h">
       <Filter>ヘッダー ファイル\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="RandomGenerator.h">
-      <Filter>ヘッダー ファイル\Util\Rondom</Filter>
-    </ClInclude>
-    <ClInclude Include="PerlinNoiseGenerator.h">
-      <Filter>ヘッダー ファイル\Util\Noise</Filter>
-    </ClInclude>
-    <ClInclude Include="Mathf.h">
-      <Filter>ヘッダー ファイル\Util</Filter>
-    </ClInclude>
     <ClInclude Include="Eigen\Geometry.h">
       <Filter>ヘッダー ファイル\ThirdPirty\Eigen</Filter>
     </ClInclude>
@@ -814,9 +670,6 @@
     </ClInclude>
     <ClInclude Include="GameObjectRenderQueue.h">
       <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelSource.h">
-      <Filter>ヘッダー ファイル\Resource\Model</Filter>
     </ClInclude>
     <ClInclude Include="..\ThirdPerson\spine-c\src\spine\Json.h">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
@@ -943,9 +796,6 @@
     </ClInclude>
     <ClInclude Include="..\ThirdPerson\spine-c\include\spine\VertexEffect.h">
       <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticModelResource.h">
-      <Filter>ヘッダー ファイル\Resource\Model\Static</Filter>
     </ClInclude>
     <ClInclude Include="EngineAsset.h">
       <Filter>ヘッダー ファイル\Engine</Filter>

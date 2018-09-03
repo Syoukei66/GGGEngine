@@ -2,7 +2,7 @@
 #include "StaticMesh.h"
 
 // =================================================================
-// Constructor / Destructor
+// Factory Method
 // =================================================================
 rcCustomMesh* rcCustomMesh::Create()
 {
@@ -11,6 +11,9 @@ rcCustomMesh* rcCustomMesh::Create()
   return ret;
 }
 
+// =================================================================
+// Constructor / Destructor
+// =================================================================
 rcCustomMesh::rcCustomMesh()
   : orginal_()
   , format_()

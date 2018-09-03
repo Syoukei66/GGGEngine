@@ -1,9 +1,8 @@
-#ifndef HAL_ENGINE_UTIL_EASINGFUNCTION_EASINGFUNCTION_H_
-#define HAL_ENGINE_UTIL_EASINGFUNCTION_EASINGFUNCTION_H_
+#pragma once
 
 #include <math.h>
 #include "NativeType.h"
-#include "MathConstants.h"
+#include "Mathf.h"
 
 namespace EasingFunction
 {
@@ -293,19 +292,19 @@ private:
   inline virtual T_FLOAT CalcIn(T_FLOAT val) const override
   {
     //next * ( 1 - cos(val * PI * 0.5f)) + now
-    return (T_FLOAT)(1.0f - cos(val * MathConstants::PI * 0.5f));
+    return (T_FLOAT)(1.0f - cos(val * Mathf::PI * 0.5f));
   }
 
   inline virtual T_FLOAT CalcOut(T_FLOAT val) const override
   {
     //next * sin(val * PI * 0.5f) + now
-    return (T_FLOAT)sin(val * MathConstants::PI * 0.5f);
+    return (T_FLOAT)sin(val * Mathf::PI * 0.5f);
   }
 
   inline virtual T_FLOAT CalcInOut(T_FLOAT val) const override
   {
     //-next * 0.5f * (cos(PI*val)-1) + now
-    return (T_FLOAT)(-0.5f * (cos(MathConstants::PI * val) - 1));
+    return (T_FLOAT)(-0.5f * (cos(Mathf::PI * val) - 1));
   }
 };
 
@@ -394,5 +393,3 @@ private:
 };
 
 };
-
-#endif//HAL_ENGINE_UTIL_EASINGFUNCTION_EASINGFUNCTION_H_

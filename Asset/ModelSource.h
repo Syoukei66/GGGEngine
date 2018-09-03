@@ -2,7 +2,7 @@
 //
 //#include "Model.h"
 //#include "ModelData.h"
-//#include "Material.h"
+//#include "rcMaterial.h"
 //#include "StaticMesh.h"
 //
 ////=============================================================================
@@ -23,7 +23,7 @@
 //  T_UINT32 child_count_;
 //  ModelNodeSource** children_;
 //
-//  Material* materials_;
+//  rcMaterial* materials_;
 //  StaticMesh* meshes_;
 //
 //};
@@ -45,7 +45,7 @@
 //
 //  ModelNodeSource* root_;
 //
-//  Material** materials_;
+//  rcMaterial** materials_;
 //  StaticMesh* master_mesh_;
 //
 //};

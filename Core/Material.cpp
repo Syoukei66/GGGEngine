@@ -3,7 +3,7 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-Material::Material(rcShader* shader, bool protect)
+rcMaterial::rcMaterial(rcShader* shader, bool protect)
   : protected_(protect)
   , shader_(shader)
   , technique_("Default")
@@ -12,10 +12,10 @@ Material::Material(rcShader* shader, bool protect)
   this->shader_->Retain();
 }
 
-Material::~Material()
+rcMaterial::~rcMaterial()
 {
   this->shader_->Release();
-  for (Material* clone : this->clones_)
+  for (rcMaterial* clone : this->clones_)
   {
     delete clone;
   }
@@ -24,9 +24,9 @@ Material::~Material()
 // =================================================================
 // Methods
 // =================================================================
-Material* Material::Clone()
+rcMaterial* rcMaterial::Clone()
 {
-  Material* ret = this->InitialClone();
+  rcMaterial* ret = this->InitialClone();
  
   ret->queue_ = this->queue_;
   ret->texture_ = this->texture_;
@@ -35,30 +35,30 @@ Material* Material::Clone()
   return ret;
 }
 
-Material* Material::InitialClone()
+rcMaterial* rcMaterial::InitialClone()
 {
   NATIVE_ASSERT(this->shader_, "シェーダーが未定義です");
-  Material* ret = this->CreateClone(this->shader_);
+  rcMaterial* ret = this->CreateClone(this->shader_);
   this->clones_.emplace_back(ret);
   return ret;
 }
 
-Material* Material::CreateClone(rcShader* shader)
+rcMaterial* rcMaterial::CreateClone(rcShader* shader)
 {
-  return new Material(shader);
+  return new rcMaterial(shader);
 }
 
-void Material::CopyPropertiesToClone(Material* clone)
+void rcMaterial::CopyPropertiesToClone(rcMaterial* clone)
 {
 }
 
-T_UINT8 Material::Begin()
+T_UINT8 rcMaterial::Begin()
 {
   this->shader_->SetTechnique(this->technique_);
   return this->shader_->Begin();
 }
 
-void Material::BeginPass(T_UINT8 path_id)
+void rcMaterial::BeginPass(T_UINT8 path_id)
 {
   rcShader* shader = this->shader_;
   shader->BeginPass(path_id);
@@ -68,17 +68,17 @@ void Material::BeginPass(T_UINT8 path_id)
   }
 }
 
-void Material::CommitChanges()
+void rcMaterial::CommitChanges()
 {
   this->shader_->CommitChanges();
 }
 
-void Material::EndPass()
+void rcMaterial::EndPass()
 {
   this->shader_->EndPass();
 }
 
-void Material::End()
+void rcMaterial::End()
 {
   this->shader_->End();
 }
@@ -86,12 +86,23 @@ void Material::End()
 // =================================================================
 // setter/getter
 // =================================================================
-inline void Material::SetShader(rcShader* shader)
+void rcMaterial::SetShader(rcShader* shader)
 {
+  shader->Retain();
   if (this->shader_)
   {
     this->shader_->Release();
   }
   this->shader_ = shader;
-  this->shader_->Retain();
+}
+
+void rcMaterial::SetMainTexture(const rcTexture* texture)
+{
+  this->ProtectedAssertion();
+  texture->Retain();
+  if (this->texture_)
+  {
+    this->texture_->Release();
+  }
+  this->texture_ = texture;
 }

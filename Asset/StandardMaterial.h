@@ -3,7 +3,7 @@
 #include <vector>
 #include "../Core/Material.h"
 
-class StandardMaterial : public Material
+class StandardMaterial : public rcMaterial
 {
   // =================================================================
   // Constructor / Destructor
@@ -16,8 +16,8 @@ public:
   // Methods
   // =================================================================
 protected:
-  virtual Material* CreateClone(rcShader* shader) override;
-  virtual void CopyPropertiesToClone(Material* clone) override;
+  virtual rcMaterial* CreateClone(rcShader* shader) override;
+  virtual void CopyPropertiesToClone(rcMaterial* clone) override;
 
 public:
   virtual void SetProperties(rcShader* shader) override;

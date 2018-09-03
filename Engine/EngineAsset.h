@@ -17,14 +17,14 @@ extern Cont_ SPRITE;
 extern Cont_ WHITE;
 } // namespace Shader
 
-namespace Material
+namespace rcMaterial
 {
-extern class Material UNLIT;
-extern class Material LAMBERT;
-extern class Material PHONG;
-extern class Material SPRITE;
-extern class Material WHITE;
-} // namespace Material
+extern class rcMaterial UNLIT;
+extern class rcMaterial LAMBERT;
+extern class rcMaterial PHONG;
+extern class rcMaterial SPRITE;
+extern class rcMaterial WHITE;
+} // namespace rcMaterial
 
 namespace rcCustomMesh
 {

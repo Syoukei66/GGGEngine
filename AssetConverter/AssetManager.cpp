@@ -24,7 +24,7 @@ static AssetMetaData* LoadMetaData(const std::string& path)
   return ret;
 }
 
-AssetManager::~AssetManager()
+OldAssetManager::~OldAssetManager()
 {
   for (auto& pair : this->informations_)
   {
@@ -33,17 +33,17 @@ AssetManager::~AssetManager()
   }
 }
 
-void AssetManager::Init(Setting* setting)
+void OldAssetManager::Init(Setting* setting)
 {
   this->setting_ = setting;
 }
 
-void AssetManager::AddConverter(BaseConverter* converter)
+void OldAssetManager::AddConverter(BaseConverter* converter)
 {
   this->converters_.push_back(converter);
 }
 
-void AssetManager::ScanAssetFolder()
+void OldAssetManager::ScanAssetFolder()
 {
   this->informations_.clear();
 
@@ -154,7 +154,7 @@ static void SaveMetaData(const std::string& path, AssetMetaData* meta_data)
   CerealIO::Json::Export(path.c_str(), meta_data);
 }
 
-void AssetManager::Crawl(const std::string& directory_path, std::function<void(const std::string& directory_path, const std::string& file_name)> process)
+void OldAssetManager::Crawl(const std::string& directory_path, std::function<void(const std::string& directory_path, const std::string& file_name)> process)
 {
   HANDLE handle;
   WIN32_FIND_DATA data;
@@ -195,7 +195,7 @@ void AssetManager::Crawl(const std::string& directory_path, std::function<void(c
   FindClose(handle);
 }
 
-void AssetManager::SaveMetadatas()
+void OldAssetManager::SaveMetadatas()
 {
   for (auto& pair : this->informations_)
   {
@@ -203,7 +203,7 @@ void AssetManager::SaveMetadatas()
   }
 }
 
-void AssetManager::ClearCaches()
+void OldAssetManager::ClearCaches()
 {
   for (auto& pair : this->informations_)
   {
@@ -211,7 +211,7 @@ void AssetManager::ClearCaches()
   }
 }
 
-void AssetManager::Convert()
+void OldAssetManager::Convert()
 {
   for (BaseConverter* converter : this->converters_)
   {
@@ -219,12 +219,12 @@ void AssetManager::Convert()
   }
 }
 
-void AssetManager::CreateProgram(std::string* header, std::string* cpp)
+void OldAssetManager::CreateProgram(std::string* header, std::string* cpp)
 {
 
 }
 
-void AssetManager::VisitAssetInfo(const std::function<void(AssetInfo*)>& func)
+void OldAssetManager::VisitAssetInfo(const std::function<void(AssetInfo*)>& func)
 {
   for (auto& pair : this->informations_)
   {
@@ -232,7 +232,7 @@ void AssetManager::VisitAssetInfo(const std::function<void(AssetInfo*)>& func)
   }
 }
 
-void AssetManager::VisitAssetInfo(const std::function<void(const AssetInfo*)>& func) const
+void OldAssetManager::VisitAssetInfo(const std::function<void(const AssetInfo*)>& func) const
 {
   for (const auto& pair : this->informations_)
   {
@@ -240,7 +240,7 @@ void AssetManager::VisitAssetInfo(const std::function<void(const AssetInfo*)>& f
   }
 }
 
-void AssetManager::VisitConverter(const std::function<void(BaseConverter*)>& func)
+void OldAssetManager::VisitConverter(const std::function<void(BaseConverter*)>& func)
 {
   for (BaseConverter* converter : this->converters_)
   {
@@ -248,7 +248,7 @@ void AssetManager::VisitConverter(const std::function<void(BaseConverter*)>& fun
   }
 }
 
-void AssetManager::VisitConverter(const std::function<void(const BaseConverter*)>& func) const
+void OldAssetManager::VisitConverter(const std::function<void(const BaseConverter*)>& func) const
 {
   for (const BaseConverter* converter : this->converters_)
   {

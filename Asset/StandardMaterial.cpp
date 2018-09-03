@@ -1,7 +1,7 @@
 #include "StandardMaterial.h"
 
 StandardMaterial::StandardMaterial(rcShader* resource, bool protect)
-  : Material(resource, protect)
+  : rcMaterial(resource, protect)
 {
 }
 
@@ -9,12 +9,12 @@ StandardMaterial::~StandardMaterial()
 {
 }
 
-Material* StandardMaterial::CreateClone(rcShader* shader)
+rcMaterial* StandardMaterial::CreateClone(rcShader* shader)
 {
   return new StandardMaterial(shader);
 }
 
-void StandardMaterial::CopyPropertiesToClone(Material* clone)
+void StandardMaterial::CopyPropertiesToClone(rcMaterial* clone)
 {
   StandardMaterial* ret = (StandardMaterial*)clone;
   ret->SetTint(this->GetTint());

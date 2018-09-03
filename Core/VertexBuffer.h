@@ -10,11 +10,14 @@
 class rcVertexBuffer : public Resource
 {
   // =================================================================
-  // Constructor / Destructor
+  // Factory Method
   // =================================================================
 public:
   static rcVertexBuffer* Create(T_UINT16 vertex_count, T_UINT16 polygon_count, T_UINT32 format);
 
+  // =================================================================
+  // Constructor / Destructor
+  // =================================================================
 protected:
   rcVertexBuffer() {}
   virtual ~rcVertexBuffer() {}

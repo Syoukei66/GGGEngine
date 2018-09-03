@@ -1,29 +1,28 @@
 #pragma once
 
 #include <vector>
-#include "../Core/NativeAssert.h"
-#include "../Core/Shader.h"
-#include "../Core/GraphicsConstants.h"
+#include "Shader.h"
+#include "GraphicsConstants.h"
 
-class Material
+class rcMaterial : public Resource
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
-public:
-  Material(rcShader* shader, bool protect = false);
-  virtual ~Material();
+protected:
+  rcMaterial(rcShader* shader, bool protect = false);
+  virtual ~rcMaterial();
 
   // =================================================================
   // Methods
   // =================================================================
 public:
-  Material* Clone();
-  Material* InitialClone();
+  rcMaterial* Clone();
+  rcMaterial* InitialClone();
 
 protected:
-  virtual Material* CreateClone(rcShader* shader);
-  virtual void CopyPropertiesToClone(Material* clone);
+  virtual rcMaterial* CreateClone(rcShader* shader);
+  virtual void CopyPropertiesToClone(rcMaterial* clone);
 
 public:
   T_UINT8 Begin();
@@ -45,7 +44,6 @@ protected:
 
 public:
   void SetShader(rcShader* shader);
-
   inline rcShader* GetShader()
   {
     return this->shader_;
@@ -70,11 +68,7 @@ public:
     return this->queue_;
   }
 
-  inline void SetMainTexture(const rcTexture* texture)
-  {
-    this->ProtectedAssertion();
-    this->texture_ = texture;
-  }
+  void SetMainTexture(const rcTexture* texture);
   inline const rcTexture* GetMainTexture() const
   {
     return this->texture_;
@@ -155,5 +149,5 @@ private:
   rcShader* shader_;
   std::string technique_;
 
-  std::vector<Material*> clones_;
+  std::vector<rcMaterial*> clones_;
 };

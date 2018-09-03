@@ -2,9 +2,9 @@
 #include "NativeProcess.h"
 
 // =================================================================
-// Constructor / Destructor
+// Factory Method
 // =================================================================
-rcTexture* rcTexture::Create(const char* path)
+rcTexture* rcTexture::CreateFromFile(const char* path)
 {
   return NativeProcess::Resource::TextureLoad(path);
 }
@@ -16,6 +16,9 @@ rcTexture* rcTexture::Create(T_UINT16 width, T_UINT16 height, void* native_obj)
   return ret;
 }
 
+// =================================================================
+// Constructor / Destructor
+// =================================================================
 rcTexture::rcTexture(T_UINT16 width, T_UINT16 height, void* native_obj)
   : native_obj_(native_obj)
   , width_(width)

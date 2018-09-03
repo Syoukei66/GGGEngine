@@ -3,10 +3,10 @@
 #include "../Asset/StaticModelData.h"
 #include "BaseConverterTest.h"
 
-class StaticModelConverterTest : public BaseConverterTest
+class StaticModelConverterTest : public SerealizerTester
 {
 public:
-  using BaseConverterTest::Compare;
+  using SerealizerTester::Compare;
   void Compare(const StaticModelData& a, const StaticModelData& b);
 
 private:

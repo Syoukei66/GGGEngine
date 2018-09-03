@@ -23,7 +23,7 @@ void Renderer::ReserveDraw(GameObjectRenderState* state)
   {
     return;
   }
-  Material* const material = this->GetMaterial();
+  rcMaterial* const material = this->GetMaterial();
   if (!material)
   {
     return;
@@ -50,7 +50,7 @@ void Renderer::Draw(GameObjectRenderState* state) const
   const T_UINT8 material_count = this->materials_.size();
   for (T_UINT8 i = 0; i < material_count; ++i)
   {
-    Material* material = this->materials_[i];
+    rcMaterial* material = this->materials_[i];
     T_UINT8 pass_count = material->Begin();
     for (T_UINT8 j = 0; j < pass_count; ++j)
     {
@@ -64,14 +64,14 @@ void Renderer::Draw(GameObjectRenderState* state) const
   }
 }
 
-void Renderer::SetDefaultProperties(GameObjectRenderState* state, Material* material) const
+void Renderer::SetDefaultProperties(GameObjectRenderState* state, rcMaterial* material) const
 {
   this->SetProperties(material);
 
   rcShader* shader = material->GetShader();
   material->SetProperties(shader);
 
-  //Materialをゲーム内処理から独立させる為、こちら側でプロパティの設定を行う
+  //rcMaterialをゲーム内処理から独立させる為、こちら側でプロパティの設定を行う
   shader->SetTexture("_MainTex", material->GetMainTexture());
   shader->SetBool("_IsBillbord", material->IsBillboard());
 

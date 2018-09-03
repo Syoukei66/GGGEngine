@@ -11,21 +11,21 @@ namespace EngineAsset
 
 namespace rcShader
 {
-Cont_ UNLIT = AssetManager::GetInstance().RegisterEngineAsset<T_>(Util::Hash::GetHash("Asset/shader/default/Unlit.cso"), "cso");
-Cont_ LAMBERT = AssetManager::GetInstance().RegisterEngineAsset<T_>(Util::Hash::GetHash("Asset/shader/default/Lambert.cso"), "cso");
-Cont_ PHONG = AssetManager::GetInstance().RegisterEngineAsset<T_>(Util::Hash::GetHash("Asset/shader/default/Phong.cso"), "cso");
-Cont_ SPRITE = AssetManager::GetInstance().RegisterEngineAsset<T_>(Util::Hash::GetHash("Asset/shader/default/Sprite.cso"), "cso");
-Cont_ WHITE = AssetManager::GetInstance().RegisterEngineAsset<T_>(Util::Hash::GetHash("Asset/shader/default/White.cso"), "cso");
+Cont_ UNLIT = OldAssetManager::GetInstance().RegisterEngineAsset<T_>(Util::Hash::GetHash("Asset/shader/default/Unlit.cso"), "cso");
+Cont_ LAMBERT = OldAssetManager::GetInstance().RegisterEngineAsset<T_>(Util::Hash::GetHash("Asset/shader/default/Lambert.cso"), "cso");
+Cont_ PHONG = OldAssetManager::GetInstance().RegisterEngineAsset<T_>(Util::Hash::GetHash("Asset/shader/default/Phong.cso"), "cso");
+Cont_ SPRITE = OldAssetManager::GetInstance().RegisterEngineAsset<T_>(Util::Hash::GetHash("Asset/shader/default/Sprite.cso"), "cso");
+Cont_ WHITE = OldAssetManager::GetInstance().RegisterEngineAsset<T_>(Util::Hash::GetHash("Asset/shader/default/White.cso"), "cso");
 } // namespace Shader
 
-namespace Material
+namespace rcMaterial
 {
-class Material UNLIT(rcShader::UNLIT->GetContents(), true);
-class Material LAMBERT(rcShader::LAMBERT->GetContents(), true);
-class Material PHONG(rcShader::PHONG->GetContents(), true);
-class Material SPRITE(rcShader::SPRITE->GetContents(), true);
-class Material WHITE(rcShader::WHITE->GetContents(), true);
-} // namespace Material
+class rcMaterial UNLIT(rcShader::UNLIT->GetContents(), true);
+class rcMaterial LAMBERT(rcShader::LAMBERT->GetContents(), true);
+class rcMaterial PHONG(rcShader::PHONG->GetContents(), true);
+class rcMaterial SPRITE(rcShader::SPRITE->GetContents(), true);
+class rcMaterial WHITE(rcShader::WHITE->GetContents(), true);
+} // namespace rcMaterial
 
 namespace rcCustomMesh
 {

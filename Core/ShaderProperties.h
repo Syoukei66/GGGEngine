@@ -263,13 +263,13 @@ public:
 };
 
 // =================================================================
-// object
+// resource
 // =================================================================
 template<typename T>
-class ShaderProperty_object : public ShaderProperty
+class ShaderProperty_resource : public ShaderProperty
 {
 public:
-  ShaderProperty_object()
+  ShaderProperty_resource()
     : value_()
   {}
 
@@ -281,13 +281,18 @@ public:
 
   const T* operator = (const T* b)
   {
-    this->value_ = b;
+    this->SetValue(b);
     return b;
   }
 
 public:
   inline void SetValue(const T* value)
   {
+    value->Retain();
+    if (this->value_)
+    {
+      this->value_->Release();
+    }
     this->value_ = value;
   }
   inline const T* GetValue() const
@@ -299,12 +304,12 @@ protected:
   const T* value_;
 };
 
-class ShaderProperty_texture : public ShaderProperty_object<rcTexture>
+class ShaderProperty_texture : public ShaderProperty_resource<rcTexture>
 {
 public:
   const ShaderProperty_texture& operator = (const rcTexture* b)
   {
-    ShaderProperty_object::operator=(b);
+    ShaderProperty_resource::operator=(b);
     return *this;
   }
 public:

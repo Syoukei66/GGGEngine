@@ -91,7 +91,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\ThirdPerson;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\ThirdPerson;..\ThirdPerson\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -100,7 +100,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\ThirdPerson;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\ThirdPerson;..\ThirdPerson\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -111,7 +111,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\ThirdPerson;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\ThirdPerson;..\ThirdPerson\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -126,7 +126,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\ThirdPerson;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\ThirdPerson;..\ThirdPerson\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -137,6 +137,9 @@
     <None Include="Matrix4x4.inl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Asset.h" />
+    <ClInclude Include="AssetManager.h" />
+    <ClInclude Include="AttachmentVertexes.h" />
     <ClInclude Include="Bezier.h" />
     <ClInclude Include="BlendFunction.h" />
     <ClInclude Include="Bounds.h" />
@@ -145,16 +148,37 @@
     <ClInclude Include="CerealIO.h" />
     <ClInclude Include="CerealStructArchive.hpp" />
     <ClInclude Include="Color.h" />
+    <ClInclude Include="CsvAsset.h" />
+    <ClInclude Include="CsvData.h" />
+    <ClInclude Include="CsvTokenizer.h" />
     <ClInclude Include="CustomMaterial.h" />
     <ClInclude Include="EasingFunction.h" />
     <ClInclude Include="EasingFunctionManager.h" />
+    <ClInclude Include="EngineAttachmentLoader.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="Gradient.h" />
     <ClInclude Include="GraphicsConstants.h" />
-    <ClInclude Include="HashUtil.h" />
+    <ClInclude Include="HashUtils.h" />
+    <ClInclude Include="JsonAsset.h" />
+    <ClInclude Include="JsonData.h" />
+    <ClInclude Include="JsonParser.h" />
+    <ClInclude Include="MaterialAsset.h" />
+    <ClInclude Include="MaterialData.h" />
+    <ClInclude Include="SerealizerTester.h" />
+    <ClInclude Include="SerealizerTestMacro.hpp" />
+    <ClInclude Include="ShaderAsset.h" />
+    <ClInclude Include="CerealShaderPropertiesArchive.hpp" />
+    <ClInclude Include="SoundAsset.h" />
+    <ClInclude Include="SpineAsset.h" />
+    <ClInclude Include="SpineData.h" />
+    <ClInclude Include="StaticMeshAsset.h" />
+    <ClInclude Include="StaticMeshData.h" />
+    <ClInclude Include="StringUtils.h" />
+    <ClInclude Include="TextureAsset.h" />
+    <ClInclude Include="TextureRegion.h" />
+    <ClInclude Include="Mathf.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Material.h" />
-    <ClInclude Include="MathConstants.h" />
     <ClInclude Include="Matrix4x3.h" />
     <ClInclude Include="Matrix4x4.h" />
     <ClInclude Include="CustomMesh.h" />
@@ -169,11 +193,19 @@
     <ClInclude Include="NativeAssert.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="NativeProcess.h" />
+    <ClInclude Include="ParticleData.h" />
+    <ClInclude Include="ParticleDataManager.h" />
+    <ClInclude Include="ParticleSystem.h" />
+    <ClInclude Include="PerlinNoiseGenerator.h" />
+    <ClInclude Include="RandomGenerator.h" />
     <ClInclude Include="RenderTexture.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="NativeType.h" />
+    <ClInclude Include="TextureAtlas.h" />
+    <ClInclude Include="TextureAtlasLoader.h" />
     <ClInclude Include="TextureSource.h" />
+    <ClInclude Include="TiledTextureRegion.h" />
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RenderBuffer.h" />
@@ -189,12 +221,24 @@
     <ClInclude Include="Vector4.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AssetManager.cpp" />
+    <ClCompile Include="AttachmentVertexes.cpp" />
     <ClCompile Include="Bresenham.cpp" />
     <ClCompile Include="Color.cpp" />
+    <ClCompile Include="CsvData.cpp" />
+    <ClCompile Include="CsvTokenizer.cpp" />
     <ClCompile Include="CustomMaterial.cpp" />
     <ClCompile Include="EasingFunction.cpp" />
     <ClCompile Include="EasingFunctionManager.cpp" />
+    <ClCompile Include="EngineAttachmentLoader.cpp" />
     <ClCompile Include="Gradient.cpp" />
+    <ClCompile Include="JsonData.cpp" />
+    <ClCompile Include="JsonParser.cpp" />
+    <ClCompile Include="MaterialData.cpp" />
+    <ClCompile Include="SerealizerTester.cpp" />
+    <ClCompile Include="SpineData.cpp" />
+    <ClCompile Include="StaticMeshData.cpp" />
+    <ClCompile Include="TextureRegion.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Matrix4x4.cpp" />
     <ClCompile Include="CustomMesh.cpp" />
@@ -207,7 +251,12 @@
     <ClCompile Include="MeshFactory_Sprite.cpp" />
     <ClCompile Include="MeshResource.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
+    <ClCompile Include="ParticleData.cpp" />
+    <ClCompile Include="ParticleDataManager.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
+    <ClCompile Include="PerlinNoiseGenerator.cpp" />
     <ClCompile Include="Quaternion.cpp" />
+    <ClCompile Include="RandomGenerator.cpp" />
     <ClCompile Include="RenderBuffer.cpp" />
     <ClCompile Include="RenderTexture.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
@@ -215,6 +264,9 @@
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="StaticMesh.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TextureAtlas.cpp" />
+    <ClCompile Include="TextureAtlasLoader.cpp" />
+    <ClCompile Include="TiledTextureRegion.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

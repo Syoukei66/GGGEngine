@@ -5,7 +5,7 @@ AssetProgram::Generator::Generator()
 
 }
 
-void AssetProgram::Generator::Generate(const AssetManager& asset_manager, std::string* header, std::string* cpp)
+void AssetProgram::Generator::Generate(const OldAssetManager& asset_manager, std::string* header, std::string* cpp)
 {
   //======================================
   //Asset.h

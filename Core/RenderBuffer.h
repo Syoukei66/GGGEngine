@@ -20,13 +20,16 @@ public:
   };
 
   // =================================================================
-  // Constructor / Destructor
+  // Factory Method
   // =================================================================
 public:
   static rcRenderBuffer* CreateColorBuffer(rcTexture* texture);
   static rcRenderBuffer* CreateDepthStencilBuffer(T_UINT16 width, T_UINT16 height, Format format);
   static rcRenderBuffer* Create(void* native_obj);
 
+  // =================================================================
+  // Constructor / Destructor
+  // =================================================================
 protected:
   rcRenderBuffer(void* native_obj);
   virtual ~rcRenderBuffer();

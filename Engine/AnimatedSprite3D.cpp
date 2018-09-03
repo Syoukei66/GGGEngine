@@ -26,7 +26,7 @@ AnimatedSprite3D* AnimatedSprite3D::CreateWithTextureRegion(TiledTextureRegion* 
   return ret;
 }
 
-AnimatedSprite3D* AnimatedSprite3D::CreateWithMaterial(Material& material, T_UINT8 x_num, T_UINT8 y_num)
+AnimatedSprite3D* AnimatedSprite3D::CreateWithMaterial(rcMaterial& material, T_UINT8 x_num, T_UINT8 y_num)
 {
   TiledTextureRegion* region = TiledTextureRegion::CreateWithMaterial(material, x_num, y_num);
   AnimatedSprite3D* ret = AnimatedSprite3D::CreateWithTextureRegion(region, true);

@@ -58,7 +58,7 @@
 #include "Plane3D.h"
 #include "Sprite3D.h"
 //--Light
-//--Material
+//--rcMaterial
 #include "Material.h"
 #include "ShaderProperties.h"
 //--Mesh
@@ -157,7 +157,7 @@
 #include "../Core/Vector3.h"
 #include "../Core/Vector4.h"
 #include "../Core/Matrix4x4.h"
-//--TextureRegion
+//--rcTextureRegion
 #include "ITextureRegion.h"
 #include "TextureRegion.h"
 #include "TiledTextureRegion.h"

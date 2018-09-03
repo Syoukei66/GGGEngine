@@ -13,11 +13,14 @@
 class rcShader : public Resource
 {
   // =================================================================
-  // Constructor / Destructor
+  // Factory Method
   // =================================================================
 public:
-  static rcShader* Create(const char* path);
+  static rcShader* CreateFromFile(const char* path);
 
+  // =================================================================
+  // Constructor / Destructor
+  // =================================================================
 protected:
   rcShader() {}
   virtual ~rcShader() {}

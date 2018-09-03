@@ -9,6 +9,6 @@ Cube3D* Cube3D::Create()
 {
   Cube3D* ret = new Cube3D();
   ret->SetRenderer(MeshRenderer::Create(EngineAsset::rcCustomMesh::CUBE.GetContents(), ret));
-  ret->GetRenderer()->SetMaterial(EngineAsset::Material::WHITE);
+  ret->GetRenderer()->SetMaterial(EngineAsset::rcMaterial::WHITE);
   return ret;
 }

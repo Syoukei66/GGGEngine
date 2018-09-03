@@ -58,7 +58,7 @@ bool BaseActivity::Run(IEngineSetting* setting)
 
   EngineAsset::Unload();
 
-  AssetManager::GetInstance().Uninit();
+  OldAssetManager::GetInstance().Uninit();
 
   result = this->Uninit();
   NATIVE_ASSERT(result, "アクティビティの終了処理に失敗しました。");
@@ -118,7 +118,7 @@ bool BaseActivity::Update()
   NativeProcess::Time::FPS_PostUpdate();
 #endif
 
-  AssetManager::GetInstance().Update();
+  OldAssetManager::GetInstance().Update();
   return true;
 }
 

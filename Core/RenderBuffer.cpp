@@ -2,7 +2,7 @@
 #include "NativeProcess.h"
 
 // =================================================================
-// Constructor / Destructor
+// Factory Method
 // =================================================================
 rcRenderBuffer* rcRenderBuffer::CreateColorBuffer(rcTexture* texture)
 {
@@ -21,6 +21,9 @@ rcRenderBuffer* rcRenderBuffer::Create(void* native_obj)
   return ret;
 }
 
+// =================================================================
+// Constructor / Destructor
+// =================================================================
 rcRenderBuffer::rcRenderBuffer(void* native_obj)
   : native_obj_(native_obj)
 {

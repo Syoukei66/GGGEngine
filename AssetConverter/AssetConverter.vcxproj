@@ -165,8 +165,6 @@
     <ClInclude Include="AssimpModelImporter.h" />
     <ClInclude Include="AssimpStaticModelImporter.h" />
     <ClInclude Include="BaseConverter.h" />
-    <ClInclude Include="BaseConverterTest.h" />
-    <ClInclude Include="ConverterTestMacro.hpp" />
     <ClInclude Include="FileUtil.h" />
     <ClInclude Include="IAssetProgramGenerator.h" />
     <ClInclude Include="Logger.h" />
@@ -186,7 +184,7 @@
     <ClCompile Include="AssimpModelImporter.cpp" />
     <ClCompile Include="AssimpStaticModelImporter.cpp" />
     <ClCompile Include="BaseConverter.cpp" />
-    <ClCompile Include="BaseConverterTest.cpp" />
+    <ClCompile Include="SerealizerTest.cpp" />
     <ClCompile Include="FileUtil.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />

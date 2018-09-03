@@ -3,21 +3,7 @@
 
 void StaticModelConverterTest::Compare(const StaticModelData& a, const StaticModelData& b)
 {
-  PushState("StaticModelData");
-  COMPARE_ATTR(vertex_format_);
-  COMPARE_ATTR(vertex_size_);
-  COMPARE_ATTR(vertex_count_);
-  COMPARE_ATTRS(data_, vertex_count_ * a.vertex_size_);
-  COMPARE_ATTR(polygon_count_);
-  COMPARE_ATTR(index_count_);
-  COMPARE_ATTRS(indices_, index_count_);
-  COMPARE_ATTR(submesh_count_);
-  COMPARE_ATTRS(submesh_index_counts_, submesh_count_);
-  COMPARE_ATTRS(submesh_material_indices_, submesh_count_);
-  COMPARE_ATTR(bounds_);
-  COMPARE_ATTR(material_count_);
-  COMPARE_ATTRS(materials_, material_count_);
-  PopState();
+
 }
 
 void StaticModelConverterTest::Compare(const StaticModelMaterialData& a, const StaticModelMaterialData& b)

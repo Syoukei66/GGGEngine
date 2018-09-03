@@ -9,6 +9,6 @@ Plane3D* Plane3D::Create()
 {
   Plane3D* ret = new Plane3D();
   ret->SetRenderer(MeshRenderer::Create(EngineAsset::rcCustomMesh::PLANE.GetContents(), ret));
-  ret->GetRenderer()->SetMaterial(EngineAsset::Material::WHITE);
+  ret->GetRenderer()->SetMaterial(EngineAsset::rcMaterial::WHITE);
   return ret;
 }

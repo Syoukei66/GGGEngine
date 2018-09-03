@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include "../Core/NativeType.h"
 
-class CustomMaterial;
+class rcCustomMaterial;
 class Renderer;
 class Camera;
 class GameObjectRenderState;

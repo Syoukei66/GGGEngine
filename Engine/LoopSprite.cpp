@@ -19,7 +19,7 @@
 //  return ret;
 //}
 //
-//LoopSprite* LoopSprite::CreateWithMaterial(Material* material)
+//LoopSprite* LoopSprite::CreateWithMaterial(rcMaterial* material)
 //{
 //  LoopTextureRegion* region = LoopTextureRegion::CreateWithMaterial(material);
 //  LoopSprite* ret = LoopSprite::CreateWithTextureRegion(region);
@@ -30,7 +30,7 @@
 //
 //LoopSprite* LoopSprite::CreateWithTexture(const Texture& texture)
 //{
-//  Material* mat = EngineAsset::Material::SPRITE.Clone();
+//  rcMaterial* mat = EngineAsset::rcMaterial::SPRITE.Clone();
 //  mat->SetMainTexture(texture);
 //  return CreateWithMaterial(mat);
 //}

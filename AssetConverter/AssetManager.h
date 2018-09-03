@@ -10,24 +10,24 @@
 #include "AssetInfo.h"
 #include "Setting.h"
 
-class AssetManager
+class OldAssetManager
 {
 public:
-  static AssetManager& GetInstance()
+  static OldAssetManager& GetInstance()
   {
-    static AssetManager self;
+    static OldAssetManager self;
     return self;
   }
 
 private:
-  AssetManager() = default;
-  ~AssetManager();
+  OldAssetManager() = default;
+  ~OldAssetManager();
 
 public:
-  AssetManager(const AssetManager&) = delete;
-  AssetManager& operator=(const AssetManager&) = delete;
-  AssetManager(AssetManager&&) = delete;
-  AssetManager& operator=(AssetManager&&) = delete;
+  OldAssetManager(const OldAssetManager&) = delete;
+  OldAssetManager& operator=(const OldAssetManager&) = delete;
+  OldAssetManager(OldAssetManager&&) = delete;
+  OldAssetManager& operator=(OldAssetManager&&) = delete;
 
 public:
   void Init(Setting* setting);

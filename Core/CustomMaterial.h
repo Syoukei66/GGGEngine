@@ -3,22 +3,30 @@
 #include <unordered_map>
 #include "Material.h"
 #include "ShaderProperties.h"
+#include "MaterialData.h"
 
-class CustomMaterial : public Material
+class rcCustomMaterial : public rcMaterial
 {
+  // =================================================================
+  // Factory Method
+  // =================================================================
+public:
+  static rcCustomMaterial* Create(rcShader* resource, bool protect = false);
+  static rcCustomMaterial* Create(const MaterialData& data);
+
   // =================================================================
   // Constructor / Destructor
   // =================================================================
-public:
-  CustomMaterial(rcShader* resource, bool protect = false);
-  ~CustomMaterial();
+protected:
+  rcCustomMaterial(rcShader* resource, bool protect = false);
+  ~rcCustomMaterial();
 
   // =================================================================
   // Methods
   // =================================================================
 protected:
-  virtual Material* CreateClone(rcShader* shader) override;
-  virtual void CopyPropertiesToClone(Material* clone) override;
+  virtual rcMaterial* CreateClone(rcShader* shader) override;
+  virtual void CopyPropertiesToClone(rcMaterial* clone) override;
   virtual void SetProperties(rcShader* shader) override;
 
   // =================================================================
@@ -41,11 +49,11 @@ public:
   template <class T>
   const T& GetShaderProperty(const std::string& property_name) const
   {
-    T* ret = (T*)const_cast<CustomMaterial*>(this)->properties_[property_name];
+    T* ret = (T*)const_cast<rcCustomMaterial*>(this)->properties_[property_name];
     if (!ret)
     {
       ret = new T();
-      const_cast<CustomMaterial*>(this)->properties_[property_name] = ret;
+      const_cast<rcCustomMaterial*>(this)->properties_[property_name] = ret;
     }
     return *ret;
   }

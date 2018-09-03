@@ -11,7 +11,10 @@ MeshResource::MeshResource(const MeshBuilder* builder)
 
 MeshResource::~MeshResource()
 {
-  delete this->mesh_;
+  if (this->mesh_)
+  {
+    this->mesh_->Release();
+  }
   delete this->builder_;
 }
 
@@ -20,11 +23,20 @@ MeshResource::~MeshResource()
 // =================================================================
 void MeshResource::Load()
 {
-  this->mesh_ = this->builder_->Create();
+  if (this->mesh_)
+  {
+    return;
+  }
+  this->mesh_ = this->builder_->CreateStaticMesh();
 }
 
 void MeshResource::Unload()
 {
-  delete this->mesh_;
+  if (!this->mesh_)
+  {
+    return;
+  }
+  this->mesh_->Release();
+  this->mesh_ = nullptr;
 }
 

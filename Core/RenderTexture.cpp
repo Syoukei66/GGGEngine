@@ -2,7 +2,7 @@
 #include "NativeProcess.h"
 
 // =================================================================
-// Constructor / Destructor
+// Factory Method
 // =================================================================
 rcRenderTexture* rcRenderTexture::Create(T_UINT16 width, T_UINT16 height, rcRenderBuffer::Format format)
 {
@@ -21,6 +21,9 @@ rcRenderTexture* rcRenderTexture::Create(T_UINT16 width, T_UINT16 height, void* 
   return ret;
 }
 
+// =================================================================
+// Constructor / Destructor
+// =================================================================
 rcRenderTexture::rcRenderTexture(T_UINT16 width, T_UINT16 height, void* native_obj, rcRenderBuffer::Format depth_format)
   : rcTexture(width, height, native_obj)
 {

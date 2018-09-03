@@ -125,19 +125,19 @@ public:
   {
     this->renderer_->GetLayerId();
   }
-  inline void AddMaterial(Material& material)
+  inline void AddMaterial(rcMaterial& material)
   {
     this->renderer_->AddMaterial(material);
   }
-  inline void SetMaterial(Material& material)
+  inline void SetMaterial(rcMaterial& material)
   {
     this->renderer_->SetMaterial(material);
   }
-  inline void SetMaterial(T_UINT16 index, Material& material)
+  inline void SetMaterial(T_UINT16 index, rcMaterial& material)
   {
     this->renderer_->SetMaterial(index, material);
   }
-  inline Material* GetMaterial(T_UINT16 index = 0) const
+  inline rcMaterial* GetMaterial(T_UINT16 index = 0) const
   {
     return this->renderer_->GetMaterial(index);
   }

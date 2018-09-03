@@ -5,11 +5,14 @@
 class rcSound : public Resource
 {
   // =================================================================
-  // Constructor / Destructor
+  // Factory Method
   // =================================================================
 public:
-  static rcSound* Create(const char* path);
+  static rcSound* CreateFromFile(const char* path);
 
+  // =================================================================
+  // Constructor / Destructor
+  // =================================================================
 protected:
   rcSound() {}
   virtual ~rcSound() {}

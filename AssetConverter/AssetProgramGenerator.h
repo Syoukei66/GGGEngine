@@ -12,7 +12,7 @@ public:
   Generator();
 
 public:
-  void Generate(const AssetManager& asset_manager, std::string* header, std::string* cpp);
+  void Generate(const OldAssetManager& asset_manager, std::string* header, std::string* cpp);
   
 };
 

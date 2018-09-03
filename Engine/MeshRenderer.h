@@ -23,7 +23,7 @@ protected:
   // =================================================================
 protected:
   virtual bool SetStreamSource() const override;
-  virtual void SetProperties(Material* material) const override;
+  virtual void SetProperties(rcMaterial* material) const override;
   virtual void DrawSubset(T_UINT8 submesh_index) const override;
 
   // =================================================================

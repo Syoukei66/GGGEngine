@@ -97,7 +97,7 @@ public:
       return b;
     }
     const T_FLOAT r = acosf(InnerProduct(a, b));
-    if (fabs(r) <= MathConstants::PI_1_2)
+    if (fabs(r) <= Mathf::PI_1_2)
     {
       return (a + (b - a) * t).Normalized();
     }
@@ -114,7 +114,7 @@ public:
       return b;
     }
     const T_FLOAT r = acosf(InnerProduct(a, b));
-    if (fabs(r) <= MathConstants::PI_1_2)
+    if (fabs(r) <= Mathf::PI_1_2)
     {
       return Quaternion(a.eigen.slerp(t, b.eigen));
     }

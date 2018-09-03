@@ -17,7 +17,7 @@ public:
   // =================================================================
 protected:
   virtual bool SetStreamSource() const override;
-  virtual void SetProperties(Material* material) const override;
+  virtual void SetProperties(rcMaterial* material) const override;
   virtual void DrawSubset(T_UINT8 submesh_index) const override;
  
   // =================================================================
@@ -30,8 +30,8 @@ public:
   // setter/getter
   // =================================================================
 public:
-  void SetTextureRegion(ITextureRegion* region, bool delete_region);
-  inline ITextureRegion* GetTextureRegion()
+  void SetTextureRegion(TextureRegion* region, bool delete_region);
+  inline TextureRegion* GetTextureRegion()
   {
     return this->texture_region_;
   }
@@ -77,7 +77,7 @@ public:
   // =================================================================
 protected:
   bool delete_region_;
-  ITextureRegion* texture_region_;
+  TextureRegion* texture_region_;
   TSizef size_;
 
 };

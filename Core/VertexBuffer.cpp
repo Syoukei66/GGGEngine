@@ -2,7 +2,7 @@
 #include "NativeProcess.h"
 
 // =================================================================
-// Constructor / Destructor
+// Factory Method
 // =================================================================
 rcVertexBuffer* rcVertexBuffer::Create(T_UINT16 vertex_count, T_UINT16 polygon_count, T_UINT32 format)
 {

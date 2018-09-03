@@ -7,7 +7,7 @@
 // =================================================================
 // Factory Method
 // =================================================================
-SkeletonAnimation* SkeletonAnimation::CreateWithData(const SpineData* data)
+SkeletonAnimation* SkeletonAnimation::CreateWithData(const rcSpineData* data)
 {
   return new SkeletonAnimation(data->skeleton_data);
 }

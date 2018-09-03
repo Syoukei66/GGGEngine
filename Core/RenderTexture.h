@@ -7,13 +7,16 @@
 class rcRenderTexture : public rcTexture
 {
   // =================================================================
-  // Constructor / Destructor
+  // Factory Method
   // =================================================================
 public:
   static rcRenderTexture* Create(T_UINT16 width, T_UINT16 height, rcRenderBuffer::Format format);
   static rcRenderTexture* Create(T_UINT16 width, T_UINT16 height, rcRenderBuffer::Format format, rcRenderBuffer::Format depth_format);
   static rcRenderTexture* Create(T_UINT16 width, T_UINT16 height, void* native_obj, rcRenderBuffer::Format depth_format);
 
+  // =================================================================
+  // Constructor / Destructor
+  // =================================================================
 protected:
   rcRenderTexture(T_UINT16 width, T_UINT16 height, void* native_obj, rcRenderBuffer::Format depth_format);
   virtual ~rcRenderTexture();

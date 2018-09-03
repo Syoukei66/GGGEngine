@@ -5,11 +5,14 @@
 class rcIndexBuffer : public Resource
 {
   // =================================================================
-  // Constructor / Destructor
+  // Factory Method
   // =================================================================
 public:
   static rcIndexBuffer* Create(T_UINT32 vertex_count);
 
+  // =================================================================
+  // Constructor / Destructor
+  // =================================================================
 protected:
   rcIndexBuffer() {}
   virtual ~rcIndexBuffer() {}

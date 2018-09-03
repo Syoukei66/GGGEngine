@@ -1,15 +1,39 @@
 #include "CustomMaterial.h"
+#include "AssetManager.h"
+#include "ShaderAsset.h"
+
+// =================================================================
+// Factory Method
+// =================================================================
+rcCustomMaterial* rcCustomMaterial::Create(rcShader* resource, bool protect)
+{
+  rcCustomMaterial* ret = new rcCustomMaterial(resource, protect);
+  ret->Resource::Init();
+  return ret;
+}
+
+rcCustomMaterial* rcCustomMaterial::Create(const MaterialData& data)
+{
+  rcShader* resource = AssetManager::GetInstance().GetAsset<ShaderAsset>(data.shader_id_)->CreateFromFile();
+  rcCustomMaterial* ret = new rcCustomMaterial(resource, data.protect_);
+  for (const auto& pair : data.properties_)
+  {
+    ret->properties_[pair.first] = pair.second->Clone();
+  }
+  ret->Resource::Init();
+  return ret;
+}
 
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-CustomMaterial::CustomMaterial(rcShader* resource, bool protect)
-  : Material(resource, protect)
+rcCustomMaterial::rcCustomMaterial(rcShader* resource, bool protect)
+  : rcMaterial(resource, protect)
   , properties_()
 {
 }
 
-CustomMaterial::~CustomMaterial()
+rcCustomMaterial::~rcCustomMaterial()
 {
   for (auto pair : this->properties_)
   {
@@ -20,21 +44,21 @@ CustomMaterial::~CustomMaterial()
 // =================================================================
 // Method
 // =================================================================
-Material* CustomMaterial::CreateClone(rcShader* shader)
+rcMaterial* rcCustomMaterial::CreateClone(rcShader* shader)
 {
-  return new CustomMaterial(shader);
+  return new rcCustomMaterial(shader);
 }
 
-void CustomMaterial::CopyPropertiesToClone(Material* clone)
+void rcCustomMaterial::CopyPropertiesToClone(rcMaterial* clone)
 {
-  CustomMaterial* ret = (CustomMaterial*)clone;
+  rcCustomMaterial* ret = (rcCustomMaterial*)clone;
   for (auto pair : this->properties_)
   {
     ret->properties_[pair.first] = pair.second->Clone();
   }
 }
 
-void CustomMaterial::SetProperties(rcShader* shader)
+void rcCustomMaterial::SetProperties(rcShader* shader)
 {
   for (auto pair : this->properties_)
   {

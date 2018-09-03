@@ -13,7 +13,7 @@ class SkeletonAnimation : public GameObject2D
   // Factory Method
   // =================================================================
 public:
-  static SkeletonAnimation* CreateWithData(const SpineData* data);
+  static SkeletonAnimation* CreateWithData(const rcSpineData* data);
 
   // =================================================================
   // Constructor / Destructor

@@ -17,7 +17,7 @@ std::string AssetProgram::DefinitionGenerator::CreateHeaderProgram(AssetInfo* in
 
 std::string AssetProgram::DefinitionGenerator::CreateCppProgram(AssetInfo* info) const
 {
-  return this->CreateContainerNameAlias() + " " + info->program_id  + " = " + "AssetManager::GetInstance().Register<" + this->CreateTypeNameAlias() + ">(" + std::to_string(info->meta_data->unique_id) + ", \"" + info->extension + "\");\n";
+  return this->CreateContainerNameAlias() + " " + info->program_id  + " = " + "OldAssetManager::GetInstance().Register<" + this->CreateTypeNameAlias() + ">(" + std::to_string(info->meta_data->unique_id) + ", \"" + info->extension + "\");\n";
 }
 
 std::string AssetProgram::DefinitionGenerator::CreateTypeName() const

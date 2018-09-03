@@ -26,11 +26,11 @@ public:
 
 protected:
   virtual bool SetStreamSource() const = 0;
-  virtual void SetProperties(Material* material) const = 0;
+  virtual void SetProperties(rcMaterial* material) const = 0;
   virtual void DrawSubset(T_UINT8 submesh_index) const = 0;
 
 private:
-  void SetDefaultProperties(GameObjectRenderState* state, Material* material) const;
+  void SetDefaultProperties(GameObjectRenderState* state, rcMaterial* material) const;
 
   // =================================================================
   // setter/getter
@@ -45,11 +45,11 @@ public:
     return this->layer_id_;
   }
 
-  inline void AddMaterial(Material& material)
+  inline void AddMaterial(rcMaterial& material)
   {
     this->materials_.emplace_back(&material);
   }
-  inline void SetMaterial(Material& material)
+  inline void SetMaterial(rcMaterial& material)
   {
     if (this->materials_.size() == 0)
     {
@@ -57,11 +57,11 @@ public:
     }
     this->materials_[0] = &material;
   }
-  inline void SetMaterial(T_UINT16 index, Material& material)
+  inline void SetMaterial(T_UINT16 index, rcMaterial& material)
   {
     this->materials_[index] = &material;
   }
-  inline Material* GetMaterial(T_UINT16 index = 0) const
+  inline rcMaterial* GetMaterial(T_UINT16 index = 0) const
   {
     return this->materials_[index];
   }
@@ -86,6 +86,6 @@ public:
 protected:
   GameObject* entity_;
   T_UINT8 layer_id_;
-  std::vector<Material*> materials_;
+  std::vector<rcMaterial*> materials_;
 
 };

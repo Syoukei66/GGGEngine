@@ -14,11 +14,11 @@ Sprite* Sprite::Create()
 
 Sprite* Sprite::CreateWithTexture(const rcTexture* texture)
 {
-  TextureRegion* region = TextureRegion::CreateWithTexture(texture);
+  rcTextureRegion* region = rcTextureRegion::CreateWithTexture(texture);
   return Sprite::CreateWithTextureRegion(region, true);
 }
 
-Sprite* Sprite::CreateWithTextureRegion(ITextureRegion* region, bool delete_region)
+Sprite* Sprite::CreateWithTextureRegion(rcTextureRegion* region, bool delete_region)
 {
   Sprite* ret = Sprite::Create();
   SpriteRenderer* renderer = ret->GetSpriteRenderer();
@@ -27,9 +27,9 @@ Sprite* Sprite::CreateWithTextureRegion(ITextureRegion* region, bool delete_regi
   return ret;
 }
 
-Sprite* Sprite::CreateWithMaterial(Material& material)
+Sprite* Sprite::CreateWithMaterial(rcMaterial& material)
 {
-  TextureRegion* region = TextureRegion::CreateWithMaterial(material);
+  rcTextureRegion* region = rcTextureRegion::CreateWithMaterial(material);
   Sprite* ret = Sprite::CreateWithTextureRegion(region, true);
   SpriteRenderer* renderer = ret->GetSpriteRenderer();
   renderer->SetMaterial(material);

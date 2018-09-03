@@ -10,7 +10,7 @@ SpriteRenderer::SpriteRenderer(GameObject* entity)
   , texture_region_(nullptr)
   , size_(1.0f, 1.0f)
 {
-  this->SetMaterial(*EngineAsset::Material::SPRITE.Clone());
+  this->SetMaterial(*EngineAsset::rcMaterial::SPRITE.Clone());
 }
 
 SpriteRenderer::~SpriteRenderer()
@@ -30,7 +30,7 @@ bool SpriteRenderer::SetStreamSource() const
   return true;
 }
 
-void SpriteRenderer::SetProperties(Material* material) const
+void SpriteRenderer::SetProperties(rcMaterial* material) const
 {
   if (!this->texture_region_)
   {
@@ -66,7 +66,7 @@ void SpriteRenderer::FitToTexture()
 // =================================================================
 // setter/getter
 // =================================================================
-void SpriteRenderer::SetTextureRegion(ITextureRegion* region, bool delete_region)
+void SpriteRenderer::SetTextureRegion(rcTextureRegion* region, bool delete_region)
 {
   if (this->delete_region_)
   {
@@ -80,7 +80,7 @@ void SpriteRenderer::SetTexture(const rcTexture* texture)
 {
   if (!this->texture_region_)
   {
-    this->texture_region_ = TextureRegion::CreateWithTexture(texture);
+    this->texture_region_ = rcTextureRegion::CreateWithTexture(texture);
     this->delete_region_ = true;
   }
   else

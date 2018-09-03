@@ -33,7 +33,7 @@ static T_UINT32 ImportTexture(AssetInfo* info, const aiMaterial* material, aiTex
       NATIVE_ASSERT(ret == 0, "テクスチャが想定していたより多いです");
       const std::string full_path = info->directory_path + path.C_Str();
       info->meta_data->references.emplace(full_path);
-      ret = AssetManager::GetInstance().GetInfomation(full_path)->meta_data->unique_id;
+      ret = OldAssetManager::GetInstance().GetInfomation(full_path)->meta_data->unique_id;
     }
   }
   return ret;

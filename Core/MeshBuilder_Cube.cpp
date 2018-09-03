@@ -29,7 +29,7 @@ MeshBuilder_Cube::MeshBuilder_Cube()
 {
 }
 
-rcMesh* MeshBuilder_Cube::CreateMesh() const
+rcCustomMesh* MeshBuilder_Cube::CreateMesh() const
 {
   return MeshFactory::Cube::Create(
     this->format, 

@@ -39,10 +39,10 @@ void Scene::Load(IAssetLoadingListener* listener)
     return;
   }
 
-  this->OnLoad(&AssetManager::GetInstance());
+  this->OnLoad(&OldAssetManager::GetInstance());
 
-  AssetManager::GetInstance().PreRealize(listener);
-  AssetManager::GetInstance().Realize(listener);
+  OldAssetManager::GetInstance().PreRealize(listener);
+  OldAssetManager::GetInstance().Realize(listener);
   this->OnSetup();
   this->is_loaded_ = true;
 }

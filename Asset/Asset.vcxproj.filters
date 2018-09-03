@@ -16,38 +16,20 @@
     <Filter Include="ソース ファイル\Asset">
       <UniqueIdentifier>{74708bef-7ffe-41db-b3bb-801ab055571e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Asset\CSV">
-      <UniqueIdentifier>{c7c5b5e2-ab07-461a-9ad3-109e3ea9110e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Asset\JSON">
-      <UniqueIdentifier>{df48ffa2-1048-4132-9390-75d9902d585e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Asset\Model">
       <UniqueIdentifier>{6bc82edb-9629-4a75-8ef1-46d9f9f3ba2a}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Asset\Model\Static">
       <UniqueIdentifier>{8aee2864-367d-4267-8106-bdefbd263b71}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Asset\Spine">
-      <UniqueIdentifier>{db8c60fe-cf2e-4eab-b378-5842ab3e7968}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Asset">
       <UniqueIdentifier>{30299f1e-aa42-4e48-8635-e71c5f3b7812}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\Spine">
-      <UniqueIdentifier>{415a72c6-e641-4eff-8b6a-1e62e1bca9df}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Asset\Model">
       <UniqueIdentifier>{9150fe6c-3df6-42cc-9bcf-8a161927b583}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Asset\Model\Static">
       <UniqueIdentifier>{f2739183-0fe1-421c-9817-400aaa3e77d4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\CSV">
-      <UniqueIdentifier>{9f3a77fe-3741-45af-97ed-3287794d2b65}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\JSON">
-      <UniqueIdentifier>{6006ef03-f60b-46b8-b96d-7fa8a389c6f2}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Data">
       <UniqueIdentifier>{9a21b66e-94de-407e-a1a6-0b78b6cb655f}</UniqueIdentifier>
@@ -81,27 +63,6 @@
     <ClInclude Include="ModelMaterialData.h">
       <Filter>ヘッダー ファイル\Asset\Model</Filter>
     </ClInclude>
-    <ClInclude Include="SpineData.h">
-      <Filter>ヘッダー ファイル\Asset\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineAttachmentLoader.h">
-      <Filter>ヘッダー ファイル\Asset\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="AttachmentVertexes.h">
-      <Filter>ヘッダー ファイル\Asset\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="CSVData.h">
-      <Filter>ヘッダー ファイル\Asset\CSV</Filter>
-    </ClInclude>
-    <ClInclude Include="CSVTokenizer.h">
-      <Filter>ヘッダー ファイル\Asset\CSV</Filter>
-    </ClInclude>
-    <ClInclude Include="JsonData.h">
-      <Filter>ヘッダー ファイル\Asset\JSON</Filter>
-    </ClInclude>
-    <ClInclude Include="JsonParser.h">
-      <Filter>ヘッダー ファイル\Asset\JSON</Filter>
-    </ClInclude>
     <ClInclude Include="CerealBinaryModelArchive.h">
       <Filter>ヘッダー ファイル\Asset\Model</Filter>
     </ClInclude>
@@ -117,42 +78,18 @@
     <ClInclude Include="AssetContainer.h">
       <Filter>ヘッダー ファイル\Asset</Filter>
     </ClInclude>
-    <ClInclude Include="AssetManager.h">
-      <Filter>ヘッダー ファイル\Asset</Filter>
-    </ClInclude>
     <ClInclude Include="IAssetContainer.h">
       <Filter>ヘッダー ファイル\Asset</Filter>
     </ClInclude>
     <ClInclude Include="LoadProgressCounter.h">
       <Filter>ヘッダー ファイル\Asset</Filter>
     </ClInclude>
+    <ClInclude Include="OldAssetManager.h">
+      <Filter>ヘッダー ファイル\Asset</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CerealStaticModelIO.cpp">
-      <Filter>ソース ファイル\Asset\Model\Static</Filter>
-    </ClCompile>
-    <ClCompile Include="SpineData.cpp">
-      <Filter>ソース ファイル\Asset\Spine</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineAttachmentLoader.cpp">
-      <Filter>ソース ファイル\Asset\Spine</Filter>
-    </ClCompile>
-    <ClCompile Include="AttachmentVertexes.cpp">
-      <Filter>ソース ファイル\Asset\Spine</Filter>
-    </ClCompile>
-    <ClCompile Include="CSVData.cpp">
-      <Filter>ソース ファイル\Asset\CSV</Filter>
-    </ClCompile>
-    <ClCompile Include="CSVTokenizer.cpp">
-      <Filter>ソース ファイル\Asset\CSV</Filter>
-    </ClCompile>
-    <ClCompile Include="JsonData.cpp">
-      <Filter>ソース ファイル\Asset\JSON</Filter>
-    </ClCompile>
-    <ClCompile Include="JsonParser.cpp">
-      <Filter>ソース ファイル\Asset\JSON</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticModelResource.cpp">
       <Filter>ソース ファイル\Asset\Model\Static</Filter>
     </ClCompile>
     <ClCompile Include="ModelSource.cpp">
@@ -161,10 +98,10 @@
     <ClCompile Include="StandardMaterial.cpp">
       <Filter>ソース ファイル\Asset\Material</Filter>
     </ClCompile>
-    <ClCompile Include="AssetManager.cpp">
+    <ClCompile Include="LoadProgressCounter.cpp">
       <Filter>ソース ファイル\Asset</Filter>
     </ClCompile>
-    <ClCompile Include="LoadProgressCounter.cpp">
+    <ClCompile Include="OldAssetManager.cpp">
       <Filter>ソース ファイル\Asset</Filter>
     </ClCompile>
   </ItemGroup>

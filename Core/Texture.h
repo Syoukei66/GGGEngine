@@ -1,7 +1,5 @@
 #pragma once
 
-#include <string>
-#include "NativeType.h"
 #include "Resource.h"
 #include "RenderBuffer.h"
 
@@ -24,12 +22,15 @@ public:
   };
 
   // =================================================================
-  // Constructor / Destructor
+  // Factory Method
   // =================================================================
 public:
-  static rcTexture* Create(const char* path);
+  static rcTexture* CreateFromFile(const char* path);
   static rcTexture* Create(T_UINT16 width, T_UINT16 height, void* native_obj);
 
+  // =================================================================
+  // Constructor / Destructor
+  // =================================================================
 protected:
   rcTexture(T_UINT16 width, T_UINT16 height, void* native_obj);
   virtual ~rcTexture();

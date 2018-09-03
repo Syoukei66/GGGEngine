@@ -1,7 +1,5 @@
 #pragma once
 
-#include <functional>
-#include <unordered_map>
 #include <list>
 
 class Resource;
@@ -41,7 +39,6 @@ public:
   // =================================================================
 public:
   size_t GetMemorySize() const;
-
   size_t GetVideoMemorySize() const;
 
   // =================================================================

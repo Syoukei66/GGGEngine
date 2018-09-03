@@ -2,7 +2,7 @@
 #include "NativeProcess.h"
 
 // =================================================================
-// Constructor / Destructor
+// Factory Method
 // =================================================================
 rcIndexBuffer* rcIndexBuffer::Create(T_UINT32 vertex_count)
 {

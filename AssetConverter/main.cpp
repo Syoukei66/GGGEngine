@@ -82,7 +82,7 @@ int main()
     setting = Setting::Create();
   }
 
-  AssetManager* asset_manager = &AssetManager::GetInstance();
+  OldAssetManager* asset_manager = &OldAssetManager::GetInstance();
 
   asset_manager->Init(setting);
   
@@ -90,8 +90,8 @@ int main()
   NotConverter texture_converter = NotConverter({ "jpg", "png" }, "rcTexture", "rcTexture");
   NotConverter sound_converter = NotConverter({ "wav", "mp3" }, "rcSound", "rcSound");
   NotConverter shader_converter = NotConverter({ "cso" }, "rcShader", "rcShader");
-  NotConverter csv_converter = NotConverter({ "csv" }, "CSV", "CsvData");
-  NotConverter json_converter = NotConverter({ "json" }, "JSON", "JsonData");
+  NotConverter csv_converter = NotConverter({ "csv" }, "CSV", "rcCsvData");
+  NotConverter json_converter = NotConverter({ "json" }, "JSON", "rcJsonData");
 
   RuntimeSetting::SetDebugFlag(RuntimeSetting::CONVERTER_TEST);
 

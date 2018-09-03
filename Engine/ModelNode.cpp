@@ -117,12 +117,12 @@
 //  }
 //}
 //
-//void ModelNode::SetMaterial(Material& material)
+//void ModelNode::SetMaterial(rcMaterial& material)
 //{
 //  this->GetRenderer()->SetMaterial(material);
 //}
 //
-//void ModelNode::SetMaterialForChildren(Material& material)
+//void ModelNode::SetMaterialForChildren(rcMaterial& material)
 //{
 //  for (T_UINT8 i = 0; i < this->child_count_; ++i)
 //  {
@@ -130,7 +130,7 @@
 //  }
 //}
 //
-//void ModelNode::SetMaterialForChildren(const char* name, Material& material)
+//void ModelNode::SetMaterialForChildren(const char* name, rcMaterial& material)
 //{
 //  for (T_UINT8 i = 0; i < this->child_count_; ++i)
 //  {
@@ -141,7 +141,7 @@
 //  }
 //}
 //
-//void ModelNode::SetMaterialForTree(Material& material)
+//void ModelNode::SetMaterialForTree(rcMaterial& material)
 //{
 //  this->SetMaterial(material);
 //  for (T_UINT8 i = 0; i < this->child_count_; ++i)
@@ -150,7 +150,7 @@
 //  }
 //}
 //
-//void ModelNode::SetMaterialForTree(const char* name, Material& material)
+//void ModelNode::SetMaterialForTree(const char* name, rcMaterial& material)
 //{
 //  if (strcmp(this->node_.GetName(), name) == 0)
 //  {
