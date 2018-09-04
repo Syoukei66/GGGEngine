@@ -75,18 +75,6 @@
     <ClInclude Include="StandardMaterial.h">
       <Filter>ヘッダー ファイル\Asset\Material</Filter>
     </ClInclude>
-    <ClInclude Include="AssetContainer.h">
-      <Filter>ヘッダー ファイル\Asset</Filter>
-    </ClInclude>
-    <ClInclude Include="IAssetContainer.h">
-      <Filter>ヘッダー ファイル\Asset</Filter>
-    </ClInclude>
-    <ClInclude Include="LoadProgressCounter.h">
-      <Filter>ヘッダー ファイル\Asset</Filter>
-    </ClInclude>
-    <ClInclude Include="OldAssetManager.h">
-      <Filter>ヘッダー ファイル\Asset</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CerealStaticModelIO.cpp">
@@ -97,12 +85,6 @@
     </ClCompile>
     <ClCompile Include="StandardMaterial.cpp">
       <Filter>ソース ファイル\Asset\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="LoadProgressCounter.cpp">
-      <Filter>ソース ファイル\Asset</Filter>
-    </ClCompile>
-    <ClCompile Include="OldAssetManager.cpp">
-      <Filter>ソース ファイル\Asset</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

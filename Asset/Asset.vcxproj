@@ -138,10 +138,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AssetContainer.h" />
-    <ClInclude Include="OldAssetManager.h" />
-    <ClInclude Include="IAssetContainer.h" />
-    <ClInclude Include="LoadProgressCounter.h" />
     <ClInclude Include="CerealBinaryModelArchive.h" />
     <ClInclude Include="CerealStaticModelIO.h" />
     <ClInclude Include="ModelAnimationData.h" />
@@ -154,8 +150,6 @@
     <ClInclude Include="StaticModelResource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="OldAssetManager.cpp" />
-    <ClCompile Include="LoadProgressCounter.cpp" />
     <ClCompile Include="CerealStaticModelIO.cpp" />
     <ClCompile Include="ModelSource.cpp" />
     <ClCompile Include="StandardMaterial.cpp" />

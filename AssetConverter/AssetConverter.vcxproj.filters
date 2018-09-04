@@ -28,14 +28,8 @@
     <Filter Include="ソース ファイル\Asset\_Base\Converter">
       <UniqueIdentifier>{5e49ccba-09fa-4d1a-9987-e3a6c2d48849}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Asset\_Base\Test">
-      <UniqueIdentifier>{ef1c551a-9e4a-4c98-9b36-235be87c621e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Asset\Model\Converter">
       <UniqueIdentifier>{f607eec2-5f79-41fd-986a-eb4e93073ec1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Asset\Model\Test">
-      <UniqueIdentifier>{c3ffce4f-6269-48b4-9461-caf715a7cc6c}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Asset\Texture\Converter">
       <UniqueIdentifier>{074d8c49-6863-42de-941c-abed4bb2864c}</UniqueIdentifier>
@@ -82,9 +76,6 @@
     <Filter Include="ヘッダー ファイル\Asset\Model\Converter">
       <UniqueIdentifier>{160afd41-93ff-4a0d-8782-798ff55cb939}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\Model\Test">
-      <UniqueIdentifier>{43888138-f842-4d66-b548-0e5bbd222f4a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Asset\_Base\Converter">
       <UniqueIdentifier>{a1fdd16a-c879-4bfa-ab8f-87539877a2f2}</UniqueIdentifier>
     </Filter>
@@ -107,9 +98,6 @@
   <ItemGroup>
     <ClInclude Include="StaticModelConverter.h">
       <Filter>ヘッダー ファイル\Asset\Model\Converter</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticModelConverterTest.h">
-      <Filter>ヘッダー ファイル\Asset\Model\Test</Filter>
     </ClInclude>
     <ClInclude Include="BaseConverter.h">
       <Filter>ヘッダー ファイル\Asset\_Base\Converter</Filter>
@@ -176,12 +164,6 @@
     <ClCompile Include="NotConverter.cpp">
       <Filter>ソース ファイル\Asset\_Base\Converter</Filter>
     </ClCompile>
-    <ClCompile Include="StaticModelConverterTest.cpp">
-      <Filter>ソース ファイル\Asset\Model\Test</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelConverterTest.cpp">
-      <Filter>ソース ファイル\Asset\Model\Test</Filter>
-    </ClCompile>
     <ClCompile Include="StaticModelConverter.cpp">
       <Filter>ソース ファイル\Asset\Model\Converter</Filter>
     </ClCompile>
@@ -214,9 +196,6 @@
     </ClCompile>
     <ClCompile Include="AssetProgramGenerator_definition.cpp">
       <Filter>ソース ファイル\ProgramGenerator</Filter>
-    </ClCompile>
-    <ClCompile Include="SerealizerTest.cpp">
-      <Filter>ソース ファイル\Asset\_Base\Test</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

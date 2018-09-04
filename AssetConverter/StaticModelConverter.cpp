@@ -8,7 +8,6 @@
 #include "../Asset/CerealStaticModelIO.h"
 
 #include "AssimpStaticModelImporter.h"
-#include "StaticModelConverterTest.h"
 
 #include "Logger.h"
 

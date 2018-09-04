@@ -184,15 +184,12 @@
     <ClCompile Include="AssimpModelImporter.cpp" />
     <ClCompile Include="AssimpStaticModelImporter.cpp" />
     <ClCompile Include="BaseConverter.cpp" />
-    <ClCompile Include="SerealizerTest.cpp" />
     <ClCompile Include="FileUtil.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ModelConverterTest.cpp" />
     <ClCompile Include="NotConverter.cpp" />
     <ClCompile Include="Setting.cpp" />
     <ClCompile Include="StaticModelConverter.cpp" />
-    <ClCompile Include="StaticModelConverterTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Asset\Asset.vcxproj">

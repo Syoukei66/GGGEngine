@@ -1,6 +1,6 @@
 #include "BaseConverter.h"
+#include <fstream>
 
-#include "../Asset/CerealIO.h"
 #include "FileUtil.h"
 #include "Logger.h"
 
