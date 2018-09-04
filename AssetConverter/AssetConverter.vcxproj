@@ -172,7 +172,6 @@
     <ClInclude Include="RuntimeSetting.h" />
     <ClInclude Include="Setting.h" />
     <ClInclude Include="StaticModelConverter.h" />
-    <ClInclude Include="StaticModelConverterTest.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssetManager.cpp" />
