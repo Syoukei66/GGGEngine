@@ -164,6 +164,7 @@
     <ClInclude Include="JsonParser.h" />
     <ClInclude Include="MaterialAsset.h" />
     <ClInclude Include="MaterialData.h" />
+    <ClInclude Include="Model.h" />
     <ClInclude Include="SerealizerTester.h" />
     <ClInclude Include="SerealizerTestMacro.hpp" />
     <ClInclude Include="ShaderAsset.h" />

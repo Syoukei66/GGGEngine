@@ -138,16 +138,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CerealBinaryModelArchive.h" />
     <ClInclude Include="CerealStaticModelIO.h" />
     <ClInclude Include="ModelAnimationData.h" />
     <ClInclude Include="ModelConstants.h" />
-    <ClInclude Include="ModelData.h" />
-    <ClInclude Include="ModelMaterialData.h" />
-    <ClInclude Include="ModelSource.h" />
     <ClInclude Include="StandardMaterial.h" />
-    <ClInclude Include="StaticModelData.h" />
-    <ClInclude Include="StaticModelResource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CerealStaticModelIO.cpp" />

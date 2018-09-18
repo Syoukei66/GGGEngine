@@ -48,29 +48,11 @@
     <ClInclude Include="CerealStaticModelIO.h">
       <Filter>ヘッダー ファイル\Asset\Model\Static</Filter>
     </ClInclude>
-    <ClInclude Include="StaticModelData.h">
-      <Filter>ヘッダー ファイル\Asset\Model\Static</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelData.h">
-      <Filter>ヘッダー ファイル\Asset\Model</Filter>
-    </ClInclude>
     <ClInclude Include="ModelAnimationData.h">
       <Filter>ヘッダー ファイル\Asset\Model</Filter>
     </ClInclude>
     <ClInclude Include="ModelConstants.h">
       <Filter>ヘッダー ファイル\Asset\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelMaterialData.h">
-      <Filter>ヘッダー ファイル\Asset\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="CerealBinaryModelArchive.h">
-      <Filter>ヘッダー ファイル\Asset\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelSource.h">
-      <Filter>ヘッダー ファイル\Asset\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticModelResource.h">
-      <Filter>ヘッダー ファイル\Asset\Model\Static</Filter>
     </ClInclude>
     <ClInclude Include="StandardMaterial.h">
       <Filter>ヘッダー ファイル\Asset\Material</Filter>

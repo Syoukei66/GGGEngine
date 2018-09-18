@@ -187,6 +187,9 @@
     <Filter Include="ソース ファイル\Asset\Material">
       <UniqueIdentifier>{5d8765ec-ff3e-4862-8a03-9c7aa20ab04b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Resource\Model">
+      <UniqueIdentifier>{df72701c-9059-4bc9-b0e4-c11e837cad3e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vector4.h">
@@ -434,6 +437,9 @@
     </ClInclude>
     <ClInclude Include="CerealShaderPropertiesArchive.hpp">
       <Filter>ヘッダー ファイル\Asset\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>ヘッダー ファイル\Resource\Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
