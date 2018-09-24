@@ -27,7 +27,7 @@ void MeshResource::Load()
   {
     return;
   }
-  this->mesh_ = this->builder_->CreateStaticMesh();
+  this->mesh_ = this->builder_->CreateMesh(true);
 }
 
 void MeshResource::Unload()

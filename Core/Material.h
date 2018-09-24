@@ -1,11 +1,21 @@
 #pragma once
 
 #include <vector>
+#include <unordered_map>
 #include "Shader.h"
+#include "ShaderProperties.h"
 #include "GraphicsConstants.h"
+#include "MaterialData.h"
 
 class rcMaterial : public Resource
 {
+  // =================================================================
+  // Factory Method
+  // =================================================================
+public:
+  static rcMaterial* Create(rcShader* resource, bool protect = false);
+  static rcMaterial* Create(const MaterialData* data);
+
   // =================================================================
   // Constructor / Destructor
   // =================================================================
@@ -20,10 +30,6 @@ public:
   rcMaterial* Clone();
   rcMaterial* InitialClone();
 
-protected:
-  virtual rcMaterial* CreateClone(rcShader* shader);
-  virtual void CopyPropertiesToClone(rcMaterial* clone);
-
 public:
   T_UINT8 Begin();
   void BeginPass(T_UINT8 path_id);
@@ -31,12 +37,12 @@ public:
   void EndPass();
   void End();
 
-  virtual void SetProperties(rcShader* shader) {};
+  void SetProperties(rcShader* shader);
 
   // =================================================================
-  // Getter / Setter
+  // setter/getter
   // =================================================================
-protected:
+private:
   inline void ProtectedAssertion() const
   {
     NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
@@ -133,21 +139,127 @@ public:
     return this->billbording_;
   }
 
+  template <class T>
+  T& GetShaderProperty(const std::string& property_name)
+  {
+    this->ProtectedAssertion();
+    T* ret = (T*)this->properties_[property_name];
+    if (!ret)
+    {
+      ret = new T();
+      this->properties_[property_name] = ret;
+    }
+    return *ret;
+  }
+
+  template <class T>
+  const T& GetShaderProperty(const std::string& property_name) const
+  {
+    T* ret = (T*)const_cast<rcMaterial*>(this)->properties_[property_name];
+    if (!ret)
+    {
+      ret = new T();
+      const_cast<rcMaterial*>(this)->properties_[property_name] = ret;
+    }
+    return *ret;
+  }
+
+  inline ShaderProperty_bool& BoolProperty(const std::string& property_name)
+  {
+    return this->GetShaderProperty<ShaderProperty_bool>(property_name);
+  }
+  inline const ShaderProperty_bool& BoolProperty(const std::string& property_name) const
+  {
+    return this->GetShaderProperty<ShaderProperty_bool>(property_name);
+  }
+
+  inline ShaderProperty_int& IntProperty(const std::string& property_name)
+  {
+    return this->GetShaderProperty<ShaderProperty_int>(property_name);
+  }
+  inline const ShaderProperty_int& IntProperty(const std::string& property_name) const
+  {
+    return this->GetShaderProperty<ShaderProperty_int>(property_name);
+  }
+
+  inline ShaderProperty_float& FloatProperty(const std::string& property_name)
+  {
+    return this->GetShaderProperty<ShaderProperty_float>(property_name);
+  }
+  inline const ShaderProperty_float& FloatProperty(const std::string& property_name) const
+  {
+    return this->GetShaderProperty<ShaderProperty_float>(property_name);
+  }
+
+  inline ShaderProperty_vec2f& Vec2fProperty(const std::string& property_name)
+  {
+    return this->GetShaderProperty<ShaderProperty_vec2f>(property_name);
+  }
+  inline const ShaderProperty_vec2f& Vec2fProperty(const std::string& property_name) const
+  {
+    return this->GetShaderProperty<ShaderProperty_vec2f>(property_name);
+  }
+
+  inline ShaderProperty_vec3f& Vec3fProperty(const std::string& property_name)
+  {
+    return this->GetShaderProperty<ShaderProperty_vec3f>(property_name);
+  }
+  inline const ShaderProperty_vec3f& Vec3fProperty(const std::string& property_name) const
+  {
+    return this->GetShaderProperty<ShaderProperty_vec3f>(property_name);
+  }
+
+  inline ShaderProperty_vec4f& Vec4fProperty(const std::string& property_name)
+  {
+    return this->GetShaderProperty<ShaderProperty_vec4f>(property_name);
+  }
+  inline const ShaderProperty_vec4f& Vec4fProperty(const std::string& property_name) const
+  {
+    return this->GetShaderProperty<ShaderProperty_vec4f>(property_name);
+  }
+
+  inline ShaderProperty_color& ColorProperty(const std::string& property_name)
+  {
+    return this->GetShaderProperty<ShaderProperty_color>(property_name);
+  }
+  inline const ShaderProperty_color& ColorProperty(const std::string& property_name) const
+  {
+    return this->GetShaderProperty<ShaderProperty_color>(property_name);
+  }
+
+  inline ShaderProperty_matrix& MatrixProperty(const std::string& property_name)
+  {
+    return this->GetShaderProperty<ShaderProperty_matrix>(property_name);
+  }
+  inline const ShaderProperty_matrix& MatrixProperty(const std::string& property_name) const
+  {
+    return this->GetShaderProperty<ShaderProperty_matrix>(property_name);
+  }
+
+  inline ShaderProperty_texture& TextureProperty(const std::string& property_name)
+  {
+    return this->GetShaderProperty<ShaderProperty_texture>(property_name);
+  }
+  inline const ShaderProperty_texture& TextureProperty(const std::string& property_name) const
+  {
+    return this->GetShaderProperty<ShaderProperty_texture>(property_name);
+  }
+
   // =================================================================
   // Data Member
   // =================================================================
 protected:
+  const bool protected_;
+  rcShader* shader_;
+  std::string technique_;
+
   Graphics::RenderQueue queue_;
+  std::unordered_map<std::string, ShaderProperty*> properties_;
+
   const rcTexture* texture_;
   TVec2f tiling_;
   TVec2f tiling_offset_;
   TColor color_;
   bool billbording_;
 
-private:
-  const bool protected_;
-  rcShader* shader_;
-  std::string technique_;
-
-  std::vector<rcMaterial*> clones_;
 };

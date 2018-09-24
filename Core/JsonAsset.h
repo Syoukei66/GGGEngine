@@ -19,7 +19,7 @@ protected:
 protected:
   rcJsonData* LoadProcess(const std::string& path) override
   {
-    return rcJsonData::LoadProcess(path.c_str());
+    return rcJsonData::CreateFromFile(path.c_str());
   }
 
 };

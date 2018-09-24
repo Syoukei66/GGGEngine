@@ -75,10 +75,10 @@ static void Initialize()
   }
 }
 
-rcCustomMesh* MeshFactory::Sprite::Create()
+rcMesh* MeshFactory::Sprite::Create(bool read_only)
 {
   Initialize();
-  rcCustomMesh* ret = rcCustomMesh::Create();
+  rcMesh* ret = rcMesh::Create();
   using namespace Graphics;
   ret->CreateVertices(
     SPRITE_VERTEXES_COUNT,
@@ -95,6 +95,6 @@ rcCustomMesh* MeshFactory::Sprite::Create()
   {
     ret->SetIndex(i, SPRITE_INDEXES[i]);
   }
-  ret->CommitChanges();
+  ret->CommitChanges(read_only);
   return ret;
 }

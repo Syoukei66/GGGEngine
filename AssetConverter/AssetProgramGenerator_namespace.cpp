@@ -1,6 +1,6 @@
 #include "AssetProgramGenerator_namespace.h"
 
-std::string AssetProgram::NamespaceGenerator::CreateHeaderProgram(const std::function<std::string(const DefinitionGenerator&)>& func) const
+std::string NamespaceGenerator::CreateHeaderProgram(const std::function<std::string(const DefinitionGenerator&)>& func) const
 {
   std::string ret;
   for (const DefinitionGenerator& generator : this->namespaces_)
@@ -16,7 +16,7 @@ std::string AssetProgram::NamespaceGenerator::CreateHeaderProgram(const std::fun
   return ret;
 }
 
-std::string AssetProgram::NamespaceGenerator::CreateCppProgram(const std::function<std::string(const DefinitionGenerator&)>& func) const
+std::string NamespaceGenerator::CreateCppProgram(const std::function<std::string(const DefinitionGenerator&)>& func) const
 {
   std::string ret;
   for (const DefinitionGenerator& generator : this->namespaces_)

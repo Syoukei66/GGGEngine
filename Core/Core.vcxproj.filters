@@ -190,6 +190,15 @@
     <Filter Include="ヘッダー ファイル\Resource\Model">
       <UniqueIdentifier>{df72701c-9059-4bc9-b0e4-c11e837cad3e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Asset\Model">
+      <UniqueIdentifier>{f947e0a2-64e8-41f4-8d4b-769dac1c0e71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Resource\Model">
+      <UniqueIdentifier>{6bd89c7e-f7ea-4f24-9b32-b7f40c9d1d2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Asset\Model">
+      <UniqueIdentifier>{7468dbee-9e32-4f78-93d6-2b6d39a71adb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vector4.h">
@@ -255,9 +264,6 @@
     <ClInclude Include="CerealStructArchive.hpp">
       <Filter>ヘッダー ファイル\ThirdPirty\Cereal</Filter>
     </ClInclude>
-    <ClInclude Include="CustomMaterial.h">
-      <Filter>ヘッダー ファイル\Resource\Material</Filter>
-    </ClInclude>
     <ClInclude Include="Material.h">
       <Filter>ヘッダー ファイル\Resource\Material</Filter>
     </ClInclude>
@@ -265,9 +271,6 @@
       <Filter>ヘッダー ファイル\Resource\Material</Filter>
     </ClInclude>
     <ClInclude Include="MeshResource.h">
-      <Filter>ヘッダー ファイル\Resource\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticMesh.h">
       <Filter>ヘッダー ファイル\Resource\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="MeshBuilder_Cube.h">
@@ -330,9 +333,6 @@
     <ClInclude Include="MeshBuilder.h">
       <Filter>ヘッダー ファイル\Resource\Mesh\Builder</Filter>
     </ClInclude>
-    <ClInclude Include="CustomMesh.h">
-      <Filter>ヘッダー ファイル\Resource\Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>ヘッダー ファイル\Resource\Mesh</Filter>
     </ClInclude>
@@ -368,9 +368,6 @@
     </ClInclude>
     <ClInclude Include="TextureAsset.h">
       <Filter>ヘッダー ファイル\Asset\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticMeshAsset.h">
-      <Filter>ヘッダー ファイル\Asset\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="SerealizerTester.h">
       <Filter>ヘッダー ファイル\ThirdPirty\Cereal\Test</Filter>
@@ -429,9 +426,6 @@
     <ClInclude Include="TiledTextureRegion.h">
       <Filter>ヘッダー ファイル\Resource\Sprite</Filter>
     </ClInclude>
-    <ClInclude Include="StaticMeshData.h">
-      <Filter>ヘッダー ファイル\Asset\Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="MaterialData.h">
       <Filter>ヘッダー ファイル\Asset\Material</Filter>
     </ClInclude>
@@ -440,6 +434,21 @@
     </ClInclude>
     <ClInclude Include="Model.h">
       <Filter>ヘッダー ファイル\Resource\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="UniqueIdTable.h">
+      <Filter>ヘッダー ファイル\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshData.h">
+      <Filter>ヘッダー ファイル\Asset\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshAsset.h">
+      <Filter>ヘッダー ファイル\Asset\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelAsset.h">
+      <Filter>ヘッダー ファイル\Asset\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelData.h">
+      <Filter>ヘッダー ファイル\Asset\Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -458,16 +467,10 @@
     <ClCompile Include="Gradient.cpp">
       <Filter>ソース ファイル\Color</Filter>
     </ClCompile>
-    <ClCompile Include="CustomMaterial.cpp">
-      <Filter>ソース ファイル\Resource\Material</Filter>
-    </ClCompile>
     <ClCompile Include="Material.cpp">
       <Filter>ソース ファイル\Resource\Material</Filter>
     </ClCompile>
     <ClCompile Include="MeshResource.cpp">
-      <Filter>ソース ファイル\Resource\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticMesh.cpp">
       <Filter>ソース ファイル\Resource\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="MeshBuilder_Cube.cpp">
@@ -517,9 +520,6 @@
     </ClCompile>
     <ClCompile Include="RenderTexture.cpp">
       <Filter>ソース ファイル\Resource\_Native\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="CustomMesh.cpp">
-      <Filter>ソース ファイル\Resource\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>ソース ファイル\Resource\Mesh</Filter>
@@ -578,11 +578,20 @@
     <ClCompile Include="TiledTextureRegion.cpp">
       <Filter>ソース ファイル\Resource\Sprite</Filter>
     </ClCompile>
-    <ClCompile Include="StaticMeshData.cpp">
-      <Filter>ソース ファイル\Asset\Mesh</Filter>
-    </ClCompile>
     <ClCompile Include="MaterialData.cpp">
       <Filter>ソース ファイル\Asset\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>ソース ファイル\Resource\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshData.cpp">
+      <Filter>ソース ファイル\Asset\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelData.cpp">
+      <Filter>ソース ファイル\Asset\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelAsset.cpp">
+      <Filter>ソース ファイル\Asset\Model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

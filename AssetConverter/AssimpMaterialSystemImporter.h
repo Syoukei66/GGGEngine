@@ -11,7 +11,7 @@ enum aiTextureMapping;
 enum aiTextureOp;
 enum aiTextureType;
 
-namespace ModelImporter
+namespace ModelAssetImporter
 {
 
 namespace Assimp

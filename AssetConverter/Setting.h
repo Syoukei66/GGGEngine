@@ -8,6 +8,8 @@
 
 #include "../Core/NativeType.h"
 
+#include "RawAssetConverterFactory.h"
+#include "AssetInfo.h"
 
 struct Setting
 {
@@ -18,26 +20,21 @@ struct Setting
   template<class Archive>
   void serialize(Archive& ar, std::uint32_t const version)
   {
-    if (version > 1)
-    {
-      ar(CEREAL_NVP(engine_name));
-    }
-    ar(CEREAL_NVP(input_path));
-    ar(CEREAL_NVP(output_path));
-    if (version > 2)
-    {
-      ar(CEREAL_NVP(project_path));
-    }
-    else
-    {
-      project_path = "./Project";
-    }
+    ar(cereal::make_nvp("EngineName", this->engine_name));
+    ar(cereal::make_nvp("InputPath", this->input_path));
+    ar(cereal::make_nvp("OutputPath", this->output_path));
+    ar(cereal::make_nvp("ProjectPath", this->project_path));
+    ar(cereal::make_nvp("UniqueIdTablePath", this->unique_id_table_path));
+    ar(cereal::make_nvp("RawAssetConverter", this->raw_asset_converter_factory));
   }
 
   std::string engine_name;
   std::string input_path;
   std::string output_path;
   std::string project_path;
+  std::string unique_id_table_path;
+
+  RawAssetConverterFactory raw_asset_converter_factory;
 
 };
-CEREAL_CLASS_VERSION(Setting, 3);
+CEREAL_CLASS_VERSION(Setting, 1);

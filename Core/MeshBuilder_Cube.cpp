@@ -29,12 +29,13 @@ MeshBuilder_Cube::MeshBuilder_Cube()
 {
 }
 
-rcCustomMesh* MeshBuilder_Cube::CreateMesh() const
+rcMesh* MeshBuilder_Cube::CreateMesh(bool read_only) const
 {
   return MeshFactory::Cube::Create(
     this->format, 
     this->scale_x, this->scale_y, this->scale_z,
     this->resolution_x, this->resolution_y, this->resolution_z,
-    this->tile_count_x, this->tile_count_y, this->tile_count_z
+    this->tile_count_x, this->tile_count_y, this->tile_count_z,
+    read_only
   );
 }

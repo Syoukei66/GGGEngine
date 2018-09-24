@@ -1,35 +1,17 @@
 #pragma once
 
+#include "Mesh.h"
+#include "Material.h"
 #include "Resource.h"
 
-template <class Mesh_, class Material_>
 class rcModel : public Resource
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 protected:
-  rcModel(Mesh_* mesh, Material_** materials)
-    : mesh_(mesh)
-    , materials_ (materials)
-  {
-    this->mesh_->Retain();
-    T_UINT8 material_count = this->GetMaterialCount();
-    for (T_UINT8 i = 0; i < material_count; ++i)
-    {
-      this->materials_[i]->Retain();
-    }
-  }
-
-  virtual ~rcModel()
-  {
-    T_UINT8 material_count = this->GetMaterialCount();
-    for (T_UINT8 i = 0; i < material_count; ++i)
-    {
-      this->materials_[i]->Release();
-    }
-    this->mesh_->Release();
-  }
+  rcModel(rcMesh* mesh, rcMaterial** materials);
+  virtual ~rcModel();
 
   // =================================================================
   // Methods
@@ -41,12 +23,12 @@ public:
   // Getter / Setter
   // =================================================================
 protected:
-  inline Mesh_* GetMesh()
+  inline rcMesh* GetMesh()
   {
     return this->mesh_;
   }
 
-  inline const Mesh_* GetMesh() const
+  inline const rcMesh* GetMesh() const
   {
     return this->mesh_;
   }
@@ -56,12 +38,12 @@ protected:
     return this->mesh_->GetSubmeshCount();
   }
 
-  inline Material_* GetMaterial(T_UINT8 index)
+  inline rcMaterial* GetMaterial(T_UINT8 index)
   {
     return this->materials_[index];
   }
 
-  inline const Material_* GetMaterial(T_UINT8 index) const
+  inline const rcMaterial* GetMaterial(T_UINT8 index) const
   {
     return this->materials_[index];
   }
@@ -75,9 +57,7 @@ protected:
   // Data Member
   // =================================================================
 protected:
-  Mesh_* mesh_;
-  Material_** materials_;
+  rcMesh* mesh_;
+  rcMaterial** materials_;
 
 };
-
-

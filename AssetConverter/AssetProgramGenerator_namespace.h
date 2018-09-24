@@ -1,11 +1,9 @@
 #pragma once
 
 #include <vector>
+#include <functional>
 
 #include "AssetProgramGenerator_definition.h"
-
-namespace AssetProgram
-{
 
 class NamespaceGenerator
 {
@@ -25,6 +23,3 @@ public:
 private:
   std::vector<DefinitionGenerator> namespaces_;
 };
-
-}
-

@@ -154,41 +154,60 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AssetInfo.h" />
-    <ClInclude Include="AssetManager.h" />
-    <ClInclude Include="AssetMetaData.h" />
+    <ClInclude Include="AssetConverterFactory.h" />
+    <ClInclude Include="AssetConverterManager.h" />
+    <ClInclude Include="AssetEditor.h" />
+    <ClInclude Include="AssetConverter.h" />
+    <ClInclude Include="AssetEntity.h" />
+    <ClInclude Include="AssetExporter.h" />
     <ClInclude Include="AssetProgramGenerator.h" />
+    <ClInclude Include="Director.h" />
+    <ClInclude Include="AssetMetaData.h" />
     <ClInclude Include="AssetProgramGenerator_definition.h" />
     <ClInclude Include="AssetProgramGenerator_namespace.h" />
     <ClInclude Include="AssimpMaterialSystemImporter.h" />
-    <ClInclude Include="AssimpMathImporter.h" />
     <ClInclude Include="AssimpModelImporter.h" />
     <ClInclude Include="AssimpStaticModelImporter.h" />
-    <ClInclude Include="BaseConverter.h" />
+    <ClInclude Include="AssetImporter.h" />
+    <ClInclude Include="Extensions.h" />
     <ClInclude Include="FileUtil.h" />
-    <ClInclude Include="IAssetProgramGenerator.h" />
+    <ClInclude Include="AssetConverterContext.h" />
+    <ClInclude Include="IAssetConverter.h" />
     <ClInclude Include="Logger.h" />
-    <ClInclude Include="NotConverter.h" />
+    <ClInclude Include="MeshAssetEditor.h" />
+    <ClInclude Include="ModelAssetEditor.h" />
+    <ClInclude Include="ModelAssetEntity.h" />
+    <ClInclude Include="ModelAssetExporter.h" />
+    <ClInclude Include="ModelAssetImporter.h" />
+    <ClInclude Include="AssetInfo.h" />
+    <ClInclude Include="RawAssetConverterFactory.h" />
+    <ClInclude Include="RawAssetEditor.h" />
+    <ClInclude Include="RawAssetEntity.h" />
+    <ClInclude Include="RawAssetExporter.h" />
+    <ClInclude Include="RawAssetImporter.h" />
     <ClInclude Include="RuntimeSetting.h" />
     <ClInclude Include="Setting.h" />
-    <ClInclude Include="StaticModelConverter.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AssetManager.cpp" />
-    <ClCompile Include="AssetProgramGenerator.cpp" />
+    <ClCompile Include="AssetConverterContext.cpp" />
+    <ClCompile Include="AssetConverterManager.cpp" />
+    <ClCompile Include="AssetMetaData.cpp" />
+    <ClCompile Include="Director.cpp" />
     <ClCompile Include="AssetProgramGenerator_definition.cpp" />
     <ClCompile Include="AssetProgramGenerator_namespace.cpp" />
     <ClCompile Include="AssimpMaterialSystemImporter.cpp" />
-    <ClCompile Include="AssimpMathImporter.cpp" />
-    <ClCompile Include="AssimpModelImporter.cpp" />
     <ClCompile Include="AssimpStaticModelImporter.cpp" />
-    <ClCompile Include="BaseConverter.cpp" />
     <ClCompile Include="FileUtil.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="NotConverter.cpp" />
+    <ClCompile Include="MeshAssetEditor.cpp" />
+    <ClCompile Include="ModelAssetImporter.cpp" />
+    <ClCompile Include="AssetInfo.cpp" />
+    <ClCompile Include="RawAssetConverterFactory.cpp" />
+    <ClCompile Include="RawAssetEditor.cpp" />
+    <ClCompile Include="RawAssetExporter.cpp" />
+    <ClCompile Include="RawAssetImporter.cpp" />
     <ClCompile Include="Setting.cpp" />
-    <ClCompile Include="StaticModelConverter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Asset\Asset.vcxproj">

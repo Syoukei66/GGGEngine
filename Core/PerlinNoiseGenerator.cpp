@@ -113,7 +113,7 @@ T_FLOAT PerlinNoiseGenerator::Noise1D(T_FLOAT x, T_FLOAT frequency)
 {
   const T_INT32 v = XorShift32(this->seed_);
   x *= frequency;
-  T_INT32 i0 = floor(x);
+  T_INT32 i0 = (T_INT32)floorf(x);
   const T_FLOAT t0 = x - i0;
   const T_FLOAT t1 = t0 - 1.0f;
   i0 = (i0 + v) & hashMask;
@@ -122,8 +122,8 @@ T_FLOAT PerlinNoiseGenerator::Noise1D(T_FLOAT x, T_FLOAT frequency)
   const T_FLOAT g0 = gradients1D[hash[i0] & gradientsMask1D];
   const T_FLOAT g1 = gradients1D[hash[i1] & gradientsMask1D];
 
-  const T_INT32 v0 = g0 * t0;
-  const T_INT32 v1 = g1 * t1;
+  const T_FLOAT v0 = g0 * t0;
+  const T_FLOAT v1 = g1 * t1;
 
   const T_FLOAT t = Smooth(t0);
 
@@ -135,14 +135,14 @@ T_FLOAT PerlinNoiseGenerator::Noise2D(T_FLOAT x, T_FLOAT y, T_FLOAT frequency)
   const T_INT32 v = XorShift32(this->seed_);
 
   x *= frequency;
-  T_INT32 ix0 = floorf(x);
+  T_INT32 ix0 = (T_INT32)floorf(x);
   const T_FLOAT tx0 = x - ix0;
   const T_FLOAT tx1 = tx0 - 1.0f;
   ix0 = (ix0 + v) & hashMask;
   const T_INT32 ix1 = ix0 + 1;
 
   y *= frequency;
-  T_INT32 iy0 = floorf(y);
+  T_INT32 iy0 = (T_INT32)floorf(y);
   const T_FLOAT ty0 = y - iy0;
   const T_FLOAT ty1 = ty0 - 1.0f;
   iy0 = (iy0 + v) & hashMask;

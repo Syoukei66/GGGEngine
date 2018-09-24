@@ -13,11 +13,11 @@
 // =================================================================
 void _spAtlasPage_createTexture(spAtlasPage* self, const char* path)
 {
-  TextureAsset* texture_asset = AssetManager::GetInstance().GetAsset<TextureAsset>(path);
-  rcTexture* texture = texture_asset->CreateFromFile();
-  self->rendererObject = (void*)texture;
-  self->width = texture->GetWidth();
-  self->height = texture->GetHeight();
+  //TextureAsset* texture_asset = AssetManager::GetInstance().GetAsset<TextureAsset>(path);
+  //rcTexture* texture = texture_asset->CreateFromFile();
+  //self->rendererObject = (void*)texture;
+  //self->width = texture->GetWidth();
+  //self->height = texture->GetHeight();
 }
 
 void _spAtlasPage_disposeTexture(spAtlasPage* self)

@@ -23,8 +23,7 @@ MeshBuilder_Plane::MeshBuilder_Plane()
 {
 }
 
-rcCustomMesh* MeshBuilder_Plane::CreateMesh() const
+rcMesh* MeshBuilder_Plane::CreateMesh(bool read_only) const
 {
-  return MeshFactory::Plane::Create(format, scale_x, scale_y, resolution_x, resolution_y, tile_count_x, tile_count_y);
+  return MeshFactory::Plane::Create(format, scale_x, scale_y, resolution_x, resolution_y, tile_count_x, tile_count_y, read_only);
 }
-

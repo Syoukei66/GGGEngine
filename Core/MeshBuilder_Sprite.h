@@ -8,6 +8,6 @@ public:
   MeshBuilder_Sprite();
 
 public:
-  virtual rcCustomMesh* CreateMesh() const override;
+  virtual rcMesh* CreateMesh(bool read_only) const override;
 
 };

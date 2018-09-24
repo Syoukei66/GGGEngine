@@ -1,6 +1,6 @@
 #include "MeshFactory_Cube.h"
 
-static void CreateFaceVertices(T_UINT32& i, const TVec3f& normal, T_UINT32 format, const TVec3f& scale, T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, const TVec3f& tile_count, rcCustomMesh* dest)
+static void CreateFaceVertices(T_UINT32& i, const TVec3f& normal, T_UINT32 format, const TVec3f& scale, T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, const TVec3f& tile_count, rcMesh* dest)
 {
   using namespace Graphics;
 
@@ -57,7 +57,7 @@ static void CreateFaceVertices(T_UINT32& i, const TVec3f& normal, T_UINT32 forma
   }
 }
 
-static void CreateVertices(T_UINT32 format, const TVec3f& scale, T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, const TVec3f& tile_count, rcCustomMesh* dest)
+static void CreateVertices(T_UINT32 format, const TVec3f& scale, T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, const TVec3f& tile_count, rcMesh* dest)
 {
   T_UINT32 v = 0;
   CreateFaceVertices(v, TVec3f::back, format, scale, resolution_x, resolution_y, resolution_z, tile_count, dest);
@@ -68,7 +68,7 @@ static void CreateVertices(T_UINT32 format, const TVec3f& scale, T_UINT32 resolu
   CreateFaceVertices(v, TVec3f::down, format, scale, resolution_x, resolution_y, resolution_z, tile_count, dest);
 }
 
-static int SetQuad(T_UINT32 i, T_UINT32 v00, T_UINT32 v10, T_UINT32 v01, T_UINT32 v11, rcCustomMesh* dest)
+static int SetQuad(T_UINT32 i, T_UINT32 v00, T_UINT32 v10, T_UINT32 v01, T_UINT32 v11, rcMesh* dest)
 {
   dest->SetIndex(i, v00);
 
@@ -83,7 +83,7 @@ static int SetQuad(T_UINT32 i, T_UINT32 v00, T_UINT32 v10, T_UINT32 v01, T_UINT3
   return i + 6;
 }
 
-static void CreateFaceTriangles(T_UINT32& t, T_UINT32& v, const TVec3f& normal, T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, rcCustomMesh* dest)
+static void CreateFaceTriangles(T_UINT32& t, T_UINT32& v, const TVec3f& normal, T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, rcMesh* dest)
 {
   const TVec3f tangent = normal.x == 0.0f && normal.z == 0.0f ? TVec3f::OuterProduct(normal, TVec3f::forward) : TVec3f::OuterProduct(normal, TVec3f::up);
   const TVec3f binormal = TVec3f::OuterProduct(tangent, normal);
@@ -101,7 +101,7 @@ static void CreateFaceTriangles(T_UINT32& t, T_UINT32& v, const TVec3f& normal, 
   v += xSize + 1;
 }
 
-static void CreateTriangles(T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, rcCustomMesh* dest)
+static void CreateTriangles(T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, rcMesh* dest)
 {
   T_UINT32 t = 0, v = 0;
   CreateFaceTriangles(t, v, TVec3f::back, resolution_x, resolution_y, resolution_z, dest);
@@ -112,14 +112,15 @@ static void CreateTriangles(T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT
   CreateFaceTriangles(t, v, TVec3f::down, resolution_x, resolution_y, resolution_z, dest);
 }
 
-rcCustomMesh* MeshFactory::Cube::Create(
+rcMesh* MeshFactory::Cube::Create(
   T_UINT32 format,
   T_FLOAT scale_x, T_FLOAT scale_y, T_FLOAT scale_z,
   T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z,
-  T_FLOAT tile_count_x, T_FLOAT tile_count_y, T_FLOAT tile_count_z
+  T_FLOAT tile_count_x, T_FLOAT tile_count_y, T_FLOAT tile_count_z,
+  bool read_only
 )
 {
-  rcCustomMesh* ret = rcCustomMesh::Create();
+  rcMesh* ret = rcMesh::Create();
 
   const T_UINT32 zFaceVertices = (resolution_x + 1) * (resolution_y + 1);
   const T_UINT32 xFaceVertices = (resolution_y + 1) * (resolution_z + 1);
@@ -142,6 +143,6 @@ rcCustomMesh* MeshFactory::Cube::Create(
   CreateVertices(format, { scale_x, scale_y, scale_z }, resolution_x, resolution_y, resolution_z, { tile_count_x, tile_count_y, tile_count_z }, ret);
   CreateTriangles(resolution_x, resolution_y, resolution_z, ret);
 
-  ret->CommitChanges();
+  ret->CommitChanges(read_only);
   return ret;
 }

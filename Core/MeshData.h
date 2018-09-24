@@ -3,10 +3,10 @@
 #include "NativeType.h"
 #include "Bounds.h"
 
-struct StaticMeshData
+struct MeshData
 {
-  StaticMeshData() = default;
-  ~StaticMeshData()
+  MeshData() = default;
+  ~MeshData()
   {
     delete[] this->data_;
     delete[] this->indices_;
@@ -31,7 +31,7 @@ struct StaticMeshData
   //=============================================================================
   // Serealizer / Deserealizer
   //=============================================================================
-  static StaticMeshData* Deserealize(const std::string& path);
+  static MeshData* Deserealize(const std::string& path);
   void Serealize(const std::string& path, bool test = false);
 
 };

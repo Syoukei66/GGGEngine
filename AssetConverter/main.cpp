@@ -9,15 +9,11 @@
 #include <assimp\scene.h>
 
 #include "../Asset/CerealStaticModelIO.h"
-#include "../Asset/CerealIO.h"
+#include "../Core/CerealIO.h"
 
-#include "AssimpStaticModelImporter.h"
-#include "AssetManager.h"
-
-#include "StaticModelConverter.h"
-#include "NotConverter.h"
-
+#include "AssetConverterManager.h"
 #include "AssetProgramGenerator.h"
+#include "Director.h"
 
 static const char* MODEL_PATH = "test.model";
 
@@ -69,85 +65,34 @@ void Test()
   //delete load_data;
 }
 
-static const char* SETTING_PATH = "./ConvertConfig.json";
-
 int main()
 {
   _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-  Setting* setting = CerealIO::Json::SafeImport<Setting>(SETTING_PATH);
+  Director* director = &Director::GetInstance();
 
-  if (!setting)
-  {
-    setting = Setting::Create();
-  }
+  director->Init();
 
-  OldAssetManager* asset_manager = &OldAssetManager::GetInstance();
+  //StaticModelConverter static_model_converter = StaticModelConverter();
+  //NotConverter texture_converter = NotConverter({ "jpg", "png" }, "rcTexture", "rcTexture");
+  //NotConverter sound_converter = NotConverter({ "wav", "mp3" }, "rcSound", "rcSound");
+  //NotConverter shader_converter = NotConverter({ "cso" }, "rcShader", "rcShader");
+  //NotConverter csv_converter = NotConverter({ "csv" }, "CSV", "rcCsvData");
+  //NotConverter json_converter = NotConverter({ "json" }, "JSON", "rcJsonData");
 
-  asset_manager->Init(setting);
+  //RuntimeSetting::SetDebugFlag(RuntimeSetting::CONVERTER_TEST);
+
+  //asset_manager->AddConverter(&static_model_converter);
+  //asset_manager->AddConverter(&texture_converter);
+  //asset_manager->AddConverter(&sound_converter);
+  //asset_manager->AddConverter(&shader_converter);
+  //asset_manager->AddConverter(&csv_converter);
+  //asset_manager->AddConverter(&json_converter);
+
+  director->Import();
   
-  StaticModelConverter static_model_converter = StaticModelConverter();
-  NotConverter texture_converter = NotConverter({ "jpg", "png" }, "rcTexture", "rcTexture");
-  NotConverter sound_converter = NotConverter({ "wav", "mp3" }, "rcSound", "rcSound");
-  NotConverter shader_converter = NotConverter({ "cso" }, "rcShader", "rcShader");
-  NotConverter csv_converter = NotConverter({ "csv" }, "CSV", "rcCsvData");
-  NotConverter json_converter = NotConverter({ "json" }, "JSON", "rcJsonData");
-
-  RuntimeSetting::SetDebugFlag(RuntimeSetting::CONVERTER_TEST);
-
-  asset_manager->AddConverter(&static_model_converter);
-  asset_manager->AddConverter(&texture_converter);
-  asset_manager->AddConverter(&sound_converter);
-  asset_manager->AddConverter(&shader_converter);
-  asset_manager->AddConverter(&csv_converter);
-  asset_manager->AddConverter(&json_converter);
-
-  asset_manager->ScanAssetFolder();
-
-  //asset_manager->ClearCaches();
-
-  asset_manager->Convert();
-
-  asset_manager->SaveMetadatas();
-
-  CerealIO::Json::Export(SETTING_PATH, setting);
-
-  AssetProgram::Generator generator;
-
-  std::string header;
-  std::string cpp;
-
-  generator.Generate(*asset_manager, &header, &cpp);
-
-  std::cout << "//======================================" << std::endl;
-  std::cout << "//Asset.h" << std::endl;
-  std::cout << "//======================================" << std::endl;
-  std::cout << header << std::endl;
-
-  std::cout << "//======================================" << std::endl;
-  std::cout << "//Asset.cpp" << std::endl;
-  std::cout << "//======================================" << std::endl;
-  std::cout << cpp << std::endl;
-
-  //write headder program
-  const std::string header_path = setting->project_path + "/" + "Asset.h";
-  std::ofstream output_header(header_path);
-  if (output_header)
-  {
-    output_header << header;
-    output_header.close();
-  }
-
-  //write headder program
-  const std::string cpp_path = setting->project_path + "/" + "Asset.cpp";
-  std::ofstream output_cpp(cpp_path);
-  if (output_cpp)
-  {
-    output_cpp << cpp;
-    output_cpp.close();
-  }
-
-  delete setting;
+  director->Export();
+  director->CreateProgram();
 
   std::cout << "\n終了するには何かキーを押してください。" << std::endl;
   getchar();

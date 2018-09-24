@@ -19,7 +19,7 @@ protected:
 protected:
   rcCsvData* LoadProcess(const std::string& path) override
   {
-    return rcCsvData::LoadProcess(path.c_str());
+    return rcCsvData::CreateFromFile(path.c_str());
   }
 
 };

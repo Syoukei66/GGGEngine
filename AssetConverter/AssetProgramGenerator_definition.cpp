@@ -1,26 +1,26 @@
 #include "AssetProgramGenerator_definition.h"
 
-AssetProgram::DefinitionGenerator::DefinitionGenerator(const std::string& asset_name, const std::string& class_name)
+DefinitionGenerator::DefinitionGenerator(const std::string& asset_name, const std::string& class_name)
   : asset_name_(asset_name)
   , class_name_(class_name)
 {
 }
 
-AssetProgram::DefinitionGenerator::~DefinitionGenerator()
+DefinitionGenerator::~DefinitionGenerator()
 {
 }
 
-std::string AssetProgram::DefinitionGenerator::CreateHeaderProgram(AssetInfo* info) const
+std::string DefinitionGenerator::CreateHeaderProgram(const AssetInfo* info) const
 {
-  return "extern " + this->CreateContainerNameAlias() + " " + info->program_id + ";\n";
+  return "extern " + this->CreateContainerNameAlias() + " " + info->GetProgramId() + ";\n";
 }
 
-std::string AssetProgram::DefinitionGenerator::CreateCppProgram(AssetInfo* info) const
+std::string DefinitionGenerator::CreateCppProgram(const AssetInfo* info) const
 {
-  return this->CreateContainerNameAlias() + " " + info->program_id  + " = " + "OldAssetManager::GetInstance().Register<" + this->CreateTypeNameAlias() + ">(" + std::to_string(info->meta_data->unique_id) + ", \"" + info->extension + "\");\n";
+  return this->CreateContainerNameAlias() + " " + info->GetProgramId() + " = " + "Director::GetInstance().Register<" + this->CreateTypeNameAlias() + ">(" + std::to_string(info->GetUniqueId()) + ", \"" + info->GetExtension() + "\");\n";
 }
 
-std::string AssetProgram::DefinitionGenerator::CreateTypeName() const
+std::string DefinitionGenerator::CreateTypeName() const
 {
   std::string type_name = std::string();
 
@@ -33,12 +33,12 @@ std::string AssetProgram::DefinitionGenerator::CreateTypeName() const
   return type_name;
 }
 
-std::string AssetProgram::DefinitionGenerator::CreateTypeNameAlias() const
+std::string DefinitionGenerator::CreateTypeNameAlias() const
 {
   return "T_";
 }
 
-std::string AssetProgram::DefinitionGenerator::CreateContainerNameAlias() const
+std::string DefinitionGenerator::CreateContainerNameAlias() const
 {
   return "Cont_";
 }

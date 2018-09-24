@@ -1,15 +1,15 @@
 #pragma once
 
 #include "Asset.h"
-#include "StaticMesh.h"
+#include "Mesh.h"
 
-class StaticMeshAsset : public Asset<StaticMeshAsset, rcStaticMesh>
+class MeshAsset : public Asset<MeshAsset, rcMesh>
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 protected:
-  StaticMeshAsset(const std::string& path)
+  MeshAsset(const std::string& path)
     : Asset(path)
   {}
 
@@ -17,10 +17,10 @@ protected:
   // Methods
   // =================================================================
 protected:
-  rcStaticMesh* LoadProcess(const std::string& path) override
+  rcMesh* LoadProcess(const std::string& path) override
   {
-    StaticMeshData* data = StaticMeshData::Deserealize(path);
-    rcStaticMesh* ret = rcStaticMesh::Create(*data);
+    MeshData* data = MeshData::Deserealize(path);
+    rcMesh* ret = rcMesh::Create(data);
     delete data;
     return ret;
   }

@@ -5,7 +5,7 @@ MeshBuilder_Sprite::MeshBuilder_Sprite()
 {
 }
 
-rcCustomMesh* MeshBuilder_Sprite::CreateMesh() const
+rcMesh* MeshBuilder_Sprite::CreateMesh(bool read_only) const
 {
-  return MeshFactory::Sprite::Create();
+  return MeshFactory::Sprite::Create(read_only);
 }

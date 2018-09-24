@@ -1,13 +1,14 @@
 #include "MeshFactory_Plane.h"
 
-rcCustomMesh* MeshFactory::Plane::Create(
+rcMesh* MeshFactory::Plane::Create(
   T_UINT32 format,
   T_FLOAT scale_x, T_FLOAT scale_y,
   T_UINT32 resolution_x, T_UINT32 resolution_y,
-  T_FLOAT tile_count_x, T_FLOAT tile_count_y
+  T_FLOAT tile_count_x, T_FLOAT tile_count_y, 
+  bool read_only
 )
 {
-  rcCustomMesh* ret = rcCustomMesh::Create();
+  rcMesh* ret = rcMesh::Create();
   const T_UINT32 vertex_count = (resolution_x + 1) * (resolution_y + 1);
   const T_UINT32 index_count = resolution_x * resolution_y * 6;
 
@@ -77,6 +78,6 @@ rcCustomMesh* MeshFactory::Plane::Create(
       ret->SetIndex(ti + 5, vi + resolution_x + 2);
     }
   }
-  ret->CommitChanges();
+  ret->CommitChanges(read_only);
   return ret;
 }

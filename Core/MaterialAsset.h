@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Asset.h"
-#include "CustomMaterial.h"
+#include "Material.h"
 
-class MaterialAsset : public Asset<MaterialAsset, rcCustomMaterial>
+class MaterialAsset : public Asset<MaterialAsset, rcMaterial>
 {
   // =================================================================
   // Constructor / Destructor
@@ -17,10 +17,10 @@ protected:
   // Methods
   // =================================================================
 protected:
-  rcCustomMaterial* LoadProcess(const std::string& path) override
+  rcMaterial* LoadProcess(const std::string& path) override
   {
     MaterialData* data = MaterialData::Deserealize(path);
-    rcCustomMaterial* ret = rcCustomMaterial::Create(*data);
+    rcMaterial* ret = rcMaterial::Create(data);
     delete data;
     return ret;
   }

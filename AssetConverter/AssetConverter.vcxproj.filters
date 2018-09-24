@@ -16,32 +16,8 @@
     <Filter Include="ソース ファイル\Asset">
       <UniqueIdentifier>{965a814d-fef3-4eb1-92f2-e98e0e18b163}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Asset\_Base">
-      <UniqueIdentifier>{0e9df78f-b7f0-4639-864d-b7c61b057287}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Asset\Model">
-      <UniqueIdentifier>{b5ab8902-0fd3-454f-b24f-24e1a1b830bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Asset\Texture">
-      <UniqueIdentifier>{0b50f16b-5306-45a2-9bff-ed6d3e85de1a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Asset\_Base\Converter">
-      <UniqueIdentifier>{5e49ccba-09fa-4d1a-9987-e3a6c2d48849}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Asset\Model\Converter">
-      <UniqueIdentifier>{f607eec2-5f79-41fd-986a-eb4e93073ec1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Asset\Texture\Converter">
-      <UniqueIdentifier>{074d8c49-6863-42de-941c-abed4bb2864c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Asset\Texture\Test">
-      <UniqueIdentifier>{508cb607-616f-4227-a5af-beb74ae47100}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Assimp">
       <UniqueIdentifier>{54c59830-6364-407e-a131-15c94d3e8fde}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Debug">
-      <UniqueIdentifier>{1c894e57-0c8e-4bf5-bcea-8bcfd0054740}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\ProgramGenerator">
       <UniqueIdentifier>{732889fb-d23f-42c3-94bc-dea539126c3b}</UniqueIdentifier>
@@ -55,35 +31,8 @@
     <Filter Include="ヘッダー ファイル\Asset">
       <UniqueIdentifier>{d6a7f732-4838-4eef-996d-cc49b197107e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\_Base">
-      <UniqueIdentifier>{4b269116-cf9c-48c3-8a41-5673313435d9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\Model">
-      <UniqueIdentifier>{ffa64c0a-a576-4a66-ac62-8138da001933}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\Shader">
-      <UniqueIdentifier>{0f0515b2-4e75-4d6e-ae50-242d40bd22a4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\Sound">
-      <UniqueIdentifier>{810d770f-2d90-4834-845e-74379ea84d03}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\Text">
-      <UniqueIdentifier>{c397fa74-2e44-4fb9-93a6-bb7b98a7f7da}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\Texture">
-      <UniqueIdentifier>{7c64e17e-4b87-40fb-8a44-8b3307c8eb18}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\Model\Converter">
-      <UniqueIdentifier>{160afd41-93ff-4a0d-8782-798ff55cb939}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\_Base\Converter">
-      <UniqueIdentifier>{a1fdd16a-c879-4bfa-ab8f-87539877a2f2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Assimp">
       <UniqueIdentifier>{508a2cf0-873b-4e8e-b8f1-9fc2062abf37}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Debug">
-      <UniqueIdentifier>{f108d574-362f-49fb-907e-4b4044e38476}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\ProgramGenerator">
       <UniqueIdentifier>{b74f0635-85a3-499f-b02b-c70214402a37}</UniqueIdentifier>
@@ -94,27 +43,30 @@
     <Filter Include="ヘッダー ファイル\Setting">
       <UniqueIdentifier>{0b86e6a4-8a86-4e45-ad24-3db6cb2b6478}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Asset\Raw">
+      <UniqueIdentifier>{9229604e-de0a-41f2-af46-152dcc8b25fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Asset\Model">
+      <UniqueIdentifier>{53d84b21-4595-4ccf-a5cb-fafc426556d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Asset\Mesh">
+      <UniqueIdentifier>{930f59f9-f897-4e10-9b6a-28c39dbd917c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Asset\Mesh">
+      <UniqueIdentifier>{78f6c46d-4a55-4ef9-bec1-4cad02f5289f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Asset\Model">
+      <UniqueIdentifier>{c6ca1e2b-7f12-4c11-9084-ef156224848d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Asset\Raw">
+      <UniqueIdentifier>{ac34e0f9-55c2-47b7-a941-1f6a0de627ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Asset\_Base">
+      <UniqueIdentifier>{c5edbf77-3354-4be7-bb16-f8bf672f0ee0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="StaticModelConverter.h">
-      <Filter>ヘッダー ファイル\Asset\Model\Converter</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseConverter.h">
-      <Filter>ヘッダー ファイル\Asset\_Base\Converter</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetInfo.h">
-      <Filter>ヘッダー ファイル\Asset</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetManager.h">
-      <Filter>ヘッダー ファイル\Asset</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetMetaData.h">
-      <Filter>ヘッダー ファイル\Asset</Filter>
-    </ClInclude>
     <ClInclude Include="AssimpMaterialSystemImporter.h">
-      <Filter>ヘッダー ファイル\Assimp</Filter>
-    </ClInclude>
-    <ClInclude Include="AssimpMathImporter.h">
       <Filter>ヘッダー ファイル\Assimp</Filter>
     </ClInclude>
     <ClInclude Include="AssimpModelImporter.h">
@@ -123,23 +75,11 @@
     <ClInclude Include="AssimpStaticModelImporter.h">
       <Filter>ヘッダー ファイル\Assimp</Filter>
     </ClInclude>
-    <ClInclude Include="Logger.h">
-      <Filter>ヘッダー ファイル\Debug</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetProgramGenerator.h">
-      <Filter>ヘッダー ファイル\ProgramGenerator</Filter>
-    </ClInclude>
     <ClInclude Include="AssetProgramGenerator_namespace.h">
-      <Filter>ヘッダー ファイル\ProgramGenerator</Filter>
-    </ClInclude>
-    <ClInclude Include="IAssetProgramGenerator.h">
       <Filter>ヘッダー ファイル\ProgramGenerator</Filter>
     </ClInclude>
     <ClInclude Include="FileUtil.h">
       <Filter>ヘッダー ファイル\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="NotConverter.h">
-      <Filter>ヘッダー ファイル\Asset\_Base\Converter</Filter>
     </ClInclude>
     <ClInclude Include="Setting.h">
       <Filter>ヘッダー ファイル\Setting</Filter>
@@ -150,40 +90,88 @@
     <ClInclude Include="AssetProgramGenerator_definition.h">
       <Filter>ヘッダー ファイル\ProgramGenerator</Filter>
     </ClInclude>
+    <ClInclude Include="AssetMetaData.h">
+      <Filter>ヘッダー ファイル\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetInfo.h">
+      <Filter>ヘッダー ファイル\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="Director.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetProgramGenerator.h">
+      <Filter>ヘッダー ファイル\ProgramGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="RawAssetImporter.h">
+      <Filter>ヘッダー ファイル\Asset\Raw</Filter>
+    </ClInclude>
+    <ClInclude Include="RawAssetEditor.h">
+      <Filter>ヘッダー ファイル\Asset\Raw</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshAssetEditor.h">
+      <Filter>ヘッダー ファイル\Asset\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetEditor.h">
+      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetExporter.h">
+      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetImporter.h">
+      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetConverterContext.h">
+      <Filter>ヘッダー ファイル\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="Extensions.h">
+      <Filter>ヘッダー ファイル\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>ヘッダー ファイル\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="RawAssetEntity.h">
+      <Filter>ヘッダー ファイル\Asset\Raw</Filter>
+    </ClInclude>
+    <ClInclude Include="RawAssetExporter.h">
+      <Filter>ヘッダー ファイル\Asset\Raw</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetConverter.h">
+      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetEntity.h">
+      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
+    </ClInclude>
+    <ClInclude Include="RawAssetConverterFactory.h">
+      <Filter>ヘッダー ファイル\Asset\Raw</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetConverterFactory.h">
+      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetConverterManager.h">
+      <Filter>ヘッダー ファイル\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelAssetEditor.h">
+      <Filter>ヘッダー ファイル\Asset\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelAssetEntity.h">
+      <Filter>ヘッダー ファイル\Asset\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelAssetExporter.h">
+      <Filter>ヘッダー ファイル\Asset\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelAssetImporter.h">
+      <Filter>ヘッダー ファイル\Asset\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="IAssetConverter.h">
+      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="AssetManager.cpp">
-      <Filter>ソース ファイル\Asset</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseConverter.cpp">
-      <Filter>ソース ファイル\Asset\_Base\Converter</Filter>
-    </ClCompile>
-    <ClCompile Include="NotConverter.cpp">
-      <Filter>ソース ファイル\Asset\_Base\Converter</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticModelConverter.cpp">
-      <Filter>ソース ファイル\Asset\Model\Converter</Filter>
-    </ClCompile>
     <ClCompile Include="AssimpMaterialSystemImporter.cpp">
-      <Filter>ソース ファイル\Assimp</Filter>
-    </ClCompile>
-    <ClCompile Include="AssimpMathImporter.cpp">
-      <Filter>ソース ファイル\Assimp</Filter>
-    </ClCompile>
-    <ClCompile Include="AssimpModelImporter.cpp">
       <Filter>ソース ファイル\Assimp</Filter>
     </ClCompile>
     <ClCompile Include="AssimpStaticModelImporter.cpp">
       <Filter>ソース ファイル\Assimp</Filter>
-    </ClCompile>
-    <ClCompile Include="Logger.cpp">
-      <Filter>ソース ファイル\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="AssetProgramGenerator.cpp">
-      <Filter>ソース ファイル\ProgramGenerator</Filter>
     </ClCompile>
     <ClCompile Include="AssetProgramGenerator_namespace.cpp">
       <Filter>ソース ファイル\ProgramGenerator</Filter>
@@ -196,6 +184,45 @@
     </ClCompile>
     <ClCompile Include="AssetProgramGenerator_definition.cpp">
       <Filter>ソース ファイル\ProgramGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetMetaData.cpp">
+      <Filter>ソース ファイル\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetInfo.cpp">
+      <Filter>ソース ファイル\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Director.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshAssetEditor.cpp">
+      <Filter>ソース ファイル\Asset\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="RawAssetEditor.cpp">
+      <Filter>ソース ファイル\Asset\Raw</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>ソース ファイル\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="RawAssetExporter.cpp">
+      <Filter>ソース ファイル\Asset\Raw</Filter>
+    </ClCompile>
+    <ClCompile Include="RawAssetImporter.cpp">
+      <Filter>ソース ファイル\Asset\Raw</Filter>
+    </ClCompile>
+    <ClCompile Include="RawAssetConverterFactory.cpp">
+      <Filter>ソース ファイル\Asset\Raw</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetConverterManager.cpp">
+      <Filter>ソース ファイル\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelAssetImporter.cpp">
+      <Filter>ソース ファイル\Asset\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetConverterContext.cpp">
+      <Filter>ソース ファイル\Asset</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

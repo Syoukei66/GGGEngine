@@ -9,7 +9,7 @@ public:
   MeshBuilder_Plane();
 
 public:
-  virtual rcCustomMesh* CreateMesh() const override;
+  virtual rcMesh* CreateMesh(bool read_only) const override;
 
 public:
   T_UINT32 format;

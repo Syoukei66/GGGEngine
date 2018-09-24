@@ -1,20 +1,18 @@
 #pragma once
 
 #include <string>
-#include "IAssetProgramGenerator.h"
 
-namespace AssetProgram
-{
+#include "AssetInfo.h"
 
-class DefinitionGenerator : public IProgramGenerator
+class DefinitionGenerator
 {
 public:
   DefinitionGenerator(const std::string& asset_name, const std::string& class_name);
   ~DefinitionGenerator();
 
 public:
-  std::string CreateHeaderProgram(AssetInfo* info) const override;
-  std::string CreateCppProgram(AssetInfo* info) const override;
+  std::string CreateHeaderProgram(const AssetInfo* info) const;
+  std::string CreateCppProgram(const AssetInfo* info) const;
   std::string CreateTypeName() const;
   std::string CreateTypeNameAlias() const;
   std::string CreateContainerNameAlias() const;
@@ -34,6 +32,4 @@ private:
   std::string asset_name_;
   std::string class_name_;
 };
-
-}
 

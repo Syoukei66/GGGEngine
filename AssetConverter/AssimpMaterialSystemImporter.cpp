@@ -2,7 +2,7 @@
 
 #include <assimp\scene.h>
 
-namespace ModelImporter
+namespace ModelAssetImporter
 {
 
 namespace Assimp

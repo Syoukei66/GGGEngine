@@ -1,11 +1,11 @@
 #pragma once
 
-#include "CustomMesh.h"
+#include "Mesh.h"
 
 namespace MeshFactory
 {
 namespace Sprite
 {
-rcCustomMesh* Create();
+rcMesh* Create(bool read_only);
 }
 }
