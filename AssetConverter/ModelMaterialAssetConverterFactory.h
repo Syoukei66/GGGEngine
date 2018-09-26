@@ -1,41 +1,29 @@
 #pragma once
 
-class AssetInfo;
+#include "AssetConverterFactory.h"
 
-#define ENTITY_ID(id) public:\
-enum { ID = id };
-
-class AssetEntity
+class ModelMaterialAssetConverterFactory : public AssetConverterFactory
 {
-protected:
-  enum EntityID
-  {
-    ID_RAW,
-    ID_MODEL,
-    ID_MODEL_MESH,
-    ID_MODEL_MATERIAL,
-  };
-
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  AssetEntity(AssetInfo* info);
-  virtual ~AssetEntity();
+  ModelMaterialAssetConverterFactory() = default;
 
   // =================================================================
-  // Setter / Getter
+  // Methods
   // =================================================================
 public:
-  inline AssetInfo* GetAssetInfo() const
-  {
-    return this->info_;
-  }
+  IAssetConverter* Create() const override;
+
+  // =================================================================
+  // Serializer
+  // =================================================================
+public:
 
   // =================================================================
   // Data Members
   // =================================================================
 private:
-  AssetInfo* info_;
 
 };

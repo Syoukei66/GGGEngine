@@ -1,14 +1,14 @@
 #pragma once
 
 #include "AssetExporter.h"
-#include "ModelAssetEntity.h"
+#include "ModelMeshAssetEntity.h"
 
-class ModelAssetExporter : public AssetExporter<ModelAssetEntity>
+class ModelMeshAssetExporter : public AssetExporter<ModelMeshAssetEntity>
 {
   // =================================================================
   // Methods
   // =================================================================
 protected:
-  void ExportProcess(ModelAssetEntity* entity, const AssetConverterContext* context) override;
+  void ExportProcess(ModelMeshAssetEntity* entity, const AssetConverterContext* context) override;
 
 };

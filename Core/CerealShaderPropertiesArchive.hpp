@@ -4,8 +4,8 @@
 #include "CerealStructArchive.hpp"
 #include "CerealArchiveMacro.hpp"
 #include "CerealIO.h"
-#include "SerealizerTester.h"
-#include "SerealizerTestMacro.hpp"
+#include "SerializerTester.h"
+#include "SerializerTestMacro.hpp"
 
 #include "cereal/types/polymorphic.hpp"
 

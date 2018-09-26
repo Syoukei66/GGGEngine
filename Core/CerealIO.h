@@ -29,6 +29,21 @@ T* Import(const char* path)
 }
 
 template <typename T>
+T* Import(const char* path, T* instance)
+{
+  using namespace std;
+  ifstream ifs(path, ios::in);
+  if (!ifs.is_open())
+  {
+    return nullptr;
+  }
+  ::cereal::JSONInputArchive i_archive(ifs);
+  T* ret = instance;
+  i_archive(cereal::make_nvp("root", *ret));
+  return ret;
+}
+
+template <typename T>
 T* SafeImport(const char* path)
 {
   using namespace std;
@@ -39,6 +54,29 @@ T* SafeImport(const char* path)
   }
   ::cereal::JSONInputArchive i_archive(ifs);
   T* ret = new T();
+  try
+  {
+    i_archive(cereal::make_nvp("root", *ret));
+    return ret;
+  }
+  catch (cereal::Exception e)
+  {
+    delete ret;
+  }
+  return nullptr;
+}
+
+template <typename T>
+T* SafeImport(const char* path, T* instance)
+{
+  using namespace std;
+  ifstream ifs(path, ios::in);
+  if (!ifs.is_open())
+  {
+    return nullptr;
+  }
+  ::cereal::JSONInputArchive i_archive(ifs);
+  T* ret = instance;
   try
   {
     i_archive(cereal::make_nvp("root", *ret));

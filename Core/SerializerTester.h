@@ -9,7 +9,7 @@
 #include "Matrix4x4.h"
 #include "Bounds.h"
 
-class SerealizerTester
+class SerializerTester
 {
 protected:
   void Compare(bool a, bool b);

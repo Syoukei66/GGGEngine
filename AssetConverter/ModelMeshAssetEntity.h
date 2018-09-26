@@ -1,41 +1,34 @@
 #pragma once
 
-class AssetInfo;
+#include "../Core/MeshData.h"
+#include "AssetEntity.h"
 
-#define ENTITY_ID(id) public:\
-enum { ID = id };
-
-class AssetEntity
+class ModelMeshAssetEntity : public AssetEntity
 {
-protected:
-  enum EntityID
-  {
-    ID_RAW,
-    ID_MODEL,
-    ID_MODEL_MESH,
-    ID_MODEL_MATERIAL,
-  };
-
+  ENTITY_ID(ID_MODEL_MESH)
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  AssetEntity(AssetInfo* info);
-  virtual ~AssetEntity();
+  ModelMeshAssetEntity(AssetInfo* info, MeshData* data, T_UINT32 model_unique_id);
+
+public:
+  ~ModelMeshAssetEntity();
 
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  inline AssetInfo* GetAssetInfo() const
+  inline const MeshData* GetMeshData() const
   {
-    return this->info_;
+    return this->data_;
   }
 
   // =================================================================
   // Data Members
   // =================================================================
 private:
-  AssetInfo* info_;
+  MeshData* data_;
+  T_UINT32 model_unique_id_;
 
 };

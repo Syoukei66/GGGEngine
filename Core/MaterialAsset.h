@@ -19,7 +19,7 @@ protected:
 protected:
   rcMaterial* LoadProcess(const std::string& path) override
   {
-    MaterialData* data = MaterialData::Deserealize(path);
+    MaterialData* data = MaterialData::Deserialize(path);
     rcMaterial* ret = rcMaterial::Create(data);
     delete data;
     return ret;

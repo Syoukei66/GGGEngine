@@ -23,9 +23,9 @@ struct MaterialData
   std::unordered_map<std::string, std::shared_ptr<ShaderProperty>> properties_;
 
   //=============================================================================
-  // Serealizer / Deserealizer
+  // Serializer / Deserializer
   //=============================================================================
-  static MaterialData* Deserealize(const std::string& path);
-  void Serealize(const std::string& path, bool test = false);
+  static MaterialData* Deserialize(const std::string& path);
+  void Serialize(const std::string& path, bool test = false);
 
 };

@@ -8,16 +8,14 @@ AssetConverterManager::AssetConverterManager(const Setting* setting)
 {
   //Converter�̍쐬
   this->AddConverter(setting->raw_asset_converter_factory.Create());
+  this->AddConverter(setting->model_asset_converter_factory.Create());
 }
 
 AssetConverterManager::~AssetConverterManager()
 {
-  for (auto& pair : this->converters_map_)
+  for (auto& pair : this->converter_map_)
   {
-    for (IAssetConverter* converter : pair.second)
-    {
-      delete converter;
-    }
+    delete pair.second;
   }
 }
 
@@ -26,14 +24,11 @@ AssetConverterManager::~AssetConverterManager()
 // =================================================================
 bool AssetConverterManager::Fire(const std::function<bool(IAssetConverter*)>& func)
 {
-  for (auto& pair : this->converters_map_)
+  for (auto& pair : this->converter_map_)
   {
-    for (IAssetConverter* converter : pair.second)
+    if (func(pair.second))
     {
-      if (func(converter))
-      {
-        return true;
-      }
+      return true;
     }
   }
   return false;
@@ -41,22 +36,16 @@ bool AssetConverterManager::Fire(const std::function<bool(IAssetConverter*)>& fu
 
 void AssetConverterManager::VisitAll(const std::function<void(IAssetConverter*)>& func)
 {
-  for (auto& pair : this->converters_map_)
+  for (auto& pair : this->converter_map_)
   {
-    for (IAssetConverter* converter : pair.second)
-    {
-      func(converter);
-    }
+    func(pair.second);
   }
 }
 
 void AssetConverterManager::VisitAll(const std::function<void(const IAssetConverter*)>& func) const
 {
-  for (auto& pair : this->converters_map_)
+  for (auto& pair : this->converter_map_)
   {
-    for (IAssetConverter* converter : pair.second)
-    {
-      func(converter);
-    }
+    func(pair.second);
   }
 }

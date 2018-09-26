@@ -10,17 +10,17 @@ static const char* META_DATA_EXTENSION = "meta";
 // =================================================================
 // Factory Method
 // =================================================================
-AssetMetaData* AssetMetaData::Create(const std::string& asset_path, AssetConverterContext* context)
+AssetMetaData* AssetMetaData::Create(const URI& uri, AssetConverterContext* context)
 {
-  const std::string path = asset_path + "." + META_DATA_EXTENSION;
+  const std::string path = FileUtil::CreateInputPath(uri.GetFullPath() + "." + META_DATA_EXTENSION);
   if (!std::ifstream(path).is_open())
   {
-    return new AssetMetaData(asset_path, context);
+    return new AssetMetaData(uri, context);
   }
   AssetMetaData* ret = CerealIO::Json::SafeImport<AssetMetaData>(path.c_str());
   if (!ret)
   {
-    ret = new AssetMetaData(asset_path, context);
+    ret = new AssetMetaData(uri, context);
   }
   return ret;
 }
@@ -28,13 +28,14 @@ AssetMetaData* AssetMetaData::Create(const std::string& asset_path, AssetConvert
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-AssetMetaData::AssetMetaData(const std::string& asset_path, AssetConverterContext* context)
-  : path_(asset_path)
+AssetMetaData::AssetMetaData(const URI& uri, AssetConverterContext* context)
+  : uri_(this->uri_)
 {
-  this->unique_id_ = context->GetUniqueIdTable()->Publish(asset_path);
+  this->unique_id_ = context->PublishUniqueID(uri);
 }
 
 AssetMetaData::AssetMetaData()
+  : uri_("")
 {
 }
 
@@ -43,7 +44,7 @@ AssetMetaData::AssetMetaData()
 // =================================================================
 void AssetMetaData::Save()
 {
-  const std::string path = this->path_ + "." + META_DATA_EXTENSION;
+  const std::string path = FileUtil::CreateInputPath(this->uri_.GetFullPath() + "." + META_DATA_EXTENSION);
   CerealIO::Json::Export(path.c_str(), this);
 }
 
@@ -62,7 +63,7 @@ void AssetMetaData::ResetTimeStamp()
 
 bool AssetMetaData::UpdateTimeStamp()
 {
-  const std::string time_stamp = Util::File::GetTimeStamp(this->path_);
+  const std::string time_stamp = FileUtil::GetTimeStamp(FileUtil::CreateInputPath(this->uri_.GetFullPath()));
   const bool asset_changed = time_stamp != this->time_stamp_;
   if (asset_changed)
   {

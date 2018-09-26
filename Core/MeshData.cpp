@@ -2,8 +2,8 @@
 #include "CerealStructArchive.hpp"
 #include "CerealArchiveMacro.hpp"
 #include "CerealIO.h"
-#include "SerealizerTester.h"
-#include "SerealizerTestMacro.hpp"
+#include "SerializerTester.h"
+#include "SerializerTestMacro.hpp"
 
 //=============================================================================
 // Cereal Archive
@@ -24,12 +24,12 @@ void serialize(Archive& archive, MeshData& value)
 }
 
 //=============================================================================
-// Serealizer Test
+// Serializer Test
 //=============================================================================
-class MeshDataSerealizerTester : public SerealizerTester
+class MeshDataSerializerTester : public SerializerTester
 {
 public:
-  using SerealizerTester::Compare;
+  using SerializerTester::Compare;
   void Compare(const MeshData& a, const MeshData& b)
   {
     PushState("StaticMeshData");
@@ -48,6 +48,6 @@ public:
 };
 
 //=============================================================================
-// Serealizer / Deserealizer
+// Serializer / Deserializer
 //=============================================================================
 SEREALIZERS(MeshData)

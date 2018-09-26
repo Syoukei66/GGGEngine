@@ -1,6 +1,7 @@
 #pragma once
 
 #include <functional>
+#include "../Core/NativeAssert.h"
 #include "Setting.h"
 
 class IAssetConverter;
@@ -43,7 +44,6 @@ public:
   template <class Type_, class Entity_>
   Type_* Find(const std::function<Type_*(AssetConverter<Entity_>*)>& func);
 
-
 private:
   inline void AddConverter(IAssetConverter* converter);
 
@@ -51,7 +51,7 @@ private:
   // Data Members
   // =================================================================
 private:
-  std::unordered_map<T_UINT32, std::vector<IAssetConverter*>> converters_map_;
+  std::unordered_map<T_UINT32, IAssetConverter*> converter_map_;
 
 };
 
@@ -61,63 +61,29 @@ private:
 template<class Entity_>
 inline bool AssetConverterManager::Fire(const std::function<bool(AssetConverter<Entity_>*)>& func)
 {
-  const std::vector<IAssetConverter*>& converters = this->converters_map_.at(Entity_::ID);
-  for (IAssetConverter* converter : converters)
-  {
-    if (func(converter))
-    {
-      return true;
-    }
-  }
-  return false;
+  return func((AssetConverter<Entity_>*)this->converter_map_.at(Entity_::ID));
 }
 
 //全てのConverterに対して処理を行う
 template<class Entity_>
 inline void AssetConverterManager::VisitAll(const std::function<void(AssetConverter<Entity_>*)>& func)
 {
-  const std::vector<IAssetConverter*>& converters = this->converters_map_.at(Entity_::ID);
-  for (IAssetConverter* converter : converters)
-  {
-    func((AssetConverter<Entity_>*)converter);
-  }
+  func((AssetConverter<Entity_>*)this->converter_map_.at(Entity_::ID));
 }
 
 template<class Entity_>
 inline void AssetConverterManager::VisitAll(const std::function<void(const AssetConverter<Entity_>*)>& func) const
 {
-  const std::vector<IAssetConverter*>& converters = this->converters_map_.at(Entity_::ID);
-  for (IAssetConverter* converter : converters)
-  {
-    func((AssetConverter<Entity_>*)converter);
-  }
+  func((AssetConverter<Entity_>*)this->converter_map_.at(Entity_::ID));
 }
 
 //値が帰ってくるまで検索する
 template<class Type_>
 inline Type_* AssetConverterManager::Find(const std::function<Type_*(IAssetConverter*)>& func)
 {
-  for (auto& pair : this->converters_map_)
+  for (auto& pair : this->converter_map_)
   {
-    for (IAssetConverter* converter : pair.second)
-    {
-      Type_* val = func(converter);
-      if (val)
-      {
-        return val;
-      }
-    }
-  }
-  return nullptr;
-}
-
-template<class Type_, class Entity_>
-inline Type_* AssetConverterManager::Find(const std::function<Type_*(AssetConverter<Entity_>*)>& func)
-{
-  const std::vector<IAssetConverter*>& converters = this->converters_map_.at(Entity_::ID);
-  for (IAssetConverter* converter : converters)
-  {
-    Type_* val = func(converter);
+    Type_* val = func(pair.second);
     if (val)
     {
       return val;
@@ -126,7 +92,14 @@ inline Type_* AssetConverterManager::Find(const std::function<Type_*(AssetConver
   return nullptr;
 }
 
+template<class Type_, class Entity_>
+inline Type_* AssetConverterManager::Find(const std::function<Type_*(AssetConverter<Entity_>*)>& func)
+{
+  return func((AssetConverter<Entity_>*)this->converter_map_.at(Entity_::ID));
+}
+
 inline void AssetConverterManager::AddConverter(IAssetConverter* converter)
 {
-  this->converters_map_[converter->GetID()].emplace_back(converter);
+  NATIVE_ASSERT(this->converter_map_.find(converter->GetID()) == this->converter_map_.end(), "同じAssetEntityを対象とする複数のコンバーターが存在します");
+  this->converter_map_[converter->GetID()] = converter;
 }

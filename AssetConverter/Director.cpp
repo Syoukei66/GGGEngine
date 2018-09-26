@@ -1,6 +1,5 @@
 #include "Director.h"
 
-#include <regex>
 #include <direct.h>
 #include "../Core/CerealIO.h"
 #include "../Core/Asset.h"
@@ -35,19 +34,10 @@ void Director::Import()
   //Importerが対応しているファイルのAssetInfoを作成
   //UniqueIdテーブルなどの作成
   //ImporterへのAssetInfoのセット
-  Util::File::Crawl(this->setting_->input_path + "/", [&](const std::string& directory_path, const std::string& file_name)
+  FileUtil::CrawlInputDirectory([&](const URI& uri)
   {
-    //対応する拡張子のRawデータを検索
-    std::regex re("(.*[^\\.]+)\\.([^\\.]+$)");
-    std::smatch result;
-    if (!std::regex_match(file_name, result, re))
-    {
-      return;
-    }
-    std::string extension = result[2];
-
     //拡張子に対応したconverterの取得
-    this->context_->Reserve(directory_path, file_name, extension);
+    this->context_->Reserve(uri);
   });
 
   //Converterのインポート予約が無くなるまでConverterのインポート処理
@@ -65,8 +55,6 @@ void Director::Import()
 void Director::Export()
 {
   //出力先ディレクトリの作成
-  _mkdir(this->setting_->output_path.c_str());
-
   this->converter_manager_->VisitAll([&](IAssetConverter* converter)
   {
     converter->Export(this->context_);
@@ -97,7 +85,7 @@ void Director::CreateProgram()
   std::cout << "//======================================" << std::endl;
   std::cout << header << std::endl;
 
-  const std::string header_path = this->setting_->project_path + "/" + "Asset.h";
+  const std::string header_path = FileUtil::CreateProjectFilePath("Asset.h");
   std::ofstream output_header(header_path);
   if (output_header)
   {
@@ -128,7 +116,7 @@ void Director::CreateProgram()
   std::cout << "//======================================" << std::endl;
   std::cout << cpp << std::endl;
 
-  const std::string cpp_path = this->setting_->project_path + "/" + "Asset.cpp";
+  const std::string cpp_path = FileUtil::CreateProjectFilePath("Asset.cpp");
   std::ofstream output_cpp(cpp_path);
   if (output_cpp)
   {

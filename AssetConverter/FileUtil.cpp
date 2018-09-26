@@ -5,7 +5,40 @@
 #include <iostream>
 #include <fstream>
 
-std::string Util::File::GetTimeStamp(const std::string & path)
+#include "AssetInfo.h"
+#include "Setting.h"
+
+static const std::string PROJECT_PATH = "./Project";
+static const std::string INPUT_PATH = "./Asset/Raw";
+static const std::string OUTPUT_PATH = "./Asset/Archive";
+static const std::string MID_DATA_PATH = "./Asset/Mid";
+
+std::string FileUtil::CreateFileName(const std::string& path, const std::string& extension)
+{
+  return path + "." + extension;
+}
+
+std::string FileUtil::CreateProjectFilePath(const std::string& path)
+{
+  return PROJECT_PATH + "/" + path;
+}
+
+std::string FileUtil::CreateInputPath(const URI& uri)
+{
+  return INPUT_PATH + "/" + uri.GetFullPath();
+}
+
+std::string FileUtil::CreateMidDataPath(const URI& uri)
+{
+  return MID_DATA_PATH + "/" + uri.GetFullPath();
+}
+
+std::string FileUtil::CreateOutputPath(const URI& uri)
+{
+  return OUTPUT_PATH + "/" + uri.GetFullPath();
+}
+
+std::string FileUtil::GetTimeStamp(const std::string& path)
 {
   HANDLE source_file = CreateFile(path.c_str(), GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
   FILETIME ft;
@@ -27,12 +60,12 @@ std::string Util::File::GetTimeStamp(const std::string & path)
   return ret;
 }
 
-void Util::File::Crawl(const std::string& directory_path, std::function<void(const std::string&directory_path, const std::string&file_name)> process)
+void Crawl(const std::string& root_path, const std::string& directory_path, std::function<void(const URI& uri)> process)
 {
   HANDLE handle;
   WIN32_FIND_DATA data;
 
-  std::string find_file = directory_path + "*";
+  std::string find_file = root_path + directory_path + "*";
   handle = FindFirstFile(find_file.c_str(), &data);
   if (handle == INVALID_HANDLE_VALUE)
   {
@@ -58,12 +91,17 @@ void Util::File::Crawl(const std::string& directory_path, std::function<void(con
     //ディレクトリだった場合はそのディレクトリに対しても処理を行う
     if (data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
     {
-      Crawl(directory_path + file_name + "/", process);
+      Crawl(root_path, directory_path + file_name, process);
       continue;
     }
 
-    process(directory_path, file_name);
+    process(URI(directory_path, file_name));
   } while (FindNextFile(handle, &data));
 
   FindClose(handle);
+}
+
+void FileUtil::CrawlInputDirectory(std::function<void(const URI& uri)> process)
+{
+  Crawl(INPUT_PATH + "/", "", process);
 }

@@ -1,5 +1,6 @@
 #include "AssetConverterContext.h"
 #include "../Core/CerealIO.h"
+#include "Setting.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -23,18 +24,27 @@ AssetConverterContext::~AssetConverterContext()
 // =================================================================
 // Methods
 // =================================================================
-AssetInfo* AssetConverterContext::Reserve(const std::string& directory_path, const std::string& file_name, const std::string& extension)
+AssetInfo* AssetConverterContext::Reserve(const URI& uri)
 {
+  //既にインポート済みであればそのAssetInfoをリターン
+  const auto& itr = this->infos_.find(this->PublishUniqueID(uri));
+  if (itr != this->infos_.end())
+  {
+    return itr->second;
+  }
+
+  //Infoが生成されるまでConverterを走査
   AssetInfo* info = this->converter_manager_->Find<AssetInfo>([&](IAssetConverter* converter)
   {
-    //Infoが生成されたら予約成功、ループから抜ける
-    return converter->Reserve(directory_path, file_name, extension, this);
+    return converter->Reserve(uri, this);
   });
 
-  //対象にならなかった場合はスキップ
-  if (!info)
+  if (info)
   {
-    std::cout << "skip \"" << file_name << "\" " << std::endl;
+    this->infos_[info->GetUniqueID()] = info;
+    return info;
   }
-  return info;
+  //対象にならなかった場合はスキップ
+  std::cout << "skip \"" << uri.GetFullPath() << "\" " << std::endl;
+  return nullptr;
 }

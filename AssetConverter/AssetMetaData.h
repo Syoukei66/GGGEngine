@@ -9,6 +9,8 @@
 #include "Cereal/types/unordered_set.hpp"
 #include "Cereal/types/utility.hpp"
 
+#include "URI.h"
+
 class AssetConverterContext;
 
 class AssetMetaData
@@ -17,13 +19,13 @@ class AssetMetaData
   // Factory Method
   // =================================================================
 public:
-  static AssetMetaData* Create(const std::string& asset_path, AssetConverterContext* context);
+  static AssetMetaData* Create(const URI& uri, AssetConverterContext* context);
 
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  AssetMetaData(const std::string& asset_path, AssetConverterContext* context);
+  AssetMetaData(const URI& uri, AssetConverterContext* context);
   AssetMetaData();
 
   // =================================================================
@@ -41,7 +43,7 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  inline T_UINT32 GetUniqueId() const
+  inline T_UINT32 GetUniqueID() const
   {
     return this->unique_id_;
   }
@@ -53,7 +55,7 @@ public:
   template<class Archive>
   void serialize(Archive& ar, std::uint32_t const version)
   {
-    ar(CEREAL_NVP(path_));
+    ar(CEREAL_NVP(uri_));
     ar(CEREAL_NVP(unique_id_));
     ar(CEREAL_NVP(source_));
     ar(CEREAL_NVP(related_unique_ids_));
@@ -64,7 +66,7 @@ public:
   // Data Members
   // =================================================================
 private:
-  std::string path_;
+  URI uri_;
   T_UINT32 unique_id_;
   T_UINT32 source_;
   std::unordered_set<T_UINT32> related_unique_ids_;

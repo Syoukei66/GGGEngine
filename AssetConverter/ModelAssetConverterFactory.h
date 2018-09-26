@@ -2,13 +2,13 @@
 
 #include "AssetConverterFactory.h"
 
-class RawAssetConverterFactory : public AssetConverterFactory
+class ModelAssetConverterFactory : public AssetConverterFactory
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  RawAssetConverterFactory() = default;
+  ModelAssetConverterFactory() = default;
 
   // =================================================================
   // Methods
@@ -32,4 +32,4 @@ public:
 private:
 
 };
-CEREAL_CLASS_VERSION(RawAssetConverterFactory, 1);
+CEREAL_CLASS_VERSION(ModelAssetConverterFactory, 1);

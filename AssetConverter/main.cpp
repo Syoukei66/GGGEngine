@@ -91,8 +91,10 @@ int main()
 
   director->Import();
   
-  director->Export();
-  director->CreateProgram();
+  //director->Export();
+  //director->CreateProgram();
+
+  director->Uninit();
 
   std::cout << "\n終了するには何かキーを押してください。" << std::endl;
   getchar();

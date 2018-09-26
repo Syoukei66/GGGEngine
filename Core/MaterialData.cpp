@@ -2,8 +2,8 @@
 #include "CerealStructArchive.hpp"
 #include "CerealArchiveMacro.hpp"
 #include "CerealIO.h"
-#include "SerealizerTester.h"
-#include "SerealizerTestMacro.hpp"
+#include "SerializerTester.h"
+#include "SerializerTestMacro.hpp"
 
 #include "Cereal/types/unordered_map.hpp"
 
@@ -26,12 +26,12 @@ void serialize(Archive& ar, MaterialData& value)
 }
 
 //=============================================================================
-// Serealizer Test
+// Serializer Test
 //=============================================================================
-class MaterialDataSerealizerTester : public SerealizerTester
+class MaterialDataSerializerTester : public SerializerTester
 {
 public:
-  using SerealizerTester::Compare;
+  using SerializerTester::Compare;
   void Compare(const MaterialData& a, const MaterialData& b)
   {
     PushState("MaterialData");
@@ -49,20 +49,20 @@ public:
 };
 
 //=============================================================================
-// Serealizer / Deserealizer
+// Serializer / Deserializer
 //=============================================================================
-MaterialData* MaterialData::Deserealize(const std::string& path)
+MaterialData* MaterialData::Deserialize(const std::string& path)
 {
   return CerealIO::Binary::Import<MaterialData>(path.c_str());
 }
 
-void MaterialData::Serealize(const std::string& path, bool test)
+void MaterialData::Serialize(const std::string& path, bool test)
 {
   CerealIO::Binary::Export<MaterialData>(path.c_str(), this);
   if (test)
   {
-    MaterialDataSerealizerTester tester;
-    MaterialData* data = Deserealize(path);
+    MaterialDataSerializerTester tester;
+    MaterialData* data = Deserialize(path);
     tester.Compare(*this, *data);
     delete data;
   }

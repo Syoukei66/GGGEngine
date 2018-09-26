@@ -9,8 +9,11 @@
 // =================================================================
 void RawAssetExporter::ExportProcess(RawAssetEntity* entity, const AssetConverterContext* context)
 {
-  const AssetInfo* info = entity->GetInfo();
-  const Setting* setting = context->GetSetting();
-  CopyFile(info->GetFullPath().c_str(), (setting->output_path + "/" + info->GetLocalFullPath()).c_str(), false);
-  Logger::CopyAssetLog(setting, info);
+  const AssetInfo* info = entity->GetAssetInfo();
+  CopyFile(
+    FileUtil::CreateInputPath(info->GetURI().GetFullPath()).c_str(),
+    FileUtil::CreateOutputPath(info->GetURI().GetFullPath()).c_str(),
+    false
+  );
+  Logger::CopyAssetLog(info);
 }

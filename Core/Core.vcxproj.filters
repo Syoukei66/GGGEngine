@@ -369,12 +369,6 @@
     <ClInclude Include="TextureAsset.h">
       <Filter>ヘッダー ファイル\Asset\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="SerealizerTester.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Cereal\Test</Filter>
-    </ClInclude>
-    <ClInclude Include="SerealizerTestMacro.hpp">
-      <Filter>ヘッダー ファイル\ThirdPirty\Cereal\Test</Filter>
-    </ClInclude>
     <ClInclude Include="ShaderAsset.h">
       <Filter>ヘッダー ファイル\Asset\Shader</Filter>
     </ClInclude>
@@ -449,6 +443,12 @@
     </ClInclude>
     <ClInclude Include="ModelData.h">
       <Filter>ヘッダー ファイル\Asset\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="SerializerTester.h">
+      <Filter>ヘッダー ファイル\ThirdPirty\Cereal\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="SerializerTestMacro.hpp">
+      <Filter>ヘッダー ファイル\ThirdPirty\Cereal\Test</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

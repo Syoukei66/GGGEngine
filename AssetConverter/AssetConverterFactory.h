@@ -3,6 +3,11 @@
 #include <vector>
 #include <string>
 
+#include "Cereal/types/polymorphic.hpp"
+#include "Cereal/types/base_class.hpp"
+#include "Cereal/types/vector.hpp"
+#include "Cereal/types/string.hpp"
+
 class IAssetConverter;
 
 class AssetConverterFactory
@@ -30,7 +35,7 @@ public:
   }
 
   // =================================================================
-  // Serealizer
+  // Serializer
   // =================================================================
 public:
   template<class Archive>
@@ -46,3 +51,4 @@ private:
   std::vector<std::string> target_extensions_;
 
 };
+CEREAL_CLASS_VERSION(AssetConverterFactory, 1);

@@ -3,15 +3,19 @@
 #include <string>
 #include <functional>
 
-namespace Util
+class URI;
+
+namespace FileUtil
 {
 
-namespace File
-{
+std::string CreateFileName(const std::string& path, const std::string& extension);
+std::string CreateProjectFilePath(const std::string& path);
+std::string CreateInputPath(const URI& uri);
+std::string CreateMidDataPath(const URI& uri);
+std::string CreateOutputPath(const URI& uri);
 
 std::string GetTimeStamp(const std::string& path);
-void Crawl(const std::string& directory_path, std::function<void(const std::string& directory_path, const std::string& file_name)> process);
 
-}
+void CrawlInputDirectory(std::function<void(const URI& uri)> process);
 
 }

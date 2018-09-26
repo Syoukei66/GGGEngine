@@ -1,17 +1,19 @@
 #include "ModelAssetImporter.h"
+#include "../Core/GraphicsConstants.h"
+
 #include "Extensions.h"
+#include "AssetConverterContext.h"
+#include "FileUtil.h"
 
 #include <assimp\Importer.hpp>
 #include <assimp\postprocess.h>
-#include <assimp\scene.h>
-
-#include "../Core/GraphicsConstants.h"
-#include "../Core/ModelData.h"
-#include "../Core/MaterialData.h"
-#include "../Core/MeshData.h"
 
 #include "AssetConverterContext.h"
 #include "Director.h"
+#include "FileUtil.h"
+
+#include "ModelMeshAssetEntity.h"
+#include "ModelMaterialAssetEntity.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -24,7 +26,8 @@ ModelAssetImporter::ModelAssetImporter(const std::vector<std::string>& extension
 // =================================================================
 // Methods
 // =================================================================
-static TVec2f ToTVec2f(const aiVector2D& vec)
+
+TVec2f ToTVec2f(const aiVector2D & vec)
 {
   TVec2f ret;
   ret.x = vec.x;
@@ -32,7 +35,7 @@ static TVec2f ToTVec2f(const aiVector2D& vec)
   return ret;
 }
 
-static TVec3f ToTVec3f(const aiVector3D& vec)
+TVec3f ToTVec3f(const aiVector3D & vec)
 {
   TVec3f ret;
   ret.x = vec.x;
@@ -41,7 +44,7 @@ static TVec3f ToTVec3f(const aiVector3D& vec)
   return ret;
 }
 
-static TColor ToTColor(const aiColor4D& col)
+TColor ToTColor(const aiColor4D & col)
 {
   TColor ret;
   ret.r = col.r;
@@ -51,71 +54,72 @@ static TColor ToTColor(const aiColor4D& col)
   return ret;
 }
 
-static void ImportMesh(const aiScene* scene, MeshData* dest)
+static MeshData* ImportMesh(const aiScene* scene)
 {
+  MeshData* ret = new MeshData();
 
   using namespace Graphics;
 
-  dest->submesh_count_ = scene->mNumMeshes;
-  dest->submesh_index_counts_ = new T_UINT32[dest->submesh_count_]();
+  ret->submesh_count_ = scene->mNumMeshes;
+  ret->submesh_index_counts_ = new T_UINT32[ret->submesh_count_]();
   //
   for (T_UINT32 m = 0; m < scene->mNumMeshes; ++m)
   {
     const aiMesh* mesh = scene->mMeshes[m];
-    dest->vertex_count_ += mesh->mNumVertices;
-    dest->polygon_count_ += mesh->mNumFaces;
+    ret->vertex_count_ += mesh->mNumVertices;
+    ret->polygon_count_ += mesh->mNumFaces;
     for (T_UINT32 f = 0, ii = 0; f < mesh->mNumFaces; ++f)
     {
-      dest->index_count_ += mesh->mFaces[f].mNumIndices;
-      dest->submesh_index_counts_[m] += mesh->mFaces[f].mNumIndices;
+      ret->index_count_ += mesh->mFaces[f].mNumIndices;
+      ret->submesh_index_counts_[m] += mesh->mFaces[f].mNumIndices;
     }
 
-    if (!(dest->vertex_format_ & V_ATTR_POSITION) && mesh->HasPositions())
+    if (!(ret->vertex_format_ & V_ATTR_POSITION) && mesh->HasPositions())
     {
-      dest->vertex_format_ |= V_ATTR_POSITION;
-      dest->vertex_size_ += V_ATTRSIZE_POSITION;
+      ret->vertex_format_ |= V_ATTR_POSITION;
+      ret->vertex_size_ += V_ATTRSIZE_POSITION;
     }
 
-    if (!(dest->vertex_format_ & V_ATTR_NORMAL) && mesh->HasNormals())
+    if (!(ret->vertex_format_ & V_ATTR_NORMAL) && mesh->HasNormals())
     {
-      dest->vertex_format_ |= V_ATTR_NORMAL;
-      dest->vertex_size_ += V_ATTRSIZE_NORMAL;
+      ret->vertex_format_ |= V_ATTR_NORMAL;
+      ret->vertex_size_ += V_ATTRSIZE_NORMAL;
     }
 
-    if (!(dest->vertex_format_ & V_ATTR_UV) && mesh->HasTextureCoords(0))
+    if (!(ret->vertex_format_ & V_ATTR_UV) && mesh->HasTextureCoords(0))
     {
-      dest->vertex_format_ |= V_ATTR_UV;
-      dest->vertex_size_ += V_ATTRSIZE_UV;
+      ret->vertex_format_ |= V_ATTR_UV;
+      ret->vertex_size_ += V_ATTRSIZE_UV;
     }
 
-    if (!(dest->vertex_format_ & V_ATTR_UV2) && mesh->HasTextureCoords(1))
+    if (!(ret->vertex_format_ & V_ATTR_UV2) && mesh->HasTextureCoords(1))
     {
-      dest->vertex_format_ |= V_ATTR_UV2;
-      dest->vertex_size_ += V_ATTRSIZE_UV2;
+      ret->vertex_format_ |= V_ATTR_UV2;
+      ret->vertex_size_ += V_ATTRSIZE_UV2;
     }
 
-    if (!(dest->vertex_format_ & V_ATTR_UV3) && mesh->HasTextureCoords(2))
+    if (!(ret->vertex_format_ & V_ATTR_UV3) && mesh->HasTextureCoords(2))
     {
-      dest->vertex_format_ |= V_ATTR_UV3;
-      dest->vertex_size_ += V_ATTRSIZE_UV3;
+      ret->vertex_format_ |= V_ATTR_UV3;
+      ret->vertex_size_ += V_ATTRSIZE_UV3;
     }
 
-    if (!(dest->vertex_format_ & V_ATTR_UV4) && mesh->HasTextureCoords(3))
+    if (!(ret->vertex_format_ & V_ATTR_UV4) && mesh->HasTextureCoords(3))
     {
-      dest->vertex_format_ |= V_ATTR_UV4;
-      dest->vertex_size_ += V_ATTRSIZE_UV4;
+      ret->vertex_format_ |= V_ATTR_UV4;
+      ret->vertex_size_ += V_ATTRSIZE_UV4;
     }
 
-    if (!(dest->vertex_format_ & V_ATTR_TANGENT) && mesh->HasTangentsAndBitangents())
+    if (!(ret->vertex_format_ & V_ATTR_TANGENT) && mesh->HasTangentsAndBitangents())
     {
-      dest->vertex_format_ |= V_ATTR_TANGENT;
-      dest->vertex_size_ += V_ATTRSIZE_TANGENT;
+      ret->vertex_format_ |= V_ATTR_TANGENT;
+      ret->vertex_size_ += V_ATTRSIZE_TANGENT;
     }
 
-    if (!(dest->vertex_format_ & V_ATTR_COLOR) && mesh->HasVertexColors(0))
+    if (!(ret->vertex_format_ & V_ATTR_COLOR) && mesh->HasVertexColors(0))
     {
-      dest->vertex_format_ |= V_ATTR_COLOR;
-      dest->vertex_size_ += V_ATTRSIZE_COLOR;
+      ret->vertex_format_ |= V_ATTR_COLOR;
+      ret->vertex_size_ += V_ATTRSIZE_COLOR;
     }
   }
 
@@ -123,9 +127,9 @@ static void ImportMesh(const aiScene* scene, MeshData* dest)
   TVec3f max = { 0.0f, 0.0f, 0.0f };
 
   //
-  dest->data_ = new unsigned char[dest->vertex_count_ * dest->vertex_size_]();
-  dest->indices_ = new T_UINT32[dest->index_count_]();
-  unsigned char* p = dest->data_;
+  ret->data_ = new unsigned char[ret->vertex_count_ * ret->vertex_size_]();
+  ret->indices_ = new T_UINT32[ret->index_count_]();
+  unsigned char* p = ret->data_;
   for (T_UINT32 m = 0, ii = 0; m < scene->mNumMeshes; ++m)
   {
     const aiMesh* mesh = scene->mMeshes[m];
@@ -134,7 +138,7 @@ static void ImportMesh(const aiScene* scene, MeshData* dest)
     for (T_UINT32 v = 0; v < mesh->mNumVertices; ++v)
     {
       //mesh
-      if (dest->vertex_format_ & V_ATTR_POSITION)
+      if (ret->vertex_format_ & V_ATTR_POSITION)
       {
         T_FLOAT* vertex = (T_FLOAT*)p;
         vertex[0] = mesh->mVertices[v].x;
@@ -150,7 +154,7 @@ static void ImportMesh(const aiScene* scene, MeshData* dest)
         max.y = std::max(max.y, mesh->mVertices[v].y);
         max.z = std::max(max.z, mesh->mVertices[v].z);
       }
-      if (dest->vertex_format_ & V_ATTR_NORMAL)
+      if (ret->vertex_format_ & V_ATTR_NORMAL)
       {
         T_FLOAT* normal = (T_FLOAT*)p;
         normal[0] = mesh->mNormals[v].x;
@@ -158,35 +162,35 @@ static void ImportMesh(const aiScene* scene, MeshData* dest)
         normal[2] = mesh->mNormals[v].z;
         p += V_ATTRSIZE_NORMAL;
       }
-      if (dest->vertex_format_ & V_ATTR_UV)
+      if (ret->vertex_format_ & V_ATTR_UV)
       {
         T_FLOAT* uv = (T_FLOAT*)p;
         uv[0] = mesh->mTextureCoords[0][v].x;
         uv[1] = mesh->mTextureCoords[0][v].y;
         p += V_ATTRSIZE_UV;
       }
-      if (dest->vertex_format_ & V_ATTR_UV2)
+      if (ret->vertex_format_ & V_ATTR_UV2)
       {
         T_FLOAT* uv2 = (T_FLOAT*)p;
         uv2[0] = mesh->mTextureCoords[1][v].x;
         uv2[1] = mesh->mTextureCoords[1][v].y;
         p += V_ATTRSIZE_UV2;
       }
-      if (dest->vertex_format_ & V_ATTR_UV3)
+      if (ret->vertex_format_ & V_ATTR_UV3)
       {
         T_FLOAT* uv3 = (T_FLOAT*)p;
         uv3[0] = mesh->mTextureCoords[2][v].x;
         uv3[1] = mesh->mTextureCoords[2][v].y;
         p += V_ATTRSIZE_UV3;
       }
-      if (dest->vertex_format_ & V_ATTR_UV4)
+      if (ret->vertex_format_ & V_ATTR_UV4)
       {
         T_FLOAT* uv4 = (T_FLOAT*)p;
         uv4[0] = mesh->mTextureCoords[3][v].x;
         uv4[1] = mesh->mTextureCoords[3][v].y;
         p += V_ATTRSIZE_UV4;
       }
-      if (dest->vertex_format_ & V_ATTR_TANGENT)
+      if (ret->vertex_format_ & V_ATTR_TANGENT)
       {
         //TODO:
         T_FLOAT* tangent = (T_FLOAT*)p;
@@ -196,7 +200,7 @@ static void ImportMesh(const aiScene* scene, MeshData* dest)
         tangent[3] = 0.0f;
         p += V_ATTRSIZE_TANGENT;
       }
-      if (dest->vertex_format_ & V_ATTR_COLOR)
+      if (ret->vertex_format_ & V_ATTR_COLOR)
       {
         T_UINT32* color = (T_UINT32*)p;
         color[0] =
@@ -212,22 +216,24 @@ static void ImportMesh(const aiScene* scene, MeshData* dest)
     {
       for (T_UINT32 fi = 0; fi < mesh->mFaces[f].mNumIndices; ++fi)
       {
-        dest->indices_[ii] = mesh->mFaces[f].mIndices[fi];
+        ret->indices_[ii] = mesh->mFaces[f].mIndices[fi];
         ++ii;
       }
     }
   }
 
-  dest->bounds_.center.x = (min.x + max.y) * 0.5f;
-  dest->bounds_.center.y = (min.y + max.y) * 0.5f;
-  dest->bounds_.center.z = (min.z + max.z) * 0.5f;
+  ret->bounds_.center.x = (min.x + max.y) * 0.5f;
+  ret->bounds_.center.y = (min.y + max.y) * 0.5f;
+  ret->bounds_.center.z = (min.z + max.z) * 0.5f;
 
-  dest->bounds_.extents.x = (max.x - min.x) * 0.5f;
-  dest->bounds_.extents.y = (max.y - min.y) * 0.5f;
-  dest->bounds_.extents.z = (max.z - min.z) * 0.5f;
+  ret->bounds_.extents.x = (max.x - min.x) * 0.5f;
+  ret->bounds_.extents.y = (max.y - min.y) * 0.5f;
+  ret->bounds_.extents.z = (max.z - min.z) * 0.5f;
+
+  return ret;
 }
 
-static T_UINT32 ImportTexture(AssetInfo* info, const aiMaterial* material, aiTextureType type)
+static AssetInfo* ImportTexture(AssetInfo* info, const aiMaterial* material, aiTextureType type, AssetConverterContext* context)
 {
   aiString path;
   aiTextureMapping mapping;
@@ -237,38 +243,40 @@ static T_UINT32 ImportTexture(AssetInfo* info, const aiMaterial* material, aiTex
   aiTextureMapMode map_mode;
   T_UINT32 flags;
 
-  T_UINT32 ret = 0;
   for (T_UINT8 i = 0; i < 8; ++i)
   {
     if (AI_SUCCESS == aiGetMaterialTexture(material, type, i, &path, &mapping, &uv_index, &blend, &op, &map_mode, &flags))
     {
-      NATIVE_ASSERT(ret == 0, "テクスチャが想定していたより多いです");
-      const std::string full_path = info->GetDirectoryPath() + path.C_Str();
-      ret = Director::GetInstance().GetUniqueId(full_path);
+      return context->Reserve(URI(info->GetURI().GetDirectoryPath(), path.C_Str()));
     }
   }
-  return ret;
+  return nullptr;
 }
 
-static void ImportMaterial(AssetInfo* info, const aiMaterial* material, MaterialData* dest)
+static  MaterialData* ImportMaterial(AssetInfo* info, const aiMaterial* material, AssetConverterContext* context)
 {
+  MaterialData* dest = new MaterialData();
+
   //Colors
   aiColor4D color;
   if (AI_SUCCESS == aiGetMaterialColor(material, AI_MATKEY_COLOR_DIFFUSE, &color))
   {
     dest->color_ = ToTColor(color);
   }
-  dest->main_tex_unique_id_ = ImportTexture(info, material, aiTextureType_DIFFUSE);
+  dest->main_tex_unique_id_ = ImportTexture(info, material, aiTextureType_DIFFUSE, context)->GetUniqueID();
   dest->tiling_ = TVec2f(1.0f, 1.0f);
   dest->tiling_offset_ = TVec2f(0.0f, 0.0f);
+  //TODO:プロパティのインポート処理
+
+  return dest;
 }
 
 ModelAssetEntity* ModelAssetImporter::ImportProcess(AssetInfo* info, AssetConverterContext* context)
 {  
   //一部のファイルでメモリリークが発生
-  Assimp::Importer importer = Assimp::Importer();
+  Assimp::Importer importer;
   const aiScene* scene = importer.ReadFile(
-    info->GetFullPath(),
+    info->GetURI().GetFullPath(),
     aiProcess_GenNormals |
     aiProcess_CalcTangentSpace |
     aiProcess_Triangulate |
@@ -283,33 +291,32 @@ ModelAssetEntity* ModelAssetImporter::ImportProcess(AssetInfo* info, AssetConver
 
   ModelData* data = new ModelData();
 
-  //full_path + .mesh のファイルがあるかどうか検出
-  // あれば.meshファイルがprotectedになっているか確認
-  //  protectedであれば何もしない。ログにmesh is protectedとでも表示する
-  //  protectedでなければSceneを基にデータを更新、AssetInfoに更新を指示する
-  // なければsceneを基に新規作成し、AddAssetInfo
-  std::string mesh_path = info->GetFullPath() + "." + Extensions::MESH;
-  MeshData mesh;
-  ImportMesh(scene, &mesh);
-  mesh.Deserealize(mesh_path);
-  AssetInfo* mesh_info = context->Reserve(info->GetDirectoryPath(), mesh_path, Extensions::MESH);
+  //Mesh
+  MeshData* mesh_data = ImportMesh(scene);
+  AssetInfo* mesh_asset_info = AssetInfo::Create(URI(info->GetURI().GetDirectoryPath(), info->GetURI().GetPrefix(), Extensions::MESH), context);
+  context->AddEntity(new ModelMeshAssetEntity(mesh_asset_info, mesh_data, info->GetUniqueID()));
+  data->mesh_unique_id_ = mesh_asset_info->GetUniqueID();
 
-  data->mesh_unique_id_ = mesh_info->GetUniqueId();
-  data->submesh_count_ = mesh.submesh_count_;
-
-
-  T_UINT32 material_count = scene->mNumMaterials;
-  for (T_UINT32 i = 0; i < material_count; ++i)
+  //Material
+  std::vector<AssetInfo*> material_asset_infos;
+  for (T_UINT32 i = 0; i < scene->mNumMaterials; ++i)
   {
     aiMaterial* mat = scene->mMaterials[i];
-    std::string material_path = info->GetDirectoryPath() + scene->m + "." + Extensions::MATERIAL;
-    MaterialData material;
-    ImportMaterial(info, mat, &material);
-    material.Deserealize(material_path);
-    AssetInfo* material_info = context->Reserve(info->GetDirectoryPath(), material_path, Extensions::MATERIAL);
+    aiString name;
+    if (AI_SUCCESS == aiGetMaterialString(mat, AI_MATKEY_NAME, &name))
+    {
+      AssetInfo* mat_asset_info = AssetInfo::Create(URI(info->GetURI().GetDirectoryPath(), name.C_Str(), Extensions::MATERIAL), context);
+      MaterialData* mat_data = ImportMaterial(mat_asset_info, mat, context);
+      context->AddEntity(new ModelMaterialAssetEntity(mat_asset_info, mat_data, info->GetUniqueID()));
+      material_asset_infos.push_back(mat_asset_info);
+    }
   }
 
-  data->material_count_ = material_count;
+  for (T_UINT32 i = 0; i < scene->mNumMeshes; ++i)
+  {
+    aiMesh* mesh = scene->mMeshes[i];
+    data->material_unique_ids_.push_back(material_asset_infos[mesh->mMaterialIndex]->GetUniqueID());
+  }
 
-  return;
+  return ModelAssetEntity::Create(info, data, scene);
 }

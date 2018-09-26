@@ -5,6 +5,7 @@
 
 #include "../Core/UniqueIdTable.h"
 #include "AssetMetaData.h"
+#include "URI.h"
 
 class AssetConverterContext;
 
@@ -14,44 +15,29 @@ class AssetInfo
   // Factory Method
   // =================================================================
 public:
-  static AssetInfo* Create(const std::string& directory_path, const std::string& file_name, const std::string& extension, AssetConverterContext* context);
+  static AssetInfo* Create(const URI& uri, AssetConverterContext* context);
 
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 private:
-  AssetInfo() = default;
+  AssetInfo(const URI& uri);
 
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  inline T_UINT32 GetUniqueId() const
+  inline T_UINT32 GetUniqueID() const
   {
-    return this->meta_data_->GetUniqueId();
+    return this->meta_data_->GetUniqueID();
   }
 
-  inline const std::string& GetFullPath() const
+  inline const URI& GetURI() const
   {
-    return this->full_path_;
+    return this->uri_;
   }
 
-  inline const std::string& GetLocalFullPath() const
-  {
-    return this->local_full_path_;
-  }
-
-  inline const std::string& GetDirectoryPath() const
-  {
-    return this->directory_path_;
-  }
-
-  inline const std::string& GetExtension() const
-  {
-   return this->extension_;
-  }
-
-  inline const std::string& GetProgramId() const
+  inline const std::string& GetProgramID() const
   {
     return this->program_id_;
   }
@@ -65,12 +51,8 @@ public:
   // Data Members
   // =================================================================
 private:
+  const URI uri_;
   AssetMetaData* meta_data_;
-  std::string full_path_;
-  std::string local_full_path_;
-  std::string directory_path_;
-  std::string file_name_;
-  std::string extension_;
   std::string program_id_;
 
 };

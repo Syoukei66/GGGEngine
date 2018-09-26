@@ -1,28 +1,28 @@
-#include "SerealizerTester.h"
-#include "SerealizerTestMacro.hpp"
+#include "SerializerTester.h"
+#include "SerializerTestMacro.hpp"
 #include <iostream>
 
-void SerealizerTester::Compare(bool a, bool b)
+void SerializerTester::Compare(bool a, bool b)
 {
   COMPARE(bool)
 }
 
-void SerealizerTester::Compare(unsigned char a, unsigned char b)
+void SerializerTester::Compare(unsigned char a, unsigned char b)
 {
   COMPARE(unsigned char)
 }
 
-void SerealizerTester::Compare(T_UINT32 a, T_UINT32 b)
+void SerializerTester::Compare(T_UINT32 a, T_UINT32 b)
 {
   COMPARE(T_UINT32)
 }
 
-void SerealizerTester::Compare(T_INT32 a, T_INT32 b)
+void SerializerTester::Compare(T_INT32 a, T_INT32 b)
 {
   COMPARE(T_INT32)
 }
 
-void SerealizerTester::Compare(T_FLOAT a, T_FLOAT b)
+void SerializerTester::Compare(T_FLOAT a, T_FLOAT b)
 {
   if (isnan(a) && isnan(b))
   {
@@ -31,17 +31,17 @@ void SerealizerTester::Compare(T_FLOAT a, T_FLOAT b)
   COMPARE(T_FLOAT)
 }
 
-void SerealizerTester::Compare(size_t a, size_t b)
+void SerializerTester::Compare(size_t a, size_t b)
 {
   COMPARE(size_t)
 }
 
-void SerealizerTester::Compare(const std::string& a, const std::string& b)
+void SerializerTester::Compare(const std::string& a, const std::string& b)
 {
   COMPARE(std::string)
 }
 
-void SerealizerTester::Compare(const TVec2f& a, const TVec2f& b)
+void SerializerTester::Compare(const TVec2f& a, const TVec2f& b)
 {
   PushState("vec2");
   COMPARE_ATTR(x);
@@ -49,7 +49,7 @@ void SerealizerTester::Compare(const TVec2f& a, const TVec2f& b)
   PopState();
 }
 
-void SerealizerTester::Compare(const TVec3f& a, const TVec3f& b)
+void SerializerTester::Compare(const TVec3f& a, const TVec3f& b)
 {
   PushState("vec3");
   COMPARE_ATTR(x);
@@ -58,7 +58,7 @@ void SerealizerTester::Compare(const TVec3f& a, const TVec3f& b)
   PopState();
 }
 
-void SerealizerTester::Compare(const TVec4f& a, const TVec4f& b)
+void SerializerTester::Compare(const TVec4f& a, const TVec4f& b)
 {
   PushState("vec4");
   COMPARE_ATTR(x);
@@ -68,7 +68,7 @@ void SerealizerTester::Compare(const TVec4f& a, const TVec4f& b)
   PopState();
 }
 
-void SerealizerTester::Compare(const TColor& a, const TColor& b)
+void SerializerTester::Compare(const TColor& a, const TColor& b)
 {
   PushState("TColor");
   COMPARE_ATTR(r);
@@ -78,7 +78,7 @@ void SerealizerTester::Compare(const TColor& a, const TColor& b)
   PopState();
 }
 
-void SerealizerTester::Compare(const Matrix4x4& a, const Matrix4x4& b)
+void SerializerTester::Compare(const Matrix4x4& a, const Matrix4x4& b)
 {
   PushState("TMatrix");
   COMPARE_ATTR(_11);  COMPARE_ATTR(_12);  COMPARE_ATTR(_13);  COMPARE_ATTR(_14);
@@ -88,7 +88,7 @@ void SerealizerTester::Compare(const Matrix4x4& a, const Matrix4x4& b)
   PopState();
 }
 
-void SerealizerTester::Compare(const Bounds& a, const Bounds& b)
+void SerializerTester::Compare(const Bounds& a, const Bounds& b)
 {
   PushState("Bounds");
   COMPARE_ATTR(center);
@@ -96,17 +96,17 @@ void SerealizerTester::Compare(const Bounds& a, const Bounds& b)
   PopState();
 }
 
-void SerealizerTester::PushState(const std::string& state)
+void SerializerTester::PushState(const std::string& state)
 {
   this->state_stack_.push_back(state);
 }
 
-void SerealizerTester::PopState()
+void SerializerTester::PopState()
 {
   this->state_stack_.pop_back();
 }
 
-void SerealizerTester::AddMessage(const std::string& message)
+void SerializerTester::AddMessage(const std::string& message)
 {
   std::string full_message = "";
   for (const std::string& state : this->state_stack_)
@@ -118,7 +118,7 @@ void SerealizerTester::AddMessage(const std::string& message)
   this->messages_.push_back(full_message);
 }
 
-void SerealizerTester::AddMessage(const std::string& a, const std::string& b)
+void SerializerTester::AddMessage(const std::string& a, const std::string& b)
 {
   std::string message;
   message.append("a(");
@@ -129,12 +129,12 @@ void SerealizerTester::AddMessage(const std::string& a, const std::string& b)
   AddMessage(message);
 }
 
-void SerealizerTester::ResetMessages()
+void SerializerTester::ResetMessages()
 {
   this->messages_.clear();
 }
 
-void SerealizerTester::PrintMessages()
+void SerializerTester::PrintMessages()
 {
   if (this->messages_.size() == 0)
   {

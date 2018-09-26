@@ -29,9 +29,9 @@ struct MeshData
   Bounds bounds_;
 
   //=============================================================================
-  // Serealizer / Deserealizer
+  // Serializer / Deserializer
   //=============================================================================
-  static MeshData* Deserealize(const std::string& path);
-  void Serealize(const std::string& path, bool test = false);
+  static MeshData* Deserialize(const std::string& path);
+  void Serialize(const std::string& path, bool test = false);
 
 };

@@ -1,9 +1,7 @@
 #pragma once
 
-#include "Logger.h"
-
-#include <fstream>
 #include <unordered_map>
+#include "../Core/NativeType.h"
 
 class AssetConverterContext;
 
@@ -45,25 +43,29 @@ private:
 
 };
 
+#include <fstream>
 #include "AssetConverterContext.h"
+#include "FileUtil.h"
+#include "Logger.h"
 
+// =================================================================
+// Methods
+// =================================================================
 template<class Entity_>
-inline void AssetExporter<Entity_>::Export(const std::unordered_map<T_UINT32, Entity_*>& entities, const AssetConverterContext * context)
+inline void AssetExporter<Entity_>::Export(const std::unordered_map<T_UINT32, Entity_*>& entities, const AssetConverterContext* context)
 {
-  const Setting* setting = context->GetSetting();
-
   for (auto& pair : entities)
   {
-    AssetInfo* info = pair.second->GetInfo();
+    AssetInfo* info = pair.second->GetAssetInfo();
 
     //変換後ファイルが消えているか
-    const bool output_file_exists = std::ifstream(setting->output_path + "/" + info->GetLocalFullPath()).is_open();
+    const bool output_file_exists = std::ifstream(FileUtil::CreateOutputPath(info->GetURI())).is_open();
     const bool asset_changed = info->UpdateTimeStamp();
 
     //変換対象ファイルのタイムスタンプが一致しているか
     if (output_file_exists && !asset_changed)
     {
-      Logger::SkipAssetLog(setting, info);
+      Logger::SkipAssetLog(info);
       continue;
     }
     this->ExportProcess(pair.second, context);

@@ -19,7 +19,7 @@ protected:
 protected:
   rcMesh* LoadProcess(const std::string& path) override
   {
-    MeshData* data = MeshData::Deserealize(path);
+    MeshData* data = MeshData::Deserialize(path);
     rcMesh* ret = rcMesh::Create(data);
     delete data;
     return ret;

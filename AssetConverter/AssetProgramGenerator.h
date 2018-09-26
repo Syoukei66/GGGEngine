@@ -17,7 +17,7 @@ public:
       std::string str;
       for (auto& pair : entities)
       {
-        str.append(generator.CreateHeaderProgram(pair.second->GetInfo()));
+        str.append(generator.CreateHeaderProgram(pair.second->GetAssetInfo()));
       }
       return str;
     }));
@@ -29,7 +29,7 @@ public:
       std::string str;
       for (auto& pair : entities)
       {
-        str.append(generator.CreateCppProgram(pair.second->GetInfo()));
+        str.append(generator.CreateCppProgram(pair.second->GetAssetInfo()));
       }
       return str;
     }));
