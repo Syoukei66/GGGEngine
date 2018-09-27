@@ -1,8 +1,9 @@
-#include "RawAssetEditor.h"
+#include "TextureAssetEntity.h"
 
 // =================================================================
-// Methods
+// Constructor / Destructor
 // =================================================================
-void RawAssetEditor::Edit(RawAssetEntity* entity)
+TextureAssetEntity::TextureAssetEntity(AssetInfo* info)
+  : AssetEntity(info)
 {
 }

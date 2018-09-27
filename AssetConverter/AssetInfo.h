@@ -5,6 +5,7 @@
 
 #include "../Core/UniqueIdTable.h"
 #include "AssetMetaData.h"
+#include "FileUtil.h"
 #include "URI.h"
 
 class AssetConverterContext;
@@ -23,6 +24,9 @@ public:
 private:
   AssetInfo(const URI& uri);
 
+public:
+  ~AssetInfo();
+
   // =================================================================
   // Setter / Getter
   // =================================================================
@@ -37,9 +41,14 @@ public:
     return this->uri_;
   }
 
-  inline const std::string& GetProgramID() const
+  inline std::string GetInputPath() const
   {
-    return this->program_id_;
+    return FileUtil::CreateInputPath(this->uri_);
+  }
+
+  inline std::string GetOutputPath() const
+  {
+    return FileUtil::CreateOutputPath(std::to_string(this->GetUniqueID()));
   }
 
   inline bool UpdateTimeStamp()
@@ -53,6 +62,5 @@ public:
 private:
   const URI uri_;
   AssetMetaData* meta_data_;
-  std::string program_id_;
 
 };

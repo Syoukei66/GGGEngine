@@ -1,9 +1,9 @@
-#include "RawAssetImporter.h"
+#include "TextureAssetImporter.h"
 
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-RawAssetImporter::RawAssetImporter(const std::vector<std::string>& extensions)
+TextureAssetImporter::TextureAssetImporter(const std::vector<std::string>& extensions)
   : AssetImporter(extensions)
 {
 }
@@ -11,7 +11,7 @@ RawAssetImporter::RawAssetImporter(const std::vector<std::string>& extensions)
 // =================================================================
 // Methods
 // =================================================================
-RawAssetEntity* RawAssetImporter::ImportProcess(AssetInfo* info, AssetConverterContext* context)
+TextureAssetEntity* TextureAssetImporter::ImportProcess(AssetInfo* info, AssetConverterContext* context)
 {
-  return new RawAssetEntity(info);
+  return new TextureAssetEntity(info);
 }

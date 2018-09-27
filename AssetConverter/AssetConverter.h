@@ -71,6 +71,10 @@ inline AssetConverter<Entity_>::AssetConverter(AssetImporter<Entity_>* importer,
 template<class Entity_>
 inline AssetConverter<Entity_>::~AssetConverter()
 {
+  for (auto& pair : this->entities_)
+  {
+    delete pair.second;
+  }
   delete this->importer_;
   delete this->editor_;
   delete this->exporter_;
@@ -89,29 +93,25 @@ inline T_UINT32 AssetConverter<Entity_>::GetID() const
 template<class Entity_>
 inline AssetInfo* AssetConverter<Entity_>::Reserve(const URI& uri, AssetConverterContext* context)
 {
-  NATIVE_ASSERT(this->importer_, "インポート動作未定義なAssetに対してインポートが行われました。");
-  return this->importer_->Reserve(uri, context);
+  return this->importer_ ? this->importer_->Reserve(uri, context) : nullptr;
 }
 
 template<class Entity_>
 inline void AssetConverter<Entity_>::Import(AssetConverterContext* context)
 {
-  NATIVE_ASSERT(this->importer_, "インポート動作未定義なAssetに対してインポートが行われました。");
-  this->importer_->Import(&this->entities_, context);
+  if (this->importer_) this->importer_->Import(&this->entities_, context);
 }
 
 template<class Entity_>
 inline bool AssetConverter<Entity_>::ImportOnce(AssetConverterContext* context)
 {
-  NATIVE_ASSERT(this->importer_, "インポート動作未定義なAssetに対してインポートが行われました。");
-  return this->importer_->ImportOnce(&this->entities_, context);
+  return this->importer_ ? this->importer_->ImportOnce(&this->entities_, context) : false;
 }
 
 template<class Entity_>
 inline Entity_* AssetConverter<Entity_>::ImportImmediately(const std::string& directory_path, const std::string& file_name, const std::string& extension, AssetConverterContext* context)
 {
-  NATIVE_ASSERT(this->importer_, "インポート動作未定義なAssetに対してインポートが行われました。");
-  return this->importer_->ImportImmediately(directory_path, file_name, extension, &this->entities_, context);
+  return this->importer_ ? this->importer_->ImportImmediately(directory_path, file_name, extension, &this->entities_, context) : nullptr;
 }
 
 template<class Entity_>
@@ -151,11 +151,11 @@ inline void AssetConverter<Entity_>::Export(const AssetConverterContext* context
 template<class Entity_>
 inline void AssetConverter<Entity_>::CreateHeaderProgram(std::string* dest) const
 {
-  this->program_generator_->CreateHeaderProgram(this->entities_, dest);
+  if (this->program_generator_) this->program_generator_->CreateHeaderProgram(this->entities_, dest);
 }
 
 template<class Entity_>
 inline void AssetConverter<Entity_>::CreateCppProgram(std::string* dest) const
 {
-  this->program_generator_->CreateCppProgram(this->entities_, dest);
+  if (this->program_generator_) this->program_generator_->CreateCppProgram(this->entities_, dest);
 }

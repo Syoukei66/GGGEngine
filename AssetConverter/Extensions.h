@@ -1,11 +1,14 @@
 #pragma once
 
+#include <string> 
+
 namespace Extensions
 {
 
-const char* JPG = "jpg";
-const char* PNG = "png";
-const char* MATERIAL = "mat";
-const char* MESH = "mesh";
+const std::string META = "meta";
+const std::string JPG = "jpg";
+const std::string PNG = "png";
+const std::string MATERIAL = "mat";
+const std::string MESH = "mesh";
 
 }

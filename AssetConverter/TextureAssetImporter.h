@@ -1,26 +1,20 @@
 #pragma once
 
 #include "AssetImporter.h"
+#include "TextureAssetEntity.h"
 
-template <class Entity_>
-class RawAssetImporter : public AssetImporter<Entity_>
+class TextureAssetImporter : public AssetImporter<TextureAssetEntity>
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  RawAssetImporter(const std::vector<std::string>& extensions)
-    : AssetImporter<Entity_>(extensions)
-  {
-  }
+  TextureAssetImporter(const std::vector<std::string>& extensions);
 
   // =================================================================
   // Methods
   // =================================================================
 protected:
-  Entity_* ImportProcess(AssetInfo* info, AssetConverterContext* context) override
-  {
-    return new Entity_(info);
-  }
+  TextureAssetEntity* ImportProcess(AssetInfo* info, AssetConverterContext* context) override;
 
 };

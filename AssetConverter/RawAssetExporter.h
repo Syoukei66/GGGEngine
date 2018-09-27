@@ -1,13 +1,18 @@
 #pragma once
 
 #include "AssetExporter.h"
-#include "RawAssetEntity.h"
+#include "FileUtil.h"
 
-class RawAssetExporter : public AssetExporter<RawAssetEntity>
+template <class Entity_>
+class RawAssetExporter : public AssetExporter<Entity_>
 {
   // =================================================================
   // Methods
   // =================================================================
 protected:
-  void ExportProcess(RawAssetEntity* entity, const AssetConverterContext* context) override;
+  void ExportProcess(Entity_* entity, const AssetConverterContext* context) override
+  {
+    FileUtil::CopyRawAsset(entity->GetAssetInfo());
+  }
+
 };

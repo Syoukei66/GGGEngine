@@ -2,6 +2,8 @@
 
 #include "AssetConverterFactory.h"
 
+#include "Cereal/cereal.hpp"
+
 class ModelMaterialAssetConverterFactory : public AssetConverterFactory
 {
   // =================================================================
@@ -20,6 +22,10 @@ public:
   // Serializer
   // =================================================================
 public:
+  template<class Archive>
+  void serialize(Archive& ar, std::uint32_t const version)
+  {
+  }
 
   // =================================================================
   // Data Members
@@ -27,3 +33,4 @@ public:
 private:
 
 };
+CEREAL_CLASS_VERSION(ModelMaterialAssetConverterFactory, 1);

@@ -1,47 +1,35 @@
 #pragma once
 
-#include <string>
+#include "FileAssetConverterFactory.h"
 
-#include "AssetInfo.h"
-
-class DefinitionGenerator
+class TextureAssetConverterFactory : public FileAssetConverterFactory
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  DefinitionGenerator(const std::string& asset_name, const std::string& class_name);
-  ~DefinitionGenerator();
+  TextureAssetConverterFactory() = default;
 
   // =================================================================
   // Methods
   // =================================================================
 public:
-  std::string CreateHeaderProgram(const AssetInfo* info) const;
-  std::string CreateCppProgram(const AssetInfo* info) const;
-  std::string CreateTypeName() const;
-  std::string CreateTypeNameAlias() const;
-  std::string CreateContainerNameAlias() const;
+  IAssetConverter* Create() const override;
 
   // =================================================================
-  // Setter / Getter
+  // Serializer
   // =================================================================
 public:
-  inline const std::string& GetAssetName() const
+  template<class Archive>
+  void serialize(Archive& ar, std::uint32_t const version)
   {
-    return this->asset_name_;
-  }
-
-  inline const std::string& GetClassName() const
-  {
-    return this->class_name_;
+    ar(cereal::make_nvp("base", cereal::base_class<FileAssetConverterFactory>(this)));
   }
 
   // =================================================================
   // Data Members
   // =================================================================
 private:
-  std::string asset_name_;
-  std::string class_name_;
-};
 
+};
+CEREAL_CLASS_VERSION(TextureAssetConverterFactory, 1);

@@ -4,14 +4,41 @@
 #include <Windows.h>
 #include <iostream>
 #include <fstream>
+#include <direct.h>
+
+#include "../Core/NativeAssert.h"
 
 #include "AssetInfo.h"
 #include "Setting.h"
+#include "Logger.h"
+
+static const std::string SETTING_PATH = "ConvertSetting.json";
+static const std::string UNIQUE_ID_TABLE_PATH = "UniqueIdTable.json";
 
 static const std::string PROJECT_PATH = "./Project";
-static const std::string INPUT_PATH = "./Asset/Raw";
-static const std::string OUTPUT_PATH = "./Asset/Archive";
-static const std::string MID_DATA_PATH = "./Asset/Mid";
+static const std::string ASSET_PATH = "./Asset";
+static const std::string INPUT_PATH = ASSET_PATH + "/Raw";
+static const std::string OUTPUT_PATH = ASSET_PATH + "/Archive";
+static const std::string MID_DATA_PATH = ASSET_PATH + "/Setting";
+
+void FileUtil::PrepareDirectories()
+{
+  _mkdir(PROJECT_PATH.c_str());
+  _mkdir(ASSET_PATH.c_str());
+  _mkdir(INPUT_PATH.c_str());
+  _mkdir(OUTPUT_PATH.c_str());
+  _mkdir(MID_DATA_PATH.c_str());
+}
+
+std::string FileUtil::GetSettingPath()
+{
+  return CreateMidDataPath(SETTING_PATH);
+}
+
+std::string FileUtil::GetUniqueIdTablePath()
+{
+  return CreateMidDataPath(UNIQUE_ID_TABLE_PATH);
+}
 
 std::string FileUtil::CreateFileName(const std::string& path, const std::string& extension)
 {
@@ -36,6 +63,17 @@ std::string FileUtil::CreateMidDataPath(const URI& uri)
 std::string FileUtil::CreateOutputPath(const URI& uri)
 {
   return OUTPUT_PATH + "/" + uri.GetFullPath();
+}
+
+void FileUtil::CopyRawAsset(const AssetInfo* info)
+{
+  HRESULT hr = CopyFile(
+    info->GetInputPath().c_str(),
+    info->GetOutputPath().c_str(),
+    false
+  );
+  NATIVE_ASSERT(SUCCEEDED(hr), "コピーに失敗しました");
+  Logger::CopyAssetLog(info);
 }
 
 std::string FileUtil::GetTimeStamp(const std::string& path)
@@ -91,11 +129,11 @@ void Crawl(const std::string& root_path, const std::string& directory_path, std:
     //ディレクトリだった場合はそのディレクトリに対しても処理を行う
     if (data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
     {
-      Crawl(root_path, directory_path + file_name, process);
+      Crawl(root_path, directory_path + file_name + "/", process);
       continue;
     }
 
-    process(URI(directory_path, file_name));
+    process(URI(directory_path.substr(0, directory_path.size() - 1), file_name));
   } while (FindNextFile(handle, &data));
 
   FindClose(handle);

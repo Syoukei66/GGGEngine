@@ -26,6 +26,6 @@ struct MaterialData
   // Serializer / Deserializer
   //=============================================================================
   static MaterialData* Deserialize(const std::string& path);
-  void Serialize(const std::string& path, bool test = false);
+  void Serialize(const std::string& path, bool test = false) const;
 
 };

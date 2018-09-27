@@ -6,10 +6,21 @@
 template <class Entity_>
 class AssetProgramGenerator
 {
+  // =================================================================
+  // Constructor / Destructor
+  // =================================================================
 public:
   AssetProgramGenerator() = default;
 
+  // =================================================================
+  // Methods
+  // =================================================================
 public:
+  void AddAsset(const std::string& asset_name, const std::string& class_name)
+  {
+    this->namespace_generator_.AddAsset(asset_name, class_name);
+  }
+
   void CreateHeaderProgram(const std::unordered_map<T_UINT32, Entity_*>& entities, std::string* dest)
   {
     (*dest).append(this->namespace_generator_.CreateHeaderProgram([&](const DefinitionGenerator& generator)
@@ -35,6 +46,9 @@ public:
     }));
   }
 
+  // =================================================================
+  // Data Members
+  // =================================================================
 private:
   NamespaceGenerator namespace_generator_;
 

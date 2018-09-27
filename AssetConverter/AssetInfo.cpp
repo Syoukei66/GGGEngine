@@ -23,3 +23,8 @@ AssetInfo::AssetInfo(const URI& uri)
 {
 }
 
+AssetInfo::~AssetInfo()
+{
+  delete this->meta_data_;
+}
+

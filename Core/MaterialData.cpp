@@ -51,19 +51,4 @@ public:
 //=============================================================================
 // Serializer / Deserializer
 //=============================================================================
-MaterialData* MaterialData::Deserialize(const std::string& path)
-{
-  return CerealIO::Binary::Import<MaterialData>(path.c_str());
-}
-
-void MaterialData::Serialize(const std::string& path, bool test)
-{
-  CerealIO::Binary::Export<MaterialData>(path.c_str(), this);
-  if (test)
-  {
-    MaterialDataSerializerTester tester;
-    MaterialData* data = Deserialize(path);
-    tester.Compare(*this, *data);
-    delete data;
-  }
-}
+SEREALIZERS(MaterialData)

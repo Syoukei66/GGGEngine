@@ -90,9 +90,8 @@ int main()
   //asset_manager->AddConverter(&json_converter);
 
   director->Import();
-  
-  //director->Export();
-  //director->CreateProgram();
+  director->Export();
+  director->CreateProgram();
 
   director->Uninit();
 

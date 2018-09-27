@@ -161,6 +161,7 @@
     <ClInclude Include="AssetEntity.h" />
     <ClInclude Include="AssetExporter.h" />
     <ClInclude Include="AssetProgramGenerator.h" />
+    <ClInclude Include="CsvAssetConverterFactory.h" />
     <ClInclude Include="Director.h" />
     <ClInclude Include="AssetMetaData.h" />
     <ClInclude Include="AssetProgramGenerator_definition.h" />
@@ -173,6 +174,7 @@
     <ClInclude Include="FileUtil.h" />
     <ClInclude Include="AssetConverterContext.h" />
     <ClInclude Include="IAssetConverter.h" />
+    <ClInclude Include="JsonAssetConverterFactory.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="ModelMaterialAssetConverterFactory.h" />
     <ClInclude Include="ModelMaterialAssetEntity.h" />
@@ -181,18 +183,22 @@
     <ClInclude Include="ModelMeshAssetEntity.h" />
     <ClInclude Include="ModelMeshAssetExporter.h" />
     <ClInclude Include="ModelAssetConverterFactory.h" />
-    <ClInclude Include="ModelAssetEditor.h" />
     <ClInclude Include="ModelAssetEntity.h" />
     <ClInclude Include="ModelAssetExporter.h" />
     <ClInclude Include="ModelAssetImporter.h" />
     <ClInclude Include="AssetInfo.h" />
-    <ClInclude Include="RawAssetConverterFactory.h" />
-    <ClInclude Include="RawAssetEditor.h" />
-    <ClInclude Include="RawAssetEntity.h" />
-    <ClInclude Include="RawAssetExporter.h" />
-    <ClInclude Include="RawAssetImporter.h" />
+    <ClInclude Include="FileAssetConverterFactory.h" />
     <ClInclude Include="RuntimeSetting.h" />
     <ClInclude Include="Setting.h" />
+    <ClInclude Include="RawAssetConverterFactory.h" />
+    <ClInclude Include="RawAssetExporter.h" />
+    <ClInclude Include="RawAssetImporter.h" />
+    <ClInclude Include="ShaderAssetConverterFactory.h" />
+    <ClInclude Include="SoundAssetConverterFactory.h" />
+    <ClInclude Include="TextureAssetConverterFactory.h" />
+    <ClInclude Include="TextureAssetEntity.h" />
+    <ClInclude Include="TextureAssetExporter.h" />
+    <ClInclude Include="TextureAssetImporter.h" />
     <ClInclude Include="URI.h" />
   </ItemGroup>
   <ItemGroup>
@@ -212,7 +218,6 @@
     <ClCompile Include="ModelMaterialAssetEntity.cpp" />
     <ClCompile Include="ModelMaterialAssetExporter.cpp" />
     <ClCompile Include="ModelMeshAssetConverterFactory.cpp" />
-    <ClCompile Include="ModelAssetEditor.cpp" />
     <ClCompile Include="ModelMeshAssetEntity.cpp" />
     <ClCompile Include="ModelMeshAssetExporter.cpp" />
     <ClCompile Include="ModelAssetConverterFactory.cpp" />
@@ -220,11 +225,11 @@
     <ClCompile Include="ModelAssetExporter.cpp" />
     <ClCompile Include="ModelAssetImporter.cpp" />
     <ClCompile Include="AssetInfo.cpp" />
-    <ClCompile Include="RawAssetConverterFactory.cpp" />
-    <ClCompile Include="RawAssetEditor.cpp" />
-    <ClCompile Include="RawAssetExporter.cpp" />
-    <ClCompile Include="RawAssetImporter.cpp" />
     <ClCompile Include="Setting.cpp" />
+    <ClCompile Include="TextureAssetConverterFactory.cpp" />
+    <ClCompile Include="TextureAssetEntity.cpp" />
+    <ClCompile Include="TextureAssetExporter.cpp" />
+    <ClCompile Include="TextureAssetImporter.cpp" />
     <ClCompile Include="URI.cpp" />
   </ItemGroup>
   <ItemGroup>

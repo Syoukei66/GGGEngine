@@ -1,5 +1,8 @@
 #include "AssetProgramGenerator_namespace.h"
 
+// =================================================================
+// Methods
+// =================================================================
 std::string NamespaceGenerator::CreateHeaderProgram(const std::function<std::string(const DefinitionGenerator&)>& func) const
 {
   std::string ret;

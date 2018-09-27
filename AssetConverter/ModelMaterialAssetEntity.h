@@ -11,20 +11,13 @@ class ModelMaterialAssetEntity : public AssetEntity
   // =================================================================
 public:
   ModelMaterialAssetEntity(AssetInfo* info, MaterialData* data, T_UINT32 model_unique_id);
-
-public:
   ~ModelMaterialAssetEntity();
 
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  inline MaterialData* GetMaterialData()
-  {
-    return this->data_;
-  }
-
-  inline const MaterialData* GetMeshData() const
+  inline const MaterialData* GetData() const
   {
     return this->data_;
   }

@@ -78,7 +78,7 @@ template<class Entity_>
 inline AssetInfo* AssetImporter<Entity_>::Reserve(const URI& uri, AssetConverterContext* context)
 {
   //対応する拡張子かチェック
-  if (!this->IsTarget(uri.GetExtension()))
+  if (!this->IsTarget(uri))
   {
     return nullptr;
   }

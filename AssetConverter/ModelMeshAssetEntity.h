@@ -11,15 +11,13 @@ class ModelMeshAssetEntity : public AssetEntity
   // =================================================================
 public:
   ModelMeshAssetEntity(AssetInfo* info, MeshData* data, T_UINT32 model_unique_id);
-
-public:
   ~ModelMeshAssetEntity();
 
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  inline const MeshData* GetMeshData() const
+  inline const MeshData* GetData() const
   {
     return this->data_;
   }

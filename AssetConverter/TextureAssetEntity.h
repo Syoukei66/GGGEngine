@@ -1,45 +1,29 @@
 #pragma once
 
-class AssetInfo;
+#include "AssetEntity.h"
 
-#define ENTITY_ID(id) public:\
-enum { ID = id };
-
-class AssetEntity
+class TextureAssetEntity : public AssetEntity
 {
-protected:
-  enum EntityID
-  {
-    ID_TEXTURE,
-    ID_CSV,
-    ID_JSON,
-    ID_SHADER,
-    ID_SOUND,
-    ID_MODEL,
-    ID_MODEL_MESH,
-    ID_MODEL_MATERIAL,
-  };
-
+  ENTITY_ID(ID_TEXTURE)
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  AssetEntity(AssetInfo* info);
-  virtual ~AssetEntity();
+  TextureAssetEntity(AssetInfo* info);
+
+  // =================================================================
+  // Methods
+  // =================================================================
+public:
 
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  inline AssetInfo* GetAssetInfo() const
-  {
-    return this->info_;
-  }
 
   // =================================================================
   // Data Members
   // =================================================================
 private:
-  AssetInfo* info_;
 
 };

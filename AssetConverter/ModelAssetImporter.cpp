@@ -253,7 +253,7 @@ static AssetInfo* ImportTexture(AssetInfo* info, const aiMaterial* material, aiT
   return nullptr;
 }
 
-static  MaterialData* ImportMaterial(AssetInfo* info, const aiMaterial* material, AssetConverterContext* context)
+static MaterialData* ImportMaterial(AssetInfo* info, const aiMaterial* material, AssetConverterContext* context)
 {
   MaterialData* dest = new MaterialData();
 
@@ -263,7 +263,11 @@ static  MaterialData* ImportMaterial(AssetInfo* info, const aiMaterial* material
   {
     dest->color_ = ToTColor(color);
   }
-  dest->main_tex_unique_id_ = ImportTexture(info, material, aiTextureType_DIFFUSE, context)->GetUniqueID();
+  AssetInfo* tex_info = ImportTexture(info, material, aiTextureType_DIFFUSE, context);
+  if (tex_info)
+  {
+    dest->main_tex_unique_id_ = tex_info->GetUniqueID();
+  }
   dest->tiling_ = TVec2f(1.0f, 1.0f);
   dest->tiling_offset_ = TVec2f(0.0f, 0.0f);
   //TODO:プロパティのインポート処理
@@ -276,7 +280,7 @@ ModelAssetEntity* ModelAssetImporter::ImportProcess(AssetInfo* info, AssetConver
   //一部のファイルでメモリリークが発生
   Assimp::Importer importer;
   const aiScene* scene = importer.ReadFile(
-    info->GetURI().GetFullPath(),
+    info->GetInputPath(),
     aiProcess_GenNormals |
     aiProcess_CalcTangentSpace |
     aiProcess_Triangulate |
@@ -318,5 +322,5 @@ ModelAssetEntity* ModelAssetImporter::ImportProcess(AssetInfo* info, AssetConver
     data->material_unique_ids_.push_back(material_asset_infos[mesh->mMaterialIndex]->GetUniqueID());
   }
 
-  return ModelAssetEntity::Create(info, data, scene);
+  return new ModelAssetEntity(info, data, scene);
 }

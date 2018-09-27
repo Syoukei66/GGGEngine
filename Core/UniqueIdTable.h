@@ -51,7 +51,12 @@ public:
 
   T_UINT32 GetID(const std::string& path) const
   {
-    return this->table_.at(path);
+    const auto& itr = this->table_.find(path);
+    if (itr != this->table_.end())
+    {
+      return itr->second;
+    }
+    return 0;
   }
 
 public:

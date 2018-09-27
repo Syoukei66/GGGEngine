@@ -16,7 +16,7 @@ archive(cereal::binary_data(var, sizeof(value) * (size)));
   return CerealIO::Binary::Import<type>(path.c_str());\
 }\
 \
-void type##::Serialize(const std::string& path, bool test)\
+void type##::Serialize(const std::string& path, bool test) const\
 {\
   CerealIO::Binary::Export<type>(path.c_str(), this);\
   if (test)\

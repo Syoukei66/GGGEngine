@@ -1,6 +1,5 @@
 #include "Director.h"
 
-#include <direct.h>
 #include "../Core/CerealIO.h"
 #include "../Core/Asset.h"
 #include "FileUtil.h"
@@ -12,7 +11,9 @@ void Director::Init()
 {
   NATIVE_ASSERT(!this->setting_ && !this->converter_manager_ && !this->context_, "Init‚ª‚Q‰ñ˜A‘±‚ÅŒÄ‚Ño‚³‚ê‚Ü‚µ‚½");
  
-  this->setting_ = CerealIO::Json::SafeImport<Setting>("ConvertConfig.json");
+  FileUtil::PrepareDirectories();
+
+  this->setting_ = CerealIO::Json::SafeImport<Setting>(FileUtil::GetSettingPath().c_str());
   if (!this->setting_)
   {
     this->setting_ = Setting::Create();
@@ -24,6 +25,8 @@ void Director::Init()
 
 void Director::Uninit()
 {
+  CerealIO::Json::Export(FileUtil::GetSettingPath().c_str(), this->setting_);
+
   delete this->context_;
   delete this->converter_manager_;
   delete this->setting_;

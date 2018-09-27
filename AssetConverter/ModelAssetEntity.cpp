@@ -3,14 +3,6 @@
 #include "AssetInfo.h"
 
 // =================================================================
-// Factory Method
-// =================================================================
-ModelAssetEntity* ModelAssetEntity::Create(AssetInfo* info, ModelData* data, const aiScene* scene)
-{
-  return new ModelAssetEntity(info, data, scene);
-}
-
-// =================================================================
 // Constructor / Destructor
 // =================================================================
 ModelAssetEntity::ModelAssetEntity(AssetInfo* info, ModelData* data, const aiScene* scene)
@@ -18,6 +10,11 @@ ModelAssetEntity::ModelAssetEntity(AssetInfo* info, ModelData* data, const aiSce
   , scene_(scene)
   , data_(data)
 {
+}
+
+ModelAssetEntity::~ModelAssetEntity()
+{
+  delete this->data_;
 }
 
 // =================================================================

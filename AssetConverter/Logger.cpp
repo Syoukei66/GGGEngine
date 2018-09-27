@@ -15,9 +15,9 @@ static void FileNameLog(const std::string& path, T_INT32 w)
 static void ExportAssetLog(const AssetInfo* info, const std::string& action)
 {
   std::cout << std::left << std::setw(10) << action + ":";
-  FileNameLog(info->GetURI().GetFullPath(), 60);
+  FileNameLog(info->GetInputPath(), 60);
   std::cout << " => ";
-  std::cout << FileUtil::CreateOutputPath(info->GetURI().GetFullPath()) << std::endl;
+  std::cout << info->GetOutputPath() << std::endl;
 }
 
 void Logger::SkipAssetLog(const AssetInfo* info)
@@ -31,6 +31,6 @@ void Logger::ConvertAssetLog(const AssetInfo* info)
 }
 
 void Logger::CopyAssetLog(const AssetInfo* info)
-{  
+{
   ExportAssetLog(info, "copy");
 }

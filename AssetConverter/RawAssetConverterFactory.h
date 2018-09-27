@@ -1,35 +1,23 @@
 #pragma once
 
-#include "AssetConverterFactory.h"
+#include <string>
 
-class RawAssetConverterFactory : public AssetConverterFactory
+#include "RawAssetImporter.h"
+#include "RawAssetExporter.h"
+#include "AssetProgramGenerator.h"
+#include "AssetConverter.h"
+
+namespace RawAssetConverterFactory
 {
-  // =================================================================
-  // Constructor / Destructor
-  // =================================================================
-public:
-  RawAssetConverterFactory() = default;
 
-  // =================================================================
-  // Methods
-  // =================================================================
-public:
-  IAssetConverter* Create() const override;
+template<class Entity_, class... Args_>
+IAssetConverter* Create(const std::string& asset_name, const std::string& class_name, Args_... args)
+{
+  RawAssetImporter<Entity_>* importer = new RawAssetImporter<Entity_>(std::initializer_list<std::string>{args...});
+  RawAssetExporter<Entity_>* exporter = new RawAssetExporter<Entity_>();
+  AssetProgramGenerator<Entity_>* program_generator = new AssetProgramGenerator<Entity_>();
+  program_generator->AddAsset(asset_name, class_name);
+  return new AssetConverter<Entity_>(importer, nullptr, exporter, program_generator);
+}
 
-  // =================================================================
-  // Serializer
-  // =================================================================
-public:
-  template<class Archive>
-  void serialize(Archive& ar, std::uint32_t const version)
-  {
-    ar(cereal::base_class<AssetConverterFactory>(this));
-  }
-
-  // =================================================================
-  // Data Members
-  // =================================================================
-private:
-
-};
-CEREAL_CLASS_VERSION(RawAssetConverterFactory, 1);
+}

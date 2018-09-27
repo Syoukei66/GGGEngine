@@ -4,15 +4,14 @@
 #include "../Core/CerealIO.h"
 #include "FileUtil.h"
 #include "Director.h"
-
-static const char* META_DATA_EXTENSION = "meta";
+#include "Extensions.h"
 
 // =================================================================
 // Factory Method
 // =================================================================
 AssetMetaData* AssetMetaData::Create(const URI& uri, AssetConverterContext* context)
 {
-  const std::string path = FileUtil::CreateInputPath(uri.GetFullPath() + "." + META_DATA_EXTENSION);
+  const std::string path = FileUtil::CreateInputPath(uri.GetFullPath() + "." + Extensions::META);
   if (!std::ifstream(path).is_open())
   {
     return new AssetMetaData(uri, context);
@@ -44,7 +43,7 @@ AssetMetaData::AssetMetaData()
 // =================================================================
 void AssetMetaData::Save()
 {
-  const std::string path = FileUtil::CreateInputPath(this->uri_.GetFullPath() + "." + META_DATA_EXTENSION);
+  const std::string path = FileUtil::CreateInputPath(this->uri_.GetFullPath() + "." + Extensions::META);
   CerealIO::Json::Export(path.c_str(), this);
 }
 

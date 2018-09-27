@@ -9,16 +9,11 @@ class ModelAssetEntity : public AssetEntity
 {
   ENTITY_ID(ID_MODEL)
   // =================================================================
-  // Factory Method
-  // =================================================================
-public:
-  static ModelAssetEntity* Create(AssetInfo* info, ModelData* data, const aiScene* scene);
-
-  // =================================================================
   // Constructor / Destructor
   // =================================================================
-private:
+public:
   ModelAssetEntity(AssetInfo* info, ModelData* data, const aiScene* scene);
+  ~ModelAssetEntity();
 
   // =================================================================
   // Methods
@@ -33,6 +28,11 @@ public:
   inline const aiScene* GetScene() const
   {
     return this->scene_;
+  }
+
+  inline const ModelData* GetData() const
+  {
+    return this->data_;
   }
 
   // =================================================================
