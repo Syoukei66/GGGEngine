@@ -3,9 +3,9 @@
 #include <iostream>
 #include <fstream>
 
-#include "Cereal/cereal.hpp"
-#include "Cereal/archives/json.hpp"
-#include "Cereal/archives/binary.hpp"
+#include <Cereal/cereal.hpp>
+#include <Cereal/archives/json.hpp>
+#include <Cereal/archives/binary.hpp>
 
 namespace CerealIO
 {

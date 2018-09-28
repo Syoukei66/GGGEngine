@@ -7,11 +7,7 @@
 // =================================================================
 void AssetManager::Init()
 {
-  //if (this->unique_id_table_)
-  //{
-  //  delete this->unique_id_table_;
-  //}
-  //this->unique_id_table_ = CerealIO::Binary::Import<UniqueIdTable>("UniqueIdTable");
+  this->default_uids_ = DefaultUniqueID::Deserialize("DefaultUniqueID");
 }
 
 void AssetManager::Uninit()
@@ -25,8 +21,6 @@ void AssetManager::Uninit()
     }
     delete asset;
   }
-  //delete this->unique_id_table_;
-  //this->unique_id_table_ = nullptr;
 }
 
 void AssetManager::Update()

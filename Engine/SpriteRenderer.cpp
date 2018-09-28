@@ -1,5 +1,4 @@
 #include "SpriteRenderer.h"
-#include "TextureRegion.h"
 #include "EngineAsset.h"
 
 // =================================================================
@@ -15,10 +14,7 @@ SpriteRenderer::SpriteRenderer(GameObject* entity)
 
 SpriteRenderer::~SpriteRenderer()
 {
-  if (this->delete_region_)
-  {
-    delete this->texture_region_;
-  }
+  this->texture_region_->Release();
 }
 
 // =================================================================
@@ -66,14 +62,14 @@ void SpriteRenderer::FitToTexture()
 // =================================================================
 // setter/getter
 // =================================================================
-void SpriteRenderer::SetTextureRegion(rcTextureRegion* region, bool delete_region)
+void SpriteRenderer::SetTextureRegion(rcTextureRegion* region)
 {
-  if (this->delete_region_)
+  if (this->texture_region_)
   {
-    delete this->texture_region_;
+    this->texture_region_->Release();
   }
   this->texture_region_ = region;
-  this->delete_region_ = delete_region;
+  this->texture_region_->Retain();
 }
 
 void SpriteRenderer::SetTexture(const rcTexture* texture)
@@ -81,7 +77,6 @@ void SpriteRenderer::SetTexture(const rcTexture* texture)
   if (!this->texture_region_)
   {
     this->texture_region_ = rcTextureRegion::CreateWithTexture(texture);
-    this->delete_region_ = true;
   }
   else
   {

@@ -1,7 +1,8 @@
 #pragma once
 
+#include <Core/Mesh.h>
+
 #include "Renderer.h"
-#include "Mesh.h"
 
 class MeshRenderer : public Renderer
 {
@@ -9,8 +10,7 @@ class MeshRenderer : public Renderer
   // Factory Method
   // =================================================================
 public:
-  static MeshRenderer* Create(const rcCustomMesh& mesh, GameObject* entity);
-  static MeshRenderer* Create(const rcCustomMesh* mesh, GameObject* entity);
+  static MeshRenderer* Create(const rcMesh& mesh, GameObject* entity);
 
   // =================================================================
   // Constructor / Destructor
@@ -30,11 +30,11 @@ protected:
   // setter/getter
   // =================================================================
 public:
-  inline void SetMesh(const rcCustomMesh& mesh)
+  inline void SetMesh(const rcMesh& mesh)
   {
     this->mesh_ = &mesh;
   }
-  inline void SetMesh(const rcCustomMesh* mesh)
+  inline void SetMesh(const rcMesh* mesh)
   {
     this->mesh_ = mesh;
   }
@@ -43,6 +43,6 @@ public:
   // Data Member
   // =================================================================
 private:
-  const rcCustomMesh* mesh_;
+  const rcMesh* mesh_;
 
 };

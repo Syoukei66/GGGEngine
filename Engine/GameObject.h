@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "../Core/NativeType.h"
+#include <Core/NativeType.h>
 #include "GameComponent.h"
 
 #include "Renderer.h"

@@ -1,7 +1,7 @@
 #pragma once
 
+#include <Core/TextureRegion.h>
 #include "Renderer.h"
-#include "ITextureRegion.h"
 
 class SpriteRenderer : public Renderer
 {
@@ -30,8 +30,8 @@ public:
   // setter/getter
   // =================================================================
 public:
-  void SetTextureRegion(TextureRegion* region, bool delete_region);
-  inline TextureRegion* GetTextureRegion()
+  void SetTextureRegion(rcTextureRegion* region);
+  inline rcTextureRegion* GetTextureRegion()
   {
     return this->texture_region_;
   }
@@ -76,8 +76,7 @@ public:
   // Data Member
   // =================================================================
 protected:
-  bool delete_region_;
-  TextureRegion* texture_region_;
+  rcTextureRegion* texture_region_;
   TSizef size_;
 
 };

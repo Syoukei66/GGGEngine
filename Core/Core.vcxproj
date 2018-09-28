@@ -91,7 +91,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\ThirdPerson;..\ThirdPerson\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Engine;$(SolutionDir)..\Engine\ThirdParty\;$(SolutionDir)..\Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -101,7 +101,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\ThirdPerson;..\ThirdPerson\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Engine;$(SolutionDir)..\Engine\ThirdParty\;$(SolutionDir)..\Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -113,7 +113,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\ThirdPerson;..\ThirdPerson\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Engine;$(SolutionDir)..\Engine\ThirdParty\;$(SolutionDir)..\Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -129,7 +129,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\ThirdPerson;..\ThirdPerson\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Engine;$(SolutionDir)..\Engine\ThirdParty\;$(SolutionDir)..\Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -148,9 +148,7 @@
     <ClInclude Include="BlendFunction.h" />
     <ClInclude Include="Bounds.h" />
     <ClInclude Include="Bresenham.h" />
-    <ClInclude Include="CerealArchiveMacro.hpp" />
     <ClInclude Include="CerealIO.h" />
-    <ClInclude Include="CerealStructArchive.hpp" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="CsvAsset.h" />
     <ClInclude Include="CsvData.h" />
@@ -162,6 +160,7 @@
     <ClInclude Include="Gradient.h" />
     <ClInclude Include="GraphicsConstants.h" />
     <ClInclude Include="HashUtils.h" />
+    <ClInclude Include="Include.h" />
     <ClInclude Include="JsonAsset.h" />
     <ClInclude Include="JsonData.h" />
     <ClInclude Include="JsonParser.h" />
@@ -169,6 +168,7 @@
     <ClInclude Include="MaterialData.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelAsset.h" />
+    <ClInclude Include="Serializer.h" />
     <ClInclude Include="SerializerTester.h" />
     <ClInclude Include="SerializerTestMacro.hpp" />
     <ClInclude Include="ShaderAsset.h" />
@@ -211,7 +211,7 @@
     <ClInclude Include="TextureAtlasLoader.h" />
     <ClInclude Include="TextureSource.h" />
     <ClInclude Include="TiledTextureRegion.h" />
-    <ClInclude Include="UniqueIdTable.h" />
+    <ClInclude Include="DefaultUniqueID.h" />
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RenderBuffer.h" />
@@ -232,6 +232,7 @@
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="CsvData.cpp" />
     <ClCompile Include="CsvTokenizer.cpp" />
+    <ClCompile Include="DefaultUniqueID.cpp" />
     <ClCompile Include="EasingFunction.cpp" />
     <ClCompile Include="EasingFunctionManager.cpp" />
     <ClCompile Include="EngineAttachmentLoader.cpp" />

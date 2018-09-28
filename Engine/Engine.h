@@ -1,8 +1,7 @@
-#ifndef HAL_ENGINE_ENGINE_ENGINE_H_
-#define HAL_ENGINE_ENGINE_ENGINE_H_
+#pragma once
 
-#include "../Core/NativeType.h"
-#include "../Core/Geometry.h"
+#include <Core/NativeType.h>
+#include <Core/Geometry.h>
 #include "EngineOption.h"
 #include "EngineInput.h"
 #include "Scene.h"
@@ -66,5 +65,3 @@ private:
   Scene* scene_;
   SceneTransitioner* scene_transitioner_;
 };
-
-#endif//HAL_ENGINE_ENGINE_ENGINE_H_

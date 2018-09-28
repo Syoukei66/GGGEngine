@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "Eigen\Core.h"
-#include "Eigen\Geometry.h"
+#include <Eigen/Core.h>
+#include <Eigen/Geometry.h>
 
 #include "NativeType.h"
 

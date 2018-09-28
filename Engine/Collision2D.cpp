@@ -1,7 +1,9 @@
 #include "Collision2D.h"
-#include "Collider2D.h"
-#include "../Core/MathConstants.h"
+
+#include <Core/Mathf.h>
 #include <math.h>
+
+#include "Collider2D.h"
 
 namespace Collision2D
 {

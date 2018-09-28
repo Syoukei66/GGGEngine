@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GameComponent.h"
-#include "../Asset/Material.h"
+#include "../Core/Material.h"
 
 class GameObjectRenderState;
 class GameObject;

@@ -1,5 +1,4 @@
 #include "Sprite3D.h"
-#include "TextureRegion.h"
 
 // =================================================================
 // Factory Method
@@ -15,14 +14,14 @@ Sprite3D* Sprite3D::Create()
 Sprite3D* Sprite3D::CreateWithTexture(const rcTexture* texture)
 {
   rcTextureRegion* region = rcTextureRegion::CreateWithTexture(texture);
-  return Sprite3D::CreateWithTextureRegion(region, true);
+  return Sprite3D::CreateWithTextureRegion(region);
 }
 
-Sprite3D* Sprite3D::CreateWithTextureRegion(rcTextureRegion* region, bool delete_region)
+Sprite3D* Sprite3D::CreateWithTextureRegion(rcTextureRegion* region)
 {
   Sprite3D* ret = Sprite3D::Create();
   SpriteRenderer* renderer = ret->GetSpriteRenderer();
-  renderer->SetTextureRegion(region, delete_region);
+  renderer->SetTextureRegion(region);
   renderer->FitToTexture();
   return ret;
 }
@@ -30,7 +29,7 @@ Sprite3D* Sprite3D::CreateWithTextureRegion(rcTextureRegion* region, bool delete
 Sprite3D* Sprite3D::CreateWithMaterial(rcMaterial& material)
 {
   rcTextureRegion* region = rcTextureRegion::CreateWithMaterial(material);
-  Sprite3D* ret = Sprite3D::CreateWithTextureRegion(region, true);
+  Sprite3D* ret = Sprite3D::CreateWithTextureRegion(region);
   SpriteRenderer* renderer = ret->GetSpriteRenderer();
   renderer->SetMaterial(material);
   return ret;

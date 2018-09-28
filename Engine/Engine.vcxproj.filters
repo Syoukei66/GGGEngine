@@ -462,9 +462,6 @@
     <ClCompile Include="..\ThirdPerson\spine-c\src\spine\VertexEffect.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="EngineAsset.cpp">
-      <Filter>ソース ファイル\Engine</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -577,9 +574,6 @@
     </ClInclude>
     <ClInclude Include="SceneTransitioner.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="HalEngine.h">
-      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>ヘッダー ファイル\Input</Filter>
@@ -797,8 +791,8 @@
     <ClInclude Include="..\ThirdPerson\spine-c\include\spine\VertexEffect.h">
       <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
     </ClInclude>
-    <ClInclude Include="EngineAsset.h">
-      <Filter>ヘッダー ファイル\Engine</Filter>
+    <ClInclude Include="Include.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

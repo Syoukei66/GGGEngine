@@ -138,17 +138,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CerealStaticModelIO.h" />
-    <ClInclude Include="ModelAnimationData.h" />
-    <ClInclude Include="ModelConstants.h" />
-    <ClInclude Include="StandardMaterial.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="CerealStaticModelIO.cpp" />
-    <ClCompile Include="ModelSource.cpp" />
-    <ClCompile Include="StandardMaterial.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Core\Core.vcxproj">
       <Project>{ed60a9ab-7765-4071-a74f-16ae746c727f}</Project>
     </ProjectReference>

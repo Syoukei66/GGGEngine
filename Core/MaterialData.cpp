@@ -1,11 +1,8 @@
 #include "MaterialData.h"
-#include "CerealStructArchive.hpp"
-#include "CerealArchiveMacro.hpp"
-#include "CerealIO.h"
+#include <Cereal/types/unordered_map.hpp>
+
 #include "SerializerTester.h"
 #include "SerializerTestMacro.hpp"
-
-#include "Cereal/types/unordered_map.hpp"
 
 #include "CerealShaderPropertiesArchive.hpp"
 
@@ -43,12 +40,9 @@ public:
     COMPARE_ATTR(tiling_offset_);
     COMPARE_ATTR(billbording_);
     COMPARE_ATTRMAP(texture_properties_, T_UINT32);
-    COMPARE_ATTRMAP(properties_, ShaderProperty);
+    COMPARE_ATTRMAP(properties_, ShaderProperty*);
     PopState();
   }
 };
 
-//=============================================================================
-// Serializer / Deserializer
-//=============================================================================
-SEREALIZERS(MaterialData)
+SERIALIZER_IMPL(MaterialData)

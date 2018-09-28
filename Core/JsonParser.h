@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "../Core/NativeAssert.h"
-#include "../Core/NativeType.h"
+#include <Core/NativeType.h>
 
 //=============================================================================
 // JsonBase

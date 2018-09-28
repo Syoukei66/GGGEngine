@@ -5,7 +5,7 @@
 #include <list>
 
 #include "NativeType.h"
-#include "UniqueIdTable.h"
+#include "DefaultUniqueID.h"
 
 class IAsset;
 
@@ -35,16 +35,16 @@ public:
   void Update();
 
   template<class Asset_>
-  inline Asset_* GetAsset(T_UINT32 unique_id)
+  inline Asset_* GetAsset(T_UINT32 unique_id) const
   {
-    return (Asset_*)this->assets_[unique_id];
+    return (Asset_*)this->assets_.at(unique_id);
   }
 
-  //template<class Asset_>
-  //inline Asset_* GetAsset(const std::string& path)
-  //{
-  //  return (Asset_*)this->assets_[this->unique_id_table_->GetID(path)];
-  //}
+  template<class Asset_>
+  inline Asset_* GetDefaultAsset(T_UINT32 default_uid) const
+  {
+    return (Asset_*)this->assets_.at(this->default_uids_->GetUniqueId(default_uid));
+  }
 
 private:
   template<class Asset_>
@@ -56,20 +56,10 @@ private:
     return ret;
   }
 
-  //template<class Asset_>
-  //inline Asset_* AddAsset(const std::string& path)
-  //{
-  //  return this->AddAsset<Asset_>(this->unique_id_table_->Publish(path), StringUtils::GetExtension(path));
-  //}
-
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  //inline const UniqueIdTable* GetUniqueIdTable() const
-  //{
-  //  return this->unique_id_table_;
-  //}
   //size_t GetMemorySize() const;
   //size_t GetVideoMemorySize() const;
 
@@ -77,6 +67,7 @@ public:
   // Data Members
   // =================================================================
 private:
-  //UniqueIdTable* unique_id_table_;
   std::unordered_map<T_UINT32, IAsset*> assets_;
+  DefaultUniqueID* default_uids_;
+
 };

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "GameObject3D.h"
-#include "Mesh.h"
 
 class Plane3D : public GameObject3D
 {

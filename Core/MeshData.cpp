@@ -1,6 +1,4 @@
 #include "MeshData.h"
-#include "CerealStructArchive.hpp"
-#include "CerealArchiveMacro.hpp"
 #include "CerealIO.h"
 #include "SerializerTester.h"
 #include "SerializerTestMacro.hpp"
@@ -50,4 +48,4 @@ public:
 //=============================================================================
 // Serializer / Deserializer
 //=============================================================================
-SEREALIZERS(MeshData)
+SERIALIZER_IMPL(MeshData)

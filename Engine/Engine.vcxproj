@@ -72,18 +72,22 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)\..\lib\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)\..\lib\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)\..\lib\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)\..\lib\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -99,7 +103,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <TreatWarningAsError>false</TreatWarningAsError>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
-      <AdditionalIncludeDirectories>..\ThirdPerson;..\ThirdPerson\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Engine;$(SolutionDir)..\Engine\ThirdParty;$(SolutionDir)..\Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
       <OpenMPSupport>false</OpenMPSupport>
     </ClCompile>
@@ -107,6 +111,10 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -119,7 +127,7 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <TreatWarningAsError>false</TreatWarningAsError>
-      <AdditionalIncludeDirectories>..\ThirdPerson;..\ThirdPerson\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Engine;$(SolutionDir)..\Engine\ThirdParty;$(SolutionDir)..\Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
       <OpenMPSupport>false</OpenMPSupport>
     </ClCompile>
@@ -127,6 +135,10 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -143,7 +155,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <TreatWarningAsError>false</TreatWarningAsError>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
-      <AdditionalIncludeDirectories>..\ThirdPerson;..\ThirdPerson\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Engine;$(SolutionDir)..\Engine\ThirdParty;$(SolutionDir)..\Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
@@ -153,6 +165,10 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -167,7 +183,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <TreatWarningAsError>false</TreatWarningAsError>
-      <AdditionalIncludeDirectories>..\ThirdPerson;..\ThirdPerson\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Engine;$(SolutionDir)..\Engine\ThirdParty;$(SolutionDir)..\Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
@@ -177,6 +193,10 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\ThirdPerson\imgui\imgui.cpp" />
@@ -237,7 +257,6 @@
     <ClCompile Include="Cube3D.cpp" />
     <ClCompile Include="DigitalInput.cpp" />
     <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="EngineAsset.cpp" />
     <ClCompile Include="EngineInitializeSetting.cpp" />
     <ClCompile Include="EngineInputEvent.cpp" />
     <ClCompile Include="GameComponent.cpp" />
@@ -318,7 +337,6 @@
     <ClInclude Include="AnimatedSprite3D.h" />
     <ClInclude Include="AnimatedSpriteRenderer.h" />
     <ClInclude Include="Cube3D.h" />
-    <ClInclude Include="EngineAsset.h" />
     <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="GameObjectRenderQueue.h" />
     <ClInclude Include="imgui\imconfig.h" />
@@ -328,6 +346,7 @@
     <ClInclude Include="imgui\stb_textedit.h" />
     <ClInclude Include="imgui\stb_truetype.h" />
     <ClInclude Include="imgui_ja_gryph_ranges.h" />
+    <ClInclude Include="Include.h" />
     <ClInclude Include="LoopSprite.h" />
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="ModelNode.h" />
@@ -362,7 +381,6 @@
     <ClInclude Include="EntityModifierAttribute.h" />
     <ClInclude Include="EntityModifierFactory.h" />
     <ClInclude Include="EntityModifierManager.h" />
-    <ClInclude Include="HalEngine.h" />
     <ClInclude Include="InputDevice.h" />
     <ClInclude Include="InputDeviceManager.h" />
     <ClInclude Include="InputManager.h" />

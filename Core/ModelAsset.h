@@ -3,7 +3,7 @@
 #include "Asset.h"
 #include "Model.h"
 
-class ModelAsset : public Asset<ModelAsset, rcModel>
+class ModelAsset : public BaseAsset<ModelAsset, rcModel>
 {
   // =================================================================
   // Constructor / Destructor

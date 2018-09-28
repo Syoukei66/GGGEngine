@@ -3,14 +3,14 @@
 #include "Asset.h"
 #include "JsonData.h"
 
-class JsonAsset : public Asset<JsonAsset, rcJsonData>
+class JsonAsset : public BaseAsset<JsonAsset, rcJsonData>
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 protected:
   JsonAsset(const std::string& path)
-    : Asset(path)
+    : BaseAsset(path)
   {}
 
   // =================================================================

@@ -3,6 +3,7 @@
 #include <memory>
 #include <unordered_map>
 #include "ShaderProperties.h"
+#include "Serializer.h"
 
 struct MaterialData
 {
@@ -22,10 +23,5 @@ struct MaterialData
   std::unordered_map<std::string, T_UINT32> texture_properties_;
   std::unordered_map<std::string, std::shared_ptr<ShaderProperty>> properties_;
 
-  //=============================================================================
-  // Serializer / Deserializer
-  //=============================================================================
-  static MaterialData* Deserialize(const std::string& path);
-  void Serialize(const std::string& path, bool test = false) const;
-
+  SERIALIZE_METHOD(MaterialData)
 };

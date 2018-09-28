@@ -30,7 +30,7 @@ public:
 };
 
 template<class Asset_, class Resource_>
-class Asset : public IAsset
+class BaseAsset : public IAsset
 {
   friend class AssetManager;
   // =================================================================
@@ -51,11 +51,11 @@ public:
   // Constructor / Destructor
   // =================================================================
 protected:
-  Asset(const std::string& path)
+  BaseAsset(const std::string& path)
     : path_(path)
   {}
 
-  virtual ~Asset()
+  virtual ~BaseAsset()
   {
     NATIVE_ASSERT(!this->resource_, "ResourceをUnloadし忘れています。");
   }
@@ -64,10 +64,10 @@ protected:
   // noncopyable
   // =================================================================
 private:
-  Asset(const Asset&) = delete;
-  Asset& operator = (const Asset&) = delete;
-  Asset(Asset&&) = delete;
-  Asset& operator = (Asset&&) = delete;
+  BaseAsset(const BaseAsset&) = delete;
+  BaseAsset& operator = (const BaseAsset&) = delete;
+  BaseAsset(BaseAsset&&) = delete;
+  BaseAsset& operator = (BaseAsset&&) = delete;
 
   // =================================================================
   // Methods
@@ -75,13 +75,13 @@ private:
 public:
   void RetainCache() const
   {
-    ++const_cast<Asset<Asset_, Resource_>*>(this)->cache_reference_count_;
+    ++const_cast<BaseAsset<Asset_, Resource_>*>(this)->cache_reference_count_;
   }
 
   void ReleaseCache() const
   {
     NATIVE_ASSERT(this->cache_reference_count_ > 0, "リファレンスカウンタが0の時にReleaseしました");
-    --const_cast<Asset<Asset_, Resource_>*>(this)->cache_reference_count_;
+    --const_cast<BaseAsset<Asset_, Resource_>*>(this)->cache_reference_count_;
   }
 
   Resource_* CreateFromFile()

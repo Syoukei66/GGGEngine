@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <unordered_map>
-#include "../Core/NativeType.h"
+#include <Core/NativeType.h>
 
 class rcCustomMaterial;
 class Renderer;

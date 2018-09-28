@@ -3,14 +3,14 @@
 #include "Asset.h"
 #include "Shader.h"
 
-class ShaderAsset : public Asset<ShaderAsset, rcShader>
+class ShaderAsset : public BaseAsset<ShaderAsset, rcShader>
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 protected:
   ShaderAsset(const std::string& path)
-    : Asset(path)
+    : BaseAsset(path)
   {}
 
   // =================================================================

@@ -3,14 +3,14 @@
 #include "Asset.h"
 #include "SpineData.h"
 
-class SpineAsset : public Asset<SpineAsset, rcSpineData>
+class SpineAsset : public BaseAsset<SpineAsset, rcSpineData>
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 protected:
   SpineAsset(const std::string& path)
-    : Asset(path)
+    : BaseAsset(path)
   {}
 
   // =================================================================

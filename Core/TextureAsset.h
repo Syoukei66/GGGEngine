@@ -3,14 +3,14 @@
 #include "Asset.h"
 #include "Texture.h"
 
-class TextureAsset : public Asset<TextureAsset, rcTexture>
+class TextureAsset : public BaseAsset<TextureAsset, rcTexture>
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 protected:
   TextureAsset(const std::string& path)
-    : Asset(path)
+    : BaseAsset(path)
   {}
 
   // =================================================================

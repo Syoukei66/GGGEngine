@@ -1,6 +1,6 @@
 //#pragma once
 //
-//#include "../Core/NativeType.h"
+//#include <Core/NativeType.h>
 //#include "Sprite.h"
 //#include "PoolAllocator.h"
 //

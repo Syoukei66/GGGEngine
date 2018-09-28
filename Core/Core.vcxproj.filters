@@ -255,13 +255,7 @@
     <ClInclude Include="Matrix4x3.h">
       <Filter>ヘッダー ファイル\Math</Filter>
     </ClInclude>
-    <ClInclude Include="CerealArchiveMacro.hpp">
-      <Filter>ヘッダー ファイル\ThirdPirty\Cereal</Filter>
-    </ClInclude>
     <ClInclude Include="CerealIO.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Cereal</Filter>
-    </ClInclude>
-    <ClInclude Include="CerealStructArchive.hpp">
       <Filter>ヘッダー ファイル\ThirdPirty\Cereal</Filter>
     </ClInclude>
     <ClInclude Include="Material.h">
@@ -302,9 +296,6 @@
     </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>ヘッダー ファイル\Resource\_Native\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeType.h">
-      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>ヘッダー ファイル\Resource</Filter>
@@ -429,9 +420,6 @@
     <ClInclude Include="Model.h">
       <Filter>ヘッダー ファイル\Resource\Model</Filter>
     </ClInclude>
-    <ClInclude Include="UniqueIdTable.h">
-      <Filter>ヘッダー ファイル\Asset</Filter>
-    </ClInclude>
     <ClInclude Include="MeshData.h">
       <Filter>ヘッダー ファイル\Asset\Mesh</Filter>
     </ClInclude>
@@ -449,6 +437,18 @@
     </ClInclude>
     <ClInclude Include="SerializerTestMacro.hpp">
       <Filter>ヘッダー ファイル\ThirdPirty\Cereal\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Include.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="NativeType.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultUniqueID.h">
+      <Filter>ヘッダー ファイル\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="Serializer.h">
+      <Filter>ヘッダー ファイル\ThirdPirty\Cereal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -592,6 +592,9 @@
     </ClCompile>
     <ClCompile Include="ModelAsset.cpp">
       <Filter>ソース ファイル\Asset\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultUniqueID.cpp">
+      <Filter>ソース ファイル\Asset</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,7 @@
 #define HAL_ENGINE_SCENE_EVENT_ENGINEINPUT_ENGINEINPUTEVENT_H_
 
 #include <unordered_map>
-#include "../Core/NativeType.h"
+#include <Core/NativeType.h>
 #include "AnalogInput.h"
 #include "DigitalInput.h"
 #include "EngineInput.h"

@@ -1,7 +1,7 @@
 #ifndef HAL_ENGINE_SCENE_EVENT_ENGINEINPUT_DIGITALINPUTEVENT_H_
 #define HAL_ENGINE_SCENE_EVENT_ENGINEINPUT_DIGITALINPUTEVENT_H_
 
-#include "../Core/NativeType.h"
+#include <Core/NativeType.h>
 #include "EngineInput.h"
 
 // =================================================================

@@ -3,14 +3,14 @@
 #include "Asset.h"
 #include "CsvData.h"
 
-class CsvAsset : public Asset<CsvAsset, rcCsvData>
+class CsvAsset : public BaseAsset<CsvAsset, rcCsvData>
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 protected:
   CsvAsset(const std::string& path)
-    : Asset(path)
+    : BaseAsset(path)
   {}
 
   // =================================================================

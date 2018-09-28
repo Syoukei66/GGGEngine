@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Core/NativeType.h"
+#include <Core/NativeType.h>
 #include "../Core/BlendFunction.h"
 #include "../Core/GraphicsConstants.h"
 #include "../Core/Matrix4x4.h"

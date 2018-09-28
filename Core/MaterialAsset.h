@@ -3,14 +3,14 @@
 #include "Asset.h"
 #include "Material.h"
 
-class MaterialAsset : public Asset<MaterialAsset, rcMaterial>
+class MaterialAsset : public BaseAsset<MaterialAsset, rcMaterial>
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 protected:
   MaterialAsset(const std::string& path)
-    : Asset(path)
+    : BaseAsset(path)
   {}
 
   // =================================================================

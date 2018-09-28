@@ -1,11 +1,8 @@
 #include "ModelData.h"
-#include "CerealStructArchive.hpp"
-#include "CerealArchiveMacro.hpp"
-#include "CerealIO.h"
 #include "SerializerTester.h"
 #include "SerializerTestMacro.hpp"
 
-#include "Cereal/types/vector.hpp"
+#include <Cereal/types/vector.hpp>
 
 //=============================================================================
 // Cereal Archive
@@ -36,4 +33,4 @@ public:
 //=============================================================================
 // Serializer / Deserializer
 //=============================================================================
-SEREALIZERS(ModelData)
+SERIALIZER_IMPL(ModelData)

@@ -2,12 +2,13 @@
 
 #include "GameComponent.h"
 
-#include "../Core/NativeType.h"
-#include "../Core/Geometry.h"
-#include "../Core/Vector2.h"
-#include "../Core/Vector3.h"
-#include "../Core/Matrix4x4.h"
-#include "RenderTexture.h"
+#include <Core/NativeType.h>
+#include <Core/Geometry.h>
+#include <Core/Vector2.h>
+#include <Core/Vector3.h>
+#include <Core/Matrix4x4.h>
+#include <Core/RenderTexture.h>
+
 #include "GameObjectRenderState.h"
 
 class Scene;

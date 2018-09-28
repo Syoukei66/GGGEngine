@@ -3,14 +3,14 @@
 #include "Asset.h"
 #include "Sound.h"
 
-class SoundAsset : public Asset<SoundAsset, rcSound>
+class SoundAsset : public BaseAsset<SoundAsset, rcSound>
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 protected:
   SoundAsset(const std::string& path)
-    : Asset(path)
+    : BaseAsset(path)
   {}
 
   // =================================================================

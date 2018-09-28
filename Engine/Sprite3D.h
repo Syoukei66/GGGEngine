@@ -11,7 +11,7 @@ class Sprite3D : public GameObject3D
 public:
   static Sprite3D* Create();
   static Sprite3D* CreateWithTexture(const rcTexture* texture);
-  static Sprite3D* CreateWithTextureRegion(TextureRegion* region, bool delete_region);
+  static Sprite3D* CreateWithTextureRegion(rcTextureRegion* region);
   static Sprite3D* CreateWithMaterial(rcMaterial& material);
 
   // =================================================================

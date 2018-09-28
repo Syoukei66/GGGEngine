@@ -2,6 +2,7 @@
 
 #include "NativeType.h"
 #include "Bounds.h"
+#include "Serializer.h"
 
 struct MeshData
 {
@@ -28,10 +29,5 @@ struct MeshData
 
   Bounds bounds_;
 
-  //=============================================================================
-  // Serializer / Deserializer
-  //=============================================================================
-  static MeshData* Deserialize(const std::string& path);
-  void Serialize(const std::string& path, bool test = false) const;
-
+  SERIALIZE_METHOD(MeshData)
 };

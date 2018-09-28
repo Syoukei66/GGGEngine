@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Core/NativeType.h"
+#include "NativeType.h"
 #include "PerlinNoiseGenerator.h"
 #include "RandomGenerator.h"
 

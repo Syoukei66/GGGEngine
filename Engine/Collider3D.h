@@ -1,7 +1,7 @@
 #pragma once
 
 #include "GameComponent.h"
-#include "../Core/Geometry.h"
+#include <Core/Geometry.h>
 #include "GameObject3D.h"
 
 class Collider3D_Sphare;

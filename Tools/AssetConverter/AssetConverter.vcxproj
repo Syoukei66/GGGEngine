@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{AFF08C67-6948-4BF5-904B-8F356308647C}</ProjectGuid>
+    <RootNamespace>AssetConverter</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
+    <IncludePath>$(ProjectDir)\..\..\ThirdParty\Assimp\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(ProjectDir)\..\..\ThirdParty\Assimp\lib\$(Platform)\$(Configuration);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
+    <IncludePath>$(ProjectDir)\..\..\ThirdParty\Assimp\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(ProjectDir)\..\..\ThirdParty\Assimp\lib\$(Platform)\$(Configuration);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
+    <IncludePath>$(ProjectDir)\..\..\ThirdParty\Assimp\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(ProjectDir)\..\..\ThirdParty\Assimp\lib\$(Platform)\$(Configuration);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
+    <IncludePath>$(ProjectDir)\..\..\ThirdParty\Assimp\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(ProjectDir)\..\..\ThirdParty\Assimp\lib\$(Platform)\$(Configuration);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Engine;$(SolutionDir)..\Engine\ThirdParty;$(SolutionDir)..\Engine\ThirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>IrrXML.lib;zlibstatic.lib;assimp-vc140-mt.lib;zlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Engine;$(SolutionDir)..\Engine\ThirdParty;$(SolutionDir)..\Engine\ThirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>IrrXML.lib;zlibstaticd.lib;assimp-vc140-mt.lib;zlibd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Engine;$(SolutionDir)..\Engine\ThirdParty;$(SolutionDir)..\Engine\ThirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>IrrXML.lib;zlibstaticd.lib;assimp-vc140-mt.lib;zlibd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\Engine;$(SolutionDir)..\Engine\ThirdParty;$(SolutionDir)..\Engine\ThirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>IrrXML.lib;zlibstatic.lib;assimp-vc140-mt.lib;zlib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="AssetConverterFactory.h" />
+    <ClInclude Include="AssetConverterManager.h" />
+    <ClInclude Include="AssetEditor.h" />
+    <ClInclude Include="AssetConverter.h" />
+    <ClInclude Include="AssetEntity.h" />
+    <ClInclude Include="AssetExporter.h" />
+    <ClInclude Include="AssetProgramGenerator.h" />
+    <ClInclude Include="CsvAssetConverterFactory.h" />
+    <ClInclude Include="DefaultAsset.h" />
+    <ClInclude Include="Director.h" />
+    <ClInclude Include="AssetMetaData.h" />
+    <ClInclude Include="AssetProgramGenerator_definition.h" />
+    <ClInclude Include="AssetProgramGenerator_namespace.h" />
+    <ClInclude Include="AssimpMaterialSystemImporter.h" />
+    <ClInclude Include="AssetImporter.h" />
+    <ClInclude Include="Extensions.h" />
+    <ClInclude Include="FileUtil.h" />
+    <ClInclude Include="AssetConverterContext.h" />
+    <ClInclude Include="IAssetConverter.h" />
+    <ClInclude Include="JsonAssetConverterFactory.h" />
+    <ClInclude Include="Logger.h" />
+    <ClInclude Include="ModelConstants.h" />
+    <ClInclude Include="ModelMaterialAssetConverterFactory.h" />
+    <ClInclude Include="ModelMaterialAssetEntity.h" />
+    <ClInclude Include="ModelMaterialAssetExporter.h" />
+    <ClInclude Include="ModelMeshAssetConverterFactory.h" />
+    <ClInclude Include="ModelMeshAssetEntity.h" />
+    <ClInclude Include="ModelMeshAssetExporter.h" />
+    <ClInclude Include="ModelAssetConverterFactory.h" />
+    <ClInclude Include="ModelAssetEntity.h" />
+    <ClInclude Include="ModelAssetExporter.h" />
+    <ClInclude Include="ModelAssetImporter.h" />
+    <ClInclude Include="AssetInfo.h" />
+    <ClInclude Include="FileAssetConverterFactory.h" />
+    <ClInclude Include="RuntimeSetting.h" />
+    <ClInclude Include="Setting.h" />
+    <ClInclude Include="RawAssetConverterFactory.h" />
+    <ClInclude Include="RawAssetExporter.h" />
+    <ClInclude Include="RawAssetImporter.h" />
+    <ClInclude Include="ShaderAssetConverterFactory.h" />
+    <ClInclude Include="SoundAssetConverterFactory.h" />
+    <ClInclude Include="StandardMaterial.h" />
+    <ClInclude Include="TextureAssetConverterFactory.h" />
+    <ClInclude Include="TextureAssetEntity.h" />
+    <ClInclude Include="TextureAssetExporter.h" />
+    <ClInclude Include="TextureAssetImporter.h" />
+    <ClInclude Include="UniqueIdTable.h" />
+    <ClInclude Include="URI.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AssetConverterContext.cpp" />
+    <ClCompile Include="AssetConverterManager.cpp" />
+    <ClCompile Include="AssetEntity.cpp" />
+    <ClCompile Include="AssetMetaData.cpp" />
+    <ClCompile Include="Director.cpp" />
+    <ClCompile Include="AssetProgramGenerator_definition.cpp" />
+    <ClCompile Include="AssetProgramGenerator_namespace.cpp" />
+    <ClCompile Include="AssimpMaterialSystemImporter.cpp" />
+    <ClCompile Include="FileUtil.cpp" />
+    <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="ModelMaterialAssetConverterFactory.cpp" />
+    <ClCompile Include="ModelMaterialAssetEntity.cpp" />
+    <ClCompile Include="ModelMaterialAssetExporter.cpp" />
+    <ClCompile Include="ModelMeshAssetConverterFactory.cpp" />
+    <ClCompile Include="ModelMeshAssetEntity.cpp" />
+    <ClCompile Include="ModelMeshAssetExporter.cpp" />
+    <ClCompile Include="ModelAssetConverterFactory.cpp" />
+    <ClCompile Include="ModelAssetEntity.cpp" />
+    <ClCompile Include="ModelAssetExporter.cpp" />
+    <ClCompile Include="ModelAssetImporter.cpp" />
+    <ClCompile Include="AssetInfo.cpp" />
+    <ClCompile Include="Setting.cpp" />
+    <ClCompile Include="StandardMaterial.cpp" />
+    <ClCompile Include="TextureAssetConverterFactory.cpp" />
+    <ClCompile Include="TextureAssetEntity.cpp" />
+    <ClCompile Include="TextureAssetExporter.cpp" />
+    <ClCompile Include="TextureAssetImporter.cpp" />
+    <ClCompile Include="UniqueIdTable.cpp" />
+    <ClCompile Include="URI.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Core.vcxproj">
+      <Project>{ed60a9ab-7765-4071-a74f-16ae746c727f}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
