@@ -1,5 +1,5 @@
 #include "Model.h"
-#include "EngineAsset.h"
+//#include "EngineAsset.h"
 
 //Model::Model(const ModelResource& data)
 //  : ModelNode(data.GetContents()->root_)

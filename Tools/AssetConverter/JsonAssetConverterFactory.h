@@ -9,7 +9,7 @@ class JsonAssetEntity : public AssetEntity
 public:
   static inline IAssetConverter* CreateConverter()
   {
-    return RawAssetConverterFactory::Create<JsonAssetEntity>("JSON", "JsonAsset", "json");
+    return RawAssetConverterFactory::Create<JsonAssetEntity>("JSON", "rcJsonData", "json");
   }
   // =================================================================
   // Constructor / Destructor

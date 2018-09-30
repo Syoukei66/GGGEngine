@@ -2,18 +2,20 @@
 
 #include <string>
 #include <vector>
-#include "ClassEntity.h"
+#include "ProgramEntity.h"
 
 class ProjectEntity
 {
 public:
-  ProjectEntity();
+  ProjectEntity(const std::string& path);
   ~ProjectEntity();
 
 public:
+  void Crawl();
   void CreateProgram(std::string* header, std::string* cpp);
 
 private:
-  std::vector<ClassEntity*> class_entities_;
+  std::string path_;
+  std::vector<TypeEntity*> type_entities_;
 
 };

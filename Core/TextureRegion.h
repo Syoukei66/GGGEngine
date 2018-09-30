@@ -11,7 +11,7 @@ class rcTextureRegion : public Resource
   // Factory Method
   // =================================================================
 public:
-  static rcTextureRegion* CreateWithMaterial(const rcMaterial& material);
+  static rcTextureRegion* CreateWithMaterial(const rcMaterial* material);
   static rcTextureRegion* CreateWithTexture(const rcTexture* texture);
   static rcTextureRegion* Create();
 

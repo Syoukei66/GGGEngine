@@ -6,17 +6,16 @@ class Resource;
 
 class ResourceManager
 {
-public:
-  static inline ResourceManager& GetInstance()
-  {
-    static ResourceManager self;
-    return self;
-  }
-
+private:
   // =================================================================
   // Constructor / Destructor
   // =================================================================
-public:
+  static inline ResourceManager* GetInstance()
+  {
+    static ResourceManager self;
+    return &self;
+  }
+
   ResourceManager() = default;
   ~ResourceManager() = default;
 
@@ -24,22 +23,21 @@ public:
   // Methods
   // =================================================================
 public:
-  void Init();
-  void Uninit();
+  static void Init();
+  static void Uninit();
+  static void Update();
 
-  inline void Manage(Resource* resource)
+  static inline void Manage(Resource* resource)
   {
-    this->resources_.emplace_back(resource);
+    GetInstance()->resources_.emplace_back(resource);
   }
-
-  void Update();
 
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  size_t GetMemorySize() const;
-  size_t GetVideoMemorySize() const;
+  static size_t GetMemorySize();
+  static size_t GetVideoMemorySize();
 
   // =================================================================
   // Data Members

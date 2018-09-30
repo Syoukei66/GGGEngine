@@ -1,7 +1,6 @@
 #include "Director.h"
 
 #include <Core/CerealIO.h>
-#include <Core/Asset.h>
 #include "FileUtil.h"
 
 // =================================================================
@@ -19,17 +18,25 @@ void Director::Init()
     this->setting_ = Setting::Create();
   }
 
+  this->unique_id_table_ = CerealIO::Json::SafeImport<UniqueIdTable>(FileUtil::GetMidDataUniqueIdTablePath().c_str());
+  if (!this->unique_id_table_)
+  {
+    this->unique_id_table_ = new UniqueIdTable();
+  }
+
   this->converter_manager_ = new AssetConverterManager(this->setting_);
-  this->context_ = new AssetConverterContext(this->setting_, this->converter_manager_);
+  this->context_ = new AssetConverterContext(this->unique_id_table_, this->converter_manager_);
 }
 
 void Director::Uninit()
 {
+  CerealIO::Json::Export(FileUtil::GetMidDataUniqueIdTablePath().c_str(), this->unique_id_table_);
   CerealIO::Json::Export(FileUtil::GetSettingPath().c_str(), this->setting_);
 
   delete this->context_;
   delete this->converter_manager_;
   delete this->setting_;
+  delete this->unique_id_table_;
 }
 
 void Director::Import()
@@ -57,11 +64,12 @@ void Director::Import()
 
 void Director::Export()
 {
-  //出力先ディレクトリの作成
   this->converter_manager_->VisitAll([&](IAssetConverter* converter)
   {
     converter->Export(this->context_);
   });
+
+  CerealIO::Json::Export(FileUtil::GetArchiveUniqueIdTablePath().c_str(), this->unique_id_table_);
 }
 
 void Director::CreateProgram()

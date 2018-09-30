@@ -124,12 +124,6 @@
     <Filter Include="ソース ファイル\Asset">
       <UniqueIdentifier>{afbef9dc-0fac-4de4-957e-8dca3222f2bd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\Mesh">
-      <UniqueIdentifier>{9bc59006-72c2-4875-968b-dbb1fc1b5cef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\Texture">
-      <UniqueIdentifier>{b10400f0-c5fd-46f7-bfca-6d5a05ce0b82}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\ThirdPirty\Cereal\Test">
       <UniqueIdentifier>{926d73c4-7a8a-46f9-a321-4e85a103f29e}</UniqueIdentifier>
     </Filter>
@@ -141,18 +135,6 @@
     </Filter>
     <Filter Include="ソース ファイル\ThirdPirty\Cereal\Test">
       <UniqueIdentifier>{d4b03b38-f3a4-4c77-8d25-e244e21b478b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\Shader">
-      <UniqueIdentifier>{81801763-309f-4273-a0be-719bbf4272aa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\Sound">
-      <UniqueIdentifier>{00e6e693-cec2-4434-b889-3c00423bbcf5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\Json">
-      <UniqueIdentifier>{d72e16f7-9afd-4b75-9de3-bf761d0f8cc5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\Material">
-      <UniqueIdentifier>{6c40fd02-e9b7-48e8-b0b6-3a2fa8352ec8}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Resource\CSV">
       <UniqueIdentifier>{9fb3c567-02cb-4154-a2c2-ed5e15a5d0e0}</UniqueIdentifier>
@@ -172,32 +154,14 @@
     <Filter Include="ソース ファイル\Resource\Spine">
       <UniqueIdentifier>{4bdb9f6c-4711-4f2b-87be-e08c17084ea3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\CSV">
-      <UniqueIdentifier>{07662444-8358-4d64-8dc5-05ef74ecf610}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\Spine">
-      <UniqueIdentifier>{40835f93-604e-4ae6-bbab-c02ee7ea12ab}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Resource\Particle">
       <UniqueIdentifier>{bd05a48a-05f9-420d-a7df-6f67858bdfd3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Asset\Mesh">
-      <UniqueIdentifier>{b0c8c592-28f5-456c-8e02-362040ae00e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Asset\Material">
-      <UniqueIdentifier>{5d8765ec-ff3e-4862-8a03-9c7aa20ab04b}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Resource\Model">
       <UniqueIdentifier>{df72701c-9059-4bc9-b0e4-c11e837cad3e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\Model">
-      <UniqueIdentifier>{f947e0a2-64e8-41f4-8d4b-769dac1c0e71}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Resource\Model">
       <UniqueIdentifier>{6bd89c7e-f7ea-4f24-9b32-b7f40c9d1d2d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Asset\Model">
-      <UniqueIdentifier>{7468dbee-9e32-4f78-93d6-2b6d39a71adb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -342,9 +306,6 @@
     <ClInclude Include="RandomGenerator.h">
       <Filter>ヘッダー ファイル\Util</Filter>
     </ClInclude>
-    <ClInclude Include="Asset.h">
-      <Filter>ヘッダー ファイル\Asset</Filter>
-    </ClInclude>
     <ClInclude Include="AssetManager.h">
       <Filter>ヘッダー ファイル\Asset</Filter>
     </ClInclude>
@@ -356,15 +317,6 @@
     </ClInclude>
     <ClInclude Include="HashUtils.h">
       <Filter>ヘッダー ファイル\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureAsset.h">
-      <Filter>ヘッダー ファイル\Asset\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderAsset.h">
-      <Filter>ヘッダー ファイル\Asset\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundAsset.h">
-      <Filter>ヘッダー ファイル\Asset\Sound</Filter>
     </ClInclude>
     <ClInclude Include="JsonData.h">
       <Filter>ヘッダー ファイル\Resource\Json</Filter>
@@ -387,18 +339,6 @@
     <ClInclude Include="CsvTokenizer.h">
       <Filter>ヘッダー ファイル\Resource\CSV</Filter>
     </ClInclude>
-    <ClInclude Include="CsvAsset.h">
-      <Filter>ヘッダー ファイル\Asset\CSV</Filter>
-    </ClInclude>
-    <ClInclude Include="JsonAsset.h">
-      <Filter>ヘッダー ファイル\Asset\Json</Filter>
-    </ClInclude>
-    <ClInclude Include="SpineAsset.h">
-      <Filter>ヘッダー ファイル\Asset\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="MaterialAsset.h">
-      <Filter>ヘッダー ファイル\Asset\Material</Filter>
-    </ClInclude>
     <ClInclude Include="TextureAtlas.h">
       <Filter>ヘッダー ファイル\Resource\Sprite</Filter>
     </ClInclude>
@@ -411,26 +351,8 @@
     <ClInclude Include="TiledTextureRegion.h">
       <Filter>ヘッダー ファイル\Resource\Sprite</Filter>
     </ClInclude>
-    <ClInclude Include="MaterialData.h">
-      <Filter>ヘッダー ファイル\Asset\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="CerealShaderPropertiesArchive.hpp">
-      <Filter>ヘッダー ファイル\Asset\Material</Filter>
-    </ClInclude>
     <ClInclude Include="Model.h">
       <Filter>ヘッダー ファイル\Resource\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshData.h">
-      <Filter>ヘッダー ファイル\Asset\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshAsset.h">
-      <Filter>ヘッダー ファイル\Asset\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelAsset.h">
-      <Filter>ヘッダー ファイル\Asset\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelData.h">
-      <Filter>ヘッダー ファイル\Asset\Model</Filter>
     </ClInclude>
     <ClInclude Include="SerializerTester.h">
       <Filter>ヘッダー ファイル\ThirdPirty\Cereal\Test</Filter>
@@ -444,11 +366,29 @@
     <ClInclude Include="NativeType.h">
       <Filter>ヘッダー ファイル\Native</Filter>
     </ClInclude>
-    <ClInclude Include="DefaultUniqueID.h">
-      <Filter>ヘッダー ファイル\Asset</Filter>
-    </ClInclude>
     <ClInclude Include="Serializer.h">
       <Filter>ヘッダー ファイル\ThirdPirty\Cereal</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshData.h">
+      <Filter>ヘッダー ファイル\Resource\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelData.h">
+      <Filter>ヘッダー ファイル\Resource\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialData.h">
+      <Filter>ヘッダー ファイル\Resource\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="CerealShaderPropertiesArchive.hpp">
+      <Filter>ヘッダー ファイル\Resource\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetLoader.h">
+      <Filter>ヘッダー ファイル\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="UniqueIdTable.h">
+      <Filter>ヘッダー ファイル\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="Directory.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -578,22 +518,19 @@
     <ClCompile Include="TiledTextureRegion.cpp">
       <Filter>ソース ファイル\Resource\Sprite</Filter>
     </ClCompile>
-    <ClCompile Include="MaterialData.cpp">
-      <Filter>ソース ファイル\Asset\Material</Filter>
-    </ClCompile>
     <ClCompile Include="Model.cpp">
       <Filter>ソース ファイル\Resource\Model</Filter>
     </ClCompile>
+    <ClCompile Include="MaterialData.cpp">
+      <Filter>ソース ファイル\Resource\Material</Filter>
+    </ClCompile>
     <ClCompile Include="MeshData.cpp">
-      <Filter>ソース ファイル\Asset\Mesh</Filter>
+      <Filter>ソース ファイル\Resource\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="ModelData.cpp">
-      <Filter>ソース ファイル\Asset\Model</Filter>
+      <Filter>ソース ファイル\Resource\Model</Filter>
     </ClCompile>
-    <ClCompile Include="ModelAsset.cpp">
-      <Filter>ソース ファイル\Asset\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="DefaultUniqueID.cpp">
+    <ClCompile Include="UniqueIdTable.cpp">
       <Filter>ソース ファイル\Asset</Filter>
     </ClCompile>
   </ItemGroup>

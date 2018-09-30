@@ -11,7 +11,7 @@ std::string NamespaceGenerator::CreateHeaderProgram(const std::function<std::str
     ret.append("namespace " + generator.GetAssetName() + "\n");
     ret.append("{\n");
     ret.append("using " + generator.CreateTypeNameAlias() + " = " + generator.CreateTypeName() + ";\n");
-    ret.append("using " + generator.CreateContainerNameAlias() + " = AssetContainer<" + generator.CreateTypeNameAlias() + ">*;\n");
+    ret.append("using " + generator.CreateLoaderNameAlias() + " = AssetLoader<" + generator.CreateTypeNameAlias() + ">*;\n");
     ret.append(func(generator));
     ret.append("}; // namespace " + generator.GetAssetName() + "\n");
     ret.append("\n");

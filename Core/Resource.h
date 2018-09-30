@@ -7,7 +7,6 @@
 
 /*
   Resourceはリファレンスカウンタで管理される
-  shared_ptrを使用していないのは、後々非同期Load/Unloadを実装する為
   Resourceを継承するクラスは接頭辞にrcが付く。
   rcが付いてるクラスを利用する際はリファレンスカウントに注意する事。
 */
@@ -54,7 +53,7 @@ protected:
   inline void Init()
   {
     this->Retain();
-    ResourceManager::GetInstance().Manage(this);
+    ResourceManager::Manage(this);
   }
 
   // =================================================================

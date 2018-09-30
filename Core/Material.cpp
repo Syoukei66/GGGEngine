@@ -1,11 +1,14 @@
 #include "Material.h"
 #include "AssetManager.h"
-#include "ShaderAsset.h"
-#include "TextureAsset.h"
 
 // =================================================================
 // Factory Method
 // =================================================================
+rcMaterial* rcMaterial::CreateFromFile(const char* path)
+{
+  return rcMaterial::Create(MaterialData::Deserialize(path));
+}
+
 rcMaterial* rcMaterial::Create(rcShader* resource, bool protect)
 {
   rcMaterial* ret = new rcMaterial(resource, protect);
@@ -15,9 +18,9 @@ rcMaterial* rcMaterial::Create(rcShader* resource, bool protect)
 
 rcMaterial* rcMaterial::Create(const MaterialData* data)
 {
-  rcShader* resource = AssetManager::GetInstance().GetAsset<ShaderAsset>(data->shader_unique_id_)->CreateFromFile();
+  rcShader* resource = AssetManager::GetAsset<rcShader>(data->shader_unique_id_)->CreateFromFile();
   rcMaterial* ret = new rcMaterial(resource, data->protect_);
-  ret->texture_ = AssetManager::GetInstance().GetAsset<TextureAsset>(data->main_tex_unique_id_)->CreateFromFile();
+  ret->texture_ = AssetManager::GetAsset<rcTexture>(data->main_tex_unique_id_)->CreateFromFile();
   ret->tiling_ = data->tiling_;
   ret->tiling_offset_ = data->tiling_offset_;
   ret->color_ = data->color_;
@@ -25,7 +28,7 @@ rcMaterial* rcMaterial::Create(const MaterialData* data)
 
   for (const auto& pair : data->texture_properties_)
   {
-    ret->TextureProperty(pair.first) = AssetManager::GetInstance().GetAsset<TextureAsset>(pair.second)->CreateFromFile();
+    ret->TextureProperty(pair.first) = AssetManager::GetAsset<rcTexture>(pair.second)->CreateFromFile();
   }
 
   for (const auto& pair : data->properties_)

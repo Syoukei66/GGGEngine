@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "UniqueIdTable.h"
+#include <Core/UniqueIdTable.h>
 #include "URI.h"
 
 struct Setting;
@@ -15,7 +15,7 @@ class AssetConverterContext
   // Constructor / Destructor
   // =================================================================
 public:
-  AssetConverterContext(const Setting* setting, AssetConverterManager* converter_manager);
+  AssetConverterContext(UniqueIdTable* unique_id_table, AssetConverterManager* converter_manager);
   virtual ~AssetConverterContext();
 
   // =================================================================
@@ -37,19 +37,9 @@ public:
   inline T_UINT32 GetUniqueID(const URI& uri) const;
 
   // =================================================================
-  // Setter / Getter
-  // =================================================================
-public:
-  inline const Setting* GetSetting() const
-  {
-    return this->setting_;
-  }
-
-  // =================================================================
   // Data Members
   // =================================================================
 protected:
-  const Setting* setting_;
   UniqueIdTable* unique_id_table_;
   AssetConverterManager* converter_manager_;
   std::unordered_map<T_UINT32, AssetInfo*> infos_;

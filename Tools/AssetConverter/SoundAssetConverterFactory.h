@@ -9,7 +9,7 @@ class SoundAssetEntity : public AssetEntity
 public:
   static inline IAssetConverter* CreateConverter()
   {
-    return RawAssetConverterFactory::Create<SoundAssetEntity>("Sound", "SoundAsset", "wav");
+    return RawAssetConverterFactory::Create<SoundAssetEntity>("Sound", "rcSound", "wav");
   }
   // =================================================================
   // Constructor / Destructor

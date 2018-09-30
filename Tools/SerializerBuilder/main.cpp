@@ -1,0 +1,37 @@
+
+/*
+
+やりたいこと
+
+各プロジェクトにプロジェクト内のシリアライズ可能なクラスの
+シリアライズ処理を記述したSerializer.h/cppを自動生成する
+
+シリアライズ可能な型一覧を取得し、ヘッダーには前方宣言のみで済ます
+
+シリアライズ可能なクラスには$Serializableマクロをクラス内に定義、
+$Serializableマクロ自体は friend class Serializerとシリアライズ処理を定義したメソッド
+
+$Serializableだけでなく、$NonSerializedや$ArraySizeなど、色々な属性を定義する
+
+HotReloadableマクロとかもあればいいかも
+コンストラクタ、デストラクタに自動的に追加する
+
+処理手順
+
+プロジェクトディレクトリをProjectEntityとして指定
+
+ProjectEntityの処理でClassEntityを取得
+
+ClassEntityの処理でクラス/構造体に対するアトリビュートと変数一覧を取得
+
+VariableEntityの処理で変数に対するアトリビュートや型などの一覧を取得
+
+VariableEntityを基にSerializer.hでの型の前方宣言を自動生成
+
+VariableEntityのSerializeメソッドを定義していく
+
+ClassEntityのSerializeメソッドを定義していく
+
+各プロジェクトディレクトリのSerializer.h / cppを更新
+
+*/

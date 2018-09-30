@@ -4,7 +4,7 @@
 // =================================================================
 // Factory Method
 // =================================================================
-rcTextureAtlas* rcTextureAtlas::CreateWithAtlasFile(const char* path)
+rcTextureAtlas* rcTextureAtlas::CreateFromFile(const char* path)
 {
   NATIVE_ASSERT(false, "Ç‹ÇæÇ≈Ç´ÇƒÇ‹ÇπÇÒÅI");
   //std::string directory_path = std::string();

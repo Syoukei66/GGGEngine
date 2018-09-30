@@ -1,6 +1,6 @@
 #include "Plane3D.h"
+#include <Core/AssetManager.h>
 #include "MeshRenderer.h"
-#include "EngineAsset.h"
 
 // =================================================================
 // Factory Method
@@ -8,7 +8,7 @@
 Plane3D* Plane3D::Create()
 {
   Plane3D* ret = new Plane3D();
-  ret->SetRenderer(MeshRenderer::Create(EngineAsset::rcCustomMesh::PLANE.GetContents(), ret));
-  ret->GetRenderer()->SetMaterial(EngineAsset::rcMaterial::WHITE);
+  ret->SetRenderer(MeshRenderer::Create(AssetManager::GetDefaultAsset<rcMesh>(DefaultUniqueID::MESH_PLANE)->CreateFromFile(), ret));
+  ret->GetRenderer()->SetMaterial(AssetManager::GetDefaultAsset<rcMaterial>(DefaultUniqueID::MATERIAL_WHITE)->CreateFromFile());
   return ret;
 }

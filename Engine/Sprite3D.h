@@ -12,7 +12,7 @@ public:
   static Sprite3D* Create();
   static Sprite3D* CreateWithTexture(const rcTexture* texture);
   static Sprite3D* CreateWithTextureRegion(rcTextureRegion* region);
-  static Sprite3D* CreateWithMaterial(rcMaterial& material);
+  static Sprite3D* CreateWithMaterial(rcMaterial* material);
 
   // =================================================================
   // Constructor / Destructor
@@ -46,11 +46,11 @@ public:
     return this->GetSpriteRenderer()->GetTexture();
   }
 
-  inline void SetTextureRegion(TextureRegion* region, bool delete_region)
+  inline void SetTextureRegion(rcTextureRegion* region)
   {
-    this->GetSpriteRenderer()->SetTextureRegion(region, delete_region);
+    this->GetSpriteRenderer()->SetTextureRegion(region);
   }
-  inline TextureRegion* GetTextureRegion()
+  inline rcTextureRegion* GetTextureRegion()
   {
     return this->GetSpriteRenderer()->GetTextureRegion();
   }

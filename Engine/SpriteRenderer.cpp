@@ -1,5 +1,10 @@
 #include "SpriteRenderer.h"
-#include "EngineAsset.h"
+#include <Core/AssetManager.h>
+
+/*
+  Sprite毎に専用シェーダー用意するのはコスパが悪いので、
+  やはりメッシュを作成して動的にバッチングする仕組みが必要
+*/
 
 // =================================================================
 // Constructor / Destructor
@@ -9,11 +14,13 @@ SpriteRenderer::SpriteRenderer(GameObject* entity)
   , texture_region_(nullptr)
   , size_(1.0f, 1.0f)
 {
-  this->SetMaterial(*EngineAsset::rcMaterial::SPRITE.Clone());
+  this->SetMaterial(AssetManager::GetDefaultAsset<rcMaterial>(DefaultUniqueID::MATERIAL_SPRITE)->CreateFromFile());
+  this->mesh_ = AssetManager::GetDefaultAsset<rcMesh>(DefaultUniqueID::MESH_SPRITE)->CreateFromFile();
 }
 
 SpriteRenderer::~SpriteRenderer()
 {
+  this->mesh_->Release();
   this->texture_region_->Release();
 }
 
@@ -22,7 +29,7 @@ SpriteRenderer::~SpriteRenderer()
 // =================================================================
 bool SpriteRenderer::SetStreamSource() const
 {
-  EngineAsset::rcCustomMesh::QUAD.GetContents().SetStreamSource();
+  this->mesh_->SetStreamSource();
   return true;
 }
 
@@ -41,7 +48,7 @@ void SpriteRenderer::SetProperties(rcMaterial* material) const
 
 void SpriteRenderer::DrawSubset(T_UINT8 submesh_index) const
 {
-  EngineAsset::rcCustomMesh::QUAD.GetContents().DrawSubset(submesh_index);
+  this->mesh_->DrawSubset(submesh_index);
 }
 
 // =================================================================

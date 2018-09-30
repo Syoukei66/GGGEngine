@@ -12,7 +12,7 @@ class rcTextureAtlas : public Resource
   // Factory Method
   // =================================================================
 public:
-  static rcTextureAtlas* CreateWithAtlasFile(const char* path);
+  static rcTextureAtlas* CreateFromFile(const char* path);
   static rcTextureAtlas* Create(const rcTexture* texture);
 
   // =================================================================

@@ -3,9 +3,9 @@
 // =================================================================
 // Factory Method
 // =================================================================
-rcTextureRegion* rcTextureRegion::CreateWithMaterial(const rcMaterial& material)
+rcTextureRegion* rcTextureRegion::CreateWithMaterial(const rcMaterial* material)
 {
-  return rcTextureRegion::CreateWithTexture(material.GetMainTexture());
+  return rcTextureRegion::CreateWithTexture(material->GetMainTexture());
 }
 
 rcTextureRegion* rcTextureRegion::CreateWithTexture(const rcTexture* texture)

@@ -199,47 +199,48 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\ThirdPerson\imgui\imgui.cpp" />
-    <ClCompile Include="..\ThirdPerson\imgui\imgui_draw.cpp" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\Animation.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\AnimationState.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\AnimationStateData.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\Array.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\Atlas.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\AtlasAttachmentLoader.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\Attachment.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\AttachmentLoader.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\Bone.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\BoneData.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\BoundingBoxAttachment.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\ClippingAttachment.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\Event.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\EventData.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\extension.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\IkConstraint.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\IkConstraintData.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\Json.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\MeshAttachment.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\PathAttachment.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\PathConstraint.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\PathConstraintData.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\PointAttachment.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\RegionAttachment.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\Skeleton.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\SkeletonBinary.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\SkeletonBounds.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\SkeletonClipping.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\SkeletonData.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\SkeletonJson.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\Skin.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\Slot.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\SlotData.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\SpColor.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\TransformConstraint.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\TransformConstraintData.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\Triangulator.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\VertexAttachment.c" />
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\VertexEffect.c" />
+    <ClCompile Include="..\ThirdParty\imgui\imgui.cpp" />
+    <ClCompile Include="..\ThirdParty\imgui\imgui_draw.cpp" />
+    <ClCompile Include="..\ThirdParty\imgui\imgui_ja_gryph_ranges.cpp" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\Animation.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\AnimationState.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\AnimationStateData.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\Array.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\Atlas.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\AtlasAttachmentLoader.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\Attachment.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\AttachmentLoader.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\Bone.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\BoneData.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\BoundingBoxAttachment.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\ClippingAttachment.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\Event.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\EventData.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\extension.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\IkConstraint.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\IkConstraintData.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\Json.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\MeshAttachment.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\PathAttachment.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\PathConstraint.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\PathConstraintData.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\PointAttachment.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\RegionAttachment.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\Skeleton.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\SkeletonBinary.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\SkeletonBounds.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\SkeletonClipping.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\SkeletonData.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\SkeletonJson.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\Skin.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\Slot.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\SlotData.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\SpColor.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\TransformConstraint.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\TransformConstraintData.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\Triangulator.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\VertexAttachment.c" />
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\VertexEffect.c" />
     <ClCompile Include="AnalogInput.cpp" />
     <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="AnimatedSprite3D.cpp" />
@@ -264,7 +265,6 @@
     <ClCompile Include="GameObject2D.cpp" />
     <ClCompile Include="GameObject3D.cpp" />
     <ClCompile Include="GameObjectRenderQueue.cpp" />
-    <ClCompile Include="imgui_ja_gryph_ranges.cpp" />
     <ClCompile Include="LoopSprite.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="ModelNode.cpp" />
@@ -291,61 +291,64 @@
     <ClCompile Include="Sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\Animation.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\AnimationState.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\AnimationStateData.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\Array.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\Atlas.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\AtlasAttachmentLoader.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\Attachment.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\AttachmentLoader.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\Bone.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\BoneData.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\BoundingBoxAttachment.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\ClippingAttachment.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\dll.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\Event.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\EventData.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\extension.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\IkConstraint.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\IkConstraintData.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\MeshAttachment.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\PathAttachment.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\PathConstraint.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\PathConstraintData.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\PointAttachment.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\RegionAttachment.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\Skeleton.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\SkeletonBinary.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\SkeletonBounds.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\SkeletonClipping.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\SkeletonData.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\SkeletonJson.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\Skin.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\Slot.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\SlotData.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\SpColor.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\spine.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\TransformConstraint.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\TransformConstraintData.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\Triangulator.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\VertexAttachment.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\VertexEffect.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\src\spine\Json.h" />
-    <ClInclude Include="..\ThirdPerson\spine-c\src\spine\kvec.h" />
+    <ClInclude Include="..\ThirdParty\Eigen\Core.h" />
+    <ClInclude Include="..\ThirdParty\Eigen\Dense.h" />
+    <ClInclude Include="..\ThirdParty\Eigen\Geometry.h" />
+    <ClInclude Include="..\ThirdParty\imgui\imconfig.h" />
+    <ClInclude Include="..\ThirdParty\imgui\imgui.h" />
+    <ClInclude Include="..\ThirdParty\imgui\imgui_internal.h" />
+    <ClInclude Include="..\ThirdParty\imgui\imgui_ja_gryph_ranges.h" />
+    <ClInclude Include="..\ThirdParty\imgui\stb_rect_pack.h" />
+    <ClInclude Include="..\ThirdParty\imgui\stb_textedit.h" />
+    <ClInclude Include="..\ThirdParty\imgui\stb_truetype.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\Animation.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\AnimationState.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\AnimationStateData.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\Array.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\Atlas.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\AtlasAttachmentLoader.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\Attachment.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\AttachmentLoader.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\Bone.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\BoneData.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\BoundingBoxAttachment.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\ClippingAttachment.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\dll.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\Event.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\EventData.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\extension.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\IkConstraint.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\IkConstraintData.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\MeshAttachment.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\PathAttachment.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\PathConstraint.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\PathConstraintData.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\PointAttachment.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\RegionAttachment.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\Skeleton.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\SkeletonBinary.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\SkeletonBounds.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\SkeletonClipping.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\SkeletonData.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\SkeletonJson.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\Skin.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\Slot.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\SlotData.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\SpColor.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\spine.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\TransformConstraint.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\TransformConstraintData.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\Triangulator.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\VertexAttachment.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\VertexEffect.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\src\spine\Json.h" />
+    <ClInclude Include="..\ThirdParty\spine-c\src\spine\kvec.h" />
     <ClInclude Include="AnimatedSprite.h" />
     <ClInclude Include="AnimatedSprite3D.h" />
     <ClInclude Include="AnimatedSpriteRenderer.h" />
+    <ClInclude Include="AssetLoadReserver.h" />
     <ClInclude Include="Cube3D.h" />
-    <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="GameObjectRenderQueue.h" />
-    <ClInclude Include="imgui\imconfig.h" />
-    <ClInclude Include="imgui\imgui.h" />
-    <ClInclude Include="imgui\imgui_internal.h" />
-    <ClInclude Include="imgui\stb_rect_pack.h" />
-    <ClInclude Include="imgui\stb_textedit.h" />
-    <ClInclude Include="imgui\stb_truetype.h" />
-    <ClInclude Include="imgui_ja_gryph_ranges.h" />
     <ClInclude Include="Include.h" />
     <ClInclude Include="LoopSprite.h" />
     <ClInclude Include="MeshRenderer.h" />
@@ -517,19 +520,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DefaultProperty.hlsli" />
-    <ClInclude Include="Eigen\Core.h">
-      <FileType>Document</FileType>
-    </ClInclude>
-    <ClInclude Include="Eigen\Geometry.h">
-      <FileType>Document</FileType>
-    </ClInclude>
-    <ClInclude Include="Eigen\Dense.h">
-      <FileType>Document</FileType>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Asset\Asset.vcxproj">
-      <Project>{ca34ad9a-2aa7-41fa-a6bb-dbc64c9d52ed}</Project>
+    <ProjectReference Include="..\Core\Core.vcxproj">
+      <Project>{ed60a9ab-7765-4071-a74f-16ae746c727f}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

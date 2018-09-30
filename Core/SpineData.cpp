@@ -2,7 +2,6 @@
 #include "SpineData.h"
 #include <spine/extension.h>
 
-#include "TextureAsset.h"
 #include "EngineAttachmentLoader.h"
 #include "NativeProcess.h"
 

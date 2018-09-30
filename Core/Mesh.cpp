@@ -3,6 +3,11 @@
 // =================================================================
 // Factory Method
 // =================================================================
+rcMesh* rcMesh::CreateFromFile(const char* path)
+{
+  return rcMesh::Create(MeshData::Deserialize(path));
+}
+
 rcMesh* rcMesh::Create()
 {
   rcMesh* ret = new rcMesh();

@@ -12,7 +12,8 @@ namespace FileUtil
 void PrepareDirectories();
 
 std::string GetSettingPath();
-std::string GetUniqueIdTablePath();
+std::string GetMidDataUniqueIdTablePath();
+std::string GetArchiveUniqueIdTablePath();
 
 std::string CreateFileName(const std::string& path, const std::string& extension);
 std::string CreateProjectFilePath(const std::string& path);

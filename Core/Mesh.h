@@ -21,6 +21,7 @@ class rcMesh : public Resource
   // Factory Method
   // =================================================================
 public:
+  static rcMesh* CreateFromFile(const char* path);
   static rcMesh* Create();
   static rcMesh* Create(const MeshData* data);
 

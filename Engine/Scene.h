@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Asset/AssetManager.h"
+#include <Core/AssetManager.h>
 
 #include "GameObject2D.h"
 #include "GameObject3D.h"
@@ -12,11 +12,6 @@
 #include "Camera2D.h"
 #include "Camera3D.h"
 
-// =================================================================
-// Scene
-// Sceneを切り替えた場合、リソースのロード、アンロードが行われます。
-// リソースの確保はSceneのOnLoad(),OnUnload()内で行ってください。
-// =================================================================
 class Scene
 {
   // =================================================================
@@ -30,10 +25,12 @@ public:
   // Method
   // =================================================================
 public:
-  void Load(IAssetLoadingListener* listener);
+  void Load();
   void Unload();
+
   void Show(ISceneShowListener* listener);
   void ShowFinish();
+
   void Hide(ISceneHideListener* listener);
   void HideFinish();
 
@@ -107,11 +104,12 @@ public:
   void OnUpdateEvent();
 
 protected:
-  virtual void OnLoad(IAssetLoadReserver* resource) = 0;
-  virtual void OnSetup() = 0;
+  virtual void OnLoad() = 0;
   virtual void OnUnload() = 0;
+
   virtual void OnShow(ISceneShowListener* listener) = 0;
   virtual void OnShowFinish() {}
+
   virtual void OnHide(ISceneHideListener* listener) = 0;
   virtual void OnHideFinish() {}
 

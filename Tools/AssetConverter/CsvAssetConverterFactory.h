@@ -9,7 +9,7 @@ class CsvAssetEntity : public AssetEntity
 public:
   static inline IAssetConverter* CreateConverter()
   {
-    return RawAssetConverterFactory::Create<CsvAssetEntity>("CSV", "CsvAsset", "csv");
+    return RawAssetConverterFactory::Create<CsvAssetEntity>("CSV", "rcCsvData", "csv");
   }
   // =================================================================
   // Constructor / Destructor

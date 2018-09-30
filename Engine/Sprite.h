@@ -11,8 +11,8 @@ class Sprite : public GameObject2D
 public:
   static Sprite* Create();
   static Sprite* CreateWithTexture(const rcTexture* texture);
-  static Sprite* CreateWithTextureRegion(rcTextureRegion* region, bool delete_region);
-  static Sprite* CreateWithMaterial(rcMaterial& material);
+  static Sprite* CreateWithTextureRegion(rcTextureRegion* region);
+  static Sprite* CreateWithMaterial(rcMaterial* material);
 
   // =================================================================
   // Constructor / Destructor
@@ -46,9 +46,9 @@ public:
     return this->GetSpriteRenderer()->GetTexture();
   }
 
-  inline void SetTextureRegion(rcTextureRegion* region, bool delete_region)
+  inline void SetTextureRegion(rcTextureRegion* region)
   {
-    this->GetSpriteRenderer()->SetTextureRegion(region, delete_region);
+    this->GetSpriteRenderer()->SetTextureRegion(region);
   }
   inline rcTextureRegion* GetTextureRegion()
   {

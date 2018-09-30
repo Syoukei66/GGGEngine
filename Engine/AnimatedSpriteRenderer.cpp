@@ -42,7 +42,7 @@ void AnimatedSpriteRenderer::Animate(T_UINT16 duration_frame)
 
 void AnimatedSpriteRenderer::SetCurrentIndex(T_UINT16 index)
 {
-  TiledTextureRegion* region = (TiledTextureRegion*)this->GetTextureRegion();
+  rcTiledTextureRegion* region = (rcTiledTextureRegion*)this->GetTextureRegion();
   if (!region)
   {
     return;

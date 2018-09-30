@@ -6,21 +6,15 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-AssetConverterContext::AssetConverterContext(const Setting* setting, AssetConverterManager* converter_manager)
-  : setting_(setting)
+AssetConverterContext::AssetConverterContext(UniqueIdTable* unique_id_table, AssetConverterManager* converter_manager)
+  : unique_id_table_(unique_id_table)
   , converter_manager_(converter_manager)
+  , infos_()
 {
-  this->unique_id_table_ = CerealIO::Json::SafeImport<UniqueIdTable>(FileUtil::GetUniqueIdTablePath().c_str());
-  if (!this->unique_id_table_)
-  {
-    this->unique_id_table_ = new UniqueIdTable();
-  }
 }
 
 AssetConverterContext::~AssetConverterContext()
 {
-  CerealIO::Json::Export(FileUtil::GetUniqueIdTablePath().c_str(), this->unique_id_table_);
-  delete this->unique_id_table_;
 }
 
 // =================================================================

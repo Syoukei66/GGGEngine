@@ -3,7 +3,7 @@
 // =================================================================
 // Factory Method
 // =================================================================
-MeshRenderer* MeshRenderer::Create(const rcMesh& mesh, GameObject* entity)
+MeshRenderer* MeshRenderer::Create(const rcMesh* mesh, GameObject* entity)
 {
   MeshRenderer* ret = new MeshRenderer(entity);
   ret->SetMesh(mesh);

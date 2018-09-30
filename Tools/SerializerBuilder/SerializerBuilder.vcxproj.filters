@@ -13,21 +13,78 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Parser">
+      <UniqueIdentifier>{75501367-2061-48f8-8a63-4d4db56c8b8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Parser">
+      <UniqueIdentifier>{522400c2-9bcb-48ee-97ad-e346c8dbd0f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Parser\Kind">
+      <UniqueIdentifier>{0e7fbd0c-2fa8-400a-8d67-ee4c210144f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Parser\Kind">
+      <UniqueIdentifier>{9ed0df88-216f-482b-996c-112f7c79e032}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Entity">
+      <UniqueIdentifier>{e4da07bc-a850-43cf-8396-c4897b8e0116}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectEntity.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgramEntity.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Parser.cpp">
+      <Filter>ソース ファイル\Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="ParserContext.cpp">
+      <Filter>ソース ファイル\Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgramParser.cpp">
+      <Filter>ソース ファイル\Parser\Kind</Filter>
+    </ClCompile>
+    <ClCompile Include="Tokenizer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="TypeParser.cpp">
+      <Filter>ソース ファイル\Parser\Kind</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ProjectEntity.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="ClassEntity.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="VariableEntity.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgramEntity.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ParserContext.h">
+      <Filter>ヘッダー ファイル\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="Tokenizer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgramParser.h">
+      <Filter>ヘッダー ファイル\Parser\Kind</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeParser.h">
+      <Filter>ヘッダー ファイル\Parser\Kind</Filter>
+    </ClInclude>
+    <ClInclude Include="Parser.h">
+      <Filter>ヘッダー ファイル\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="Attributes.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeEntity.h">
+      <Filter>ヘッダー ファイル\Entity</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

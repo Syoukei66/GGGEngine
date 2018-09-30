@@ -9,17 +9,17 @@
 // =================================================================
 SkeletonAnimation* SkeletonAnimation::CreateWithData(const rcSpineData* data)
 {
-  return new SkeletonAnimation(data->skeleton_data);
+  return new SkeletonAnimation(data->GetSkeletonData());
 }
 
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-SkeletonAnimation::SkeletonAnimation(spSkeletonData* data)
+SkeletonAnimation::SkeletonAnimation(const spSkeletonData* data)
   : data_(data)
 {
   this->time_scale_ = 1.0f;
-  this->skeleton_ = spSkeleton_create(data);
+  this->skeleton_ = spSkeleton_create(const_cast<spSkeletonData*>(data));
 
   this->state_ = spAnimationState_create(spAnimationStateData_create(this->skeleton_->data));
   this->state_->rendererObject = this;

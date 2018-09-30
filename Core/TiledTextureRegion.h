@@ -2,7 +2,7 @@
 
 #include "TextureRegion.h"
 
-class TiledTextureRegion : public rcTextureRegion
+class rcTiledTextureRegion : public rcTextureRegion
 {
 public:
   enum TiledTextureRegionFormat
@@ -16,16 +16,16 @@ public:
   // Factory Method
   // =================================================================
 public:
-  static TiledTextureRegion* CreateWithMaterial(const rcMaterial& material, T_UINT8 x_num, T_UINT8 y_num);
-  static TiledTextureRegion* CreateWithTexture(const rcTexture* texture, T_UINT8 x_num, T_UINT8 y_num);
-  static TiledTextureRegion* Create();
+  static rcTiledTextureRegion* CreateWithMaterial(const rcMaterial* material, T_UINT8 x_num, T_UINT8 y_num);
+  static rcTiledTextureRegion* CreateWithTexture(const rcTexture* texture, T_UINT8 x_num, T_UINT8 y_num);
+  static rcTiledTextureRegion* Create();
 
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 protected:
-  TiledTextureRegion();
-  virtual ~TiledTextureRegion();
+  rcTiledTextureRegion();
+  virtual ~rcTiledTextureRegion();
 
   // =================================================================
   // Methods for/from SuperClass/Interfaces

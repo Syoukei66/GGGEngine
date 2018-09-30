@@ -13,6 +13,7 @@ class rcMaterial : public Resource
   // Factory Method
   // =================================================================
 public:
+  static rcMaterial* CreateFromFile(const char* path);
   static rcMaterial* Create(rcShader* resource, bool protect = false);
   static rcMaterial* Create(const MaterialData* data);
 

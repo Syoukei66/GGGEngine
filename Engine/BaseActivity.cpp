@@ -1,12 +1,13 @@
 #include "BaseActivity.h"
 
 #include <thread>
+#include <Core/NativeProcess.h>
 
 #include "Director.h"
 
-#include "../Core/NativeProcess.h"
 #include "InputManager.h"
-#include "EngineAsset.h"
+#include "Core/AssetManager.h"
+#include "Core/ResourceManager.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -49,16 +50,16 @@ bool BaseActivity::Run(IEngineSetting* setting)
 
   setting->OnGameInit();
 
-  EngineAsset::Load();
+  ResourceManager::Init();
+  AssetManager::Init();
 
   //Scene
   engine_->ChangeScene(setting->FirstScene());
   while (this->Update());
   setting->OnGameFinal();
 
-  EngineAsset::Unload();
-
-  OldAssetManager::GetInstance().Uninit();
+  AssetManager::Uninit();
+  ResourceManager::Uninit();
 
   result = this->Uninit();
   NATIVE_ASSERT(result, "アクティビティの終了処理に失敗しました。");
@@ -118,7 +119,9 @@ bool BaseActivity::Update()
   NativeProcess::Time::FPS_PostUpdate();
 #endif
 
-  OldAssetManager::GetInstance().Update();
+  AssetManager::Update();
+  ResourceManager::Update();
+
   return true;
 }
 

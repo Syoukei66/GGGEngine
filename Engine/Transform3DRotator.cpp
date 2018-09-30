@@ -1,7 +1,7 @@
 #include "Transform3DRotator.h"
 #include <math.h>
 
-#include "../Core/MathConstants.h"
+#include <Core/Mathf.h>
 #include "GameObject3D.h"
 
 static const TVec3f X_AXIS = TVec3f(1.0f, 0.0f, 0.0f);
@@ -174,7 +174,7 @@ void Transform3DRotator::PrepareRotationMatrix()
   if (this->master_flag_ & MASTER_EULAR)
   {
     this->rotation_matrix_ = Matrix4x4::identity;
-    this->rotation_matrix_.Rotation(this->eular_angles_ * MathConstants::DEG_TO_RAD);
+    this->rotation_matrix_.Rotation(this->eular_angles_ * Mathf::DEG_TO_RAD);
   }
   else if (this->master_flag_ & MASTER_QUATERNION)
   {
@@ -210,13 +210,13 @@ void Transform3DRotator::PrepareEularAngles()
   const float eps = 0.001f;
   if (fabs(m32 - 1.0f) < eps)
   {
-    this->eular_angles_.x = MathConstants::PI_1_2;
+    this->eular_angles_.x = Mathf::PI_1_2;
     this->eular_angles_.y = 0.0f;
     this->eular_angles_.z = atan2f(m21, m11);
   }
   else if (fabs(m32 + 1.0f) < eps)
   {
-    this->eular_angles_.x = -MathConstants::PI_1_2;
+    this->eular_angles_.x = -Mathf::PI_1_2;
     this->eular_angles_.y = 0.0f;
     this->eular_angles_.z = atan2f(m21, m11);
   }
@@ -227,7 +227,7 @@ void Transform3DRotator::PrepareEularAngles()
     this->eular_angles_.z = atan2f(-m12, m22);
   }
 
-  this->eular_angles_ *= MathConstants::RAD_TO_DEG;
+  this->eular_angles_ *= Mathf::RAD_TO_DEG;
   this->master_flag_ |= MASTER_EULAR;
 }
 

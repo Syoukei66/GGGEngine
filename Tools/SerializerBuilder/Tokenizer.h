@@ -1,23 +1,34 @@
 #pragma once
 
-#include "Asset.h"
-#include "Model.h"
+#include <string>
+#include "ParserContext.h"
 
-class ModelAsset : public BaseAsset<ModelAsset, rcModel>
+class Tokenizer
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
-protected:
+public:
+  Tokenizer();
+  ~Tokenizer();
 
   // =================================================================
   // Methods
   // =================================================================
+public:
+  void ParseLine(const std::string& line);
+
 protected:
-  virtual rcModel* LoadProcess(const std::string& path) override;
+  inline bool IsSpace(const char& c) const
+  {
+    return c == ' ' || c == '\t';
+  }
 
   // =================================================================
-  // Data Member
+  // Data Members
   // =================================================================
 private:
+  std::string stack_;
+  ParserContext* context_;
+
 };

@@ -2,8 +2,8 @@
 
 #include <spine/spine.h>
 #include <string>
-#include "../Asset/AttachmentVertexes.h"
-#include "../Asset/SpineData.h"
+#include <Core/AttachmentVertexes.h>
+#include <Core/SpineData.h>
 
 #include "GameObject2D.h"
 
@@ -19,7 +19,7 @@ public:
   // Constructor / Destructor
   // =================================================================
 public:
-  SkeletonAnimation(spSkeletonData* data);
+  SkeletonAnimation(const spSkeletonData* data);
   ~SkeletonAnimation();
   
   // =================================================================
@@ -42,7 +42,7 @@ public:
   }
 
 private:
-  spSkeletonData* data_;
+  const spSkeletonData* data_;
   spSkeleton* skeleton_;
   spAtlas* atlas_;
   spAnimationState* state_;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Core/TextureRegion.h>
+#include <Core/Mesh.h>
 #include "Renderer.h"
 
 class SpriteRenderer : public Renderer
@@ -77,6 +78,7 @@ public:
   // =================================================================
 protected:
   rcTextureRegion* texture_region_;
+  rcMesh* mesh_;
   TSizef size_;
 
 };

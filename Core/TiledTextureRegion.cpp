@@ -4,14 +4,14 @@
 // =================================================================
 // Factory Method
 // =================================================================
-TiledTextureRegion* TiledTextureRegion::CreateWithMaterial(const rcMaterial& material, T_UINT8 x_num, T_UINT8 y_num)
+rcTiledTextureRegion* rcTiledTextureRegion::CreateWithMaterial(const rcMaterial* material, T_UINT8 x_num, T_UINT8 y_num)
 {
-  return TiledTextureRegion::CreateWithTexture(material.GetMainTexture(), x_num, y_num);
+  return rcTiledTextureRegion::CreateWithTexture(material->GetMainTexture(), x_num, y_num);
 }
 
-TiledTextureRegion* TiledTextureRegion::CreateWithTexture(const rcTexture* texture, T_UINT8 x_num, T_UINT8 y_num)
+rcTiledTextureRegion* rcTiledTextureRegion::CreateWithTexture(const rcTexture* texture, T_UINT8 x_num, T_UINT8 y_num)
 {
-  TiledTextureRegion* ret = TiledTextureRegion::Create();
+  rcTiledTextureRegion* ret = rcTiledTextureRegion::Create();
   ret->Init();
   ret->SetTexture(texture);
   ret->SetXNum(x_num);
@@ -20,9 +20,9 @@ TiledTextureRegion* TiledTextureRegion::CreateWithTexture(const rcTexture* textu
   return ret;
 }
 
-TiledTextureRegion* TiledTextureRegion::Create()
+rcTiledTextureRegion* rcTiledTextureRegion::Create()
 {
-  TiledTextureRegion* ret = new TiledTextureRegion();
+  rcTiledTextureRegion* ret = new rcTiledTextureRegion();
   ret->Resource::Init();
   return ret;
 }
@@ -30,21 +30,21 @@ TiledTextureRegion* TiledTextureRegion::Create()
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-TiledTextureRegion::TiledTextureRegion()
+rcTiledTextureRegion::rcTiledTextureRegion()
   : x_num_(1)
   , y_num_(1)
   , current_index_(0)
   , format_(TTR_FORMAT_LOOP)
 {}
 
-TiledTextureRegion::~TiledTextureRegion()
+rcTiledTextureRegion::~rcTiledTextureRegion()
 {
 }
 
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
-void TiledTextureRegion::OnUpdateTextureCoord(const rcTexture* texture)
+void rcTiledTextureRegion::OnUpdateTextureCoord(const rcTexture* texture)
 {
   const T_FLOAT tw = (T_FLOAT)texture->GetWidth();
   const T_FLOAT th = (T_FLOAT)texture->GetHeight();
@@ -65,7 +65,7 @@ void TiledTextureRegion::OnUpdateTextureCoord(const rcTexture* texture)
   this->SetV1(region_y + (y * h + h) * rateY);
 }
 
-T_UINT16 TiledTextureRegion::CalcCurrentIndex()
+T_UINT16 rcTiledTextureRegion::CalcCurrentIndex()
 {
   const T_UINT16 ret = this->current_index_;
   const T_UINT16 min = 0;
@@ -92,7 +92,7 @@ T_UINT16 TiledTextureRegion::CalcCurrentIndex()
 // =================================================================
 // setter/getter
 // =================================================================
-void TiledTextureRegion::SetXNum(T_UINT8 x_num)
+void rcTiledTextureRegion::SetXNum(T_UINT8 x_num)
 {
   if (this->x_num_ == x_num)
   {
@@ -102,7 +102,7 @@ void TiledTextureRegion::SetXNum(T_UINT8 x_num)
   this->OnTextureCoordDirty();
 }
 
-void TiledTextureRegion::SetYNum(T_UINT8 y_num)
+void rcTiledTextureRegion::SetYNum(T_UINT8 y_num)
 {
   if (this->y_num_ == y_num)
   {
@@ -112,7 +112,7 @@ void TiledTextureRegion::SetYNum(T_UINT8 y_num)
   this->OnTextureCoordDirty();
 }
 
-void TiledTextureRegion::SetCurrentIndex(T_UINT16 current_index)
+void rcTiledTextureRegion::SetCurrentIndex(T_UINT16 current_index)
 {
   if (this->current_index_ == current_index)
   {
@@ -122,7 +122,7 @@ void TiledTextureRegion::SetCurrentIndex(T_UINT16 current_index)
   this->OnTextureCoordDirty();
 }
 
-void TiledTextureRegion::SetTiledTextureRegionFormat(TiledTextureRegionFormat format)
+void rcTiledTextureRegion::SetTiledTextureRegionFormat(TiledTextureRegionFormat format)
 {
   if (this->format_ == format)
   {

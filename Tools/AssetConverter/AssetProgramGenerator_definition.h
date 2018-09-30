@@ -21,7 +21,7 @@ public:
   std::string CreateCppProgram(const AssetInfo* info) const;
   std::string CreateTypeName() const;
   std::string CreateTypeNameAlias() const;
-  std::string CreateContainerNameAlias() const;
+  std::string CreateLoaderNameAlias() const;
 
   // =================================================================
   // Setter / Getter

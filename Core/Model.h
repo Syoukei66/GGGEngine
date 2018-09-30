@@ -3,14 +3,22 @@
 #include "Mesh.h"
 #include "Material.h"
 #include "Resource.h"
+#include "ModelData.h"
 
 class rcModel : public Resource
 {
   // =================================================================
+  // Factory Method
+  // =================================================================
+public:
+  static rcModel* CreateFromFile(const char* path);
+  static rcModel* Create(const ModelData* data);
+
+  // =================================================================
   // Constructor / Destructor
   // =================================================================
 protected:
-  rcModel(rcMesh* mesh, rcMaterial** materials);
+  rcModel(const ModelData* data);
   virtual ~rcModel();
 
   // =================================================================

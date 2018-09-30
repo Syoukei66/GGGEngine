@@ -3,16 +3,16 @@
 #include <vector>
 #include "VariableEntity.h"
 
-class ClassEntity
+class TypeEntity
 {
 public:
-  ClassEntity();
-  ~ClassEntity();
+  TypeEntity();
+  ~TypeEntity();
 
 public:
   void CreateProgram(std::string* header, std::string* cpp);
 
 private:
-  std::vector<VariableEntity*> class_entities_;
+  std::vector<VariableEntity*> type_entities_;
 
 };

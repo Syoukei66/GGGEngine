@@ -3,6 +3,8 @@
 #include <vector>
 #include <functional>
 
+#include <Core/UniqueIdTable.h>
+
 #include "Setting.h"
 #include "AssetConverterContext.h"
 #include "AssetConverterManager.h"
@@ -49,6 +51,7 @@ public:
   // =================================================================
 private:
   Setting* setting_;
+  UniqueIdTable* unique_id_table_;
   AssetConverterContext* context_;
   AssetConverterManager* converter_manager_;
 

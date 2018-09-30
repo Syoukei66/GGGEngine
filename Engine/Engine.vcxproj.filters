@@ -163,32 +163,32 @@
     <Filter Include="ヘッダー ファイル\Engine\Director">
       <UniqueIdentifier>{b8d79364-1f64-44c0-b322-e001361dedc0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\ThirdPirty">
-      <UniqueIdentifier>{9b538748-b535-4ded-bb86-e8872a50c944}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\ThirdPirty\Eigen">
-      <UniqueIdentifier>{65527833-19ab-41a2-851a-fefb9bbdf9de}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\ThirdPirty">
       <UniqueIdentifier>{9852c34d-21fd-4bb8-88de-6d4a3d984da9}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\ThirdPirty\imgui">
       <UniqueIdentifier>{9b8d6292-1ea3-490e-b5b9-de8fa4dfc578}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\ThirdPirty\imgui">
-      <UniqueIdentifier>{600f7942-ecdb-4bfe-b65f-8adf17794c36}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\ThirdPirty\Spine">
       <UniqueIdentifier>{71fbf405-9b24-4dc2-8f5c-e195157217e6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\ThirdPirty\Spine">
-      <UniqueIdentifier>{1492e0cf-d233-48a5-9031-daab12c503e3}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\GameObject\2D\Spine">
       <UniqueIdentifier>{33f99194-e046-47c6-ae1c-0e36a84103cf}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\GameObject\2D\Spine">
       <UniqueIdentifier>{1fd74c9e-e5ab-4bd8-9df9-85249d069f22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\ThirdParty">
+      <UniqueIdentifier>{9b538748-b535-4ded-bb86-e8872a50c944}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\ThirdParty\Eigen">
+      <UniqueIdentifier>{65527833-19ab-41a2-851a-fefb9bbdf9de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\ThirdParty\imgui">
+      <UniqueIdentifier>{600f7942-ecdb-4bfe-b65f-8adf17794c36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\ThirdParty\Spine">
+      <UniqueIdentifier>{1492e0cf-d233-48a5-9031-daab12c503e3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -330,136 +330,136 @@
     <ClCompile Include="LoopSprite.cpp">
       <Filter>ソース ファイル\GameObject\2D\Sprite</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_ja_gryph_ranges.cpp">
-      <Filter>ソース ファイル\ThirdPirty\imgui</Filter>
-    </ClCompile>
     <ClCompile Include="Collision3D.cpp">
       <Filter>ソース ファイル\Component\Collision\3D</Filter>
     </ClCompile>
     <ClCompile Include="GameObjectRenderQueue.cpp">
       <Filter>ソース ファイル\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\imgui\imgui.cpp">
+    <ClCompile Include="..\ThirdParty\imgui\imgui.cpp">
       <Filter>ソース ファイル\ThirdPirty\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\imgui\imgui_draw.cpp">
+    <ClCompile Include="..\ThirdParty\imgui\imgui_draw.cpp">
       <Filter>ソース ファイル\ThirdPirty\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\Animation.c">
+    <ClCompile Include="..\ThirdParty\imgui\imgui_ja_gryph_ranges.cpp">
+      <Filter>ソース ファイル\ThirdPirty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\Animation.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\AnimationState.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\AnimationState.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\AnimationStateData.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\AnimationStateData.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\Array.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\Array.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\Atlas.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\Atlas.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\AtlasAttachmentLoader.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\AtlasAttachmentLoader.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\Attachment.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\Attachment.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\AttachmentLoader.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\AttachmentLoader.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\Bone.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\Bone.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\BoneData.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\BoneData.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\BoundingBoxAttachment.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\BoundingBoxAttachment.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\ClippingAttachment.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\ClippingAttachment.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\Event.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\Event.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\EventData.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\EventData.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\extension.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\extension.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\IkConstraint.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\IkConstraint.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\IkConstraintData.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\IkConstraintData.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\Json.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\Json.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\MeshAttachment.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\MeshAttachment.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\PathAttachment.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\PathAttachment.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\PathConstraint.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\PathConstraint.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\PathConstraintData.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\PathConstraintData.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\PointAttachment.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\PointAttachment.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\RegionAttachment.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\RegionAttachment.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\Skeleton.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\Skeleton.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\SkeletonBinary.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\SkeletonBinary.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\SkeletonBounds.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\SkeletonBounds.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\SkeletonClipping.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\SkeletonClipping.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\SkeletonData.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\SkeletonData.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\SkeletonJson.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\SkeletonJson.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\Skin.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\Skin.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\Slot.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\Slot.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\SlotData.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\SlotData.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\SpColor.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\SpColor.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\TransformConstraint.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\TransformConstraint.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\TransformConstraintData.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\TransformConstraintData.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\Triangulator.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\Triangulator.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\VertexAttachment.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\VertexAttachment.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
-    <ClCompile Include="..\ThirdPerson\spine-c\src\spine\VertexEffect.c">
+    <ClCompile Include="..\ThirdParty\spine-c\src\spine\VertexEffect.c">
       <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -623,176 +623,176 @@
     <ClInclude Include="AnimatedSpriteRenderer.h">
       <Filter>ヘッダー ファイル\Component\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="GameObjectFactory.h">
-      <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="LoopSprite.h">
       <Filter>ヘッダー ファイル\GameObject\2D\Sprite</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui\imgui.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui\imgui_internal.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui\stb_rect_pack.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui\stb_textedit.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui\stb_truetype.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui\imconfig.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui_ja_gryph_ranges.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\imgui</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>ヘッダー ファイル\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Eigen\Geometry.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="Eigen\Core.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Eigen</Filter>
-    </ClInclude>
-    <ClInclude Include="Eigen\Dense.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Eigen</Filter>
-    </ClInclude>
     <ClInclude Include="GameObjectRenderQueue.h">
       <Filter>ヘッダー ファイル\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\src\spine\Json.h">
-      <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\src\spine\kvec.h">
-      <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\Animation.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\AnimationState.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\AnimationStateData.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\Array.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\Atlas.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\AtlasAttachmentLoader.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\Attachment.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\AttachmentLoader.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\Bone.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\BoneData.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\BoundingBoxAttachment.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\ClippingAttachment.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\dll.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\Event.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\EventData.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\extension.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\IkConstraint.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\IkConstraintData.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\MeshAttachment.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\PathAttachment.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\PathConstraint.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\PathConstraintData.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\PointAttachment.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\RegionAttachment.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\Skeleton.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\SkeletonBinary.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\SkeletonBounds.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\SkeletonClipping.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\SkeletonData.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\SkeletonJson.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\Skin.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\Slot.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\SlotData.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\SpColor.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\spine.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\TransformConstraint.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\TransformConstraintData.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\Triangulator.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\VertexAttachment.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ThirdPerson\spine-c\include\spine\VertexEffect.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Spine</Filter>
-    </ClInclude>
     <ClInclude Include="Include.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\Eigen\Core.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\Eigen\Dense.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\Eigen\Geometry.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Eigen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\imgui\imconfig.h">
+      <Filter>ヘッダー ファイル\ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\imgui\imgui.h">
+      <Filter>ヘッダー ファイル\ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\imgui\imgui_internal.h">
+      <Filter>ヘッダー ファイル\ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\imgui\imgui_ja_gryph_ranges.h">
+      <Filter>ヘッダー ファイル\ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\imgui\stb_rect_pack.h">
+      <Filter>ヘッダー ファイル\ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\imgui\stb_textedit.h">
+      <Filter>ヘッダー ファイル\ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\imgui\stb_truetype.h">
+      <Filter>ヘッダー ファイル\ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\Animation.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\AnimationState.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\AnimationStateData.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\Array.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\Atlas.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\AtlasAttachmentLoader.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\Attachment.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\AttachmentLoader.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\Bone.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\BoneData.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\BoundingBoxAttachment.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\ClippingAttachment.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\dll.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\Event.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\EventData.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\extension.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\IkConstraint.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\IkConstraintData.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\MeshAttachment.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\PathAttachment.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\PathConstraint.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\PathConstraintData.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\PointAttachment.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\RegionAttachment.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\Skeleton.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\SkeletonBinary.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\SkeletonBounds.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\SkeletonClipping.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\SkeletonData.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\SkeletonJson.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\Skin.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\Slot.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\SlotData.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\SpColor.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\spine.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\TransformConstraint.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\TransformConstraintData.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\Triangulator.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\VertexAttachment.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\include\spine\VertexEffect.h">
+      <Filter>ヘッダー ファイル\ThirdParty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\src\spine\Json.h">
+      <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ThirdParty\spine-c\src\spine\kvec.h">
+      <Filter>ソース ファイル\ThirdPirty\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetLoadReserver.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

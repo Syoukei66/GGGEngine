@@ -13,24 +13,24 @@ AnimatedSprite* AnimatedSprite::Create()
 
 AnimatedSprite* AnimatedSprite::CreateWithTexture(const rcTexture* texture, T_UINT8 x_num, T_UINT8 y_num)
 {
-  TiledTextureRegion* region = TiledTextureRegion::CreateWithTexture(texture, x_num, y_num);
-  return AnimatedSprite::CreateWithTextureRegion(region, true);
+  rcTiledTextureRegion* region = rcTiledTextureRegion::CreateWithTexture(texture, x_num, y_num);
+  return AnimatedSprite::CreateWithTextureRegion(region);
 }
 
-AnimatedSprite* AnimatedSprite::CreateWithTextureRegion(TiledTextureRegion* region, bool delete_region)
+AnimatedSprite* AnimatedSprite::CreateWithTextureRegion(rcTiledTextureRegion* region)
 {
   AnimatedSprite* ret = AnimatedSprite::Create();
   AnimatedSpriteRenderer* renderer = ret->GetAnimatedSpriteRenderer();
-  renderer->SetTextureRegion(region, delete_region);
+  renderer->SetTextureRegion(region);
   renderer->SetAnimateRange(0, region->GetTileCount() - 1);
   renderer->FitToTexture();
   return ret;
 }
 
-AnimatedSprite* AnimatedSprite::CreateWithMaterial(rcMaterial& material, T_UINT8 x_num, T_UINT8 y_num)
+AnimatedSprite* AnimatedSprite::CreateWithMaterial(rcMaterial* material, T_UINT8 x_num, T_UINT8 y_num)
 {
-  TiledTextureRegion* region = TiledTextureRegion::CreateWithMaterial(material, x_num, y_num);
-  AnimatedSprite* ret = AnimatedSprite::CreateWithTextureRegion(region, true);
+  rcTiledTextureRegion* region = rcTiledTextureRegion::CreateWithMaterial(material, x_num, y_num);
+  AnimatedSprite* ret = AnimatedSprite::CreateWithTextureRegion(region);
   AnimatedSpriteRenderer* renderer = ret->GetAnimatedSpriteRenderer();
   renderer->SetMaterial(material);
   return ret;

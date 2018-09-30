@@ -8,14 +8,14 @@
 #include "StringUtils.h"
 #include "HashUtils.h"
 
-class IAsset
+class IAssetLoader
 {
   friend class AssetManager;
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  virtual ~IAsset() {}
+  virtual ~IAssetLoader() {}
 
   // =================================================================
   // Methods
@@ -26,36 +26,28 @@ protected:
 
 public:
   virtual bool IsMapped() const = 0;
+  virtual T_UINT32 GetUniqueID() const = 0;
+  virtual T_UINT32 GetSize() const = 0;
 
 };
 
-template<class Asset_, class Resource_>
-class BaseAsset : public IAsset
+template<class Resource_>
+class AssetLoader : public IAssetLoader
 {
   friend class AssetManager;
-  // =================================================================
-  // Factory Method
-  // =================================================================
-public:
-  static Asset_* Create(T_UINT32 unique_id, const std::string& extension)
-  {
-    return AssetManager::GetInstance().AddAsset<Asset_>(unique_id, extension);
-  }
-
-  static Asset_* Create(const std::string& path)
-  {
-    return AssetManager::GetInstance().AddAsset<Asset_>(path);
-  }
-
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 protected:
-  BaseAsset(const std::string& path)
-    : path_(path)
-  {}
+  AssetLoader(T_UINT32 uid, const std::string& path)
+    : unique_id_(uid)
+    , path_(path)
+  {
+    //本来はアーカイブファイルから取得する
+    this->size_ = 1;
+  }
 
-  virtual ~BaseAsset()
+  virtual ~AssetLoader()
   {
     NATIVE_ASSERT(!this->resource_, "ResourceをUnloadし忘れています。");
   }
@@ -64,50 +56,37 @@ protected:
   // noncopyable
   // =================================================================
 private:
-  BaseAsset(const BaseAsset&) = delete;
-  BaseAsset& operator = (const BaseAsset&) = delete;
-  BaseAsset(BaseAsset&&) = delete;
-  BaseAsset& operator = (BaseAsset&&) = delete;
+  AssetLoader(const AssetLoader&) = delete;
+  AssetLoader& operator = (const AssetLoader&) = delete;
+  AssetLoader(AssetLoader&&) = delete;
+  AssetLoader& operator = (AssetLoader&&) = delete;
 
   // =================================================================
   // Methods
   // =================================================================
 public:
-  void RetainCache() const
-  {
-    ++const_cast<BaseAsset<Asset_, Resource_>*>(this)->cache_reference_count_;
-  }
-
-  void ReleaseCache() const
-  {
-    NATIVE_ASSERT(this->cache_reference_count_ > 0, "リファレンスカウンタが0の時にReleaseしました");
-    --const_cast<BaseAsset<Asset_, Resource_>*>(this)->cache_reference_count_;
-  }
-
   Resource_* CreateFromFile()
   {
-    if (this->resource_)
+    if (!this->resource_)
     {
-      this->resource_->Retain();
-      return this->resource_;
+      //Load時に増えるリファレンスカウントはAssetが管理していることを表すカウント
+      this->resource_ = Resource_::CreateFromFile(this->path_.c_str());
     }
-    this->resource_ = this->LoadProcess(this->path_);
+    this->resource_->Retain();
     return this->resource_;
   }
-  void CreateFromFileAsync(std::function<void(Resource_*)> func, T_UINT8 priority)
-  {
-    if (this->resource_)
-    {
-      this->resource_->Retain();
-      func(this->resource_);
-      return;
-    }
-    this->resource_ = this->LoadProcess(this->path_);
-    func(this->resource_);
-  }
 
-protected:
-  virtual Resource_* LoadProcess(const std::string& path) = 0;
+  //void CreateFromFileAsync(std::function<void(Resource_*)> func, T_UINT8 priority)
+  //{
+  //  if (this->resource_)
+  //  {
+  //    this->resource_->Retain();
+  //    func(this->resource_);
+  //    return;
+  //  }
+  //  this->resource_ = this->LoadProcess(this->path_);
+  //  func(this->resource_);
+  //}
 
 private:
   inline void Unload() override
@@ -134,11 +113,23 @@ public:
     return this->resource_;
   }
 
+  inline T_UINT32 GetUniqueID() const override
+  {
+    return this->unique_id_;
+  }
+
+  inline T_UINT32 GetSize() const override
+  {
+    return this->size_;
+  }
+
   // =================================================================
   // Data Members
   // =================================================================
 private:
+  T_UINT32 unique_id_;
   std::string path_;
+  T_UINT32 size_;
   Resource_* resource_;
   
 };

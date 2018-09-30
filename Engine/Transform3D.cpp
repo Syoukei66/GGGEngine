@@ -89,12 +89,12 @@ void Transform3D::UpdateRotateMatrix(Matrix4x4* matrix)
 
 const Matrix4x4& Transform3D::GetParentWorldMatrix()
 {
-  GameObject3D* parent = this->entity_->GetParent();
-  if (!parent)
+  GameObject3D* parent_ = this->entity_->GetParent();
+  if (!parent_)
   {
     return Matrix4x4::identity;
   }
-  return parent->GetTransform()->GetWorldMatrix();
+  return parent_->GetTransform()->GetWorldMatrix();
 }
 
 // =================================================================

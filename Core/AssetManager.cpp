@@ -1,33 +1,36 @@
 #include "AssetManager.h"
-#include "Asset.h"
+#include "AssetLoader.h"
 #include "CerealIO.h"
+
+#include <Core/Directory.h>
 
 // =================================================================
 // Methods
 // =================================================================
 void AssetManager::Init()
 {
-  this->default_uids_ = DefaultUniqueID::Deserialize("DefaultUniqueID");
+  GetInstance()->unique_id_table_ = CerealIO::Binary::Import<UniqueIdTable>(Directory::GetArchiveUniqueIdTablePath().c_str());
 }
 
 void AssetManager::Uninit()
 {
-  for (auto& pair : this->assets_)
+  for (auto& pair : GetInstance()->assets_)
   {
-    IAsset* asset = pair.second;
+    IAssetLoader* asset = pair.second;
     if (asset->IsNeedUnload())
     {
       asset->Unload();
     }
     delete asset;
   }
+  delete GetInstance()->unique_id_table_;
 }
 
 void AssetManager::Update()
 {
-  for (auto& pair : this->assets_)
+  for (auto& pair : GetInstance()->assets_)
   {
-    IAsset* asset = pair.second;
+    IAssetLoader* asset = pair.second;
     if (!asset->IsNeedUnload())
     {
       continue;

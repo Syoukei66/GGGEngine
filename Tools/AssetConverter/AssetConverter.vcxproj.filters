@@ -58,12 +58,6 @@
     <Filter Include="ヘッダー ファイル\Constants">
       <UniqueIdentifier>{3ab8ee0d-1c13-43b4-8a96-eb7b24ccf374}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\File">
-      <UniqueIdentifier>{e8480da5-6a33-49c3-be86-bdaf499e035a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\File">
-      <UniqueIdentifier>{e7a09f8b-823c-41d4-877b-8502de648d98}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Asset\_File">
       <UniqueIdentifier>{9229604e-de0a-41f2-af46-152dcc8b25fc}</UniqueIdentifier>
     </Filter>
@@ -204,9 +198,6 @@
     <ClInclude Include="Extensions.h">
       <Filter>ヘッダー ファイル\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="URI.h">
-      <Filter>ヘッダー ファイル\File</Filter>
-    </ClInclude>
     <ClInclude Include="TextureAssetConverterFactory.h">
       <Filter>ヘッダー ファイル\Asset\_File\Texture</Filter>
     </ClInclude>
@@ -245,9 +236,6 @@
     </ClInclude>
     <ClInclude Include="DefaultAsset.h">
       <Filter>ヘッダー ファイル\Constants</Filter>
-    </ClInclude>
-    <ClInclude Include="UniqueIdTable.h">
-      <Filter>ヘッダー ファイル\Asset</Filter>
     </ClInclude>
     <ClInclude Include="StandardMaterial.h">
       <Filter>ヘッダー ファイル\Assimp</Filter>
@@ -326,9 +314,6 @@
     <ClCompile Include="ModelMaterialAssetExporter.cpp">
       <Filter>ソース ファイル\Asset\_File\Model\Material</Filter>
     </ClCompile>
-    <ClCompile Include="URI.cpp">
-      <Filter>ソース ファイル\File</Filter>
-    </ClCompile>
     <ClCompile Include="TextureAssetConverterFactory.cpp">
       <Filter>ソース ファイル\Asset\_File\Texture</Filter>
     </ClCompile>
@@ -340,9 +325,6 @@
     </ClCompile>
     <ClCompile Include="TextureAssetExporter.cpp">
       <Filter>ソース ファイル\Asset\_File\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="UniqueIdTable.cpp">
-      <Filter>ソース ファイル\Asset</Filter>
     </ClCompile>
     <ClCompile Include="StandardMaterial.cpp">
       <Filter>ソース ファイル\Assimp</Filter>

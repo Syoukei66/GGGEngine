@@ -3,7 +3,8 @@
 #include <string>
 #include <functional>
 
-#include "UniqueIdTable.h"
+#include <Core/UniqueIdTable.h>
+
 #include "AssetMetaData.h"
 #include "FileUtil.h"
 #include "URI.h"

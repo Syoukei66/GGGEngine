@@ -12,12 +12,12 @@ DefinitionGenerator::~DefinitionGenerator()
 
 std::string DefinitionGenerator::CreateHeaderProgram(const AssetInfo* info) const
 {
-  return "extern " + this->CreateContainerNameAlias() + " " + info->GetURI().GetProgramID() + ";\n";
+  return "extern " + this->CreateLoaderNameAlias() + " " + info->GetURI().GetProgramID() + ";\n";
 }
 
 std::string DefinitionGenerator::CreateCppProgram(const AssetInfo* info) const
 {
-  return this->CreateContainerNameAlias() + " " + info->GetURI().GetProgramID() + " = " + "Director::GetInstance().Register<" + this->CreateTypeNameAlias() + ">(" + std::to_string(info->GetUniqueID()) + ", \"" + info->GetURI().GetExtension() + "\");\n";
+  return this->CreateLoaderNameAlias() + " " + info->GetURI().GetProgramID() + " = " + "AssetManager::AddAsset<" + this->CreateTypeNameAlias() + ">(" + std::to_string(info->GetUniqueID()) + ", \"" + info->GetURI().GetExtension() + "\");\n";
 }
 
 std::string DefinitionGenerator::CreateTypeName() const
@@ -38,7 +38,7 @@ std::string DefinitionGenerator::CreateTypeNameAlias() const
   return "T_";
 }
 
-std::string DefinitionGenerator::CreateContainerNameAlias() const
+std::string DefinitionGenerator::CreateLoaderNameAlias() const
 {
   return "Cont_";
 }

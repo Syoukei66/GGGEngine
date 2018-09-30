@@ -26,7 +26,7 @@ Sprite3D* Sprite3D::CreateWithTextureRegion(rcTextureRegion* region)
   return ret;
 }
 
-Sprite3D* Sprite3D::CreateWithMaterial(rcMaterial& material)
+Sprite3D* Sprite3D::CreateWithMaterial(rcMaterial* material)
 {
   rcTextureRegion* region = rcTextureRegion::CreateWithMaterial(material);
   Sprite3D* ret = Sprite3D::CreateWithTextureRegion(region);

@@ -45,21 +45,21 @@ public:
     return this->layer_id_;
   }
 
-  inline void AddMaterial(rcMaterial& material)
+  inline void AddMaterial(rcMaterial* material)
   {
-    this->materials_.emplace_back(&material);
+    this->materials_.emplace_back(material);
   }
-  inline void SetMaterial(rcMaterial& material)
+  inline void SetMaterial(rcMaterial* material)
   {
     if (this->materials_.size() == 0)
     {
       this->materials_.emplace_back(nullptr);
     }
-    this->materials_[0] = &material;
+    this->materials_[0] = material;
   }
-  inline void SetMaterial(T_UINT16 index, rcMaterial& material)
+  inline void SetMaterial(T_UINT16 index, rcMaterial* material)
   {
-    this->materials_[index] = &material;
+    this->materials_[index] = material;
   }
   inline rcMaterial* GetMaterial(T_UINT16 index = 0) const
   {

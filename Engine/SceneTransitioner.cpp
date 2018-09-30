@@ -93,9 +93,7 @@ void SceneTransitioner::OnHideFinish()
   if (this->now_scene_)
   {
     this->state_ = SCENE_TRANSITION_LOADING;
-
-    //TODO:ローディングシーンなどを渡す
-    this->now_scene_->Load(nullptr);
+    this->now_scene_->Load();
     this->state_ = SCENE_TRANSITION_ON_SHOW;
     return;
   }

@@ -141,7 +141,7 @@
     <None Include="Matrix4x4.inl" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Asset.h" />
+    <ClInclude Include="AssetLoader.h" />
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="AttachmentVertexes.h" />
     <ClInclude Include="Bezier.h" />
@@ -150,9 +150,9 @@
     <ClInclude Include="Bresenham.h" />
     <ClInclude Include="CerealIO.h" />
     <ClInclude Include="Color.h" />
-    <ClInclude Include="CsvAsset.h" />
     <ClInclude Include="CsvData.h" />
     <ClInclude Include="CsvTokenizer.h" />
+    <ClInclude Include="Directory.h" />
     <ClInclude Include="EasingFunction.h" />
     <ClInclude Include="EasingFunctionManager.h" />
     <ClInclude Include="EngineAttachmentLoader.h" />
@@ -161,26 +161,18 @@
     <ClInclude Include="GraphicsConstants.h" />
     <ClInclude Include="HashUtils.h" />
     <ClInclude Include="Include.h" />
-    <ClInclude Include="JsonAsset.h" />
     <ClInclude Include="JsonData.h" />
     <ClInclude Include="JsonParser.h" />
-    <ClInclude Include="MaterialAsset.h" />
     <ClInclude Include="MaterialData.h" />
     <ClInclude Include="Model.h" />
-    <ClInclude Include="ModelAsset.h" />
     <ClInclude Include="Serializer.h" />
     <ClInclude Include="SerializerTester.h" />
     <ClInclude Include="SerializerTestMacro.hpp" />
-    <ClInclude Include="ShaderAsset.h" />
     <ClInclude Include="CerealShaderPropertiesArchive.hpp" />
-    <ClInclude Include="SoundAsset.h" />
-    <ClInclude Include="SpineAsset.h" />
     <ClInclude Include="SpineData.h" />
-    <ClInclude Include="MeshAsset.h" />
     <ClInclude Include="MeshData.h" />
     <ClInclude Include="ModelData.h" />
     <ClInclude Include="StringUtils.h" />
-    <ClInclude Include="TextureAsset.h" />
     <ClInclude Include="TextureRegion.h" />
     <ClInclude Include="Mathf.h" />
     <ClInclude Include="Mesh.h" />
@@ -211,7 +203,7 @@
     <ClInclude Include="TextureAtlasLoader.h" />
     <ClInclude Include="TextureSource.h" />
     <ClInclude Include="TiledTextureRegion.h" />
-    <ClInclude Include="DefaultUniqueID.h" />
+    <ClInclude Include="UniqueIdTable.h" />
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RenderBuffer.h" />
@@ -232,7 +224,6 @@
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="CsvData.cpp" />
     <ClCompile Include="CsvTokenizer.cpp" />
-    <ClCompile Include="DefaultUniqueID.cpp" />
     <ClCompile Include="EasingFunction.cpp" />
     <ClCompile Include="EasingFunctionManager.cpp" />
     <ClCompile Include="EngineAttachmentLoader.cpp" />
@@ -244,7 +235,6 @@
     <ClCompile Include="SerealizerTester.cpp" />
     <ClCompile Include="SpineData.cpp" />
     <ClCompile Include="MeshData.cpp" />
-    <ClCompile Include="ModelAsset.cpp" />
     <ClCompile Include="ModelData.cpp" />
     <ClCompile Include="TextureRegion.cpp" />
     <ClCompile Include="Material.cpp" />
@@ -273,6 +263,7 @@
     <ClCompile Include="TextureAtlas.cpp" />
     <ClCompile Include="TextureAtlasLoader.cpp" />
     <ClCompile Include="TiledTextureRegion.cpp" />
+    <ClCompile Include="UniqueIdTable.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

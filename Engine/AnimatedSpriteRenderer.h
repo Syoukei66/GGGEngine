@@ -1,7 +1,8 @@
 #pragma once
 
+#include <Core/TiledTextureRegion.h>
+
 #include "SpriteRenderer.h"
-#include "TiledTextureRegion.h"
 
 class AnimatedSpriteRenderer : public SpriteRenderer
 {
@@ -28,9 +29,9 @@ public:
   {
     return this->GetTiledTextureRegion()->GetCurrentIndex();
   }
-  inline TiledTextureRegion* GetTiledTextureRegion() const
+  inline rcTiledTextureRegion* GetTiledTextureRegion() const
   {
-    return (TiledTextureRegion*)this->texture_region_;
+    return (rcTiledTextureRegion*)this->texture_region_;
   }
 
   // =================================================================

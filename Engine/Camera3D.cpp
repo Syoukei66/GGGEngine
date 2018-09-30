@@ -1,5 +1,5 @@
 #include "Camera3D.h"
-#include "../Core/MathConstants.h"
+#include <Core/Mathf.h>
 #include "Scene.h"
 #include "Collision3D.h"
 
@@ -85,7 +85,7 @@ void Camera3D::CheckProjectionDirty()
     return;
   }
   this->projection_matrix_ = Matrix4x4::Perspective(
-    MathConstants::PI / this->fov_,
+    Mathf::PI / this->fov_,
     this->GetViewportWidth() / this->GetViewportHeight(),
     this->z_near_,
     this->z_far_

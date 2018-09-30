@@ -4,25 +4,22 @@
 #include <unordered_map>
 #include <list>
 
-#include "NativeType.h"
-#include "DefaultUniqueID.h"
-
-class IAsset;
+#include "AssetLoader.h"
+#include "UniqueIdTable.h"
 
 class AssetManager
 {
-  friend class IAsset;
-public:
-  static inline AssetManager& GetInstance()
-  {
-    static AssetManager self;
-    return self;
-  }
+  friend class IAssetLoader;
 
   // =================================================================
   // Constructor / Destructor
   // =================================================================
-public:
+private:
+  static inline AssetManager* GetInstance()
+  {
+    static AssetManager self;
+    return &self;
+  }
   AssetManager() = default;
   ~AssetManager() = default;
 
@@ -30,29 +27,33 @@ public:
   // Methods
   // =================================================================
 public:
-  void Init();
-  void Uninit();
-  void Update();
+  static void Init();
+  static void Uninit();
+  static void Update();
 
-  template<class Asset_>
-  inline Asset_* GetAsset(T_UINT32 unique_id) const
+  template<class Resource_>
+  static inline AssetLoader<Resource_>* GetAsset(T_UINT32 unique_id)
   {
-    return (Asset_*)this->assets_.at(unique_id);
+    return (AssetLoader<Resource_>*)GetInstance()->assets_.at(unique_id);
   }
 
-  template<class Asset_>
-  inline Asset_* GetDefaultAsset(T_UINT32 default_uid) const
+  template<class Resource_>
+  static inline AssetLoader<Resource_>* GetAsset(const std::string& path)
   {
-    return (Asset_*)this->assets_.at(this->default_uids_->GetUniqueId(default_uid));
+    return (AssetLoader<Resource_>*)GetInstance()->assets_.at(GetInstance()->unique_id_table_->GetID(path));
   }
 
-private:
-  template<class Asset_>
-  inline Asset_* AddAsset(T_UINT32 unique_id, const std::string& extension)
+  template<class Resource_>
+  static inline AssetLoader<Resource_>* GetDefaultAsset(T_UINT32 default_uid)
   {
-    Asset_* ret = new Asset_(std::to_string(unique_id) + "." + extension);
-    AssetManager::GetInstance().Manage(unique_id, ret);
-    this->assets_.emplace(unique_id, asset);
+    return (AssetLoader<Resource_>*)GetInstance()->assets_.at(GetInstance()->unique_id_table_->GetDefaultAssetUniqueID(default_uid));
+  }
+
+  template<class Resource_>
+  static inline AssetLoader<Resource_>* AddAsset(T_UINT32 unique_id, const std::string& extension)
+  {
+    AssetLoader<Resource_>* ret = new AssetLoader<Resource_>(unique_id, std::to_string(unique_id) + "." + extension);
+    GetInstance()->assets_.emplace(unique_id, asset);
     return ret;
   }
 
@@ -67,7 +68,7 @@ public:
   // Data Members
   // =================================================================
 private:
-  std::unordered_map<T_UINT32, IAsset*> assets_;
-  DefaultUniqueID* default_uids_;
+  std::unordered_map<T_UINT32, IAssetLoader*> assets_;
+  UniqueIdTable* unique_id_table_;
 
 };

@@ -1,8 +1,7 @@
 #include "Engine.h"
 #include "Director.h"
-#include "../Core/EasingFunctionManager.h"
+#include <Core/EasingFunctionManager.h>
 #include "EntityModifierManager.h"
-#include "ParticleDataManager.h"
 
 // =================================================================
 // Constructor / Destructor
