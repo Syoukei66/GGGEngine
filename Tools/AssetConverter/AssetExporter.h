@@ -59,7 +59,7 @@ inline void AssetExporter<Entity_>::Export(const std::unordered_map<T_UINT32, En
     AssetInfo* info = pair.second->GetAssetInfo();
 
     //変換後ファイルが消えているか
-    const bool output_file_exists = std::ifstream(FileUtil::CreateOutputPath(info->GetURI())).is_open();
+    const bool output_file_exists = std::ifstream(FileUtil::CreateOutputPath(info)).is_open();
     const bool asset_changed = info->UpdateTimeStamp();
 
     //変換対象ファイルのタイムスタンプが一致しているか

@@ -70,28 +70,28 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
-    <IntDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
-    <IncludePath>$(ProjectDir)\..\..\ThirdParty\Assimp\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <LibraryPath>$(ProjectDir)\..\..\ThirdParty\Assimp\lib\$(Platform)\$(Configuration);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+    <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
+    <IncludePath>$(SolutionDir)Engine\ThirdParty\Assimp\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Engine\ThirdParty\Assimp\lib\$(Platform)\$(Configuration);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
-    <IntDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
-    <IncludePath>$(ProjectDir)\..\..\ThirdParty\Assimp\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <LibraryPath>$(ProjectDir)\..\..\ThirdParty\Assimp\lib\$(Platform)\$(Configuration);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+    <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
+    <IncludePath>$(SolutionDir)Engine\ThirdParty\Assimp\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Engine\ThirdParty\Assimp\lib\$(Platform)\$(Configuration);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
-    <IntDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
-    <IncludePath>$(ProjectDir)\..\..\ThirdParty\Assimp\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <LibraryPath>$(ProjectDir)\..\..\ThirdParty\Assimp\lib\$(Platform)\$(Configuration);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+    <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
+    <IncludePath>$(SolutionDir)Engine\ThirdParty\Assimp\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Engine\ThirdParty\Assimp\lib\$(Platform)\$(Configuration);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
-    <IntDir>$(SolutionDir)\..\build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
-    <IncludePath>$(ProjectDir)\..\..\ThirdParty\Assimp\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <LibraryPath>$(ProjectDir)\..\..\ThirdParty\Assimp\lib\$(Platform)\$(Configuration);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+    <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
+    <IncludePath>$(SolutionDir)Engine\ThirdParty\Assimp\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Engine\ThirdParty\Assimp\lib\$(Platform)\$(Configuration);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -101,7 +101,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\Engine;$(SolutionDir)..\Engine\ThirdParty;$(SolutionDir)..\Engine\ThirdParty\Assimp\include;$(SolutionDir)..\Engine\Tools\Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\Assimp\include;$(SolutionDir)Engine\Tools\Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -116,7 +116,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\Engine;$(SolutionDir)..\Engine\ThirdParty;$(SolutionDir)..\Engine\ThirdParty\Assimp\include;$(SolutionDir)..\Engine\Tools\Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\Assimp\include;$(SolutionDir)Engine\Tools\Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -129,7 +129,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\Engine;$(SolutionDir)..\Engine\ThirdParty;$(SolutionDir)..\Engine\ThirdParty\Assimp\include;$(SolutionDir)..\Engine\Tools\Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\Assimp\include;$(SolutionDir)Engine\Tools\Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -144,7 +144,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\Engine;$(SolutionDir)..\Engine\ThirdParty;$(SolutionDir)..\Engine\ThirdParty\Assimp\include;$(SolutionDir)..\Engine\Tools\Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\Assimp\include;$(SolutionDir)Engine\Tools\Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -161,8 +161,12 @@
     <ClInclude Include="AssetEntity.h" />
     <ClInclude Include="AssetExporter.h" />
     <ClInclude Include="AssetProgramGenerator.h" />
+    <ClInclude Include="AssetProgramGenerator_identifier.h" />
     <ClInclude Include="CsvAssetConverterFactory.h" />
     <ClInclude Include="DefaultAsset.h" />
+    <ClInclude Include="DefaultMeshAssetEntity.h" />
+    <ClInclude Include="DefaultMeshAssetConverterFactory.h" />
+    <ClInclude Include="DefaultMeshAssetExporter.h" />
     <ClInclude Include="Director.h" />
     <ClInclude Include="AssetMetaData.h" />
     <ClInclude Include="AssetProgramGenerator_definition.h" />
@@ -202,10 +206,13 @@
     <ClInclude Include="TextureAssetImporter.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AssetConverterContext.cpp" />
     <ClCompile Include="AssetConverterManager.cpp" />
     <ClCompile Include="AssetEntity.cpp" />
     <ClCompile Include="AssetMetaData.cpp" />
+    <ClCompile Include="AssetProgramGenerator_identifier.cpp" />
+    <ClCompile Include="DefaultMeshAssetConverterFactory.cpp" />
+    <ClCompile Include="DefaultMeshAssetEntity.cpp" />
+    <ClCompile Include="DefaultMeshAssetExporter.cpp" />
     <ClCompile Include="Director.cpp" />
     <ClCompile Include="AssetProgramGenerator_definition.cpp" />
     <ClCompile Include="AssetProgramGenerator_namespace.cpp" />

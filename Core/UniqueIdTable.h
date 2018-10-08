@@ -15,7 +15,7 @@ namespace DefaultUniqueID
 
 enum 
 {
-  DEFAULT_UNIQUE_ID_BEGIN = 1000000,
+  DEFAULT_UNIQUE_ID_BEGIN = 100000,
   SHADER_FLAT,
   SHADER_GOURAUD,
   SHADER_PHONG,
@@ -32,6 +32,7 @@ enum
   MESH_SPRITE,
 
   MATERIAL_WHITE,
+  MATERIAL_LAMBERT,
   MATERIAL_SPRITE,
 };
 
@@ -60,6 +61,11 @@ public:
     this->default_asset_unique_id_table_[default_id] = uid;
   }
 
+  inline void RegisterDefaultAssetUniqueID(T_UINT32 default_id, const std::string& path)
+  {
+    this->default_asset_unique_id_table_[default_id] = this->Publish(path);
+  }
+
   inline T_UINT32 GetDefaultAssetUniqueID(T_UINT32 default_id) const
   {
     return this->default_asset_unique_id_table_.at(default_id);
@@ -72,8 +78,8 @@ public:
   template<class Archive>
   void serialize(Archive& ar, std::uint32_t const version)
   {
-    ar(cereal::make_nvp("Table", this->table_));
-    ar(cereal::make_nvp("DefaultAssetUniqueID", this->default_asset_unique_id_table_));
+    ar(this->table_);
+    ar(this->default_asset_unique_id_table_);
   }
 
   // =================================================================

@@ -8,7 +8,7 @@
 Plane3D* Plane3D::Create()
 {
   Plane3D* ret = new Plane3D();
-  ret->SetRenderer(MeshRenderer::Create(AssetManager::GetDefaultAsset<rcMesh>(DefaultUniqueID::MESH_PLANE)->CreateFromFile(), ret));
-  ret->GetRenderer()->SetMaterial(AssetManager::GetDefaultAsset<rcMaterial>(DefaultUniqueID::MATERIAL_WHITE)->CreateFromFile());
+  ret->SetRenderer(MeshRenderer::Create(AssetManager::GetDefaultAssetLoader<rcMesh>(DefaultUniqueID::MESH_PLANE)->CreateFromFile(), ret));
+  ret->GetRenderer()->SetMaterial(AssetManager::GetDefaultAssetLoader<rcMaterial>(DefaultUniqueID::MATERIAL_WHITE)->CreateFromFile());
   return ret;
 }

@@ -1,6 +1,30 @@
 ﻿#include "GameObject3D.h"
 #include "GameObjectRenderState.h"
 
+#include <Core/Model.h>
+
+#include "MeshRenderer.h"
+
+// =================================================================
+// Factory Method
+// =================================================================
+GameObject3D* GameObject3D::Create(const rcModel* model)
+{
+  GameObject3D* ret = new GameObject3D();
+
+  MeshRenderer* mesh_renderer = MeshRenderer::Create(model->GetMesh(), ret);
+  T_UINT8 submesh_count = model->GetSubmeshCount();
+  for (T_UINT8 i = 0; i < submesh_count; ++i)
+  {
+    const rcMaterial* mat = model->GetMaterial(i)->Clone();
+    mesh_renderer->SetMaterial(mat, i);
+  }
+
+  ret->SetRenderer(mesh_renderer);
+
+  return ret;
+}
+
 // =================================================================
 // Constructor / Destructor
 // =================================================================

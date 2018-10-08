@@ -15,23 +15,27 @@ class AssetConverterContext
   // Constructor / Destructor
   // =================================================================
 public:
-  AssetConverterContext(UniqueIdTable* unique_id_table, AssetConverterManager* converter_manager);
-  virtual ~AssetConverterContext();
+  AssetConverterContext(UniqueIdTable* unique_id_table, AssetConverterManager* converter_manager)
+    : unique_id_table_(unique_id_table)
+    , converter_manager_(converter_manager)
+  {
+  }
+  virtual ~AssetConverterContext() = default;
 
   // =================================================================
   // Methods
   // =================================================================
 public:
-  AssetInfo* Reserve(const URI& uri);
+  inline bool Reserve(const URI& uri);
 
   template <class Entity_>
-  Entity_* ImportImmediately(const URI& uri);
+  inline Entity_* ImportImmediately(const URI& uri);
 
   template <class Entity_>
-  Entity_* AddEntity(Entity_* entity);
+  inline Entity_* AddEntity(Entity_* entity);
 
   template <class Entity_>
-  Entity_* GetEntity(const URI& uri);
+  inline Entity_* GetEntity(const URI& uri);
 
   inline T_UINT32 PublishUniqueID(const URI& uri);
   inline T_UINT32 GetUniqueID(const URI& uri) const;
@@ -42,25 +46,23 @@ public:
 protected:
   UniqueIdTable* unique_id_table_;
   AssetConverterManager* converter_manager_;
-  std::unordered_map<T_UINT32, AssetInfo*> infos_;
 
 };
 
 #include "AssetConverterManager.h"
 
+inline bool AssetConverterContext::Reserve(const URI& uri)
+{
+  //Infoが生成されるまでConverterを走査
+  return this->converter_manager_->Fire([&](IAssetConverter* converter)
+  {
+    return converter->Reserve(uri, this);
+  });
+}
+
 template<class Entity_>
 inline Entity_* AssetConverterContext::ImportImmediately(const URI& uri)
 {
-  //既にインポート済みであればそのAssetEntityをリターン
-  const auto& itr = this->infos_.find(this->PublishUniqueID(uri));
-  if (itr != this->infos_.end())
-  {
-    AssetInfo* info = itr->second;
-    return this->converter_manager_->Find<Entity_, Entity_>([&](AssetConverter<Entity_>* converter)
-    {
-      return converter->GetEntity(info);
-    });
-  }
   return this->converter_manager_->Find<Entity_, Entity_>([&](AssetConverter<Entity_>* converter)
   {
     return converter->ImportImmediately(uri, this);
@@ -88,11 +90,11 @@ inline Entity_* AssetConverterContext::GetEntity(const URI& uri)
 
 inline T_UINT32 AssetConverterContext::PublishUniqueID(const URI& uri)
 {
-  return this->unique_id_table_->Publish(uri.GetFullPath());
+  return this->unique_id_table_->Publish(FileUtil::CreateRuntimeAssetPath(uri));
 }
 
 inline T_UINT32 AssetConverterContext::GetUniqueID(const URI& uri) const
 {
-  return this->unique_id_table_->GetID(uri.GetFullPath());
+  return this->unique_id_table_->GetID(FileUtil::CreateRuntimeAssetPath(uri));
 }
 

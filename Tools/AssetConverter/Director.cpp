@@ -2,6 +2,7 @@
 
 #include <Core/CerealIO.h>
 #include "FileUtil.h"
+#include "Extensions.h"
 
 // =================================================================
 // Methods
@@ -22,6 +23,23 @@ void Director::Init()
   if (!this->unique_id_table_)
   {
     this->unique_id_table_ = new UniqueIdTable();
+    using namespace DefaultUniqueID;
+    this->unique_id_table_->RegisterDefaultAssetUniqueID(SHADER_FLAT,         "Asset/shader/default/White.cso");
+    this->unique_id_table_->RegisterDefaultAssetUniqueID(SHADER_GOURAUD,      "Asset/shader/default/Lambert.cso");
+    this->unique_id_table_->RegisterDefaultAssetUniqueID(SHADER_PHONG,        "Asset/shader/default/Phong.cso");
+    this->unique_id_table_->RegisterDefaultAssetUniqueID(SHADER_BLIN,         "Asset/shader/default/White.cso");
+    this->unique_id_table_->RegisterDefaultAssetUniqueID(SHADER_TOON,         "Asset/shader/default/White.cso");
+    this->unique_id_table_->RegisterDefaultAssetUniqueID(SHADER_OREN_NAYAR,   "Asset/shader/default/White.cso");
+    this->unique_id_table_->RegisterDefaultAssetUniqueID(SHADER_MINNAERT,     "Asset/shader/default/White.cso");
+    this->unique_id_table_->RegisterDefaultAssetUniqueID(SHADER_COOK_TORRANCE,"Asset/shader/default/White.cso");
+    this->unique_id_table_->RegisterDefaultAssetUniqueID(SHADER_NO_SHADING,   "Asset/shader/default/White.cso");
+    this->unique_id_table_->RegisterDefaultAssetUniqueID(SHADER_FRESNEL,      "Asset/shader/default/White.cso");
+    this->unique_id_table_->RegisterDefaultAssetUniqueID(MESH_CUBE,         "");
+    this->unique_id_table_->RegisterDefaultAssetUniqueID(MESH_PLANE,        "");
+    this->unique_id_table_->RegisterDefaultAssetUniqueID(MESH_SPRITE,       "");
+    this->unique_id_table_->RegisterDefaultAssetUniqueID(MATERIAL_WHITE,    "");
+    this->unique_id_table_->RegisterDefaultAssetUniqueID(MATERIAL_LAMBERT,  "");
+    this->unique_id_table_->RegisterDefaultAssetUniqueID(MATERIAL_SPRITE,   "");
   }
 
   this->converter_manager_ = new AssetConverterManager(this->setting_);
@@ -46,8 +64,16 @@ void Director::Import()
   //ImporterへのAssetInfoのセット
   FileUtil::CrawlInputDirectory([&](const URI& uri)
   {
-    //拡張子に対応したconverterの取得
-    this->context_->Reserve(uri);
+    //AssetInfoが生成されれば予約成功
+    if (this->context_->Reserve(uri))
+    {
+      return;
+    }
+    //予約が失敗し、拡張子がメタデータ以外の場合はスキップした事をログに表示
+    if (uri.GetExtension() != Extensions::META)
+    {
+      std::cout << "skip \"" << uri.GetFullPath() << "\" " << std::endl;
+    }
   });
 
   //Converterのインポート予約が無くなるまでConverterのインポート処理
@@ -69,7 +95,7 @@ void Director::Export()
     converter->Export(this->context_);
   });
 
-  CerealIO::Json::Export(FileUtil::GetArchiveUniqueIdTablePath().c_str(), this->unique_id_table_);
+  CerealIO::Binary::Export(FileUtil::GetArchiveUniqueIdTablePath().c_str(), this->unique_id_table_);
 }
 
 void Director::CreateProgram()

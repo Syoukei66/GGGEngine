@@ -15,7 +15,7 @@ IAssetConverter* Create(const std::string& asset_name, const std::string& class_
 {
   RawAssetImporter<Entity_>* importer = new RawAssetImporter<Entity_>(std::initializer_list<std::string>{args...});
   RawAssetExporter<Entity_>* exporter = new RawAssetExporter<Entity_>();
-  AssetProgramGenerator<Entity_>* program_generator = new AssetProgramGenerator<Entity_>();
+  AssetProgramGenerator<Entity_>* program_generator = new AssetProgramGenerator<Entity_>(1, 0);
   program_generator->AddAsset(asset_name, class_name);
   return new AssetConverter<Entity_>(importer, nullptr, exporter, program_generator);
 }

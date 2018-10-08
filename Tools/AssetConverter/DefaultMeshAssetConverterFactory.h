@@ -1,37 +1,36 @@
 #pragma once
 
-#include <d3d9.h>
-#include <d3dx9.h>
+#include <Cereal/cereal.hpp>
 
-#include <NativeIndexBuffer.h>
+#include "AssetConverterFactory.h"
 
-class NativeIndexBuffer : public rcIndexBuffer
+class DefaultMeshAssetConverterFactory : public AssetConverterFactory
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  NativeIndexBuffer(T_UINT16 vertex_count);
-  ~NativeIndexBuffer();
+  DefaultMeshAssetConverterFactory() = default;
 
   // =================================================================
-  // Method
+  // Methods
   // =================================================================
 public:
-  virtual void Lock(void** dest) override;
-  virtual void Unlock() override;
-  virtual void SetIndices() const override;
+  IAssetConverter* Create() const override;
 
   // =================================================================
-  // setter/getter
+  // Serializer
   // =================================================================
 public:
-  virtual T_UINT16 GetVertexesCount() const override;
+  template<class Archive>
+  void serialize(Archive& ar, std::uint32_t const version)
+  {
+  }
 
   // =================================================================
-  // Data Member
+  // Data Members
   // =================================================================
 private:
-  const T_UINT16 vertex_count_;
-  IDirect3DIndexBuffer9* index_buffer_;
+
 };
+CEREAL_CLASS_VERSION(DefaultMeshAssetConverterFactory, 1);

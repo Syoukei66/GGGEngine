@@ -1,12 +1,20 @@
 #pragma once
 
 #include <vector>
+#include <Core/Color.h>
+#include <Core/Model.h>
+
 #include "GameObject.h"
-#include "../Core/Color.h"
 #include "Transform3D.h"
 
 class GameObject3D : public GameObject
 {
+  // =================================================================
+  // Factory Method
+  // =================================================================
+public:
+  static GameObject3D* Create(const rcModel* model);
+
   // =================================================================
   // Constructor / Destructor
   // =================================================================

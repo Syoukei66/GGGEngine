@@ -2,6 +2,7 @@
 
 #include <string>
 #include <Cereal/types/string.hpp>
+#include <Core/NativeType.h>
 
 class URI
 {
@@ -21,7 +22,6 @@ public:
   const std::string& GetFileName() const;
   const std::string& GetPrefix() const;
   const std::string& GetExtension() const;
-  const std::string& GetProgramID() const;
 
   inline const std::string& GetFullPath() const
   {
@@ -49,6 +49,5 @@ private:
   std::string file_name_;
   std::string prefix_;
   std::string extension_;
-  std::string program_id_;
 
 };

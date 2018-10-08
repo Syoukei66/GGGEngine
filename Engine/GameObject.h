@@ -113,10 +113,6 @@ public:
   // =================================================================
   // delegate to Renderer
   // =================================================================
-  inline void UniqueMaterial()
-  {
-    this->renderer_->UniqueMaterial();
-  }
   inline void SetLayerId(T_UINT8 layer_id)
   {
     this->renderer_->SetLayerId(layer_id);
@@ -129,13 +125,9 @@ public:
   {
     this->renderer_->AddMaterial(material);
   }
-  inline void SetMaterial(rcMaterial* material)
+  inline void SetMaterial(rcMaterial* material, T_UINT16 index = 0)
   {
-    this->renderer_->SetMaterial(material);
-  }
-  inline void SetMaterial(T_UINT16 index, rcMaterial* material)
-  {
-    this->renderer_->SetMaterial(index, material);
+    this->renderer_->SetMaterial(material, index);
   }
   inline rcMaterial* GetMaterial(T_UINT16 index = 0) const
   {

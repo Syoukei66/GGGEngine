@@ -1,5 +1,4 @@
 #define _WORLD_VIEW_PROJ
-#define _MAIN_TEXTURE
 #define _DIFFUSE
 #include "DefaultProperty.hlsli"
 
@@ -13,6 +12,15 @@ struct v2f
 {
   float2 uv : TEXCOORD0;
   float4 vertex : SV_POSITION;
+};
+
+texture _Image;
+sampler _ImageSampler = sampler_state
+{
+  Texture = _Image;
+  MipFilter = LINEAR;
+  MinFilter = LINEAR;
+  MagFilter = LINEAR;
 };
 
 float2 _UV0 = float2(0.0f, 0.0f);
@@ -35,7 +43,7 @@ v2f vert(appdata v)
 
 float4 frag(v2f i) : SV_TARGET
 {
-  return tex2D(_MainTexSampler, i.uv) * _Diffuse;
+  return tex2D(_ImageSampler, i.uv) * _Diffuse;
 }
 
 technique Default

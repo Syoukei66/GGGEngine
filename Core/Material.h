@@ -14,44 +14,32 @@ class rcMaterial : public Resource
   // =================================================================
 public:
   static rcMaterial* CreateFromFile(const char* path);
-  static rcMaterial* Create(rcShader* resource, bool protect = false);
+  static rcMaterial* Create(rcShader* resource);
   static rcMaterial* Create(const MaterialData* data);
 
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 protected:
-  rcMaterial(rcShader* shader, bool protect = false);
+  rcMaterial(rcShader* shader);
   virtual ~rcMaterial();
 
   // =================================================================
   // Methods
   // =================================================================
 public:
-  rcMaterial* Clone();
-  rcMaterial* InitialClone();
+  rcMaterial* Clone() const;
+  rcMaterial* InitialClone() const;
 
 public:
-  T_UINT8 Begin();
-  void BeginPass(T_UINT8 path_id);
-  void CommitChanges();
-  void EndPass();
-  void End();
-
-  void SetProperties(rcShader* shader);
+  void SetProperties(rcShader* shader) const;
 
   // =================================================================
   // setter/getter
   // =================================================================
-private:
-  inline void ProtectedAssertion() const
-  {
-    NATIVE_ASSERT(!this->protected_, "保護されたマテリアルを変更しようとしました");
-  }
-
 public:
   void SetShader(rcShader* shader);
-  inline rcShader* GetShader()
+  inline rcShader* GetShader() const
   {
     return this->shader_;
   }
@@ -67,7 +55,6 @@ public:
 
   inline void SetRenderQueue(Graphics::RenderQueue queue)
   {
-    this->ProtectedAssertion();
     this->queue_ = queue;
   }
   inline Graphics::RenderQueue GetRenderQueue() const
@@ -101,19 +88,16 @@ public:
 
   inline void SetMainColor(const TColor& color)
   {
-    this->ProtectedAssertion();
     this->color_ = color;
   }
   inline void SetMainColor(T_FLOAT r, T_FLOAT g, T_FLOAT b)
   {
-    this->ProtectedAssertion();
     this->color_.r = r;
     this->color_.g = g;
     this->color_.b = b;
   }
   inline void SetMainColor(T_FLOAT r, T_FLOAT g, T_FLOAT b, T_FLOAT a)
   {
-    this->ProtectedAssertion();
     this->color_.r = r;
     this->color_.g = g;
     this->color_.b = b;
@@ -121,7 +105,6 @@ public:
   }
   inline TColor& GetMainColor()
   {
-    this->ProtectedAssertion();
     return this->color_;
   }
   inline const TColor& GetMainColor() const
@@ -131,7 +114,6 @@ public:
 
   inline void SetBillboardingFlag(bool billboarding)
   {
-    this->ProtectedAssertion();
     this->billbording_ = billboarding;
   }
 
@@ -143,7 +125,6 @@ public:
   template <class T>
   T& GetShaderProperty(const std::string& property_name)
   {
-    this->ProtectedAssertion();
     T* ret = (T*)this->properties_[property_name];
     if (!ret)
     {
@@ -250,7 +231,6 @@ public:
   // Data Member
   // =================================================================
 protected:
-  const bool protected_;
   rcShader* shader_;
   std::string technique_;
 

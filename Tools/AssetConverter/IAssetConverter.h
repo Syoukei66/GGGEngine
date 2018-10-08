@@ -15,7 +15,7 @@ public:
 
 public:
   virtual T_UINT32 GetID() const = 0;
-  virtual AssetInfo* Reserve(const URI& uri, AssetConverterContext* context) = 0;
+  virtual bool Reserve(const URI& uri, AssetConverterContext* context) = 0;
   virtual void Import(AssetConverterContext* context) = 0;
   virtual bool ImportOnce(AssetConverterContext* context) = 0;
   virtual void Export(const AssetConverterContext* context) const = 0;

@@ -16,26 +16,16 @@ void AssetManager::Uninit()
 {
   for (auto& pair : GetInstance()->assets_)
   {
-    IAssetLoader* asset = pair.second;
-    if (asset->IsNeedUnload())
-    {
-      asset->Unload();
-    }
-    delete asset;
+    delete pair.second;
   }
   delete GetInstance()->unique_id_table_;
 }
 
-void AssetManager::Update()
+void AssetManager::UnloadCaches()
 {
   for (auto& pair : GetInstance()->assets_)
   {
-    IAssetLoader* asset = pair.second;
-    if (!asset->IsNeedUnload())
-    {
-      continue;
-    }
-    asset->Unload();
+    pair.second->UnloadCache();
   }
 }
 

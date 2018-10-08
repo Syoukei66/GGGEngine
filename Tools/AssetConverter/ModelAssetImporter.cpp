@@ -16,6 +16,8 @@
 #include "ModelMeshAssetEntity.h"
 #include "ModelMaterialAssetEntity.h"
 
+#include "TextureAssetEntity.h"
+
 // =================================================================
 // Constructor / Destructor
 // =================================================================
@@ -234,7 +236,7 @@ static MeshData* ImportMesh(const aiScene* scene)
   return ret;
 }
 
-static AssetInfo* ImportTexture(AssetInfo* info, const aiMaterial* material, aiTextureType type, AssetConverterContext* context)
+static T_UINT32 ImportTexture(AssetInfo* info, const aiMaterial* material, aiTextureType type, AssetConverterContext* context)
 {
   aiString path;
   aiTextureMapping mapping;
@@ -248,10 +250,20 @@ static AssetInfo* ImportTexture(AssetInfo* info, const aiMaterial* material, aiT
   {
     if (AI_SUCCESS == aiGetMaterialTexture(material, type, i, &path, &mapping, &uv_index, &blend, &op, &map_mode, &flags))
     {
-      return context->Reserve(URI(info->GetURI().GetDirectoryPath(), path.C_Str()));
+      return context->ImportImmediately<TextureAssetEntity>(URI(info->GetURI().GetDirectoryPath(), path.C_Str()))->GetAssetInfo()->GetUniqueID();
     }
   }
-  return nullptr;
+  return 0;
+}
+
+static T_UINT32 ImportShader(AssetInfo* info, const aiMaterial* material, AssetConverterContext* context)
+{
+  T_INT32 mode;
+  if (AI_SUCCESS == aiGetMaterialInteger(material, AI_MATKEY_SHADING_MODEL, &mode))
+  {
+    return DefaultUniqueID::DEFAULT_UNIQUE_ID_BEGIN + mode;
+  }
+  return 0;
 }
 
 static MaterialData* ImportMaterial(AssetInfo* info, const aiMaterial* material, AssetConverterContext* context)
@@ -264,14 +276,11 @@ static MaterialData* ImportMaterial(AssetInfo* info, const aiMaterial* material,
   {
     dest->color_ = ToTColor(color);
   }
-  AssetInfo* tex_info = ImportTexture(info, material, aiTextureType_DIFFUSE, context);
-  if (tex_info)
-  {
-    dest->main_tex_unique_id_ = tex_info->GetUniqueID();
-  }
+  dest->main_tex_unique_id_ = ImportTexture(info, material, aiTextureType_DIFFUSE, context);
   dest->tiling_ = TVec2f(1.0f, 1.0f);
   dest->tiling_offset_ = TVec2f(0.0f, 0.0f);
   //TODO:プロパティのインポート処理
+  dest->shader_unique_id_ = ImportShader(info, material, context);
 
   return dest;
 }

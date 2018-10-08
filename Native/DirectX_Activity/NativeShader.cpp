@@ -1,5 +1,4 @@
 #include "NativeShader.h"
-#include "Director.h"
 
 // =================================================================
 // Constructor / Destructor

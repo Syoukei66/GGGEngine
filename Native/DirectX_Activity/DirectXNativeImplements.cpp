@@ -1,6 +1,5 @@
 #include "DirectXNativeImplements.h"
 #include <XInput.h>
-#include <HalEngine.h>
 #include <WinUser.h>
 
 #include "DirectXInputDevice_Keyboard.h"
@@ -140,10 +139,10 @@ static const DirectXInputDevice_Mouse::MouseInput MOUSE_INPUTS[MOUSE_INPUT_MAX] 
 
 void DirectXNativeImplements::SetupInputDevices(DirectXInputDeviceManager* manager)
 {
-  rcCsvData csv = rcCsvData("keyconfig_DX9.txt");
+  rcCsvData* csv = rcCsvData::CreateFromFile("keyconfig_DX9.txt");
   for (T_UINT8 i = 0; i < DX_INPUT_DATANUM; ++i)
   {
-    CsvTokenizer tokenizer = csv.GetTokenizer(i);
+    CsvTokenizer tokenizer = csv->GetTokenizer(i);
     if (!tokenizer.HasNextToken())
     {
       continue;

@@ -21,8 +21,7 @@ public:
   // Methods
   // =================================================================
 protected:
-  virtual void Unload() = 0;
-  virtual bool IsNeedUnload() const = 0;
+  virtual void UnloadCache() = 0;
 
 public:
   virtual bool IsMapped() const = 0;
@@ -41,7 +40,7 @@ class AssetLoader : public IAssetLoader
 protected:
   AssetLoader(T_UINT32 uid, const std::string& path)
     : unique_id_(uid)
-    , path_(path)
+    , path_("Asset/" + path)
   {
     //本来はアーカイブファイルから取得する
     this->size_ = 1;
@@ -49,7 +48,7 @@ protected:
 
   virtual ~AssetLoader()
   {
-    NATIVE_ASSERT(!this->resource_, "ResourceをUnloadし忘れています。");
+    this->UnloadCache();
   }
 
   // =================================================================
@@ -65,43 +64,39 @@ private:
   // Methods
   // =================================================================
 public:
-  Resource_* CreateFromFile()
+  operator Resource_*() const
   {
-    if (!this->resource_)
+    return this->CreateFromFile();
+  }
+
+  Resource_* CreateFromFile() const
+  {
+    AssetLoader<Resource_>* self = const_cast<AssetLoader<Resource_>*>(this);
+    if (!self->cache_)
     {
       //Load時に増えるリファレンスカウントはAssetが管理していることを表すカウント
-      this->resource_ = Resource_::CreateFromFile(this->path_.c_str());
+      self->cache_ = Resource_::CreateFromFile(self->path_.c_str());
     }
-    this->resource_->Retain();
-    return this->resource_;
+    self->cache_->Retain();
+    return self->cache_;
   }
 
   //void CreateFromFileAsync(std::function<void(Resource_*)> func, T_UINT8 priority)
   //{
-  //  if (this->resource_)
+  //  if (this->cache_)
   //  {
-  //    this->resource_->Retain();
-  //    func(this->resource_);
+  //    this->cache_->Retain();
+  //    func(this->cache_);
   //    return;
   //  }
-  //  this->resource_ = this->LoadProcess(this->path_);
-  //  func(this->resource_);
+  //  this->cache_ = this->LoadProcess(this->path_);
+  //  func(this->cache_);
   //}
 
-private:
-  inline void Unload() override
+  inline void UnloadCache() override
   {
-    this->resource_->Release();
-    this->resource_ = nullptr;
-  }
-
-  inline bool IsNeedUnload() const override
-  {
-    if (!this->resource_)
-    {
-      return false;
-    }
-    return this->resource_->GetReferenceCount() <= 1;
+    this->cache_->Release();
+    this->cache_ = nullptr;
   }
 
   // =================================================================
@@ -110,7 +105,7 @@ private:
 public:
   inline bool IsMapped() const override
   {
-    return this->resource_;
+    return this->cache_;
   }
 
   inline T_UINT32 GetUniqueID() const override
@@ -130,6 +125,6 @@ private:
   T_UINT32 unique_id_;
   std::string path_;
   T_UINT32 size_;
-  Resource_* resource_;
+  Resource_* cache_;
   
 };

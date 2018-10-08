@@ -6,12 +6,12 @@
 // =================================================================
 void ResourceManager::Init()
 {
-  NATIVE_ASSERT(GetInstance()->resources_.size() == 0, "準備ができていない状態で追加されたResourceがあります。");
+  //NATIVE_ASSERT(GetInstance()->resources_.size() == 0, "準備ができていない状態で追加されたResourceがあります。");
 }
 
 void ResourceManager::Uninit()
 {
-  NATIVE_ASSERT(GetInstance()->resources_.size() == 0, "Releaseし忘れているResourceがあります。");
+  //NATIVE_ASSERT(GetInstance()->resources_.size() == 0, "Releaseし忘れているResourceがあります。");
 }
 
 void ResourceManager::Update()

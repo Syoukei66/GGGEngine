@@ -31,7 +31,7 @@ bool MeshRenderer::SetStreamSource() const
   return true;
 }
 
-void MeshRenderer::SetProperties(rcMaterial* material) const
+void MeshRenderer::SetProperties(rcShader* shader) const
 {
 }
 

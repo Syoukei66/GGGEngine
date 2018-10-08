@@ -3,6 +3,7 @@
 #include <string>
 
 #include "AssetInfo.h"
+#include "AssetProgramGenerator_identifier.h"
 
 class DefinitionGenerator
 {
@@ -17,8 +18,8 @@ public:
   // Methods
   // =================================================================
 public:
-  std::string CreateHeaderProgram(const AssetInfo* info) const;
-  std::string CreateCppProgram(const AssetInfo* info) const;
+  std::string CreateHeaderProgram(const IdentifierGenerator& id_generator, const AssetInfo* info) const;
+  std::string CreateCppProgram(const IdentifierGenerator& id_generator, const AssetInfo* info) const;
   std::string CreateTypeName() const;
   std::string CreateTypeNameAlias() const;
   std::string CreateLoaderNameAlias() const;
@@ -43,5 +44,8 @@ public:
 private:
   std::string asset_name_;
   std::string class_name_;
+  T_UINT32 skip_head_;
+  T_UINT32 skip_tail_;
+
 };
 

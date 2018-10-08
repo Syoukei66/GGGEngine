@@ -49,7 +49,7 @@ public:
 
   inline std::string GetOutputPath() const
   {
-    return FileUtil::CreateOutputPath(std::to_string(this->GetUniqueID()));
+    return FileUtil::CreateOutputPath(this);
   }
 
   inline bool UpdateTimeStamp()

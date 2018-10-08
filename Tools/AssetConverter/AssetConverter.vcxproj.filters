@@ -49,12 +49,6 @@
     <Filter Include="ソース ファイル\Asset\_Base">
       <UniqueIdentifier>{4deecf00-f9e8-4d80-8a9f-5a663541b27e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Asset\_Sub">
-      <UniqueIdentifier>{8cd2e89b-7699-43cf-ac75-59c15c1a97fb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Asset\_Sub">
-      <UniqueIdentifier>{5dcf2767-ba2a-4a7a-a878-d5b9e0c4e4ce}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Constants">
       <UniqueIdentifier>{3ab8ee0d-1c13-43b4-8a96-eb7b24ccf374}</UniqueIdentifier>
     </Filter>
@@ -102,6 +96,18 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\Asset\_File\_Raw\Sound">
       <UniqueIdentifier>{7da4af4e-d1f3-407d-b293-13164bbc4b64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Asset\_Default">
+      <UniqueIdentifier>{321c468e-998e-4e8e-80a2-7a2859af25b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Asset\_Default">
+      <UniqueIdentifier>{b3ffab26-c03f-4fbd-97dc-304616eba838}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Asset\_Default\Mesh">
+      <UniqueIdentifier>{fcadb73f-5e14-41b1-8c9b-5ff13bcfdc4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Asset\_Default\Mesh">
+      <UniqueIdentifier>{a9f2b0c7-5a6f-4fa2-96a7-3cea980a1554}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -243,6 +249,18 @@
     <ClInclude Include="ModelConstants.h">
       <Filter>ヘッダー ファイル\Assimp</Filter>
     </ClInclude>
+    <ClInclude Include="AssetProgramGenerator_identifier.h">
+      <Filter>ヘッダー ファイル\ProgramGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultMeshAssetEntity.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultMeshAssetExporter.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultMeshAssetConverterFactory.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssimpMaterialSystemImporter.cpp">
@@ -280,9 +298,6 @@
     </ClCompile>
     <ClCompile Include="ModelAssetImporter.cpp">
       <Filter>ソース ファイル\Asset\_File\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="AssetConverterContext.cpp">
-      <Filter>ソース ファイル\Asset</Filter>
     </ClCompile>
     <ClCompile Include="ModelAssetExporter.cpp">
       <Filter>ソース ファイル\Asset\_File\Model</Filter>
@@ -328,6 +343,18 @@
     </ClCompile>
     <ClCompile Include="StandardMaterial.cpp">
       <Filter>ソース ファイル\Assimp</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetProgramGenerator_identifier.cpp">
+      <Filter>ソース ファイル\ProgramGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultMeshAssetConverterFactory.cpp">
+      <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultMeshAssetExporter.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultMeshAssetEntity.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

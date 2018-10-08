@@ -5,12 +5,9 @@
 #include <windowsx.h>
 #include <d3d9.h>
 #include <d3dx9.h>
-#include <Director.h>
 
 #include <d3d9.h>
 #include <d3dx9.h>
-#include <ITextureRegion.h>
-#include <Director.h>
 #include "DirectXDirector.h"
 #include "NativeConstants.h"
 
@@ -230,7 +227,7 @@ rcTexture* TextureLoad(const char* path)
   NATIVE_ASSERT(SUCCEEDED(hr), "テクスチャサイズの取得に失敗しました");
 
   LPDIRECT3DTEXTURE9 tex = nullptr;
-  HRESULT hr = D3DXCreateTextureFromFileEx(
+  hr = D3DXCreateTextureFromFileEx(
     (LPDIRECT3DDEVICE9)device,
     path,
     D3DX_DEFAULT,
@@ -302,8 +299,8 @@ void DeleteRenderBuffer(rcRenderBuffer* render_buffer)
 rcRenderTexture* CreateRenderTexture(T_UINT16 width, T_UINT16 height, rcRenderBuffer::Format format, rcRenderBuffer::Format depth_format)
 {
   using namespace NativeConstants;
-  width = Util::CalcTwoPowerValue(width);
-  height = Util::CalcTwoPowerValue(height);
+  width = Mathf::CalcTwoPowerValue(width);
+  height = Mathf::CalcTwoPowerValue(height);
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
 
   //

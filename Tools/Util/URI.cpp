@@ -1,6 +1,5 @@
 #include "URI.h"
 #include <regex>
-#include <fstream>
 
 // =================================================================
 // Constructor / Destructor
@@ -85,28 +84,4 @@ const std::string& URI::GetExtension() const
     GetPrefixSuffix(this->GetFileName(), &const_cast<URI*>(this)->prefix_, &const_cast<URI*>(this)->extension_);
   }
   return this->extension_;
-}
-
-const std::string& URI::GetProgramID() const
-{
-  if (this->program_id_.length() == 0)
-  {
-    //ファイル名がキャメル方式だった場合スネーク方式に変更
-    std::string snake_filename = this->full_path_;
-    snake_filename = std::regex_replace(snake_filename, std::regex("([a-z])([A-Z])"), "$1_$2");
-
-    //ファイル名を大文字に変換
-    std::string upper_filename = snake_filename;
-    std::transform(upper_filename.begin(), upper_filename.end(), upper_filename.begin(), ::toupper);
-
-    //ファイル名から拡張子を取り除く
-    std::string::size_type pos;
-    pos = upper_filename.find_last_of(".");
-    upper_filename = upper_filename.substr(0, pos);
-
-    //プログラム生成時の名前(ID)の作成
-    //プログラムで使用できない文字を変換
-    const_cast<URI*>(this)->program_id_ = std::regex_replace(upper_filename, std::regex("[^a-zA-Z0-9]+"), "_");
-  }
-  return this->program_id_;
 }

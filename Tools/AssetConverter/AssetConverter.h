@@ -29,14 +29,14 @@ public:
 public:
   inline T_UINT32 GetID() const override;
 
-  inline AssetInfo* Reserve(const URI& uri, AssetConverterContext* context) override;
+  inline bool Reserve(const URI& uri, AssetConverterContext* context) override;
 
   inline void Import(AssetConverterContext* context) override;
   inline bool ImportOnce(AssetConverterContext* context) override;
-  inline Entity_* ImportImmediately(const std::string& directory_path, const std::string& file_name, const std::string& extension, AssetConverterContext* context);
+  inline Entity_* ImportImmediately(const URI& uri, AssetConverterContext* context);
 
   inline void AddEntity(Entity_* entity);
-  inline Entity_* GetEntity(const std::string& directory_path, const std::string& file_name, const std::string& extension, const AssetConverterContext* context);
+  inline Entity_* GetEntity(const URI& uri, const AssetConverterContext* context);
   inline Entity_* GetEntity(const AssetInfo* info);
 
   inline void Export(const AssetConverterContext* context) const override;
@@ -91,9 +91,14 @@ inline T_UINT32 AssetConverter<Entity_>::GetID() const
 }
 
 template<class Entity_>
-inline AssetInfo* AssetConverter<Entity_>::Reserve(const URI& uri, AssetConverterContext* context)
+inline bool AssetConverter<Entity_>::Reserve(const URI& uri, AssetConverterContext* context)
 {
-  return this->importer_ ? this->importer_->Reserve(uri, context) : nullptr;
+  const auto& itr = this->entities_.find(context->GetUniqueID(uri));
+  if (itr != this->entities_.end())
+  {
+    return true;
+  }
+  return this->importer_ ? this->importer_->Reserve(uri, context) : false;
 }
 
 template<class Entity_>
@@ -109,9 +114,14 @@ inline bool AssetConverter<Entity_>::ImportOnce(AssetConverterContext* context)
 }
 
 template<class Entity_>
-inline Entity_* AssetConverter<Entity_>::ImportImmediately(const std::string& directory_path, const std::string& file_name, const std::string& extension, AssetConverterContext* context)
+inline Entity_* AssetConverter<Entity_>::ImportImmediately(const URI& uri, AssetConverterContext* context)
 {
-  return this->importer_ ? this->importer_->ImportImmediately(directory_path, file_name, extension, &this->entities_, context) : nullptr;
+  const auto& itr = this->entities_.find(context->GetUniqueID(uri));
+  if (itr != this->entities_.end())
+  {
+    return itr->second;
+  }
+  return this->importer_ ? this->importer_->ImportImmediately(uri, &this->entities_, context) : nullptr;
 }
 
 template<class Entity_>
@@ -121,9 +131,9 @@ inline void AssetConverter<Entity_>::AddEntity(Entity_* entity)
 }
 
 template<class Entity_>
-inline Entity_* AssetConverter<Entity_>::GetEntity(const std::string& directory_path, const std::string& file_name, const std::string& extension, const AssetConverterContext* context)
+inline Entity_* AssetConverter<Entity_>::GetEntity(const URI& uri, const AssetConverterContext* context)
 {
-  const auto& itr = this->entities_.find(context->GetUniqueIdTable()->GetID(directory_path + file_name));
+  const auto& itr = this->entities_.find(context->GetUniqueID(uri));
   if (itr != this->entities_.end())
   {
     return itr->second;

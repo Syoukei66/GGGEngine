@@ -14,8 +14,8 @@ SpriteRenderer::SpriteRenderer(GameObject* entity)
   , texture_region_(nullptr)
   , size_(1.0f, 1.0f)
 {
-  this->SetMaterial(AssetManager::GetDefaultAsset<rcMaterial>(DefaultUniqueID::MATERIAL_SPRITE)->CreateFromFile());
-  this->mesh_ = AssetManager::GetDefaultAsset<rcMesh>(DefaultUniqueID::MESH_SPRITE)->CreateFromFile();
+  this->SetMaterial(AssetManager::GetDefaultAssetLoader<rcMaterial>(DefaultUniqueID::MATERIAL_SPRITE)->CreateFromFile());
+  this->mesh_ = AssetManager::GetDefaultAssetLoader<rcMesh>(DefaultUniqueID::MESH_SPRITE)->CreateFromFile();
 }
 
 SpriteRenderer::~SpriteRenderer()
@@ -33,17 +33,17 @@ bool SpriteRenderer::SetStreamSource() const
   return true;
 }
 
-void SpriteRenderer::SetProperties(rcMaterial* material) const
+void SpriteRenderer::SetProperties(rcShader* shader) const
 {
   if (!this->texture_region_)
   {
     return;
   }
-  material->SetMainTexture(this->texture_region_->GetTexture());
+  shader->SetTexture("_Image", this->texture_region_->GetTexture());
   const TVec2f& uv0 = this->texture_region_->GetUV0();
   const TVec2f& uv1 = this->texture_region_->GetUV1();
-  material->SetTilingOffset(uv0);
-  material->SetTiling({ 1.0f / (uv1.x - uv0.x), 1.0f / (uv1.y - uv0.y) });
+  shader->SetVec2f("_UV0", uv0);
+  shader->SetVec2f("_UV1", { 1.0f / (uv1.x - uv0.x), 1.0f / (uv1.y - uv0.y) });
 }
 
 void SpriteRenderer::DrawSubset(T_UINT8 submesh_index) const

@@ -10,5 +10,7 @@
 IAssetConverter* ModelMaterialAssetConverterFactory::Create() const
 {
   ModelMaterialAssetExporter* exporter = new ModelMaterialAssetExporter();
-  return new AssetConverter<ModelMaterialAssetEntity>(nullptr, nullptr, exporter, nullptr);
+  AssetProgramGenerator<ModelMaterialAssetEntity>* program_generator = new AssetProgramGenerator<ModelMaterialAssetEntity>(1, 0);
+  program_generator->AddAsset("ModelMaterial", "rcMaterial");
+  return new AssetConverter<ModelMaterialAssetEntity>(nullptr, nullptr, exporter, program_generator);
 }

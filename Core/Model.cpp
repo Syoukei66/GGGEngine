@@ -21,12 +21,12 @@ rcModel* rcModel::Create(const ModelData* data)
 // =================================================================
 rcModel::rcModel(const ModelData* data)
 {
-  this->mesh_ = AssetManager::GetAsset<rcMesh>(data->mesh_unique_id_)->CreateFromFile();
+  this->mesh_ = AssetManager::GetLoader<rcMesh>(data->mesh_unique_id_)->CreateFromFile();
   T_UINT32 submesh_count = this->mesh_->GetSubmeshCount();
   this->materials_ = new rcMaterial*[submesh_count]();
   for (T_UINT32 i = 0; i < submesh_count; ++i)
   {
-    this->materials_[i] = AssetManager::GetAsset<rcMaterial>(data->material_unique_ids_[i])->CreateFromFile();
+    this->materials_[i] = AssetManager::GetLoader<rcMaterial>(data->material_unique_ids_[i])->CreateFromFile();
   }
 }
 

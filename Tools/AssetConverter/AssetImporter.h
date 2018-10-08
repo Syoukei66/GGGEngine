@@ -22,9 +22,8 @@ public:
   // Methods
   // =================================================================
 public:
-  inline bool ImportReserved() const;
   inline bool IsTarget(const URI& uri);
-  inline AssetInfo* Reserve(const URI& uri, AssetConverterContext* context);
+  inline bool Reserve(const URI& uri, AssetConverterContext* context);
 
   void Import(std::unordered_map<T_UINT32, Entity_*>* dest, AssetConverterContext* context);
   //アセットが参照しているアセットのロードが行われる為、
@@ -63,28 +62,22 @@ inline AssetImporter<Entity_>::~AssetImporter() {}
 // Methods
 // =================================================================
 template<class Entity_>
-inline bool AssetImporter<Entity_>::ImportReserved() const
-{
-  return this->reserve_assets_.size() > 0;
-}
-
-template<class Entity_>
 inline bool AssetImporter<Entity_>::IsTarget(const URI& uri)
 {
   return std::find(this->target_extensions_.begin(), this->target_extensions_.end(), uri.GetExtension()) != this->target_extensions_.end();
 }
 
 template<class Entity_>
-inline AssetInfo* AssetImporter<Entity_>::Reserve(const URI& uri, AssetConverterContext* context)
+inline bool AssetImporter<Entity_>::Reserve(const URI& uri, AssetConverterContext* context)
 {
   //対応する拡張子かチェック
   if (!this->IsTarget(uri))
   {
-    return nullptr;
+    return false;
   }
-  AssetInfo* ret = AssetInfo::Create(uri, context);
-  this->reserve_assets_[ret->GetUniqueID()] = ret;
-  return ret;
+  AssetInfo* info = AssetInfo::Create(uri, context);
+  this->reserve_assets_[info->GetUniqueID()] = info;
+  return true;
 }
 
 template<class Entity_>

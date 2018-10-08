@@ -13,24 +13,23 @@ class Renderer : public GameComponent
   // =================================================================
 public:
   Renderer(GameObject* entity);
-  virtual ~Renderer() {}
+  virtual ~Renderer();
 
   // =================================================================
   // Method
   // =================================================================
 public:
   void ReserveDraw(GameObjectRenderState* state);
-  void UniqueMaterial();
   
   void Draw(GameObjectRenderState* state) const;
 
 protected:
   virtual bool SetStreamSource() const = 0;
-  virtual void SetProperties(rcMaterial* material) const = 0;
+  virtual void SetProperties(rcShader* shader) const = 0;
   virtual void DrawSubset(T_UINT8 submesh_index) const = 0;
 
 private:
-  void SetDefaultProperties(GameObjectRenderState* state, rcMaterial* material) const;
+  void SetDefaultProperties(GameObjectRenderState* state, rcShader* shader) const;
 
   // =================================================================
   // setter/getter
@@ -45,29 +44,18 @@ public:
     return this->layer_id_;
   }
 
-  inline void AddMaterial(rcMaterial* material)
+  void AddMaterial(const rcMaterial* material);
+  void SetMaterial(const rcMaterial* material, T_UINT16 index = 0);
+  rcMaterial* GetMaterial(T_UINT16 index = 0);
+  const rcMaterial* GetMaterial(T_UINT16 index = 0) const;
+
+  inline const rcMaterial* GetSharedMaterial(T_UINT16 index = 0) const
   {
-    this->materials_.emplace_back(material);
+    return this->shared_materials_[index];
   }
-  inline void SetMaterial(rcMaterial* material)
+  inline T_UINT8 GetMaterialCount() const
   {
-    if (this->materials_.size() == 0)
-    {
-      this->materials_.emplace_back(nullptr);
-    }
-    this->materials_[0] = material;
-  }
-  inline void SetMaterial(T_UINT16 index, rcMaterial* material)
-  {
-    this->materials_[index] = material;
-  }
-  inline rcMaterial* GetMaterial(T_UINT16 index = 0) const
-  {
-    return this->materials_[index];
-  }
-  inline T_UINT16 GetMaterialCount()
-  {
-    return (T_UINT16)this->materials_.size();
+    return (T_UINT8)this->shared_materials_.size();
   }
 
   inline GameObject* GetEntity()
@@ -86,6 +74,7 @@ public:
 protected:
   GameObject* entity_;
   T_UINT8 layer_id_;
-  std::vector<rcMaterial*> materials_;
+  std::vector<const rcMaterial*> shared_materials_;
+  std::unordered_map<T_UINT32, rcMaterial*> materials_;
 
 };

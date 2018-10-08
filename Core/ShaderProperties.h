@@ -9,8 +9,8 @@
 class ShaderProperty
 {
 public:
-  virtual void Apply(rcShader* shader, const std::string& property_name) = 0;
-  virtual ShaderProperty* Clone() = 0;
+  virtual void Apply(rcShader* shader, const std::string& property_name) const = 0;
+  virtual ShaderProperty* Clone() const = 0;
 };
 
 // =================================================================
@@ -60,11 +60,11 @@ public:
   }
 
 public:
-  void Apply(rcShader* shader, const std::string& property_name) override
+  void Apply(rcShader* shader, const std::string& property_name) const override
   {
     shader->SetBool(property_name, this->value_);
   }
-  ShaderProperty* Clone() override
+  ShaderProperty* Clone() const override
   {
     ShaderProperty_bool* ret = new ShaderProperty_bool();
     ret->value_ = this->value_;
@@ -82,11 +82,11 @@ public:
   }
 
 public:
-  void Apply(rcShader* shader, const std::string& property_name) override
+  void Apply(rcShader* shader, const std::string& property_name) const override
   {
     shader->SetInt(property_name, this->value_);
   }
-  ShaderProperty* Clone() override
+  ShaderProperty* Clone() const override
   {
     ShaderProperty_int* ret = new ShaderProperty_int();
     ret->value_ = this->value_;
@@ -104,11 +104,11 @@ public:
   }
 
 public:
-  void Apply(rcShader* shader, const std::string& property_name) override
+  void Apply(rcShader* shader, const std::string& property_name) const override
   {
     shader->SetFloat(property_name, this->value_);
   }
-  ShaderProperty* Clone() override
+  ShaderProperty* Clone() const override
   {
     ShaderProperty_float* ret = new ShaderProperty_float();
     ret->value_ = this->value_;
@@ -128,7 +128,7 @@ public:
   {}
 
 public:
-  operator T&()
+  operator T&() const
   {
     return this->value_;
   }
@@ -162,11 +162,11 @@ public:
     return *this;
   }
 public:
-  void Apply(rcShader* shader, const std::string& property_name) override
+  void Apply(rcShader* shader, const std::string& property_name) const override
   {
     shader->SetVec2f(property_name, this->value_);
   }
-  ShaderProperty* Clone() override
+  ShaderProperty* Clone() const override
   {
     ShaderProperty_vec2f* ret = new ShaderProperty_vec2f();
     ret->value_ = this->value_;
@@ -183,11 +183,11 @@ public:
     return *this;
   }
 public:
-  void Apply(rcShader* shader, const std::string& property_name) override
+  void Apply(rcShader* shader, const std::string& property_name) const override
   {
     shader->SetVec3f(property_name, this->value_);
   }
-  ShaderProperty* Clone() override
+  ShaderProperty* Clone() const override
   {
     ShaderProperty_vec3f* ret = new ShaderProperty_vec3f();
     ret->value_ = this->value_;
@@ -204,11 +204,11 @@ public:
     return *this;
   }
 public:
-  void Apply(rcShader* shader, const std::string& property_name) override
+  void Apply(rcShader* shader, const std::string& property_name) const override
   {
     shader->SetVec4f(property_name, this->value_);
   }
-  ShaderProperty* Clone() override
+  ShaderProperty* Clone() const override
   {
     ShaderProperty_vec4f* ret = new ShaderProperty_vec4f();
     ret->value_ = this->value_;
@@ -225,11 +225,11 @@ public:
     return *this;
   }
 public:
-  void Apply(rcShader* shader, const std::string& property_name) override
+  void Apply(rcShader* shader, const std::string& property_name) const override
   {
     shader->SetColor(property_name, this->value_);
   }
-  ShaderProperty* Clone() override
+  ShaderProperty* Clone() const override
   {
     ShaderProperty_color* ret = new ShaderProperty_color();
     ret->value_ = this->value_;
@@ -246,7 +246,7 @@ public:
     return *this;
   }
 public:
-  void Apply(rcShader* shader, const std::string& property_name) override
+  void Apply(rcShader* shader, const std::string& property_name) const override
   {
     if (!this->value_)
     {
@@ -254,7 +254,7 @@ public:
     }
     shader->SetMatrix(property_name, this->value_);
   }
-  ShaderProperty* Clone() override
+  ShaderProperty* Clone() const override
   {
     ShaderProperty_matrix* ret = new ShaderProperty_matrix();
     ret->value_ = this->value_;
@@ -274,7 +274,7 @@ public:
   {}
 
 public:
-  operator const T*&()
+  operator const T*&() const
   {
     return this->value_;
   }
@@ -313,7 +313,7 @@ public:
     return *this;
   }
 public:
-  void Apply(rcShader* shader, const std::string& property_name) override
+  void Apply(rcShader* shader, const std::string& property_name) const override
   {
     if (!this->value_)
     {
@@ -321,7 +321,7 @@ public:
     }
     shader->SetTexture(property_name, this->value_);
   }
-  ShaderProperty* Clone() override
+  ShaderProperty* Clone() const override
   {
     ShaderProperty_texture* ret = new ShaderProperty_texture();
     ret->value_ = this->value_;

@@ -44,18 +44,21 @@ bool BaseActivity::Run(IEngineSetting* setting)
   const EngineOption* option = this->engine_->GetEngineOption();
   this->ApplyEngineOption(option);
   InputManager::GetInstance()->Init(option->input_setting.Build());
+
+
   result = this->Init(option);
   //Acitivity
   NATIVE_ASSERT(result, "アクティビティの初期化に失敗しました。");
 
-  setting->OnGameInit();
-
   ResourceManager::Init();
   AssetManager::Init();
+
+  setting->OnGameInit();
 
   //Scene
   engine_->ChangeScene(setting->FirstScene());
   while (this->Update());
+
   setting->OnGameFinal();
 
   AssetManager::Uninit();
@@ -119,7 +122,6 @@ bool BaseActivity::Update()
   NativeProcess::Time::FPS_PostUpdate();
 #endif
 
-  AssetManager::Update();
   ResourceManager::Update();
 
   return true;

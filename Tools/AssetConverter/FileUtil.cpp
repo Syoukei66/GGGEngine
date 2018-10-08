@@ -17,8 +17,9 @@
 
 static const std::string SETTING_PATH = "ConvertSetting.json";
 
-static const std::string PROJECT_PATH = "./Project";
-static const std::string ASSET_PATH = "./AssetConverter";
+static const std::string PROJECT_PATH = "Project";
+static const std::string ASSET_PATH = "AssetConverter";
+static const std::string RUNTIME_ASSET_PATH = "Asset";
 
 static const std::string INPUT_PATH = ASSET_PATH + "/Raw";
 static const std::string ARCHIVE_PATH = ASSET_PATH + "/Archive";
@@ -31,6 +32,8 @@ void FileUtil::PrepareDirectories()
   _mkdir(INPUT_PATH.c_str());
   _mkdir(ARCHIVE_PATH.c_str());
   _mkdir(MID_DATA_PATH.c_str());
+  _mkdir(MID_DATA_PATH.c_str());
+  _mkdir(RUNTIME_ASSET_PATH.c_str());
 }
 
 std::string FileUtil::GetSettingPath()
@@ -68,9 +71,14 @@ std::string FileUtil::CreateMidDataPath(const URI& uri)
   return MID_DATA_PATH + "/" + uri.GetFullPath();
 }
 
-std::string FileUtil::CreateOutputPath(const URI& uri)
+std::string FileUtil::CreateOutputPath(const AssetInfo* info)
 {
-  return ARCHIVE_PATH + "/" + uri.GetFullPath();
+  return ARCHIVE_PATH + "/" + std::to_string(info->GetUniqueID()) + "." + info->GetURI().GetExtension();
+}
+
+std::string FileUtil::CreateRuntimeAssetPath(const URI& uri)
+{
+  return RUNTIME_ASSET_PATH + "/" + uri.GetFullPath();
 }
 
 void FileUtil::CopyRawAsset(const AssetInfo* info)

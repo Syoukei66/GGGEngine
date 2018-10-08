@@ -13,7 +13,6 @@ template <class Archive>
 void serialize(Archive& ar, MaterialData& value)
 {
   ar(value.shader_unique_id_);
-  ar(value.protect_);
   ar(value.main_tex_unique_id_);
   ar(value.color_);
   ar(value.tiling_);
@@ -33,7 +32,6 @@ public:
   {
     PushState("MaterialData");
     COMPARE_ATTR(shader_unique_id_);
-    COMPARE_ATTR(protect_);
     COMPARE_ATTR(main_tex_unique_id_);
     COMPARE_ATTR(color_);
     COMPARE_ATTR(tiling_);

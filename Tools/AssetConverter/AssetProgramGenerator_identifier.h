@@ -1,47 +1,29 @@
 #pragma once
 
-class AssetInfo;
+#include "AssetInfo.h"
 
-#define ENTITY_ID(id) public:\
-enum { ID = id };
-
-class AssetEntity
+class IdentifierGenerator
 {
-protected:
-  enum EntityID
-  {
-    ID_DEFAULT_MESH,
-    ID_DEFAULT_MATERIAL,
-    ID_TEXTURE,
-    ID_CSV,
-    ID_JSON,
-    ID_SHADER,
-    ID_SOUND,
-    ID_MODEL,
-    ID_MODEL_MESH,
-    ID_MODEL_MATERIAL,
-  };
-
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  AssetEntity(AssetInfo* info);
-  virtual ~AssetEntity();
+  IdentifierGenerator(T_UINT32 skip_head, T_UINT32 skip_tail);
 
   // =================================================================
-  // Setter / Getter
+  // Methods
   // =================================================================
 public:
-  inline AssetInfo* GetAssetInfo() const
-  {
-    return this->info_;
-  }
+  std::string CreateIdentifier(const AssetInfo* info) const;
 
   // =================================================================
   // Data Members
   // =================================================================
-private:
-  AssetInfo* info_;
+public:
+  T_UINT32 skip_head_;
+  T_UINT32 skip_tail_;
+
+  std::unordered_map<const AssetInfo*, std::string> cache_;
 
 };
+

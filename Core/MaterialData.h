@@ -13,7 +13,6 @@ struct MaterialData
   }
 
   T_UINT32 shader_unique_id_;
-  bool protect_;
   T_UINT32 main_tex_unique_id_;
   TColor color_;
   TVec2f tiling_;

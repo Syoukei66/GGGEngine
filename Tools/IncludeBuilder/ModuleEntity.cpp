@@ -77,16 +77,28 @@ void ModuleEntity::CreateHeaderProgram() const
   std::string header;
   header.append("#pragma once\n");
   header.append("\n");
-  for (const std::string& path : targets)
+  if (targets.size() > 0)
   {
-    header.append("#include <" + this->path_ + "/" + path + ">\n");
+    for (const std::string& path : targets)
+    {
+      header.append("#include <" + this->path_ + "/" + path + ">\n");
+    }
+    header.append("\n");
   }
-  header.append("\n");
-  for (const std::string& path : this->specials_)
+  if (this->specials_.size() > 0)
   {
-    header.append("#include <" + path + ">\n");
+    for (const std::string& path : this->specials_)
+    {
+      header.append("#include <" + path + ">\n");
+    }
+    header.append("\n");
   }
   std::ofstream ofs(ENGINE_DIRECTORY_PATH + "/" + this->path_ + "/" + INCLUDE_HEADER);
   ofs << header;
   ofs.close();
+
+  std::cout << "//==================================================" << std::endl;
+  std::cout << "// " << this->path_ << "/Include.h" << std::endl;
+  std::cout << "//==================================================" << std::endl;
+  std::cout << header;
 }

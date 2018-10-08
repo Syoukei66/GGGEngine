@@ -2,7 +2,6 @@
 
 #include <vector>
 
-#include "Director.h"
 #include "NativeConstants.h"
 
 // =================================================================

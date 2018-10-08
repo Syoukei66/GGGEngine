@@ -1,7 +1,6 @@
 #pragma once
 
 #include "DirectXInputDevice.h"
-#include <EngineInput.h>
 
 class DirectXInputDevice_KeyBoard : public DirectXInputDevice
 {

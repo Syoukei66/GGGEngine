@@ -2,6 +2,7 @@
 
 #include <string>
 #include "AssetProgramGenerator_namespace.h"
+#include "AssetProgramGenerator_identifier.h"
 
 template <class Entity_>
 class AssetProgramGenerator
@@ -10,7 +11,11 @@ class AssetProgramGenerator
   // Constructor / Destructor
   // =================================================================
 public:
-  AssetProgramGenerator() = default;
+  AssetProgramGenerator(T_UINT32 skip_head, T_UINT32 skip_tail)
+    : namespace_generator_()
+    , identifier_generator_(skip_head, skip_tail)
+  {
+  }
 
   // =================================================================
   // Methods
@@ -28,7 +33,7 @@ public:
       std::string str;
       for (auto& pair : entities)
       {
-        str.append(generator.CreateHeaderProgram(pair.second->GetAssetInfo()));
+        str.append(generator.CreateHeaderProgram(this->identifier_generator_, pair.second->GetAssetInfo()));
       }
       return str;
     }));
@@ -40,7 +45,7 @@ public:
       std::string str;
       for (auto& pair : entities)
       {
-        str.append(generator.CreateCppProgram(pair.second->GetAssetInfo()));
+        str.append(generator.CreateCppProgram(this->identifier_generator_, pair.second->GetAssetInfo()));
       }
       return str;
     }));
@@ -51,5 +56,6 @@ public:
   // =================================================================
 private:
   NamespaceGenerator namespace_generator_;
+  IdentifierGenerator identifier_generator_;
 
 };
