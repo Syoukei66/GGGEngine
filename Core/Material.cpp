@@ -20,9 +20,11 @@ rcMaterial* rcMaterial::Create(rcShader* resource)
 
 rcMaterial* rcMaterial::Create(const MaterialData* data)
 {
-  rcShader* resource = AssetManager::GetLoader<rcShader>(data->shader_unique_id_)->CreateFromFile();
-  rcMaterial* ret = new rcMaterial(resource);
-  ret->texture_ = AssetManager::GetLoader<rcTexture>(data->main_tex_unique_id_)->CreateFromFile();
+  auto shader_loader = AssetManager::GetLoader<rcShader>(data->shader_unique_id_);
+  rcShader* shader = shader_loader ? shader_loader->CreateFromFile() : AssetManager::GetLoader<rcShader>(DefaultUniqueID::SHADER_NO_SHADING)->CreateFromFile();
+  rcMaterial* ret = new rcMaterial(shader);
+  auto texture_loader = AssetManager::GetLoader<rcTexture>(data->main_tex_unique_id_);
+  ret->texture_ = texture_loader ? texture_loader->CreateFromFile() : nullptr;
   ret->tiling_ = data->tiling_;
   ret->tiling_offset_ = data->tiling_offset_;
   ret->color_ = data->color_;

@@ -1,36 +1,29 @@
 #pragma once
 
-#include "Mesh.h"
 #include "MeshBuilder.h"
 
-class MeshResource
+class MeshBuilder_Sprite : public MeshBuilder
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  MeshResource(const MeshBuilder* builder);
-  ~MeshResource();
+  MeshBuilder_Sprite();
 
   // =================================================================
   // Methods
   // =================================================================
 public:
-  void Load();
-  void Unload();
+  virtual MeshData* CreateMesh() const override;
 
   // =================================================================
-  // Setter / Getter
+  // Serializer
   // =================================================================
 public:
-  inline rcMesh& GetContents() const
+  template<class Archive>
+  void serialize(Archive& ar, std::uint32_t const version)
   {
-    NATIVE_ASSERT(this->mesh_, "メッシュがロードされていません");
-    return *this->mesh_;
   }
 
-private:
-  const MeshBuilder* builder_;
-  rcMesh* mesh_;
-
 };
+CEREAL_CLASS_VERSION(MeshBuilder_Sprite, 1);

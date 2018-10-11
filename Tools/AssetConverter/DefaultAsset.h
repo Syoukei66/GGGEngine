@@ -1,19 +1,23 @@
 #pragma once
 
+#include <string>
+#include "FileUtil.h"
+
 namespace DefaultAsset
 {
-//1.標準のアセット一覧を定義したい
-//2.デフォルトアセットフォルダをEngineディレクトリ内に用意
-//3.デフォルトアセットフォルダに対するCrawl処理を記述
-//  (CrawlImportDirectoryの他にCrawlDefaultDirectoryを追加)
-//4.エンジン側からアクセスしたいリソースの場合はどうするか
-//5.デフォルトアセットをEngineSettingで登録できるようにする？
-//  メリット    プロジェクト毎に最適なデフォルトアセットの選択ができる
-//  デメリット  デフォルトアセットの意味とは。デフォルトアセットの概念が必要なくなるのでは。
-//    デフォルトアセットの意味　＝　デフォルトアセットが必要となってくる場面
-//    ・プリミティブなメッシュを使用したい
-//　　・モデルがデフォルトで読み込むシェーダーを用意したい
-//      ⇒UniqueIDの(UINT_MAX - n)番目などを予約済みIDとして、そこにデフォルトUniqueIDの定義を行ってはどうか
-//      ⇒
-//6.
+static const std::string& SHADER_PATH_LAMBERT = "shader/default/Lambert.cso";
+static const std::string& SHADER_PATH_PHONG   = "shader/default/Phong.cso";
+static const std::string& SHADER_PATH_WHITE   = "shader/default/White.cso";
+static const std::string& SHADER_PATH_SPRITE  = "shader/default/Sprite.cso";
+
+//仮想のパス
+static const std::string& MESH_PATH_CUBE   = "mesh/default/Cube.mesh";
+static const std::string& MESH_PATH_PLANE  = "mesh/default/Plane.mesh";
+static const std::string& MESH_PATH_SPRITE = "mesh/default/Sprite.mesh";
+
+//仮想のパス
+static const std::string& MATERIAL_PATH_LAMBERT = "material/default/Lambert.cso";
+static const std::string& MATERIAL_PATH_WHITE   = "material/default/White.cso";
+static const std::string& MATERIAL_PATH_SPRITE  = "material/default/Sprite.cso";
+
 }

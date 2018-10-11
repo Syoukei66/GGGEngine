@@ -73,7 +73,8 @@ std::string FileUtil::CreateMidDataPath(const URI& uri)
 
 std::string FileUtil::CreateOutputPath(const AssetInfo* info)
 {
-  return ARCHIVE_PATH + "/" + std::to_string(info->GetUniqueID()) + "." + info->GetURI().GetExtension();
+  //return ARCHIVE_PATH + "/" + std::to_string(info->GetUniqueID()) + "." + info->GetURI().GetExtension();
+  return RUNTIME_ASSET_PATH + "/" + std::to_string(info->GetUniqueID()) + "." + info->GetURI().GetExtension();
 }
 
 std::string FileUtil::CreateRuntimeAssetPath(const URI& uri)

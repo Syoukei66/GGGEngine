@@ -3,6 +3,14 @@
 #include <Core/CerealIO.h>
 #include "FileUtil.h"
 #include "Extensions.h"
+#include "DefaultAsset.h"
+
+#include "CsvAssetConverterFactory.h"
+#include "JsonAssetConverterFactory.h"
+#include "ShaderAssetConverterFactory.h"
+#include "SoundAssetConverterFactory.h"
+
+#include "DefaultMaterialAssetConverterFactory.h"
 
 // =================================================================
 // Methods
@@ -23,27 +31,45 @@ void Director::Init()
   if (!this->unique_id_table_)
   {
     this->unique_id_table_ = new UniqueIdTable();
-    using namespace DefaultUniqueID;
-    this->unique_id_table_->RegisterDefaultAssetUniqueID(SHADER_FLAT,         "Asset/shader/default/White.cso");
-    this->unique_id_table_->RegisterDefaultAssetUniqueID(SHADER_GOURAUD,      "Asset/shader/default/Lambert.cso");
-    this->unique_id_table_->RegisterDefaultAssetUniqueID(SHADER_PHONG,        "Asset/shader/default/Phong.cso");
-    this->unique_id_table_->RegisterDefaultAssetUniqueID(SHADER_BLIN,         "Asset/shader/default/White.cso");
-    this->unique_id_table_->RegisterDefaultAssetUniqueID(SHADER_TOON,         "Asset/shader/default/White.cso");
-    this->unique_id_table_->RegisterDefaultAssetUniqueID(SHADER_OREN_NAYAR,   "Asset/shader/default/White.cso");
-    this->unique_id_table_->RegisterDefaultAssetUniqueID(SHADER_MINNAERT,     "Asset/shader/default/White.cso");
-    this->unique_id_table_->RegisterDefaultAssetUniqueID(SHADER_COOK_TORRANCE,"Asset/shader/default/White.cso");
-    this->unique_id_table_->RegisterDefaultAssetUniqueID(SHADER_NO_SHADING,   "Asset/shader/default/White.cso");
-    this->unique_id_table_->RegisterDefaultAssetUniqueID(SHADER_FRESNEL,      "Asset/shader/default/White.cso");
-    this->unique_id_table_->RegisterDefaultAssetUniqueID(MESH_CUBE,         "");
-    this->unique_id_table_->RegisterDefaultAssetUniqueID(MESH_PLANE,        "");
-    this->unique_id_table_->RegisterDefaultAssetUniqueID(MESH_SPRITE,       "");
-    this->unique_id_table_->RegisterDefaultAssetUniqueID(MATERIAL_WHITE,    "");
-    this->unique_id_table_->RegisterDefaultAssetUniqueID(MATERIAL_LAMBERT,  "");
-    this->unique_id_table_->RegisterDefaultAssetUniqueID(MATERIAL_SPRITE,   "");
   }
 
-  this->converter_manager_ = new AssetConverterManager(this->setting_);
+  this->converter_manager_ = new AssetConverterManager();
   this->context_ = new AssetConverterContext(this->unique_id_table_, this->converter_manager_);
+
+  using namespace DefaultUniqueID;
+  using namespace DefaultAsset;
+  this->context_->RegisterDefaultUniqueID(SHADER_FLAT,          SHADER_PATH_WHITE);
+  this->context_->RegisterDefaultUniqueID(SHADER_GOURAUD,       SHADER_PATH_LAMBERT);
+  this->context_->RegisterDefaultUniqueID(SHADER_PHONG,         SHADER_PATH_PHONG);
+  this->context_->RegisterDefaultUniqueID(SHADER_BLIN,          SHADER_PATH_WHITE);
+  this->context_->RegisterDefaultUniqueID(SHADER_TOON,          SHADER_PATH_WHITE);
+  this->context_->RegisterDefaultUniqueID(SHADER_OREN_NAYAR,    SHADER_PATH_WHITE);
+  this->context_->RegisterDefaultUniqueID(SHADER_MINNAERT,      SHADER_PATH_WHITE);
+  this->context_->RegisterDefaultUniqueID(SHADER_COOK_TORRANCE, SHADER_PATH_WHITE);
+  this->context_->RegisterDefaultUniqueID(SHADER_NO_SHADING,    SHADER_PATH_WHITE);
+  this->context_->RegisterDefaultUniqueID(SHADER_FRESNEL,       SHADER_PATH_WHITE);
+
+  this->context_->RegisterDefaultUniqueID(SHADER_SPRITE, SHADER_PATH_SPRITE);
+
+  this->context_->RegisterDefaultUniqueID(MESH_CUBE,    MESH_PATH_CUBE);
+  this->context_->RegisterDefaultUniqueID(MESH_PLANE,   MESH_PATH_PLANE);
+  this->context_->RegisterDefaultUniqueID(MESH_SPRITE,  MESH_PATH_SPRITE);
+
+  this->context_->RegisterDefaultUniqueID(MATERIAL_WHITE,   MATERIAL_PATH_WHITE);
+  this->context_->RegisterDefaultUniqueID(MATERIAL_LAMBERT, MATERIAL_PATH_LAMBERT);
+  this->context_->RegisterDefaultUniqueID(MATERIAL_SPRITE,  MATERIAL_PATH_SPRITE);
+
+  this->converter_manager_->AddConverter(this->setting_->default_mesh_asset_converter_factory.Create(this->context_));
+  this->converter_manager_->AddConverter(DefaultMaterialAssetConverterFactory::Create(this->context_));
+
+  this->converter_manager_->AddConverter(this->setting_->texture_asset_converter_factory.Create(this->context_));
+  this->converter_manager_->AddConverter(this->setting_->model_asset_converter_factory.Create(this->context_));
+  this->converter_manager_->AddConverter(this->setting_->model_mesh_asset_converter_factory.Create(this->context_));
+  this->converter_manager_->AddConverter(this->setting_->model_material_asset_converter_factory.Create(this->context_));
+  this->converter_manager_->AddConverter(CsvAssetEntity::CreateConverter());
+  this->converter_manager_->AddConverter(JsonAssetEntity::CreateConverter());
+  this->converter_manager_->AddConverter(ShaderAssetEntity::CreateConverter());
+  this->converter_manager_->AddConverter(SoundAssetEntity::CreateConverter());
 }
 
 void Director::Uninit()

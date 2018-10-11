@@ -17,7 +17,7 @@ GameObject3D* GameObject3D::Create(const rcModel* model)
   for (T_UINT8 i = 0; i < submesh_count; ++i)
   {
     const rcMaterial* mat = model->GetMaterial(i)->Clone();
-    mesh_renderer->SetMaterial(mat, i);
+    mesh_renderer->AddMaterial(mat);
   }
 
   ret->SetRenderer(mesh_renderer);

@@ -13,6 +13,7 @@
 #include "ModelAssetConverterFactory.h"
 #include "ModelMeshAssetConverterFactory.h"
 #include "ModelMaterialAssetConverterFactory.h"
+#include "DefaultMeshAssetConverterFactory.h"
 #include "AssetInfo.h"
 
 struct Setting
@@ -28,12 +29,14 @@ struct Setting
     ar(cereal::make_nvp("ModelAssetConverter", this->model_asset_converter_factory));
     ar(cereal::make_nvp("ModelMeshAssetConverter", this->model_mesh_asset_converter_factory));
     ar(cereal::make_nvp("ModelMaterialAssetConverter", this->model_material_asset_converter_factory));
+    ar(cereal::make_nvp("DefaultMeshAssetConverter", this->default_mesh_asset_converter_factory));
   }
 
   TextureAssetConverterFactory texture_asset_converter_factory;
   ModelAssetConverterFactory model_asset_converter_factory;
   ModelMeshAssetConverterFactory model_mesh_asset_converter_factory;
   ModelMaterialAssetConverterFactory model_material_asset_converter_factory;
+  DefaultMeshAssetConverterFactory default_mesh_asset_converter_factory;
 
 };
 CEREAL_CLASS_VERSION(Setting, 1);

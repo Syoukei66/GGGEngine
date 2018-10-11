@@ -32,9 +32,17 @@ public:
   static void UnloadCaches();
 
   template<class Resource_>
-  static inline AssetLoader<Resource_>* GetLoader(T_UINT32 unique_id)
+  static inline AssetLoader<Resource_>* GetLoader(T_UINT32 uid)
   {
-    return (AssetLoader<Resource_>*)GetInstance()->assets_.at(unique_id);
+    if (uid == 0)
+    {
+      return nullptr;
+    }
+    if (uid > DefaultUniqueID::DEFAULT_UID_BEGIN)
+    {
+      return (AssetLoader<Resource_>*)GetInstance()->assets_.at(GetInstance()->unique_id_table_->GetDefaultAssetUniqueID(uid));
+    }
+    return (AssetLoader<Resource_>*)GetInstance()->assets_.at(uid);
   }
 
   template<class Resource_>
@@ -44,16 +52,10 @@ public:
   }
 
   template<class Resource_>
-  static inline AssetLoader<Resource_>* GetDefaultAssetLoader(T_UINT32 default_uid)
+  static inline AssetLoader<Resource_>* AddAsset(T_UINT32 uid, const std::string& extension)
   {
-    return (AssetLoader<Resource_>*)GetInstance()->assets_.at(GetInstance()->unique_id_table_->GetDefaultAssetUniqueID(default_uid));
-  }
-
-  template<class Resource_>
-  static inline AssetLoader<Resource_>* AddAsset(T_UINT32 unique_id, const std::string& extension)
-  {
-    AssetLoader<Resource_>* ret = new AssetLoader<Resource_>(unique_id, std::to_string(unique_id) + "." + extension);
-    GetInstance()->assets_.emplace(unique_id, ret);
+    AssetLoader<Resource_>* ret = new AssetLoader<Resource_>(uid, std::to_string(uid) + "." + extension);
+    GetInstance()->assets_.emplace(uid, ret);
     return ret;
   }
 

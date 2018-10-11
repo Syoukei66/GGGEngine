@@ -9,7 +9,7 @@
 // =================================================================
 // Methods
 // =================================================================
-IAssetConverter* ModelAssetConverterFactory::Create() const
+IAssetConverter* ModelAssetConverterFactory::Create(AssetConverterContext* context) const
 {
   ModelAssetImporter* importer = new ModelAssetImporter(this->target_extensions_);
   ModelAssetExporter* exporter = new ModelAssetExporter();

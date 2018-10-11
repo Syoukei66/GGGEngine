@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Mesh.h"
+#include "MeshData.h"
 
 namespace MeshFactory
 {
 namespace Sprite
 {
-rcMesh* Create(bool read_only);
+MeshData* Create();
 }
 }

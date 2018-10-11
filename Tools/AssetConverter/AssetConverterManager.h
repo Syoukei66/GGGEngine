@@ -1,8 +1,9 @@
 #pragma once
 
 #include <functional>
+#include <unordered_map>
 #include <Core/NativeAssert.h>
-#include "Setting.h"
+#include <Core/NativeType.h>
 
 class IAssetConverter;
 template<class Entity_>
@@ -14,7 +15,7 @@ class AssetConverterManager
   // Constructor / Destructor
   // =================================================================
 public:
-  AssetConverterManager(const Setting* setting);
+  AssetConverterManager();
   ~AssetConverterManager();
 
   // =================================================================
@@ -44,7 +45,6 @@ public:
   template <class Type_, class Entity_>
   Type_* Find(const std::function<Type_*(AssetConverter<Entity_>*)>& func);
 
-private:
   inline void AddConverter(IAssetConverter* converter);
 
   // =================================================================

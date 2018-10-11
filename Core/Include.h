@@ -28,15 +28,10 @@
 #include <Core/Matrix4x3.h>
 #include <Core/Matrix4x4.h>
 #include <Core/Mesh.h>
-#include <Core/MeshBuilder.h>
-#include <Core/MeshBuilder_Cube.h>
-#include <Core/MeshBuilder_Plane.h>
-#include <Core/MeshBuilder_Sprite.h>
 #include <Core/MeshData.h>
 #include <Core/MeshFactory_Cube.h>
 #include <Core/MeshFactory_Plane.h>
 #include <Core/MeshFactory_Sprite.h>
-#include <Core/MeshResource.h>
 #include <Core/Model.h>
 #include <Core/ModelData.h>
 #include <Core/NativeAssert.h>

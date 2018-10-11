@@ -259,11 +259,11 @@ static T_UINT32 ImportTexture(AssetInfo* info, const aiMaterial* material, aiTex
 static T_UINT32 ImportShader(AssetInfo* info, const aiMaterial* material, AssetConverterContext* context)
 {
   T_INT32 mode;
-  if (AI_SUCCESS == aiGetMaterialInteger(material, AI_MATKEY_SHADING_MODEL, &mode))
+  if (AI_SUCCESS == material->Get(AI_MATKEY_SHADING_MODEL, mode))
   {
-    return DefaultUniqueID::DEFAULT_UNIQUE_ID_BEGIN + mode;
+    return DefaultUniqueID::DEFAULT_UID_BEGIN + mode;
   }
-  return 0;
+  return DefaultUniqueID::SHADER_GOURAUD;
 }
 
 static MaterialData* ImportMaterial(AssetInfo* info, const aiMaterial* material, AssetConverterContext* context)

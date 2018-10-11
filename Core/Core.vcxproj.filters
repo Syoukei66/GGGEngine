@@ -46,14 +46,8 @@
     <Filter Include="ヘッダー ファイル\Resource\Mesh\Factory">
       <UniqueIdentifier>{c1906f7a-81b8-4d2e-b637-1ed6dde0b437}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Resource\Mesh\Builder">
-      <UniqueIdentifier>{8033e999-e024-4058-9b01-b6ba2a807b85}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Resource\Mesh\Factory">
       <UniqueIdentifier>{bad9e72d-a38d-4b30-a9c9-936fdf32d226}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Resource\Mesh\Builder">
-      <UniqueIdentifier>{cdec1a5a-5d20-4d3a-849a-f2e67d5779c0}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Color">
       <UniqueIdentifier>{2e3cf0cd-9f8e-4fc7-ba2a-a1ae6357603a}</UniqueIdentifier>
@@ -228,18 +222,6 @@
     <ClInclude Include="ShaderProperties.h">
       <Filter>ヘッダー ファイル\Resource\Material</Filter>
     </ClInclude>
-    <ClInclude Include="MeshResource.h">
-      <Filter>ヘッダー ファイル\Resource\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshBuilder_Cube.h">
-      <Filter>ヘッダー ファイル\Resource\Mesh\Builder</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshBuilder_Plane.h">
-      <Filter>ヘッダー ファイル\Resource\Mesh\Builder</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshBuilder_Sprite.h">
-      <Filter>ヘッダー ファイル\Resource\Mesh\Builder</Filter>
-    </ClInclude>
     <ClInclude Include="MeshFactory_Cube.h">
       <Filter>ヘッダー ファイル\Resource\Mesh\Factory</Filter>
     </ClInclude>
@@ -284,9 +266,6 @@
     </ClInclude>
     <ClInclude Include="TextureSource.h">
       <Filter>ヘッダー ファイル\Resource\_Native\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshBuilder.h">
-      <Filter>ヘッダー ファイル\Resource\Mesh\Builder</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>ヘッダー ファイル\Resource\Mesh</Filter>
@@ -409,18 +388,6 @@
     </ClCompile>
     <ClCompile Include="Material.cpp">
       <Filter>ソース ファイル\Resource\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshResource.cpp">
-      <Filter>ソース ファイル\Resource\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshBuilder_Cube.cpp">
-      <Filter>ソース ファイル\Resource\Mesh\Builder</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshBuilder_Plane.cpp">
-      <Filter>ソース ファイル\Resource\Mesh\Builder</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshBuilder_Sprite.cpp">
-      <Filter>ソース ファイル\Resource\Mesh\Builder</Filter>
     </ClCompile>
     <ClCompile Include="MeshFactory_Sprite.cpp">
       <Filter>ソース ファイル\Resource\Mesh\Factory</Filter>

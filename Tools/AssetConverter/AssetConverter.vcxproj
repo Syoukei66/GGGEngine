@@ -164,6 +164,9 @@
     <ClInclude Include="AssetProgramGenerator_identifier.h" />
     <ClInclude Include="CsvAssetConverterFactory.h" />
     <ClInclude Include="DefaultAsset.h" />
+    <ClInclude Include="DefaultMaterialAssetConverterFactory.h" />
+    <ClInclude Include="DefaultMaterialAssetEntity.h" />
+    <ClInclude Include="DefaultMaterialAssetExporter.h" />
     <ClInclude Include="DefaultMeshAssetEntity.h" />
     <ClInclude Include="DefaultMeshAssetConverterFactory.h" />
     <ClInclude Include="DefaultMeshAssetExporter.h" />
@@ -179,6 +182,10 @@
     <ClInclude Include="IAssetConverter.h" />
     <ClInclude Include="JsonAssetConverterFactory.h" />
     <ClInclude Include="Logger.h" />
+    <ClInclude Include="MeshBuilder.h" />
+    <ClInclude Include="MeshBuilder_Cube.h" />
+    <ClInclude Include="MeshBuilder_Plane.h" />
+    <ClInclude Include="MeshBuilder_Sprite.h" />
     <ClInclude Include="ModelConstants.h" />
     <ClInclude Include="ModelMaterialAssetConverterFactory.h" />
     <ClInclude Include="ModelMaterialAssetEntity.h" />
@@ -210,6 +217,9 @@
     <ClCompile Include="AssetEntity.cpp" />
     <ClCompile Include="AssetMetaData.cpp" />
     <ClCompile Include="AssetProgramGenerator_identifier.cpp" />
+    <ClCompile Include="DefaultMaterialAssetConverterFactory.cpp" />
+    <ClCompile Include="DefaultMaterialAssetEntity.cpp" />
+    <ClCompile Include="DefaultMaterialAssetExporter.cpp" />
     <ClCompile Include="DefaultMeshAssetConverterFactory.cpp" />
     <ClCompile Include="DefaultMeshAssetEntity.cpp" />
     <ClCompile Include="DefaultMeshAssetExporter.cpp" />
@@ -220,6 +230,9 @@
     <ClCompile Include="FileUtil.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MeshBuilder_Cube.cpp" />
+    <ClCompile Include="MeshBuilder_Plane.cpp" />
+    <ClCompile Include="MeshBuilder_Sprite.cpp" />
     <ClCompile Include="ModelMaterialAssetConverterFactory.cpp" />
     <ClCompile Include="ModelMaterialAssetEntity.cpp" />
     <ClCompile Include="ModelMaterialAssetExporter.cpp" />

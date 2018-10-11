@@ -39,6 +39,7 @@ public:
 
   inline T_UINT32 PublishUniqueID(const URI& uri);
   inline T_UINT32 GetUniqueID(const URI& uri) const;
+  inline void RegisterDefaultUniqueID(T_UINT32 default_uid, const URI& uri);
 
   // =================================================================
   // Data Members
@@ -96,5 +97,10 @@ inline T_UINT32 AssetConverterContext::PublishUniqueID(const URI& uri)
 inline T_UINT32 AssetConverterContext::GetUniqueID(const URI& uri) const
 {
   return this->unique_id_table_->GetID(FileUtil::CreateRuntimeAssetPath(uri));
+}
+
+inline void AssetConverterContext::RegisterDefaultUniqueID(T_UINT32 default_uid, const URI& uri)
+{
+  this->unique_id_table_->RegisterDefaultAssetUniqueID(default_uid, FileUtil::CreateRuntimeAssetPath(uri));
 }
 

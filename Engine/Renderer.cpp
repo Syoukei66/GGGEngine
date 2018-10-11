@@ -91,9 +91,14 @@ void Renderer::AddMaterial(const rcMaterial* material)
 void Renderer::SetMaterial(const rcMaterial* material, T_UINT16 index)
 {
   material->Retain();
-  if (this->shared_materials_.size() > index)
+  const T_UINT32 material_count = this->shared_materials_.size();
+  if (material_count > index)
   {
     this->shared_materials_[index]->Release();
+  }
+  for (T_UINT32 i = material_count; i <= index; ++i)
+  {
+    this->shared_materials_.push_back(nullptr);
   }
   this->shared_materials_[index] = material;
 }

@@ -7,7 +7,7 @@
 // =================================================================
 // Methods
 // =================================================================
-IAssetConverter* ModelMeshAssetConverterFactory::Create() const
+IAssetConverter* ModelMeshAssetConverterFactory::Create(AssetConverterContext* context) const
 {
   ModelMeshAssetExporter* exporter = new ModelMeshAssetExporter();
   AssetProgramGenerator<ModelMeshAssetEntity>* program_generator = new AssetProgramGenerator<ModelMeshAssetEntity>(1, 1);

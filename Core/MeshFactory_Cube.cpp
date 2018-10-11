@@ -1,6 +1,7 @@
 #include "MeshFactory_Cube.h"
+#include "GraphicsConstants.h"
 
-static void CreateFaceVertices(T_UINT32& i, const TVec3f& normal, T_UINT32 format, const TVec3f& scale, T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, const TVec3f& tile_count, rcMesh* dest)
+static void CreateFaceVertices(T_UINT32& i, const TVec3f& normal, T_UINT32 format, const TVec3f& scale, T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, const TVec3f& tile_count, MeshData* dest)
 {
   using namespace Graphics;
 
@@ -15,6 +16,7 @@ static void CreateFaceVertices(T_UINT32& i, const TVec3f& normal, T_UINT32 forma
   const T_FLOAT zRate = scale.z / resolution_z;
   const T_FLOAT xTileCount = fabs(tangent.x  * tile_count.x + tangent.y  * tile_count.y + tangent.z  * tile_count.z);
   const T_FLOAT yTileCount = fabs(binormal.x * tile_count.x + binormal.y * tile_count.y + binormal.z * tile_count.z);
+  unsigned char* p = &dest->data_[i * dest->vertex_size_];
   for (T_UINT32 y = 0; y <= ySize; ++y)
   {
     for (T_UINT32 x = 0; x <= xSize; ++x, ++i)
@@ -23,41 +25,41 @@ static void CreateFaceVertices(T_UINT32& i, const TVec3f& normal, T_UINT32 forma
       {
         TVec3f vertex = TVec3f(x - xSize * 0.5f, y - ySize * 0.5f, zSize * 0.5f);
         vertex = tangent * vertex.x + binormal * vertex.y + normal * vertex.z;
-        dest->SetVertex(i, { vertex.x * xRate, vertex.y * yRate, vertex.z * zRate });
+        SetVertexPosition({ vertex.x * xRate, vertex.y * yRate, vertex.z * zRate }, &p);
       }
       if (format & V_ATTR_NORMAL)
       {
-        dest->SetNormal(i, normal);
+        SetVertexNormal(normal, &dest->data_);
       }
       if (format & V_ATTR_UV)
       {
-        dest->SetUv(i, { (T_FLOAT)x / xSize * xTileCount, (T_FLOAT)y / ySize * yTileCount });
+        SetVertexUv({ (T_FLOAT)x / xSize * xTileCount, (T_FLOAT)y / ySize * yTileCount }, &p);
       }
       if (format & V_ATTR_UV2)
       {
-        dest->SetUv2(i, { (T_FLOAT)x / xSize, (T_FLOAT)y / ySize });
+        SetVertexUv2({ (T_FLOAT)x / xSize, (T_FLOAT)y / ySize }, &p);
       }
       if (format & V_ATTR_UV3)
       {
-        dest->SetUv3(i, { (T_FLOAT)x / xSize * xTileCount, (T_FLOAT)y / ySize * yTileCount });
+        SetVertexUv3({ (T_FLOAT)x / xSize * xTileCount, (T_FLOAT)y / ySize * yTileCount }, &p);
       }
       if (format & V_ATTR_UV4)
       {
-        dest->SetUv4(i, { (T_FLOAT)x / xSize * xTileCount, (T_FLOAT)y / ySize * yTileCount });
+        SetVertexUv4({ (T_FLOAT)x / xSize * xTileCount, (T_FLOAT)y / ySize * yTileCount }, &p);
       }
       if (format & V_ATTR_TANGENT)
       {
-        dest->SetTangent(i, { tangent.x, tangent.y, tangent.z, 1.0f });
+        SetVertexTangent({ tangent.x, tangent.y, tangent.z, 1.0f }, &p);
       }
       if (format & V_ATTR_COLOR)
       {
-        dest->SetColor(i, TColor::WHITE);
+        SetVertexColor(TColor::WHITE, &p);
       }
     }
   }
 }
 
-static void CreateVertices(T_UINT32 format, const TVec3f& scale, T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, const TVec3f& tile_count, rcMesh* dest)
+static void CreateVertices(T_UINT32 format, const TVec3f& scale, T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, const TVec3f& tile_count, MeshData* dest)
 {
   T_UINT32 v = 0;
   CreateFaceVertices(v, TVec3f::back, format, scale, resolution_x, resolution_y, resolution_z, tile_count, dest);
@@ -68,22 +70,22 @@ static void CreateVertices(T_UINT32 format, const TVec3f& scale, T_UINT32 resolu
   CreateFaceVertices(v, TVec3f::down, format, scale, resolution_x, resolution_y, resolution_z, tile_count, dest);
 }
 
-static int SetQuad(T_UINT32 i, T_UINT32 v00, T_UINT32 v10, T_UINT32 v01, T_UINT32 v11, rcMesh* dest)
+static int SetQuad(T_UINT32 i, T_UINT32 v00, T_UINT32 v10, T_UINT32 v01, T_UINT32 v11, MeshData* dest)
 {
-  dest->SetIndex(i, v00);
+  dest->indices_[i] = v00;
 
-  dest->SetIndex(i + 1, v01);
-  dest->SetIndex(i + 4, v01);
+  dest->indices_[i + 1] = v01;
+  dest->indices_[i + 4] = v01;
 
-  dest->SetIndex(i + 2, v10);
-  dest->SetIndex(i + 3, v10);
+  dest->indices_[i + 2] = v10;
+  dest->indices_[i + 3] = v10;
 
-  dest->SetIndex(i + 5, v11);
+  dest->indices_[i + 5] = v11;
 
   return i + 6;
 }
 
-static void CreateFaceTriangles(T_UINT32& t, T_UINT32& v, const TVec3f& normal, T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, rcMesh* dest)
+static void CreateFaceTriangles(T_UINT32& t, T_UINT32& v, const TVec3f& normal, T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, MeshData* dest)
 {
   const TVec3f tangent = normal.x == 0.0f && normal.z == 0.0f ? TVec3f::OuterProduct(normal, TVec3f::forward) : TVec3f::OuterProduct(normal, TVec3f::up);
   const TVec3f binormal = TVec3f::OuterProduct(tangent, normal);
@@ -101,7 +103,7 @@ static void CreateFaceTriangles(T_UINT32& t, T_UINT32& v, const TVec3f& normal, 
   v += xSize + 1;
 }
 
-static void CreateTriangles(T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, rcMesh* dest)
+static void CreateTriangles(T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, MeshData* dest)
 {
   T_UINT32 t = 0, v = 0;
   CreateFaceTriangles(t, v, TVec3f::back, resolution_x, resolution_y, resolution_z, dest);
@@ -112,37 +114,36 @@ static void CreateTriangles(T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT
   CreateFaceTriangles(t, v, TVec3f::down, resolution_x, resolution_y, resolution_z, dest);
 }
 
-rcMesh* MeshFactory::Cube::Create(
+MeshData* MeshFactory::Cube::Create(
   T_UINT32 format,
   T_FLOAT scale_x, T_FLOAT scale_y, T_FLOAT scale_z,
   T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z,
-  T_FLOAT tile_count_x, T_FLOAT tile_count_y, T_FLOAT tile_count_z,
-  bool read_only
+  T_FLOAT tile_count_x, T_FLOAT tile_count_y, T_FLOAT tile_count_z
 )
 {
-  rcMesh* ret = rcMesh::Create();
+  MeshData* ret = new MeshData();
 
   const T_UINT32 zFaceVertices = (resolution_x + 1) * (resolution_y + 1);
   const T_UINT32 xFaceVertices = (resolution_y + 1) * (resolution_z + 1);
   const T_UINT32 yFaceVertices = (resolution_x + 1) * (resolution_z + 1);
-  const T_UINT32 vertex_count = (xFaceVertices + yFaceVertices + zFaceVertices) * 2;
+  ret->vertex_count_ = (xFaceVertices + yFaceVertices + zFaceVertices) * 2;
+  ret->vertex_format_ = format;
+  ret->vertex_size_ = Graphics::CalcVertexSize(ret->vertex_format_);
+  ret->data_ = new unsigned char[ret->vertex_count_ * ret->vertex_size_];
 
   const T_UINT32 zFaceQuads = resolution_x * resolution_y;
   const T_UINT32 xFaceQuads = resolution_y * resolution_z;
   const T_UINT32 yFaceQuads = resolution_x * resolution_z;
-  const T_UINT32 quads = (xFaceQuads + yFaceQuads + zFaceQuads) * 2;
-  const T_UINT32 index_count = quads * 6;
+  ret->polygon_count_ = (xFaceQuads + yFaceQuads + zFaceQuads) * 2 * 2;
+  ret->index_count_ = ret->polygon_count_ * 3;
+  ret->indices_ = new T_UINT32[ret->index_count_]();
 
-  ret->CreateVerticesWithIndex(
-    vertex_count,
-    index_count,
-    format
-  );
-  ret->CreateIndices(index_count);
+  ret->submesh_count_ = 1;
+  ret->submesh_index_counts_ = new T_UINT32[ret->submesh_count_];
+  ret->submesh_index_counts_[0] = ret->index_count_;
 
   CreateVertices(format, { scale_x, scale_y, scale_z }, resolution_x, resolution_y, resolution_z, { tile_count_x, tile_count_y, tile_count_z }, ret);
   CreateTriangles(resolution_x, resolution_y, resolution_z, ret);
 
-  ret->CommitChanges(read_only);
   return ret;
 }

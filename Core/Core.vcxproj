@@ -70,19 +70,19 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)lib\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <OutDir>$(SolutionDir)lib\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)lib\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <OutDir>$(SolutionDir)lib\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)lib\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <OutDir>$(SolutionDir)lib\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)lib\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <OutDir>$(SolutionDir)lib\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -179,14 +179,9 @@
     <ClInclude Include="Material.h" />
     <ClInclude Include="Matrix4x3.h" />
     <ClInclude Include="Matrix4x4.h" />
-    <ClInclude Include="MeshBuilder.h" />
-    <ClInclude Include="MeshBuilder_Cube.h" />
-    <ClInclude Include="MeshBuilder_Plane.h" />
-    <ClInclude Include="MeshBuilder_Sprite.h" />
     <ClInclude Include="MeshFactory_Cube.h" />
     <ClInclude Include="MeshFactory_Plane.h" />
     <ClInclude Include="MeshFactory_Sprite.h" />
-    <ClInclude Include="MeshResource.h" />
     <ClInclude Include="NativeAssert.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="NativeProcess.h" />
@@ -240,13 +235,9 @@
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Matrix4x4.cpp" />
     <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="MeshBuilder_Cube.cpp" />
-    <ClCompile Include="MeshBuilder_Plane.cpp" />
-    <ClCompile Include="MeshBuilder_Sprite.cpp" />
     <ClCompile Include="MeshFactory_Cube.cpp" />
     <ClCompile Include="MeshFactory_Plane.cpp" />
     <ClCompile Include="MeshFactory_Sprite.cpp" />
-    <ClCompile Include="MeshResource.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="ParticleData.cpp" />
     <ClCompile Include="ParticleDataManager.cpp" />

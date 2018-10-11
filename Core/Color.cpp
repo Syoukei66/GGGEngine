@@ -47,7 +47,7 @@ TColor::TColor(T_FLOAT r, T_FLOAT g, T_FLOAT b, T_FLOAT a)
 // =================================================================
 // Setter / Getter
 // =================================================================
-T_PACKED_COLOR_UINT32 TColor::GetPackedColor()
+T_PACKED_COLOR_UINT32 TColor::GetPackedColor() const
 {
   T_PACKED_COLOR_UINT32 ret;
   NativeProcess::Graphics::PackColor4u8(

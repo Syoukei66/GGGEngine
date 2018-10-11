@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Mesh.h"
+#include "MeshData.h"
 
 namespace MeshFactory
 {
@@ -13,16 +13,16 @@ namespace Plane
 // UV4 UV1‚Æ“¯‚¶
 
 //
-rcMesh* Create(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale_y, T_UINT32 resolution_x, T_UINT32 resolution_y, T_FLOAT tile_count_x, T_FLOAT tile_count_y, bool read_only);
+MeshData* Create(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale_y, T_UINT32 resolution_x, T_UINT32 resolution_y, T_FLOAT tile_count_x, T_FLOAT tile_count_y);
 //
-inline rcMesh* Create(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale_y, T_UINT32 resolution_x, T_UINT32 resolution_y, bool read_only)
+inline MeshData* Create(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale_y, T_UINT32 resolution_x, T_UINT32 resolution_y)
 {
-  return Create(format, scale_x, scale_y, resolution_x, resolution_y, (T_FLOAT)resolution_x, (T_FLOAT)resolution_y, read_only);
+  return Create(format, scale_x, scale_y, resolution_x, resolution_y, (T_FLOAT)resolution_x, (T_FLOAT)resolution_y);
 }
 //
-inline rcMesh* Create(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale_y, bool read_only)
+inline MeshData* Create(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale_y)
 {
-  return Create(format, scale_x, scale_y, (T_UINT32)scale_x, (T_UINT32)scale_y, read_only);
+  return Create(format, scale_x, scale_y, (T_UINT32)scale_x, (T_UINT32)scale_y);
 }
 
 }

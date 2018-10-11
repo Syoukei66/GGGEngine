@@ -9,7 +9,7 @@
 // =================================================================
 // Methods
 // =================================================================
-IAssetConverter* TextureAssetConverterFactory::Create() const
+IAssetConverter* TextureAssetConverterFactory::Create(AssetConverterContext* context) const
 {
   TextureAssetImporter* importer = new TextureAssetImporter(this->target_extensions_);
   TextureAssetExporter* exporter = new TextureAssetExporter();

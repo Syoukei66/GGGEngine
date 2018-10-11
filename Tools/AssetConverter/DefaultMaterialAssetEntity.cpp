@@ -1,15 +1,15 @@
-#include "DefaultMeshAssetEntity.h"
+#include "DefaultMaterialAssetEntity.h"
 
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-DefaultMeshAssetEntity::DefaultMeshAssetEntity(AssetInfo* info, MeshData* data)
+DefaultMaterialAssetEntity::DefaultMaterialAssetEntity(AssetInfo* info, MaterialData* data)
   : AssetEntity(info)
   , data_(data)
 {
 }
 
-DefaultMeshAssetEntity::~DefaultMeshAssetEntity()
+DefaultMaterialAssetEntity::~DefaultMaterialAssetEntity()
 {
   delete this->data_;
 }

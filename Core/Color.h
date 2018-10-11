@@ -151,7 +151,7 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  T_PACKED_COLOR_UINT32 GetPackedColor();
+  T_PACKED_COLOR_UINT32 GetPackedColor() const;
 
   // =================================================================
   // Data Member

@@ -29,6 +29,7 @@ rcMesh* rcMesh::Create(const MeshData* data)
   ret->vertex_buffer_ = rcVertexBuffer::Create(data->vertex_count_, data->polygon_count_, data->vertex_format_);
   unsigned char* p;
   ret->vertex_buffer_->Lock((void**)&p);
+  NATIVE_ASSERT(data->vertex_size_ == Graphics::CalcVertexSize(data->vertex_format_), "MeshDataを作成した時と頂点データのサイズが異なっています");
   const T_UINT64 byte_count = data->vertex_count_ * data->vertex_size_;
   for (T_UINT64 i = 0; i < byte_count; ++i)
   {
@@ -171,38 +172,14 @@ rcMesh* rcMesh::Clone(bool read_only)
   clone->orginal_ = this;
   clone->CreateVertices(this->vertex_count_, this->format_, this->primitive_type_);
   clone->CreateIndices(this->submesh_count_, this->index_counts_);
-  if (this->HasVertices())
-  {
-    clone->SetVertices(this->vertices_);
-  }
-  if (this->HasNormals())
-  {
-    clone->SetNormals(this->normals_);
-  }
-  if (this->HasUvs())
-  {
-    clone->SetUvs(this->uvs_);
-  }
-  if (this->HasUv2s())
-  {
-    clone->SetUv2s(this->uv2s_);
-  }
-  if (this->HasUv3s())
-  {
-    clone->SetUv3s(this->uv3s_);
-  }
-  if (this->HasUv4s())
-  {
-    clone->SetUv4s(this->uv4s_);
-  }
-  if (this->HasTangents())
-  {
-    clone->SetTangents(this->tangents_);
-  }
-  if (this->HasColors())
-  {
-    clone->SetColors(this->colors_);
-  }
+  if (this->HasVertices()) clone->SetVertices(this->vertices_);
+  if (this->HasNormals()) clone->SetNormals(this->normals_);
+  if (this->HasUvs()) clone->SetUvs(this->uvs_);
+  if (this->HasUv2s()) clone->SetUv2s(this->uv2s_);
+  if (this->HasUv3s()) clone->SetUv3s(this->uv3s_);
+  if (this->HasUv4s()) clone->SetUv4s(this->uv4s_);
+  if (this->HasTangents()) clone->SetTangents(this->tangents_);
+  if (this->HasColors()) clone->SetColors(this->colors_);
   clone->CommitChanges(read_only);
   return clone;
 }
@@ -218,38 +195,14 @@ void rcMesh::CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UIN
 
   using namespace Graphics;
 
-  if (format & V_ATTR_POSITION)
-  {
-    this->vertices_ = new TVec3f[vertex_count]{};
-  }
-  if (format & V_ATTR_NORMAL)
-  {
-    this->normals_ = new TVec3f[vertex_count]{};
-  }
-  if (format & V_ATTR_UV)
-  {
-    this->uvs_ = new TVec2f[vertex_count]{};
-  }
-  if (format & V_ATTR_UV2)
-  {
-    this->uv2s_ = new TVec2f[vertex_count]{};
-  }
-  if (format & V_ATTR_UV3)
-  {
-    this->uv3s_ = new TVec2f[vertex_count]{};
-  }
-  if (format & V_ATTR_UV4)
-  {
-    this->uv4s_ = new TVec2f[vertex_count]{};
-  }
-  if (format & V_ATTR_TANGENT)
-  {
-    this->tangents_ = new TVec4f[vertex_count]{};
-  }
-  if (format & V_ATTR_COLOR)
-  {
-    this->colors_ = new TColor[vertex_count]{};
-  }
+  if (format & V_ATTR_POSITION) this->vertices_ = new TVec3f[vertex_count]{};
+  if (format & V_ATTR_NORMAL) this->normals_ = new TVec3f[vertex_count]{};
+  if (format & V_ATTR_UV) this->uvs_ = new TVec2f[vertex_count]{};
+  if (format & V_ATTR_UV2) this->uv2s_ = new TVec2f[vertex_count]{};
+  if (format & V_ATTR_UV3) this->uv3s_ = new TVec2f[vertex_count]{};
+  if (format & V_ATTR_UV4) this->uv4s_ = new TVec2f[vertex_count]{};
+  if (format & V_ATTR_TANGENT) this->tangents_ = new TVec4f[vertex_count]{};
+  if (format & V_ATTR_COLOR) this->colors_ = new TColor[vertex_count]{};
   this->vertex_buffer_ = rcVertexBuffer::Create(
     vertex_count,
     polygon_count,
@@ -288,65 +241,14 @@ void rcMesh::CommitChanges(bool read_only)
     unsigned char* p = (unsigned char*)dest;
     for (T_UINT32 i = 0; i < this->vertex_count_; ++i)
     {
-      if (this->format_ & V_ATTR_POSITION)
-      {
-        T_FLOAT* vertex = (T_FLOAT*)p;
-        vertex[0] = this->vertices_[i].x;
-        vertex[1] = this->vertices_[i].y;
-        vertex[2] = this->vertices_[i].z;
-        p += V_ATTRSIZE_POSITION;
-      }
-      if (this->format_ & V_ATTR_NORMAL)
-      {
-        T_FLOAT* normal = (T_FLOAT*)p;
-        normal[0] = this->normals_[i].x;
-        normal[1] = this->normals_[i].y;
-        normal[2] = this->normals_[i].z;
-        p += V_ATTRSIZE_NORMAL;
-      }
-      if (this->format_ & V_ATTR_UV)
-      {
-        T_FLOAT* uv = (T_FLOAT*)p;
-        uv[0] = this->uvs_[i].x;
-        uv[1] = this->uvs_[i].y;
-        p += V_ATTRSIZE_UV;
-      }
-      if (this->format_ & V_ATTR_UV2)
-      {
-        T_FLOAT* uv2 = (T_FLOAT*)p;
-        uv2[0] = this->uv2s_[i].x;
-        uv2[1] = this->uv2s_[i].y;
-        p += V_ATTRSIZE_UV2;
-      }
-      if (this->format_ & V_ATTR_UV3)
-      {
-        T_FLOAT* uv3 = (T_FLOAT*)p;
-        uv3[0] = this->uv3s_[i].x;
-        uv3[1] = this->uv3s_[i].y;
-        p += V_ATTRSIZE_UV3;
-      }
-      if (this->format_ & V_ATTR_UV4)
-      {
-        T_FLOAT* uv4 = (T_FLOAT*)p;
-        uv4[0] = this->uv4s_[i].x;
-        uv4[1] = this->uv4s_[i].y;
-        p += V_ATTRSIZE_UV4;
-      }
-      if (this->format_ & V_ATTR_TANGENT)
-      {
-        T_FLOAT* tangent = (T_FLOAT*)p;
-        tangent[0] = this->tangents_[i].x;
-        tangent[1] = this->tangents_[i].y;
-        tangent[2] = this->tangents_[i].z;
-        tangent[3] = this->tangents_[i].w;
-        p += V_ATTRSIZE_TANGENT;
-      }
-      if (this->format_ & V_ATTR_COLOR)
-      {
-        T_UINT32* color = (T_UINT32*)p;
-        color[0] = this->colors_[i].GetPackedColor();
-        p += V_ATTRSIZE_COLOR;
-      }
+      if (this->format_ & V_ATTR_POSITION) SetVertexPosition(this->vertices_[i], &p);
+      if (this->format_ & V_ATTR_NORMAL) SetVertexNormal(this->normals_[i], &p);
+      if (this->format_ & V_ATTR_UV) SetVertexUv(this->uvs_[i], &p);
+      if (this->format_ & V_ATTR_UV2) SetVertexUv2(this->uv2s_[i], &p);
+      if (this->format_ & V_ATTR_UV3) SetVertexUv3(this->uv3s_[i], &p);
+      if (this->format_ & V_ATTR_UV4) SetVertexUv4(this->uv4s_[i], &p);
+      if (this->format_ & V_ATTR_TANGENT) SetVertexTangent(this->tangents_[i], &p);
+      if (this->format_ & V_ATTR_COLOR) SetVertexColor(this->colors_[i], &p);
     }
     this->vertex_buffer_->Unlock();
     this->vertices_dirty_ = false;
@@ -513,38 +415,7 @@ size_t rcMesh::GetMemorySize() const
 {
   size_t ret = sizeof(rcMesh);
   using namespace Graphics;
-  if (this->vertices_)
-  {
-    ret += V_ATTRSIZE_POSITION * this->vertex_count_;
-  }
-  if (this->normals_)
-  {
-    ret += V_ATTRSIZE_NORMAL * this->vertex_count_;
-  }
-  if (this->uvs_)
-  {
-    ret += V_ATTRSIZE_UV * this->vertex_count_;
-  }
-  if (this->uv2s_)
-  {
-    ret += V_ATTRSIZE_UV2 * this->vertex_count_;
-  }
-  if (this->uv3s_)
-  {
-    ret += V_ATTRSIZE_UV3 * this->vertex_count_;
-  }
-  if (this->uv4s_)
-  {
-    ret += V_ATTRSIZE_UV4 * this->vertex_count_;
-  }
-  if (this->tangents_)
-  {
-    ret += V_ATTRSIZE_TANGENT * this->vertex_count_;
-  }
-  if (this->colors_)
-  {
-    ret += V_ATTRSIZE_COLOR * this->vertex_count_;
-  }
+  ret += this->vertex_count_ * CalcVertexSize(this->format_);
   if (this->face_normals_)
   {
     ret += sizeof(TVec3f) * this->polygon_count_;

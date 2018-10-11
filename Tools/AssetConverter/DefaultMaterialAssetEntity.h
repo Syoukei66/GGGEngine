@@ -1,23 +1,23 @@
 #pragma once
 
-#include <Core/MeshData.h>
+#include <Core/MaterialData.h>
 #include "AssetEntity.h"
 
-class DefaultMeshAssetEntity : public AssetEntity
+class DefaultMaterialAssetEntity : public AssetEntity
 {
-  ENTITY_ID(ID_DEFAULT_MESH)
+  ENTITY_ID(ID_DEFAULT_MATERIAL)
     // =================================================================
     // Constructor / Destructor
     // =================================================================
 public:
-  DefaultMeshAssetEntity(AssetInfo* info, MeshData* data);
-  ~DefaultMeshAssetEntity();
+  DefaultMaterialAssetEntity(AssetInfo* info, MaterialData* data);
+  ~DefaultMaterialAssetEntity();
 
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  inline const MeshData* GetData() const
+  inline const MaterialData* GetData() const
   {
     return this->data_;
   }
@@ -26,6 +26,6 @@ public:
   // Data Members
   // =================================================================
 private:
-  MeshData* data_;
+  MaterialData* data_;
 
 };

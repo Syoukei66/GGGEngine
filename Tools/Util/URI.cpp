@@ -35,7 +35,14 @@ URI::URI(const std::string& directory_path, const std::string& prefix, const std
 // =================================================================
 static void GetDirectoryPathAndFileName(const std::string& full_path, std::string* directory, std::string* file_name)
 {
-  //TODO:èëÇ≠
+  std::regex re("(.+)/(.+)");
+  std::smatch result;
+  if (!std::regex_match(full_path, result, re))
+  {
+    return;
+  }
+  (*directory) = result[1];
+  (*file_name) = result[2];
 }
 
 const std::string& URI::GetDirectoryPath() const
@@ -58,7 +65,7 @@ const std::string& URI::GetFileName() const
 
 static void GetPrefixSuffix(const std::string& file_name, std::string* prefix, std::string* suffix)
 {
-  std::regex re("(.*[^\\.]+)\\.([^\\.]+$)");
+  std::regex re("(.+)\\.(.+)");
   std::smatch result;
   if (!std::regex_match(file_name, result, re))
   {

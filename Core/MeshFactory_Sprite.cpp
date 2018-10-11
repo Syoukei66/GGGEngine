@@ -1,5 +1,5 @@
 #include "MeshFactory_Sprite.h"
-#include "../Core/GraphicsConstants.h"
+#include "GraphicsConstants.h"
 
 enum { SPRITE_VERTEX_COORDS_COUNT = 4 };
 static TVec2f SPRITE_VERTEX_COORDS[SPRITE_VERTEX_COORDS_COUNT] =
@@ -21,14 +21,14 @@ static TVec2f SPRITE_VERTEX_TEX_COORDS[SPRITE_VERTEX_TEX_COORDS_COUNT] =
 
 enum { SPRITE_SURFS_COUNT = 1 };
 enum { SPRITE_TRIANGLES_COUNT = 2 * SPRITE_SURFS_COUNT };
-enum { SPRITE_VERTEX_INDEXES_COUNT = 6 };
-static const T_UINT16 PLANE_VERTEX_INDEXES[SPRITE_VERTEX_INDEXES_COUNT] =
+enum { SPRITE_VERTEX_INDICES_COUNT = 6 };
+static const T_UINT16 PLANE_VERTEX_INDEXES[SPRITE_VERTEX_INDICES_COUNT] =
 {
   0, 2, 1,
   3, 1, 2,
 };
 
-static const T_UINT16 PLANE_VERTEX_TEX_INDEXES[SPRITE_VERTEX_INDEXES_COUNT] =
+static const T_UINT16 PLANE_VERTEX_TEX_INDEXES[SPRITE_VERTEX_INDICES_COUNT] =
 {
   0, 2, 1,
   3, 1, 2,
@@ -38,7 +38,7 @@ enum { SPRITE_VERTEXES_COUNT = 4 * SPRITE_SURFS_COUNT };
 static bool SPRITE_VERTEXES_INITIALIZED = false;
 static TVec3f SPRITE_VERTEXES[SPRITE_VERTEXES_COUNT];
 static TVec2f SPRITE_UVS[SPRITE_VERTEXES_COUNT];
-static T_UINT16 SPRITE_INDEXES[SPRITE_VERTEX_INDEXES_COUNT];
+static T_UINT16 SPRITE_INDICES[SPRITE_VERTEX_INDICES_COUNT];
 
 static void Initialize()
 {
@@ -53,7 +53,7 @@ static void Initialize()
         temp[i][j] = -1;
       }
     }
-    for (T_UINT16 i = 0; i < SPRITE_VERTEX_INDEXES_COUNT; ++i)
+    for (T_UINT16 i = 0; i < SPRITE_VERTEX_INDICES_COUNT; ++i)
     {
       T_UINT16 vertexIndex = PLANE_VERTEX_INDEXES[i];
       T_UINT16 vertexTexIndex = PLANE_VERTEX_TEX_INDEXES[i];
@@ -69,32 +69,37 @@ static void Initialize()
         temp[vertexIndex][vertexTexIndex] = index;
         index++;
       }
-      SPRITE_INDEXES[i] = temp[vertexIndex][vertexTexIndex];
+      SPRITE_INDICES[i] = temp[vertexIndex][vertexTexIndex];
     }
     SPRITE_VERTEXES_INITIALIZED = true;
   }
 }
 
-rcMesh* MeshFactory::Sprite::Create(bool read_only)
+MeshData* MeshFactory::Sprite::Create()
 {
   Initialize();
-  rcMesh* ret = rcMesh::Create();
+  MeshData* ret = new MeshData();
   using namespace Graphics;
-  ret->CreateVertices(
-    SPRITE_VERTEXES_COUNT,
-    PRIMITIVE_SURF_NUM(PRIMITIVE_TRIANGLES, SPRITE_VERTEX_INDEXES_COUNT),
-    Graphics::V_FORMAT_PU
-  );
-  ret->CreateIndices(SPRITE_VERTEX_INDEXES_COUNT);
+  ret->vertex_count_ = SPRITE_VERTEXES_COUNT;
+  ret->polygon_count_ = PRIMITIVE_SURF_NUM(PRIMITIVE_TRIANGLES, SPRITE_VERTEX_INDICES_COUNT);
+  ret->vertex_format_ = Graphics::V_FORMAT_PU;
+  ret->vertex_size_ = CalcVertexSize(ret->vertex_format_);
+  ret->data_ = new unsigned char[ret->vertex_count_ * ret->vertex_size_]();
+  unsigned char* p = ret->data_;
   for (T_UINT32 i = 0; i < SPRITE_VERTEXES_COUNT; ++i)
   {
-    ret->SetVertex(i, SPRITE_VERTEXES[i]);
-    ret->SetUv(i, SPRITE_UVS[i]);
+    SetVertexPosition(SPRITE_VERTEXES[i], &p);
+    SetVertexUv(SPRITE_UVS[i], &p);
   }
-  for (T_UINT32 i = 0; i < SPRITE_VERTEX_INDEXES_COUNT; ++i)
+  ret->index_count_ = SPRITE_VERTEX_INDICES_COUNT;
+  ret->indices_ = new T_UINT32[ret->index_count_]();
+  for (T_UINT32 i = 0; i < SPRITE_VERTEX_INDICES_COUNT; ++i)
   {
-    ret->SetIndex(i, SPRITE_INDEXES[i]);
+    ret->indices_[i] = SPRITE_INDICES[i];
   }
-  ret->CommitChanges(read_only);
+
+  ret->submesh_count_ = 1;
+  ret->submesh_index_counts_ = new T_UINT32[ret->submesh_count_];
+  ret->submesh_index_counts_[0] = ret->index_count_;
   return ret;
 }

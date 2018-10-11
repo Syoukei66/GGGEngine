@@ -7,7 +7,7 @@
 // =================================================================
 // Methods
 // =================================================================
-IAssetConverter* ModelMaterialAssetConverterFactory::Create() const
+IAssetConverter* ModelMaterialAssetConverterFactory::Create(AssetConverterContext* context) const
 {
   ModelMaterialAssetExporter* exporter = new ModelMaterialAssetExporter();
   AssetProgramGenerator<ModelMaterialAssetEntity>* program_generator = new AssetProgramGenerator<ModelMaterialAssetEntity>(1, 0);

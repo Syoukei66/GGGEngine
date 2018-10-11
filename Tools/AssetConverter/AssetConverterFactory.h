@@ -1,6 +1,7 @@
 #pragma once
 
 class IAssetConverter;
+class AssetConverterContext;
 
 class AssetConverterFactory
 {
@@ -15,6 +16,6 @@ public:
   // Methods
   // =================================================================
 public:
-  virtual IAssetConverter* Create() const = 0;
+  virtual IAssetConverter* Create(AssetConverterContext* context) const = 0;
 
 };

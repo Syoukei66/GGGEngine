@@ -109,6 +109,12 @@
     <Filter Include="ソース ファイル\Asset\_Default\Mesh">
       <UniqueIdentifier>{a9f2b0c7-5a6f-4fa2-96a7-3cea980a1554}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Asset\_Default\Material">
+      <UniqueIdentifier>{f2f2220d-1380-4eb7-bd21-947ed806f66f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Asset\_Default\Material">
+      <UniqueIdentifier>{78d9b5c7-db9b-42c7-834e-af35b9eb624b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssimpMaterialSystemImporter.h">
@@ -261,6 +267,27 @@
     <ClInclude Include="DefaultMeshAssetConverterFactory.h">
       <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="MeshBuilder.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshBuilder_Cube.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshBuilder_Plane.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshBuilder_Sprite.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultMaterialAssetConverterFactory.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultMaterialAssetEntity.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultMaterialAssetExporter.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Material</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssimpMaterialSystemImporter.cpp">
@@ -351,9 +378,27 @@
       <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="DefaultMeshAssetExporter.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="DefaultMeshAssetEntity.cpp">
+      <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshBuilder_Sprite.cpp">
+      <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshBuilder_Cube.cpp">
+      <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshBuilder_Plane.cpp">
+      <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultMaterialAssetExporter.cpp">
+      <Filter>ソース ファイル\Asset\_Default\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultMaterialAssetEntity.cpp">
+      <Filter>ソース ファイル\Asset\_Default\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultMaterialAssetConverterFactory.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
