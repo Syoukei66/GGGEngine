@@ -4,27 +4,31 @@
 // =================================================================
 // Factory Method
 // =================================================================
-rcMaterial* rcMaterial::CreateFromFile(const char* path)
+UniqueResource<rcMaterial> rcMaterial::CreateFromFile(const char* path)
 {
-  return rcMaterial::Create(MaterialData::Deserialize(path));
-}
-
-rcMaterial* rcMaterial::Create(rcShader* resource)
-{
-  rcMaterial* ret = new rcMaterial(resource);
-  ret->Resource::Init();
+  MaterialData* data = MaterialData::Deserialize(path);
+  UniqueResource<rcMaterial> ret = rcMaterial::Create(data);
+  delete data;
   return ret;
 }
 
-//デフォルトアセットの登録ができていない(というかそもそもやってなかった)
-
-rcMaterial* rcMaterial::Create(const MaterialData* data)
+UniqueResource<rcMaterial> rcMaterial::Create(const SharedRef<rcShader>& resource)
 {
-  auto shader_loader = AssetManager::GetLoader<rcShader>(data->shader_unique_id_);
-  rcShader* shader = shader_loader ? shader_loader->CreateFromFile() : AssetManager::GetLoader<rcShader>(DefaultUniqueID::SHADER_NO_SHADING)->CreateFromFile();
+  rcMaterial* ret = new rcMaterial(resource);
+  ret->Resource::Init();
+  return UniqueResource<rcMaterial>(ret);
+}
+
+UniqueResource<rcMaterial> rcMaterial::Create(const MaterialData* data)
+{
+  SharedRef<rcShader> shader = data->shader_unique_id_ != 0 ? 
+    AssetManager::Load<rcShader>(data->shader_unique_id_) : 
+    AssetManager::Load<rcShader>(DefaultUniqueID::SHADER_NO_SHADING);
   rcMaterial* ret = new rcMaterial(shader);
-  auto texture_loader = AssetManager::GetLoader<rcTexture>(data->main_tex_unique_id_);
-  ret->texture_ = texture_loader ? texture_loader->CreateFromFile() : nullptr;
+  
+  ret->texture_ = data->main_tex_unique_id_ != 0 ?
+    AssetManager::Load<rcTexture>(data->main_tex_unique_id_) :
+    nullptr;
   ret->tiling_ = data->tiling_;
   ret->tiling_offset_ = data->tiling_offset_;
   ret->color_ = data->color_;
@@ -32,7 +36,7 @@ rcMaterial* rcMaterial::Create(const MaterialData* data)
 
   for (const auto& pair : data->texture_properties_)
   {
-    ret->TextureProperty(pair.first) = AssetManager::GetLoader<rcTexture>(pair.second)->CreateFromFile();
+    ret->TextureProperty(pair.first) = AssetManager::Load<rcTexture>(pair.second);
   }
 
   for (const auto& pair : data->properties_)
@@ -40,13 +44,13 @@ rcMaterial* rcMaterial::Create(const MaterialData* data)
     ret->properties_[pair.first] = pair.second->Clone();
   }
   ret->Resource::Init();
-  return ret;
+  return UniqueResource<rcMaterial>(ret);
 }
 
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-rcMaterial::rcMaterial(rcShader* shader)
+rcMaterial::rcMaterial(const SharedRef<rcShader>& shader)
   : shader_(shader)
   , technique_("Default")
   , queue_(Graphics::RenderQueue::RQ_GEOMETRY)
@@ -57,12 +61,10 @@ rcMaterial::rcMaterial(rcShader* shader)
   , color_()
   , billbording_()
 {
-  this->shader_->Retain();
 }
 
 rcMaterial::~rcMaterial()
 {
-  this->shader_->Release();
   for (auto pair : this->properties_)
   {
     delete pair.second;
@@ -72,9 +74,9 @@ rcMaterial::~rcMaterial()
 // =================================================================
 // Methods
 // =================================================================
-rcMaterial* rcMaterial::Clone() const
+UniqueResource<rcMaterial> rcMaterial::Clone() const
 {
-  rcMaterial* ret = this->InitialClone();
+  UniqueResource<rcMaterial> ret = this->InitialClone();
  
   ret->queue_ = this->queue_;
   ret->texture_ = this->texture_;
@@ -86,13 +88,13 @@ rcMaterial* rcMaterial::Clone() const
   return ret;
 }
 
-rcMaterial* rcMaterial::InitialClone() const
+UniqueResource<rcMaterial> rcMaterial::InitialClone() const
 {
   NATIVE_ASSERT(this->shader_, "シェーダーが未定義です");
-  return new rcMaterial(this->shader_);
+  return rcMaterial::Create(this->shader_);
 }
 
-void rcMaterial::SetProperties(rcShader* shader) const
+void rcMaterial::SetProperties(const SharedRef<rcShader>& shader) const
 {
   shader->SetTechnique(this->technique_);
   for (auto pair : this->properties_)
@@ -104,22 +106,12 @@ void rcMaterial::SetProperties(rcShader* shader) const
 // =================================================================
 // setter/getter
 // =================================================================
-void rcMaterial::SetShader(rcShader* shader)
+void rcMaterial::SetShader(const SharedRef<rcShader>& shader)
 {
-  shader->Retain();
-  if (this->shader_)
-  {
-    this->shader_->Release();
-  }
   this->shader_ = shader;
 }
 
-void rcMaterial::SetMainTexture(const rcTexture* texture)
+void rcMaterial::SetMainTexture(const SharedRef<const rcTexture>& texture)
 {
-  texture->Retain();
-  if (this->texture_)
-  {
-    this->texture_->Release();
-  }
   this->texture_ = texture;
 }

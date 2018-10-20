@@ -23,9 +23,9 @@ public:
   // Factory Method
   // =================================================================
 public:
-  static rcRenderBuffer* CreateColorBuffer(rcTexture* texture);
-  static rcRenderBuffer* CreateDepthStencilBuffer(T_UINT16 width, T_UINT16 height, Format format);
-  static rcRenderBuffer* Create(void* native_obj);
+  static UniqueResource<rcRenderBuffer> CreateColorBuffer(const SharedRef<const rcTexture>& texture);
+  static UniqueResource<rcRenderBuffer> CreateDepthStencilBuffer(T_UINT16 width, T_UINT16 height, Format format);
+  static UniqueResource<rcRenderBuffer> Create(void* native_obj);
 
   // =================================================================
   // Constructor / Destructor
@@ -38,6 +38,11 @@ protected:
   // Getter / Setter
   // =================================================================
 public:
+  inline virtual const char* GetResourceName() override
+  {
+    return "RenderBuffer";
+  }
+
   inline void* GetNativeObject()
   {
     return this->native_obj_;

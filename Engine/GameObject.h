@@ -121,15 +121,15 @@ public:
   {
     this->renderer_->GetLayerId();
   }
-  inline void AddMaterial(rcMaterial* material)
-  {
-    this->renderer_->AddMaterial(material);
-  }
-  inline void SetMaterial(rcMaterial* material, T_UINT16 index = 0)
+  inline void SetMaterial(const SharedRef<rcMaterial>& material, T_UINT16 index = 0)
   {
     this->renderer_->SetMaterial(material, index);
   }
-  inline rcMaterial* GetMaterial(T_UINT16 index = 0) const
+  inline SharedRef<const rcMaterial> GetMaterial(T_UINT16 index = 0) const
+  {
+    return this->renderer_->GetMaterial(index);
+  }
+  inline SharedRef<rcMaterial> GetMaterial(T_UINT16 index = 0)
   {
     return this->renderer_->GetMaterial(index);
   }

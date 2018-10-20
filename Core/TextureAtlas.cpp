@@ -4,7 +4,7 @@
 // =================================================================
 // Factory Method
 // =================================================================
-rcTextureAtlas* rcTextureAtlas::CreateFromFile(const char* path)
+UniqueResource<rcTextureAtlas> rcTextureAtlas::CreateFromFile(const char* path)
 {
   NATIVE_ASSERT(false, "Ç‹ÇæÇ≈Ç´ÇƒÇ‹ÇπÇÒÅI");
   //std::string directory_path = std::string();
@@ -20,41 +20,33 @@ rcTextureAtlas* rcTextureAtlas::CreateFromFile(const char* path)
   //}
   //TextureAtlasLoader loader;
   //return loader.Load(directory_path.c_str(), path);
-  return nullptr;
+  return UniqueResource<rcTextureAtlas>();
 }
 
-rcTextureAtlas* rcTextureAtlas::Create(const rcTexture* texture)
+UniqueResource<rcTextureAtlas> rcTextureAtlas::Create(const SharedRef<const rcTexture>& texture)
 {
   rcTextureAtlas* ret = new rcTextureAtlas(texture);
   ret->Resource::Init();
-  return ret;
+  return UniqueResource<rcTextureAtlas>(ret);
 }
 
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-rcTextureAtlas::rcTextureAtlas(const rcTexture* texture)
-  : texture_(texture)
+rcTextureAtlas::rcTextureAtlas(const SharedRef<const rcTexture>& texture)
 {
-  this->texture_->Retain();
+  this->texture_ = texture;
 }
 
 rcTextureAtlas::~rcTextureAtlas()
 {
-  this->texture_->Release();
 }
 
 // =================================================================
 // Method
 // =================================================================
-void rcTextureAtlas::Register(const std::string& path, rcTextureRegion* region)
+void rcTextureAtlas::Register(const std::string& path, const SharedRef<rcTextureRegion>& region)
 {
-  region->Retain();
-  const auto& already = this->region_map_.find(path);
-  if (already != this->region_map_.end())
-  {
-    already->second->Release();
-  }
   this->region_map_[path] = region;
 }
 

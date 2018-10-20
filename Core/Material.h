@@ -13,33 +13,38 @@ class rcMaterial : public Resource
   // Factory Method
   // =================================================================
 public:
-  static rcMaterial* CreateFromFile(const char* path);
-  static rcMaterial* Create(rcShader* resource);
-  static rcMaterial* Create(const MaterialData* data);
+  static UniqueResource<rcMaterial> CreateFromFile(const char* path);
+  static UniqueResource<rcMaterial> Create(const SharedRef<rcShader>& resource);
+  static UniqueResource<rcMaterial> Create(const MaterialData* data);
 
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 protected:
-  rcMaterial(rcShader* shader);
+  rcMaterial(const SharedRef<rcShader>& shader);
   virtual ~rcMaterial();
 
   // =================================================================
   // Methods
   // =================================================================
 public:
-  rcMaterial* Clone() const;
-  rcMaterial* InitialClone() const;
+  UniqueResource<rcMaterial> Clone() const;
+  UniqueResource<rcMaterial> InitialClone() const;
 
 public:
-  void SetProperties(rcShader* shader) const;
+  void SetProperties(const SharedRef<rcShader>& shader) const;
 
   // =================================================================
   // setter/getter
   // =================================================================
 public:
-  void SetShader(rcShader* shader);
-  inline rcShader* GetShader() const
+  inline virtual const char* GetResourceName() override
+  {
+    return "Material";
+  }
+
+  void SetShader(const SharedRef<rcShader>& shader);
+  inline SharedRef<rcShader> GetShader() const
   {
     return this->shader_;
   }
@@ -62,8 +67,8 @@ public:
     return this->queue_;
   }
 
-  void SetMainTexture(const rcTexture* texture);
-  inline const rcTexture* GetMainTexture() const
+  void SetMainTexture(const SharedRef<const rcTexture>& texture);
+  inline SharedRef<const rcTexture> GetMainTexture() const
   {
     return this->texture_;
   }
@@ -231,13 +236,13 @@ public:
   // Data Member
   // =================================================================
 protected:
-  rcShader* shader_;
+  SharedRef<rcShader> shader_;
   std::string technique_;
 
   Graphics::RenderQueue queue_;
   std::unordered_map<std::string, ShaderProperty*> properties_;
 
-  const rcTexture* texture_;
+  SharedRef<const rcTexture> texture_;
   TVec2f tiling_;
   TVec2f tiling_offset_;
   TColor color_;

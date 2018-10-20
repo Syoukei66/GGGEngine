@@ -10,9 +10,9 @@ class AnimatedSprite3D : public Sprite3D
   // =================================================================
 public:
   static AnimatedSprite3D* Create();
-  static AnimatedSprite3D* CreateWithTexture(const rcTexture* texture, T_UINT8 x_num, T_UINT8 y_num);
-  static AnimatedSprite3D* CreateWithTextureRegion(rcTiledTextureRegion* region);
-  static AnimatedSprite3D* CreateWithMaterial(rcMaterial* material, T_UINT8 x_num, T_UINT8 y_num);
+  static AnimatedSprite3D* CreateWithTexture(const SharedRef<const rcTexture>& texture, T_UINT8 x_num, T_UINT8 y_num);
+  static AnimatedSprite3D* CreateWithTextureRegion(const SharedRef<rcTiledTextureRegion>& region);
+  static AnimatedSprite3D* CreateWithMaterial(const SharedRef<rcMaterial>& material, T_UINT8 x_num, T_UINT8 y_num);
 
   // =================================================================
   // Constructor / Destructor
@@ -49,7 +49,7 @@ public:
   {
     return this->GetAnimatedSpriteRenderer()->GetCurrentIndex();
   }
-  inline rcTiledTextureRegion* GetTiledTextureRegion() const
+  inline SharedRef<rcTiledTextureRegion> GetTiledTextureRegion() const
   {
     return this->GetAnimatedSpriteRenderer()->GetTiledTextureRegion();
   }

@@ -16,9 +16,9 @@ public:
   // Factory Method
   // =================================================================
 public:
-  static rcTiledTextureRegion* CreateWithMaterial(const rcMaterial* material, T_UINT8 x_num, T_UINT8 y_num);
-  static rcTiledTextureRegion* CreateWithTexture(const rcTexture* texture, T_UINT8 x_num, T_UINT8 y_num);
-  static rcTiledTextureRegion* Create();
+  static UniqueResource<rcTiledTextureRegion> CreateWithMaterial(const SharedRef<const rcMaterial>& material, T_UINT8 x_num, T_UINT8 y_num);
+  static UniqueResource<rcTiledTextureRegion> CreateWithTexture(const SharedRef<const rcTexture>& texture, T_UINT8 x_num, T_UINT8 y_num);
+  static UniqueResource<rcTiledTextureRegion> Create();
 
   // =================================================================
   // Constructor / Destructor
@@ -31,7 +31,7 @@ protected:
   // Methods for/from SuperClass/Interfaces
   // =================================================================
 public:
-  virtual void OnUpdateTextureCoord(const rcTexture* texture) override;
+  virtual void OnUpdateTextureCoord(const SharedRef<const rcTexture>& texture) override;
 
 private:
   T_UINT16 CalcCurrentIndex();
@@ -40,6 +40,11 @@ private:
   // setter/getter
   // =================================================================
 public:
+  inline virtual const char* GetResourceName() override
+  {
+    return "TiledTextureRegion";
+  }
+
   void SetXNum(T_UINT8 x_num);
   inline T_UINT8 GetXNum() const
   {

@@ -10,9 +10,9 @@ class AnimatedSprite : public Sprite
   // =================================================================
 public:
   static AnimatedSprite* Create();
-  static AnimatedSprite* CreateWithTexture(const rcTexture* texture, T_UINT8 x_num, T_UINT8 y_num);
-  static AnimatedSprite* CreateWithTextureRegion(rcTiledTextureRegion* region);
-  static AnimatedSprite* CreateWithMaterial(rcMaterial* material, T_UINT8 x_num, T_UINT8 y_num);
+  static AnimatedSprite* CreateWithTexture(const SharedRef<const rcTexture>& texture, T_UINT8 x_num, T_UINT8 y_num);
+  static AnimatedSprite* CreateWithTextureRegion(const SharedRef<rcTiledTextureRegion>& region);
+  static AnimatedSprite* CreateWithMaterial(const SharedRef<rcMaterial>& material, T_UINT8 x_num, T_UINT8 y_num);
 
   // =================================================================
   // Constructor / Destructor
@@ -49,7 +49,7 @@ public:
   {
     return this->GetAnimatedSpriteRenderer()->GetCurrentIndex();
   }
-  inline rcTiledTextureRegion* GetTiledTextureRegion() const
+  inline SharedRef<rcTiledTextureRegion> GetTiledTextureRegion() const
   {
     return this->GetAnimatedSpriteRenderer()->GetTiledTextureRegion();
   }

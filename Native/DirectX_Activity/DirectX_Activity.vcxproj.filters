@@ -105,6 +105,9 @@
     <ClCompile Include="NativeProcess.cpp">
       <Filter>ソース ファイル\Native</Filter>
     </ClCompile>
+    <ClCompile Include="NativeLogger.cpp">
+      <Filter>ソース ファイル\Native</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectXActivity.h">

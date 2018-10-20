@@ -8,16 +8,15 @@
 // =================================================================
 // Factory Method
 // =================================================================
-GameObject3D* GameObject3D::Create(const rcModel* model)
+GameObject3D* GameObject3D::Create(const SharedRef<const rcModel>& model)
 {
   GameObject3D* ret = new GameObject3D();
 
   MeshRenderer* mesh_renderer = MeshRenderer::Create(model->GetMesh(), ret);
-  T_UINT8 submesh_count = model->GetSubmeshCount();
+  const T_UINT8 submesh_count = model->GetSubmeshCount();
   for (T_UINT8 i = 0; i < submesh_count; ++i)
   {
-    const rcMaterial* mat = model->GetMaterial(i)->Clone();
-    mesh_renderer->AddMaterial(mat);
+    mesh_renderer->SetSharedMaterial(model->GetMaterial(i), i);
   }
 
   ret->SetRenderer(mesh_renderer);

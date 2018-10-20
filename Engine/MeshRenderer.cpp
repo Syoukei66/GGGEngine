@@ -3,7 +3,7 @@
 // =================================================================
 // Factory Method
 // =================================================================
-MeshRenderer* MeshRenderer::Create(const rcMesh* mesh, GameObject* entity)
+MeshRenderer* MeshRenderer::Create(const SharedRef<const rcMesh>& mesh, GameObject* entity)
 {
   MeshRenderer* ret = new MeshRenderer(entity);
   ret->SetMesh(mesh);
@@ -15,6 +15,11 @@ MeshRenderer* MeshRenderer::Create(const rcMesh* mesh, GameObject* entity)
 // =================================================================
 MeshRenderer::MeshRenderer(GameObject* entity)
   : Renderer(entity)
+  , mesh_()
+{
+}
+
+MeshRenderer::~MeshRenderer()
 {
 }
 
@@ -31,7 +36,7 @@ bool MeshRenderer::SetStreamSource() const
   return true;
 }
 
-void MeshRenderer::SetProperties(rcShader* shader) const
+void MeshRenderer::SetProperties(const SharedRef<rcShader>& shader) const
 {
 }
 

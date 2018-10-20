@@ -22,6 +22,7 @@
 #include <Core/IndexBuffer.h>
 #include <Core/JsonData.h>
 #include <Core/JsonParser.h>
+#include <Core/Macro.h>
 #include <Core/Material.h>
 #include <Core/MaterialData.h>
 #include <Core/Mathf.h>
@@ -35,6 +36,7 @@
 #include <Core/Model.h>
 #include <Core/ModelData.h>
 #include <Core/NativeAssert.h>
+#include <Core/NativeLogger.h>
 #include <Core/NativeProcess.h>
 #include <Core/NativeType.h>
 #include <Core/ParticleData.h>
@@ -52,6 +54,7 @@
 #include <Core/SerializerTester.h>
 #include <Core/Shader.h>
 #include <Core/ShaderProperties.h>
+#include <Core/SharedRef.h>
 #include <Core/Sound.h>
 #include <Core/SpineData.h>
 #include <Core/StringUtils.h>
@@ -63,6 +66,7 @@
 #include <Core/TiledTextureRegion.h>
 #include <Core/TranslationMatrix.h>
 #include <Core/UniqueIdTable.h>
+#include <Core/UniqueResource.h>
 #include <Core/Vector2.h>
 #include <Core/Vector3.h>
 #include <Core/Vector4.h>

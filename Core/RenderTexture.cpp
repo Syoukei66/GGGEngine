@@ -4,21 +4,21 @@
 // =================================================================
 // Factory Method
 // =================================================================
-rcRenderTexture* rcRenderTexture::Create(T_UINT16 width, T_UINT16 height, rcRenderBuffer::Format format)
+UniqueResource<rcRenderTexture> rcRenderTexture::Create(T_UINT16 width, T_UINT16 height, rcRenderBuffer::Format format)
 {
   return NativeProcess::Resource::CreateRenderTexture(width, height, format, rcRenderBuffer::FORMAT_D16);
 }
 
-rcRenderTexture* rcRenderTexture::Create(T_UINT16 width, T_UINT16 height, rcRenderBuffer::Format format, rcRenderBuffer::Format depth_format)
+UniqueResource<rcRenderTexture> rcRenderTexture::Create(T_UINT16 width, T_UINT16 height, rcRenderBuffer::Format format, rcRenderBuffer::Format depth_format)
 {
   return NativeProcess::Resource::CreateRenderTexture(width, height, format, depth_format);
 }
 
-rcRenderTexture* rcRenderTexture::Create(T_UINT16 width, T_UINT16 height, void* native_obj, rcRenderBuffer::Format depth_format)
+UniqueResource<rcRenderTexture> rcRenderTexture::Create(T_UINT16 width, T_UINT16 height, void* native_obj, rcRenderBuffer::Format depth_format)
 {
   rcRenderTexture* ret = new rcRenderTexture(width, height, native_obj, depth_format);
   ret->Resource::Init();
-  return ret;
+  return UniqueResource<rcRenderTexture>(ret);
 }
 
 // =================================================================
@@ -32,7 +32,6 @@ rcRenderTexture::rcRenderTexture(T_UINT16 width, T_UINT16 height, void* native_o
 
 rcRenderTexture::~rcRenderTexture()
 {
-  this->depth_stencil_buffer_->Release();
 }
 
 // =================================================================

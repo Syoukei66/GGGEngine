@@ -29,6 +29,9 @@ bool BaseActivity::Run(IEngineSetting* setting)
 
   bool result = false;
 
+  ResourceManager::Init();
+  AssetManager::Init();
+
   setting->OnEngineInit();
 
   //Engine
@@ -50,14 +53,12 @@ bool BaseActivity::Run(IEngineSetting* setting)
   //Acitivity
   NATIVE_ASSERT(result, "アクティビティの初期化に失敗しました。");
 
-  ResourceManager::Init();
-  AssetManager::Init();
-
   setting->OnGameInit();
 
   //Scene
   engine_->ChangeScene(setting->FirstScene());
   while (this->Update());
+  engine_->EndScene();
 
   setting->OnGameFinal();
 
@@ -66,11 +67,12 @@ bool BaseActivity::Run(IEngineSetting* setting)
 
   result = this->Uninit();
   NATIVE_ASSERT(result, "アクティビティの終了処理に失敗しました。");
-  InputManager::GetInstance()->Uninit();
 
   result = this->engine_->End();
   NATIVE_ASSERT(result, "エンジンの終了処理に失敗しました。");
   delete this->engine_;
+
+  InputManager::GetInstance()->Uninit();
 
   setting->OnEngineFinal();
   

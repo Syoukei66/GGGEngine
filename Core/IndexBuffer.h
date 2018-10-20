@@ -8,7 +8,7 @@ class rcIndexBuffer : public Resource
   // Factory Method
   // =================================================================
 public:
-  static rcIndexBuffer* Create(T_UINT32 vertex_count);
+  static UniqueResource<rcIndexBuffer> Create(T_UINT32 vertex_count);
 
   // =================================================================
   // Constructor / Destructor
@@ -24,6 +24,15 @@ public:
   virtual void Lock(void** dest) = 0;
   virtual void Unlock() = 0;
   virtual void SetIndices() const = 0;
+
+  // =================================================================
+  // Getter / Setter
+  // =================================================================
+public:
+  inline virtual const char* GetResourceName() override
+  {
+    return "IndexBuffer";
+  }
 
   // =================================================================
   // Setter / Getter

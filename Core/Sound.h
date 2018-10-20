@@ -8,7 +8,7 @@ class rcSound : public Resource
   // Factory Method
   // =================================================================
 public:
-  static rcSound* CreateFromFile(const char* path);
+  static UniqueResource<rcSound> CreateFromFile(const char* path);
 
   // =================================================================
   // Constructor / Destructor
@@ -16,6 +16,15 @@ public:
 protected:
   rcSound() {}
   virtual ~rcSound() {}
+
+  // =================================================================
+  // Getter / Setter
+  // =================================================================
+public:
+  inline virtual const char* GetResourceName() override
+  {
+    return "Sound";
+  }
 
   // =================================================================
   // Methods

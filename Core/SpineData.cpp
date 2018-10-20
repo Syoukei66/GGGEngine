@@ -21,8 +21,8 @@ void _spAtlasPage_createTexture(spAtlasPage* self, const char* path)
 
 void _spAtlasPage_disposeTexture(spAtlasPage* self)
 {
-  ((rcTexture*)self->rendererObject)->Release();
-  self->rendererObject = nullptr;
+  NATIVE_ASSERT(false, "‚Ü‚¾‚Å‚«‚Ä‚Ü‚¹‚ñI");
+  ((rcTexture*)self->rendererObject);
 }
 
 char* _spUtil_readFile(const char* path, int* length)
@@ -34,7 +34,7 @@ char* _spUtil_readFile(const char* path, int* length)
   return ret;
 }
 
-rcSpineData* rcSpineData::CreateFromFile(const char* path)
+UniqueResource<rcSpineData> rcSpineData::CreateFromFile(const char* path)
 {
   char atlas_path[256] = {};
   strcpy(atlas_path, path);
@@ -53,11 +53,11 @@ rcSpineData* rcSpineData::CreateFromFile(const char* path)
   return Create(skeleton_data, atlas);
 }
 
-rcSpineData* rcSpineData::Create(spSkeletonData* skeleton_data, spAtlas* atlas)
+UniqueResource<rcSpineData> rcSpineData::Create(spSkeletonData* skeleton_data, spAtlas* atlas)
 {
   rcSpineData* ret = new rcSpineData(skeleton_data, atlas);
   ret->Resource::Init();
-  return ret;
+  return UniqueResource<rcSpineData>(ret);
 }
 
 // =================================================================

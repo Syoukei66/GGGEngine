@@ -5,6 +5,9 @@
 
 #include "ResourceManager.h"
 
+#include "SharedRef.h"
+#include "UniqueResource.h"
+
 /*
   Resourceはリファレンスカウンタで管理される
   Resourceを継承するクラスは接頭辞にrcが付く。
@@ -14,6 +17,10 @@
 class Resource
 {
   friend class ResourceManager;
+  template <class Resource_>
+  friend class UniqueResource;
+  template <class Resource_>
+  friend class SharedRef;
 
   // =================================================================
   // Constructor / Destructor
@@ -37,7 +44,7 @@ private:
   // =================================================================
   // Methods
   // =================================================================
-public:
+private:
   inline void Retain() const
   {
     ++const_cast<Resource*>(this)->reference_count_;
@@ -52,7 +59,6 @@ public:
 protected:
   inline void Init()
   {
-    this->Retain();
     ResourceManager::Manage(this);
   }
 
@@ -73,6 +79,7 @@ public:
   {
     return 0;
   }
+  virtual const char* GetResourceName() = 0;
 
   // =================================================================
   // Data Members

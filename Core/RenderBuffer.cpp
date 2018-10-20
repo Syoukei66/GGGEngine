@@ -4,21 +4,21 @@
 // =================================================================
 // Factory Method
 // =================================================================
-rcRenderBuffer* rcRenderBuffer::CreateColorBuffer(rcTexture* texture)
+UniqueResource<rcRenderBuffer> rcRenderBuffer::CreateColorBuffer(const SharedRef<const rcTexture>&  texture)
 {
   return NativeProcess::Resource::CreateColorBuffer(texture);
 }
 
-rcRenderBuffer* rcRenderBuffer::CreateDepthStencilBuffer(T_UINT16 width, T_UINT16 height, Format format)
+UniqueResource<rcRenderBuffer> rcRenderBuffer::CreateDepthStencilBuffer(T_UINT16 width, T_UINT16 height, Format format)
 {
   return NativeProcess::Resource::CreateDepthStencilBuffer(width, height, format);
 }
 
-rcRenderBuffer* rcRenderBuffer::Create(void* native_obj)
+UniqueResource<rcRenderBuffer> rcRenderBuffer::Create(void* native_obj)
 {
   rcRenderBuffer* ret = new rcRenderBuffer(native_obj);
   ret->Resource::Init();
-  return ret;
+  return UniqueResource<rcRenderBuffer>(ret);
 }
 
 // =================================================================

@@ -244,6 +244,7 @@
     <ClCompile Include="ModelAssetExporter.cpp" />
     <ClCompile Include="ModelAssetImporter.cpp" />
     <ClCompile Include="AssetInfo.cpp" />
+    <ClCompile Include="NativeLogger.cpp" />
     <ClCompile Include="Setting.cpp" />
     <ClCompile Include="StandardMaterial.cpp" />
     <ClCompile Include="TextureAssetConverterFactory.cpp" />

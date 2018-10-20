@@ -12,13 +12,12 @@ Sprite* Sprite::Create()
   return ret;
 }
 
-Sprite* Sprite::CreateWithTexture(const rcTexture* texture)
+Sprite* Sprite::CreateWithTexture(const SharedRef<const rcTexture>& texture)
 {
-  rcTextureRegion* region = rcTextureRegion::CreateWithTexture(texture);
-  return Sprite::CreateWithTextureRegion(region);
+  return Sprite::CreateWithTextureRegion(rcTextureRegion::CreateWithTexture(texture));
 }
 
-Sprite* Sprite::CreateWithTextureRegion(rcTextureRegion* region)
+Sprite* Sprite::CreateWithTextureRegion(const SharedRef<rcTextureRegion>& region)
 {
   Sprite* ret = Sprite::Create();
   SpriteRenderer* renderer = ret->GetSpriteRenderer();
@@ -27,10 +26,9 @@ Sprite* Sprite::CreateWithTextureRegion(rcTextureRegion* region)
   return ret;
 }
 
-Sprite* Sprite::CreateWithMaterial(rcMaterial* material)
+Sprite* Sprite::CreateWithMaterial(const SharedRef<rcMaterial>& material)
 {
-  rcTextureRegion* region = rcTextureRegion::CreateWithMaterial(material);
-  Sprite* ret = Sprite::CreateWithTextureRegion(region);
+  Sprite* ret = Sprite::CreateWithTextureRegion(rcTextureRegion::CreateWithMaterial(material));
   SpriteRenderer* renderer = ret->GetSpriteRenderer();
   renderer->SetMaterial(material);
   return ret;

@@ -25,8 +25,8 @@ public:
   // Factory Method
   // =================================================================
 public:
-  static rcTexture* CreateFromFile(const char* path);
-  static rcTexture* Create(T_UINT16 width, T_UINT16 height, void* native_obj);
+  static UniqueResource<rcTexture> CreateFromFile(const char* path);
+  static UniqueResource<rcTexture> Create(T_UINT16 width, T_UINT16 height, void* native_obj);
 
   // =================================================================
   // Constructor / Destructor
@@ -39,6 +39,11 @@ protected:
   // Getter / Setter
   // =================================================================
 public:
+  inline virtual const char* GetResourceName() override
+  {
+    return "Texture";
+  }
+
   inline void* GetNativeObject()
   {
     return this->native_obj_;
@@ -64,11 +69,11 @@ public:
   {
     return two_powered_height_;
   }
-  inline rcRenderBuffer* GetColorBuffer()
+  inline SharedRef<rcRenderBuffer> GetColorBuffer()
   {
     return this->color_buffer_;
   }
-  inline const rcRenderBuffer* GetColorBuffer() const
+  inline SharedRef<const rcRenderBuffer> GetColorBuffer() const
   {
     return this->color_buffer_;
   }
@@ -96,7 +101,7 @@ protected:
   T_UINT16 two_powered_width_;
   T_UINT16 two_powered_height_;
 
-  rcRenderBuffer* color_buffer_;
+  SharedRef<rcRenderBuffer> color_buffer_;
 
   //ライトマップの更新などの為に、
   //テクスチャの変更を検出するのに使用

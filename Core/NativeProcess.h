@@ -36,26 +36,26 @@ namespace Graphics
 void ViewportClear();
 void SetViewport(T_FLOAT x, T_FLOAT y, T_FLOAT w, T_FLOAT h, T_FLOAT minZ, T_FLOAT maxZ);
 void PackColor4u8(T_PACKED_COLOR_UINT32* color, T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a);
-void SetRenderTarget(rcRenderBuffer* color_buffer, rcRenderBuffer* depth_stencil_buffer, bool clear);
+void SetRenderTarget(const SharedRef<rcRenderBuffer>& color_buffer, const SharedRef<rcRenderBuffer>& depth_stencil_buffer, bool clear);
 void ResetRenderTarget();
 } // namespace Graphics
 
 namespace Resource
 {
-rcTexture* TextureLoad(const char* path);
+UniqueResource<rcTexture> TextureLoad(const char* path);
 void DeleteTexture(rcTexture* texture);
-void GetTextureSize(rcTexture* texture, T_UINT16* width_dest, T_UINT16* height_dest);
+void GetTextureSize(const rcTexture* texture, T_UINT16* width_dest, T_UINT16* height_dest);
 
-rcRenderBuffer* CreateColorBuffer(rcTexture* texture);
-rcRenderBuffer* CreateDepthStencilBuffer(T_UINT16 width, T_UINT16 height, rcRenderBuffer::Format format);
+UniqueResource<rcRenderBuffer> CreateColorBuffer(const SharedRef<const rcTexture>& texture);
+UniqueResource<rcRenderBuffer> CreateDepthStencilBuffer(T_UINT16 width, T_UINT16 height, rcRenderBuffer::Format format);
 void DeleteRenderBuffer(rcRenderBuffer* render_buffer);
 
-rcRenderTexture* CreateRenderTexture(T_UINT16 width, T_UINT16 height, rcRenderBuffer::Format format, rcRenderBuffer::Format depth_format);
+UniqueResource<rcRenderTexture> CreateRenderTexture(T_UINT16 width, T_UINT16 height, rcRenderBuffer::Format format, rcRenderBuffer::Format depth_format);
 
-rcShader* ShaderLoad(const char* path);
-rcSound* SoundLoad(const char* path);
-rcVertexBuffer* CreateVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_count, T_UINT32 format);
-rcIndexBuffer* CreateIndexBuffer(T_UINT32 indexes_count);
+UniqueResource<rcShader> ShaderLoad(const char* path);
+UniqueResource<rcSound> SoundLoad(const char* path);
+UniqueResource<rcVertexBuffer> CreateVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_count, T_UINT32 format);
+UniqueResource<rcIndexBuffer> CreateIndexBuffer(T_UINT32 indexes_count);
 } // namespace Resource
 
 } // namespace NativeProcess

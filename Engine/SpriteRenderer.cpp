@@ -13,15 +13,13 @@ SpriteRenderer::SpriteRenderer(GameObject* entity)
   : Renderer(entity)
   , texture_region_(nullptr)
   , size_(1.0f, 1.0f)
+  , mesh_(AssetManager::Load<rcMesh>(DefaultUniqueID::MESH_SPRITE))
 {
-  this->SetMaterial(AssetManager::GetLoader<rcMaterial>(DefaultUniqueID::MATERIAL_SPRITE)->CreateFromFile());
-  this->mesh_ = AssetManager::GetLoader<rcMesh>(DefaultUniqueID::MESH_SPRITE)->CreateFromFile();
+  this->SetMaterial(AssetManager::Load<rcMaterial>(DefaultUniqueID::MATERIAL_SPRITE));
 }
 
 SpriteRenderer::~SpriteRenderer()
 {
-  this->mesh_->Release();
-  this->texture_region_->Release();
 }
 
 // =================================================================
@@ -33,7 +31,7 @@ bool SpriteRenderer::SetStreamSource() const
   return true;
 }
 
-void SpriteRenderer::SetProperties(rcShader* shader) const
+void SpriteRenderer::SetProperties(const SharedRef<rcShader>& shader) const
 {
   if (!this->texture_region_)
   {
@@ -60,7 +58,7 @@ void SpriteRenderer::DrawSubset(T_UINT8 submesh_index) const
 // =================================================================
 void SpriteRenderer::FitToTexture()
 {
-  const rcTexture* texture = this->GetTextureRegion()->GetTexture();
+  const SharedRef<const rcTexture>& texture = this->GetTextureRegion()->GetTexture();
   if (!texture)
   {
     return;
@@ -73,17 +71,12 @@ void SpriteRenderer::FitToTexture()
 // =================================================================
 // setter/getter
 // =================================================================
-void SpriteRenderer::SetTextureRegion(rcTextureRegion* region)
+void SpriteRenderer::SetTextureRegion(const SharedRef<rcTextureRegion>& region)
 {
-  if (this->texture_region_)
-  {
-    this->texture_region_->Release();
-  }
   this->texture_region_ = region;
-  this->texture_region_->Retain();
 }
 
-void SpriteRenderer::SetTexture(const rcTexture* texture)
+void SpriteRenderer::SetTexture(const SharedRef<const rcTexture>& texture)
 {
   if (!this->texture_region_)
   {

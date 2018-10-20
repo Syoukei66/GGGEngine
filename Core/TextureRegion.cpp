@@ -3,25 +3,25 @@
 // =================================================================
 // Factory Method
 // =================================================================
-rcTextureRegion* rcTextureRegion::CreateWithMaterial(const rcMaterial* material)
+UniqueResource<rcTextureRegion> rcTextureRegion::CreateWithMaterial(const SharedRef<const rcMaterial>& material)
 {
   return rcTextureRegion::CreateWithTexture(material->GetMainTexture());
 }
 
-rcTextureRegion* rcTextureRegion::CreateWithTexture(const rcTexture* texture)
+UniqueResource<rcTextureRegion> rcTextureRegion::CreateWithTexture(const SharedRef<const rcTexture>&  texture)
 {
-  rcTextureRegion* ret = rcTextureRegion::Create();
+  UniqueResource<rcTextureRegion> ret = rcTextureRegion::Create();
   ret->Init();
   ret->SetTexture(texture);
   ret->FitToTexture();
   return ret;
 }
 
-rcTextureRegion* rcTextureRegion::Create()
+UniqueResource<rcTextureRegion> rcTextureRegion::Create()
 {
   rcTextureRegion* ret = new rcTextureRegion();
   ret->Resource::Init();
-  return ret;
+  return UniqueResource<rcTextureRegion>(ret);
 }
 
 // =================================================================
@@ -62,7 +62,7 @@ bool rcTextureRegion::UpdateTextureCoord()
   {
     return false;
   }
-  const rcTexture* texture = this->GetTexture();
+  const SharedRef<const rcTexture>& texture = this->GetTexture();
   if (!texture)
   {
     return true;
@@ -77,7 +77,7 @@ void rcTextureRegion::OnTextureCoordDirty()
   this->texture_coord_dirty_ = true;
 }
 
-void rcTextureRegion::OnUpdateTextureCoord(const rcTexture* texture)
+void rcTextureRegion::OnUpdateTextureCoord(const SharedRef<const rcTexture>& texture)
 {
   const T_FLOAT tw = (T_FLOAT)texture->GetTwoPoweredWidth();
   const T_FLOAT th = (T_FLOAT)texture->GetTwoPoweredHeight();
@@ -94,13 +94,8 @@ void rcTextureRegion::OnUpdateTextureCoord(const rcTexture* texture)
 // =================================================================
 // setter/getter
 // =================================================================
-void rcTextureRegion::SetTexture(const rcTexture* texture)
+void rcTextureRegion::SetTexture(const SharedRef<const rcTexture>& texture)
 {
-  texture->Retain();
-  if (this->texture_)
-  {
-    this->texture_->Release();
-  }
   this->texture_ = texture;
 }
 

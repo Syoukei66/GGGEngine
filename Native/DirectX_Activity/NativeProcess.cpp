@@ -132,24 +132,13 @@ void PackColor4u8(T_PACKED_COLOR_UINT32* color, T_UINT8 r, T_UINT8 g, T_UINT8 b,
 static LPDIRECT3DSURFACE9 temp_color_buffer = nullptr;
 static LPDIRECT3DSURFACE9 temp_depth_buffer = nullptr;
 
-static rcRenderBuffer* use_color_buffer = nullptr;
-static rcRenderBuffer* use_depth_stencil_buffer = nullptr;
+static SharedRef<rcRenderBuffer> use_color_buffer = nullptr;
+static SharedRef<rcRenderBuffer> use_depth_stencil_buffer = nullptr;
 
-void SetRenderTarget(rcRenderBuffer* color_buffer, rcRenderBuffer* depth_stencil_buffer, bool clear)
+void SetRenderTarget(const SharedRef<rcRenderBuffer>& color_buffer, const SharedRef<rcRenderBuffer>& depth_stencil_buffer, bool clear)
 {
-  if (use_color_buffer)
-  {
-    use_color_buffer->Release();
-  }
   use_color_buffer = color_buffer;
-  use_color_buffer->Retain();
-
-  if (use_depth_stencil_buffer)
-  {
-    use_depth_stencil_buffer->Release();
-  }
   use_depth_stencil_buffer = depth_stencil_buffer;
-  use_depth_stencil_buffer->Retain();
 
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
   device->EndScene();
@@ -192,17 +181,8 @@ void ResetRenderTarget()
   temp_color_buffer = nullptr;
   temp_depth_buffer = nullptr;
 
-  if (use_color_buffer)
-  {
-    use_color_buffer->Release();
-    use_color_buffer = nullptr;
-  }
-
-  if (use_depth_stencil_buffer)
-  {
-    use_depth_stencil_buffer->Release();
-    use_depth_stencil_buffer = nullptr;
-  }
+  use_color_buffer = nullptr;
+  use_depth_stencil_buffer = nullptr;
 
   device->BeginScene();
 }
@@ -215,7 +195,7 @@ void ResetRenderTarget()
 namespace Resource
 {
 
-rcTexture* TextureLoad(const char* path)
+UniqueResource<rcTexture> TextureLoad(const char* path)
 {
   LP_DEVICE device = Director::GetDevice();
 
@@ -253,7 +233,7 @@ void DeleteTexture(rcTexture* texture)
   ((LPDIRECT3DTEXTURE9)texture->GetNativeObject())->Release();
 }
 
-void GetTextureSize(rcTexture* texture, T_UINT16* width_dest, T_UINT16* height_dest)
+void GetTextureSize(const rcTexture* texture, T_UINT16* width_dest, T_UINT16* height_dest)
 {
   LPDIRECT3DTEXTURE9 tex = (LPDIRECT3DTEXTURE9)texture->GetNativeObject();
 
@@ -264,7 +244,7 @@ void GetTextureSize(rcTexture* texture, T_UINT16* width_dest, T_UINT16* height_d
   (*height_dest) = desc.Height;
 }
 
-rcRenderBuffer* CreateColorBuffer(rcTexture* texture)
+UniqueResource<rcRenderBuffer> CreateColorBuffer(const SharedRef<const rcTexture>& texture)
 {
   LPDIRECT3DTEXTURE9 tex = (LPDIRECT3DTEXTURE9)texture->GetNativeObject();
   LPDIRECT3DSURFACE9 surf;
@@ -273,7 +253,7 @@ rcRenderBuffer* CreateColorBuffer(rcTexture* texture)
   return rcRenderBuffer::Create(surf);
 }
 
-rcRenderBuffer* CreateDepthStencilBuffer(T_UINT16 width, T_UINT16 height, rcRenderBuffer::Format format)
+UniqueResource<rcRenderBuffer> CreateDepthStencilBuffer(T_UINT16 width, T_UINT16 height, rcRenderBuffer::Format format)
 {
   LPDIRECT3DSURFACE9 surf;
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
@@ -296,7 +276,7 @@ void DeleteRenderBuffer(rcRenderBuffer* render_buffer)
   ((LPDIRECT3DSURFACE9)render_buffer->GetNativeObject())->Release();
 }
 
-rcRenderTexture* CreateRenderTexture(T_UINT16 width, T_UINT16 height, rcRenderBuffer::Format format, rcRenderBuffer::Format depth_format)
+UniqueResource<rcRenderTexture> CreateRenderTexture(T_UINT16 width, T_UINT16 height, rcRenderBuffer::Format format, rcRenderBuffer::Format depth_format)
 {
   using namespace NativeConstants;
   width = Mathf::CalcTwoPowerValue(width);
@@ -321,7 +301,7 @@ rcRenderTexture* CreateRenderTexture(T_UINT16 width, T_UINT16 height, rcRenderBu
   return rcRenderTexture::Create(width, height, tex, depth_format);
 }
 
-rcShader* ShaderLoad(const char* path)
+UniqueResource<rcShader> ShaderLoad(const char* path)
 {
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
   LPD3DXEFFECT dest = nullptr;
@@ -337,23 +317,22 @@ rcShader* ShaderLoad(const char* path)
     NULL
   );
   NATIVE_ASSERT(SUCCEEDED(hr), "シェーダーのロードに失敗しました");
-  rcShader* ret = new NativeShader(dest);
-  return ret;
+  return UniqueResource<rcShader>(new NativeShader(dest));
 }
 
-rcSound* SoundLoad(const char* path)
+UniqueResource<rcSound> SoundLoad(const char* path)
 {
-  return new NativeSound(path);
+  return UniqueResource<rcSound>(new NativeSound(path));
 }
 
-rcVertexBuffer* CreateVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_count, T_UINT32 format)
+UniqueResource<rcVertexBuffer> CreateVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_count, T_UINT32 format)
 {
-  return new NativeVertexBuffer(vertex_count, polygon_count, format);
+  return UniqueResource<rcVertexBuffer>(new NativeVertexBuffer(vertex_count, polygon_count, format));
 }
 
-rcIndexBuffer* CreateIndexBuffer(T_UINT32 indexes_count)
+UniqueResource<rcIndexBuffer> CreateIndexBuffer(T_UINT32 indexes_count)
 {
-  return new NativeIndexBuffer(indexes_count);
+  return UniqueResource<rcIndexBuffer>(new NativeIndexBuffer(indexes_count));
 }
 }
 

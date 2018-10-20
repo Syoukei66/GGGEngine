@@ -23,7 +23,7 @@ public:
 
   virtual void SetStreamSource() const override;
   virtual void DrawPrimitive(Graphics::PrimitiveType primitive_type) const override;
-  virtual void DrawIndexedPrimitive(const rcIndexBuffer* index_buffer, Graphics::PrimitiveType primitive_type) const override;
+  virtual void DrawIndexedPrimitive(const SharedRef<const rcIndexBuffer>& index_buffer, Graphics::PrimitiveType primitive_type) const override;
 
   // =================================================================
   // Getter / Setter

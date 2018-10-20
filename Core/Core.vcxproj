@@ -93,6 +93,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty\;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -103,6 +104,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty\;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -115,6 +117,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty\;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -131,6 +134,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty\;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -163,12 +167,15 @@
     <ClInclude Include="Include.h" />
     <ClInclude Include="JsonData.h" />
     <ClInclude Include="JsonParser.h" />
+    <ClInclude Include="Macro.h" />
     <ClInclude Include="MaterialData.h" />
     <ClInclude Include="Model.h" />
+    <ClInclude Include="NativeLogger.h" />
     <ClInclude Include="Serializer.h" />
     <ClInclude Include="SerializerTester.h" />
     <ClInclude Include="SerializerTestMacro.hpp" />
     <ClInclude Include="CerealShaderPropertiesArchive.hpp" />
+    <ClInclude Include="SharedRef.h" />
     <ClInclude Include="SpineData.h" />
     <ClInclude Include="MeshData.h" />
     <ClInclude Include="ModelData.h" />
@@ -199,6 +206,7 @@
     <ClInclude Include="TextureSource.h" />
     <ClInclude Include="TiledTextureRegion.h" />
     <ClInclude Include="UniqueIdTable.h" />
+    <ClInclude Include="UniqueResource.h" />
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RenderBuffer.h" />

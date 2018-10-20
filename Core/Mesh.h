@@ -21,9 +21,9 @@ class rcMesh : public Resource
   // Factory Method
   // =================================================================
 public:
-  static rcMesh* CreateFromFile(const char* path);
-  static rcMesh* Create();
-  static rcMesh* Create(const MeshData* data);
+  static UniqueResource<rcMesh> CreateFromFile(const char* path);
+  static UniqueResource<rcMesh> Create();
+  static UniqueResource<rcMesh> Create(const MeshData* data);
 
   // =================================================================
   // Constructor / Destructor
@@ -40,7 +40,7 @@ public:
   void ClearVertices(bool clear_buffer);
   void ClearIndices(bool clear_buffer);
 
-  rcMesh* Clone(bool read_only);
+  UniqueResource<rcMesh> Clone(bool read_only);
 
   void CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT32 format, Graphics::PrimitiveType primitive_type = Graphics::PRIMITIVE_TRIANGLES);
   inline void CreateVerticesWithIndex(T_UINT32 vertex_count, T_UINT32 index_count, T_UINT32 format, Graphics::PrimitiveType primitive_type = Graphics::PRIMITIVE_TRIANGLES)
@@ -64,6 +64,11 @@ public:
   // setter/getter
   // =================================================================
 public:
+  inline virtual const char* GetResourceName() override
+  {
+    return "Mesh";
+  }
+
   virtual size_t GetMemorySize() const override;
   virtual size_t GetVideoMemorySize() const override;
 
@@ -260,20 +265,20 @@ public:
   {
     return this->primitive_type_;
   }
-  inline rcVertexBuffer* GetVertexBuffer()
+  inline SharedRef<rcVertexBuffer> GetVertexBuffer()
   {
     return this->vertex_buffer_;
   }
-  inline const rcVertexBuffer* GetVertexBuffer() const
+  inline SharedRef<const rcVertexBuffer> GetVertexBuffer() const
   {
     return this->vertex_buffer_;
   }
-  inline rcIndexBuffer* GetIndexBuffer(T_UINT8 submesh_index)
+  inline SharedRef<rcIndexBuffer> GetIndexBuffer(T_UINT8 submesh_index = 0)
   {
     NATIVE_ASSERT(submesh_index < this->submesh_count_, "インデックス指定がサブメッシュの最大個数を超過しました。");
     return this->index_buffers_[submesh_index];
   }
-  inline const rcIndexBuffer* GetIndexBuffer(T_UINT8 submesh_index = 0) const
+  inline SharedRef<const rcIndexBuffer> GetIndexBuffer(T_UINT8 submesh_index = 0) const
   {
     NATIVE_ASSERT(submesh_index < this->submesh_count_, "インデックス指定がサブメッシュの最大個数を超過しました。");
     return this->index_buffers_[submesh_index];
@@ -315,9 +320,9 @@ protected:
   bool* indices_dirties_;
 
   Graphics::PrimitiveType primitive_type_;
-  rcVertexBuffer* vertex_buffer_;
+  SharedRef<rcVertexBuffer> vertex_buffer_;
 
   T_UINT8 submesh_count_;
-  rcIndexBuffer** index_buffers_;
+  SharedRef<rcIndexBuffer>* index_buffers_;
 
 };

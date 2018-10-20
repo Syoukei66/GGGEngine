@@ -16,7 +16,7 @@ class rcShader : public Resource
   // Factory Method
   // =================================================================
 public:
-  static rcShader* CreateFromFile(const char* path);
+  static UniqueResource<rcShader> CreateFromFile(const char* path);
 
   // =================================================================
   // Constructor / Destructor
@@ -47,7 +47,7 @@ public:
 
   virtual void SetColor(const std::string& property_name, const TColor& color) = 0;
   virtual void SetMatrix(const std::string& property_name, const Matrix4x4& matrix) = 0;
-  virtual void SetTexture(const std::string& property_name, const rcTexture* texture) = 0;
+  virtual void SetTexture(const std::string& property_name, const SharedRef<const rcTexture>& texture) = 0;
 
   virtual void GetBool(const std::string& property_name, bool* dest) = 0;
   virtual void GetInt(const std::string& property_name, T_INT32* dest) = 0;
@@ -60,5 +60,14 @@ public:
   virtual void GetColor(const std::string& property_name, TColor* dest) = 0;
   virtual void GetMatrix(const std::string& property_name, Matrix4x4* dest) = 0;
   virtual void GetTexture(const std::string& property_name, void* native_dest) = 0;
+
+  // =================================================================
+  // Getter / Setter
+  // =================================================================
+public:
+  inline virtual const char* GetResourceName() override
+  {
+    return "Shader";
+  }
 
 };

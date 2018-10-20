@@ -142,7 +142,7 @@ void NativeShader::SetMatrix(const std::string& property_name, const Matrix4x4& 
   NATIVE_ASSERT(SUCCEEDED(hr), "Matrix4x4プロパティの転送に失敗しました");
 }
 
-void NativeShader::SetTexture(const std::string& property_name, const rcTexture* texture)
+void NativeShader::SetTexture(const std::string& property_name, const SharedRef<const rcTexture>& texture)
 {
   D3DXHANDLE handle = GetHandle(property_name);
   if (!handle)

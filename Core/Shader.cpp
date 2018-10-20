@@ -4,9 +4,9 @@
 // =================================================================
 // Factory Method
 // =================================================================
-rcShader* rcShader::CreateFromFile(const char* path)
+UniqueResource<rcShader> rcShader::CreateFromFile(const char* path)
 {
-  rcShader* ret = NativeProcess::Resource::ShaderLoad(path);
+  UniqueResource<rcShader> ret = NativeProcess::Resource::ShaderLoad(path);
   ret->Resource::Init();
   return ret;
 }

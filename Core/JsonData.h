@@ -9,7 +9,7 @@ class rcJsonData : public Resource
   // Factory Method
   // =================================================================
 public:
-  static rcJsonData* CreateFromFile(const char* path);
+  static UniqueResource<rcJsonData> CreateFromFile(const char* path);
 
   // =================================================================
   // Constructor / Destructor
@@ -28,6 +28,11 @@ public:
   // Setter / Getter
   // =================================================================
 public:
+  inline virtual const char* GetResourceName() override
+  {
+    return "JsonData";
+  }
+
   inline JsonNode* GetRoot() const
   {
     return this->root_;

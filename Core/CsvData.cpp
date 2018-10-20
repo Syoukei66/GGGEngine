@@ -4,11 +4,11 @@
 // =================================================================
 // Factory Method
 // =================================================================
-rcCsvData* rcCsvData::CreateFromFile(const char* path)
+UniqueResource<rcCsvData> rcCsvData::CreateFromFile(const char* path)
 {
   rcCsvData* ret = new rcCsvData(path);
   ret->Resource::Init();
-  return ret;
+  return UniqueResource<rcCsvData>(ret);
 }
 
 // =================================================================

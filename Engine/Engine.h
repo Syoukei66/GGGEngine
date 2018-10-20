@@ -20,6 +20,7 @@ public:
   // =================================================================
 public:
   bool Init(IEngineSetting* setting);
+  bool EndScene();
   bool End();
 
   void ChangeScene(Scene* next);

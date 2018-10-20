@@ -16,15 +16,6 @@ Renderer::Renderer(GameObject* entity)
 
 Renderer::~Renderer()
 {
-  for (const rcMaterial* material : this->shared_materials_)
-  {
-    material->Release();
-  }
-  for (auto& pair : this->materials_)
-  {
-    pair.second->Release();
-  }
-
 }
 
 // =================================================================
@@ -36,8 +27,7 @@ void Renderer::ReserveDraw(GameObjectRenderState* state)
   {
     return;
   }
-  rcMaterial* const material = this->GetMaterial();
-  if (!material)
+  if (!this->HasMaterial())
   {
     return;
   }
@@ -54,8 +44,8 @@ void Renderer::Draw(GameObjectRenderState* state) const
   const T_UINT8 material_count = this->GetMaterialCount();
   for (T_UINT8 i = 0; i < material_count; ++i)
   {
-    const rcMaterial* material = this->GetMaterial(i);
-    rcShader* shader = material->GetShader();
+    const SharedRef<const rcMaterial>& material = this->GetMaterial(i);
+    const SharedRef<rcShader>& shader = material->GetShader();
     material->SetProperties(shader);
     T_UINT8 pass_count = shader->Begin();
     for (T_UINT8 j = 0; j < pass_count; ++j)
@@ -70,7 +60,7 @@ void Renderer::Draw(GameObjectRenderState* state) const
   }
 }
 
-void Renderer::SetDefaultProperties(GameObjectRenderState* state, rcShader* shader) const
+void Renderer::SetDefaultProperties(GameObjectRenderState* state, const SharedRef<rcShader>& shader) const
 {
   this->SetProperties(shader);
 
@@ -82,46 +72,30 @@ void Renderer::SetDefaultProperties(GameObjectRenderState* state, rcShader* shad
   shader->SetVec3f("_CameraDirection", state->GetCamera()->GetEntity()->GetWorldMatrix().GetDirection3d());
 }
 
-void Renderer::AddMaterial(const rcMaterial* material)
+void Renderer::SetMaterial(const SharedRef<rcMaterial>& material, T_UINT16 index)
 {
-  material->Retain();
-  this->shared_materials_.emplace_back(material);
-}
-
-void Renderer::SetMaterial(const rcMaterial* material, T_UINT16 index)
-{
-  material->Retain();
-  const T_UINT32 material_count = this->shared_materials_.size();
-  if (material_count > index)
-  {
-    this->shared_materials_[index]->Release();
-  }
-  for (T_UINT32 i = material_count; i <= index; ++i)
-  {
-    this->shared_materials_.push_back(nullptr);
-  }
+  this->materials_[index] = material;
   this->shared_materials_[index] = material;
 }
 
-rcMaterial* Renderer::GetMaterial(T_UINT16 index)
+SharedRef<rcMaterial> Renderer::GetMaterial(T_UINT16 index)
 {
   const auto& itr = this->materials_.find(index);
   if (itr != this->materials_.end())
   {
     return itr->second;
   }
-  rcMaterial* ret = this->shared_materials_[index]->Clone();
-  ret->Retain();
+  SharedRef<rcMaterial> ret = this->shared_materials_[index]->Clone();
   this->materials_[index] = ret;
-  return ret;
+  return this->materials_.at(index);
 }
 
-const rcMaterial* Renderer::GetMaterial(T_UINT16 index) const
+SharedRef<const rcMaterial> Renderer::GetMaterial(T_UINT16 index) const
 {
   const auto& itr = this->materials_.find(index);
   if (itr != this->materials_.end())
   {
     return itr->second;
   }
-  return this->shared_materials_[index];
+  return this->shared_materials_.at(index);
 }

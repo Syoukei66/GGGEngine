@@ -9,8 +9,8 @@ class rcSpineData : public Resource
   // Factory Method
   // =================================================================
 public:
-  static rcSpineData* CreateFromFile(const char* path);
-  static rcSpineData* Create(spSkeletonData* skeleton_data, spAtlas* atlas);
+  static UniqueResource<rcSpineData> CreateFromFile(const char* path);
+  static UniqueResource<rcSpineData> Create(spSkeletonData* skeleton_data, spAtlas* atlas);
 
   // =================================================================
   // Constructor / Destructor
@@ -22,6 +22,11 @@ protected:
   // Getter / Setter
   // =================================================================
 public:
+  inline virtual const char* GetResourceName() override
+  {
+    return "SpineData";
+  }
+
   inline const spSkeletonData* GetSkeletonData() const
   {
     return this->skeleton_data_;

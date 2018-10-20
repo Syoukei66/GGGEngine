@@ -11,9 +11,9 @@ class rcTextureRegion : public Resource
   // Factory Method
   // =================================================================
 public:
-  static rcTextureRegion* CreateWithMaterial(const rcMaterial* material);
-  static rcTextureRegion* CreateWithTexture(const rcTexture* texture);
-  static rcTextureRegion* Create();
+  static UniqueResource<rcTextureRegion> CreateWithMaterial(const SharedRef<const rcMaterial>& material);
+  static UniqueResource<rcTextureRegion> CreateWithTexture(const SharedRef<const rcTexture>& texture);
+  static UniqueResource<rcTextureRegion> Create();
 
   // =================================================================
   // Constructor / Destructor
@@ -32,14 +32,19 @@ public:
   void OnTextureCoordDirty();
 
 protected:
-  virtual void OnUpdateTextureCoord(const rcTexture* texture);
+  virtual void OnUpdateTextureCoord(const SharedRef<const rcTexture>& texture);
 
   // =================================================================
   // setter/getter
   // =================================================================
 public:
-  void SetTexture(const rcTexture* texture);
-  inline const rcTexture* GetTexture() const
+  inline virtual const char* GetResourceName() override
+  {
+    return "TextureRegion";
+  }
+
+  void SetTexture(const SharedRef<const rcTexture>& texture);
+  inline SharedRef<const rcTexture> GetTexture() const
   {
     return this->texture_;
   }
@@ -104,7 +109,7 @@ public:
   // Data Member
   // =================================================================
 private:
-  const rcTexture* texture_;
+  SharedRef<const rcTexture> texture_;
   TAreaf texture_region_;
   TVec2f uv0_, uv1_;
   bool texture_coord_dirty_;

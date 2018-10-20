@@ -42,7 +42,7 @@ void AnimatedSpriteRenderer::Animate(T_UINT16 duration_frame)
 
 void AnimatedSpriteRenderer::SetCurrentIndex(T_UINT16 index)
 {
-  rcTiledTextureRegion* region = (rcTiledTextureRegion*)this->GetTextureRegion();
+  const SharedRef<rcTiledTextureRegion>& region = SharedRef<rcTiledTextureRegion>::DynamicCast(this->GetTextureRegion());
   if (!region)
   {
     return;

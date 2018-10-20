@@ -4,16 +4,19 @@
 // =================================================================
 // Factory Method
 // =================================================================
-rcModel* rcModel::CreateFromFile(const char* path)
+UniqueResource<rcModel> rcModel::CreateFromFile(const char* path)
 {
-  return rcModel::Create(ModelData::Deserialize(path));
+  ModelData* data = ModelData::Deserialize(path);
+  UniqueResource<rcModel> ret = rcModel::Create(data);
+  delete data;
+  return ret;
 }
 
-rcModel* rcModel::Create(const ModelData* data)
+UniqueResource<rcModel> rcModel::Create(const ModelData* data)
 {
   rcModel* ret = new rcModel(data);
   ret->Resource::Init();
-  return ret;
+  return UniqueResource<rcModel>(ret);
 }
 
 // =================================================================
@@ -21,21 +24,16 @@ rcModel* rcModel::Create(const ModelData* data)
 // =================================================================
 rcModel::rcModel(const ModelData* data)
 {
-  this->mesh_ = AssetManager::GetLoader<rcMesh>(data->mesh_unique_id_)->CreateFromFile();
-  T_UINT32 submesh_count = this->mesh_->GetSubmeshCount();
-  this->materials_ = new rcMaterial*[submesh_count]();
+  this->mesh_ = AssetManager::Load<rcMesh>(data->mesh_unique_id_);
+  T_UINT8 submesh_count = this->mesh_->GetSubmeshCount();
+  this->materials_ = new SharedRef<rcMaterial>[submesh_count]();
   for (T_UINT32 i = 0; i < submesh_count; ++i)
   {
-    this->materials_[i] = AssetManager::GetLoader<rcMaterial>(data->material_unique_ids_[i])->CreateFromFile();
+    this->materials_[i] = AssetManager::Load<rcMaterial>(data->material_unique_ids_[i]);
   }
 }
 
 rcModel::~rcModel()
 {
-  T_UINT8 material_count = this->GetMaterialCount();
-  for (T_UINT8 i = 0; i < material_count; ++i)
-  {
-    this->materials_[i]->Release();
-  }
-  this->mesh_->Release();
+  delete[] this->materials_;
 }

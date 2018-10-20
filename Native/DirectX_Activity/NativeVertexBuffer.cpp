@@ -159,7 +159,7 @@ void NativeVertexBuffer::DrawPrimitive(Graphics::PrimitiveType primitive_type) c
   NATIVE_ASSERT(SUCCEEDED(hr), "•`‰æ‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 }
 
-void NativeVertexBuffer::DrawIndexedPrimitive(const rcIndexBuffer* index_buffer, Graphics::PrimitiveType primitive_type) const
+void NativeVertexBuffer::DrawIndexedPrimitive(const SharedRef<const rcIndexBuffer>& index_buffer, Graphics::PrimitiveType primitive_type) const
 {
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
   const T_UINT32 vertex_count = index_buffer->GetVertexesCount();

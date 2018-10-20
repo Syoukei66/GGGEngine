@@ -4,14 +4,14 @@
 // =================================================================
 // Factory Method
 // =================================================================
-rcTiledTextureRegion* rcTiledTextureRegion::CreateWithMaterial(const rcMaterial* material, T_UINT8 x_num, T_UINT8 y_num)
+UniqueResource<rcTiledTextureRegion> rcTiledTextureRegion::CreateWithMaterial(const SharedRef<const rcMaterial>& material, T_UINT8 x_num, T_UINT8 y_num)
 {
   return rcTiledTextureRegion::CreateWithTexture(material->GetMainTexture(), x_num, y_num);
 }
 
-rcTiledTextureRegion* rcTiledTextureRegion::CreateWithTexture(const rcTexture* texture, T_UINT8 x_num, T_UINT8 y_num)
+UniqueResource<rcTiledTextureRegion> rcTiledTextureRegion::CreateWithTexture(const SharedRef<const rcTexture>& texture, T_UINT8 x_num, T_UINT8 y_num)
 {
-  rcTiledTextureRegion* ret = rcTiledTextureRegion::Create();
+  UniqueResource<rcTiledTextureRegion> ret = rcTiledTextureRegion::Create();
   ret->Init();
   ret->SetTexture(texture);
   ret->SetXNum(x_num);
@@ -20,11 +20,11 @@ rcTiledTextureRegion* rcTiledTextureRegion::CreateWithTexture(const rcTexture* t
   return ret;
 }
 
-rcTiledTextureRegion* rcTiledTextureRegion::Create()
+UniqueResource<rcTiledTextureRegion> rcTiledTextureRegion::Create()
 {
   rcTiledTextureRegion* ret = new rcTiledTextureRegion();
   ret->Resource::Init();
-  return ret;
+  return UniqueResource<rcTiledTextureRegion>(ret);
 }
 
 // =================================================================
@@ -44,7 +44,7 @@ rcTiledTextureRegion::~rcTiledTextureRegion()
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
-void rcTiledTextureRegion::OnUpdateTextureCoord(const rcTexture* texture)
+void rcTiledTextureRegion::OnUpdateTextureCoord(const SharedRef<const rcTexture>& texture)
 {
   const T_FLOAT tw = (T_FLOAT)texture->GetWidth();
   const T_FLOAT th = (T_FLOAT)texture->GetHeight();

@@ -56,12 +56,12 @@ public:
     return this->viewport_clear_;
   }
 
-  inline void SetTargetTexture(rcRenderTexture* texture)
+  inline void SetTargetTexture(const SharedRef<rcRenderTexture>& texture)
   {
     this->target_texture_ = texture;
   }
 
-  inline rcRenderTexture* GetTargetTexture() const
+  inline SharedRef<rcRenderTexture> GetTargetTexture() const
   {
     return this->target_texture_;
   }
@@ -149,7 +149,7 @@ protected:
   TVec3f direction_;
 
 private:
-  rcRenderTexture* target_texture_;
+  SharedRef<rcRenderTexture> target_texture_;
   bool viewport_clear_;
   TVec2f position_;
   TSizef size_;

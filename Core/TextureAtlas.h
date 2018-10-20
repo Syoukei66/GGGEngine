@@ -12,31 +12,35 @@ class rcTextureAtlas : public Resource
   // Factory Method
   // =================================================================
 public:
-  static rcTextureAtlas* CreateFromFile(const char* path);
-  static rcTextureAtlas* Create(const rcTexture* texture);
+  static UniqueResource<rcTextureAtlas> CreateFromFile(const char* path);
+  static UniqueResource<rcTextureAtlas> Create(const SharedRef<const rcTexture>& texture);
 
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 protected:
-  rcTextureAtlas(const rcTexture* texture);
+  rcTextureAtlas(const SharedRef<const rcTexture>& texture);
   virtual ~rcTextureAtlas();
 
   // =================================================================
   // Method
   // =================================================================
 public:
-  void Register(const std::string& path, rcTextureRegion* region);
+  void Register(const std::string& path, const SharedRef<rcTextureRegion>& region);
 
   // =================================================================
   // setter/getter
   // =================================================================
 public:
-  inline rcTextureRegion* GetTextureRegion(const std::string& path)
+  inline virtual const char* GetResourceName() override
+  {
+    return "TextureAtlas";
+  }
+  inline SharedRef<rcTextureRegion> GetTextureRegion(const std::string& path)
   {
     return this->region_map_[path];
   }
-  inline const rcTextureRegion* GetTextureRegion(const std::string& path) const
+  inline SharedRef<const rcTextureRegion> GetTextureRegion(const std::string& path) const
   {
     return this->region_map_.at(path);
   }
@@ -45,6 +49,6 @@ public:
   // Data Member
   // =================================================================
 private:
-  const rcTexture* texture_;
-  std::unordered_map<std::string, rcTextureRegion*> region_map_;
+  SharedRef<const rcTexture> texture_;
+  std::unordered_map<std::string, SharedRef<rcTextureRegion>> region_map_;
 };

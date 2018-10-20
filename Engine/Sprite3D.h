@@ -10,9 +10,9 @@ class Sprite3D : public GameObject3D
   // =================================================================
 public:
   static Sprite3D* Create();
-  static Sprite3D* CreateWithTexture(const rcTexture* texture);
-  static Sprite3D* CreateWithTextureRegion(rcTextureRegion* region);
-  static Sprite3D* CreateWithMaterial(rcMaterial* material);
+  static Sprite3D* CreateWithTexture(const SharedRef<const rcTexture>& texture);
+  static Sprite3D* CreateWithTextureRegion(const SharedRef<rcTextureRegion>& region);
+  static Sprite3D* CreateWithMaterial(const SharedRef<rcMaterial>& material);
 
   // =================================================================
   // Constructor / Destructor
@@ -37,20 +37,20 @@ public:
   {
     this->GetSpriteRenderer()->FitToTexture();
   }
-  inline void SetTexture(const rcTexture* texture)
+  inline void SetTexture(const SharedRef<const rcTexture>& texture)
   {
     this->GetSpriteRenderer()->SetTexture(texture);
   }
-  inline const rcTexture* GetTexture() const
+  inline SharedRef<const rcTexture> GetTexture() const
   {
     return this->GetSpriteRenderer()->GetTexture();
   }
 
-  inline void SetTextureRegion(rcTextureRegion* region)
+  inline void SetTextureRegion(const SharedRef<rcTextureRegion>& region)
   {
     this->GetSpriteRenderer()->SetTextureRegion(region);
   }
-  inline rcTextureRegion* GetTextureRegion()
+  inline SharedRef<rcTextureRegion> GetTextureRegion()
   {
     return this->GetSpriteRenderer()->GetTextureRegion();
   }

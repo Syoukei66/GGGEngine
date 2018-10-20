@@ -10,7 +10,7 @@ class rcCsvData : public Resource
   // Factory Method
   // =================================================================
 public:
-  static rcCsvData* CreateFromFile(const char* path);
+  static UniqueResource<rcCsvData> CreateFromFile(const char* path);
 
   // =================================================================
   // Constructor / Destructor
@@ -23,6 +23,11 @@ public:
   // Setter / Getter
   // =================================================================
 public:
+  inline virtual const char* GetResourceName() override
+  {
+    return "CsvData";
+  }
+
   inline T_UINT16 GetTokenizerCount() const
   {
     return (T_UINT16)this->tokenizers_.size();

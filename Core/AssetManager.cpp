@@ -16,6 +16,7 @@ void AssetManager::Uninit()
 {
   for (auto& pair : GetInstance()->assets_)
   {
+    pair.second->UnloadCache();
     delete pair.second;
   }
   delete GetInstance()->unique_id_table_;

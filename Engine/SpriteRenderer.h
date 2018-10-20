@@ -18,7 +18,7 @@ public:
   // =================================================================
 protected:
   virtual bool SetStreamSource() const override;
-  virtual void SetProperties(rcShader* shader) const override;
+  virtual void SetProperties(const SharedRef<rcShader>& shader) const override;
   virtual void DrawSubset(T_UINT8 submesh_index) const override;
  
   // =================================================================
@@ -31,14 +31,14 @@ public:
   // setter/getter
   // =================================================================
 public:
-  void SetTextureRegion(rcTextureRegion* region);
-  inline rcTextureRegion* GetTextureRegion()
+  void SetTextureRegion(const SharedRef<rcTextureRegion>& region);
+  inline const SharedRef<rcTextureRegion>& GetTextureRegion()
   {
     return this->texture_region_;
   }
 
-  void SetTexture(const rcTexture* texture);
-  inline const rcTexture* GetTexture() const
+  void SetTexture(const SharedRef<const rcTexture>& texture);
+  inline const SharedRef<const rcTexture>& GetTexture() const
   {
     return this->GetMaterial()->GetMainTexture();
   }
@@ -77,8 +77,8 @@ public:
   // Data Member
   // =================================================================
 protected:
-  rcTextureRegion* texture_region_;
-  rcMesh* mesh_;
+  SharedRef<rcTextureRegion> texture_region_;
+  SharedRef<rcMesh> mesh_;
   TSizef size_;
 
 };

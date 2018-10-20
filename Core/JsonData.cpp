@@ -4,11 +4,11 @@
 // =================================================================
 // Factory Method
 // =================================================================
-rcJsonData* rcJsonData::CreateFromFile(const char* path)
+UniqueResource<rcJsonData> rcJsonData::CreateFromFile(const char* path)
 {
   rcJsonData* ret = new rcJsonData(path);
   ret->Resource::Init();
-  return ret;
+  return UniqueResource<rcJsonData>(ret);
 }
 
 // =================================================================

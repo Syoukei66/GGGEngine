@@ -157,15 +157,6 @@ bool DirectXActivity::Init(const EngineOption* option)
   this->d3d_device_->SetRenderState(D3DRS_LIGHTING, false);
   this->d3d_device_->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
 
-  //テクスチャのアドレス外を参照した場合にどうするかの設定
-  //g_pD3DDevice->SetSamplerState(0, D3DSAMP_ADDRESSU, XXXXX);
-  //g_pD3DDevice->SetSamplerState(0, D3DSAMP_ADDRESSV, XXXXX);
-
-  //CLAMP 一番端のpixelが引き伸ばされる
-
-  //スケールをマイナスにした時に反転描画されるように
-  //g_pD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-
   //透明度を適用するための処理
   this->d3d_device_->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
   // SRC_RGB * SRC_α + DEST_RGB * (1 - SRC_α)

@@ -32,31 +32,46 @@ public:
   static void UnloadCaches();
 
   template<class Resource_>
-  static inline AssetLoader<Resource_>* GetLoader(T_UINT32 uid)
+  static inline SharedRef<Resource_> Load(T_UINT32 uid)
   {
-    if (uid == 0)
-    {
-      return nullptr;
-    }
+    NATIVE_ASSERT(uid != 0, "無効なアセットIDが入力されました");
     if (uid > DefaultUniqueID::DEFAULT_UID_BEGIN)
     {
-      return (AssetLoader<Resource_>*)GetInstance()->assets_.at(GetInstance()->unique_id_table_->GetDefaultAssetUniqueID(uid));
+      return ((AssetLoader<Resource_>*)GetInstance()->assets_.at(GetInstance()->unique_id_table_->GetDefaultAssetUniqueID(uid)))->CreateFromFile();
     }
-    return (AssetLoader<Resource_>*)GetInstance()->assets_.at(uid);
+    return ((AssetLoader<Resource_>*)GetInstance()->assets_.at(uid))->CreateFromFile();
   }
 
   template<class Resource_>
-  static inline AssetLoader<Resource_>* GetLoader(const std::string& path)
+  static inline SharedRef<Resource_> Load(const std::string& path)
   {
-    return (AssetLoader<Resource_>*)GetInstance()->assets_.at(GetInstance()->unique_id_table_->GetID(path));
+    const T_UINT32 uid = GetInstance()->unique_id_table_->GetID(path);
+    NATIVE_ASSERT(uid != 0, "無効なアセットIDが入力されました");
+    return ((AssetLoader<Resource_>*)GetInstance()->assets_.at(uid))->CreateFromFile();
   }
 
   template<class Resource_>
-  static inline AssetLoader<Resource_>* AddAsset(T_UINT32 uid, const std::string& extension)
+  static inline const AssetLoader<Resource_>& GetLoader(T_UINT32 uid)
   {
-    AssetLoader<Resource_>* ret = new AssetLoader<Resource_>(uid, std::to_string(uid) + "." + extension);
-    GetInstance()->assets_.emplace(uid, ret);
-    return ret;
+    NATIVE_ASSERT(uid != 0, "無効なアセットIDが入力されました");
+    if (uid > DefaultUniqueID::DEFAULT_UID_BEGIN)
+    {
+      return (const AssetLoader<Resource_>&)*GetInstance()->assets_.at(GetInstance()->unique_id_table_->GetDefaultAssetUniqueID(uid));
+    }
+    return (const AssetLoader<Resource_>&)*GetInstance()->assets_.at(uid);
+  }
+
+  template<class Resource_>
+  static inline const AssetLoader<Resource_>& GetLoader(const std::string& path)
+  {
+    return (const AssetLoader<Resource_>&)*GetInstance()->assets_.at(GetInstance()->unique_id_table_->GetID(path));
+  }
+
+  template<class Resource_>
+  static inline const AssetLoader<Resource_>& AddAsset(T_UINT32 uid, const std::string& extension)
+  {
+    GetInstance()->assets_.emplace(uid, new AssetLoader<Resource_>(uid, std::to_string(uid) + "." + extension));
+    return (const AssetLoader<Resource_>&)*GetInstance()->assets_.at(uid);
   }
 
   // =================================================================

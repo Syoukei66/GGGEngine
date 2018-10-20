@@ -38,7 +38,7 @@ public:
 
   virtual void SetColor(const std::string& property_name, const TColor& color) override;
   virtual void SetMatrix(const std::string& property_name, const Matrix4x4& matrix) override;
-  virtual void SetTexture(const std::string& property_name, const rcTexture* texture) override;
+  virtual void SetTexture(const std::string& property_name, const SharedRef<const rcTexture>& texture) override;
 
   virtual void GetBool(const std::string& property_name, bool* dest) override;
   virtual void GetInt(const std::string& property_name, T_INT32* dest) override;

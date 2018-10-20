@@ -7,6 +7,7 @@
 #include "NativeAssert.h"
 #include "StringUtils.h"
 #include "HashUtils.h"
+#include "SharedRef.h"
 
 class IAssetLoader
 {
@@ -30,6 +31,7 @@ public:
 
 };
 
+//TODO: Bundleからパスでメモリ領域を取得し、データを得てロードする方式に変える
 template<class Resource_>
 class AssetLoader : public IAssetLoader
 {
@@ -64,20 +66,24 @@ private:
   // Methods
   // =================================================================
 public:
-  operator Resource_*() const
+  operator SharedRef<Resource_>() const
+  {
+    return this->CreateFromFile();
+  }
+  
+  operator SharedRef<const Resource_>() const
   {
     return this->CreateFromFile();
   }
 
-  Resource_* CreateFromFile() const
+  SharedRef<Resource_> CreateFromFile() const
   {
     AssetLoader<Resource_>* self = const_cast<AssetLoader<Resource_>*>(this);
     if (!self->cache_)
     {
-      //Load時に増えるリファレンスカウントはAssetが管理していることを表すカウント
       self->cache_ = Resource_::CreateFromFile(self->path_.c_str());
+      NATIVE_ASSERT(self->cache_, "Assetのロードに失敗しました");
     }
-    self->cache_->Retain();
     return self->cache_;
   }
 
@@ -95,7 +101,6 @@ public:
 
   inline void UnloadCache() override
   {
-    this->cache_->Release();
     this->cache_ = nullptr;
   }
 
@@ -105,7 +110,7 @@ public:
 public:
   inline bool IsMapped() const override
   {
-    return this->cache_;
+    return (bool)this->cache_;
   }
 
   inline T_UINT32 GetUniqueID() const override
@@ -125,6 +130,6 @@ private:
   T_UINT32 unique_id_;
   std::string path_;
   T_UINT32 size_;
-  Resource_* cache_;
+  SharedRef<Resource_> cache_;
   
 };

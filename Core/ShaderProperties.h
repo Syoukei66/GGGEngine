@@ -9,7 +9,10 @@
 class ShaderProperty
 {
 public:
-  virtual void Apply(rcShader* shader, const std::string& property_name) const = 0;
+  virtual ~ShaderProperty() {}
+
+public:
+  virtual void Apply(const SharedRef<rcShader>& shader, const std::string& property_name) const = 0;
   virtual ShaderProperty* Clone() const = 0;
 };
 
@@ -60,7 +63,7 @@ public:
   }
 
 public:
-  void Apply(rcShader* shader, const std::string& property_name) const override
+  void Apply(const SharedRef<rcShader>& shader, const std::string& property_name) const override
   {
     shader->SetBool(property_name, this->value_);
   }
@@ -82,7 +85,7 @@ public:
   }
 
 public:
-  void Apply(rcShader* shader, const std::string& property_name) const override
+  void Apply(const SharedRef<rcShader>& shader, const std::string& property_name) const override
   {
     shader->SetInt(property_name, this->value_);
   }
@@ -104,7 +107,7 @@ public:
   }
 
 public:
-  void Apply(rcShader* shader, const std::string& property_name) const override
+  void Apply(const SharedRef<rcShader>& shader, const std::string& property_name) const override
   {
     shader->SetFloat(property_name, this->value_);
   }
@@ -162,7 +165,7 @@ public:
     return *this;
   }
 public:
-  void Apply(rcShader* shader, const std::string& property_name) const override
+  void Apply(const SharedRef<rcShader>& shader, const std::string& property_name) const override
   {
     shader->SetVec2f(property_name, this->value_);
   }
@@ -183,7 +186,7 @@ public:
     return *this;
   }
 public:
-  void Apply(rcShader* shader, const std::string& property_name) const override
+  void Apply(const SharedRef<rcShader>& shader, const std::string& property_name) const override
   {
     shader->SetVec3f(property_name, this->value_);
   }
@@ -204,7 +207,7 @@ public:
     return *this;
   }
 public:
-  void Apply(rcShader* shader, const std::string& property_name) const override
+  void Apply(const SharedRef<rcShader>& shader, const std::string& property_name) const override
   {
     shader->SetVec4f(property_name, this->value_);
   }
@@ -225,7 +228,7 @@ public:
     return *this;
   }
 public:
-  void Apply(rcShader* shader, const std::string& property_name) const override
+  void Apply(const SharedRef<rcShader>& shader, const std::string& property_name) const override
   {
     shader->SetColor(property_name, this->value_);
   }
@@ -246,7 +249,7 @@ public:
     return *this;
   }
 public:
-  void Apply(rcShader* shader, const std::string& property_name) const override
+  void Apply(const SharedRef<rcShader>& shader, const std::string& property_name) const override
   {
     if (!this->value_)
     {
@@ -272,48 +275,43 @@ public:
   ShaderProperty_resource()
     : value_()
   {}
-
+  
 public:
-  operator const T*&() const
+  operator SharedRef<const T>() const
   {
     return this->value_;
   }
 
-  const T* operator = (const T* b)
+  const SharedRef<const T>& operator = (const SharedRef<const T>& b)
   {
     this->SetValue(b);
     return b;
   }
 
 public:
-  inline void SetValue(const T* value)
+  inline void SetValue(const SharedRef<const T>& value)
   {
-    value->Retain();
-    if (this->value_)
-    {
-      this->value_->Release();
-    }
     this->value_ = value;
   }
-  inline const T* GetValue() const
+  inline SharedRef<const T> GetValue() const
   {
     return this->value_;
   }
 
 protected:
-  const T* value_;
+  SharedRef<const T> value_;
 };
 
 class ShaderProperty_texture : public ShaderProperty_resource<rcTexture>
 {
 public:
-  const ShaderProperty_texture& operator = (const rcTexture* b)
+  const ShaderProperty_texture& operator = (const SharedRef<const rcTexture>& b)
   {
     ShaderProperty_resource::operator=(b);
     return *this;
   }
 public:
-  void Apply(rcShader* shader, const std::string& property_name) const override
+  void Apply(const SharedRef<rcShader>& shader, const std::string& property_name) const override
   {
     if (!this->value_)
     {

@@ -10,31 +10,28 @@ class MeshRenderer : public Renderer
   // Factory Method
   // =================================================================
 public:
-  static MeshRenderer* Create(const rcMesh* mesh, GameObject* entity);
+  static MeshRenderer* Create(const SharedRef<const rcMesh>& mesh, GameObject* entity);
 
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 protected:
   MeshRenderer(GameObject* entity);
+  virtual ~MeshRenderer();
 
   // =================================================================
   // Method
   // =================================================================
 protected:
   virtual bool SetStreamSource() const override;
-  virtual void SetProperties(rcShader* shader) const override;
+  virtual void SetProperties(const SharedRef<rcShader>& shader) const override;
   virtual void DrawSubset(T_UINT8 submesh_index) const override;
 
   // =================================================================
   // setter/getter
   // =================================================================
 public:
-  inline void SetMesh(const rcMesh& mesh)
-  {
-    this->mesh_ = &mesh;
-  }
-  inline void SetMesh(const rcMesh* mesh)
+  inline void SetMesh(const SharedRef<const rcMesh>& mesh)
   {
     this->mesh_ = mesh;
   }
@@ -43,6 +40,6 @@ public:
   // Data Member
   // =================================================================
 private:
-  const rcMesh* mesh_;
+  SharedRef<const rcMesh> mesh_;
 
 };

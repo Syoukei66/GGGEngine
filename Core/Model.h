@@ -11,8 +11,8 @@ class rcModel : public Resource
   // Factory Method
   // =================================================================
 public:
-  static rcModel* CreateFromFile(const char* path);
-  static rcModel* Create(const ModelData* data);
+  static UniqueResource<rcModel> CreateFromFile(const char* path);
+  static UniqueResource<rcModel> Create(const ModelData* data);
 
   // =================================================================
   // Constructor / Destructor
@@ -31,12 +31,17 @@ public:
   // Getter / Setter
   // =================================================================
 public:
-  inline rcMesh* GetMesh()
+  inline virtual const char* GetResourceName() override
+  {
+    return "Model";
+  }
+
+  inline SharedRef<rcMesh> GetMesh()
   {
     return this->mesh_;
   }
 
-  inline const rcMesh* GetMesh() const
+  inline SharedRef<const rcMesh> GetMesh() const
   {
     return this->mesh_;
   }
@@ -46,12 +51,12 @@ public:
     return this->mesh_->GetSubmeshCount();
   }
 
-  inline rcMaterial* GetMaterial(T_UINT8 index)
+  inline SharedRef<rcMaterial> GetMaterial(T_UINT8 index)
   {
     return this->materials_[index];
   }
 
-  inline const rcMaterial* GetMaterial(T_UINT8 index) const
+  inline SharedRef<const rcMaterial> GetMaterial(T_UINT8 index) const
   {
     return this->materials_[index];
   }
@@ -65,7 +70,7 @@ public:
   // Data Member
   // =================================================================
 protected:
-  rcMesh* mesh_;
-  rcMaterial** materials_;
+  SharedRef<rcMesh> mesh_;
+  SharedRef<rcMaterial>* materials_;
 
 };

@@ -3,21 +3,24 @@
 // =================================================================
 // Factory Method
 // =================================================================
-rcMesh* rcMesh::CreateFromFile(const char* path)
+UniqueResource<rcMesh> rcMesh::CreateFromFile(const char* path)
 {
-  return rcMesh::Create(MeshData::Deserialize(path));
-}
-
-rcMesh* rcMesh::Create()
-{
-  rcMesh* ret = new rcMesh();
-  ret->Resource::Init();
+  MeshData* data = MeshData::Deserialize(path);
+  UniqueResource<rcMesh> ret = rcMesh::Create(data);
+  delete data;
   return ret;
 }
 
-rcMesh* rcMesh::Create(const MeshData* data)
+UniqueResource<rcMesh> rcMesh::Create()
 {
-  rcMesh* ret = rcMesh::Create();
+  rcMesh* ret = new rcMesh();
+  ret->Resource::Init();
+  return UniqueResource<rcMesh>(ret);
+}
+
+UniqueResource<rcMesh> rcMesh::Create(const MeshData* data)
+{
+  UniqueResource<rcMesh> ret = rcMesh::Create();
   ret->read_only_ = true;
   ret->format_ = data->vertex_count_;
   ret->polygon_count_ = data->polygon_count_;
@@ -38,7 +41,7 @@ rcMesh* rcMesh::Create(const MeshData* data)
   ret->vertex_buffer_->Unlock();
 
   //Index Buffers
-  ret->index_buffers_ = new rcIndexBuffer*[data->submesh_count_];
+  ret->index_buffers_ = new SharedRef<rcIndexBuffer>[data->submesh_count_]();
   for (T_UINT32 i = 0, ii = 0; i < data->submesh_count_; ++i)
   {
     T_UINT32* index_data;
@@ -123,10 +126,6 @@ void rcMesh::ClearVertices(bool clear_buffer)
   if (clear_buffer)
   {
     this->vertex_count_ = 0;
-    if (this->vertex_buffer_)
-    {
-      this->vertex_buffer_->Release();
-    }
     this->vertex_buffer_ = nullptr;
   }
 }
@@ -152,22 +151,15 @@ void rcMesh::ClearIndices(bool clear_buffer)
 
   if (clear_buffer)
   {
-    for (T_UINT8 i = 0; i < this->submesh_count_; ++i)
-    {
-      if (this->index_buffers_[i])
-      {
-        this->index_buffers_[i]->Release();
-      }
-    }
     delete[] this->index_buffers_;
     this->index_buffers_ = nullptr;
     this->submesh_count_ = 0;
   }
 }
 
-rcMesh* rcMesh::Clone(bool read_only)
+UniqueResource<rcMesh> rcMesh::Clone(bool read_only)
 {
-  rcMesh* clone = rcMesh::Create();
+  UniqueResource<rcMesh> clone = rcMesh::Create();
 
   clone->orginal_ = this;
   clone->CreateVertices(this->vertex_count_, this->format_, this->primitive_type_);
@@ -218,7 +210,7 @@ void rcMesh::CreateIndices(T_UINT8 submesh_count, T_UINT32* index_counts)
   this->index_counts_ = new T_UINT32[submesh_count]{};
   this->indices_ = new T_UINT32*[submesh_count] {};
   this->indices_dirties_ = new bool[submesh_count] {};
-  this->index_buffers_ = new rcIndexBuffer*[submesh_count] {};
+  this->index_buffers_ = new SharedRef<rcIndexBuffer>[submesh_count] {};
   for (T_UINT8 i = 0; i < submesh_count; ++i)
   {
     this->index_counts_[i] = index_counts[i];

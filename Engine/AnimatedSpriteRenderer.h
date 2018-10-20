@@ -29,9 +29,9 @@ public:
   {
     return this->GetTiledTextureRegion()->GetCurrentIndex();
   }
-  inline rcTiledTextureRegion* GetTiledTextureRegion() const
+  inline SharedRef<rcTiledTextureRegion> GetTiledTextureRegion() const
   {
-    return (rcTiledTextureRegion*)this->texture_region_;
+    return SharedRef<rcTiledTextureRegion>::DynamicCast(this->texture_region_);
   }
 
   // =================================================================

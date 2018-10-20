@@ -32,10 +32,14 @@ bool Engine::Init(IEngineSetting* setting)
   return true;
 }
 
-bool Engine::End()
+bool Engine::EndScene()
 {
   delete this->scene_transitioner_;
+  return true;
+}
 
+bool Engine::End()
+{
   EasingFunctionManager::GetInstance()->Unload();
   EntityModifierManager::GetInstance().Uninit();
 
