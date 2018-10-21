@@ -54,8 +54,8 @@ UniqueResource<rcRenderTexture> CreateRenderTexture(T_UINT16 width, T_UINT16 hei
 
 UniqueResource<rcShader> ShaderLoad(const char* path);
 UniqueResource<rcSound> SoundLoad(const char* path);
-UniqueResource<rcVertexBuffer> CreateVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_count, T_UINT32 format);
-UniqueResource<rcIndexBuffer> CreateIndexBuffer(T_UINT32 indexes_count);
+UniqueResource<rcVertexBuffer> CreateVertexBuffer(T_UINT32 vertex_count, T_UINT32 format);
+UniqueResource<rcIndexBuffer> CreateIndexBuffer(T_UINT32 indexes_count, T_UINT32 polygon_count);
 } // namespace Resource
 
 } // namespace NativeProcess

@@ -22,14 +22,13 @@ UniqueResource<rcMesh> rcMesh::Create(const MeshData* data)
 {
   UniqueResource<rcMesh> ret = rcMesh::Create();
   ret->read_only_ = true;
-  ret->format_ = data->vertex_count_;
-  ret->polygon_count_ = data->polygon_count_;
+  ret->format_ = data->vertex_format_;
   ret->vertex_count_ = data->vertex_count_;
   ret->primitive_type_ = Graphics::PRIMITIVE_TRIANGLES;
   ret->submesh_count_ = data->submesh_count_;
 
   //Vertex Buffer
-  ret->vertex_buffer_ = rcVertexBuffer::Create(data->vertex_count_, data->polygon_count_, data->vertex_format_);
+  ret->vertex_buffer_ = rcVertexBuffer::Create(data->vertex_count_, data->vertex_format_);
   unsigned char* p;
   ret->vertex_buffer_->Lock((void**)&p);
   NATIVE_ASSERT(data->vertex_size_ == Graphics::CalcVertexSize(data->vertex_format_), "MeshDataを作成した時と頂点データのサイズが異なっています");
@@ -40,12 +39,13 @@ UniqueResource<rcMesh> rcMesh::Create(const MeshData* data)
   }
   ret->vertex_buffer_->Unlock();
 
+  ret->polygon_count_ = 0;
   //Index Buffers
   ret->index_buffers_ = new SharedRef<rcIndexBuffer>[data->submesh_count_]();
   for (T_UINT32 i = 0, ii = 0; i < data->submesh_count_; ++i)
   {
     T_UINT32* index_data;
-    ret->index_buffers_[i] = rcIndexBuffer::Create(data->submesh_index_counts_[i]);
+    ret->index_buffers_[i] = rcIndexBuffer::Create(data->submesh_index_counts_[i], data->submesh_polygon_counts_[i]);
     ret->index_buffers_[i]->Lock((void**)&index_data);
     for (T_UINT32 j = 0; j < data->submesh_index_counts_[i]; ++j)
     {
@@ -53,6 +53,7 @@ UniqueResource<rcMesh> rcMesh::Create(const MeshData* data)
     }
     ret->index_buffers_[i]->Unlock();
     ii += data->submesh_index_counts_[i];
+    ret->polygon_count_ += data->submesh_polygon_counts_[i];
   }
 
   return ret;
@@ -197,14 +198,14 @@ void rcMesh::CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UIN
   if (format & V_ATTR_COLOR) this->colors_ = new TColor[vertex_count]{};
   this->vertex_buffer_ = rcVertexBuffer::Create(
     vertex_count,
-    polygon_count,
-    format
+    polygon_count
   );
   this->vertices_dirty_ = true;
 }
 
-void rcMesh::CreateIndices(T_UINT8 submesh_count, T_UINT32* index_counts)
+void rcMesh::CreateIndices(T_UINT8 submesh_count, T_UINT32* index_counts, T_UINT32* polygon_counts)
 {
+  NATIVE_ASSERT(polygon_counts || this->polygon_count_ > 0, "ポリゴン数が不定です");
   this->ClearIndices(true);
   this->submesh_count_ = submesh_count;
   this->index_counts_ = new T_UINT32[submesh_count]{};
@@ -215,7 +216,7 @@ void rcMesh::CreateIndices(T_UINT8 submesh_count, T_UINT32* index_counts)
   {
     this->index_counts_[i] = index_counts[i];
     this->indices_[i] = new T_UINT32[index_counts[i]]{};
-    this->index_buffers_[i] = rcIndexBuffer::Create(index_counts[i]);
+    this->index_buffers_[i] = rcIndexBuffer::Create(index_counts[i], polygon_counts ? polygon_counts[i] : this->polygon_count_);
     this->indices_dirties_[i] = true;
   }
 }

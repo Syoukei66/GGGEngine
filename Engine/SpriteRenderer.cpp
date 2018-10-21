@@ -15,7 +15,7 @@ SpriteRenderer::SpriteRenderer(GameObject* entity)
   , size_(1.0f, 1.0f)
   , mesh_(AssetManager::Load<rcMesh>(DefaultUniqueID::MESH_SPRITE))
 {
-  this->SetMaterial(AssetManager::Load<rcMaterial>(DefaultUniqueID::MATERIAL_SPRITE));
+  this->SetSharedMaterial(AssetManager::Load<rcMaterial>(DefaultUniqueID::MATERIAL_SPRITE));
 }
 
 SpriteRenderer::~SpriteRenderer()

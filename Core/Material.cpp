@@ -97,6 +97,8 @@ UniqueResource<rcMaterial> rcMaterial::InitialClone() const
 void rcMaterial::SetProperties(const SharedRef<rcShader>& shader) const
 {
   shader->SetTechnique(this->technique_);
+  shader->SetTexture("_MainTex", this->texture_);
+  shader->SetColor("_Diffuse", this->color_);
   for (auto pair : this->properties_)
   {
     pair.second->Apply(shader, pair.first);

@@ -51,7 +51,7 @@ public:
   {
     this->CreateIndices(1, &index_count);
   }
-  void CreateIndices(T_UINT8 submesh_count, T_UINT32* index_counts);
+  void CreateIndices(T_UINT8 submesh_count, T_UINT32* index_counts, T_UINT32* polygon_counts = nullptr);
 
   void CommitChanges(bool read_only);
   void RecalculateNormals(bool save_face_normals = false);

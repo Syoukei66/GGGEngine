@@ -13,7 +13,7 @@ class rcVertexBuffer : public Resource
   // Factory Method
   // =================================================================
 public:
-  static UniqueResource<rcVertexBuffer> Create(T_UINT16 vertex_count, T_UINT16 polygon_count, T_UINT32 format);
+  static UniqueResource<rcVertexBuffer> Create(T_UINT32 vertex_count, T_UINT32 format);
 
   // =================================================================
   // Constructor / Destructor
@@ -31,7 +31,6 @@ public:
 
   virtual void SetStreamSource() const = 0;
 
-  virtual void DrawPrimitive(Graphics::PrimitiveType primitive_type) const = 0;
   virtual void DrawIndexedPrimitive(const SharedRef<const rcIndexBuffer>& index_buffer, Graphics::PrimitiveType primitive_type) const = 0;
 
   // =================================================================

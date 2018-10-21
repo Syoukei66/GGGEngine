@@ -3,8 +3,9 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-NativeIndexBuffer::NativeIndexBuffer(T_UINT16 vertex_count)
+NativeIndexBuffer::NativeIndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count)
   : vertex_count_(vertex_count)
+  , polygon_count_(polygon_count)
 {
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
   HRESULT hr = device->CreateIndexBuffer(
@@ -43,12 +44,4 @@ void NativeIndexBuffer::SetIndices() const
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
   HRESULT hr = device->SetIndices(this->index_buffer_);
   NATIVE_ASSERT(SUCCEEDED(hr), "IndexBuffer‚ÌƒZƒbƒg‚É¸”s‚µ‚Ü‚µ‚½");
-}
-
-// =================================================================
-// setter/getter
-// =================================================================
-T_UINT16 NativeIndexBuffer::GetVertexesCount() const
-{
-  return this->vertex_count_;
 }

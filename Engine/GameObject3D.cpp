@@ -8,7 +8,7 @@
 // =================================================================
 // Factory Method
 // =================================================================
-GameObject3D* GameObject3D::Create(const SharedRef<const rcModel>& model)
+GameObject3D* GameObject3D::Create(const SharedRef<rcModel>& model)
 {
   GameObject3D* ret = new GameObject3D();
 

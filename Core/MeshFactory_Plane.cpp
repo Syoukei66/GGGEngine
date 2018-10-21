@@ -61,8 +61,8 @@ MeshData* MeshFactory::Plane::Create(
     }
   }
 
-  ret->polygon_count_ = resolution_x * resolution_y * 2;
-  ret->index_count_ = ret->polygon_count_ * 3;
+  const T_UINT32 polygonCount = resolution_x * resolution_y * 2;
+  ret->index_count_ = polygonCount * 3;
   ret->indices_ = new T_UINT32[ret->index_count_]();
   for (T_UINT32 ti = 0, vi = 0, y = 0; y < resolution_y; ++y, ++vi)
   {
@@ -83,6 +83,8 @@ MeshData* MeshFactory::Plane::Create(
   ret->submesh_count_ = 1;
   ret->submesh_index_counts_ = new T_UINT32[ret->submesh_count_];
   ret->submesh_index_counts_[0] = ret->index_count_;
+  ret->submesh_polygon_counts_ = new T_UINT32[ret->submesh_count_];
+  ret->submesh_polygon_counts_[0] = polygonCount;
 
   return ret;
 }

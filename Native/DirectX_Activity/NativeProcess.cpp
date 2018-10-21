@@ -325,14 +325,14 @@ UniqueResource<rcSound> SoundLoad(const char* path)
   return UniqueResource<rcSound>(new NativeSound(path));
 }
 
-UniqueResource<rcVertexBuffer> CreateVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_count, T_UINT32 format)
+UniqueResource<rcVertexBuffer> CreateVertexBuffer(T_UINT32 vertex_count, T_UINT32 format)
 {
-  return UniqueResource<rcVertexBuffer>(new NativeVertexBuffer(vertex_count, polygon_count, format));
+  return UniqueResource<rcVertexBuffer>(new NativeVertexBuffer(vertex_count, format));
 }
 
-UniqueResource<rcIndexBuffer> CreateIndexBuffer(T_UINT32 indexes_count)
+UniqueResource<rcIndexBuffer> CreateIndexBuffer(T_UINT32 indexes_count, T_UINT32 polygon_count)
 {
-  return UniqueResource<rcIndexBuffer>(new NativeIndexBuffer(indexes_count));
+  return UniqueResource<rcIndexBuffer>(new NativeIndexBuffer(indexes_count, polygon_count));
 }
 }
 

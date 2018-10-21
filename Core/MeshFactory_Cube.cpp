@@ -134,13 +134,15 @@ MeshData* MeshFactory::Cube::Create(
   const T_UINT32 zFaceQuads = resolution_x * resolution_y;
   const T_UINT32 xFaceQuads = resolution_y * resolution_z;
   const T_UINT32 yFaceQuads = resolution_x * resolution_z;
-  ret->polygon_count_ = (xFaceQuads + yFaceQuads + zFaceQuads) * 2 * 2;
-  ret->index_count_ = ret->polygon_count_ * 3;
+  const T_UINT32 polygonCount = (xFaceQuads + yFaceQuads + zFaceQuads) * 2 * 2;
+  ret->index_count_ = polygonCount * 3;
   ret->indices_ = new T_UINT32[ret->index_count_]();
 
   ret->submesh_count_ = 1;
   ret->submesh_index_counts_ = new T_UINT32[ret->submesh_count_];
   ret->submesh_index_counts_[0] = ret->index_count_;
+  ret->submesh_polygon_counts_ = new T_UINT32[ret->submesh_count_];
+  ret->submesh_polygon_counts_[0] = polygonCount;
 
   CreateVertices(format, { scale_x, scale_y, scale_z }, resolution_x, resolution_y, resolution_z, { tile_count_x, tile_count_y, tile_count_z }, ret);
   CreateTriangles(resolution_x, resolution_y, resolution_z, ret);

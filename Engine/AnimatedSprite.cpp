@@ -30,6 +30,6 @@ AnimatedSprite* AnimatedSprite::CreateWithMaterial(const SharedRef<rcMaterial>& 
 {
   AnimatedSprite* ret = AnimatedSprite::CreateWithTextureRegion(rcTiledTextureRegion::CreateWithMaterial(material, x_num, y_num));
   AnimatedSpriteRenderer* renderer = ret->GetAnimatedSpriteRenderer();
-  renderer->SetMaterial(material);
+  renderer->SetSharedMaterial(material);
   return ret;
 }

@@ -1,7 +1,8 @@
 #include "ModelAssetImporter.h"
 
-#include <assimp\Importer.hpp>
-#include <assimp\postprocess.h>
+#include <assimp/Importer.hpp>
+#include <Assimp/cimport.h>
+#include <assimp/postprocess.h>
 
 #include <Core/GraphicsConstants.h>
 
@@ -65,66 +66,28 @@ static MeshData* ImportMesh(const aiScene* scene)
 
   ret->submesh_count_ = scene->mNumMeshes;
   ret->submesh_index_counts_ = new T_UINT32[ret->submesh_count_]();
+  ret->submesh_polygon_counts_ = new T_UINT32[ret->submesh_count_]();
   //
   for (T_UINT32 m = 0; m < scene->mNumMeshes; ++m)
   {
     const aiMesh* mesh = scene->mMeshes[m];
     ret->vertex_count_ += mesh->mNumVertices;
-    ret->polygon_count_ += mesh->mNumFaces;
-    for (T_UINT32 f = 0, ii = 0; f < mesh->mNumFaces; ++f)
-    {
-      ret->index_count_ += mesh->mFaces[f].mNumIndices;
-      ret->submesh_index_counts_[m] += mesh->mFaces[f].mNumIndices;
-    }
+    ret->submesh_polygon_counts_[m] = mesh->mNumFaces;
+    NATIVE_ASSERT(mesh->mPrimitiveTypes == aiPrimitiveType_TRIANGLE, "ポリゴンが三角形ではありません");
+    ret->submesh_index_counts_[m] = 3 * mesh->mNumFaces;
+    ret->index_count_ += ret->submesh_index_counts_[m];
 
-    if (!(ret->vertex_format_ & V_ATTR_POSITION) && mesh->HasPositions())
-    {
-      ret->vertex_format_ |= V_ATTR_POSITION;
-      ret->vertex_size_ += V_ATTRSIZE_POSITION;
-    }
-
-    if (!(ret->vertex_format_ & V_ATTR_NORMAL) && mesh->HasNormals())
-    {
-      ret->vertex_format_ |= V_ATTR_NORMAL;
-      ret->vertex_size_ += V_ATTRSIZE_NORMAL;
-    }
-
-    if (!(ret->vertex_format_ & V_ATTR_UV) && mesh->HasTextureCoords(0))
-    {
-      ret->vertex_format_ |= V_ATTR_UV;
-      ret->vertex_size_ += V_ATTRSIZE_UV;
-    }
-
-    if (!(ret->vertex_format_ & V_ATTR_UV2) && mesh->HasTextureCoords(1))
-    {
-      ret->vertex_format_ |= V_ATTR_UV2;
-      ret->vertex_size_ += V_ATTRSIZE_UV2;
-    }
-
-    if (!(ret->vertex_format_ & V_ATTR_UV3) && mesh->HasTextureCoords(2))
-    {
-      ret->vertex_format_ |= V_ATTR_UV3;
-      ret->vertex_size_ += V_ATTRSIZE_UV3;
-    }
-
-    if (!(ret->vertex_format_ & V_ATTR_UV4) && mesh->HasTextureCoords(3))
-    {
-      ret->vertex_format_ |= V_ATTR_UV4;
-      ret->vertex_size_ += V_ATTRSIZE_UV4;
-    }
-
-    if (!(ret->vertex_format_ & V_ATTR_TANGENT) && mesh->HasTangentsAndBitangents())
-    {
-      ret->vertex_format_ |= V_ATTR_TANGENT;
-      ret->vertex_size_ += V_ATTRSIZE_TANGENT;
-    }
-
-    if (!(ret->vertex_format_ & V_ATTR_COLOR) && mesh->HasVertexColors(0))
-    {
-      ret->vertex_format_ |= V_ATTR_COLOR;
-      ret->vertex_size_ += V_ATTRSIZE_COLOR;
-    }
+    if (mesh->HasPositions()) ret->vertex_format_ |= V_ATTR_POSITION;
+    if (mesh->HasNormals()) ret->vertex_format_ |= V_ATTR_NORMAL;
+    if (mesh->HasTextureCoords(0)) ret->vertex_format_ |= V_ATTR_UV;
+    if (mesh->HasTextureCoords(1)) ret->vertex_format_ |= V_ATTR_UV2;
+    if (mesh->HasTextureCoords(2)) ret->vertex_format_ |= V_ATTR_UV3;
+    if (mesh->HasTextureCoords(3)) ret->vertex_format_ |= V_ATTR_UV4;
+    if (mesh->HasTangentsAndBitangents()) ret->vertex_format_ |= V_ATTR_TANGENT;
+    if (mesh->HasVertexColors(0)) ret->vertex_format_ |= V_ATTR_COLOR;
   }
+
+  ret->vertex_size_ = CalcVertexSize(ret->vertex_format_);
 
   TVec3f min = { 0.0f, 0.0f, 0.0f };
   TVec3f max = { 0.0f, 0.0f, 0.0f };
@@ -132,6 +95,7 @@ static MeshData* ImportMesh(const aiScene* scene)
   //
   ret->data_ = new unsigned char[ret->vertex_count_ * ret->vertex_size_]();
   ret->indices_ = new T_UINT32[ret->index_count_]();
+  T_UINT32 index_offset = 0;
   unsigned char* p = ret->data_;
   for (T_UINT32 m = 0, ii = 0; m < scene->mNumMeshes; ++m)
   {
@@ -143,86 +107,64 @@ static MeshData* ImportMesh(const aiScene* scene)
       //mesh
       if (ret->vertex_format_ & V_ATTR_POSITION)
       {
-        T_FLOAT* vertex = (T_FLOAT*)p;
-        vertex[0] = mesh->mVertices[v].x;
-        vertex[1] = mesh->mVertices[v].y;
-        vertex[2] = mesh->mVertices[v].z;
-        p += V_ATTRSIZE_POSITION;
+        const aiVector3D& vec = mesh->mVertices[v];
+        SetVertexPosition(TVec3f(vec.x, vec.y, vec.z), &p);
 
-        min.x = std::min(min.x, mesh->mVertices[v].x);
-        min.y = std::min(min.y, mesh->mVertices[v].y);
-        min.z = std::min(min.z, mesh->mVertices[v].z);
+        min.x = std::min(min.x, vec.x);
+        min.y = std::min(min.y, vec.y);
+        min.z = std::min(min.z, vec.z);
 
-        max.x = std::max(max.x, mesh->mVertices[v].x);
-        max.y = std::max(max.y, mesh->mVertices[v].y);
-        max.z = std::max(max.z, mesh->mVertices[v].z);
+        max.x = std::max(max.x, vec.x);
+        max.y = std::max(max.y, vec.y);
+        max.z = std::max(max.z, vec.z);
       }
       if (ret->vertex_format_ & V_ATTR_NORMAL)
       {
-        T_FLOAT* normal = (T_FLOAT*)p;
-        normal[0] = mesh->mNormals[v].x;
-        normal[1] = mesh->mNormals[v].y;
-        normal[2] = mesh->mNormals[v].z;
-        p += V_ATTRSIZE_NORMAL;
+        const aiVector3D& vec = mesh->mNormals[v];
+        SetVertexNormal(TVec3f(vec.x, vec.y, vec.z), &p);
       }
       if (ret->vertex_format_ & V_ATTR_UV)
       {
-        T_FLOAT* uv = (T_FLOAT*)p;
-        uv[0] = mesh->mTextureCoords[0][v].x;
-        uv[1] = mesh->mTextureCoords[0][v].y;
-        p += V_ATTRSIZE_UV;
+        const aiVector3D& vec = mesh->mTextureCoords[0][v];
+        SetVertexUv(TVec2f(vec.x, vec.y), &p);
       }
       if (ret->vertex_format_ & V_ATTR_UV2)
       {
-        T_FLOAT* uv2 = (T_FLOAT*)p;
-        uv2[0] = mesh->mTextureCoords[1][v].x;
-        uv2[1] = mesh->mTextureCoords[1][v].y;
-        p += V_ATTRSIZE_UV2;
+        const aiVector3D& vec = mesh->mTextureCoords[1][v];
+        SetVertexUv2(TVec2f(vec.x, vec.y), &p);
       }
       if (ret->vertex_format_ & V_ATTR_UV3)
       {
-        T_FLOAT* uv3 = (T_FLOAT*)p;
-        uv3[0] = mesh->mTextureCoords[2][v].x;
-        uv3[1] = mesh->mTextureCoords[2][v].y;
-        p += V_ATTRSIZE_UV3;
+        const aiVector3D& vec = mesh->mTextureCoords[2][v];
+        SetVertexUv3(TVec2f(vec.x, vec.y), &p);
       }
       if (ret->vertex_format_ & V_ATTR_UV4)
       {
-        T_FLOAT* uv4 = (T_FLOAT*)p;
-        uv4[0] = mesh->mTextureCoords[3][v].x;
-        uv4[1] = mesh->mTextureCoords[3][v].y;
-        p += V_ATTRSIZE_UV4;
+        const aiVector3D& vec = mesh->mTextureCoords[3][v];
+        SetVertexUv4(TVec2f(vec.x, vec.y), &p);
       }
       if (ret->vertex_format_ & V_ATTR_TANGENT)
       {
-        //TODO:
-        T_FLOAT* tangent = (T_FLOAT*)p;
-        tangent[0] = mesh->mTangents[v].x;
-        tangent[1] = mesh->mTangents[v].y;
-        tangent[2] = mesh->mTangents[v].z;
-        tangent[3] = 0.0f;
-        p += V_ATTRSIZE_TANGENT;
+        const aiVector3D& vec = mesh->mTangents[v];
+        SetVertexTangent(TVec4f(vec.x, vec.y, vec.z, 1.0f), &p);
       }
       if (ret->vertex_format_ & V_ATTR_COLOR)
       {
-        T_UINT32* color = (T_UINT32*)p;
-        color[0] =
-          (((T_UINT8)(mesh->mColors[0][v].a * 0xff) & 0xff) << 24) |
-          (((T_UINT8)(mesh->mColors[0][v].r * 0xff) & 0xff) << 16) |
-          (((T_UINT8)(mesh->mColors[0][v].g * 0xff) & 0xff) << 8) |
-          (((T_UINT8)(mesh->mColors[0][v].b * 0xff) & 0xff) << 0);
-        p += V_ATTRSIZE_COLOR;
+        const aiColor4D& col = mesh->mColors[0][v];
+        SetVertexColor(TColor(col.r, col.g, col.b, col.a), &p);
       }
     }
     //
     for (T_UINT32 f = 0; f < mesh->mNumFaces; ++f)
     {
+      NATIVE_ASSERT(mesh->mFaces[f].mNumIndices == 3, "ポリゴンが三角形ではありません");
       for (T_UINT32 fi = 0; fi < mesh->mFaces[f].mNumIndices; ++fi)
       {
-        ret->indices_[ii] = mesh->mFaces[f].mIndices[fi];
+        ret->indices_[ii] = index_offset + mesh->mFaces[f].mIndices[fi];
         ++ii;
       }
     }
+    index_offset += mesh->mNumVertices;
   }
 
   ret->bounds_.center.x = (min.x + max.y) * 0.5f;
@@ -287,21 +229,47 @@ static MaterialData* ImportMaterial(AssetInfo* info, const aiMaterial* material,
 
 ModelAssetEntity* ModelAssetImporter::ImportProcess(AssetInfo* info, AssetConverterContext* context)
 {  
+  using namespace Assimp;
   //一部のファイルでメモリリークが発生
   Assimp::Importer importer;
-  const aiScene* scene = importer.ReadFile(
-    info->GetInputPath(),
-    aiProcess_GenNormals |
-    aiProcess_CalcTangentSpace |
-    aiProcess_Triangulate |
-    aiProcess_JoinIdenticalVertices |
-    aiProcess_SortByPType |
-    aiProcess_MakeLeftHanded |
-    aiProcess_LimitBoneWeights |
-    aiProcess_ImproveCacheLocality |
-    aiProcess_SplitByBoneCount |
-    aiProcess_PreTransformVertices
-  );
+
+  unsigned int ppsteps = aiProcess_CalcTangentSpace | // calculate tangents and bitangents if possible
+    aiProcess_JoinIdenticalVertices | // join identical vertices/ optimize indexing
+    aiProcess_ValidateDataStructure | // perform a full validation of the loader's output
+    aiProcess_ImproveCacheLocality | // improve the cache locality of the output vertices
+    aiProcess_RemoveRedundantMaterials | // remove redundant materials
+    aiProcess_FindDegenerates | // remove degenerated polygons from the import
+    aiProcess_FindInvalidData | // detect invalid model data, such as invalid normal vectors
+    aiProcess_GenUVCoords | // convert spherical, cylindrical, box and planar mapping to proper UVs
+    aiProcess_TransformUVCoords | // preprocess UV transformations (scaling, translation ...)
+    aiProcess_FindInstances | // search for instanced meshes and remove them by references to one master
+    aiProcess_LimitBoneWeights | // limit bone weights to 4 per vertex
+    aiProcess_OptimizeMeshes | // join small meshes, if possible;
+    aiProcess_SplitByBoneCount | // split meshes with too many bones. Necessary for our (limited) hardware skinning shader
+    0;
+  float g_smoothAngle = 80.f;
+  bool nopointslines = true;
+
+  aiPropertyStore* props = aiCreatePropertyStore();
+  aiSetImportPropertyInteger(props, AI_CONFIG_IMPORT_TER_MAKE_UVS, 1);
+  aiSetImportPropertyFloat(props, AI_CONFIG_PP_GSN_MAX_SMOOTHING_ANGLE, g_smoothAngle);
+  aiSetImportPropertyInteger(props, AI_CONFIG_PP_SBP_REMOVE, nopointslines ? aiPrimitiveType_LINE | aiPrimitiveType_POINT : 0);
+
+  aiSetImportPropertyInteger(props, AI_CONFIG_GLOB_MEASURE_TIME, 1);
+
+  const aiScene* scene = aiImportFileExWithProperties(
+    info->GetInputPath().c_str(),
+    ppsteps | /* configurable pp steps */
+    aiProcess_GenSmoothNormals | // generate smooth normal vectors if not existing
+    aiProcess_SplitLargeMeshes | // split large, unrenderable meshes into submeshes
+    aiProcess_Triangulate | // triangulate polygons with more than 3 edges
+    aiProcess_ConvertToLeftHanded | // convert everything to D3D left handed space
+    aiProcess_SortByPType | // make 'clean' meshes which consist of a single typ of primitives
+    0,
+    NULL,
+    props);
+
+  aiReleasePropertyStore(props);
 
   ModelData* data = new ModelData();
 

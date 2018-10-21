@@ -1,6 +1,7 @@
 #include "ModelAssetEntity.h"
 #include "FileUtil.h"
 #include "AssetInfo.h"
+#include <Assimp/cimport.h>
 
 // =================================================================
 // Constructor / Destructor
@@ -14,6 +15,7 @@ ModelAssetEntity::ModelAssetEntity(AssetInfo* info, ModelData* data, const aiSce
 
 ModelAssetEntity::~ModelAssetEntity()
 {
+  aiReleaseImport(this->scene_);
   delete this->data_;
 }
 

@@ -9,7 +9,7 @@ class NativeIndexBuffer : public rcIndexBuffer
   // Constructor / Destructor
   // =================================================================
 public:
-  NativeIndexBuffer(T_UINT16 vertex_count);
+  NativeIndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count);
   ~NativeIndexBuffer();
 
   // =================================================================
@@ -24,12 +24,20 @@ public:
   // setter/getter
   // =================================================================
 public:
-  virtual T_UINT16 GetVertexesCount() const override;
+  virtual inline T_UINT32 GetVertexesCount() const override
+  {
+    return this->vertex_count_;
+  }
+  virtual inline T_UINT32 GetPolygonCount() const override
+  {
+    return this->polygon_count_;
+  }
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
-  const T_UINT16 vertex_count_;
+  const T_UINT32 vertex_count_;
+  const T_UINT32 polygon_count_;
   IDirect3DIndexBuffer9* index_buffer_;
 };

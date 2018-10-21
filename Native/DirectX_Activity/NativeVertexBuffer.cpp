@@ -7,9 +7,8 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT16 polygon_count, T_UINT32 format)
+NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT32 format)
   : vertex_count_(vertex_count)
-  , polygon_count_(polygon_count)
   , format_(format)
 {
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
@@ -148,28 +147,29 @@ void NativeVertexBuffer::SetStreamSource() const
   NATIVE_ASSERT(SUCCEEDED(hr), "VertexBuffer‚ÌƒZƒbƒg‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 }
 
-void NativeVertexBuffer::DrawPrimitive(Graphics::PrimitiveType primitive_type) const
-{
-  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
-  HRESULT hr = device->DrawPrimitive(
-    NativeConstants::PRIMITIVE_TYPES[primitive_type],
-    0,
-    this->polygon_count_
-  );
-  NATIVE_ASSERT(SUCCEEDED(hr), "•`‰æ‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
-}
+//void NativeVertexBuffer::DrawPrimitive(Graphics::PrimitiveType primitive_type) const
+//{
+//  LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
+//  HRESULT hr = device->DrawPrimitive(
+//    NativeConstants::PRIMITIVE_TYPES[primitive_type],
+//    0,
+//    this->polygon_count_
+//  );
+//  NATIVE_ASSERT(SUCCEEDED(hr), "•`‰æ‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
+//}
 
 void NativeVertexBuffer::DrawIndexedPrimitive(const SharedRef<const rcIndexBuffer>& index_buffer, Graphics::PrimitiveType primitive_type) const
 {
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
   const T_UINT32 vertex_count = index_buffer->GetVertexesCount();
+  const T_UINT32 polygon_count = index_buffer->GetPolygonCount();
   HRESULT hr = device->DrawIndexedPrimitive(
     NativeConstants::PRIMITIVE_TYPES[primitive_type],
     0,
     0,
     vertex_count,
     0,
-    this->polygon_count_
+    polygon_count
   );
   NATIVE_ASSERT(SUCCEEDED(hr), "•`‰æ‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 }

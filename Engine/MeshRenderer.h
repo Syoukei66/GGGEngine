@@ -35,11 +35,33 @@ public:
   {
     this->mesh_ = mesh;
   }
+  inline void SetSubmeshVisible(T_UINT32 submesh_index, bool visible)
+  {
+    this->submesh_visible_[submesh_index] = visible;
+  }
+  inline bool GetSubmeshVisible(T_UINT32 submesh_index)
+  {
+    return this->submesh_visible_[submesh_index];
+  }
+  inline bool GetSubmeshVisible(T_UINT32 submesh_index) const
+  {
+    const auto& itr = this->submesh_visible_.find(submesh_index);
+    if (itr != this->submesh_visible_.end())
+    {
+      return itr->second;
+    }
+    return true;
+  }
+  inline void ClearSubmeshVisible()
+  {
+    this->submesh_visible_.clear();
+  }
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
   SharedRef<const rcMesh> mesh_;
+  std::unordered_map<T_UINT8, bool> submesh_visible_;
 
 };

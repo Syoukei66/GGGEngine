@@ -45,14 +45,14 @@ public:
   }
 
   void SetMaterial(const SharedRef<rcMaterial>& material, T_UINT16 index = 0);
-  inline void SetSharedMaterial(const SharedRef<const rcMaterial>& material, T_UINT16 index = 0)
+  inline void SetSharedMaterial(const SharedRef<rcMaterial>& material, T_UINT16 index = 0)
   {
     this->shared_materials_[index] = material;
   }
 
   SharedRef<rcMaterial> GetMaterial(T_UINT16 index = 0);
   SharedRef<const rcMaterial> GetMaterial(T_UINT16 index = 0) const;
-  inline SharedRef<const rcMaterial> GetSharedMaterial(T_UINT16 index = 0) const
+  inline SharedRef<rcMaterial> GetSharedMaterial(T_UINT16 index = 0)
   {
     return this->shared_materials_.at(index);
   }
@@ -83,7 +83,7 @@ public:
 protected:
   GameObject* entity_;
   T_UINT8 layer_id_;
-  std::unordered_map<T_UINT32, SharedRef<const rcMaterial>> shared_materials_;
+  std::unordered_map<T_UINT32, SharedRef<rcMaterial>> shared_materials_;
   std::unordered_map<T_UINT32, SharedRef<rcMaterial>> materials_;
 
 };

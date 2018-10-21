@@ -13,7 +13,7 @@ class GameObject3D : public GameObject
   // Factory Method
   // =================================================================
 public:
-  static GameObject3D* Create(const SharedRef<const rcModel>& model);
+  static GameObject3D* Create(const SharedRef<rcModel>& model);
 
   // =================================================================
   // Constructor / Destructor

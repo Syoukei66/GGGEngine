@@ -14,7 +14,7 @@ int main()
 
   director->Import();
   director->Export();
-  director->CreateProgram();
+  //director->CreateProgram();
 
   director->Uninit();
 

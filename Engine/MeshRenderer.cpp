@@ -16,6 +16,7 @@ MeshRenderer* MeshRenderer::Create(const SharedRef<const rcMesh>& mesh, GameObje
 MeshRenderer::MeshRenderer(GameObject* entity)
   : Renderer(entity)
   , mesh_()
+  , submesh_visible_()
 {
 }
 
@@ -42,5 +43,9 @@ void MeshRenderer::SetProperties(const SharedRef<rcShader>& shader) const
 
 void MeshRenderer::DrawSubset(T_UINT8 submesh_index) const
 {
+  if (!this->GetSubmeshVisible(submesh_index))
+  {
+    return;
+  }
   this->mesh_->DrawSubset(submesh_index);
 }

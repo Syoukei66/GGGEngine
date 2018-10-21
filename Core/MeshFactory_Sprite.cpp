@@ -81,7 +81,6 @@ MeshData* MeshFactory::Sprite::Create()
   MeshData* ret = new MeshData();
   using namespace Graphics;
   ret->vertex_count_ = SPRITE_VERTEXES_COUNT;
-  ret->polygon_count_ = PRIMITIVE_SURF_NUM(PRIMITIVE_TRIANGLES, SPRITE_VERTEX_INDICES_COUNT);
   ret->vertex_format_ = Graphics::V_FORMAT_PU;
   ret->vertex_size_ = CalcVertexSize(ret->vertex_format_);
   ret->data_ = new unsigned char[ret->vertex_count_ * ret->vertex_size_]();
@@ -101,5 +100,7 @@ MeshData* MeshFactory::Sprite::Create()
   ret->submesh_count_ = 1;
   ret->submesh_index_counts_ = new T_UINT32[ret->submesh_count_];
   ret->submesh_index_counts_[0] = ret->index_count_;
+  ret->submesh_polygon_counts_ = new T_UINT32[ret->submesh_count_];
+  ret->submesh_polygon_counts_[0] = PRIMITIVE_SURF_NUM(PRIMITIVE_TRIANGLES, SPRITE_VERTEX_INDICES_COUNT);
   return ret;
 }

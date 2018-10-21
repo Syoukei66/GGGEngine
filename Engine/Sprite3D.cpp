@@ -29,6 +29,6 @@ Sprite3D* Sprite3D::CreateWithMaterial(const SharedRef<rcMaterial>& material)
 {
   Sprite3D* ret = Sprite3D::CreateWithTextureRegion(rcTextureRegion::CreateWithMaterial(material));
   SpriteRenderer* renderer = ret->GetSpriteRenderer();
-  renderer->SetMaterial(material);
+  renderer->SetSharedMaterial(material);
   return ret;
 }

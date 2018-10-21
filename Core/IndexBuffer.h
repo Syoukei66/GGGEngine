@@ -8,7 +8,7 @@ class rcIndexBuffer : public Resource
   // Factory Method
   // =================================================================
 public:
-  static UniqueResource<rcIndexBuffer> Create(T_UINT32 vertex_count);
+  static UniqueResource<rcIndexBuffer> Create(T_UINT32 vertex_count, T_UINT32 polygon_count);
 
   // =================================================================
   // Constructor / Destructor
@@ -38,6 +38,7 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  virtual T_UINT16 GetVertexesCount() const = 0;
+  virtual T_UINT32 GetVertexesCount() const = 0;
+  virtual T_UINT32 GetPolygonCount() const = 0;
 
 };
