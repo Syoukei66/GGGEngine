@@ -37,9 +37,6 @@
     <Filter Include="ヘッダー ファイル\Resource\Mesh">
       <UniqueIdentifier>{67d24e54-6d35-4d02-9fbb-e6cc2e0c1cc3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Resource\Material">
-      <UniqueIdentifier>{11a28e52-3de9-4e86-9347-15d4c8e8150c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Resource\Mesh">
       <UniqueIdentifier>{1509ecdb-a3d0-4261-8861-60920556c309}</UniqueIdentifier>
     </Filter>
@@ -160,364 +157,148 @@
     <Filter Include="ヘッダー ファイル\Macro">
       <UniqueIdentifier>{7d135c1c-122c-47dd-ab41-706c7fa78929}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Resource\TextureAtlas">
+      <UniqueIdentifier>{c8435a3e-f2cc-4cb2-8d91-0feaeb281f66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Resource\TextureAtlas">
+      <UniqueIdentifier>{54a52273-5d80-4f10-ae06-6900bf9668c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Vector4.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="TranslationMatrix.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="ScalingMatrix.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Quaternion.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Matrix4x4.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Bounds.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Bezier.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Bresenham.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Geometry.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="BlendFunction.h">
-      <Filter>ヘッダー ファイル\Constants</Filter>
-    </ClInclude>
-    <ClInclude Include="Gradient.h">
-      <Filter>ヘッダー ファイル\Color</Filter>
-    </ClInclude>
-    <ClInclude Include="Color.h">
-      <Filter>ヘッダー ファイル\Color</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicsConstants.h">
-      <Filter>ヘッダー ファイル\Constants</Filter>
-    </ClInclude>
-    <ClInclude Include="Matrix4x3.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="CerealIO.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Cereal</Filter>
-    </ClInclude>
-    <ClInclude Include="Material.h">
-      <Filter>ヘッダー ファイル\Resource\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderProperties.h">
-      <Filter>ヘッダー ファイル\Resource\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshFactory_Cube.h">
-      <Filter>ヘッダー ファイル\Resource\Mesh\Factory</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshFactory_Plane.h">
-      <Filter>ヘッダー ファイル\Resource\Mesh\Factory</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshFactory_Sprite.h">
-      <Filter>ヘッダー ファイル\Resource\Mesh\Factory</Filter>
-    </ClInclude>
-    <ClInclude Include="EasingFunction.h">
-      <Filter>ヘッダー ファイル\Easing</Filter>
-    </ClInclude>
-    <ClInclude Include="EasingFunctionManager.h">
-      <Filter>ヘッダー ファイル\Easing</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderBuffer.h">
-      <Filter>ヘッダー ファイル\Resource\_Native\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>ヘッダー ファイル\Resource\_Native\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>ヘッダー ファイル\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceManager.h">
-      <Filter>ヘッダー ファイル\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>ヘッダー ファイル\Resource\_Native\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="VertexBuffer.h">
-      <Filter>ヘッダー ファイル\Resource\_Native\Buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="Sound.h">
-      <Filter>ヘッダー ファイル\Resource\_Native\Sound</Filter>
-    </ClInclude>
-    <ClInclude Include="IndexBuffer.h">
-      <Filter>ヘッダー ファイル\Resource\_Native\Buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderTexture.h">
-      <Filter>ヘッダー ファイル\Resource\_Native\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureSource.h">
-      <Filter>ヘッダー ファイル\Resource\_Native\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>ヘッダー ファイル\Resource\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleData.h">
-      <Filter>ヘッダー ファイル\Resource\Particle</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleDataManager.h">
-      <Filter>ヘッダー ファイル\Resource\Particle</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleSystem.h">
-      <Filter>ヘッダー ファイル\Resource\Particle</Filter>
-    </ClInclude>
-    <ClInclude Include="PerlinNoiseGenerator.h">
-      <Filter>ヘッダー ファイル\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="RandomGenerator.h">
-      <Filter>ヘッダー ファイル\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetManager.h">
-      <Filter>ヘッダー ファイル\Asset</Filter>
-    </ClInclude>
-    <ClInclude Include="StringUtils.h">
-      <Filter>ヘッダー ファイル\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="Mathf.h">
-      <Filter>ヘッダー ファイル\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="HashUtils.h">
-      <Filter>ヘッダー ファイル\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="JsonData.h">
-      <Filter>ヘッダー ファイル\Resource\Json</Filter>
-    </ClInclude>
-    <ClInclude Include="JsonParser.h">
-      <Filter>ヘッダー ファイル\Resource\Json</Filter>
-    </ClInclude>
-    <ClInclude Include="AttachmentVertexes.h">
-      <Filter>ヘッダー ファイル\Resource\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="SpineData.h">
-      <Filter>ヘッダー ファイル\Resource\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineAttachmentLoader.h">
-      <Filter>ヘッダー ファイル\Resource\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="CsvData.h">
-      <Filter>ヘッダー ファイル\Resource\CSV</Filter>
-    </ClInclude>
-    <ClInclude Include="CsvTokenizer.h">
-      <Filter>ヘッダー ファイル\Resource\CSV</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureAtlas.h">
-      <Filter>ヘッダー ファイル\Resource\Sprite</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureAtlasLoader.h">
-      <Filter>ヘッダー ファイル\Resource\Sprite</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureRegion.h">
-      <Filter>ヘッダー ファイル\Resource\Sprite</Filter>
-    </ClInclude>
-    <ClInclude Include="TiledTextureRegion.h">
-      <Filter>ヘッダー ファイル\Resource\Sprite</Filter>
-    </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>ヘッダー ファイル\Resource\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="SerializerTester.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Cereal\Test</Filter>
-    </ClInclude>
-    <ClInclude Include="SerializerTestMacro.hpp">
-      <Filter>ヘッダー ファイル\ThirdPirty\Cereal\Test</Filter>
-    </ClInclude>
     <ClInclude Include="Include.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Serializer.h">
-      <Filter>ヘッダー ファイル\ThirdPirty\Cereal</Filter>
+    <ClInclude Include="Resource\VertexBuffer.h">
+      <Filter>ヘッダー ファイル\Resource\_Native\Buffer</Filter>
     </ClInclude>
-    <ClInclude Include="MeshData.h">
-      <Filter>ヘッダー ファイル\Resource\Mesh</Filter>
+    <ClInclude Include="Resource\IndexBuffer.h">
+      <Filter>ヘッダー ファイル\Resource\_Native\Buffer</Filter>
     </ClInclude>
-    <ClInclude Include="ModelData.h">
-      <Filter>ヘッダー ファイル\Resource\Model</Filter>
+    <ClInclude Include="Resource\RenderBuffer.h">
+      <Filter>ヘッダー ファイル\Resource\_Native\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="MaterialData.h">
-      <Filter>ヘッダー ファイル\Resource\Material</Filter>
+    <ClInclude Include="Native\NativeProcess.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
     </ClInclude>
-    <ClInclude Include="CerealShaderPropertiesArchive.hpp">
-      <Filter>ヘッダー ファイル\Resource\Material</Filter>
+    <ClInclude Include="Common\Math\Bounds.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
     </ClInclude>
-    <ClInclude Include="AssetLoader.h">
-      <Filter>ヘッダー ファイル\Asset</Filter>
+    <ClInclude Include="Common\Math\Color.h">
+      <Filter>ヘッダー ファイル\Color</Filter>
     </ClInclude>
-    <ClInclude Include="UniqueIdTable.h">
-      <Filter>ヘッダー ファイル\Asset</Filter>
+    <ClInclude Include="Common\Math\Mathf.h">
+      <Filter>ヘッダー ファイル\Util</Filter>
     </ClInclude>
-    <ClInclude Include="Directory.h">
+    <ClInclude Include="Common\Math\Matrix4x4.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Math\Quaternion.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Math\ScalingMatrix.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Math\TranslationMatrix.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Math\Vector2.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Math\Vector3.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Math\Vector4.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Allocator\PoolAllocator.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="NativeAssert.h">
+    <ClInclude Include="Common\Logger.h">
       <Filter>ヘッダー ファイル\Native</Filter>
     </ClInclude>
-    <ClInclude Include="NativeLogger.h">
+    <ClInclude Include="Common\Types.h">
       <Filter>ヘッダー ファイル\Native</Filter>
     </ClInclude>
-    <ClInclude Include="NativeType.h">
+    <ClInclude Include="stdafx.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Object.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\ObjectManager.h">
+      <Filter>ヘッダー ファイル\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Ref.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\SharedRef.h">
+      <Filter>ヘッダー ファイル\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\UniqueRef.h">
+      <Filter>ヘッダー ファイル\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants\BlendFunction.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants\Directory.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants\GraphicsConstants.h">
+      <Filter>ヘッダー ファイル\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\VertexHelper.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Macro\ObjectMacro.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Macro\AssertMacro.h">
       <Filter>ヘッダー ファイル\Native</Filter>
     </ClInclude>
-    <ClInclude Include="NativeProcess.h">
-      <Filter>ヘッダー ファイル\Native</Filter>
-    </ClInclude>
-    <ClInclude Include="Macro.h">
+    <ClInclude Include="Macro\ProgramMacro.h">
       <Filter>ヘッダー ファイル\Macro</Filter>
     </ClInclude>
-    <ClInclude Include="UniqueResource.h">
-      <Filter>ヘッダー ファイル\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="SharedRef.h">
-      <Filter>ヘッダー ファイル\Resource</Filter>
+    <ClInclude Include="_Private\CerealIO.h">
+      <Filter>ヘッダー ファイル\ThirdPirty\Cereal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Bresenham.cpp">
-      <Filter>ソース ファイル\Math</Filter>
+    <ClCompile Include="Resource\VertexBuffer.cpp">
+      <Filter>ソース ファイル\Resource\_Native\Buffer</Filter>
     </ClCompile>
-    <ClCompile Include="Matrix4x4.cpp">
-      <Filter>ソース ファイル\Math</Filter>
+    <ClCompile Include="Resource\IndexBuffer.cpp">
+      <Filter>ソース ファイル\Resource\_Native\Buffer</Filter>
     </ClCompile>
-    <ClCompile Include="Quaternion.cpp">
-      <Filter>ソース ファイル\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Color.cpp">
-      <Filter>ソース ファイル\Color</Filter>
-    </ClCompile>
-    <ClCompile Include="Gradient.cpp">
-      <Filter>ソース ファイル\Color</Filter>
-    </ClCompile>
-    <ClCompile Include="Material.cpp">
-      <Filter>ソース ファイル\Resource\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshFactory_Sprite.cpp">
-      <Filter>ソース ファイル\Resource\Mesh\Factory</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshFactory_Plane.cpp">
-      <Filter>ソース ファイル\Resource\Mesh\Factory</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshFactory_Cube.cpp">
-      <Filter>ソース ファイル\Resource\Mesh\Factory</Filter>
-    </ClCompile>
-    <ClCompile Include="EasingFunction.cpp">
-      <Filter>ソース ファイル\Easing</Filter>
-    </ClCompile>
-    <ClCompile Include="EasingFunctionManager.cpp">
-      <Filter>ソース ファイル\Easing</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderBuffer.cpp">
+    <ClCompile Include="Resource\RenderBuffer.cpp">
       <Filter>ソース ファイル\Resource\_Native\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceManager.cpp">
+    <ClCompile Include="Common\Math\Color.cpp">
+      <Filter>ソース ファイル\Color</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Math\Quaternion.cpp">
+      <Filter>ソース ファイル\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Object.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\ObjectManager.cpp">
       <Filter>ソース ファイル\Resource</Filter>
     </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>ソース ファイル\Resource\_Native\Texture</Filter>
+    <ClCompile Include="Common\Math\Vector2.inl">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>ソース ファイル\Resource\_Native\Shader</Filter>
+    <ClCompile Include="Common\Math\Vector3.inl">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="VertexBuffer.cpp">
-      <Filter>ソース ファイル\Resource\_Native\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="Sound.cpp">
-      <Filter>ソース ファイル\Resource\_Native\Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="IndexBuffer.cpp">
-      <Filter>ソース ファイル\Resource\_Native\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderTexture.cpp">
-      <Filter>ソース ファイル\Resource\_Native\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>ソース ファイル\Resource\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleDataManager.cpp">
-      <Filter>ソース ファイル\Resource\Particle</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleSystem.cpp">
-      <Filter>ソース ファイル\Resource\Particle</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleData.cpp">
-      <Filter>ソース ファイル\Resource\Particle</Filter>
-    </ClCompile>
-    <ClCompile Include="RandomGenerator.cpp">
-      <Filter>ソース ファイル\Util</Filter>
-    </ClCompile>
-    <ClCompile Include="PerlinNoiseGenerator.cpp">
-      <Filter>ソース ファイル\Util</Filter>
-    </ClCompile>
-    <ClCompile Include="AssetManager.cpp">
-      <Filter>ソース ファイル\Asset</Filter>
-    </ClCompile>
-    <ClCompile Include="SerealizerTester.cpp">
-      <Filter>ソース ファイル\ThirdPirty\Cereal\Test</Filter>
-    </ClCompile>
-    <ClCompile Include="JsonParser.cpp">
-      <Filter>ソース ファイル\Resource\Json</Filter>
-    </ClCompile>
-    <ClCompile Include="JsonData.cpp">
-      <Filter>ソース ファイル\Resource\Json</Filter>
-    </ClCompile>
-    <ClCompile Include="AttachmentVertexes.cpp">
-      <Filter>ソース ファイル\Resource\Spine</Filter>
-    </ClCompile>
-    <ClCompile Include="SpineData.cpp">
-      <Filter>ソース ファイル\Resource\Spine</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineAttachmentLoader.cpp">
-      <Filter>ソース ファイル\Resource\Spine</Filter>
-    </ClCompile>
-    <ClCompile Include="CsvTokenizer.cpp">
-      <Filter>ソース ファイル\Resource\CSV</Filter>
-    </ClCompile>
-    <ClCompile Include="CsvData.cpp">
-      <Filter>ソース ファイル\Resource\CSV</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureAtlas.cpp">
-      <Filter>ソース ファイル\Resource\Sprite</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureAtlasLoader.cpp">
-      <Filter>ソース ファイル\Resource\Sprite</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureRegion.cpp">
-      <Filter>ソース ファイル\Resource\Sprite</Filter>
-    </ClCompile>
-    <ClCompile Include="TiledTextureRegion.cpp">
-      <Filter>ソース ファイル\Resource\Sprite</Filter>
-    </ClCompile>
-    <ClCompile Include="Model.cpp">
-      <Filter>ソース ファイル\Resource\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="MaterialData.cpp">
-      <Filter>ソース ファイル\Resource\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshData.cpp">
-      <Filter>ソース ファイル\Resource\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelData.cpp">
-      <Filter>ソース ファイル\Resource\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="UniqueIdTable.cpp">
-      <Filter>ソース ファイル\Asset</Filter>
+    <ClCompile Include="Common\Math\Matrix4x4.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Matrix4x4.inl">
+    <None Include="Common\Math\Matrix4x4.inl">
       <Filter>ヘッダー ファイル\Math</Filter>
     </None>
   </ItemGroup>

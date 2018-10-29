@@ -56,7 +56,7 @@ private:
   D3DXHANDLE GetHandle(const std::string& property_name);
 
   // =================================================================
-  // Getter / Setter
+  // Setter / Getter
   // =================================================================
 public:
   virtual size_t GetMemorySize() const override

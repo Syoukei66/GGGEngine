@@ -1,8 +1,8 @@
 #pragma once
 
 #include <string>
+#include <unordered_set>
 #include <vector>
-#include "ProgramEntity.h"
 
 class ProjectEntity
 {
@@ -11,11 +11,13 @@ public:
   ~ProjectEntity();
 
 public:
-  void Crawl();
-  void CreateProgram(std::string* header, std::string* cpp);
+  void CreateProgram(std::string* header, std::string* cpp) const;
+
+  void Crawl(const std::string& path, std::vector<std::string>* dest) const;
 
 private:
   std::string path_;
-  std::vector<TypeEntity*> type_entities_;
+  std::unordered_set<std::string> ignores_;
+  std::unordered_set<std::string> specials_;
 
 };

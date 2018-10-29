@@ -19,7 +19,7 @@ public:
   void PushParser(Parser* parser);
   void PopParser();
 
-  inline void AddSerializableType(const TypeEntity& entity)
+  GG_INLINE void AddSerializableType(const TypeEntity& entity)
   {
     this->serializable_types_.emplace_back(entity);
   }
@@ -28,7 +28,7 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  inline Parser* CurrentParser()
+  GG_INLINE Parser* CurrentParser()
   {
     return this->current_;
   }

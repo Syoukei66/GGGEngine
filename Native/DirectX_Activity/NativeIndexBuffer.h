@@ -21,14 +21,14 @@ public:
   virtual void SetIndices() const override;
 
   // =================================================================
-  // setter/getter
+  // Setter / Getter
   // =================================================================
 public:
-  virtual inline T_UINT32 GetVertexesCount() const override
+  virtual GG_INLINE T_UINT32 GetVertexesCount() const override
   {
     return this->vertex_count_;
   }
-  virtual inline T_UINT32 GetPolygonCount() const override
+  virtual GG_INLINE T_UINT32 GetPolygonCount() const override
   {
     return this->polygon_count_;
   }

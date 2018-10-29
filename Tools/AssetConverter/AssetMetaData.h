@@ -43,7 +43,7 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  inline T_UINT32 GetUniqueID() const
+  GG_INLINE T_UINT32 GetUniqueID() const
   {
     return this->unique_id_;
   }

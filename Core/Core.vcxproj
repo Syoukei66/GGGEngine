@@ -91,9 +91,13 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty\;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h;Core/stdafx.h</ForcedIncludeFiles>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -102,9 +106,13 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty\;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h;Core/stdafx.h</ForcedIncludeFiles>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -115,9 +123,13 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty\;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h;Core/stdafx.h</ForcedIncludeFiles>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -132,9 +144,13 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty\;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h;Core/stdafx.h</ForcedIncludeFiles>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -142,128 +158,73 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="Matrix4x4.inl" />
+    <ClInclude Include="Common\Math\Matrix4x4.inl">
+      <FileType>Document</FileType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AssetLoader.h" />
-    <ClInclude Include="AssetManager.h" />
-    <ClInclude Include="AttachmentVertexes.h" />
-    <ClInclude Include="Bezier.h" />
-    <ClInclude Include="BlendFunction.h" />
-    <ClInclude Include="Bounds.h" />
-    <ClInclude Include="Bresenham.h" />
-    <ClInclude Include="CerealIO.h" />
-    <ClInclude Include="Color.h" />
-    <ClInclude Include="CsvData.h" />
-    <ClInclude Include="CsvTokenizer.h" />
-    <ClInclude Include="Directory.h" />
-    <ClInclude Include="EasingFunction.h" />
-    <ClInclude Include="EasingFunctionManager.h" />
-    <ClInclude Include="EngineAttachmentLoader.h" />
-    <ClInclude Include="Geometry.h" />
-    <ClInclude Include="Gradient.h" />
-    <ClInclude Include="GraphicsConstants.h" />
-    <ClInclude Include="HashUtils.h" />
+    <ClInclude Include="Common\Allocator\PoolAllocator.h" />
+    <ClInclude Include="Constants\BlendFunction.h" />
+    <ClInclude Include="Common\Math\Bounds.h" />
+    <ClInclude Include="Macro\ObjectMacro.h" />
+    <ClInclude Include="Object\Object.h" />
+    <ClInclude Include="Object\Ref.h" />
+    <ClInclude Include="_Private\CerealIO.h" />
+    <ClInclude Include="Common\Math\Color.h" />
+    <ClInclude Include="Constants\Directory.h" />
+    <ClInclude Include="Constants\GraphicsConstants.h" />
     <ClInclude Include="Include.h" />
-    <ClInclude Include="JsonData.h" />
-    <ClInclude Include="JsonParser.h" />
-    <ClInclude Include="Macro.h" />
-    <ClInclude Include="MaterialData.h" />
-    <ClInclude Include="Model.h" />
-    <ClInclude Include="NativeLogger.h" />
-    <ClInclude Include="Serializer.h" />
-    <ClInclude Include="SerializerTester.h" />
-    <ClInclude Include="SerializerTestMacro.hpp" />
-    <ClInclude Include="CerealShaderPropertiesArchive.hpp" />
-    <ClInclude Include="SharedRef.h" />
-    <ClInclude Include="SpineData.h" />
-    <ClInclude Include="MeshData.h" />
-    <ClInclude Include="ModelData.h" />
-    <ClInclude Include="StringUtils.h" />
-    <ClInclude Include="TextureRegion.h" />
-    <ClInclude Include="Mathf.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="Material.h" />
-    <ClInclude Include="Matrix4x3.h" />
-    <ClInclude Include="Matrix4x4.h" />
-    <ClInclude Include="MeshFactory_Cube.h" />
-    <ClInclude Include="MeshFactory_Plane.h" />
-    <ClInclude Include="MeshFactory_Sprite.h" />
-    <ClInclude Include="NativeAssert.h" />
-    <ClInclude Include="IndexBuffer.h" />
-    <ClInclude Include="NativeProcess.h" />
-    <ClInclude Include="ParticleData.h" />
-    <ClInclude Include="ParticleDataManager.h" />
-    <ClInclude Include="ParticleSystem.h" />
-    <ClInclude Include="PerlinNoiseGenerator.h" />
-    <ClInclude Include="RandomGenerator.h" />
-    <ClInclude Include="RenderTexture.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="Sound.h" />
-    <ClInclude Include="NativeType.h" />
-    <ClInclude Include="TextureAtlas.h" />
-    <ClInclude Include="TextureAtlasLoader.h" />
-    <ClInclude Include="TextureSource.h" />
-    <ClInclude Include="TiledTextureRegion.h" />
-    <ClInclude Include="UniqueIdTable.h" />
-    <ClInclude Include="UniqueResource.h" />
-    <ClInclude Include="VertexBuffer.h" />
-    <ClInclude Include="Quaternion.h" />
-    <ClInclude Include="RenderBuffer.h" />
-    <ClInclude Include="Resource.h" />
-    <ClInclude Include="ResourceManager.h" />
-    <ClInclude Include="ScalingMatrix.h" />
-    <ClInclude Include="ShaderProperties.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="TranslationMatrix.h" />
-    <ClInclude Include="Vector2.h" />
-    <ClInclude Include="Vector3.h" />
-    <ClInclude Include="Vector4.h" />
+    <ClInclude Include="Macro\ProgramMacro.h" />
+    <ClInclude Include="Common\Logger.h" />
+    <ClInclude Include="Object\SharedRef.h" />
+    <ClInclude Include="Common\Math\Mathf.h" />
+    <ClInclude Include="Common\Math\Matrix4x4.h" />
+    <ClInclude Include="Macro\AssertMacro.h" />
+    <ClInclude Include="Resource\IndexBuffer.h" />
+    <ClInclude Include="Native\NativeProcess.h" />
+    <ClInclude Include="Common\Types.h" />
+    <ClInclude Include="Object\UniqueRef.h" />
+    <ClInclude Include="Resource\VertexBuffer.h" />
+    <ClInclude Include="Common\Math\Quaternion.h" />
+    <ClInclude Include="Resource\RenderBuffer.h" />
+    <ClInclude Include="Object\ObjectManager.h" />
+    <ClInclude Include="Common\Math\ScalingMatrix.h" />
+    <ClInclude Include="Common\Math\TranslationMatrix.h" />
+    <ClInclude Include="Common\Math\Vector2.h" />
+    <ClInclude Include="Common\Math\Vector3.h" />
+    <ClInclude Include="Common\Math\Vector4.h" />
+    <ClInclude Include="Resource\VertexHelper.h" />
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AssetManager.cpp" />
-    <ClCompile Include="AttachmentVertexes.cpp" />
-    <ClCompile Include="Bresenham.cpp" />
-    <ClCompile Include="Color.cpp" />
-    <ClCompile Include="CsvData.cpp" />
-    <ClCompile Include="CsvTokenizer.cpp" />
-    <ClCompile Include="EasingFunction.cpp" />
-    <ClCompile Include="EasingFunctionManager.cpp" />
-    <ClCompile Include="EngineAttachmentLoader.cpp" />
-    <ClCompile Include="Gradient.cpp" />
-    <ClCompile Include="JsonData.cpp" />
-    <ClCompile Include="JsonParser.cpp" />
-    <ClCompile Include="MaterialData.cpp" />
-    <ClCompile Include="Model.cpp" />
-    <ClCompile Include="SerealizerTester.cpp" />
-    <ClCompile Include="SpineData.cpp" />
-    <ClCompile Include="MeshData.cpp" />
-    <ClCompile Include="ModelData.cpp" />
-    <ClCompile Include="TextureRegion.cpp" />
-    <ClCompile Include="Material.cpp" />
-    <ClCompile Include="Matrix4x4.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="MeshFactory_Cube.cpp" />
-    <ClCompile Include="MeshFactory_Plane.cpp" />
-    <ClCompile Include="MeshFactory_Sprite.cpp" />
-    <ClCompile Include="IndexBuffer.cpp" />
-    <ClCompile Include="ParticleData.cpp" />
-    <ClCompile Include="ParticleDataManager.cpp" />
-    <ClCompile Include="ParticleSystem.cpp" />
-    <ClCompile Include="PerlinNoiseGenerator.cpp" />
-    <ClCompile Include="Quaternion.cpp" />
-    <ClCompile Include="RandomGenerator.cpp" />
-    <ClCompile Include="RenderBuffer.cpp" />
-    <ClCompile Include="RenderTexture.cpp" />
-    <ClCompile Include="ResourceManager.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="Sound.cpp" />
-    <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="TextureAtlas.cpp" />
-    <ClCompile Include="TextureAtlasLoader.cpp" />
-    <ClCompile Include="TiledTextureRegion.cpp" />
-    <ClCompile Include="UniqueIdTable.cpp" />
-    <ClCompile Include="VertexBuffer.cpp" />
+    <ClCompile Include="Common\Math\Color.cpp" />
+    <ClInclude Include="Common\Math\Vector2.inl">
+      <FileType>Document</FileType>
+    </ClInclude>
+    <ClInclude Include="Common\Math\Vector3.inl">
+      <FileType>Document</FileType>
+    </ClInclude>
+    <ClCompile Include="Common\Math\Matrix4x4.cpp" />
+    <ClCompile Include="Object\Object.cpp" />
+    <ClCompile Include="Resource\IndexBuffer.cpp" />
+    <ClCompile Include="Common\Math\Quaternion.cpp" />
+    <ClCompile Include="Resource\RenderBuffer.cpp" />
+    <ClCompile Include="Object\ObjectManager.cpp" />
+    <ClCompile Include="Resource\VertexBuffer.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ForcedIncludeFiles>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

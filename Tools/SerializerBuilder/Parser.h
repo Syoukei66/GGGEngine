@@ -28,12 +28,12 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  inline void SetParent(Parser* parent)
+  GG_INLINE void SetParent(Parser* parent)
   {
     this->parent_ = parent;
   }
 
-  inline Parser* GetParent()
+  GG_INLINE Parser* GetParent()
   {
     return this->parent_;
   }

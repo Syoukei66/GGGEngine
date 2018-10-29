@@ -107,40 +107,40 @@ NativeSound::NativeSound(const char* path)
   hFile = CreateFile(path, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
   if (hFile == INVALID_HANDLE_VALUE)
   {
-    NATIVE_ASSERT(false, "サウンドデータファイルの生成に失敗！(1)");
+    GG_ASSERT(false, "サウンドデータファイルの生成に失敗！(1)");
   }
   if (SetFilePointer(hFile, 0, NULL, FILE_BEGIN) == INVALID_SET_FILE_POINTER)
   {// ファイルポインタを先頭に移動
-    NATIVE_ASSERT(false, "サウンドデータファイルの生成に失敗！(2)");
+    GG_ASSERT(false, "サウンドデータファイルの生成に失敗！(2)");
   }
 
   HRESULT hr;
   // WAVEファイルのチェック
   hr = CheckChunk(hFile, 'FFIR', &dwChunkSize, &dwChunkPosition);
-  NATIVE_ASSERT(SUCCEEDED(hr), "WAVEファイルのチェックに失敗！(1)");
+  GG_ASSERT(SUCCEEDED(hr), "WAVEファイルのチェックに失敗！(1)");
   hr = ReadChunkData(hFile, &dwFiletype, sizeof(DWORD), dwChunkPosition);
-  NATIVE_ASSERT(SUCCEEDED(hr), "WAVEファイルのチェックに失敗！(2)");
+  GG_ASSERT(SUCCEEDED(hr), "WAVEファイルのチェックに失敗！(2)");
   if (dwFiletype != 'EVAW')
   {
-    NATIVE_ASSERT(FAILED(hr), "WAVEファイルのチェックに失敗！(3)");
+    GG_ASSERT(FAILED(hr), "WAVEファイルのチェックに失敗！(3)");
   }
 
   // フォーマットチェック
   hr = CheckChunk(hFile, ' tmf', &dwChunkSize, &dwChunkPosition);
-  NATIVE_ASSERT(SUCCEEDED(hr), "フォーマットチェックに失敗！(1)");
+  GG_ASSERT(SUCCEEDED(hr), "フォーマットチェックに失敗！(1)");
   hr = ReadChunkData(hFile, &wfx, dwChunkSize, dwChunkPosition);
-  NATIVE_ASSERT(SUCCEEDED(hr), "フォーマットチェックに失敗！(2)");
+  GG_ASSERT(SUCCEEDED(hr), "フォーマットチェックに失敗！(2)");
 
   // オーディオデータ読み込み
   hr = CheckChunk(hFile, 'atad', &this->size_audio_, &dwChunkPosition);
-  NATIVE_ASSERT(SUCCEEDED(hr), "オーディオデータ読み込みに失敗！(1)");
+  GG_ASSERT(SUCCEEDED(hr), "オーディオデータ読み込みに失敗！(1)");
   this->data_audio_ = (BYTE*)malloc(this->size_audio_);
   hr = ReadChunkData(hFile, this->data_audio_, this->size_audio_, dwChunkPosition);
-  NATIVE_ASSERT(SUCCEEDED(hr), "オーディオデータ読み込みに失敗！(2)");
+  GG_ASSERT(SUCCEEDED(hr), "オーディオデータ読み込みに失敗！(2)");
 
   // ソースボイスの生成
   hr = AudioManager::GetInstance().GetXAudio()->CreateSourceVoice(&this->souce_voice_, &(wfx.Format));
-  NATIVE_ASSERT(SUCCEEDED(hr), "ソースボイスの生成に失敗！");
+  GG_ASSERT(SUCCEEDED(hr), "ソースボイスの生成に失敗！");
 }
 
 NativeSound::~NativeSound()

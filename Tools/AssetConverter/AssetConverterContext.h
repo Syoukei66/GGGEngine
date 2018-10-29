@@ -26,20 +26,20 @@ public:
   // Methods
   // =================================================================
 public:
-  inline bool Reserve(const URI& uri);
+  GG_INLINE bool Reserve(const URI& uri);
 
   template <class Entity_>
-  inline Entity_* ImportImmediately(const URI& uri);
+  GG_INLINE Entity_* ImportImmediately(const URI& uri);
 
   template <class Entity_>
-  inline Entity_* AddEntity(Entity_* entity);
+  GG_INLINE Entity_* AddEntity(Entity_* entity);
 
   template <class Entity_>
-  inline Entity_* GetEntity(const URI& uri);
+  GG_INLINE Entity_* GetEntity(const URI& uri);
 
-  inline T_UINT32 PublishUniqueID(const URI& uri);
-  inline T_UINT32 GetUniqueID(const URI& uri) const;
-  inline void RegisterDefaultUniqueID(T_UINT32 default_uid, const URI& uri);
+  GG_INLINE T_UINT32 PublishUniqueID(const URI& uri);
+  GG_INLINE T_UINT32 GetUniqueID(const URI& uri) const;
+  GG_INLINE void RegisterDefaultUniqueID(T_UINT32 default_uid, const URI& uri);
 
   // =================================================================
   // Data Members
@@ -52,7 +52,7 @@ protected:
 
 #include "AssetConverterManager.h"
 
-inline bool AssetConverterContext::Reserve(const URI& uri)
+GG_INLINE bool AssetConverterContext::Reserve(const URI& uri)
 {
   //Info‚ª¶¬‚³‚ê‚é‚Ü‚ÅConverter‚ð‘–¸
   return this->converter_manager_->Fire([&](IAssetConverter* converter)
@@ -62,7 +62,7 @@ inline bool AssetConverterContext::Reserve(const URI& uri)
 }
 
 template<class Entity_>
-inline Entity_* AssetConverterContext::ImportImmediately(const URI& uri)
+GG_INLINE Entity_* AssetConverterContext::ImportImmediately(const URI& uri)
 {
   return this->converter_manager_->Find<Entity_, Entity_>([&](AssetConverter<Entity_>* converter)
   {
@@ -71,7 +71,7 @@ inline Entity_* AssetConverterContext::ImportImmediately(const URI& uri)
 }
 
 template<class Entity_>
-inline Entity_* AssetConverterContext::AddEntity(Entity_* entity)
+GG_INLINE Entity_* AssetConverterContext::AddEntity(Entity_* entity)
 {
   this->converter_manager_->VisitAll<Entity_>([&](AssetConverter<Entity_>* converter)
   {
@@ -81,7 +81,7 @@ inline Entity_* AssetConverterContext::AddEntity(Entity_* entity)
 }
 
 template<class Entity_>
-inline Entity_* AssetConverterContext::GetEntity(const URI& uri)
+GG_INLINE Entity_* AssetConverterContext::GetEntity(const URI& uri)
 {
   return this->converter_manager_->Find<Entity_, Entity_>([&](AssetConverter<Entity_>* converter)
   {
@@ -89,17 +89,17 @@ inline Entity_* AssetConverterContext::GetEntity(const URI& uri)
   });
 }
 
-inline T_UINT32 AssetConverterContext::PublishUniqueID(const URI& uri)
+GG_INLINE T_UINT32 AssetConverterContext::PublishUniqueID(const URI& uri)
 {
   return this->unique_id_table_->Publish(FileUtil::CreateRuntimeAssetPath(uri));
 }
 
-inline T_UINT32 AssetConverterContext::GetUniqueID(const URI& uri) const
+GG_INLINE T_UINT32 AssetConverterContext::GetUniqueID(const URI& uri) const
 {
   return this->unique_id_table_->GetID(FileUtil::CreateRuntimeAssetPath(uri));
 }
 
-inline void AssetConverterContext::RegisterDefaultUniqueID(T_UINT32 default_uid, const URI& uri)
+GG_INLINE void AssetConverterContext::RegisterDefaultUniqueID(T_UINT32 default_uid, const URI& uri)
 {
   this->unique_id_table_->RegisterDefaultAssetUniqueID(default_uid, FileUtil::CreateRuntimeAssetPath(uri));
 }

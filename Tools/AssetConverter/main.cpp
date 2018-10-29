@@ -14,7 +14,7 @@ int main()
 
   director->Import();
   director->Export();
-  //director->CreateProgram();
+  director->CreateProgram();
 
   director->Uninit();
 
@@ -26,6 +26,6 @@ int main()
 
 #include "../Core/NativeProcess.h"
 
-void NativeProcess::Graphics::PackColor4u8(T_PACKED_COLOR_UINT32* color, T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a)
+void NativeProcess::Graphics::PackColor4u8(T_FIXED_UINT32* color, T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a)
 {
 }

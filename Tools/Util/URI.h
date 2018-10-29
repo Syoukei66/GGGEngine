@@ -23,7 +23,7 @@ public:
   const std::string& GetPrefix() const;
   const std::string& GetExtension() const;
 
-  inline const std::string& GetFullPath() const
+  GG_INLINE const std::string& GetFullPath() const
   {
     return this->full_path_;
   }

@@ -25,7 +25,7 @@ HRESULT AudioManager::Init()
   hr = XAudio2Create(&x_audio_2_, 0);
   if (FAILED(hr))
   {
-    NATIVE_ASSERT(false, "XAudio2オブジェクトの作成に失敗！");
+    GG_ASSERT(false, "XAudio2オブジェクトの作成に失敗！");
 
     // COMライブラリの終了処理
     CoUninitialize();
@@ -37,7 +37,7 @@ HRESULT AudioManager::Init()
   hr = x_audio_2_->CreateMasteringVoice(&mastering_voice_);
   if (FAILED(hr))
   {
-    NATIVE_ASSERT(false, "マスターボイスの生成に失敗！");
+    GG_ASSERT(false, "マスターボイスの生成に失敗！");
 
     if (x_audio_2_)
     {

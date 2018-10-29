@@ -124,9 +124,9 @@ void SetViewport(T_FLOAT x, T_FLOAT y, T_FLOAT w, T_FLOAT h, T_FLOAT minZ, T_FLO
   device->SetViewport(&viewport);
 }
 
-void PackColor4u8(T_PACKED_COLOR_UINT32* color, T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a)
+void PackColor4u8(T_FIXED_UINT32* color, T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a)
 {
-  (*color) = (T_PACKED_COLOR_UINT32)D3DCOLOR_RGBA(r, g, b, a);
+  (*color) = (T_FIXED_UINT32)D3DCOLOR_RGBA(r, g, b, a);
 }
 
 static LPDIRECT3DSURFACE9 temp_color_buffer = nullptr;
@@ -144,15 +144,15 @@ void SetRenderTarget(const SharedRef<rcRenderBuffer>& color_buffer, const Shared
   device->EndScene();
 
   //現在の各バッファを保持しておく
-  NATIVE_ASSERT(!temp_color_buffer && !temp_depth_buffer, "RenderBegin()を二重に呼び出しました。");
+  GG_ASSERT(!temp_color_buffer && !temp_depth_buffer, "RenderBegin()を二重に呼び出しました。");
   device->GetRenderTarget(0, &temp_color_buffer);
   device->GetDepthStencilSurface(&temp_depth_buffer);
 
   HRESULT hr = device->SetRenderTarget(0, (LPDIRECT3DSURFACE9)use_color_buffer->GetNativeObject());
-  NATIVE_ASSERT(SUCCEEDED(hr), "レンダ―ターゲットの設定に失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "レンダ―ターゲットの設定に失敗しました");
 
   hr = device->SetDepthStencilSurface((LPDIRECT3DSURFACE9)use_depth_stencil_buffer->GetNativeObject());
-  NATIVE_ASSERT(SUCCEEDED(hr), "深度バッファの設定に失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "深度バッファの設定に失敗しました");
 
   device->BeginScene();
 
@@ -174,9 +174,9 @@ void ResetRenderTarget()
   device->EndScene();
 
   HRESULT hr = device->SetRenderTarget(0, temp_color_buffer);
-  NATIVE_ASSERT(SUCCEEDED(hr), "レンダ―ターゲットの設定に失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "レンダ―ターゲットの設定に失敗しました");
   hr = device->SetDepthStencilSurface(temp_depth_buffer);
-  NATIVE_ASSERT(SUCCEEDED(hr), "深度バッファの設定に失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "深度バッファの設定に失敗しました");
 
   temp_color_buffer = nullptr;
   temp_depth_buffer = nullptr;
@@ -195,7 +195,7 @@ void ResetRenderTarget()
 namespace Resource
 {
 
-UniqueResource<rcTexture> TextureLoad(const char* path)
+UniqueRef<rcTexture> TextureLoad(const char* path)
 {
   LP_DEVICE device = Director::GetDevice();
 
@@ -204,7 +204,7 @@ UniqueResource<rcTexture> TextureLoad(const char* path)
     path,
     &info
   );
-  NATIVE_ASSERT(SUCCEEDED(hr), "テクスチャサイズの取得に失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "テクスチャサイズの取得に失敗しました");
 
   LPDIRECT3DTEXTURE9 tex = nullptr;
   hr = D3DXCreateTextureFromFileEx(
@@ -223,7 +223,7 @@ UniqueResource<rcTexture> TextureLoad(const char* path)
     NULL,
     &tex);
 
-  NATIVE_ASSERT(SUCCEEDED(hr), "テクスチャのロードに失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "テクスチャのロードに失敗しました");
 
   return rcTexture::Create((T_UINT16)info.Width, (T_UINT16)info.Height, tex);
 }
@@ -239,21 +239,21 @@ void GetTextureSize(const rcTexture* texture, T_UINT16* width_dest, T_UINT16* he
 
   D3DSURFACE_DESC desc;
   HRESULT hr = tex->GetLevelDesc(0, &desc);
-  NATIVE_ASSERT(SUCCEEDED(hr), "テクスチャの情報の取得に失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "テクスチャの情報の取得に失敗しました");
   (*width_dest) = desc.Width;
   (*height_dest) = desc.Height;
 }
 
-UniqueResource<rcRenderBuffer> CreateColorBuffer(const SharedRef<const rcTexture>& texture)
+UniqueRef<rcRenderBuffer> CreateColorBuffer(const SharedRef<const rcTexture>& texture)
 {
   LPDIRECT3DTEXTURE9 tex = (LPDIRECT3DTEXTURE9)texture->GetNativeObject();
   LPDIRECT3DSURFACE9 surf;
   HRESULT hr = tex->GetSurfaceLevel(0, &surf);
-  NATIVE_ASSERT(SUCCEEDED(hr), "テクスチャのサーフェイスの取得に失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "テクスチャのサーフェイスの取得に失敗しました");
   return rcRenderBuffer::Create(surf);
 }
 
-UniqueResource<rcRenderBuffer> CreateDepthStencilBuffer(T_UINT16 width, T_UINT16 height, rcRenderBuffer::Format format)
+UniqueRef<rcRenderBuffer> CreateDepthStencilBuffer(T_UINT16 width, T_UINT16 height, rcRenderBuffer::Format format)
 {
   LPDIRECT3DSURFACE9 surf;
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
@@ -267,7 +267,7 @@ UniqueResource<rcRenderBuffer> CreateDepthStencilBuffer(T_UINT16 width, T_UINT16
     &surf,
     nullptr
   );
-  NATIVE_ASSERT(SUCCEEDED(hr), "深度バッファの作成に失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "深度バッファの作成に失敗しました");
   return rcRenderBuffer::Create(surf);
 }
 
@@ -276,7 +276,7 @@ void DeleteRenderBuffer(rcRenderBuffer* render_buffer)
   ((LPDIRECT3DSURFACE9)render_buffer->GetNativeObject())->Release();
 }
 
-UniqueResource<rcRenderTexture> CreateRenderTexture(T_UINT16 width, T_UINT16 height, rcRenderBuffer::Format format, rcRenderBuffer::Format depth_format)
+UniqueRef<rcRenderTexture> CreateRenderTexture(T_UINT16 width, T_UINT16 height, rcRenderBuffer::Format format, rcRenderBuffer::Format depth_format)
 {
   using namespace NativeConstants;
   width = Mathf::CalcTwoPowerValue(width);
@@ -296,12 +296,12 @@ UniqueResource<rcRenderTexture> CreateRenderTexture(T_UINT16 width, T_UINT16 hei
     D3DPOOL_DEFAULT,
     &tex);
 
-  NATIVE_ASSERT(SUCCEEDED(hr), "テクスチャの作成に失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "テクスチャの作成に失敗しました");
 
   return rcRenderTexture::Create(width, height, tex, depth_format);
 }
 
-UniqueResource<rcShader> ShaderLoad(const char* path)
+UniqueRef<rcShader> ShaderLoad(const char* path)
 {
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
   LPD3DXEFFECT dest = nullptr;
@@ -316,23 +316,23 @@ UniqueResource<rcShader> ShaderLoad(const char* path)
     &dest,
     NULL
   );
-  NATIVE_ASSERT(SUCCEEDED(hr), "シェーダーのロードに失敗しました");
-  return UniqueResource<rcShader>(new NativeShader(dest));
+  GG_ASSERT(SUCCEEDED(hr), "シェーダーのロードに失敗しました");
+  return UniqueRef<rcShader>(new NativeShader(dest));
 }
 
-UniqueResource<rcSound> SoundLoad(const char* path)
+UniqueRef<rcSound> SoundLoad(const char* path)
 {
-  return UniqueResource<rcSound>(new NativeSound(path));
+  return UniqueRef<rcSound>(new NativeSound(path));
 }
 
-UniqueResource<rcVertexBuffer> CreateVertexBuffer(T_UINT32 vertex_count, T_UINT32 format)
+UniqueRef<rcVertexBuffer> CreateVertexBuffer(T_UINT32 vertex_count, T_UINT32 format)
 {
-  return UniqueResource<rcVertexBuffer>(new NativeVertexBuffer(vertex_count, format));
+  return UniqueRef<rcVertexBuffer>(new NativeVertexBuffer(vertex_count, format));
 }
 
-UniqueResource<rcIndexBuffer> CreateIndexBuffer(T_UINT32 indexes_count, T_UINT32 polygon_count)
+UniqueRef<rcIndexBuffer> CreateIndexBuffer(T_UINT32 indexes_count, T_UINT32 polygon_count)
 {
-  return UniqueResource<rcIndexBuffer>(new NativeIndexBuffer(indexes_count, polygon_count));
+  return UniqueRef<rcIndexBuffer>(new NativeIndexBuffer(indexes_count, polygon_count));
 }
 }
 

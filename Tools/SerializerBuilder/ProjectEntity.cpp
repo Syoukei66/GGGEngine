@@ -26,14 +26,20 @@ ProjectEntity::~ProjectEntity()
 
 }
 
-void ProjectEntity::Crawl()
+void ProjectEntity::CreateProgram(std::string* header, std::string* cpp) const
 {
   std::vector<std::string> targets;
 
+  this->Crawl("", &targets);
+
+}
+
+void ProjectEntity::Crawl(const std::string& path, std::vector<std::string>* dest) const
+{
   HANDLE handle;
   WIN32_FIND_DATA data;
 
-  std::string find_file = ENGINE_DIRECTORY_PATH + "/" + this->path_ + "/*";
+  std::string find_file = ENGINE_DIRECTORY_PATH + "/" + this->path_ + path + "/*";
   handle = FindFirstFile(find_file.c_str(), &data);
   if (handle == INVALID_HANDLE_VALUE)
   {
@@ -58,6 +64,7 @@ void ProjectEntity::Crawl()
 
     if (data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
     {
+      Crawl(path + "/" + data.cFileName, dest);
       continue;
     }
 
@@ -73,25 +80,9 @@ void ProjectEntity::Crawl()
       continue;
     }
 
-    targets.push_back(file_name);
+    (*dest).push_back(path + "/" + file_name);
   } while (FindNextFile(handle, &data));
 
   FindClose(handle);
 
-
-}
-
-void ProjectEntity::CreateProgram(std::string* header, std::string* cpp)
-{
-
-}
-
-
-void ProjectEntity::ParseFile(const std::string& path)
-{
-
-}
-
-void ProjectEntity::ParseBlock(std::string text)
-{
 }

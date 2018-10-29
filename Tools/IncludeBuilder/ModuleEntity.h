@@ -22,6 +22,8 @@ public:
 
   void CreateHeaderProgram() const;
 
+  void Crawl(const std::string& path, std::vector<std::string>* dest) const;
+
 private:
   std::string path_;
   std::unordered_set<std::string> ignores_;

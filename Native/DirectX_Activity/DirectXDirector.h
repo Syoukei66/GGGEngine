@@ -18,12 +18,12 @@ private:
   DirectXDirector() {}
 
 public:
-  inline HWND GetHWnd() const
+  GG_INLINE HWND GetHWnd() const
   {
     return this->activity_->GetHWnd();
   }
 
-  inline void SetActivity(DirectXActivity* activity)
+  GG_INLINE void SetActivity(DirectXActivity* activity)
   {
     this->activity_ = activity;
   }

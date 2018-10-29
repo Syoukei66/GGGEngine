@@ -139,7 +139,7 @@ static const DirectXInputDevice_Mouse::MouseInput MOUSE_INPUTS[MOUSE_INPUT_MAX] 
 
 void DirectXNativeImplements::SetupInputDevices(DirectXInputDeviceManager* manager)
 {
-  const UniqueResource<rcCsvData>& csv = rcCsvData::CreateFromFile("keyconfig_DX9.txt");
+  const UniqueRef<rcCsvData>& csv = rcCsvData::CreateFromFile("keyconfig_DX9.txt");
   for (T_UINT8 i = 0; i < DX_INPUT_DATANUM; ++i)
   {
     CsvTokenizer tokenizer = csv->GetTokenizer(i);

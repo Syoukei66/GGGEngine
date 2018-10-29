@@ -73,7 +73,7 @@ static MeshData* ImportMesh(const aiScene* scene)
     const aiMesh* mesh = scene->mMeshes[m];
     ret->vertex_count_ += mesh->mNumVertices;
     ret->submesh_polygon_counts_[m] = mesh->mNumFaces;
-    NATIVE_ASSERT(mesh->mPrimitiveTypes == aiPrimitiveType_TRIANGLE, "ƒ|ƒŠƒSƒ“‚ªŽOŠpŒ`‚Å‚Í‚ ‚è‚Ü‚¹‚ñ");
+    GG_ASSERT(mesh->mPrimitiveTypes == aiPrimitiveType_TRIANGLE, "ƒ|ƒŠƒSƒ“‚ªŽOŠpŒ`‚Å‚Í‚ ‚è‚Ü‚¹‚ñ");
     ret->submesh_index_counts_[m] = 3 * mesh->mNumFaces;
     ret->index_count_ += ret->submesh_index_counts_[m];
 
@@ -157,7 +157,7 @@ static MeshData* ImportMesh(const aiScene* scene)
     //
     for (T_UINT32 f = 0; f < mesh->mNumFaces; ++f)
     {
-      NATIVE_ASSERT(mesh->mFaces[f].mNumIndices == 3, "ƒ|ƒŠƒSƒ“‚ªŽOŠpŒ`‚Å‚Í‚ ‚è‚Ü‚¹‚ñ");
+      GG_ASSERT(mesh->mFaces[f].mNumIndices == 3, "ƒ|ƒŠƒSƒ“‚ªŽOŠpŒ`‚Å‚Í‚ ‚è‚Ü‚¹‚ñ");
       for (T_UINT32 fi = 0; fi < mesh->mFaces[f].mNumIndices; ++fi)
       {
         ret->indices_[ii] = index_offset + mesh->mFaces[f].mIndices[fi];
@@ -256,6 +256,7 @@ ModelAssetEntity* ModelAssetImporter::ImportProcess(AssetInfo* info, AssetConver
   aiSetImportPropertyInteger(props, AI_CONFIG_PP_SBP_REMOVE, nopointslines ? aiPrimitiveType_LINE | aiPrimitiveType_POINT : 0);
 
   aiSetImportPropertyInteger(props, AI_CONFIG_GLOB_MEASURE_TIME, 1);
+  aiSetImportPropertyInteger(props, AI_CONFIG_PP_PTV_NORMALIZE, 1);
 
   const aiScene* scene = aiImportFileExWithProperties(
     info->GetInputPath().c_str(),
@@ -263,6 +264,7 @@ ModelAssetEntity* ModelAssetImporter::ImportProcess(AssetInfo* info, AssetConver
     aiProcess_GenSmoothNormals | // generate smooth normal vectors if not existing
     aiProcess_SplitLargeMeshes | // split large, unrenderable meshes into submeshes
     aiProcess_Triangulate | // triangulate polygons with more than 3 edges
+    aiProcess_PreTransformVertices |
     aiProcess_ConvertToLeftHanded | // convert everything to D3D left handed space
     aiProcess_SortByPType | // make 'clean' meshes which consist of a single typ of primitives
     0,

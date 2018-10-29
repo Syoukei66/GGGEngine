@@ -52,7 +52,7 @@ private:
 // Methods
 // =================================================================
 template<class Entity_>
-inline void AssetExporter<Entity_>::Export(const std::unordered_map<T_UINT32, Entity_*>& entities, const AssetConverterContext* context)
+GG_INLINE void AssetExporter<Entity_>::Export(const std::unordered_map<T_UINT32, Entity_*>& entities, const AssetConverterContext* context)
 {
   for (auto& pair : entities)
   {

@@ -79,7 +79,7 @@ std::string FileUtil::CreateOutputPath(const AssetInfo* info)
 
 std::string FileUtil::CreateRuntimeAssetPath(const URI& uri)
 {
-  return RUNTIME_ASSET_PATH + "/" + uri.GetFullPath();
+  return uri.GetFullPath();
 }
 
 void FileUtil::CopyRawAsset(const AssetInfo* info)
@@ -89,7 +89,7 @@ void FileUtil::CopyRawAsset(const AssetInfo* info)
     info->GetOutputPath().c_str(),
     false
   );
-  NATIVE_ASSERT(SUCCEEDED(hr), "コピーに失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "コピーに失敗しました");
   Logger::CopyAssetLog(info);
 }
 

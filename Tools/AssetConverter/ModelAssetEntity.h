@@ -25,12 +25,12 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  inline const aiScene* GetScene() const
+  GG_INLINE const aiScene* GetScene() const
   {
     return this->scene_;
   }
 
-  inline const ModelData* GetData() const
+  GG_INLINE const ModelData* GetData() const
   {
     return this->data_;
   }

@@ -25,7 +25,7 @@ public:
   virtual void DrawIndexedPrimitive(const SharedRef<const rcIndexBuffer>& index_buffer, Graphics::PrimitiveType primitive_type) const override;
 
   // =================================================================
-  // Getter / Setter
+  // Setter / Getter
   // =================================================================
 public:
   virtual size_t GetMemorySize() const override;

@@ -28,12 +28,12 @@
     <Filter Include="ヘッダー ファイル\Entity">
       <UniqueIdentifier>{e4da07bc-a850-43cf-8396-c4897b8e0116}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Entity">
+      <UniqueIdentifier>{bddce9ee-9027-463e-85ce-5176a5b8f9ec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="ProjectEntity.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="ProgramEntity.cpp">
@@ -54,15 +54,12 @@
     <ClCompile Include="TypeParser.cpp">
       <Filter>ソース ファイル\Parser\Kind</Filter>
     </ClCompile>
+    <ClCompile Include="ProjectEntity.cpp">
+      <Filter>ソース ファイル\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ProjectEntity.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="VariableEntity.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="ProgramEntity.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="ParserContext.h">
@@ -84,6 +81,12 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="TypeEntity.h">
+      <Filter>ヘッダー ファイル\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgramEntity.h">
+      <Filter>ヘッダー ファイル\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectEntity.h">
       <Filter>ヘッダー ファイル\Entity</Filter>
     </ClInclude>
   </ItemGroup>

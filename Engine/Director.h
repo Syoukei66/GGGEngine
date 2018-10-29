@@ -11,7 +11,7 @@ class Director
   // Factory Method
   // =================================================================
 private:
-  static inline Director& GetInstance()
+  static GG_INLINE Director& GetInstance()
   {
     static Director self;
     return self;
@@ -27,62 +27,62 @@ private:
   // Method
   // =================================================================
 public:
-  static inline void ChangeScene(Scene* next)
+  static GG_INLINE void ChangeScene(Scene* next)
   {
     GetInstance().engine_->ChangeScene(next);
   }
 
   // =================================================================
-  // setter/getter
+  // Setter / Getter
   // =================================================================
 public:
-  static inline void SetNowScene(Scene* scene)
+  static GG_INLINE void SetNowScene(Scene* scene)
   {
     GetInstance().now_scene_ = scene;
   }
 
-  static inline void SetActivity(BaseActivity* activity)
+  static GG_INLINE void SetActivity(BaseActivity* activity)
   {
     GetInstance().activity_ = activity;
   }
 
-  static inline void SetEngine(Engine* engine)
+  static GG_INLINE void SetEngine(Engine* engine)
   {
     GetInstance().engine_ = engine;
   }
 
-  static inline const EngineOption* GetEngineOption()
+  static GG_INLINE const EngineOption* GetEngineOption()
   {
     return GetInstance().engine_->GetEngineOption();
   }
 
-  static inline LP_DEVICE GetDevice()
+  static GG_INLINE LP_DEVICE GetDevice()
   {
     return GetInstance().activity_->GetDevice();
   }
 
-  static inline T_UINT8 GetFrameRate()
+  static GG_INLINE T_UINT8 GetFrameRate()
   {
     //TODO: ‰Â•Ï‚É‚µ‚½‚¢
     return 60;
   }
 
-  static inline Scene* GetNowScene()
+  static GG_INLINE Scene* GetNowScene()
   {
     return GetInstance().engine_->GetNowScene();
   }
 
-  static inline const TSize& GetScreenSize() 
+  static GG_INLINE const TSizei& GetScreenSize() 
   {
     return GetInstance().engine_->GetScreenSize();
   }
 
-  static inline T_UINT16 GetScreenWidth()
+  static GG_INLINE T_UINT16 GetScreenWidth()
   {
     return GetInstance().engine_->GetScreenWidth();
   }
 
-  static inline T_UINT16 GetScreenHeight() 
+  static GG_INLINE T_UINT16 GetScreenHeight() 
   {
     return GetInstance().engine_->GetScreenHeight();
   }

@@ -7,7 +7,7 @@ class ShaderAssetEntity : public AssetEntity
 {
   ENTITY_ID(ID_SHADER)
 public:
-  static inline IAssetConverter* CreateConverter()
+  static GG_INLINE IAssetConverter* CreateConverter()
   {
     return RawAssetConverterFactory::Create<ShaderAssetEntity>("Shader", "rcShader", "cso");
   }

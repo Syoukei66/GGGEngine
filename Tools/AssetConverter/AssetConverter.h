@@ -27,22 +27,22 @@ public:
   // Methods
   // =================================================================
 public:
-  inline T_UINT32 GetID() const override;
+  GG_INLINE T_UINT32 GetID() const override;
 
-  inline bool Reserve(const URI& uri, AssetConverterContext* context) override;
+  GG_INLINE bool Reserve(const URI& uri, AssetConverterContext* context) override;
 
-  inline void Import(AssetConverterContext* context) override;
-  inline bool ImportOnce(AssetConverterContext* context) override;
-  inline Entity_* ImportImmediately(const URI& uri, AssetConverterContext* context);
+  GG_INLINE void Import(AssetConverterContext* context) override;
+  GG_INLINE bool ImportOnce(AssetConverterContext* context) override;
+  GG_INLINE Entity_* ImportImmediately(const URI& uri, AssetConverterContext* context);
 
-  inline void AddEntity(Entity_* entity);
-  inline Entity_* GetEntity(const URI& uri, const AssetConverterContext* context);
-  inline Entity_* GetEntity(const AssetInfo* info);
+  GG_INLINE void AddEntity(Entity_* entity);
+  GG_INLINE Entity_* GetEntity(const URI& uri, const AssetConverterContext* context);
+  GG_INLINE Entity_* GetEntity(const AssetInfo* info);
 
-  inline void Export(const AssetConverterContext* context) const override;
+  GG_INLINE void Export(const AssetConverterContext* context) const override;
 
-  inline void CreateHeaderProgram(std::string* dest) const override;
-  inline void CreateCppProgram(std::string* dest) const override;
+  GG_INLINE void CreateHeaderProgram(std::string* dest) const override;
+  GG_INLINE void CreateCppProgram(std::string* dest) const override;
 
   // =================================================================
   // Data Members
@@ -61,7 +61,7 @@ private:
 // Constructor / Destructor
 // =================================================================
 template<class Entity_>
-inline AssetConverter<Entity_>::AssetConverter(AssetImporter<Entity_>* importer, AssetEditor<Entity_>* editor, AssetExporter<Entity_>* exporter, AssetProgramGenerator<Entity_>* program_generator)
+GG_INLINE AssetConverter<Entity_>::AssetConverter(AssetImporter<Entity_>* importer, AssetEditor<Entity_>* editor, AssetExporter<Entity_>* exporter, AssetProgramGenerator<Entity_>* program_generator)
   : importer_(importer)
   , editor_(editor)
   , exporter_(exporter)
@@ -69,7 +69,7 @@ inline AssetConverter<Entity_>::AssetConverter(AssetImporter<Entity_>* importer,
 {}
 
 template<class Entity_>
-inline AssetConverter<Entity_>::~AssetConverter()
+GG_INLINE AssetConverter<Entity_>::~AssetConverter()
 {
   for (auto& pair : this->entities_)
   {
@@ -85,13 +85,13 @@ inline AssetConverter<Entity_>::~AssetConverter()
 // Methods
 // =================================================================
 template<class Entity_>
-inline T_UINT32 AssetConverter<Entity_>::GetID() const
+GG_INLINE T_UINT32 AssetConverter<Entity_>::GetID() const
 {
   return Entity_::ID;
 }
 
 template<class Entity_>
-inline bool AssetConverter<Entity_>::Reserve(const URI& uri, AssetConverterContext* context)
+GG_INLINE bool AssetConverter<Entity_>::Reserve(const URI& uri, AssetConverterContext* context)
 {
   const auto& itr = this->entities_.find(context->GetUniqueID(uri));
   if (itr != this->entities_.end())
@@ -102,19 +102,19 @@ inline bool AssetConverter<Entity_>::Reserve(const URI& uri, AssetConverterConte
 }
 
 template<class Entity_>
-inline void AssetConverter<Entity_>::Import(AssetConverterContext* context)
+GG_INLINE void AssetConverter<Entity_>::Import(AssetConverterContext* context)
 {
   if (this->importer_) this->importer_->Import(&this->entities_, context);
 }
 
 template<class Entity_>
-inline bool AssetConverter<Entity_>::ImportOnce(AssetConverterContext* context)
+GG_INLINE bool AssetConverter<Entity_>::ImportOnce(AssetConverterContext* context)
 {
   return this->importer_ ? this->importer_->ImportOnce(&this->entities_, context) : false;
 }
 
 template<class Entity_>
-inline Entity_* AssetConverter<Entity_>::ImportImmediately(const URI& uri, AssetConverterContext* context)
+GG_INLINE Entity_* AssetConverter<Entity_>::ImportImmediately(const URI& uri, AssetConverterContext* context)
 {
   const auto& itr = this->entities_.find(context->GetUniqueID(uri));
   if (itr != this->entities_.end())
@@ -125,13 +125,13 @@ inline Entity_* AssetConverter<Entity_>::ImportImmediately(const URI& uri, Asset
 }
 
 template<class Entity_>
-inline void AssetConverter<Entity_>::AddEntity(Entity_* entity)
+GG_INLINE void AssetConverter<Entity_>::AddEntity(Entity_* entity)
 {
   this->entities_[entity->GetAssetInfo()->GetUniqueID()] = entity;
 }
 
 template<class Entity_>
-inline Entity_* AssetConverter<Entity_>::GetEntity(const URI& uri, const AssetConverterContext* context)
+GG_INLINE Entity_* AssetConverter<Entity_>::GetEntity(const URI& uri, const AssetConverterContext* context)
 {
   const auto& itr = this->entities_.find(context->GetUniqueID(uri));
   if (itr != this->entities_.end())
@@ -142,7 +142,7 @@ inline Entity_* AssetConverter<Entity_>::GetEntity(const URI& uri, const AssetCo
 }
 
 template<class Entity_>
-inline Entity_* AssetConverter<Entity_>::GetEntity(const AssetInfo* info)
+GG_INLINE Entity_* AssetConverter<Entity_>::GetEntity(const AssetInfo* info)
 {
   const auto& itr = this->entities_.find(info->GetUniqueID());
   if (itr != this->entities_.end())
@@ -153,19 +153,19 @@ inline Entity_* AssetConverter<Entity_>::GetEntity(const AssetInfo* info)
 }
 
 template<class Entity_>
-inline void AssetConverter<Entity_>::Export(const AssetConverterContext* context) const
+GG_INLINE void AssetConverter<Entity_>::Export(const AssetConverterContext* context) const
 {
   this->exporter_->Export(this->entities_, context);
 }
 
 template<class Entity_>
-inline void AssetConverter<Entity_>::CreateHeaderProgram(std::string* dest) const
+GG_INLINE void AssetConverter<Entity_>::CreateHeaderProgram(std::string* dest) const
 {
   if (this->program_generator_) this->program_generator_->CreateHeaderProgram(this->entities_, dest);
 }
 
 template<class Entity_>
-inline void AssetConverter<Entity_>::CreateCppProgram(std::string* dest) const
+GG_INLINE void AssetConverter<Entity_>::CreateCppProgram(std::string* dest) const
 {
   if (this->program_generator_) this->program_generator_->CreateCppProgram(this->entities_, dest);
 }

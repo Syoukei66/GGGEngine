@@ -17,7 +17,7 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  inline const MeshData* GetData() const
+  GG_INLINE const MeshData* GetData() const
   {
     return this->data_;
   }

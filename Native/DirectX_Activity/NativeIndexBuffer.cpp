@@ -16,7 +16,7 @@ NativeIndexBuffer::NativeIndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_cou
     &this->index_buffer_,
     NULL
   );
-  NATIVE_ASSERT(SUCCEEDED(hr), "IndexBufferの作成に失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "IndexBufferの作成に失敗しました");
 }
 
 NativeIndexBuffer::~NativeIndexBuffer()
@@ -30,18 +30,18 @@ NativeIndexBuffer::~NativeIndexBuffer()
 void NativeIndexBuffer::Lock(void** dest)
 {
   HRESULT hr = this->index_buffer_->Lock(0, 0, dest, 0);
-  NATIVE_ASSERT(SUCCEEDED(hr), "IndexBufferのロックに失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "IndexBufferのロックに失敗しました");
 }
 
 void NativeIndexBuffer::Unlock()
 {
   HRESULT hr = this->index_buffer_->Unlock();
-  NATIVE_ASSERT(SUCCEEDED(hr), "IndexBufferのアンロックに失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "IndexBufferのアンロックに失敗しました");
 }
 
 void NativeIndexBuffer::SetIndices() const
 {
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
   HRESULT hr = device->SetIndices(this->index_buffer_);
-  NATIVE_ASSERT(SUCCEEDED(hr), "IndexBufferのセットに失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "IndexBufferのセットに失敗しました");
 }

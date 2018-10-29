@@ -17,7 +17,7 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  inline const MaterialData* GetData() const
+  GG_INLINE const MaterialData* GetData() const
   {
     return this->data_;
   }

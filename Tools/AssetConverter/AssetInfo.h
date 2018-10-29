@@ -32,27 +32,27 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  inline T_UINT32 GetUniqueID() const
+  GG_INLINE T_UINT32 GetUniqueID() const
   {
     return this->meta_data_->GetUniqueID();
   }
 
-  inline const URI& GetURI() const
+  GG_INLINE const URI& GetURI() const
   {
     return this->uri_;
   }
 
-  inline std::string GetInputPath() const
+  GG_INLINE std::string GetInputPath() const
   {
     return FileUtil::CreateInputPath(this->uri_);
   }
 
-  inline std::string GetOutputPath() const
+  GG_INLINE std::string GetOutputPath() const
   {
     return FileUtil::CreateOutputPath(this);
   }
 
-  inline bool UpdateTimeStamp()
+  GG_INLINE bool UpdateTimeStamp()
   {
     return this->meta_data_->UpdateTimeStamp();
   }

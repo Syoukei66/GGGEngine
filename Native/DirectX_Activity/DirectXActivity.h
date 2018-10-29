@@ -43,11 +43,11 @@ public:
 public:
   virtual LP_DEVICE GetDevice() const override;
 
-  inline WPARAM GetMsgWparam() const
+  GG_INLINE WPARAM GetMsgWparam() const
   {
     return this->msg_.wParam;
   }
-  inline HWND GetHWnd() const
+  GG_INLINE HWND GetHWnd() const
   {
     return this->wnd_;
   }

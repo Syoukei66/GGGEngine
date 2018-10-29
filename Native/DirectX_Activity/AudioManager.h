@@ -28,11 +28,11 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  inline IXAudio2* GetXAudio() const
+  GG_INLINE IXAudio2* GetXAudio() const
   {
     return this->x_audio_2_;
   }
-  inline IXAudio2MasteringVoice* GetXAudioMasteringVoice() const
+  GG_INLINE IXAudio2MasteringVoice* GetXAudioMasteringVoice() const
   {
     return this->mastering_voice_;
   }

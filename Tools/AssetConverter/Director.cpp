@@ -17,7 +17,7 @@
 // =================================================================
 void Director::Init()
 {
-  NATIVE_ASSERT(!this->setting_ && !this->converter_manager_ && !this->context_, "Initが２回連続で呼び出されました");
+  GG_ASSERT(!this->setting_ && !this->converter_manager_ && !this->context_, "Initが２回連続で呼び出されました");
  
   FileUtil::PrepareDirectories();
 

@@ -28,12 +28,12 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  inline const std::string& GetAssetName() const
+  GG_INLINE const std::string& GetAssetName() const
   {
     return this->asset_name_;
   }
 
-  inline const std::string& GetClassName() const
+  GG_INLINE const std::string& GetClassName() const
   {
     return this->class_name_;
   }

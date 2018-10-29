@@ -20,38 +20,38 @@ T_UINT8 NativeShader::Begin()
 {
   UINT path_count;
   HRESULT hr = this->effect_->Begin(&path_count, 0);
-  NATIVE_ASSERT(SUCCEEDED(hr), "シェーダーの開始に失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "シェーダーの開始に失敗しました");
   return path_count;
 }
 
 void NativeShader::BeginPass(T_UINT8 path_id)
 {
   HRESULT hr = this->effect_->BeginPass(path_id);
-  NATIVE_ASSERT(SUCCEEDED(hr), "シェーダーパスの実行に失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "シェーダーパスの実行に失敗しました");
 }
 
 void NativeShader::CommitChanges()
 {
   HRESULT hr = this->effect_->CommitChanges();
-  NATIVE_ASSERT(SUCCEEDED(hr), "シェーダープロパティの転送に失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "シェーダープロパティの転送に失敗しました");
 }
 
 void NativeShader::EndPass()
 {
   HRESULT hr = this->effect_->EndPass();
-  NATIVE_ASSERT(SUCCEEDED(hr), "シェーダーパスの終了に失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "シェーダーパスの終了に失敗しました");
 }
 
 void NativeShader::End()
 {
   HRESULT hr = this->effect_->End();
-  NATIVE_ASSERT(SUCCEEDED(hr), "シェーダーの開始に失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "シェーダーの開始に失敗しました");
 }
 
 void NativeShader::SetTechnique(const std::string& technique)
 {
   HRESULT hr = this->effect_->SetTechnique(technique.c_str());
-  NATIVE_ASSERT(SUCCEEDED(hr), "テクニックの設定に失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "テクニックの設定に失敗しました");
 }
 
 void NativeShader::SetBool(const std::string& property_name, bool val)
@@ -62,7 +62,7 @@ void NativeShader::SetBool(const std::string& property_name, bool val)
     return;
   }
   HRESULT hr = this->effect_->SetBool(handle, val);
-  NATIVE_ASSERT(SUCCEEDED(hr), "boolプロパティの転送に失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "boolプロパティの転送に失敗しました");
 }
 
 void NativeShader::SetInt(const std::string& property_name, T_INT32 val)
@@ -73,7 +73,7 @@ void NativeShader::SetInt(const std::string& property_name, T_INT32 val)
     return;
   }
   HRESULT hr = this->effect_->SetInt(handle, val);
-  NATIVE_ASSERT(SUCCEEDED(hr), "intプロパティの転送に失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "intプロパティの転送に失敗しました");
 }
 
 void NativeShader::SetFloat(const std::string& property_name, T_FLOAT val)
@@ -84,7 +84,7 @@ void NativeShader::SetFloat(const std::string& property_name, T_FLOAT val)
     return;
   }
   HRESULT hr = this->effect_->SetFloat(handle, val);
-  NATIVE_ASSERT(SUCCEEDED(hr), "floatプロパティの転送に失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "floatプロパティの転送に失敗しました");
 }
 
 void NativeShader::SetVec2f(const std::string& property_name, const TVec2f& vec)
@@ -95,7 +95,7 @@ void NativeShader::SetVec2f(const std::string& property_name, const TVec2f& vec)
     return;
   }
   HRESULT hr = this->effect_->SetFloatArray(handle, vec.data, 2);
-  NATIVE_ASSERT(SUCCEEDED(hr), "TVec2fプロパティの転送に失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "TVec2fプロパティの転送に失敗しました");
 }
 
 void NativeShader::SetVec3f(const std::string& property_name, const TVec3f& vec)
@@ -106,7 +106,7 @@ void NativeShader::SetVec3f(const std::string& property_name, const TVec3f& vec)
     return;
   }
   HRESULT hr = this->effect_->SetFloatArray(handle, vec.data, 3);
-  NATIVE_ASSERT(SUCCEEDED(hr), "TVec3fプロパティの転送に失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "TVec3fプロパティの転送に失敗しました");
 }
 
 void NativeShader::SetVec4f(const std::string& property_name, const TVec4f& vec)
@@ -117,7 +117,7 @@ void NativeShader::SetVec4f(const std::string& property_name, const TVec4f& vec)
     return;
   }
   HRESULT hr = this->effect_->SetFloatArray(handle, vec.data, 4);
-  NATIVE_ASSERT(SUCCEEDED(hr), "TVec4fプロパティの転送に失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "TVec4fプロパティの転送に失敗しました");
 }
 
 void NativeShader::SetColor(const std::string& property_name, const TColor& color)
@@ -128,7 +128,7 @@ void NativeShader::SetColor(const std::string& property_name, const TColor& colo
     return;
   }
   HRESULT hr = this->effect_->SetFloatArray(handle, color.data, 4);
-  NATIVE_ASSERT(SUCCEEDED(hr), "TColorプロパティの転送に失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "TColorプロパティの転送に失敗しました");
 }
 
 void NativeShader::SetMatrix(const std::string& property_name, const Matrix4x4& matrix)
@@ -139,7 +139,7 @@ void NativeShader::SetMatrix(const std::string& property_name, const Matrix4x4& 
     return;
   }
   HRESULT hr = this->effect_->SetMatrix(handle, (const D3DXMATRIX*)&matrix);
-  NATIVE_ASSERT(SUCCEEDED(hr), "Matrix4x4プロパティの転送に失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "Matrix4x4プロパティの転送に失敗しました");
 }
 
 void NativeShader::SetTexture(const std::string& property_name, const SharedRef<const rcTexture>& texture)
@@ -150,7 +150,7 @@ void NativeShader::SetTexture(const std::string& property_name, const SharedRef<
     return;
   }
   HRESULT hr = this->effect_->SetTexture(handle, texture ? (LPDIRECT3DTEXTURE9)texture->GetNativeObject() : nullptr);
-  NATIVE_ASSERT(SUCCEEDED(hr), "rcTextureプロパティの転送に失敗しました");
+  GG_ASSERT(SUCCEEDED(hr), "rcTextureプロパティの転送に失敗しました");
 }
 
 void NativeShader::GetBool(const std::string& property_name, bool* dest)
@@ -242,7 +242,7 @@ void NativeShader::GetTexture(const std::string& property_name, void* dest)
   {
     return;
   }
-  NATIVE_ASSERT(false, "まだできていません！");
+  GG_ASSERT(false, "まだできていません！");
   this->effect_->GetTexture(handle, (LPDIRECT3DBASETEXTURE9*)(&(dest)));
 }
 

@@ -111,10 +111,10 @@ NativeVertexBuffer::NativeVertexBuffer(T_UINT16 vertex_count, T_UINT32 format)
     &this->vertex_buffer_,
     NULL
   );
-  NATIVE_ASSERT(SUCCEEDED(hr), "VertexBuffer‚Ìì¬‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
+  GG_ASSERT(SUCCEEDED(hr), "VertexBuffer‚Ìì¬‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 
   hr = device->CreateVertexDeclaration(&elements.front(), &this->vertex_declaration_);
-  NATIVE_ASSERT(SUCCEEDED(hr), "’¸“_ƒtƒH[ƒ}ƒbƒg‚Ìì¬‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
+  GG_ASSERT(SUCCEEDED(hr), "’¸“_ƒtƒH[ƒ}ƒbƒg‚Ìì¬‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 }
 
 NativeVertexBuffer::~NativeVertexBuffer()
@@ -129,22 +129,22 @@ NativeVertexBuffer::~NativeVertexBuffer()
 void NativeVertexBuffer::Lock(void** dest)
 {
   HRESULT hr = this->vertex_buffer_->Lock(0, 0, dest, 0);
-  NATIVE_ASSERT(SUCCEEDED(hr), "VertexBuffer‚ÌƒƒbƒN‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
+  GG_ASSERT(SUCCEEDED(hr), "VertexBuffer‚ÌƒƒbƒN‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 }
 
 void NativeVertexBuffer::Unlock()
 {
   HRESULT hr = this->vertex_buffer_->Unlock();
-  NATIVE_ASSERT(SUCCEEDED(hr), "VertexBuffer‚ÌƒAƒ“ƒƒbƒN‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
+  GG_ASSERT(SUCCEEDED(hr), "VertexBuffer‚ÌƒAƒ“ƒƒbƒN‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 }
 
 void NativeVertexBuffer::SetStreamSource() const
 {
   LPDIRECT3DDEVICE9 device = (LPDIRECT3DDEVICE9)Director::GetDevice();
   HRESULT hr = device->SetVertexDeclaration(this->vertex_declaration_);
-  NATIVE_ASSERT(SUCCEEDED(hr), "’¸“_éŒ¾‚ÌƒZƒbƒg‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
+  GG_ASSERT(SUCCEEDED(hr), "’¸“_éŒ¾‚ÌƒZƒbƒg‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
   hr = device->SetStreamSource(0, this->vertex_buffer_, 0, this->stride_);
-  NATIVE_ASSERT(SUCCEEDED(hr), "VertexBuffer‚ÌƒZƒbƒg‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
+  GG_ASSERT(SUCCEEDED(hr), "VertexBuffer‚ÌƒZƒbƒg‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 }
 
 //void NativeVertexBuffer::DrawPrimitive(Graphics::PrimitiveType primitive_type) const
@@ -155,7 +155,7 @@ void NativeVertexBuffer::SetStreamSource() const
 //    0,
 //    this->polygon_count_
 //  );
-//  NATIVE_ASSERT(SUCCEEDED(hr), "•`‰æ‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
+//  GG_ASSERT(SUCCEEDED(hr), "•`‰æ‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 //}
 
 void NativeVertexBuffer::DrawIndexedPrimitive(const SharedRef<const rcIndexBuffer>& index_buffer, Graphics::PrimitiveType primitive_type) const
@@ -171,11 +171,11 @@ void NativeVertexBuffer::DrawIndexedPrimitive(const SharedRef<const rcIndexBuffe
     0,
     polygon_count
   );
-  NATIVE_ASSERT(SUCCEEDED(hr), "•`‰æ‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
+  GG_ASSERT(SUCCEEDED(hr), "•`‰æ‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 }
 
 // =================================================================
-// Getter / Setter
+// Setter / Getter
 // =================================================================
 size_t NativeVertexBuffer::GetMemorySize() const
 {
