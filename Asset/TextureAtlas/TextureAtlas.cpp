@@ -1,5 +1,8 @@
 #include "TextureAtlas.h"
 
+#include <Asset/Texture/Texture.h>
+#include <Asset/Mesh/Mesh.h>
+
 // =================================================================
 // GGG Statement
 // =================================================================

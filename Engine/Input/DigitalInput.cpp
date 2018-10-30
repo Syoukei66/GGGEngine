@@ -1,5 +1,4 @@
 #include "DigitalInput.h"
-#include "../Core/NativeAssert.h"
 
 const DigitalInputState DigitalInputState::NULL_INPUT = DigitalInputState();
 

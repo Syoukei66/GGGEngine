@@ -1,7 +1,7 @@
 #pragma once
 
-class rcMaterial;
-class rcMesh;
+#include <Asset/Mesh/Mesh.h>
+#include <Asset/Material/Material.h>
 
 struct ModelData
 {
@@ -45,7 +45,7 @@ public:
 
   GG_INLINE T_UINT32 GetMaterialCount() const
   {
-    return this->materials_.size();
+    return (T_UINT32)this->materials_.size();
   }
 
   // =================================================================

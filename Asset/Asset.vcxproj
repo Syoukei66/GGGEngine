@@ -26,7 +26,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -39,7 +39,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -94,7 +94,13 @@
       <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h;Asset/stdafx.h</ForcedIncludeFiles>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
+    <PreBuildEvent>
+      <Command>cd $(SolutionDir)
+call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe Asset</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -105,7 +111,13 @@
       <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h;Asset/stdafx.h</ForcedIncludeFiles>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
+    <PreBuildEvent>
+      <Command>cd $(SolutionDir)
+call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe Asset</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -118,11 +130,17 @@
       <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h;Asset/stdafx.h</ForcedIncludeFiles>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <PreBuildEvent>
+      <Command>cd $(SolutionDir)
+call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe Asset</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -135,11 +153,17 @@
       <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h;Asset/stdafx.h</ForcedIncludeFiles>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <PreBuildEvent>
+      <Command>cd $(SolutionDir)
+call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe Asset</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AssetManager.cpp" />
@@ -149,6 +173,8 @@
     <ClCompile Include="Json\JsonParser.cpp" />
     <ClCompile Include="Material\Material.cpp" />
     <ClCompile Include="Mesh\Mesh.cpp" />
+    <ClCompile Include="Mesh\MeshFactory\MeshFactory_Cube.cpp" />
+    <ClCompile Include="Mesh\MeshFactory\MeshFactory_Plane.cpp" />
     <ClCompile Include="Model\Model.cpp" />
     <ClCompile Include="Particle\ParticleData.cpp" />
     <ClCompile Include="Particle\ParticleDataManager.cpp" />
@@ -156,6 +182,7 @@
     <ClCompile Include="RenderTexture\RenderTexture.cpp" />
     <ClCompile Include="Shader\Shader.cpp" />
     <ClCompile Include="Sound\Sound.cpp" />
+    <ClCompile Include="Spine\AttachmentVertexes.cpp" />
     <ClCompile Include="Spine\EngineAttachmentLoader.cpp" />
     <ClCompile Include="Spine\SpineData.cpp" />
     <ClCompile Include="Sprite\Sprite.cpp" />
@@ -168,7 +195,6 @@
     <ClCompile Include="TextureAtlas\TextureAtlas.cpp" />
     <ClCompile Include="Texture\Texture.cpp" />
     <ClCompile Include="UniqueIdTable.cpp" />
-    <ClCompile Include="_Serializer\Serializer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetLoader.h" />
@@ -176,11 +202,14 @@
     <ClInclude Include="AssetObject.h" />
     <ClInclude Include="CSV\CsvData.h" />
     <ClInclude Include="CSV\CsvTokenizer.h" />
+    <ClInclude Include="Include.h" />
     <ClInclude Include="Json\JsonData.h" />
     <ClInclude Include="Json\JsonParser.h" />
     <ClInclude Include="Material\Material.h" />
     <ClInclude Include="Material\ShaderProperties.h" />
     <ClInclude Include="Mesh\Mesh.h" />
+    <ClInclude Include="Mesh\MeshFactory\MeshFactory_Cube.h" />
+    <ClInclude Include="Mesh\MeshFactory\MeshFactory_Plane.h" />
     <ClInclude Include="Model\Model.h" />
     <ClInclude Include="Particle\ParticleData.h" />
     <ClInclude Include="Particle\ParticleDataManager.h" />
@@ -188,6 +217,7 @@
     <ClInclude Include="RenderTexture\RenderTexture.h" />
     <ClInclude Include="Shader\Shader.h" />
     <ClInclude Include="Sound\Sound.h" />
+    <ClInclude Include="Spine\AttachmentVertexes.h" />
     <ClInclude Include="Spine\EngineAttachmentLoader.h" />
     <ClInclude Include="Spine\SpineData.h" />
     <ClInclude Include="Sprite\Sprite.h" />
@@ -196,7 +226,11 @@
     <ClInclude Include="Texture\Texture.h" />
     <ClInclude Include="UniqueIdTable.h" />
     <ClInclude Include="AssetMacro.h" />
-    <ClInclude Include="_Serializer\Serializer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.vcxproj">
+      <Project>{ed60a9ab-7765-4071-a74f-16ae746c727f}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

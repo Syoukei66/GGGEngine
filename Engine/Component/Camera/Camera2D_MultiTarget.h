@@ -1,10 +1,6 @@
 #pragma once
 
-#include <deque>
 #include "Camera2D.h"
-#include "UpdateEvent.h"
-
-class GameObject2D;
 
 class Camera2D_MultiTarget : public Camera2D
 {

@@ -1,8 +1,7 @@
 #pragma once
 
-#include "UpdateEvent.h"
+#include <Core/Allocator/PoolAllocator.h>
 #include "EntityModifier.h"
-#include "PoolAllocator.h"
 
 struct EntityModifierAllocateOption
 {
@@ -19,61 +18,53 @@ struct EntityModifierAllocateOption
 
 class EntityModifierManager
 {
-public:
-  static EntityModifierManager& GetInstance()
-  {
-    static EntityModifierManager self = EntityModifierManager();
-    return self;
-  }
-
-private:
-  EntityModifierManager();
+  // =================================================================
+  // GGG Statement
+  // =================================================================
+  GG_SINGLETON(EntityModifierManager);
 
 public:
-  ~EntityModifierManager();
+  static void Init(const EntityModifierAllocateOption& option);
+  static void Uninit();
 
-public:
-  void Init(EntityModifierAllocateOption* option);
-  void Uninit();
-
-  bool OnUpdate(T_UINT16 frame_elapsed);
+  static bool OnUpdate(T_UINT16 frame_elapsed);
 
 public:
   void ClearModifiers();
-  void ClearModifiersWithTargetEntity(GameObject2D* target);
+  static void ClearModifiersWithTargetEntity(GameObject2D* target);
 
 public:
-  GG_INLINE PoolAllocator<EntityModifierRoot>* GetModifierRootAllocator() const
+  static GG_INLINE PoolAllocator<EntityModifierRoot>* GetModifierRootAllocator()
   {
-    return this->modifier_root_pool_;
+    return Self().modifier_root_pool_;
   }
-  GG_INLINE PoolAllocator<AttributeEntityModifier>* GetAttributeModifierAllocator() const
+  static GG_INLINE PoolAllocator<AttributeEntityModifier>* GetAttributeModifierAllocator()
   {
-    return this->attribute_modifier_pool_;
+    return Self().attribute_modifier_pool_;
   }
-  GG_INLINE PoolAllocator<AttributeEntityModifierEx>* GetAttributeModifierExAllocator() const
+  static GG_INLINE PoolAllocator<AttributeEntityModifierEx>* GetAttributeModifierExAllocator()
   {
-    return this->attribute_ex_modifier_pool_;
+    return Self().attribute_ex_modifier_pool_;
   }
-  GG_INLINE PoolAllocator<DelayEntityModifier>* GetDelayModifierAllocator() const
+  static GG_INLINE PoolAllocator<DelayEntityModifier>* GetDelayModifierAllocator()
   {
-    return this->delay_modifier_pool_;
+    return Self().delay_modifier_pool_;
   }
-  GG_INLINE PoolAllocator<SequenceEntityModifier>* GetSequenceModifierAllocator() const
+  static GG_INLINE PoolAllocator<SequenceEntityModifier>* GetSequenceModifierAllocator()
   {
-    return this->sequence_modifier_pool_;
+    return Self().sequence_modifier_pool_;
   }
-  GG_INLINE PoolAllocator<SynchronizedEntityModifier>* GetSynchronizedModifierAllocator() const
+  static GG_INLINE PoolAllocator<SynchronizedEntityModifier>* GetSynchronizedModifierAllocator()
   {
-    return this->synchronized_modifier_pool_;
+    return Self().synchronized_modifier_pool_;
   }  
-  GG_INLINE PoolAllocator<RoundEntityModifier>* GetRoundModifierAllocator() const
+  static GG_INLINE PoolAllocator<RoundEntityModifier>* GetRoundModifierAllocator()
   {
-    return this->round_modifier_pool_;
+    return Self().round_modifier_pool_;
   }
-  GG_INLINE PoolAllocator<LoopEntityModifier>* GetLoopModifierAllocator() const
+  static GG_INLINE PoolAllocator<LoopEntityModifier>* GetLoopModifierAllocator()
   {
-    return this->loop_modifier_pool_;
+    return Self().loop_modifier_pool_;
   }
 
 private:

@@ -1,9 +1,8 @@
-#ifndef HAL_ENGINE_DIRECTOR_DIRECTOR_H_
-#define HAL_ENGINE_DIRECTOR_DIRECTOR_H_
+#pragma once
 
-#include "Scene.h"
-#include "Engine.h"
-#include "BaseActivity.h"
+#include <Engine/Scene/Scene.h>
+#include <Engine/Engine/Engine.h>
+#include <Engine/Activity/BaseActivity.h>
 
 class Director
 {
@@ -72,17 +71,17 @@ public:
     return GetInstance().engine_->GetNowScene();
   }
 
-  static GG_INLINE const TSizei& GetScreenSize() 
+  static GG_INLINE const TVec2f& GetScreenSize() 
   {
     return GetInstance().engine_->GetScreenSize();
   }
 
-  static GG_INLINE T_UINT16 GetScreenWidth()
+  static GG_INLINE T_FLOAT GetScreenWidth()
   {
     return GetInstance().engine_->GetScreenWidth();
   }
 
-  static GG_INLINE T_UINT16 GetScreenHeight() 
+  static GG_INLINE T_FLOAT GetScreenHeight() 
   {
     return GetInstance().engine_->GetScreenHeight();
   }
@@ -95,5 +94,3 @@ private:
   Engine* engine_;
   BaseActivity* activity_;
 };
-
-#endif//HAL_ENGINE_DIRECTOR_DIRECTOR_H_

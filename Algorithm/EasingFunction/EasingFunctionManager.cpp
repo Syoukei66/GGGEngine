@@ -1,6 +1,4 @@
 #include "EasingFunctionManager.h"
-#include <string.h>
-#include "NativeAssert.h"
 
 namespace
 {
@@ -82,58 +80,51 @@ namespace
 }
 
 // =================================================================
-// Constructor / Destructor
-// =================================================================
-EasingFunctionManager::EasingFunctionManager()
-  : function_table_(NULL)
-{}
-
-// =================================================================
 // Method
 // =================================================================
 void EasingFunctionManager::Load(T_UINT8 render_cycle)
 {
-  if (this->function_table_)
+  if (Self().function_table_)
   {
-    this->Unload();
+    Self().Unload();
   }
-  this->function_table_ = new EasingFunction::EasingFunction*[EasingFunction::FK_DATA_NUM];
-  this->function_table_[EasingFunction::FK_LINER] = &EasingFunction::Liner::GetInstance();
-  this->function_table_[EasingFunction::FK_QUADRATIC] = &EasingFunction::Quadratic::GetInstance();
-  this->function_table_[EasingFunction::FK_CUBIC] = &EasingFunction::Cubic::GetInstance();
-  this->function_table_[EasingFunction::FK_QUARTIC] = &EasingFunction::Quartic::GetInstance();
-  this->function_table_[EasingFunction::FK_QUINTIC] = &EasingFunction::Quintic::GetInstance();
-  this->function_table_[EasingFunction::FK_SINUSOIDAL] = &EasingFunction::Sinusoidal::GetInstance();
-  this->function_table_[EasingFunction::FK_EXPONENTIAL] = &EasingFunction::Exponential::GetInstance();
-  this->function_table_[EasingFunction::FK_CIRCULAR] = &EasingFunction::Circular::GetInstance();
+  Self().function_table_ = new EasingFunction::EasingFunction*[EasingFunction::FK_DATA_NUM];
+  Self().function_table_[EasingFunction::FK_LINER] = &EasingFunction::Liner::GetInstance();
+  Self().function_table_[EasingFunction::FK_QUADRATIC] = &EasingFunction::Quadratic::GetInstance();
+  Self().function_table_[EasingFunction::FK_CUBIC] = &EasingFunction::Cubic::GetInstance();
+  Self().function_table_[EasingFunction::FK_QUARTIC] = &EasingFunction::Quartic::GetInstance();
+  Self().function_table_[EasingFunction::FK_QUINTIC] = &EasingFunction::Quintic::GetInstance();
+  Self().function_table_[EasingFunction::FK_SINUSOIDAL] = &EasingFunction::Sinusoidal::GetInstance();
+  Self().function_table_[EasingFunction::FK_EXPONENTIAL] = &EasingFunction::Exponential::GetInstance();
+  Self().function_table_[EasingFunction::FK_CIRCULAR] = &EasingFunction::Circular::GetInstance();
 
   for (T_UINT8 i = 0; i < EasingFunction::FK_DATA_NUM; ++i)
   {
-    this->function_table_[i]->Load(render_cycle);
+    Self().function_table_[i]->Load(render_cycle);
   }
 }
 
 void EasingFunctionManager::Unload()
 {
-  if (!this->function_table_)
+  if (!Self().function_table_)
   {
     return;
   }
   for (T_UINT8 i = 0; i < EasingFunction::FK_DATA_NUM; ++i)
   {
-    this->function_table_[i]->Unload();
+    Self().function_table_[i]->Unload();
   }
-  delete[] this->function_table_;
+  delete[] Self().function_table_;
 }
 
 T_FLOAT EasingFunctionManager::CalcByID(const char* function_id, const char* operator_id, T_FLOAT value)
 {
   const T_UINT8 function_kind = GetFunctionKindByFunctionID(function_id);
   GG_ASSERT(function_kind != EasingFunction::FK_DATA_NUM, "EasingFunction‚ÌIDŽw’è‚ÉŒë‚è‚ª‚ ‚è‚Ü‚·");
-  return CalcByEaseFunctionAndOperatorID(this->function_table_[function_kind], operator_id, value);
+  return CalcByEaseFunctionAndOperatorID(Self().function_table_[function_kind], operator_id, value);
 }
 
 T_FLOAT EasingFunctionManager::CalcByID(T_UINT8 func, T_UINT8 op, T_FLOAT value)
 {
-  return CalcByEaseFunctionAndOperator(this->function_table_[func], op, value);
+  return CalcByEaseFunctionAndOperator(Self().function_table_[func], op, value);
 }

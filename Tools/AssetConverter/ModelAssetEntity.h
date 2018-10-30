@@ -1,7 +1,6 @@
 #pragma once
 
 #include <assimp\scene.h>
-#include <Core/ModelData.h>
 #include "AssetEntity.h"
 #include "ModelMeshAssetEntity.h"
 
@@ -25,12 +24,12 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  GG_INLINE const aiScene* GetScene() const
+  inline const aiScene* GetScene() const
   {
     return this->scene_;
   }
 
-  GG_INLINE const ModelData* GetData() const
+  inline const ModelData* GetData() const
   {
     return this->data_;
   }

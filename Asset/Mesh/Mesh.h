@@ -64,10 +64,10 @@ public:
 
   UniqueRef<rcMesh> Clone(bool read_only);
 
-  void CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT32 format, VertexHelper::PrimitiveType primitive_type = VertexHelper::PRIMITIVE_TRIANGLES);
-  GG_INLINE void CreateVerticesWithIndex(T_UINT32 vertex_count, T_UINT32 index_count, T_UINT32 format, VertexHelper::PrimitiveType primitive_type = VertexHelper::PRIMITIVE_TRIANGLES)
+  void CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT32 format, Vertex::PrimitiveType primitive_type = Vertex::PRIMITIVE_TRIANGLES);
+  GG_INLINE void CreateVerticesWithIndex(T_UINT32 vertex_count, T_UINT32 index_count, T_UINT32 format, Vertex::PrimitiveType primitive_type = Vertex::PRIMITIVE_TRIANGLES)
   {
-    CreateVertices(vertex_count, VertexHelper::PRIMITIVE_SURF_NUM(primitive_type, index_count), format, primitive_type);
+    CreateVertices(vertex_count, Vertex::PRIMITIVE_SURF_NUM(primitive_type, index_count), format, primitive_type);
   }
   GG_INLINE void CreateIndices(T_UINT32 index_count)
   {
@@ -89,7 +89,7 @@ public:
   virtual size_t GetMemorySize() const override;
   virtual size_t GetVideoMemorySize() const override;
 
-  GG_INLINE void SetPrimitiveType(VertexHelper::PrimitiveType type)
+  GG_INLINE void SetPrimitiveType(Vertex::PrimitiveType type)
   {
     this->primitive_type_ = type;
   }
@@ -278,7 +278,7 @@ public:
     return this->index_counts_[submesh_index];
   }
 
-  GG_INLINE VertexHelper::PrimitiveType GetPrimitiveType() const
+  GG_INLINE Vertex::PrimitiveType GetPrimitiveType() const
   {
     return this->primitive_type_;
   }
@@ -336,7 +336,7 @@ protected:
   T_UINT32** indices_;
   bool* indices_dirties_;
 
-  VertexHelper::PrimitiveType primitive_type_;
+  Vertex::PrimitiveType primitive_type_;
   SharedRef<rcVertexBuffer> vertex_buffer_;
 
   T_UINT8 submesh_count_;

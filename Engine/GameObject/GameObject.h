@@ -1,10 +1,8 @@
 ﻿#pragma once
 
-#include <Core/NativeType.h>
-#include "GameComponent.h"
-
-#include "Renderer.h"
-#include "Transform.h"
+#include <Engine/Component/GameComponent.h>
+#include <Engine/Component/Renderer/Renderer.h>
+#include <Engine/GameObject/Transform/Transform.h>
 
 class GameObjectRenderState;
 

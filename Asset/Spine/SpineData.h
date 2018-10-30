@@ -1,6 +1,7 @@
 #pragma once
 
-#include "spine\spine.h"
+struct spSkeletonData;
+struct spAtlas;
 
 class rcSpineData : public GGAssetObject
 {

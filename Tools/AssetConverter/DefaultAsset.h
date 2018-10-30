@@ -13,7 +13,6 @@ static const std::string& SHADER_PATH_SPRITE  = "shader/default/Sprite.cso";
 //仮想のパス
 static const std::string& MESH_PATH_CUBE   = "mesh/default/Cube.mesh";
 static const std::string& MESH_PATH_PLANE  = "mesh/default/Plane.mesh";
-static const std::string& MESH_PATH_SPRITE = "mesh/default/Sprite.mesh";
 
 //仮想のパス
 static const std::string& MATERIAL_PATH_LAMBERT = "material/default/Lambert.cso";

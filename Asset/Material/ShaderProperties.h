@@ -1,6 +1,7 @@
 #pragma once
 
-#include <string>
+#include <Asset/Shader/Shader.h>
+#include <Asset/Texture/Texture.h>
 
 class ShaderProperty
 {

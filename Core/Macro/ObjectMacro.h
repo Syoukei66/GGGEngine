@@ -15,15 +15,26 @@
 
 /*!
 * @brief シングルトンにしたいクラス内に記述する
-* GGGEngine内のシングルトンクラスを共通のフォーマットで
-* 記述するのが目的。
+* GGGEngine内のシングルトンクラスを共通のフォーマットで記述するのが目的。
+* 基本的にGetInstance()->が邪魔なので、staticメソッドを使用。
+* staticメンバは持たず、staticなインスタンスを提供するSelf()アクセサを使用してメンバへアクセスする。
+* Self()メソッドは隠ぺいし、staticメソッドの内部でthisポインタの代わりに使用する
+* Instance()メソッドはpublicだが、constな参照を返すので
+* システム側ではキャストして使用し、使用側ではconstなインスタンスを使用するなど使い分ける
 */
 #define GG_SINGLETON(Type) GG_NO_COPYABLE(Type);\
-  static GG_INLINE Type& Instance()\
+private:\
+  static GG_INLINE Type& Self()\
   {\
     static Type self;\
     return self;\
   }\
+public:\
+  static GG_INLINE const Type& Instance()\
+  {\
+    return Self();\
+  }\
+private:\
 \
   Type() = default;\
   ~Type() = default
@@ -44,7 +55,7 @@
 */
 #define GG_SERIALIZABLE(Type, ...)public:\
   template <class Archive>\
-  void serialize(Archive& archive, Type& value)
+  void serialize(Archive& archive)
 
 /*!
  * @brief GGObjectの安全なCreateMethodを提供する

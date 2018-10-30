@@ -1,5 +1,7 @@
 #pragma once
 
+class rcRenderBuffer;
+
 class rcTexture : public GGAssetObject
 {
   // =================================================================

@@ -1,9 +1,5 @@
 #pragma once
 
-#include <math.h>
-#include "NativeType.h"
-#include "Mathf.h"
-
 namespace EasingFunction
 {
 

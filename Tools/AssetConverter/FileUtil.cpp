@@ -6,10 +6,7 @@
 #include <fstream>
 #include <direct.h>
 
-#include <Core/NativeAssert.h>
 #include <ToolUtil.h>
-
-#include <Core/Directory.h>
 
 #include "AssetInfo.h"
 #include "Setting.h"

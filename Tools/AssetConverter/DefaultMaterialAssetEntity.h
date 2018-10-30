@@ -1,6 +1,5 @@
 #pragma once
 
-#include <Core/MaterialData.h>
 #include "AssetEntity.h"
 
 class DefaultMaterialAssetEntity : public AssetEntity
@@ -17,7 +16,7 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  GG_INLINE const MaterialData* GetData() const
+  inline const MaterialData* GetData() const
   {
     return this->data_;
   }

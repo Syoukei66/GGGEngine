@@ -1,7 +1,5 @@
 #pragma once
 
-#include <Core/Common/Logger.h>
-
 namespace Assertion
 {
 static GG_INLINE void Assert(bool cause, const char* message)

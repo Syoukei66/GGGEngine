@@ -1,6 +1,6 @@
-#include <Core/NativeLogger.h>
 #include <Windows.h>
 #include <string>
+#include <Core/Logger/Logger.h>
 
 void Log::Out(Level level, const char* message)
 {

@@ -264,13 +264,7 @@
     <ClCompile Include="Component\Renderer\MeshRenderer.cpp">
       <Filter>ソース ファイル\Component\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Input\EngineInputEvent.cpp">
-      <Filter>ソース ファイル\Scene\Event\EngineInput</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Engine.cpp">
-      <Filter>ソース ファイル\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\EngineInitializeSetting.cpp">
       <Filter>ソース ファイル\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Activity\BaseActivity.cpp">
@@ -291,9 +285,6 @@
     <ClCompile Include="Component\GameComponent.cpp">
       <Filter>ソース ファイル\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Spine\AttachmentVertexes.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Component\Spine\SkeletonAnimation.cpp">
       <Filter>ソース ファイル\GameObject\2D\Spine</Filter>
     </ClCompile>
@@ -306,16 +297,22 @@
     <ClCompile Include="Scene\SceneTransitioner.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Animator\AnimatedSpriteRenderer.cpp">
-      <Filter>ソース ファイル\Component\Renderer</Filter>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\EngineInitializeSetting.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Event\EngineInputEvent.cpp">
+      <Filter>ソース ファイル\Scene\Event\EngineInput</Filter>
+    </ClCompile>
+    <ClCompile Include="Event\UpdateEventState.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Director.h">
       <Filter>ヘッダー ファイル\Engine\Director</Filter>
-    </ClInclude>
-    <ClInclude Include="Moniker.h">
-      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Include.h">
       <Filter>ヘッダー ファイル</Filter>
@@ -404,9 +401,6 @@
     <ClInclude Include="Component\Renderer\MeshRenderer.h">
       <Filter>ヘッダー ファイル\Component\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Input\EngineInputEvent.h">
-      <Filter>ヘッダー ファイル\Scene\Event\EngineInput</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Engine.h">
       <Filter>ヘッダー ファイル\Engine</Filter>
     </ClInclude>
@@ -434,9 +428,6 @@
     <ClInclude Include="Component\GameComponent.h">
       <Filter>ヘッダー ファイル\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Component\Spine\AttachmentVertexes.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Scene\Scene.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
@@ -446,11 +437,17 @@
     <ClInclude Include="Scene\SceneTransitioner.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Component\Animator\AnimatedSpriteRenderer.h">
-      <Filter>ヘッダー ファイル\Component\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="Component\Spine\SkeletonAnimation.h">
       <Filter>ヘッダー ファイル\GameObject\2D\Spine</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Event\EngineInputEvent.h">
+      <Filter>ヘッダー ファイル\Scene\Event\EngineInput</Filter>
+    </ClInclude>
+    <ClInclude Include="Event\UpdateEventState.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

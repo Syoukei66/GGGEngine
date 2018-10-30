@@ -1,14 +1,12 @@
 #include "JsonData.h"
-#include "../Core/NativeProcess.h"
+#include "JsonParser.h"
 
 // =================================================================
 // Factory Method
 // =================================================================
 UniqueRef<rcJsonData> rcJsonData::CreateFromFile(const char* path)
 {
-  rcJsonData* ret = new rcJsonData(path);
-  ret->GGAssetObject::Init();
-  return UniqueRef<rcJsonData>(ret);
+  return UniqueRef<rcJsonData>(new rcJsonData(path));
 }
 
 // =================================================================

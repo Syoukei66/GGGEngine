@@ -1,8 +1,5 @@
 #pragma once
 
-#include <string>
-#include <Core/NativeType.h>
-
 #include "URI.h"
 
 class AssetConverterContext;

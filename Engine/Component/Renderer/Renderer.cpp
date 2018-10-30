@@ -1,16 +1,14 @@
 #include "Renderer.h"
 
-#include "EngineInitializeSetting.h"
-#include "GameObjectRenderState.h"
-#include "Camera.h"
-#include "GameObject.h"
+#include <Engine/Engine/EngineInitializeSetting.h>
+#include <Engine/GameObject/GameObjectRenderState.h>
 
 // =================================================================
 // Constructor / Destructor
 // =================================================================
 Renderer::Renderer(GameObject* entity)
   : entity_(entity)
-  , layer_id_(EngineInitializeSetting::GetInstance().GetDefaultLayerId())
+  , layer_id_(EngineInitializeSetting::GetDefaultLayerId())
 {
 }
 

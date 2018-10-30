@@ -1,14 +1,19 @@
 #pragma once
 
-#include <vector>
+#include <Asset/Sprite/Sprite.h>
 #include "GameObject.h"
-#include "../Core/Color.h"
-#include "Transform2D.h"
 
 class EntityModifierRoot;
+class Transform2D;
 
 class GameObject2D : public GameObject
 {
+  // =================================================================
+  // Factory Method
+  // =================================================================
+public:
+  static GameObject2D* Create(const SharedRef<rcSprite>& sprite);
+
   // =================================================================
   // Constructor / Destructor
   // =================================================================

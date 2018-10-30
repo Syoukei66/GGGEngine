@@ -7,7 +7,7 @@ class JsonAssetEntity : public AssetEntity
 {
   ENTITY_ID(ID_JSON)
 public:
-  static GG_INLINE IAssetConverter* CreateConverter()
+  static inline IAssetConverter* CreateConverter()
   {
     return RawAssetConverterFactory::Create<JsonAssetEntity>("Json", "rcJsonData", "json");
   }

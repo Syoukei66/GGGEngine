@@ -23,6 +23,8 @@ void ModuleEntity::CreateHeaderProgram() const
 {
   std::vector<std::string> targets;
 
+  targets.push_back("/stdafx.h");
+
   this->Crawl("", &targets);
 
   std::string header;

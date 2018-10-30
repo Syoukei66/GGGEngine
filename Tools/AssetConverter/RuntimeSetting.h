@@ -26,15 +26,15 @@ public:
   RuntimeSetting& operator=(RuntimeSetting&&) = delete;
 
 public:
-  GG_INLINE static void SetDebugFlag(DebugFlag flag)
+  inline static void SetDebugFlag(DebugFlag flag)
   {
     GetInstance().flags_ |= flag;
   }
-  GG_INLINE static void ResetDebugFlag(DebugFlag flag)
+  inline static void ResetDebugFlag(DebugFlag flag)
   {
     GetInstance().flags_ &= ~flag;
   }
-  GG_INLINE static bool CheckDebugFlag(DebugFlag flag)
+  inline static bool CheckDebugFlag(DebugFlag flag)
   {
     return GetInstance().flags_ & flag;
   }

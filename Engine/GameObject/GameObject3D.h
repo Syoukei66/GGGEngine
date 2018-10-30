@@ -1,11 +1,9 @@
 #pragma once
 
-#include <vector>
-#include <Core/Color.h>
-#include <Core/Model.h>
-
+#include <Asset/Model/Model.h>
 #include "GameObject.h"
-#include "Transform3D.h"
+
+class Transform3D;
 
 class GameObject3D : public GameObject
 {

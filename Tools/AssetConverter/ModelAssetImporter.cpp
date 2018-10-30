@@ -4,8 +4,6 @@
 #include <Assimp/cimport.h>
 #include <assimp/postprocess.h>
 
-#include <Core/GraphicsConstants.h>
-
 #include "Extensions.h"
 #include "AssetConverterContext.h"
 #include "FileUtil.h"
@@ -62,11 +60,13 @@ static MeshData* ImportMesh(const aiScene* scene)
 {
   MeshData* ret = new MeshData();
 
-  using namespace Graphics;
+  using namespace Vertex;
+
+  T_UINT32 index_count = 0;
 
   ret->submesh_count_ = scene->mNumMeshes;
-  ret->submesh_index_counts_ = new T_UINT32[ret->submesh_count_]();
-  ret->submesh_polygon_counts_ = new T_UINT32[ret->submesh_count_]();
+  ret->submesh_index_counts_.resize(ret->submesh_count_);
+  ret->submesh_polygon_counts_.resize(ret->submesh_count_);
   //
   for (T_UINT32 m = 0; m < scene->mNumMeshes; ++m)
   {
@@ -75,7 +75,7 @@ static MeshData* ImportMesh(const aiScene* scene)
     ret->submesh_polygon_counts_[m] = mesh->mNumFaces;
     GG_ASSERT(mesh->mPrimitiveTypes == aiPrimitiveType_TRIANGLE, "ƒ|ƒŠƒSƒ“‚ªŽOŠpŒ`‚Å‚Í‚ ‚è‚Ü‚¹‚ñ");
     ret->submesh_index_counts_[m] = 3 * mesh->mNumFaces;
-    ret->index_count_ += ret->submesh_index_counts_[m];
+    index_count += ret->submesh_index_counts_[m];
 
     if (mesh->HasPositions()) ret->vertex_format_ |= V_ATTR_POSITION;
     if (mesh->HasNormals()) ret->vertex_format_ |= V_ATTR_NORMAL;
@@ -93,10 +93,10 @@ static MeshData* ImportMesh(const aiScene* scene)
   TVec3f max = { 0.0f, 0.0f, 0.0f };
 
   //
-  ret->data_ = new unsigned char[ret->vertex_count_ * ret->vertex_size_]();
-  ret->indices_ = new T_UINT32[ret->index_count_]();
+  ret->data_.resize(ret->vertex_count_ * ret->vertex_size_);
+  ret->indices_.resize(index_count);
   T_UINT32 index_offset = 0;
-  unsigned char* p = ret->data_;
+  unsigned char* p = &ret->data_[0];
   for (T_UINT32 m = 0, ii = 0; m < scene->mNumMeshes; ++m)
   {
     const aiMesh* mesh = scene->mMeshes[m];

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <Core/Geometry.h>
-#include "../Core/Color.h"
 #include "EntityModifier.h"
 
 namespace EntityModifierFactory

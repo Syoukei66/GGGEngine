@@ -1,9 +1,8 @@
 #pragma once
 
-#include <deque>
+#include <Engine/GameObject/GameObject2D.h>
+
 #include "Camera.h"
-#include "GameObjectRenderState.h"
-#include "GameObject2D.h"
 
 class Camera2D : public Camera
 {

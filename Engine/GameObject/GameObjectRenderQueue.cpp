@@ -2,9 +2,6 @@
 #include <ppl.h>
 
 #include "GameObjectRenderState.h"
-#include "Director.h"
-#include "Renderer.h"
-#include "Camera3D.h"
 
 void GameObjectRenderQueue::AddByDistance(const Renderer* renderer, const Camera* camera)
 {

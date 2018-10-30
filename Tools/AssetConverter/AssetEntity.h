@@ -33,7 +33,7 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  GG_INLINE AssetInfo* GetAssetInfo() const
+  inline AssetInfo* GetAssetInfo() const
   {
     return this->info_;
   }

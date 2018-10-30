@@ -1,8 +1,5 @@
-#ifndef HAL_ENGINE_SCENE_EVENT_ENGINEINPUT_ANALOGINPUTEVENT_H_
-#define HAL_ENGINE_SCENE_EVENT_ENGINEINPUT_ANALOGINPUTEVENT_H_
+#pragma once
 
-#include <math.h>
-#include <Core/NativeType.h>
 #include "EngineInput.h"
 
 // =================================================================
@@ -106,5 +103,3 @@ private:
   T_FLOAT old_input_[EngineInput::Analog::ID_ANALOG_MAX][EngineInput::Analog::DIMENSION_DATANUM];
   T_FLOAT input_[EngineInput::Analog::ID_ANALOG_MAX][EngineInput::Analog::DIMENSION_DATANUM];
 };
-
-#endif//HAL_ENGINE_SCENE_EVENT_ENGINEINPUT_ANALOGINPUTEVENT_H_

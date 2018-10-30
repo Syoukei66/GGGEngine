@@ -2,23 +2,16 @@
 #include <iostream>
 #include "ModuleEntity.h"
 
-int main()
+int main(int argc, char* argv[])
 {
   std::vector<ModuleEntity*> modules;
 
-  modules.emplace_back(
-    (new ModuleEntity("Core"))
-  );
-
-  modules.emplace_back(
-    (new ModuleEntity("ThirdParty/imgui"))
-  );
-
-  modules.emplace_back(
-    (new ModuleEntity("Engine"))
-    ->AddSpecial("Core/Include.h")
-    ->AddSpecial("ThirdParty/imgui/Include.h")
-  );
+  for (int i = 1; i < argc; ++i)
+  {
+    modules.emplace_back(
+      (new ModuleEntity(argv[i]))
+    );
+  }
 
   for (const ModuleEntity* entity : modules)
   {

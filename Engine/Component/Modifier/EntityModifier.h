@@ -1,10 +1,7 @@
 #pragma once
 
-#include <vector>
-#include "../Core/EasingFunction.h"
-#include "UpdateEvent.h"
+#include <Core/Allocator/PoolAllocator.h>
 #include "EntityModifierAttribute.h"
-#include "PoolAllocator.h"
 
 class GameObject2D;
 class EntityModifier;

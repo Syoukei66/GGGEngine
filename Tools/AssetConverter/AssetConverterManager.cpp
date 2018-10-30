@@ -1,5 +1,4 @@
 #include "AssetConverterManager.h"
-#include <Core/CerealIO.h>
 
 // =================================================================
 // Constructor / Destructor

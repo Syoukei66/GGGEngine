@@ -1,9 +1,7 @@
 #pragma once
 
-#include <Core/Geometry.h>
-#include "Scene.h"
-#include "EntityModifierManager.h"
-#include "InputSetting.h"
+class InputSettingBuilder;
+class Scene;
 
 struct EngineOption
 {
@@ -11,14 +9,12 @@ struct EngineOption
     : window_size()
     , activity_name("Game")
     , render_cycle(1000 / 60)
-    , entity_modifier_option()
     , input_setting()
   {}
 
-  TSizei window_size;
+  TVec2f window_size;
   const char* activity_name;
   T_UINT16 render_cycle;
-  EntityModifierAllocateOption entity_modifier_option;
   InputSettingBuilder input_setting;
 };
 

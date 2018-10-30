@@ -1,6 +1,9 @@
 #include "EngineInitializeSetting.h"
 
-EngineInitializeSetting::EngineInitializeSetting()
-  : default_layer_id_(0)
+// =================================================================
+// Methods
+// =================================================================
+void EngineInitializeSetting::Load()
 {
+  //CerealIO::Binary::Import<EngineInitializeSetting>(&Self());
 }

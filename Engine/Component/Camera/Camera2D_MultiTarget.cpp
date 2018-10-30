@@ -1,8 +1,6 @@
 #include "Camera2D_MultiTarget.h"
-#include <algorithm>
 
-#include "Director.h"
-#include "GameObject2D.h"
+#include <Engine/GameObject/Transform/Transform2D.h>
 
 static const T_FLOAT ZOOM_RATE = 0.8f;
 
@@ -74,7 +72,7 @@ void Camera2D_MultiTarget::Update()
   const T_FLOAT center_y = height * 0.5f;
   width += this->padding_ * 2;
   height += this->padding_ * 2;
-  const TSizei& screen_size = Director::GetScreenSize();
+  const TVec2f& screen_size = Director::GetScreenSize();
   if (width > screen_size.width || height > screen_size.height)
   {
     this->SetZoom(std::min(screen_size.width / width, screen_size.height / height));

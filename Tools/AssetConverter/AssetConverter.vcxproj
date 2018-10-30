@@ -101,8 +101,10 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\Assimp\include;$(SolutionDir)Engine\Tools\Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\Assimp\include;$(SolutionDir)Engine\ThirdParty\spine-c\include;$(SolutionDir)Engine\Tools\Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -116,8 +118,10 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\Assimp\include;$(SolutionDir)Engine\Tools\Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\Assimp\include;$(SolutionDir)Engine\ThirdParty\spine-c\include;$(SolutionDir)Engine\Tools\Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <AdditionalDependencies>IrrXML.lib;zlibstaticd.lib;assimp-vc140-mt.lib;zlibd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -129,8 +133,10 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\Assimp\include;$(SolutionDir)Engine\Tools\Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\Assimp\include;$(SolutionDir)Engine\ThirdParty\spine-c\include;$(SolutionDir)Engine\Tools\Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <AdditionalDependencies>IrrXML.lib;zlibstaticd.lib;assimp-vc140-mt.lib;zlibd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -144,8 +150,10 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\Assimp\include;$(SolutionDir)Engine\Tools\Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\Assimp\include;$(SolutionDir)Engine\ThirdParty\spine-c\include;$(SolutionDir)Engine\Tools\Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -185,7 +193,6 @@
     <ClInclude Include="MeshBuilder.h" />
     <ClInclude Include="MeshBuilder_Cube.h" />
     <ClInclude Include="MeshBuilder_Plane.h" />
-    <ClInclude Include="MeshBuilder_Sprite.h" />
     <ClInclude Include="ModelConstants.h" />
     <ClInclude Include="ModelMaterialAssetConverterFactory.h" />
     <ClInclude Include="ModelMaterialAssetEntity.h" />
@@ -207,6 +214,7 @@
     <ClInclude Include="ShaderAssetConverterFactory.h" />
     <ClInclude Include="SoundAssetConverterFactory.h" />
     <ClInclude Include="StandardMaterial.h" />
+    <ClInclude Include="stdafx.h" />
     <ClInclude Include="TextureAssetConverterFactory.h" />
     <ClInclude Include="TextureAssetEntity.h" />
     <ClInclude Include="TextureAssetExporter.h" />
@@ -232,7 +240,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MeshBuilder_Cube.cpp" />
     <ClCompile Include="MeshBuilder_Plane.cpp" />
-    <ClCompile Include="MeshBuilder_Sprite.cpp" />
     <ClCompile Include="ModelMaterialAssetConverterFactory.cpp" />
     <ClCompile Include="ModelMaterialAssetEntity.cpp" />
     <ClCompile Include="ModelMaterialAssetExporter.cpp" />
@@ -247,12 +254,25 @@
     <ClCompile Include="NativeLogger.cpp" />
     <ClCompile Include="Setting.cpp" />
     <ClCompile Include="StandardMaterial.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdafx.h</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdafx.h</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdafx.h</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdafx.h</ForcedIncludeFiles>
+    </ClCompile>
     <ClCompile Include="TextureAssetConverterFactory.cpp" />
     <ClCompile Include="TextureAssetEntity.cpp" />
     <ClCompile Include="TextureAssetExporter.cpp" />
     <ClCompile Include="TextureAssetImporter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Asset\Asset.vcxproj">
+      <Project>{37173f1e-1a35-4644-8862-81dbb9ad9fc1}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\Core\Core.vcxproj">
       <Project>{ed60a9ab-7765-4071-a74f-16ae746c727f}</Project>
     </ProjectReference>

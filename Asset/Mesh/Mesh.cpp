@@ -8,14 +8,14 @@ void rcMesh::Init(const MeshData& data)
   this->read_only_ = true;
   this->format_ = data.vertex_format_;
   this->vertex_count_ = data.vertex_count_;
-  this->primitive_type_ = VertexHelper::PRIMITIVE_TRIANGLES;
+  this->primitive_type_ = Vertex::PRIMITIVE_TRIANGLES;
   this->submesh_count_ = data.submesh_count_;
 
   //Vertex Buffer
   this->vertex_buffer_ = rcVertexBuffer::Create(data.vertex_count_, data.vertex_format_);
   unsigned char* p;
   this->vertex_buffer_->Lock((void**)&p);
-  GG_ASSERT(data.vertex_size_ == VertexHelper::CalcVertexSize(data.vertex_format_), "MeshDataを作成した時と頂点データのサイズが異なっています");
+  GG_ASSERT(data.vertex_size_ == Vertex::CalcVertexSize(data.vertex_format_), "MeshDataを作成した時と頂点データのサイズが異なっています");
   const T_UINT64 byte_count = data.vertex_count_ * data.vertex_size_;
   for (T_UINT64 i = 0; i < byte_count; ++i)
   {
@@ -133,7 +133,7 @@ UniqueRef<rcMesh> rcMesh::Clone(bool read_only)
   return clone;
 }
 
-void rcMesh::CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT32 format, VertexHelper::PrimitiveType primitive_type)
+void rcMesh::CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT32 format, Vertex::PrimitiveType primitive_type)
 {
   this->ClearVertices(true);
 
@@ -142,7 +142,7 @@ void rcMesh::CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UIN
   this->format_ = format;
   this->primitive_type_ = primitive_type;
 
-  using namespace VertexHelper;
+  using namespace Vertex;
 
   if (format & V_ATTR_POSITION) this->vertices_ = new TVec3f[vertex_count]{};
   if (format & V_ATTR_NORMAL) this->normals_ = new TVec3f[vertex_count]{};
@@ -179,7 +179,7 @@ void rcMesh::CreateIndices(T_UINT8 submesh_count, T_UINT32* index_counts, T_UINT
 
 void rcMesh::CommitChanges(bool read_only)
 {
-  using namespace VertexHelper;
+  using namespace Vertex;
   
   this->read_only_ = read_only;
 
@@ -226,9 +226,9 @@ void rcMesh::CommitChanges(bool read_only)
 
 void rcMesh::RecalculateNormals(bool save_face_normals)
 {
-  GG_ASSERT(this->primitive_type_ == VertexHelper::PRIMITIVE_TRIANGLES, "まだできてません！");
+  GG_ASSERT(this->primitive_type_ == Vertex::PRIMITIVE_TRIANGLES, "まだできてません！");
 
-  GG_ASSERT(this->format_ & VertexHelper::V_ATTR_NORMAL, "フォーマットに法線情報が含まれていません");
+  GG_ASSERT(this->format_ & Vertex::V_ATTR_NORMAL, "フォーマットに法線情報が含まれていません");
 
   if (!this->face_normals_)
   {
@@ -266,10 +266,10 @@ void rcMesh::RecalculateNormals(bool save_face_normals)
 
 void rcMesh::RecalculateTangents()
 {
-  GG_ASSERT(this->primitive_type_ == VertexHelper::PRIMITIVE_TRIANGLES, "まだできてません！");
+  GG_ASSERT(this->primitive_type_ == Vertex::PRIMITIVE_TRIANGLES, "まだできてません！");
 
-  GG_ASSERT(this->format_ & VertexHelper::V_ATTR_NORMAL, "フォーマットに法線情報が含まれていません");
-  GG_ASSERT(this->format_ & VertexHelper::V_ATTR_TANGENT, "フォーマットにtangentベクトル情報が含まれていません");
+  GG_ASSERT(this->format_ & Vertex::V_ATTR_NORMAL, "フォーマットに法線情報が含まれていません");
+  GG_ASSERT(this->format_ & Vertex::V_ATTR_TANGENT, "フォーマットにtangentベクトル情報が含まれていません");
 
   /*
   https://answers.unity.com/questions/7789/calculating-tangents-vector4.html
@@ -363,7 +363,7 @@ void rcMesh::DrawSubset(T_UINT8 index) const
 size_t rcMesh::GetMemorySize() const
 {
   size_t ret = sizeof(rcMesh);
-  using namespace VertexHelper;
+  using namespace Vertex;
   ret += this->vertex_count_ * CalcVertexSize(this->format_);
   if (this->face_normals_)
   {

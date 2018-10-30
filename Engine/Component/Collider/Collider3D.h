@@ -1,8 +1,8 @@
 #pragma once
 
-#include "GameComponent.h"
-#include <Core/Geometry.h>
-#include "GameObject3D.h"
+#include <Engine/Component/GameComponent.h>
+#include <Engine/GameObject/GameObject3D.h>
+#include <Engine/GameObject/Transform/Transform3D.h>
 
 class Collider3D_Sphare;
 //class Collider3D_Capsule;

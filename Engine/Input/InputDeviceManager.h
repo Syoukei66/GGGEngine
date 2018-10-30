@@ -1,7 +1,6 @@
 #pragma once
 
-#include <list>
-#include "EngineInputEvent.h"
+#include <Engine/Event/EngineInputEvent.h>
 #include "InputDevice.h"
 
 template<class T>

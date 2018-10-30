@@ -1,6 +1,5 @@
 #pragma once
 
-#include <Core/MeshData.h>
 #include "AssetEntity.h"
 
 class ModelMeshAssetEntity : public AssetEntity
@@ -17,7 +16,7 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  GG_INLINE const MeshData* GetData() const
+  inline const MeshData* GetData() const
   {
     return this->data_;
   }

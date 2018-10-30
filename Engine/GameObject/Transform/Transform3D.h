@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-#include "../Core/Vector3.h"
 #include "Transform.h"
 #include "Transform3DRotator.h"
 

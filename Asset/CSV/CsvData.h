@@ -1,11 +1,14 @@
 #pragma once
 
-#include <vector>
 #include "CSVTokenizer.h"
-#include "Resource.h"
 
 class rcCsvData : public GGAssetObject
 {
+  // =================================================================
+  // GGG Statement
+  // =================================================================
+  GG_OBJECT_NAME(rcCsvData);
+
   // =================================================================
   // Factory Method
   // =================================================================
@@ -23,11 +26,6 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  GG_INLINE virtual const char* GetResourceName() override
-  {
-    return "CsvData";
-  }
-
   GG_INLINE T_UINT16 GetTokenizerCount() const
   {
     return (T_UINT16)this->tokenizers_.size();

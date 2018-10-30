@@ -1,5 +1,4 @@
 #include "MeshBuilder_Cube.h"
-#include <Core/MeshFactory_Cube.h>
 
 MeshBuilder_Cube::MeshBuilder_Cube(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale_y, T_FLOAT scale_z, T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, T_FLOAT tile_count_x, T_FLOAT tile_count_y, T_FLOAT tile_count_z)
   : format_(format)

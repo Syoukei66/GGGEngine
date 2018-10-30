@@ -1,35 +1,30 @@
 #pragma once
 
-#include <vector>
-#include <functional>
-
-#include <Core/UniqueIdTable.h>
-
 #include "Setting.h"
 #include "AssetConverterContext.h"
 #include "AssetConverterManager.h"
 
-class Director
+class AssetConverterDirector
 {
   // =================================================================
   // Singleton Constructor / Destructor
   // =================================================================
 public:
-  static Director& GetInstance()
+  static AssetConverterDirector& GetInstance()
   {
-    static Director self;
+    static AssetConverterDirector self;
     return self;
   }
 
 public:
-  Director(const Director&) = delete;
-  Director& operator=(const Director&) = delete;
-  Director(Director&&) = delete;
-  Director& operator=(Director&&) = delete;
+  AssetConverterDirector(const AssetConverterDirector&) = delete;
+  AssetConverterDirector& operator=(const AssetConverterDirector&) = delete;
+  AssetConverterDirector(AssetConverterDirector&&) = delete;
+  AssetConverterDirector& operator=(AssetConverterDirector&&) = delete;
 
 private:
-  Director() = default;
-  ~Director() = default;
+  AssetConverterDirector() = default;
+  ~AssetConverterDirector() = default;
 
   // =================================================================
   // Methods

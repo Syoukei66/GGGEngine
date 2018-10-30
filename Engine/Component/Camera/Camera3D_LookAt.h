@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Engine/GameObject/Transform/Transform3D.h>
 #include "Camera3D.h"
 
 class Camera3D_LookAt : public Camera3D

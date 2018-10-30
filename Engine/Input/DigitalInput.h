@@ -1,7 +1,5 @@
-#ifndef HAL_ENGINE_SCENE_EVENT_ENGINEINPUT_DIGITALINPUTEVENT_H_
-#define HAL_ENGINE_SCENE_EVENT_ENGINEINPUT_DIGITALINPUTEVENT_H_
+#pragma once
 
-#include <Core/NativeType.h>
 #include "EngineInput.h"
 
 // =================================================================
@@ -73,5 +71,3 @@ private:
   bool is_release_[EngineInput::Digital::ID_DIGITAL_MAX];
   T_UINT16 input_hold_[EngineInput::Digital::ID_DIGITAL_MAX];
 };
-
-#endif//HAL_ENGINE_SCENE_EVENT_ENGINEINPUT_DIGITALINPUTEVENT_H_

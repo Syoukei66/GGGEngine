@@ -1,7 +1,6 @@
 #pragma once
 
-#include "EngineInputEvent.h"
-#include <Core/NativeType.h>
+#include <Engine/Event/EngineInputEvent.h>
 
 class InputDevice
 {

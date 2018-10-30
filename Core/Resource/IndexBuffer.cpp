@@ -1,4 +1,5 @@
 #include "IndexBuffer.h"
+#include <Core/Native/NativeProcess.h>
 
 // =================================================================
 // Factory Method

@@ -13,6 +13,10 @@ class GGObject
   friend class GGObjectManager;
   template <class Obj_>
   friend class GGRef;
+  template <class Obj_>
+  friend class SharedRef;
+  template <class Obj_>
+  friend class UniqueRef;
 
   // =================================================================
   // Constructor / Destructor

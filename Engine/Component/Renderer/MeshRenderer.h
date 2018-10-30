@@ -1,7 +1,5 @@
 #pragma once
 
-#include <Core/Mesh.h>
-
 #include "Renderer.h"
 
 class MeshRenderer : public Renderer

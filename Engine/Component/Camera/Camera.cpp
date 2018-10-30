@@ -1,6 +1,6 @@
 #include "Camera.h"
-#include "Director.h"
-#include "../Core/NativeProcess.h"
+
+#include <Engine/GameObject/GameObjectRenderState.h>
 
 // =================================================================
 // Constructor / Destructor
@@ -72,8 +72,6 @@ void Camera::SetupCamera()
     this->z_min_,
     this->z_max_
   );
-  //NativeMethod::Graphics().Graphics_SetTransformProjection(this->GetProjectionMatrix()->GetNativeInstance());
-  //NativeMethod::Graphics().Graphics_SetTransformView(this->GetViewMatrix()->GetNativeInstance());
 }
 
 // =================================================================
@@ -120,7 +118,7 @@ void Camera::SetViewportY(T_FLOAT y)
   this->OnViewportChanged();
 }
 
-void Camera::SetViewportSize(const TSizef & size)
+void Camera::SetViewportSize(const TVec2f& size)
 {
   if (this->size_ == size)
   {

@@ -1,9 +1,6 @@
 #include "Transform3D.h"
 #include <algorithm> 
 
-#include <Core/Mathf.h>
-
-#include "GameObject3D.h"
 #include "imgui\imgui.h"
 
 // =================================================================

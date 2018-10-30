@@ -1,10 +1,5 @@
 #pragma once
 
-#include <functional>
-#include <unordered_map>
-#include <Core/NativeAssert.h>
-#include <Core/NativeType.h>
-
 class IAssetConverter;
 template<class Entity_>
 class AssetConverter;
@@ -45,7 +40,7 @@ public:
   template <class Type_, class Entity_>
   Type_* Find(const std::function<Type_*(AssetConverter<Entity_>*)>& func);
 
-  GG_INLINE void AddConverter(IAssetConverter* converter);
+  inline void AddConverter(IAssetConverter* converter);
 
   // =================================================================
   // Data Members
@@ -59,27 +54,27 @@ private:
 
 //イベントを受理した(戻り値にtrueが帰ってきた)Converterに対してのみ処理を行う
 template<class Entity_>
-GG_INLINE bool AssetConverterManager::Fire(const std::function<bool(AssetConverter<Entity_>*)>& func)
+inline bool AssetConverterManager::Fire(const std::function<bool(AssetConverter<Entity_>*)>& func)
 {
   return func((AssetConverter<Entity_>*)this->converter_map_.at(Entity_::ID));
 }
 
 //全てのConverterに対して処理を行う
 template<class Entity_>
-GG_INLINE void AssetConverterManager::VisitAll(const std::function<void(AssetConverter<Entity_>*)>& func)
+inline void AssetConverterManager::VisitAll(const std::function<void(AssetConverter<Entity_>*)>& func)
 {
   func((AssetConverter<Entity_>*)this->converter_map_.at(Entity_::ID));
 }
 
 template<class Entity_>
-GG_INLINE void AssetConverterManager::VisitAll(const std::function<void(const AssetConverter<Entity_>*)>& func) const
+inline void AssetConverterManager::VisitAll(const std::function<void(const AssetConverter<Entity_>*)>& func) const
 {
   func((AssetConverter<Entity_>*)this->converter_map_.at(Entity_::ID));
 }
 
 //値が帰ってくるまで検索する
 template<class Type_>
-GG_INLINE Type_* AssetConverterManager::Find(const std::function<Type_*(IAssetConverter*)>& func)
+inline Type_* AssetConverterManager::Find(const std::function<Type_*(IAssetConverter*)>& func)
 {
   for (auto& pair : this->converter_map_)
   {
@@ -93,12 +88,12 @@ GG_INLINE Type_* AssetConverterManager::Find(const std::function<Type_*(IAssetCo
 }
 
 template<class Type_, class Entity_>
-GG_INLINE Type_* AssetConverterManager::Find(const std::function<Type_*(AssetConverter<Entity_>*)>& func)
+inline Type_* AssetConverterManager::Find(const std::function<Type_*(AssetConverter<Entity_>*)>& func)
 {
   return func((AssetConverter<Entity_>*)this->converter_map_.at(Entity_::ID));
 }
 
-GG_INLINE void AssetConverterManager::AddConverter(IAssetConverter* converter)
+inline void AssetConverterManager::AddConverter(IAssetConverter* converter)
 {
   GG_ASSERT(this->converter_map_.find(converter->GetID()) == this->converter_map_.end(), "同じAssetEntityを対象とする複数のコンバーターが存在します");
   this->converter_map_[converter->GetID()] = converter;

@@ -44,6 +44,19 @@ public:
 
   /*!
   * @brief コピーコンストラクタ。
+  * 他のSharedRefと所有権の共有。
+  */
+  GG_INLINE SharedRef(const SharedRef& o) noexcept
+  {
+    if (o.ptr_)
+    {
+      o.ptr_->Retain();
+    }
+    this->ptr_ = o.ptr_;
+  }
+
+  /*!
+  * @brief コピーコンストラクタ。
   * 他の変換可能なSharedRefと所有権の共有。
   */
   template <class _OtherObj>
@@ -54,6 +67,16 @@ public:
       o.ptr_->Retain();
     }
     this->ptr_ = o.ptr_;
+  }
+
+  /*!
+  * @brief ムーブコンストラクタ。
+  * 他のSharedRefから所有権を移動する。
+  */
+  GG_INLINE SharedRef(SharedRef&& o) noexcept
+  {
+    this->ptr_ = o.ptr_;
+    o.ptr_ = nullptr;
   }
 
   /*!

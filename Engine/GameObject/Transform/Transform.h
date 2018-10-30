@@ -1,8 +1,4 @@
-#ifndef HAL_ENGINE_ENTITY_TRANSFORM_H_
-#define HAL_ENGINE_ENTITY_TRANSFORM_H_
-
-#include <Core/NativeType.h>
-#include "../Core/Matrix4x4.h"
+#pragma once
 
 class GameObject;
 
@@ -93,4 +89,3 @@ private:
   bool world_transform_dirty_;
 };
 
-#endif//HAL_ENGINE_ENTITY_TRANSFORM_H_

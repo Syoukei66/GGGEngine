@@ -91,8 +91,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -103,9 +102,10 @@
       <MinimalRebuild>false</MinimalRebuild>
       <TreatWarningAsError>false</TreatWarningAsError>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
       <OpenMPSupport>false</OpenMPSupport>
+      <ForcedIncludeFiles>stdafx.h;Engine/stdafx.h</ForcedIncludeFiles>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -117,13 +117,12 @@
     </Lib>
     <PreBuildEvent>
       <Command>cd $(SolutionDir)
-call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe</Command>
+call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe Engine</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -131,10 +130,11 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <TreatWarningAsError>false</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
       <OpenMPSupport>false</OpenMPSupport>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ForcedIncludeFiles>stdafx.h;Engine/stdafx.h</ForcedIncludeFiles>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -146,14 +146,13 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     </Lib>
     <PreBuildEvent>
       <Command>cd $(SolutionDir)
-call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe</Command>
+call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe Engine</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -164,9 +163,10 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <TreatWarningAsError>false</TreatWarningAsError>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <OpenMPSupport>true</OpenMPSupport>
+      <ForcedIncludeFiles>stdafx.h;Engine/stdafx.h</ForcedIncludeFiles>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -180,14 +180,13 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     </Lib>
     <PreBuildEvent>
       <Command>cd $(SolutionDir)
-call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe</Command>
+call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe Engine</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -196,10 +195,11 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
       <TreatWarningAsError>false</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
       <OpenMPSupport>true</OpenMPSupport>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ForcedIncludeFiles>stdafx.h;Engine/stdafx.h</ForcedIncludeFiles>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -213,27 +213,26 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     </Lib>
     <PreBuildEvent>
       <Command>cd $(SolutionDir)
-call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe</Command>
+call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe Engine</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Component\Spine\AttachmentVertexes.cpp" />
     <ClCompile Include="Component\Camera\Camera.cpp" />
     <ClCompile Include="Component\Camera\Camera2D.cpp" />
     <ClCompile Include="Component\Camera\Camera2D_MultiTarget.cpp" />
     <ClCompile Include="Component\Camera\Camera3D.cpp" />
     <ClCompile Include="Component\Camera\Camera3D_LookAt.cpp" />
     <ClCompile Include="Component\Camera\Camera3D_Transformed.cpp" />
+    <ClCompile Include="Engine\EngineInitializeSetting.cpp" />
+    <ClCompile Include="Event\UpdateEventState.cpp" />
     <ClCompile Include="Input\AnalogInput.cpp" />
-    <ClCompile Include="Component\Animator\AnimatedSpriteRenderer.cpp" />
     <ClCompile Include="Activity\BaseActivity.cpp" />
     <ClCompile Include="Component\Collider\Collider3D.cpp" />
     <ClCompile Include="Component\Collider\Collision2D.cpp" />
     <ClCompile Include="Component\Collider\Collision3D.cpp" />
     <ClCompile Include="Input\DigitalInput.cpp" />
     <ClCompile Include="Engine\Engine.cpp" />
-    <ClCompile Include="Engine\EngineInitializeSetting.cpp" />
-    <ClCompile Include="Input\EngineInputEvent.cpp" />
+    <ClCompile Include="Event\EngineInputEvent.cpp" />
     <ClCompile Include="Component\GameComponent.cpp" />
     <ClCompile Include="GameObject\GameObject.cpp" />
     <ClCompile Include="GameObject\GameObject2D.cpp" />
@@ -256,16 +255,21 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClCompile Include="GameObject\Transform\Transform2D.cpp" />
     <ClCompile Include="GameObject\Transform\Transform3D.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Component\Animator\AnimatedSpriteRenderer.h" />
-    <ClInclude Include="Component\Spine\AttachmentVertexes.h" />
     <ClInclude Include="Component\Camera\Camera.h" />
     <ClInclude Include="Component\Camera\Camera2D.h" />
     <ClInclude Include="Component\Camera\Camera2D_MultiTarget.h" />
     <ClInclude Include="Component\Camera\Camera3D.h" />
     <ClInclude Include="Component\Camera\Camera3D_LookAt.h" />
     <ClInclude Include="Component\Camera\Camera3D_Transformed.h" />
+    <ClInclude Include="Event\UpdateEventState.h" />
     <ClInclude Include="GameObject\GameObjectRenderQueue.h" />
     <ClInclude Include="Include.h" />
     <ClInclude Include="Component\Renderer\MeshRenderer.h" />
@@ -279,13 +283,12 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="Director.h" />
     <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="Engine\EngineInitializeSetting.h" />
-    <ClInclude Include="Input\EngineInputEvent.h" />
+    <ClInclude Include="Event\EngineInputEvent.h" />
     <ClInclude Include="Engine\EngineOption.h" />
     <ClInclude Include="Component\GameComponent.h" />
     <ClInclude Include="GameObject\GameObject.h" />
     <ClInclude Include="GameObject\GameObject2D.h" />
     <ClInclude Include="GameObject\GameObject3D.h" />
-    <ClInclude Include="Moniker.h" />
     <ClInclude Include="Component\Renderer\SpriteRenderer.h" />
     <ClInclude Include="GameObject\Transform\Transform3DRotator.h" />
     <ClInclude Include="GameObject\GameObjectRenderState.h" />
@@ -305,6 +308,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="Input\EngineInput.h" />
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Input\AnalogInput.h" />
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\Lambert.fx">
@@ -426,6 +430,12 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <None Include="Shader\DefaultProperty.hlsli" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Algorithm\Algorithm.vcxproj">
+      <Project>{a014e46a-c10d-4ed4-a47c-f79712680dc7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Asset\Asset.vcxproj">
+      <Project>{37173f1e-1a35-4644-8862-81dbb9ad9fc1}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Core\Core.vcxproj">
       <Project>{ed60a9ab-7765-4071-a74f-16ae746c727f}</Project>
     </ProjectReference>

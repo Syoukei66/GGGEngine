@@ -2,7 +2,7 @@
 
 #ifndef NDEBUG
 #define GG_INLINE
-#define GG_GG_INLINE inline
+#define GG_FORCE_INLINE inline
 #else
 /*!
 * @brief コンパイラ依存のインライン。

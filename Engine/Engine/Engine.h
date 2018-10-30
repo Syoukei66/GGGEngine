@@ -1,10 +1,10 @@
 #pragma once
 
-#include <Core/NativeType.h>
-#include <Core/Geometry.h>
-#include "EngineOption.h"
-#include "EngineInput.h"
-#include "Scene.h"
+#include <Engine/Engine/EngineOption.h>
+
+class IEngineSetting;
+class Scene;
+class SceneTransitioner;
 
 class Engine
 {
@@ -39,15 +39,15 @@ public:
   {
     return this->scene_;
   }
-  GG_INLINE const TSizei& GetScreenSize() const
+  GG_INLINE const TVec2f& GetScreenSize() const
   {
     return this->option_->window_size;
   }
-  GG_INLINE T_UINT16 GetScreenWidth() const
+  GG_INLINE T_FLOAT GetScreenWidth() const
   {
     return this->option_->window_size.width;
   }
-  GG_INLINE T_UINT16 GetScreenHeight() const
+  GG_INLINE T_FLOAT GetScreenHeight() const
   {
     return this->option_->window_size.height;
   }

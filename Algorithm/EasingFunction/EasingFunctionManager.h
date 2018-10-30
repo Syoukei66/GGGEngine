@@ -1,35 +1,22 @@
-#ifndef HAL_ENGINE_UTIL_EASINGFUNCTION_EASINGFUNCTIONMANAGER_H_
-#define HAL_ENGINE_UTIL_EASINGFUNCTION_EASINGFUNCTIONMANAGER_H_
+#pragma once
 
-#include "NativeType.h"
 #include "EasingFunction.h"
 
 class EasingFunctionManager
 {
   // =================================================================
-  // Factory Method
+  // GGG Statement
   // =================================================================
-public:
-  static GG_INLINE EasingFunctionManager* GetInstance()
-  {
-    static EasingFunctionManager self;
-    return &self;
-  }
-
-  // =================================================================
-  // Constructor / Destructor
-  // =================================================================
-private:
-  EasingFunctionManager();
+  GG_SINGLETON(EasingFunctionManager);
 
   // =================================================================
   // Method
   // =================================================================
 public:
-  void Load(T_UINT8 render_cycle);
-  void Unload();
-  T_FLOAT CalcByID(const char* function_id, const char* operator_id, T_FLOAT value);
-  T_FLOAT CalcByID(T_UINT8 func, T_UINT8 op, T_FLOAT value);
+  static void Load(T_UINT8 render_cycle);
+  static void Unload();
+  static T_FLOAT CalcByID(const char* function_id, const char* operator_id, T_FLOAT value);
+  static T_FLOAT CalcByID(T_UINT8 func, T_UINT8 op, T_FLOAT value);
 
   // =================================================================
   // Data Member
@@ -37,5 +24,3 @@ public:
 private:
   EasingFunction::EasingFunction** function_table_;
 };
-
-#endif//HAL_ENGINE_UTIL_EASINGFUNCTION_EASINGFUNCTIONMANAGER_H_

@@ -1,6 +1,5 @@
 #include "Director.h"
 
-#include <Core/CerealIO.h>
 #include "FileUtil.h"
 #include "Extensions.h"
 #include "DefaultAsset.h"
@@ -15,7 +14,7 @@
 // =================================================================
 // Methods
 // =================================================================
-void Director::Init()
+void AssetConverterDirector::Init()
 {
   GG_ASSERT(!this->setting_ && !this->converter_manager_ && !this->context_, "Initが２回連続で呼び出されました");
  
@@ -53,7 +52,6 @@ void Director::Init()
 
   this->context_->RegisterDefaultUniqueID(MESH_CUBE,    MESH_PATH_CUBE);
   this->context_->RegisterDefaultUniqueID(MESH_PLANE,   MESH_PATH_PLANE);
-  this->context_->RegisterDefaultUniqueID(MESH_SPRITE,  MESH_PATH_SPRITE);
 
   this->context_->RegisterDefaultUniqueID(MATERIAL_WHITE,   MATERIAL_PATH_WHITE);
   this->context_->RegisterDefaultUniqueID(MATERIAL_LAMBERT, MATERIAL_PATH_LAMBERT);
@@ -72,7 +70,7 @@ void Director::Init()
   this->converter_manager_->AddConverter(SoundAssetEntity::CreateConverter());
 }
 
-void Director::Uninit()
+void AssetConverterDirector::Uninit()
 {
   CerealIO::Json::Export(FileUtil::GetMidDataUniqueIdTablePath().c_str(), this->unique_id_table_);
   CerealIO::Json::Export(FileUtil::GetSettingPath().c_str(), this->setting_);
@@ -83,7 +81,7 @@ void Director::Uninit()
   delete this->unique_id_table_;
 }
 
-void Director::Import()
+void AssetConverterDirector::Import()
 {
   //Importerが対応しているファイルのAssetInfoを作成
   //UniqueIdテーブルなどの作成
@@ -114,7 +112,7 @@ void Director::Import()
   );
 }
 
-void Director::Export()
+void AssetConverterDirector::Export()
 {
   this->converter_manager_->VisitAll([&](IAssetConverter* converter)
   {
@@ -124,7 +122,7 @@ void Director::Export()
   CerealIO::Binary::Export(FileUtil::GetArchiveUniqueIdTablePath().c_str(), this->unique_id_table_);
 }
 
-void Director::CreateProgram()
+void AssetConverterDirector::CreateProgram()
 {
   //======================================
   //Asset.h

@@ -17,7 +17,7 @@ public:
   // Methods
   // =================================================================
 public:
-  GG_INLINE void AddAsset(const std::string& asset_name, const std::string& class_name)
+  inline void AddAsset(const std::string& asset_name, const std::string& class_name)
   {
     this->namespaces_.emplace_back(asset_name, class_name);
   }

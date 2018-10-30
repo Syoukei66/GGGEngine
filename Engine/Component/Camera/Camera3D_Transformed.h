@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Camera3D.h"
-#include "GameObject3D.h"
 
 class Camera3D_Transformed : public Camera3D
 {

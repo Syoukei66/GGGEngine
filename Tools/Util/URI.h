@@ -1,8 +1,6 @@
 #pragma once
 
 #include <string>
-#include <Cereal/types/string.hpp>
-#include <Core/NativeType.h>
 
 class URI
 {
@@ -23,7 +21,7 @@ public:
   const std::string& GetPrefix() const;
   const std::string& GetExtension() const;
 
-  GG_INLINE const std::string& GetFullPath() const
+  inline const std::string& GetFullPath() const
   {
     return this->full_path_;
   }

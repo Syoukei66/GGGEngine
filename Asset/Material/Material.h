@@ -2,8 +2,6 @@
 
 #include "ShaderProperties.h"
 
-class rcShader;
-
 struct MaterialData
 {
   // =================================================================
@@ -17,8 +15,16 @@ struct MaterialData
     archive(tiling_);
     archive(tiling_offset_);
     archive(billbording_);
+
+    archive(bool_properties_);
+    archive(int_properties_);
+    archive(float_properties_);
+    archive(vec2_properties_);
+    archive(vec3_properties_);
+    archive(vec4_properties_);
+    archive(color_properties_);
+    archive(matrix_properties_);
     archive(texture_properties_);
-    archive(properties_);
   }
 
   // =================================================================
@@ -32,7 +38,7 @@ public:
   TVec2f tiling_offset_;
   bool billbording_;
 
-  std::unordered_map<std::string, bool> texture_properties_;
+  std::unordered_map<std::string, bool> bool_properties_;
   std::unordered_map<std::string, T_FIXED_INT32> int_properties_;
   std::unordered_map<std::string, T_FIXED_FLOAT> float_properties_;
   std::unordered_map<std::string, TVec2f> vec2_properties_;
@@ -54,12 +60,6 @@ class rcMaterial : public GGAssetObject
   // =================================================================
   GG_ASSET(rcMaterial, MaterialData);
   GG_LOAD_FUNC(rcMaterial, SharedRef<rcShader>);
-
-  // =================================================================
-  // Factory Method
-  // =================================================================
-public:
-  static UniqueRef<rcMaterial> Create(const SharedRef<rcShader>& resource);
 
   // =================================================================
   // Constructor / Destructor

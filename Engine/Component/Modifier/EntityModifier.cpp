@@ -1,7 +1,6 @@
 ﻿#include "EntityModifier.h"
-#include <algorithm>
+#include <Algorithm/EasingFunction/EasingFunctionManager.h>
 
-#include "../Core/EasingFunctionManager.h"
 #include "EntityModifierManager.h"
 
 //=========================================================================
@@ -76,7 +75,7 @@ void EntityModifierRoot::OnRelease()
     return;
   }
   
-  EntityModifierManager::GetInstance().GetModifierRootAllocator()->Free(this);
+  EntityModifierManager::GetModifierRootAllocator()->Free(this);
 }
 
 void EntityModifierRoot::OnFinish()
@@ -152,7 +151,7 @@ void EntityModifier::OnUpdate(GameObject2D* target, T_FLOAT progress)
   if (this->easing_func_ != EasingFunction::FK_LINER &&
     0.0f < progress && progress < 1.0f)
   {
-    progress = EasingFunctionManager::Instance().CalcByID(this->easing_func_, this->easing_operator_, progress);
+    progress = EasingFunctionManager::CalcByID(this->easing_func_, this->easing_operator_, progress);
   }
   this->OnTimelineUpdate(target, progress);
 }
@@ -170,7 +169,7 @@ void DelayEntityModifier::OnFree()
 
 void DelayEntityModifier::Free()
 {
-  EntityModifierManager::GetInstance().GetDelayModifierAllocator()->Free(this);
+  EntityModifierManager::GetDelayModifierAllocator()->Free(this);
 }
 
 void DelayEntityModifier::OnTimelineUpdate(GameObject2D* target, T_FLOAT progress)
@@ -201,7 +200,7 @@ void SequenceEntityModifier::OnFree()
 
 void SequenceEntityModifier::Free()
 {
-  EntityModifierManager::GetInstance().GetSequenceModifierAllocator()->Free(this);
+  EntityModifierManager::GetSequenceModifierAllocator()->Free(this);
 }
 
 void SequenceEntityModifier::OnTimelineUpdate(GameObject2D* target, T_FLOAT progress)
@@ -255,7 +254,7 @@ void SynchronizedEntityModifier::OnFree()
 
 void SynchronizedEntityModifier::Free()
 {
-  EntityModifierManager::GetInstance().GetSynchronizedModifierAllocator()->Free(this);
+  EntityModifierManager::GetSynchronizedModifierAllocator()->Free(this);
 }
 
 void SynchronizedEntityModifier::OnTimelineUpdate(GameObject2D* target, T_FLOAT progress)
@@ -303,7 +302,7 @@ void LoopEntityModifier::OnFree()
 
 void LoopEntityModifier::Free()
 {
-  EntityModifierManager::GetInstance().GetLoopModifierAllocator()->Free(this);
+  EntityModifierManager::GetLoopModifierAllocator()->Free(this);
 }
 
 void LoopEntityModifier::OnTimelineUpdate(GameObject2D* target, T_FLOAT progress)
@@ -345,7 +344,7 @@ void RoundEntityModifier::OnFree()
 
 void RoundEntityModifier::Free()
 {
-  EntityModifierManager::GetInstance().GetRoundModifierAllocator()->Free(this);
+  EntityModifierManager::GetRoundModifierAllocator()->Free(this);
 }
 
 void RoundEntityModifier::OnTimelineUpdate(GameObject2D* target, T_FLOAT progress)
@@ -442,7 +441,7 @@ void AttributeEntityModifier::OnFree()
 
 void AttributeEntityModifier::Free()
 {
-  EntityModifierManager::GetInstance().GetAttributeModifierAllocator()->Free(this);
+  EntityModifierManager::GetAttributeModifierAllocator()->Free(this);
 }
 
 void AttributeEntityModifier::OnTimelineUpdate(GameObject2D* target, T_FLOAT progress)
@@ -480,7 +479,7 @@ void AttributeEntityModifierEx::OnFree()
 
 void AttributeEntityModifierEx::Free()
 {
-  EntityModifierManager::GetInstance().GetAttributeModifierExAllocator()->Free(this);
+  EntityModifierManager::GetAttributeModifierExAllocator()->Free(this);
 }
 
 void AttributeEntityModifierEx::OnTimelineUpdate(GameObject2D* target, T_FLOAT progress)

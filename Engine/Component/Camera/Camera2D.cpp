@@ -1,7 +1,7 @@
 #include "Camera2D.h"
-#include "Scene.h"
-#include "GameObjectRenderState.h"
-#include "Collision2D.h"
+
+#include <Engine/GameObject/GameObjectRenderState.h>
+#include <Engine/Component/Collider/Collision2D.h>
 
 // =================================================================
 // Constructor / Destructor

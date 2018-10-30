@@ -1,16 +1,14 @@
 #pragma once
 
-#include <Core/AssetManager.h>
+#include <Engine/GameObject/GameObject2D.h>
+#include <Engine/GameObject/GameObject3D.h>
+#include <Engine/Input/InputManager.h>
 
-#include "GameObject2D.h"
-#include "GameObject3D.h"
-#include "InputManager.h"
-#include "UpdateEvent.h"
 #include "SceneTransitioner.h"
 
-#include "Camera.h"
-#include "Camera2D.h"
-#include "Camera3D.h"
+#include <Engine/Component/Camera/Camera.h>
+#include <Engine/Component/Camera/Camera2D.h>
+#include <Engine/Component/Camera/Camera3D.h>
 
 class Scene
 {

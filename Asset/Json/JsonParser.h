@@ -1,12 +1,5 @@
 #pragma once
 
-#include <map>
-#include <string>
-#include <vector>
-
-#include "../Core/NativeAssert.h"
-#include <Core/NativeType.h>
-
 //=============================================================================
 // JsonBase
 //=============================================================================

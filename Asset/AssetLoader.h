@@ -60,6 +60,16 @@ protected:
   // Methods
   // =================================================================
 public:
+  operator SharedRef<Asset_>() const
+  {
+    return this->CreateFromFile();
+  }
+
+  operator SharedRef<const Asset_>() const
+  {
+    return this->CreateFromFile();
+  }
+
   SharedRef<Asset_> CreateFromFile() const
   {
     AssetLoader<Asset_>* self = const_cast<AssetLoader<Asset_>*>(this);

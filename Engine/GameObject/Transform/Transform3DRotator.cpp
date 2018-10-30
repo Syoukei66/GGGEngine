@@ -1,8 +1,5 @@
 #include "Transform3DRotator.h"
-#include <math.h>
-
-#include <Core/Mathf.h>
-#include "GameObject3D.h"
+#include <Engine/GameObject/Transform/Transform3D.h>
 
 static const TVec3f X_AXIS = TVec3f(1.0f, 0.0f, 0.0f);
 static const TVec3f Y_AXIS = TVec3f(0.0f, 1.0f, 0.0f);

@@ -91,7 +91,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -99,6 +99,11 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <PreBuildEvent />
+    <PreBuildEvent>
+      <Command>cd $(SolutionDir)
+call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe Core</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -106,7 +111,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -114,6 +119,11 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <PreBuildEvent />
+    <PreBuildEvent>
+      <Command>cd $(SolutionDir)
+call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe Core</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -123,7 +133,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -135,6 +145,11 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <PreBuildEvent />
+    <PreBuildEvent>
+      <Command>cd $(SolutionDir)
+call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe Core</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -144,7 +159,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\spine-c\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -156,58 +171,57 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <PreBuildEvent />
+    <PreBuildEvent>
+      <Command>cd $(SolutionDir)
+call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe Core</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Common\Math\Matrix4x4.inl">
-      <FileType>Document</FileType>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Common\Allocator\PoolAllocator.h" />
-    <ClInclude Include="Constants\BlendFunction.h" />
-    <ClInclude Include="Common\Math\Bounds.h" />
+    <ClInclude Include="Allocator\PoolAllocator.h" />
+    <ClInclude Include="Math\Bounds.h" />
     <ClInclude Include="Macro\ObjectMacro.h" />
     <ClInclude Include="Object\Object.h" />
     <ClInclude Include="Object\Ref.h" />
     <ClInclude Include="_Private\CerealIO.h" />
-    <ClInclude Include="Common\Math\Color.h" />
-    <ClInclude Include="Constants\Directory.h" />
-    <ClInclude Include="Constants\GraphicsConstants.h" />
+    <ClInclude Include="Math\Color.h" />
+    <ClInclude Include="Constants\DirectoryUtils.h" />
+    <ClInclude Include="Constants\GraphicsUtils.h" />
     <ClInclude Include="Include.h" />
     <ClInclude Include="Macro\ProgramMacro.h" />
-    <ClInclude Include="Common\Logger.h" />
+    <ClInclude Include="Logger\Logger.h" />
     <ClInclude Include="Object\SharedRef.h" />
-    <ClInclude Include="Common\Math\Mathf.h" />
-    <ClInclude Include="Common\Math\Matrix4x4.h" />
+    <ClInclude Include="Math\Mathf.h" />
+    <ClInclude Include="Math\Matrix4x4.h" />
     <ClInclude Include="Macro\AssertMacro.h" />
     <ClInclude Include="Resource\IndexBuffer.h" />
     <ClInclude Include="Native\NativeProcess.h" />
-    <ClInclude Include="Common\Types.h" />
+    <ClInclude Include="Types.h" />
     <ClInclude Include="Object\UniqueRef.h" />
     <ClInclude Include="Resource\VertexBuffer.h" />
-    <ClInclude Include="Common\Math\Quaternion.h" />
+    <ClInclude Include="Math\Quaternion.h" />
     <ClInclude Include="Resource\RenderBuffer.h" />
     <ClInclude Include="Object\ObjectManager.h" />
-    <ClInclude Include="Common\Math\ScalingMatrix.h" />
-    <ClInclude Include="Common\Math\TranslationMatrix.h" />
-    <ClInclude Include="Common\Math\Vector2.h" />
-    <ClInclude Include="Common\Math\Vector3.h" />
-    <ClInclude Include="Common\Math\Vector4.h" />
-    <ClInclude Include="Resource\VertexHelper.h" />
+    <ClInclude Include="Math\ScalingMatrix.h" />
+    <ClInclude Include="Math\TranslationMatrix.h" />
+    <ClInclude Include="Math\Vector2.h" />
+    <ClInclude Include="Math\Vector3.h" />
+    <ClInclude Include="Math\Vector4.h" />
+    <ClInclude Include="Constants\VertexUtils.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Common\Math\Color.cpp" />
-    <ClInclude Include="Common\Math\Vector2.inl">
+    <ClCompile Include="Math\Color.cpp" />
+    <ClInclude Include="Math\Vector2.inl">
       <FileType>Document</FileType>
     </ClInclude>
-    <ClInclude Include="Common\Math\Vector3.inl">
+    <ClInclude Include="Math\Vector3.inl">
       <FileType>Document</FileType>
     </ClInclude>
-    <ClCompile Include="Common\Math\Matrix4x4.cpp" />
+    <ClCompile Include="Math\Matrix4x4.cpp" />
     <ClCompile Include="Object\Object.cpp" />
     <ClCompile Include="Resource\IndexBuffer.cpp" />
-    <ClCompile Include="Common\Math\Quaternion.cpp" />
+    <ClCompile Include="Math\Quaternion.cpp" />
     <ClCompile Include="Resource\RenderBuffer.cpp" />
     <ClCompile Include="Object\ObjectManager.cpp" />
     <ClCompile Include="Resource\VertexBuffer.cpp" />

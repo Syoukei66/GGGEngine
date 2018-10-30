@@ -1,9 +1,5 @@
 #pragma once
 
-#include <string>
-
-#include "NativeType.h"
-
 namespace HashUtils
 {
 

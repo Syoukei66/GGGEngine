@@ -180,45 +180,6 @@
     <ClInclude Include="Native\NativeProcess.h">
       <Filter>ヘッダー ファイル\Native</Filter>
     </ClInclude>
-    <ClInclude Include="Common\Math\Bounds.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\Math\Color.h">
-      <Filter>ヘッダー ファイル\Color</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\Math\Mathf.h">
-      <Filter>ヘッダー ファイル\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\Math\Matrix4x4.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\Math\Quaternion.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\Math\ScalingMatrix.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\Math\TranslationMatrix.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\Math\Vector2.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\Math\Vector3.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\Math\Vector4.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\Allocator\PoolAllocator.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\Logger.h">
-      <Filter>ヘッダー ファイル\Native</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\Types.h">
-      <Filter>ヘッダー ファイル\Native</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -237,18 +198,6 @@
     <ClInclude Include="Object\UniqueRef.h">
       <Filter>ヘッダー ファイル\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="Constants\BlendFunction.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Constants\Directory.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Constants\GraphicsConstants.h">
-      <Filter>ヘッダー ファイル\Constants</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource\VertexHelper.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Macro\ObjectMacro.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -261,6 +210,60 @@
     <ClInclude Include="_Private\CerealIO.h">
       <Filter>ヘッダー ファイル\ThirdPirty\Cereal</Filter>
     </ClInclude>
+    <ClInclude Include="Constants\GraphicsUtils.h">
+      <Filter>ヘッダー ファイル\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants\VertexUtils.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants\DirectoryUtils.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Allocator\PoolAllocator.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Bounds.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Color.h">
+      <Filter>ヘッダー ファイル\Color</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Mathf.h">
+      <Filter>ヘッダー ファイル\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Matrix4x4.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Quaternion.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\ScalingMatrix.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\TranslationMatrix.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector2.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector2.inl">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector3.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector3.inl">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector4.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger\Logger.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>ヘッダー ファイル\Native</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Resource\VertexBuffer.cpp">
@@ -272,12 +275,6 @@
     <ClCompile Include="Resource\RenderBuffer.cpp">
       <Filter>ソース ファイル\Resource\_Native\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="Common\Math\Color.cpp">
-      <Filter>ソース ファイル\Color</Filter>
-    </ClCompile>
-    <ClCompile Include="Common\Math\Quaternion.cpp">
-      <Filter>ソース ファイル\Math</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -287,19 +284,14 @@
     <ClCompile Include="Object\ObjectManager.cpp">
       <Filter>ソース ファイル\Resource</Filter>
     </ClCompile>
-    <ClCompile Include="Common\Math\Vector2.inl">
+    <ClCompile Include="Math\Color.cpp">
+      <Filter>ソース ファイル\Color</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Matrix4x4.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Common\Math\Vector3.inl">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Math\Quaternion.cpp">
+      <Filter>ソース ファイル\Math</Filter>
     </ClCompile>
-    <ClCompile Include="Common\Math\Matrix4x4.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Common\Math\Matrix4x4.inl">
-      <Filter>ヘッダー ファイル\Math</Filter>
-    </None>
   </ItemGroup>
 </Project>

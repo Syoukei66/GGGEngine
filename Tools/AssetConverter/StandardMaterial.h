@@ -26,155 +26,155 @@
 //  // Setter / Getter
 //  // =================================================================
 //public:
-//  GG_INLINE void SetTint(const TColor& color)
+//  inline void SetTint(const TColor& color)
 //  {
 //    this->SetMainColor(color);
 //  }
-//  GG_INLINE const TColor& GetTint() const
+//  inline const TColor& GetTint() const
 //  {
 //    return this->GetMainColor();
 //  }
 //
-//  GG_INLINE void SetAlbedoMap(const rcTexture* texture)
+//  inline void SetAlbedoMap(const rcTexture* texture)
 //  {
 //    this->SetMainTexture(texture);
 //  }
-//  GG_INLINE const rcTexture* GetAlbedoMap() const
+//  inline const rcTexture* GetAlbedoMap() const
 //  {
 //    return this->GetMainTexture();
 //  }
 //
-//  GG_INLINE void SetNormalMap(const rcTexture* texture)
+//  inline void SetNormalMap(const rcTexture* texture)
 //  {
 //    this->normal_map_ = texture;
 //  }
-//  GG_INLINE const rcTexture* GetNormalMap() const
+//  inline const rcTexture* GetNormalMap() const
 //  {
 //    return this->normal_map_;
 //  }
 //
-//  GG_INLINE void SetBumpScale(T_FLOAT bump_scale)
+//  inline void SetBumpScale(T_FLOAT bump_scale)
 //  {
 //    this->bump_scale_ = bump_scale;
 //  }
-//  GG_INLINE T_FLOAT GetBumpScale() const
+//  inline T_FLOAT GetBumpScale() const
 //  {
 //    return this->bump_scale_;
 //  }
 //
-//  GG_INLINE void SetMetallicMap(const rcTexture* texture)
+//  inline void SetMetallicMap(const rcTexture* texture)
 //  {
 //    this->metallic_map_ = texture;
 //  }
-//  GG_INLINE const rcTexture* GetMetallicMap() const
+//  inline const rcTexture* GetMetallicMap() const
 //  {
 //    return this->metallic_map_;
 //  }
 //
-//  GG_INLINE void SetMetallic(T_FLOAT metallic)
+//  inline void SetMetallic(T_FLOAT metallic)
 //  {
 //    this->metallic_ = metallic;
 //  }
-//  GG_INLINE T_FLOAT GetMetallic() const
+//  inline T_FLOAT GetMetallic() const
 //  {
 //    return this->metallic_;
 //  }
 //
-//  GG_INLINE void SetEmissionMap(const rcTexture* emission_map)
+//  inline void SetEmissionMap(const rcTexture* emission_map)
 //  {
 //    this->emission_map_ = emission_map;
 //  }
-//  GG_INLINE const rcTexture* GetEmissionMap() const
+//  inline const rcTexture* GetEmissionMap() const
 //  {
 //    return this->emission_map_;
 //  }
 //
-//  GG_INLINE void SetEmission(const TColor& emission)
+//  inline void SetEmission(const TColor& emission)
 //  {
 //    this->emission_ = emission;
 //  }
-//  GG_INLINE const TColor& GetEmission() const
+//  inline const TColor& GetEmission() const
 //  {
 //    return this->emission_;
 //  }
 //
-//  GG_INLINE void SetOcclusionMap(const rcTexture* emission_map)
+//  inline void SetOcclusionMap(const rcTexture* emission_map)
 //  {
 //    this->emission_map_ = emission_map;
 //  }
-//  GG_INLINE const rcTexture* GetOcclusionMap() const
+//  inline const rcTexture* GetOcclusionMap() const
 //  {
 //    return this->emission_map_;
 //  }
 //
-//  GG_INLINE void SetOcclusionStrength(T_FLOAT occlusion_strength)
+//  inline void SetOcclusionStrength(T_FLOAT occlusion_strength)
 //  {
 //    this->occlusion_strength_ = occlusion_strength;
 //  }
-//  GG_INLINE T_FLOAT GetOcclusionStrength() const
+//  inline T_FLOAT GetOcclusionStrength() const
 //  {
 //    return this->occlusion_strength_;
 //  }
 //
-//  GG_INLINE void SetDetailAlbedoMap(const rcTexture* texture)
+//  inline void SetDetailAlbedoMap(const rcTexture* texture)
 //  {
 //    this->detail_albedo_map_ = texture;
 //  }
-//  GG_INLINE const rcTexture* GetDetailAlbedoMap() const
+//  inline const rcTexture* GetDetailAlbedoMap() const
 //  {
 //    return this->detail_albedo_map_;
 //  }
 //
-//  GG_INLINE void SetDetailNormalMap(const rcTexture* texture)
+//  inline void SetDetailNormalMap(const rcTexture* texture)
 //  {
 //    this->detail_normal_map_ = texture;
 //  }
-//  GG_INLINE const rcTexture* GetDetailNormalMap() const
+//  inline const rcTexture* GetDetailNormalMap() const
 //  {
 //    return this->detail_normal_map_;
 //  }
 //
-//  GG_INLINE void SetDetailBumpScale(T_FLOAT bump_scale)
+//  inline void SetDetailBumpScale(T_FLOAT bump_scale)
 //  {
 //    this->detail_bump_scale_ = bump_scale;
 //  }
-//  GG_INLINE T_FLOAT GetDetailBumpScale() const
+//  inline T_FLOAT GetDetailBumpScale() const
 //  {
 //    return this->detail_bump_scale_;
 //  }
 //
-//  GG_INLINE void SetDetailMaskMap(const rcTexture* texture)
+//  inline void SetDetailMaskMap(const rcTexture* texture)
 //  {
 //    this->detail_mask_map_ = texture;
 //  }
-//  GG_INLINE const rcTexture* GetDetailMaskMap() const
+//  inline const rcTexture* GetDetailMaskMap() const
 //  {
 //    return this->detail_mask_map_;
 //  }
 //
-//  GG_INLINE void SetDetailTiling(const TVec2f& tiling)
+//  inline void SetDetailTiling(const TVec2f& tiling)
 //  {
 //    this->detail_tiling_ = tiling;
 //  }
-//  GG_INLINE const TVec2f& GetDetailTiling() const
+//  inline const TVec2f& GetDetailTiling() const
 //  {
 //    return this->detail_tiling_;
 //  }
 //
-//  GG_INLINE void SetDetailTilingOffset(const TVec2f& offset)
+//  inline void SetDetailTilingOffset(const TVec2f& offset)
 //  {
 //    this->detail_tiling_offset_ = offset;
 //  }
-//  GG_INLINE const TVec2f& GetDetailTilingOffset() const
+//  inline const TVec2f& GetDetailTilingOffset() const
 //  {
 //    return this->detail_tiling_offset_;
 //  }
 //
-//  GG_INLINE void SetAlphaCutoff(T_FLOAT alpha_cutoff)
+//  inline void SetAlphaCutoff(T_FLOAT alpha_cutoff)
 //  {
 //    this->alpha_cutoff_ = alpha_cutoff;
 //  }
-//  GG_INLINE T_FLOAT GetAlphaCutoff() const
+//  inline T_FLOAT GetAlphaCutoff() const
 //  {
 //    return this->alpha_cutoff_;
 //  }

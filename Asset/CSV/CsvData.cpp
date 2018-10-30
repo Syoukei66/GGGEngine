@@ -6,9 +6,7 @@
 // =================================================================
 UniqueRef<rcCsvData> rcCsvData::CreateFromFile(const char* path)
 {
-  rcCsvData* ret = new rcCsvData(path);
-  ret->GGAssetObject::Init();
-  return UniqueRef<rcCsvData>(ret);
+  return UniqueRef<rcCsvData>(new rcCsvData(path));
 }
 
 // =================================================================

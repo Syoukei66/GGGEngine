@@ -1,6 +1,6 @@
 #pragma once
 
-#include <spine/AtlasAttachmentLoader.h>
+#include <Spine/AtlasAttachmentLoader.h>
 
 //TODO:アセット管理の変更に合わせていつか修正する
 class EngineAttachmentLoader

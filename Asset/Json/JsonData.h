@@ -1,10 +1,14 @@
 #pragma once
 
-#include "Resource.h"
-#include "JsonParser.h"
+class JsonNode;
 
 class rcJsonData : public GGAssetObject
 {
+  // =================================================================
+  // GGG Statement
+  // =================================================================
+  GG_OBJECT_NAME(rcJsonData);
+
   // =================================================================
   // Factory Method
   // =================================================================
@@ -28,11 +32,6 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  GG_INLINE virtual const char* GetResourceName() override
-  {
-    return "JsonData";
-  }
-
   GG_INLINE JsonNode* GetRoot() const
   {
     return this->root_;

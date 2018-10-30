@@ -5,4 +5,11 @@
 * GG_OBJECT_NAMEÇ∆GG_LOAD_FUNCÇÃëgÇ›çáÇÌÇπ
 */
 #define GG_ASSET(Type, Data)  GG_OBJECT_NAME(Type);\
+public:\
+  static GG_INLINE UniqueRef<Type> CreateFromFile(const char* path)\
+  {\
+    Data data;\
+    CerealIO::Binary::Import<Data>(path, &data);\
+    return Create(data);\
+  }\
   GG_LOAD_FUNC(Type, Data)

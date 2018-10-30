@@ -1,5 +1,5 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include "SpineData.h"
+#include <spine/spine.h>
 #include <spine/extension.h>
 
 #include "EngineAttachmentLoader.h"

@@ -1,11 +1,4 @@
 #include "Scene.h"
-#include <stdlib.h>
-#include <math.h>
-
-#include "Engine.h"
-#include "Camera.h"
-#include "Camera2D.h"
-#include "Camera3D.h"
 
 // =================================================================
 // Constructor / Destructor

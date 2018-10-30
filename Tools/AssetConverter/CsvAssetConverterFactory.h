@@ -7,7 +7,7 @@ class CsvAssetEntity : public AssetEntity
 {
   ENTITY_ID(ID_CSV)
 public:
-  static GG_INLINE IAssetConverter* CreateConverter()
+  static inline IAssetConverter* CreateConverter()
   {
     return RawAssetConverterFactory::Create<CsvAssetEntity>("CSV", "rcCsvData", "csv");
   }

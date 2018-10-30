@@ -1,8 +1,5 @@
 #pragma once
 
-#include <string>
-#include <unordered_map>
-#include <Core/NativeType.h>
 #include "URI.h"
 
 class AssetInfo;
@@ -22,8 +19,8 @@ public:
   // Methods
   // =================================================================
 public:
-  GG_INLINE bool IsTarget(const URI& uri);
-  GG_INLINE bool Reserve(const URI& uri, AssetConverterContext* context);
+  inline bool IsTarget(const URI& uri);
+  inline bool Reserve(const URI& uri, AssetConverterContext* context);
 
   void Import(std::unordered_map<T_UINT32, Entity_*>* dest, AssetConverterContext* context);
   //アセットが参照しているアセットのロードが行われる為、
@@ -50,25 +47,25 @@ private:
 // Constructor / Destructor
 // =================================================================
 template<class Entity_>
-GG_INLINE AssetImporter<Entity_>::AssetImporter(const std::vector<std::string>& extensions)
+inline AssetImporter<Entity_>::AssetImporter(const std::vector<std::string>& extensions)
   : target_extensions_(extensions)
 {
 }
 
 template<class Entity_>
-GG_INLINE AssetImporter<Entity_>::~AssetImporter() {}
+inline AssetImporter<Entity_>::~AssetImporter() {}
 
 // =================================================================
 // Methods
 // =================================================================
 template<class Entity_>
-GG_INLINE bool AssetImporter<Entity_>::IsTarget(const URI& uri)
+inline bool AssetImporter<Entity_>::IsTarget(const URI& uri)
 {
   return std::find(this->target_extensions_.begin(), this->target_extensions_.end(), uri.GetExtension()) != this->target_extensions_.end();
 }
 
 template<class Entity_>
-GG_INLINE bool AssetImporter<Entity_>::Reserve(const URI& uri, AssetConverterContext* context)
+inline bool AssetImporter<Entity_>::Reserve(const URI& uri, AssetConverterContext* context)
 {
   //対応する拡張子かチェック
   if (!this->IsTarget(uri))
@@ -81,7 +78,7 @@ GG_INLINE bool AssetImporter<Entity_>::Reserve(const URI& uri, AssetConverterCon
 }
 
 template<class Entity_>
-GG_INLINE void AssetImporter<Entity_>::Import(std::unordered_map<T_UINT32, Entity_*>* dest, AssetConverterContext* context)
+inline void AssetImporter<Entity_>::Import(std::unordered_map<T_UINT32, Entity_*>* dest, AssetConverterContext* context)
 {
   for (auto& pair : this->reserve_assets_)
   {
@@ -93,7 +90,7 @@ GG_INLINE void AssetImporter<Entity_>::Import(std::unordered_map<T_UINT32, Entit
 //アセットが参照しているアセットのロードが行われる為、
 //一括ループではなく１つずつロードした方が安全
 template<class Entity_>
-GG_INLINE bool AssetImporter<Entity_>::ImportOnce(std::unordered_map<T_UINT32, Entity_*>* dest, AssetConverterContext* context)
+inline bool AssetImporter<Entity_>::ImportOnce(std::unordered_map<T_UINT32, Entity_*>* dest, AssetConverterContext* context)
 {
   const auto& begin = this->reserve_assets_.begin();
   if (begin == this->reserve_assets_.end())
@@ -110,7 +107,7 @@ GG_INLINE bool AssetImporter<Entity_>::ImportOnce(std::unordered_map<T_UINT32, E
 }
 
 template<class Entity_>
-GG_INLINE bool AssetImporter<Entity_>::ImportOnce(T_UINT32 unique_id, std::unordered_map<T_UINT32, Entity_*>* dest, AssetConverterContext* context)
+inline bool AssetImporter<Entity_>::ImportOnce(T_UINT32 unique_id, std::unordered_map<T_UINT32, Entity_*>* dest, AssetConverterContext* context)
 {
   const auto& itr = this->reserve_assets_.find(unique_id);
   if (itr == this->reserve_assets_.end())
@@ -126,7 +123,7 @@ GG_INLINE bool AssetImporter<Entity_>::ImportOnce(T_UINT32 unique_id, std::unord
 }
 
 template<class Entity_>
-GG_INLINE Entity_* AssetImporter<Entity_>::ImportImmediately(const URI& uri, std::unordered_map<T_UINT32, Entity_*>* dest, AssetConverterContext* context)
+inline Entity_* AssetImporter<Entity_>::ImportImmediately(const URI& uri, std::unordered_map<T_UINT32, Entity_*>* dest, AssetConverterContext* context)
 {
   AssetInfo* info = nullptr;
 

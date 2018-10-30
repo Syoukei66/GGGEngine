@@ -1,7 +1,5 @@
 #pragma once
 
-#include "NativeType.h"
-
 class PerlinNoiseGenerator
 {
 public:

@@ -1,8 +1,5 @@
 #pragma once
 
-#include <unordered_map>
-#include <Core/NativeType.h>
-
 class AssetConverterContext;
 
 template <class Entity_>
@@ -52,7 +49,7 @@ private:
 // Methods
 // =================================================================
 template<class Entity_>
-GG_INLINE void AssetExporter<Entity_>::Export(const std::unordered_map<T_UINT32, Entity_*>& entities, const AssetConverterContext* context)
+inline void AssetExporter<Entity_>::Export(const std::unordered_map<T_UINT32, Entity_*>& entities, const AssetConverterContext* context)
 {
   for (auto& pair : entities)
   {

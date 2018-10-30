@@ -1,39 +1,29 @@
 #pragma once
 
-#include <Core/NativeType.h>
-
 class EngineInitializeSetting
 {
-public:
-  GG_INLINE static EngineInitializeSetting& GetInstance()
-  {
-    static EngineInitializeSetting self = EngineInitializeSetting();
-    return self;
-  }
-
   // =================================================================
-  // Constructor / Destructor
+  // GGG Statement
   // =================================================================
-private:
-  EngineInitializeSetting();
-
+  GG_SINGLETON(EngineInitializeSetting);
+  
   // =================================================================
-  // Method
+  // Methods
   // =================================================================
 public:
-
+  void Load();
 
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  GG_INLINE void SetDefaultLayerId(T_UINT8 id)
+  static GG_INLINE void SetDefaultLayerId(T_UINT8 id)
   {
-    this->default_layer_id_ = id;
+    Self().default_layer_id_ = id;
   }
-  GG_INLINE T_UINT8 GetDefaultLayerId() const
+  static GG_INLINE T_UINT8 GetDefaultLayerId()
   {
-    return this->default_layer_id_;
+    return Self().default_layer_id_;
   }
 
   // =================================================================

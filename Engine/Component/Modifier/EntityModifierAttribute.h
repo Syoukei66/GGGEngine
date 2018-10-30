@@ -1,7 +1,5 @@
 #pragma once
 
-#include <Core/NativeType.h>
-
 class GameObject2D;
 
 class EntityModifierAttribute

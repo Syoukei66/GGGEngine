@@ -1,8 +1,5 @@
 #pragma once
 
-#include <Core/NativeType.h>
-#include <Core/Geometry.h>
-
 //当たり判定の処理はパフォーマンスに大きく関わるので
 //Engine側では管理/実装を行わない
 //代わりに演算の為の関数とインターフェースを用意するので、

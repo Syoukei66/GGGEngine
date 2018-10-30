@@ -1,7 +1,4 @@
 #pragma once
-#include <string>
-#include <unordered_set>
-#include <Core/NativeType.h>
 
 #include <Cereal/cereal.hpp>
 #include <Cereal/archives/json.hpp>
@@ -43,7 +40,7 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  GG_INLINE T_UINT32 GetUniqueID() const
+  inline T_UINT32 GetUniqueID() const
   {
     return this->unique_id_;
   }

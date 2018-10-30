@@ -1,7 +1,5 @@
 #include "AssetMetaData.h"
-#include <fstream>
 
-#include <Core/CerealIO.h>
 #include "FileUtil.h"
 #include "Director.h"
 #include "Extensions.h"

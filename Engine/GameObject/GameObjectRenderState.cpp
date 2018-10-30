@@ -1,7 +1,5 @@
 #include "GameObjectRenderState.h"
-
 #include "GameObject.h"
-#include "Camera.h"
 
 // =================================================================
 // Constructor / Destructor

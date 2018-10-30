@@ -1,13 +1,9 @@
 #include "BaseActivity.h"
 
-#include <thread>
-#include <Core/NativeProcess.h>
-
-#include "Director.h"
-
-#include "InputManager.h"
-#include "Core/AssetManager.h"
-#include "Core/ResourceManager.h"
+#include <Engine/Director.h>
+#include <Engine/Input/InputManager.h>
+#include <Asset/AssetManager.h>
+#include <Core/Object/ObjectManager.h>
 
 // =================================================================
 // Constructor / Destructor
@@ -29,7 +25,7 @@ bool BaseActivity::Run(IEngineSetting* setting)
 
   bool result = false;
 
-  ResourceManager::Init();
+  GGObjectManager::Init();
   AssetManager::Init();
 
   setting->OnEngineInit();
@@ -46,7 +42,7 @@ bool BaseActivity::Run(IEngineSetting* setting)
 
   const EngineOption* option = this->engine_->GetEngineOption();
   this->ApplyEngineOption(option);
-  InputManager::Instance().Init(option->input_setting.Build());
+  InputManager::Init(option->input_setting.Build());
 
 
   result = this->Init(option);
@@ -63,7 +59,7 @@ bool BaseActivity::Run(IEngineSetting* setting)
   setting->OnGameFinal();
 
   AssetManager::Uninit();
-  ResourceManager::Uninit();
+  GGObjectManager::Uninit();
 
   result = this->Uninit();
   GG_ASSERT(result, "アクティビティの終了処理に失敗しました。");
@@ -72,7 +68,7 @@ bool BaseActivity::Run(IEngineSetting* setting)
   GG_ASSERT(result, "エンジンの終了処理に失敗しました。");
   delete this->engine_;
 
-  InputManager::Instance().Uninit();
+  InputManager::Uninit();
 
   setting->OnEngineFinal();
   
@@ -104,17 +100,11 @@ bool BaseActivity::Update()
   //のようにしてみてはどうか
   const int second_elapsed = 1000 / 60; //仮実装
 
-  InputManager::Instance().ClearCaches();
-  UpdateEventState::Instance().Update(second_elapsed);
+  InputManager::ClearCaches();
 
-  EngineInputState::Instance().Prepare();
-  this->InputProcess(EngineInputState::GetInstance());
-
-  //std::thread update_thread(&Engine::OnUpdate, this->engine_);
-  //std::thread draw_thread(&BaseActivity::Draw, this);
-  //update_thread.join();
-  //draw_thread.join();
-
+  EngineInputState::Prepare();
+  this->InputProcess(const_cast<EngineInputState*>(&EngineInputState::Instance()));
+  
   this->engine_->OnUpdate();
   this->Draw();
 
@@ -124,7 +114,7 @@ bool BaseActivity::Update()
   NativeProcess::Time::FPS_PostUpdate();
 #endif
 
-  ResourceManager::Update();
+  GGObjectManager::Update();
 
   return true;
 }

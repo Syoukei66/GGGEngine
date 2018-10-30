@@ -1,8 +1,5 @@
 #pragma once
 
-#include <vector>
-#include "Color.h"
-
 class Gradient
 {
 public:

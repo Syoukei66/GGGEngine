@@ -8,7 +8,7 @@ int main()
 {
   _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-  Director* director = &Director::GetInstance();
+  AssetConverterDirector* director = &AssetConverterDirector::GetInstance();
 
   director->Init();
 
@@ -23,8 +23,6 @@ int main()
 
   return 0;
 }
-
-#include "../Core/NativeProcess.h"
 
 void NativeProcess::Graphics::PackColor4u8(T_FIXED_UINT32* color, T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a)
 {

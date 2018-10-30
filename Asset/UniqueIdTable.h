@@ -21,7 +21,6 @@ enum
 
   MESH_CUBE,
   MESH_PLANE,
-  MESH_SPRITE,
 
   MATERIAL_WHITE,
   MATERIAL_LAMBERT,
@@ -32,7 +31,14 @@ enum
 
 class UniqueIdTable
 {
-public:
+  // =================================================================
+  // GGG Statement
+  // =================================================================
+  GG_SERIALIZABLE(UniqueIdTable)
+  {
+    archive(table_);
+    archive(default_asset_unique_id_table_);
+  }
 
   // =================================================================
   // Constructor / Destructor
@@ -64,17 +70,6 @@ public:
   }
 
   // =================================================================
-  // Serialize Method
-  // =================================================================
-public:
-  template<class Archive>
-  void serialize(Archive& ar, std::uint32_t const version)
-  {
-    ar(this->table_);
-    ar(this->default_asset_unique_id_table_);
-  }
-
-  // =================================================================
   // Data Members
   // =================================================================
 private:
@@ -82,4 +77,3 @@ private:
   std::unordered_map<T_UINT32, T_UINT32> default_asset_unique_id_table_;
 
 };
-CEREAL_CLASS_VERSION(UniqueIdTable, 1);

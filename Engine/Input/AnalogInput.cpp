@@ -1,6 +1,4 @@
 #include "AnalogInput.h"
-#include <algorithm>
-#include "../Core/NativeAssert.h"
 
 const AnalogInputState AnalogInputState::NULL_INPUT = AnalogInputState();
 

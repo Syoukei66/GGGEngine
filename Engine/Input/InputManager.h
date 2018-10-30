@@ -33,30 +33,25 @@ private:
 
 class InputManager
 {
+  // =================================================================
+  // GGG Statement
+  // =================================================================
+  GG_SINGLETON(InputManager);
+
 public:
-  static InputManager* GetInstance()
+  static void Init(const InputSetting& setting);
+  static void Uninit();
+
+  static void ClearCaches();
+
+public:
+  static GG_INLINE T_UINT8 GetStateCount()
   {
-    static InputManager self;
-    return &self;
+    return Self().state_count_;
   }
-
-private:
-  InputManager() {}
-
-public:
-  void Init(const InputSetting& setting);
-  void Uninit();
-
-  void ClearCaches();
-
-public:
-  GG_INLINE T_UINT8 GetStateCount() const
+  static GG_INLINE InputState* GetState(T_UINT8 player_id)
   {
-    return this->state_count_;
-  }
-  GG_INLINE InputState* GetState(T_UINT8 player_id) const
-  {
-    return this->states_[player_id];
+    return Self().states_[player_id];
   }
 
 private:

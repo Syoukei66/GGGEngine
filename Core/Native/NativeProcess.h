@@ -15,15 +15,15 @@ class rcIndexBuffer;
 namespace NativeProcess
 {
 
-//namespace Time
-//{
-//#ifdef _DEBUG
-//void FPS_Init();
-//void FPS_PreUpdate();
-//void FPS_PostUpdate();
-//T_FLOAT FPS_GetValue();
-//#endif
-//} // namespace Time
+namespace Time
+{
+#ifdef _DEBUG
+void FPS_Init();
+void FPS_PreUpdate();
+void FPS_PostUpdate();
+T_FLOAT FPS_GetValue();
+#endif
+} // namespace Time
 
 namespace IO
 {

@@ -1,27 +1,29 @@
 #include "AssetManager.h"
 #include "AssetLoader.h"
 
+#include <Asset/UniqueIdTable.h>
+
 // =================================================================
 // Methods
 // =================================================================
 void AssetManager::Init()
 {
-  Instance().unique_id_table_ = CerealIO::Binary::Import<UniqueIdTable>(Directory::GetArchiveUniqueIdTablePath().c_str());
+  Self().unique_id_table_ = CerealIO::Binary::Import<UniqueIdTable>(Directory::GetArchiveUniqueIdTablePath().c_str());
 }
 
 void AssetManager::Uninit()
 {
-  for (auto& pair : Instance().loaders_)
+  for (auto& pair : Self().loaders_)
   {
     pair.second->UnloadCache();
     delete pair.second;
   }
-  delete Instance().unique_id_table_;
+  delete Self().unique_id_table_;
 }
 
 void AssetManager::UnloadCaches()
 {
-  for (auto& pair : Instance().loaders_)
+  for (auto& pair : Self().loaders_)
   {
     pair.second->UnloadCache();
   }

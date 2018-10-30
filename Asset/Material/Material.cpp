@@ -20,15 +20,42 @@ void rcMaterial::Init(const MaterialData& data)
   this->tiling_offset_ = data.tiling_offset_;
   this->color_ = data.color_;
   this->billbording_ = data.billbording_;
-
+  
+  for (const auto& pair : data.bool_properties_)
+  {
+    this->BoolProperty(pair.first) = pair.second;
+  }
+  for (const auto& pair : data.int_properties_)
+  {
+    this->IntProperty(pair.first) = pair.second;
+  }
+  for (const auto& pair : data.float_properties_)
+  {
+    this->FloatProperty(pair.first) = pair.second;
+  }
+  for (const auto& pair : data.vec2_properties_)
+  {
+    this->Vec2fProperty(pair.first) = pair.second;
+  }
+  for (const auto& pair : data.vec3_properties_)
+  {
+    this->Vec3fProperty(pair.first) = pair.second;
+  }
+  for (const auto& pair : data.vec4_properties_)
+  {
+    this->Vec4fProperty(pair.first) = pair.second;
+  }
+  for (const auto& pair : data.color_properties_)
+  {
+    this->ColorProperty(pair.first) = pair.second;
+  }
+  for (const auto& pair : data.matrix_properties_)
+  {
+    this->MatrixProperty(pair.first) = pair.second;
+  }
   for (const auto& pair : data.texture_properties_)
   {
     this->TextureProperty(pair.first) = AssetManager::Load<rcTexture>(pair.second);
-  }
-
-  for (const auto& pair : data.properties_)
-  {
-    this->properties_[pair.first] = pair.second->Clone();
   }
 }
 

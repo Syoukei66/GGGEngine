@@ -1,7 +1,7 @@
 #include "Engine.h"
-#include "Director.h"
-#include <Core/EasingFunctionManager.h>
-#include "EntityModifierManager.h"
+#include <Algorithm/EasingFunction/EasingFunctionManager.h>
+#include <Engine/Component/Modifier/EntityModifierManager.h>
+#include <Engine/Event/UpdateEventState.h>
 
 // =================================================================
 // Constructor / Destructor
@@ -25,8 +25,8 @@ bool Engine::Init(IEngineSetting* setting)
   this->option_ = new EngineOption();
   setting->SetupEngineOption(this->option_);
 
-  EntityModifierManager::GetInstance().Init(&this->option_->entity_modifier_option);
-  EasingFunctionManager::Instance().Load(this->option_->render_cycle);
+  EntityModifierManager::Init(EntityModifierAllocateOption());
+  EasingFunctionManager::Load(this->option_->render_cycle);
 
   this->scene_transitioner_ = new SceneTransitioner();
   return true;
@@ -40,8 +40,8 @@ bool Engine::EndScene()
 
 bool Engine::End()
 {
-  EasingFunctionManager::Instance().Unload();
-  EntityModifierManager::GetInstance().Uninit();
+  EasingFunctionManager::Unload();
+  EntityModifierManager::Uninit();
 
   delete this->option_;
   return true;
@@ -64,8 +64,8 @@ void Engine::OnUpdate()
   {
     return;
   }
-  //EntityModifierManager::GetInstance().OnUpdate(UpdateEventState::Instance().GetDeltaTime());
-  EntityModifierManager::GetInstance().OnUpdate(1);
+  //EntityModifierManager::GetInstance().OnUpdate(UpdateEventState::Self().GetDeltaTime());
+  EntityModifierManager::OnUpdate(1);
   now_scene->OnInputEvent();
   now_scene->OnUpdateEvent();
 }
@@ -73,7 +73,7 @@ void Engine::OnUpdate()
 bool Engine::DrawWait()
 {
   const T_UINT16 render_cycle = this->option_->render_cycle;
-  this->second_elapsed_from_last_render_ += UpdateEventState::Instance().GetDeltaTime();
+  this->second_elapsed_from_last_render_ += UpdateEventState::GetDeltaTime();
   if (render_cycle <= 0 || render_cycle > this->second_elapsed_from_last_render_)
   {
     return false;

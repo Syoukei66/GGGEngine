@@ -1,7 +1,5 @@
 #pragma once
 
-#include "VertexHelper.h"
-
 class rcIndexBuffer;
 
 /*!
@@ -37,6 +35,6 @@ public:
 
   virtual void SetStreamSource() const = 0;
 
-  virtual void DrawIndexedPrimitive(const SharedRef<const rcIndexBuffer>& index_buffer, VertexHelper::PrimitiveType primitive_type) const = 0;
+  virtual void DrawIndexedPrimitive(const SharedRef<const rcIndexBuffer>& index_buffer, Vertex::PrimitiveType primitive_type) const = 0;
 
 };

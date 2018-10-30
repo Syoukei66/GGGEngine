@@ -7,7 +7,7 @@ class SoundAssetEntity : public AssetEntity
 {
   ENTITY_ID(ID_SOUND)
 public:
-  static GG_INLINE IAssetConverter* CreateConverter()
+  static inline IAssetConverter* CreateConverter()
   {
     return RawAssetConverterFactory::Create<SoundAssetEntity>("Sound", "rcSound", "wav");
   }

@@ -1,5 +1,4 @@
 #include "PerlinNoiseGenerator.h"
-#include "Vector2.h"
 
 PerlinNoiseGenerator::PerlinNoiseGenerator()
   : seed_(123456789)

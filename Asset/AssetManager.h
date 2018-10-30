@@ -31,9 +31,9 @@ public:
     GG_ASSERT(uid != 0, "無効なアセットIDが入力されました");
     if (uid > DefaultUniqueID::DEFAULT_UID_BEGIN)
     {
-      return ((AssetLoader<Asset_>*)Instance().loaders_.at(Instance().unique_id_table_->GetDefaultAssetUniqueID(uid)))->CreateFromFile();
+      return ((AssetLoader<Asset_>*)Self().loaders_.at(Self().unique_id_table_->GetDefaultAssetUniqueID(uid)))->CreateFromFile();
     }
-    return ((AssetLoader<Asset_>*)Instance().loaders_.at(uid))->CreateFromFile();
+    return ((AssetLoader<Asset_>*)Self().loaders_.at(uid))->CreateFromFile();
   }
 
   /*!
@@ -44,9 +44,9 @@ public:
   template<class Asset_>
   static GG_INLINE SharedRef<Asset_> Load(const std::string& path)
   {
-    const T_UINT32 uid = Instance().unique_id_table_->GetID(path);
+    const T_UINT32 uid = Self().unique_id_table_->GetID(path);
     GG_ASSERT(uid != 0, "無効なファイルパスが入力されました");
-    return ((AssetLoader<Asset_>*)Instance().loaders_.at(uid))->CreateFromFile();
+    return ((AssetLoader<Asset_>*)Self().loaders_.at(uid))->CreateFromFile();
   }
 
   /*!
@@ -59,9 +59,9 @@ public:
     GG_ASSERT(uid != 0, "無効なアセットIDが入力されました");
     if (uid > DefaultUniqueID::DEFAULT_UID_BEGIN)
     {
-      return (const AssetLoader<Asset_>&)*Instance().loaders_.at(Instance().unique_id_table_->GetDefaultAssetUniqueID(uid));
+      return (const AssetLoader<Asset_>&)*Self().loaders_.at(Self().unique_id_table_->GetDefaultAssetUniqueID(uid));
     }
-    return (const AssetLoader<Asset_>&)*Instance().loaders_.at(uid);
+    return (const AssetLoader<Asset_>&)*Self().loaders_.at(uid);
   }
 
   /*!
@@ -72,7 +72,7 @@ public:
   template<class Asset_>
   static GG_INLINE const AssetLoader<Asset_>& GetLoader(const std::string& path)
   {
-    return (const AssetLoader<Asset_>&)*Instance().loaders_.at(Instance().unique_id_table_->GetID(path));
+    return (const AssetLoader<Asset_>&)*Self().loaders_.at(Self().unique_id_table_->GetID(path));
   }
 
   /*!
@@ -84,8 +84,8 @@ public:
   template<class Asset_>
   static GG_INLINE const AssetLoader<Asset_>& AddAsset(T_UINT32 uid, const std::string& extension)
   {
-    Instance().loaders_.emplace(uid, new AssetLoader<Asset_>(uid, std::to_string(uid) + "." + extension));
-    return (const AssetLoader<Asset_>&)*Instance().loaders_.at(uid);
+    Self().loaders_.emplace(uid, new AssetLoader<Asset_>(uid, std::to_string(uid) + "." + extension));
+    return (const AssetLoader<Asset_>&)*Self().loaders_.at(uid);
   }
   
   // =================================================================

@@ -1,5 +1,4 @@
 #include "MeshBuilder_Plane.h"
-#include <Core/MeshFactory_Plane.h>
 
 MeshBuilder_Plane::MeshBuilder_Plane(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale_y, T_UINT32 resolution_x, T_UINT32 resolution_y, T_FLOAT tile_count_x, T_FLOAT tile_count_y)
   : format_(format)

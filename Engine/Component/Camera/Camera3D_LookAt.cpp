@@ -1,6 +1,4 @@
 #include "Camera3D_LookAt.h"
-#include <Core/Mathf.h>
-#include "Director.h"
 
 // =================================================================
 // Constructor / Destructor
@@ -117,7 +115,7 @@ void Camera3D_LookAt::Update()
 {
   if (this->target_)
   {
-    this->current_look_at_pos_ = TVec3f::Lerp(this->current_look_at_pos_, this->target_->GetTransform()->GetWorldPosition(), this->target_lerp_t_);
+    this->current_look_at_pos_ = Mathf::Lerp(this->current_look_at_pos_, this->target_->GetTransform()->GetWorldPosition(), this->target_lerp_t_);
   }
 }
 

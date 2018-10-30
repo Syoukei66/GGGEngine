@@ -1,18 +1,11 @@
 #pragma once
 
-#include "GameComponent.h"
-
-#include <Core/NativeType.h>
-#include <Core/Geometry.h>
-#include <Core/Vector2.h>
-#include <Core/Vector3.h>
-#include <Core/Matrix4x4.h>
-#include <Core/RenderTexture.h>
-
-#include "GameObjectRenderState.h"
+#include <Asset/RenderTexture/RenderTexture.h>
+#include <Engine/Component/GameComponent.h>
 
 class Scene;
 class GameObject;
+class GameObjectRenderState;
 
 class Camera : public GameComponent
 {
@@ -85,9 +78,9 @@ public:
     return this->position_.y;
   } 
 
-  void SetViewportSize(const TSizef& size);
+  void SetViewportSize(const TVec2f& size);
   void SetViewportSize(T_FLOAT width, T_FLOAT height);
-  GG_INLINE const TSizef& GetViewportSize() const
+  GG_INLINE const TVec2f& GetViewportSize() const
   {
     return this->size_;
   }
@@ -95,13 +88,13 @@ public:
   void SetViewportWidth(T_FLOAT width);
   GG_INLINE T_FLOAT GetViewportWidth() const
   {
-    return this->size_.width;
+    return this->size_.x;
   }
 
   void SetViewportHeight(T_FLOAT height);
   GG_INLINE T_FLOAT GetViewportHeight() const
   {
-    return this->size_.height;
+    return this->size_.y;
   }
 
   void SetViewportZRange(T_FLOAT z_min, T_FLOAT z_max);
@@ -152,7 +145,7 @@ private:
   SharedRef<rcRenderTexture> target_texture_;
   bool viewport_clear_;
   TVec2f position_;
-  TSizef size_;
+  TVec2f size_;
   T_FLOAT z_min_, z_max_;
 
 };

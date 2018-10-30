@@ -1,8 +1,5 @@
 #pragma once
 
-#include "../Core/Vector3.h"
-#include "../Core/Matrix4x4.h"
-
 namespace Collision3D
 {
 

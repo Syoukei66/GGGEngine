@@ -8,6 +8,9 @@ class GGObject;
 */
 class GGObjectManager
 {
+  // =================================================================
+  // GGG Statement
+  // =================================================================
   GG_SINGLETON(GGObjectManager);
 
   // =================================================================
@@ -20,7 +23,7 @@ public:
 
   static GG_INLINE void Manage(GGObject* obj)
   {
-    Instance().objects_.emplace_back(obj);
+    Self().objects_.emplace_back(obj);
   }
 
   // =================================================================

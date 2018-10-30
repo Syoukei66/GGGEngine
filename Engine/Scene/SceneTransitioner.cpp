@@ -1,7 +1,6 @@
 #include "SceneTransitioner.h"
 
 #include "Scene.h"
-#include "Director.h"
 
 SceneTransitioner::SceneTransitioner()
   : now_scene_(nullptr)

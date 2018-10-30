@@ -1,8 +1,5 @@
 #pragma once
 
-#include "../Core/Vector3.h"
-#include "../Core/Quaternion.h"
-
 class Transform3D;
 
 class Transform3DRotator

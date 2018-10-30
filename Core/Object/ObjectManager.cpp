@@ -16,13 +16,13 @@ void GGObjectManager::Uninit()
   while (true)
   {
     bool deleted = false;
-    for (auto itr = Instance().objects_.begin(); itr != Instance().objects_.end();)
+    for (auto itr = Self().objects_.begin(); itr != Self().objects_.end();)
     {
       const GGObject* obj = (*itr);
       if (obj->GetReferenceCount() == 0)
       {
         delete obj;
-        itr = Instance().objects_.erase(itr);
+        itr = Self().objects_.erase(itr);
         deleted = true;
         continue;
       }
@@ -35,27 +35,27 @@ void GGObjectManager::Uninit()
   }
 
   // 未開放のオブジェクトがあれば通知
-  for (GGObject* obj : Instance().objects_)
+  for (GGObject* obj : Self().objects_)
   {
     std::string message = "未開放の";
     message.append(obj->GetObjectName());
     message.append("があります");
     Log::Error(message.c_str());
   }
-  GG_ASSERT(Instance().objects_.size() == 0, "未開放のObjectがあります。");
+  GG_ASSERT(Self().objects_.size() == 0, "未開放のObjectがあります。");
 }
 
 void GGObjectManager::Update()
 {
   //TODO:本来ならプラットフォーム側の様子をうかがってアンロードする。
   //使用メモリサイズなどを参考に
-  for (auto itr = Instance().objects_.begin(); itr != Instance().objects_.end();)
+  for (auto itr = Self().objects_.begin(); itr != Self().objects_.end();)
   {
     GGObject* obj = (*itr);
     if (obj->GetReferenceCount() == 0)
     {
       delete obj;
-      itr = Instance().objects_.erase(itr);
+      itr = Self().objects_.erase(itr);
       continue;
     }
     ++itr;
@@ -68,7 +68,7 @@ void GGObjectManager::Update()
 size_t GGObjectManager::GetMemorySize()
 {
   size_t ret = 0;
-  for (GGObject* obj : Instance().objects_)
+  for (GGObject* obj : Self().objects_)
   {
     ret += obj->GetMemorySize();
   }
@@ -78,7 +78,7 @@ size_t GGObjectManager::GetMemorySize()
 size_t GGObjectManager::GetVideoMemorySize()
 {
   size_t ret = 0;
-  for (GGObject* obj : Instance().objects_)
+  for (GGObject* obj : Self().objects_)
   {
     ret += obj->GetVideoMemorySize();
   }

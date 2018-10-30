@@ -7,8 +7,6 @@
 #include <Cereal/types/common.hpp>
 #include <Cereal/access.hpp>
 
-#include <Core/NativeType.h>
-
 #include "TextureAssetConverterFactory.h"
 #include "ModelAssetConverterFactory.h"
 #include "ModelMeshAssetConverterFactory.h"

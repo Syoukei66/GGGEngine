@@ -1,6 +1,7 @@
 #include "Model.h"
 
 #include <Asset/Mesh/Mesh.h>
+#include <Asset/Material/Material.h>
 
 // =================================================================
 // GGG Statement

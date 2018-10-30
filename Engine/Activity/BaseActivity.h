@@ -1,8 +1,11 @@
-#ifndef HAL_ENGINE_ACTIVITY_BASEACTIVITY_H_
-#define HAL_ENGINE_ACTIVITY_BASEACTIVITY_H_
+#pragma once
 
-#include "Engine.h"
-#include "EngineInput.h"
+class Engine;
+struct EngineOption;
+class EngineInputState;
+class IEngineSetting;
+
+typedef int* LP_DEVICE;
 
 class BaseActivity
 {
@@ -46,5 +49,3 @@ private:
   Engine* engine_;
 
 };
-
-#endif//HAL_ENGINE_ACTIVITY_BASEACTIVITY_H_

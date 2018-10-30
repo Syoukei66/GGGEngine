@@ -1,11 +1,15 @@
 #pragma once
 
-#include <iostream>
-#include <fstream>
-
 #include <Cereal/cereal.hpp>
 #include <Cereal/archives/json.hpp>
 #include <Cereal/archives/binary.hpp>
+
+#include <Cereal/types/string.hpp>
+#include <Cereal/types/vector.hpp>
+#include <Cereal/types/list.hpp>
+#include <Cereal/types/deque.hpp>
+#include <Cereal/types/map.hpp>
+#include <Cereal/types/unordered_map.hpp>
 
 namespace CerealIO
 {
@@ -133,6 +137,20 @@ T* Import(const char* path)
   T* ret = new T();
   i_archive(*ret);
   return ret;
+}
+
+template <typename T>
+bool Import(const char* path, T* dest)
+{
+  using namespace std;
+  ifstream ifs(path, ios::in | ios::binary);
+  if (!ifs.is_open())
+  {
+    return false;
+  }
+  ::cereal::BinaryInputArchive i_archive(ifs);
+  i_archive(*dest);
+  return true;
 }
 
 template <typename T>

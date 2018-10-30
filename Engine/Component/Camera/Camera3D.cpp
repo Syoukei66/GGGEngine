@@ -1,7 +1,6 @@
 #include "Camera3D.h"
-#include <Core/Mathf.h>
-#include "Scene.h"
-#include "Collision3D.h"
+#include <Engine/GameObject/Transform/Transform3D.h>
+#include <Engine/GameObject/GameObjectRenderState.h>
 
 // =================================================================
 // Constructor / Destructor
@@ -39,7 +38,8 @@ Camera3D::~Camera3D()
 // =================================================================
 bool Camera3D::FrustumCulling(const TVec3f& positive, const TVec3f& negative, T_INT8* first_index) const
 {
-  return Collision3D::Frustum_AABB(this->render_state_->GetViewProjMatrix(), positive, negative, first_index);
+  return false;
+  //return Collision3D::Frustum_AABB(this->render_state_->GetViewProjMatrix(), positive, negative, first_index);
 }
 
 const Matrix4x4& Camera3D::GetViewMatrix() const

@@ -1,7 +1,6 @@
 #pragma once
 
-#include <deque>
-#include "EngineInputEvent.h"
+#include <Engine/Event/EngineInputEvent.h>
 
 struct InputEntity
 {
