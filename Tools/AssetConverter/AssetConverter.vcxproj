@@ -101,7 +101,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\Assimp\include;$(SolutionDir)Engine\ThirdParty\spine-c\include;$(SolutionDir)Engine\Tools\Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\Assimp\include;$(SolutionDir)Engine\ThirdParty\spine-c\include;$(SolutionDir)Engine\Tools\Util;$(SolutionDir)Engine\Tools\AssetConverter;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
@@ -118,7 +118,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\Assimp\include;$(SolutionDir)Engine\ThirdParty\spine-c\include;$(SolutionDir)Engine\Tools\Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\Assimp\include;$(SolutionDir)Engine\ThirdParty\spine-c\include;$(SolutionDir)Engine\Tools\Util;$(SolutionDir)Engine\Tools\AssetConverter;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
@@ -133,7 +133,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\Assimp\include;$(SolutionDir)Engine\ThirdParty\spine-c\include;$(SolutionDir)Engine\Tools\Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\Assimp\include;$(SolutionDir)Engine\ThirdParty\spine-c\include;$(SolutionDir)Engine\Tools\Util;$(SolutionDir)Engine\Tools\AssetConverter;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
@@ -150,7 +150,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\Assimp\include;$(SolutionDir)Engine\ThirdParty\spine-c\include;$(SolutionDir)Engine\Tools\Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\ThirdParty\Assimp\include;$(SolutionDir)Engine\ThirdParty\spine-c\include;$(SolutionDir)Engine\Tools\Util;$(SolutionDir)Engine\Tools\AssetConverter;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
@@ -162,98 +162,98 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AssetConverterFactory.h" />
-    <ClInclude Include="AssetConverterManager.h" />
-    <ClInclude Include="AssetEditor.h" />
-    <ClInclude Include="AssetConverter.h" />
-    <ClInclude Include="AssetEntity.h" />
-    <ClInclude Include="AssetExporter.h" />
-    <ClInclude Include="AssetProgramGenerator.h" />
-    <ClInclude Include="AssetProgramGenerator_identifier.h" />
-    <ClInclude Include="CsvAssetConverterFactory.h" />
-    <ClInclude Include="DefaultAsset.h" />
-    <ClInclude Include="DefaultMaterialAssetConverterFactory.h" />
-    <ClInclude Include="DefaultMaterialAssetEntity.h" />
-    <ClInclude Include="DefaultMaterialAssetExporter.h" />
-    <ClInclude Include="DefaultMeshAssetEntity.h" />
-    <ClInclude Include="DefaultMeshAssetConverterFactory.h" />
-    <ClInclude Include="DefaultMeshAssetExporter.h" />
+    <ClInclude Include="Converter\AssetConverterFactory.h" />
+    <ClInclude Include="Converter\AssetConverterManager.h" />
+    <ClInclude Include="Entity\AssetEditor.h" />
+    <ClInclude Include="Converter\AssetConverter.h" />
+    <ClInclude Include="Entity\AssetEntity.h" />
+    <ClInclude Include="Entity\AssetExporter.h" />
+    <ClInclude Include="ProgramGenerator\AssetProgramGenerator.h" />
+    <ClInclude Include="ProgramGenerator\AssetProgramGenerator_identifier.h" />
+    <ClInclude Include="Entity\File\Raw\CSV\CsvAssetConverterFactory.h" />
+    <ClInclude Include="Entity\Default\DefaultAsset.h" />
+    <ClInclude Include="Entity\Default\DefaultMaterialAssetConverterFactory.h" />
+    <ClInclude Include="Entity\Default\DefaultMaterialAssetEntity.h" />
+    <ClInclude Include="Entity\Default\DefaultMaterialAssetExporter.h" />
+    <ClInclude Include="Entity\Default\DefaultMeshAssetEntity.h" />
+    <ClInclude Include="Entity\Default\DefaultMeshAssetConverterFactory.h" />
+    <ClInclude Include="Entity\Default\DefaultMeshAssetExporter.h" />
     <ClInclude Include="Director.h" />
-    <ClInclude Include="AssetMetaData.h" />
-    <ClInclude Include="AssetProgramGenerator_definition.h" />
-    <ClInclude Include="AssetProgramGenerator_namespace.h" />
-    <ClInclude Include="AssimpMaterialSystemImporter.h" />
-    <ClInclude Include="AssetImporter.h" />
-    <ClInclude Include="Extensions.h" />
-    <ClInclude Include="FileUtil.h" />
-    <ClInclude Include="AssetConverterContext.h" />
-    <ClInclude Include="IAssetConverter.h" />
-    <ClInclude Include="JsonAssetConverterFactory.h" />
-    <ClInclude Include="Logger.h" />
-    <ClInclude Include="MeshBuilder.h" />
-    <ClInclude Include="MeshBuilder_Cube.h" />
-    <ClInclude Include="MeshBuilder_Plane.h" />
-    <ClInclude Include="ModelConstants.h" />
-    <ClInclude Include="ModelMaterialAssetConverterFactory.h" />
-    <ClInclude Include="ModelMaterialAssetEntity.h" />
-    <ClInclude Include="ModelMaterialAssetExporter.h" />
-    <ClInclude Include="ModelMeshAssetConverterFactory.h" />
-    <ClInclude Include="ModelMeshAssetEntity.h" />
-    <ClInclude Include="ModelMeshAssetExporter.h" />
-    <ClInclude Include="ModelAssetConverterFactory.h" />
-    <ClInclude Include="ModelAssetEntity.h" />
-    <ClInclude Include="ModelAssetExporter.h" />
-    <ClInclude Include="ModelAssetImporter.h" />
-    <ClInclude Include="AssetInfo.h" />
-    <ClInclude Include="FileAssetConverterFactory.h" />
-    <ClInclude Include="RuntimeSetting.h" />
-    <ClInclude Include="Setting.h" />
-    <ClInclude Include="RawAssetConverterFactory.h" />
-    <ClInclude Include="RawAssetExporter.h" />
-    <ClInclude Include="RawAssetImporter.h" />
-    <ClInclude Include="ShaderAssetConverterFactory.h" />
-    <ClInclude Include="SoundAssetConverterFactory.h" />
-    <ClInclude Include="StandardMaterial.h" />
+    <ClInclude Include="Entity\AssetMetaData.h" />
+    <ClInclude Include="ProgramGenerator\AssetProgramGenerator_definition.h" />
+    <ClInclude Include="ProgramGenerator\AssetProgramGenerator_namespace.h" />
+    <ClInclude Include="Assimp\AssimpMaterialSystemImporter.h" />
+    <ClInclude Include="Entity\AssetImporter.h" />
+    <ClInclude Include="Constants\Extensions.h" />
+    <ClInclude Include="Util\FileUtil.h" />
+    <ClInclude Include="Converter\AssetConverterContext.h" />
+    <ClInclude Include="Converter\IAssetConverter.h" />
+    <ClInclude Include="Entity\File\Raw\Json\JsonAssetConverterFactory.h" />
+    <ClInclude Include="Util\Logger.h" />
+    <ClInclude Include="Util\MeshBuilder\MeshBuilder.h" />
+    <ClInclude Include="Util\MeshBuilder\MeshBuilder_Cube.h" />
+    <ClInclude Include="Util\MeshBuilder\MeshBuilder_Plane.h" />
+    <ClInclude Include="Entity\File\Model\ModelConstants.h" />
+    <ClInclude Include="Entity\File\Model\Material\ModelMaterialAssetConverterFactory.h" />
+    <ClInclude Include="Entity\File\Model\Material\ModelMaterialAssetEntity.h" />
+    <ClInclude Include="Entity\File\Model\Material\ModelMaterialAssetExporter.h" />
+    <ClInclude Include="Entity\File\Model\Mesh\ModelMeshAssetConverterFactory.h" />
+    <ClInclude Include="Entity\File\Model\Mesh\ModelMeshAssetEntity.h" />
+    <ClInclude Include="Entity\File\Model\Mesh\ModelMeshAssetExporter.h" />
+    <ClInclude Include="Entity\File\Model\ModelAssetConverterFactory.h" />
+    <ClInclude Include="Entity\File\Model\ModelAssetEntity.h" />
+    <ClInclude Include="Entity\File\Model\ModelAssetExporter.h" />
+    <ClInclude Include="Entity\File\Model\ModelAssetImporter.h" />
+    <ClInclude Include="Entity\AssetInfo.h" />
+    <ClInclude Include="Entity\File\FileAssetConverterFactory.h" />
+    <ClInclude Include="Setting\RuntimeSetting.h" />
+    <ClInclude Include="Setting\Setting.h" />
+    <ClInclude Include="Entity\File\Raw\RawAssetConverterFactory.h" />
+    <ClInclude Include="Entity\File\Raw\RawAssetExporter.h" />
+    <ClInclude Include="Entity\File\Raw\RawAssetImporter.h" />
+    <ClInclude Include="Entity\File\Raw\Shader\ShaderAssetConverterFactory.h" />
+    <ClInclude Include="Entity\File\Raw\Sound\SoundAssetConverterFactory.h" />
+    <ClInclude Include="Entity\File\StandardMaterial.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="TextureAssetConverterFactory.h" />
-    <ClInclude Include="TextureAssetEntity.h" />
-    <ClInclude Include="TextureAssetExporter.h" />
-    <ClInclude Include="TextureAssetImporter.h" />
+    <ClInclude Include="Entity\File\Texture\TextureAssetConverterFactory.h" />
+    <ClInclude Include="Entity\File\Texture\TextureAssetEntity.h" />
+    <ClInclude Include="Entity\File\Texture\TextureAssetExporter.h" />
+    <ClInclude Include="Entity\File\Texture\TextureAssetImporter.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AssetConverterManager.cpp" />
-    <ClCompile Include="AssetEntity.cpp" />
-    <ClCompile Include="AssetMetaData.cpp" />
-    <ClCompile Include="AssetProgramGenerator_identifier.cpp" />
-    <ClCompile Include="DefaultMaterialAssetConverterFactory.cpp" />
-    <ClCompile Include="DefaultMaterialAssetEntity.cpp" />
-    <ClCompile Include="DefaultMaterialAssetExporter.cpp" />
-    <ClCompile Include="DefaultMeshAssetConverterFactory.cpp" />
-    <ClCompile Include="DefaultMeshAssetEntity.cpp" />
-    <ClCompile Include="DefaultMeshAssetExporter.cpp" />
+    <ClCompile Include="Converter\AssetConverterManager.cpp" />
+    <ClCompile Include="Entity\AssetEntity.cpp" />
+    <ClCompile Include="Entity\AssetMetaData.cpp" />
+    <ClCompile Include="ProgramGenerator\AssetProgramGenerator_identifier.cpp" />
+    <ClCompile Include="Entity\Default\DefaultMaterialAssetConverterFactory.cpp" />
+    <ClCompile Include="Entity\Default\DefaultMaterialAssetEntity.cpp" />
+    <ClCompile Include="Entity\Default\DefaultMaterialAssetExporter.cpp" />
+    <ClCompile Include="Entity\Default\DefaultMeshAssetConverterFactory.cpp" />
+    <ClCompile Include="Entity\Default\DefaultMeshAssetEntity.cpp" />
+    <ClCompile Include="Entity\Default\DefaultMeshAssetExporter.cpp" />
     <ClCompile Include="Director.cpp" />
-    <ClCompile Include="AssetProgramGenerator_definition.cpp" />
-    <ClCompile Include="AssetProgramGenerator_namespace.cpp" />
-    <ClCompile Include="AssimpMaterialSystemImporter.cpp" />
-    <ClCompile Include="FileUtil.cpp" />
-    <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="ProgramGenerator\AssetProgramGenerator_definition.cpp" />
+    <ClCompile Include="ProgramGenerator\AssetProgramGenerator_namespace.cpp" />
+    <ClCompile Include="Assimp\AssimpMaterialSystemImporter.cpp" />
+    <ClCompile Include="Util\FileUtil.cpp" />
+    <ClCompile Include="Util\Logger.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MeshBuilder_Cube.cpp" />
-    <ClCompile Include="MeshBuilder_Plane.cpp" />
-    <ClCompile Include="ModelMaterialAssetConverterFactory.cpp" />
-    <ClCompile Include="ModelMaterialAssetEntity.cpp" />
-    <ClCompile Include="ModelMaterialAssetExporter.cpp" />
-    <ClCompile Include="ModelMeshAssetConverterFactory.cpp" />
-    <ClCompile Include="ModelMeshAssetEntity.cpp" />
-    <ClCompile Include="ModelMeshAssetExporter.cpp" />
-    <ClCompile Include="ModelAssetConverterFactory.cpp" />
-    <ClCompile Include="ModelAssetEntity.cpp" />
-    <ClCompile Include="ModelAssetExporter.cpp" />
-    <ClCompile Include="ModelAssetImporter.cpp" />
-    <ClCompile Include="AssetInfo.cpp" />
-    <ClCompile Include="NativeLogger.cpp" />
-    <ClCompile Include="Setting.cpp" />
-    <ClCompile Include="StandardMaterial.cpp" />
+    <ClCompile Include="Util\MeshBuilder\MeshBuilder_Cube.cpp" />
+    <ClCompile Include="Util\MeshBuilder\MeshBuilder_Plane.cpp" />
+    <ClCompile Include="Entity\File\Model\Material\ModelMaterialAssetConverterFactory.cpp" />
+    <ClCompile Include="Entity\File\Model\Material\ModelMaterialAssetEntity.cpp" />
+    <ClCompile Include="Entity\File\Model\Material\ModelMaterialAssetExporter.cpp" />
+    <ClCompile Include="Entity\File\Model\Mesh\ModelMeshAssetConverterFactory.cpp" />
+    <ClCompile Include="Entity\File\Model\Mesh\ModelMeshAssetEntity.cpp" />
+    <ClCompile Include="Entity\File\Model\Mesh\ModelMeshAssetExporter.cpp" />
+    <ClCompile Include="Entity\File\Model\ModelAssetConverterFactory.cpp" />
+    <ClCompile Include="Entity\File\Model\ModelAssetEntity.cpp" />
+    <ClCompile Include="Entity\File\Model\ModelAssetExporter.cpp" />
+    <ClCompile Include="Entity\File\Model\ModelAssetImporter.cpp" />
+    <ClCompile Include="Entity\AssetInfo.cpp" />
+    <ClCompile Include="Util\NativeLogger.cpp" />
+    <ClCompile Include="Setting\Setting.cpp" />
+    <ClCompile Include="Entity\File\StandardMaterial.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -264,10 +264,10 @@
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdafx.h</ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdafx.h</ForcedIncludeFiles>
     </ClCompile>
-    <ClCompile Include="TextureAssetConverterFactory.cpp" />
-    <ClCompile Include="TextureAssetEntity.cpp" />
-    <ClCompile Include="TextureAssetExporter.cpp" />
-    <ClCompile Include="TextureAssetImporter.cpp" />
+    <ClCompile Include="Entity\File\Texture\TextureAssetConverterFactory.cpp" />
+    <ClCompile Include="Entity\File\Texture\TextureAssetEntity.cpp" />
+    <ClCompile Include="Entity\File\Texture\TextureAssetExporter.cpp" />
+    <ClCompile Include="Entity\File\Texture\TextureAssetImporter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Asset\Asset.vcxproj">

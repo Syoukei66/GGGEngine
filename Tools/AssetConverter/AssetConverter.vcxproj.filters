@@ -117,292 +117,292 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AssimpMaterialSystemImporter.h">
-      <Filter>ヘッダー ファイル\Assimp</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetProgramGenerator_namespace.h">
-      <Filter>ヘッダー ファイル\ProgramGenerator</Filter>
-    </ClInclude>
-    <ClInclude Include="FileUtil.h">
-      <Filter>ヘッダー ファイル\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="Setting.h">
-      <Filter>ヘッダー ファイル\Setting</Filter>
-    </ClInclude>
-    <ClInclude Include="RuntimeSetting.h">
-      <Filter>ヘッダー ファイル\Setting</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetProgramGenerator_definition.h">
-      <Filter>ヘッダー ファイル\ProgramGenerator</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetMetaData.h">
-      <Filter>ヘッダー ファイル\Asset</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetInfo.h">
-      <Filter>ヘッダー ファイル\Asset</Filter>
-    </ClInclude>
     <ClInclude Include="Director.h">
       <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetProgramGenerator.h">
-      <Filter>ヘッダー ファイル\ProgramGenerator</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetEditor.h">
-      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetExporter.h">
-      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetImporter.h">
-      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetConverterContext.h">
-      <Filter>ヘッダー ファイル\Asset</Filter>
-    </ClInclude>
-    <ClInclude Include="Logger.h">
-      <Filter>ヘッダー ファイル\Util</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetConverter.h">
-      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetEntity.h">
-      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetConverterFactory.h">
-      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetConverterManager.h">
-      <Filter>ヘッダー ファイル\Asset</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelAssetEntity.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelAssetExporter.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelAssetImporter.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="IAssetConverter.h">
-      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelAssetConverterFactory.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelMeshAssetExporter.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Model\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelMeshAssetEntity.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Model\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelMeshAssetConverterFactory.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Model\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelMaterialAssetConverterFactory.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Model\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelMaterialAssetEntity.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Model\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelMaterialAssetExporter.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Model\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="Extensions.h">
-      <Filter>ヘッダー ファイル\Constants</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureAssetConverterFactory.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureAssetEntity.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureAssetImporter.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureAssetExporter.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="FileAssetConverterFactory.h">
-      <Filter>ヘッダー ファイル\Asset\_File</Filter>
-    </ClInclude>
-    <ClInclude Include="RawAssetConverterFactory.h">
-      <Filter>ヘッダー ファイル\Asset\_File\_Raw</Filter>
-    </ClInclude>
-    <ClInclude Include="RawAssetExporter.h">
-      <Filter>ヘッダー ファイル\Asset\_File\_Raw</Filter>
-    </ClInclude>
-    <ClInclude Include="RawAssetImporter.h">
-      <Filter>ヘッダー ファイル\Asset\_File\_Raw</Filter>
-    </ClInclude>
-    <ClInclude Include="CsvAssetConverterFactory.h">
-      <Filter>ヘッダー ファイル\Asset\_File\_Raw\CSV</Filter>
-    </ClInclude>
-    <ClInclude Include="JsonAssetConverterFactory.h">
-      <Filter>ヘッダー ファイル\Asset\_File\_Raw\Json</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderAssetConverterFactory.h">
-      <Filter>ヘッダー ファイル\Asset\_File\_Raw\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundAssetConverterFactory.h">
-      <Filter>ヘッダー ファイル\Asset\_File\_Raw\Sound</Filter>
-    </ClInclude>
-    <ClInclude Include="DefaultAsset.h">
-      <Filter>ヘッダー ファイル\Constants</Filter>
-    </ClInclude>
-    <ClInclude Include="StandardMaterial.h">
-      <Filter>ヘッダー ファイル\Assimp</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelConstants.h">
-      <Filter>ヘッダー ファイル\Assimp</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetProgramGenerator_identifier.h">
-      <Filter>ヘッダー ファイル\ProgramGenerator</Filter>
-    </ClInclude>
-    <ClInclude Include="DefaultMeshAssetEntity.h">
-      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="DefaultMeshAssetExporter.h">
-      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="DefaultMeshAssetConverterFactory.h">
-      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshBuilder.h">
-      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshBuilder_Cube.h">
-      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshBuilder_Plane.h">
-      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="DefaultMaterialAssetConverterFactory.h">
-      <Filter>ヘッダー ファイル\Asset\_Default\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="DefaultMaterialAssetEntity.h">
-      <Filter>ヘッダー ファイル\Asset\_Default\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="DefaultMaterialAssetExporter.h">
-      <Filter>ヘッダー ファイル\Asset\_Default\Material</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Util\MeshBuilder\MeshBuilder.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\MeshBuilder\MeshBuilder_Cube.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\MeshBuilder\MeshBuilder_Plane.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Assimp\AssimpMaterialSystemImporter.h">
+      <Filter>ヘッダー ファイル\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\FileUtil.h">
+      <Filter>ヘッダー ファイル\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Setting\Setting.h">
+      <Filter>ヘッダー ファイル\Setting</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants\Extensions.h">
+      <Filter>ヘッダー ファイル\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="Setting\RuntimeSetting.h">
+      <Filter>ヘッダー ファイル\Setting</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\Logger.h">
+      <Filter>ヘッダー ファイル\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Default\DefaultAsset.h">
+      <Filter>ヘッダー ファイル\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Default\DefaultMaterialAssetConverterFactory.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Default\DefaultMaterialAssetEntity.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Default\DefaultMaterialAssetExporter.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Default\DefaultMeshAssetConverterFactory.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Default\DefaultMeshAssetEntity.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Default\DefaultMeshAssetExporter.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\Material\ModelMaterialAssetConverterFactory.h">
+      <Filter>ヘッダー ファイル\Asset\_File\Model\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\Material\ModelMaterialAssetEntity.h">
+      <Filter>ヘッダー ファイル\Asset\_File\Model\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\Material\ModelMaterialAssetExporter.h">
+      <Filter>ヘッダー ファイル\Asset\_File\Model\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\Mesh\ModelMeshAssetConverterFactory.h">
+      <Filter>ヘッダー ファイル\Asset\_File\Model\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\Mesh\ModelMeshAssetEntity.h">
+      <Filter>ヘッダー ファイル\Asset\_File\Model\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\Mesh\ModelMeshAssetExporter.h">
+      <Filter>ヘッダー ファイル\Asset\_File\Model\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\ModelAssetConverterFactory.h">
+      <Filter>ヘッダー ファイル\Asset\_File\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\ModelAssetEntity.h">
+      <Filter>ヘッダー ファイル\Asset\_File\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\ModelAssetExporter.h">
+      <Filter>ヘッダー ファイル\Asset\_File\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\ModelAssetImporter.h">
+      <Filter>ヘッダー ファイル\Asset\_File\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\ModelConstants.h">
+      <Filter>ヘッダー ファイル\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Raw\CSV\CsvAssetConverterFactory.h">
+      <Filter>ヘッダー ファイル\Asset\_File\_Raw\CSV</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Raw\Json\JsonAssetConverterFactory.h">
+      <Filter>ヘッダー ファイル\Asset\_File\_Raw\Json</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Raw\Shader\ShaderAssetConverterFactory.h">
+      <Filter>ヘッダー ファイル\Asset\_File\_Raw\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Raw\Sound\SoundAssetConverterFactory.h">
+      <Filter>ヘッダー ファイル\Asset\_File\_Raw\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Raw\RawAssetConverterFactory.h">
+      <Filter>ヘッダー ファイル\Asset\_File\_Raw</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Raw\RawAssetExporter.h">
+      <Filter>ヘッダー ファイル\Asset\_File\_Raw</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Raw\RawAssetImporter.h">
+      <Filter>ヘッダー ファイル\Asset\_File\_Raw</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Texture\TextureAssetConverterFactory.h">
+      <Filter>ヘッダー ファイル\Asset\_File\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Texture\TextureAssetEntity.h">
+      <Filter>ヘッダー ファイル\Asset\_File\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Texture\TextureAssetExporter.h">
+      <Filter>ヘッダー ファイル\Asset\_File\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Texture\TextureAssetImporter.h">
+      <Filter>ヘッダー ファイル\Asset\_File\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\FileAssetConverterFactory.h">
+      <Filter>ヘッダー ファイル\Asset\_File</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\StandardMaterial.h">
+      <Filter>ヘッダー ファイル\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\AssetEditor.h">
+      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\AssetEntity.h">
+      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\AssetExporter.h">
+      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\AssetImporter.h">
+      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\AssetInfo.h">
+      <Filter>ヘッダー ファイル\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\AssetMetaData.h">
+      <Filter>ヘッダー ファイル\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="Converter\AssetConverter.h">
+      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Converter\AssetConverterContext.h">
+      <Filter>ヘッダー ファイル\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="Converter\AssetConverterFactory.h">
+      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Converter\AssetConverterManager.h">
+      <Filter>ヘッダー ファイル\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="Converter\IAssetConverter.h">
+      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgramGenerator\AssetProgramGenerator.h">
+      <Filter>ヘッダー ファイル\ProgramGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgramGenerator\AssetProgramGenerator_definition.h">
+      <Filter>ヘッダー ファイル\ProgramGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgramGenerator\AssetProgramGenerator_identifier.h">
+      <Filter>ヘッダー ファイル\ProgramGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgramGenerator\AssetProgramGenerator_namespace.h">
+      <Filter>ヘッダー ファイル\ProgramGenerator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AssimpMaterialSystemImporter.cpp">
-      <Filter>ソース ファイル\Assimp</Filter>
-    </ClCompile>
-    <ClCompile Include="AssetProgramGenerator_namespace.cpp">
-      <Filter>ソース ファイル\ProgramGenerator</Filter>
-    </ClCompile>
-    <ClCompile Include="Setting.cpp">
-      <Filter>ソース ファイル\Setting</Filter>
-    </ClCompile>
-    <ClCompile Include="FileUtil.cpp">
-      <Filter>ソース ファイル\Util</Filter>
-    </ClCompile>
-    <ClCompile Include="AssetProgramGenerator_definition.cpp">
-      <Filter>ソース ファイル\ProgramGenerator</Filter>
-    </ClCompile>
-    <ClCompile Include="AssetMetaData.cpp">
-      <Filter>ソース ファイル\Asset</Filter>
-    </ClCompile>
-    <ClCompile Include="AssetInfo.cpp">
-      <Filter>ソース ファイル\Asset</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Director.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Logger.cpp">
-      <Filter>ソース ファイル\Util</Filter>
-    </ClCompile>
-    <ClCompile Include="AssetConverterManager.cpp">
-      <Filter>ソース ファイル\Asset</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelAssetImporter.cpp">
-      <Filter>ソース ファイル\Asset\_File\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelAssetExporter.cpp">
-      <Filter>ソース ファイル\Asset\_File\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelAssetConverterFactory.cpp">
-      <Filter>ソース ファイル\Asset\_File\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelAssetEntity.cpp">
-      <Filter>ソース ファイル\Asset\_File\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelMeshAssetExporter.cpp">
-      <Filter>ソース ファイル\Asset\_File\Model\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelMeshAssetEntity.cpp">
-      <Filter>ソース ファイル\Asset\_File\Model\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelMeshAssetConverterFactory.cpp">
-      <Filter>ソース ファイル\Asset\_File\Model\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="AssetEntity.cpp">
-      <Filter>ソース ファイル\Asset\_Base</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelMaterialAssetConverterFactory.cpp">
-      <Filter>ソース ファイル\Asset\_File\Model\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelMaterialAssetEntity.cpp">
-      <Filter>ソース ファイル\Asset\_File\Model\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelMaterialAssetExporter.cpp">
-      <Filter>ソース ファイル\Asset\_File\Model\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureAssetConverterFactory.cpp">
-      <Filter>ソース ファイル\Asset\_File\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureAssetEntity.cpp">
-      <Filter>ソース ファイル\Asset\_File\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureAssetImporter.cpp">
-      <Filter>ソース ファイル\Asset\_File\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureAssetExporter.cpp">
-      <Filter>ソース ファイル\Asset\_File\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="StandardMaterial.cpp">
-      <Filter>ソース ファイル\Assimp</Filter>
-    </ClCompile>
-    <ClCompile Include="AssetProgramGenerator_identifier.cpp">
-      <Filter>ソース ファイル\ProgramGenerator</Filter>
-    </ClCompile>
-    <ClCompile Include="DefaultMeshAssetConverterFactory.cpp">
-      <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="DefaultMeshAssetExporter.cpp">
-      <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="DefaultMeshAssetEntity.cpp">
-      <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshBuilder_Cube.cpp">
-      <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshBuilder_Plane.cpp">
-      <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="DefaultMaterialAssetExporter.cpp">
-      <Filter>ソース ファイル\Asset\_Default\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="DefaultMaterialAssetEntity.cpp">
-      <Filter>ソース ファイル\Asset\_Default\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="DefaultMaterialAssetConverterFactory.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="NativeLogger.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\MeshBuilder\MeshBuilder_Cube.cpp">
+      <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\MeshBuilder\MeshBuilder_Plane.cpp">
+      <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Assimp\AssimpMaterialSystemImporter.cpp">
+      <Filter>ソース ファイル\Assimp</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\FileUtil.cpp">
+      <Filter>ソース ファイル\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Setting\Setting.cpp">
+      <Filter>ソース ファイル\Setting</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\Logger.cpp">
+      <Filter>ソース ファイル\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\NativeLogger.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Default\DefaultMaterialAssetConverterFactory.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Default\DefaultMaterialAssetEntity.cpp">
+      <Filter>ソース ファイル\Asset\_Default\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Default\DefaultMaterialAssetExporter.cpp">
+      <Filter>ソース ファイル\Asset\_Default\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Default\DefaultMeshAssetConverterFactory.cpp">
+      <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Default\DefaultMeshAssetEntity.cpp">
+      <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Default\DefaultMeshAssetExporter.cpp">
+      <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Model\Material\ModelMaterialAssetConverterFactory.cpp">
+      <Filter>ソース ファイル\Asset\_File\Model\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Model\Material\ModelMaterialAssetEntity.cpp">
+      <Filter>ソース ファイル\Asset\_File\Model\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Model\Material\ModelMaterialAssetExporter.cpp">
+      <Filter>ソース ファイル\Asset\_File\Model\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Model\Mesh\ModelMeshAssetConverterFactory.cpp">
+      <Filter>ソース ファイル\Asset\_File\Model\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Model\Mesh\ModelMeshAssetEntity.cpp">
+      <Filter>ソース ファイル\Asset\_File\Model\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Model\Mesh\ModelMeshAssetExporter.cpp">
+      <Filter>ソース ファイル\Asset\_File\Model\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Model\ModelAssetConverterFactory.cpp">
+      <Filter>ソース ファイル\Asset\_File\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Model\ModelAssetEntity.cpp">
+      <Filter>ソース ファイル\Asset\_File\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Model\ModelAssetExporter.cpp">
+      <Filter>ソース ファイル\Asset\_File\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Model\ModelAssetImporter.cpp">
+      <Filter>ソース ファイル\Asset\_File\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Texture\TextureAssetConverterFactory.cpp">
+      <Filter>ソース ファイル\Asset\_File\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Texture\TextureAssetEntity.cpp">
+      <Filter>ソース ファイル\Asset\_File\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Texture\TextureAssetExporter.cpp">
+      <Filter>ソース ファイル\Asset\_File\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Texture\TextureAssetImporter.cpp">
+      <Filter>ソース ファイル\Asset\_File\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\StandardMaterial.cpp">
+      <Filter>ソース ファイル\Assimp</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\AssetEntity.cpp">
+      <Filter>ソース ファイル\Asset\_Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\AssetInfo.cpp">
+      <Filter>ソース ファイル\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\AssetMetaData.cpp">
+      <Filter>ソース ファイル\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="Converter\AssetConverterManager.cpp">
+      <Filter>ソース ファイル\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgramGenerator\AssetProgramGenerator_definition.cpp">
+      <Filter>ソース ファイル\ProgramGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgramGenerator\AssetProgramGenerator_identifier.cpp">
+      <Filter>ソース ファイル\ProgramGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgramGenerator\AssetProgramGenerator_namespace.cpp">
+      <Filter>ソース ファイル\ProgramGenerator</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

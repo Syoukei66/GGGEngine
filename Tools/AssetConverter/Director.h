@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Setting.h"
-#include "AssetConverterContext.h"
-#include "AssetConverterManager.h"
+#include <Setting/Setting.h>
+#include <Converter/AssetConverterContext.h>
+#include <Converter/AssetConverterManager.h>
 
 class AssetConverterDirector
 {
