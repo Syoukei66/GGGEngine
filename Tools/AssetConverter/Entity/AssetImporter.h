@@ -42,6 +42,7 @@ private:
 };
 
 #include <Entity/AssetInfo.h>
+#include <Converter/AssetConverterContext.h>
 
 // =================================================================
 // Constructor / Destructor

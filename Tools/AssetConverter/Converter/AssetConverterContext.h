@@ -6,6 +6,7 @@ struct Setting;
 
 class AssetConverterManager;
 class AssetInfo;
+class UniqueIdTable;
 
 class AssetConverterContext
 {
@@ -49,6 +50,7 @@ protected:
 };
 
 #include "AssetConverterManager.h"
+#include <Asset/UniqueIdTable.h>
 
 inline bool AssetConverterContext::Reserve(const URI& uri)
 {
