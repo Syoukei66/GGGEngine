@@ -1,4 +1,5 @@
 #include "MeshRenderer.h"
+#include <Asset/Mesh/Mesh.h>
 
 // =================================================================
 // Factory Method
@@ -25,7 +26,7 @@ MeshRenderer::~MeshRenderer()
 }
 
 // =================================================================
-// Method
+// Methods
 // =================================================================
 bool MeshRenderer::SetStreamSource() const
 {

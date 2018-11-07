@@ -111,7 +111,7 @@ void SkeletonAnimation::ManagedDraw(GameObjectRenderState* state)
 
 void SkeletonAnimation::Update()
 {
-  const T_FLOAT delta_time = 0.001f * Director::GetEngineOption()->render_cycle * this->time_scale_;
+  const T_FLOAT delta_time = 0.001f * Application::GetMainActivity()->GetOption().render_cycle * this->time_scale_;
   spSkeleton_update(this->skeleton_, delta_time);
   spAnimationState_update(this->state_, delta_time);
   spAnimationState_apply(this->state_, this->skeleton_);

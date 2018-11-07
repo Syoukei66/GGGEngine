@@ -2,6 +2,8 @@
 
 #include "Renderer.h"
 
+class rcMesh;
+
 class MeshRenderer : public Renderer
 {
   // =================================================================
@@ -18,7 +20,7 @@ protected:
   virtual ~MeshRenderer();
 
   // =================================================================
-  // Method
+  // Methods
   // =================================================================
 protected:
   virtual bool SetStreamSource() const override;

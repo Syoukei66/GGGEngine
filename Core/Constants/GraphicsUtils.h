@@ -6,7 +6,7 @@ namespace Graphics
 /*!
  * @brief RenderBufferのピクセルフォーマット
  */
-enum class PixelFormat
+enum class PixelFormat : T_UINT32
 {
   FORMAT_D16,
   FORMAT_D24S8,

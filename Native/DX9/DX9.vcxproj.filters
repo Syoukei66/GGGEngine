@@ -60,101 +60,11 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DirectXActivity.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="DirectXInputDeviceManager.cpp">
-      <Filter>ソース ファイル\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="DirectXInputDevice_Mouse.cpp">
-      <Filter>ソース ファイル\Input\Device</Filter>
-    </ClCompile>
-    <ClCompile Include="DirectXInputDevice_Keyboard.cpp">
-      <Filter>ソース ファイル\Input\Device</Filter>
-    </ClCompile>
-    <ClCompile Include="DirectXNativeImplements.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="DirectXInputDevice_XInput.cpp">
-      <Filter>ソース ファイル\Input\Device</Filter>
-    </ClCompile>
-    <ClCompile Include="NativeShader.cpp">
-      <Filter>ソース ファイル\Native\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui\imgui_impl_dx9.cpp">
-      <Filter>ソース ファイル\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="NativeSound.cpp">
-      <Filter>ソース ファイル\Native\Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="AudioManager.cpp">
-      <Filter>ソース ファイル\Audio</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="NativeVertexBuffer.cpp">
-      <Filter>ソース ファイル\Native\Objects\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="NativeIndexBuffer.cpp">
-      <Filter>ソース ファイル\Native\Objects\Buffer</Filter>
-    </ClCompile>
-    <ClCompile Include="NativeProcess.cpp">
-      <Filter>ソース ファイル\Native</Filter>
-    </ClCompile>
-    <ClCompile Include="NativeLogger.cpp">
-      <Filter>ソース ファイル\Native</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DirectXActivity.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="DirectXInputDeviceManager.h">
-      <Filter>ヘッダー ファイル\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="DirectXInputDevice_Mouse.h">
-      <Filter>ヘッダー ファイル\Input\Device</Filter>
-    </ClInclude>
-    <ClInclude Include="DirectXInputDevice_Keyboard.h">
-      <Filter>ヘッダー ファイル\Input\Device</Filter>
-    </ClInclude>
-    <ClInclude Include="DirectXInputDevice.h">
-      <Filter>ヘッダー ファイル\Input\Device</Filter>
-    </ClInclude>
-    <ClInclude Include="DirectXDirector.h">
-      <Filter>ヘッダー ファイル\Director</Filter>
-    </ClInclude>
-    <ClInclude Include="DirectXNativeImplements.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="DirectXInputDevice_XInput.h">
-      <Filter>ヘッダー ファイル\Input\Device</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeShader.h">
-      <Filter>ヘッダー ファイル\Native\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeConstants.h">
-      <Filter>ヘッダー ファイル\Native</Filter>
-    </ClInclude>
-    <ClInclude Include="imgui\imgui_impl_dx9.h">
-      <Filter>ヘッダー ファイル\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeSound.h">
-      <Filter>ヘッダー ファイル\Native\Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="AudioManager.h">
-      <Filter>ヘッダー ファイル\Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeIndexBuffer.h">
-      <Filter>ヘッダー ファイル\Native\Objects\Buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="NativeVertexBuffer.h">
-      <Filter>ヘッダー ファイル\Native\Objects\Buffer</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>

@@ -24,7 +24,7 @@ Camera::Camera()
   , target_texture_(nullptr)
   , viewport_clear_(true)
   , position_(0.0f, 0.0f)
-  , size_((T_FLOAT)Director::GetScreenWidth(), (T_FLOAT)Director::GetScreenHeight())
+  , size_(Application::GetMainActivity()->GetScreenWidth(), Application::GetMainActivity()->GetScreenHeight())
   , z_min_(0.0f)
   , z_max_(1.0f)
 {
@@ -38,7 +38,7 @@ Camera::~Camera()
 }
 
 // =================================================================
-// Method
+// Methods
 // =================================================================
 void Camera::DrawScene(Scene* scene)
 {
@@ -53,7 +53,7 @@ void Camera::DrawScene(Scene* scene)
   this->SetupCamera();
   if (this->viewport_clear_)
   {
-    NativeProcess::Graphics::ViewportClear();
+    Application::GetPlatform()->GetGraphicsAPI()->ViewportClear();
   }
   this->OnDrawScene(scene);
   if (this->target_texture_)
@@ -64,7 +64,7 @@ void Camera::DrawScene(Scene* scene)
 
 void Camera::SetupCamera()
 {
-  NativeProcess::Graphics::SetViewport(
+  Application::GetPlatform()->Platform::GetGraphicsAPI()->SetViewport(
     this->position_.x,
     this->position_.y,
     this->size_.width,

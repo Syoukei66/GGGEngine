@@ -1,7 +1,7 @@
 #pragma once
 
-#include <Asset/Shader/Shader.h>
-#include <Asset/Texture/Texture.h>
+#include <Core/Application/Platform/API/_Asset/Shader/Shader.h>
+#include <Core/Application/Platform/API/_Asset/Texture/Texture.h>
 
 class ShaderProperty
 {

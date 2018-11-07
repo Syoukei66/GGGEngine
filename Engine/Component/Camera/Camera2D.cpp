@@ -2,6 +2,7 @@
 
 #include <Engine/GameObject/GameObjectRenderState.h>
 #include <Engine/Component/Collider/Collision2D.h>
+#include <Engine/Scene/Scene.h>
 
 // =================================================================
 // Constructor / Destructor

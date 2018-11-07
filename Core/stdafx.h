@@ -15,15 +15,16 @@
 #include <math.h>
 
 #include <Core/Types.h>
+#include <Core/Application/Input/EngineInput.h>
 
 #include <Core/Macro/ProgramMacro.h>
-#include <Core/Logger/Logger.h>
+#include <Core/Util/Logger.h>
 #include <Core/Macro/AssertMacro.h>
 #include <Core/Macro/ObjectMacro.h>
 
-#include <Core/Object/Object.h>
-#include <Core/Object/SharedRef.h>
-#include <Core/Object/UniqueRef.h>
+#include <Core/Application/Object/Object.h>
+#include <Core/Application/Object/SharedRef.h>
+#include <Core/Application/Object/UniqueRef.h>
 
 #include <Core/Math/Mathf.h>
 #include <Core/Math/Vector2.h>
@@ -37,12 +38,9 @@
 #include <Core/Constants/DirectoryUtils.h>
 #include <Core/Constants/GraphicsUtils.h>
 
-#include <Core/Native/NativeProcess.h>
+#include <Core/Application/Application.h>
+#include <Core/Application/Platform/Platform.h>
 
 #include <Core/Constants/VertexUtils.h>
-
-#include <Core/Resource/IndexBuffer.h>
-#include <Core/Resource/RenderBuffer.h>
-#include <Core/Resource/VertexBuffer.h>
 
 #include <Core/_Private/CerealIO.h>

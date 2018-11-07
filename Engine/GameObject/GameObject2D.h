@@ -1,6 +1,5 @@
 #pragma once
 
-#include <Asset/Sprite/Sprite.h>
 #include "GameObject.h"
 
 class EntityModifierRoot;
@@ -8,12 +7,6 @@ class Transform2D;
 
 class GameObject2D : public GameObject
 {
-  // =================================================================
-  // Factory Method
-  // =================================================================
-public:
-  static GameObject2D* Create(const SharedRef<rcSprite>& sprite);
-
   // =================================================================
   // Constructor / Destructor
   // =================================================================
@@ -28,7 +21,7 @@ public:
   virtual void Init() override;
 
   // =================================================================
-  // Method
+  // Methods
   // =================================================================
 public:
   void AddChild(GameObject2D* child);

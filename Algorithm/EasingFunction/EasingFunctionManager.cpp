@@ -82,7 +82,7 @@ namespace
 // =================================================================
 // Method
 // =================================================================
-void EasingFunctionManager::Load(T_UINT8 render_cycle)
+void EasingFunctionManager::Load(T_UINT32 sampling_count)
 {
   if (Self().function_table_)
   {
@@ -100,7 +100,7 @@ void EasingFunctionManager::Load(T_UINT8 render_cycle)
 
   for (T_UINT8 i = 0; i < EasingFunction::FK_DATA_NUM; ++i)
   {
-    Self().function_table_[i]->Load(render_cycle);
+    Self().function_table_[i]->Load(sampling_count);
   }
 }
 

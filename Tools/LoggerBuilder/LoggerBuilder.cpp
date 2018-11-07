@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 
-static const std::string LOGGER_PATH = "Engine/Core/Common/Logger.h";
+static const std::string LOGGER_PATH = "Engine/Core/Util/Logger.h";
 static const std::string ASSERT_NAME = "Assert";
 
 std::string LoggerBuilder::CreateEnums()

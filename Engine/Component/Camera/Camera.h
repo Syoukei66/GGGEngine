@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Asset/RenderTexture/RenderTexture.h>
+#include <Core/Application/Platform/API/_Resource/RenderTexture/RenderTexture.h>
 #include <Engine/Component/GameComponent.h>
 
 class Scene;
@@ -18,7 +18,7 @@ public:
   virtual ~Camera();
 
   // =================================================================
-  // Method
+  // Methods
   // =================================================================
 public:
   void DrawScene(Scene* scene);
@@ -28,11 +28,8 @@ public:
   virtual const Matrix4x4& GetProjectionMatrix() const = 0;
 
 protected:
-
   virtual void SetupCamera();
-
   virtual void OnViewportChanged() {}
-
   virtual void OnDrawScene(Scene* scene) = 0;
 
   // =================================================================

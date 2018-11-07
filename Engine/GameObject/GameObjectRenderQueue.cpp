@@ -1,5 +1,7 @@
 #include "GameObjectRenderQueue.h"
 #include <ppl.h>
+#include <Engine/Component/Renderer/Renderer.h>
+#include <Engine/Component/Camera/Camera3D.h>
 
 #include "GameObjectRenderState.h"
 

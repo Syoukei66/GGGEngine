@@ -88,7 +88,6 @@ void SceneTransitioner::OnHideFinish()
   }
   this->now_scene_ = this->next_scene_;
   this->next_scene_ = nullptr;
-  Director::SetNowScene(this->now_scene_);
   if (this->now_scene_)
   {
     this->state_ = SCENE_TRANSITION_LOADING;

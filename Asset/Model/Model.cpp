@@ -6,7 +6,7 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-void rcModel::Init(const ModelData& data)
+GG_INIT_FUNC_IMPL_1(rcModel, const ModelData& data)
 {
   this->mesh_ = AssetManager::Load<rcMesh>(data.mesh_unique_id_);
   const T_UINT8 submesh_count = this->mesh_->GetSubmeshCount();
@@ -15,4 +15,5 @@ void rcModel::Init(const ModelData& data)
   {
     this->materials_[i] = AssetManager::Load<rcMaterial>(data.material_unique_ids_[i]);
   }
+  return true;
 }

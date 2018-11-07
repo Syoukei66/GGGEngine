@@ -1,6 +1,7 @@
 #include "Camera3D.h"
 #include <Engine/GameObject/Transform/Transform3D.h>
 #include <Engine/GameObject/GameObjectRenderState.h>
+#include <Engine/Scene/Scene.h>
 
 // =================================================================
 // Constructor / Destructor
@@ -76,7 +77,7 @@ void Camera3D::OnDrawScene(Scene* scene)
 }
 
 // =================================================================
-// Method
+// Methods
 // =================================================================
 void Camera3D::CheckProjectionDirty()
 {

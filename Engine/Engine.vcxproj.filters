@@ -192,8 +192,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Input\AnalogInput.cpp">
-      <Filter>ソース ファイル\Engine\Input</Filter>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Component\Camera\Camera.cpp">
       <Filter>ソース ファイル</Filter>
@@ -213,112 +213,97 @@
     <ClCompile Include="Component\Camera\Camera3D_Transformed.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Input\DigitalInput.cpp">
-      <Filter>ソース ファイル\Engine\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Input\InputManager.cpp">
-      <Filter>ソース ファイル\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Input\InputSetting.cpp">
-      <Filter>ソース ファイル\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject\GameObject.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject\GameObject2D.cpp">
-      <Filter>ソース ファイル\GameObject\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject\GameObject3D.cpp">
-      <Filter>ソース ファイル\GameObject\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject\GameObjectRenderQueue.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject\GameObjectRenderState.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="Component\Collider\Collider3D.cpp">
-      <Filter>ソース ファイル\Component\Collision\3D</Filter>
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Component\Collider\Collision2D.cpp">
-      <Filter>ソース ファイル\Component\Collision\2D</Filter>
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Component\Collider\Collision3D.cpp">
-      <Filter>ソース ファイル\Component\Collision\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject\Transform\Transform.cpp">
-      <Filter>ソース ファイル\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject\Transform\Transform2D.cpp">
-      <Filter>ソース ファイル\GameObject\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject\Transform\Transform3D.cpp">
-      <Filter>ソース ファイル\GameObject\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject\Transform\Transform3DRotator.cpp">
-      <Filter>ソース ファイル\GameObject\3D</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\Renderer\SpriteRenderer.cpp">
-      <Filter>ソース ファイル\Component\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\Renderer\MeshRenderer.cpp">
-      <Filter>ソース ファイル\Component\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Engine.cpp">
-      <Filter>ソース ファイル\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Activity\BaseActivity.cpp">
-      <Filter>ソース ファイル\Activity</Filter>
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Component\Modifier\EntityModifier.cpp">
-      <Filter>ソース ファイル\GameObject\2D\Modifier</Filter>
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Component\Modifier\EntityModifierAttribute.cpp">
-      <Filter>ソース ファイル\GameObject\2D\Modifier</Filter>
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Component\Modifier\EntityModifierFactory.cpp">
-      <Filter>ソース ファイル\GameObject\2D\Modifier</Filter>
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Component\Modifier\EntityModifierManager.cpp">
-      <Filter>ソース ファイル\GameObject\2D\Modifier</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\GameComponent.cpp">
-      <Filter>ソース ファイル\Component</Filter>
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Component\Spine\SkeletonAnimation.cpp">
-      <Filter>ソース ファイル\GameObject\2D\Spine</Filter>
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\GameComponent.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Transform\Transform.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Transform\Transform2D.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Transform\Transform3D.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Transform\Transform3DRotator.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\GameObject.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\GameObject2D.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\GameObject3D.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\GameObjectRenderQueue.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\GameObjectRenderState.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Scene\Scene.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Renderer\Renderer.cpp">
-      <Filter>ソース ファイル\Component\Renderer</Filter>
+    <ClCompile Include="Scene\SceneManager.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Scene\SceneTransitioner.cpp">
-      <Filter>ソース ファイル\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="stdafx.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\EngineInitializeSetting.cpp">
+    <ClCompile Include="Component\Renderer\MeshRenderer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Event\EngineInputEvent.cpp">
-      <Filter>ソース ファイル\Scene\Event\EngineInput</Filter>
+    <ClCompile Include="Component\Renderer\Renderer.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Event\UpdateEventState.cpp">
+    <ClCompile Include="Component\Renderer\SpriteRenderer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\GameObjectFactory.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Engine.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="EntryPoint.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Director.h">
-      <Filter>ヘッダー ファイル\Engine\Director</Filter>
-    </ClInclude>
     <ClInclude Include="Include.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Input\AnalogInput.h">
-      <Filter>ヘッダー ファイル\Engine\Input</Filter>
+    <ClInclude Include="stdafx.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Director.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Component\Camera\Camera.h">
       <Filter>ヘッダー ファイル</Filter>
@@ -338,138 +323,108 @@
     <ClInclude Include="Component\Camera\Camera3D_Transformed.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Input\DigitalInput.h">
-      <Filter>ヘッダー ファイル\Engine\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Input\InputDevice.h">
-      <Filter>ヘッダー ファイル\Engine\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Input\InputDeviceManager.h">
-      <Filter>ヘッダー ファイル\Engine\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Input\InputManager.h">
-      <Filter>ヘッダー ファイル\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Input\InputSetting.h">
-      <Filter>ヘッダー ファイル\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Input\EngineInput.h">
-      <Filter>ヘッダー ファイル\Engine\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject\GameObject.h">
-      <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject\GameObject2D.h">
-      <Filter>ヘッダー ファイル\GameObject\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject\GameObject3D.h">
-      <Filter>ヘッダー ファイル\GameObject\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject\GameObjectRenderQueue.h">
-      <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject\GameObjectRenderState.h">
-      <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="Component\Collider\Collider2D.h">
-      <Filter>ヘッダー ファイル\Component\Collision\2D</Filter>
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Component\Collider\Collider3D.h">
-      <Filter>ヘッダー ファイル\Component\Collision\3D</Filter>
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Component\Collider\Collision2D.h">
-      <Filter>ヘッダー ファイル\Component\Collision\2D</Filter>
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Component\Collider\Collision3D.h">
-      <Filter>ヘッダー ファイル\Component\Collision\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject\Transform\Transform.h">
-      <Filter>ヘッダー ファイル\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject\Transform\Transform2D.h">
-      <Filter>ヘッダー ファイル\GameObject\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject\Transform\Transform3D.h">
-      <Filter>ヘッダー ファイル\GameObject\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject\Transform\Transform3DRotator.h">
-      <Filter>ヘッダー ファイル\GameObject\3D</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Renderer\SpriteRenderer.h">
-      <Filter>ヘッダー ファイル\Component\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Renderer\MeshRenderer.h">
-      <Filter>ヘッダー ファイル\Component\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Engine.h">
-      <Filter>ヘッダー ファイル\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\EngineInitializeSetting.h">
-      <Filter>ヘッダー ファイル\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\EngineOption.h">
-      <Filter>ヘッダー ファイル\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Activity\BaseActivity.h">
-      <Filter>ヘッダー ファイル\Activity</Filter>
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Component\Modifier\EntityModifier.h">
-      <Filter>ヘッダー ファイル\GameObject\2D\Modifier</Filter>
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Component\Modifier\EntityModifierAttribute.h">
-      <Filter>ヘッダー ファイル\GameObject\2D\Modifier</Filter>
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Component\Modifier\EntityModifierFactory.h">
-      <Filter>ヘッダー ファイル\GameObject\2D\Modifier</Filter>
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Component\Modifier\EntityModifierManager.h">
-      <Filter>ヘッダー ファイル\GameObject\2D\Modifier</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\GameComponent.h">
-      <Filter>ヘッダー ファイル\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Scene.h">
-      <Filter>ヘッダー ファイル\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\Renderer\Renderer.h">
-      <Filter>ヘッダー ファイル\Component\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\SceneTransitioner.h">
-      <Filter>ヘッダー ファイル\Scene</Filter>
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Component\Spine\SkeletonAnimation.h">
-      <Filter>ヘッダー ファイル\GameObject\2D\Spine</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Event\EngineInputEvent.h">
-      <Filter>ヘッダー ファイル\Scene\Event\EngineInput</Filter>
+    <ClInclude Include="Component\GameComponent.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Event\UpdateEventState.h">
+    <ClInclude Include="GameObject\Transform\Transform.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Transform\Transform2D.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Transform\Transform3D.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Transform\Transform3DRotator.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\GameObject.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\GameObject2D.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\GameObject3D.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\GameObjectRenderQueue.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\GameObjectRenderState.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Scene.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneManager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneTransitioner.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Renderer\MeshRenderer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Renderer\Renderer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Renderer\SpriteRenderer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\GameObjectFactory.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Engine.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\IEngineBehavior.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="EntryPoint.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\EngineOption.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Shader\Lambert.fx">
-      <Filter>リソース ファイル\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="Shader\Phong.fx">
-      <Filter>リソース ファイル\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="Shader\Sprite.fx">
-      <Filter>リソース ファイル\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="Shader\White.fx">
-      <Filter>リソース ファイル\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="Shader\Unlit.fx">
-      <Filter>リソース ファイル\Shader</Filter>
-    </FxCompile>
+    <None Include="Shader\DefaultProperty.hlsli" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shader\DefaultProperty.hlsli">
-      <Filter>リソース ファイル\Shader</Filter>
-    </None>
+    <FxCompile Include="Shader\Lambert.fx" />
+    <FxCompile Include="Shader\Phong.fx" />
+    <FxCompile Include="Shader\Sprite.fx" />
+    <FxCompile Include="Shader\Unlit.fx" />
+    <FxCompile Include="Shader\White.fx" />
   </ItemGroup>
 </Project>

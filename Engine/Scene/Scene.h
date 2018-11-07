@@ -2,13 +2,11 @@
 
 #include <Engine/GameObject/GameObject2D.h>
 #include <Engine/GameObject/GameObject3D.h>
-#include <Engine/Input/InputManager.h>
-
-#include "SceneTransitioner.h"
-
 #include <Engine/Component/Camera/Camera.h>
 #include <Engine/Component/Camera/Camera2D.h>
 #include <Engine/Component/Camera/Camera3D.h>
+
+#include "SceneTransitioner.h"
 
 class Scene
 {
@@ -20,7 +18,7 @@ public:
   virtual ~Scene();
 
   // =================================================================
-  // Method
+  // Methods
   // =================================================================
 public:
   void Load();

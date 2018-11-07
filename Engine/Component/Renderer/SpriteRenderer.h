@@ -3,6 +3,8 @@
 #include <Asset/Sprite/Sprite.h>
 #include "Renderer.h"
 
+class rcSprite;
+
 class SpriteRenderer : public Renderer
 {
   // =================================================================

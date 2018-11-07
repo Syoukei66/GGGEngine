@@ -1,18 +1,11 @@
 #pragma once
 
-#include <Asset/Model/Model.h>
 #include "GameObject.h"
 
 class Transform3D;
 
 class GameObject3D : public GameObject
 {
-  // =================================================================
-  // Factory Method
-  // =================================================================
-public:
-  static GameObject3D* Create(const SharedRef<rcModel>& model);
-
   // =================================================================
   // Constructor / Destructor
   // =================================================================
@@ -27,7 +20,7 @@ public:
   virtual void Init() override;
 
   // =================================================================
-  // Method
+  // Methods
   // =================================================================
 public:
   virtual void AddChild(GameObject3D* child);

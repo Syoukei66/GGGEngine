@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -102,7 +102,7 @@
     <PreBuildEvent />
     <PreBuildEvent>
       <Command>cd $(SolutionDir)
-call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe Core</Command>
+call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe $(ProjectName)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -122,7 +122,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <PreBuildEvent />
     <PreBuildEvent>
       <Command>cd $(SolutionDir)
-call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe Core</Command>
+call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe $(ProjectName)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -148,7 +148,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <PreBuildEvent />
     <PreBuildEvent>
       <Command>cd $(SolutionDir)
-call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe Core</Command>
+call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe $(ProjectName)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -174,34 +174,66 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <PreBuildEvent />
     <PreBuildEvent>
       <Command>cd $(SolutionDir)
-call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe Core</Command>
+call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe $(ProjectName)</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Allocator\PoolAllocator.h" />
+    <ClInclude Include="Application\Asset\AssetMacro.h" />
+    <ClInclude Include="Application\IPlatformSetting.h" />
+    <ClInclude Include="Application\Input\InputState.h" />
+    <ClInclude Include="Application\Platform\Platform.h" />
+    <ClInclude Include="Application\Activity\Activity.h" />
+    <ClInclude Include="Application\Activity\ActivityOption.h" />
+    <ClInclude Include="Application\Platform\API\Audio\AudioAPI.h" />
+    <ClInclude Include="Application\Platform\API\APIObject.h" />
+    <ClInclude Include="Application\Platform\API\Graphics\GraphicsAPI.h" />
+    <ClInclude Include="Application\Input\AnalogInput.h" />
+    <ClInclude Include="Application\Input\DigitalInput.h" />
+    <ClInclude Include="Application\Input\EngineInput.h" />
+    <ClInclude Include="Application\Input\EngineInputState.h" />
+    <ClInclude Include="Application\Platform\API\Input\InputAPI.h" />
+    <ClInclude Include="Application\Input\InputDevice.h" />
+    <ClInclude Include="Application\Input\InputDeviceManager.h" />
+    <ClInclude Include="Application\Input\InputSetting.h" />
+    <ClInclude Include="Application\Platform\API\_Asset\AudioClip\AudioClip.h" />
+    <ClInclude Include="Application\Platform\API\_Asset\APIAssetObject.h" />
+    <ClInclude Include="Application\Platform\API\_Resource\APIResourceObject.h" />
+    <ClInclude Include="Application\Asset\AssetLoader.h" />
+    <ClInclude Include="Application\Asset\AssetManager.h" />
+    <ClInclude Include="Application\Asset\AssetObject.h" />
+    <ClInclude Include="Application\Asset\UniqueIdTable.h" />
+    <ClInclude Include="Application\IApplicationBehavior.h" />
+    <ClInclude Include="Application\Application.h" />
+    <ClInclude Include="Application\ApplicationOption.h" />
+    <ClInclude Include="Application\Event\UpdateEventState.h" />
+    <ClInclude Include="GameObject\GameObject.h" />
+    <ClInclude Include="Application\Allocator\PoolAllocator.h" />
     <ClInclude Include="Math\Bounds.h" />
     <ClInclude Include="Macro\ObjectMacro.h" />
-    <ClInclude Include="Object\Object.h" />
-    <ClInclude Include="Object\Ref.h" />
+    <ClInclude Include="Application\Object\Object.h" />
+    <ClInclude Include="Application\Object\Ref.h" />
+    <ClInclude Include="Application\Platform\API\_Resource\RenderTexture\RenderTexture.h" />
+    <ClInclude Include="Application\Platform\API\_Asset\Shader\Shader.h" />
+    <ClInclude Include="Application\Platform\API\_Asset\Texture\Texture.h" />
+    <ClInclude Include="Util\FileUtil.h" />
     <ClInclude Include="_Private\CerealIO.h" />
     <ClInclude Include="Math\Color.h" />
     <ClInclude Include="Constants\DirectoryUtils.h" />
     <ClInclude Include="Constants\GraphicsUtils.h" />
     <ClInclude Include="Include.h" />
     <ClInclude Include="Macro\ProgramMacro.h" />
-    <ClInclude Include="Logger\Logger.h" />
-    <ClInclude Include="Object\SharedRef.h" />
+    <ClInclude Include="Util\Logger.h" />
+    <ClInclude Include="Application\Object\SharedRef.h" />
     <ClInclude Include="Math\Mathf.h" />
     <ClInclude Include="Math\Matrix4x4.h" />
     <ClInclude Include="Macro\AssertMacro.h" />
-    <ClInclude Include="Resource\IndexBuffer.h" />
-    <ClInclude Include="Native\NativeProcess.h" />
+    <ClInclude Include="Application\Platform\API\_Resource\IndexBuffer\IndexBuffer.h" />
     <ClInclude Include="Types.h" />
-    <ClInclude Include="Object\UniqueRef.h" />
-    <ClInclude Include="Resource\VertexBuffer.h" />
+    <ClInclude Include="Application\Object\UniqueRef.h" />
+    <ClInclude Include="Application\Platform\API\_Resource\VertexBuffer\VertexBuffer.h" />
     <ClInclude Include="Math\Quaternion.h" />
-    <ClInclude Include="Resource\RenderBuffer.h" />
-    <ClInclude Include="Object\ObjectManager.h" />
+    <ClInclude Include="Application\Platform\API\_Resource\RenderBuffer\RenderBuffer.h" />
+    <ClInclude Include="Application\Object\ObjectManager.h" />
     <ClInclude Include="Math\ScalingMatrix.h" />
     <ClInclude Include="Math\TranslationMatrix.h" />
     <ClInclude Include="Math\Vector2.h" />
@@ -211,7 +243,19 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Application\Activity\Activity.cpp" />
+    <ClCompile Include="Application\Event\UpdateEventState.cpp" />
+    <ClCompile Include="Application\Platform\API\Graphics\GraphicsAPI.cpp" />
+    <ClCompile Include="Application\Input\AnalogInput.cpp" />
+    <ClCompile Include="Application\Input\DigitalInput.cpp" />
+    <ClCompile Include="Application\Input\EngineInputState.cpp" />
+    <ClCompile Include="Application\Platform\API\Input\InputAPI.cpp" />
+    <ClCompile Include="Application\Platform\API\_Asset\AudioClip\AudioClip.cpp" />
+    <ClCompile Include="Application\Asset\AssetManager.cpp" />
+    <ClCompile Include="Application\Asset\UniqueIdTable.cpp" />
+    <ClCompile Include="Application\Input\InputState.cpp" />
     <ClCompile Include="Math\Color.cpp" />
+    <ClCompile Include="Util\FileUtil.cpp" />
     <ClInclude Include="Math\Vector2.inl">
       <FileType>Document</FileType>
     </ClInclude>
@@ -219,12 +263,16 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
       <FileType>Document</FileType>
     </ClInclude>
     <ClCompile Include="Math\Matrix4x4.cpp" />
-    <ClCompile Include="Object\Object.cpp" />
-    <ClCompile Include="Resource\IndexBuffer.cpp" />
+    <ClCompile Include="Application\Application.cpp" />
+    <ClCompile Include="Application\Object\Object.cpp" />
+    <ClCompile Include="Application\Platform\API\_Resource\IndexBuffer\IndexBuffer.cpp" />
     <ClCompile Include="Math\Quaternion.cpp" />
-    <ClCompile Include="Resource\RenderBuffer.cpp" />
-    <ClCompile Include="Object\ObjectManager.cpp" />
-    <ClCompile Include="Resource\VertexBuffer.cpp" />
+    <ClCompile Include="Application\Platform\API\_Resource\RenderBuffer\RenderBuffer.cpp" />
+    <ClCompile Include="Application\Object\ObjectManager.cpp" />
+    <ClCompile Include="Application\Platform\API\_Resource\RenderTexture\RenderTexture.cpp" />
+    <ClCompile Include="Application\Platform\API\_Asset\Shader\Shader.cpp" />
+    <ClCompile Include="Application\Platform\API\_Asset\Texture\Texture.cpp" />
+    <ClCompile Include="Application\Platform\API\_Resource\VertexBuffer\VertexBuffer.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -239,6 +287,11 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </ForcedIncludeFiles>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Macro\ObjectMacro.AutoGenerated.h">
+      <FileType>Document</FileType>
+    </ClInclude>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

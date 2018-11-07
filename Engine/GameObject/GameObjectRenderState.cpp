@@ -1,6 +1,9 @@
 #include "GameObjectRenderState.h"
 #include "GameObject.h"
 
+#include <Engine/Component/Camera/Camera.h>
+#include <Engine/GameObject/GameObject.h>
+
 // =================================================================
 // Constructor / Destructor
 // =================================================================
@@ -25,7 +28,7 @@ GameObjectRenderState::~GameObjectRenderState()
 }
 
 // =================================================================
-// Method
+// Methods
 // =================================================================
 void GameObjectRenderState::Init()
 {

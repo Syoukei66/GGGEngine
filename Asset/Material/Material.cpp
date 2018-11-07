@@ -1,18 +1,12 @@
 #include "Material.h"
 
-#include <Asset/Shader/Shader.h>
+#include <Core/Application/Platform/API/_Asset/Shader/Shader.h>
 
 // =================================================================
 // GGG Statement
 // =================================================================
-void rcMaterial::Init(const MaterialData& data)
+GG_INIT_FUNC_IMPL_1(rcMaterial, const MaterialData& data)
 {
-  this->Init(
-    data.shader_unique_id_ != 0 ?
-    AssetManager::Load<rcShader>(data.shader_unique_id_) :
-    AssetManager::Load<rcShader>(DefaultUniqueID::SHADER_NO_SHADING)
-  );
-
   this->texture_ = data.main_tex_unique_id_ != 0 ?
     AssetManager::Load<rcTexture>(data.main_tex_unique_id_) :
     nullptr;
@@ -57,24 +51,28 @@ void rcMaterial::Init(const MaterialData& data)
   {
     this->TextureProperty(pair.first) = AssetManager::Load<rcTexture>(pair.second);
   }
+  return this->Init(
+    data.shader_unique_id_ != 0 ?
+    AssetManager::Load<rcShader>(data.shader_unique_id_) :
+    AssetManager::Load<rcShader>(DefaultUniqueID::SHADER_NO_SHADING)
+  );;
 }
 
-void rcMaterial::Init(const SharedRef<rcShader>& shader)
+GG_INIT_FUNC_IMPL_1(rcMaterial, const SharedRef<rcShader>& shader)
 {
   this->shader_ = shader;
   this->technique_ = "Default";
   this->queue_ = Graphics::RenderQueue::RQ_GEOMETRY;
+  return true;
 }
 
-// =================================================================
-// Constructor / Destructor
-// =================================================================
-rcMaterial::~rcMaterial()
+GG_DESTRUCT_FUNC_IMPL(rcMaterial)
 {
   for (auto pair : this->properties_)
   {
     delete pair.second;
   }
+  return true;
 }
 
 // =================================================================

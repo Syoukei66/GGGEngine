@@ -72,7 +72,7 @@ void Camera2D_MultiTarget::Update()
   const T_FLOAT center_y = height * 0.5f;
   width += this->padding_ * 2;
   height += this->padding_ * 2;
-  const TVec2f& screen_size = Director::GetScreenSize();
+  const TVec2f& screen_size = Application::GetMainActivity()->GetScreenSize();
   if (width > screen_size.width || height > screen_size.height)
   {
     this->SetZoom(std::min(screen_size.width / width, screen_size.height / height));
@@ -92,7 +92,7 @@ const Matrix4x4& Camera2D_MultiTarget::GetViewMatrix() const
 }
 
 // =================================================================
-// Method
+// Methods
 // =================================================================
 void Camera2D_MultiTarget::SetViewEntity(GameObject2D* view_)
 {

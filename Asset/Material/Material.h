@@ -59,13 +59,8 @@ class rcMaterial : public GGAssetObject
   // GGG Statement
   // =================================================================
   GG_ASSET(rcMaterial, MaterialData);
-  GG_LOAD_FUNC(rcMaterial, SharedRef<rcShader>);
-
-  // =================================================================
-  // Constructor / Destructor
-  // =================================================================
-protected:
-  virtual ~rcMaterial();
+  GG_CREATE_FUNC_1(rcMaterial, const SharedRef<rcShader>&);
+  GG_DESTRUCT_FUNC(rcMaterial);
 
   // =================================================================
   // Methods

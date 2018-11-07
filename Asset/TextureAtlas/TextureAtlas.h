@@ -1,7 +1,7 @@
 #pragma once
 
-class rcTexture;
-class rcMesh;
+#include <Core/Application/Platform/API/_Asset/Texture/Texture.h>
+#include <Asset/Mesh/Mesh.h>
 
 struct TextureAtlasData
 {

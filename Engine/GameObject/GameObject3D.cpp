@@ -2,27 +2,7 @@
 #include "GameObjectRenderState.h"
 
 #include <Engine/GameObject/Transform/Transform3D.h>
-#include <Engine/Component/Renderer/MeshRenderer.h>
 #include <Asset/Material/Material.h>
-
-// =================================================================
-// Factory Method
-// =================================================================
-GameObject3D* GameObject3D::Create(const SharedRef<rcModel>& model)
-{
-  GameObject3D* ret = new GameObject3D();
-
-  MeshRenderer* mesh_renderer = MeshRenderer::Create(model->GetMesh(), ret);
-  const T_UINT8 submesh_count = model->GetMesh()->GetSubmeshCount();
-  for (T_UINT8 i = 0; i < submesh_count; ++i)
-  {
-    mesh_renderer->SetSharedMaterial(model->GetMaterial(i), i);
-  }
-
-  ret->SetRenderer(mesh_renderer);
-
-  return ret;
-}
 
 // =================================================================
 // Constructor / Destructor
@@ -41,7 +21,7 @@ GameObject3D::~GameObject3D()
 }
 
 // =================================================================
-// Method
+// Methods
 // =================================================================
 void GameObject3D::Init()
 {

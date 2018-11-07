@@ -16,7 +16,7 @@ public:
   virtual ~Renderer();
 
   // =================================================================
-  // Method
+  // Methods
   // =================================================================
 public:
   void ReserveDraw(GameObjectRenderState* state);

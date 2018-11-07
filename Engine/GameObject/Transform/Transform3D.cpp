@@ -1,6 +1,8 @@
 #include "Transform3D.h"
 #include <algorithm> 
 
+#include <Engine/GameObject/GameObject3D.h>
+
 #include "imgui\imgui.h"
 
 // =================================================================
@@ -22,7 +24,7 @@ Transform3D::~Transform3D()
 }
 
 // =================================================================
-// Method
+// Methods
 // =================================================================
 void Transform3D::OnInit()
 {

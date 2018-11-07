@@ -1,37 +1,21 @@
 #pragma once
 
-class InputSettingBuilder;
-class Scene;
-
+/*!
+ * @brief アプリケーションの初期化に必要なパラメータ群
+ */
 struct EngineOption
 {
+  // =================================================================
+  // GGG Statement
+  // =================================================================
+  GG_JSONABLE(EngineOption)
+  {
+    archive(cereal::make_nvp("EasingFunctionSamplingCount", easing_function_sampling_count_));
+  }
+
   EngineOption()
-    : window_size()
-    , activity_name("Game")
-    , render_cycle(1000 / 60)
-    , input_setting()
+    : easing_function_sampling_count_(120)
   {}
 
-  TVec2f window_size;
-  const char* activity_name;
-  T_UINT16 render_cycle;
-  InputSettingBuilder input_setting;
-};
-
-class IEngineSetting
-{
-  // =================================================================
-  // Method
-  // =================================================================
-public:
-  virtual void OnEngineInit() {}
-  virtual void OnEngineFinal() {}
-
-  virtual void OnGameInit() {}
-  virtual void OnGameFinal() {}
-
-  virtual void SetupEngineOption(EngineOption* option) {}
-
-  virtual Scene* FirstScene() = 0;
-
+  T_UINT32 easing_function_sampling_count_;
 };

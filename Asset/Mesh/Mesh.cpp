@@ -3,7 +3,7 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-void rcMesh::Init(const MeshData& data)
+GG_INIT_FUNC_IMPL_1(rcMesh, const MeshData& data)
 {
   this->read_only_ = true;
   this->format_ = data.vertex_format_;
@@ -39,14 +39,13 @@ void rcMesh::Init(const MeshData& data)
     ii += data.submesh_index_counts_[i];
     this->polygon_count_ += data.submesh_polygon_counts_[i];
   }
+  return true;
 }
 
-// =================================================================
-// Constructor / Destructor
-// =================================================================
-rcMesh::~rcMesh()
+GG_DESTRUCT_FUNC_IMPL(rcMesh)
 {
   this->Clear();
+  return true;
 }
 
 // =================================================================

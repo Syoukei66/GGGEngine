@@ -21,7 +21,7 @@ public:
   virtual const Matrix4x4& GetViewMatrix() const override;
 
   // =================================================================
-  // Method
+  // Methods
   // =================================================================
 public:
   void SetViewEntity(GameObject2D* view_);

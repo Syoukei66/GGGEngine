@@ -118,7 +118,7 @@ static GG_INLINE void SetVertexTangent(const TVec4f& tangent, unsigned char** de
 static GG_INLINE void SetVertexColor(const TColor& color, unsigned char** dest)
 {
   T_UINT32* p = (T_UINT32*)(*dest);
-  NativeProcess::Graphics::PackColor4u8(
+  Application::GetPlatform()->GetGraphicsAPI()->PackColor4u8(
     &p[0],
     (T_UINT8)(color.data[0] * 255),
     (T_UINT8)(color.data[1] * 255),

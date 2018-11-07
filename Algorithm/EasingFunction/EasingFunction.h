@@ -32,14 +32,13 @@ class EasingFunction
   // Constructor / Destructor
   // =================================================================
 public:
-  EasingFunction();
   virtual ~EasingFunction() {}
 
   // =================================================================
   // Method
   // =================================================================
 public:
-  void Load(T_UINT8 render_cycle);
+  void Load(T_UINT32 sampling_count);
   void Unload();
 
   T_FLOAT In(T_FLOAT val) const;
@@ -55,7 +54,7 @@ protected:
   // Data Member
   // =================================================================
 private:
-  T_UINT8 render_cycle_;
+  T_UINT32 sampling_count_;
   T_FLOAT *table_in_;
   T_FLOAT *table_out_;
   T_FLOAT *table_in_out_;

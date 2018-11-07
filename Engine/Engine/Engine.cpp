@@ -1,93 +1,72 @@
 #include "Engine.h"
+
 #include <Algorithm/EasingFunction/EasingFunctionManager.h>
+
 #include <Engine/Component/Modifier/EntityModifierManager.h>
-#include <Engine/Event/UpdateEventState.h>
+#include <Engine/Engine/EngineOption.h>
+#include <Engine/Director.h>
 
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-Engine::Engine()
-  : second_elapsed_from_last_render_(0)
-  , option_(nullptr)
-  , scene_(nullptr)
-  , scene_transitioner_(nullptr)
-{}
-
-Engine::~Engine()
+Engine::Engine(IEngineBehavior* engine_behavior)
+  : engine_behavior_(engine_behavior)
+  , scene_manager_()
 {
 }
 
 // =================================================================
-// Method
+// Methods
 // =================================================================
-bool Engine::Init(IEngineSetting* setting)
+void Engine::SetupApplicationOption(ApplicationOption& option)
 {
-  this->option_ = new EngineOption();
-  setting->SetupEngineOption(this->option_);
+  this->engine_behavior_->SetupApplicationOption(option);
+}
+
+void Engine::SetupMainActivityOption(ActivityOption& option)
+{
+  this->engine_behavior_->SetupMainActivityOption(option);
+}
+
+void Engine::OnApplicationBegin()
+{
+  this->engine_behavior_->OnApplicationBegin();
+}
+
+void Engine::OnApplicationEnd()
+{
+  this->engine_behavior_->OnApplicationEnd();
+}
+
+void Engine::Init()
+{
+  EngineOption eo;
+  this->engine_behavior_->SetupEngineOption(eo);
 
   EntityModifierManager::Init(EntityModifierAllocateOption());
-  EasingFunctionManager::Load(this->option_->render_cycle);
+  EasingFunctionManager::Load(eo.easing_function_sampling_count_);
 
-  this->scene_transitioner_ = new SceneTransitioner();
-  return true;
+  Director::Self().engine_ = this;
+  this->scene_manager_ = new SceneManager();
+  this->scene_manager_->ChangeScene(this->engine_behavior_->FirstScene());
+  this->engine_behavior_->OnGameBegin();
 }
 
-bool Engine::EndScene()
+void Engine::Uninit()
 {
-  delete this->scene_transitioner_;
-  return true;
-}
+  this->engine_behavior_->OnGameEnd();
+  delete this->scene_manager_;
 
-bool Engine::End()
-{
   EasingFunctionManager::Unload();
   EntityModifierManager::Uninit();
-
-  delete this->option_;
-  return true;
 }
 
-void Engine::ChangeScene(Scene* next)
+void Engine::Update(const UpdateEventState& state)
 {
-  this->scene_transitioner_->SetNextScene(next);
+  this->scene_manager_->Update(state);
 }
 
-void Engine::OnUpdate()
+void Engine::Draw()
 {
-  if (this->scene_transitioner_->IsDuringTransition())
-  {
-    this->scene_ = this->scene_transitioner_->Transition();
-  }
-  LP_DEVICE render_object = Director::GetDevice();
-  Scene* now_scene = this->GetNowScene();
-  if (!now_scene)
-  {
-    return;
-  }
-  //EntityModifierManager::GetInstance().OnUpdate(UpdateEventState::Self().GetDeltaTime());
-  EntityModifierManager::OnUpdate(1);
-  now_scene->OnInputEvent();
-  now_scene->OnUpdateEvent();
-}
-
-bool Engine::DrawWait()
-{
-  const T_UINT16 render_cycle = this->option_->render_cycle;
-  this->second_elapsed_from_last_render_ += UpdateEventState::GetDeltaTime();
-  if (render_cycle <= 0 || render_cycle > this->second_elapsed_from_last_render_)
-  {
-    return false;
-  }
-  return true;
-}
-
-void Engine::OnDraw()
-{
-  Scene* now_scene = this->GetNowScene();
-  if (!now_scene)
-  {
-    return;
-  }
-  now_scene->Draw();
-  this->second_elapsed_from_last_render_ %= this->option_->render_cycle;
+  this->scene_manager_->Draw();
 }

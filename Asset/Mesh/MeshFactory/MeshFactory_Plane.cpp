@@ -80,7 +80,7 @@ MeshData* MeshFactory::Plane::Create(
 
   ret->submesh_count_ = 1;
   ret->submesh_index_counts_.resize(ret->submesh_count_);
-  ret->submesh_index_counts_[0] = ret->indices_.size();
+  ret->submesh_index_counts_[0] = (T_FIXED_UINT32)ret->indices_.size();
   ret->submesh_polygon_counts_.resize(ret->submesh_count_);
   ret->submesh_polygon_counts_[0] = polygonCount;
 

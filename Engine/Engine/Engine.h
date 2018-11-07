@@ -1,68 +1,46 @@
 #pragma once
 
-#include <Engine/Engine/EngineOption.h>
+#include <Core/Application/IApplicationBehavior.h>
+#include <Engine/Engine/IEngineBehavior.h>
 
-class IEngineSetting;
-class Scene;
-class SceneTransitioner;
-
-class Engine
+/*!
+ * @brief Sceneを用いてゲームを動作させるクラス
+ */
+class Engine : public IApplicationBehavior
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  Engine();
-  ~Engine();
+  Engine(IEngineBehavior* engine_behavior);
 
   // =================================================================
-  // Method
+  // Methods from IApplicationBehavior
   // =================================================================
-public:
-  bool Init(IEngineSetting* setting);
-  bool EndScene();
-  bool End();
-
-  void ChangeScene(Scene* next);
-
-  //second_elapsedの単位はミリ秒
-  void OnUpdate();
-
-  bool DrawWait();
-  void OnDraw();
+protected:
+  virtual void SetupApplicationOption(ApplicationOption& option) override;
+  virtual void SetupMainActivityOption(ActivityOption& option) override;
+  virtual void OnApplicationBegin() override;
+  virtual void OnApplicationEnd() override;
+  virtual void Init() override;
+  virtual void Uninit() override;
+  virtual void Update(const UpdateEventState& state) override;
+  virtual void Draw() override;
 
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  GG_INLINE Scene* GetNowScene()
+  GG_INLINE SceneManager* GetSceneManager() const
   {
-    return this->scene_;
-  }
-  GG_INLINE const TVec2f& GetScreenSize() const
-  {
-    return this->option_->window_size;
-  }
-  GG_INLINE T_FLOAT GetScreenWidth() const
-  {
-    return this->option_->window_size.width;
-  }
-  GG_INLINE T_FLOAT GetScreenHeight() const
-  {
-    return this->option_->window_size.height;
-  }
-  GG_INLINE const EngineOption* GetEngineOption() const
-  {
-    return this->option_;
+    return this->scene_manager_;
   }
 
   // =================================================================
-  // Data Member
+  // Data Members
   // =================================================================
 private:
-  T_UINT32 second_elapsed_from_last_render_; //ミリ秒なのでint
-  EngineOption* option_;
+  IEngineBehavior* engine_behavior_;
+  SceneManager* scene_manager_;
 
-  Scene* scene_;
-  SceneTransitioner* scene_transitioner_;
 };

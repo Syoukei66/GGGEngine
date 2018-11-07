@@ -1,14 +1,15 @@
 #include "Renderer.h"
 
-#include <Engine/Engine/EngineInitializeSetting.h>
 #include <Engine/GameObject/GameObjectRenderState.h>
+#include <Engine/GameObject/GameObject.h>
+#include <Engine/Component/Camera/Camera.h>
 
 // =================================================================
 // Constructor / Destructor
 // =================================================================
 Renderer::Renderer(GameObject* entity)
   : entity_(entity)
-  , layer_id_(EngineInitializeSetting::GetDefaultLayerId())
+  , layer_id_(1)
 {
 }
 
@@ -17,7 +18,7 @@ Renderer::~Renderer()
 }
 
 // =================================================================
-// Method
+// Methods
 // =================================================================
 void Renderer::ReserveDraw(GameObjectRenderState* state)
 {

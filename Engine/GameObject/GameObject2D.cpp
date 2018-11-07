@@ -3,19 +3,6 @@
 
 #include <Engine/Component/Modifier/EntityModifierManager.h>
 #include <Engine/GameObject/Transform/Transform2D.h>
-#include <Engine/Component/Renderer/SpriteRenderer.h>
-
-// =================================================================
-// Factory Method
-// =================================================================
-GameObject2D* GameObject2D::Create(const SharedRef<rcSprite>& sprite)
-{
-  GameObject2D* ret = new GameObject2D();
-
-  ret->SetRenderer(SpriteRenderer::Create(sprite, ret));
-
-  return ret;
-}
 
 // =================================================================
 // Constructor / Destructor
@@ -36,7 +23,7 @@ GameObject2D::~GameObject2D()
 }
 
 // =================================================================
-// Method
+// Methods
 // =================================================================
 void GameObject2D::Init()
 {

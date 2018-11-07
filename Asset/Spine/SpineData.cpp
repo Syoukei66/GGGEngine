@@ -1,6 +1,7 @@
 #include "SpineData.h"
 #include <spine/spine.h>
 #include <spine/extension.h>
+#include <Core/Util/FileUtil.h>
 
 #include "EngineAttachmentLoader.h"
 
@@ -24,7 +25,7 @@ void _spAtlasPage_disposeTexture(spAtlasPage* self)
 
 char* _spUtil_readFile(const char* path, int* length)
 {
-  std::string str = NativeProcess::IO::TextFile_Read(path);
+  std::string str = FileUtil::TextFile_Read(path);
   (*length) = (int)str.length();
   char* ret = new char[*length + 1];
   strcpy(ret, str.c_str());

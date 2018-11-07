@@ -31,7 +31,7 @@ protected:
   virtual void OnDrawScene(Scene* scene) override;
 
   // =================================================================
-  // Method
+  // Methods
   // =================================================================
 public:
   TVec3f CalcRayVector(const TVec2f& screen_position);

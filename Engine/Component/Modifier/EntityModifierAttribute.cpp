@@ -1,5 +1,6 @@
 #include "EntityModifierAttribute.h"
 #include <Engine/GameObject/Transform/Transform2D.h>
+#include <Engine/GameObject/GameObject2D.h>
 
 //=========================================================================
 // Translate

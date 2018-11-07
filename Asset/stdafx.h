@@ -2,8 +2,7 @@
 
 #include <Core/stdafx.h>
 
-#include <Asset/AssetMacro.h>
-#include <Asset/AssetObject.h>
-#include <Asset/AssetManager.h>
+#include <Core/Application/Asset/AssetMacro.h>
+#include <Core/Application/Asset/AssetObject.h>
+#include <Core/Application/Asset/AssetManager.h>
 
-#include <Asset/AssetManager.h>

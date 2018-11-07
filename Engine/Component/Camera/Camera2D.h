@@ -28,7 +28,7 @@ protected:
   virtual void OnDrawScene(Scene* scene) override;
 
   // =================================================================
-  // Method
+  // Methods
   // =================================================================
 public:
   GG_INLINE GameObjectRenderState* GetRenderState()

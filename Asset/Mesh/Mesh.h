@@ -1,5 +1,8 @@
 #pragma once
 
+#include <Core/Application/Platform/API/_Resource/VertexBuffer/VertexBuffer.h>
+#include <Core/Application/Platform/API/_Resource/IndexBuffer/IndexBuffer.h>
+
 struct MeshData
 {
   // =================================================================
@@ -46,13 +49,8 @@ class rcMesh : public GGAssetObject
   // GGG Statement
   // =================================================================
   GG_ASSET(rcMesh, MeshData);
-  GG_CREATE_FUNC(rcMesh) {}
-
-  // =================================================================
-  // Constructor / Destructor
-  // =================================================================
-protected:
-  virtual ~rcMesh();
+  GG_CREATE_FUNC(rcMesh) { return true;  }
+  GG_DESTRUCT_FUNC(rcMesh);
 
   // =================================================================
   // Methods
