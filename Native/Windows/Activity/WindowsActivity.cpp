@@ -1,4 +1,5 @@
 #include "WindowActivity.h"
+#include <Core/Util/Logger.h>
 
 // =================================================================
 // GGG Statement
@@ -20,7 +21,7 @@ bool WindowsActivity::ContinueEnabled()
 
 bool WindowsActivity::FrameEnabled()
 {
-  if (PeekMessage(&this->msg_, this->window_handle_, 0, 0, PM_REMOVE))
+  if (PeekMessage(&this->msg_, NULL, 0, 0, PM_REMOVE))
   {
     TranslateMessage(&this->msg_);
     DispatchMessage(&this->msg_);
