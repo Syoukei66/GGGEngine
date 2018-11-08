@@ -1,0 +1,34 @@
+﻿<Window x:Class="GGGEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GGGEditor"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="900" Width="1600">
+    <Grid Margin="0" Width="Auto" Height="Auto">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="70" Width="4*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition MinWidth="70" Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <GridSplitter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="10" Margin="0" ResizeDirection="Columns" ForceCursor="True" Grid.Column="1" />
+        <Grid Margin="0" Width="Auto" Height="Auto">
+            <Grid.RowDefinitions>
+                <RowDefinition MinHeight="70" Height="2*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition MinHeight="70" Height="1*"/>
+            </Grid.RowDefinitions>
+            <GridSplitter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="10" Margin="0" ResizeDirection="Rows" ForceCursor="True" Grid.Row="1"/>
+            <Grid Margin="0" Width="Auto" Height="Auto" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <GridSplitter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="10" Margin="0" ResizeDirection="Columns" ForceCursor="True" Grid.Column="1" />
+                <MediaElement Margin="0" Width="Auto" Height="Auto" Grid.Column="2"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
