@@ -1,6 +1,7 @@
 #include "DX9VertexBuffer.h"
 
-#include <Core/API/_Resource/IndexBuffer/IndexBuffer.h>
+#include <Core/Application/Platform/API/_Resource/IndexBuffer/IndexBuffer.h>
+#include <Native/Windows/WindowsApplication.h>
 
 #include "DX9Constants.h"
 #include "DX9GraphicsAPI.h"
@@ -12,7 +13,7 @@ DX9VertexBuffer::DX9VertexBuffer(T_UINT16 vertex_count, T_UINT32 format)
   : vertex_count_(vertex_count)
   , format_(format)
 {
-  LPDIRECT3DDEVICE9 device = DX9GraphicsAPI::GetInstance()->GetDevice();
+  LPDIRECT3DDEVICE9 device = WindowsApplication::GetGraphics()->GetDevice();
 
   std::vector<D3DVERTEXELEMENT9> elements = std::vector<D3DVERTEXELEMENT9>();
 
@@ -141,7 +142,7 @@ void DX9VertexBuffer::Unlock()
 
 void DX9VertexBuffer::SetStreamSource() const
 {
-  LPDIRECT3DDEVICE9 device = DX9GraphicsAPI::GetInstance()->GetDevice();
+  LPDIRECT3DDEVICE9 device = WindowsApplication::GetGraphics()->GetDevice();
   HRESULT hr = device->SetVertexDeclaration(this->vertex_declaration_);
   GG_ASSERT(SUCCEEDED(hr), "頂点宣言のセットに失敗しました");
   hr = device->SetStreamSource(0, this->vertex_buffer_, 0, this->stride_);
@@ -161,7 +162,7 @@ void DX9VertexBuffer::SetStreamSource() const
 
 void DX9VertexBuffer::DrawIndexedPrimitive(const SharedRef<const rcIndexBuffer>& index_buffer, Vertex::PrimitiveType primitive_type) const
 {
-  LPDIRECT3DDEVICE9 device = DX9GraphicsAPI::GetInstance()->GetDevice();
+  LPDIRECT3DDEVICE9 device = WindowsApplication::GetGraphics()->GetDevice();
   const T_UINT32 vertex_count = index_buffer->GetVertexesCount();
   const T_UINT32 polygon_count = index_buffer->GetPolygonCount();
   HRESULT hr = device->DrawIndexedPrimitive(

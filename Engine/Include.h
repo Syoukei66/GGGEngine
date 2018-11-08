@@ -25,7 +25,6 @@
 #include <Engine/Engine/Engine.h>
 #include <Engine/Engine/EngineOption.h>
 #include <Engine/Engine/IEngineBehavior.h>
-#include <Engine/EntryPoint.h>
 #include <Engine/GameObject/GameObject.h>
 #include <Engine/GameObject/GameObject2D.h>
 #include <Engine/GameObject/GameObject3D.h>

@@ -14,6 +14,7 @@
 #include <Core/Application/Asset/UniqueIdTable.h>
 #include <Core/Application/Event/UpdateEventState.h>
 #include <Core/Application/IApplicationBehavior.h>
+#include <Core/Application/IApplicationSetting.h>
 #include <Core/Application/Input/AnalogInput.h>
 #include <Core/Application/Input/DigitalInput.h>
 #include <Core/Application/Input/EngineInput.h>
@@ -22,7 +23,6 @@
 #include <Core/Application/Input/InputDeviceManager.h>
 #include <Core/Application/Input/InputSetting.h>
 #include <Core/Application/Input/InputState.h>
-#include <Core/Application/IPlatformSetting.h>
 #include <Core/Application/Object/Object.h>
 #include <Core/Application/Object/ObjectManager.h>
 #include <Core/Application/Object/Ref.h>

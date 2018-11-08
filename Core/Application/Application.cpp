@@ -2,7 +2,7 @@
 
 #include <Core/Application/Activity/Activity.h>
 #include <Core/Application/IApplicationBehavior.h>
-#include <Core/Application/IPlatformSetting.h>
+#include <Core/Application/IApplicationSetting.h>
 
 #include <Core/Application/Platform/API/Graphics/GraphicsAPI.h>
 #include <Core/Application/Platform/API/Audio/AudioAPI.h>
@@ -14,8 +14,10 @@
 // =================================================================
 // Methods
 // =================================================================
-void Application::Run(IApplicationBehavior* behavior, const IPlatformSetting& platform)
+void Application::Run(IApplicationBehavior* behavior, IApplicationSetting* setting)
 {
+  Application* self = &Self();
+
   // アプリケーション初期化時イベント
   behavior->OnApplicationBegin();
 
@@ -23,39 +25,36 @@ void Application::Run(IApplicationBehavior* behavior, const IPlatformSetting& pl
   AssetManager::Init();
 
   // アプリケーション初期化
-  behavior->SetupApplicationOption(Self().option_);
+  behavior->SetupApplicationOption(self->option_);
 
-  // メインアクティビティ初期化
+  // プラットフォーム側の起動処理
   ActivityOption ao;
   behavior->SetupMainActivityOption(ao);
 
-  Self().main_activity_ = platform.CreateActivity(ao);
+  self->platform_ = Platform::Create();
 
-  // 各APIの起動処理
-  Self().platform_->audio_api_ = platform.CreateAudioAPI();
-  Self().platform_->graphics_api_ = platform.CreateGraphicsAPI();
-  Self().platform_->input_api_ = platform.CreateInputAPI(Self().option_.input_setting);
+  setting->SetupApplication(self, ao, &self->main_activity_, &self->platform_->graphics_api_, &self->platform_->input_api_, &self->platform_->audio_api_);
 
   // ゲーム開始処理
   behavior->Init();
 
-  Self().update_event_state_ = UpdateEventState();
+  self->update_event_state_ = UpdateEventState();
 
   // メインループ
-  while (Self().main_activity_->ContinueEnabled())
+  while (self->main_activity_->ContinueEnabled())
   {
-    if (!Self().main_activity_->FrameEnabled())
+    if (!self->main_activity_->FrameEnabled())
     {
       continue;
     }
-    Self().update_event_state_.Update();
-    Self().platform_->input_api_->Update();
-    behavior->Update(Self().update_event_state_);
+    self->update_event_state_.Update();
+    self->platform_->input_api_->Update();
+    behavior->Update(self->update_event_state_);
 
     // 描画周期が来たら描画を行う
-    if (Self().main_activity_->DrawEnabled(Self().update_event_state_.GetDeltaTime()))
+    if (self->main_activity_->DrawEnabled(self->update_event_state_.GetDeltaTime()))
     {
-      Self().platform_->graphics_api_->Draw(Self().main_activity_, [&]()
+      self->platform_->graphics_api_->Draw(self->main_activity_, [&]()
       {
         behavior->Draw();
       });
@@ -73,12 +72,14 @@ void Application::Run(IApplicationBehavior* behavior, const IPlatformSetting& pl
   GGObjectManager::GC();
 
   // 各APIの終了処理
-  Self().platform_->input_api_ = nullptr;
-  Self().platform_->graphics_api_ = nullptr;
-  Self().platform_->audio_api_ = nullptr;
+  self->platform_->input_api_ = nullptr;
+  self->platform_->graphics_api_ = nullptr;
+  self->platform_->audio_api_ = nullptr;
+
+  self->platform_ = nullptr;
 
   // アクティビティ 解放処理
-  Self().main_activity_ = nullptr;
+  self->main_activity_ = nullptr;
 
   // システム側でのリソースの全開放
   GGObjectManager::GC();

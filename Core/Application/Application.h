@@ -6,7 +6,7 @@
 #include <Core/Application/Event/UpdateEventState.h>
 
 class IApplicationBehavior;
-class IPlatformSetting;
+class IApplicationSetting;
 
 /*!
  * @brief アクティビティやAPIを動作させるクラス
@@ -23,7 +23,7 @@ class Application
   // Methods
   // =================================================================
 public:
-  static void Run(IApplicationBehavior* behavior, const IPlatformSetting& platform);
+  static void Run(IApplicationBehavior* behavior, IApplicationSetting* setting);
 
   // =================================================================
   // Setter / Getter

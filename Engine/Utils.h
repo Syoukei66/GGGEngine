@@ -7,7 +7,7 @@
 namespace HalEngine
 {
 
-GG_INLINE InputState* Input(T_UINT8 player_id)
+static GG_INLINE InputState* Input(T_UINT8 player_id)
 {
   return Application::GetPlatform()->GetInputAPI()->GetState(player_id);
 }
@@ -15,7 +15,7 @@ GG_INLINE InputState* Input(T_UINT8 player_id)
 namespace Time
 {
 //–ß‚è’l‚Í•b
-GG_INLINE T_FLOAT DeltaTime()
+static GG_INLINE T_FLOAT DeltaTime()
 {
   return Application::GetUpdateEventState().GetDeltaTime();
 }

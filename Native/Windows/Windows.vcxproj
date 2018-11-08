@@ -103,6 +103,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h;Native/Windows/stdafx.h</ForcedIncludeFiles>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <PreBuildEvent>
       <Command>cd $(SolutionDir)
@@ -118,6 +119,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
       <AdditionalIncludeDirectories>$(SolutionDir)Project;$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h;Native/Windows/stdafx.h</ForcedIncludeFiles>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <PreBuildEvent>
       <Command>cd $(SolutionDir)
@@ -135,6 +137,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
       <AdditionalIncludeDirectories>$(SolutionDir)Project;$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h;Native/Windows/stdafx.h</ForcedIncludeFiles>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -157,6 +160,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h;Native/Windows/stdafx.h</ForcedIncludeFiles>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -168,6 +172,9 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Activity\EditorWindowActivity.h" />
+    <ClInclude Include="Activity\WindowsActivity.h" />
+    <ClInclude Include="WindowsApplicationSetting_Editor.h" />
     <ClInclude Include="API\Audio\XAudio\XAudioAPI.h" />
     <ClInclude Include="API\Graphics\DX9\DX9GraphicsAPI.h" />
     <ClInclude Include="API\Graphics\DX9\imgui\imgui_impl_dx9.h" />
@@ -180,17 +187,21 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="API\Input\DirectInput\DirectInputDevice.h" />
     <ClInclude Include="API\Input\DirectInput\DirectInputDeviceManager.h" />
     <ClInclude Include="API\Audio\XAudio\XAudioSound.h" />
+    <ClInclude Include="main.h" />
     <ClInclude Include="Include.h" />
-    <ClInclude Include="PlatformSetting_DX11.h" />
-    <ClInclude Include="DX9EntryPoint.h" />
+    <ClInclude Include="PlatformMacro.h" />
     <ClInclude Include="API\Input\DirectInput\DirectInputDevice_Keyboard.h" />
     <ClInclude Include="API\Input\DirectInput\DirectInputDevice_Mouse.h" />
     <ClInclude Include="API\Input\DirectInput\DirectInputDevice_XInput.h" />
     <ClInclude Include="API\Input\DirectInput\DirectInputImplements.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="WindowsActivity.h" />
+    <ClInclude Include="Activity\WindowActivity.h" />
+    <ClInclude Include="WindowsApplication.h" />
+    <ClInclude Include="WindowsApplicationSetting_Game.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Activity\EditorWindowActivity.cpp" />
+    <ClCompile Include="Activity\WindowsActivity.cpp" />
     <ClCompile Include="API\Audio\XAudio\XAudioAPI.cpp" />
     <ClCompile Include="API\Graphics\DX9\DX9GraphicsAPI.cpp" />
     <ClCompile Include="API\Graphics\DX9\imgui\imgui_impl_dx9.cpp" />
@@ -205,8 +216,6 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClCompile Include="Native\NativeProcess.cpp" />
     <ClCompile Include="API\Audio\XAudio\XAudioSound.cpp" />
     <ClCompile Include="API\Input\DirectInput\DirectInputImplements.cpp" />
-    <ClCompile Include="PlatformSetting_DX11.cpp" />
-    <ClCompile Include="DX9EntryPoint.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -217,18 +226,9 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdafx.h;Native/Windows/stdafx.h</ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdafx.h;Native/Windows/stdafx.h</ForcedIncludeFiles>
     </ClCompile>
-    <ClCompile Include="WindowsActivity.cpp" />
+    <ClCompile Include="Activity\WindowActivity.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Algorithm\Algorithm.vcxproj">
-      <Project>{a014e46a-c10d-4ed4-a47c-f79712680dc7}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Asset\Asset.vcxproj">
-      <Project>{37173f1e-1a35-4644-8862-81dbb9ad9fc1}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Core\Core.vcxproj">
-      <Project>{ed60a9ab-7765-4071-a74f-16ae746c727f}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\..\Engine\Engine.vcxproj">
       <Project>{3d96ef11-f5c9-4990-be01-5279dadd6d52}</Project>
     </ProjectReference>

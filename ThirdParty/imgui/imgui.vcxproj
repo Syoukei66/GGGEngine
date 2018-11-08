@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{37173F1E-1A35-4644-8862-81DBB9AD9FC1}</ProjectGuid>
-    <RootNamespace>Asset</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <ProjectGuid>{39F01AD4-A40F-4A2E-AAD2-5B0A33815442}</ProjectGuid>
+    <RootNamespace>imgui</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -91,16 +91,8 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <ForcedIncludeFiles>stdafx.h;Asset/stdafx.h</ForcedIncludeFiles>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
-    <PreBuildEvent>
-      <Command>cd $(SolutionDir)
-call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe $(ProjectName)</Command>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -108,16 +100,8 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <ForcedIncludeFiles>stdafx.h;Asset/stdafx.h</ForcedIncludeFiles>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
-    <PreBuildEvent>
-      <Command>cd $(SolutionDir)
-call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe $(ProjectName)</Command>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -127,20 +111,12 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <ForcedIncludeFiles>stdafx.h;Asset/stdafx.h</ForcedIncludeFiles>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
-    <PreBuildEvent>
-      <Command>cd $(SolutionDir)
-call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe $(ProjectName)</Command>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -150,72 +126,27 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <ForcedIncludeFiles>stdafx.h;Asset/stdafx.h</ForcedIncludeFiles>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
-    <PreBuildEvent>
-      <Command>cd $(SolutionDir)
-call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe $(ProjectName)</Command>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CSV\CsvData.cpp" />
-    <ClCompile Include="CSV\CsvTokenizer.cpp" />
-    <ClCompile Include="Json\JsonData.cpp" />
-    <ClCompile Include="Json\JsonParser.cpp" />
-    <ClCompile Include="Material\Material.cpp" />
-    <ClCompile Include="Mesh\Mesh.cpp" />
-    <ClCompile Include="Mesh\MeshFactory\MeshFactory_Cube.cpp" />
-    <ClCompile Include="Mesh\MeshFactory\MeshFactory_Plane.cpp" />
-    <ClCompile Include="Model\Model.cpp" />
-    <ClCompile Include="Particle\ParticleData.cpp" />
-    <ClCompile Include="Particle\ParticleDataManager.cpp" />
-    <ClCompile Include="Particle\ParticleSystem.cpp" />
-    <ClCompile Include="Spine\AttachmentVertexes.cpp" />
-    <ClCompile Include="Spine\EngineAttachmentLoader.cpp" />
-    <ClCompile Include="Spine\SpineData.cpp" />
-    <ClCompile Include="Sprite\Sprite.cpp" />
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="TextureAtlas\TextureAtlas.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="CSV\CsvData.h" />
-    <ClInclude Include="CSV\CsvTokenizer.h" />
+    <ClInclude Include="imconfig.h" />
+    <ClInclude Include="imgui.h" />
+    <ClInclude Include="imgui_internal.h" />
+    <ClInclude Include="imgui_ja_gryph_ranges.h" />
     <ClInclude Include="Include.h" />
-    <ClInclude Include="Json\JsonData.h" />
-    <ClInclude Include="Json\JsonParser.h" />
-    <ClInclude Include="Material\Material.h" />
-    <ClInclude Include="Material\ShaderProperties.h" />
-    <ClInclude Include="Mesh\Mesh.h" />
-    <ClInclude Include="Mesh\MeshFactory\MeshFactory_Cube.h" />
-    <ClInclude Include="Mesh\MeshFactory\MeshFactory_Plane.h" />
-    <ClInclude Include="Model\Model.h" />
-    <ClInclude Include="Particle\ParticleData.h" />
-    <ClInclude Include="Particle\ParticleDataManager.h" />
-    <ClInclude Include="Particle\ParticleSystem.h" />
-    <ClInclude Include="Spine\AttachmentVertexes.h" />
-    <ClInclude Include="Spine\EngineAttachmentLoader.h" />
-    <ClInclude Include="Spine\SpineData.h" />
-    <ClInclude Include="Sprite\Sprite.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="TextureAtlas\TextureAtlas.h" />
+    <ClInclude Include="stb_rect_pack.h" />
+    <ClInclude Include="stb_textedit.h" />
+    <ClInclude Include="stb_truetype.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\Core.vcxproj">
-      <Project>{ed60a9ab-7765-4071-a74f-16ae746c727f}</Project>
-    </ProjectReference>
+    <ClCompile Include="imgui.cpp" />
+    <ClCompile Include="imgui_draw.cpp" />
+    <ClCompile Include="imgui_ja_gryph_ranges.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

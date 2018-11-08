@@ -1,5 +1,7 @@
 #include "DX9IndexBuffer.h"
 
+#include <Native/Windows/WindowsApplication.h>
+
 #include "DX9GraphicsAPI.h"
 
 // =================================================================
@@ -9,7 +11,7 @@ DX9IndexBuffer::DX9IndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count)
   : vertex_count_(vertex_count)
   , polygon_count_(polygon_count)
 {
-  LPDIRECT3DDEVICE9 device = DX9GraphicsAPI::GetInstance()->GetDevice();
+  LPDIRECT3DDEVICE9 device = WindowsApplication::GetGraphics()->GetDevice();
   HRESULT hr = device->CreateIndexBuffer(
     sizeof(T_UINT32) * vertex_count,
     0,
@@ -43,7 +45,7 @@ void DX9IndexBuffer::Unlock()
 
 void DX9IndexBuffer::SetIndices() const
 {
-  LPDIRECT3DDEVICE9 device = DX9GraphicsAPI::GetInstance()->GetDevice();
+  LPDIRECT3DDEVICE9 device = WindowsApplication::GetGraphics()->GetDevice();
 
   HRESULT hr = device->SetIndices(this->index_buffer_);
   GG_ASSERT(SUCCEEDED(hr), "IndexBuffer‚ÌƒZƒbƒg‚ÉŽ¸”s‚µ‚Ü‚µ‚½");

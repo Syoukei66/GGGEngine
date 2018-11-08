@@ -3,7 +3,7 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 
-#include <Core/API/_Resource/IndexBuffer/IndexBuffer.h>
+#include <Core/Application/Platform/API/_Resource/IndexBuffer/IndexBuffer.h>
 
 class DX9IndexBuffer : public rcIndexBuffer
 {

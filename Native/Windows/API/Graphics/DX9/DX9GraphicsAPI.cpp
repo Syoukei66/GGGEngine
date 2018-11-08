@@ -6,12 +6,14 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 
-#include <Core/API/_Asset/Shader/Shader.h>
-#include <Core/API/_Asset/Texture/Texture.h>
-#include <Core/API/_Resource/RenderBuffer/RenderBuffer.h>
-#include <Core/API/_Resource/RenderTexture/RenderTexture.h>
+#include <Core/Application/Platform/API/_Asset/Shader/Shader.h>
+#include <Core/Application/Platform/API/_Asset/Texture/Texture.h>
+#include <Core/Application/Platform/API/_Resource/RenderBuffer/RenderBuffer.h>
+#include <Core/Application/Platform/API/_Resource/RenderTexture/RenderTexture.h>
 
-#include <Native/Windows/WindowsActivity.h>
+#include <Native/Windows/Activity/WindowsActivity.h>
+
+#include <Native/Windows/WindowsApplication.h>
 
 #include <ThirdParty/imgui/imgui.h>
 #include "imgui\imgui_impl_dx9.h"
@@ -42,7 +44,7 @@ GG_INIT_FUNC_IMPL(DX9GraphicsAPI)
     return false;
   }
 
-  HWND hwnd = WindowsActivity::GetInstance()->GetWindowHandle();
+  HWND hwnd = WindowsApplication::GetMainActivity()->GetWindowHandle();
 
   RECT rect;
   GetClientRect(hwnd, &rect);

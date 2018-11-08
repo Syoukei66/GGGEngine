@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Core/API/Input/InputAPI.h>
+#include <Core/Application/Platform/API/Input/InputAPI.h>
 
 class DirectInputImplements;
 class DirectInputDeviceManager;

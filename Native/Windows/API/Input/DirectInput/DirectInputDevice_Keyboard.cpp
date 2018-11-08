@@ -1,5 +1,5 @@
 #include "DirectInputDevice_Keyboard.h"
-#include <Native/Windows/WindowsActivity.h>
+#include <Native/Windows/WindowsApplication.h>
 
 DirectInputDevice_KeyBoard::DirectInputDevice_KeyBoard(T_UINT8 handler, const KeyboardInput* inputs, T_UINT8 inputs_count)
   : DirectInputDevice(handler)
@@ -25,7 +25,7 @@ bool DirectInputDevice_KeyBoard::Init(LPDIRECTINPUT8 input)
     return false;
   }
 
-  HWND hwnd = WindowsActivity::GetInstance()->GetWindowHandle();
+  HWND hwnd = WindowsApplication::GetMainActivity()->GetWindowHandle();
 
   //‹¦’²ƒŒƒxƒ‹‚ÌÝ’è
   if (FAILED(this->device_->SetCooperativeLevel(hwnd,

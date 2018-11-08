@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Core/Input/InputDeviceManager.h>
+#include <Core/Application/Input/InputDeviceManager.h>
 #include "DirectInputDevice.h"
 
 class DirectInputDeviceManager : public InputDeviceManager<DirectInputDevice>

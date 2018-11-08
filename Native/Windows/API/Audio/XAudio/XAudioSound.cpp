@@ -1,6 +1,8 @@
 #include "XAudioSound.h"
 #include "XAudioAPI.h"
 
+#include <Native/Windows/WindowsApplication.h>
+
 //=============================================================================
 // チャンクのチェック
 //=============================================================================
@@ -138,7 +140,7 @@ NativeSound::NativeSound(const char* path)
   GG_ASSERT(SUCCEEDED(hr), "オーディオデータ読み込みに失敗！(2)");
 
   // ソースボイスの生成
-  hr = XAudioAPI::GetInstance()->GetXAudio()->CreateSourceVoice(&this->souce_voice_, &(wfx.Format));
+  hr = WindowsApplication::GetAudio()->GetXAudio()->CreateSourceVoice(&this->souce_voice_, &(wfx.Format));
   GG_ASSERT(SUCCEEDED(hr), "ソースボイスの生成に失敗！");
 }
 

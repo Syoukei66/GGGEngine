@@ -5,11 +5,6 @@
 class DX9GraphicsAPI : public GraphicsAPI
 {
 public:
-  static GG_INLINE SharedRef<DX9GraphicsAPI> GetInstance()
-  {
-    return SharedRef<DX9GraphicsAPI>::StaticCast(Platform::GetGraphicsAPI());
-  }
-
   // =================================================================
   // GGG Statement
   // =================================================================

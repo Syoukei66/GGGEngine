@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Core/Input/InputDevice.h>
+#include <Core/Application/Input/InputDevice.h>
 
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>

@@ -236,7 +236,6 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClCompile Include="Component\Renderer\SpriteRenderer.cpp" />
     <ClCompile Include="Component\Spine\SkeletonAnimation.cpp" />
     <ClCompile Include="Engine\Engine.cpp" />
-    <ClCompile Include="EntryPoint.cpp" />
     <ClCompile Include="GameObject\GameObjectFactory.cpp" />
     <ClCompile Include="GameObject\GameObject.cpp" />
     <ClCompile Include="GameObject\GameObject2D.cpp" />
@@ -281,7 +280,6 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="Engine\EngineOption.h" />
     <ClInclude Include="Engine\IEngineBehavior.h" />
     <ClInclude Include="Engine\Engine.h" />
-    <ClInclude Include="EntryPoint.h" />
     <ClInclude Include="GameObject\GameObjectFactory.h" />
     <ClInclude Include="GameObject\GameObject.h" />
     <ClInclude Include="GameObject\GameObject2D.h" />
@@ -298,14 +296,6 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="Scene\SceneTransitioner.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Utils.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Asset\Asset.vcxproj">
-      <Project>{37173f1e-1a35-4644-8862-81dbb9ad9fc1}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Core\Core.vcxproj">
-      <Project>{ed60a9ab-7765-4071-a74f-16ae746c727f}</Project>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\DefaultProperty.hlsli" />
@@ -421,6 +411,20 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">2.0</ShaderModel>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)AssetConverter\Raw\shader\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Algorithm\Algorithm.vcxproj">
+      <Project>{a014e46a-c10d-4ed4-a47c-f79712680dc7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Asset\Asset.vcxproj">
+      <Project>{37173f1e-1a35-4644-8862-81dbb9ad9fc1}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Core\Core.vcxproj">
+      <Project>{ed60a9ab-7765-4071-a74f-16ae746c727f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ThirdParty\imgui\imgui.vcxproj">
+      <Project>{39f01ad4-a40f-4a2e-aad2-5b0a33815442}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

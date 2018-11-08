@@ -111,6 +111,7 @@ public:
   {
     SharedRef<Obj_> ret;
     ret.ptr_ = static_cast<Obj_*>(ref.ptr_);
+    ret->Retain();
     return ret;
   }
 

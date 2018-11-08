@@ -5,12 +5,6 @@
 
 class XAudioAPI : public AudioAPI
 {
-public:
-  static GG_INLINE SharedRef<XAudioAPI> GetInstance()
-  {
-    return SharedRef<XAudioAPI>::StaticCast(Platform::GetAudioAPI());
-  }
-
   // =================================================================
   // GGG Statement
   // =================================================================
