@@ -57,7 +57,7 @@ GG_INIT_FUNC_IMPL(DX9GraphicsAPI)
   d3dpp.BackBufferCount = 1;
   d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
   d3dpp.EnableAutoDepthStencil = TRUE;
-  d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
+  d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;
   d3dpp.Windowed = TRUE;
   d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
   d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
@@ -92,6 +92,33 @@ GG_INIT_FUNC_IMPL(DX9GraphicsAPI)
   this->d3d_device_->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
   this->d3d_device_->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
+
+
+
+  // Set up the textures
+  this->d3d_device_->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+  this->d3d_device_->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+  this->d3d_device_->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+  this->d3d_device_->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+  this->d3d_device_->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+  this->d3d_device_->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+  this->d3d_device_->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
+  this->d3d_device_->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
+
+  // Set miscellaneous render states
+  this->d3d_device_->SetRenderState(D3DRS_DITHERENABLE, FALSE);
+  this->d3d_device_->SetRenderState(D3DRS_SPECULARENABLE, FALSE);
+  this->d3d_device_->SetRenderState(D3DRS_ZENABLE, TRUE);
+  this->d3d_device_->SetRenderState(D3DRS_AMBIENT, 0x000F0F0F);
+
+
+
+
+
+
+
+
+
   //imgui initialize
   ImGui_ImplDX9_Init(hwnd, this->d3d_device_);
   ImGui::StyleColorsDark();
@@ -124,8 +151,8 @@ void DX9GraphicsAPI::ViewportClear()
 {
   this->d3d_device_->Clear(
     0, NULL,
-    (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER),
-    D3DCOLOR_RGBA(0, 0, 0, 0),
+    (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL),
+    D3DCOLOR_RGBA(0, 0, 0, 255),
     1.0f, 0
   );
 }
@@ -177,8 +204,8 @@ void DX9GraphicsAPI::SetRenderTarget(const SharedRef<rcRenderBuffer>& color_buff
   {
     this->d3d_device_->Clear(0,
       NULL,
-      D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
-      D3DCOLOR_ARGB(0, 255, 0, 0),
+      D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL,
+      D3DCOLOR_ARGB(0, 0, 0, 255),
       1.0f,
       0);
   }
@@ -200,6 +227,104 @@ void DX9GraphicsAPI::ResetRenderTarget()
   use_depth_stencil_buffer = nullptr;
 
   this->d3d_device_->BeginScene();
+}
+
+LPDIRECT3DVERTEXBUFFER9 g_VertexBuffer = NULL;
+
+typedef struct
+{
+  D3DXVECTOR4 pos;
+  DWORD color;
+  D3DXVECTOR2 texCood;
+  enum {
+    FVF = D3DFVF_XYZW | D3DFVF_DIFFUSE | D3DFVF_TEX1
+  };
+} VERTEX_2D;
+
+void DX9GraphicsAPI::DrawStencilBuffer()
+{
+  this->d3d_device_->SetRenderState(D3DRS_ZENABLE, FALSE);
+  this->d3d_device_->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+  this->d3d_device_->SetRenderState(D3DRS_STENCILENABLE, TRUE);
+  this->d3d_device_->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+  this->d3d_device_->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+  this->d3d_device_->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+
+  this->d3d_device_->SetRenderState(D3DRS_STENCILREF, 0x1);
+  this->d3d_device_->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_LESSEQUAL);
+  this->d3d_device_->SetRenderState(D3DRS_STENCILPASS, D3DSTENCILOP_KEEP);
+
+  if (!g_VertexBuffer)
+  {
+    this->d3d_device_->CreateVertexBuffer(
+      sizeof(VERTEX_2D) * 4,
+      D3DUSAGE_WRITEONLY,
+      VERTEX_2D::FVF,
+      D3DPOOL_MANAGED,
+      &g_VertexBuffer,
+      NULL
+    );
+    VERTEX_2D* pV;
+    g_VertexBuffer->Lock(
+      0, 0,
+      (void**)&pV,
+      D3DLOCK_DISCARD
+    );
+
+    const float dw = 2.0f;
+    const float dh = 2.0f;
+    const float dx = -dw * 0.5f;
+    const float dy = -dh * 0.5f;
+
+    const float tcx = 0.0f;
+    const float tcy = 0.0f;
+    const float tcw = 1.0f;
+    const float tch = 1.0f;
+    const float tw = 1.0;
+    const float th = 1.0;
+
+    //四角形の頂点座標を変数に確保しておく
+    const float x0 = dx;
+    const float y0 = dy;
+    const float x1 = dx + dw;
+    const float y1 = dy + dh;
+
+    //テクスチャのUV座標を変数に確保しておく
+    const float u0 = (float)tcx / tw;
+    const float v0 = (float)tcy / th;
+    const float u1 = (float)(tcx + tcw) / tw;
+    const float v1 = (float)(tcy + tch) / th;
+
+    //各頂点に座標設定
+    pV[0].pos = D3DXVECTOR4(x0, y1, 0.0f, 1.0f);
+    pV[1].pos = D3DXVECTOR4(x1, y1, 0.0f, 1.0f);
+    pV[2].pos = D3DXVECTOR4(x0, y0, 0.0f, 1.0f);
+    pV[3].pos = D3DXVECTOR4(x1, y0, 0.0f, 1.0f);
+
+    //各頂点にテクスチャ座標設定
+    pV[0].texCood = D3DXVECTOR2(u0, v0);
+    pV[1].texCood = D3DXVECTOR2(u1, v0);
+    pV[2].texCood = D3DXVECTOR2(u0, v1);
+    pV[3].texCood = D3DXVECTOR2(u1, v1);
+
+    //各頂点に色設定
+    pV[0].color = D3DCOLOR_RGBA(0, 0, 0, 128);
+    pV[1].color = D3DCOLOR_RGBA(0, 0, 0, 128);
+    pV[2].color = D3DCOLOR_RGBA(0, 0, 0, 128);
+    pV[3].color = D3DCOLOR_RGBA(0, 0, 0, 128);
+
+    g_VertexBuffer->Unlock();
+  }
+
+  this->d3d_device_->SetFVF(VERTEX_2D::FVF);
+  this->d3d_device_->SetStreamSource(0, g_VertexBuffer, 0, sizeof(VERTEX_2D));
+  this->d3d_device_->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+
+  this->d3d_device_->SetRenderState(D3DRS_ZENABLE, TRUE);
+  this->d3d_device_->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+  this->d3d_device_->SetRenderState(D3DRS_STENCILENABLE, FALSE);
+  this->d3d_device_->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+
 }
 
 UniqueRef<rcTexture> DX9GraphicsAPI::TextureLoad(const char* path)

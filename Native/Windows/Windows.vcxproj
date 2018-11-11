@@ -120,6 +120,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h;Native/Windows/stdafx.h</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <PreBuildEvent>
       <Command>cd $(SolutionDir)
@@ -138,6 +139,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h;Native/Windows/stdafx.h</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

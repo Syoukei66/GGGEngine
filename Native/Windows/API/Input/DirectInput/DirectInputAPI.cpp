@@ -7,6 +7,7 @@
 // =================================================================
 GG_INIT_FUNC_IMPL_1(DirectInputAPI, const InputSetting& setting)
 {
+  InputAPI::Init(setting);
   this->input_ = new DirectInputDeviceManager();
   this->native_implements_->SetupInputDevices(this->input_);
 

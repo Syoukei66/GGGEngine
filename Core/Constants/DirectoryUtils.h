@@ -10,12 +10,17 @@ static std::string GetUniqueIdTableFileName(const std::string& extension)
 
 static std::string GetAssetDirectory()
 {
-  return "./Asset";
+  return "Asset";
+}
+
+static std::string CreateArchivePath(const std::string& path)
+{
+  return GetAssetDirectory() + "/" + path;
 }
 
 static std::string GetArchiveUniqueIdTablePath()
 {
-  return GetAssetDirectory() + "/" + GetUniqueIdTableFileName("bin");
+  return CreateArchivePath(GetUniqueIdTableFileName("bin"));
 }
 
 }

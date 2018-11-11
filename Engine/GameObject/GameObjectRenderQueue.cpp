@@ -33,7 +33,7 @@ void GameObjectRenderQueue::Draw(GameObjectRenderState* state)
   this->queue_.clear();
 }
 
-void GameObjectRenderQueue::DrawWithZSorted(GameObjectRenderState* state)
+void GameObjectRenderQueue::DrawTransparent(GameObjectRenderState* state)
 {
   if (this->queue_.size() == 0)
   {
@@ -61,6 +61,22 @@ void GameObjectRenderQueue::DrawWithZSorted(GameObjectRenderState* state)
       state->SetWorldMatrix(param.renderer->GetEntity()->GetWorldMatrix());
       param.renderer->Draw(state);
     }
+  }
+
+  this->queue_.clear();
+}
+
+void GameObjectRenderQueue::DrawShadow(GameObjectRenderState* state)
+{
+  if (this->queue_.size() == 0)
+  {
+    return;
+  }
+
+  for (const DrawParam& param : this->queue_)
+  {
+    state->SetWorldMatrix(param.renderer->GetEntity()->GetWorldMatrix());
+    param.renderer->Draw(state);
   }
 
   this->queue_.clear();

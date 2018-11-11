@@ -55,7 +55,7 @@ GG_INIT_FUNC_IMPL_1(rcMaterial, const MaterialData& data)
     data.shader_unique_id_ != 0 ?
     AssetManager::Load<rcShader>(data.shader_unique_id_) :
     AssetManager::Load<rcShader>(DefaultUniqueID::SHADER_NO_SHADING)
-  );;
+  );
 }
 
 GG_INIT_FUNC_IMPL_1(rcMaterial, const SharedRef<rcShader>& shader)

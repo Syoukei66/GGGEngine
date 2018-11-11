@@ -8,7 +8,8 @@
 // =================================================================
 void AssetManager::Init()
 {
-  Self().unique_id_table_ = CerealIO::Binary::Import<UniqueIdTable>(Directory::GetArchiveUniqueIdTablePath().c_str());
+  AssetManager* self = &Self();
+  self->unique_id_table_ = CerealIO::Binary::Import<UniqueIdTable>(Directory::GetArchiveUniqueIdTablePath().c_str());
 }
 
 void AssetManager::Uninit()

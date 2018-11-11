@@ -49,6 +49,7 @@ void AssetConverterDirector::Init()
   this->context_->RegisterDefaultUniqueID(SHADER_FRESNEL,       SHADER_PATH_WHITE);
 
   this->context_->RegisterDefaultUniqueID(SHADER_SPRITE, SHADER_PATH_SPRITE);
+  this->context_->RegisterDefaultUniqueID(SHADER_STENCIL_SHADOW, SHADER_PATH_STENCIL_SHADOW);
 
   this->context_->RegisterDefaultUniqueID(MESH_CUBE,    MESH_PATH_CUBE);
   this->context_->RegisterDefaultUniqueID(MESH_PLANE,   MESH_PATH_PLANE);
@@ -56,6 +57,7 @@ void AssetConverterDirector::Init()
   this->context_->RegisterDefaultUniqueID(MATERIAL_WHITE,   MATERIAL_PATH_WHITE);
   this->context_->RegisterDefaultUniqueID(MATERIAL_LAMBERT, MATERIAL_PATH_LAMBERT);
   this->context_->RegisterDefaultUniqueID(MATERIAL_SPRITE,  MATERIAL_PATH_SPRITE);
+  this->context_->RegisterDefaultUniqueID(MATERIAL_STENCIL_SHADOW, MATERIAL_PATH_STENCIL_SHADOW);
 
   this->converter_manager_->AddConverter(this->setting_->default_mesh_asset_converter_factory.Create(this->context_));
   this->converter_manager_->AddConverter(DefaultMaterialAssetConverterFactory::Create(this->context_));
@@ -119,7 +121,7 @@ void AssetConverterDirector::Export()
     converter->Export(this->context_);
   });
 
-  CerealIO::Binary::Export(FileUtil::GetArchiveUniqueIdTablePath().c_str(), this->unique_id_table_);
+  CerealIO::Binary::Export(FileUtil::CreateOutputPath(FileUtil::GetArchiveUniqueIdTablePath()).c_str(), this->unique_id_table_);
 }
 
 void AssetConverterDirector::CreateProgram()

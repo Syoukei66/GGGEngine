@@ -27,7 +27,8 @@ public:
   virtual void PackColor4u8(T_FIXED_UINT32* color, T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a) = 0;
   virtual void SetRenderTarget(const SharedRef<rcRenderBuffer>& color_buffer, const SharedRef<rcRenderBuffer>& depth_stencil_buffer, bool clear) = 0;
   virtual void ResetRenderTarget() = 0;
-
+  virtual void DrawStencilBuffer() = 0;
+  
   virtual UniqueRef<rcTexture> TextureLoad(const char* path) = 0;
   virtual void DeleteTexture(rcTexture* texture) = 0;
   virtual void GetTextureSize(const rcTexture* texture, T_UINT16* width_dest, T_UINT16* height_dest) = 0;

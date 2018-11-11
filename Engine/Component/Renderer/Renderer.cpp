@@ -9,7 +9,7 @@
 // =================================================================
 Renderer::Renderer(GameObject* entity)
   : entity_(entity)
-  , layer_id_(1)
+  , layer_id_(0)
 {
 }
 

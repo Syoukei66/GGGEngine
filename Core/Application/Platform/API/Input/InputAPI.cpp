@@ -27,6 +27,7 @@ GG_DESTRUCT_FUNC_IMPL(InputAPI)
 
 void InputAPI::Update()
 {
+  this->engine_input_state_.Prepare();
   this->InputProcess(&this->engine_input_state_);
   for (T_UINT8 i = 0; i < this->state_count_; ++i)
   {

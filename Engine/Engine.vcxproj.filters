@@ -420,5 +420,6 @@
     <FxCompile Include="Shader\Sprite.fx" />
     <FxCompile Include="Shader\Unlit.fx" />
     <FxCompile Include="Shader\White.fx" />
+    <FxCompile Include="Shader\StencilShadow.fx" />
   </ItemGroup>
 </Project>

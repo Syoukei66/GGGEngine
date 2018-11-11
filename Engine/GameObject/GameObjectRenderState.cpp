@@ -43,10 +43,15 @@ void GameObjectRenderState::Draw()
   {
     queues_[i]->Draw(this);
   }
-  for (T_UINT8 i = RQ_TRANSPARENT; i < RQ_DATANUM; ++i)
+  for (T_UINT8 i = RQ_GEOMETRY_LAST; i < RQ_TRANSPARENT_LAST; ++i)
   {
-    queues_[i]->DrawWithZSorted(this);
+    queues_[i]->DrawTransparent(this);
   }
+  for (T_UINT8 i = RQ_TRANSPARENT_LAST; i < RQ_SHADOW_LAST; ++i)
+  {
+    queues_[i]->Draw(this);
+  }
+  Application::GetPlatform()->GetGraphicsAPI()->DrawStencilBuffer();
 }
 
 void GameObjectRenderState::AddQueue(const Renderer* renderer)

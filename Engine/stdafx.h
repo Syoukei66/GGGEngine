@@ -1,8 +1,8 @@
 #pragma once
 
-#include <Core/stdafx.h>
-#include <Asset/stdafx.h>
-#include <Algorithm/stdafx.h>
+#include <Core/Include.h>
+#include <Asset/Include.h>
+#include <Algorithm/Include.h>
 
 #include <Engine/Director.h>
 

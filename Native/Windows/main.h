@@ -6,7 +6,7 @@
 
 namespace Windows
 {
-void main(IEngineBehavior* behavior)
+static void main(IEngineBehavior* behavior)
 {
   Engine* engine = new Engine(behavior);
   WindowsApplicationSetting_Game* setting = new WindowsApplicationSetting_Game();
@@ -15,7 +15,7 @@ void main(IEngineBehavior* behavior)
   delete engine;
 }
 
-void main(IEngineBehavior* behavior, HWND hwnd)
+static void main(IEngineBehavior* behavior, HWND hwnd)
 {
   Engine* engine = new Engine(behavior);
   WindowsApplicationSetting_Editor* setting = new WindowsApplicationSetting_Editor(hwnd);

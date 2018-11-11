@@ -40,7 +40,9 @@ protected:
   /*!
   * @brief Š—LŒ ‚ğ‚½‚È‚¢‹ó‚ÌRef‚Ìì¬B
   */
-  GG_INLINE constexpr GGRef(nullptr_t p) {}
+  GG_INLINE constexpr GGRef(nullptr_t p)
+    : ptr_()
+  {}
 
   // =================================================================
   // operator

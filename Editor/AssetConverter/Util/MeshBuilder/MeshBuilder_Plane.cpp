@@ -13,12 +13,12 @@ MeshBuilder_Plane::MeshBuilder_Plane(T_UINT32 format, T_FLOAT scale_x, T_FLOAT s
 
 MeshBuilder_Plane::MeshBuilder_Plane()
   : format_()
-  , scale_x_()
-  , scale_y_()
-  , resolution_x_()
-  , resolution_y_()
-  , tile_count_x_()
-  , tile_count_y_()
+  , scale_x_(1.0f)
+  , scale_y_(1.0f)
+  , resolution_x_(1)
+  , resolution_y_(1)
+  , tile_count_x_(1.0f)
+  , tile_count_y_(1.0f)
 {
 }
 

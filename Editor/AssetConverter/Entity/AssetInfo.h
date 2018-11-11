@@ -44,7 +44,7 @@ public:
 
   inline std::string GetOutputPath() const
   {
-    return FileUtil::CreateOutputPath(this);
+    return FileUtil::CreateArchivePath(this);
   }
 
   inline bool UpdateTimeStamp()

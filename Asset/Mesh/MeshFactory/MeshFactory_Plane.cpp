@@ -13,7 +13,7 @@ MeshData* MeshFactory::Plane::Create(
   ret->vertex_count_ = (resolution_x + 1) * (resolution_y + 1);
   ret->vertex_format_ = format;
   ret->vertex_size_ = CalcVertexSize(format);
-  ret->data_.resize(ret->vertex_size_);
+  ret->data_.resize(ret->vertex_count_ * ret->vertex_size_);
   unsigned char* p = &ret->data_[0];
 
   for (T_UINT32 i = 0, y = 0; y <= resolution_y; ++y)

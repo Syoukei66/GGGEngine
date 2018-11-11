@@ -25,7 +25,8 @@ public:
   }
   void AddByDistance(const Renderer* renderer, const Camera* camera);
   void Draw(GameObjectRenderState* state);
-  void DrawWithZSorted(GameObjectRenderState* state);
+  void DrawTransparent(GameObjectRenderState* state);
+  void DrawShadow(GameObjectRenderState* state);
 
 private:
   std::vector<DrawParam> queue_;
