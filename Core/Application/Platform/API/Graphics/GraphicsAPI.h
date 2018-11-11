@@ -43,10 +43,11 @@ public:
   virtual UniqueRef<rcVertexBuffer> CreateVertexBuffer(T_UINT32 vertex_count, T_UINT32 format) = 0;
   virtual UniqueRef<rcIndexBuffer> CreateIndexBuffer(T_UINT32 indexes_count, T_UINT32 polygon_count) = 0;
 
-protected:
   virtual bool ImGuiNewFrame() = 0;
+  virtual bool ImGuiEndFrame() = 0;
+
+protected:
   virtual bool PreDraw() = 0;
   virtual bool PostDraw() = 0;
-  virtual bool ImGuiEndFrame() = 0;
 
 };

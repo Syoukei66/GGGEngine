@@ -1,5 +1,5 @@
 #include "EngineBehavior.h"
-#include "Scene/StencilShadowTestScene.h"
+#include <Scene/EntryScene.h>
 
 // =================================================================
 // Methods from IEngineBehavior
@@ -24,5 +24,5 @@ void EngineBehavior::SetupEngineOption(EngineOption& option)
 
 Scene* EngineBehavior::FirstScene()
 {
-  return new StencilShadowTestScene();
+  return new EntryScene();
 }

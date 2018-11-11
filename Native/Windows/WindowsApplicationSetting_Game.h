@@ -5,6 +5,7 @@
 #include <Native/Windows/Activity/WindowActivity.h>
 #include <Native/Windows/API/Audio/XAudio/XAudioAPI.h>
 #include <Native/Windows/API/Input/DirectInput/DirectInputAPI.h>
+#include <Native/Windows/API/Graphics/WindowsGraphicsAPI.h>
 
 /*!
  * @brief 通常のWindowsのプラットフォーム設定

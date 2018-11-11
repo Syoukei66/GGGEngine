@@ -21,6 +21,7 @@
 #include <Native/Windows/API/Input/DirectInput/DirectInputDevice_Mouse.h>
 #include <Native/Windows/API/Input/DirectInput/DirectInputDevice_XInput.h>
 #include <Native/Windows/API/Input/DirectInput/DirectInputImplements.h>
+#include <Native/Windows/imgui/imgui_impl_win32.h>
 #include <Native/Windows/main.h>
 #include <Native/Windows/PlatformMacro.h>
 #include <Native/Windows/WindowsApplication.h>

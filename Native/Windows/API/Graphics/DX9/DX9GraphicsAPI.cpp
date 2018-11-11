@@ -111,18 +111,8 @@ GG_INIT_FUNC_IMPL(DX9GraphicsAPI)
   this->d3d_device_->SetRenderState(D3DRS_ZENABLE, TRUE);
   this->d3d_device_->SetRenderState(D3DRS_AMBIENT, 0x000F0F0F);
 
-
-
-
-
-
-
-
-
   //imgui initialize
-  ImGui_ImplDX9_Init(hwnd, this->d3d_device_);
-  ImGui::StyleColorsDark();
-  ImGui::SetupJapaneseString();
+  ImGui_ImplDX9_Init(this->d3d_device_);
   return true;
 }
 
@@ -463,6 +453,12 @@ bool DX9GraphicsAPI::ImGuiNewFrame()
   return true;
 }
 
+bool DX9GraphicsAPI::ImGuiEndFrame()
+{
+  ImGui::EndFrame();
+  return true;
+}
+
 bool DX9GraphicsAPI::PreDraw()
 {
   if (SUCCEEDED(this->d3d_device_->BeginScene()))
@@ -475,21 +471,9 @@ bool DX9GraphicsAPI::PreDraw()
 bool DX9GraphicsAPI::PostDraw()
 {
   //imgui
-  ImGui::Render();
+  ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
 
   this->d3d_device_->EndScene();
   this->d3d_device_->Present(NULL, NULL, NULL, NULL);
   return true;
-}
-
-bool DX9GraphicsAPI::ImGuiEndFrame()
-{
-  ImGui::EndFrame();
-  return true;
-}
-
-extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-LRESULT DX9GraphicsAPI::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
-{
-  return ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
 }

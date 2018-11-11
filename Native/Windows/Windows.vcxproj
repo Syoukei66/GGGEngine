@@ -176,6 +176,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
   <ItemGroup>
     <ClInclude Include="Activity\EditorWindowActivity.h" />
     <ClInclude Include="Activity\WindowsActivity.h" />
+    <ClInclude Include="imgui\imgui_impl_win32.h" />
     <ClInclude Include="WindowsApplicationSetting_Editor.h" />
     <ClInclude Include="API\Audio\XAudio\XAudioAPI.h" />
     <ClInclude Include="API\Graphics\DX9\DX9GraphicsAPI.h" />
@@ -215,6 +216,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClCompile Include="API\Input\DirectInput\DirectInputDevice_Keyboard.cpp" />
     <ClCompile Include="API\Input\DirectInput\DirectInputDevice_Mouse.cpp" />
     <ClCompile Include="API\Input\DirectInput\DirectInputDevice_XInput.cpp" />
+    <ClCompile Include="imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="Native\NativeProcess.cpp" />
     <ClCompile Include="API\Audio\XAudio\XAudioSound.cpp" />
     <ClCompile Include="API\Input\DirectInput\DirectInputImplements.cpp" />

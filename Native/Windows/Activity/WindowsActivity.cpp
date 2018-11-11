@@ -1,5 +1,7 @@
 #include "WindowActivity.h"
 #include <Core/Util/Logger.h>
+#include <imgui/imgui.h>
+#include <Native/Windows/imgui/imgui_impl_win32.h>
 
 // =================================================================
 // GGG Statement
@@ -27,5 +29,6 @@ bool WindowsActivity::FrameEnabled()
     DispatchMessage(&this->msg_);
     return false;
   }
+  ImGui_ImplWin32_NewFrame();
   return true;
 }

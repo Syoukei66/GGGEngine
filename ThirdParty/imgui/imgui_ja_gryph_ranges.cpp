@@ -526,9 +526,9 @@ static const ImWchar glyphRangesJapanese[] = {
 
 void ImGui::SetupJapaneseString()
 {
-  ImGuiIO& io = ImGui::GetIO();
+  ImGuiIO* io = &ImGui::GetIO();
   ImFontConfig config;
   config.MergeMode = true;
-  io.Fonts->AddFontDefault();
-  io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\meiryo.ttc", 18.0f, &config, glyphRangesJapanese);
+  io->Fonts->AddFontDefault();
+  io->Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\meiryo.ttc", 18.0f, &config, glyphRangesJapanese);
 }

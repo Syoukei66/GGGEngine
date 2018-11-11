@@ -11,6 +11,9 @@
 
 #include <Core/Application/Asset/AssetManager.h>
 
+#include <imgui/imgui_ja_gryph_ranges.h>
+#include <imgui/imgui.h>
+
 // =================================================================
 // Methods
 // =================================================================
@@ -33,7 +36,13 @@ void Application::Run(IApplicationBehavior* behavior, IApplicationSetting* setti
 
   self->platform_ = Platform::Create();
 
+  IMGUI_CHECKVERSION();
+  ImGui::CreateContext();
+  
   setting->SetupApplication(self, ao, &self->main_activity_, &self->platform_->graphics_api_, &self->platform_->input_api_, &self->platform_->audio_api_);
+
+  ImGui::StyleColorsDark();
+  ImGui::SetupJapaneseString();
 
   // ゲーム開始処理
   behavior->Init();
@@ -47,6 +56,9 @@ void Application::Run(IApplicationBehavior* behavior, IApplicationSetting* setti
     {
       continue;
     }
+    self->platform_->graphics_api_->ImGuiNewFrame();
+    ImGui::NewFrame();
+
     self->update_event_state_.Update();
     self->platform_->input_api_->Update();
     behavior->Update(self->update_event_state_);
@@ -54,11 +66,14 @@ void Application::Run(IApplicationBehavior* behavior, IApplicationSetting* setti
     // 描画周期が来たら描画を行う
     if (self->main_activity_->DrawEnabled(self->update_event_state_.GetDeltaTime()))
     {
+      ImGui::Render();
       self->platform_->graphics_api_->Draw(self->main_activity_, [&]()
       {
         behavior->Draw();
       });
     }
+
+    self->platform_->graphics_api_->ImGuiEndFrame();
 
   }
 
@@ -83,6 +98,8 @@ void Application::Run(IApplicationBehavior* behavior, IApplicationSetting* setti
 
   // システム側でのリソースの全開放
   GGObjectManager::GC();
+
+  ImGui::DestroyContext();
 
   // メモリリークチェック
   if (GGObjectManager::CheckLeak())

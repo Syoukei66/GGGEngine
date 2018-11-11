@@ -5,3 +5,4 @@
 #include <Algorithm/stdafx.h>
 #include <Engine/stdafx.h>
 #include <Native/Windows/stdafx.h>
+#include "GameInput.h"

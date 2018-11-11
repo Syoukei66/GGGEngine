@@ -1,17 +1,22 @@
 #pragma once
 
-class MeshTestScene : public Scene
+class EntryScene : public Scene
 {
   // =================================================================
   // Methods from Scene
   // =================================================================
+public:
   virtual void OnLoad() override;
   virtual void OnUnload() override;
   virtual void OnShow(ISceneShowListener* listener) override;
   virtual void OnHide(ISceneHideListener* listener) override;
+  virtual void Update() override;
 
+  // =================================================================
+  // Data Member
+  // =================================================================
 private:
-  GameObject3D* obj_;
-  Camera3D_LookAt* camera_;
+  std::vector<char> path_;
+  bool open_file_dialog_;
 
 };

@@ -35,17 +35,12 @@ public:
   virtual UniqueRef<rcVertexBuffer> CreateVertexBuffer(T_UINT32 vertex_count, T_UINT32 format) override;
   virtual UniqueRef<rcIndexBuffer> CreateIndexBuffer(T_UINT32 indexes_count, T_UINT32 polygon_count) override;
 
-protected:
   virtual bool ImGuiNewFrame() override;
-  virtual bool PreDraw() override;
-  virtual bool PostDraw() override;
   virtual bool ImGuiEndFrame() override;
 
-  // =================================================================
-  // Methods
-  // =================================================================
-public:
-  static LRESULT WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+protected:
+  virtual bool PreDraw() override;
+  virtual bool PostDraw() override;
 
   // =================================================================
   // Setter / Getter

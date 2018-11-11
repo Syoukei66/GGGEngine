@@ -1,6 +1,6 @@
 #pragma once
 
-class TextureTestScene : public Scene
+class TextureViewScene : public Scene
 {
   // =================================================================
   // Methods from Scene
@@ -11,8 +11,11 @@ public:
   virtual void OnShow(ISceneShowListener* listener) override;
   virtual void OnHide(ISceneHideListener* listener) override;
 
+  // =================================================================
+  // Data Member
+  // =================================================================
 private:
   GameObject2D* obj_;
-  Camera2D* camera_;
+  Camera2D* camera_3d_;
 
 };
