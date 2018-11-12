@@ -35,7 +35,7 @@ URI::URI(const std::string& directory_path, const std::string& prefix, const std
 // =================================================================
 static void GetDirectoryPathAndFileName(const std::string& full_path, std::string* directory, std::string* file_name)
 {
-  std::regex re("(.+)/(.+)");
+  std::regex re("(.+)[/\\\\](.+)");
   std::smatch result;
   if (!std::regex_match(full_path, result, re))
   {

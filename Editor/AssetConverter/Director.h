@@ -7,39 +7,38 @@
 class AssetConverterDirector
 {
   // =================================================================
-  // Singleton Constructor / Destructor
+  // GGG Editor
   // =================================================================
-public:
-  static AssetConverterDirector& GetInstance()
-  {
-    static AssetConverterDirector self;
-    return self;
-  }
-
-public:
-  AssetConverterDirector(const AssetConverterDirector&) = delete;
-  AssetConverterDirector& operator=(const AssetConverterDirector&) = delete;
-  AssetConverterDirector(AssetConverterDirector&&) = delete;
-  AssetConverterDirector& operator=(AssetConverterDirector&&) = delete;
-
-private:
-  AssetConverterDirector() = default;
-  ~AssetConverterDirector() = default;
+  GG_SINGLETON(AssetConverterDirector);
 
   // =================================================================
   // Methods
   // =================================================================
 public:
-  void Init();
-  void Uninit();
-  void Import();
-  void Export();
-  void CreateProgram();
+  static void Init();
+  static void Uninit();
+  static void Import();
+  static void Export();
+  static void CreateProgram();
 
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
+  static GG_INLINE UniqueIdTable* GetUniqueIdTable()
+  {
+    return Self().unique_id_table_;
+  }
+  
+  static GG_INLINE AssetConverterContext* GetContext()
+  {
+    return Self().context_;
+  }
+
+  static GG_INLINE AssetConverterManager* GetConverterManager()
+  {
+    return Self().converter_manager_;
+  }
 
   // =================================================================
   // Data Members

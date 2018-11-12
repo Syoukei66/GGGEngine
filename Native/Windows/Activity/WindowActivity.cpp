@@ -5,6 +5,7 @@
 #include <Core/Application/Activity/ActivityOption.h>
 #include <imgui/imgui.h>
 #include <Native/Windows/imgui/imgui_impl_win32.h>
+#include <Native/Windows/WindowsApplication.h>
 
 // =================================================================
 // GGG Statement
@@ -80,7 +81,7 @@ LRESULT WindowActivity::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPar
   if (uMsg == WM_CLOSE)
   {
     DestroyWindow(hWnd);
-}
+  }
   if (uMsg == WM_DESTROY)
   {
     PostQuitMessage(0);

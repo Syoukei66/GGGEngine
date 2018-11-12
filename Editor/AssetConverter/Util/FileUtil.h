@@ -22,6 +22,7 @@ std::string CreateMidDataPath(const URI& uri);
 std::string CreateArchivePath(const AssetInfo* info);
 std::string CreateOutputPath(const std::string& filename);
 std::string CreateRuntimeAssetPath(const URI& uri);
+std::string CreateSolutionPath(const std::string& path);
 
 void CopyRawAsset(const AssetInfo* info);
 

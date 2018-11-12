@@ -1,5 +1,7 @@
 #pragma once
 
+class URI;
+
 class EntryScene : public Scene
 {
   // =================================================================
@@ -11,6 +13,12 @@ public:
   virtual void OnShow(ISceneShowListener* listener) override;
   virtual void OnHide(ISceneHideListener* listener) override;
   virtual void Update() override;
+
+  // =================================================================
+  // Methods
+  // =================================================================
+private:
+  void ShowViewer(const URI& uri);
 
   // =================================================================
   // Data Member

@@ -103,6 +103,7 @@ inline bool AssetImporter<Entity_>::ImportOnce(std::unordered_map<T_UINT32, Enti
   this->reserve_assets_.erase(begin->first);
   //イテレーター処理が終わった後にImport処理を行う事で
   //割り込みが発生しても安全に処理できる
+  Logger::ImportAssetLog(info->GetURI()); 
   (*dest)[unique_id] = this->ImportProcess(info, context);
   return true;
 }
@@ -119,6 +120,7 @@ inline bool AssetImporter<Entity_>::ImportOnce(T_UINT32 unique_id, std::unordere
   this->reserve_assets_.erase(itr->first);
   //イテレーター処理が終わった後にImport処理を行う事で
   //割り込みが発生しても安全に処理できる
+  std::cout << "importing \"" << info->GetURI().GetFullPath() << "\" " << std::endl;
   (*dest)[unique_id] = this->ImportProcess(info, context);
   return true;
 }

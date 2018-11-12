@@ -14,9 +14,11 @@
 
 static const std::string SETTING_PATH = "ConvertSetting.json";
 
-static const std::string PROJECT_PATH = "Project";
-static const std::string ASSET_PATH = "Asset";
-static const std::string RUNTIME_DIRECTORY_PATH = "Game";
+static const std::string CURRENT_DIRECTORY = "../../../";
+
+static const std::string PROJECT_PATH = CURRENT_DIRECTORY + "Project";
+static const std::string ASSET_PATH = CURRENT_DIRECTORY + "Asset";
+static const std::string RUNTIME_DIRECTORY_PATH = CURRENT_DIRECTORY + "Game";
 
 static const std::string INPUT_PATH = ASSET_PATH + "/Raw";
 static const std::string ARCHIVE_PATH = ASSET_PATH + "/Archive";
@@ -84,6 +86,11 @@ std::string FileUtil::CreateOutputPath(const std::string& filename)
 std::string FileUtil::CreateRuntimeAssetPath(const URI& uri)
 {
   return uri.GetFullPath();
+}
+
+std::string FileUtil::CreateSolutionPath(const std::string& path)
+{
+  return path.substr(CURRENT_DIRECTORY.size(), path.size() - CURRENT_DIRECTORY.size());
 }
 
 void FileUtil::CopyRawAsset(const AssetInfo* info)

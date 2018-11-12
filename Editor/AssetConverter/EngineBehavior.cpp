@@ -1,9 +1,21 @@
 #include "EngineBehavior.h"
 #include <Scene/EntryScene.h>
+#include <Director.h>
 
 // =================================================================
 // Methods from IEngineBehavior
 // =================================================================
+void EngineBehavior::OnApplicationBegin()
+{
+  AssetConverterDirector::Init();
+  AssetConverterDirector::Import();
+}
+
+void EngineBehavior::OnApplicationEnd()
+{
+  AssetConverterDirector::Uninit();
+}
+
 void EngineBehavior::SetupApplicationOption(ApplicationOption& option)
 {
   option.input_setting.player_count_ = 4;

@@ -154,13 +154,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="EngineBehavior.cpp" />
-    <ClCompile Include="GameInput.cpp" />
-    <ClCompile Include="Scene\EntryScene.cpp" />
-    <ClCompile Include="Scene\Mesh\main.cpp" />
-    <ClCompile Include="Scene\Mesh\MeshViewerBehavior.cpp" />
-    <ClCompile Include="Scene\Texture\TextureViewScene.cpp" />
-    <ClCompile Include="Scene\ViewerScene.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -169,13 +162,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EngineBehavior.h" />
-    <ClInclude Include="GameInput.h" />
-    <ClInclude Include="Scene\EntryScene.h" />
-    <ClInclude Include="Scene\AssetViewerBehavior.h" />
-    <ClInclude Include="Scene\Mesh\MeshViewerBehavior.h" />
-    <ClInclude Include="Scene\Texture\TextureViewScene.h" />
-    <ClInclude Include="Scene\ViewerScene.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +173,9 @@
     </ProjectReference>
     <ProjectReference Include="..\..\ThirdParty\imgui\imgui.vcxproj">
       <Project>{39f01ad4-a40f-4a2e-aad2-5b0a33815442}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\EditorUtils\EditorUtils.vcxproj">
+      <Project>{980f180f-d523-4328-8cda-6c2add3aa7d8}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

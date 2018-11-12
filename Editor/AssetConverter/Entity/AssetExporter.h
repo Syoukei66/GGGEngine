@@ -62,7 +62,7 @@ inline void AssetExporter<Entity_>::Export(const std::unordered_map<T_UINT32, En
     //変換対象ファイルのタイムスタンプが一致しているか
     if (output_file_exists && !asset_changed)
     {
-      Logger::SkipAssetLog(info);
+      Logger::ExportSkipAssetLog(info);
       continue;
     }
     this->ExportProcess(pair.second, context);

@@ -16,89 +16,95 @@
 // =================================================================
 void AssetConverterDirector::Init()
 {
-  GG_ASSERT(!this->setting_ && !this->converter_manager_ && !this->context_, "Initが２回連続で呼び出されました");
+  AssetConverterDirector* self = &Self();
+
+  GG_ASSERT(!self->setting_ && !self->converter_manager_ && !self->context_, "Initが２回連続で呼び出されました");
  
   FileUtil::PrepareDirectories();
 
-  this->setting_ = CerealIO::Json::SafeImport<Setting>(FileUtil::GetSettingPath().c_str());
-  if (!this->setting_)
+  self->setting_ = CerealIO::Json::SafeImport<Setting>(FileUtil::GetSettingPath().c_str());
+  if (!self->setting_)
   {
-    this->setting_ = Setting::Create();
+    self->setting_ = Setting::Create();
   }
 
-  this->unique_id_table_ = CerealIO::Json::SafeImport<UniqueIdTable>(FileUtil::GetMidDataUniqueIdTablePath().c_str());
-  if (!this->unique_id_table_)
+  self->unique_id_table_ = CerealIO::Json::SafeImport<UniqueIdTable>(FileUtil::GetMidDataUniqueIdTablePath().c_str());
+  if (!self->unique_id_table_)
   {
-    this->unique_id_table_ = new UniqueIdTable();
+    self->unique_id_table_ = new UniqueIdTable();
   }
 
-  this->converter_manager_ = new AssetConverterManager();
-  this->context_ = new AssetConverterContext(this->unique_id_table_, this->converter_manager_);
+  self->converter_manager_ = new AssetConverterManager();
+  self->context_ = new AssetConverterContext(self->unique_id_table_, self->converter_manager_);
 
   using namespace DefaultUniqueID;
   using namespace DefaultAsset;
-  this->context_->RegisterDefaultUniqueID(SHADER_FLAT,          SHADER_PATH_WHITE);
-  this->context_->RegisterDefaultUniqueID(SHADER_GOURAUD,       SHADER_PATH_LAMBERT);
-  this->context_->RegisterDefaultUniqueID(SHADER_PHONG,         SHADER_PATH_PHONG);
-  this->context_->RegisterDefaultUniqueID(SHADER_BLIN,          SHADER_PATH_WHITE);
-  this->context_->RegisterDefaultUniqueID(SHADER_TOON,          SHADER_PATH_WHITE);
-  this->context_->RegisterDefaultUniqueID(SHADER_OREN_NAYAR,    SHADER_PATH_WHITE);
-  this->context_->RegisterDefaultUniqueID(SHADER_MINNAERT,      SHADER_PATH_WHITE);
-  this->context_->RegisterDefaultUniqueID(SHADER_COOK_TORRANCE, SHADER_PATH_WHITE);
-  this->context_->RegisterDefaultUniqueID(SHADER_NO_SHADING,    SHADER_PATH_WHITE);
-  this->context_->RegisterDefaultUniqueID(SHADER_FRESNEL,       SHADER_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(SHADER_FLAT,          SHADER_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(SHADER_GOURAUD,       SHADER_PATH_LAMBERT);
+  self->context_->RegisterDefaultUniqueID(SHADER_PHONG,         SHADER_PATH_PHONG);
+  self->context_->RegisterDefaultUniqueID(SHADER_BLIN,          SHADER_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(SHADER_TOON,          SHADER_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(SHADER_OREN_NAYAR,    SHADER_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(SHADER_MINNAERT,      SHADER_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(SHADER_COOK_TORRANCE, SHADER_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(SHADER_NO_SHADING,    SHADER_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(SHADER_FRESNEL,       SHADER_PATH_WHITE);
 
-  this->context_->RegisterDefaultUniqueID(SHADER_SPRITE, SHADER_PATH_SPRITE);
-  this->context_->RegisterDefaultUniqueID(SHADER_STENCIL_SHADOW, SHADER_PATH_STENCIL_SHADOW);
+  self->context_->RegisterDefaultUniqueID(SHADER_SPRITE, SHADER_PATH_SPRITE);
+  self->context_->RegisterDefaultUniqueID(SHADER_STENCIL_SHADOW, SHADER_PATH_STENCIL_SHADOW);
 
-  this->context_->RegisterDefaultUniqueID(MESH_CUBE,    MESH_PATH_CUBE);
-  this->context_->RegisterDefaultUniqueID(MESH_PLANE,   MESH_PATH_PLANE);
+  self->context_->RegisterDefaultUniqueID(MESH_CUBE,    MESH_PATH_CUBE);
+  self->context_->RegisterDefaultUniqueID(MESH_PLANE,   MESH_PATH_PLANE);
 
-  this->context_->RegisterDefaultUniqueID(MATERIAL_WHITE,   MATERIAL_PATH_WHITE);
-  this->context_->RegisterDefaultUniqueID(MATERIAL_LAMBERT, MATERIAL_PATH_LAMBERT);
-  this->context_->RegisterDefaultUniqueID(MATERIAL_SPRITE,  MATERIAL_PATH_SPRITE);
-  this->context_->RegisterDefaultUniqueID(MATERIAL_STENCIL_SHADOW, MATERIAL_PATH_STENCIL_SHADOW);
+  self->context_->RegisterDefaultUniqueID(MATERIAL_WHITE,   MATERIAL_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(MATERIAL_LAMBERT, MATERIAL_PATH_LAMBERT);
+  self->context_->RegisterDefaultUniqueID(MATERIAL_SPRITE,  MATERIAL_PATH_SPRITE);
+  self->context_->RegisterDefaultUniqueID(MATERIAL_STENCIL_SHADOW, MATERIAL_PATH_STENCIL_SHADOW);
 
-  this->converter_manager_->AddConverter(this->setting_->default_mesh_asset_converter_factory.Create(this->context_));
-  this->converter_manager_->AddConverter(DefaultMaterialAssetConverterFactory::Create(this->context_));
+  self->converter_manager_->AddConverter(self->setting_->default_mesh_asset_converter_factory.Create(self->context_));
+  self->converter_manager_->AddConverter(DefaultMaterialAssetConverterFactory::Create(self->context_));
 
-  this->converter_manager_->AddConverter(this->setting_->texture_asset_converter_factory.Create(this->context_));
-  this->converter_manager_->AddConverter(this->setting_->model_asset_converter_factory.Create(this->context_));
-  this->converter_manager_->AddConverter(this->setting_->model_mesh_asset_converter_factory.Create(this->context_));
-  this->converter_manager_->AddConverter(this->setting_->model_material_asset_converter_factory.Create(this->context_));
-  this->converter_manager_->AddConverter(CsvAssetEntity::CreateConverter());
-  this->converter_manager_->AddConverter(JsonAssetEntity::CreateConverter());
-  this->converter_manager_->AddConverter(ShaderAssetEntity::CreateConverter());
-  this->converter_manager_->AddConverter(SoundAssetEntity::CreateConverter());
+  self->converter_manager_->AddConverter(self->setting_->texture_asset_converter_factory.Create(self->context_));
+  self->converter_manager_->AddConverter(self->setting_->model_asset_converter_factory.Create(self->context_));
+  self->converter_manager_->AddConverter(self->setting_->model_mesh_asset_converter_factory.Create(self->context_));
+  self->converter_manager_->AddConverter(self->setting_->model_material_asset_converter_factory.Create(self->context_));
+  self->converter_manager_->AddConverter(CsvAssetEntity::CreateConverter());
+  self->converter_manager_->AddConverter(JsonAssetEntity::CreateConverter());
+  self->converter_manager_->AddConverter(ShaderAssetEntity::CreateConverter());
+  self->converter_manager_->AddConverter(SoundAssetEntity::CreateConverter());
 }
 
 void AssetConverterDirector::Uninit()
 {
-  CerealIO::Json::Export(FileUtil::GetMidDataUniqueIdTablePath().c_str(), this->unique_id_table_);
-  CerealIO::Json::Export(FileUtil::GetSettingPath().c_str(), this->setting_);
+  AssetConverterDirector* self = &Self();
 
-  delete this->context_;
-  delete this->converter_manager_;
-  delete this->setting_;
-  delete this->unique_id_table_;
+  CerealIO::Json::Export(FileUtil::GetMidDataUniqueIdTablePath().c_str(), self->unique_id_table_);
+  CerealIO::Json::Export(FileUtil::GetSettingPath().c_str(), self->setting_);
+
+  delete self->context_;
+  delete self->converter_manager_;
+  delete self->setting_;
+  delete self->unique_id_table_;
 }
 
 void AssetConverterDirector::Import()
 {
+  AssetConverterDirector* self = &Self();
+
   //Importerが対応しているファイルのAssetInfoを作成
   //UniqueIdテーブルなどの作成
   //ImporterへのAssetInfoのセット
   FileUtil::CrawlInputDirectory([&](const URI& uri)
   {
     //AssetInfoが生成されれば予約成功
-    if (this->context_->Reserve(uri))
+    if (self->context_->Reserve(uri))
     {
       return;
     }
     //予約が失敗し、拡張子がメタデータ以外の場合はスキップした事をログに表示
     if (uri.GetExtension() != Extensions::META)
     {
-      std::cout << "skip \"" << uri.GetFullPath() << "\" " << std::endl;
+      Logger::ImportSkipAssetLog(uri);
     }
   });
 
@@ -107,25 +113,29 @@ void AssetConverterDirector::Import()
     //イテレーターのロードを１つずつ行う
     //１つずつ行う理由はインポート予約のループ中にサブアセットの生成による
     //インポート予約の挿入の危険性を回避する為
-    this->converter_manager_->Fire([&](IAssetConverter* converter)
+    self->converter_manager_->Fire([&](IAssetConverter* converter)
     {
-      return converter->ImportOnce(this->context_);
+      return converter->ImportOnce(self->context_);
     })
   );
 }
 
 void AssetConverterDirector::Export()
 {
-  this->converter_manager_->VisitAll([&](IAssetConverter* converter)
+  AssetConverterDirector* self = &Self();
+
+  self->converter_manager_->VisitAll([&](IAssetConverter* converter)
   {
-    converter->Export(this->context_);
+    converter->Export(self->context_);
   });
 
-  CerealIO::Binary::Export(FileUtil::CreateOutputPath(FileUtil::GetArchiveUniqueIdTablePath()).c_str(), this->unique_id_table_);
+  CerealIO::Binary::Export(FileUtil::CreateOutputPath(FileUtil::GetArchiveUniqueIdTablePath()).c_str(), self->unique_id_table_);
 }
 
 void AssetConverterDirector::CreateProgram()
 {
+  AssetConverterDirector* self = &Self();
+
   //======================================
   //Asset.h
   //======================================
@@ -136,7 +146,7 @@ void AssetConverterDirector::CreateProgram()
   header.append("{\n");
   header.append("\n");
 
-  this->converter_manager_->VisitAll([&](const IAssetConverter* converter)
+  self->converter_manager_->VisitAll([&](const IAssetConverter* converter)
   {
     converter->CreateHeaderProgram(&header);
   });
@@ -167,7 +177,7 @@ void AssetConverterDirector::CreateProgram()
   cpp.append("{\n");
   cpp.append("\n");
 
-  this->converter_manager_->VisitAll([&](const IAssetConverter* converter)
+  self->converter_manager_->VisitAll([&](const IAssetConverter* converter)
   {
     converter->CreateCppProgram(&cpp);
   });
