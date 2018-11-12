@@ -1,6 +1,7 @@
 #pragma once
 
 class URI;
+class AssetEntity;
 
 class EntryScene : public Scene
 {
@@ -26,5 +27,6 @@ private:
 private:
   std::vector<char> path_;
   bool open_file_dialog_;
+  AssetEntity* selected_entity_;
 
 };

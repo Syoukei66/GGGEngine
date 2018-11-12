@@ -1,4 +1,5 @@
 #include "AssetConverterManager.h"
+#include <Entity/AssetEntity.h>
 
 // =================================================================
 // Constructor / Destructor
@@ -44,5 +45,13 @@ void AssetConverterManager::VisitAll(const std::function<void(const IAssetConver
   for (auto& pair : this->converter_map_)
   {
     func(pair.second);
+  }
+}
+
+void AssetConverterManager::VisitAllEntity(const std::function<void(AssetEntity*)>& func)
+{
+  for (auto& pair : this->converter_map_)
+  {
+    pair.second->VisitAllEntity(func);
   }
 }

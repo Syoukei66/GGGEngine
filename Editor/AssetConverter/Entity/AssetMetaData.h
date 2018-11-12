@@ -45,6 +45,11 @@ public:
     return this->unique_id_;
   }
 
+  inline const std::string& GetTimeStamp() const
+  {
+    return this->time_stamp_;
+  }
+
   // =================================================================
   // Serialize Method
   // =================================================================

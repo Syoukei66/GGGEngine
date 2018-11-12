@@ -44,6 +44,8 @@ public:
   inline void CreateHeaderProgram(std::string* dest) const override;
   inline void CreateCppProgram(std::string* dest) const override;
 
+  inline void VisitAllEntity(const std::function<void(AssetEntity*)>& func) override;
+
   // =================================================================
   // Data Members
   // =================================================================
@@ -168,4 +170,13 @@ template<class Entity_>
 inline void AssetConverter<Entity_>::CreateCppProgram(std::string* dest) const
 {
   if (this->program_generator_) this->program_generator_->CreateCppProgram(this->entities_, dest);
+}
+
+template<class Entity_>
+inline void AssetConverter<Entity_>::VisitAllEntity(const std::function<void(AssetEntity*)>& func)
+{
+  for (const auto& pair : this->entities_)
+  {
+    func(pair.second);
+  }
 }

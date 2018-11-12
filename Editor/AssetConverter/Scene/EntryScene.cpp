@@ -5,6 +5,9 @@
 #include <Editor/EditorUtils/URI.h>
 #include <Director.h>
 
+#include <GUI/FileView/FileView.h>
+#include <GUI/EntityView/AssetEntityView.h>
+
 // =================================================================
 // Methods from Scene
 // =================================================================
@@ -69,7 +72,17 @@ void EntryScene::Update()
     AssetConverterDirector::CreateProgram();
   }
 
+  AssetEntity* selected = FileView::SelectWithImGUI();
+  
+  if (selected)
+  {
+    this->selected_entity_ = selected;
+  }
+
   ImGui::End();
+
+  AssetEntityView::ShowEntity(this->selected_entity_);
+
 }
 
 // =================================================================

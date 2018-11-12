@@ -4,6 +4,8 @@ class IAssetConverter;
 template<class Entity_>
 class AssetConverter;
 
+class AssetEntity;
+
 class AssetConverterManager
 {
   // =================================================================
@@ -32,6 +34,8 @@ public:
 
   template <class Entity_>
   void VisitAll(const std::function<void(const AssetConverter<Entity_>*)>& func) const;
+
+  void VisitAllEntity(const std::function<void(AssetEntity*)>& func);
 
   //’l‚ª‹A‚Á‚Ä‚­‚é‚Ü‚ÅŒŸõ‚·‚é
   template <class Type_>

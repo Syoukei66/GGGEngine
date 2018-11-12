@@ -27,6 +27,11 @@ public:
   // Setter / Getter
   // =================================================================
 public:
+  inline const AssetMetaData* GetMetaData() const
+  {
+    return this->meta_data_;
+  }
+
   inline T_UINT32 GetUniqueID() const
   {
     return this->meta_data_->GetUniqueID();

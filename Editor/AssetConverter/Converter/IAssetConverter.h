@@ -4,6 +4,7 @@
 
 class AssetConverterContext;
 class AssetInfo;
+class AssetEntity;
 
 class IAssetConverter
 {
@@ -18,4 +19,5 @@ public:
   virtual void Export(const AssetConverterContext* context) const = 0;
   virtual void CreateHeaderProgram(std::string* dest) const = 0;
   virtual void CreateCppProgram(std::string* dest) const = 0;
+  virtual void VisitAllEntity(const std::function<void(AssetEntity*)>& func) = 0;
 };

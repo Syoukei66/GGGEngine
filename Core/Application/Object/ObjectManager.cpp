@@ -33,15 +33,16 @@ void GGObjectManager::GC()
 
 bool GGObjectManager::CheckLeak()
 {
+  GGObjectManager* self = &Self();
   // 未開放のオブジェクトがあれば通知
-  for (GGObject* obj : Self().objects_)
+  for (GGObject* obj : self->objects_)
   {
     std::string message = "未開放の";
     message.append(obj->GetObjectName());
     message.append("があります");
     Log::Error(message.c_str());
   }
-  return Self().objects_.size() > 0;
+  return self->objects_.size() > 0;
 }
 
 void GGObjectManager::Update()

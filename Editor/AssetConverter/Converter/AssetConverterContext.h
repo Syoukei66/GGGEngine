@@ -7,6 +7,7 @@ struct Setting;
 class AssetConverterManager;
 class AssetInfo;
 class UniqueIdTable;
+class AssetEntity;
 
 class AssetConverterContext
 {
@@ -26,6 +27,7 @@ public:
   // =================================================================
 public:
   inline bool Reserve(const URI& uri);
+  inline void VisitAllEntity(const std::function<void(AssetEntity*)>& func);
 
   template <class Entity_>
   inline Entity_* ImportImmediately(const URI& uri);
@@ -59,6 +61,11 @@ inline bool AssetConverterContext::Reserve(const URI& uri)
   {
     return converter->Reserve(uri, this);
   });
+}
+
+inline void AssetConverterContext::VisitAllEntity(const std::function<void(AssetEntity*)>& func)
+{
+  this->converter_manager_->VisitAllEntity(func);
 }
 
 template<class Entity_>

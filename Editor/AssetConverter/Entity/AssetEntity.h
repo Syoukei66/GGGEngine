@@ -3,11 +3,15 @@
 class AssetInfo;
 
 #define ENTITY_ID(id) public:\
-enum { ID = id };
+enum { ID = id };\
+virtual T_UINT32 GetID() const override\
+{\
+  return ID;\
+}
 
 class AssetEntity
 {
-protected:
+public:
   enum EntityID
   {
     ID_DEFAULT_MESH,
@@ -33,6 +37,8 @@ public:
   // Setter / Getter
   // =================================================================
 public:
+  virtual T_UINT32 GetID() const = 0;
+
   inline AssetInfo* GetAssetInfo() const
   {
     return this->info_;

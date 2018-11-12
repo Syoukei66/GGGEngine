@@ -176,6 +176,9 @@
     <ClInclude Include="Converter\AssetConverter.h" />
     <ClInclude Include="Entity\AssetEntity.h" />
     <ClInclude Include="Entity\AssetExporter.h" />
+    <ClInclude Include="GUI\EntityView\AssetEntityView.h" />
+    <ClInclude Include="GUI\FileView\AssetEntityFileLeaf.h" />
+    <ClInclude Include="GUI\FileView\AssetEntityFileNode.h" />
     <ClInclude Include="ProgramGenerator\AssetProgramGenerator.h" />
     <ClInclude Include="ProgramGenerator\AssetProgramGenerator_identifier.h" />
     <ClInclude Include="Entity\File\Raw\CSV\CsvAssetConverterFactory.h" />
@@ -193,6 +196,7 @@
     <ClInclude Include="Assimp\AssimpMaterialSystemImporter.h" />
     <ClInclude Include="Entity\AssetImporter.h" />
     <ClInclude Include="Constants\Extensions.h" />
+    <ClInclude Include="GUI\FileView\FileView.h" />
     <ClInclude Include="Util\FileUtil.h" />
     <ClInclude Include="Converter\AssetConverterContext.h" />
     <ClInclude Include="Converter\IAssetConverter.h" />
@@ -239,6 +243,9 @@
     <ClCompile Include="Converter\AssetConverterManager.cpp" />
     <ClCompile Include="Entity\AssetEntity.cpp" />
     <ClCompile Include="Entity\AssetMetaData.cpp" />
+    <ClCompile Include="GUI\EntityView\AssetEntityView.cpp" />
+    <ClCompile Include="GUI\FileView\AssetEntityFileLeaf.cpp" />
+    <ClCompile Include="GUI\FileView\AssetEntityFileNode.cpp" />
     <ClCompile Include="ProgramGenerator\AssetProgramGenerator_identifier.cpp" />
     <ClCompile Include="Entity\Default\DefaultMaterialAssetConverterFactory.cpp" />
     <ClCompile Include="Entity\Default\DefaultMaterialAssetEntity.cpp" />
@@ -250,6 +257,7 @@
     <ClCompile Include="ProgramGenerator\AssetProgramGenerator_definition.cpp" />
     <ClCompile Include="ProgramGenerator\AssetProgramGenerator_namespace.cpp" />
     <ClCompile Include="Assimp\AssimpMaterialSystemImporter.cpp" />
+    <ClCompile Include="GUI\FileView\FileView.cpp" />
     <ClCompile Include="Util\FileUtil.cpp" />
     <ClCompile Include="Util\Logger.cpp" />
     <ClCompile Include="Util\MeshBuilder\MeshBuilder_Cube.cpp" />
