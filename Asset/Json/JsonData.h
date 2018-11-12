@@ -7,7 +7,7 @@ class rcJsonData : public GGAssetObject
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_OBJECT_NAME(rcJsonData);
+  GG_OBJECT(rcJsonData);
 
   // =================================================================
   // Factory Method

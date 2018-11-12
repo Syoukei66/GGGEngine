@@ -79,5 +79,5 @@ void ViewerScene::Update()
 void ViewerScene::Run(IViewerBehavior* behavior)
 {
   this->behavior_ = behavior;
-  Director::ChangeScene(this);
+  Director::ChangeScene(SharedRef<ViewerScene>(this));
 }

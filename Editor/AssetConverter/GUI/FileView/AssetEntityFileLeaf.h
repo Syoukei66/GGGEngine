@@ -7,7 +7,7 @@ class AssetEntityFileLeaf : public GGObject
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_OBJECT_NAME(AssetEntityFileLeaf);
+  GG_OBJECT(AssetEntityFileLeaf);
   GG_CREATE_FUNC_1(AssetEntityFileLeaf, AssetEntity*);
 
   // =================================================================

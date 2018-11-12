@@ -8,7 +8,7 @@ public:
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_OBJECT_NAME(DX9GraphicsAPI);
+  GG_OBJECT(DX9GraphicsAPI);
   GG_CREATE_FUNC(DX9GraphicsAPI);
   GG_DESTRUCT_FUNC(DX9GraphicsAPI);
 

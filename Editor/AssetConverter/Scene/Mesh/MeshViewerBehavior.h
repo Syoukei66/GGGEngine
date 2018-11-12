@@ -7,7 +7,7 @@ class MeshViewerBehavior : public AssetViewerBehavior<MeshData>
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_OBJECT_NAME(MeshViewerBehavior);
+  GG_OBJECT(MeshViewerBehavior);
   GG_CREATE_FUNC(MeshViewerBehavior);
   GG_DESTRUCT_FUNC(MeshViewerBehavior);
 

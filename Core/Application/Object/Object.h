@@ -30,6 +30,23 @@ protected:
   // =================================================================
 private:
   /*!
+   * @brief ObjectManagerに管理されているかのフラグを立てる
+   * 二重登録の防止などに使用する
+   */
+  GG_INLINE void Managed() const
+  {
+    const_cast<GGObject*>(this)->managed_ = true;
+  }
+
+  /*!
+   * @brief ObjectManagerに管理されているか
+   */
+  GG_INLINE bool IsManaged() const
+  {
+    return this->managed_;
+  }
+
+  /*!
    * @brief リファレンスカウンタの増加
    */
   GG_INLINE void Retain() const
@@ -50,6 +67,7 @@ private:
   // Setter / Getter
   // =================================================================
 public:
+
   /*!
    * @brief デバッグ時やログ上で表示されるオブジェクト名。
    * 定義する際はGG_OBJ_NAMEマクロを使用する事を推奨
@@ -77,6 +95,7 @@ public:
   // Data Members
   // =================================================================
 private:
+  bool managed_;
   T_UINT32 reference_count_;
 
 };

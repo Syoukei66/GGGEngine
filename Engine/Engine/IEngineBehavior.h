@@ -46,5 +46,5 @@ public:
   /*!
    * @brief Å‰‚ÉŒÄ‚Ño‚³‚ê‚éScene
    */
-  virtual Scene* FirstScene() = 0;
+  virtual SharedRef<Scene> FirstScene() = 0;
 };

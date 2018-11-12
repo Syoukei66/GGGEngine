@@ -13,7 +13,9 @@ class rcRenderBuffer : public GGAPIResourceObject
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_OBJECT_NAME(rcRenderBuffer);
+  GG_OBJECT(rcRenderBuffer);
+  GG_CREATE_FUNC_1(rcRenderBuffer, void*);
+  GG_DESTRUCT_FUNC(rcRenderBuffer);
 
   // =================================================================
   // Factory Method
@@ -21,14 +23,6 @@ class rcRenderBuffer : public GGAPIResourceObject
 public:
   static UniqueRef<rcRenderBuffer> CreateColorBuffer(const SharedRef<const rcTexture>& texture);
   static UniqueRef<rcRenderBuffer> CreateDepthStencilBuffer(T_UINT16 width, T_UINT16 height, Graphics::PixelFormat format);
-  static UniqueRef<rcRenderBuffer> Create(void* native_obj);
-
-  // =================================================================
-  // Constructor / Destructor
-  // =================================================================
-protected:
-  rcRenderBuffer(void* native_obj);
-  virtual ~rcRenderBuffer();
 
   // =================================================================
   // Setter / Getter

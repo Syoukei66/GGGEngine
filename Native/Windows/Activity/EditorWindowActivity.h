@@ -11,7 +11,7 @@ class EditorWindowActivity : public WindowsActivity
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_OBJECT_NAME(EditorWindowActivity);
+  GG_OBJECT(EditorWindowActivity);
   GG_CREATE_FUNC_2(EditorWindowActivity, const ActivityOption&, HWND);
 
 };

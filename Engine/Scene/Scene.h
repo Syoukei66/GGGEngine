@@ -8,14 +8,13 @@
 
 #include "SceneTransitioner.h"
 
-class Scene
+class Scene : public GGObject
 {
   // =================================================================
-  // Constructor / Destructor
+  // GGG Statement
   // =================================================================
-public:
-  Scene();
-  virtual ~Scene();
+  GG_INIT_FUNC(Scene);
+  GG_DESTRUCT_FUNC(Scene);
 
   // =================================================================
   // Methods

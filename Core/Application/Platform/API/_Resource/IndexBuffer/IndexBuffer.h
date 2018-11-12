@@ -11,7 +11,7 @@ class rcIndexBuffer : public GGAPIResourceObject
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_OBJECT_NAME(rcIndexBuffer);
+  GG_OBJECT(rcIndexBuffer);
 
   // =================================================================
   // Factory Method

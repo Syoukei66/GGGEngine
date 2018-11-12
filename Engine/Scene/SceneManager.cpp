@@ -20,7 +20,7 @@ SceneManager::~SceneManager()
 // =================================================================
 // Methods
 // =================================================================
-void SceneManager::ChangeScene(Scene* next)
+void SceneManager::ChangeScene(const SharedRef<Scene>& next)
 {
   this->scene_transitioner_->SetNextScene(next);
 }
@@ -31,7 +31,7 @@ void SceneManager::Update(const UpdateEventState& state)
   {
     this->scene_ = this->scene_transitioner_->Transition();
   }
-  Scene* now_scene = this->GetNowScene();
+  const SharedRef<Scene>& now_scene = this->GetNowScene();
   if (!now_scene)
   {
     return;
@@ -42,7 +42,7 @@ void SceneManager::Update(const UpdateEventState& state)
 
 void SceneManager::Draw()
 {
-  Scene* now_scene = this->GetNowScene();
+  const SharedRef<Scene>& now_scene = this->GetNowScene();
   if (!now_scene)
   {
     return;

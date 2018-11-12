@@ -8,7 +8,7 @@ class rcSpineData : public GGAssetObject
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_OBJECT_NAME(rcSpineData);
+  GG_OBJECT(rcSpineData);
 
   // =================================================================
   // Factory Method

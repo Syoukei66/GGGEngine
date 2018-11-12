@@ -10,7 +10,7 @@ class rcAudioClip : public GGAPIAssetObject
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_OBJECT_NAME(rcAudioClip);
+  GG_OBJECT(rcAudioClip);
 
   // =================================================================
   // Factory Method

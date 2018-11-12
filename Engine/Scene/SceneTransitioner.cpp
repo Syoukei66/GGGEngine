@@ -14,16 +14,14 @@ SceneTransitioner::~SceneTransitioner()
   if (this->now_scene_)
   {
     this->now_scene_->Unload();
-    delete this->now_scene_;
   }
   if (this->next_scene_)
   {
     this->next_scene_->Unload();
-    delete this->next_scene_;
   }
 }
 
-Scene* SceneTransitioner::Transition()
+SharedRef<Scene> SceneTransitioner::Transition()
 {
   if (this->state_ == SCENE_TRANSITION_NONE)
   {
@@ -84,7 +82,6 @@ void SceneTransitioner::OnHideFinish()
   {
     this->now_scene_->HideFinish();
     this->now_scene_->Unload();
-    delete this->now_scene_;
   }
   this->now_scene_ = this->next_scene_;
   this->next_scene_ = nullptr;
@@ -98,7 +95,7 @@ void SceneTransitioner::OnHideFinish()
   this->OnShowFinish();
 }
 
-void SceneTransitioner::SetNextScene(Scene* scene)
+void SceneTransitioner::SetNextScene(const SharedRef<Scene>& scene)
 {
   if (this->now_scene_ == scene)
   {

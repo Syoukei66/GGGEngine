@@ -10,7 +10,7 @@ class WindowActivity : public WindowsActivity
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_OBJECT_NAME(WindowActivity);
+  GG_OBJECT(WindowActivity);
   GG_CREATE_FUNC_1(WindowActivity, const ActivityOption&);
 
   // =================================================================

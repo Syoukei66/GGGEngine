@@ -77,7 +77,7 @@ public:
   // Methods
   // =================================================================
 public:
-  Scene* Transition();
+  SharedRef<Scene> Transition();
  
   void OnShowFinish() override;
   void OnHideFinish() override;
@@ -86,7 +86,7 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  void SetNextScene(Scene* scene);
+  void SetNextScene(const SharedRef<Scene>& scene);
 
   bool IsDuringTransition()
   {
@@ -97,7 +97,7 @@ public:
   // Data Member
   // =================================================================
 private:
-  Scene* now_scene_;
-  Scene* next_scene_;
+  SharedRef<Scene> now_scene_;
+  SharedRef<Scene> next_scene_;
   SceneTransitionState state_;
 };

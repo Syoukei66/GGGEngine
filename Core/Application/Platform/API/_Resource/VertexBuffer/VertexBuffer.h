@@ -13,20 +13,13 @@ class rcVertexBuffer : public GGAPIResourceObject
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_OBJECT_NAME(rcVertexBuffer);
+  GG_OBJECT(rcVertexBuffer);
 
   // =================================================================
   // Factory Method
   // =================================================================
 public:
   static UniqueRef<rcVertexBuffer> Create(T_UINT32 vertex_count, T_UINT32 format);
-
-  // =================================================================
-  // Constructor / Destructor
-  // =================================================================
-protected:
-  rcVertexBuffer() {}
-  virtual ~rcVertexBuffer() {}
 
   // =================================================================
   // Method

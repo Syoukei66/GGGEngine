@@ -11,7 +11,7 @@ class DirectInputAPI : public InputAPI
   // GGG Statement
   // =================================================================
 public:
-  GG_OBJECT_NAME(DirectInputAPI);
+  GG_OBJECT(DirectInputAPI);
   GG_CREATE_FUNC_1(DirectInputAPI, const InputSetting&);
   GG_DESTRUCT_FUNC(DirectInputAPI);
 

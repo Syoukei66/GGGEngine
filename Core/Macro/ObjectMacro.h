@@ -37,11 +37,14 @@ private:\
  * GetObjectName()をoverrideするだけでもコンパイルは通るが、
  * ツールのサポートを受けたい場合はこのマクロを通して記述する事。
  */
-#define GG_OBJECT_NAME(Name)public:\
+#define GG_OBJECT(Name)public:\
   virtual GG_INLINE const char* GetObjectName() const override\
   {\
     return #Name;\
-  }
+  }\
+protected:\
+  Name() = default
+
 
 /*!
  * @brief シリアライズ可能なクラス内に記述する

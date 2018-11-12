@@ -8,7 +8,7 @@ class XAudioAPI : public AudioAPI
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_OBJECT_NAME(XAudioAPI);
+  GG_OBJECT(XAudioAPI);
   GG_CREATE_FUNC(XAudioAPI);
   GG_DESTRUCT_FUNC(XAudioAPI);
 

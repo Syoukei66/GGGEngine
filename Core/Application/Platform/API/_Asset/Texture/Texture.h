@@ -8,7 +8,7 @@ class rcTexture : public GGAPIAssetObject
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_OBJECT_NAME(rcTexture);
+  GG_OBJECT(rcTexture);
 
   // =================================================================
   // Factory Method

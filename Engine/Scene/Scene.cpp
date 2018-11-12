@@ -3,14 +3,15 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-Scene::Scene()
-  : is_loaded_(false)
+GG_INIT_FUNC_IMPL(Scene)
 {
+  this->is_loaded_ = false;
   this->root2d_ = new GameObject2D();
   this->root3d_ = new GameObject3D();
+  return true;
 }
 
-Scene::~Scene()
+GG_DESTRUCT_FUNC_IMPL(Scene)
 {
   if (this->root2d_)
   {
@@ -20,6 +21,7 @@ Scene::~Scene()
   {
     delete this->root3d_;
   }
+  return true;
 }
 
 // =================================================================

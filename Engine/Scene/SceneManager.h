@@ -1,6 +1,7 @@
 #pragma once
 
-class Scene;
+#include "Scene.h"
+
 class SceneTransitioner;
 class UpdateEventState;
 
@@ -17,7 +18,7 @@ public:
   // Methods
   // =================================================================
 public:
-  void ChangeScene(Scene* next);
+  void ChangeScene(const SharedRef<Scene>& next);
 
   void Update(const UpdateEventState& state);
   void Draw();
@@ -26,7 +27,7 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  GG_INLINE Scene* GetNowScene()
+  GG_INLINE SharedRef<Scene> GetNowScene()
   {
     return this->scene_;
   }
@@ -37,6 +38,6 @@ public:
 private:
   T_UINT32 second_elapsed_from_last_render_; //ƒ~ƒŠ•b‚È‚Ì‚Åint
 
-  Scene* scene_;
+  SharedRef<Scene> scene_;
   SceneTransitioner* scene_transitioner_;
 };

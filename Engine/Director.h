@@ -18,7 +18,7 @@ class Director
   // Methods
   // =================================================================
 public:
-  static GG_INLINE void ChangeScene(Scene* next)
+  static GG_INLINE void ChangeScene(const SharedRef<Scene>& next)
   {
     Self().engine_->GetSceneManager()->ChangeScene(next);
   }
@@ -27,7 +27,7 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  static GG_INLINE Scene* GetNowScene()
+  static GG_INLINE SharedRef<Scene> GetNowScene()
   {
     return Self().engine_->GetSceneManager()->GetNowScene();
   }

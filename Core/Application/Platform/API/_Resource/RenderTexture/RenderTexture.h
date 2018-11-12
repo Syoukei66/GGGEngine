@@ -7,7 +7,7 @@ class rcRenderTexture : public rcTexture
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_OBJECT_NAME(rcRenderTexture);
+  GG_OBJECT(rcRenderTexture);
 
   // =================================================================
   // Factory Method

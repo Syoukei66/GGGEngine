@@ -44,6 +44,11 @@ public:
    */
   static GG_INLINE void Manage(GGObject* obj)
   {
+    if (obj->IsManaged())
+    {
+      return;
+    }
+    obj->Managed();
     Self().objects_.emplace_back(obj);
   }
 

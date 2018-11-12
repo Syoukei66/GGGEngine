@@ -13,7 +13,7 @@ void EngineBehavior::SetupEngineOption(EngineOption& option)
 {
 }
 
-Scene* EngineBehavior::FirstScene()
+SharedRef<Scene> EngineBehavior::FirstScene()
 {
   return new MeshViewScene();
 }

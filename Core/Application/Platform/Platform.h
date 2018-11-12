@@ -12,7 +12,7 @@ class Platform : public GGObject
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_OBJECT_NAME(Platform);
+  GG_OBJECT(Platform);
   GG_CREATE_FUNC(Platform) { return true; }
 
   // =================================================================
