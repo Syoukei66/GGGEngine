@@ -30,6 +30,10 @@ public:
   Entity_* ImportImmediately(const URI& uri, std::unordered_map<T_UINT32, Entity_*>* dest, AssetConverterContext* context);
 
 protected:
+  /*!
+   * @brief アセットのインポート実処理
+   * 派生クラス側で実際のインポート処理を記述する。
+   */
   virtual Entity_* ImportProcess(AssetInfo* info, AssetConverterContext* context) = 0;
 
   // =================================================================
@@ -153,4 +157,5 @@ inline Entity_* AssetImporter<Entity_>::ImportImmediately(const URI& uri, std::u
   (*dest)[info->GetUniqueID()] = ret;
   return ret;
 }
+
 

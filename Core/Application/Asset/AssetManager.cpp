@@ -12,14 +12,21 @@ void AssetManager::Init()
   self->unique_id_table_ = CerealIO::Binary::Import<UniqueIdTable>(Directory::GetArchiveUniqueIdTablePath().c_str());
 }
 
+void AssetManager::Init(UniqueIdTable* table)
+{
+  AssetManager* self = &Self();
+  self->unique_id_table_ = table;
+}
+
 void AssetManager::Uninit()
 {
-  for (auto& pair : Self().loaders_)
+  AssetManager* self = &Self();
+  for (auto& pair : self->loaders_)
   {
     pair.second->UnloadCache();
     delete pair.second;
   }
-  delete Self().unique_id_table_;
+  delete self->unique_id_table_;
 }
 
 void AssetManager::UnloadCaches()

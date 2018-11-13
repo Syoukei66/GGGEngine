@@ -15,7 +15,7 @@ public:
   // =================================================================
   // Constructor / Destructor
   // =================================================================
-protected:
+public:
   MeshRenderer(GameObject* entity);
   virtual ~MeshRenderer();
 

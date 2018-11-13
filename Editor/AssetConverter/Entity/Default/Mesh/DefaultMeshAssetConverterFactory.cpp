@@ -2,7 +2,7 @@
 
 #include "DefaultMeshAssetEntity.h"
 #include "DefaultMeshAssetExporter.h"
-#include "DefaultAsset.h"
+#include <Entity/Default/DefaultAsset.h>
 #include <Converter/AssetConverter.h>
 
 // =================================================================

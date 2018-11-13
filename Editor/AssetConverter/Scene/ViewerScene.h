@@ -12,7 +12,8 @@ class IViewerBehavior : public GGObject
 public:
   virtual void Start(Scene* scene) = 0;
   virtual void End() = 0;
-  virtual void Update() {};
+  virtual void Update() = 0;
+  virtual bool IsTarget(T_UINT32 id) = 0;
 };
 
 class Camera3D_LookAt;
@@ -24,6 +25,12 @@ class ViewerScene : public Scene
     CAMERA_2D,
     CAMERA_3D,
   };
+
+  // =================================================================
+  // GGG Statement
+  // =================================================================
+  GG_OBJECT(ViewerScene);
+  GG_CREATE_FUNC(ViewerScene);
 
   // =================================================================
   // Methods from Scene
@@ -39,17 +46,19 @@ public:
   // Methods
   // =================================================================
 public:
-  void Run(IViewerBehavior* behavior);
+  void Run(const SharedRef<IViewerBehavior>& behavior);
 
   // =================================================================
   // Data Members
   // =================================================================
 private:
-  IViewerBehavior* behavior_;
+  SharedRef<IViewerBehavior> current_behavior_;
   Camera3D_LookAt* camera_2d_;
   Camera3D_LookAt* camera_3d_;
   CameraState state_;
   T_FLOAT look_at_rot_x_;
   T_FLOAT look_at_rot_y_;
+
+  T_FLOAT move_speed_;
 
 };

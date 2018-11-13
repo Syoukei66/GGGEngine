@@ -8,23 +8,23 @@
 // =================================================================
 void EngineBehavior::OnApplicationBegin()
 {
-  AssetConverterDirector::Init();
-  AssetConverterDirector::Import();
 }
 
 void EngineBehavior::OnApplicationEnd()
 {
-  AssetConverterDirector::Uninit();
 }
 
 void EngineBehavior::OnGameBegin()
 {
+  AssetConverterDirector::Init();
+  AssetConverterDirector::Import();
   FileView::Init();
 }
 
 void EngineBehavior::OnGameEnd()
 {
   FileView::Uninit();
+  AssetConverterDirector::Uninit();
 }
 
 void EngineBehavior::SetupApplicationOption(ApplicationOption& option)

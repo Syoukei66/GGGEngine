@@ -34,6 +34,22 @@ public:
   virtual ~AssetEntity();
 
   // =================================================================
+  // Methods
+  // =================================================================
+public:
+  /*!
+   * @brief 自身が管理しているデータに変更があった場合
+   * AssetManager側へアセットの再登録を行う
+   */
+  void CommitChanges();
+
+protected:
+  /*!
+   * @brief 自分が管理しているリソースをAssetManagerへ上書き登録する
+   */
+  virtual void RegisterAssetManager(T_UINT32 uid, const std::string& extension) const = 0;
+
+  // =================================================================
   // Setter / Getter
   // =================================================================
 public:

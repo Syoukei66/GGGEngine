@@ -4,12 +4,12 @@
 #include <Constants/Extensions.h>
 #include <Entity/Default/DefaultAsset.h>
 
-#include <Entity/File/Raw/CSV/CsvAssetConverterFactory.h>
-#include <Entity/File/Raw/Json/JsonAssetConverterFactory.h>
-#include <Entity/File/Raw/Shader/ShaderAssetConverterFactory.h>
-#include <Entity/File/Raw/Sound/SoundAssetConverterFactory.h>
+#include <Entity/File/Raw/CSV/CsvAssetEntity.h>
+#include <Entity/File/Raw/Json/JsonAssetEntity.h>
+#include <Entity/File/Raw/Shader/ShaderAssetEntity.h>
+#include <Entity/File/Raw/Sound/SoundAssetEntity.h>
 
-#include <Entity/Default/DefaultMaterialAssetConverterFactory.h>
+#include <Entity/Default/Material/DefaultMaterialAssetConverterFactory.h>
 
 // =================================================================
 // Methods
@@ -36,6 +36,7 @@ void AssetConverterDirector::Init()
 
   self->converter_manager_ = new AssetConverterManager();
   self->context_ = new AssetConverterContext(self->unique_id_table_, self->converter_manager_);
+  AssetManager::Init(self->unique_id_table_);
 
   using namespace DefaultUniqueID;
   using namespace DefaultAsset;
@@ -61,17 +62,28 @@ void AssetConverterDirector::Init()
   self->context_->RegisterDefaultUniqueID(MATERIAL_SPRITE,  MATERIAL_PATH_SPRITE);
   self->context_->RegisterDefaultUniqueID(MATERIAL_STENCIL_SHADOW, MATERIAL_PATH_STENCIL_SHADOW);
 
-  self->converter_manager_->AddConverter(self->setting_->default_mesh_asset_converter_factory.Create(self->context_));
-  self->converter_manager_->AddConverter(DefaultMaterialAssetConverterFactory::Create(self->context_));
 
-  self->converter_manager_->AddConverter(self->setting_->texture_asset_converter_factory.Create(self->context_));
-  self->converter_manager_->AddConverter(self->setting_->model_asset_converter_factory.Create(self->context_));
-  self->converter_manager_->AddConverter(self->setting_->model_mesh_asset_converter_factory.Create(self->context_));
-  self->converter_manager_->AddConverter(self->setting_->model_material_asset_converter_factory.Create(self->context_));
+  // ˆË‘¶ŠÖŒW‚ð³‚µ‚­‰ðŒˆ‚Å‚«‚é‡”Ô‚ÉAssetConverter‚ð“o˜^‚·‚é•K—v‚ª‚ ‚é
+
+  // Raw
   self->converter_manager_->AddConverter(CsvAssetEntity::CreateConverter());
   self->converter_manager_->AddConverter(JsonAssetEntity::CreateConverter());
   self->converter_manager_->AddConverter(ShaderAssetEntity::CreateConverter());
   self->converter_manager_->AddConverter(SoundAssetEntity::CreateConverter());
+
+  // Texture
+  self->converter_manager_->AddConverter(self->setting_->texture_asset_converter_factory.Create(self->context_));
+
+  // Mesh
+  self->converter_manager_->AddConverter(self->setting_->default_mesh_asset_converter_factory.Create(self->context_));
+  self->converter_manager_->AddConverter(self->setting_->model_mesh_asset_converter_factory.Create(self->context_));
+
+  // Material
+  self->converter_manager_->AddConverter(self->setting_->model_material_asset_converter_factory.Create(self->context_));
+  self->converter_manager_->AddConverter(DefaultMaterialAssetConverterFactory::Create(self->context_));
+
+  // Model
+  self->converter_manager_->AddConverter(self->setting_->model_asset_converter_factory.Create(self->context_));
 }
 
 void AssetConverterDirector::Uninit()
@@ -84,7 +96,7 @@ void AssetConverterDirector::Uninit()
   delete self->context_;
   delete self->converter_manager_;
   delete self->setting_;
-  delete self->unique_id_table_;
+  //delete self->unique_id_table_;
 }
 
 void AssetConverterDirector::Import()
@@ -118,6 +130,11 @@ void AssetConverterDirector::Import()
       return converter->ImportOnce(self->context_);
     })
   );
+
+  self->converter_manager_->VisitAllEntity([&](AssetEntity* entity)
+  {
+    entity->CommitChanges();
+  });
 }
 
 void AssetConverterDirector::Export()

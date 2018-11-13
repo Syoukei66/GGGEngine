@@ -15,11 +15,7 @@ class AssetConverterContext
   // Constructor / Destructor
   // =================================================================
 public:
-  AssetConverterContext(UniqueIdTable* unique_id_table, AssetConverterManager* converter_manager)
-    : unique_id_table_(unique_id_table)
-    , converter_manager_(converter_manager)
-  {
-  }
+  AssetConverterContext(UniqueIdTable* unique_id_table, AssetConverterManager* converter_manager);
   virtual ~AssetConverterContext() = default;
 
   // =================================================================
@@ -53,6 +49,12 @@ protected:
 
 #include "AssetConverterManager.h"
 #include <Core/Application/Asset/UniqueIdTable.h>
+
+inline AssetConverterContext::AssetConverterContext(UniqueIdTable* unique_id_table, AssetConverterManager* converter_manager)
+  : unique_id_table_(unique_id_table)
+  , converter_manager_(converter_manager)
+{
+}
 
 inline bool AssetConverterContext::Reserve(const URI& uri)
 {

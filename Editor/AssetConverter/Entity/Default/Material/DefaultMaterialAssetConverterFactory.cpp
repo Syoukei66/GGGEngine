@@ -2,7 +2,7 @@
 
 #include "DefaultMaterialAssetEntity.h"
 #include "DefaultMaterialAssetExporter.h"
-#include "DefaultAsset.h"
+#include <Entity/Default/DefaultAsset.h>
 #include <Converter/AssetConverter.h>
 
 IAssetConverter* DefaultMaterialAssetConverterFactory::Create(AssetConverterContext* context)

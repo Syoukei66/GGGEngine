@@ -13,3 +13,11 @@ DefaultMaterialAssetEntity::~DefaultMaterialAssetEntity()
 {
   delete this->data_;
 }
+
+// =================================================================
+// Methods from AssetEntity
+// =================================================================
+void DefaultMaterialAssetEntity::RegisterAssetManager(T_UINT32 uid, const std::string & extension) const
+{
+  AssetManager::AddAsset<rcMaterial>(uid, extension, rcMaterial::Create(*this->data_));
+}

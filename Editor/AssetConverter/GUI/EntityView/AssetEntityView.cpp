@@ -5,11 +5,11 @@
 // =================================================================
 // Methods
 // =================================================================
-void AssetEntityView::ShowEntity(AssetEntity* entity)
+bool AssetEntityView::ShowEntity(AssetEntity* entity)
 {
   if (!entity)
   {
-    return;
+    return false;
   }
   ImGui::SetNextWindowPos(ImVec2(240.0f, 20.0f), ImGuiSetCond_Once);
   ImGui::SetNextWindowSize(ImVec2(640.0f, 480.0f), ImGuiSetCond_Once);
@@ -24,44 +24,14 @@ void AssetEntityView::ShowEntity(AssetEntity* entity)
   ImGui::Text((u8"出力ディレクトリ : " + FileUtil::CreateSolutionPath(info->GetOutputPath())).c_str());
   ImGui::Text((u8"タイムスタンプ : " + meta_data->GetTimeStamp()).c_str());
 
-  if (ImGui::Button(u8"ビューワーを起動"))
-  {
-    StartViewer(entity);
-  }
+  bool open_viewer = ImGui::Button(u8"ビューワーを起動");
 
   ImGui::End();
+
+  return open_viewer;
 }
 
 void AssetEntityView::StartViewer(AssetEntity* entity)
 {
-  switch (entity->GetID())
-  {
-    // Mesh
-  case AssetEntity::EntityID::ID_DEFAULT_MESH:
-    break;
-  case AssetEntity::EntityID::ID_MODEL_MESH:
-    break;
-    // Material
-  case AssetEntity::EntityID::ID_DEFAULT_MATERIAL:
-    break;
-  case AssetEntity::EntityID::ID_MODEL_MATERIAL:
-    break;
-    // Texture
-  case AssetEntity::EntityID::ID_TEXTURE:
-    break;
-    // Text
-  case AssetEntity::EntityID::ID_CSV:
-    break;
-  case AssetEntity::EntityID::ID_JSON:
-    break;
-    // Shader
-  case AssetEntity::EntityID::ID_SHADER:
-    break;
-    // Sound
-  case AssetEntity::EntityID::ID_SOUND:
-    break;
-    // Model
-  case AssetEntity::EntityID::ID_MODEL:
-    break;
-  }
+
 }

@@ -1,46 +1,42 @@
 #pragma once
 
-#include "ViewerScene.h"
+#include <Entity/AssetEntity.h>
 
-/*!
- * @brief アセットビューワーの動作を定義するクラス
- */
-template <typename Data_>
-class AssetViewerBehavior : public IViewerBehavior
+class DefaultMeshAssetEntity : public AssetEntity
 {
-  // =================================================================
-  // Methods from IViewerBehavior
-  // =================================================================
-public:
-  virtual void Start(Scene* scene) override
-  {
-    this->OnStart(this->target_, scene);
-  }
-  virtual void End() override
-  {
-    this->OnEnd();
-  }
+  ENTITY_ID(ID_DEFAULT_MESH);
 
   // =================================================================
-  // Methods
+  // Constructor / Destructor
   // =================================================================
 public:
-  virtual void OnStart(const Data_* data, Scene* scene) = 0;
-  virtual void OnEnd() = 0;
+  DefaultMeshAssetEntity(AssetInfo* info, MeshData* data);
+  ~DefaultMeshAssetEntity();
+
+  // =================================================================
+  // Methods from AssetEntity
+  // =================================================================
+public:
+  virtual void RegisterAssetManager(T_UINT32 uid, const std::string& extension) const override;
 
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  GG_INLINE void SetTarget(Data_* data)
+  inline const MeshData* GetData() const
   {
-    this->target_ = data;
+    return this->data_;
+  }
+
+  inline MeshData* GetData() 
+  {
+    return this->data_;
   }
 
   // =================================================================
-  // Data Member
+  // Data Members
   // =================================================================
 private:
-  Data_* target_;
+  MeshData* data_;
 
 };

@@ -1,27 +1,32 @@
 #pragma once
 
-#include <Scene/AssetViewerBehavior.h>
+#include <Scene/ViewerScene.h>
 
-class MeshViewerBehavior : public AssetViewerBehavior<MeshData>
+#include "AssetViewerBehavior.h"
+
+class AssetEntity;
+
+//ViewerSceneでのホットリロードの実現
+//(タイムスタンプを監視し、更新があった時にDirector経由でそのアセットを再インポートし、AssetEntityのCommitChangesを実行する)
+
+class AssetViewerScene : public ViewerScene
 {
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_OBJECT(MeshViewerBehavior);
-  GG_CREATE_FUNC(MeshViewerBehavior);
-  GG_DESTRUCT_FUNC(MeshViewerBehavior);
+  GG_OBJECT(AssetViewerScene);
+  GG_CREATE_FUNC(AssetViewerScene);
 
   // =================================================================
-  // Methods from AssetViewerBehavior
+  // Methods
   // =================================================================
 public:
-  virtual void OnStart(const MeshData* data, Scene* scene) override;
-  virtual void OnEnd() override;
+  void Run(AssetEntity* entity);
 
   // =================================================================
   // Data Members
   // =================================================================
 private:
-  GameObject3D* obj_;
+  std::vector<SharedRef<AssetViewerBehavior>> behaviors_;
 
 };

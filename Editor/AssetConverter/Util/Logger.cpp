@@ -31,6 +31,11 @@ void Logger::ImportSkipAssetLog(const URI& uri)
   std::cout << "skip \"" << uri.GetFullPath() << "\" " << std::endl;
 }
 
+void Logger::CommitAssetLog(const AssetInfo* info)
+{
+  std::cout << "commiting \"" << info->GetURI().GetFullPath() << "\" " << std::endl;
+}
+
 void Logger::ConvertAssetLog(const AssetInfo* info)
 {
   ExportAssetLog(info, "convert");

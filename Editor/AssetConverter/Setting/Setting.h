@@ -11,7 +11,7 @@
 #include <Entity/File/Model/ModelAssetConverterFactory.h>
 #include <Entity/File/Model/Mesh/ModelMeshAssetConverterFactory.h>
 #include <Entity/File/Model/Material/ModelMaterialAssetConverterFactory.h>
-#include <Entity/Default/DefaultMeshAssetConverterFactory.h>
+#include <Entity/Default/Mesh/DefaultMeshAssetConverterFactory.h>
 #include <Entity/AssetInfo.h>
 
 struct Setting

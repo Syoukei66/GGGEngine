@@ -138,7 +138,10 @@ public:
    */
   GG_INLINE SharedRef& operator = (const SharedRef& o) noexcept
   {
-    o.ptr_->Retain();
+    if (o.ptr_)
+    {
+      o.ptr_->Retain();
+    }
     if (this->ptr_)
     {
       this->ptr_->Release();
@@ -154,7 +157,10 @@ public:
   template <class OtherObj_>
   GG_INLINE SharedRef& operator = (const SharedRef<OtherObj_>& o) noexcept
   {
-    o.ptr_->Retain();
+    if (o.ptr_)
+    {
+      o.ptr_->Retain();
+    }
     if (this->ptr_)
     {
       this->ptr_->Release();

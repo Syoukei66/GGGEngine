@@ -20,6 +20,14 @@ SceneManager::~SceneManager()
 // =================================================================
 // Methods
 // =================================================================
+void SceneManager::PushScene(const SharedRef<Scene>& next)
+{
+}
+
+void SceneManager::PopScene()
+{
+}
+
 void SceneManager::ChangeScene(const SharedRef<Scene>& next)
 {
   this->scene_transitioner_->SetNextScene(next);

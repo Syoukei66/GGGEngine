@@ -18,6 +18,7 @@ class AssetManager
   // =================================================================
 public:
   static void Init();
+  static void Init(UniqueIdTable* table);
   static void Uninit();
   static void UnloadCaches();
 
@@ -88,6 +89,17 @@ public:
     return (const AssetLoader<Asset_>&)*Self().loaders_.at(uid);
   }
   
+  /*!
+   * @brief AssetLoaderを登録する。
+   * メモリ上にあるデータをローダーに直接登録する
+   * 既にアセットがあった場合はそのアセットを上書きする
+   */
+  template<class Asset_>
+  static GG_INLINE const AssetLoader<Asset_>& AddAsset(T_UINT32 uid, const std::string& extension, const SharedRef<Asset_>& asset)
+  {
+    Self().loaders_[uid] = new AssetLoader<Asset_>(uid, std::to_string(uid) + "." + extension, asset);
+    return (const AssetLoader<Asset_>&)*Self().loaders_.at(uid);
+  }
   // =================================================================
   // Data Members
   // =================================================================

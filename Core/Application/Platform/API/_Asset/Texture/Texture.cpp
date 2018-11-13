@@ -11,8 +11,7 @@ UniqueRef<rcTexture> rcTexture::CreateFromFile(const char* path)
 
 UniqueRef<rcTexture> rcTexture::Create(T_UINT16 width, T_UINT16 height, void* native_obj)
 {
-  const UniqueRef<rcTexture>& ret = UniqueRef<rcTexture>(new rcTexture(width, height, native_obj));
-  return ret;
+  return UniqueRef<rcTexture>(new rcTexture(width, height, native_obj));
 }
 
 // =================================================================

@@ -43,6 +43,15 @@ class AssetLoader : public IAssetLoader
   // Constructor / Destructor
   // =================================================================
 protected:
+  AssetLoader(T_UINT32 uid, const std::string& path, const SharedRef<Asset_>& data)
+    : unique_id_(uid)
+    , path_("Asset/" + path)
+    , cache_(data)
+  {
+    //本来はアーカイブファイルから取得する
+    this->size_ = 1;
+  }
+
   AssetLoader(T_UINT32 uid, const std::string& path)
     : unique_id_(uid)
     , path_("Asset/" + path)

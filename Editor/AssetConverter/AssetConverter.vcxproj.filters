@@ -153,24 +153,6 @@
     <ClInclude Include="Entity\Default\DefaultAsset.h">
       <Filter>ヘッダー ファイル\Constants</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\Default\DefaultMaterialAssetConverterFactory.h">
-      <Filter>ヘッダー ファイル\Asset\_Default\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\Default\DefaultMaterialAssetEntity.h">
-      <Filter>ヘッダー ファイル\Asset\_Default\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\Default\DefaultMaterialAssetExporter.h">
-      <Filter>ヘッダー ファイル\Asset\_Default\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\Default\DefaultMeshAssetConverterFactory.h">
-      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\Default\DefaultMeshAssetEntity.h">
-      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\Default\DefaultMeshAssetExporter.h">
-      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
-    </ClInclude>
     <ClInclude Include="Entity\File\Model\Material\ModelMaterialAssetConverterFactory.h">
       <Filter>ヘッダー ファイル\Asset\_File\Model\Material</Filter>
     </ClInclude>
@@ -203,18 +185,6 @@
     </ClInclude>
     <ClInclude Include="Entity\File\Model\ModelConstants.h">
       <Filter>ヘッダー ファイル\Assimp</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\File\Raw\CSV\CsvAssetConverterFactory.h">
-      <Filter>ヘッダー ファイル\Asset\_File\_Raw\CSV</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\File\Raw\Json\JsonAssetConverterFactory.h">
-      <Filter>ヘッダー ファイル\Asset\_File\_Raw\Json</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\File\Raw\Shader\ShaderAssetConverterFactory.h">
-      <Filter>ヘッダー ファイル\Asset\_File\_Raw\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\File\Raw\Sound\SoundAssetConverterFactory.h">
-      <Filter>ヘッダー ファイル\Asset\_File\_Raw\Sound</Filter>
     </ClInclude>
     <ClInclude Include="Entity\File\Raw\RawAssetConverterFactory.h">
       <Filter>ヘッダー ファイル\Asset\_File\_Raw</Filter>
@@ -294,19 +264,10 @@
     <ClInclude Include="EngineBehavior.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\Mesh\MeshViewerBehavior.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\Texture\TextureViewScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Scene\EntryScene.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Scene\ViewerScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\AssetViewerBehavior.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="GUI\FileView\AssetEntityFileLeaf.h">
@@ -319,6 +280,51 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="GUI\EntityView\AssetEntityView.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Default\Material\DefaultMaterialAssetConverterFactory.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Default\Material\DefaultMaterialAssetEntity.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Default\Material\DefaultMaterialAssetExporter.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Default\Mesh\DefaultMeshAssetConverterFactory.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Default\Mesh\DefaultMeshAssetEntity.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Default\Mesh\DefaultMeshAssetExporter.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Raw\Sound\SoundAssetEntity.h">
+      <Filter>ヘッダー ファイル\Asset\_File\_Raw\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Raw\Shader\ShaderAssetEntity.h">
+      <Filter>ヘッダー ファイル\Asset\_File\_Raw\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Raw\Json\JsonAssetEntity.h">
+      <Filter>ヘッダー ファイル\Asset\_File\_Raw\Json</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Raw\CSV\CsvAssetEntity.h">
+      <Filter>ヘッダー ファイル\Asset\_File\_Raw\CSV</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Raw\RawAssetEntity.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\AssetViewer\Mesh\MeshViewerBehavior.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\AssetViewer\Texture\TextureViewScene.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\AssetViewer\AssetViewerBehavior.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\AssetViewer\AssetViewerScene.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -349,24 +355,6 @@
     </ClCompile>
     <ClCompile Include="Util\NativeLogger.cpp">
       <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity\Default\DefaultMaterialAssetConverterFactory.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity\Default\DefaultMaterialAssetEntity.cpp">
-      <Filter>ソース ファイル\Asset\_Default\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity\Default\DefaultMaterialAssetExporter.cpp">
-      <Filter>ソース ファイル\Asset\_Default\Material</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity\Default\DefaultMeshAssetConverterFactory.cpp">
-      <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity\Default\DefaultMeshAssetEntity.cpp">
-      <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity\Default\DefaultMeshAssetExporter.cpp">
-      <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Entity\File\Model\Material\ModelMaterialAssetConverterFactory.cpp">
       <Filter>ソース ファイル\Asset\_File\Model\Material</Filter>
@@ -440,12 +428,6 @@
     <ClCompile Include="EngineBehavior.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\Mesh\MeshViewerBehavior.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\Texture\TextureViewScene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Scene\EntryScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -465,6 +447,33 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="GUI\EntityView\AssetEntityView.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Default\Material\DefaultMaterialAssetConverterFactory.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Default\Material\DefaultMaterialAssetEntity.cpp">
+      <Filter>ソース ファイル\Asset\_Default\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Default\Material\DefaultMaterialAssetExporter.cpp">
+      <Filter>ソース ファイル\Asset\_Default\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Default\Mesh\DefaultMeshAssetConverterFactory.cpp">
+      <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Default\Mesh\DefaultMeshAssetEntity.cpp">
+      <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Default\Mesh\DefaultMeshAssetExporter.cpp">
+      <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\AssetViewer\Mesh\MeshViewerBehavior.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\AssetViewer\Texture\TextureViewScene.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\AssetViewer\AssetViewerScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

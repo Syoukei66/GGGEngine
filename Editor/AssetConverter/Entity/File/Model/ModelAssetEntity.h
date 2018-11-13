@@ -6,13 +6,20 @@
 
 class ModelAssetEntity : public AssetEntity
 {
-  ENTITY_ID(ID_MODEL)
+  ENTITY_ID(ID_MODEL);
+
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
   ModelAssetEntity(AssetInfo* info, ModelData* data, const aiScene* scene);
   ~ModelAssetEntity();
+
+  // =================================================================
+  // Methods from AssetEntity
+  // =================================================================
+public:
+  virtual void RegisterAssetManager(T_UINT32 uid, const std::string& extension) const override;
 
   // =================================================================
   // Methods

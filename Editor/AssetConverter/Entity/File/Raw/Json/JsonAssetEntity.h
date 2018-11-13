@@ -1,21 +1,23 @@
 #pragma once
 
-#include <Entity/AssetEntity.h>
+#include <Entity/File/Raw/RawAssetEntity.h>
 #include <Entity/File/Raw/RawAssetConverterFactory.h>
 
-class CsvAssetEntity : public AssetEntity
+class JsonAssetEntity : public RawAssetEntity<rcJsonData>
 {
-  ENTITY_ID(ID_CSV)
+  ENTITY_ID(ID_JSON);
+
 public:
   static inline IAssetConverter* CreateConverter()
   {
-    return RawAssetConverterFactory::Create<CsvAssetEntity>("CSV", "rcCsvData", "csv");
+    return RawAssetConverterFactory::Create<JsonAssetEntity>("Json", "rcJsonData", "json");
   }
+
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  CsvAssetEntity(AssetInfo* info)
-    : AssetEntity(info)
+  JsonAssetEntity(AssetInfo* info)
+    : RawAssetEntity(info)
   {}
 };

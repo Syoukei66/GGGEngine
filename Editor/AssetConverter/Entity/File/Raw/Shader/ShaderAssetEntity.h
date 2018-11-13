@@ -1,21 +1,23 @@
 #pragma once
 
-#include <Entity/AssetEntity.h>
+#include <Entity/File/Raw/RawAssetEntity.h>
 #include <Entity/File/Raw/RawAssetConverterFactory.h>
 
-class SoundAssetEntity : public AssetEntity
+class ShaderAssetEntity : public RawAssetEntity<rcShader>
 {
-  ENTITY_ID(ID_SOUND)
+  ENTITY_ID(ID_SHADER);
+
 public:
   static inline IAssetConverter* CreateConverter()
   {
-    return RawAssetConverterFactory::Create<SoundAssetEntity>("Sound", "rcAudioClip", "wav");
+    return RawAssetConverterFactory::Create<ShaderAssetEntity>("Shader", "rcShader", "cso");
   }
+
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  SoundAssetEntity(AssetInfo* info)
-    : AssetEntity(info)
+  ShaderAssetEntity(AssetInfo* info)
+    : RawAssetEntity(info)
   {}
 };

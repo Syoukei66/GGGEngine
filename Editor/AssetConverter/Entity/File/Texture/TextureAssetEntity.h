@@ -4,7 +4,8 @@
 
 class TextureAssetEntity : public AssetEntity
 {
-  ENTITY_ID(ID_TEXTURE)
+  ENTITY_ID(ID_TEXTURE);
+
   // =================================================================
   // Constructor / Destructor
   // =================================================================
@@ -12,9 +13,10 @@ public:
   TextureAssetEntity(AssetInfo* info);
 
   // =================================================================
-  // Methods
+  // Methods from AssetEntity
   // =================================================================
 public:
+  virtual void RegisterAssetManager(T_UINT32 uid, const std::string& extension) const override;
 
   // =================================================================
   // Setter / Getter

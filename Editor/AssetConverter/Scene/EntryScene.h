@@ -1,6 +1,7 @@
 #pragma once
 
-class URI;
+#include <Scene/AssetViewer/AssetViewerScene.h>
+
 class AssetEntity;
 
 class EntryScene : public Scene
@@ -9,7 +10,7 @@ class EntryScene : public Scene
   // GGG Statement
   // =================================================================
   GG_OBJECT(EntryScene);
-  GG_CREATE_FUNC(EntryScene) { return Scene::Init(); }
+  GG_CREATE_FUNC(EntryScene);
 
   // =================================================================
   // Methods from Scene
@@ -25,14 +26,13 @@ public:
   // Methods
   // =================================================================
 private:
-  void ShowViewer(const URI& uri);
+  void ShowViewer(AssetEntity* entity);
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
-  std::vector<char> path_;
-  bool open_file_dialog_;
   AssetEntity* selected_entity_;
+  SharedRef<AssetViewerScene> viewer_scene_;
 
 };

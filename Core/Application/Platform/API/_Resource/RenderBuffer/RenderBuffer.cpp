@@ -18,7 +18,7 @@ GG_DESTRUCT_FUNC_IMPL(rcRenderBuffer)
 // =================================================================
 // Factory Method
 // =================================================================
-UniqueRef<rcRenderBuffer> rcRenderBuffer::CreateColorBuffer(const SharedRef<const rcTexture>&  texture)
+UniqueRef<rcRenderBuffer> rcRenderBuffer::CreateColorBuffer(const SharedRef<const rcTexture>& texture)
 {
   return Application::GetPlatform()->GetGraphicsAPI()->CreateColorBuffer(texture);
 }

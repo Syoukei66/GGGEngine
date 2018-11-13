@@ -1,21 +1,23 @@
 #pragma once
 
-#include <Entity/AssetEntity.h>
+#include <Entity/File/Raw/RawAssetEntity.h>
 #include <Entity/File/Raw/RawAssetConverterFactory.h>
 
-class ShaderAssetEntity : public AssetEntity
+class CsvAssetEntity : public RawAssetEntity<rcCsvData>
 {
-  ENTITY_ID(ID_SHADER)
+  ENTITY_ID(ID_CSV);
+
 public:
   static inline IAssetConverter* CreateConverter()
   {
-    return RawAssetConverterFactory::Create<ShaderAssetEntity>("Shader", "rcShader", "cso");
+    return RawAssetConverterFactory::Create<CsvAssetEntity>("CSV", "rcCsvData", "csv");
   }
+
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  ShaderAssetEntity(AssetInfo* info)
-    : AssetEntity(info)
+  CsvAssetEntity(AssetInfo* info)
+    : RawAssetEntity(info)
   {}
 };

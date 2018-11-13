@@ -176,19 +176,20 @@
     <ClInclude Include="Converter\AssetConverter.h" />
     <ClInclude Include="Entity\AssetEntity.h" />
     <ClInclude Include="Entity\AssetExporter.h" />
+    <ClInclude Include="Entity\File\Raw\RawAssetEntity.h" />
     <ClInclude Include="GUI\EntityView\AssetEntityView.h" />
     <ClInclude Include="GUI\FileView\AssetEntityFileLeaf.h" />
     <ClInclude Include="GUI\FileView\AssetEntityFileNode.h" />
     <ClInclude Include="ProgramGenerator\AssetProgramGenerator.h" />
     <ClInclude Include="ProgramGenerator\AssetProgramGenerator_identifier.h" />
-    <ClInclude Include="Entity\File\Raw\CSV\CsvAssetConverterFactory.h" />
+    <ClInclude Include="Entity\File\Raw\CSV\CsvAssetEntity.h" />
     <ClInclude Include="Entity\Default\DefaultAsset.h" />
-    <ClInclude Include="Entity\Default\DefaultMaterialAssetConverterFactory.h" />
-    <ClInclude Include="Entity\Default\DefaultMaterialAssetEntity.h" />
-    <ClInclude Include="Entity\Default\DefaultMaterialAssetExporter.h" />
-    <ClInclude Include="Entity\Default\DefaultMeshAssetEntity.h" />
-    <ClInclude Include="Entity\Default\DefaultMeshAssetConverterFactory.h" />
-    <ClInclude Include="Entity\Default\DefaultMeshAssetExporter.h" />
+    <ClInclude Include="Entity\Default\Material\DefaultMaterialAssetConverterFactory.h" />
+    <ClInclude Include="Entity\Default\Material\DefaultMaterialAssetEntity.h" />
+    <ClInclude Include="Entity\Default\Material\DefaultMaterialAssetExporter.h" />
+    <ClInclude Include="Entity\Default\Mesh\DefaultMeshAssetEntity.h" />
+    <ClInclude Include="Entity\Default\Mesh\DefaultMeshAssetConverterFactory.h" />
+    <ClInclude Include="Entity\Default\Mesh\DefaultMeshAssetExporter.h" />
     <ClInclude Include="Director.h" />
     <ClInclude Include="Entity\AssetMetaData.h" />
     <ClInclude Include="ProgramGenerator\AssetProgramGenerator_definition.h" />
@@ -197,10 +198,11 @@
     <ClInclude Include="Entity\AssetImporter.h" />
     <ClInclude Include="Constants\Extensions.h" />
     <ClInclude Include="GUI\FileView\FileView.h" />
+    <ClInclude Include="Scene\AssetViewer\AssetViewerScene.h" />
     <ClInclude Include="Util\FileUtil.h" />
     <ClInclude Include="Converter\AssetConverterContext.h" />
     <ClInclude Include="Converter\IAssetConverter.h" />
-    <ClInclude Include="Entity\File\Raw\Json\JsonAssetConverterFactory.h" />
+    <ClInclude Include="Entity\File\Raw\Json\JsonAssetEntity.h" />
     <ClInclude Include="Util\Logger.h" />
     <ClInclude Include="Util\MeshBuilder\MeshBuilder.h" />
     <ClInclude Include="Util\MeshBuilder\MeshBuilder_Cube.h" />
@@ -223,8 +225,8 @@
     <ClInclude Include="Entity\File\Raw\RawAssetConverterFactory.h" />
     <ClInclude Include="Entity\File\Raw\RawAssetExporter.h" />
     <ClInclude Include="Entity\File\Raw\RawAssetImporter.h" />
-    <ClInclude Include="Entity\File\Raw\Shader\ShaderAssetConverterFactory.h" />
-    <ClInclude Include="Entity\File\Raw\Sound\SoundAssetConverterFactory.h" />
+    <ClInclude Include="Entity\File\Raw\Shader\ShaderAssetEntity.h" />
+    <ClInclude Include="Entity\File\Raw\Sound\SoundAssetEntity.h" />
     <ClInclude Include="Entity\File\StandardMaterial.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Entity\File\Texture\TextureAssetConverterFactory.h" />
@@ -233,10 +235,10 @@
     <ClInclude Include="Entity\File\Texture\TextureAssetImporter.h" />
     <ClInclude Include="EngineBehavior.h" />
     <ClInclude Include="GameInput.h" />
-    <ClInclude Include="Scene\AssetViewerBehavior.h" />
+    <ClInclude Include="Scene\AssetViewer\AssetViewerBehavior.h" />
     <ClInclude Include="Scene\EntryScene.h" />
-    <ClInclude Include="Scene\Mesh\MeshViewerBehavior.h" />
-    <ClInclude Include="Scene\Texture\TextureViewScene.h" />
+    <ClInclude Include="Scene\AssetViewer\Mesh\MeshViewerBehavior.h" />
+    <ClInclude Include="Scene\AssetViewer\Texture\TextureViewScene.h" />
     <ClInclude Include="Scene\ViewerScene.h" />
   </ItemGroup>
   <ItemGroup>
@@ -247,17 +249,18 @@
     <ClCompile Include="GUI\FileView\AssetEntityFileLeaf.cpp" />
     <ClCompile Include="GUI\FileView\AssetEntityFileNode.cpp" />
     <ClCompile Include="ProgramGenerator\AssetProgramGenerator_identifier.cpp" />
-    <ClCompile Include="Entity\Default\DefaultMaterialAssetConverterFactory.cpp" />
-    <ClCompile Include="Entity\Default\DefaultMaterialAssetEntity.cpp" />
-    <ClCompile Include="Entity\Default\DefaultMaterialAssetExporter.cpp" />
-    <ClCompile Include="Entity\Default\DefaultMeshAssetConverterFactory.cpp" />
-    <ClCompile Include="Entity\Default\DefaultMeshAssetEntity.cpp" />
-    <ClCompile Include="Entity\Default\DefaultMeshAssetExporter.cpp" />
+    <ClCompile Include="Entity\Default\Material\DefaultMaterialAssetConverterFactory.cpp" />
+    <ClCompile Include="Entity\Default\Material\DefaultMaterialAssetEntity.cpp" />
+    <ClCompile Include="Entity\Default\Material\DefaultMaterialAssetExporter.cpp" />
+    <ClCompile Include="Entity\Default\Mesh\DefaultMeshAssetConverterFactory.cpp" />
+    <ClCompile Include="Entity\Default\Mesh\DefaultMeshAssetEntity.cpp" />
+    <ClCompile Include="Entity\Default\Mesh\DefaultMeshAssetExporter.cpp" />
     <ClCompile Include="Director.cpp" />
     <ClCompile Include="ProgramGenerator\AssetProgramGenerator_definition.cpp" />
     <ClCompile Include="ProgramGenerator\AssetProgramGenerator_namespace.cpp" />
     <ClCompile Include="Assimp\AssimpMaterialSystemImporter.cpp" />
     <ClCompile Include="GUI\FileView\FileView.cpp" />
+    <ClCompile Include="Scene\AssetViewer\AssetViewerScene.cpp" />
     <ClCompile Include="Util\FileUtil.cpp" />
     <ClCompile Include="Util\Logger.cpp" />
     <ClCompile Include="Util\MeshBuilder\MeshBuilder_Cube.cpp" />
@@ -294,8 +297,8 @@
     <ClCompile Include="GameInput.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scene\EntryScene.cpp" />
-    <ClCompile Include="Scene\Mesh\MeshViewerBehavior.cpp" />
-    <ClCompile Include="Scene\Texture\TextureViewScene.cpp" />
+    <ClCompile Include="Scene\AssetViewer\Mesh\MeshViewerBehavior.cpp" />
+    <ClCompile Include="Scene\AssetViewer\Texture\TextureViewScene.cpp" />
     <ClCompile Include="Scene\ViewerScene.cpp" />
   </ItemGroup>
   <ItemGroup>
