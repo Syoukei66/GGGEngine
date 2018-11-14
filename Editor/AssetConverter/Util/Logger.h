@@ -11,6 +11,7 @@ void ImportSkipAssetLog(const URI& uri);
 void CommitAssetLog(const AssetInfo* info);
 
 void ConvertAssetLog(const AssetInfo* info);
+void ConvertFaildLog(const AssetInfo* info);
 void CopyAssetLog(const AssetInfo* info);
 void ExportSkipAssetLog(const AssetInfo* info);
 };

@@ -14,13 +14,13 @@ class AssetEntityFileNode : public GGObject
   // Methdos
   // =================================================================
 public:
-  void AddAssetEntity(AssetEntity* entity);
-  AssetEntity* SelectWithImGUI();
+  void AddAssetEntity(const SharedRef<AssetEntity>& entity);
+  SharedRef<AssetEntity> SelectWithImGUI();
 
 protected:
-  void AddAssetEntity(std::string rest_path, AssetEntity* entity);
+  void AddAssetEntity(std::string rest_path, const SharedRef<AssetEntity>& entity);
   SharedRef<AssetEntityFileNode> AddNode(std::string node_name);
-  void AddLeaf(std::string leaf_name, AssetEntity* entity);
+  void AddLeaf(std::string leaf_name, const SharedRef<AssetEntity>& entity);
 
   // =================================================================
   // Data Members

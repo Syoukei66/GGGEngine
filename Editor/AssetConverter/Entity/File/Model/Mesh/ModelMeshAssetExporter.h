@@ -9,6 +9,6 @@ class ModelMeshAssetExporter : public AssetExporter<ModelMeshAssetEntity>
   // Methods
   // =================================================================
 protected:
-  void ExportProcess(ModelMeshAssetEntity* entity, const AssetConverterContext* context) override;
+  void ExportProcess(const SharedRef<ModelMeshAssetEntity>& entity, const AssetConverterContext* context) override;
 
 };

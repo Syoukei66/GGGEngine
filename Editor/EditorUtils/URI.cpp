@@ -7,6 +7,16 @@
 URI::URI(const std::string& full_path)
   : full_path_(full_path)
 {
+  std::string str = std::string("\\");
+  while (true)
+  {
+    const auto& pos = this->full_path_.find(str);
+    if (pos == std::string::npos)
+    {
+      break;
+    }
+    this->full_path_ = this->full_path_.replace(pos, str.length(), "/");
+  }
 }
 
 static std::string CreateFullPath(const std::string& directory_path, const std::string& file_name)

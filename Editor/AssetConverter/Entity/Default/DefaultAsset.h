@@ -18,7 +18,9 @@ static const std::string& MESH_PATH_PLANE  = "mesh/default/Plane.mesh";
 //‰¼‘z‚ÌƒpƒX
 static const std::string& MATERIAL_PATH_LAMBERT = "material/default/Lambert.mat";
 static const std::string& MATERIAL_PATH_WHITE   = "material/default/White.mat";
-static const std::string& MATERIAL_PATH_SPRITE  = "material/default/Sprite.mat";
+static const std::string& MATERIAL_PATH_UNLIT  = "material/default/Unlit.mat";
 static const std::string& MATERIAL_PATH_STENCIL_SHADOW = "material/default/StencilShadow.mat";
+
+static const std::string& TEXTURE_PATH_WHITE = "texture/default/white.png";
 
 }

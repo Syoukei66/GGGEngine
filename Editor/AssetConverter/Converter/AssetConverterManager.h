@@ -35,16 +35,16 @@ public:
   template <class Entity_>
   void VisitAll(const std::function<void(const AssetConverter<Entity_>*)>& func) const;
 
-  void VisitAllEntity(const std::function<void(AssetEntity*)>& func);
-  AssetEntity* FindAllEntity(const std::function<bool(AssetEntity*)>& func);
+  void VisitAllEntity(const std::function<void(const SharedRef<AssetEntity>&)>& func);
+  SharedRef<AssetEntity> FindAllEntity(const std::function<bool(const SharedRef<AssetEntity>&)>& func);
 
   //値が帰ってくるまで検索する
-  template <class Type_>
-  Type_* Find(const std::function<Type_*(IAssetConverter*)>& func);
-  AssetEntity* Find(const std::function<AssetEntity*(IAssetConverter*)>& func);
+  template <class Entity_>
+  SharedRef<Entity_> Find(const std::function<SharedRef<Entity_>(IAssetConverter*)>& func);
+  SharedRef<AssetEntity> Find(const std::function<SharedRef<AssetEntity>(IAssetConverter*)>& func);
 
-  template <class Type_, class Entity_>
-  Type_* Find(const std::function<Type_*(AssetConverter<Entity_>*)>& func);
+  template <class Entity_>
+  SharedRef<Entity_> Find(const std::function<SharedRef<Entity_>(AssetConverter<Entity_>*)>& func);
 
   inline void AddConverter(IAssetConverter* converter);
 
@@ -79,12 +79,12 @@ inline void AssetConverterManager::VisitAll(const std::function<void(const Asset
 }
 
 //値が帰ってくるまで検索する
-template<class Type_>
-inline Type_* AssetConverterManager::Find(const std::function<Type_*(IAssetConverter*)>& func)
+template<class Entity_>
+inline SharedRef<Entity_> AssetConverterManager::Find(const std::function<SharedRef<Entity_>(IAssetConverter*)>& func)
 {
   for (auto& pair : this->converter_map_)
   {
-    Type_* val = func(pair.second);
+    const SharedRef<Entity_>& val = func(pair.second);
     if (val)
     {
       return val;
@@ -93,8 +93,8 @@ inline Type_* AssetConverterManager::Find(const std::function<Type_*(IAssetConve
   return nullptr;
 }
 
-template<class Type_, class Entity_>
-inline Type_* AssetConverterManager::Find(const std::function<Type_*(AssetConverter<Entity_>*)>& func)
+template<class Entity_>
+inline SharedRef<Entity_> AssetConverterManager::Find(const std::function<SharedRef<Entity_>(AssetConverter<Entity_>*)>& func)
 {
   return func((AssetConverter<Entity_>*)this->converter_map_.at(Entity_::ID));
 }

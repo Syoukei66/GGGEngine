@@ -48,7 +48,7 @@ void AssetConverterManager::VisitAll(const std::function<void(const IAssetConver
   }
 }
 
-void AssetConverterManager::VisitAllEntity(const std::function<void(AssetEntity*)>& func)
+void AssetConverterManager::VisitAllEntity(const std::function<void(const SharedRef<AssetEntity>&)>& func)
 {
   for (auto& pair : this->converter_map_)
   {
@@ -56,11 +56,11 @@ void AssetConverterManager::VisitAllEntity(const std::function<void(AssetEntity*
   }
 }
 
-AssetEntity* AssetConverterManager::FindAllEntity(const std::function<bool(AssetEntity*)>& func)
+SharedRef<AssetEntity> AssetConverterManager::FindAllEntity(const std::function<bool(const SharedRef<AssetEntity>&)>& func)
 {
   for (auto& pair : this->converter_map_)
   {
-    AssetEntity* entity = pair.second->FindAllEntity(func);
+    SharedRef<AssetEntity> entity = pair.second->FindAllEntity(func);
     if (entity)
     {
       return entity;
@@ -69,11 +69,11 @@ AssetEntity* AssetConverterManager::FindAllEntity(const std::function<bool(Asset
   return nullptr;
 }
 
-AssetEntity* AssetConverterManager::Find(const std::function<AssetEntity*(IAssetConverter*)>& func)
+SharedRef<AssetEntity> AssetConverterManager::Find(const std::function<SharedRef<AssetEntity>(IAssetConverter*)>& func)
 {
   for (auto& pair : this->converter_map_)
   {
-    AssetEntity* val = func(pair.second);
+    SharedRef<AssetEntity> val = func(pair.second);
     if (val)
     {
       return val;

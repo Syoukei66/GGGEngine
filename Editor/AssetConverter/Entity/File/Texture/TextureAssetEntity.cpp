@@ -2,11 +2,11 @@
 #include <Entity/AssetInfo.h>
 
 // =================================================================
-// Constructor / Destructor
+// GGG Statement
 // =================================================================
-TextureAssetEntity::TextureAssetEntity(AssetInfo* info)
-  : AssetEntity(info)
+GG_INIT_FUNC_IMPL_1(TextureAssetEntity, AssetInfo* info)
 {
+  return AssetEntity::Init(info);
 }
 
 // =================================================================

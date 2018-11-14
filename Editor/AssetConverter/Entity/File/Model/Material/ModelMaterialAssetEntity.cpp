@@ -3,15 +3,16 @@
 // =================================================================
 // FactoryMethod
 // =================================================================
-ModelMaterialAssetEntity::ModelMaterialAssetEntity(AssetInfo* info, MaterialData* data, T_UINT32 model_unique_id)
-  : AssetEntity(info)
-  , data_(data)
+GG_INIT_FUNC_IMPL_2(ModelMaterialAssetEntity, AssetInfo* info, MaterialData* data)
 {
+  this->data_ = data;
+  return AssetEntity::Init(info);
 }
 
-ModelMaterialAssetEntity::~ModelMaterialAssetEntity()
+GG_DESTRUCT_FUNC_IMPL(ModelMaterialAssetEntity)
 {
   delete this->data_;
+  return true;
 }
 
 // =================================================================

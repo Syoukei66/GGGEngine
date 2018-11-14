@@ -1,14 +1,11 @@
-#include "MeshViewerBehavior.h"
+#include "TextureViewerBehavior.h"
 #include <Engine/GameObject/Transform/Transform3D.h>
 #include <Engine/Component/Renderer/MeshRenderer.h>
-
-#include <Entity/Default/Mesh/DefaultMeshAssetEntity.h>
-#include <Entity/File/Model/Mesh/ModelMeshAssetEntity.h>
 
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL(MeshViewerBehavior)
+GG_INIT_FUNC_IMPL(TextureViewerBehavior)
 {
   this->obj_ = new GameObject3D();
   this->mesh_renderer_ = new MeshRenderer(this->obj_);
@@ -16,7 +13,7 @@ GG_INIT_FUNC_IMPL(MeshViewerBehavior)
   return true;
 }
 
-GG_DESTRUCT_FUNC_IMPL(MeshViewerBehavior)
+GG_DESTRUCT_FUNC_IMPL(TextureViewerBehavior)
 {
   delete this->obj_;
   return true;
@@ -25,30 +22,30 @@ GG_DESTRUCT_FUNC_IMPL(MeshViewerBehavior)
 // =================================================================
 // Methods from AssetViewerBehavior
 // =================================================================
-void MeshViewerBehavior::OnStart(Scene* scene)
+void TextureViewerBehavior::OnStart(Scene* scene)
 {
   scene->AddChild(this->obj_);
 }
 
-void MeshViewerBehavior::OnEnd()
+void TextureViewerBehavior::OnEnd()
 {
   this->obj_->RemoveSelf();
 }
 
-void MeshViewerBehavior::OnLoad(T_UINT32 unique_id)
+void TextureViewerBehavior::OnLoad(T_UINT32 unique_id)
 {
-  this->mesh_renderer_->SetMesh(AssetManager::Load<rcMesh>(unique_id));
-  this->mesh_renderer_->SetMaterial(AssetManager::Load<rcMaterial>(DefaultUniqueID::MATERIAL_LAMBERT));
+  this->mesh_renderer_->SetMesh(AssetManager::Load<rcMesh>(DefaultUniqueID::MESH_PLANE));
+  this->mesh_renderer_->SetMaterial(AssetManager::Load<rcMaterial>(DefaultUniqueID::SHADER_FLAT));
   this->mesh_renderer_->GetMaterial()->SetMainTexture(AssetManager::Load<rcTexture>(DefaultUniqueID::TEXTURE_WHITE));
 }
 
-void MeshViewerBehavior::OnUnload()
+void TextureViewerBehavior::OnUnload()
 {
   this->mesh_renderer_->SetMesh(nullptr);
   this->mesh_renderer_->SetMaterial(nullptr);
 }
 
-bool MeshViewerBehavior::IsTarget(T_UINT32 id)
+bool TextureViewerBehavior::IsTarget(T_UINT32 id)
 {
-  return id == AssetEntity::EntityID::ID_DEFAULT_MESH || id == AssetEntity::EntityID::ID_MODEL_MESH;
+  return id == AssetEntity::EntityID::ID_TEXTURE;
 }

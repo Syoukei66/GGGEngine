@@ -4,7 +4,7 @@
 // =================================================================
 // Methods
 // =================================================================
-void TextureAssetExporter::ExportProcess(TextureAssetEntity* entity, const AssetConverterContext* context)
+void TextureAssetExporter::ExportProcess(const SharedRef<TextureAssetEntity>& entity, const AssetConverterContext* context)
 {
   FileUtil::CopyRawAsset(entity->GetAssetInfo());
 }

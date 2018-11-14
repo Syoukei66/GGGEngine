@@ -5,7 +5,15 @@
 
 class JsonAssetEntity : public RawAssetEntity<rcJsonData>
 {
+  // =================================================================
+  // GGG Statement
+  // =================================================================
   ENTITY_ID(ID_JSON);
+  GG_OBJECT(JsonAssetEntity);
+  GG_CREATE_FUNC_1(JsonAssetEntity, AssetInfo*)
+  {
+    return AssetEntity::Init(arg0);
+  }
 
 public:
   static inline IAssetConverter* CreateConverter()
@@ -13,11 +21,4 @@ public:
     return RawAssetConverterFactory::Create<JsonAssetEntity>("Json", "rcJsonData", "json");
   }
 
-  // =================================================================
-  // Constructor / Destructor
-  // =================================================================
-public:
-  JsonAssetEntity(AssetInfo* info)
-    : RawAssetEntity(info)
-  {}
 };

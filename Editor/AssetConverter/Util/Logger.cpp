@@ -41,6 +41,11 @@ void Logger::ConvertAssetLog(const AssetInfo* info)
   ExportAssetLog(info, "convert");
 }
 
+void Logger::ConvertFaildLog(const AssetInfo* info)
+{
+  ExportAssetLog(info, "**convert faild**");
+}
+
 void Logger::CopyAssetLog(const AssetInfo* info)
 {
   ExportAssetLog(info, "copy");

@@ -16,7 +16,7 @@ IAssetConverter* DefaultMeshAssetConverterFactory::Create(AssetConverterContext*
   AssetConverter<DefaultMeshAssetEntity>* ret = new AssetConverter<DefaultMeshAssetEntity>(nullptr, nullptr, exporter, program_generator);
 
   using namespace DefaultAsset;
-  ret->AddEntity(new DefaultMeshAssetEntity(AssetInfo::Create(MESH_PATH_CUBE, context), this->cube_.CreateMesh()));
-  ret->AddEntity(new DefaultMeshAssetEntity(AssetInfo::Create(MESH_PATH_PLANE, context), this->plane_.CreateMesh()));
+  ret->AddEntity(DefaultMeshAssetEntity::Create(AssetInfo::Create(MESH_PATH_CUBE, context), this->cube_.CreateMesh()));
+  ret->AddEntity(DefaultMeshAssetEntity::Create(AssetInfo::Create(MESH_PATH_PLANE, context), this->plane_.CreateMesh()));
   return ret;
 }

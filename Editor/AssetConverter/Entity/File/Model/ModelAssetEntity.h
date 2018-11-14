@@ -6,14 +6,13 @@
 
 class ModelAssetEntity : public AssetEntity
 {
+  // =================================================================
+  // GGG Statement
+  // =================================================================
   ENTITY_ID(ID_MODEL);
-
-  // =================================================================
-  // Constructor / Destructor
-  // =================================================================
-public:
-  ModelAssetEntity(AssetInfo* info, ModelData* data, const aiScene* scene);
-  ~ModelAssetEntity();
+  GG_OBJECT(ModelAssetEntity);
+  GG_CREATE_FUNC_3(ModelAssetEntity, AssetInfo*, ModelData*, const aiScene*);
+  GG_DESTRUCT_FUNC(ModelAssetEntity);
 
   // =================================================================
   // Methods from AssetEntity

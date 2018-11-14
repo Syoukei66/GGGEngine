@@ -9,6 +9,6 @@ class TextureAssetExporter : public AssetExporter<TextureAssetEntity>
   // Methods
   // =================================================================
 protected:
-  void ExportProcess(TextureAssetEntity* entity, const AssetConverterContext* context) override;
+  void ExportProcess(const SharedRef<TextureAssetEntity>& entity, const AssetConverterContext* context) override;
 
 };

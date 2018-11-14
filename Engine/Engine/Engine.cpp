@@ -46,17 +46,19 @@ void Engine::Init()
   EntityModifierManager::Init(EntityModifierAllocateOption());
   EasingFunctionManager::Load(eo.easing_function_sampling_count_);
 
+  this->engine_behavior_->OnGameBegin();
+
   Director::Self().engine_ = this;
   this->scene_manager_ = new SceneManager();
   this->scene_manager_->ChangeScene(this->engine_behavior_->FirstScene());
-  this->engine_behavior_->OnGameBegin();
 }
 
 void Engine::Uninit()
 {
-  this->engine_behavior_->OnGameEnd();
   this->scene_manager_->ClearScene();
   delete this->scene_manager_;
+
+  this->engine_behavior_->OnGameEnd();
 
   EasingFunctionManager::Unload();
   EntityModifierManager::Uninit();

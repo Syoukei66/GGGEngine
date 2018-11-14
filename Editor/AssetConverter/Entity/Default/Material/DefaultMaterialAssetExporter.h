@@ -9,6 +9,6 @@ class DefaultMaterialAssetExporter : public AssetExporter<DefaultMaterialAssetEn
   // Methods
   // =================================================================
 protected:
-  void ExportProcess(DefaultMaterialAssetEntity* entity, const AssetConverterContext* context) override;
+  void ExportProcess(const SharedRef<DefaultMaterialAssetEntity>& entity, const AssetConverterContext* context) override;
 
 };

@@ -4,14 +4,13 @@
 
 class DefaultMeshAssetEntity : public AssetEntity
 {
+  // =================================================================
+  // GGG Statement
+  // =================================================================
   ENTITY_ID(ID_DEFAULT_MESH);
-
-  // =================================================================
-  // Constructor / Destructor
-  // =================================================================
-public:
-  DefaultMeshAssetEntity(AssetInfo* info, MeshData* data);
-  ~DefaultMeshAssetEntity();
+  GG_OBJECT(DefaultMeshAssetEntity);
+  GG_CREATE_FUNC_2(DefaultMeshAssetEntity, AssetInfo*, MeshData*);
+  GG_DESTRUCT_FUNC(DefaultMeshAssetEntity);
 
   // =================================================================
   // Methods from AssetEntity

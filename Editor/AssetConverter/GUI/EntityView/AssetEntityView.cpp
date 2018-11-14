@@ -5,7 +5,7 @@
 // =================================================================
 // Methods
 // =================================================================
-bool AssetEntityView::ShowEntity(AssetEntity* entity)
+bool AssetEntityView::ShowEntity(const SharedRef<AssetEntity>& entity)
 {
   if (!entity)
   {
@@ -31,7 +31,7 @@ bool AssetEntityView::ShowEntity(AssetEntity* entity)
   return open_viewer;
 }
 
-void AssetEntityView::StartViewer(AssetEntity* entity)
+void AssetEntityView::StartViewer(const SharedRef<AssetEntity>& entity)
 {
 
 }

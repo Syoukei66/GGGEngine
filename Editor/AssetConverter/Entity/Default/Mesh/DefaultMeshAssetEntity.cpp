@@ -1,17 +1,18 @@
 #include "DefaultMeshAssetEntity.h"
 
 // =================================================================
-// Constructor / Destructor
+// GGG Statement
 // =================================================================
-DefaultMeshAssetEntity::DefaultMeshAssetEntity(AssetInfo* info, MeshData* data)
-  : AssetEntity(info)
-  , data_(data)
+GG_INIT_FUNC_IMPL_2(DefaultMeshAssetEntity, AssetInfo* info, MeshData* data)
 {
+  this->data_ = data;
+  return AssetEntity::Init(info);
 }
 
-DefaultMeshAssetEntity::~DefaultMeshAssetEntity()
+GG_DESTRUCT_FUNC_IMPL(DefaultMeshAssetEntity)
 {
   delete this->data_;
+  return true;
 }
 
 // =================================================================

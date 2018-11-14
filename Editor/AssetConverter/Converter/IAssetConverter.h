@@ -20,6 +20,6 @@ public:
   virtual void Export(const AssetConverterContext* context) const = 0;
   virtual void CreateHeaderProgram(std::string* dest) const = 0;
   virtual void CreateCppProgram(std::string* dest) const = 0;
-  virtual void VisitAllEntity(const std::function<void(AssetEntity*)>& func) = 0;
-  virtual AssetEntity* FindAllEntity(const std::function<bool(AssetEntity*)>& func) = 0;
+  virtual void VisitAllEntity(const std::function<void(const SharedRef<AssetEntity>&)>& func) = 0;
+  virtual SharedRef<AssetEntity> FindAllEntity(const std::function<bool(const SharedRef<AssetEntity>&)>& func) = 0;
 };

@@ -9,7 +9,7 @@
 namespace Log
 {
 
-enum class Level
+enum class Level : T_UINT32
 {
   Fatal,
   Error,

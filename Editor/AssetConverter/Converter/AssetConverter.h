@@ -36,23 +36,23 @@ public:
   inline bool ImportImmediately(const URI& uri, AssetConverterContext* context, bool reload) override;
 
 
-  inline void AddEntity(Entity_* entity);
-  inline Entity_* GetEntity(const URI& uri, const AssetConverterContext* context);
-  inline Entity_* GetEntity(const AssetInfo* info);
+  inline void AddEntity(const SharedRef<Entity_>& entity);
+  inline SharedRef<Entity_> GetEntity(const URI& uri, const AssetConverterContext* context);
+  inline SharedRef<Entity_> GetEntity(const AssetInfo* info);
 
   inline void Export(const AssetConverterContext* context) const override;
 
   inline void CreateHeaderProgram(std::string* dest) const override;
   inline void CreateCppProgram(std::string* dest) const override;
 
-  inline void VisitAllEntity(const std::function<void(AssetEntity*)>& func) override;
-  inline AssetEntity* FindAllEntity(const std::function<bool(AssetEntity*)>& func) override;
+  inline void VisitAllEntity(const std::function<void(const SharedRef<AssetEntity>&)>& func) override;
+  inline SharedRef<AssetEntity> FindAllEntity(const std::function<bool(const SharedRef<AssetEntity>&)>& func) override;
 
   // =================================================================
   // Data Members
   // =================================================================
 private:
-  std::unordered_map<T_UINT32, Entity_*> entities_;
+  std::unordered_map<T_UINT32, SharedRef<Entity_>> entities_;
   AssetImporter<Entity_>* importer_;
   AssetEditor<Entity_>* editor_;
   //AssetViewer<Entity_>* viewer_;
@@ -75,10 +75,6 @@ inline AssetConverter<Entity_>::AssetConverter(AssetImporter<Entity_>* importer,
 template<class Entity_>
 inline AssetConverter<Entity_>::~AssetConverter()
 {
-  for (auto& pair : this->entities_)
-  {
-    delete pair.second;
-  }
   delete this->importer_;
   delete this->editor_;
   delete this->exporter_;
@@ -129,28 +125,23 @@ inline bool AssetConverter<Entity_>::ImportImmediately(const URI& uri, AssetConv
   {
     return false;
   }
-  Entity_* entity = this->importer_->ImportImmediately(uri, context);
+  const SharedRef<Entity_>& entity = this->importer_->ImportImmediately(uri, context);
   if (!entity)
   {
     return false;
   }
   this->AddEntity(entity);
-  return entity;
+  return true;
 }
 
 template<class Entity_>
-inline void AssetConverter<Entity_>::AddEntity(Entity_* entity)
+inline void AssetConverter<Entity_>::AddEntity(const SharedRef<Entity_>& entity)
 {
-  const auto& itr = this->entities_.find(entity->GetAssetInfo()->GetUniqueID());
-  if (itr != this->entities_.end())
-  {
-    delete itr->second;
-  }
   this->entities_[entity->GetAssetInfo()->GetUniqueID()] = entity;
 }
 
 template<class Entity_>
-inline Entity_* AssetConverter<Entity_>::GetEntity(const URI& uri, const AssetConverterContext* context)
+inline SharedRef<Entity_> AssetConverter<Entity_>::GetEntity(const URI& uri, const AssetConverterContext* context)
 {
   const auto& itr = this->entities_.find(context->GetUniqueID(uri));
   if (itr != this->entities_.end())
@@ -161,7 +152,7 @@ inline Entity_* AssetConverter<Entity_>::GetEntity(const URI& uri, const AssetCo
 }
 
 template<class Entity_>
-inline Entity_* AssetConverter<Entity_>::GetEntity(const AssetInfo* info)
+inline SharedRef<Entity_> AssetConverter<Entity_>::GetEntity(const AssetInfo* info)
 {
   const auto& itr = this->entities_.find(info->GetUniqueID());
   if (itr != this->entities_.end())
@@ -190,7 +181,7 @@ inline void AssetConverter<Entity_>::CreateCppProgram(std::string* dest) const
 }
 
 template<class Entity_>
-inline void AssetConverter<Entity_>::VisitAllEntity(const std::function<void(AssetEntity*)>& func)
+inline void AssetConverter<Entity_>::VisitAllEntity(const std::function<void(const SharedRef<AssetEntity>&)>& func)
 {
   for (const auto& pair : this->entities_)
   {
@@ -199,7 +190,7 @@ inline void AssetConverter<Entity_>::VisitAllEntity(const std::function<void(Ass
 }
 
 template<class Entity_>
-inline AssetEntity* AssetConverter<Entity_>::FindAllEntity(const std::function<bool(AssetEntity*)>& func)
+inline SharedRef<AssetEntity> AssetConverter<Entity_>::FindAllEntity(const std::function<bool(const SharedRef<AssetEntity>&)>& func)
 {
   for (const auto& pair : this->entities_)
   {

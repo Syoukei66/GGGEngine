@@ -26,7 +26,7 @@ public:
     this->namespace_generator_.AddAsset(asset_name, class_name);
   }
 
-  void CreateHeaderProgram(const std::unordered_map<T_UINT32, Entity_*>& entities, std::string* dest)
+  void CreateHeaderProgram(const std::unordered_map<T_UINT32, SharedRef<Entity_>>& entities, std::string* dest)
   {
     (*dest).append(this->namespace_generator_.CreateHeaderProgram([&](const DefinitionGenerator& generator)
     {
@@ -38,7 +38,7 @@ public:
       return str;
     }));
   }
-  void CreateCppProgram(const std::unordered_map<T_UINT32, Entity_*>& entities, std::string* dest)
+  void CreateCppProgram(const std::unordered_map<T_UINT32, SharedRef<Entity_>>& entities, std::string* dest)
   {
     (*dest).append(this->namespace_generator_.CreateCppProgram([&](const DefinitionGenerator& generator)
     {

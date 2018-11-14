@@ -21,7 +21,7 @@ class AssetViewerScene : public ViewerScene
   // Methods
   // =================================================================
 public:
-  void Run(AssetEntity* entity);
+  void Run(const SharedRef<AssetEntity>& entity);
 
   // =================================================================
   // Data Members

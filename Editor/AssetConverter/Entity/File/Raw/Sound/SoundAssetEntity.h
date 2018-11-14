@@ -5,7 +5,15 @@
 
 class SoundAssetEntity : public RawAssetEntity<rcAudioClip>
 {
-  ENTITY_ID(ID_SOUND)
+  // =================================================================
+  // GGG Statement
+  // =================================================================
+  ENTITY_ID(ID_SOUND);
+  GG_OBJECT(SoundAssetEntity);
+  GG_CREATE_FUNC_1(SoundAssetEntity, AssetInfo*)
+  {
+    return AssetEntity::Init(arg0);
+  }
 
 public:
   static inline IAssetConverter* CreateConverter()
@@ -13,11 +21,4 @@ public:
     return RawAssetConverterFactory::Create<SoundAssetEntity>("Sound", "rcAudioClip", "wav");
   }
 
-  // =================================================================
-  // Constructor / Destructor
-  // =================================================================
-public:
-  SoundAssetEntity(AssetInfo* info)
-    : RawAssetEntity(info)
-  {}
 };

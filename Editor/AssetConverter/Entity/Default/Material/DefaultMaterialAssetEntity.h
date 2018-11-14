@@ -4,14 +4,13 @@
 
 class DefaultMaterialAssetEntity : public AssetEntity
 {
+  // =================================================================
+  // GGG Statement
+  // =================================================================
   ENTITY_ID(ID_DEFAULT_MATERIAL);
-
-  // =================================================================
-  // Constructor / Destructor
-  // =================================================================
-public:
-  DefaultMaterialAssetEntity(AssetInfo* info, MaterialData* data);
-  ~DefaultMaterialAssetEntity();
+  GG_OBJECT(DefaultMaterialAssetEntity);
+  GG_CREATE_FUNC_2(DefaultMaterialAssetEntity, AssetInfo*, MaterialData*);
+  GG_DESTRUCT_FUNC(DefaultMaterialAssetEntity);
 
   // =================================================================
   // Methods from AssetEntity

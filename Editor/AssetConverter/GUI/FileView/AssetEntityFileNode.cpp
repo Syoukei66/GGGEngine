@@ -5,14 +5,14 @@
 // =================================================================
 // Methdos
 // =================================================================
-void AssetEntityFileNode::AddAssetEntity(AssetEntity* entity)
+void AssetEntityFileNode::AddAssetEntity(const SharedRef<AssetEntity>& entity)
 {
   this->AddAssetEntity(entity->GetAssetInfo()->GetURI().GetFullPath(), entity);
 }
 
-AssetEntity* AssetEntityFileNode::SelectWithImGUI()
+SharedRef<AssetEntity> AssetEntityFileNode::SelectWithImGUI()
 {
-  AssetEntity* selected = nullptr;
+  SharedRef<AssetEntity> selected = nullptr;
   for (const auto& pair : this->children_)
   {
     if (ImGui::TreeNode(pair.first.c_str()))
@@ -38,7 +38,7 @@ AssetEntity* AssetEntityFileNode::SelectWithImGUI()
   return selected;
 }
 
-void AssetEntityFileNode::AddAssetEntity(std::string rest_path, AssetEntity* entity)
+void AssetEntityFileNode::AddAssetEntity(std::string rest_path, const SharedRef<AssetEntity>& entity)
 {
   std::regex re("(.+?)[/\\\\](.+)");
   std::smatch result;
@@ -62,7 +62,7 @@ SharedRef<AssetEntityFileNode> AssetEntityFileNode::AddNode(std::string node_nam
   return this->children_[node_name];
 }
 
-void AssetEntityFileNode::AddLeaf(std::string leaf_name, AssetEntity* entity)
+void AssetEntityFileNode::AddLeaf(std::string leaf_name, const SharedRef<AssetEntity>& entity)
 {
   SharedRef<AssetEntityFileLeaf> leaf = AssetEntityFileLeaf::Create(entity);
   this->leafs_[leaf_name] = leaf;

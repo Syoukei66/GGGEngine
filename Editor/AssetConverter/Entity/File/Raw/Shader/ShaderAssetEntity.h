@@ -5,7 +5,15 @@
 
 class ShaderAssetEntity : public RawAssetEntity<rcShader>
 {
+  // =================================================================
+  // GGG Statement
+  // =================================================================
   ENTITY_ID(ID_SHADER);
+  GG_OBJECT(ShaderAssetEntity);
+  GG_CREATE_FUNC_1(ShaderAssetEntity, AssetInfo*)
+  {
+    return AssetEntity::Init(arg0);
+  }
 
 public:
   static inline IAssetConverter* CreateConverter()
@@ -13,11 +21,4 @@ public:
     return RawAssetConverterFactory::Create<ShaderAssetEntity>("Shader", "rcShader", "cso");
   }
 
-  // =================================================================
-  // Constructor / Destructor
-  // =================================================================
-public:
-  ShaderAssetEntity(AssetInfo* info)
-    : RawAssetEntity(info)
-  {}
 };

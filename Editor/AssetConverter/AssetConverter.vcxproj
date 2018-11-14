@@ -199,6 +199,8 @@
     <ClInclude Include="Constants\Extensions.h" />
     <ClInclude Include="GUI\FileView\FileView.h" />
     <ClInclude Include="Scene\AssetViewer\AssetViewerScene.h" />
+    <ClInclude Include="Scene\AssetViewer\Model\ModelViewerBehavior.h" />
+    <ClInclude Include="Scene\AssetViewer\Texture\TextureViewerBehavior.h" />
     <ClInclude Include="Util\FileUtil.h" />
     <ClInclude Include="Converter\AssetConverterContext.h" />
     <ClInclude Include="Converter\IAssetConverter.h" />
@@ -262,6 +264,8 @@
     <ClCompile Include="GUI\FileView\FileView.cpp" />
     <ClCompile Include="Scene\AssetViewer\AssetViewerBehavior.cpp" />
     <ClCompile Include="Scene\AssetViewer\AssetViewerScene.cpp" />
+    <ClCompile Include="Scene\AssetViewer\Model\ModelViewerBehavior.cpp" />
+    <ClCompile Include="Scene\AssetViewer\Texture\TextureViewerBehavior.cpp" />
     <ClCompile Include="Util\FileUtil.cpp" />
     <ClCompile Include="Util\Logger.cpp" />
     <ClCompile Include="Util\MeshBuilder\MeshBuilder_Cube.cpp" />

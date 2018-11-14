@@ -45,6 +45,7 @@ void Renderer::Draw(GameObjectRenderState* state) const
   {
     const SharedRef<const rcMaterial>& material = this->GetMaterial(i);
     const SharedRef<rcShader>& shader = material->GetShader();
+    shader->SetTexture("_MainTex", material->GetMainTexture());
     material->SetProperties(shader);
     T_UINT8 pass_count = shader->Begin();
     for (T_UINT8 j = 0; j < pass_count; ++j)

@@ -18,7 +18,7 @@ SpriteRenderer* SpriteRenderer::Create(const SharedRef<rcSprite>& sprite, GameOb
 SpriteRenderer::SpriteRenderer(GameObject* entity)
   : Renderer(entity)
 {
-  this->SetMaterial(AssetManager::Load<rcMaterial>(DefaultUniqueID::MATERIAL_SPRITE));
+  this->SetMaterial(AssetManager::Load<rcMaterial>(DefaultUniqueID::MATERIAL_UNLIT));
 }
 
 SpriteRenderer::~SpriteRenderer()

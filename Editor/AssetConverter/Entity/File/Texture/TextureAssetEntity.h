@@ -4,13 +4,12 @@
 
 class TextureAssetEntity : public AssetEntity
 {
+  // =================================================================
+  // GGG Statement
+  // =================================================================
   ENTITY_ID(ID_TEXTURE);
-
-  // =================================================================
-  // Constructor / Destructor
-  // =================================================================
-public:
-  TextureAssetEntity(AssetInfo* info);
+  GG_OBJECT(TextureAssetEntity);
+  GG_CREATE_FUNC_1(TextureAssetEntity, AssetInfo*);
 
   // =================================================================
   // Methods from AssetEntity

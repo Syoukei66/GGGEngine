@@ -411,7 +411,6 @@
   <ItemGroup>
     <FxCompile Include="Shader\Lambert.fx" />
     <FxCompile Include="Shader\Phong.fx" />
-    <FxCompile Include="Shader\Sprite.fx" />
     <FxCompile Include="Shader\Unlit.fx" />
     <FxCompile Include="Shader\White.fx" />
     <FxCompile Include="Shader\StencilShadow.fx" />

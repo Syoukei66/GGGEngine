@@ -15,6 +15,6 @@ public:
   // Methods
   // =================================================================
 protected:
-  TextureAssetEntity* ImportProcess(AssetInfo* info, AssetConverterContext* context) override;
+  SharedRef<TextureAssetEntity> ImportProcess(AssetInfo* info, AssetConverterContext* context) override;
 
 };

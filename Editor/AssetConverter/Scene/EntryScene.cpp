@@ -6,6 +6,7 @@
 #include <GUI/FileView/FileView.h>
 #include <GUI/EntityView/AssetEntityView.h>
 #include <Scene/ViewerScene.h>
+#include <GUI/FileView/FileView.h>
 
 // =================================================================
 // GGG Statement
@@ -31,10 +32,12 @@ void EntryScene::OnUnload()
 
 void EntryScene::OnShow()
 {
+  FileView::Init();
 }
 
 void EntryScene::OnHide()
 {
+  FileView::Uninit();
 }
 
 void EntryScene::Update()
@@ -53,7 +56,7 @@ void EntryScene::Update()
     AssetConverterDirector::CreateProgram();
   }
 
-  AssetEntity* selected = FileView::SelectWithImGUI();
+  const SharedRef<AssetEntity>& selected = FileView::SelectWithImGUI();
   
   if (selected)
   {
@@ -65,13 +68,14 @@ void EntryScene::Update()
   if (AssetEntityView::ShowEntity(this->selected_entity_))
   {
     this->ShowViewer(this->selected_entity_);
+    this->selected_entity_ = nullptr;
   }
 }
 
 // =================================================================
 // Methods
 // =================================================================
-void EntryScene::ShowViewer(AssetEntity* entity)
+void EntryScene::ShowViewer(const SharedRef<AssetEntity>& entity)
 {
   this->viewer_scene_->Run(entity);
 }

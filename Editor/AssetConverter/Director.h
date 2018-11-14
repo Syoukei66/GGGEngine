@@ -21,6 +21,9 @@ public:
   static void Export();
   static void CreateProgram();
 
+private:
+  static void CreateDefaultAssets();
+
   // =================================================================
   // Setter / Getter
   // =================================================================

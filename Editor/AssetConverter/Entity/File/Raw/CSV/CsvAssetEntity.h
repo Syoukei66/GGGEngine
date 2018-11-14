@@ -5,7 +5,15 @@
 
 class CsvAssetEntity : public RawAssetEntity<rcCsvData>
 {
+  // =================================================================
+  // GGG Statement
+  // =================================================================
   ENTITY_ID(ID_CSV);
+  GG_OBJECT(CsvAssetEntity);
+  GG_CREATE_FUNC_1(CsvAssetEntity, AssetInfo*)
+  {
+    return AssetEntity::Init(arg0);
+  }
 
 public:
   static inline IAssetConverter* CreateConverter()
@@ -13,11 +21,4 @@ public:
     return RawAssetConverterFactory::Create<CsvAssetEntity>("CSV", "rcCsvData", "csv");
   }
 
-  // =================================================================
-  // Constructor / Destructor
-  // =================================================================
-public:
-  CsvAssetEntity(AssetInfo* info)
-    : RawAssetEntity(info)
-  {}
 };

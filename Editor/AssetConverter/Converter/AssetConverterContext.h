@@ -23,18 +23,18 @@ public:
   // =================================================================
 public:
   inline bool Reserve(const URI& uri, const URI& source);
-  inline void VisitAllEntity(const std::function<void(AssetEntity*)>& func);
+  inline void VisitAllEntity(const std::function<void(const SharedRef<AssetEntity>&)>& func);
 
   template <class Entity_>
-  inline Entity_* ImportImmediately(const URI& uri, bool reload);
+  inline SharedRef<Entity_> ImportImmediately(const URI& uri, bool reload);
   inline bool ImportImmediately(const URI& uri, bool reload);
 
   template <class Entity_>
-  inline Entity_* AddEntity(Entity_* entity);
+  inline SharedRef<Entity_> AddEntity(const SharedRef<Entity_>& entity);
 
   template <class Entity_>
-  inline Entity_* GetEntity(const URI& uri);
-  inline AssetEntity* GetEntity(T_UINT32 unique_id);
+  inline SharedRef<Entity_> GetEntity(const URI& uri);
+  inline SharedRef<AssetEntity> GetEntity(T_UINT32 unique_id);
 
   inline T_UINT32 PublishUniqueID(const URI& uri);
   inline T_UINT32 GetUniqueID(const URI& uri) const;
@@ -67,21 +67,21 @@ inline bool AssetConverterContext::Reserve(const URI& uri, const URI& source)
   });
 }
 
-inline void AssetConverterContext::VisitAllEntity(const std::function<void(AssetEntity*)>& func)
+inline void AssetConverterContext::VisitAllEntity(const std::function<void(const SharedRef<AssetEntity>&)>& func)
 {
   this->converter_manager_->VisitAllEntity(func);
 }
 
 template<class Entity_>
-inline Entity_* AssetConverterContext::ImportImmediately(const URI& uri, bool reload)
+inline SharedRef<Entity_> AssetConverterContext::ImportImmediately(const URI& uri, bool reload)
 {
-  return this->converter_manager_->Find<Entity_, Entity_>([&](AssetConverter<Entity_>* converter)
+  return this->converter_manager_->Find<Entity_>([&](AssetConverter<Entity_>* converter)
   {
     if (converter->ImportImmediately(uri, this, reload))
     {
       return converter->GetEntity(uri, this);
     }
-    return (Entity_*)nullptr;
+    return SharedRef<Entity_>(nullptr);
   });
 }
 
@@ -94,10 +94,11 @@ inline bool AssetConverterContext::ImportImmediately(const URI& uri, bool reload
 }
 
 template<class Entity_>
-inline Entity_* AssetConverterContext::AddEntity(Entity_* entity)
+inline SharedRef<Entity_> AssetConverterContext::AddEntity(const SharedRef<Entity_>& entity)
 {
   if (!entity)
   {
+    Logger::ConvertFaildLog(entity->GetAssetInfo());
     return nullptr;
   }
   this->converter_manager_->VisitAll<Entity_>([&](AssetConverter<Entity_>* converter)
@@ -108,7 +109,7 @@ inline Entity_* AssetConverterContext::AddEntity(Entity_* entity)
 }
 
 template<class Entity_>
-inline Entity_* AssetConverterContext::GetEntity(const URI& uri)
+inline SharedRef<Entity_> AssetConverterContext::GetEntity(const URI& uri)
 {
   return this->converter_manager_->Find<Entity_, Entity_>([&](AssetConverter<Entity_>* converter)
   {
@@ -116,9 +117,9 @@ inline Entity_* AssetConverterContext::GetEntity(const URI& uri)
   });
 }
 
-inline AssetEntity* AssetConverterContext::GetEntity(T_UINT32 unique_id)
+inline SharedRef<AssetEntity> AssetConverterContext::GetEntity(T_UINT32 unique_id)
 {
-  return this->converter_manager_->FindAllEntity([&](AssetEntity* entity)
+  return this->converter_manager_->FindAllEntity([&](const SharedRef<AssetEntity>& entity)
   {
     return entity->GetAssetInfo()->GetUniqueID() == unique_id;
   });

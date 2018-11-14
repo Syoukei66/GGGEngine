@@ -3,16 +3,18 @@
 #include <Util/Logger.h>
 
 // =================================================================
-// Constructor / Destructor
+// GGG Statement
 // =================================================================
-AssetEntity::AssetEntity(AssetInfo* info)
-  : info_(info)
+GG_INIT_FUNC_IMPL_1(AssetEntity, AssetInfo* info)
 {
+  this->info_ = info;
+  return true;
 }
 
-AssetEntity::~AssetEntity()
+GG_DESTRUCT_FUNC_IMPL(AssetEntity)
 {
   delete this->info_;
+  return true;
 }
 
 // =================================================================
@@ -31,13 +33,13 @@ void AssetEntity::CheckChanged(std::set<std::string>* sources)
     sources->insert(this->info_->GetSourceURI().GetFullPath());
     this->info_->GetMetaData()->Save();
   }
-  for (AssetEntity* entity : this->referenced_entities_)
+  for (const SharedRef<AssetEntity>& entity : this->referenced_entities_)
   {
     entity->CheckChanged(sources);
   }
 }
 
-void AssetEntity::AddReferencedEntity(AssetEntity* entity)
+void AssetEntity::AddReferencedEntity(const SharedRef<AssetEntity>& entity)
 {
   if (!entity)
   {

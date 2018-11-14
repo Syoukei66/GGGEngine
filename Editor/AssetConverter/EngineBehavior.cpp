@@ -1,7 +1,6 @@
 #include "EngineBehavior.h"
 #include <Scene/EntryScene.h>
 #include <Director.h>
-#include <GUI/FileView/FileView.h>
 
 // =================================================================
 // Methods from IEngineBehavior
@@ -18,12 +17,10 @@ void EngineBehavior::OnGameBegin()
 {
   AssetConverterDirector::Init();
   AssetConverterDirector::Import();
-  FileView::Init();
 }
 
 void EngineBehavior::OnGameEnd()
 {
-  FileView::Uninit();
   AssetConverterDirector::Uninit();
 }
 

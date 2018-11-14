@@ -6,17 +6,18 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-ModelAssetEntity::ModelAssetEntity(AssetInfo* info, ModelData* data, const aiScene* scene)
-  : AssetEntity(info)
-  , scene_(scene)
-  , data_(data)
+GG_INIT_FUNC_IMPL_3(ModelAssetEntity, AssetInfo* info, ModelData* data, const aiScene* scene)
 {
+  this->scene_ = scene;
+  this->data_ = data;
+  return AssetEntity::Init(info);
 }
 
-ModelAssetEntity::~ModelAssetEntity()
+GG_DESTRUCT_FUNC_IMPL(ModelAssetEntity)
 {
   aiReleaseImport(this->scene_);
   delete this->data_;
+  return true;
 }
 
 // =================================================================

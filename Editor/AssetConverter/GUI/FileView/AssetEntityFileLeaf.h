@@ -8,13 +8,13 @@ class AssetEntityFileLeaf : public GGObject
   // GGG Statement
   // =================================================================
   GG_OBJECT(AssetEntityFileLeaf);
-  GG_CREATE_FUNC_1(AssetEntityFileLeaf, AssetEntity*);
+  GG_CREATE_FUNC_1(AssetEntityFileLeaf, const SharedRef<AssetEntity>&);
 
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  GG_INLINE AssetEntity* GetEntity()
+  GG_INLINE SharedRef<AssetEntity> GetEntity()
   {
     return this->entity_;
   }
@@ -23,6 +23,6 @@ public:
   // Data Members
   // =================================================================
 private:
-  AssetEntity* entity_;
+  SharedRef<AssetEntity> entity_;
 
 };

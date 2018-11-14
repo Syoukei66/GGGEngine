@@ -15,8 +15,10 @@ AssetMetaData* AssetMetaData::Create(const URI& uri, const URI& source_uri, Asse
     return new AssetMetaData(uri, source_uri, context);
   }
   AssetMetaData* ret = CerealIO::Json::SafeImport<AssetMetaData>(path.c_str());
+  GG_ASSERT(!ret || ret->unique_id_ == context->GetUniqueID(uri), "メタデータとUniqueIdTableに不整合が見つかりました");
   if (!ret)
-  {
+  { 
+    // メタデータの読み込みに失敗したらメタデータを作成
     ret = new AssetMetaData(uri, source_uri, context);
   }
   return ret;

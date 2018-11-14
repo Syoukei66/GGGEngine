@@ -9,7 +9,7 @@ void FileView::Init()
   FileView* self = &Self();
   self->root_ = AssetEntityFileNode::Create();
   AssetConverterContext* context = AssetConverterDirector::GetContext();
-  context->VisitAllEntity([&](AssetEntity* entity)
+  context->VisitAllEntity([&](const SharedRef<AssetEntity>& entity)
   {
     self->root_->AddAssetEntity(entity);
   });
@@ -21,7 +21,7 @@ void FileView::Uninit()
   self->root_ = nullptr;
 }
 
-AssetEntity* FileView::SelectWithImGUI()
+SharedRef<AssetEntity> FileView::SelectWithImGUI()
 {
   FileView* self = &Self();
 
@@ -29,7 +29,7 @@ AssetEntity* FileView::SelectWithImGUI()
   ImGui::SetNextWindowSize(ImVec2(250.0f, 600.0f), ImGuiSetCond_Once);
 
   ImGui::Begin("FileView");
-  AssetEntity* entity = self->root_->SelectWithImGUI();
+  const SharedRef<AssetEntity>& entity = self->root_->SelectWithImGUI();
   ImGui::End();
 
   return entity;

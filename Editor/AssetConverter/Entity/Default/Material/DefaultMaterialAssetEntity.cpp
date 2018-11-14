@@ -1,17 +1,18 @@
 #include "DefaultMaterialAssetEntity.h"
 
 // =================================================================
-// Constructor / Destructor
+// GGG Statement
 // =================================================================
-DefaultMaterialAssetEntity::DefaultMaterialAssetEntity(AssetInfo* info, MaterialData* data)
-  : AssetEntity(info)
-  , data_(data)
+GG_INIT_FUNC_IMPL_2(DefaultMaterialAssetEntity, AssetInfo* info, MaterialData* data)
 {
+  this->data_ = data;
+  return AssetEntity::Init(info);
 }
 
-DefaultMaterialAssetEntity::~DefaultMaterialAssetEntity()
+GG_DESTRUCT_FUNC_IMPL(DefaultMaterialAssetEntity)
 {
   delete this->data_;
+  return true;
 }
 
 // =================================================================

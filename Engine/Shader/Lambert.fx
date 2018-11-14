@@ -32,7 +32,7 @@ v2f vert(appdata v)
 
 float4 frag(v2f i) : SV_TARGET
 {
-  return i.color;
+  return tex2D(_MainTexSampler, i.uv) * i.color;
 }
 
 technique Default

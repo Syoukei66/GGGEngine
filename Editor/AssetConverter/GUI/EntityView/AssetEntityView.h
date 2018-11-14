@@ -17,9 +17,9 @@ public:
    * @brief AssetEntityの詳細情報を表示する
    * @return trueならビューワーを起動
    */
-  static bool ShowEntity(AssetEntity* entity);
+  static bool ShowEntity(const SharedRef<AssetEntity>& entity);
 
 private:
-  static void StartViewer(AssetEntity* entity);
+  static void StartViewer(const SharedRef<AssetEntity>& entity);
 
 };

@@ -22,19 +22,19 @@ public:
   inline bool IsTarget(const URI& uri);
   inline bool Reserve(const URI& uri, const URI& source, AssetConverterContext* context);
 
-  void Import(std::unordered_map<T_UINT32, Entity_*>* dest, AssetConverterContext* context);
+  void Import(std::unordered_map<T_UINT32, SharedRef<Entity_>>* dest, AssetConverterContext* context);
   //アセットが参照しているアセットのロードが行われる為、
   //一括ループではなく１つずつロードした方が安全
-  bool ImportOnce(std::unordered_map<T_UINT32, Entity_*>* dest, AssetConverterContext* context);
-  bool ImportOnce(T_UINT32 unique_id, std::unordered_map<T_UINT32, Entity_*>* dest, AssetConverterContext* context);
-  Entity_* ImportImmediately(const URI& uri, AssetConverterContext* context);
+  bool ImportOnce(std::unordered_map<T_UINT32, SharedRef<Entity_>>* dest, AssetConverterContext* context);
+  bool ImportOnce(T_UINT32 unique_id, std::unordered_map<T_UINT32, SharedRef<Entity_>>* dest, AssetConverterContext* context);
+  SharedRef<Entity_> ImportImmediately(const URI& uri, AssetConverterContext* context);
 
 protected:
   /*!
    * @brief アセットのインポート実処理
    * 派生クラス側で実際のインポート処理を記述する。
    */
-  virtual Entity_* ImportProcess(AssetInfo* info, AssetConverterContext* context) = 0;
+  virtual SharedRef<Entity_> ImportProcess(AssetInfo* info, AssetConverterContext* context) = 0;
 
   // =================================================================
   // Data Members
@@ -83,7 +83,7 @@ inline bool AssetImporter<Entity_>::Reserve(const URI& uri, const URI& source, A
 }
 
 template<class Entity_>
-inline void AssetImporter<Entity_>::Import(std::unordered_map<T_UINT32, Entity_*>* dest, AssetConverterContext* context)
+inline void AssetImporter<Entity_>::Import(std::unordered_map<T_UINT32, SharedRef<Entity_>>* dest, AssetConverterContext* context)
 {
   for (auto& pair : this->reserve_assets_)
   {
@@ -95,7 +95,7 @@ inline void AssetImporter<Entity_>::Import(std::unordered_map<T_UINT32, Entity_*
 //アセットが参照しているアセットのロードが行われる為、
 //一括ループではなく１つずつロードした方が安全
 template<class Entity_>
-inline bool AssetImporter<Entity_>::ImportOnce(std::unordered_map<T_UINT32, Entity_*>* dest, AssetConverterContext* context)
+inline bool AssetImporter<Entity_>::ImportOnce(std::unordered_map<T_UINT32, SharedRef<Entity_>>* dest, AssetConverterContext* context)
 {
   const auto& begin = this->reserve_assets_.begin();
   if (begin == this->reserve_assets_.end())
@@ -113,7 +113,7 @@ inline bool AssetImporter<Entity_>::ImportOnce(std::unordered_map<T_UINT32, Enti
 }
 
 template<class Entity_>
-inline bool AssetImporter<Entity_>::ImportOnce(T_UINT32 unique_id, std::unordered_map<T_UINT32, Entity_*>* dest, AssetConverterContext* context)
+inline bool AssetImporter<Entity_>::ImportOnce(T_UINT32 unique_id, std::unordered_map<T_UINT32, SharedRef<Entity_>>* dest, AssetConverterContext* context)
 {
   const auto& itr = this->reserve_assets_.find(unique_id);
   if (itr == this->reserve_assets_.end())
@@ -130,7 +130,7 @@ inline bool AssetImporter<Entity_>::ImportOnce(T_UINT32 unique_id, std::unordere
 }
 
 template<class Entity_>
-inline Entity_* AssetImporter<Entity_>::ImportImmediately(const URI& uri, AssetConverterContext* context)
+inline SharedRef<Entity_> AssetImporter<Entity_>::ImportImmediately(const URI& uri, AssetConverterContext* context)
 {
   AssetInfo* info = nullptr;
 

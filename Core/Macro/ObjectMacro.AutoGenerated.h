@@ -65,7 +65,7 @@ public:\
     }\
     return UniqueRef<Type>(ret);\
   }\
-GG_INIT_FUNC_1(Type, Arg0)
+GG_INIT_FUNC_1(Type, Arg0 arg0)
 
 /*!
  * @brief GGObject‚Ì‰Šú‰»ŠÖ”éŒ¾
@@ -98,7 +98,7 @@ public:\
     }\
     return UniqueRef<Type>(ret);\
   }\
-GG_INIT_FUNC_2(Type, Arg0, Arg1)
+GG_INIT_FUNC_2(Type, Arg0 arg0, Arg1 arg1)
 
 /*!
  * @brief GGObject‚Ì‰Šú‰»ŠÖ”éŒ¾
@@ -131,7 +131,7 @@ public:\
     }\
     return UniqueRef<Type>(ret);\
   }\
-GG_INIT_FUNC_3(Type, Arg0, Arg1, Arg2)
+GG_INIT_FUNC_3(Type, Arg0 arg0, Arg1 arg1, Arg2 arg2)
 
 /*!
  * @brief GGObject‚Ì‰Šú‰»ŠÖ”éŒ¾
@@ -164,7 +164,7 @@ public:\
     }\
     return UniqueRef<Type>(ret);\
   }\
-GG_INIT_FUNC_4(Type, Arg0, Arg1, Arg2, Arg3)
+GG_INIT_FUNC_4(Type, Arg0 arg0, Arg1 arg1, Arg2 arg2, Arg3 arg3)
 
 /*!
  * @brief GGObject‚Ì‰Šú‰»ŠÖ”éŒ¾
@@ -197,7 +197,7 @@ public:\
     }\
     return UniqueRef<Type>(ret);\
   }\
-GG_INIT_FUNC_5(Type, Arg0, Arg1, Arg2, Arg3, Arg4)
+GG_INIT_FUNC_5(Type, Arg0 arg0, Arg1 arg1, Arg2 arg2, Arg3 arg3, Arg4 arg4)
 
 /*!
  * @brief GGObject‚Ì‰Šú‰»ŠÖ”éŒ¾
@@ -230,7 +230,7 @@ public:\
     }\
     return UniqueRef<Type>(ret);\
   }\
-GG_INIT_FUNC_6(Type, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5)
+GG_INIT_FUNC_6(Type, Arg0 arg0, Arg1 arg1, Arg2 arg2, Arg3 arg3, Arg4 arg4, Arg5 arg5)
 
 /*!
  * @brief GGObject‚Ì‰Šú‰»ŠÖ”éŒ¾
@@ -263,7 +263,7 @@ public:\
     }\
     return UniqueRef<Type>(ret);\
   }\
-GG_INIT_FUNC_7(Type, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6)
+GG_INIT_FUNC_7(Type, Arg0 arg0, Arg1 arg1, Arg2 arg2, Arg3 arg3, Arg4 arg4, Arg5 arg5, Arg6 arg6)
 
 /*!
  * @brief GGObject‚Ì‰Šú‰»ŠÖ”éŒ¾
@@ -296,7 +296,7 @@ public:\
     }\
     return UniqueRef<Type>(ret);\
   }\
-GG_INIT_FUNC_8(Type, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7)
+GG_INIT_FUNC_8(Type, Arg0 arg0, Arg1 arg1, Arg2 arg2, Arg3 arg3, Arg4 arg4, Arg5 arg5, Arg6 arg6, Arg7 arg7)
 
 /*!
  * @brief GGObject‚Ì‰Šú‰»ŠÖ”éŒ¾
@@ -329,5 +329,5 @@ public:\
     }\
     return UniqueRef<Type>(ret);\
   }\
-GG_INIT_FUNC_9(Type, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
+GG_INIT_FUNC_9(Type, Arg0 arg0, Arg1 arg1, Arg2 arg2, Arg3 arg3, Arg4 arg4, Arg5 arg5, Arg6 arg6, Arg7 arg7, Arg8 arg8)
 

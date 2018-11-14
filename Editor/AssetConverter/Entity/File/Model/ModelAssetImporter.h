@@ -15,6 +15,6 @@ public:
   // Methods
   // =================================================================
 protected:
-  ModelAssetEntity* ImportProcess(AssetInfo* info, AssetConverterContext* context) override;
+  SharedRef<ModelAssetEntity> ImportProcess(AssetInfo* info, AssetConverterContext* context) override;
 
 };

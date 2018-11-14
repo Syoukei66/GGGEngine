@@ -1,5 +1,6 @@
 #include "AssetViewerScene.h"
 #include <Scene/AssetViewer/Mesh/MeshViewerBehavior.h>
+#include <Scene/AssetViewer/Model/ModelViewerBehavior.h>
 
 // =================================================================
 // GGG Statement
@@ -32,12 +33,13 @@ GG_INIT_FUNC_IMPL(AssetViewerScene)
   //  break;
   //}
   this->behaviors_.push_back(MeshViewerBehavior::Create());
+  this->behaviors_.push_back(ModelViewerBehavior::Create());
   return ViewerScene::Init();
 }
 // =================================================================
 // Methods
 // =================================================================
-void AssetViewerScene::Run(AssetEntity* entity)
+void AssetViewerScene::Run(const SharedRef<AssetEntity>& entity)
 {
   SharedRef<AssetViewerBehavior> current_behavior = nullptr;
   for (const SharedRef<AssetViewerBehavior>& behavior : this->behaviors_)

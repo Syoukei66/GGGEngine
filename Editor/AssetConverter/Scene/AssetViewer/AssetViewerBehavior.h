@@ -31,7 +31,7 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  GG_INLINE void SetEntity(AssetEntity* entity)
+  GG_INLINE void SetEntity(const SharedRef<AssetEntity>& entity)
   {
     this->entity_ = entity;
   }
@@ -40,6 +40,6 @@ public:
   // Data Member
   // =================================================================
 private:
-  AssetEntity* entity_;
+  SharedRef<AssetEntity> entity_;
 
 };

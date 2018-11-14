@@ -55,8 +55,13 @@ TColor ToTColor(const aiColor4D & col)
   return ret;
 }
 
-ModelMeshAssetEntity* ImportMesh(AssetInfo* info, const aiScene* scene, AssetConverterContext* context)
+SharedRef<ModelMeshAssetEntity> ImportMesh(AssetInfo* info, const aiScene* scene, AssetConverterContext* context)
 {
+  if (scene->mNumMeshes == 0)
+  {
+    Log::Warn("メッシュの数が０個でした");
+  }
+
   MeshData* data = new MeshData();
 
   using namespace Vertex;
@@ -177,10 +182,10 @@ ModelMeshAssetEntity* ImportMesh(AssetInfo* info, const aiScene* scene, AssetCon
   data->bounds_.extents.y = (max.y - min.y) * 0.5f;
   data->bounds_.extents.z = (max.z - min.z) * 0.5f;
   
-  return new ModelMeshAssetEntity(info, data);
+  return ModelMeshAssetEntity::Create(info, data);
 }
 
-static TextureAssetEntity* ImportTexture(AssetInfo* info, const aiMaterial* material, aiTextureType type, T_UINT32 i, AssetConverterContext* context)
+static SharedRef<TextureAssetEntity> ImportTexture(AssetInfo* info, const aiMaterial* material, aiTextureType type, T_UINT32 i, AssetConverterContext* context)
 {
   aiString path;
   aiTextureMapping mapping;
@@ -208,7 +213,7 @@ static T_UINT32 ImportShader(AssetInfo* info, const aiMaterial* material, AssetC
   return DefaultUniqueID::SHADER_GOURAUD;
 }
 
-static ModelMaterialAssetEntity* ImportMaterial(AssetInfo* info, const aiMaterial* material, AssetConverterContext* context)
+static SharedRef<ModelMaterialAssetEntity> ImportMaterial(AssetInfo* info, const aiMaterial* material, AssetConverterContext* context)
 {
   MaterialData* data = new MaterialData();
 
@@ -218,21 +223,21 @@ static ModelMaterialAssetEntity* ImportMaterial(AssetInfo* info, const aiMateria
   {
     data->color_ = ToTColor(color);
   }
-  TextureAssetEntity* tex_asset_entity = ImportTexture(info, material, aiTextureType_DIFFUSE, 0, context);
+  SharedRef<TextureAssetEntity> tex_asset_entity = ImportTexture(info, material, aiTextureType_DIFFUSE, 0, context);
   data->main_tex_unique_id_ = tex_asset_entity ? tex_asset_entity->GetAssetInfo()->GetUniqueID() : 0;
   data->tiling_ = TVec2f(1.0f, 1.0f);
   data->tiling_offset_ = TVec2f(0.0f, 0.0f);
   //TODO:プロパティのインポート処理
   data->shader_unique_id_ = ImportShader(info, material, context);
 
-  ModelMaterialAssetEntity* entity = new ModelMaterialAssetEntity(info, data, info->GetUniqueID());
+  const SharedRef<ModelMaterialAssetEntity>& entity = ModelMaterialAssetEntity::Create(info, data);
 
   entity->AddReferencedEntity(tex_asset_entity);
 
   return entity;
 }
 
-ModelAssetEntity* ModelAssetImporter::ImportProcess(AssetInfo* info, AssetConverterContext* context)
+SharedRef<ModelAssetEntity> ModelAssetImporter::ImportProcess(AssetInfo* info, AssetConverterContext* context)
 {  
   using namespace Assimp;
   //一部のファイルでメモリリークが発生
@@ -285,12 +290,12 @@ ModelAssetEntity* ModelAssetImporter::ImportProcess(AssetInfo* info, AssetConver
 
   ModelData* data = new ModelData();
 
-  std::vector<AssetEntity*> referenced_assets = std::vector<AssetEntity*>();
+  std::vector<SharedRef<AssetEntity>> referenced_assets = std::vector<SharedRef<AssetEntity>>();
 
   //Mesh
   AssetInfo* mesh_asset_info = AssetInfo::Create(URI(info->GetURI().GetDirectoryPath(), info->GetURI().GetPrefix(), Extensions::MESH), info->GetURI(), context);
 
-  AssetEntity* mesh_asset_entity = context->AddEntity(ImportMesh(mesh_asset_info, scene, context));
+  const SharedRef<AssetEntity>& mesh_asset_entity = context->AddEntity(ImportMesh(mesh_asset_info, scene, context));
   referenced_assets.push_back(mesh_asset_entity);
   data->mesh_unique_id_ = mesh_asset_info->GetUniqueID();
 
@@ -303,7 +308,7 @@ ModelAssetEntity* ModelAssetImporter::ImportProcess(AssetInfo* info, AssetConver
     if (AI_SUCCESS == aiGetMaterialString(mat, AI_MATKEY_NAME, &name))
     {
       AssetInfo* mat_asset_info = AssetInfo::Create(URI(info->GetURI().GetDirectoryPath(), name.C_Str(), Extensions::MATERIAL), info->GetURI(), context);
-      AssetEntity* material_asset_entity = context->AddEntity(ImportMaterial(mat_asset_info, mat, context));
+      const SharedRef<AssetEntity>& material_asset_entity = context->AddEntity(ImportMaterial(mat_asset_info, mat, context));
       material_asset_infos.push_back(mat_asset_info);
       referenced_assets.push_back(material_asset_entity);
     }
@@ -315,8 +320,8 @@ ModelAssetEntity* ModelAssetImporter::ImportProcess(AssetInfo* info, AssetConver
     data->material_unique_ids_.push_back(material_asset_infos[mesh->mMaterialIndex]->GetUniqueID());
   }
 
-  ModelAssetEntity* entity = new ModelAssetEntity(info, data, scene);
-  for (AssetEntity* referenced : referenced_assets)
+  const SharedRef<ModelAssetEntity>& entity = ModelAssetEntity::Create(info, data, scene);
+  for (const SharedRef<AssetEntity>& referenced : referenced_assets)
   {
     entity->AddReferencedEntity(referenced);
   }

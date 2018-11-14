@@ -4,14 +4,13 @@
 
 class ModelMaterialAssetEntity : public AssetEntity
 {
+  // =================================================================
+  // GGG Statement
+  // =================================================================
   ENTITY_ID(ID_MODEL_MATERIAL);
-
-  // =================================================================
-  // Constructor / Destructor
-  // =================================================================
-public:
-  ModelMaterialAssetEntity(AssetInfo* info, MaterialData* data, T_UINT32 model_unique_id);
-  ~ModelMaterialAssetEntity();
+  GG_OBJECT(ModelMaterialAssetEntity);
+  GG_CREATE_FUNC_2(ModelMaterialAssetEntity, AssetInfo*, MaterialData*);
+  GG_DESTRUCT_FUNC(ModelMaterialAssetEntity);
 
   // =================================================================
   // Methods from AssetEntity
@@ -33,6 +32,5 @@ public:
   // =================================================================
 private:
   MaterialData* data_;
-  T_UINT32 model_unique_id_;
 
 };

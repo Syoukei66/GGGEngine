@@ -14,11 +14,4 @@ public:
     AssetManager::AddAsset<Asset_>(uid, extension, Asset_::CreateFromFile(this->GetAssetInfo()->GetInputPath().c_str()));
   }
 
-  // =================================================================
-  // Constructor / Destructor
-  // =================================================================
-public:
-  RawAssetEntity(AssetInfo* info)
-    : AssetEntity(info)
-  {}
 };

@@ -12,7 +12,7 @@ virtual T_UINT32 GetID() const override\
   return ID;\
 }
 
-class AssetEntity
+class AssetEntity : public GGObject
 {
 public:
   enum EntityID
@@ -30,11 +30,10 @@ public:
   };
 
   // =================================================================
-  // Constructor / Destructor
+  // GGG Statement
   // =================================================================
-public:
-  AssetEntity(AssetInfo* info);
-  virtual ~AssetEntity();
+  GG_INIT_FUNC_1(AssetEntity, AssetInfo*);
+  GG_DESTRUCT_FUNC(AssetEntity);
 
   // =================================================================
   // Methods
@@ -55,7 +54,7 @@ public:
   /*!
    * @brief 参照しているアセットを追加する
    */
-  void AddReferencedEntity(AssetEntity* entity);
+  void AddReferencedEntity(const SharedRef<AssetEntity>& entity);
 
 protected:
   /*!
@@ -79,6 +78,6 @@ public:
   // =================================================================
 private:
   AssetInfo* info_;
-  std::vector<AssetEntity*> referenced_entities_;
+  std::vector<SharedRef<AssetEntity>> referenced_entities_;
 
 };

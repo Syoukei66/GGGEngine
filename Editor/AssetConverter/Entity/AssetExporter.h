@@ -21,10 +21,10 @@ public:
   // Methods
   // =================================================================
 public:
-  void Export(const std::unordered_map<T_UINT32, Entity_*>& entities, const AssetConverterContext* context);
+  void Export(const std::unordered_map<T_UINT32, SharedRef<Entity_>>& entities, const AssetConverterContext* context);
 
 protected:
-  virtual void ExportProcess(Entity_* entity, const AssetConverterContext* context) = 0;
+  virtual void ExportProcess(const SharedRef<Entity_>& entity, const AssetConverterContext* context) = 0;
 
   // =================================================================
   // Setter / Getter
@@ -49,7 +49,7 @@ private:
 // Methods
 // =================================================================
 template<class Entity_>
-inline void AssetExporter<Entity_>::Export(const std::unordered_map<T_UINT32, Entity_*>& entities, const AssetConverterContext* context)
+inline void AssetExporter<Entity_>::Export(const std::unordered_map<T_UINT32, SharedRef<Entity_>>& entities, const AssetConverterContext* context)
 {
   for (auto& pair : entities)
   {

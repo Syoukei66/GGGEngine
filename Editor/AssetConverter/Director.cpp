@@ -38,31 +38,6 @@ void AssetConverterDirector::Init()
   self->context_ = new AssetConverterContext(self->unique_id_table_, self->converter_manager_);
   AssetManager::Init(self->unique_id_table_);
 
-  using namespace DefaultUniqueID;
-  using namespace DefaultAsset;
-  self->context_->RegisterDefaultUniqueID(SHADER_FLAT,          SHADER_PATH_WHITE);
-  self->context_->RegisterDefaultUniqueID(SHADER_GOURAUD,       SHADER_PATH_LAMBERT);
-  self->context_->RegisterDefaultUniqueID(SHADER_PHONG,         SHADER_PATH_PHONG);
-  self->context_->RegisterDefaultUniqueID(SHADER_BLIN,          SHADER_PATH_WHITE);
-  self->context_->RegisterDefaultUniqueID(SHADER_TOON,          SHADER_PATH_WHITE);
-  self->context_->RegisterDefaultUniqueID(SHADER_OREN_NAYAR,    SHADER_PATH_WHITE);
-  self->context_->RegisterDefaultUniqueID(SHADER_MINNAERT,      SHADER_PATH_WHITE);
-  self->context_->RegisterDefaultUniqueID(SHADER_COOK_TORRANCE, SHADER_PATH_WHITE);
-  self->context_->RegisterDefaultUniqueID(SHADER_NO_SHADING,    SHADER_PATH_WHITE);
-  self->context_->RegisterDefaultUniqueID(SHADER_FRESNEL,       SHADER_PATH_WHITE);
-
-  self->context_->RegisterDefaultUniqueID(SHADER_SPRITE, SHADER_PATH_SPRITE);
-  self->context_->RegisterDefaultUniqueID(SHADER_STENCIL_SHADOW, SHADER_PATH_STENCIL_SHADOW);
-
-  self->context_->RegisterDefaultUniqueID(MESH_CUBE,    MESH_PATH_CUBE);
-  self->context_->RegisterDefaultUniqueID(MESH_PLANE,   MESH_PATH_PLANE);
-
-  self->context_->RegisterDefaultUniqueID(MATERIAL_WHITE,   MATERIAL_PATH_WHITE);
-  self->context_->RegisterDefaultUniqueID(MATERIAL_LAMBERT, MATERIAL_PATH_LAMBERT);
-  self->context_->RegisterDefaultUniqueID(MATERIAL_SPRITE,  MATERIAL_PATH_SPRITE);
-  self->context_->RegisterDefaultUniqueID(MATERIAL_STENCIL_SHADOW, MATERIAL_PATH_STENCIL_SHADOW);
-
-
   // 依存関係を正しく解決できる順番にAssetConverterを登録する必要がある
 
   // Raw
@@ -120,6 +95,9 @@ void AssetConverterDirector::Import()
     }
   });
 
+  // デフォルトアセットの作成
+  CreateDefaultAssets();
+
   //Converterのインポート予約が無くなるまでConverterのインポート処理
   while (
     //イテレーターのロードを１つずつ行う
@@ -131,7 +109,15 @@ void AssetConverterDirector::Import()
     })
   );
 
-  self->converter_manager_->VisitAllEntity([&](AssetEntity* entity)
+  // UniqueIdTableを保存する
+  CerealIO::Json::Export(FileUtil::GetMidDataUniqueIdTablePath().c_str(), self->unique_id_table_);
+
+  self->context_->VisitAllEntity([&](const SharedRef<AssetEntity>& entity)
+  {
+    entity->GetAssetInfo()->GetMetaData()->Save();
+  });
+
+  self->converter_manager_->VisitAllEntity([&](const SharedRef<AssetEntity>& entity)
   {
     entity->CommitChanges();
   });
@@ -213,4 +199,35 @@ void AssetConverterDirector::CreateProgram()
     output_cpp << cpp;
     output_cpp.close();
   }
+}
+
+void AssetConverterDirector::CreateDefaultAssets()
+{
+  AssetConverterDirector* self = &Self();
+  
+  using namespace DefaultUniqueID;
+  using namespace DefaultAsset;
+  self->context_->RegisterDefaultUniqueID(SHADER_FLAT, SHADER_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(SHADER_GOURAUD, SHADER_PATH_LAMBERT);
+  self->context_->RegisterDefaultUniqueID(SHADER_PHONG, SHADER_PATH_PHONG);
+  self->context_->RegisterDefaultUniqueID(SHADER_BLIN, SHADER_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(SHADER_TOON, SHADER_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(SHADER_OREN_NAYAR, SHADER_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(SHADER_MINNAERT, SHADER_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(SHADER_COOK_TORRANCE, SHADER_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(SHADER_NO_SHADING, SHADER_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(SHADER_FRESNEL, SHADER_PATH_WHITE);
+
+  self->context_->RegisterDefaultUniqueID(SHADER_STENCIL_SHADOW, SHADER_PATH_STENCIL_SHADOW);
+
+  self->context_->RegisterDefaultUniqueID(MESH_CUBE, MESH_PATH_CUBE);
+  self->context_->RegisterDefaultUniqueID(MESH_PLANE, MESH_PATH_PLANE);
+
+  self->context_->RegisterDefaultUniqueID(MATERIAL_WHITE, MATERIAL_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(MATERIAL_LAMBERT, MATERIAL_PATH_LAMBERT);
+  self->context_->RegisterDefaultUniqueID(MATERIAL_UNLIT, MATERIAL_PATH_UNLIT);
+  self->context_->RegisterDefaultUniqueID(MATERIAL_STENCIL_SHADOW, MATERIAL_PATH_STENCIL_SHADOW);
+
+  self->context_->RegisterDefaultUniqueID(TEXTURE_WHITE, TEXTURE_PATH_WHITE);
+
 }

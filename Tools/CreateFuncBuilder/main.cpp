@@ -107,7 +107,7 @@ string CreateMacroCall(const string& name, int argnum)
     suffix = "_" + to_string(argnum);
     type += ", ";
   }
-  ret.append(name + suffix + "(" + type + CreateArgment(argnum) + ")");
+  ret.append(name + suffix + "(" + type + CreateArgmentImpl(argnum) + ")");
   return ret;
 }
 

@@ -50,11 +50,13 @@ void SceneManager::ClearScene()
 {
   for (const SharedRef<Scene>& scene : this->scene_stack_)
   {
+    scene->Hide();
     scene->Unload();
   }
   this->scene_stack_.clear();
   if (this->now_scene_)
   {
+    this->now_scene_->Hide();
     this->now_scene_->Unload();
     this->now_scene_ = nullptr;
   }

@@ -17,7 +17,7 @@ public:
   static void Init();
   static void Uninit();
 
-  static AssetEntity* SelectWithImGUI();
+  static SharedRef<AssetEntity> SelectWithImGUI();
 
   // =================================================================
   // Data Members

@@ -26,13 +26,13 @@ public:
   // Methods
   // =================================================================
 private:
-  void ShowViewer(AssetEntity* entity);
+  void ShowViewer(const SharedRef<AssetEntity>& entity);
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
-  AssetEntity* selected_entity_;
+  SharedRef<AssetEntity> selected_entity_;
   SharedRef<AssetViewerScene> viewer_scene_;
 
 };
