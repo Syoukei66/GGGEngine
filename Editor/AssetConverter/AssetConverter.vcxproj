@@ -260,6 +260,7 @@
     <ClCompile Include="ProgramGenerator\AssetProgramGenerator_namespace.cpp" />
     <ClCompile Include="Assimp\AssimpMaterialSystemImporter.cpp" />
     <ClCompile Include="GUI\FileView\FileView.cpp" />
+    <ClCompile Include="Scene\AssetViewer\AssetViewerBehavior.cpp" />
     <ClCompile Include="Scene\AssetViewer\AssetViewerScene.cpp" />
     <ClCompile Include="Util\FileUtil.cpp" />
     <ClCompile Include="Util\Logger.cpp" />

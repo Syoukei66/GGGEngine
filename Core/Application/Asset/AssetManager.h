@@ -97,8 +97,15 @@ public:
   template<class Asset_>
   static GG_INLINE const AssetLoader<Asset_>& AddAsset(T_UINT32 uid, const std::string& extension, const SharedRef<Asset_>& asset)
   {
-    Self().loaders_[uid] = new AssetLoader<Asset_>(uid, std::to_string(uid) + "." + extension, asset);
-    return (const AssetLoader<Asset_>&)*Self().loaders_.at(uid);
+    AssetManager* self = &Self();
+    const auto& itr = self->loaders_.find(uid);
+    if (itr != self->loaders_.end())
+    {
+      delete self->loaders_[uid];
+      self->loaders_.erase(uid);
+    }
+    self->loaders_[uid] = new AssetLoader<Asset_>(uid, std::to_string(uid) + "." + extension, asset);
+    return (const AssetLoader<Asset_>&)*self->loaders_.at(uid);
   }
   // =================================================================
   // Data Members

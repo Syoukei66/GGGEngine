@@ -55,3 +55,29 @@ void AssetConverterManager::VisitAllEntity(const std::function<void(AssetEntity*
     pair.second->VisitAllEntity(func);
   }
 }
+
+AssetEntity* AssetConverterManager::FindAllEntity(const std::function<bool(AssetEntity*)>& func)
+{
+  for (auto& pair : this->converter_map_)
+  {
+    AssetEntity* entity = pair.second->FindAllEntity(func);
+    if (entity)
+    {
+      return entity;
+    }
+  }
+  return nullptr;
+}
+
+AssetEntity* AssetConverterManager::Find(const std::function<AssetEntity*(IAssetConverter*)>& func)
+{
+  for (auto& pair : this->converter_map_)
+  {
+    AssetEntity* val = func(pair.second);
+    if (val)
+    {
+      return val;
+    }
+  }
+  return nullptr;
+}

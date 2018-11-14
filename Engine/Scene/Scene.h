@@ -6,8 +6,6 @@
 #include <Engine/Component/Camera/Camera2D.h>
 #include <Engine/Component/Camera/Camera3D.h>
 
-#include "SceneTransitioner.h"
-
 class Scene : public GGObject
 {
   // =================================================================
@@ -23,11 +21,8 @@ public:
   void Load();
   void Unload();
 
-  void Show(ISceneShowListener* listener);
-  void ShowFinish();
-
-  void Hide(ISceneHideListener* listener);
-  void HideFinish();
+  void Show();
+  void Hide();
 
   void Draw();
   void Draw2DLayers(GameObjectRenderState* state);
@@ -94,19 +89,14 @@ public:
   virtual void Update() {}
   virtual void PostUpdate() {}
 
-  virtual void OnInputEvent() {}
-
   void OnUpdateEvent();
 
 protected:
   virtual void OnLoad() = 0;
   virtual void OnUnload() = 0;
 
-  virtual void OnShow(ISceneShowListener* listener) = 0;
-  virtual void OnShowFinish() {}
-
-  virtual void OnHide(ISceneHideListener* listener) = 0;
-  virtual void OnHideFinish() {}
+  virtual void OnShow() = 0;
+  virtual void OnHide() = 0;
 
   // =================================================================
   // Setter / Getter

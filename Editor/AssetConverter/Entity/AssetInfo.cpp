@@ -10,16 +10,19 @@
 // =================================================================
 AssetInfo* AssetInfo::Create(const URI& uri, AssetConverterContext* context)
 {
-  AssetInfo* ret = new AssetInfo(uri);
-  ret->meta_data_ = AssetMetaData::Create(uri, context);
-  return ret;
+  return AssetInfo::Create(uri, uri, context);
+}
+
+AssetInfo* AssetInfo::Create(const URI& uri, const URI& source, AssetConverterContext* context)
+{
+  return new AssetInfo(AssetMetaData::Create(uri, source, context));
 }
 
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-AssetInfo::AssetInfo(const URI& uri)
-  : uri_(uri)
+AssetInfo::AssetInfo(AssetMetaData* meta_data)
+  : meta_data_(meta_data)
 {
 }
 

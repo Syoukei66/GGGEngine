@@ -5,6 +5,14 @@
 #include <Entity/AssetInfo.h>
 #include "GameInput.h"
 
+
+static const char* CAMERA_STATE_NAMES[ViewerScene::CAMERA_STATE_MAX] =
+{
+  "3D Scene",
+  "3D AnchorCenter",
+  "2D",
+};
+
 // =================================================================
 // GGG Statement
 // =================================================================
@@ -20,28 +28,24 @@ GG_INIT_FUNC_IMPL(ViewerScene)
 void ViewerScene::OnLoad()
 {
   this->camera_3d_ = new Camera3D_LookAt();
-  this->camera_3d_->GetTransform()->SetY(5.0f);
   this->camera_3d_->GetTransform()->SetZ(-20.0f);
-  this->camera_3d_->GetTransform()->RotateX(Mathf::PI_1_32);
   this->AddCamera(this->camera_3d_);
-
-  this->current_behavior_->Start(this);
 }
 
 void ViewerScene::OnUnload()
 {
   this->RemoveCamera(this->camera_3d_);
-  this->current_behavior_->End();
-
   delete this->camera_3d_;
 }
 
-void ViewerScene::OnShow(ISceneShowListener* listener)
+void ViewerScene::OnShow()
 {
+  this->current_behavior_->Start(this);
 }
 
-void ViewerScene::OnHide(ISceneHideListener* listener)
+void ViewerScene::OnHide()
 {
+  this->current_behavior_->End();
 }
 
 void ViewerScene::Update()
@@ -70,18 +74,32 @@ void ViewerScene::Update()
   }
   if (mouse_click_R)
   {
-    this->look_at_rot_x_ -= move_x * 0.05f;
-    this->look_at_rot_y_ += move_y * 0.05f;
+    this->camera_move_x_ -= move_x * 0.05f;
+    this->camera_move_y_ += move_y * 0.05f;
+  }
 
+  if (this->camera_state_ == CAMERA_2D)
+  {
+    transform->SetX(this->camera_move_x_);
+    transform->SetY(this->camera_move_y_);
+    transform->SetEularAngles(TVec3f::zero);
+  }
+  else if (this->camera_state_ == CAMERA_3D)
+  {
     TVec3f pos = TVec3f::zero;
-    const T_FLOAT rad = this->look_at_rot_x_ * Mathf::PI + Mathf::PI_1_2;
+    const T_FLOAT rad = this->camera_move_x_ * Mathf::PI + Mathf::PI_1_2;
     pos.x = cosf(rad);
     pos.z = sinf(rad);
     pos += transform->GetPosition();
 
     transform->LookAt(pos, TVec3f::up);
-    transform->RotateX(this->look_at_rot_y_ * Mathf::PI);
+    transform->RotateX(this->camera_move_y_ * Mathf::PI);
   }
+  else if (this->camera_state_ == CAMERA_3D_ANCHOR_CENTER)
+  {
+
+  }
+
   if (fabs(move_z) != 0.0f)
   {
     transform->MoveZ(move_z * 1.1f * this->move_speed_);
@@ -89,17 +107,22 @@ void ViewerScene::Update()
 
   ImGui::SetNextWindowPos(ImVec2(20.0f, 20.0f), ImGuiCond_Once);
   ImGui::SetNextWindowSize(ImVec2(200.0f, 200.0f), ImGuiCond_Once);
+
+  ImGui::Begin(u8"メニュー");
   ImGui::SliderFloat(u8"カメラ移動速度", &this->move_speed_, 0.0f, 5.0f);
 
-  if (ImGui::Button(u8"メニューに戻る"))
+  ImGui::Combo(u8"カメラモード", &this->camera_state_, CAMERA_STATE_NAMES, CAMERA_STATE_MAX);
+
+  if (ImGui::Button(u8"スタートメニューに戻る"))
   {
-    Director::PopScene();
+    Director::PopScene(false);
   }
 
+  ImGui::End();
 }
 
 void ViewerScene::Run(const SharedRef<IViewerBehavior>& behavior)
 {
   this->current_behavior_ = behavior;
-  Director::ChangeScene(SharedRef<ViewerScene>(this));
+  Director::PushScene(SharedRef<ViewerScene>(this), false);
 }

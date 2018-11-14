@@ -13,20 +13,9 @@ class AssetViewerBehavior : public IViewerBehavior
   // Methods from IViewerBehavior
   // =================================================================
 public:
-  virtual void Start(Scene* scene) override
-  {
-    this->OnStart(scene);
-    this->OnLoad(this->entity_->GetAssetInfo()->GetUniqueID());
-  }
-  virtual void End() override
-  {
-    this->OnUnload();
-    this->OnEnd();
-  }
-  virtual void Update() override
-  {
-    this->OnUpdate();
-  }
+  virtual void Start(Scene* scene) override;
+  virtual void End() override;
+  virtual void Update() override;
 
   // =================================================================
   // Methods

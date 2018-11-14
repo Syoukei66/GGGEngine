@@ -20,14 +20,14 @@ public:
   // =================================================================
 public:
   inline bool IsTarget(const URI& uri);
-  inline bool Reserve(const URI& uri, AssetConverterContext* context);
+  inline bool Reserve(const URI& uri, const URI& source, AssetConverterContext* context);
 
   void Import(std::unordered_map<T_UINT32, Entity_*>* dest, AssetConverterContext* context);
   //アセットが参照しているアセットのロードが行われる為、
   //一括ループではなく１つずつロードした方が安全
   bool ImportOnce(std::unordered_map<T_UINT32, Entity_*>* dest, AssetConverterContext* context);
   bool ImportOnce(T_UINT32 unique_id, std::unordered_map<T_UINT32, Entity_*>* dest, AssetConverterContext* context);
-  Entity_* ImportImmediately(const URI& uri, std::unordered_map<T_UINT32, Entity_*>* dest, AssetConverterContext* context);
+  Entity_* ImportImmediately(const URI& uri, AssetConverterContext* context);
 
 protected:
   /*!
@@ -70,14 +70,14 @@ inline bool AssetImporter<Entity_>::IsTarget(const URI& uri)
 }
 
 template<class Entity_>
-inline bool AssetImporter<Entity_>::Reserve(const URI& uri, AssetConverterContext* context)
+inline bool AssetImporter<Entity_>::Reserve(const URI& uri, const URI& source, AssetConverterContext* context)
 {
   //対応する拡張子かチェック
   if (!this->IsTarget(uri))
   {
     return false;
   }
-  AssetInfo* info = AssetInfo::Create(uri, context);
+  AssetInfo* info = AssetInfo::Create(uri, source, context);
   this->reserve_assets_[info->GetUniqueID()] = info;
   return true;
 }
@@ -130,7 +130,7 @@ inline bool AssetImporter<Entity_>::ImportOnce(T_UINT32 unique_id, std::unordere
 }
 
 template<class Entity_>
-inline Entity_* AssetImporter<Entity_>::ImportImmediately(const URI& uri, std::unordered_map<T_UINT32, Entity_*>* dest, AssetConverterContext* context)
+inline Entity_* AssetImporter<Entity_>::ImportImmediately(const URI& uri, AssetConverterContext* context)
 {
   AssetInfo* info = nullptr;
 
@@ -151,11 +151,9 @@ inline Entity_* AssetImporter<Entity_>::ImportImmediately(const URI& uri, std::u
     {
       return nullptr;
     }
-    info = AssetInfo::Create(uri, context);
+    info = AssetInfo::Create(uri, uri, context);
   }
-  Entity_* ret = this->ImportProcess(info, context);
-  (*dest)[info->GetUniqueID()] = ret;
-  return ret;
+  return this->ImportProcess(info, context);
 }
 
 

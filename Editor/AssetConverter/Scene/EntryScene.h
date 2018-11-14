@@ -18,8 +18,8 @@ class EntryScene : public Scene
 public:
   virtual void OnLoad() override;
   virtual void OnUnload() override;
-  virtual void OnShow(ISceneShowListener* listener) override;
-  virtual void OnHide(ISceneHideListener* listener) override;
+  virtual void OnShow() override;
+  virtual void OnHide() override;
   virtual void Update() override;
 
   // =================================================================

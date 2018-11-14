@@ -22,10 +22,10 @@ void TextureViewScene::OnUnload()
   delete this->camera_3d_;
 }
 
-void TextureViewScene::OnShow(ISceneShowListener* listener)
+void TextureViewScene::OnShow()
 {
 }
 
-void TextureViewScene::OnHide(ISceneHideListener* listener)
+void TextureViewScene::OnHide()
 {
 }

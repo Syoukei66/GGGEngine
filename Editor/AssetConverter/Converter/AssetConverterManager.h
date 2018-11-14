@@ -36,10 +36,12 @@ public:
   void VisitAll(const std::function<void(const AssetConverter<Entity_>*)>& func) const;
 
   void VisitAllEntity(const std::function<void(AssetEntity*)>& func);
+  AssetEntity* FindAllEntity(const std::function<bool(AssetEntity*)>& func);
 
   //’l‚ª‹A‚Á‚Ä‚­‚é‚Ü‚ÅŒŸõ‚·‚é
   template <class Type_>
   Type_* Find(const std::function<Type_*(IAssetConverter*)>& func);
+  AssetEntity* Find(const std::function<AssetEntity*(IAssetConverter*)>& func);
 
   template <class Type_, class Entity_>
   Type_* Find(const std::function<Type_*(AssetConverter<Entity_>*)>& func);

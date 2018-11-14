@@ -18,13 +18,13 @@ class Director
   // Methods
   // =================================================================
 public:
-  static GG_INLINE void PushScene(const SharedRef<Scene>& next)
+  static GG_INLINE void PushScene(const SharedRef<Scene>& next, bool load = true)
   {
-    Self().engine_->GetSceneManager()->PushScene(next);
+    Self().engine_->GetSceneManager()->PushScene(next, load);
   }
-  static GG_INLINE void PopScene()
+  static GG_INLINE void PopScene(bool unload = true)
   {
-    Self().engine_->GetSceneManager()->PopScene();
+    Self().engine_->GetSceneManager()->PopScene(unload);
   }
   static GG_INLINE void ChangeScene(const SharedRef<Scene>& next)
   {

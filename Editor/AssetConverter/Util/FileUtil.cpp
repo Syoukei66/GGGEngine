@@ -123,6 +123,8 @@ std::string FileUtil::GetTimeStamp(const std::string& path)
   ret.append(std::to_string(st.wHour));
   ret.append(":");
   ret.append(std::to_string(st.wMinute));
+  ret.append(":");
+  ret.append(std::to_string(st.wSecond));
   return ret;
 }
 

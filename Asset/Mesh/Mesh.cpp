@@ -12,16 +12,19 @@ GG_INIT_FUNC_IMPL_1(rcMesh, const MeshData& data)
   this->submesh_count_ = data.submesh_count_;
 
   //Vertex Buffer
-  this->vertex_buffer_ = rcVertexBuffer::Create(data.vertex_count_, data.vertex_format_);
-  unsigned char* p;
-  this->vertex_buffer_->Lock((void**)&p);
-  GG_ASSERT(data.vertex_size_ == Vertex::CalcVertexSize(data.vertex_format_), "MeshDataを作成した時と頂点データのサイズが異なっています");
-  const T_UINT64 byte_count = data.vertex_count_ * data.vertex_size_;
-  for (T_UINT64 i = 0; i < byte_count; ++i)
+  if (data.vertex_count_ > 0)
   {
-    p[i] = data.data_[i];
+    this->vertex_buffer_ = rcVertexBuffer::Create(data.vertex_count_, data.vertex_format_);
+    unsigned char* p;
+    this->vertex_buffer_->Lock((void**)&p);
+    GG_ASSERT(data.vertex_size_ == Vertex::CalcVertexSize(data.vertex_format_), "MeshDataを作成した時と頂点データのサイズが異なっています");
+    const T_UINT64 byte_count = data.vertex_count_ * data.vertex_size_;
+    for (T_UINT64 i = 0; i < byte_count; ++i)
+    {
+      p[i] = data.data_[i];
+    }
+    this->vertex_buffer_->Unlock();
   }
-  this->vertex_buffer_->Unlock();
 
   this->polygon_count_ = 0;
   //Index Buffers
@@ -346,11 +349,19 @@ void rcMesh::RecalculateTangents()
 
 void rcMesh::SetStreamSource() const
 {
+  if (!this->vertex_buffer_)
+  {
+    return;
+  }
   this->vertex_buffer_->SetStreamSource();
 }
 
 void rcMesh::DrawSubset(T_UINT8 index) const
 {
+  if (!this->vertex_buffer_)
+  {
+    return;
+  }
   GG_ASSERT(index < this->submesh_count_, "インデックス指定がサブメッシュの最大個数を超過しました。");
   this->index_buffers_[index]->SetIndices();
   this->vertex_buffer_->DrawIndexedPrimitive(this->index_buffers_[index], this->primitive_type_);

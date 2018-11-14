@@ -55,6 +55,7 @@ void Engine::Init()
 void Engine::Uninit()
 {
   this->engine_behavior_->OnGameEnd();
+  this->scene_manager_->ClearScene();
   delete this->scene_manager_;
 
   EasingFunctionManager::Unload();

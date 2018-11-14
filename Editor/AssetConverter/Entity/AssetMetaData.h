@@ -16,13 +16,13 @@ class AssetMetaData
   // Factory Method
   // =================================================================
 public:
-  static AssetMetaData* Create(const URI& uri, AssetConverterContext* context);
+  static AssetMetaData* Create(const URI& uri, const URI& source_uri, AssetConverterContext* context);
 
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  AssetMetaData(const URI& uri, AssetConverterContext* context);
+  AssetMetaData(const URI& uri, const URI& source_uri, AssetConverterContext* context);
   AssetMetaData();
 
   // =================================================================
@@ -50,6 +50,16 @@ public:
     return this->time_stamp_;
   }
 
+  inline const URI& GetURI() const
+  {
+    return this->uri_;
+  }
+
+  inline const URI& GetSourceURI() const
+  {
+    return this->source_uri_;
+  }
+
   // =================================================================
   // Serialize Method
   // =================================================================
@@ -58,6 +68,7 @@ public:
   void serialize(Archive& ar, std::uint32_t const version)
   {
     ar(CEREAL_NVP(uri_));
+    ar(CEREAL_NVP(source_uri_));
     ar(CEREAL_NVP(unique_id_));
     ar(CEREAL_NVP(source_));
     ar(CEREAL_NVP(related_unique_ids_));
@@ -69,6 +80,7 @@ public:
   // =================================================================
 private:
   URI uri_;
+  URI source_uri_;
   T_UINT32 unique_id_;
   T_UINT32 source_;
   std::unordered_set<T_UINT32> related_unique_ids_;

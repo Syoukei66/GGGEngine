@@ -29,11 +29,12 @@ public:
 public:
   inline T_UINT32 GetID() const override;
 
-  inline bool Reserve(const URI& uri, AssetConverterContext* context) override;
+  inline bool Reserve(const URI& uri, const URI& source, AssetConverterContext* context) override;
 
   inline void Import(AssetConverterContext* context) override;
   inline bool ImportOnce(AssetConverterContext* context) override;
-  inline Entity_* ImportImmediately(const URI& uri, AssetConverterContext* context);
+  inline bool ImportImmediately(const URI& uri, AssetConverterContext* context, bool reload) override;
+
 
   inline void AddEntity(Entity_* entity);
   inline Entity_* GetEntity(const URI& uri, const AssetConverterContext* context);
@@ -45,6 +46,7 @@ public:
   inline void CreateCppProgram(std::string* dest) const override;
 
   inline void VisitAllEntity(const std::function<void(AssetEntity*)>& func) override;
+  inline AssetEntity* FindAllEntity(const std::function<bool(AssetEntity*)>& func) override;
 
   // =================================================================
   // Data Members
@@ -93,14 +95,14 @@ inline T_UINT32 AssetConverter<Entity_>::GetID() const
 }
 
 template<class Entity_>
-inline bool AssetConverter<Entity_>::Reserve(const URI& uri, AssetConverterContext* context)
+inline bool AssetConverter<Entity_>::Reserve(const URI& uri, const URI& source, AssetConverterContext* context)
 {
   const auto& itr = this->entities_.find(context->GetUniqueID(uri));
   if (itr != this->entities_.end())
   {
     return true;
   }
-  return this->importer_ ? this->importer_->Reserve(uri, context) : false;
+  return this->importer_ ? this->importer_->Reserve(uri, source, context) : false;
 }
 
 template<class Entity_>
@@ -116,19 +118,34 @@ inline bool AssetConverter<Entity_>::ImportOnce(AssetConverterContext* context)
 }
 
 template<class Entity_>
-inline Entity_* AssetConverter<Entity_>::ImportImmediately(const URI& uri, AssetConverterContext* context)
+inline bool AssetConverter<Entity_>::ImportImmediately(const URI& uri, AssetConverterContext* context, bool reload)
 {
   const auto& itr = this->entities_.find(context->GetUniqueID(uri));
-  if (itr != this->entities_.end())
+  if (!reload && itr != this->entities_.end())
   {
-    return itr->second;
+    return true;
   }
-  return this->importer_ ? this->importer_->ImportImmediately(uri, &this->entities_, context) : nullptr;
+  if (!this->importer_)
+  {
+    return false;
+  }
+  Entity_* entity = this->importer_->ImportImmediately(uri, context);
+  if (!entity)
+  {
+    return false;
+  }
+  this->AddEntity(entity);
+  return entity;
 }
 
 template<class Entity_>
 inline void AssetConverter<Entity_>::AddEntity(Entity_* entity)
 {
+  const auto& itr = this->entities_.find(entity->GetAssetInfo()->GetUniqueID());
+  if (itr != this->entities_.end())
+  {
+    delete itr->second;
+  }
   this->entities_[entity->GetAssetInfo()->GetUniqueID()] = entity;
 }
 
@@ -179,4 +196,17 @@ inline void AssetConverter<Entity_>::VisitAllEntity(const std::function<void(Ass
   {
     func(pair.second);
   }
+}
+
+template<class Entity_>
+inline AssetEntity* AssetConverter<Entity_>::FindAllEntity(const std::function<bool(AssetEntity*)>& func)
+{
+  for (const auto& pair : this->entities_)
+  {
+    if (func(pair.second))
+    {
+      return pair.second;
+    }
+  }
+  return nullptr;
 }

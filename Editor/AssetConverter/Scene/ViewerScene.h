@@ -20,10 +20,14 @@ class Camera3D_LookAt;
 
 class ViewerScene : public Scene
 {
+public:
   enum CameraState
   {
-    CAMERA_2D,
     CAMERA_3D,
+    CAMERA_3D_ANCHOR_CENTER,
+    CAMERA_2D,
+
+    CAMERA_STATE_MAX,
   };
 
   // =================================================================
@@ -38,8 +42,8 @@ class ViewerScene : public Scene
 public:
   virtual void OnLoad() override;
   virtual void OnUnload() override;
-  virtual void OnShow(ISceneShowListener* listener) override;
-  virtual void OnHide(ISceneHideListener* listener) override;
+  virtual void OnShow() override;
+  virtual void OnHide() override;
   virtual void Update() override;
 
   // =================================================================
@@ -55,10 +59,10 @@ private:
   SharedRef<IViewerBehavior> current_behavior_;
   Camera3D_LookAt* camera_2d_;
   Camera3D_LookAt* camera_3d_;
-  CameraState state_;
-  T_FLOAT look_at_rot_x_;
-  T_FLOAT look_at_rot_y_;
+  T_FLOAT camera_move_x_;
+  T_FLOAT camera_move_y_;
 
+  T_INT32 camera_state_;
   T_FLOAT move_speed_;
 
 };

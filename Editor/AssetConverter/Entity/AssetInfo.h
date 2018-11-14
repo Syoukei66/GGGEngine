@@ -13,12 +13,13 @@ class AssetInfo
   // =================================================================
 public:
   static AssetInfo* Create(const URI& uri, AssetConverterContext* context);
+  static AssetInfo* Create(const URI& uri, const URI& source, AssetConverterContext* context);
 
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 private:
-  AssetInfo(const URI& uri);
+  AssetInfo(AssetMetaData* meta_data);
 
 public:
   ~AssetInfo();
@@ -32,6 +33,11 @@ public:
     return this->meta_data_;
   }
 
+  inline AssetMetaData* GetMetaData()
+  {
+    return this->meta_data_;
+  }
+
   inline T_UINT32 GetUniqueID() const
   {
     return this->meta_data_->GetUniqueID();
@@ -39,12 +45,17 @@ public:
 
   inline const URI& GetURI() const
   {
-    return this->uri_;
+    return this->meta_data_->GetURI();
+  }
+
+  inline const URI& GetSourceURI() const
+  {
+    return this->meta_data_->GetSourceURI();
   }
 
   inline std::string GetInputPath() const
   {
-    return FileUtil::CreateInputPath(this->uri_);
+    return FileUtil::CreateInputPath(this->GetURI());
   }
 
   inline std::string GetOutputPath() const
@@ -61,7 +72,6 @@ public:
   // Data Members
   // =================================================================
 private:
-  const URI uri_;
   AssetMetaData* meta_data_;
 
 };

@@ -10,7 +10,7 @@ class ModelMeshAssetEntity : public AssetEntity
   // Constructor / Destructor
   // =================================================================
 public:
-  ModelMeshAssetEntity(AssetInfo* info, MeshData* data, T_UINT32 model_unique_id);
+  ModelMeshAssetEntity(AssetInfo* info, MeshData* data);
   ~ModelMeshAssetEntity();
 
   // =================================================================
@@ -37,6 +37,5 @@ public:
   // =================================================================
 private:
   MeshData* data_;
-  T_UINT32 model_unique_id_;
 
 };

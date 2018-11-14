@@ -1,5 +1,8 @@
 #pragma once
 
+#include <set>
+#include <URI.h>
+
 class AssetInfo;
 
 #define ENTITY_ID(id) public:\
@@ -43,6 +46,17 @@ public:
    */
   void CommitChanges();
 
+  /*!
+   * @brief 自身や参照しているアセット群に変更があるか調べ、
+   * 変更があった場合アップデートする。
+   */
+  void CheckChanged(std::set<std::string>* sources);
+
+  /*!
+   * @brief 参照しているアセットを追加する
+   */
+  void AddReferencedEntity(AssetEntity* entity);
+
 protected:
   /*!
    * @brief 自分が管理しているリソースをAssetManagerへ上書き登録する
@@ -65,5 +79,6 @@ public:
   // =================================================================
 private:
   AssetInfo* info_;
+  std::vector<AssetEntity*> referenced_entities_;
 
 };

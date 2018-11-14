@@ -47,32 +47,14 @@ void Scene::Unload()
   this->is_loaded_ = false;
 }
 
-void Scene::Show(ISceneShowListener* listener)
+void Scene::Show()
 {
-  this->OnShow(listener);
-  if (!listener->IsShowFinishControlled())
-  {
-    listener->OnShowFinish();
-  }
+  this->OnShow();
 }
 
-void Scene::ShowFinish()
+void Scene::Hide()
 {
-  this->OnShowFinish();
-}
-
-void Scene::Hide(ISceneHideListener* listener)
-{
-  this->OnHide(listener);
-  if (!listener->IsHideFinishControlled())
-  {
-    listener->OnHideFinish();
-  }
-}
-
-void Scene::HideFinish()
-{
-  this->OnHideFinish();
+  this->OnHide();
 }
 
 void Scene::Draw()

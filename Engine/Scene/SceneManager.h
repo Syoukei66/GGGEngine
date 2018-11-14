@@ -2,25 +2,28 @@
 
 #include "Scene.h"
 
-class SceneTransitioner;
 class UpdateEventState;
 
 class SceneManager
 {
   // =================================================================
-  // Constructor / Destructor
-  // =================================================================
-public:
-  SceneManager();
-  ~SceneManager();
-
-  // =================================================================
   // Methods
   // =================================================================
 public:
-  void PushScene(const SharedRef<Scene>& next);
-  void PopScene();
+  /*!
+   * @brief 現在のSceneをSceneスタックに加えてSceneを切り替える
+   * Sceneのロード/アンロードは自動的に行われない
+   */
+  void PushScene(const SharedRef<Scene>& next, bool load_current = true);
+
+  /*!
+   * @brief 現在のSceneをSceneスタックに加えてSceneを切り替える
+   * Sceneのロード/アンロードは自動的に行われない
+   */
+  void PopScene(bool unload_current = true);
+
   void ChangeScene(const SharedRef<Scene>& next);
+  void ClearScene();
 
   void Update(const UpdateEventState& state);
   void Draw();
@@ -31,16 +34,13 @@ public:
 public:
   GG_INLINE SharedRef<Scene> GetNowScene()
   {
-    return this->scene_;
+    return this->now_scene_;
   }
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
-  T_UINT32 second_elapsed_from_last_render_; //ミリ秒なのでint
-
-  SharedRef<Scene> scene_;
+  SharedRef<Scene> now_scene_;
   std::deque<SharedRef<Scene>> scene_stack_;
-  SceneTransitioner* scene_transitioner_;
 };

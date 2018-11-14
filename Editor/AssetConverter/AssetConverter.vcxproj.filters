@@ -476,5 +476,8 @@
     <ClCompile Include="Scene\AssetViewer\AssetViewerScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Scene\AssetViewer\AssetViewerBehavior.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

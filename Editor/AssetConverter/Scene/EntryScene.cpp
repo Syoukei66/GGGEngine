@@ -21,17 +21,19 @@ GG_INIT_FUNC_IMPL(EntryScene)
 // =================================================================
 void EntryScene::OnLoad()
 {
+  this->viewer_scene_->Load();
 }
 
 void EntryScene::OnUnload()
 {
+  this->viewer_scene_->Unload();
 }
 
-void EntryScene::OnShow(ISceneShowListener* listener)
+void EntryScene::OnShow()
 {
 }
 
-void EntryScene::OnHide(ISceneHideListener* listener)
+void EntryScene::OnHide()
 {
 }
 

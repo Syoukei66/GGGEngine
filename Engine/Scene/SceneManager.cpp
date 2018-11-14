@@ -2,58 +2,78 @@
 #include "Scene.h"
 
 // =================================================================
-// Constructor / Destructor
-// =================================================================
-SceneManager::SceneManager()
-  : second_elapsed_from_last_render_(0)
-  , scene_(nullptr)
-  , scene_transitioner_(nullptr)
-{
-  this->scene_transitioner_ = new SceneTransitioner();
-}
-
-SceneManager::~SceneManager()
-{
-  delete this->scene_transitioner_;
-}
-
-// =================================================================
 // Methods
 // =================================================================
-void SceneManager::PushScene(const SharedRef<Scene>& next)
+void SceneManager::PushScene(const SharedRef<Scene>& next, bool load_current)
 {
+  if (this->now_scene_)
+  {
+    this->now_scene_->Hide();
+    this->scene_stack_.push_back(this->now_scene_);
+  }
+  this->now_scene_ = next;
+  if (load_current)
+  {
+    this->now_scene_->Load();
+  }
+  this->now_scene_->Show();
 }
 
-void SceneManager::PopScene()
+void SceneManager::PopScene(bool unload_current)
 {
+  this->now_scene_->Hide();
+  if (unload_current)
+  {
+    this->now_scene_->Unload();
+  }
+  this->now_scene_ = this->scene_stack_.back();
+  this->scene_stack_.pop_back();
+  if (this->now_scene_)
+  {
+    this->now_scene_->Show();
+  }
 }
 
 void SceneManager::ChangeScene(const SharedRef<Scene>& next)
 {
-  this->scene_transitioner_->SetNextScene(next);
+  if (this->now_scene_)
+  {
+    this->now_scene_->Hide();
+    this->now_scene_->Unload();
+  }
+  this->now_scene_ = next;
+  this->now_scene_->Load();
+  this->now_scene_->Show();
+}
+
+void SceneManager::ClearScene()
+{
+  for (const SharedRef<Scene>& scene : this->scene_stack_)
+  {
+    scene->Unload();
+  }
+  this->scene_stack_.clear();
+  if (this->now_scene_)
+  {
+    this->now_scene_->Unload();
+    this->now_scene_ = nullptr;
+  }
 }
 
 void SceneManager::Update(const UpdateEventState& state)
 {
-  if (this->scene_transitioner_->IsDuringTransition())
-  {
-    this->scene_ = this->scene_transitioner_->Transition();
-  }
-  const SharedRef<Scene>& now_scene = this->GetNowScene();
-  if (!now_scene)
+  if (!this->now_scene_)
   {
     return;
   }
-  now_scene->OnInputEvent();
-  now_scene->OnUpdateEvent();
+  this->now_scene_->OnUpdateEvent();
 }
 
 void SceneManager::Draw()
 {
-  const SharedRef<Scene>& now_scene = this->GetNowScene();
-  if (!now_scene)
+  if (!this->now_scene_)
   {
     return;
   }
-  now_scene->Draw();
+  this->now_scene_->Draw();
 }
