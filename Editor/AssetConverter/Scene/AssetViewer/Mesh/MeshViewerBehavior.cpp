@@ -38,8 +38,12 @@ void MeshViewerBehavior::OnEnd()
 void MeshViewerBehavior::OnLoad(T_UINT32 unique_id)
 {
   this->mesh_renderer_->SetMesh(AssetManager::Load<rcMesh>(unique_id));
-  this->mesh_renderer_->SetMaterial(AssetManager::Load<rcMaterial>(DefaultUniqueID::MATERIAL_LAMBERT));
-  this->mesh_renderer_->GetMaterial()->SetMainTexture(AssetManager::Load<rcTexture>(DefaultUniqueID::TEXTURE_WHITE));
+  const T_UINT32 submesh_count = this->mesh_renderer_->GetMesh()->GetSubmeshCount();
+  for (T_UINT32 i = 0; i < submesh_count; ++i)
+  {
+    this->mesh_renderer_->SetMaterial(AssetManager::Load<rcMaterial>(DefaultUniqueID::MATERIAL_LAMBERT), i);
+    this->mesh_renderer_->GetMaterial(i)->SetMainTexture(AssetManager::Load<rcTexture>(DefaultUniqueID::TEXTURE_WHITE));
+  }
 }
 
 void MeshViewerBehavior::OnUnload()

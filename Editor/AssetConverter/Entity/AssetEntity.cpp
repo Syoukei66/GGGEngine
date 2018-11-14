@@ -1,6 +1,7 @@
 #include <Entity/AssetEntity.h>
 #include <Entity/AssetInfo.h>
 #include <Util/Logger.h>
+#include <Director.h>
 
 // =================================================================
 // GGG Statement
@@ -22,20 +23,24 @@ GG_DESTRUCT_FUNC_IMPL(AssetEntity)
 // =================================================================
 void AssetEntity::CommitChanges()
 {
+  for (const SharedRef<AssetEntity>& entity : this->referenced_entities_)
+  {
+    entity->CommitChanges();
+  }
   Logger::CommitAssetLog(this->info_);
   this->RegisterAssetManager(this->info_->GetUniqueID(), this->info_->GetURI().GetExtension());
 }
 
-void AssetEntity::CheckChanged(std::set<std::string>* sources)
+void AssetEntity::CheckChanged(std::set<SharedRef<AssetEntity>>* update_entities)
 {
   if (this->info_->GetMetaData()->UpdateTimeStamp())
   {
-    sources->insert(this->info_->GetSourceURI().GetFullPath());
     this->info_->GetMetaData()->Save();
+    update_entities->insert(AssetConverterDirector::GetContext()->GetEntity(this->info_->GetSourceURI()));
   }
   for (const SharedRef<AssetEntity>& entity : this->referenced_entities_)
   {
-    entity->CheckChanged(sources);
+    entity->CheckChanged(update_entities);
   }
 }
 

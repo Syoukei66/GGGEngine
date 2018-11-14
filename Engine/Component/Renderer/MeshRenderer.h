@@ -35,6 +35,10 @@ public:
   {
     this->mesh_ = mesh;
   }
+  GG_INLINE SharedRef<const rcMesh> GetMesh() const
+  {
+    return this->mesh_;
+  }
   GG_INLINE void SetSubmeshVisible(T_UINT32 submesh_index, bool visible)
   {
     this->submesh_visible_[submesh_index] = visible;

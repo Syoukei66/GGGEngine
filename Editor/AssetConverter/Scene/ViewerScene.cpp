@@ -18,7 +18,7 @@ static const char* CAMERA_STATE_NAMES[ViewerScene::CAMERA_STATE_MAX] =
 // =================================================================
 GG_INIT_FUNC_IMPL(ViewerScene)
 {
-  this->move_speed_ = 1.0f;
+  this->move_speed_ = 0.5f;
   return Scene::Init();
 }
 
@@ -109,7 +109,7 @@ void ViewerScene::Update()
   ImGui::SetNextWindowSize(ImVec2(200.0f, 200.0f), ImGuiCond_Once);
 
   ImGui::Begin(u8"メニュー");
-  ImGui::SliderFloat(u8"カメラ移動速度", &this->move_speed_, 0.0f, 5.0f);
+  ImGui::SliderFloat(u8"カメラ移動速度", &this->move_speed_, 0.0f, 1.0f);
 
   ImGui::Combo(u8"カメラモード", &this->camera_state_, CAMERA_STATE_NAMES, CAMERA_STATE_MAX);
 

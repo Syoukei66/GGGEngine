@@ -34,6 +34,7 @@ public:
 
   template <class Entity_>
   inline SharedRef<Entity_> GetEntity(const URI& uri);
+  inline SharedRef<AssetEntity> GetEntity(const URI& uri);
   inline SharedRef<AssetEntity> GetEntity(T_UINT32 unique_id);
 
   inline T_UINT32 PublishUniqueID(const URI& uri);
@@ -114,6 +115,14 @@ inline SharedRef<Entity_> AssetConverterContext::GetEntity(const URI& uri)
   return this->converter_manager_->Find<Entity_, Entity_>([&](AssetConverter<Entity_>* converter)
   {
     return converter->GetEntity(uri, this);
+  });
+}
+
+inline SharedRef<AssetEntity> AssetConverterContext::GetEntity(const URI& uri)
+{
+  return this->converter_manager_->FindAllEntity([&](const SharedRef<AssetEntity>& entity)
+  {
+    return entity->GetAssetInfo()->GetURI() == uri;
   });
 }
 

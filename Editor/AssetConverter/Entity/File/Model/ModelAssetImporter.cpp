@@ -224,7 +224,7 @@ static SharedRef<ModelMaterialAssetEntity> ImportMaterial(AssetInfo* info, const
     data->color_ = ToTColor(color);
   }
   SharedRef<TextureAssetEntity> tex_asset_entity = ImportTexture(info, material, aiTextureType_DIFFUSE, 0, context);
-  data->main_tex_unique_id_ = tex_asset_entity ? tex_asset_entity->GetAssetInfo()->GetUniqueID() : 0;
+  data->main_tex_unique_id_ = tex_asset_entity ? tex_asset_entity->GetAssetInfo()->GetUniqueID() : DefaultUniqueID::TEXTURE_WHITE;
   data->tiling_ = TVec2f(1.0f, 1.0f);
   data->tiling_offset_ = TVec2f(0.0f, 0.0f);
   //TODO:プロパティのインポート処理
@@ -274,7 +274,7 @@ SharedRef<ModelAssetEntity> ModelAssetImporter::ImportProcess(AssetInfo* info, A
     aiProcess_GenSmoothNormals | // generate smooth normal vectors if not existing
     aiProcess_SplitLargeMeshes | // split large, unrenderable meshes into submeshes
     aiProcess_Triangulate | // triangulate polygons with more than 3 edges
-    //aiProcess_PreTransformVertices |
+    aiProcess_PreTransformVertices |
     aiProcess_ConvertToLeftHanded | // convert everything to D3D left handed space
     aiProcess_SortByPType | // make 'clean' meshes which consist of a single typ of primitives
     0,

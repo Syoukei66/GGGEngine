@@ -13,6 +13,20 @@ public:
   URI(const std::string& directory_path, const std::string& prefix, const std::string& extension);
 
   // =================================================================
+  // Operator
+  // =================================================================
+public:
+  inline bool operator== (const URI& o) const
+  {
+    return o.full_path_ == this->full_path_;
+  }
+
+  inline bool operator!= (const URI& o) const
+  {
+    return o.full_path_ != this->full_path_;
+  }
+
+  // =================================================================
   // Setter / Getter
   // =================================================================
 public:

@@ -111,6 +111,43 @@ public:
     return this->ptr_ != o;
   }
 
+  /*!
+   * @brief <î‰är
+   */
+  template <class Other_>
+  GG_INLINE bool operator< (const GGRef<Other_>& o) const noexcept
+  {
+    return this->ptr_ < o.ptr_;
+  }
+
+  /*!
+   * @brief <=î‰är
+   */
+  template <class Other_>
+  GG_INLINE bool operator<= (const GGRef<Other_>& o) const noexcept
+  {
+    return this->ptr_ <= o.ptr_;
+  }
+
+  /*!
+   * @brief >î‰är
+   */
+  template <class Other_>
+  GG_INLINE bool operator> (const GGRef<Other_>& o) const noexcept
+  {
+    return this->ptr_ > o.ptr_;
+  }
+
+  /*!
+   * @brief >î‰är
+   */
+  template <class Other_>
+  GG_INLINE bool operator>= (const GGRef<Other_>& o) const noexcept
+  {
+    return this->ptr_ >= o.ptr_;
+  }
+
+
   // =================================================================
   // Data Members
   // =================================================================

@@ -18,13 +18,13 @@ void AssetViewerBehavior::End()
 
 void AssetViewerBehavior::Update()
 {
-  std::set<std::string> changed_paths_ = std::set<std::string>();
-  this->entity_->CheckChanged(&changed_paths_);
-  bool entity_changed = changed_paths_.size() > 0;
+  std::set<SharedRef<AssetEntity>> changed_entities_ = std::set<SharedRef<AssetEntity>>();
+  this->entity_->CheckChanged(&changed_entities_);
+  bool entity_changed = changed_entities_.size() > 0;
   const T_UINT32 unique_id = this->entity_->GetAssetInfo()->GetUniqueID();
-  for (const URI& uri : changed_paths_)
+  for (const SharedRef<AssetEntity>& entity : changed_entities_)
   {
-    AssetConverterDirector::GetContext()->ImportImmediately(uri, true);
+    AssetConverterDirector::GetContext()->ImportImmediately(entity->GetAssetInfo()->GetURI(), true);
   }
   if (entity_changed)
   {

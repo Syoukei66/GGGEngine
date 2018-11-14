@@ -49,7 +49,7 @@ public:
    * @brief 自身や参照しているアセット群に変更があるか調べ、
    * 変更があった場合アップデートする。
    */
-  void CheckChanged(std::set<std::string>* sources);
+  void CheckChanged(std::set<SharedRef<AssetEntity>>* update_entities);
 
   /*!
    * @brief 参照しているアセットを追加する
