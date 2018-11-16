@@ -196,13 +196,13 @@ void rcMesh::CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UIN
   using namespace Vertex;
 
   if (format & V_ATTR_POSITION) this->vertices_.resize(vertex_count);
-  if (format & V_ATTR_NORMAL) this->normals_.resize(vertex_count);
-  if (format & V_ATTR_UV) this->uvs_.resize(vertex_count);
-  if (format & V_ATTR_UV2) this->uv2s_.resize(vertex_count);
-  if (format & V_ATTR_UV3) this->uv3s_.resize(vertex_count);
-  if (format & V_ATTR_UV4) this->uv4s_.resize(vertex_count);
-  if (format & V_ATTR_TANGENT) this->tangents_.resize(vertex_count);
-  if (format & V_ATTR_COLOR) this->colors_.resize(vertex_count);
+  if (format & V_ATTR_NORMAL)   this->normals_.resize(vertex_count);
+  if (format & V_ATTR_UV)       this->uvs_.resize(vertex_count);
+  if (format & V_ATTR_UV2)      this->uv2s_.resize(vertex_count);
+  if (format & V_ATTR_UV3)      this->uv3s_.resize(vertex_count);
+  if (format & V_ATTR_UV4)      this->uv4s_.resize(vertex_count);
+  if (format & V_ATTR_TANGENT)  this->tangents_.resize(vertex_count);
+  if (format & V_ATTR_COLOR)    this->colors_.resize(vertex_count);
   this->vertex_buffer_ = rcVertexBuffer::Create(vertex_count * this->vertex_declaration_->GetVertexSize());
   this->vertices_dirty_ = true;
 }
@@ -228,14 +228,14 @@ void rcMesh::CommitChanges(bool clear_readable_data)
     unsigned char* p = (unsigned char*)dest;
     for (T_UINT32 i = 0; i < this->vertex_count_; ++i)
     {
-      SetVertexPosition(this->vertices_[i], this->vertex_format_, &p);
-      SetVertexNormal(this->normals_[i], this->vertex_format_, &p);
-      SetVertexUv(this->uvs_[i], this->vertex_format_, &p);
-      SetVertexUv2(this->uv2s_[i], this->vertex_format_, &p);
-      SetVertexUv3(this->uv3s_[i], this->vertex_format_, &p);
-      SetVertexUv4(this->uv4s_[i], this->vertex_format_, &p);
-      SetVertexTangent(this->tangents_[i], this->vertex_format_, &p);
-      SetVertexColor(this->colors_[i], this->vertex_format_, &p);
+      if (this->vertex_format_ & V_ATTR_POSITION) SetVertexPosition(this->vertices_[i], &p);
+      if (this->vertex_format_ & V_ATTR_NORMAL)   SetVertexNormal(this->normals_[i], &p);
+      if (this->vertex_format_ & V_ATTR_UV)       SetVertexUv(this->uvs_[i], &p);
+      if (this->vertex_format_ & V_ATTR_UV2)      SetVertexUv2(this->uv2s_[i], &p);
+      if (this->vertex_format_ & V_ATTR_UV3)      SetVertexUv3(this->uv3s_[i], &p);
+      if (this->vertex_format_ & V_ATTR_UV4)      SetVertexUv4(this->uv4s_[i], &p);
+      if (this->vertex_format_ & V_ATTR_TANGENT)  SetVertexTangent(this->tangents_[i], &p);
+      if (this->vertex_format_ & V_ATTR_COLOR)    SetVertexColor(this->colors_[i], &p);
     }
     this->vertex_buffer_->Unlock();
     this->vertices_dirty_ = false;
