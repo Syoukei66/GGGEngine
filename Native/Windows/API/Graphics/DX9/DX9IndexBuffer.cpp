@@ -15,9 +15,9 @@ DX9IndexBuffer::DX9IndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count, Ve
 {
   LPDIRECT3DDEVICE9 device = WindowsApplication::GetGraphics()->GetDevice();
   HRESULT hr = device->CreateIndexBuffer(
-    vertex_count * Vertex::INDEX_FORMAT_SIZES[static_cast<T_UINT32>(format)],
+    vertex_count * Vertex::INDEX_FORMAT_SIZES[static_cast<T_UINT8>(format)],
     0,
-    DX9::INDEX_FORMATS[static_cast<T_UINT32>(format)],
+    DX9::INDEX_FORMATS[static_cast<T_UINT8>(format)],
     D3DPOOL_MANAGED,
     &this->index_buffer_,
     NULL
