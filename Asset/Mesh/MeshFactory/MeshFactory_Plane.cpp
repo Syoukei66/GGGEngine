@@ -1,88 +1,77 @@
 #include "MeshFactory_Plane.h"
 
-MeshData* MeshFactory::Plane::Create(
+UniqueRef<rcMesh> MeshFactory::Plane::Create(
   T_UINT32 format,
   T_FLOAT scale_x, T_FLOAT scale_y,
   T_UINT32 resolution_x, T_UINT32 resolution_y,
   T_FLOAT tile_count_x, T_FLOAT tile_count_y
 )
 {
-  MeshData* ret = new MeshData();
+  UniqueRef<rcMesh> ret = rcMesh::Create();
 
   using namespace Vertex;
-  ret->vertex_count_ = (resolution_x + 1) * (resolution_y + 1);
-  ret->vertex_format_ = format;
-  ret->vertex_size_ = CalcVertexSize(format);
-  ret->data_.resize(ret->vertex_count_ * ret->vertex_size_);
-  unsigned char* p = &ret->data_[0];
-
+  const T_UINT32 vertex_count = (resolution_x + 1) * (resolution_y + 1);
+  const T_UINT32 polygon_count = resolution_x * resolution_y * 2;
+  ret->CreateVertices(vertex_count, polygon_count, format);
   for (T_UINT32 i = 0, y = 0; y <= resolution_y; ++y)
   {
     for (T_UINT32 x = 0; x <= resolution_x; ++x, ++i)
     {
       if (format & V_ATTR_POSITION)
       {
-        SetVertexPosition({
+        ret->SetVertex(i, {
           ((T_FLOAT)x - resolution_x * 0.5f) * scale_x / resolution_x,
           0.0f,
           ((T_FLOAT)y - resolution_y * 0.5f) * scale_y / resolution_y
-          }, 
-          &p);
+        });
       }
       if (format & V_ATTR_NORMAL)
       {
-        SetVertexNormal({ 0.0f, 1.0f, 0.0f }, &p);
+        ret->SetNormal(i, { 0.0f, 1.0f, 0.0f });
       }
       if (format & V_ATTR_UV)
       {
-        SetVertexUv({ (T_FLOAT)x / resolution_x * tile_count_x, (T_FLOAT)y / resolution_y * tile_count_y }, &p);
+        ret->SetUv(i, { (T_FLOAT)x / resolution_x * tile_count_x, (T_FLOAT)y / resolution_y * tile_count_y });
       }
       if (format & V_ATTR_UV2)
       {
-        SetVertexUv2({ (T_FLOAT)x / resolution_x, (T_FLOAT)y / resolution_y }, &p);
+        ret->SetUv2(i, { (T_FLOAT)x / resolution_x, (T_FLOAT)y / resolution_y });
       }
       if (format & V_ATTR_UV3)
       {
-        SetVertexUv3({ (T_FLOAT)x / resolution_x * tile_count_x, (T_FLOAT)y / resolution_y * tile_count_y }, &p);
+        ret->SetUv3(i, { (T_FLOAT)x / resolution_x * tile_count_x, (T_FLOAT)y / resolution_y * tile_count_y });
       }
       if (format & V_ATTR_UV4)
       {
-        SetVertexUv4({ (T_FLOAT)x / resolution_x * tile_count_x, (T_FLOAT)y / resolution_y * tile_count_y }, &p);
+        ret->SetUv4(i, { (T_FLOAT)x / resolution_x * tile_count_x, (T_FLOAT)y / resolution_y * tile_count_y });
       }
       if (format & V_ATTR_TANGENT)
       {
-        SetVertexTangent({ 1.0f, 0.0f, 0.0f, -1.0f }, &p);
+        ret->SetTangent(i, { 1.0f, 0.0f, 0.0f, -1.0f });
       }
       if (format & V_ATTR_COLOR)
       {
-        SetVertexColor(TColor::WHITE, &p);
+        ret->SetColor(i, TColor::WHITE);
       }
     }
   }
 
-  const T_UINT32 polygonCount = resolution_x * resolution_y * 2;
-  ret->indices_.resize(polygonCount * 3);
+  ret->AddIndices(polygon_count * 3, IndexFormat::INDEX_FMT_16);
   for (T_UINT32 ti = 0, vi = 0, y = 0; y < resolution_y; ++y, ++vi)
   {
     for (T_UINT32 x = 0; x < resolution_x; ++x, ti += 6, ++vi)
     {
-      ret->indices_[ti] = vi;
+      ret->SetIndex(ti, vi);
 
-      ret->indices_[ti + 2] = vi + 1;
-      ret->indices_[ti + 3] = vi + 1;
+      ret->SetIndex(ti + 2, vi + 1);
+      ret->SetIndex(ti + 3, vi + 1);
 
-      ret->indices_[ti + 4] = vi + resolution_x + 1;
-      ret->indices_[ti + 1] = vi + resolution_x + 1;
+      ret->SetIndex(ti + 4, vi + resolution_x + 1);
+      ret->SetIndex(ti + 1, vi + resolution_x + 1);
 
-      ret->indices_[ti + 5] = vi + resolution_x + 2;
+      ret->SetIndex(ti + 5, vi + resolution_x + 2);
     }
   }
-
-  ret->submesh_count_ = 1;
-  ret->submesh_index_counts_.resize(ret->submesh_count_);
-  ret->submesh_index_counts_[0] = (T_FIXED_UINT32)ret->indices_.size();
-  ret->submesh_polygon_counts_.resize(ret->submesh_count_);
-  ret->submesh_polygon_counts_[0] = polygonCount;
 
   return ret;
 }

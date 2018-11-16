@@ -13,7 +13,7 @@ void EasingFunction::Load(T_UINT32 sampling_count)
   this->table_out_ = new T_FLOAT[sampling_count + 1]();
   this->table_in_out_ = new T_FLOAT[sampling_count + 1]();
   const T_FLOAT d = 1.0f / sampling_count;
-  for (int i = 0; i < sampling_count; ++i)
+  for (T_UINT32 i = 0; i < sampling_count; ++i)
   {
     const T_FLOAT val = d * (sampling_count - i - 1);
     this->table_in_[i] = 1.0f - this->CalcIn(val);

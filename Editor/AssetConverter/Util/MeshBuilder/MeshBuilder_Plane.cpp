@@ -22,7 +22,7 @@ MeshBuilder_Plane::MeshBuilder_Plane()
 {
 }
 
-MeshData* MeshBuilder_Plane::CreateMesh() const
+UniqueRef<rcMesh> MeshBuilder_Plane::CreateMesh() const
 {
   return MeshFactory::Plane::Create(
     format_,

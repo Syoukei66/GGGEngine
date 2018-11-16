@@ -8,7 +8,7 @@
 #include <Cereal/access.hpp>
 
 #include <Entity/File/Texture/TextureAssetConverterFactory.h>
-#include <Entity/File/Model/ModelAssetConverterFactory.h>
+#include <Entity/File/Model/StaticModelAssetConverterFactory.h>
 #include <Entity/File/Model/Mesh/ModelMeshAssetConverterFactory.h>
 #include <Entity/File/Model/Material/ModelMaterialAssetConverterFactory.h>
 #include <Entity/Default/Mesh/DefaultMeshAssetConverterFactory.h>
@@ -31,7 +31,7 @@ struct Setting
   }
 
   TextureAssetConverterFactory texture_asset_converter_factory;
-  ModelAssetConverterFactory model_asset_converter_factory;
+  StaticModelAssetConverterFactory model_asset_converter_factory;
   ModelMeshAssetConverterFactory model_mesh_asset_converter_factory;
   ModelMaterialAssetConverterFactory model_material_asset_converter_factory;
   DefaultMeshAssetConverterFactory default_mesh_asset_converter_factory;

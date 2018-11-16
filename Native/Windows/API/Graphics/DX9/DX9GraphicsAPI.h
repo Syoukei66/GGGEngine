@@ -23,6 +23,7 @@ public:
   virtual void ResetRenderTarget() override;
   virtual void DrawStencilBuffer() override;
 
+  virtual void DrawIndexedPrimitive(Vertex::PrimitiveType primitive_type, const SharedRef<const rcIndexBuffer>& index_buffer) override;
 
   virtual UniqueRef<rcTexture> TextureLoad(const char* path) override;
   virtual void DeleteTexture(rcTexture* texture) override;
@@ -32,8 +33,9 @@ public:
   virtual void DeleteRenderBuffer(rcRenderBuffer* render_buffer) override;
   virtual UniqueRef<rcRenderTexture> CreateRenderTexture(T_UINT16 width, T_UINT16 height, ::Graphics::PixelFormat format, ::Graphics::PixelFormat depth_format) override;
   virtual UniqueRef<rcShader> ShaderLoad(const char* path) override;
-  virtual UniqueRef<rcVertexBuffer> CreateVertexBuffer(T_UINT32 vertex_count, T_UINT32 format) override;
-  virtual UniqueRef<rcIndexBuffer> CreateIndexBuffer(T_UINT32 indexes_count, T_UINT32 polygon_count) override;
+  virtual UniqueRef<rcVertexBuffer> CreateVertexBuffer(T_UINT32 size) override;
+  virtual UniqueRef<rcIndexBuffer> CreateIndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format) override;
+  virtual UniqueRef<rcVertexDeclaration> CreateVertexDeclaration(T_UINT32 format) override;
 
   virtual bool ImGuiNewFrame() override;
   virtual bool ImGuiEndFrame() override;

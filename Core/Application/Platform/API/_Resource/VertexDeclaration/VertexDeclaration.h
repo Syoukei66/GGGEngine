@@ -2,36 +2,32 @@
 
 #include <Core/Application/Platform/API/_Resource/APIResourceObject.h>
 
-class rcIndexBuffer;
-class rcVertexDeclaration;
-
 /*!
- * @brief 頂点バッファのベースクラス。
+ * @brief 頂点情報のベースクラス
  * プラットフォーム毎の処理を派生クラス側で定義する。
  */
-class rcVertexBuffer : public GGAPIResourceObject
+class rcVertexDeclaration : public GGAPIResourceObject
 {
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_OBJECT(rcVertexBuffer);
+  GG_OBJECT(rcVertexDeclaration);
 
   // =================================================================
   // Factory Method
   // =================================================================
 public:
-  static UniqueRef<rcVertexBuffer> Create(T_UINT32 size)
+  static UniqueRef<rcVertexDeclaration> Create(T_UINT32 format)
   {
-    return Application::GetPlatform()->GetGraphicsAPI()->CreateVertexBuffer(size);
+    return Application::GetPlatform()->GetGraphicsAPI()->CreateVertexDeclaration(format);
   }
 
   // =================================================================
   // Method
   // =================================================================
 public:
-  virtual void Lock(void** dest) = 0;
-  virtual void Unlock() = 0;
-
-  virtual void SetStreamSource(const SharedRef<const rcVertexDeclaration>& declaration) const = 0;
+  virtual T_UINT32 GetFormat() const = 0;
+  virtual T_UINT32 GetVertexSize() const = 0;
+  virtual void SetVertexDeclaration() const = 0;
 
 };

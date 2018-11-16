@@ -1,9 +1,9 @@
-#include "ModelAssetExporter.h"
+#include "StaticModelAssetExporter.h"
 
 // =================================================================
 // Methods
 // =================================================================
-void ModelAssetExporter::ExportProcess(const SharedRef<ModelAssetEntity>& entity, const AssetConverterContext* context)
+void StaticModelAssetExporter::ExportProcess(const SharedRef<StaticModelAssetEntity>& entity, const AssetConverterContext* context)
 {
   CerealIO::Binary::Export(entity->GetAssetInfo()->GetOutputPath().c_str(), entity->GetData());
   Logger::ConvertAssetLog(entity->GetAssetInfo());

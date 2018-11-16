@@ -120,16 +120,6 @@ Matrix4x4 Matrix4x4::LookAt(const TVec3f & eye, const TVec3f & at, const TVec3f 
   return ret;
 }
 
-Matrix4x4::operator T_FLOAT*()
-{
-  return this->data;
-}
-
-Matrix4x4::operator const T_FLOAT*() const
-{
-  return this->data;
-}
-
 Matrix4x4 Matrix4x4::Inverse() const
 {
   return Matrix4x4(this->eigen.inverse());

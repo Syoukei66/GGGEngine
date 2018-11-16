@@ -363,6 +363,9 @@
     <ClInclude Include="Application\IApplicationSetting.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Application\Platform\API\_Resource\VertexDeclaration\VertexDeclaration.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -395,17 +398,11 @@
     <ClCompile Include="Application\Platform\API\_Asset\Texture\Texture.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Platform\API\_Resource\IndexBuffer\IndexBuffer.cpp">
-      <Filter>ソース ファイル\Resource\_Native\Buffer</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Platform\API\_Resource\RenderBuffer\RenderBuffer.cpp">
       <Filter>ソース ファイル\Resource\_Native\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Application\Platform\API\_Resource\RenderTexture\RenderTexture.cpp">
       <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Platform\API\_Resource\VertexBuffer\VertexBuffer.cpp">
-      <Filter>ソース ファイル\Resource\_Native\Buffer</Filter>
     </ClCompile>
     <ClCompile Include="Application\Platform\API\Graphics\GraphicsAPI.cpp">
       <Filter>ソース ファイル</Filter>

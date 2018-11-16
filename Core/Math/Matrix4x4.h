@@ -98,8 +98,15 @@ public:
     return this->m[Row][Col];
   }
 
-  GG_INLINE operator T_FLOAT* ();
-  GG_INLINE operator const T_FLOAT* () const;
+  GG_INLINE operator T_FLOAT* ()
+  {
+    return this->data;
+  }
+  GG_INLINE operator const T_FLOAT* () const
+  {
+    return this->data;
+  }
+
 
   GG_INLINE Matrix4x4& operator *= (const Matrix4x4& other)
   {

@@ -12,7 +12,7 @@ namespace Cube
 // UV3 UV1‚Æ“¯‚¶
 // UV4 UV1‚Æ“¯‚¶
 //
-MeshData* Create(
+UniqueRef<rcMesh> Create(
   T_UINT32 format,
   T_FLOAT scale_x, T_FLOAT scale_y, T_FLOAT scale_z,
   T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z,
@@ -20,7 +20,7 @@ MeshData* Create(
 );
 
 //
-static GG_INLINE MeshData* Create(
+static GG_INLINE UniqueRef<rcMesh> Create(
   T_UINT32 format,
   T_FLOAT scale_x, T_FLOAT scale_y, T_FLOAT scale_z,
   T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z
@@ -32,7 +32,7 @@ static GG_INLINE MeshData* Create(
   );
 }
 //
-static GG_INLINE MeshData* Create(
+static GG_INLINE UniqueRef<rcMesh> Create(
   T_UINT32 format,
   T_FLOAT scale_x, T_FLOAT scale_y, T_FLOAT scale_z
 )
@@ -42,17 +42,17 @@ static GG_INLINE MeshData* Create(
   );
 }
 //
-static GG_INLINE MeshData* Create(T_UINT32 format, const TVec3f& scale)
+static GG_INLINE UniqueRef<rcMesh> Create(T_UINT32 format, const TVec3f& scale)
 {
   return Create(format, scale.x, scale.y, scale.z);
 }
 //
-static GG_INLINE MeshData* Create(T_UINT32 format, const TVec3f& scale, const TVec3i& resolution)
+static GG_INLINE UniqueRef<rcMesh> Create(T_UINT32 format, const TVec3f& scale, const TVec3i& resolution)
 {
   return Create(format, scale.x, scale.y, scale.z, resolution.x, resolution.y, resolution.z);
 }
 //
-static GG_INLINE MeshData* Create(T_UINT32 format, const TVec3f& scale, const TVec3i& resolution, const TVec3f& tile_count)
+static GG_INLINE UniqueRef<rcMesh> Create(T_UINT32 format, const TVec3f& scale, const TVec3i& resolution, const TVec3f& tile_count)
 {
   return Create(format, scale.x, scale.y, scale.z, resolution.x, resolution.y, resolution.z, tile_count.x, tile_count.y, tile_count.z);
 }

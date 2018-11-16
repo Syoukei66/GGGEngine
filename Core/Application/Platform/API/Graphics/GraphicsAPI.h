@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Core/Application/Platform/API/APIObject.h>
+#include <Core/Constants/VertexUtils.h>
 
 class Activity;
 class rcRenderBuffer;
@@ -8,6 +9,7 @@ class rcTexture;
 class rcRenderTexture;
 class rcShader;
 class rcVertexBuffer;
+class rcVertexDeclaration;
 class rcIndexBuffer;
 
 /*!
@@ -20,7 +22,7 @@ class GraphicsAPI : public GGAPIObject
   // =================================================================
 public:
   bool Draw(const SharedRef<Activity>& activity, const std::function<void()>& draw_method);
-
+  
 public:
   virtual void ViewportClear() = 0;
   virtual void SetViewport(T_FLOAT x, T_FLOAT y, T_FLOAT w, T_FLOAT h, T_FLOAT minZ, T_FLOAT maxZ) = 0;
@@ -28,6 +30,8 @@ public:
   virtual void SetRenderTarget(const SharedRef<rcRenderBuffer>& color_buffer, const SharedRef<rcRenderBuffer>& depth_stencil_buffer, bool clear) = 0;
   virtual void ResetRenderTarget() = 0;
   virtual void DrawStencilBuffer() = 0;
+
+  virtual void DrawIndexedPrimitive(Vertex::PrimitiveType primitive_type, const SharedRef<const rcIndexBuffer>& index_buffer) = 0;
   
   virtual UniqueRef<rcTexture> TextureLoad(const char* path) = 0;
   virtual void DeleteTexture(rcTexture* texture) = 0;
@@ -40,8 +44,9 @@ public:
   virtual UniqueRef<rcRenderTexture> CreateRenderTexture(T_UINT16 width, T_UINT16 height, ::Graphics::PixelFormat format, ::Graphics::PixelFormat depth_format) = 0;
 
   virtual UniqueRef<rcShader> ShaderLoad(const char* path) = 0;
-  virtual UniqueRef<rcVertexBuffer> CreateVertexBuffer(T_UINT32 vertex_count, T_UINT32 format) = 0;
-  virtual UniqueRef<rcIndexBuffer> CreateIndexBuffer(T_UINT32 indexes_count, T_UINT32 polygon_count) = 0;
+  virtual UniqueRef<rcVertexBuffer> CreateVertexBuffer(T_UINT32 size) = 0;
+  virtual UniqueRef<rcIndexBuffer> CreateIndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format) = 0;
+  virtual UniqueRef<rcVertexDeclaration> CreateVertexDeclaration(T_UINT32 format) = 0;
 
   virtual bool ImGuiNewFrame() = 0;
   virtual bool ImGuiEndFrame() = 0;

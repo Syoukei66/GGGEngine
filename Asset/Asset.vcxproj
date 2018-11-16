@@ -166,6 +166,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CharacterModel\CharacterModel.cpp" />
     <ClCompile Include="CSV\CsvData.cpp" />
     <ClCompile Include="CSV\CsvTokenizer.cpp" />
     <ClCompile Include="Json\JsonData.cpp" />
@@ -174,7 +175,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClCompile Include="Mesh\Mesh.cpp" />
     <ClCompile Include="Mesh\MeshFactory\MeshFactory_Cube.cpp" />
     <ClCompile Include="Mesh\MeshFactory\MeshFactory_Plane.cpp" />
-    <ClCompile Include="Model\Model.cpp" />
+    <ClCompile Include="StaticModel\StaticModel.cpp" />
     <ClCompile Include="Particle\ParticleData.cpp" />
     <ClCompile Include="Particle\ParticleDataManager.cpp" />
     <ClCompile Include="Particle\ParticleSystem.cpp" />
@@ -191,6 +192,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClCompile Include="TextureAtlas\TextureAtlas.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CharacterModel\CharacterModel.h" />
     <ClInclude Include="CSV\CsvData.h" />
     <ClInclude Include="CSV\CsvTokenizer.h" />
     <ClInclude Include="Include.h" />
@@ -201,7 +203,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="Mesh\Mesh.h" />
     <ClInclude Include="Mesh\MeshFactory\MeshFactory_Cube.h" />
     <ClInclude Include="Mesh\MeshFactory\MeshFactory_Plane.h" />
-    <ClInclude Include="Model\Model.h" />
+    <ClInclude Include="StaticModel\StaticModel.h" />
     <ClInclude Include="Particle\ParticleData.h" />
     <ClInclude Include="Particle\ParticleDataManager.h" />
     <ClInclude Include="Particle\ParticleSystem.h" />

@@ -12,6 +12,7 @@
 #include <Native/Windows/API/Graphics/DX9/DX9IndexBuffer.h>
 #include <Native/Windows/API/Graphics/DX9/DX9Shader.h>
 #include <Native/Windows/API/Graphics/DX9/DX9VertexBuffer.h>
+#include <Native/Windows/API/Graphics/DX9/DX9VertexDeclaration.h>
 #include <Native/Windows/API/Graphics/DX9/imgui/imgui_impl_dx9.h>
 #include <Native/Windows/API/Graphics/WindowsGraphicsAPI.h>
 #include <Native/Windows/API/Input/DirectInput/DirectInputAPI.h>

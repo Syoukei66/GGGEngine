@@ -12,7 +12,7 @@
 //enum aiTextureOp;
 //enum aiTextureType;
 //
-//namespace ModelAssetImporter
+//namespace StaticModelAssetImporter
 //{
 //
 //namespace Assimp

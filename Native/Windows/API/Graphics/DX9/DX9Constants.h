@@ -5,7 +5,13 @@
 namespace DX9
 {
 
-static const D3DPRIMITIVETYPE PRIMITIVE_TYPES[Vertex::PRIMITIVE_DATANUM] =
+static D3DFORMAT INDEX_FORMATS[static_cast<T_UINT32>(Vertex::IndexFormat::INDEX_FMT_DATANUM)] =
+{
+  D3DFMT_INDEX16,
+  D3DFMT_INDEX32,
+};
+
+static const D3DPRIMITIVETYPE PRIMITIVE_TYPES[static_cast<T_UINT32>(Vertex::PrimitiveType::DATANUM)] =
 {
   D3DPT_POINTLIST,
   D3DPT_LINELIST,

@@ -2,13 +2,13 @@
 
 #include <Entity/File/FileAssetConverterFactory.h>
 
-class ModelAssetConverterFactory : public FileAssetConverterFactory
+class StaticModelAssetConverterFactory : public FileAssetConverterFactory
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  ModelAssetConverterFactory() = default;
+  StaticModelAssetConverterFactory() = default;
 
   // =================================================================
   // Methods
@@ -32,4 +32,4 @@ public:
 private:
 
 };
-CEREAL_CLASS_VERSION(ModelAssetConverterFactory, 1);
+CEREAL_CLASS_VERSION(StaticModelAssetConverterFactory, 1);

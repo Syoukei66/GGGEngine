@@ -3,28 +3,30 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 
-#include <Core/Application/Platform/API/_Resource/VertexBuffer/VertexBuffer.h>
+#include <Core/Application/Platform/API/_Resource/VertexDeclaration/VertexDeclaration.h>
 
-class DX9VertexBuffer : public rcVertexBuffer
+class DX9VertexDeclaration : public rcVertexDeclaration
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  DX9VertexBuffer(T_UINT32 size);
-  ~DX9VertexBuffer();
+  DX9VertexDeclaration(T_UINT32 format);
+  ~DX9VertexDeclaration();
 
   // =================================================================
   // Method
   // =================================================================
 public:
-  virtual void Lock(void** dest) override;
-  virtual void Unlock() override;
-  virtual void SetStreamSource(const SharedRef<const rcVertexDeclaration>& declaration) const override;
+  virtual T_UINT32 GetFormat() const override;
+  virtual T_UINT32 GetVertexSize() const override;
+  virtual void SetVertexDeclaration() const override;
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
-  IDirect3DVertexBuffer9* vertex_buffer_;
+  const T_UINT32 format_;
+  T_UINT32 stride_;
+  IDirect3DVertexDeclaration9* vertex_declaration_;
 };

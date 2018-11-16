@@ -1,20 +1,20 @@
 #pragma once
 
 #include <Entity/AssetImporter.h>
-#include "ModelAssetEntity.h"
+#include "StaticModelAssetEntity.h"
 
-class ModelAssetImporter : public AssetImporter<ModelAssetEntity>
+class StaticModelAssetImporter : public AssetImporter<StaticModelAssetEntity>
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  ModelAssetImporter(const std::vector<std::string>& extensions);
+  StaticModelAssetImporter(const std::vector<std::string>& extensions);
 
   // =================================================================
   // Methods
   // =================================================================
 protected:
-  SharedRef<ModelAssetEntity> ImportProcess(AssetInfo* info, AssetConverterContext* context) override;
+  SharedRef<StaticModelAssetEntity> ImportProcess(AssetInfo* info, AssetConverterContext* context) override;
 
 };

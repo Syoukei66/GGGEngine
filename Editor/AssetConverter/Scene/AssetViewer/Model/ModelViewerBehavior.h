@@ -27,6 +27,6 @@ public:
   // Data Members
   // =================================================================
 private:
-  GameObject3D* obj_;
-  MeshRenderer* mesh_renderer_;
+  Scene* scene_;
+  GameObject3D* root_;
 };

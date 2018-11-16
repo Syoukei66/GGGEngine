@@ -38,9 +38,9 @@
 #include <Core/Constants/DirectoryUtils.h>
 #include <Core/Constants/GraphicsUtils.h>
 
+#include <Core/Constants/VertexUtils.h>
+
 #include <Core/Application/Application.h>
 #include <Core/Application/Platform/Platform.h>
-
-#include <Core/Constants/VertexUtils.h>
 
 #include <Core/_Private/CerealIO.h>

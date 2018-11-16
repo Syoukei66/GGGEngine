@@ -3,5 +3,5 @@
 class MeshBuilder
 {
 public:
-  virtual MeshData* CreateMesh() const = 0;
+  virtual UniqueRef<rcMesh> CreateMesh() const = 0;
 };

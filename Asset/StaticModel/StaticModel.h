@@ -3,12 +3,12 @@
 #include <Asset/Mesh/Mesh.h>
 #include <Asset/Material/Material.h>
 
-struct ModelData
+struct StaticModelData
 {
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_SERIALIZABLE(ModelData)
+  GG_SERIALIZABLE(CharacterModelData)
   {
     archive(mesh_unique_id_);
     archive(material_unique_ids_);
@@ -20,14 +20,15 @@ struct ModelData
 public:
   T_FIXED_UINT32 mesh_unique_id_;
   std::vector<T_FIXED_UINT32> material_unique_ids_;
+
 };
 
-class rcModel : public GGAssetObject
+class rcStaticModel : public GGAssetObject
 {
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_ASSET(rcModel, ModelData);
+  GG_ASSET(rcStaticModel, StaticModelData);
 
   // =================================================================
   // Setter / Getter

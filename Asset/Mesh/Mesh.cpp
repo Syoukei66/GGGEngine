@@ -5,42 +5,49 @@
 // =================================================================
 GG_INIT_FUNC_IMPL_1(rcMesh, const MeshData& data)
 {
-  this->read_only_ = true;
-  this->format_ = data.vertex_format_;
-  this->vertex_count_ = data.vertex_count_;
-  this->primitive_type_ = Vertex::PRIMITIVE_TRIANGLES;
-  this->submesh_count_ = data.submesh_count_;
+  using namespace Vertex;
 
-  //Vertex Buffer
-  if (data.vertex_count_ > 0)
+  this->readable_ = false;
+  this->vertex_declaration_ = rcVertexDeclaration::Create(data.vertex_format_);
+  this->primitive_type_ = Vertex::PrimitiveType::TRIANGLES;
+
+  this->submesh_count_ = (T_UINT32)data.index_datas_.size();
+
+  GG_ASSERT(data.vertex_count_ > 0, "頂点がメッシュデータに含まれていませんでした");
+
+  // Vertex Bufferの作成
+  const T_UINT32 vertex_buffer_size = data.vertex_count_ * this->vertex_declaration_->GetVertexSize();
+  this->vertex_buffer_ = rcVertexBuffer::Create(vertex_buffer_size);
+  unsigned char* p;
+  this->vertex_buffer_->Lock((void**)&p);
+  for (T_UINT32 i = 0; i < vertex_buffer_size; ++i)
   {
-    this->vertex_buffer_ = rcVertexBuffer::Create(data.vertex_count_, data.vertex_format_);
-    unsigned char* p;
-    this->vertex_buffer_->Lock((void**)&p);
-    GG_ASSERT(data.vertex_size_ == Vertex::CalcVertexSize(data.vertex_format_), "MeshDataを作成した時と頂点データのサイズが異なっています");
-    const T_UINT64 byte_count = data.vertex_count_ * data.vertex_size_;
-    for (T_UINT64 i = 0; i < byte_count; ++i)
-    {
-      p[i] = data.data_[i];
-    }
-    this->vertex_buffer_->Unlock();
+    p[i] = data.vertex_data_[i];
   }
+  this->vertex_buffer_->Unlock();
 
-  this->polygon_count_ = 0;
-  //Index Buffers
-  this->index_buffers_ = new SharedRef<rcIndexBuffer>[data.submesh_count_]();
-  for (T_UINT32 i = 0, ii = 0; i < data.submesh_count_; ++i)
+  // Index Bufferの作成
+  this->submesh_index_buffers_.resize(this->submesh_count_);
+  
+  for (T_UINT32 i = 0; i < this->submesh_count_; ++i)
   {
-    T_UINT32* index_data;
-    this->index_buffers_[i] = rcIndexBuffer::Create(data.submesh_index_counts_[i], data.submesh_polygon_counts_[i]);
-    this->index_buffers_[i]->Lock((void**)&index_data);
-    for (T_UINT32 j = 0; j < data.submesh_index_counts_[i]; ++j)
+    // インデックスバッファフォーマット
+    const IndexFormat index_format = static_cast<IndexFormat>(data.index_formats_[i]);
+    const T_UINT8 index_size = INDEX_FORMAT_SIZES[static_cast<T_UINT8>(index_format)];
+
+    const T_UINT32 index_count = data.index_counts_[i];
+    this->submesh_index_buffers_[i] = rcIndexBuffer::Create(index_count, data.polygon_counts_[i], index_format);
+
+    const T_UINT32 index_buffer_size = index_count * index_size;
+    unsigned char* p;
+    this->submesh_index_buffers_[i]->Lock((void**)&p);
+    for (T_UINT32 j = 0; j < index_buffer_size; ++j)
     {
-      index_data[j] = data.indices_[ii + j];
+      p[i] = data.index_datas_[i][j];
     }
-    this->index_buffers_[i]->Unlock();
-    ii += data.submesh_index_counts_[i];
-    this->polygon_count_ += data.submesh_polygon_counts_[i];
+    this->submesh_index_buffers_[i]->Unlock();
+
+    this->polygon_count_ += data.polygon_counts_[i];
   }
   return true;
 }
@@ -62,23 +69,14 @@ void rcMesh::Clear()
 
 void rcMesh::ClearVertices(bool clear_buffer)
 {
-  delete[] this->vertices_;
-  delete[] this->normals_;
-  delete[] this->uvs_;
-  delete[] this->uv2s_;
-  delete[] this->uv3s_;
-  delete[] this->uv4s_;
-  delete[] this->tangents_;
-  delete[] this->colors_;
-
-  this->vertices_ = nullptr;
-  this->normals_ = nullptr;
-  this->uvs_ = nullptr;
-  this->uv2s_ = nullptr;
-  this->uv3s_ = nullptr;
-  this->uv4s_ = nullptr;
-  this->tangents_ = nullptr;
-  this->colors_ = nullptr;
+  this->vertices_.clear();
+  this->normals_.clear();
+  this->uvs_.clear();
+  this->uv2s_.clear();
+  this->uv3s_.clear();
+  this->uv4s_.clear();
+  this->tangents_.clear();
+  this->colors_.clear();
 
   this->vertices_dirty_ = false;
 
@@ -86,105 +84,143 @@ void rcMesh::ClearVertices(bool clear_buffer)
   {
     this->vertex_count_ = 0;
     this->vertex_buffer_ = nullptr;
+    this->vertex_declaration_ = nullptr;
   }
 }
 
 void rcMesh::ClearIndices(bool clear_buffer)
 {
-  delete[] this->face_normals_;
-  if (this->indices_)
-  {
-    for (T_UINT8 i = 0; i < this->submesh_count_; ++i)
-    {
-      delete[] this->indices_[i];
-    }
-    delete[] this->indices_;
-    delete[] this->index_counts_;
-    delete[] this->indices_dirties_;
-  }
+  this->face_normals_.clear();
 
-  this->face_normals_ = nullptr;
-  this->indices_ = nullptr;
-  this->index_counts_ = nullptr;
-  this->indices_dirties_ = nullptr;
+  this->submesh_indices_.clear();
 
   if (clear_buffer)
   {
-    delete[] this->index_buffers_;
-    this->index_buffers_ = nullptr;
     this->submesh_count_ = 0;
+    this->submesh_index_buffers_.clear();
   }
 }
 
-UniqueRef<rcMesh> rcMesh::Clone(bool read_only)
+void rcMesh::ConvertToData(MeshData* dest)
+{
+  using namespace Vertex;
+  GG_ASSERT(this->readable_, "メッシュのデータを読み込めません");
+
+  // Vertices
+  dest->vertex_format_ = this->vertex_format_;
+  dest->vertex_count_ = this->vertex_count_;
+  const T_UINT32 vertex_size = Vertex::CalcVertexSize(dest->vertex_format_);
+  dest->vertex_data_.resize(dest->vertex_count_ * vertex_size);
+  unsigned char* p = &dest->vertex_data_[0];
+  for (T_UINT32 i = 0; i < dest->vertex_count_; ++i)
+  {
+    if (this->vertex_format_ & V_ATTR_POSITION) Vertex::SetVertexPosition(this->vertices_[i], &p);
+    if (this->vertex_format_ & V_ATTR_NORMAL)   Vertex::SetVertexNormal(this->normals_[i], &p);
+    if (this->vertex_format_ & V_ATTR_UV)       Vertex::SetVertexUv(this->uvs_[i], &p);
+    if (this->vertex_format_ & V_ATTR_UV2)      Vertex::SetVertexUv2(this->uv2s_[i], &p);
+    if (this->vertex_format_ & V_ATTR_UV3)      Vertex::SetVertexUv3(this->uv3s_[i], &p);
+    if (this->vertex_format_ & V_ATTR_UV4)      Vertex::SetVertexUv4(this->uv4s_[i], &p);
+    if (this->vertex_format_ & V_ATTR_TANGENT)  Vertex::SetVertexTangent(this->tangents_[i], &p);
+    if (this->vertex_format_ & V_ATTR_COLOR)    Vertex::SetVertexColor(this->colors_[i], &p);
+    //SetVertexBoneWeights(this->bone_weights_[i], dest->vertex_format_, &p);
+  }
+
+  // Indices
+  dest->index_datas_.resize(this->submesh_count_);
+  dest->index_formats_.resize(this->submesh_count_);
+  dest->index_counts_.resize(this->submesh_count_);
+  dest->polygon_counts_.resize(this->submesh_count_);
+  for (T_UINT32 i = 0; i < this->submesh_count_; ++i)
+  {
+    const SharedRef<rcIndexBuffer>& index_buffer = this->submesh_index_buffers_[i];
+    const Vertex::IndexFormat index_format = index_buffer->GetIndexFormat();
+    const T_UINT32 index_size = Vertex::INDEX_FORMAT_SIZES[static_cast<T_UINT8>(index_format)];
+    const T_UINT32 index_count = index_buffer->GetVertexCount();
+    dest->index_formats_[i] = static_cast<T_UINT8>(index_format);
+    dest->index_counts_[i] = index_count;
+    dest->polygon_counts_[i] = index_buffer->GetPolygonCount();
+    dest->index_datas_[i].resize(index_count * index_size);
+    unsigned char* p = &dest->index_datas_[i][0];
+    for (T_UINT32 ii = 0; ii < index_count; ++ii)
+    {
+      Vertex::SetIndexIndex(this->submesh_indices_[i][ii], index_format, &p);
+    }
+  }
+
+  dest->bounds_ = this->bounds_;
+}
+
+UniqueRef<rcMesh> rcMesh::Clone(bool clear_readable_data)
 {
   UniqueRef<rcMesh> clone = rcMesh::Create();
 
   clone->orginal_ = this;
-  clone->CreateVertices(this->vertex_count_, this->format_, this->primitive_type_);
-  clone->CreateIndices(this->submesh_count_, this->index_counts_);
-  if (this->HasVertices()) clone->SetVertices(this->vertices_);
-  if (this->HasNormals()) clone->SetNormals(this->normals_);
-  if (this->HasUvs()) clone->SetUvs(this->uvs_);
-  if (this->HasUv2s()) clone->SetUv2s(this->uv2s_);
-  if (this->HasUv3s()) clone->SetUv3s(this->uv3s_);
-  if (this->HasUv4s()) clone->SetUv4s(this->uv4s_);
-  if (this->HasTangents()) clone->SetTangents(this->tangents_);
-  if (this->HasColors()) clone->SetColors(this->colors_);
-  clone->CommitChanges(read_only);
+
+  // clone Vertices
+  clone->CreateVertices(this->vertex_count_, this->polygon_count_, this->vertex_format_, this->primitive_type_);
+  if (this->HasVertices())  clone->SetVertices(this->vertices_.data());
+  if (this->HasNormals())   clone->SetNormals(this->normals_.data());
+  if (this->HasUvs())       clone->SetUvs(this->uvs_.data());
+  if (this->HasUv2s())      clone->SetUv2s(this->uv2s_.data());
+  if (this->HasUv3s())      clone->SetUv3s(this->uv3s_.data());
+  if (this->HasUv4s())      clone->SetUv4s(this->uv4s_.data());
+  if (this->HasTangents())  clone->SetTangents(this->tangents_.data());
+  if (this->HasColors())    clone->SetColors(this->colors_.data());
+
+  // clone indices
+  for (const SharedRef<rcIndexBuffer>& index_buffer : this->submesh_index_buffers_ )
+  {
+    const T_UINT32 submesh_index_index = clone->AddIndices(index_buffer->GetVertexCount(), index_buffer->GetPolygonCount(), index_buffer->GetIndexFormat());
+    const std::vector<T_UINT32>& submesh_indices = this->submesh_indices_[submesh_index_index];
+    const T_UINT32 submesh_index_count = (T_UINT32)submesh_indices.size();
+    clone->SetIndices(submesh_index_index, this->GetIndices(submesh_index_index));
+  }
+
+  clone->CommitChanges(clear_readable_data);
   return clone;
 }
 
 void rcMesh::CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT32 format, Vertex::PrimitiveType primitive_type)
 {
+  this->readable_ = true;
+
   this->ClearVertices(true);
 
+  this->vertex_declaration_ = rcVertexDeclaration::Create(format);
+
+  this->vertex_format_ = format;
   this->vertex_count_ = vertex_count;
   this->polygon_count_ = polygon_count;
-  this->format_ = format;
   this->primitive_type_ = primitive_type;
 
   using namespace Vertex;
 
-  if (format & V_ATTR_POSITION) this->vertices_ = new TVec3f[vertex_count]{};
-  if (format & V_ATTR_NORMAL) this->normals_ = new TVec3f[vertex_count]{};
-  if (format & V_ATTR_UV) this->uvs_ = new TVec2f[vertex_count]{};
-  if (format & V_ATTR_UV2) this->uv2s_ = new TVec2f[vertex_count]{};
-  if (format & V_ATTR_UV3) this->uv3s_ = new TVec2f[vertex_count]{};
-  if (format & V_ATTR_UV4) this->uv4s_ = new TVec2f[vertex_count]{};
-  if (format & V_ATTR_TANGENT) this->tangents_ = new TVec4f[vertex_count]{};
-  if (format & V_ATTR_COLOR) this->colors_ = new TColor[vertex_count]{};
-  this->vertex_buffer_ = rcVertexBuffer::Create(
-    vertex_count,
-    polygon_count
-  );
+  if (format & V_ATTR_POSITION) this->vertices_.resize(vertex_count);
+  if (format & V_ATTR_NORMAL) this->normals_.resize(vertex_count);
+  if (format & V_ATTR_UV) this->uvs_.resize(vertex_count);
+  if (format & V_ATTR_UV2) this->uv2s_.resize(vertex_count);
+  if (format & V_ATTR_UV3) this->uv3s_.resize(vertex_count);
+  if (format & V_ATTR_UV4) this->uv4s_.resize(vertex_count);
+  if (format & V_ATTR_TANGENT) this->tangents_.resize(vertex_count);
+  if (format & V_ATTR_COLOR) this->colors_.resize(vertex_count);
+  this->vertex_buffer_ = rcVertexBuffer::Create(vertex_count * this->vertex_declaration_->GetVertexSize());
   this->vertices_dirty_ = true;
 }
 
-void rcMesh::CreateIndices(T_UINT8 submesh_count, T_UINT32* index_counts, T_UINT32* polygon_counts)
+T_UINT32 rcMesh::AddIndices(T_UINT32 index_count, T_UINT32 polygon_count, Vertex::IndexFormat format)
 {
-  GG_ASSERT(polygon_counts || this->polygon_count_ > 0, "ポリゴン数が不定です");
-  this->ClearIndices(true);
-  this->submesh_count_ = submesh_count;
-  this->index_counts_ = new T_UINT32[submesh_count]{};
-  this->indices_ = new T_UINT32*[submesh_count] {};
-  this->indices_dirties_ = new bool[submesh_count] {};
-  this->index_buffers_ = new SharedRef<rcIndexBuffer>[submesh_count] {};
-  for (T_UINT8 i = 0; i < submesh_count; ++i)
-  {
-    this->index_counts_[i] = index_counts[i];
-    this->indices_[i] = new T_UINT32[index_counts[i]]{};
-    this->index_buffers_[i] = rcIndexBuffer::Create(index_counts[i], polygon_counts ? polygon_counts[i] : this->polygon_count_);
-    this->indices_dirties_[i] = true;
-  }
+  this->submesh_indices_.emplace_back(std::vector<T_UINT32>());
+  this->submesh_indices_[this->submesh_count_].resize(index_count);
+  this->submesh_indices_dirties_.emplace_back(true);
+  this->submesh_index_buffers_.push_back(rcIndexBuffer::Create(index_count, polygon_count, format));
+  ++this->submesh_count_;
+  return this->submesh_count_ - 1;
 }
 
-void rcMesh::CommitChanges(bool read_only)
+void rcMesh::CommitChanges(bool clear_readable_data)
 {
   using namespace Vertex;
   
-  this->read_only_ = read_only;
-
   if (this->vertices_dirty_)
   {
     void* dest;
@@ -192,67 +228,67 @@ void rcMesh::CommitChanges(bool read_only)
     unsigned char* p = (unsigned char*)dest;
     for (T_UINT32 i = 0; i < this->vertex_count_; ++i)
     {
-      if (this->format_ & V_ATTR_POSITION) SetVertexPosition(this->vertices_[i], &p);
-      if (this->format_ & V_ATTR_NORMAL) SetVertexNormal(this->normals_[i], &p);
-      if (this->format_ & V_ATTR_UV) SetVertexUv(this->uvs_[i], &p);
-      if (this->format_ & V_ATTR_UV2) SetVertexUv2(this->uv2s_[i], &p);
-      if (this->format_ & V_ATTR_UV3) SetVertexUv3(this->uv3s_[i], &p);
-      if (this->format_ & V_ATTR_UV4) SetVertexUv4(this->uv4s_[i], &p);
-      if (this->format_ & V_ATTR_TANGENT) SetVertexTangent(this->tangents_[i], &p);
-      if (this->format_ & V_ATTR_COLOR) SetVertexColor(this->colors_[i], &p);
+      SetVertexPosition(this->vertices_[i], this->vertex_format_, &p);
+      SetVertexNormal(this->normals_[i], this->vertex_format_, &p);
+      SetVertexUv(this->uvs_[i], this->vertex_format_, &p);
+      SetVertexUv2(this->uv2s_[i], this->vertex_format_, &p);
+      SetVertexUv3(this->uv3s_[i], this->vertex_format_, &p);
+      SetVertexUv4(this->uv4s_[i], this->vertex_format_, &p);
+      SetVertexTangent(this->tangents_[i], this->vertex_format_, &p);
+      SetVertexColor(this->colors_[i], this->vertex_format_, &p);
     }
     this->vertex_buffer_->Unlock();
     this->vertices_dirty_ = false;
   }
   for (T_UINT8 i = 0; i < this->submesh_count_; ++i)
   {
-    if (!this->indices_dirties_[i])
+    if (!this->submesh_indices_dirties_[i])
     {
       continue;
     }
-    T_UINT32* dest;
-    this->index_buffers_[i]->Lock((void**)&dest);
-    for (T_UINT32 j = 0; j < this->index_counts_[i]; ++j)
+    const T_UINT32 submesh_index_count = this->submesh_index_buffers_[i]->GetVertexCount();
+    T_FIXED_UINT16* dest;
+    this->submesh_index_buffers_[i]->Lock((void**)&dest);
+    for (T_UINT32 j = 0; j < submesh_index_count; ++j)
     {
-      dest[j] = this->indices_[i][j];
+      dest[j] = this->submesh_indices_[i][j];
     }
-    this->index_buffers_[i]->Unlock();
-    this->indices_dirties_[i] = false;
+    this->submesh_index_buffers_[i]->Unlock();
+    this->submesh_indices_dirties_[i] = false;
   }
-  if (this->read_only_)
+  if (clear_readable_data)
   {
     this->ClearVertices(false);
     this->ClearIndices(false);
+    this->readable_ = false;
   }
 }
 
 void rcMesh::RecalculateNormals(bool save_face_normals)
 {
-  GG_ASSERT(this->primitive_type_ == Vertex::PRIMITIVE_TRIANGLES, "まだできてません！");
+  GG_ASSERT(this->primitive_type_ == Vertex::PrimitiveType::TRIANGLES, "まだできてません！");
 
-  GG_ASSERT(this->format_ & Vertex::V_ATTR_NORMAL, "フォーマットに法線情報が含まれていません");
+  GG_ASSERT(this->vertex_format_ & Vertex::V_ATTR_NORMAL, "フォーマットに法線情報が含まれていません");
 
-  if (!this->face_normals_)
-  {
-    this->face_normals_ = new TVec3f[this->polygon_count_];
-  }
+  this->face_normals_.resize(this->polygon_count_);
   for (T_UINT32 i = 0; i < this->vertex_count_; ++i)
   {
     this->normals_[i] = TVec3f::zero;
   }
   for (T_UINT8 i = 0; i < this->submesh_count_; ++i)
   {
-    for (T_UINT32 j = 0, s = 0; j < this->index_counts_[i]; j += 3, ++s)
+    const T_UINT32 submesh_index_count = this->submesh_index_buffers_[i]->GetVertexCount();
+    for (T_UINT32 j = 0, s = 0; j < submesh_index_count; j += 3, ++s)
     {
-      TVec3f v0 = this->vertices_[this->indices_[i][j]];
-      TVec3f v1 = this->vertices_[this->indices_[i][j + 1]];
-      TVec3f v2 = this->vertices_[this->indices_[i][j + 2]];
+      TVec3f v0 = this->vertices_[this->submesh_indices_[i][j]];
+      TVec3f v1 = this->vertices_[this->submesh_indices_[i][j + 1]];
+      TVec3f v2 = this->vertices_[this->submesh_indices_[i][j + 2]];
       TVec3f vv1 = v1 - v0;
       TVec3f vv2 = v2 - v1;
       this->face_normals_[s] = TVec3f::Cross(vv1, vv2).Normalized();
-      this->normals_[this->indices_[i][j]] += this->face_normals_[s];
-      this->normals_[this->indices_[i][j + 1]] += this->face_normals_[s];
-      this->normals_[this->indices_[i][j + 2]] += this->face_normals_[s];
+      this->normals_[this->submesh_indices_[i][j]] += this->face_normals_[s];
+      this->normals_[this->submesh_indices_[i][j + 1]] += this->face_normals_[s];
+      this->normals_[this->submesh_indices_[i][j + 2]] += this->face_normals_[s];
     }
   }
   for (T_UINT32 i = 0; i < this->vertex_count_; ++i)
@@ -261,32 +297,32 @@ void rcMesh::RecalculateNormals(bool save_face_normals)
   }
   if (!save_face_normals)
   {
-    delete[] this->face_normals_;
-    this->face_normals_ = nullptr;
+    this->face_normals_.clear();
   }
 }
 
 void rcMesh::RecalculateTangents()
 {
-  GG_ASSERT(this->primitive_type_ == Vertex::PRIMITIVE_TRIANGLES, "まだできてません！");
+  GG_ASSERT(this->primitive_type_ == Vertex::PrimitiveType::TRIANGLES, "まだできてません！");
 
-  GG_ASSERT(this->format_ & Vertex::V_ATTR_NORMAL, "フォーマットに法線情報が含まれていません");
-  GG_ASSERT(this->format_ & Vertex::V_ATTR_TANGENT, "フォーマットにtangentベクトル情報が含まれていません");
+  GG_ASSERT(this->vertex_format_ & Vertex::V_ATTR_NORMAL, "フォーマットに法線情報が含まれていません");
+  GG_ASSERT(this->vertex_format_ & Vertex::V_ATTR_TANGENT, "フォーマットにtangentベクトル情報が含まれていません");
 
   /*
   https://answers.unity.com/questions/7789/calculating-tangents-vector4.html
   */
   for (T_UINT8 i = 0; i < this->submesh_count_; ++i)
   {
-    TVec3f* tan0 = new TVec3f[this->index_counts_[i]];
-    TVec3f* tan1 = new TVec3f[this->index_counts_[i]];
+    const T_UINT32 submesh_index_count = this->submesh_index_buffers_[i]->GetVertexCount();
+    TVec3f* tan0 = new TVec3f[submesh_index_count];
+    TVec3f* tan1 = new TVec3f[submesh_index_count];
 
-    for (T_UINT32 j = 0; j < this->index_counts_[i]; j += 3)
+    for (T_UINT32 j = 0; j < submesh_index_count; j += 3)
     {
-      const T_UINT32 i0 = this->indices_[i][j + 0];
-      const T_UINT32 i1 = this->indices_[i][j + 1];
-      const T_UINT32 i2 = this->indices_[i][j + 2];
-
+      const T_UINT32 i0 = this->submesh_indices_[i][j + 0];
+      const T_UINT32 i1 = this->submesh_indices_[i][j + 1];
+      const T_UINT32 i2 = this->submesh_indices_[i][j + 2];
+                                
       const TVec3f& v0 = this->vertices_[i0];
       const TVec3f& v1 = this->vertices_[i1];
       const TVec3f& v2 = this->vertices_[i2];
@@ -333,9 +369,9 @@ void rcMesh::RecalculateTangents()
       tan1[i2] += tdir;
     }
 
-    for (T_UINT32 j = 0; j < this->index_counts_[i]; j++)
+    for (T_UINT32 j = 0; j < submesh_index_count; j++)
     {
-      const T_UINT32 index = this->indices_[i][j];
+      const T_UINT32 index = this->submesh_indices_[i][j];
       const TVec3f n = this->normals_[index];
       const TVec3f t = tan0[index];
       const TVec3f tmp = (t - n * TVec3f::Dot(n, t)).Normalized();
@@ -353,7 +389,7 @@ void rcMesh::SetStreamSource() const
   {
     return;
   }
-  this->vertex_buffer_->SetStreamSource();
+  this->vertex_buffer_->SetStreamSource(this->vertex_declaration_);
 }
 
 void rcMesh::DrawSubset(T_UINT8 index) const
@@ -363,8 +399,8 @@ void rcMesh::DrawSubset(T_UINT8 index) const
     return;
   }
   GG_ASSERT(index < this->submesh_count_, "インデックス指定がサブメッシュの最大個数を超過しました。");
-  this->index_buffers_[index]->SetIndices();
-  this->vertex_buffer_->DrawIndexedPrimitive(this->index_buffers_[index], this->primitive_type_);
+  this->submesh_index_buffers_[index]->SetIndices();
+  Application::GetPlatform()->GetGraphicsAPI()->DrawIndexedPrimitive(this->primitive_type_, this->submesh_index_buffers_[index]);
 }
 
 // =================================================================
@@ -374,20 +410,21 @@ size_t rcMesh::GetMemorySize() const
 {
   size_t ret = sizeof(rcMesh);
   using namespace Vertex;
-  ret += this->vertex_count_ * CalcVertexSize(this->format_);
-  if (this->face_normals_)
+  ret += this->vertex_count_ * CalcVertexSize(this->vertex_format_);
+  if (this->face_normals_.size() > 0)
   {
     ret += sizeof(TVec3f) * this->polygon_count_;
   }
-  if (this->indices_)
+  for (T_UINT8 i = 0; i < this->submesh_count_; ++i)
   {
-    for (T_UINT8 i = 0; i < submesh_count_; ++i)
+    if (!this->submesh_index_buffers_[i])
     {
-      ret += sizeof(T_UINT32) * this->index_counts_[i];
+      continue;
     }
-    ret += sizeof(T_UINT32) * this->submesh_count_;
-    ret += sizeof(bool) * this->submesh_count_;
+    ret += sizeof(T_UINT32) * this->submesh_index_buffers_[i]->GetVertexCount();
   }
+  ret += sizeof(T_UINT32) * this->submesh_count_;
+  ret += sizeof(bool) * this->submesh_count_;
   return ret;
 }
 
@@ -398,16 +435,13 @@ size_t rcMesh::GetVideoMemorySize() const
   {
     ret += this->vertex_buffer_->GetMemorySize();
   }
-  if (this->index_buffers_)
+  for (T_UINT8 i = 0; i < this->submesh_count_; ++i)
   {
-    for (T_UINT8 i = 0; i < this->submesh_count_; ++i)
+    if (!this->submesh_index_buffers_[i])
     {
-      if (!this->index_buffers_[i])
-      {
-        continue;
-      }
-      ret += sizeof(T_UINT32) * this->index_buffers_[i]->GetVertexesCount();
+      continue;
     }
+    ret += sizeof(T_UINT32) * this->submesh_index_buffers_[i]->GetVertexCount();
   }
   return ret;
 }
@@ -615,24 +649,25 @@ void rcMesh::SetColors(const TColor* colors)
 void rcMesh::SetIndex(T_UINT8 submesh_index, T_UINT32 index_index, T_UINT32 index)
 {
   GG_ASSERT(submesh_index < this->submesh_count_, "インデックス指定がサブメッシュの最大個数を超過しました。");
-  if (this->indices_[submesh_index][index_index] == index)
+  if (this->submesh_indices_[submesh_index][index_index] == index)
   {
     return;
   }
-  this->indices_[submesh_index][index_index] = index;
-  this->indices_dirties_[submesh_index] = true;
+  this->submesh_indices_[submesh_index][index_index] = index;
+  this->submesh_indices_dirties_[submesh_index] = true;
 }
 
-void rcMesh::SetIndices(T_UINT8 submesh_index, T_UINT32* indices)
+void rcMesh::SetIndices(T_UINT8 submesh_index, const T_UINT32* indices)
 {
   GG_ASSERT(submesh_index < this->submesh_count_, "インデックス指定がサブメッシュの最大個数を超過しました。");
-  for (T_UINT32 i = 0; i < this->index_counts_[submesh_index]; ++i)
+  const T_UINT32 submesh_index_count = this->submesh_index_buffers_[submesh_index]->GetVertexCount();
+  for (T_UINT32 i = 0; i < submesh_index_count; ++i)
   {
-    if (this->indices_[submesh_index][i] == indices[i])
+    if (this->submesh_indices_[submesh_index][i] == indices[i])
     {
       continue;
     }
-    this->indices_[submesh_index][i] = indices[i];
-    this->indices_dirties_[submesh_index] = true;
+    this->submesh_indices_[submesh_index][i] = indices[i];
+    this->submesh_indices_dirties_[submesh_index] = true;
   }
 }

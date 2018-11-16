@@ -4,15 +4,15 @@
 #include <Entity/AssetEntity.h>
 #include <Entity/File/Model/Mesh/ModelMeshAssetEntity.h>
 
-class ModelAssetEntity : public AssetEntity
+class StaticModelAssetEntity : public AssetEntity
 {
   // =================================================================
   // GGG Statement
   // =================================================================
   ENTITY_ID(ID_MODEL);
-  GG_OBJECT(ModelAssetEntity);
-  GG_CREATE_FUNC_3(ModelAssetEntity, AssetInfo*, ModelData*, const aiScene*);
-  GG_DESTRUCT_FUNC(ModelAssetEntity);
+  GG_OBJECT(StaticModelAssetEntity);
+  GG_CREATE_FUNC_3(StaticModelAssetEntity, AssetInfo*, StaticModelData*, const aiScene*);
+  GG_DESTRUCT_FUNC(StaticModelAssetEntity);
 
   // =================================================================
   // Methods from AssetEntity
@@ -35,7 +35,7 @@ public:
     return this->scene_;
   }
 
-  inline const ModelData* GetData() const
+  inline const StaticModelData* GetData() const
   {
     return this->data_;
   }
@@ -45,6 +45,6 @@ public:
   // =================================================================
 private:
   const aiScene* scene_;
-  ModelData* data_;
+  StaticModelData* data_;
 
 };

@@ -137,6 +137,7 @@ inline bool AssetConverter<Entity_>::ImportImmediately(const URI& uri, AssetConv
 template<class Entity_>
 inline void AssetConverter<Entity_>::AddEntity(const SharedRef<Entity_>& entity)
 {
+  GG_ASSERT_IS_NULL(entity);
   this->entities_[entity->GetAssetInfo()->GetUniqueID()] = entity;
 }
 

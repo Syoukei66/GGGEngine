@@ -3,19 +3,21 @@
 #include <Native/Windows/WindowsApplication.h>
 
 #include "DX9GraphicsAPI.h"
+#include "DX9Constants.h"
 
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-DX9IndexBuffer::DX9IndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count)
+DX9IndexBuffer::DX9IndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format)
   : vertex_count_(vertex_count)
   , polygon_count_(polygon_count)
+  , format_(format)
 {
   LPDIRECT3DDEVICE9 device = WindowsApplication::GetGraphics()->GetDevice();
   HRESULT hr = device->CreateIndexBuffer(
-    sizeof(T_UINT32) * vertex_count,
+    vertex_count * Vertex::INDEX_FORMAT_SIZES[static_cast<T_UINT32>(format)],
     0,
-    D3DFMT_INDEX32,
+    DX9::INDEX_FORMATS[static_cast<T_UINT32>(format)],
     D3DPOOL_MANAGED,
     &this->index_buffer_,
     NULL
@@ -49,4 +51,19 @@ void DX9IndexBuffer::SetIndices() const
 
   HRESULT hr = device->SetIndices(this->index_buffer_);
   GG_ASSERT(SUCCEEDED(hr), "IndexBuffer‚ÌƒZƒbƒg‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
+}
+
+T_UINT32 DX9IndexBuffer::GetVertexCount() const
+{
+  return this->vertex_count_;
+}
+
+T_UINT32 DX9IndexBuffer::GetPolygonCount() const
+{
+  return this->polygon_count_;
+}
+
+Vertex::IndexFormat DX9IndexBuffer::GetIndexFormat() const
+{
+  return this->format_;
 }

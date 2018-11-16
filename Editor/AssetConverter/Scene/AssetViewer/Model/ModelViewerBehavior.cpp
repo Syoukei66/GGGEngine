@@ -1,5 +1,6 @@
 #include "ModelViewerBehavior.h"
 #include <Engine/GameObject/Transform/Transform3D.h>
+#include <Engine/GameObject/GameObjectFactory.h>
 #include <Engine/Component/Renderer/MeshRenderer.h>
 
 #include <Entity/Default/Mesh/DefaultMeshAssetEntity.h>
@@ -10,15 +11,11 @@
 // =================================================================
 GG_INIT_FUNC_IMPL(ModelViewerBehavior)
 {
-  this->obj_ = new GameObject3D();
-  this->mesh_renderer_ = new MeshRenderer(this->obj_);
-  this->obj_->SetRenderer(this->mesh_renderer_);
   return true;
 }
 
 GG_DESTRUCT_FUNC_IMPL(ModelViewerBehavior)
 {
-  delete this->obj_;
   return true;
 }
 
@@ -27,33 +24,24 @@ GG_DESTRUCT_FUNC_IMPL(ModelViewerBehavior)
 // =================================================================
 void ModelViewerBehavior::OnStart(Scene* scene)
 {
-  scene->AddChild(this->obj_);
+  this->scene_ = scene;
 }
 
 void ModelViewerBehavior::OnEnd()
 {
-  this->obj_->RemoveSelf();
 }
 
 void ModelViewerBehavior::OnLoad(T_UINT32 unique_id)
 {
-  const SharedRef<rcModel>& model = AssetManager::Load<rcModel>(unique_id);
-  this->mesh_renderer_->SetMesh(model->GetMesh());
-  const T_UINT8 material_count = model->GetMaterialCount();
-  for (T_UINT8 i = 0; i < material_count; ++i)
-  {
-    this->mesh_renderer_->SetSharedMaterial(model->GetMaterial(i), i);
-  }
+  const SharedRef<rcStaticModel>& model = AssetManager::Load<rcStaticModel>(unique_id);
+  this->root_ = GameObjectFactory::Create(model);
+  this->scene_->AddChild(this->root_);
 }
 
 void ModelViewerBehavior::OnUnload()
 {
-  this->mesh_renderer_->SetMesh(nullptr);
-  const T_UINT8 material_count = this->mesh_renderer_->GetMaterialCount();
-  for (T_UINT8 i = 0; i < material_count; ++i)
-  {
-    this->mesh_renderer_->SetSharedMaterial(nullptr, i);
-  }
+  this->root_->RemoveSelf();
+  delete this->root_;
 }
 
 bool ModelViewerBehavior::IsTarget(T_UINT32 id)

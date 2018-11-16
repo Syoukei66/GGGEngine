@@ -22,6 +22,7 @@
 #include "DX9VertexBuffer.h"
 #include "DX9IndexBuffer.h"
 #include "DX9Shader.h"
+#include "DX9VertexDeclaration.h"
 
 // =================================================================
 // GGG Statement
@@ -317,6 +318,20 @@ void DX9GraphicsAPI::DrawStencilBuffer()
 
 }
 
+void DX9GraphicsAPI::DrawIndexedPrimitive(Vertex::PrimitiveType primitive_type, const SharedRef<const rcIndexBuffer>& index_buffer)
+{
+  LPDIRECT3DDEVICE9 device = WindowsApplication::GetGraphics()->GetDevice();
+  HRESULT hr = device->DrawIndexedPrimitive(
+    DX9::PRIMITIVE_TYPES[static_cast<T_UINT32>(primitive_type)],
+    0,
+    0,
+    index_buffer->GetVertexCount(),
+    0,
+    index_buffer->GetPolygonCount()
+  );
+  GG_ASSERT(SUCCEEDED(hr), "•`‰æ‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
+}
+
 UniqueRef<rcTexture> DX9GraphicsAPI::TextureLoad(const char* path)
 {
   D3DXIMAGE_INFO info;
@@ -437,14 +452,19 @@ UniqueRef<rcShader> DX9GraphicsAPI::ShaderLoad(const char* path)
   return UniqueRef<rcShader>(new DX9Shader(dest));
 }
 
-UniqueRef<rcVertexBuffer> DX9GraphicsAPI::CreateVertexBuffer(T_UINT32 vertex_count, T_UINT32 format)
+UniqueRef<rcVertexBuffer> DX9GraphicsAPI::CreateVertexBuffer(T_UINT32 size)
 {
-  return UniqueRef<rcVertexBuffer>(new DX9VertexBuffer(vertex_count, format));
+  return UniqueRef<rcVertexBuffer>(new DX9VertexBuffer(size));
 }
 
-UniqueRef<rcIndexBuffer> DX9GraphicsAPI::CreateIndexBuffer(T_UINT32 indexes_count, T_UINT32 polygon_count)
+UniqueRef<rcIndexBuffer> DX9GraphicsAPI::CreateIndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format)
 {
-  return UniqueRef<rcIndexBuffer>(new DX9IndexBuffer(indexes_count, polygon_count));
+  return UniqueRef<rcIndexBuffer>(new DX9IndexBuffer(vertex_count, polygon_count, format));
+}
+
+UniqueRef<rcVertexDeclaration> DX9GraphicsAPI::CreateVertexDeclaration(T_UINT32 format)
+{
+  return UniqueRef<rcVertexDeclaration>(new DX9VertexDeclaration(format));
 }
 
 bool DX9GraphicsAPI::ImGuiNewFrame()
