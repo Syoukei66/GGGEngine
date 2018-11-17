@@ -169,13 +169,13 @@ SharedRef<ModelMeshAssetEntity> ImportMesh(const AssetInfo* model_asset_info, co
       }
     }
     //
-    for (T_UINT32 f = 0, ii = 0; f < mesh->mNumFaces; ++f)
+    unsigned char* p = &data->index_datas_[m][0];
+    for (T_UINT32 f = 0; f < mesh->mNumFaces; ++f)
     {
       GG_ASSERT(mesh->mFaces[f].mNumIndices == 3, "ƒ|ƒŠƒSƒ“‚ªŽOŠpŒ`‚Å‚Í‚ ‚è‚Ü‚¹‚ñ");
       for (T_UINT32 fi = 0; fi < mesh->mFaces[f].mNumIndices; ++fi)
       {
-        data->index_datas_[m][ii] = index_offset + mesh->mFaces[f].mIndices[fi];
-        ++ii;
+        SetIndexIndex(index_offset + mesh->mFaces[f].mIndices[fi], static_cast<IndexFormat>(data->index_formats_[m]), &p);
       }
     }
     index_offset += mesh->mNumVertices;
