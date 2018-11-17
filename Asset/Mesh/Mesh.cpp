@@ -10,8 +10,7 @@ GG_INIT_FUNC_IMPL_1(rcMesh, const MeshData& data)
   this->readable_ = false;
   this->vertex_declaration_ = rcVertexDeclaration::Create(data.vertex_format_);
   this->primitive_type_ = Vertex::PrimitiveType::TRIANGLES;
-
-  this->submesh_count_ = (T_UINT32)data.index_datas_.size();
+  this->bounds_ = data.bounds_;
 
   GG_ASSERT(data.vertex_count_ > 0, "頂点がメッシュデータに含まれていませんでした");
 
@@ -27,13 +26,14 @@ GG_INIT_FUNC_IMPL_1(rcMesh, const MeshData& data)
   this->vertex_buffer_->Unlock();
 
   // Index Bufferの作成
+  this->submesh_count_ = (T_UINT32)data.index_datas_.size();
   this->submesh_index_buffers_.resize(this->submesh_count_);
   
   for (T_UINT32 i = 0; i < this->submesh_count_; ++i)
   {
     // インデックスバッファフォーマット
     const IndexFormat index_format = static_cast<IndexFormat>(data.index_formats_[i]);
-    const T_UINT8 index_size = INDEX_FORMAT_SIZES[static_cast<T_UINT8>(index_format)];
+    const T_UINT8 index_size = INDEX_FORMAT_SIZES[data.index_formats_[i]];
 
     const T_UINT32 index_count = data.index_counts_[i];
     this->submesh_index_buffers_[i] = rcIndexBuffer::Create(index_count, data.polygon_counts_[i], index_format);
@@ -41,14 +41,15 @@ GG_INIT_FUNC_IMPL_1(rcMesh, const MeshData& data)
     const T_UINT32 index_buffer_size = index_count * index_size;
     unsigned char* p;
     this->submesh_index_buffers_[i]->Lock((void**)&p);
-    for (T_UINT32 j = 0; j < index_buffer_size; ++j)
+    for (T_UINT32 ii = 0; ii < index_buffer_size; ++ii)
     {
-      p[i] = data.index_datas_[i][j];
+      p[ii] = data.index_datas_[i][ii];
     }
     this->submesh_index_buffers_[i]->Unlock();
 
     this->polygon_count_ += data.polygon_counts_[i];
   }
+
   return true;
 }
 
