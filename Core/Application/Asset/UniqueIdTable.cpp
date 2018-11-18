@@ -41,3 +41,16 @@ T_UINT32 UniqueIdTable::GetID(const std::string& path) const
   }
   return 0;
 }
+
+const std::string& UniqueIdTable::GetPath(T_UINT32 uid) const
+{
+  for (auto& pair : this->table_)
+  {
+    if (uid == pair.second)
+    {
+      return pair.first;
+    }
+  }
+  static std::string NULL_PATH = "";
+  return NULL_PATH;
+}

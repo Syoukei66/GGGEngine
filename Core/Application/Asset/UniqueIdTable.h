@@ -56,6 +56,7 @@ public:
 public:
   T_UINT32 Publish(const std::string& path);
   T_UINT32 GetID(const std::string& path) const;
+  const std::string& GetPath(T_UINT32 uid) const;
 
   GG_INLINE void RegisterDefaultAssetUniqueID(T_UINT32 default_id, T_UINT32 uid)
   {
