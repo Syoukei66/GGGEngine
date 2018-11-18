@@ -10,12 +10,12 @@
 // =================================================================
 AssetInfo* AssetInfo::Create(const URI& uri, AssetConverterContext* context)
 {
-  return AssetInfo::Create(uri, uri, context);
+  return new AssetInfo(AssetMetaData::Create(uri, context));
 }
 
-AssetInfo* AssetInfo::Create(const URI& uri, const URI& source, AssetConverterContext* context)
+AssetInfo* AssetInfo::Create(const URI& uri, T_UINT32 source_unique_id, AssetConverterContext* context)
 {
-  return new AssetInfo(AssetMetaData::Create(uri, source, context));
+  return new AssetInfo(AssetMetaData::Create(uri, source_unique_id, context));
 }
 
 // =================================================================

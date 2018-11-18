@@ -29,7 +29,8 @@ public:
 public:
   inline T_UINT32 GetID() const override;
 
-  inline bool Reserve(const URI& uri, const URI& source, AssetConverterContext* context) override;
+  inline bool Reserve(const URI& uri, AssetConverterContext* context) override;
+  inline bool Reserve(const URI& uri, T_UINT32 source_unique_id, AssetConverterContext* context) override;
 
   inline void Import(AssetConverterContext* context) override;
   inline bool ImportOnce(AssetConverterContext* context) override;
@@ -91,14 +92,26 @@ inline T_UINT32 AssetConverter<Entity_>::GetID() const
 }
 
 template<class Entity_>
-inline bool AssetConverter<Entity_>::Reserve(const URI& uri, const URI& source, AssetConverterContext* context)
+inline bool AssetConverter<Entity_>::Reserve(const URI& uri, AssetConverterContext* context)
+{
+  const T_UINT32 uid = context->GetUniqueID(uri);
+  const auto& itr = this->entities_.find(uid);
+  if (itr != this->entities_.end())
+  {
+    return true;
+  }
+  return this->importer_ ? this->importer_->Reserve(uri, uid, context) : false;
+}
+
+template<class Entity_>
+inline bool AssetConverter<Entity_>::Reserve(const URI& uri, T_UINT32 source_unique_id, AssetConverterContext* context)
 {
   const auto& itr = this->entities_.find(context->GetUniqueID(uri));
   if (itr != this->entities_.end())
   {
     return true;
   }
-  return this->importer_ ? this->importer_->Reserve(uri, source, context) : false;
+  return this->importer_ ? this->importer_->Reserve(uri, source_unique_id, context) : false;
 }
 
 template<class Entity_>

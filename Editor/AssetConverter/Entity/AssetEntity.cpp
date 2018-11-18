@@ -36,7 +36,7 @@ void AssetEntity::CheckChanged(std::set<SharedRef<AssetEntity>>* update_entities
   if (this->info_->GetMetaData()->UpdateTimeStamp())
   {
     this->info_->GetMetaData()->Save();
-    update_entities->insert(AssetConverterDirector::GetContext()->GetEntity(this->info_->GetSourceURI()));
+    update_entities->insert(AssetConverterDirector::GetContext()->GetEntity(this->info_->GetSourceUniqueId()));
   }
   for (const SharedRef<AssetEntity>& entity : this->referenced_entities_)
   {

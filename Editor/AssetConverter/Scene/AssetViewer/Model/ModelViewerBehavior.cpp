@@ -46,5 +46,5 @@ void ModelViewerBehavior::OnUnload()
 
 bool ModelViewerBehavior::IsTarget(T_UINT32 id)
 {
-  return id == AssetEntity::EntityID::ID_MODEL;
+  return id == AssetEntity::EntityID::ID_STATIC_MODEL;
 }

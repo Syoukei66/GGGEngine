@@ -16,14 +16,15 @@ class AssetMetaData
   // Factory Method
   // =================================================================
 public:
-  static AssetMetaData* Create(const URI& uri, const URI& source_uri, AssetConverterContext* context);
+  static AssetMetaData* Create(const URI& uri, AssetConverterContext* context);
+  static AssetMetaData* Create(const URI& uri, T_UINT32 source_unique_id, AssetConverterContext* context);
 
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  AssetMetaData(const URI& uri, const URI& source_uri, AssetConverterContext* context);
-  AssetMetaData();
+  AssetMetaData(const URI& uri, T_UINT32 source_unique_id, AssetConverterContext* context);
+  AssetMetaData() = default;
 
   // =================================================================
   // Methods
@@ -45,6 +46,11 @@ public:
     return this->unique_id_;
   }
 
+  inline T_UINT32 GetSourceUniqueId() const
+  {
+    return this->source_unique_id_;
+  }
+
   inline const std::string& GetTimeStamp() const
   {
     return this->time_stamp_;
@@ -55,11 +61,6 @@ public:
     return this->uri_;
   }
 
-  inline const URI& GetSourceURI() const
-  {
-    return this->source_uri_;
-  }
-
   // =================================================================
   // Serialize Method
   // =================================================================
@@ -68,9 +69,8 @@ public:
   void serialize(Archive& ar, std::uint32_t const version)
   {
     ar(CEREAL_NVP(uri_));
-    ar(CEREAL_NVP(source_uri_));
     ar(CEREAL_NVP(unique_id_));
-    ar(CEREAL_NVP(source_));
+    ar(CEREAL_NVP(source_unique_id_));
     ar(CEREAL_NVP(related_unique_ids_));
     ar(CEREAL_NVP(time_stamp_));
   }
@@ -80,9 +80,8 @@ public:
   // =================================================================
 private:
   URI uri_;
-  URI source_uri_;
   T_UINT32 unique_id_;
-  T_UINT32 source_;
+  T_UINT32 source_unique_id_;
   std::unordered_set<T_UINT32> related_unique_ids_;
 
   std::string time_stamp_;

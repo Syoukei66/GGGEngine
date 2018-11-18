@@ -22,7 +22,8 @@ public:
   // Methods
   // =================================================================
 public:
-  inline bool Reserve(const URI& uri, const URI& source);
+  inline bool Reserve(const URI& uri);
+  inline bool Reserve(const URI& uri, T_UINT32 source_unique_id);
   inline void VisitAllEntity(const std::function<void(const SharedRef<AssetEntity>&)>& func);
 
   template <class Entity_>
@@ -59,12 +60,21 @@ inline AssetConverterContext::AssetConverterContext(UniqueIdTable* unique_id_tab
 {
 }
 
-inline bool AssetConverterContext::Reserve(const URI& uri, const URI& source)
+inline bool AssetConverterContext::Reserve(const URI& uri)
 {
   //Info‚ª¶¬‚³‚ê‚é‚Ü‚ÅConverter‚ð‘–¸
   return this->converter_manager_->Fire([&](IAssetConverter* converter)
   {
-    return converter->Reserve(uri, source, this);
+    return converter->Reserve(uri, this);
+  });
+}
+
+inline bool AssetConverterContext::Reserve(const URI& uri, T_UINT32 source_unique_id)
+{
+  //Info‚ª¶¬‚³‚ê‚é‚Ü‚ÅConverter‚ð‘–¸
+  return this->converter_manager_->Fire([&](IAssetConverter* converter)
+  {
+    return converter->Reserve(uri, source_unique_id, this);
   });
 }
 

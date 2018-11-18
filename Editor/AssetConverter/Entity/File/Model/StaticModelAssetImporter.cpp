@@ -191,7 +191,7 @@ SharedRef<ModelMeshAssetEntity> ImportMesh(const AssetInfo* model_asset_info, co
 
   AssetInfo* mesh_asset_info = AssetInfo::Create(
     URI(model_asset_info->GetURI().GetDirectoryPath(), model_asset_info->GetURI().GetPrefix(), Extensions::MESH),
-    model_asset_info->GetURI(),
+    model_asset_info->GetUniqueID(),
     context
   );
 
@@ -321,7 +321,7 @@ SharedRef<StaticModelAssetEntity> StaticModelAssetImporter::ImportProcess(AssetI
     aiString name;
     if (AI_SUCCESS == aiGetMaterialString(mat, AI_MATKEY_NAME, &name))
     {
-      AssetInfo* mat_asset_info = AssetInfo::Create(URI(info->GetURI().GetDirectoryPath(), name.C_Str(), Extensions::MATERIAL), info->GetURI(), context);
+      AssetInfo* mat_asset_info = AssetInfo::Create(URI(info->GetURI().GetDirectoryPath(), name.C_Str(), Extensions::MATERIAL), info->GetUniqueID(), context);
       const SharedRef<AssetEntity>& material_asset_entity = context->AddEntity(ImportMaterial(mat_asset_info, mat, context));
       material_asset_infos.push_back(mat_asset_info);
       referenced_assets.push_back(material_asset_entity);

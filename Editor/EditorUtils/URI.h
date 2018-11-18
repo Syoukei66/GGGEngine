@@ -8,6 +8,7 @@ class URI
   // Constructor / Destructor
   // =================================================================
 public:
+  URI() = default;
   URI(const std::string& full_path);
   URI(const std::string& directory_path, const std::string& file_name);
   URI(const std::string& directory_path, const std::string& prefix, const std::string& extension);

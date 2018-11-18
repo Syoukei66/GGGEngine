@@ -84,7 +84,7 @@ void AssetConverterDirector::Import()
   FileUtil::CrawlInputDirectory([&](const URI& uri)
   {
     //AssetInfo‚ª¶¬‚³‚ê‚ê‚Î—\–ñ¬Œ÷
-    if (self->context_->Reserve(uri, uri))
+    if (self->context_->Reserve(uri))
     {
       return;
     }

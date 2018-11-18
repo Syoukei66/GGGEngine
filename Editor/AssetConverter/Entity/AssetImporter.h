@@ -20,7 +20,7 @@ public:
   // =================================================================
 public:
   inline bool IsTarget(const URI& uri);
-  inline bool Reserve(const URI& uri, const URI& source, AssetConverterContext* context);
+  inline bool Reserve(const URI& uri, T_UINT32 source_unique_id, AssetConverterContext* context);
 
   void Import(std::unordered_map<T_UINT32, SharedRef<Entity_>>* dest, AssetConverterContext* context);
   //アセットが参照しているアセットのロードが行われる為、
@@ -70,14 +70,14 @@ inline bool AssetImporter<Entity_>::IsTarget(const URI& uri)
 }
 
 template<class Entity_>
-inline bool AssetImporter<Entity_>::Reserve(const URI& uri, const URI& source, AssetConverterContext* context)
+inline bool AssetImporter<Entity_>::Reserve(const URI& uri, T_UINT32 source_unique_id, AssetConverterContext* context)
 {
   //対応する拡張子かチェック
   if (!this->IsTarget(uri))
   {
     return false;
   }
-  AssetInfo* info = AssetInfo::Create(uri, source, context);
+  AssetInfo* info = AssetInfo::Create(uri, source_unique_id, context);
   this->reserve_assets_[info->GetUniqueID()] = info;
   return true;
 }
@@ -151,7 +151,7 @@ inline SharedRef<Entity_> AssetImporter<Entity_>::ImportImmediately(const URI& u
     {
       return nullptr;
     }
-    info = AssetInfo::Create(uri, uri, context);
+    info = AssetInfo::Create(uri, context);
   }
 
   const SharedRef<Entity_>& ret = this->ImportProcess(info, context);
