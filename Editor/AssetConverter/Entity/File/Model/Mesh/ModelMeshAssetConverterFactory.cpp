@@ -12,5 +12,5 @@ IAssetConverter* ModelMeshAssetConverterFactory::Create(AssetConverterContext* c
   ModelMeshAssetExporter* exporter = new ModelMeshAssetExporter();
   AssetProgramGenerator<ModelMeshAssetEntity>* program_generator = new AssetProgramGenerator<ModelMeshAssetEntity>(1, 1);
   program_generator->AddAsset("ModelMesh", "rcMesh");
-  return new AssetConverter<ModelMeshAssetEntity>(nullptr, nullptr, exporter, program_generator);
+  return new AssetConverter<ModelMeshAssetEntity>(nullptr, exporter, program_generator);
 }

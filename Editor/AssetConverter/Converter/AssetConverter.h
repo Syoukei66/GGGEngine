@@ -3,7 +3,6 @@
 #include <Converter/IAssetConverter.h>
 #include <Entity/AssetEntity.h>
 #include <Entity/AssetImporter.h>
-#include <Entity/AssetEditor.h>
 #include <Entity/AssetExporter.h>
 #include <ProgramGenerator/AssetProgramGenerator.h>
 
@@ -16,7 +15,6 @@ class AssetConverter : public IAssetConverter
 public:
   AssetConverter(
     AssetImporter<Entity_>* importer,
-    AssetEditor<Entity_>* editor,
     AssetExporter<Entity_>* exporter,
     AssetProgramGenerator<Entity_>* program_generator
   );
@@ -55,8 +53,6 @@ public:
 private:
   std::unordered_map<T_UINT32, SharedRef<Entity_>> entities_;
   AssetImporter<Entity_>* importer_;
-  AssetEditor<Entity_>* editor_;
-  //AssetViewer<Entity_>* viewer_;
   AssetExporter<Entity_>* exporter_;
   AssetProgramGenerator<Entity_>* program_generator_;
 
@@ -66,9 +62,8 @@ private:
 // Constructor / Destructor
 // =================================================================
 template<class Entity_>
-inline AssetConverter<Entity_>::AssetConverter(AssetImporter<Entity_>* importer, AssetEditor<Entity_>* editor, AssetExporter<Entity_>* exporter, AssetProgramGenerator<Entity_>* program_generator)
+inline AssetConverter<Entity_>::AssetConverter(AssetImporter<Entity_>* importer, AssetExporter<Entity_>* exporter, AssetProgramGenerator<Entity_>* program_generator)
   : importer_(importer)
-  , editor_(editor)
   , exporter_(exporter)
   , program_generator_(program_generator)
 {}
@@ -77,7 +72,6 @@ template<class Entity_>
 inline AssetConverter<Entity_>::~AssetConverter()
 {
   delete this->importer_;
-  delete this->editor_;
   delete this->exporter_;
   delete this->program_generator_;
 }

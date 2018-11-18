@@ -172,7 +172,6 @@
   <ItemGroup>
     <ClInclude Include="Converter\AssetConverterFactory.h" />
     <ClInclude Include="Converter\AssetConverterManager.h" />
-    <ClInclude Include="Entity\AssetEditor.h" />
     <ClInclude Include="Converter\AssetConverter.h" />
     <ClInclude Include="Entity\AssetEntity.h" />
     <ClInclude Include="Entity\AssetExporter.h" />

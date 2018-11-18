@@ -15,5 +15,5 @@ IAssetConverter* TextureAssetConverterFactory::Create(AssetConverterContext* con
   TextureAssetExporter* exporter = new TextureAssetExporter();
   AssetProgramGenerator<TextureAssetEntity>* program_generator = new AssetProgramGenerator<TextureAssetEntity>(1, 0);
   program_generator->AddAsset("Texture", "rcTexture");
-  return new AssetConverter<TextureAssetEntity>(importer, nullptr, exporter, program_generator);
+  return new AssetConverter<TextureAssetEntity>(importer, exporter, program_generator);
 }

@@ -180,9 +180,6 @@
     <ClInclude Include="Entity\File\StandardMaterial.h">
       <Filter>ヘッダー ファイル\Assimp</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\AssetEditor.h">
-      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
-    </ClInclude>
     <ClInclude Include="Entity\AssetEntity.h">
       <Filter>ヘッダー ファイル\Asset\_Base</Filter>
     </ClInclude>

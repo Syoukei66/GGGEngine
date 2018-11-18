@@ -10,7 +10,7 @@ IAssetConverter* DefaultMaterialAssetConverterFactory::Create(AssetConverterCont
   DefaultMaterialAssetExporter* exporter = new DefaultMaterialAssetExporter();
   AssetProgramGenerator<DefaultMaterialAssetEntity>* program_generator = new AssetProgramGenerator<DefaultMaterialAssetEntity>(2, 0);
   program_generator->AddAsset("DefaultMaterial", "rcMaterial");
-  AssetConverter<DefaultMaterialAssetEntity>* ret = new AssetConverter<DefaultMaterialAssetEntity>(nullptr, nullptr, exporter, program_generator);
+  AssetConverter<DefaultMaterialAssetEntity>* ret = new AssetConverter<DefaultMaterialAssetEntity>(nullptr, exporter, program_generator);
 
   using namespace DefaultAsset;
   using namespace DefaultUniqueID;

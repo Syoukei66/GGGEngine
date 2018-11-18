@@ -13,7 +13,7 @@ IAssetConverter* DefaultMeshAssetConverterFactory::Create(AssetConverterContext*
   DefaultMeshAssetExporter* exporter = new DefaultMeshAssetExporter();
   AssetProgramGenerator<DefaultMeshAssetEntity>* program_generator = new AssetProgramGenerator<DefaultMeshAssetEntity>(2, 0);
   program_generator->AddAsset("DefaultMesh", "rcMesh");
-  AssetConverter<DefaultMeshAssetEntity>* ret = new AssetConverter<DefaultMeshAssetEntity>(nullptr, nullptr, exporter, program_generator);
+  AssetConverter<DefaultMeshAssetEntity>* ret = new AssetConverter<DefaultMeshAssetEntity>(nullptr, exporter, program_generator);
 
   using namespace DefaultAsset;
 
