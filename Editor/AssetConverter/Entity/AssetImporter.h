@@ -22,7 +22,6 @@ public:
   inline bool IsTarget(const URI& uri);
   inline bool Reserve(const URI& uri, T_UINT32 source_unique_id, AssetConverterContext* context);
 
-  void Import(std::unordered_map<T_UINT32, SharedRef<Entity_>>* dest, AssetConverterContext* context);
   //アセットが参照しているアセットのロードが行われる為、
   //一括ループではなく１つずつロードした方が安全
   bool ImportOnce(std::unordered_map<T_UINT32, SharedRef<Entity_>>* dest, AssetConverterContext* context);
@@ -86,16 +85,6 @@ inline bool AssetImporter<Entity_>::Reserve(const URI& uri, T_UINT32 source_uniq
   AssetMetaData* meta = AssetMetaData::Create(uri, source_unique_id, context);
   this->reserve_assets_[meta->GetUniqueID()] = meta;
   return true;
-}
-
-template<class Entity_>
-inline void AssetImporter<Entity_>::Import(std::unordered_map<T_UINT32, SharedRef<Entity_>>* dest, AssetConverterContext* context)
-{
-  for (auto& pair : this->reserve_assets_)
-  {
-    (*dest)[pair.first] = this->ImportProcess(pair.second, context);
-  }
-  this->reserve_assets_.clear();
 }
 
 //アセットが参照しているアセットのロードが行われる為、

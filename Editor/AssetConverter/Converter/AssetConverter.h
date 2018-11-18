@@ -30,7 +30,6 @@ public:
   inline bool Reserve(const URI& uri, AssetConverterContext* context) override;
   inline bool Reserve(const URI& uri, T_UINT32 source_unique_id, AssetConverterContext* context) override;
 
-  inline void Import(AssetConverterContext* context) override;
   inline bool ImportOnce(AssetConverterContext* context) override;
   inline bool ImportImmediately(const URI& uri, AssetConverterContext* context, bool reload) override;
 
@@ -106,12 +105,6 @@ inline bool AssetConverter<Entity_>::Reserve(const URI& uri, T_UINT32 source_uni
     return true;
   }
   return this->importer_ ? this->importer_->Reserve(uri, source_unique_id, context) : false;
-}
-
-template<class Entity_>
-inline void AssetConverter<Entity_>::Import(AssetConverterContext* context)
-{
-  if (this->importer_) this->importer_->Import(&this->entities_, context);
 }
 
 template<class Entity_>
