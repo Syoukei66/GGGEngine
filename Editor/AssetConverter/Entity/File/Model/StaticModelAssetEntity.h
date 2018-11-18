@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Entity/AssetEntity.h>
-#include <Entity/File/Model/Mesh/ModelMeshAssetEntity.h>
 
 class StaticModelAssetEntity : public AssetEntity
 {
@@ -19,12 +18,6 @@ class StaticModelAssetEntity : public AssetEntity
 public:
   virtual void RegisterAssetManager(T_UINT32 uid, const std::string& extension) const override;
 
-  // =================================================================
-  // Methods
-  // =================================================================
-public:
-  void SetMeshReference(ModelMeshAssetEntity* mesh_entity);
-  
   // =================================================================
   // Setter / Getter
   // =================================================================

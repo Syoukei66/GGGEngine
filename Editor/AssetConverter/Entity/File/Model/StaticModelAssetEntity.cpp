@@ -26,10 +26,3 @@ void StaticModelAssetEntity::RegisterAssetManager(T_UINT32 uid, const std::strin
   AssetManager::AddAsset<rcStaticModel>(uid, extension, rcStaticModel::Create(*this->data_));
 }
 
-// =================================================================
-// Methods
-// =================================================================
-void StaticModelAssetEntity::SetMeshReference(ModelMeshAssetEntity* mesh_entity)
-{
-  this->data_->mesh_unique_id_ = mesh_entity->GetMetaData()->GetUniqueID();
-}
