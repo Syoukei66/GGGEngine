@@ -9,7 +9,7 @@ class StaticModelAssetEntity : public AssetEntity
   // =================================================================
   // GGG Statement
   // =================================================================
-  ENTITY_ID(ID_MODEL);
+  ENTITY_ID(ID_STATIC_MODEL);
   GG_OBJECT(StaticModelAssetEntity);
   GG_CREATE_FUNC_3(StaticModelAssetEntity, AssetInfo*, StaticModelData*, const aiScene*);
   GG_DESTRUCT_FUNC(StaticModelAssetEntity);

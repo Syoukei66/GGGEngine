@@ -24,9 +24,10 @@ public:
     ID_JSON,
     ID_SHADER,
     ID_SOUND,
-    ID_MODEL,
     ID_MODEL_MESH,
     ID_MODEL_MATERIAL,
+    ID_STATIC_MODEL,
+    ID_CHARACTER_MODEL,
   };
 
   // =================================================================
