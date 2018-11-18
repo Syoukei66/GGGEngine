@@ -296,13 +296,13 @@ SharedRef<StaticModelAssetEntity> StaticModelAssetImporter::ImportProcess(AssetI
     NULL,
     props);
 
+  aiReleasePropertyStore(props);
+
   if (!scene)
   {
     Log::Warn("ÉVÅ[ÉìÇÃì«Ç›çûÇ›Ç…é∏îsÇµÇ‹ÇµÇΩ");
     return nullptr;
   }
-
-  aiReleasePropertyStore(props);
 
   StaticModelData* data = new StaticModelData();
 
