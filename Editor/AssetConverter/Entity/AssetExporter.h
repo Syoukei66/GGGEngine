@@ -9,14 +9,9 @@ class AssetExporter
   // Constructor / Destructor
   // =================================================================
 public:
-  AssetExporter()
-  {
-  }
-
-  virtual ~AssetExporter()
-  {
-  }
-
+  AssetExporter() = default;
+  virtual ~AssetExporter() = default;
+ 
   // =================================================================
   // Methods
   // =================================================================
@@ -25,18 +20,6 @@ public:
 
 protected:
   virtual void ExportProcess(const SharedRef<Entity_>& entity, const AssetConverterContext* context) = 0;
-
-  // =================================================================
-  // Setter / Getter
-  // =================================================================
-public:
-
-
-  // =================================================================
-  // Data Members
-  // =================================================================
-private:
-
 
 };
 
