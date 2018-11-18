@@ -15,6 +15,9 @@ class JsonAssetEntity : public RawAssetEntity<rcJsonData>
     return AssetEntity::Init(arg0);
   }
 
+  // =================================================================
+  // Methods from RawAssetEntity
+  // =================================================================
 public:
   static inline IAssetConverter* CreateConverter()
   {

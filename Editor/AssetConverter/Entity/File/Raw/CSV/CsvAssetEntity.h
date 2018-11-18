@@ -15,6 +15,9 @@ class CsvAssetEntity : public RawAssetEntity<rcCsvData>
     return AssetEntity::Init(arg0);
   }
 
+  // =================================================================
+  // Methods from RawAssetEntity
+  // =================================================================
 public:
   static inline IAssetConverter* CreateConverter()
   {

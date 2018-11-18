@@ -15,6 +15,9 @@ class ShaderAssetEntity : public RawAssetEntity<rcShader>
     return AssetEntity::Init(arg0);
   }
 
+  // =================================================================
+  // Methods from RawAssetEntity
+  // =================================================================
 public:
   static inline IAssetConverter* CreateConverter()
   {
