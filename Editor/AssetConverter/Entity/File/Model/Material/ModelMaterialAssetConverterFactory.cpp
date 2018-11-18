@@ -1,7 +1,7 @@
 #include "ModelMaterialAssetConverterFactory.h"
 
 #include "ModelMaterialAssetEntity.h"
-#include "ModelMaterialAssetExporter.h"
+#include <Entity/FileAssetExporter.h>
 #include <Converter/AssetConverter.h>
 
 // =================================================================
@@ -9,8 +9,7 @@
 // =================================================================
 IAssetConverter* ModelMaterialAssetConverterFactory::Create(AssetConverterContext* context) const
 {
-  ModelMaterialAssetExporter* exporter = new ModelMaterialAssetExporter();
   AssetProgramGenerator<ModelMaterialAssetEntity>* program_generator = new AssetProgramGenerator<ModelMaterialAssetEntity>(1, 0);
   program_generator->AddAsset("ModelMaterial", "rcMaterial");
-  return new AssetConverter<ModelMaterialAssetEntity>(nullptr, exporter, program_generator);
+  return new AssetConverter<ModelMaterialAssetEntity>(nullptr, new FileAssetExporter<ModelMaterialAssetEntity>(), program_generator);
 }

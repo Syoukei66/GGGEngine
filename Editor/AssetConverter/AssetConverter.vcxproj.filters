@@ -288,16 +288,10 @@
     <ClInclude Include="Entity\File\Model\Material\ModelMaterialAssetEntity.h">
       <Filter>ヘッダー ファイル\Asset\_File\Model\Material</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\File\Model\Material\ModelMaterialAssetExporter.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Model\Material</Filter>
-    </ClInclude>
     <ClInclude Include="Entity\File\Model\Mesh\ModelMeshAssetConverterFactory.h">
       <Filter>ヘッダー ファイル\Asset\_File\Model\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="Entity\File\Model\Mesh\ModelMeshAssetEntity.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Model\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\File\Model\Mesh\ModelMeshAssetExporter.h">
       <Filter>ヘッダー ファイル\Asset\_File\Model\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="Entity\File\Model\ModelConstants.h">
@@ -310,9 +304,6 @@
       <Filter>ヘッダー ファイル\Asset\_File\Model</Filter>
     </ClInclude>
     <ClInclude Include="Entity\File\Model\StaticModelAssetConverterFactory.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\File\Model\StaticModelAssetExporter.h">
       <Filter>ヘッダー ファイル\Asset\_File\Model</Filter>
     </ClInclude>
     <ClInclude Include="Entity\FileAssetExporter.h">
@@ -440,16 +431,10 @@
     <ClCompile Include="Entity\File\Model\Material\ModelMaterialAssetEntity.cpp">
       <Filter>ソース ファイル\Asset\_File\Model\Material</Filter>
     </ClCompile>
-    <ClCompile Include="Entity\File\Model\Material\ModelMaterialAssetExporter.cpp">
-      <Filter>ソース ファイル\Asset\_File\Model\Material</Filter>
-    </ClCompile>
     <ClCompile Include="Entity\File\Model\Mesh\ModelMeshAssetConverterFactory.cpp">
       <Filter>ソース ファイル\Asset\_File\Model\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Entity\File\Model\Mesh\ModelMeshAssetEntity.cpp">
-      <Filter>ソース ファイル\Asset\_File\Model\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity\File\Model\Mesh\ModelMeshAssetExporter.cpp">
       <Filter>ソース ファイル\Asset\_File\Model\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Entity\File\Model\StaticModelAssetImporter.cpp">
@@ -459,9 +444,6 @@
       <Filter>ソース ファイル\Asset\_File\Model</Filter>
     </ClCompile>
     <ClCompile Include="Entity\File\Model\StaticModelAssetConverterFactory.cpp">
-      <Filter>ソース ファイル\Asset\_File\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity\File\Model\StaticModelAssetExporter.cpp">
       <Filter>ソース ファイル\Asset\_File\Model</Filter>
     </ClCompile>
   </ItemGroup>
