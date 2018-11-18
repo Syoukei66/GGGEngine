@@ -15,7 +15,7 @@ MeshBuilder_Cube::MeshBuilder_Cube(T_UINT32 format, T_FLOAT scale_x, T_FLOAT sca
 }
 
 MeshBuilder_Cube::MeshBuilder_Cube()
-  : format_()
+  : format_(Vertex::V_FORMAT_PNUT)
   , scale_x_(1.0f)
   , scale_y_(1.0f)
   , scale_z_(1.0f)
