@@ -6,16 +6,14 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-GG_INIT_FUNC_IMPL_3(StaticModelAssetEntity, AssetMetaData* meta, StaticModelData* data, const aiScene* scene)
+GG_INIT_FUNC_IMPL_2(StaticModelAssetEntity, AssetMetaData* meta, StaticModelData* data)
 {
-  this->scene_ = scene;
   this->data_ = data;
   return AssetEntity::Init(meta);
 }
 
 GG_DESTRUCT_FUNC_IMPL(StaticModelAssetEntity)
 {
-  aiReleaseImport(this->scene_);
   delete this->data_;
   return true;
 }

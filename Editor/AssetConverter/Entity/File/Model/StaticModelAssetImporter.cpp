@@ -1,8 +1,9 @@
 #include "StaticModelAssetImporter.h"
 
-#include <assimp/Importer.hpp>
+#include <Assimp/scene.h>
+#include <Assimp/Importer.hpp>
 #include <Assimp/cimport.h>
-#include <assimp/postprocess.h>
+#include <Assimp/postprocess.h>
 
 #include <Constants/Extensions.h>
 #include <Converter/AssetConverterContext.h>
@@ -300,6 +301,7 @@ SharedRef<StaticModelAssetEntity> StaticModelAssetImporter::ImportProcess(AssetM
 
   if (!scene)
   {
+    aiReleaseImport(scene);
     Log::Warn("ÉVÅ[ÉìÇÃì«Ç›çûÇ›Ç…é∏îsÇµÇ‹ÇµÇΩ");
     return nullptr;
   }
@@ -334,11 +336,13 @@ SharedRef<StaticModelAssetEntity> StaticModelAssetImporter::ImportProcess(AssetM
     data->material_unique_ids_.push_back(material_asset_infos[mesh->mMaterialIndex]->GetUniqueID());
   }
 
-  const SharedRef<StaticModelAssetEntity>& entity = StaticModelAssetEntity::Create(meta, data, scene);
+  const SharedRef<StaticModelAssetEntity>& entity = StaticModelAssetEntity::Create(meta, data);
   for (const SharedRef<AssetEntity>& referenced : referenced_assets)
   {
     entity->AddReferencedEntity(referenced);
   }
+
+  aiReleaseImport(scene);
 
   return entity;
 }

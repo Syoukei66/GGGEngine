@@ -1,6 +1,5 @@
 #pragma once
 
-#include <assimp\scene.h>
 #include <Entity/AssetEntity.h>
 #include <Entity/File/Model/Mesh/ModelMeshAssetEntity.h>
 
@@ -11,7 +10,7 @@ class StaticModelAssetEntity : public AssetEntity
   // =================================================================
   ENTITY_ID(ID_STATIC_MODEL);
   GG_OBJECT(StaticModelAssetEntity);
-  GG_CREATE_FUNC_3(StaticModelAssetEntity, AssetMetaData*, StaticModelData*, const aiScene*);
+  GG_CREATE_FUNC_2(StaticModelAssetEntity, AssetMetaData*, StaticModelData*);
   GG_DESTRUCT_FUNC(StaticModelAssetEntity);
 
   // =================================================================
@@ -30,11 +29,6 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  inline const aiScene* GetScene() const
-  {
-    return this->scene_;
-  }
-
   inline const StaticModelData* GetData() const
   {
     return this->data_;
@@ -44,7 +38,6 @@ public:
   // Data Members
   // =================================================================
 private:
-  const aiScene* scene_;
   StaticModelData* data_;
 
 };
