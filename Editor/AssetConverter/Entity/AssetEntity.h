@@ -82,28 +82,3 @@ private:
   std::vector<SharedRef<AssetEntity>> referenced_entities_;
 
 };
-
-template <class Data_>
-class FileAssetEntity : public AssetEntity
-{
-  // =================================================================
-  // Setter / Getter
-  // =================================================================
-public:
-  inline Data_* GetData()
-  {
-    return this->data_;
-  }
-
-  inline const Data_* GetData() const
-  {
-    return this->data_;
-  }
-
-  // =================================================================
-  // Data Members
-  // =================================================================
-protected:
-  Data_* data_;
-
-};

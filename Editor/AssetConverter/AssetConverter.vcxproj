@@ -175,7 +175,8 @@
     <ClInclude Include="Converter\AssetConverter.h" />
     <ClInclude Include="Entity\AssetEntity.h" />
     <ClInclude Include="Entity\AssetExporter.h" />
-    <ClInclude Include="Entity\FileAssetExporter.h" />
+    <ClInclude Include="Entity\File\FileAssetExporter.h" />
+    <ClInclude Include="Entity\File\FileAssetEntity.h" />
     <ClInclude Include="Entity\File\Raw\RawAssetEntity.h" />
     <ClInclude Include="GUI\EntityView\AssetEntityView.h" />
     <ClInclude Include="GUI\FileView\AssetEntityFileLeaf.h" />
@@ -264,11 +265,8 @@
     <ClCompile Include="Util\MeshBuilder\MeshBuilder_Cube.cpp" />
     <ClCompile Include="Util\MeshBuilder\MeshBuilder_Plane.cpp" />
     <ClCompile Include="Entity\File\Model\Material\ModelMaterialAssetConverterFactory.cpp" />
-    <ClCompile Include="Entity\File\Model\Material\ModelMaterialAssetEntity.cpp" />
     <ClCompile Include="Entity\File\Model\Mesh\ModelMeshAssetConverterFactory.cpp" />
-    <ClCompile Include="Entity\File\Model\Mesh\ModelMeshAssetEntity.cpp" />
     <ClCompile Include="Entity\File\Model\StaticModelAssetConverterFactory.cpp" />
-    <ClCompile Include="Entity\File\Model\StaticModelAssetEntity.cpp" />
     <ClCompile Include="Entity\File\Model\StaticModelAssetImporter.cpp" />
     <ClCompile Include="Util\NativeLogger.cpp" />
     <ClCompile Include="Setting\Setting.cpp" />

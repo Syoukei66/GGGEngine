@@ -1,36 +1,17 @@
 #pragma once
 
-#include <Entity/AssetEntity.h>
+#include <Entity/File/FileAssetEntity.h>
 
-class StaticModelAssetEntity : public AssetEntity
+class StaticModelAssetEntity : public FileAssetEntity<StaticModelData, rcStaticModel>
 {
   // =================================================================
   // GGG Statement
   // =================================================================
   ENTITY_ID(ID_STATIC_MODEL);
   GG_OBJECT(StaticModelAssetEntity);
-  GG_CREATE_FUNC_2(StaticModelAssetEntity, AssetMetaData*, StaticModelData*);
-  GG_DESTRUCT_FUNC(StaticModelAssetEntity);
-
-  // =================================================================
-  // Methods from AssetEntity
-  // =================================================================
-public:
-  virtual void RegisterAssetManager(T_UINT32 uid, const std::string& extension) const override;
-
-  // =================================================================
-  // Setter / Getter
-  // =================================================================
-public:
-  inline const StaticModelData* GetData() const
+  GG_CREATE_FUNC_2(StaticModelAssetEntity, AssetMetaData*, StaticModelData*)
   {
-    return this->data_;
+    return FileAssetEntity<StaticModelData, rcStaticModel>::Init(arg0, arg1);
   }
-
-  // =================================================================
-  // Data Members
-  // =================================================================
-private:
-  StaticModelData* data_;
 
 };

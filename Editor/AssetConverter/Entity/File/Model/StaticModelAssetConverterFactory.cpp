@@ -2,7 +2,7 @@
 
 #include "StaticModelAssetEntity.h"
 #include "StaticModelAssetImporter.h"
-#include <Entity/FileAssetExporter.h>
+#include <Entity/File/FileAssetExporter.h>
 #include <ProgramGenerator/AssetProgramGenerator.h>
 #include <Converter/AssetConverter.h>
 

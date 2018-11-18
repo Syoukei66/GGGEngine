@@ -1,7 +1,7 @@
 #include "ModelMaterialAssetConverterFactory.h"
 
 #include "ModelMaterialAssetEntity.h"
-#include <Entity/FileAssetExporter.h>
+#include <Entity/File/FileAssetExporter.h>
 #include <Converter/AssetConverter.h>
 
 // =================================================================
