@@ -8,6 +8,7 @@
 #include <Entity/File/Raw/Json/JsonAssetEntity.h>
 #include <Entity/File/Raw/Shader/ShaderAssetEntity.h>
 #include <Entity/File/Raw/Sound/SoundAssetEntity.h>
+#include <Entity/File/Raw/Texture/TextureAssetEntity.h>
 
 #include <Entity/Default/Material/DefaultMaterialAssetConverterFactory.h>
 
@@ -31,6 +32,7 @@ void AssetConverterDirector::Init()
   self->unique_id_table_ = CerealIO::Json::SafeImport<UniqueIdTable>(FileUtil::GetMidDataUniqueIdTablePath().c_str());
   if (!self->unique_id_table_)
   {
+    self->unique_id_table_load_failed_ = true;
     self->unique_id_table_ = new UniqueIdTable();
   }
 
@@ -45,9 +47,7 @@ void AssetConverterDirector::Init()
   self->converter_manager_->AddConverter(JsonAssetEntity::CreateConverter());
   self->converter_manager_->AddConverter(ShaderAssetEntity::CreateConverter());
   self->converter_manager_->AddConverter(SoundAssetEntity::CreateConverter());
-
-  // Texture
-  self->converter_manager_->AddConverter(self->setting_->texture_asset_converter_factory.Create(self->context_));
+  self->converter_manager_->AddConverter(TextureAssetEntity::CreateConverter());
 
   // Mesh
   self->converter_manager_->AddConverter(self->setting_->default_mesh_asset_converter_factory.Create(self->context_));

@@ -15,6 +15,10 @@ AssetMetaData* AssetMetaData::Create(const URI& uri, AssetConverterContext* cont
 
 AssetMetaData* AssetMetaData::Create(const URI& uri, T_UINT32 source_unique_id, AssetConverterContext* context)
 {
+  if (AssetConverterDirector::IsUniqueIdTableLoadFailed())
+  {
+    return new AssetMetaData(uri, source_unique_id, context);
+  }
   const std::string path = FileUtil::CreateInputPath(uri.GetFullPath() + "." + Extensions::META);
   if (!std::ifstream(path).is_open())
   {

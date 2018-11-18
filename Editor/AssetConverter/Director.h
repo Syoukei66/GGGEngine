@@ -43,6 +43,11 @@ public:
     return Self().converter_manager_;
   }
 
+  static GG_INLINE bool IsUniqueIdTableLoadFailed()
+  {
+    return Self().unique_id_table_load_failed_;
+  }
+
   // =================================================================
   // Data Members
   // =================================================================
@@ -51,5 +56,7 @@ private:
   UniqueIdTable* unique_id_table_;
   AssetConverterContext* context_;
   AssetConverterManager* converter_manager_;
+
+  bool unique_id_table_load_failed_;
 
 };
