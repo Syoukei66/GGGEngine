@@ -58,7 +58,13 @@ inline AssetImporter<Entity_>::AssetImporter(const std::vector<std::string>& ext
 }
 
 template<class Entity_>
-inline AssetImporter<Entity_>::~AssetImporter() {}
+inline AssetImporter<Entity_>::~AssetImporter() 
+{
+  for (const auto& pair : this->reserve_assets_)
+  {
+    delete pair.second;
+  }
+}
 
 // =================================================================
 // Methods
