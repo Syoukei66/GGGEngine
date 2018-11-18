@@ -153,7 +153,13 @@ inline SharedRef<Entity_> AssetImporter<Entity_>::ImportImmediately(const URI& u
     }
     info = AssetInfo::Create(uri, uri, context);
   }
-  return this->ImportProcess(info, context);
+
+  const SharedRef<Entity_>& ret = this->ImportProcess(info, context);
+  if (!ret)
+  {
+    delete info;
+  }
+  return ret;
 }
 
 
