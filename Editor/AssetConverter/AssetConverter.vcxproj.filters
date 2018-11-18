@@ -162,18 +162,6 @@
     <ClInclude Include="Entity\File\Raw\RawAssetImporter.h">
       <Filter>ヘッダー ファイル\Asset\_File\_Raw</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\File\Texture\TextureAssetConverterFactory.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\File\Texture\TextureAssetEntity.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\File\Texture\TextureAssetExporter.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\File\Texture\TextureAssetImporter.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Texture</Filter>
-    </ClInclude>
     <ClInclude Include="Entity\File\FileAssetConverterFactory.h">
       <Filter>ヘッダー ファイル\Asset\_File</Filter>
     </ClInclude>
@@ -327,6 +315,12 @@
     <ClInclude Include="Entity\File\Model\StaticModelAssetExporter.h">
       <Filter>ヘッダー ファイル\Asset\_File\Model</Filter>
     </ClInclude>
+    <ClInclude Include="Entity\FileAssetExporter.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Raw\Texture\TextureAssetEntity.h">
+      <Filter>ヘッダー ファイル\Asset\_File\Texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Director.cpp">
@@ -355,18 +349,6 @@
     </ClCompile>
     <ClCompile Include="Util\NativeLogger.cpp">
       <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity\File\Texture\TextureAssetConverterFactory.cpp">
-      <Filter>ソース ファイル\Asset\_File\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity\File\Texture\TextureAssetEntity.cpp">
-      <Filter>ソース ファイル\Asset\_File\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity\File\Texture\TextureAssetExporter.cpp">
-      <Filter>ソース ファイル\Asset\_File\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity\File\Texture\TextureAssetImporter.cpp">
-      <Filter>ソース ファイル\Asset\_File\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Entity\File\StandardMaterial.cpp">
       <Filter>ソース ファイル\Assimp</Filter>

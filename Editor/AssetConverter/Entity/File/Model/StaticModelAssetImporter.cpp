@@ -14,7 +14,7 @@
 
 #include <Entity/File/Model/Mesh/ModelMeshAssetEntity.h>
 #include <Entity/File/Model/Material/ModelMaterialAssetEntity.h>
-#include <Entity/File/Texture/TextureAssetEntity.h>
+#include <Entity/File/Raw/Texture/TextureAssetEntity.h>
 
 // =================================================================
 // Constructor / Destructor

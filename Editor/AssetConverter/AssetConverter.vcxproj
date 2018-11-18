@@ -175,6 +175,7 @@
     <ClInclude Include="Converter\AssetConverter.h" />
     <ClInclude Include="Entity\AssetEntity.h" />
     <ClInclude Include="Entity\AssetExporter.h" />
+    <ClInclude Include="Entity\FileAssetExporter.h" />
     <ClInclude Include="Entity\File\Raw\RawAssetEntity.h" />
     <ClInclude Include="GUI\EntityView\AssetEntityView.h" />
     <ClInclude Include="GUI\FileView\AssetEntityFileLeaf.h" />
@@ -229,10 +230,7 @@
     <ClInclude Include="Entity\File\Raw\Sound\SoundAssetEntity.h" />
     <ClInclude Include="Entity\File\StandardMaterial.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Entity\File\Texture\TextureAssetConverterFactory.h" />
-    <ClInclude Include="Entity\File\Texture\TextureAssetEntity.h" />
-    <ClInclude Include="Entity\File\Texture\TextureAssetExporter.h" />
-    <ClInclude Include="Entity\File\Texture\TextureAssetImporter.h" />
+    <ClInclude Include="Entity\File\Raw\Texture\TextureAssetEntity.h" />
     <ClInclude Include="EngineBehavior.h" />
     <ClInclude Include="GameInput.h" />
     <ClInclude Include="Scene\AssetViewer\AssetViewerBehavior.h" />
@@ -291,10 +289,6 @@
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdafx.h</ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdafx.h</ForcedIncludeFiles>
     </ClCompile>
-    <ClCompile Include="Entity\File\Texture\TextureAssetConverterFactory.cpp" />
-    <ClCompile Include="Entity\File\Texture\TextureAssetEntity.cpp" />
-    <ClCompile Include="Entity\File\Texture\TextureAssetExporter.cpp" />
-    <ClCompile Include="Entity\File\Texture\TextureAssetImporter.cpp" />
     <ClCompile Include="EngineBehavior.cpp" />
     <ClCompile Include="GameInput.cpp" />
     <ClCompile Include="main.cpp" />
