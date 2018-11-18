@@ -8,7 +8,7 @@ namespace DefaultAsset
 static const std::string& SHADER_PATH_LAMBERT = "shader/default/Lambert.cso";
 static const std::string& SHADER_PATH_PHONG   = "shader/default/Phong.cso";
 static const std::string& SHADER_PATH_WHITE   = "shader/default/White.cso";
-static const std::string& SHADER_PATH_SPRITE  = "shader/default/Sprite.cso";
+static const std::string& SHADER_PATH_UNLIT  = "shader/default/Unlit.cso";
 static const std::string& SHADER_PATH_STENCIL_SHADOW = "shader/default/StencilShadow.cso";
 
 //‰¼‘z‚ÌƒpƒX

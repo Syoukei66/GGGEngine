@@ -8,6 +8,7 @@
 GG_INIT_FUNC_IMPL(TextureViewerBehavior)
 {
   this->obj_ = new GameObject3D();
+  this->obj_->GetTransform()->RotateX(-Mathf::PI_1_2);
   this->mesh_renderer_ = new MeshRenderer(this->obj_);
   this->obj_->SetRenderer(this->mesh_renderer_);
   return true;
@@ -35,8 +36,8 @@ void TextureViewerBehavior::OnEnd()
 void TextureViewerBehavior::OnLoad(T_UINT32 unique_id)
 {
   this->mesh_renderer_->SetMesh(AssetManager::Load<rcMesh>(DefaultUniqueID::MESH_PLANE));
-  this->mesh_renderer_->SetMaterial(AssetManager::Load<rcMaterial>(DefaultUniqueID::SHADER_FLAT));
-  this->mesh_renderer_->GetMaterial()->SetMainTexture(AssetManager::Load<rcTexture>(DefaultUniqueID::TEXTURE_WHITE));
+  this->mesh_renderer_->SetMaterial(AssetManager::Load<rcMaterial>(DefaultUniqueID::MATERIAL_UNLIT));
+  this->mesh_renderer_->GetMaterial()->SetMainTexture(AssetManager::Load<rcTexture>(unique_id));
 }
 
 void TextureViewerBehavior::OnUnload()

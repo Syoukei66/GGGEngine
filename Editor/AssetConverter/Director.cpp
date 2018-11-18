@@ -207,7 +207,7 @@ void AssetConverterDirector::CreateDefaultAssets()
   
   using namespace DefaultUniqueID;
   using namespace DefaultAsset;
-  self->context_->RegisterDefaultUniqueID(SHADER_FLAT, SHADER_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(SHADER_FLAT, SHADER_PATH_UNLIT);
   self->context_->RegisterDefaultUniqueID(SHADER_GOURAUD, SHADER_PATH_LAMBERT);
   self->context_->RegisterDefaultUniqueID(SHADER_PHONG, SHADER_PATH_PHONG);
   self->context_->RegisterDefaultUniqueID(SHADER_BLIN, SHADER_PATH_WHITE);

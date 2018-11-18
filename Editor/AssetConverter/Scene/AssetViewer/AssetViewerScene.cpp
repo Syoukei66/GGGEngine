@@ -1,6 +1,7 @@
 #include "AssetViewerScene.h"
 #include <Scene/AssetViewer/Mesh/MeshViewerBehavior.h>
 #include <Scene/AssetViewer/Model/ModelViewerBehavior.h>
+#include <Scene/AssetViewer/Texture/TextureViewerBehavior.h>
 
 // =================================================================
 // GGG Statement
@@ -34,6 +35,7 @@ GG_INIT_FUNC_IMPL(AssetViewerScene)
   //}
   this->behaviors_.push_back(MeshViewerBehavior::Create());
   this->behaviors_.push_back(ModelViewerBehavior::Create());
+  this->behaviors_.push_back(TextureViewerBehavior::Create());
   return ViewerScene::Init();
 }
 // =================================================================

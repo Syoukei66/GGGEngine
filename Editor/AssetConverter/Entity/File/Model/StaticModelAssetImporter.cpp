@@ -241,6 +241,7 @@ static SharedRef<ModelMaterialAssetEntity> ImportMaterial(AssetInfo* info, const
   data->main_tex_unique_id_ = tex_asset_entity ? tex_asset_entity->GetAssetInfo()->GetUniqueID() : DefaultUniqueID::TEXTURE_WHITE;
   data->tiling_ = TVec2f(1.0f, 1.0f);
   data->tiling_offset_ = TVec2f(0.0f, 0.0f);
+
   //TODO:プロパティのインポート処理
   data->shader_unique_id_ = ImportShader(info, material, context);
 
