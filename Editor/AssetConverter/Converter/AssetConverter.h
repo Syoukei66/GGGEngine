@@ -87,7 +87,7 @@ inline T_UINT32 AssetConverter<Entity_>::GetID() const
 template<class Entity_>
 inline bool AssetConverter<Entity_>::Reserve(const URI& uri, AssetConverterContext* context)
 {
-  const T_UINT32 uid = context->GetUniqueID(uri);
+  const T_UINT32 uid = context->PublishUniqueID(uri);
   const auto& itr = this->entities_.find(uid);
   if (itr != this->entities_.end())
   {
