@@ -3,7 +3,7 @@
 #include "URI.h"
 
 class AssetConverterContext;
-class AssetInfo;
+class AssetMetaData;
 class AssetEntity;
 
 class IAssetConverter

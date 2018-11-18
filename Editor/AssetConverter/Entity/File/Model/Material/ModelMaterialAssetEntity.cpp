@@ -3,10 +3,10 @@
 // =================================================================
 // FactoryMethod
 // =================================================================
-GG_INIT_FUNC_IMPL_2(ModelMaterialAssetEntity, AssetInfo* info, MaterialData* data)
+GG_INIT_FUNC_IMPL_2(ModelMaterialAssetEntity, AssetMetaData* meta, MaterialData* data)
 {
   this->data_ = data;
-  return AssetEntity::Init(info);
+  return AssetEntity::Init(meta);
 }
 
 GG_DESTRUCT_FUNC_IMPL(ModelMaterialAssetEntity)

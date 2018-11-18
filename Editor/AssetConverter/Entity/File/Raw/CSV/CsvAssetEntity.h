@@ -10,7 +10,7 @@ class CsvAssetEntity : public RawAssetEntity<rcCsvData>
   // =================================================================
   ENTITY_ID(ID_CSV);
   GG_OBJECT(CsvAssetEntity);
-  GG_CREATE_FUNC_1(CsvAssetEntity, AssetInfo*)
+  GG_CREATE_FUNC_1(CsvAssetEntity, AssetMetaData*)
   {
     return AssetEntity::Init(arg0);
   }

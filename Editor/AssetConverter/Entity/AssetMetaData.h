@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Util/FileUtil.h>
+
 #include <Cereal/cereal.hpp>
 #include <Cereal/archives/json.hpp>
 #include <Cereal/types/string.hpp>
@@ -59,6 +61,16 @@ public:
   inline const URI& GetURI() const
   {
     return this->uri_;
+  }
+
+  inline std::string GetInputPath() const
+  {
+    return FileUtil::CreateInputPath(this->GetURI());
+  }
+
+  inline std::string GetOutputPath() const
+  {
+    return FileUtil::CreateArchivePath(this);
   }
 
   // =================================================================

@@ -10,14 +10,14 @@ DefinitionGenerator::~DefinitionGenerator()
 {
 }
 
-std::string DefinitionGenerator::CreateHeaderProgram(const IdentifierGenerator& id_generator, const AssetInfo* info) const
+std::string DefinitionGenerator::CreateHeaderProgram(const IdentifierGenerator& id_generator, const AssetMetaData* meta) const
 {
-  return "extern " + this->CreateLoaderNameAlias() + " " + id_generator.CreateIdentifier(info) + ";\n";
+  return "extern " + this->CreateLoaderNameAlias() + " " + id_generator.CreateIdentifier(meta) + ";\n";
 }
 
-std::string DefinitionGenerator::CreateCppProgram(const IdentifierGenerator& id_generator, const AssetInfo* info) const
+std::string DefinitionGenerator::CreateCppProgram(const IdentifierGenerator& id_generator, const AssetMetaData* meta) const
 {
-  return this->CreateLoaderNameAlias() + " " + id_generator.CreateIdentifier(info) + " = " + "AssetManager::AddAsset<" + this->CreateTypeNameAlias() + ">(" + std::to_string(info->GetUniqueID()) + ", \"" + info->GetURI().GetExtension() + "\");\n";
+  return this->CreateLoaderNameAlias() + " " + id_generator.CreateIdentifier(meta) + " = " + "AssetManager::AddAsset<" + this->CreateTypeNameAlias() + ">(" + std::to_string(meta->GetUniqueID()) + ", \"" + meta->GetURI().GetExtension() + "\");\n";
 }
 
 std::string DefinitionGenerator::CreateTypeName() const

@@ -10,7 +10,7 @@ class SoundAssetEntity : public RawAssetEntity<rcAudioClip>
   // =================================================================
   ENTITY_ID(ID_SOUND);
   GG_OBJECT(SoundAssetEntity);
-  GG_CREATE_FUNC_1(SoundAssetEntity, AssetInfo*)
+  GG_CREATE_FUNC_1(SoundAssetEntity, AssetMetaData*)
   {
     return AssetEntity::Init(arg0);
   }

@@ -9,7 +9,7 @@ class ModelMeshAssetEntity : public AssetEntity
   // =================================================================
   ENTITY_ID(ID_MODEL_MESH);
   GG_OBJECT(ModelMeshAssetEntity);
-  GG_CREATE_FUNC_2(ModelMeshAssetEntity, AssetInfo*, MeshData*);
+  GG_CREATE_FUNC_2(ModelMeshAssetEntity, AssetMetaData*, MeshData*);
   GG_DESTRUCT_FUNC(ModelMeshAssetEntity);
 
   // =================================================================

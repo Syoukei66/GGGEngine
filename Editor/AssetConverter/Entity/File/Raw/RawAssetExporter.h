@@ -12,7 +12,7 @@ class RawAssetExporter : public AssetExporter<Entity_>
 protected:
   void ExportProcess(const SharedRef<Entity_>& entity, const AssetConverterContext* context) override
   {
-    FileUtil::CopyRawAsset(entity->GetAssetInfo());
+    FileUtil::CopyRawAsset(entity->GetMetaData());
   }
 
 };

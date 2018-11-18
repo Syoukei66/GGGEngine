@@ -1,5 +1,5 @@
 #include "AssetEntityFileNode.h"
-#include <Entity/AssetInfo.h>
+#include <Entity/AssetMetaData.h>
 #include <regex>
 
 // =================================================================
@@ -7,7 +7,7 @@
 // =================================================================
 void AssetEntityFileNode::AddAssetEntity(const SharedRef<AssetEntity>& entity)
 {
-  this->AddAssetEntity(entity->GetAssetInfo()->GetURI().GetFullPath(), entity);
+  this->AddAssetEntity(entity->GetMetaData()->GetURI().GetFullPath(), entity);
 }
 
 SharedRef<AssetEntity> AssetEntityFileNode::SelectWithImGUI()

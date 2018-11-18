@@ -8,7 +8,7 @@
 
 #include <ToolUtil.h>
 
-#include <Entity/AssetInfo.h>
+#include <Entity/AssetMetaData.h>
 #include <Setting/Setting.h>
 #include <Util/Logger.h>
 
@@ -71,15 +71,15 @@ std::string FileUtil::CreateMidDataPath(const URI& uri)
   return MID_DATA_PATH + "/" + uri.GetFullPath();
 }
 
-std::string FileUtil::CreateArchivePath(const AssetInfo* info)
+std::string FileUtil::CreateArchivePath(const AssetMetaData* meta_data)
 {
-  //return ARCHIVE_PATH + "/" + std::to_string(info->GetUniqueID()) + "." + info->GetURI().GetExtension();
-  return RUNTIME_DIRECTORY_PATH + "/" + Directory::CreateArchivePath(std::to_string(info->GetUniqueID()) + "." + info->GetURI().GetExtension());
+  //return ARCHIVE_PATH + "/" + std::to_string(meta->GetUniqueID()) + "." + meta->GetURI().GetExtension();
+  return RUNTIME_DIRECTORY_PATH + "/" + Directory::CreateArchivePath(std::to_string(meta_data->GetUniqueID()) + "." + meta_data->GetURI().GetExtension());
 }
 
 std::string FileUtil::CreateOutputPath(const std::string& filename)
 {
-  //return ARCHIVE_PATH + "/" + std::to_string(info->GetUniqueID()) + "." + info->GetURI().GetExtension();
+  //return ARCHIVE_PATH + "/" + std::to_string(meta->GetUniqueID()) + "." + meta->GetURI().GetExtension();
   return RUNTIME_DIRECTORY_PATH + "/" + filename;
 }
 
@@ -93,15 +93,15 @@ std::string FileUtil::CreateSolutionPath(const std::string& path)
   return path.substr(CURRENT_DIRECTORY.size(), path.size() - CURRENT_DIRECTORY.size());
 }
 
-void FileUtil::CopyRawAsset(const AssetInfo* info)
+void FileUtil::CopyRawAsset(const AssetMetaData* meta_data)
 {
   HRESULT hr = CopyFile(
-    info->GetInputPath().c_str(),
-    info->GetOutputPath().c_str(),
+    meta_data->GetInputPath().c_str(),
+    meta_data->GetOutputPath().c_str(),
     false
   );
   GG_ASSERT(SUCCEEDED(hr), "ÉRÉsÅ[Ç…é∏îsÇµÇ‹ÇµÇΩ");
-  Logger::CopyAssetLog(info);
+  Logger::CopyAssetLog(meta_data);
 }
 
 std::string FileUtil::GetTimeStamp(const std::string& path)

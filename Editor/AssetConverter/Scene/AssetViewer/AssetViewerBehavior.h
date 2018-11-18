@@ -2,7 +2,7 @@
 
 #include <Scene/ViewerScene.h>
 #include <Entity/AssetEntity.h>
-#include <Entity/AssetInfo.h>
+#include <Entity/AssetMetaData.h>
 
 /*!
  * @brief アセットビューワーの動作を定義するクラス

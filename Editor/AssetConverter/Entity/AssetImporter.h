@@ -2,7 +2,7 @@
 
 #include "URI.h"
 
-class AssetInfo;
+class AssetMetaData;
 class AssetConverterContext;
 
 template <class Entity_>
@@ -34,18 +34,18 @@ protected:
    * @brief アセットのインポート実処理
    * 派生クラス側で実際のインポート処理を記述する。
    */
-  virtual SharedRef<Entity_> ImportProcess(AssetInfo* info, AssetConverterContext* context) = 0;
+  virtual SharedRef<Entity_> ImportProcess(AssetMetaData* meta, AssetConverterContext* context) = 0;
 
   // =================================================================
   // Data Members
   // =================================================================
 private:
   std::vector<std::string> target_extensions_;
-  std::unordered_map<T_UINT32, AssetInfo*> reserve_assets_;
+  std::unordered_map<T_UINT32, AssetMetaData*> reserve_assets_;
 
 };
 
-#include <Entity/AssetInfo.h>
+#include <Entity/AssetMetaData.h>
 #include <Converter/AssetConverterContext.h>
 
 // =================================================================
@@ -77,8 +77,8 @@ inline bool AssetImporter<Entity_>::Reserve(const URI& uri, T_UINT32 source_uniq
   {
     return false;
   }
-  AssetInfo* info = AssetInfo::Create(uri, source_unique_id, context);
-  this->reserve_assets_[info->GetUniqueID()] = info;
+  AssetMetaData* meta = AssetMetaData::Create(uri, source_unique_id, context);
+  this->reserve_assets_[meta->GetUniqueID()] = meta;
   return true;
 }
 
@@ -103,12 +103,12 @@ inline bool AssetImporter<Entity_>::ImportOnce(std::unordered_map<T_UINT32, Shar
     return false;
   }
   T_UINT32 unique_id = begin->first;
-  AssetInfo* info = begin->second;
+  AssetMetaData* meta = begin->second;
   this->reserve_assets_.erase(begin->first);
   //イテレーター処理が終わった後にImport処理を行う事で
   //割り込みが発生しても安全に処理できる
-  Logger::ImportAssetLog(info->GetURI()); 
-  (*dest)[unique_id] = this->ImportProcess(info, context);
+  Logger::ImportAssetLog(meta->GetURI()); 
+  (*dest)[unique_id] = this->ImportProcess(meta, context);
   return true;
 }
 
@@ -120,30 +120,30 @@ inline bool AssetImporter<Entity_>::ImportOnce(T_UINT32 unique_id, std::unordere
   {
     return false;
   }
-  AssetInfo* info = itr->second;
+  AssetMetaData* meta = itr->second;
   this->reserve_assets_.erase(itr->first);
   //イテレーター処理が終わった後にImport処理を行う事で
   //割り込みが発生しても安全に処理できる
-  std::cout << "importing \"" << info->GetURI().GetFullPath() << "\" " << std::endl;
-  (*dest)[unique_id] = this->ImportProcess(info, context);
+  std::cout << "importing \"" << meta->GetURI().GetFullPath() << "\" " << std::endl;
+  (*dest)[unique_id] = this->ImportProcess(meta, context);
   return true;
 }
 
 template<class Entity_>
 inline SharedRef<Entity_> AssetImporter<Entity_>::ImportImmediately(const URI& uri, AssetConverterContext* context)
 {
-  AssetInfo* info = nullptr;
+  AssetMetaData* meta = nullptr;
 
   //既に予約済みかどうかチェックする
   T_UINT32 uid = context->GetUniqueID(uri);
   const auto& itr = this->reserve_assets_.find(uid);
   if (itr != this->reserve_assets_.end())
   {
-    info = itr->second;
+    meta = itr->second;
     //予約を解除しとく
     this->reserve_assets_.erase(itr);
   }
-  //予約済みじゃなかったらAssetInfoを作るところから
+  //予約済みじゃなかったらAssetMetaDataを作るところから
   else
   {
     //対応する拡張子かチェック
@@ -151,13 +151,13 @@ inline SharedRef<Entity_> AssetImporter<Entity_>::ImportImmediately(const URI& u
     {
       return nullptr;
     }
-    info = AssetInfo::Create(uri, context);
+    meta = AssetMetaData::Create(uri, context);
   }
 
-  const SharedRef<Entity_>& ret = this->ImportProcess(info, context);
+  const SharedRef<Entity_>& ret = this->ImportProcess(meta, context);
   if (!ret)
   {
-    delete info;
+    delete meta;
   }
   return ret;
 }

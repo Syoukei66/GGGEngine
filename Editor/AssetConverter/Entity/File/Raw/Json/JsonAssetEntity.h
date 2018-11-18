@@ -10,7 +10,7 @@ class JsonAssetEntity : public RawAssetEntity<rcJsonData>
   // =================================================================
   ENTITY_ID(ID_JSON);
   GG_OBJECT(JsonAssetEntity);
-  GG_CREATE_FUNC_1(JsonAssetEntity, AssetInfo*)
+  GG_CREATE_FUNC_1(JsonAssetEntity, AssetMetaData*)
   {
     return AssetEntity::Init(arg0);
   }

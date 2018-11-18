@@ -9,7 +9,7 @@ class TextureAssetEntity : public AssetEntity
   // =================================================================
   ENTITY_ID(ID_TEXTURE);
   GG_OBJECT(TextureAssetEntity);
-  GG_CREATE_FUNC_1(TextureAssetEntity, AssetInfo*);
+  GG_CREATE_FUNC_1(TextureAssetEntity, AssetMetaData*);
 
   // =================================================================
   // Methods from AssetEntity

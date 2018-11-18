@@ -22,9 +22,9 @@ IAssetConverter* DefaultMaterialAssetConverterFactory::Create(AssetConverterCont
   white->shader_unique_id_ = SHADER_NO_SHADING;
   MaterialData* stencil_shadow = new MaterialData();
   stencil_shadow->shader_unique_id_ = SHADER_STENCIL_SHADOW;
-  ret->AddEntity(DefaultMaterialAssetEntity::Create(AssetInfo::Create(MATERIAL_PATH_LAMBERT, context), lambert));
-  ret->AddEntity(DefaultMaterialAssetEntity::Create(AssetInfo::Create(MATERIAL_PATH_UNLIT, context), unlit));
-  ret->AddEntity(DefaultMaterialAssetEntity::Create(AssetInfo::Create(MATERIAL_PATH_WHITE, context), white));
-  ret->AddEntity(DefaultMaterialAssetEntity::Create(AssetInfo::Create(MATERIAL_PATH_STENCIL_SHADOW, context), stencil_shadow));
+  ret->AddEntity(DefaultMaterialAssetEntity::Create(AssetMetaData::Create(MATERIAL_PATH_LAMBERT, context), lambert));
+  ret->AddEntity(DefaultMaterialAssetEntity::Create(AssetMetaData::Create(MATERIAL_PATH_UNLIT, context), unlit));
+  ret->AddEntity(DefaultMaterialAssetEntity::Create(AssetMetaData::Create(MATERIAL_PATH_WHITE, context), white));
+  ret->AddEntity(DefaultMaterialAssetEntity::Create(AssetMetaData::Create(MATERIAL_PATH_STENCIL_SHADOW, context), stencil_shadow));
   return ret;
 }

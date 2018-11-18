@@ -78,12 +78,12 @@ void AssetConverterDirector::Import()
 {
   AssetConverterDirector* self = &Self();
 
-  //Importerが対応しているファイルのAssetInfoを作成
+  //Importerが対応しているファイルのAssetMetaDataを作成
   //UniqueIdテーブルなどの作成
-  //ImporterへのAssetInfoのセット
+  //ImporterへのAssetMetaDataのセット
   FileUtil::CrawlInputDirectory([&](const URI& uri)
   {
-    //AssetInfoが生成されれば予約成功
+    //AssetMetaDataが生成されれば予約成功
     if (self->context_->Reserve(uri))
     {
       return;
@@ -114,7 +114,7 @@ void AssetConverterDirector::Import()
 
   self->context_->VisitAllEntity([&](const SharedRef<AssetEntity>& entity)
   {
-    entity->GetAssetInfo()->GetMetaData()->Save();
+    entity->GetMetaData()->Save();
   });
 
   self->converter_manager_->VisitAllEntity([&](const SharedRef<AssetEntity>& entity)

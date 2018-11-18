@@ -18,9 +18,9 @@ public:
   // Methods
   // =================================================================
 protected:
-  SharedRef<Entity_> ImportProcess(AssetInfo* info, AssetConverterContext* context) override
+  SharedRef<Entity_> ImportProcess(AssetMetaData* meta, AssetConverterContext* context) override
   {
-    return Entity_::Create(info);
+    return Entity_::Create(meta);
   }
 
 };

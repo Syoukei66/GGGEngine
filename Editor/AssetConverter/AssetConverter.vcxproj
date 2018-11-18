@@ -220,7 +220,6 @@
     <ClInclude Include="Entity\File\Model\StaticModelAssetEntity.h" />
     <ClInclude Include="Entity\File\Model\StaticModelAssetExporter.h" />
     <ClInclude Include="Entity\File\Model\StaticModelAssetImporter.h" />
-    <ClInclude Include="Entity\AssetInfo.h" />
     <ClInclude Include="Entity\File\FileAssetConverterFactory.h" />
     <ClInclude Include="Setting\RuntimeSetting.h" />
     <ClInclude Include="Setting\Setting.h" />
@@ -280,7 +279,6 @@
     <ClCompile Include="Entity\File\Model\StaticModelAssetEntity.cpp" />
     <ClCompile Include="Entity\File\Model\StaticModelAssetExporter.cpp" />
     <ClCompile Include="Entity\File\Model\StaticModelAssetImporter.cpp" />
-    <ClCompile Include="Entity\AssetInfo.cpp" />
     <ClCompile Include="Util\NativeLogger.cpp" />
     <ClCompile Include="Setting\Setting.cpp" />
     <ClCompile Include="Entity\File\StandardMaterial.cpp" />

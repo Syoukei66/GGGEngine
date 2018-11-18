@@ -192,9 +192,6 @@
     <ClInclude Include="Entity\AssetImporter.h">
       <Filter>ヘッダー ファイル\Asset\_Base</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\AssetInfo.h">
-      <Filter>ヘッダー ファイル\Asset</Filter>
-    </ClInclude>
     <ClInclude Include="Entity\AssetMetaData.h">
       <Filter>ヘッダー ファイル\Asset</Filter>
     </ClInclude>
@@ -379,9 +376,6 @@
     </ClCompile>
     <ClCompile Include="Entity\AssetEntity.cpp">
       <Filter>ソース ファイル\Asset\_Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity\AssetInfo.cpp">
-      <Filter>ソース ファイル\Asset</Filter>
     </ClCompile>
     <ClCompile Include="Entity\AssetMetaData.cpp">
       <Filter>ソース ファイル\Asset</Filter>

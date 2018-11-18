@@ -2,7 +2,7 @@
 #include <Engine/Utils.h>
 #include <Engine/Component/Camera/Camera3D_LookAt.h>
 #include <Entity/AssetEntity.h>
-#include <Entity/AssetInfo.h>
+#include <Entity/AssetMetaData.h>
 #include "GameInput.h"
 
 

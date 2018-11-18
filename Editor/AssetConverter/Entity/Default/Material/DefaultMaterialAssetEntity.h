@@ -9,7 +9,7 @@ class DefaultMaterialAssetEntity : public AssetEntity
   // =================================================================
   ENTITY_ID(ID_DEFAULT_MATERIAL);
   GG_OBJECT(DefaultMaterialAssetEntity);
-  GG_CREATE_FUNC_2(DefaultMaterialAssetEntity, AssetInfo*, MaterialData*);
+  GG_CREATE_FUNC_2(DefaultMaterialAssetEntity, AssetMetaData*, MaterialData*);
   GG_DESTRUCT_FUNC(DefaultMaterialAssetEntity);
 
   // =================================================================

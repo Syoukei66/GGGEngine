@@ -9,7 +9,7 @@ class DefaultMeshAssetEntity : public AssetEntity
   // =================================================================
   ENTITY_ID(ID_DEFAULT_MESH);
   GG_OBJECT(DefaultMeshAssetEntity);
-  GG_CREATE_FUNC_2(DefaultMeshAssetEntity, AssetInfo*, MeshData*);
+  GG_CREATE_FUNC_2(DefaultMeshAssetEntity, AssetMetaData*, MeshData*);
   GG_DESTRUCT_FUNC(DefaultMeshAssetEntity);
 
   // =================================================================

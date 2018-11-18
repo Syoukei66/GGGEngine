@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Entity/AssetInfo.h>
+#include <Entity/AssetMetaData.h>
 
 class IdentifierGenerator
 {
@@ -14,7 +14,7 @@ public:
   // Methods
   // =================================================================
 public:
-  std::string CreateIdentifier(const AssetInfo* info) const;
+  std::string CreateIdentifier(const AssetMetaData* meta) const;
 
   // =================================================================
   // Data Members
@@ -23,7 +23,7 @@ public:
   T_UINT32 skip_head_;
   T_UINT32 skip_tail_;
 
-  std::unordered_map<const AssetInfo*, std::string> cache_;
+  std::unordered_map<const AssetMetaData*, std::string> cache_;
 
 };
 

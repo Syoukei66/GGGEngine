@@ -53,16 +53,16 @@ inline void AssetExporter<Entity_>::Export(const std::unordered_map<T_UINT32, Sh
 {
   for (auto& pair : entities)
   {
-    AssetInfo* info = pair.second->GetAssetInfo();
+    AssetMetaData* meta = pair.second->GetMetaData();
 
     //変換後ファイルが消えているか
-    const bool output_file_exists = std::ifstream(FileUtil::CreateArchivePath(info)).is_open();
-    const bool asset_changed = info->UpdateTimeStamp();
+    const bool output_file_exists = std::ifstream(FileUtil::CreateArchivePath(meta)).is_open();
+    const bool asset_changed = meta->UpdateTimeStamp();
 
     //変換対象ファイルのタイムスタンプが一致しているか
     if (output_file_exists && !asset_changed)
     {
-      Logger::ExportSkipAssetLog(info);
+      Logger::ExportSkipAssetLog(meta);
       continue;
     }
     this->ExportProcess(pair.second, context);

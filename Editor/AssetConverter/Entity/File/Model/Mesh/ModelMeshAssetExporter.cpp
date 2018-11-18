@@ -6,6 +6,6 @@
 // =================================================================
 void ModelMeshAssetExporter::ExportProcess(const SharedRef<ModelMeshAssetEntity>& entity, const AssetConverterContext* context)
 {
-  CerealIO::Binary::Export(entity->GetAssetInfo()->GetOutputPath().c_str(), entity->GetData());
-  Logger::ConvertAssetLog(entity->GetAssetInfo());
+  CerealIO::Binary::Export(entity->GetMetaData()->GetOutputPath().c_str(), entity->GetData());
+  Logger::ConvertAssetLog(entity->GetMetaData());
 }

@@ -3,7 +3,7 @@
 #include <set>
 #include <URI.h>
 
-class AssetInfo;
+class AssetMetaData;
 
 #define ENTITY_ID(id) public:\
 enum { ID = id };\
@@ -33,7 +33,7 @@ public:
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_INIT_FUNC_1(AssetEntity, AssetInfo*);
+  GG_INIT_FUNC_1(AssetEntity, AssetMetaData*);
   GG_DESTRUCT_FUNC(AssetEntity);
 
   // =================================================================
@@ -69,16 +69,16 @@ protected:
 public:
   virtual T_UINT32 GetID() const = 0;
 
-  inline AssetInfo* GetAssetInfo() const
+  inline AssetMetaData* GetMetaData() const
   {
-    return this->info_;
+    return this->meta_data_;
   }
 
   // =================================================================
   // Data Members
   // =================================================================
 private:
-  AssetInfo* info_;
+  AssetMetaData* meta_data_;
   std::vector<SharedRef<AssetEntity>> referenced_entities_;
 
 };

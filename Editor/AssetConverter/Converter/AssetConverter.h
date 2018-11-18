@@ -39,7 +39,7 @@ public:
 
   inline void AddEntity(const SharedRef<Entity_>& entity);
   inline SharedRef<Entity_> GetEntity(const URI& uri, const AssetConverterContext* context);
-  inline SharedRef<Entity_> GetEntity(const AssetInfo* info);
+  inline SharedRef<Entity_> GetEntity(const AssetMetaData* meta);
 
   inline void Export(const AssetConverterContext* context) const override;
 
@@ -151,7 +151,7 @@ template<class Entity_>
 inline void AssetConverter<Entity_>::AddEntity(const SharedRef<Entity_>& entity)
 {
   GG_ASSERT_IS_NULL(entity);
-  this->entities_[entity->GetAssetInfo()->GetUniqueID()] = entity;
+  this->entities_[entity->GetMetaData()->GetUniqueID()] = entity;
 }
 
 template<class Entity_>
@@ -166,9 +166,9 @@ inline SharedRef<Entity_> AssetConverter<Entity_>::GetEntity(const URI& uri, con
 }
 
 template<class Entity_>
-inline SharedRef<Entity_> AssetConverter<Entity_>::GetEntity(const AssetInfo* info)
+inline SharedRef<Entity_> AssetConverter<Entity_>::GetEntity(const AssetMetaData* meta)
 {
-  const auto& itr = this->entities_.find(info->GetUniqueID());
+  const auto& itr = this->entities_.find(meta->GetUniqueID());
   if (itr != this->entities_.end())
   {
     return itr->second;

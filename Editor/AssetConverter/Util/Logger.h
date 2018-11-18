@@ -1,6 +1,6 @@
 #pragma once
 
-class AssetInfo;
+class AssetMetaData;
 class URI;
 
 namespace Logger
@@ -8,10 +8,10 @@ namespace Logger
 void ImportAssetLog(const URI& uri);
 void ImportSkipAssetLog(const URI& uri);
 
-void CommitAssetLog(const AssetInfo* info);
+void CommitAssetLog(const AssetMetaData* meta);
 
-void ConvertAssetLog(const AssetInfo* info);
-void ConvertFaildLog(const AssetInfo* info);
-void CopyAssetLog(const AssetInfo* info);
-void ExportSkipAssetLog(const AssetInfo* info);
+void ConvertAssetLog(const AssetMetaData* meta);
+void ConvertFaildLog(const AssetMetaData* meta);
+void CopyAssetLog(const AssetMetaData* meta);
+void ExportSkipAssetLog(const AssetMetaData* meta);
 };

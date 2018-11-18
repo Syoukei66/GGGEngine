@@ -55,7 +55,7 @@ TColor ToTColor(const aiColor4D & col)
   return ret;
 }
 
-SharedRef<ModelMeshAssetEntity> ImportMesh(const AssetInfo* model_asset_info, const aiScene* scene, AssetConverterContext* context)
+SharedRef<ModelMeshAssetEntity> ImportMesh(const AssetMetaData* model_asset_info, const aiScene* scene, AssetConverterContext* context)
 {
   if (scene->mNumMeshes == 0)
   {
@@ -189,7 +189,7 @@ SharedRef<ModelMeshAssetEntity> ImportMesh(const AssetInfo* model_asset_info, co
   data->bounds_.extents.y = (max.y - min.y) * 0.5f;
   data->bounds_.extents.z = (max.z - min.z) * 0.5f;
 
-  AssetInfo* mesh_asset_info = AssetInfo::Create(
+  AssetMetaData* mesh_asset_info = AssetMetaData::Create(
     URI(model_asset_info->GetURI().GetDirectoryPath(), model_asset_info->GetURI().GetPrefix(), Extensions::MESH),
     model_asset_info->GetUniqueID(),
     context
@@ -198,7 +198,7 @@ SharedRef<ModelMeshAssetEntity> ImportMesh(const AssetInfo* model_asset_info, co
   return ModelMeshAssetEntity::Create(mesh_asset_info, data);
 }
 
-static SharedRef<TextureAssetEntity> ImportTexture(const AssetInfo* model_asset_info, const aiMaterial* material, aiTextureType type, T_UINT32 i, AssetConverterContext* context)
+static SharedRef<TextureAssetEntity> ImportTexture(const AssetMetaData* model_asset_info, const aiMaterial* material, aiTextureType type, T_UINT32 i, AssetConverterContext* context)
 {
   aiString path;
   aiTextureMapping mapping;
@@ -217,7 +217,7 @@ static SharedRef<TextureAssetEntity> ImportTexture(const AssetInfo* model_asset_
   return nullptr;
 }
 
-static T_UINT32 ImportShader(const AssetInfo* info, const aiMaterial* material, AssetConverterContext* context)
+static T_UINT32 ImportShader(const AssetMetaData* meta, const aiMaterial* material, AssetConverterContext* context)
 {
   T_INT32 mode;
   if (AI_SUCCESS == material->Get(AI_MATKEY_SHADING_MODEL, mode))
@@ -227,7 +227,7 @@ static T_UINT32 ImportShader(const AssetInfo* info, const aiMaterial* material, 
   return DefaultUniqueID::SHADER_GOURAUD;
 }
 
-static SharedRef<ModelMaterialAssetEntity> ImportMaterial(AssetInfo* info, const aiMaterial* material, AssetConverterContext* context)
+static SharedRef<ModelMaterialAssetEntity> ImportMaterial(AssetMetaData* meta, const aiMaterial* material, AssetConverterContext* context)
 {
   MaterialData* data = new MaterialData();
 
@@ -237,22 +237,22 @@ static SharedRef<ModelMaterialAssetEntity> ImportMaterial(AssetInfo* info, const
   {
     data->color_ = ToTColor(color);
   }
-  SharedRef<TextureAssetEntity> tex_asset_entity = ImportTexture(info, material, aiTextureType_DIFFUSE, 0, context);
-  data->main_tex_unique_id_ = tex_asset_entity ? tex_asset_entity->GetAssetInfo()->GetUniqueID() : DefaultUniqueID::TEXTURE_WHITE;
+  SharedRef<TextureAssetEntity> tex_asset_entity = ImportTexture(meta, material, aiTextureType_DIFFUSE, 0, context);
+  data->main_tex_unique_id_ = tex_asset_entity ? tex_asset_entity->GetMetaData()->GetUniqueID() : DefaultUniqueID::TEXTURE_WHITE;
   data->tiling_ = TVec2f(1.0f, 1.0f);
   data->tiling_offset_ = TVec2f(0.0f, 0.0f);
 
   //TODO:プロパティのインポート処理
-  data->shader_unique_id_ = ImportShader(info, material, context);
+  data->shader_unique_id_ = ImportShader(meta, material, context);
 
-  const SharedRef<ModelMaterialAssetEntity>& entity = ModelMaterialAssetEntity::Create(info, data);
+  const SharedRef<ModelMaterialAssetEntity>& entity = ModelMaterialAssetEntity::Create(meta, data);
 
   entity->AddReferencedEntity(tex_asset_entity);
 
   return entity;
 }
 
-SharedRef<StaticModelAssetEntity> StaticModelAssetImporter::ImportProcess(AssetInfo* info, AssetConverterContext* context)
+SharedRef<StaticModelAssetEntity> StaticModelAssetImporter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context)
 {  
   using namespace Assimp;
   //一部のファイルでメモリリークが発生
@@ -284,7 +284,7 @@ SharedRef<StaticModelAssetEntity> StaticModelAssetImporter::ImportProcess(AssetI
   aiSetImportPropertyInteger(props, AI_CONFIG_PP_PTV_NORMALIZE, 1);
 
   const aiScene* scene = aiImportFileExWithProperties(
-    info->GetInputPath().c_str(),
+    meta->GetInputPath().c_str(),
     ppsteps | /* configurable pp steps */
     aiProcess_GenSmoothNormals | // generate smooth normal vectors if not existing
     aiProcess_SplitLargeMeshes | // split large, unrenderable meshes into submeshes
@@ -309,19 +309,19 @@ SharedRef<StaticModelAssetEntity> StaticModelAssetImporter::ImportProcess(AssetI
   std::vector<SharedRef<AssetEntity>> referenced_assets = std::vector<SharedRef<AssetEntity>>();
 
   //Mesh
-  const SharedRef<AssetEntity>& mesh_asset_entity = context->AddEntity(ImportMesh(info, scene, context));
+  const SharedRef<AssetEntity>& mesh_asset_entity = context->AddEntity(ImportMesh(meta, scene, context));
   referenced_assets.push_back(mesh_asset_entity);
-  data->mesh_unique_id_ = mesh_asset_entity->GetAssetInfo()->GetUniqueID();
+  data->mesh_unique_id_ = mesh_asset_entity->GetMetaData()->GetUniqueID();
 
   //Material
-  std::vector<AssetInfo*> material_asset_infos;
+  std::vector<AssetMetaData*> material_asset_infos;
   for (T_UINT32 i = 0; i < scene->mNumMaterials; ++i)
   {
     aiMaterial* mat = scene->mMaterials[i];
     aiString name;
     if (AI_SUCCESS == aiGetMaterialString(mat, AI_MATKEY_NAME, &name))
     {
-      AssetInfo* mat_asset_info = AssetInfo::Create(URI(info->GetURI().GetDirectoryPath(), name.C_Str(), Extensions::MATERIAL), info->GetUniqueID(), context);
+      AssetMetaData* mat_asset_info = AssetMetaData::Create(URI(meta->GetURI().GetDirectoryPath(), name.C_Str(), Extensions::MATERIAL), meta->GetUniqueID(), context);
       const SharedRef<AssetEntity>& material_asset_entity = context->AddEntity(ImportMaterial(mat_asset_info, mat, context));
       material_asset_infos.push_back(mat_asset_info);
       referenced_assets.push_back(material_asset_entity);
@@ -334,7 +334,7 @@ SharedRef<StaticModelAssetEntity> StaticModelAssetImporter::ImportProcess(AssetI
     data->material_unique_ids_.push_back(material_asset_infos[mesh->mMaterialIndex]->GetUniqueID());
   }
 
-  const SharedRef<StaticModelAssetEntity>& entity = StaticModelAssetEntity::Create(info, data, scene);
+  const SharedRef<StaticModelAssetEntity>& entity = StaticModelAssetEntity::Create(meta, data, scene);
   for (const SharedRef<AssetEntity>& referenced : referenced_assets)
   {
     entity->AddReferencedEntity(referenced);

@@ -3,10 +3,10 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL_2(DefaultMaterialAssetEntity, AssetInfo* info, MaterialData* data)
+GG_INIT_FUNC_IMPL_2(DefaultMaterialAssetEntity, AssetMetaData* meta, MaterialData* data)
 {
   this->data_ = data;
-  return AssetEntity::Init(info);
+  return AssetEntity::Init(meta);
 }
 
 GG_DESTRUCT_FUNC_IMPL(DefaultMaterialAssetEntity)

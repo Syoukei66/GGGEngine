@@ -33,7 +33,7 @@ public:
       std::string str;
       for (auto& pair : entities)
       {
-        str.append(generator.CreateHeaderProgram(this->identifier_generator_, pair.second->GetAssetInfo()));
+        str.append(generator.CreateHeaderProgram(this->identifier_generator_, pair.second->GetMetaData()));
       }
       return str;
     }));
@@ -45,7 +45,7 @@ public:
       std::string str;
       for (auto& pair : entities)
       {
-        str.append(generator.CreateCppProgram(this->identifier_generator_, pair.second->GetAssetInfo()));
+        str.append(generator.CreateCppProgram(this->identifier_generator_, pair.second->GetMetaData()));
       }
       return str;
     }));

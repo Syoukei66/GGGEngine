@@ -11,7 +11,7 @@ class RawAssetEntity : public AssetEntity
 public:
   virtual void RegisterAssetManager(T_UINT32 uid, const std::string& extension) const override
   {
-    AssetManager::AddAsset<Asset_>(uid, extension, Asset_::CreateFromFile(this->GetAssetInfo()->GetInputPath().c_str()));
+    AssetManager::AddAsset<Asset_>(uid, extension, Asset_::CreateFromFile(this->GetMetaData()->GetInputPath().c_str()));
   }
 
 };

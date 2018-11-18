@@ -11,7 +11,7 @@ TextureAssetImporter::TextureAssetImporter(const std::vector<std::string>& exten
 // =================================================================
 // Methods
 // =================================================================
-SharedRef<TextureAssetEntity> TextureAssetImporter::ImportProcess(AssetInfo* info, AssetConverterContext* context)
+SharedRef<TextureAssetEntity> TextureAssetImporter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context)
 {
-  return TextureAssetEntity::Create(info);
+  return TextureAssetEntity::Create(meta);
 }

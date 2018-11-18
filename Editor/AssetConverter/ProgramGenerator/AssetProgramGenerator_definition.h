@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include <Entity/AssetInfo.h>
+#include <Entity/AssetMetaData.h>
 #include "AssetProgramGenerator_identifier.h"
 
 class DefinitionGenerator
@@ -18,8 +18,8 @@ public:
   // Methods
   // =================================================================
 public:
-  std::string CreateHeaderProgram(const IdentifierGenerator& id_generator, const AssetInfo* info) const;
-  std::string CreateCppProgram(const IdentifierGenerator& id_generator, const AssetInfo* info) const;
+  std::string CreateHeaderProgram(const IdentifierGenerator& id_generator, const AssetMetaData* meta) const;
+  std::string CreateCppProgram(const IdentifierGenerator& id_generator, const AssetMetaData* meta) const;
   std::string CreateTypeName() const;
   std::string CreateTypeNameAlias() const;
   std::string CreateLoaderNameAlias() const;

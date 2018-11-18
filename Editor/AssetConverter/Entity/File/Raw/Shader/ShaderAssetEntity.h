@@ -10,7 +10,7 @@ class ShaderAssetEntity : public RawAssetEntity<rcShader>
   // =================================================================
   ENTITY_ID(ID_SHADER);
   GG_OBJECT(ShaderAssetEntity);
-  GG_CREATE_FUNC_1(ShaderAssetEntity, AssetInfo*)
+  GG_CREATE_FUNC_1(ShaderAssetEntity, AssetMetaData*)
   {
     return AssetEntity::Init(arg0);
   }

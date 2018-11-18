@@ -4,7 +4,7 @@
 #include <functional>
 
 class URI;
-class AssetInfo;
+class AssetMetaData;
 
 namespace FileUtil
 {
@@ -19,12 +19,12 @@ std::string CreateFileName(const std::string& path, const std::string& extension
 std::string CreateProjectFilePath(const std::string& path);
 std::string CreateInputPath(const URI& uri);
 std::string CreateMidDataPath(const URI& uri);
-std::string CreateArchivePath(const AssetInfo* info);
+std::string CreateArchivePath(const AssetMetaData* meta_data);
 std::string CreateOutputPath(const std::string& filename);
 std::string CreateRuntimeAssetPath(const URI& uri);
 std::string CreateSolutionPath(const std::string& path);
 
-void CopyRawAsset(const AssetInfo* info);
+void CopyRawAsset(const AssetMetaData* meta_data);
 
 std::string GetTimeStamp(const std::string& path);
 

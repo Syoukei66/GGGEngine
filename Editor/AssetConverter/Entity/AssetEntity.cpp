@@ -1,20 +1,20 @@
 #include <Entity/AssetEntity.h>
-#include <Entity/AssetInfo.h>
+#include <Entity/AssetMetaData.h>
 #include <Util/Logger.h>
 #include <Director.h>
 
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL_1(AssetEntity, AssetInfo* info)
+GG_INIT_FUNC_IMPL_1(AssetEntity, AssetMetaData* meta)
 {
-  this->info_ = info;
+  this->meta_data_ = meta;
   return true;
 }
 
 GG_DESTRUCT_FUNC_IMPL(AssetEntity)
 {
-  delete this->info_;
+  delete this->meta_data_;
   return true;
 }
 
@@ -27,16 +27,16 @@ void AssetEntity::CommitChanges()
   {
     entity->CommitChanges();
   }
-  Logger::CommitAssetLog(this->info_);
-  this->RegisterAssetManager(this->info_->GetUniqueID(), this->info_->GetURI().GetExtension());
+  Logger::CommitAssetLog(this->meta_data_);
+  this->RegisterAssetManager(this->meta_data_->GetUniqueID(), this->meta_data_->GetURI().GetExtension());
 }
 
 void AssetEntity::CheckChanged(std::set<SharedRef<AssetEntity>>* update_entities)
 {
-  if (this->info_->GetMetaData()->UpdateTimeStamp())
+  if (this->meta_data_->UpdateTimeStamp())
   {
-    this->info_->GetMetaData()->Save();
-    update_entities->insert(AssetConverterDirector::GetContext()->GetEntity(this->info_->GetSourceUniqueId()));
+    this->meta_data_->Save();
+    update_entities->insert(AssetConverterDirector::GetContext()->GetEntity(this->meta_data_->GetSourceUniqueId()));
   }
   for (const SharedRef<AssetEntity>& entity : this->referenced_entities_)
   {

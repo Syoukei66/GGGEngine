@@ -14,15 +14,15 @@ IdentifierGenerator::IdentifierGenerator(T_UINT32 skip_head, T_UINT32 skip_tail)
 // =================================================================
 // Methods
 // =================================================================
-std::string IdentifierGenerator::CreateIdentifier(const AssetInfo* info) const
+std::string IdentifierGenerator::CreateIdentifier(const AssetMetaData* meta) const
 {
-  const auto& itr = this->cache_.find(info);
+  const auto& itr = this->cache_.find(meta);
   if (itr != this->cache_.end())
   {
     return itr->second;
   }
   //ファイル名がキャメル方式だった場合スネーク方式に変更
-  std::string snake_filename = info->GetURI().GetFullPath();
+  std::string snake_filename = meta->GetURI().GetFullPath();
   snake_filename = std::regex_replace(snake_filename, std::regex("([a-z])([A-Z])"), "$1_$2");
 
   //ファイル名を大文字に変換
@@ -51,6 +51,6 @@ std::string IdentifierGenerator::CreateIdentifier(const AssetInfo* info) const
     std::string::size_type cut_pos = id.find_last_of("_");
     id = id.substr(0, cut_pos);
   }
-  const_cast<IdentifierGenerator*>(this)->cache_[info] = id;
+  const_cast<IdentifierGenerator*>(this)->cache_[meta] = id;
   return id;
 }

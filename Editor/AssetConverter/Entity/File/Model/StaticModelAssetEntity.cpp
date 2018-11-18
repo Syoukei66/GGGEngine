@@ -1,16 +1,16 @@
 #include "StaticModelAssetEntity.h"
 #include <Util/FileUtil.h>
-#include <Entity/AssetInfo.h>
+#include <Entity/AssetMetaData.h>
 #include <Assimp/cimport.h>
 
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-GG_INIT_FUNC_IMPL_3(StaticModelAssetEntity, AssetInfo* info, StaticModelData* data, const aiScene* scene)
+GG_INIT_FUNC_IMPL_3(StaticModelAssetEntity, AssetMetaData* meta, StaticModelData* data, const aiScene* scene)
 {
   this->scene_ = scene;
   this->data_ = data;
-  return AssetEntity::Init(info);
+  return AssetEntity::Init(meta);
 }
 
 GG_DESTRUCT_FUNC_IMPL(StaticModelAssetEntity)
@@ -33,5 +33,5 @@ void StaticModelAssetEntity::RegisterAssetManager(T_UINT32 uid, const std::strin
 // =================================================================
 void StaticModelAssetEntity::SetMeshReference(ModelMeshAssetEntity* mesh_entity)
 {
-  this->data_->mesh_unique_id_ = mesh_entity->GetAssetInfo()->GetUniqueID();
+  this->data_->mesh_unique_id_ = mesh_entity->GetMetaData()->GetUniqueID();
 }

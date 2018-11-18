@@ -12,7 +12,7 @@
 #include <Entity/File/Model/Mesh/ModelMeshAssetConverterFactory.h>
 #include <Entity/File/Model/Material/ModelMaterialAssetConverterFactory.h>
 #include <Entity/Default/Mesh/DefaultMeshAssetConverterFactory.h>
-#include <Entity/AssetInfo.h>
+#include <Entity/AssetMetaData.h>
 
 struct Setting
 {

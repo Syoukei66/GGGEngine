@@ -5,7 +5,7 @@
 struct Setting;
 
 class AssetConverterManager;
-class AssetInfo;
+class AssetMetaData;
 class UniqueIdTable;
 class AssetEntity;
 
@@ -109,7 +109,7 @@ inline SharedRef<Entity_> AssetConverterContext::AddEntity(const SharedRef<Entit
 {
   if (!entity)
   {
-    Logger::ConvertFaildLog(entity->GetAssetInfo());
+    Logger::ConvertFaildLog(entity->GetMetaData());
     return nullptr;
   }
   this->converter_manager_->VisitAll<Entity_>([&](AssetConverter<Entity_>* converter)
@@ -132,7 +132,7 @@ inline SharedRef<AssetEntity> AssetConverterContext::GetEntity(const URI& uri)
 {
   return this->converter_manager_->FindAllEntity([&](const SharedRef<AssetEntity>& entity)
   {
-    return entity->GetAssetInfo()->GetURI() == uri;
+    return entity->GetMetaData()->GetURI() == uri;
   });
 }
 
@@ -140,7 +140,7 @@ inline SharedRef<AssetEntity> AssetConverterContext::GetEntity(T_UINT32 unique_i
 {
   return this->converter_manager_->FindAllEntity([&](const SharedRef<AssetEntity>& entity)
   {
-    return entity->GetAssetInfo()->GetUniqueID() == unique_id;
+    return entity->GetMetaData()->GetUniqueID() == unique_id;
   });
 }
 
