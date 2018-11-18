@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Entity/File/FileAssetEntity.h>
+#include <Entity/File/FileAssetConverterFactory.h>
 
 class StaticModelAssetEntity : public FileAssetEntity<StaticModelData, rcStaticModel>
 {
@@ -13,5 +14,11 @@ class StaticModelAssetEntity : public FileAssetEntity<StaticModelData, rcStaticM
   {
     return FileAssetEntity<StaticModelData, rcStaticModel>::Init(arg0, arg1);
   }
+
+  // =================================================================
+  // Methods from RawAssetEntity
+  // =================================================================
+public:
+  static IAssetConverter* CreateConverter();
 
 };

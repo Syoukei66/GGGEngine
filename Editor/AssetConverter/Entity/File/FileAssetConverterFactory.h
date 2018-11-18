@@ -1,38 +1,21 @@
 #pragma once
 
-#include <vector>
 #include <string>
 
-#include <Cereal/types/polymorphic.hpp>
-#include <Cereal/types/base_class.hpp>
-#include <Cereal/types/vector.hpp>
-#include <Cereal/types/string.hpp>
+#include "FileAssetExporter.h"
+#include <ProgramGenerator/AssetProgramGenerator.h>
+#include <Converter/AssetConverter.h>
 
-#include <Converter/AssetConverterFactory.h>
-
-class FileAssetConverterFactory : public AssetConverterFactory
+namespace FileAssetConverterFactory
 {
-  // =================================================================
-  // Constructor / Destructor
-  // =================================================================
-public:
-  FileAssetConverterFactory() = default;
 
-  // =================================================================
-  // Serializer
-  // =================================================================
-public:
-  template<class Archive>
-  void serialize(Archive& ar, std::uint32_t const version)
-  {
-    ar(cereal::make_nvp("TargetExtensions", this->target_extensions_));
-  }
+template<class Entity_>
+IAssetConverter* Create(AssetImporter<Entity_>* importer, const std::string& asset_name, const std::string& class_name, T_UINT32 skip_head, T_UINT32 skip_tail)
+{
+  FileAssetExporter<Entity_>* exporter = new FileAssetExporter<Entity_>();
+  AssetProgramGenerator<Entity_>* program_generator = new AssetProgramGenerator<Entity_>(skip_head, skip_tail);
+  program_generator->AddAsset(asset_name, class_name);
+  return new AssetConverter<Entity_>(importer, exporter, program_generator);
+}
 
-  // =================================================================
-  // Data Members
-  // =================================================================
-protected:
-  std::vector<std::string> target_extensions_;
-
-};
-CEREAL_CLASS_VERSION(FileAssetConverterFactory, 1);
+}

@@ -10,6 +10,10 @@
 #include <Entity/File/Raw/Sound/SoundAssetEntity.h>
 #include <Entity/File/Raw/Texture/TextureAssetEntity.h>
 
+#include <Entity/File/Model/Material/ModelMaterialAssetEntity.h>
+#include <Entity/File/Model/Mesh/ModelMeshAssetEntity.h>
+#include <Entity/File/Model/StaticModelAssetEntity.h>
+
 #include <Entity/Default/Material/DefaultMaterialAssetConverterFactory.h>
 
 // =================================================================
@@ -51,14 +55,14 @@ void AssetConverterDirector::Init()
 
   // Mesh
   self->converter_manager_->AddConverter(self->setting_->default_mesh_asset_converter_factory.Create(self->context_));
-  self->converter_manager_->AddConverter(self->setting_->model_mesh_asset_converter_factory.Create(self->context_));
+  self->converter_manager_->AddConverter(ModelMeshAssetEntity::CreateConverter());
 
   // Material
-  self->converter_manager_->AddConverter(self->setting_->model_material_asset_converter_factory.Create(self->context_));
+  self->converter_manager_->AddConverter(ModelMaterialAssetEntity::CreateConverter());
   self->converter_manager_->AddConverter(DefaultMaterialAssetConverterFactory::Create(self->context_));
 
   // Model
-  self->converter_manager_->AddConverter(self->setting_->model_asset_converter_factory.Create(self->context_));
+  self->converter_manager_->AddConverter(StaticModelAssetEntity::CreateConverter());
 }
 
 void AssetConverterDirector::Uninit()
