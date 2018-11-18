@@ -74,7 +74,7 @@ void Application::Run(IApplicationBehavior* behavior, IApplicationSetting* setti
     }
 
     self->platform_->graphics_api_->ImGuiEndFrame();
-
+    GGObjectManager::GC();
   }
 
   // アプリケーション終了処理
