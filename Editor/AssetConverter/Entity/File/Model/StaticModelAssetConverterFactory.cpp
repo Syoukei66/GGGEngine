@@ -14,6 +14,6 @@ IAssetConverter* StaticModelAssetConverterFactory::Create(AssetConverterContext*
   StaticModelAssetImporter* importer = new StaticModelAssetImporter(this->target_extensions_);
   StaticModelAssetExporter* exporter = new StaticModelAssetExporter();
   AssetProgramGenerator<StaticModelAssetEntity>* program_generator = new AssetProgramGenerator<StaticModelAssetEntity>(1, 1);
-  program_generator->AddAsset("Model", "rcModel");
+  program_generator->AddAsset("StaticModel", "rcStaticModel");
   return new AssetConverter<StaticModelAssetEntity>(importer, nullptr, exporter, program_generator);
 }
