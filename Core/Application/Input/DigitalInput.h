@@ -17,6 +17,7 @@ public:
   // =================================================================
 public:
   DigitalInputState();
+  DigitalInputState(const DigitalInputState& o);
 
   // =================================================================
   // Methods

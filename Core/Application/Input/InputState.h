@@ -42,6 +42,7 @@ public:
 private:
   T_UINT8 player_id_;
   std::unordered_map<T_UINT8, InputEntity> entities_;
-  const DigitalInputState* digital_input_;
-  const AnalogInputState* analog_input_;
+  DigitalInputState digital_input_;
+  AnalogInputState analog_input_;
+
 };

@@ -25,6 +25,8 @@ class Application
 public:
   static void Run(IApplicationBehavior* behavior, IApplicationSetting* setting);
 
+  static bool IsActive();
+
   // =================================================================
   // Setter / Getter
   // =================================================================

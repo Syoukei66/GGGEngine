@@ -34,6 +34,11 @@ protected:
   virtual bool FrameEnabled() = 0;
 
   /*!
+   * @brief アクティビティがアクティブ状態か確かめる
+   */
+  virtual bool IsActive() = 0;
+
+  /*!
    * @brief 描画処理が有効かどうかの判定
    * @param 経過時間(秒)
    * @return falseなら画面のアップデートを行わない

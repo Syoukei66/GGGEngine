@@ -17,6 +17,7 @@ class WindowsActivity : public Activity
 protected:
   virtual bool ContinueEnabled() override;
   virtual bool FrameEnabled() override;
+  virtual bool IsActive() override;
 
   // =================================================================
   // Setter / Getter

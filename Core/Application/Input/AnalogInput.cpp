@@ -6,6 +6,7 @@ const AnalogInputState AnalogInputState::NULL_INPUT = AnalogInputState();
 // Constructor / Destructor
 // =================================================================
 AnalogInputState::AnalogInputState()
+  : input_prepared_()
 {
   for (T_UINT8 i = 0; i < EngineInput::Analog::ID_ANALOG_MAX; ++i)
   {
@@ -13,6 +14,19 @@ AnalogInputState::AnalogInputState()
     {
       this->old_input_[i][j] = 0.0f;
       this->input_[i][j] = 0.0f;
+    }
+  }
+}
+
+AnalogInputState::AnalogInputState(const AnalogInputState& o)
+{
+  for (T_UINT8 i = 0; i < EngineInput::Analog::ID_ANALOG_MAX; ++i)
+  {
+    this->input_prepared_[i] = o.input_prepared_[i];
+    for (T_UINT8 j = 0; j < EngineInput::Analog::DIMENSION_DATANUM; ++j)
+    {
+      this->old_input_[i][j] = o.old_input_[i][j];
+      this->input_[i][j] = o.input_[i][j];
     }
   }
 }

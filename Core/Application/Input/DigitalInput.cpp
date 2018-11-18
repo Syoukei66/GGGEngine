@@ -8,8 +8,6 @@ const DigitalInputState DigitalInputState::NULL_INPUT = DigitalInputState();
 DigitalInputState::DigitalInputState()
   : old_state_(0)
   , now_state_(0)
-  , is_trigger_()
-  , is_release_()
 {
   for (T_UINT8 i = 0; i < EngineInput::Digital::ID_DIGITAL_MAX; ++i)
   {
@@ -17,6 +15,19 @@ DigitalInputState::DigitalInputState()
     this->is_trigger_[i] = false;
     this->is_release_[i] = false;
     this->input_hold_[i] = 0;
+  }
+}
+
+DigitalInputState::DigitalInputState(const DigitalInputState& o)
+{
+  this->old_state_ = o.old_state_;
+  this->now_state_ = o.now_state_;
+  for (T_UINT8 i = 0; i < EngineInput::Digital::ID_DIGITAL_MAX; ++i)
+  {
+    this->input_prepared_[i] = o.input_prepared_[i];
+    this->is_trigger_[i] = o.is_trigger_[i];
+    this->is_release_[i] = o.is_release_[i];
+    this->input_hold_[i] = o.input_hold_[i];
   }
 }
 

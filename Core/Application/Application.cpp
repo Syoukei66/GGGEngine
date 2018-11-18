@@ -110,3 +110,9 @@ void Application::Run(IApplicationBehavior* behavior, IApplicationSetting* setti
   // アプリケーション終了時イベント
   behavior->OnApplicationEnd();
 }
+
+bool Application::IsActive()
+{
+  Application* self = &Self();
+  return self->main_activity_->IsActive();
+}

@@ -26,6 +26,8 @@ void EngineBehavior::OnGameEnd()
 
 void EngineBehavior::SetupApplicationOption(ApplicationOption& option)
 {
+  option.input_setting.enable_state_ = InputAPI::ONLY_ON_MOUSE;
+  option.input_setting.cursol_input_id_ = EngineInput::Analog::ID_SCREEN_0_XY;
   option.input_setting.player_count_ = 4;
   for (T_UINT32 i = 0; i < GameInput::GAME_INPUT_DATANUM; ++i)
   {

@@ -17,6 +17,7 @@ public:
   // =================================================================
 public:
   AnalogInputState();
+  AnalogInputState(const AnalogInputState& o);
 
   // =================================================================
   // Methods

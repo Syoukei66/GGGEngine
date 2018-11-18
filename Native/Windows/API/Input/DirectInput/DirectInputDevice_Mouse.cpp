@@ -42,7 +42,7 @@ bool DirectInputDevice_Mouse::Init(LPDIRECTINPUT8 input)
 
   //‹¦’²ƒŒƒxƒ‹‚ÌÝ’è
   if (FAILED(this->device_->SetCooperativeLevel(hwnd,
-    DISCL_NONEXCLUSIVE | DISCL_FOREGROUND)))
+    DISCL_NONEXCLUSIVE | DISCL_BACKGROUND)))
   {
     return false;
   }

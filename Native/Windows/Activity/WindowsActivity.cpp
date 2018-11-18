@@ -32,3 +32,8 @@ bool WindowsActivity::FrameEnabled()
   ImGui_ImplWin32_NewFrame();
   return true;
 }
+
+bool WindowsActivity::IsActive()
+{
+  return this->window_handle_ == GetForegroundWindow();
+}
