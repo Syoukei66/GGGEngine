@@ -143,7 +143,7 @@ void DX9GraphicsAPI::ViewportClear()
   this->d3d_device_->Clear(
     0, NULL,
     (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL),
-    D3DCOLOR_RGBA(0, 0, 0, 255),
+    D3DCOLOR_RGBA(0, 0, 0, 0),
     1.0f, 0
   );
 }
@@ -196,7 +196,7 @@ void DX9GraphicsAPI::SetRenderTarget(const SharedRef<rcRenderBuffer>& color_buff
     this->d3d_device_->Clear(0,
       NULL,
       D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL,
-      D3DCOLOR_ARGB(0, 0, 0, 255),
+      D3DCOLOR_ARGB(0, 0, 0, 0),
       1.0f,
       0);
   }
