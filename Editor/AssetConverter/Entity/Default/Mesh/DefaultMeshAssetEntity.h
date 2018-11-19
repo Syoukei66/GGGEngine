@@ -9,7 +9,7 @@ class DefaultMeshAssetEntity : public AssetEntity
   // =================================================================
   ENTITY_ID(ID_DEFAULT_MESH);
   GG_OBJECT(DefaultMeshAssetEntity);
-  GG_CREATE_FUNC_2(DefaultMeshAssetEntity, AssetMetaData*, MeshData*);
+  GG_CREATE_FUNC_2(DefaultMeshAssetEntity, AssetMetaData*, StaticMeshData*);
   GG_DESTRUCT_FUNC(DefaultMeshAssetEntity);
 
   // =================================================================
@@ -22,12 +22,12 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  inline const MeshData* GetData() const
+  inline const StaticMeshData* GetData() const
   {
     return this->data_;
   }
 
-  inline MeshData* GetData() 
+  inline StaticMeshData* GetData() 
   {
     return this->data_;
   }
@@ -36,6 +36,6 @@ public:
   // Data Members
   // =================================================================
 private:
-  MeshData* data_;
+  StaticMeshData* data_;
 
 };

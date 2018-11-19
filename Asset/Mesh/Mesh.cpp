@@ -3,7 +3,7 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL_1(rcMesh, const MeshData& data)
+GG_INIT_FUNC_IMPL_1(rcMesh, const StaticMeshData& data)
 {
   using namespace Vertex;
 
@@ -102,7 +102,7 @@ void rcMesh::ClearIndices(bool clear_buffer)
   }
 }
 
-void rcMesh::ConvertToData(MeshData* dest)
+void rcMesh::ConvertToData(StaticMeshData* dest)
 {
   using namespace Vertex;
   GG_ASSERT(this->readable_, "メッシュのデータを読み込めません");

@@ -58,6 +58,7 @@ class rcMaterial : public GGAssetObject
   // =================================================================
   // GGG Statement
   // =================================================================
+  GG_OBJECT(rcMaterial);
   GG_ASSET(rcMaterial, MaterialData);
   GG_CREATE_FUNC_1(rcMaterial, const SharedRef<rcShader>&);
   GG_DESTRUCT_FUNC(rcMaterial);

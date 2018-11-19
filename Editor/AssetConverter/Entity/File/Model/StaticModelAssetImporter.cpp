@@ -64,7 +64,7 @@ SharedRef<ModelMeshAssetEntity> ImportMesh(const AssetMetaData* model_asset_info
     return nullptr;
   }
 
-  MeshData* data = new MeshData();
+  StaticMeshData* data = new StaticMeshData();
 
   using namespace Vertex;
 

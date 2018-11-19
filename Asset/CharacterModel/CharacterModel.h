@@ -58,6 +58,7 @@ class rcCharacterModel : public GGAssetObject
   // =================================================================
   // GGG Statement
   // =================================================================
+  GG_OBJECT(rcCharacterModel);
   GG_ASSET(rcCharacterModel, CharacterModelData);
 
   // =================================================================

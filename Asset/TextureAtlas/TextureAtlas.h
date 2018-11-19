@@ -31,6 +31,7 @@ class rcTextureAtlas : public GGAssetObject
   // =================================================================
   // GGG Statement
   // =================================================================
+  GG_OBJECT(rcTextureAtlas);
   GG_ASSET(rcTextureAtlas, TextureAtlasData);
 
   // =================================================================

@@ -8,12 +8,51 @@
  * @brief メッシュのデータ
  * 頂点フォーマットが全て同一である事が前提
  */
-struct MeshData
+struct StaticMeshData
 {
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_SERIALIZABLE(MeshData)
+  GG_SERIALIZABLE(StaticMeshData)
+  {
+    archive(vertex_format_);
+    archive(vertex_count_);
+    archive(vertex_data_);
+
+    archive(index_datas_);
+    archive(index_formats_);
+    archive(index_counts_);
+    archive(polygon_counts_);
+
+    archive(bounds_);
+  }
+
+  // =================================================================
+  // Data Member
+  // =================================================================
+public:
+  T_FIXED_UINT32 vertex_format_;
+  T_FIXED_UINT32 vertex_count_;
+  std::vector<unsigned char> vertex_data_;
+
+  std::vector<std::vector<unsigned char>> index_datas_;
+  std::vector<T_FIXED_UINT8> index_formats_;
+  std::vector<T_FIXED_UINT32> index_counts_;
+  std::vector<T_FIXED_UINT32> polygon_counts_;
+
+  Bounds bounds_;
+};
+
+/*!
+ * @brief メッシュのデータ
+ * 頂点フォーマットが全て同一である事が前提
+ */
+struct SkinningMeshData
+{
+  // =================================================================
+  // GGG Statement
+  // =================================================================
+  GG_SERIALIZABLE(StaticMeshData)
   {
     archive(vertex_format_);
     archive(vertex_count_);
@@ -52,7 +91,8 @@ class rcMesh : public GGAssetObject
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_ASSET(rcMesh, MeshData);
+  GG_OBJECT(rcMesh);
+  GG_ASSET(rcMesh, StaticMeshData);
   GG_CREATE_FUNC(rcMesh) { return true;  }
   GG_DESTRUCT_FUNC(rcMesh);
 
@@ -64,7 +104,7 @@ public:
   void ClearVertices(bool clear_buffer);
   void ClearIndices(bool clear_buffer);
 
-  void ConvertToData(MeshData* dest);
+  void ConvertToData(StaticMeshData* dest);
 
   UniqueRef<rcMesh> Clone(bool clear_readable_data);
 

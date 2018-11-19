@@ -17,11 +17,11 @@ IAssetConverter* DefaultMeshAssetConverterFactory::Create(AssetConverterContext*
 
   using namespace DefaultAsset;
 
-  MeshData* cube_mesh = new MeshData();
+  StaticMeshData* cube_mesh = new StaticMeshData();
   this->cube_.CreateMesh()->ConvertToData(cube_mesh);
   ret->AddEntity(DefaultMeshAssetEntity::Create(AssetMetaData::Create(MESH_PATH_CUBE, context), cube_mesh));
 
-  MeshData* plane_mesh = new MeshData();
+  StaticMeshData* plane_mesh = new StaticMeshData();
   this->plane_.CreateMesh()->ConvertToData(plane_mesh);
   ret->AddEntity(DefaultMeshAssetEntity::Create(AssetMetaData::Create(MESH_PATH_PLANE, context), plane_mesh));
 

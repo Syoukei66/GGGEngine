@@ -28,6 +28,7 @@ class rcStaticModel : public GGAssetObject
   // =================================================================
   // GGG Statement
   // =================================================================
+  GG_OBJECT(rcStaticModel);
   GG_ASSET(rcStaticModel, StaticModelData);
 
   // =================================================================

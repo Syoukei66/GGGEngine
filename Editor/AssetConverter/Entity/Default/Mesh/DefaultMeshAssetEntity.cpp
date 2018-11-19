@@ -3,7 +3,7 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL_2(DefaultMeshAssetEntity, AssetMetaData* meta, MeshData* data)
+GG_INIT_FUNC_IMPL_2(DefaultMeshAssetEntity, AssetMetaData* meta, StaticMeshData* data)
 {
   this->data_ = data;
   return AssetEntity::Init(meta);
