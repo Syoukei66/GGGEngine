@@ -248,11 +248,12 @@ void rcMesh::CommitChanges(bool clear_readable_data)
       continue;
     }
     const T_UINT32 submesh_index_count = this->submesh_index_buffers_[i]->GetVertexCount();
-    T_FIXED_UINT16* dest;
-    this->submesh_index_buffers_[i]->Lock((void**)&dest);
+    const IndexFormat index_format = this->submesh_index_buffers_[i]->GetIndexFormat();
+    unsigned char* p;
+    this->submesh_index_buffers_[i]->Lock((void**)&p);
     for (T_UINT32 j = 0; j < submesh_index_count; ++j)
     {
-      dest[j] = this->submesh_indices_[i][j];
+      SetIndexIndex(this->submesh_indices_[i][j], index_format, &p);
     }
     this->submesh_index_buffers_[i]->Unlock();
     this->submesh_indices_dirties_[i] = false;

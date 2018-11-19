@@ -133,7 +133,17 @@ UniqueRef<rcMesh> MeshFactory::Cube::Create(
   const T_UINT32 index_count = polygon_count * 3;
 
   ret->CreateVertices(vertex_count, polygon_count, format);
-  ret->AddIndices(index_count, polygon_count, Vertex::IndexFormat::INDEX_FMT_16);
+
+  using namespace Vertex;
+
+  const T_UINT32 index_max = (resolution_x + 1) * (resolution_y + 1) * (resolution_z + 1);
+  IndexFormat index_format = IndexFormat::INDEX_FMT_16;
+  if (index_max > Limit::T_FIXED_UINT16_MAX)
+  {
+    index_format = IndexFormat::INDEX_FMT_32;
+  }
+
+  ret->AddIndices(index_count, polygon_count, index_format);
 
   CreateVertices(format, { scale_x, scale_y, scale_z }, resolution_x, resolution_y, resolution_z, { tile_count_x, tile_count_y, tile_count_z }, ret);
   CreateTriangles(resolution_x, resolution_y, resolution_z, ret);

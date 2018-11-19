@@ -233,7 +233,7 @@ static GG_INLINE void SetVertexBoneWeights(const T_FLOAT* bone_weight, unsigned 
 static GG_INLINE void SetIndexIndex16(T_UINT32 index, unsigned char** dest)
 {
   T_FIXED_UINT16* p = (T_FIXED_UINT16*)(*dest);
-  (*p) = index;
+  (*p) = (T_FIXED_UINT16)index;
   (*dest) += INDEX_FORMAT_SIZES[static_cast<T_UINT8>(IndexFormat::INDEX_FMT_16)];
   return;
 }
@@ -241,7 +241,7 @@ static GG_INLINE void SetIndexIndex16(T_UINT32 index, unsigned char** dest)
 static GG_INLINE void SetIndexIndex32(T_UINT32 index, unsigned char** dest)
 {
   T_FIXED_UINT32* p = (T_FIXED_UINT32*)(*dest);
-  (*p) = index;
+  (*p) = (T_FIXED_UINT32)index;
   (*dest) += INDEX_FORMAT_SIZES[static_cast<T_UINT8>(IndexFormat::INDEX_FMT_32)];
   return;
 }

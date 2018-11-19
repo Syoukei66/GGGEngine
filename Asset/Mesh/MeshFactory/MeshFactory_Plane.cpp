@@ -56,7 +56,14 @@ UniqueRef<rcMesh> MeshFactory::Plane::Create(
     }
   }
 
-  ret->AddIndices(polygon_count * 3, IndexFormat::INDEX_FMT_16);
+  const T_UINT32 index_max = (resolution_x + 1) * (resolution_y + 1);
+  IndexFormat index_format = IndexFormat::INDEX_FMT_16;
+  if (index_max > Limit::T_FIXED_UINT16_MAX)
+  {
+    index_format = IndexFormat::INDEX_FMT_32;
+  }
+
+  ret->AddIndices(polygon_count * 3, index_format);
   for (T_UINT32 ti = 0, vi = 0, y = 0; y < resolution_y; ++y, ++vi)
   {
     for (T_UINT32 x = 0; x < resolution_x; ++x, ti += 6, ++vi)
