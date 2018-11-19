@@ -5,8 +5,9 @@
 #include <Core/Application/Platform/API/_Resource/IndexBuffer/IndexBuffer.h>
 
 /*!
- * @brief メッシュのデータ
- * 頂点フォーマットが全て同一である事が前提
+ * @brief 静的なメッシュのデータ
+ * データはそのままバッファに格納できるようになっている
+ * Mesh側に頂点の成分毎のデータが残らないので、Decomposeを呼び出す必要がある
  */
 struct StaticMeshData
 {
@@ -44,15 +45,17 @@ public:
 };
 
 /*!
- * @brief メッシュのデータ
- * 頂点フォーマットが全て同一である事が前提
+ * @brief 動的なメッシュのデータ
+ * データは頂点の各成分に格納される。
+ * ロード直後はCPU側にしかデータが存在しないので、
+ * GPUへ転送し実際に使用できるようにするにはCommitChangesを呼び出す必要がある
  */
-struct SkinningMeshData
+struct DynamicMeshData
 {
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_SERIALIZABLE(StaticMeshData)
+  GG_SERIALIZABLE(DynamicMeshData)
   {
     archive(vertex_format_);
     archive(vertex_count_);
@@ -100,27 +103,101 @@ class rcMesh : public GGAssetObject
   // Methods
   // =================================================================
 public:
+  /*!
+   * @brief 頂点情報、インデックス情報、バッファ等の全てのデータを削除する
+   */
   void Clear();
+
+  /*!
+   * @brief 頂点情報を全て削除する
+   * @param clear_buffer 頂点バッファも削除する
+   */
   void ClearVertices(bool clear_buffer);
+
+  /*!
+   * @brief インデックス情報を全て削除する
+   * @param clear_buffer インデックスバッファも削除する
+   */
   void ClearIndices(bool clear_buffer);
 
+  /*!
+   * @brief Mesh内の頂点、インデックス情報を静的なメッシュデータとしてデータ化する
+   */
   void ConvertToData(StaticMeshData* dest);
 
+  /*!
+   * @brief Mesh内の頂点、インデックス情報を動的なメッシュデータとしてデータ化する
+   */
+  void ConvertToData(DynamicMeshData* dest);
+
+  /*!
+   * @brief Meshを複製する
+   * @param 複製先に頂点の各属性のデータなどを残すかどうか
+   */
   UniqueRef<rcMesh> Clone(bool clear_readable_data);
 
+  /*!
+   * @brief 頂点バッファを作成する。
+   * @param vertex_count 頂点数
+   * @param polygon_count ポリゴン数
+   * @param format 頂点フォーマット
+   * @param primitive_type プリミティブの種類
+   */
   void CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT32 format, Vertex::PrimitiveType primitive_type = Vertex::PrimitiveType::TRIANGLES);
+
+  /*!
+   * @brief 頂点バッファを作成する。
+   * ポリゴン数をインデックス数とプリミティブの種類から自動で計算する。
+   * @param vertex_count 頂点数
+   * @param index_count インデックス数
+   * @param format 頂点フォーマット
+   * @param primitive_type プリミティブの種類
+   */
   GG_INLINE void CreateVerticesWithIndex(T_UINT32 vertex_count, T_UINT32 index_count, T_UINT32 format, Vertex::PrimitiveType primitive_type = Vertex::PrimitiveType::TRIANGLES)
   {
     CreateVertices(vertex_count, Vertex::PRIMITIVE_SURF_NUM(primitive_type, index_count), format, primitive_type);
   }
-  GG_INLINE T_UINT32 AddIndices(T_UINT32 index_count, Vertex::IndexFormat format)
-  {
-    return this->AddIndices(index_count, Vertex::PRIMITIVE_SURF_NUM(this->primitive_type_, index_count), format);
-  }
-  T_UINT32 AddIndices(T_UINT32 index_count, T_UINT32 polygon_count, Vertex::IndexFormat format);
 
+  /*!
+   * @brief インデックスバッファを追加し、サブメッシュを作成する。
+   * 必ず頂点バッファを作成した後呼び出すように。
+   * @param index_count インデックス数
+   * @param polygon_count ポリゴン数
+   */
+  T_UINT32 AddIndices(T_UINT32 index_count, T_UINT32 polygon_count);
+
+  /*!
+   * @brief インデックスバッファを追加し、サブメッシュを作成する。
+   * ポリゴン数をインデックス数とプリミティブの種類から自動で計算する。
+   * 必ず頂点バッファを作成した後呼び出すように。
+   * @param index_count インデックス数
+   */
+  GG_INLINE T_UINT32 AddIndices(T_UINT32 index_count)
+  {
+    return this->AddIndices(index_count, Vertex::PRIMITIVE_SURF_NUM(this->primitive_type_, index_count));
+  }
+
+  /*!
+   * @brief 頂点、インデックス情報を確定し、GPUに転送する
+   * @param clear_readable_data 読み込み可能なデータ（頂点情報など）を削除するかどうか
+   */
   void CommitChanges(bool clear_readable_data);
+
+  /*!
+   * @brief 頂点、インデックス情報をバッファから取得し、再び編集可能なメッシュにする。
+   * @param clear_buffer_data バッファを削除するかどうか
+   */
+  void DecomposeBufferDatas(bool clear_buffer_data);
+
+  /*!
+   * @brief 法線を再計算する
+   * @param save_face_normals 面法線情報を保持しておくかどうか
+   */
   void RecalculateNormals(bool save_face_normals = false);
+
+  /*!
+   * @brief タンジェントベクトルを再計算する
+   */
   void RecalculateTangents();
 
   void SetStreamSource() const;
@@ -364,8 +441,6 @@ public:
   // Data Member
   // =================================================================
 protected:
-  const rcMesh* orginal_;
-
   bool readable_;
 
   SharedRef<rcVertexDeclaration> vertex_declaration_;

@@ -151,11 +151,13 @@ void rcMesh::ConvertToData(StaticMeshData* dest)
   dest->bounds_ = this->bounds_;
 }
 
+void rcMesh::ConvertToData(DynamicMeshData* dest)
+{
+}
+
 UniqueRef<rcMesh> rcMesh::Clone(bool clear_readable_data)
 {
   UniqueRef<rcMesh> clone = rcMesh::Create();
-
-  clone->orginal_ = this;
 
   // clone Vertices
   clone->CreateVertices(this->vertex_count_, this->polygon_count_, this->vertex_format_, this->primitive_type_);
@@ -208,11 +210,19 @@ void rcMesh::CreateVertices(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UIN
   this->vertices_dirty_ = true;
 }
 
-T_UINT32 rcMesh::AddIndices(T_UINT32 index_count, T_UINT32 polygon_count, Vertex::IndexFormat format)
+T_UINT32 rcMesh::AddIndices(T_UINT32 index_count, T_UINT32 polygon_count)
 {
   this->submesh_indices_.emplace_back(std::vector<T_UINT32>());
   this->submesh_indices_[this->submesh_count_].resize(index_count);
   this->submesh_indices_dirties_.emplace_back(true);
+  
+  // 頂点数からインデックスフォーマットを判別する
+  Vertex::IndexFormat format = Vertex::IndexFormat::INDEX_FMT_16;
+  if (this->vertex_count_ > Limit::T_FIXED_UINT16_MAX)
+  {
+    format = Vertex::IndexFormat::INDEX_FMT_32;
+  }
+
   this->submesh_index_buffers_.push_back(rcIndexBuffer::Create(index_count, polygon_count, format));
   ++this->submesh_count_;
   return this->submesh_count_ - 1;
@@ -264,6 +274,10 @@ void rcMesh::CommitChanges(bool clear_readable_data)
     this->ClearIndices(false);
     this->readable_ = false;
   }
+}
+
+void rcMesh::DecomposeBufferDatas(bool clear_buffer_data)
+{
 }
 
 void rcMesh::RecalculateNormals(bool save_face_normals)
