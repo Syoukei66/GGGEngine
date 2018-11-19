@@ -8,9 +8,45 @@
 #define NOMINMAX
 #include <Windows.h>
 
+#include <ThirdParty/Cereal/cereal.hpp>
+#include <ThirdParty/Cereal/archives/binary.hpp>
+#include <ThirdParty/Cereal/types/string.hpp>
+#include <ThirdParty/Cereal/types/vector.hpp>
+
 static const std::string ENGINE_DIRECTORY_PATH = "Engine";
 static const std::string INCLUDE_HEADER = "Include.h";
+static const std::string INCLUDE_CACHE = "cache.IncludeBuilderCache";
 static const std::string STDAFX_HEADER = "stdafx.h";
+
+template <typename T>
+bool SafeImport(const char* path, T* dest)
+{
+  using namespace std;
+  ifstream ifs(path, ios::in | ios::binary);
+  if (!ifs.is_open())
+  {
+    return false;
+  }
+  ::cereal::BinaryInputArchive i_archive(ifs);
+  try
+  {
+    i_archive(*dest);
+    return true;
+  }
+  catch (cereal::Exception e)
+  {
+  }
+  return false;
+}
+
+template <typename T>
+void Export(const char* path, const T* data)
+{
+  using namespace std;
+  ofstream ofs(path, ios::out | ios::binary | ios::trunc);
+  ::cereal::BinaryOutputArchive o_archive(ofs);
+  o_archive(*data);
+}
 
 ModuleEntity::ModuleEntity(const std::string& path)
   : path_(path)
@@ -26,6 +62,48 @@ void ModuleEntity::CreateHeaderProgram() const
   targets.push_back("/stdafx.h");
 
   this->Crawl("", &targets);
+
+  std::string CACHE_PATH = ENGINE_DIRECTORY_PATH + "/" + this->path_ + "/" + INCLUDE_CACHE;
+  std::string HEADER_PATH = ENGINE_DIRECTORY_PATH + "/" + this->path_ + "/" + INCLUDE_HEADER;
+
+  bool need_build = false;
+
+  // 無駄なヘッダービルドが行われないように事前にビルドしたヘッダーを記録しておく
+  std::vector<std::string> cache = std::vector<std::string>();
+  if (SafeImport(CACHE_PATH.c_str(), &cache))
+  {
+    for (std::string target : targets)
+    {
+      bool builded = false;
+      for (std::string cached_target : cache)
+      {
+        if (target == cached_target)
+        {
+          builded = true;
+          break;
+        }
+      }
+      if (!builded)
+      {
+        need_build = true;
+        break;
+      }
+    }
+    if (!need_build)
+    {
+      if (!std::ifstream(HEADER_PATH))
+      {
+        need_build = true;
+      }
+    }
+  }
+
+  Export(CACHE_PATH.c_str(), &targets);
+
+  if (!need_build)
+  {
+    return;
+  }
 
   std::string header;
   header.append("#pragma once\n");
@@ -47,7 +125,7 @@ void ModuleEntity::CreateHeaderProgram() const
     }
     header.append("\n");
   }
-  std::ofstream ofs(ENGINE_DIRECTORY_PATH + "/" + this->path_ + "/" + INCLUDE_HEADER);
+  std::ofstream ofs(HEADER_PATH);
   ofs << header;
   ofs.close();
 
