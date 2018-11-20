@@ -35,8 +35,6 @@ protected:
   virtual void UpdateRotateMatrix(Matrix4x4* matrix) = 0;
   virtual void UpdateScaleMatrix(Matrix4x4* matrix) = 0;
 
-  virtual const Matrix4x4& GetParentWorldMatrix() = 0;
-
   // =================================================================
   // Setter / Getter
   // =================================================================

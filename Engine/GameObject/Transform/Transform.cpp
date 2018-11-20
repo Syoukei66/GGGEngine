@@ -56,6 +56,7 @@ void Transform::OnWorldTransformDirty()
 
 void Transform::UpdateMatrix()
 {
+  //TODO: s—ñ‰‰ŽZ‚ð‚í‚´‚í‚´s‚í‚È‚¢‚æ‚¤‚É‚·‚ê‚Î‚‘¬‰»‚ª}‚ê‚é‚©‚à
   bool matrix_dirty = false;
   if (this->translation_dirty_)
   {
@@ -94,10 +95,10 @@ void Transform::UpdateWorldMatrix()
     return;
   }
   this->world_matrix_ = this->GetMatrix();
-  const Matrix4x4& parent_world_matrix = this->GetParentWorldMatrix();
-  if (parent_world_matrix)
+  GameObject* parent = this->entity_->GetParent();
+  if (parent)
   {
-    this->world_matrix_ *= parent_world_matrix;
+    this->world_matrix_ *= parent->GetWorldMatrix();
   }
   this->world_transform_dirty_ = false;
 }

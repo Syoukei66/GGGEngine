@@ -24,8 +24,6 @@ protected:
   void UpdateScaleMatrix(Matrix4x4* matrix) override;
   void UpdateRotateMatrix(Matrix4x4* matrix) override;
 
-  const Matrix4x4& GetParentWorldMatrix() override;
-
   // =================================================================
   // Setter / Getter
   // =================================================================

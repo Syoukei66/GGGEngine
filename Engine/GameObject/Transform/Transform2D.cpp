@@ -50,16 +50,6 @@ void Transform2D::UpdateRotateMatrix(Matrix4x4* matrix)
   );
 }
 
-const Matrix4x4& Transform2D::GetParentWorldMatrix()
-{
-  GameObject2D* parent_ = (GameObject2D*)this->entity_->GetParent();
-  if (!parent_)
-  {
-    return Matrix4x4::identity;
-  }
-  return parent_->GetTransform()->GetWorldMatrix();
-}
-
 // =================================================================
 // Setter / Getter
 // =================================================================

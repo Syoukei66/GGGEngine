@@ -5,6 +5,10 @@ class Transform3D;
 class Transform3DRotator
 {
 private:
+
+  /*!
+   * @brief どのデータが現在一番正確なのかを表すフラグ
+   */
   enum
   {
     MASTER_QUATERNION = 1 << 0,
