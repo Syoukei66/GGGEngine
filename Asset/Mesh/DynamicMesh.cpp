@@ -148,6 +148,18 @@ void rcDynamicMesh::ConvertToData(DynamicMeshData* dest) const
   if (dest->vertex_format_ & V_ATTR_TANGENT)  dest->tangents_.resize(dest->vertex_count_);
   if (dest->vertex_format_ & V_ATTR_COLOR)    dest->colors_.resize(dest->vertex_count_);
 
+  for (T_UINT32 i = 0; i < dest->vertex_count_; ++i)
+  {
+    if (dest->vertex_format_ & V_ATTR_POSITION) dest->vertices_[i] = this->vertices_[i];
+    if (dest->vertex_format_ & V_ATTR_NORMAL)   dest->normals_[i] = this->normals_[i];
+    if (dest->vertex_format_ & V_ATTR_UV)       dest->uvs_[i] = this->uvs_[i];
+    if (dest->vertex_format_ & V_ATTR_UV2)      dest->uv2s_[i] = this->uv2s_[i];
+    if (dest->vertex_format_ & V_ATTR_UV3)      dest->uv3s_[i] = this->uv3s_[i];
+    if (dest->vertex_format_ & V_ATTR_UV4)      dest->uv4s_[i] = this->uv4s_[i];
+    if (dest->vertex_format_ & V_ATTR_TANGENT)  dest->tangents_[i] = this->tangents_[i];
+    if (dest->vertex_format_ & V_ATTR_COLOR)    dest->colors_[i] = this->colors_[i];
+  }
+
   dest->submesh_count_ = this->submesh_count_;
   dest->submesh_indices_.resize(this->submesh_count_);
   for (T_UINT32 i = 0; i < this->submesh_count_; ++i)

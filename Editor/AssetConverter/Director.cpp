@@ -12,7 +12,9 @@
 
 #include <Entity/File/Model/Material/ModelMaterialAssetEntity.h>
 #include <Entity/File/Model/StaticMesh/ModelStaticMeshAssetEntity.h>
+#include <Entity/File/Model/DynamicMesh/ModelDynamicMeshAssetEntity.h>
 #include <Entity/File/Model/StaticModel/StaticModelAssetEntity.h>
+#include <Entity/File/Model/CharacterModel/CharacterModelAssetEntity.h>
 
 #include <Entity/Default/Material/DefaultMaterialAssetConverterFactory.h>
 
@@ -56,13 +58,15 @@ void AssetConverterDirector::Init()
   // Mesh
   self->converter_manager_->AddConverter(self->setting_->default_mesh_asset_converter_factory.Create(self->context_));
   self->converter_manager_->AddConverter(ModelStaticMeshAssetEntity::CreateConverter());
+  self->converter_manager_->AddConverter(ModelDynamicMeshAssetEntity::CreateConverter());
 
   // Material
   self->converter_manager_->AddConverter(ModelMaterialAssetEntity::CreateConverter());
   self->converter_manager_->AddConverter(DefaultMaterialAssetConverterFactory::Create(self->context_));
 
   // Model
-  self->converter_manager_->AddConverter(StaticModelAssetEntity::CreateConverter());
+  //self->converter_manager_->AddConverter(StaticModelAssetEntity::CreateConverter());
+  self->converter_manager_->AddConverter(CharacterModelAssetEntity::CreateConverter());
 }
 
 void AssetConverterDirector::Uninit()

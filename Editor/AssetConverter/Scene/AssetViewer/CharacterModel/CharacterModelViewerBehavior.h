@@ -2,16 +2,14 @@
 
 #include <Scene/AssetViewer/AssetViewerBehavior.h>
 
-class MeshRenderer;
-
-class StaticMeshViewerBehavior : public AssetViewerBehavior
+class CharacterModelViewerBehavior : public AssetViewerBehavior
 {
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_OBJECT(StaticMeshViewerBehavior);
-  GG_CREATE_FUNC(StaticMeshViewerBehavior);
-  GG_DESTRUCT_FUNC(StaticMeshViewerBehavior);
+  GG_OBJECT(CharacterModelViewerBehavior);
+  GG_CREATE_FUNC(CharacterModelViewerBehavior);
+  GG_DESTRUCT_FUNC(CharacterModelViewerBehavior);
 
   // =================================================================
   // Methods from AssetViewerBehavior
@@ -27,6 +25,7 @@ public:
   // Data Members
   // =================================================================
 private:
-  GameObject3D* obj_;
-  MeshRenderer* mesh_renderer_;
+  Scene* scene_;
+  GameObject3D* root_;
+
 };

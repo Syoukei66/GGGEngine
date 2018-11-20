@@ -16,6 +16,10 @@ GG_INIT_FUNC_IMPL_1(rcCharacterModel, const CharacterModelData& data)
   {
     this->meshes_.emplace_back(AssetManager::Load<rcMesh>(mesh_unique_id));
   }
+  for (T_FIXED_UINT32 mesh_material_index : data.mesh_material_indices_)
+  {
+    this->mesh_material_indices_.emplace_back(mesh_material_index);
+  }
   for (T_FIXED_UINT32 material_unique_id : data.material_unique_ids_)
   {
     this->materials_.emplace_back(AssetManager::Load<rcMaterial>(material_unique_id));

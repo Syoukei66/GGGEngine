@@ -1,6 +1,8 @@
 #include "AssetViewerScene.h"
 #include <Scene/AssetViewer/StaticMesh/StaticMeshViewerBehavior.h>
-#include <Scene/AssetViewer/Model/ModelViewerBehavior.h>
+#include <Scene/AssetViewer/DynamicMesh/DynamicMeshViewerBehavior.h>
+#include <Scene/AssetViewer/StaticModel/StaticModelViewerBehavior.h>
+#include <Scene/AssetViewer/CharacterModel/CharacterModelViewerBehavior.h>
 #include <Scene/AssetViewer/Texture/TextureViewerBehavior.h>
 
 // =================================================================
@@ -33,8 +35,10 @@ GG_INIT_FUNC_IMPL(AssetViewerScene)
   //case AssetEntity::EntityID::ID_MODEL:
   //  break;
   //}
-  this->behaviors_.push_back(MeshViewerBehavior::Create());
-  this->behaviors_.push_back(ModelViewerBehavior::Create());
+  this->behaviors_.push_back(StaticMeshViewerBehavior::Create());
+  this->behaviors_.push_back(DynamicMeshViewerBehavior::Create());
+  this->behaviors_.push_back(StaticModelViewerBehavior::Create());
+  this->behaviors_.push_back(CharacterModelViewerBehavior::Create());
   this->behaviors_.push_back(TextureViewerBehavior::Create());
   return ViewerScene::Init();
 }

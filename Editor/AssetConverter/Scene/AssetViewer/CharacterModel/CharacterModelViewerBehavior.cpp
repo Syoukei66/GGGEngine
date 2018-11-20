@@ -1,17 +1,15 @@
-#include "ModelViewerBehavior.h"
-#include <Engine/GameObject/Transform/Transform3D.h>
+#include "CharacterModelViewerBehavior.h"
 #include <Engine/GameObject/GameObjectFactory.h>
-#include <Engine/Component/Renderer/MeshRenderer.h>
 
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL(ModelViewerBehavior)
+GG_INIT_FUNC_IMPL(CharacterModelViewerBehavior)
 {
   return true;
 }
 
-GG_DESTRUCT_FUNC_IMPL(ModelViewerBehavior)
+GG_DESTRUCT_FUNC_IMPL(CharacterModelViewerBehavior)
 {
   return true;
 }
@@ -19,29 +17,29 @@ GG_DESTRUCT_FUNC_IMPL(ModelViewerBehavior)
 // =================================================================
 // Methods from AssetViewerBehavior
 // =================================================================
-void ModelViewerBehavior::OnStart(Scene* scene)
+void CharacterModelViewerBehavior::OnStart(Scene* scene)
 {
   this->scene_ = scene;
 }
 
-void ModelViewerBehavior::OnEnd()
+void CharacterModelViewerBehavior::OnEnd()
 {
 }
 
-void ModelViewerBehavior::OnLoad(T_UINT32 unique_id)
+void CharacterModelViewerBehavior::OnLoad(T_UINT32 unique_id)
 {
-  const SharedRef<rcStaticModel>& model = AssetManager::Load<rcStaticModel>(unique_id);
+  const SharedRef<rcCharacterModel>& model = AssetManager::Load<rcCharacterModel>(unique_id);
   this->root_ = GameObjectFactory::Create(model);
   this->scene_->AddChild(this->root_);
 }
 
-void ModelViewerBehavior::OnUnload()
+void CharacterModelViewerBehavior::OnUnload()
 {
   this->root_->RemoveSelf();
   delete this->root_;
 }
 
-bool ModelViewerBehavior::IsTarget(T_UINT32 id)
+bool CharacterModelViewerBehavior::IsTarget(T_UINT32 id)
 {
-  return id == AssetEntity::EntityID::ID_STATIC_MODEL;
+  return id == AssetEntity::EntityID::ID_CHARACTER_MODEL;
 }

@@ -8,7 +8,7 @@ class CharacterModelAssetEntity : public FileAssetEntity<CharacterModelData, rcC
   // =================================================================
   // GGG Statement
   // =================================================================
-  ENTITY_ID(ID_STATIC_MODEL);
+  ENTITY_ID(ID_CHARACTER_MODEL);
   GG_OBJECT(CharacterModelAssetEntity);
   GG_CREATE_FUNC_2(CharacterModelAssetEntity, AssetMetaData*, CharacterModelData*)
   {

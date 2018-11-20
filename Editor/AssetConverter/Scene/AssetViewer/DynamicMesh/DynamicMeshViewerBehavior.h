@@ -4,14 +4,14 @@
 
 class MeshRenderer;
 
-class ModelViewerBehavior : public AssetViewerBehavior
+class DynamicMeshViewerBehavior : public AssetViewerBehavior
 {
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_OBJECT(ModelViewerBehavior);
-  GG_CREATE_FUNC(ModelViewerBehavior);
-  GG_DESTRUCT_FUNC(ModelViewerBehavior);
+  GG_OBJECT(DynamicMeshViewerBehavior);
+  GG_CREATE_FUNC(DynamicMeshViewerBehavior);
+  GG_DESTRUCT_FUNC(DynamicMeshViewerBehavior);
 
   // =================================================================
   // Methods from AssetViewerBehavior
@@ -27,6 +27,6 @@ public:
   // Data Members
   // =================================================================
 private:
-  Scene* scene_;
-  GameObject3D* root_;
+  GameObject3D* obj_;
+  MeshRenderer* mesh_renderer_;
 };

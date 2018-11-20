@@ -79,6 +79,11 @@ public:
     return (T_UINT32)this->meshes_.size();
   }
 
+  GG_INLINE SharedRef<const rcMaterial> GetMeshMaterial(T_UINT32 index) const
+  {
+    return this->materials_.at(this->mesh_material_indices_[index]);
+  }
+
   GG_INLINE SharedRef<const rcMaterial> GetMaterial(T_UINT32 index) const
   {
     return this->materials_.at(index);
@@ -95,6 +100,7 @@ public:
 protected:
   CharacterNodeData root_node_;
   std::vector<SharedRef<const rcMesh>> meshes_;
+  std::vector<T_UINT32> mesh_material_indices_;
   std::vector<SharedRef<const rcMaterial>> materials_;
 
 };

@@ -1,11 +1,11 @@
-#include "StaticMeshViewerBehavior.h"
+#include "DynamicMeshViewerBehavior.h"
 #include <Engine/GameObject/Transform/Transform3D.h>
 #include <Engine/Component/Renderer/MeshRenderer.h>
 
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL(StaticMeshViewerBehavior)
+GG_INIT_FUNC_IMPL(DynamicMeshViewerBehavior)
 {
   this->obj_ = new GameObject3D();
   this->mesh_renderer_ = new MeshRenderer(this->obj_);
@@ -13,7 +13,7 @@ GG_INIT_FUNC_IMPL(StaticMeshViewerBehavior)
   return true;
 }
 
-GG_DESTRUCT_FUNC_IMPL(StaticMeshViewerBehavior)
+GG_DESTRUCT_FUNC_IMPL(DynamicMeshViewerBehavior)
 {
   delete this->obj_;
   return true;
@@ -22,19 +22,21 @@ GG_DESTRUCT_FUNC_IMPL(StaticMeshViewerBehavior)
 // =================================================================
 // Methods from AssetViewerBehavior
 // =================================================================
-void StaticMeshViewerBehavior::OnStart(Scene* scene)
+void DynamicMeshViewerBehavior::OnStart(Scene* scene)
 {
   scene->AddChild(this->obj_);
 }
 
-void StaticMeshViewerBehavior::OnEnd()
+void DynamicMeshViewerBehavior::OnEnd()
 {
   this->obj_->RemoveSelf();
 }
 
-void StaticMeshViewerBehavior::OnLoad(T_UINT32 unique_id)
+void DynamicMeshViewerBehavior::OnLoad(T_UINT32 unique_id)
 {
-  this->mesh_renderer_->SetMesh(AssetManager::Load<rcMesh>(unique_id));
+  SharedRef<rcDynamicMesh> mesh = AssetManager::Load<rcDynamicMesh>(unique_id);
+  mesh->CommitChanges();
+  this->mesh_renderer_->SetMesh(mesh);
   const T_UINT32 submesh_count = this->mesh_renderer_->GetMesh()->GetSubmeshCount();
   for (T_UINT32 i = 0; i < submesh_count; ++i)
   {
@@ -43,13 +45,13 @@ void StaticMeshViewerBehavior::OnLoad(T_UINT32 unique_id)
   }
 }
 
-void StaticMeshViewerBehavior::OnUnload()
+void DynamicMeshViewerBehavior::OnUnload()
 {
   this->mesh_renderer_->SetMesh(nullptr);
   this->mesh_renderer_->SetMaterial(nullptr);
 }
 
-bool StaticMeshViewerBehavior::IsTarget(T_UINT32 id)
+bool DynamicMeshViewerBehavior::IsTarget(T_UINT32 id)
 {
-  return id == AssetEntity::EntityID::ID_DEFAULT_MESH || id == AssetEntity::EntityID::ID_MODEL_STATIC_MESH;
+  return id == AssetEntity::EntityID::ID_MODEL_DYNAMIC_MESH;
 }
