@@ -12,7 +12,7 @@
 
 #include <Entity/File/Model/Material/ModelMaterialAssetEntity.h>
 #include <Entity/File/Model/StaticMesh/ModelStaticMeshAssetEntity.h>
-#include <Entity/File/Model/StaticModelAssetEntity.h>
+#include <Entity/File/Model/StaticModel/StaticModelAssetEntity.h>
 
 #include <Entity/Default/Material/DefaultMaterialAssetConverterFactory.h>
 

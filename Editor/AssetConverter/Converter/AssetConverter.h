@@ -33,10 +33,9 @@ public:
   inline bool ImportOnce(AssetConverterContext* context) override;
   inline bool ImportImmediately(const URI& uri, AssetConverterContext* context, bool reload) override;
 
-
   inline void AddEntity(const SharedRef<Entity_>& entity);
   inline SharedRef<Entity_> GetEntity(const URI& uri, const AssetConverterContext* context);
-  inline SharedRef<Entity_> GetEntity(const AssetMetaData* meta);
+  inline SharedRef<Entity_> GetEntity(T_UINT32 unique_id);
 
   inline void Export(const AssetConverterContext* context) const override;
 
@@ -153,9 +152,9 @@ inline SharedRef<Entity_> AssetConverter<Entity_>::GetEntity(const URI& uri, con
 }
 
 template<class Entity_>
-inline SharedRef<Entity_> AssetConverter<Entity_>::GetEntity(const AssetMetaData* meta)
+inline SharedRef<Entity_> AssetConverter<Entity_>::GetEntity(T_UINT32 unique_id)
 {
-  const auto& itr = this->entities_.find(meta->GetUniqueID());
+  const auto& itr = this->entities_.find(unique_id);
   if (itr != this->entities_.end())
   {
     return itr->second;

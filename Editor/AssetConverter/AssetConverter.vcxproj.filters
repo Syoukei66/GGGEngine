@@ -282,12 +282,6 @@
     <ClInclude Include="Entity\File\Model\ModelConstants.h">
       <Filter>ヘッダー ファイル\Assimp</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\File\Model\StaticModelAssetImporter.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\File\Model\StaticModelAssetEntity.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Model</Filter>
-    </ClInclude>
     <ClInclude Include="Entity\File\Raw\Texture\TextureAssetEntity.h">
       <Filter>ヘッダー ファイル\Asset\_File\Texture</Filter>
     </ClInclude>
@@ -303,11 +297,26 @@
     <ClInclude Include="Scene\AssetViewer\StaticMesh\StaticMeshViewerBehavior.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\File\Model\StaticMesh\ModelDynamicMeshAssetEntity.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Entity\File\Model\StaticMesh\ModelStaticMeshAssetEntity.h">
       <Filter>ヘッダー ファイル\Asset\_File\Model\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\DynamicMesh\ModelDynamicMeshAssetEntity.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\StaticModel\StaticModelAssetEntity.h">
+      <Filter>ヘッダー ファイル\Asset\_File\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\StaticModel\StaticModelAssetImporter.h">
+      <Filter>ヘッダー ファイル\Asset\_File\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\CharacterModel\CharacterModelAssetEntity.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\CharacterModel\CharacterModelAssetImporter.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\AssimpImportUtil.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -419,13 +428,19 @@
     <ClCompile Include="Scene\AssetViewer\Texture\TextureViewerBehavior.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Entity\File\Model\StaticModelAssetImporter.cpp">
-      <Filter>ソース ファイル\Asset\_File\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity\File\Model\StaticModelAssetEntity.cpp">
+    <ClCompile Include="Scene\AssetViewer\StaticMesh\StaticMeshViewerBehavior.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\AssetViewer\StaticMesh\StaticMeshViewerBehavior.cpp">
+    <ClCompile Include="Entity\File\Model\StaticModel\StaticModelAssetEntity.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Model\StaticModel\StaticModelAssetImporter.cpp">
+      <Filter>ソース ファイル\Asset\_File\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Model\CharacterModel\CharacterModelAssetEntity.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Model\CharacterModel\CharacterModelAssetImporter.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

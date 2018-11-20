@@ -3,16 +3,16 @@
 #include <Entity/File/FileAssetEntity.h>
 #include <Entity/File/FileAssetConverterFactory.h>
 
-class ModelDynamicMeshAssetEntity : public FileAssetEntity<StaticMeshData, rcMesh>
+class ModelDynamicMeshAssetEntity : public FileAssetEntity<DynamicMeshData, rcDynamicMesh>
 {
   // =================================================================
   // GGG Statement
   // =================================================================
   ENTITY_ID(ID_MODEL_DYNAMIC_MESH);
   GG_OBJECT(ModelDynamicMeshAssetEntity);
-  GG_CREATE_FUNC_2(ModelDynamicMeshAssetEntity, AssetMetaData*, StaticMeshData*)
+  GG_CREATE_FUNC_2(ModelDynamicMeshAssetEntity, AssetMetaData*, DynamicMeshData*)
   {
-    return FileAssetEntity<StaticMeshData, rcMesh>::Init(arg0, arg1);
+    return FileAssetEntity<DynamicMeshData, rcDynamicMesh>::Init(arg0, arg1);
   }
 
   // =================================================================

@@ -36,11 +36,15 @@ public:
   template <class Entity_>
   inline SharedRef<Entity_> GetEntity(const URI& uri);
   inline SharedRef<AssetEntity> GetEntity(const URI& uri);
+  template <class Entity_>
+  inline SharedRef<Entity_> GetEntity(T_UINT32 unique_id);
   inline SharedRef<AssetEntity> GetEntity(T_UINT32 unique_id);
 
   inline T_UINT32 PublishUniqueID(const URI& uri);
   inline T_UINT32 GetUniqueID(const URI& uri) const;
   inline void RegisterDefaultUniqueID(T_UINT32 default_uid, const URI& uri);
+
+  inline const URI& GetDefaultAssetURI(T_UINT32 default_uid);
 
   // =================================================================
   // Data Members
@@ -48,6 +52,7 @@ public:
 protected:
   UniqueIdTable* unique_id_table_;
   AssetConverterManager* converter_manager_;
+  std::unordered_map<T_UINT32, URI> default_asset_uri_;
 
 };
 
@@ -122,7 +127,7 @@ inline SharedRef<Entity_> AssetConverterContext::AddEntity(const SharedRef<Entit
 template<class Entity_>
 inline SharedRef<Entity_> AssetConverterContext::GetEntity(const URI& uri)
 {
-  return this->converter_manager_->Find<Entity_, Entity_>([&](AssetConverter<Entity_>* converter)
+  return this->converter_manager_->Find<Entity_>([&](AssetConverter<Entity_>* converter)
   {
     return converter->GetEntity(uri, this);
   });
@@ -133,6 +138,15 @@ inline SharedRef<AssetEntity> AssetConverterContext::GetEntity(const URI& uri)
   return this->converter_manager_->FindAllEntity([&](const SharedRef<AssetEntity>& entity)
   {
     return entity->GetMetaData()->GetURI() == uri;
+  });
+}
+
+template<class Entity_>
+inline SharedRef<Entity_> AssetConverterContext::GetEntity(T_UINT32 unique_id)
+{
+  return this->converter_manager_->Find<Entity_>([&](AssetConverter<Entity_>* converter)
+  {
+    return converter->GetEntity(unique_id);
   });
 }
 
@@ -157,5 +171,11 @@ inline T_UINT32 AssetConverterContext::GetUniqueID(const URI& uri) const
 inline void AssetConverterContext::RegisterDefaultUniqueID(T_UINT32 default_uid, const URI& uri)
 {
   this->unique_id_table_->RegisterDefaultAssetUniqueID(default_uid, FileUtil::CreateRuntimeAssetPath(uri));
+  this->default_asset_uri_[default_uid] = uri;
+}
+
+inline const URI& AssetConverterContext::GetDefaultAssetURI(T_UINT32 default_uid)
+{
+  return this->default_asset_uri_[default_uid];
 }
 
