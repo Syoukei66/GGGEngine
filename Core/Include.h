@@ -28,6 +28,7 @@
 #include <Core/Application/Object/Ref.h>
 #include <Core/Application/Object/SharedRef.h>
 #include <Core/Application/Object/UniqueRef.h>
+#include <Core/Application/Object/WeakRef.h>
 #include <Core/Application/Platform/API/APIObject.h>
 #include <Core/Application/Platform/API/Audio/AudioAPI.h>
 #include <Core/Application/Platform/API/Graphics/GraphicsAPI.h>

@@ -25,6 +25,7 @@
 #include <Core/Application/Object/Object.h>
 #include <Core/Application/Object/SharedRef.h>
 #include <Core/Application/Object/UniqueRef.h>
+#include <Core/Application/Object/WeakRef.h>
 
 #include <Core/Math/Mathf.h>
 #include <Core/Math/Vector2.h>
