@@ -167,7 +167,7 @@ void rcDynamicMesh::ConvertToData(DynamicMeshData* dest) const
   for (T_UINT32 i = 0; i < this->submesh_count_; ++i)
   {
     dest->submesh_indices_.emplace_back(std::vector<T_UINT32>());
-    const T_UINT32 submesh_index_count = this->submesh_indices_[i].size();
+    const T_UINT32 submesh_index_count = (T_UINT32)this->submesh_indices_[i].size();
     dest->submesh_indices_[i].resize(submesh_index_count);
     for (T_UINT32 ii = 0; ii < submesh_index_count; ++ii)
     {
