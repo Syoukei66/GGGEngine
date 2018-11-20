@@ -15,7 +15,7 @@ Camera3D::Camera3D(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT 
   , z_far_(1000.0f)
   , projection_dirty_(true)
 {
-  this->entity_ = new GameObject3D();
+  this->entity_ = GameObject3D::Create();
 }
 
 Camera3D::Camera3D()
@@ -27,7 +27,7 @@ Camera3D::Camera3D()
   , z_far_(1000.0f)
   , projection_dirty_(true)
 {
-  this->entity_ = new GameObject3D();
+  this->entity_ = GameObject3D::Create();
 }
 
 Camera3D::~Camera3D()

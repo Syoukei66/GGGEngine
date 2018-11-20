@@ -7,15 +7,9 @@
 // =================================================================
 GG_INIT_FUNC_IMPL(DynamicMeshViewerBehavior)
 {
-  this->obj_ = new GameObject3D();
+  this->obj_ = GameObject3D::Create();
   this->mesh_renderer_ = new MeshRenderer(this->obj_);
   this->obj_->SetRenderer(this->mesh_renderer_);
-  return true;
-}
-
-GG_DESTRUCT_FUNC_IMPL(DynamicMeshViewerBehavior)
-{
-  delete this->obj_;
   return true;
 }
 

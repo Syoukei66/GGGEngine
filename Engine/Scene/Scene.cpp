@@ -6,21 +6,8 @@
 GG_INIT_FUNC_IMPL(Scene)
 {
   this->is_loaded_ = false;
-  this->root2d_ = new GameObject2D();
-  this->root3d_ = new GameObject3D();
-  return true;
-}
-
-GG_DESTRUCT_FUNC_IMPL(Scene)
-{
-  if (this->root2d_)
-  {
-    delete this->root2d_;
-  }
-  if (this->root3d_)
-  {
-    delete this->root3d_;
-  }
+  this->root2d_ = GameObject2D::Create();
+  this->root3d_ = GameObject3D::Create();
   return true;
 }
 

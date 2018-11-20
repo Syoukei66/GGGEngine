@@ -6,21 +6,20 @@
 
 class GameObjectRenderState;
 
-class GameObject
+class GameObject : public GGObject
 {
   // =================================================================
-  // Constructor / Destructor
+  // GGG Statement
   // =================================================================
 public:
-  GameObject();
-  virtual ~GameObject();
+  GG_INIT_FUNC(GameObject);
+  GG_DESTRUCT_FUNC(GameObject);
 
   // =================================================================
   // Methods
   // =================================================================
 public:
-  void AddChild(GameObject* child);
-  void RemoveChild(GameObject* child);
+  void AddChild(const SharedRef<GameObject>& child);
   void RemoveSelf();
   void ClearChildren();
 
@@ -49,9 +48,9 @@ protected:
 public:
   GG_INLINE bool HasParent() const
   {
-    return this->parent_;
+    return this->parent_ != nullptr;
   }
-  GG_INLINE GameObject* GetParent() const
+  GG_INLINE SharedRef<GameObject> GetParent() const
   {
     return this->parent_;
   }
@@ -138,8 +137,8 @@ protected:
 
 private:
 	bool enabled_;
-  GameObject* parent_;
-  std::vector<GameObject*> children_;
+  SharedRef<GameObject> parent_;
+  std::vector<SharedRef<GameObject>> children_;
 
   Renderer* renderer_;
 

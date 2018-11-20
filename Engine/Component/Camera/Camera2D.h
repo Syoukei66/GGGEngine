@@ -42,7 +42,7 @@ public:
 public:
   GG_INLINE Transform2D* GetTransform()
   {
-    return ((GameObject2D*)this->entity_)->GetTransform();
+    return SharedRef<GameObject2D>::StaticCast(this->entity_)->GetTransform();
   }
 
   // =================================================================

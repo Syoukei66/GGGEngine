@@ -36,7 +36,7 @@ void CharacterModelViewerBehavior::OnLoad(T_UINT32 unique_id)
 void CharacterModelViewerBehavior::OnUnload()
 {
   this->root_->RemoveSelf();
-  delete this->root_;
+  this->root_ = nullptr;
 }
 
 bool CharacterModelViewerBehavior::IsTarget(T_UINT32 id)

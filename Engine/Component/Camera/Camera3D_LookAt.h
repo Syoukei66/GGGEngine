@@ -40,9 +40,9 @@ private:
   // Setter / Getter
   // =================================================================
 public:
-  GG_INLINE GameObject3D* GetPlayer() const
+  GG_INLINE SharedRef<GameObject3D> GetPlayer() const
   {
-    return (GameObject3D*)this->entity_->GetParent();
+    return SharedRef<GameObject3D>::StaticCast(this->entity_->GetParent());
   }
 
   GG_INLINE void SetTarget(GameObject3D* target)

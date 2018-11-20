@@ -5,7 +5,7 @@
 // =================================================================
 // FactoryMethod
 // =================================================================
-SpriteRenderer* SpriteRenderer::Create(const SharedRef<rcSprite>& sprite, GameObject* obj)
+SpriteRenderer* SpriteRenderer::Create(const SharedRef<rcSprite>& sprite, const SharedRef<GameObject>& obj)
 {
   SpriteRenderer* ret = new SpriteRenderer(obj);
   ret->SetSprite(sprite);
@@ -15,7 +15,7 @@ SpriteRenderer* SpriteRenderer::Create(const SharedRef<rcSprite>& sprite, GameOb
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-SpriteRenderer::SpriteRenderer(GameObject* entity)
+SpriteRenderer::SpriteRenderer(const SharedRef<GameObject>& entity)
   : Renderer(entity)
 {
   this->SetMaterial(AssetManager::Load<rcMaterial>(DefaultUniqueID::MATERIAL_UNLIT));

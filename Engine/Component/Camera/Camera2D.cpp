@@ -12,7 +12,7 @@ Camera2D::Camera2D(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT 
   , projection_matrix_()
   , projection_dirty_(true)
 {
-  this->entity_ = new GameObject2D();
+  this->entity_ = GameObject2D::Create();
 }
 
 Camera2D::Camera2D()
@@ -20,7 +20,7 @@ Camera2D::Camera2D()
   , projection_matrix_()
   , projection_dirty_(true)
 {
-  this->entity_ = new GameObject2D();
+  this->entity_ = GameObject2D::Create();
 }
 
 Camera2D::~Camera2D()

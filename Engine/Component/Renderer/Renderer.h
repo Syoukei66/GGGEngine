@@ -3,8 +3,8 @@
 #include <Asset/Material/Material.h>
 #include <Engine/Component/GameComponent.h>
 
-class GameObjectRenderState;
 class GameObject;
+class GameObjectRenderState;
 
 class Renderer : public GameComponent
 {
@@ -12,7 +12,7 @@ class Renderer : public GameComponent
   // Constructor / Destructor
   // =================================================================
 public:
-  Renderer(GameObject* entity);
+  Renderer(const SharedRef<GameObject>& entity);
   virtual ~Renderer();
 
   // =================================================================
@@ -67,12 +67,12 @@ public:
     return (T_UINT8)this->shared_materials_.size();
   }
 
-  GG_INLINE GameObject* GetEntity()
+  GG_INLINE SharedRef<GameObject> GetEntity()
   {
     return this->entity_;
   }
 
-  GG_INLINE const GameObject* GetEntity() const
+  GG_INLINE SharedRef<const GameObject> GetEntity() const
   {
     return this->entity_;
   }
@@ -81,7 +81,7 @@ public:
   // Data Member
   // =================================================================
 protected:
-  GameObject* entity_;
+  SharedRef<GameObject> entity_;
   T_UINT8 layer_id_;
   std::unordered_map<T_UINT32, SharedRef<const rcMaterial>> shared_materials_;
   std::unordered_map<T_UINT32, SharedRef<rcMaterial>> materials_;

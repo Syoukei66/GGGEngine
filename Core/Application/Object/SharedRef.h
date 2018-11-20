@@ -59,9 +59,10 @@ public:
    * @brief コピーコンストラクタ。
    * 他の変換可能なSharedRefと所有権の共有。
    */
-  template <class _OtherObj>
-  GG_INLINE SharedRef(const SharedRef<_OtherObj>& o) noexcept
+  template <class OtherObj_>
+  GG_INLINE SharedRef(const SharedRef<OtherObj_>& o) noexcept
   {
+    static_assert(std::is_base_of<Obj_, OtherObj_>::value, "type parameter of this class must derive from BaseClass");
     if (o.ptr_)
     {
       o.ptr_->Retain();
@@ -83,9 +84,10 @@ public:
    * @brief ムーブコンストラクタ。
    * 他の変換可能なSharedRefから所有権を移動する。
    */
-  template <class _OtherObj>
-  GG_INLINE SharedRef(SharedRef<_OtherObj>&& o) noexcept
+  template <class OtherObj_>
+  GG_INLINE SharedRef(SharedRef<OtherObj_>&& o) noexcept
   {
+    static_assert(std::is_base_of<Obj_, OtherObj_>::value, "type parameter of this class must derive from BaseClass");
     this->ptr_ = o.ptr_;
     o.ptr_ = nullptr;
   }
@@ -94,9 +96,10 @@ public:
    * @brief ムーブコンストラクタ。
    * 他の変換可能なUniqueRefから所有権を移動する。
    */
-  template <class _OtherObj>
-  GG_INLINE SharedRef(UniqueRef<_OtherObj>&& o) noexcept
+  template <class OtherObj_>
+  GG_INLINE SharedRef(UniqueRef<OtherObj_>&& o) noexcept
   {
+    static_assert(std::is_base_of<Obj_, OtherObj_>::value, "type parameter of this class must derive from BaseClass");
     this->ptr_ = o.ptr_;
     o.ptr_ = nullptr;
   }

@@ -36,7 +36,7 @@ void StaticModelViewerBehavior::OnLoad(T_UINT32 unique_id)
 void StaticModelViewerBehavior::OnUnload()
 {
   this->root_->RemoveSelf();
-  delete this->root_;
+  this->root_ = nullptr;
 }
 
 bool StaticModelViewerBehavior::IsTarget(T_UINT32 id)

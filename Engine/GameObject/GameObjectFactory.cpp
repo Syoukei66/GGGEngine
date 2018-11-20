@@ -12,9 +12,9 @@
 // =================================================================
 // GameObject2D
 // =================================================================
-GameObject2D* GameObjectFactory::Create(const SharedRef<rcSprite>& sprite)
+SharedRef<GameObject2D> GameObjectFactory::Create(const SharedRef<rcSprite>& sprite)
 {
-  GameObject2D* ret = new GameObject2D();
+  SharedRef<GameObject2D> ret = GameObject2D::Create();
 
   ret->SetRenderer(SpriteRenderer::Create(sprite, ret));
 
@@ -24,14 +24,14 @@ GameObject2D* GameObjectFactory::Create(const SharedRef<rcSprite>& sprite)
 // =================================================================
 // GameObject3D
 // =================================================================
-GameObject3D* CreateNode(const SharedRef<rcCharacterModel>& model, const CharacterNodeData& node, GameObject3D* mesh_root)
+SharedRef<GameObject3D> CreateNode(const SharedRef<rcCharacterModel>& model, const CharacterNodeData& node, const SharedRef<GameObject3D>& mesh_root)
 {
-  GameObject3D* ret = new GameObject3D();
+  SharedRef<GameObject3D> ret = GameObject3D::Create();
 
   // MeshÇÃì«Ç›çûÇ›
   for (T_FIXED_UINT32 index : node.mesh_indices_)
   {
-    GameObject3D* mesh_obj = new GameObject3D();
+    SharedRef<GameObject3D> mesh_obj = GameObject3D::Create();
     const SharedRef<const rcMesh>& mesh = model->GetMesh(index);
     const SharedRef<const rcMaterial>& material = model->GetMeshMaterial(index);
     MeshRenderer* mesh_renderer = MeshRenderer::Create(mesh, ret);
@@ -46,26 +46,26 @@ GameObject3D* CreateNode(const SharedRef<rcCharacterModel>& model, const Charact
 
   for (const CharacterNodeData& child : node.children_)
   {
-    GameObject3D* child_object = CreateNode(model, child, mesh_root);
+    SharedRef<GameObject3D> child_object = CreateNode(model, child, mesh_root);
     ret->AddChild(child_object);
   }
 
   return ret;
 }
 
-GameObject3D* GameObjectFactory::Create(const SharedRef<rcCharacterModel>& model)
+UniqueRef<GameObject3D> GameObjectFactory::Create(const SharedRef<rcCharacterModel>& model)
 {
-  GameObject3D* root = new GameObject3D();
-  GameObject3D* mesh_root = new GameObject3D();
-  GameObject3D* root_bone = CreateNode(model, model->GetRootNode(), mesh_root);
+  UniqueRef<GameObject3D> root = GameObject3D::Create();
+  SharedRef<GameObject3D> mesh_root = GameObject3D::Create();
+  SharedRef<GameObject3D> root_bone = CreateNode(model, model->GetRootNode(), mesh_root);
   root->AddChild(mesh_root);
   root->AddChild(root_bone);
   return root;
 }
 
-GameObject3D* GameObjectFactory::Create(const SharedRef<rcStaticModel>& model)
+SharedRef<GameObject3D> GameObjectFactory::Create(const SharedRef<rcStaticModel>& model)
 {
-  GameObject3D* ret = new GameObject3D();
+  SharedRef<GameObject3D> ret = GameObject3D::Create();
 
   const SharedRef<const rcMesh>& mesh = model->GetMesh();
   MeshRenderer* mesh_renderer = MeshRenderer::Create(mesh, ret);

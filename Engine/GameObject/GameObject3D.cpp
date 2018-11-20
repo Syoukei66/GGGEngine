@@ -7,13 +7,15 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-GameObject3D::GameObject3D()
+GG_INIT_FUNC_IMPL(GameObject3D)
 {
   this->transform_ = new Transform3D(this);
   this->transform_->Init();
+  return GameObject::Init();
 }
 
-GameObject3D::~GameObject3D()
+GG_DESTRUCT_FUNC_IMPL(GameObject3D)
 {
   delete this->transform_;
+  return true;
 }

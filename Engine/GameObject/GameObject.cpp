@@ -4,46 +4,28 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-GameObject::GameObject()
-  : enabled_(true)
-  , parent_()
-  , children_()
-  , renderer_()
+GG_INIT_FUNC_IMPL(GameObject)
 {
+  this->enabled_ = true;
+  return true;
 }
 
-GameObject::~GameObject()
+GG_DESTRUCT_FUNC_IMPL(GameObject)
 {
   delete this->renderer_;
+  return true;
 }
 
 // =================================================================
 // Methods
 // =================================================================
-void GameObject::AddChild(GameObject* child)
+void GameObject::AddChild(const SharedRef<GameObject>& child)
 {
-  child->parent_ = this;
+  child->parent_ = SharedRef<GameObject>(this);
   this->children_.emplace_back(child);
   child->FireOnPositionChanged();
   child->FireOnScaleChanged();
   child->FireOnRotationChanged();
-}
-
-void GameObject::RemoveChild(GameObject* child)
-{
-  if (child->parent_ != this)
-  {
-    return;
-  }
-  child->parent_ = nullptr;
-  for (std::vector<GameObject*>::iterator it = this->children_.begin(); it != this->children_.end(); ++it)
-  {
-    if (child == (*it))
-    {
-      this->children_.erase(it);
-      return;
-    }
-  }
 }
 
 void GameObject::RemoveSelf()
@@ -52,12 +34,14 @@ void GameObject::RemoveSelf()
   {
     return;
   }
-  this->parent_->RemoveChild(this);
+  const auto& itr = std::find(this->parent_->children_.begin(), this->parent_->children_.end(), SharedRef<GameObject>(this));
+  this->parent_->children_.erase(itr);
+  this->parent_ = nullptr;
 }
 
 void GameObject::ClearChildren()
 {
-  for (GameObject* child : this->children_)
+  for (const SharedRef<GameObject>& child : this->children_)
   {
     child->parent_ = nullptr;
   }
@@ -79,7 +63,7 @@ void GameObject::Draw(GameObjectRenderState* state)
   }
 
   // Žq‚Ì•`‰æ
-  for (GameObject* child : this->children_)
+  for (const SharedRef<GameObject>& child : this->children_)
   {
     child->Draw(state);
   }
@@ -92,7 +76,7 @@ void GameObject::ManagedPreUpdate()
     return;
   }
   this->PreUpdate();
-  for (GameObject* child : this->children_)
+  for (const SharedRef<GameObject>& child : this->children_)
   {
     child->ManagedPreUpdate();
   }
@@ -105,7 +89,7 @@ void GameObject::ManagedUpdate()
     return;
   }
   this->Update();
-  for (GameObject* child : this->children_)
+  for (const SharedRef<GameObject>& child : this->children_)
   {
     child->ManagedUpdate();
   }
@@ -118,7 +102,7 @@ void GameObject::ManagedPostUpdate()
     return;
   }
   this->PostUpdate();
-  for (GameObject* child : this->children_)
+  for (const SharedRef<GameObject>& child : this->children_)
   {
     child->ManagedPostUpdate();
   }
@@ -127,7 +111,7 @@ void GameObject::ManagedPostUpdate()
 void GameObject::FireOnPositionChanged()
 {
   this->transform_->OnWorldTransformDirty();
-  for (GameObject* child : this->children_)
+  for (const SharedRef<GameObject>& child : this->children_)
   {
     child->FireOnPositionChanged();
   }
@@ -136,7 +120,7 @@ void GameObject::FireOnPositionChanged()
 void GameObject::FireOnScaleChanged()
 {
   this->transform_->OnWorldTransformDirty();
-  for (GameObject* child : this->children_)
+  for (const SharedRef<GameObject>& child : this->children_)
   {
     child->FireOnScaleChanged();
   }
@@ -145,7 +129,7 @@ void GameObject::FireOnScaleChanged()
 void GameObject::FireOnRotationChanged()
 {
   this->transform_->OnWorldTransformDirty();
-  for (GameObject* child : this->children_)
+  for (const SharedRef<GameObject>& child : this->children_)
   {
     child->FireOnRotationChanged();
   }

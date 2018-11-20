@@ -11,7 +11,6 @@ class StaticMeshViewerBehavior : public AssetViewerBehavior
   // =================================================================
   GG_OBJECT(StaticMeshViewerBehavior);
   GG_CREATE_FUNC(StaticMeshViewerBehavior);
-  GG_DESTRUCT_FUNC(StaticMeshViewerBehavior);
 
   // =================================================================
   // Methods from AssetViewerBehavior
@@ -27,6 +26,6 @@ public:
   // Data Members
   // =================================================================
 private:
-  GameObject3D* obj_;
+  SharedRef<GameObject3D> obj_;
   MeshRenderer* mesh_renderer_;
 };

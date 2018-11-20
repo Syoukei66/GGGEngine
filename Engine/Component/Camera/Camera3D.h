@@ -54,11 +54,11 @@ public:
 
   GG_INLINE Transform3D* GetTransform()
   {
-    return ((GameObject3D*)this->entity_)->GetTransform();
+    return SharedRef<GameObject3D>::StaticCast(this->entity_)->GetTransform();
   }
   GG_INLINE const Transform3D* GetTransform() const
   {
-    return ((GameObject3D*)this->entity_)->GetTransform();
+    return SharedRef<const GameObject3D>::StaticCast(this->entity_)->GetTransform();
   }
   void SetFov(T_FLOAT fov);
   GG_INLINE T_FLOAT GetFov() const

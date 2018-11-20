@@ -7,16 +7,10 @@
 // =================================================================
 GG_INIT_FUNC_IMPL(TextureViewerBehavior)
 {
-  this->obj_ = new GameObject3D();
+  this->obj_ = GameObject3D::Create();
   this->obj_->GetTransform()->RotateX(-Mathf::PI_1_2);
   this->mesh_renderer_ = new MeshRenderer(this->obj_);
   this->obj_->SetRenderer(this->mesh_renderer_);
-  return true;
-}
-
-GG_DESTRUCT_FUNC_IMPL(TextureViewerBehavior)
-{
-  delete this->obj_;
   return true;
 }
 

@@ -112,11 +112,11 @@ public:
     return this->direction_;
   }
 
-  GG_INLINE GameObject* GetEntity()
+  GG_INLINE SharedRef<GameObject> GetEntity()
   {
     return this->entity_;
   }
-  GG_INLINE const GameObject* GetEntity() const
+  GG_INLINE SharedRef<const GameObject> GetEntity() const
   {
     return this->entity_;
   }
@@ -135,7 +135,7 @@ public:
   // =================================================================
 protected:
   GameObjectRenderState* render_state_;
-  GameObject* entity_;
+  SharedRef<GameObject> entity_;
   TVec3f direction_;
 
 private:

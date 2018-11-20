@@ -7,15 +7,17 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-GameObject2D::GameObject2D()
+GG_INIT_FUNC_IMPL(GameObject2D)
 {
   this->transform_ = new Transform2D(this);
   this->transform_->Init();
+  return GameObject::Init();
 }
 
-GameObject2D::~GameObject2D()
+GG_DESTRUCT_FUNC_IMPL(GameObject2D)
 {
   delete this->transform_;
+  return true;
 }
 
 // =================================================================

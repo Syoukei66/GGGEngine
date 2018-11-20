@@ -10,12 +10,12 @@ namespace GameObjectFactory
 // =================================================================
 // GameObject2D
 // =================================================================
-GameObject2D* Create(const SharedRef<rcSprite>& sprite);
+SharedRef<GameObject2D> Create(const SharedRef<rcSprite>& sprite);
 
 // =================================================================
 // GameObject3D
 // =================================================================
-GameObject3D* Create(const SharedRef<rcCharacterModel>& model);
-GameObject3D* Create(const SharedRef<rcStaticModel>& model);
+UniqueRef<GameObject3D> Create(const SharedRef<rcCharacterModel>& model);
+SharedRef<GameObject3D> Create(const SharedRef<rcStaticModel>& model);
 
 }

@@ -33,7 +33,6 @@ Camera::Camera()
 
 Camera::~Camera()
 {
-  delete this->entity_;
   delete this->render_state_;
 }
 

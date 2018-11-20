@@ -12,7 +12,6 @@ class Scene : public GGObject
   // GGG Statement
   // =================================================================
   GG_INIT_FUNC(Scene);
-  GG_DESTRUCT_FUNC(Scene);
 
   // =================================================================
   // Methods
@@ -28,21 +27,13 @@ public:
   void Draw2DLayers(GameObjectRenderState* state);
   void Draw3DLayers(GameObjectRenderState* state);
 
-  GG_INLINE void AddChild(GameObject2D* child)
+  GG_INLINE void AddChild(const SharedRef<GameObject2D>& child)
   {
     this->root2d_->AddChild(child);
   }
-  GG_INLINE void AddChild(GameObject3D* child)
+  GG_INLINE void AddChild(const SharedRef<GameObject3D>& child)
   {
     this->root3d_->AddChild(child);
-  }
-  GG_INLINE void RemoveChild(GameObject2D* child)
-  {
-    this->root2d_->RemoveChild(child);
-  }
-  GG_INLINE void RemoveChild(GameObject3D* child)
-  {
-    this->root3d_->RemoveChild(child);
   }
   GG_INLINE void ClearChildren()
   {
@@ -102,11 +93,11 @@ protected:
   // Setter / Getter
   // =================================================================
 public:
-  GG_INLINE GameObject2D* GetRoot2d()
+  GG_INLINE SharedRef<GameObject2D> GetRoot2d()
   {
     return this->root2d_;
   }
-  GG_INLINE GameObject3D* GetRoot3d()
+  GG_INLINE SharedRef<GameObject3D> GetRoot3d()
   {
     return this->root3d_;
   }
@@ -117,7 +108,7 @@ public:
 private:
   bool is_loaded_;
 
-  GameObject2D* root2d_;
-  GameObject3D* root3d_;
+  SharedRef<GameObject2D> root2d_;
+  SharedRef<GameObject3D> root3d_;
   std::vector<Camera*> cameras_;
 };

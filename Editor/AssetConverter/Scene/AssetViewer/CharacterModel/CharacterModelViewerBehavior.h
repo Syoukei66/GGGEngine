@@ -26,6 +26,6 @@ public:
   // =================================================================
 private:
   Scene* scene_;
-  GameObject3D* root_;
+  SharedRef<GameObject3D> root_;
 
 };

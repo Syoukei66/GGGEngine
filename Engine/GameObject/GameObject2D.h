@@ -8,11 +8,11 @@ class Transform2D;
 class GameObject2D : public GameObject
 {
   // =================================================================
-  // Constructor / Destructor
+  // GGG Statement
   // =================================================================
-public:
-  GameObject2D();
-  virtual ~GameObject2D();
+  GG_OBJECT(GameObject2D);
+  GG_CREATE_FUNC(GameObject2D);
+  GG_DESTRUCT_FUNC(GameObject2D);
   
   // =================================================================
   // Methods

@@ -222,7 +222,6 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClCompile Include="Component\Camera\Camera2D_MultiTarget.cpp" />
     <ClCompile Include="Component\Camera\Camera3D.cpp" />
     <ClCompile Include="Component\Camera\Camera3D_LookAt.cpp" />
-    <ClCompile Include="Component\Camera\Camera3D_Transformed.cpp" />
     <ClCompile Include="Component\Collider\Collider3D.cpp" />
     <ClCompile Include="Component\Collider\Collision2D.cpp" />
     <ClCompile Include="Component\Collider\Collision3D.cpp" />
@@ -261,7 +260,6 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="Component\Camera\Camera2D_MultiTarget.h" />
     <ClInclude Include="Component\Camera\Camera3D.h" />
     <ClInclude Include="Component\Camera\Camera3D_LookAt.h" />
-    <ClInclude Include="Component\Camera\Camera3D_Transformed.h" />
     <ClInclude Include="Component\Collider\Collider2D.h" />
     <ClInclude Include="Component\Collider\Collider3D.h" />
     <ClInclude Include="Component\Collider\Collision2D.h" />

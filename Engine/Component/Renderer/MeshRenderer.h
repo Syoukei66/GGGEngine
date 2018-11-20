@@ -10,13 +10,13 @@ class MeshRenderer : public Renderer
   // Factory Method
   // =================================================================
 public:
-  static MeshRenderer* Create(const SharedRef<const rcMesh>& mesh, GameObject* entity);
+  static MeshRenderer* Create(const SharedRef<const rcMesh>& mesh, const SharedRef<GameObject>& entity);
 
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  MeshRenderer(GameObject* entity);
+  MeshRenderer(const SharedRef<GameObject>& entity);
   virtual ~MeshRenderer();
 
   // =================================================================

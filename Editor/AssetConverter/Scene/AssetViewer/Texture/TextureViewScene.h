@@ -15,7 +15,7 @@ public:
   // Data Member
   // =================================================================
 private:
-  GameObject2D* obj_;
+  SharedRef<GameObject2D> obj_;
   Camera2D* camera_3d_;
 
 };
