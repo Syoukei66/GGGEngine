@@ -3,9 +3,6 @@
 #include <Engine/GameObject/GameObjectFactory.h>
 #include <Engine/Component/Renderer/MeshRenderer.h>
 
-#include <Entity/Default/Mesh/DefaultMeshAssetEntity.h>
-#include <Entity/File/Model/Mesh/ModelMeshAssetEntity.h>
-
 // =================================================================
 // GGG Statement
 // =================================================================

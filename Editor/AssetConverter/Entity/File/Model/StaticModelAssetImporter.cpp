@@ -13,7 +13,7 @@
 #include "Director.h"
 #include <Util/FileUtil.h>
 
-#include <Entity/File/Model/Mesh/ModelMeshAssetEntity.h>
+#include <Entity/File/Model/StaticMesh/ModelStaticMeshAssetEntity.h>
 #include <Entity/File/Model/Material/ModelMaterialAssetEntity.h>
 #include <Entity/File/Raw/Texture/TextureAssetEntity.h>
 
@@ -56,7 +56,7 @@ TColor ToTColor(const aiColor4D & col)
   return ret;
 }
 
-SharedRef<ModelMeshAssetEntity> ImportMesh(const AssetMetaData* model_asset_info, const aiScene* scene, AssetConverterContext* context)
+SharedRef<ModelStaticMeshAssetEntity> ImportMesh(const AssetMetaData* model_asset_info, const aiScene* scene, AssetConverterContext* context)
 {
   if (scene->mNumMeshes == 0)
   {
@@ -207,12 +207,12 @@ SharedRef<ModelMeshAssetEntity> ImportMesh(const AssetMetaData* model_asset_info
   data->bounds_.extents.z = (max.z - min.z) * 0.5f;
 
   AssetMetaData* mesh_asset_info = AssetMetaData::Create(
-    URI(model_asset_info->GetURI().GetDirectoryPath(), model_asset_info->GetURI().GetPrefix(), Extensions::MESH),
+    URI(model_asset_info->GetURI().GetDirectoryPath(), model_asset_info->GetURI().GetPrefix(), Extensions::STATIC_MESH),
     model_asset_info->GetUniqueID(),
     context
   );
 
-  return ModelMeshAssetEntity::Create(mesh_asset_info, data);
+  return ModelStaticMeshAssetEntity::Create(mesh_asset_info, data);
 }
 
 static SharedRef<TextureAssetEntity> ImportTexture(const AssetMetaData* model_asset_info, const aiMaterial* material, aiTextureType type, T_UINT32 i, AssetConverterContext* context)

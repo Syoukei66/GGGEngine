@@ -1,5 +1,5 @@
 #include "AssetViewerScene.h"
-#include <Scene/AssetViewer/Mesh/MeshViewerBehavior.h>
+#include <Scene/AssetViewer/StaticMesh/StaticMeshViewerBehavior.h>
 #include <Scene/AssetViewer/Model/ModelViewerBehavior.h>
 #include <Scene/AssetViewer/Texture/TextureViewerBehavior.h>
 

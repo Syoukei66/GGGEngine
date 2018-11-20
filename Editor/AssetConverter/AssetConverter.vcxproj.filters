@@ -261,9 +261,6 @@
     <ClInclude Include="Entity\File\Raw\RawAssetEntity.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\AssetViewer\Mesh\MeshViewerBehavior.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Scene\AssetViewer\Texture\TextureViewScene.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -281,9 +278,6 @@
     </ClInclude>
     <ClInclude Include="Entity\File\Model\Material\ModelMaterialAssetEntity.h">
       <Filter>ヘッダー ファイル\Asset\_File\Model\Material</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\File\Model\Mesh\ModelMeshAssetEntity.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Model\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="Entity\File\Model\ModelConstants.h">
       <Filter>ヘッダー ファイル\Assimp</Filter>
@@ -305,6 +299,15 @@
     </ClInclude>
     <ClInclude Include="Converter\AssetConverterFactory.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\AssetViewer\StaticMesh\StaticMeshViewerBehavior.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\StaticMesh\ModelDynamicMeshAssetEntity.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\StaticMesh\ModelStaticMeshAssetEntity.h">
+      <Filter>ヘッダー ファイル\Asset\_File\Model\Mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -401,9 +404,6 @@
     <ClCompile Include="Entity\Default\Mesh\DefaultMeshAssetExporter.cpp">
       <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\AssetViewer\Mesh\MeshViewerBehavior.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Scene\AssetViewer\Texture\TextureViewScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -423,6 +423,9 @@
       <Filter>ソース ファイル\Asset\_File\Model</Filter>
     </ClCompile>
     <ClCompile Include="Entity\File\Model\StaticModelAssetEntity.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\AssetViewer\StaticMesh\StaticMeshViewerBehavior.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

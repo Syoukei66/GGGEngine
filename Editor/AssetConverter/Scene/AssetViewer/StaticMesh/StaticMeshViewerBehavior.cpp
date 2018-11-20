@@ -1,9 +1,6 @@
-#include "MeshViewerBehavior.h"
+#include "StaticMeshViewerBehavior.h"
 #include <Engine/GameObject/Transform/Transform3D.h>
 #include <Engine/Component/Renderer/MeshRenderer.h>
-
-#include <Entity/Default/Mesh/DefaultMeshAssetEntity.h>
-#include <Entity/File/Model/Mesh/ModelMeshAssetEntity.h>
 
 // =================================================================
 // GGG Statement
@@ -54,5 +51,5 @@ void MeshViewerBehavior::OnUnload()
 
 bool MeshViewerBehavior::IsTarget(T_UINT32 id)
 {
-  return id == AssetEntity::EntityID::ID_DEFAULT_MESH || id == AssetEntity::EntityID::ID_MODEL_MESH;
+  return id == AssetEntity::EntityID::ID_DEFAULT_MESH || id == AssetEntity::EntityID::ID_MODEL_STATIC_MESH;
 }

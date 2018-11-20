@@ -177,6 +177,7 @@
     <ClInclude Include="Entity\AssetExporter.h" />
     <ClInclude Include="Entity\File\FileAssetExporter.h" />
     <ClInclude Include="Entity\File\FileAssetEntity.h" />
+    <ClInclude Include="Entity\File\Model\StaticMesh\ModelDynamicMeshAssetEntity.h" />
     <ClInclude Include="Entity\File\Raw\RawAssetEntity.h" />
     <ClInclude Include="GUI\EntityView\AssetEntityView.h" />
     <ClInclude Include="GUI\FileView\AssetEntityFileLeaf.h" />
@@ -212,7 +213,7 @@
     <ClInclude Include="Util\MeshBuilder\MeshBuilder_Plane.h" />
     <ClInclude Include="Entity\File\Model\ModelConstants.h" />
     <ClInclude Include="Entity\File\Model\Material\ModelMaterialAssetEntity.h" />
-    <ClInclude Include="Entity\File\Model\Mesh\ModelMeshAssetEntity.h" />
+    <ClInclude Include="Entity\File\Model\StaticMesh\ModelStaticMeshAssetEntity.h" />
     <ClInclude Include="Entity\File\Model\StaticModelAssetEntity.h" />
     <ClInclude Include="Entity\File\Model\StaticModelAssetImporter.h" />
     <ClInclude Include="Entity\File\FileAssetConverterFactory.h" />
@@ -230,7 +231,7 @@
     <ClInclude Include="GameInput.h" />
     <ClInclude Include="Scene\AssetViewer\AssetViewerBehavior.h" />
     <ClInclude Include="Scene\EntryScene.h" />
-    <ClInclude Include="Scene\AssetViewer\Mesh\MeshViewerBehavior.h" />
+    <ClInclude Include="Scene\AssetViewer\StaticMesh\StaticMeshViewerBehavior.h" />
     <ClInclude Include="Scene\AssetViewer\Texture\TextureViewScene.h" />
     <ClInclude Include="Scene\ViewerScene.h" />
   </ItemGroup>
@@ -280,7 +281,7 @@
     <ClCompile Include="GameInput.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scene\EntryScene.cpp" />
-    <ClCompile Include="Scene\AssetViewer\Mesh\MeshViewerBehavior.cpp" />
+    <ClCompile Include="Scene\AssetViewer\StaticMesh\StaticMeshViewerBehavior.cpp" />
     <ClCompile Include="Scene\AssetViewer\Texture\TextureViewScene.cpp" />
     <ClCompile Include="Scene\ViewerScene.cpp" />
   </ItemGroup>
