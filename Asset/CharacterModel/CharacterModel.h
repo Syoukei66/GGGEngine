@@ -69,7 +69,7 @@ public:
     return this->root_node_;
   }
 
-  GG_INLINE SharedRef<const rcMesh> GetMesh(T_UINT32 index) const
+  GG_INLINE SharedRef<const rcDynamicMesh> GetMesh(T_UINT32 index) const
   {
     return this->meshes_.at(index);
   }
@@ -99,7 +99,7 @@ public:
   // =================================================================
 protected:
   CharacterNodeData root_node_;
-  std::vector<SharedRef<const rcMesh>> meshes_;
+  std::vector<SharedRef<const rcDynamicMesh>> meshes_;
   std::vector<T_UINT32> mesh_material_indices_;
   std::vector<SharedRef<const rcMaterial>> materials_;
 

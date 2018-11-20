@@ -36,6 +36,8 @@ GG_INIT_FUNC_IMPL_1(rcDynamicMesh, const DynamicMeshData& data)
     }
   }
 
+  this->CommitChanges();
+
   return true;
 }
 

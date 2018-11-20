@@ -1,6 +1,6 @@
 #include "CharacterModel.h"
 
-#include <Asset/Mesh/Mesh.h>
+#include <Asset/Mesh/DynamicMesh.h>
 #include <Asset/Material/Material.h>
 
 // =================================================================
@@ -14,7 +14,7 @@ GG_INIT_FUNC_IMPL_1(rcCharacterModel, const CharacterModelData& data)
 
   for (T_FIXED_UINT32 mesh_unique_id : data.mesh_unique_ids_)
   {
-    this->meshes_.emplace_back(AssetManager::Load<rcMesh>(mesh_unique_id));
+    this->meshes_.emplace_back(AssetManager::Load<rcDynamicMesh>(mesh_unique_id));
   }
   for (T_FIXED_UINT32 mesh_material_index : data.mesh_material_indices_)
   {
