@@ -8,10 +8,9 @@ struct CharacterNodeData
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_SERIALIZABLE(ModelMeshData)
+  GG_SERIALIZABLE(CharacterNodeData)
   {
-    archive(mesh_index_);
-    archive(material_indices_);
+    archive(mesh_indices_);
     archive(position_);
     archive(scale_);
     archive(rotation_);
@@ -22,14 +21,12 @@ struct CharacterNodeData
   // Data Member
   // =================================================================
 public:
-  T_FIXED_UINT32 mesh_index_;
-  std::vector<T_FIXED_UINT32> material_indices_;
+  std::vector<T_FIXED_UINT32> mesh_indices_;
   TVec3f position_;
   TVec3f scale_;
   TVec3f rotation_;
   std::vector<CharacterNodeData> children_;
 };
-
 
 struct CharacterModelData
 {
@@ -40,6 +37,7 @@ struct CharacterModelData
   {
     archive(root_node_);
     archive(mesh_unique_ids_);
+    archive(mesh_material_indices_);
     archive(material_unique_ids_);
   }
 
@@ -49,6 +47,7 @@ struct CharacterModelData
 public:
   CharacterNodeData root_node_;
   std::vector<T_FIXED_UINT32> mesh_unique_ids_;
+  std::vector<T_FIXED_UINT32> mesh_material_indices_;
   std::vector<T_FIXED_UINT32> material_unique_ids_;
 };
 

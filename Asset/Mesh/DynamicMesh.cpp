@@ -455,6 +455,31 @@ void rcDynamicMesh::RecalculateTangents()
   }
 }
 
+void rcDynamicMesh::RecalculateBounds()
+{
+  TVec3f min = { 0.0f, 0.0f, 0.0f };
+  TVec3f max = { 0.0f, 0.0f, 0.0f };
+
+  for (const TVec3f& pos : this->vertices_)
+  {
+    min.x = std::min(min.x, pos.x);
+    min.y = std::min(min.y, pos.y);
+    min.z = std::min(min.z, pos.z);
+
+    max.x = std::max(max.x, pos.x);
+    max.y = std::max(max.y, pos.y);
+    max.z = std::max(max.z, pos.z);
+  }
+
+  this->bounds_.center.x = (min.x + max.y) * 0.5f;
+  this->bounds_.center.y = (min.y + max.y) * 0.5f;
+  this->bounds_.center.z = (min.z + max.z) * 0.5f;
+
+  this->bounds_.extents.x = (max.x - min.x) * 0.5f;
+  this->bounds_.extents.y = (max.y - min.y) * 0.5f;
+  this->bounds_.extents.z = (max.z - min.z) * 0.5f;
+}
+
 // =================================================================
 // Setter / Getter
 // =================================================================
