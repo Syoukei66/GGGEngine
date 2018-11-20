@@ -9,6 +9,7 @@
 #include <Asset/Json/JsonParser.h>
 #include <Asset/Material/Material.h>
 #include <Asset/Material/ShaderProperties.h>
+#include <Asset/Mesh/DynamicMesh.h>
 #include <Asset/Mesh/Mesh.h>
 #include <Asset/Mesh/MeshFactory/MeshFactory_Cube.h>
 #include <Asset/Mesh/MeshFactory/MeshFactory_Plane.h>

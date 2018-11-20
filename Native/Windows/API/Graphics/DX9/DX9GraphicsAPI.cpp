@@ -165,6 +165,14 @@ void DX9GraphicsAPI::PackColor4u8(T_FIXED_UINT32 * color, T_UINT8 r, T_UINT8 g, 
   (*color) = (T_FIXED_UINT32)D3DCOLOR_RGBA(r, g, b, a);
 }
 
+void DX9GraphicsAPI::UnpackColor4u8(T_FIXED_UINT32 color, T_UINT8* r, T_UINT8* g, T_UINT8* b, T_UINT8* a)
+{
+  (*r) = (color >> 16) & 0xff;
+  (*g) = (color >> 8) & 0xff;
+  (*b) = (color >> 0) & 0xff;
+  (*a) = (color >> 24) & 0xff;
+}
+
 static LPDIRECT3DSURFACE9 temp_color_buffer = nullptr;
 static LPDIRECT3DSURFACE9 temp_depth_buffer = nullptr;
 

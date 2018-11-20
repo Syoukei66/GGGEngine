@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Asset/Mesh/Mesh.h>
+#include <Asset/Mesh/DynamicMesh.h>
 
 namespace MeshFactory
 {
@@ -13,14 +13,14 @@ namespace Plane
 // UV4 UV1‚Æ“¯‚¶
 
 //
-UniqueRef<rcMesh> Create(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale_y, T_UINT32 resolution_x, T_UINT32 resolution_y, T_FLOAT tile_count_x, T_FLOAT tile_count_y);
+UniqueRef<rcDynamicMesh> Create(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale_y, T_UINT32 resolution_x, T_UINT32 resolution_y, T_FLOAT tile_count_x, T_FLOAT tile_count_y);
 //
-static GG_INLINE UniqueRef<rcMesh> Create(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale_y, T_UINT32 resolution_x, T_UINT32 resolution_y)
+static GG_INLINE UniqueRef<rcDynamicMesh> Create(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale_y, T_UINT32 resolution_x, T_UINT32 resolution_y)
 {
   return Create(format, scale_x, scale_y, resolution_x, resolution_y, (T_FLOAT)resolution_x, (T_FLOAT)resolution_y);
 }
 //
-static GG_INLINE UniqueRef<rcMesh> Create(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale_y)
+static GG_INLINE UniqueRef<rcDynamicMesh> Create(T_UINT32 format, T_FLOAT scale_x, T_FLOAT scale_y)
 {
   return Create(format, scale_x, scale_y, (T_UINT32)scale_x, (T_UINT32)scale_y);
 }

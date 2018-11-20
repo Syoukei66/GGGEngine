@@ -76,18 +76,34 @@ SharedRef<ModelMeshAssetEntity> ImportMesh(const AssetMetaData* model_asset_info
   data->index_formats_.resize(scene->mNumMeshes);
   data->index_counts_.resize(scene->mNumMeshes);
   data->polygon_counts_.resize(scene->mNumMeshes);
-  //
+  // 頂点データの作成
   for (T_UINT32 m = 0; m < scene->mNumMeshes; ++m)
   {
     const aiMesh* mesh = scene->mMeshes[m];
     
     GG_ASSERT(mesh->mPrimitiveTypes == aiPrimitiveType_TRIANGLE, "ポリゴンが三角形ではありません");
 
-    data->index_formats_[m] = static_cast<T_UINT8>(IndexFormat::INDEX_FMT_16);
+    data->vertex_count_ += mesh->mNumVertices;
+  }
+  // インデックスデータの作成
+  // （頂点サイズが分からないとインデックスのサイズが決まらないため）
+  for (T_UINT32 m = 0; m < scene->mNumMeshes; ++m)
+  {
+    const aiMesh* mesh = scene->mMeshes[m];
+
+    GG_ASSERT(mesh->mPrimitiveTypes == aiPrimitiveType_TRIANGLE, "ポリゴンが三角形ではありません");
+
+    // 頂点数からインデックスフォーマットを判別する
+    Vertex::IndexFormat format = Vertex::IndexFormat::INDEX_FMT_16;
+    if (data->vertex_count_ > Limit::T_FIXED_UINT16_MAX)
+    {
+      format = Vertex::IndexFormat::INDEX_FMT_32;
+    }
+
+    data->index_formats_[m] = static_cast<T_UINT8>(format);
     data->index_counts_[m] = 3 * mesh->mNumFaces;
     data->index_datas_[m].resize(data->index_counts_[m] * INDEX_FORMAT_SIZES[data->index_formats_[m]]);
     data->polygon_counts_[m] = mesh->mNumFaces;
-    data->vertex_count_ += mesh->mNumVertices;
   }
 
   TVec3f min = { 0.0f, 0.0f, 0.0f };

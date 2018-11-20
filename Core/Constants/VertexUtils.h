@@ -143,6 +143,10 @@ static T_UINT32 PRIMITIVE_SURF_NUM(PrimitiveType type, T_UINT32 vertex_count)
 namespace Vertex
 {
 
+//==========================================================================================
+// Setter
+//==========================================================================================
+
 static GG_INLINE void SetVertexPosition(const TVec3f& pos, unsigned char** dest)
 {
   T_FLOAT* p = (T_FLOAT*)(*dest);
@@ -275,7 +279,7 @@ static GG_INLINE void SetVertexUv2(const TVec2f& uv2, T_UINT32 format, unsigned 
 {
   if (format & V_ATTR_UV2)
   {
-    SetVertexUv(uv2, dest);
+    SetVertexUv2(uv2, dest);
   }
 }
 
@@ -283,7 +287,7 @@ static GG_INLINE void SetVertexUv3(const TVec2f& uv3, T_UINT32 format, unsigned 
 {
   if (format & V_ATTR_UV3)
   {
-    SetVertexUv(uv3, dest);
+    SetVertexUv3(uv3, dest);
   }
 }
 
@@ -291,7 +295,7 @@ static GG_INLINE void SetVertexUv4(const TVec2f& uv4, T_UINT32 format, unsigned 
 {
   if (format & V_ATTR_UV4)
   {
-    SetVertexUv(uv4, dest);
+    SetVertexUv4(uv4, dest);
   }
 }
 
@@ -333,4 +337,196 @@ static GG_INLINE void SetIndexIndex(T_UINT32 index, IndexFormat format, unsigned
   }
 }
 
+//==========================================================================================
+// Getter
+//==========================================================================================
+
+static GG_INLINE void GetVertexPosition(TVec3f* pos, unsigned char** dest)
+{
+  T_FLOAT* p = (T_FLOAT*)(*dest);
+  (*pos).x = p[0];
+  (*pos).y = p[1];
+  (*pos).z = p[2];
+  (*dest) += V_ATTRSIZE_POSITION;
+}
+
+static GG_INLINE void GetVertexNormal(TVec3f* norm, unsigned char** dest)
+{
+  T_FLOAT* p = (T_FLOAT*)(*dest);
+  (*norm).x = p[0];
+  (*norm).y = p[1];
+  (*norm).z = p[2];
+  (*dest) += V_ATTRSIZE_NORMAL;
+}
+
+static GG_INLINE void GetVertexUv(TVec2f* uv, unsigned char** dest)
+{
+  T_FLOAT* p = (T_FLOAT*)(*dest);
+  (*uv).x = p[0];
+  (*uv).y = p[1];
+  (*dest) += V_ATTRSIZE_UV;
+}
+
+static GG_INLINE void GetVertexUv2(TVec2f* uv, unsigned char** dest)
+{
+  T_FLOAT* p = (T_FLOAT*)(*dest);
+  (*uv).x = p[0];
+  (*uv).y = p[1];
+  (*dest) += V_ATTRSIZE_UV2;
+}
+
+static GG_INLINE void GetVertexUv3(TVec2f* uv, unsigned char** dest)
+{
+  T_FLOAT* p = (T_FLOAT*)(*dest);
+  (*uv).x = p[0];
+  (*uv).y = p[1];
+  (*dest) += V_ATTRSIZE_UV3;
+}
+
+static GG_INLINE void GetVertexUv4(TVec2f* uv, unsigned char** dest)
+{
+  T_FLOAT* p = (T_FLOAT*)(*dest);
+  (*uv).x = p[0];
+  (*uv).y = p[1];
+  (*dest) += V_ATTRSIZE_UV4;
+}
+
+static GG_INLINE void GetVertexTangent(TVec4f* tangent, unsigned char** dest)
+{
+  T_FLOAT* p = (T_FLOAT*)(*dest);
+  (*tangent).x = p[0];
+  (*tangent).y = p[1];
+  (*tangent).z = p[2];
+  (*tangent).w = p[3];
+  (*dest) += V_ATTRSIZE_TANGENT;
+}
+
+static GG_INLINE void GetVertexColor(TColor* color, unsigned char** dest)
+{
+  T_UINT32* p = (T_UINT32*)(*dest);
+  T_UINT8 r, g, b, a;
+  Application::GetPlatform()->GetGraphicsAPI()->UnpackColor4u8(p[0], &r, &g, &b, &a);
+  (*color).r = r / 255.0f;
+  (*color).g = g / 255.0f;
+  (*color).b = b / 255.0f;
+  (*color).a = a / 255.0f;
+  (*dest) += V_ATTRSIZE_COLOR;
+}
+
+static GG_INLINE void GetVertexBoneWeights(T_FLOAT** bone_weight, unsigned char** dest)
+{
+  T_FLOAT* p = (T_FLOAT*)(*dest);
+  (*bone_weight[0]) = p[0];
+  (*bone_weight[1]) = p[1];
+  (*bone_weight[2]) = p[2];
+  (*bone_weight[3]) = p[3];
+  (*bone_weight[4]) = p[4];
+  (*bone_weight[5]) = p[5];
+  (*bone_weight[6]) = p[6];
+  (*bone_weight[7]) = p[7];
+  (*dest) += V_ATTRSIZE_BONE_WEIGHTS;
+}
+
+static GG_INLINE void GetIndexIndex16(T_UINT32* index, unsigned char** dest)
+{
+  T_FIXED_UINT16* p = (T_FIXED_UINT16*)(*dest);
+  (*index) = (*p);
+  (*dest) += INDEX_FORMAT_SIZES[static_cast<T_UINT8>(IndexFormat::INDEX_FMT_16)];
+  return;
+}
+
+static GG_INLINE void GetIndexIndex32(T_UINT32* index, unsigned char** dest)
+{
+  T_FIXED_UINT32* p = (T_FIXED_UINT32*)(*dest);
+  (*index) = (*p);
+  (*dest) += INDEX_FORMAT_SIZES[static_cast<T_UINT8>(IndexFormat::INDEX_FMT_32)];
+  return;
+}
+
+
+static GG_INLINE void GetVertexPosition(TVec3f* pos, T_UINT32 format, unsigned char** dest)
+{
+  if (format & V_ATTR_POSITION)
+  {
+    GetVertexPosition(pos, dest);
+  }
+}
+
+static GG_INLINE void GetVertexNormal(TVec3f* norm, T_UINT32 format, unsigned char** dest)
+{
+  if (format & V_ATTR_NORMAL)
+  {
+    GetVertexNormal(norm, dest);
+  }
+}
+
+static GG_INLINE void SetVertexUv(TVec2f* uv, T_UINT32 format, unsigned char** dest)
+{
+  if (format & V_ATTR_UV)
+  {
+    GetVertexUv(uv, dest);
+  }
+}
+
+static GG_INLINE void GetVertexUv2(TVec2f* uv2, T_UINT32 format, unsigned char** dest)
+{
+  if (format & V_ATTR_UV2)
+  {
+    GetVertexUv2(uv2, dest);
+  }
+}
+
+static GG_INLINE void SetVertexUv3(TVec2f* uv3, T_UINT32 format, unsigned char** dest)
+{
+  if (format & V_ATTR_UV3)
+  {
+    GetVertexUv3(uv3, dest);
+  }
+}
+
+static GG_INLINE void SetVertexUv4(TVec2f* uv4, T_UINT32 format, unsigned char** dest)
+{
+  if (format & V_ATTR_UV4)
+  {
+    GetVertexUv4(uv4, dest);
+  }
+}
+
+static GG_INLINE void SetVertexTangent(TVec4f* tangent, T_UINT32 format, unsigned char** dest)
+{
+  if (format & V_ATTR_TANGENT)
+  {
+    GetVertexTangent(tangent, dest);
+  }
+}
+
+static GG_INLINE void GetVertexColor(TColor* color, T_UINT32 format, unsigned char** dest)
+{
+  if (format & V_ATTR_COLOR)
+  {
+    GetVertexColor(color, dest);
+  }
+}
+
+static GG_INLINE void GetVertexBoneWeights(T_FLOAT** bone_weight, T_UINT32 format, unsigned char** dest)
+{
+  if (format & V_ATTR_BONE_WEIGHTS)
+  {
+    GetVertexBoneWeights(bone_weight, dest);
+  }
+}
+
+static GG_INLINE void GetIndexIndex(T_UINT32* index, IndexFormat format, unsigned char** dest)
+{
+  if (format == IndexFormat::INDEX_FMT_16)
+  {
+    GetIndexIndex16(index, dest);
+    return;
+  }
+  if (format == IndexFormat::INDEX_FMT_32)
+  {
+    GetIndexIndex32(index, dest);
+    return;
+  }
+}
 } // namespace Vertex

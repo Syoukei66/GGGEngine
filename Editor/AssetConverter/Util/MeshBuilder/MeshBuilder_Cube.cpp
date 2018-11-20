@@ -28,7 +28,7 @@ MeshBuilder_Cube::MeshBuilder_Cube()
 {
 }
 
-UniqueRef<rcMesh> MeshBuilder_Cube::CreateMesh() const
+UniqueRef<rcDynamicMesh> MeshBuilder_Cube::CreateMesh() const
 {
   return MeshFactory::Cube::Create(
     this->format_, 

@@ -172,6 +172,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClCompile Include="Json\JsonData.cpp" />
     <ClCompile Include="Json\JsonParser.cpp" />
     <ClCompile Include="Material\Material.cpp" />
+    <ClCompile Include="Mesh\DynamicMesh.cpp" />
     <ClCompile Include="Mesh\Mesh.cpp" />
     <ClCompile Include="Mesh\MeshFactory\MeshFactory_Cube.cpp" />
     <ClCompile Include="Mesh\MeshFactory\MeshFactory_Plane.cpp" />
@@ -203,6 +204,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="Mesh\Mesh.h" />
     <ClInclude Include="Mesh\MeshFactory\MeshFactory_Cube.h" />
     <ClInclude Include="Mesh\MeshFactory\MeshFactory_Plane.h" />
+    <ClInclude Include="Mesh\DynamicMesh.h" />
     <ClInclude Include="StaticModel\StaticModel.h" />
     <ClInclude Include="Particle\ParticleData.h" />
     <ClInclude Include="Particle\ParticleDataManager.h" />

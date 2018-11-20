@@ -1,6 +1,6 @@
 #include "MeshFactory_Cube.h"
 
-static void CreateFaceVertices(T_UINT32& i, const TVec3f& normal, T_UINT32 format, const TVec3f& scale, T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, const TVec3f& tile_count, const UniqueRef<rcMesh>& dest)
+static void CreateFaceVertices(T_UINT32& i, const TVec3f& normal, T_UINT32 format, const TVec3f& scale, T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, const TVec3f& tile_count, const UniqueRef<rcDynamicMesh>& dest)
 {
   using namespace Vertex;
 
@@ -57,7 +57,7 @@ static void CreateFaceVertices(T_UINT32& i, const TVec3f& normal, T_UINT32 forma
   }
 }
 
-static void CreateVertices(T_UINT32 format, const TVec3f& scale, T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, const TVec3f& tile_count, const UniqueRef<rcMesh>& dest)
+static void CreateVertices(T_UINT32 format, const TVec3f& scale, T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, const TVec3f& tile_count, const UniqueRef<rcDynamicMesh>& dest)
 {
   T_UINT32 v = 0;
   CreateFaceVertices(v, TVec3f::back, format, scale, resolution_x, resolution_y, resolution_z, tile_count, dest);
@@ -68,7 +68,7 @@ static void CreateVertices(T_UINT32 format, const TVec3f& scale, T_UINT32 resolu
   CreateFaceVertices(v, TVec3f::down, format, scale, resolution_x, resolution_y, resolution_z, tile_count, dest);
 }
 
-static int SetQuad(T_UINT32 i, T_UINT32 v00, T_UINT32 v10, T_UINT32 v01, T_UINT32 v11, const UniqueRef<rcMesh>& dest)
+static int SetQuad(T_UINT32 i, T_UINT32 v00, T_UINT32 v10, T_UINT32 v01, T_UINT32 v11, const UniqueRef<rcDynamicMesh>& dest)
 {
   dest->SetIndex(i, v00);
 
@@ -83,7 +83,7 @@ static int SetQuad(T_UINT32 i, T_UINT32 v00, T_UINT32 v10, T_UINT32 v01, T_UINT3
   return i + 6;
 }
 
-static void CreateFaceTriangles(T_UINT32& t, T_UINT32& v, const TVec3f& normal, T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, const UniqueRef<rcMesh>& dest)
+static void CreateFaceTriangles(T_UINT32& t, T_UINT32& v, const TVec3f& normal, T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, const UniqueRef<rcDynamicMesh>& dest)
 {
   const TVec3f tangent = normal.x == 0.0f && normal.z == 0.0f ? TVec3f::Cross(normal, TVec3f::forward) : TVec3f::Cross(normal, TVec3f::up);
   const TVec3f binormal = TVec3f::Cross(tangent, normal);
@@ -101,7 +101,7 @@ static void CreateFaceTriangles(T_UINT32& t, T_UINT32& v, const TVec3f& normal, 
   v += xSize + 1;
 }
 
-static void CreateTriangles(T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, const UniqueRef<rcMesh>& dest)
+static void CreateTriangles(T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z, const UniqueRef<rcDynamicMesh>& dest)
 {
   T_UINT32 t = 0, v = 0;
   CreateFaceTriangles(t, v, TVec3f::back, resolution_x, resolution_y, resolution_z, dest);
@@ -112,14 +112,14 @@ static void CreateTriangles(T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT
   CreateFaceTriangles(t, v, TVec3f::down, resolution_x, resolution_y, resolution_z, dest);
 }
 
-UniqueRef<rcMesh> MeshFactory::Cube::Create(
+UniqueRef<rcDynamicMesh> MeshFactory::Cube::Create(
   T_UINT32 format,
   T_FLOAT scale_x, T_FLOAT scale_y, T_FLOAT scale_z,
   T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z,
   T_FLOAT tile_count_x, T_FLOAT tile_count_y, T_FLOAT tile_count_z
 )
 {
-  UniqueRef<rcMesh> ret = rcMesh::Create();
+  UniqueRef<rcDynamicMesh> ret = rcDynamicMesh::Create();
 
   const T_UINT32 zFaceVertices = (resolution_x + 1) * (resolution_y + 1);
   const T_UINT32 xFaceVertices = (resolution_y + 1) * (resolution_z + 1);
@@ -132,18 +132,9 @@ UniqueRef<rcMesh> MeshFactory::Cube::Create(
   const T_UINT32 polygon_count = (xFaceQuads + yFaceQuads + zFaceQuads) * 2 * 2;
   const T_UINT32 index_count = polygon_count * 3;
 
-  ret->CreateVertices(vertex_count, polygon_count, format);
+  ret->CreateVertices(vertex_count, format);
 
-  using namespace Vertex;
-
-  const T_UINT32 index_max = (resolution_x + 1) * (resolution_y + 1) * (resolution_z + 1);
-  IndexFormat index_format = IndexFormat::INDEX_FMT_16;
-  if (index_max > Limit::T_FIXED_UINT16_MAX)
-  {
-    index_format = IndexFormat::INDEX_FMT_32;
-  }
-
-  ret->AddIndices(index_count, polygon_count, index_format);
+  ret->AddIndices(index_count, polygon_count);
 
   CreateVertices(format, { scale_x, scale_y, scale_z }, resolution_x, resolution_y, resolution_z, { tile_count_x, tile_count_y, tile_count_z }, ret);
   CreateTriangles(resolution_x, resolution_y, resolution_z, ret);

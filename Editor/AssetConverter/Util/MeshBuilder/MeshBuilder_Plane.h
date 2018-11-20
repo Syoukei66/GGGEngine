@@ -20,7 +20,7 @@ public:
   // Methods
   // =================================================================
 public:
-  virtual UniqueRef<rcMesh> CreateMesh() const override;
+  virtual UniqueRef<rcDynamicMesh> CreateMesh() const override;
 
   // =================================================================
   // Serializer
