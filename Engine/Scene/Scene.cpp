@@ -67,12 +67,12 @@ void Scene::Draw()
 
 void Scene::Draw2DLayers(GameObjectRenderState* state)
 {
-  this->root2d_->ManagedDraw(state);
+  this->root2d_->Draw(state);
 }
 
 void Scene::Draw3DLayers(GameObjectRenderState* state)
 {
-  this->root3d_->ManagedDraw(state);
+  this->root3d_->Draw(state);
 }
 
 void Scene::OnUpdateEvent()

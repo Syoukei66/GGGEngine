@@ -42,7 +42,7 @@ private:
 public:
   GG_INLINE GameObject3D* GetPlayer() const
   {
-    return ((GameObject3D*)this->entity_)->GetParent();
+    return (GameObject3D*)this->entity_->GetParent();
   }
 
   GG_INLINE void SetTarget(GameObject3D* target)

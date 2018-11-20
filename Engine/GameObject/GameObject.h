@@ -19,56 +19,50 @@ public:
   // Methods
   // =================================================================
 public:
-  virtual void Init();
+  void AddChild(GameObject* child);
+  void RemoveChild(GameObject* child);
+  void RemoveSelf();
+  void ClearChildren();
 
   // =================================================================
   // Events
   // =================================================================
 public:
-  //TODO:描画処理は描画スレッドに描画コマンドを送信する事で実現するように変更(Rendererが行う)
-  virtual void ManagedDraw(GameObjectRenderState* state) = 0;
-
-  //TODO:アップデート処理はタスクスレッドにタスクを渡す事で実現するように変更する
-  virtual void ManagedPreUpdate() = 0;
-  virtual void ManagedUpdate() = 0;
-  virtual void ManagedPostUpdate() = 0;
-
-protected:
   void Draw(GameObjectRenderState* state);
 
+  void ManagedPreUpdate();
+  void ManagedUpdate();
+  void ManagedPostUpdate();
+
+  void FireOnPositionChanged();
+  void FireOnScaleChanged();
+  void FireOnRotationChanged();
+
+protected:
   virtual void PreUpdate() {}
   virtual void Update() {}
   virtual void PostUpdate() {}
 
   // =================================================================
-  // Events
-  // =================================================================
-public:
-  virtual void FireOnPositionChanged(GameObject* root) = 0;
-  virtual void FireOnScaleChanged(GameObject* root) = 0;
-  virtual void FireOnRotationChanged(GameObject* root) = 0;
-
-protected:
-  virtual void OnPositionChanged(GameObject* root) {}
-  virtual void OnScaleChanged(GameObject* root) {}
-  virtual void OnRotationChanged(GameObject* root) {}
-  
-  // =================================================================
-  // Hierarchy 
-  // =================================================================
-public:
-
-  // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  GG_INLINE void SetVisible(bool visible)
+  GG_INLINE bool HasParent() const
   {
-    this->visible_ = visible;
+    return this->parent_;
   }
-  GG_INLINE bool IsVisible() const
+  GG_INLINE GameObject* GetParent() const
   {
-    return this->visible_;
+    return this->parent_;
+  }
+
+  GG_INLINE void SetEnabled(bool enabled)
+  {
+    this->enabled_ = enabled;
+  }
+  GG_INLINE bool IsEnabled() const
+  {
+    return this->enabled_;
   }
 
   GG_INLINE void SetRenderer(Renderer* renderer)
@@ -143,6 +137,10 @@ protected:
   Transform* transform_;
 
 private:
-	bool visible_;
+	bool enabled_;
+  GameObject* parent_;
+  std::vector<GameObject*> children_;
+
   Renderer* renderer_;
+
 };

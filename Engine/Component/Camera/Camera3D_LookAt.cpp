@@ -59,7 +59,7 @@ void Camera3D_LookAt::CheckViewDirty()
   this->view_matrix_ = Matrix4x4::identity;
   if (this->target_)
   {
-    GameObject3D* player = ((GameObject3D*)this->entity_)->GetParent();
+    GameObject3D* player = (GameObject3D*)this->entity_->GetParent();
     if (player)
     {
       TVec3f camera_pos = player->GetTransform()->GetWorldPosition();
