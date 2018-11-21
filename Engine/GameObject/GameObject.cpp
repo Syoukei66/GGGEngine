@@ -36,15 +36,11 @@ void GameObject::RemoveSelf()
   }
   const auto& itr = std::find(this->parent_->children_.begin(), this->parent_->children_.end(), SharedRef<GameObject>(this));
   this->parent_->children_.erase(itr);
-  this->parent_ = nullptr;
+  this->parent_.Reset();
 }
 
 void GameObject::ClearChildren()
 {
-  for (const SharedRef<GameObject>& child : this->children_)
-  {
-    child->parent_ = nullptr;
-  }
   this->children_.clear();
 }
 

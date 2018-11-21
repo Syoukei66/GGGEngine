@@ -7,7 +7,7 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-Renderer::Renderer(const SharedRef<GameObject>& entity)
+Renderer::Renderer(const WeakRef<GameObject>& entity)
   : entity_(entity)
   , layer_id_(0)
 {

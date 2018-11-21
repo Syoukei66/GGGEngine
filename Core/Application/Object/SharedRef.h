@@ -7,6 +7,9 @@
 template <class Obj_>
 class SharedRef;
 
+template <class Obj_>
+class WeakRef;
+
 /*!
  * @brief GGObjectê—p‚Ìshared_ptr
  */
@@ -15,6 +18,8 @@ class SharedRef : public GGRef<Obj_>
 {
   template <class OtherObj_>
   friend class SharedRef;
+  template <class OtherObj_>
+  friend class WeakRef;
 
   // =================================================================
   // Constructor / Destructor

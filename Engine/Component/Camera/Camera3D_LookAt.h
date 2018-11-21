@@ -42,7 +42,7 @@ private:
 public:
   GG_INLINE SharedRef<GameObject3D> GetPlayer() const
   {
-    return SharedRef<GameObject3D>::StaticCast(this->entity_->GetParent());
+    return SharedRef<GameObject3D>::StaticCast(this->entity_->GetParent().Lock());
   }
 
   GG_INLINE void SetTarget(GameObject3D* target)

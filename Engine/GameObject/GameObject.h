@@ -50,7 +50,7 @@ public:
   {
     return this->parent_ != nullptr;
   }
-  GG_INLINE SharedRef<GameObject> GetParent() const
+  GG_INLINE WeakRef<GameObject> GetParent() const
   {
     return this->parent_;
   }
@@ -137,7 +137,7 @@ protected:
 
 private:
 	bool enabled_;
-  SharedRef<GameObject> parent_;
+  WeakRef<GameObject> parent_;
   std::vector<SharedRef<GameObject>> children_;
 
   Renderer* renderer_;

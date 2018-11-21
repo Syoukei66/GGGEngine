@@ -59,7 +59,7 @@ void Camera3D_LookAt::CheckViewDirty()
   this->view_matrix_ = Matrix4x4::identity;
   if (this->target_)
   {
-    const SharedRef<GameObject3D>& player = SharedRef<GameObject3D>::StaticCast(this->entity_->GetParent());
+    const SharedRef<GameObject3D>& player = SharedRef<GameObject3D>::StaticCast(this->entity_->GetParent().Lock());
     if (player)
     {
       TVec3f camera_pos = player->GetTransform()->GetWorldPosition();

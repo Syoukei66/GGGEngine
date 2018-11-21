@@ -4,7 +4,7 @@
 // =================================================================
 // Factory Method
 // =================================================================
-MeshRenderer* MeshRenderer::Create(const SharedRef<const rcMesh>& mesh, const SharedRef<GameObject>& entity)
+MeshRenderer* MeshRenderer::Create(const SharedRef<const rcMesh>& mesh, const WeakRef<GameObject>& entity)
 {
   MeshRenderer* ret = new MeshRenderer(entity);
   ret->SetMesh(mesh);
@@ -14,7 +14,7 @@ MeshRenderer* MeshRenderer::Create(const SharedRef<const rcMesh>& mesh, const Sh
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-MeshRenderer::MeshRenderer(const SharedRef<GameObject>& entity)
+MeshRenderer::MeshRenderer(const WeakRef<GameObject>& entity)
   : Renderer(entity)
   , mesh_()
   , submesh_visible_()

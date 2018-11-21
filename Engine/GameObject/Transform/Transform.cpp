@@ -95,7 +95,7 @@ void Transform::UpdateWorldMatrix()
     return;
   }
   this->world_matrix_ = this->GetMatrix();
-  const SharedRef<GameObject>& parent = this->entity_->GetParent();
+  const SharedRef<GameObject>& parent = this->entity_->GetParent().Lock();
   if (parent)
   {
     this->world_matrix_ *= parent->GetWorldMatrix();

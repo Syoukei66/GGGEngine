@@ -5,7 +5,7 @@
 #include "SharedRef.h"
 
 template <class Obj_>
-class SharedRef;
+class WeakRef;
 
 /*!
  * @brief GGObjectêÍópÇÃweak_ptr
@@ -13,6 +13,9 @@ class SharedRef;
 template <class Obj_>
 class WeakRef : public GGRef<Obj_>
 {
+  template <class OtherObj_>
+  friend class WeakRef;
+
   // =================================================================
   // Constructor / Destructor
   // =================================================================
@@ -139,6 +142,24 @@ public:
     this->ptr_ = o.ptr_;
     o.ptr_ = nullptr;
     return *this;
+  }
+
+  // =================================================================
+  // Method
+  // =================================================================
+public:
+  GG_INLINE void Reset() const
+  {
+    const_cast<WeakRef<Obj_>*>(this)->ptr_ = nullptr;
+  }
+
+  GG_INLINE SharedRef<Obj_> Lock() const
+  {
+    if (this->ptr_)
+    {
+      return SharedRef<Obj_>(this->ptr_);
+    }
+    return nullptr;
   }
 
 };

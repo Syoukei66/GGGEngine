@@ -11,13 +11,13 @@ class SpriteRenderer : public Renderer
   // FactoryMethod
   // =================================================================
 public:
-  static SpriteRenderer* Create(const SharedRef<rcSprite>& sprite, const SharedRef<GameObject>& obj);
+  static SpriteRenderer* Create(const SharedRef<rcSprite>& sprite, const WeakRef<GameObject>& obj);
 
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  SpriteRenderer(const SharedRef<GameObject>& entity);
+  SpriteRenderer(const WeakRef<GameObject>& entity);
   ~SpriteRenderer();
 
   // =================================================================
