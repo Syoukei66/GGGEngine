@@ -48,8 +48,8 @@ public:
   * @brief ムーブコンストラクタ。
   * 他の変換可能なUniqueRefから所有権を移動する。
   */
-  template <class _OtherObj>
-  GG_INLINE UniqueRef(UniqueRef<_OtherObj>&& o) noexcept
+  template <class OtherObj_, GGRefConvertible<Obj_, OtherObj_> = nullptr>
+  GG_INLINE UniqueRef(UniqueRef<OtherObj_>&& o) noexcept
   {
     this->ptr_ = o.ptr_;
     o.ptr_ = nullptr;
@@ -76,7 +76,7 @@ public:
   * @brief 自身が保持している所有権を放棄し、
   * 他の変換可能なUniqueRefが持つ所有権を移動する。
   */
-  template <class OtherObj_>
+  template <class OtherObj_, GGRefConvertible<Obj_, OtherObj_> = nullptr>
   GG_INLINE UniqueRef& operator = (UniqueRef<OtherObj_>&& o) noexcept
   {
     if (this->ptr_)

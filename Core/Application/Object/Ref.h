@@ -2,6 +2,41 @@
 
 #include "ObjectManager.h"
 
+class GGObject;
+
+/*!
+ * @brief SFINAEの為にポインタの型チェックに用いる
+ */
+template <class From_, class To_>
+using GGRefConvertible = std::enable_if_t<
+  std::is_same<From_, To_>::value ||
+  std::is_base_of<To_, From_>::value ||
+  std::is_convertible<From_, To_>::value,
+  std::nullptr_t
+>;
+
+/*!
+ * @brief SFINAEの為にポインタの型チェックに用いる
+ */
+template <class From_, class To_>
+using GGRefStaticCastbale = std::enable_if_t<
+  std::is_same<From_, To_>::value ||
+  std::is_base_of<To_, From_>::value ||
+  std::is_convertible<From_, To_>::value,
+  std::nullptr_t
+>;
+
+/*!
+ * @brief SFINAEの為にポインタの型チェックに用いる
+ */
+template <class Obj_>
+using GGIsObject = std::enable_if_t<
+  std::is_same<Obj_, GGObject>::value ||
+  std::is_base_of<GGObject, Obj_>::value ||
+  std::is_convertible<Obj_, GGObject>::value,
+  std::nullptr_t
+>;
+
 template <class Obj_>
 class GGRef
 {
@@ -30,6 +65,7 @@ protected:
    * @brief 生ポインタの所有権を受け取り、
    * オブジェクト管理クラスへ追加。
    */
+  template <GGIsObject<Obj_> = nullptr>
   GG_INLINE explicit GGRef(Obj_* ptr)
   {
     ptr->Retain();

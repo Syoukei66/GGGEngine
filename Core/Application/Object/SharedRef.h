@@ -67,7 +67,6 @@ public:
   template <class OtherObj_>
   GG_INLINE SharedRef(const SharedRef<OtherObj_>& o) noexcept
   {
-    static_assert(std::is_base_of<Obj_, OtherObj_>::value, "type parameter of this class must derive from BaseClass");
     if (o.ptr_)
     {
       o.ptr_->Retain();
@@ -89,10 +88,9 @@ public:
    * @brief ムーブコンストラクタ。
    * 他の変換可能なSharedRefから所有権を移動する。
    */
-  template <class OtherObj_>
+  template <class OtherObj_, GGRefConvertible<Obj_, OtherObj_> = nullptr>
   GG_INLINE SharedRef(SharedRef<OtherObj_>&& o) noexcept
   {
-    static_assert(std::is_base_of<Obj_, OtherObj_>::value, "type parameter of this class must derive from BaseClass");
     this->ptr_ = o.ptr_;
     o.ptr_ = nullptr;
   }
@@ -101,10 +99,9 @@ public:
    * @brief ムーブコンストラクタ。
    * 他の変換可能なUniqueRefから所有権を移動する。
    */
-  template <class OtherObj_>
+  template <class OtherObj_, GGRefConvertible<Obj_, OtherObj_> = nullptr>
   GG_INLINE SharedRef(UniqueRef<OtherObj_>&& o) noexcept
   {
-    static_assert(std::is_base_of<Obj_, OtherObj_>::value, "type parameter of this class must derive from BaseClass");
     this->ptr_ = o.ptr_;
     o.ptr_ = nullptr;
   }
@@ -114,7 +111,7 @@ public:
    * 生ポインタを引数としたコンストラクタを起動してしまうと
    * ObjectManagerへ二重登録がされてしまう為避けている。
    */
-  template <class OtherObj_>
+  template <class OtherObj_, GGRefStaticCastbale<Obj_, OtherObj_> = nullptr>
   static GG_INLINE SharedRef<Obj_> StaticCast(const SharedRef<OtherObj_>& ref)
   {
     SharedRef<Obj_> ret;
@@ -162,7 +159,7 @@ public:
    * @brief 自身が保持している所有権を放棄し、
    * 他の変換可能なSharedRefが持つ所有権を共有する。
    */
-  template <class OtherObj_>
+  template <class OtherObj_, GGRefConvertible<Obj_, OtherObj_> = nullptr>
   GG_INLINE SharedRef& operator = (const SharedRef<OtherObj_>& o) noexcept
   {
     if (o.ptr_)
@@ -196,7 +193,7 @@ public:
    * @brief 自身が保持している所有権を放棄し、
    * 他の変換可能なSharedRefが持つ所有権を移動する。
    */
-  template <class OtherObj_>
+  template <class OtherObj_, GGRefConvertible<Obj_, OtherObj_> = nullptr>
   GG_INLINE SharedRef& operator = (SharedRef<OtherObj_>&& o) noexcept
   {
     if (this->ptr_)
@@ -212,7 +209,7 @@ public:
    * @brief 自身が保持している所有権を放棄し、
    * 他の変換可能なUniqueRefが持つ所有権を移動する。
    */
-  template <class OtherObj_>
+  template <class OtherObj_, GGRefConvertible<Obj_, OtherObj_> = nullptr>
   GG_INLINE SharedRef& operator = (UniqueRef<OtherObj_>&& o) noexcept
   {
     if (this->ptr_)
