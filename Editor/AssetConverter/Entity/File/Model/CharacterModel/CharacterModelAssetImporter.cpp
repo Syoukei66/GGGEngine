@@ -106,7 +106,7 @@ SharedRef<ModelDynamicMeshAssetEntity> ImportMesh(const AssetMetaData* model_ass
   ret->RecalculateBounds();
 
   AssetMetaData* mesh_asset_info = AssetMetaData::Create(
-    URI(model_asset_info->GetURI().GetDirectoryPath(), model_asset_info->GetURI().GetPrefix(), Extensions::DYNAMIC_MESH),
+    URI(model_asset_info->GetURI().GetDirectoryPath(), model_asset_info->GetURI().GetPrefix() + mesh->mName.C_Str(), Extensions::DYNAMIC_MESH),
     model_asset_info->GetUniqueID(),
     context
   );
@@ -175,7 +175,6 @@ SharedRef<CharacterModelAssetEntity> CharacterModelAssetImporter::ImportProcess(
     aiProcess_GenSmoothNormals | // generate smooth normal vectors if not existing
     aiProcess_SplitLargeMeshes | // split large, unrenderable meshes into submeshes
     aiProcess_Triangulate | // triangulate polygons with more than 3 edges
-    aiProcess_PreTransformVertices |
     aiProcess_ConvertToLeftHanded | // convert everything to D3D left handed space
     aiProcess_SortByPType | // make 'clean' meshes which consist of a single typ of primitives
     0,
@@ -217,13 +216,8 @@ SharedRef<CharacterModelAssetEntity> CharacterModelAssetImporter::ImportProcess(
       const SharedRef<AssetEntity>& material_asset_entity = context->AddEntity(ImportMaterial(mat_asset_info, mat, context));
       material_asset_infos.push_back(mat_asset_info);
       referenced_assets.push_back(material_asset_entity);
+      data->material_unique_ids_.emplace_back(mat_asset_info->GetUniqueID());
     }
-  }
-
-  for (T_UINT32 i = 0; i < scene->mNumMeshes; ++i)
-  {
-    aiMesh* mesh = scene->mMeshes[i];
-    data->material_unique_ids_.push_back(material_asset_infos[mesh->mMaterialIndex]->GetUniqueID());
   }
 
   // Node

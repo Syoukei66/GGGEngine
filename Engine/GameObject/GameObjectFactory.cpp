@@ -32,7 +32,7 @@ SharedRef<GameObject3D> CreateNode(const SharedRef<rcCharacterModel>& model, con
   for (T_FIXED_UINT32 index : node.mesh_indices_)
   {
     SharedRef<GameObject3D> mesh_obj = GameObject3D::Create();
-    const SharedRef<const rcMesh>& mesh = model->GetMesh(index);
+    const SharedRef<const rcDynamicMesh>& mesh = model->GetMesh(index);
     const SharedRef<const rcMaterial>& material = model->GetMeshMaterial(index);
     const SharedRef<MeshRenderer>& mesh_renderer = mesh_obj->AddComponent<MeshRenderer>();
     mesh_renderer->SetMesh(mesh);
