@@ -7,12 +7,10 @@
 class Camera3D : public Camera
 {
   // =================================================================
-  // Constructor / Destructor
+  // GGG Statement
   // =================================================================
-public:
-  Camera3D(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_min, T_FLOAT z_max);
-  Camera3D();
-  virtual ~Camera3D();
+  GG_COMPONENT(Camera3D);
+  GG_INIT_FUNC_1(Camera3D, GameObject*);
 
   // =================================================================
   // Methods for/from SuperClass/Interfaces
@@ -54,11 +52,11 @@ public:
 
   GG_INLINE Transform3D* GetTransform()
   {
-    return SharedRef<GameObject3D>::StaticCast(this->entity_)->GetTransform();
+    return SharedRef<GameObject3D>::StaticCast(this->GetObject())->GetTransform();
   }
   GG_INLINE const Transform3D* GetTransform() const
   {
-    return SharedRef<const GameObject3D>::StaticCast(this->entity_)->GetTransform();
+    return SharedRef<const GameObject3D>::StaticCast(this->GetObject())->GetTransform();
   }
   void SetFov(T_FLOAT fov);
   GG_INLINE T_FLOAT GetFov() const

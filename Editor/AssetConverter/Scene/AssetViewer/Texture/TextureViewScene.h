@@ -16,6 +16,6 @@ public:
   // =================================================================
 private:
   SharedRef<GameObject2D> obj_;
-  Camera2D* camera_3d_;
+  SharedRef<GameObject2D> camera_;
 
 };

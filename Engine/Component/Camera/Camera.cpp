@@ -3,37 +3,23 @@
 #include <Engine/GameObject/GameObjectRenderState.h>
 
 // =================================================================
-// Constructor / Destructor
+// GGG Statement
 // =================================================================
-Camera::Camera(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_min, T_FLOAT z_max)
-  : entity_(nullptr)
-  , direction_(0.0f, 0.0f, 1.0f)
-  , target_texture_(nullptr)
-  , viewport_clear_(true)
-  , position_(x, y)
-  , size_(width, height)
-  , z_min_(z_min)
-  , z_max_(z_max)
+GG_INIT_FUNC_IMPL_1(Camera, GameObject* obj)
 {
+  this->direction_ = TVec3f::forward;
+  this->viewport_clear_ = true;
+  this->size_ = Application::GetMainActivity()->GetScreenSize();
+  this->z_min_ = 0.0f;
+  this->z_max_ = 1.0f;
   this->render_state_ = new GameObjectRenderState(this);
+  return GameComponent::Init(obj);
 }
 
-Camera::Camera()
-  : entity_(nullptr)
-  , direction_(0.0f, 0.0f, 1.0f)
-  , target_texture_(nullptr)
-  , viewport_clear_(true)
-  , position_(0.0f, 0.0f)
-  , size_(Application::GetMainActivity()->GetScreenWidth(), Application::GetMainActivity()->GetScreenHeight())
-  , z_min_(0.0f)
-  , z_max_(1.0f)
-{
-  this->render_state_ = new GameObjectRenderState(this);
-}
-
-Camera::~Camera()
+GG_DESTRUCT_FUNC_IMPL(Camera)
 {
   delete this->render_state_;
+  return true;
 }
 
 // =================================================================

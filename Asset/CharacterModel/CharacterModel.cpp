@@ -1,8 +1,5 @@
 #include "CharacterModel.h"
 
-#include <Asset/Mesh/DynamicMesh.h>
-#include <Asset/Material/Material.h>
-
 // =================================================================
 // GGG Statement
 // =================================================================

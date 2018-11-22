@@ -1,8 +1,7 @@
 #pragma once
 
 #include <Scene/AssetViewer/AssetViewerBehavior.h>
-
-class MeshRenderer;
+#include <Engine/Component/Renderer/MeshRenderer.h>
 
 class TextureViewerBehavior : public AssetViewerBehavior
 {
@@ -27,5 +26,5 @@ public:
   // =================================================================
 private:
   SharedRef<GameObject3D> obj_;
-  MeshRenderer* mesh_renderer_;
+  SharedRef<MeshRenderer> mesh_renderer_;
 };

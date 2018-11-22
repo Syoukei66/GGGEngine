@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Asset/Mesh/Mesh.h>
+#include <Asset/Mesh/DynamicMesh.h>
 #include <Asset/Material/Material.h>
 
 struct CharacterNodeData

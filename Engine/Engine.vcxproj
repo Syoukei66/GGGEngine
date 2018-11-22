@@ -219,13 +219,11 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
   <ItemGroup>
     <ClCompile Include="Component\Camera\Camera.cpp" />
     <ClCompile Include="Component\Camera\Camera2D.cpp" />
-    <ClCompile Include="Component\Camera\Camera2D_MultiTarget.cpp" />
     <ClCompile Include="Component\Camera\Camera3D.cpp" />
     <ClCompile Include="Component\Camera\Camera3D_LookAt.cpp" />
     <ClCompile Include="Component\Collider\Collider3D.cpp" />
     <ClCompile Include="Component\Collider\Collision2D.cpp" />
     <ClCompile Include="Component\Collider\Collision3D.cpp" />
-    <ClCompile Include="Component\GameComponent.cpp" />
     <ClCompile Include="Component\Modifier\EntityModifier.cpp" />
     <ClCompile Include="Component\Modifier\EntityModifierAttribute.cpp" />
     <ClCompile Include="Component\Modifier\EntityModifierFactory.cpp" />
@@ -257,13 +255,13 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
   <ItemGroup>
     <ClInclude Include="Component\Camera\Camera.h" />
     <ClInclude Include="Component\Camera\Camera2D.h" />
-    <ClInclude Include="Component\Camera\Camera2D_MultiTarget.h" />
     <ClInclude Include="Component\Camera\Camera3D.h" />
     <ClInclude Include="Component\Camera\Camera3D_LookAt.h" />
     <ClInclude Include="Component\Collider\Collider2D.h" />
     <ClInclude Include="Component\Collider\Collider3D.h" />
     <ClInclude Include="Component\Collider\Collision2D.h" />
     <ClInclude Include="Component\Collider\Collision3D.h" />
+    <ClInclude Include="Component\ComponentMacro.h" />
     <ClInclude Include="Component\GameComponent.h" />
     <ClInclude Include="Component\Modifier\EntityModifier.h" />
     <ClInclude Include="Component\Modifier\EntityModifierAttribute.h" />

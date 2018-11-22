@@ -16,8 +16,8 @@ SharedRef<GameObject2D> GameObjectFactory::Create(const SharedRef<rcSprite>& spr
 {
   SharedRef<GameObject2D> ret = GameObject2D::Create();
 
-  ret->SetRenderer(SpriteRenderer::Create(sprite, ret));
-
+  ret->AddComponent<SpriteRenderer>()->SetSprite(sprite);
+  
   return ret;
 }
 
@@ -34,9 +34,9 @@ SharedRef<GameObject3D> CreateNode(const SharedRef<rcCharacterModel>& model, con
     SharedRef<GameObject3D> mesh_obj = GameObject3D::Create();
     const SharedRef<const rcMesh>& mesh = model->GetMesh(index);
     const SharedRef<const rcMaterial>& material = model->GetMeshMaterial(index);
-    MeshRenderer* mesh_renderer = MeshRenderer::Create(mesh, ret);
+    const SharedRef<MeshRenderer>& mesh_renderer = mesh_obj->AddComponent<MeshRenderer>();
+    mesh_renderer->SetMesh(mesh);
     mesh_renderer->SetSharedMaterial(material);
-    mesh_obj->SetRenderer(mesh_renderer);
     mesh_root->AddChild(mesh_obj);
   }
 
@@ -68,13 +68,13 @@ SharedRef<GameObject3D> GameObjectFactory::Create(const SharedRef<rcStaticModel>
   SharedRef<GameObject3D> ret = GameObject3D::Create();
 
   const SharedRef<const rcMesh>& mesh = model->GetMesh();
-  MeshRenderer* mesh_renderer = MeshRenderer::Create(mesh, ret);
+  const SharedRef<MeshRenderer>& mesh_renderer = ret->AddComponent<MeshRenderer>();
+  mesh_renderer->SetMesh(mesh);
   const T_UINT8 submesh_count = mesh->GetSubmeshCount();
   for (T_UINT8 i = 0; i < submesh_count; ++i)
   {
     mesh_renderer->SetSharedMaterial(model->GetMaterial(i), i);
   }
-  ret->SetRenderer(mesh_renderer);
 
   return ret;
 }

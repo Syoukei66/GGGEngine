@@ -1,5 +1,6 @@
 #include "GameObject.h"
-#include <stdlib.h>
+
+#include <Engine/Component/Renderer/Renderer.h>
 
 // =================================================================
 // Constructor / Destructor
@@ -10,18 +11,12 @@ GG_INIT_FUNC_IMPL(GameObject)
   return true;
 }
 
-GG_DESTRUCT_FUNC_IMPL(GameObject)
-{
-  delete this->renderer_;
-  return true;
-}
-
 // =================================================================
 // Methods
 // =================================================================
 void GameObject::AddChild(const SharedRef<GameObject>& child)
 {
-  child->parent_ = SharedRef<GameObject>(this);
+  child->parent_ = this;
   this->children_.emplace_back(child);
   child->FireOnPositionChanged();
   child->FireOnScaleChanged();
@@ -36,13 +31,14 @@ void GameObject::RemoveSelf()
   }
   const auto& itr = std::find(this->parent_->children_.begin(), this->parent_->children_.end(), SharedRef<GameObject>(this));
   this->parent_->children_.erase(itr);
-  this->parent_.Reset();
+  this->parent_ = nullptr;
 }
 
 void GameObject::ClearChildren()
 {
   this->children_.clear();
 }
+
 
 // =================================================================
 // Events
@@ -53,9 +49,9 @@ void GameObject::Draw(GameObjectRenderState* state)
   {
     return;
   }
-  if (this->renderer_)
+  if (this->HasComponent<Renderer>())
   {
-    this->renderer_->ReserveDraw(state);
+    this->GetComponent<Renderer>()->ReserveDraw(state);
   }
 
   // Žq‚Ì•`‰æ

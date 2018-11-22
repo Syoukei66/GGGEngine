@@ -4,14 +4,13 @@
 #include <Engine/stdafx.h>
 #include <Engine/Component/Camera/Camera.h>
 #include <Engine/Component/Camera/Camera2D.h>
-#include <Engine/Component/Camera/Camera2D_MultiTarget.h>
 #include <Engine/Component/Camera/Camera3D.h>
 #include <Engine/Component/Camera/Camera3D_LookAt.h>
-#include <Engine/Component/Camera/Camera3D_Transformed.h>
 #include <Engine/Component/Collider/Collider2D.h>
 #include <Engine/Component/Collider/Collider3D.h>
 #include <Engine/Component/Collider/Collision2D.h>
 #include <Engine/Component/Collider/Collision3D.h>
+#include <Engine/Component/ComponentMacro.h>
 #include <Engine/Component/GameComponent.h>
 #include <Engine/Component/Modifier/EntityModifier.h>
 #include <Engine/Component/Modifier/EntityModifierAttribute.h>

@@ -1,6 +1,5 @@
 #include "DynamicMeshViewerBehavior.h"
 #include <Engine/GameObject/Transform/Transform3D.h>
-#include <Engine/Component/Renderer/MeshRenderer.h>
 
 // =================================================================
 // GGG Statement
@@ -8,8 +7,7 @@
 GG_INIT_FUNC_IMPL(DynamicMeshViewerBehavior)
 {
   this->obj_ = GameObject3D::Create();
-  this->mesh_renderer_ = new MeshRenderer(this->obj_);
-  this->obj_->SetRenderer(this->mesh_renderer_);
+  this->mesh_renderer_ = this->obj_->AddComponent<MeshRenderer>();
   return true;
 }
 

@@ -7,17 +7,10 @@ class rcMesh;
 class MeshRenderer : public Renderer
 {
   // =================================================================
-  // Factory Method
+  // GGG Statement
   // =================================================================
-public:
-  static MeshRenderer* Create(const SharedRef<const rcMesh>& mesh, const WeakRef<GameObject>& entity);
-
-  // =================================================================
-  // Constructor / Destructor
-  // =================================================================
-public:
-  MeshRenderer(const WeakRef<GameObject>& entity);
-  virtual ~MeshRenderer();
+  GG_COMPONENT(MeshRenderer);
+  GG_CREATE_FUNC_1(MeshRenderer, GameObject*);
 
   // =================================================================
   // Methods

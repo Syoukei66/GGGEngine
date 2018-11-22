@@ -4,18 +4,16 @@
 #include <Engine/Component/GameComponent.h>
 
 class Scene;
-class GameObject;
 class GameObjectRenderState;
 
 class Camera : public GameComponent
 {
   // =================================================================
-  // Constructor / Destructor
+  // GGG Statement
   // =================================================================
-public:
-  Camera(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_min, T_FLOAT z_max);
-  Camera();
-  virtual ~Camera();
+  GG_COMPONENT(Camera);
+  GG_INIT_FUNC_1(Camera, GameObject*);
+  GG_DESTRUCT_FUNC(Camera);
 
   // =================================================================
   // Methods
@@ -112,15 +110,6 @@ public:
     return this->direction_;
   }
 
-  GG_INLINE SharedRef<GameObject> GetEntity()
-  {
-    return this->entity_;
-  }
-  GG_INLINE SharedRef<const GameObject> GetEntity() const
-  {
-    return this->entity_;
-  }
-
   GG_INLINE GameObjectRenderState* GetRenderState()
   {
     return this->render_state_;
@@ -135,7 +124,6 @@ public:
   // =================================================================
 protected:
   GameObjectRenderState* render_state_;
-  SharedRef<GameObject> entity_;
   TVec3f direction_;
 
 private:

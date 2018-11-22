@@ -42,7 +42,7 @@ public:
    * 生ポインタに対してこの処理を呼び出してくれるので
    * 自動的に管理してくれる
    */
-  static GG_INLINE void Manage(GGObject* obj)
+  static GG_INLINE void Manage(const GGObject* obj)
   {
     if (obj->IsManaged())
     {
@@ -63,6 +63,6 @@ public:
   // Data Members
   // =================================================================
 private:
-  std::list<GGObject*> objects_;
+  std::list<const GGObject*> objects_;
 
 };

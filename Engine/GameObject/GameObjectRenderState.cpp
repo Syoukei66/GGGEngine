@@ -3,6 +3,7 @@
 
 #include <Engine/Component/Camera/Camera.h>
 #include <Engine/GameObject/GameObject.h>
+#include <Engine/Component/Renderer/Renderer.h>
 
 // =================================================================
 // Constructor / Destructor

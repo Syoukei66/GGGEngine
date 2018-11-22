@@ -3,26 +3,12 @@
 #include <Asset/Sprite/Sprite.h>
 
 // =================================================================
-// FactoryMethod
+// GGG Statement
 // =================================================================
-SpriteRenderer* SpriteRenderer::Create(const SharedRef<rcSprite>& sprite, const WeakRef<GameObject>& obj)
-{
-  SpriteRenderer* ret = new SpriteRenderer(obj);
-  ret->SetSprite(sprite);
-  return ret;
-}
-
-// =================================================================
-// Constructor / Destructor
-// =================================================================
-SpriteRenderer::SpriteRenderer(const WeakRef<GameObject>& entity)
-  : Renderer(entity)
+GG_INIT_FUNC_IMPL_1(SpriteRenderer, GameObject* obj)
 {
   this->SetMaterial(AssetManager::Load<rcMaterial>(DefaultUniqueID::MATERIAL_UNLIT));
-}
-
-SpriteRenderer::~SpriteRenderer()
-{
+  return Renderer::Init(obj);
 }
 
 // =================================================================

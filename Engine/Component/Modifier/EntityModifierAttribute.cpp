@@ -126,11 +126,12 @@ public:
 public:
   virtual void SetValue(GameObject2D* entity, const T_FLOAT next) const override
   {
-    entity->GetRenderer()->GetMaterial()->GetMainColor().r = next > 1.0f ? 1.0f : next;
+    //entity->GetRenderer()->GetMaterial()->GetMainColor().r = next > 1.0f ? 1.0f : next;
   }
   virtual T_FLOAT GetValue(GameObject2D* entity) const override
   {
-    return entity->GetRenderer()->GetMaterial()->GetMainColor().r;
+    //return entity->GetRenderer()->GetMaterial()->GetMainColor().r;
+    return 1.0f;
   }
 };
 
@@ -146,11 +147,12 @@ public:
 public:
   virtual void SetValue(GameObject2D* entity, const T_FLOAT next) const override
   {
-    entity->GetRenderer()->GetMaterial()->GetMainColor().g = next > 1.0f ? 1.0f : next;
+    //entity->GetRenderer()->GetMaterial()->GetMainColor().g = next > 1.0f ? 1.0f : next;
   }
   virtual T_FLOAT GetValue(GameObject2D* entity) const override
   {
-    return entity->GetRenderer()->GetMaterial()->GetMainColor().g;
+    //return entity->GetRenderer()->GetMaterial()->GetMainColor().g;
+    return 1.0f;
   }
 };
 
@@ -166,11 +168,12 @@ public:
 public:
   virtual void SetValue(GameObject2D* entity, const T_FLOAT next) const override
   {
-    entity->GetRenderer()->GetMaterial()->GetMainColor().b = next > 1.0f ? 1.0f : next;
+    //entity->GetRenderer()->GetMaterial()->GetMainColor().b = next > 1.0f ? 1.0f : next;
   }
   virtual T_FLOAT GetValue(GameObject2D* entity) const override
   {
-    return entity->GetRenderer()->GetMaterial()->GetMainColor().b;
+    //return entity->GetRenderer()->GetMaterial()->GetMainColor().b;
+    return 1.0f;
   }
 };
 
@@ -186,11 +189,12 @@ public:
 public:
   virtual void SetValue(GameObject2D* entity, const T_FLOAT next) const override
   {
-    entity->GetRenderer()->GetMaterial()->GetMainColor().a = next > 1.0f ? 1.0f : next;
+    //entity->GetRenderer()->GetMaterial()->GetMainColor().a = next > 1.0f ? 1.0f : next;
   }
   virtual T_FLOAT GetValue(GameObject2D* entity) const override
   {
-    return entity->GetRenderer()->GetMaterial()->GetMainColor().a;
+    //return entity->GetRenderer()->GetMaterial()->GetMainColor().a;
+    return 1.0f;
   }
 };
 

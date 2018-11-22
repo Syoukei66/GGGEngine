@@ -5,16 +5,11 @@
 #include <Engine/Component/Camera/Camera.h>
 
 // =================================================================
-// Constructor / Destructor
+// GGG Statement
 // =================================================================
-Renderer::Renderer(const WeakRef<GameObject>& entity)
-  : entity_(entity)
-  , layer_id_(0)
+GG_INIT_FUNC_IMPL_1(Renderer, GameObject* obj)
 {
-}
-
-Renderer::~Renderer()
-{
+  return GameComponent::Init(obj);
 }
 
 // =================================================================
@@ -68,8 +63,8 @@ void Renderer::SetDefaultProperties(GameObjectRenderState* state, const SharedRe
   shader->SetMatrix("_World", state->GetWorldMatrix());
   shader->SetMatrix("_WorldViewProj", state->GetWorldMatrix() * state->GetViewProjMatrix());
 
-  shader->SetVec4f("_CameraPosition", state->GetCamera()->GetEntity()->GetWorldMatrix().GetPosition4d());
-  shader->SetVec3f("_CameraDirection", state->GetCamera()->GetEntity()->GetWorldMatrix().GetDirection3d());
+  shader->SetVec4f("_CameraPosition", state->GetCamera()->GetObject()->GetTransform()->GetWorldMatrix().GetPosition4d());
+  shader->SetVec3f("_CameraDirection", state->GetCamera()->GetObject()->GetTransform()->GetWorldMatrix().GetDirection3d());
 }
 
 void Renderer::SetMaterial(const SharedRef<rcMaterial>& material, T_UINT16 index)

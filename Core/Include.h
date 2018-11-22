@@ -23,6 +23,7 @@
 #include <Core/Application/Input/InputDeviceManager.h>
 #include <Core/Application/Input/InputSetting.h>
 #include <Core/Application/Input/InputState.h>
+#include <Core/Application/Object/GGRefSFINAE.h>
 #include <Core/Application/Object/Object.h>
 #include <Core/Application/Object/ObjectManager.h>
 #include <Core/Application/Object/Ref.h>

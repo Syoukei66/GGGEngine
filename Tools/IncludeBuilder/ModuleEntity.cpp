@@ -72,21 +72,28 @@ void ModuleEntity::CreateHeaderProgram() const
   std::vector<std::string> cache = std::vector<std::string>();
   if (SafeImport(CACHE_PATH.c_str(), &cache))
   {
-    for (std::string target : targets)
+    if (targets.size() != cache.size())
     {
-      bool builded = false;
-      for (std::string cached_target : cache)
+      need_build = true;
+    }
+    else
+    {
+      for (std::string target : targets)
       {
-        if (target == cached_target)
+        bool builded = false;
+        for (std::string cached_target : cache)
         {
-          builded = true;
+          if (target == cached_target)
+          {
+            builded = true;
+            break;
+          }
+        }
+        if (!builded)
+        {
+          need_build = true;
           break;
         }
-      }
-      if (!builded)
-      {
-        need_build = true;
-        break;
       }
     }
     if (!need_build)

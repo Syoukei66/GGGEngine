@@ -6,20 +6,20 @@
 // =================================================================
 void TextureViewScene::OnLoad()
 {
-  this->camera_3d_ = new Camera2D();
-  this->AddCamera(this->camera_3d_);
+  this->camera_ = GameObject2D::Create();
+  this->AddCamera(this->camera_->GetComponent<Camera>());
 
   this->obj_ = GameObject2D::Create();
   const SharedRef<rcMesh>& mesh = AssetManager::GetLoader<rcMesh>(DefaultUniqueID::MESH_PLANE);
-  MeshRenderer* renderer = MeshRenderer::Create(mesh, this->obj_);
-  this->obj_->SetRenderer(renderer);
+  const SharedRef<MeshRenderer>& renderer = this->obj_->AddComponent<MeshRenderer>();
+  renderer->SetMesh(mesh);
   this->AddChild(this->obj_);
 }
 
 void TextureViewScene::OnUnload()
 {
   this->obj_ = nullptr;
-  delete this->camera_3d_;
+  this->camera_ = nullptr;
 }
 
 void TextureViewScene::OnShow()

@@ -2,6 +2,7 @@
 
 #include <Core/Application/IApplicationBehavior.h>
 #include <Engine/Engine/IEngineBehavior.h>
+#include <Engine/Scene/SceneManager.h>
 
 /*!
  * @brief Sceneを用いてゲームを動作させるクラス

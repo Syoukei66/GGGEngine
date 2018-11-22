@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Engine/GameObject/GameObject3D.h>
+
 /*!
  * @brief Viewerが表示するオブジェクトや
  * アップデート時のイベントを定義するインターフェース
@@ -15,8 +17,6 @@ public:
   virtual void Update() = 0;
   virtual bool IsTarget(T_UINT32 id) = 0;
 };
-
-class Camera3D_LookAt;
 
 class ViewerScene : public Scene
 {
@@ -57,8 +57,8 @@ public:
   // =================================================================
 private:
   SharedRef<IViewerBehavior> current_behavior_;
-  Camera3D_LookAt* camera_2d_;
-  Camera3D_LookAt* camera_3d_;
+  SharedRef<GameObject3D> camera_2d_;
+  SharedRef<GameObject3D> camera_3d_;
   T_FLOAT camera_move_x_;
   T_FLOAT camera_move_y_;
 

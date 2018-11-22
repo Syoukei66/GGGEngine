@@ -4,34 +4,15 @@
 #include <Engine/Scene/Scene.h>
 
 // =================================================================
-// Constructor / Destructor
+// GGG Statement
 // =================================================================
-Camera3D::Camera3D(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_min, T_FLOAT z_max)
-  : Camera(x, y, width, height, z_min, z_max)
-  , billboarding_matrix_()
-  , projection_matrix_()
-  , fov_(3.0f)
-  , z_near_(0.3f)
-  , z_far_(1000.0f)
-  , projection_dirty_(true)
+GG_INIT_FUNC_IMPL_1(Camera3D, GameObject* obj)
 {
-  this->entity_ = GameObject3D::Create();
-}
-
-Camera3D::Camera3D()
-  : Camera()
-  , billboarding_matrix_()
-  , projection_matrix_()
-  , fov_(3.0f)
-  , z_near_(0.3f)
-  , z_far_(1000.0f)
-  , projection_dirty_(true)
-{
-  this->entity_ = GameObject3D::Create();
-}
-
-Camera3D::~Camera3D()
-{
+  this->fov_ = 3.0f;
+  this->z_near_ = 0.3f;
+  this->z_far_ = 1000.0f;
+  this->projection_dirty_ = true;
+  return Camera::Init(obj);
 }
 
 // =================================================================

@@ -179,6 +179,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Application\Asset\AssetMacro.h" />
+    <ClInclude Include="Application\Object\GGRefSFINAE.h" />
     <ClInclude Include="Application\IApplicationSetting.h" />
     <ClInclude Include="Application\Input\InputState.h" />
     <ClInclude Include="Application\Object\WeakRef.h" />

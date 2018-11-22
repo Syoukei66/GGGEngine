@@ -7,12 +7,9 @@
 class Camera2D : public Camera
 {
   // =================================================================
-  // Constructor / Destructor
+  // GGG Statement
   // =================================================================
-public:
-  Camera2D(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_min, T_FLOAT z_max);
-  Camera2D();
-  virtual ~Camera2D();
+  GG_INIT_FUNC_1(Camera2D, GameObject*);
 
   // =================================================================
   // Methods for/from SuperClass/Interfaces
@@ -42,7 +39,7 @@ public:
 public:
   GG_INLINE Transform2D* GetTransform()
   {
-    return SharedRef<GameObject2D>::StaticCast(this->entity_)->GetTransform();
+    return SharedRef<GameObject2D>::StaticCast(this->GetObject())->GetTransform();
   }
 
   // =================================================================

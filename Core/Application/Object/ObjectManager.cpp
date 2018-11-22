@@ -35,7 +35,7 @@ bool GGObjectManager::CheckLeak()
 {
   GGObjectManager* self = &Self();
   // 未開放のオブジェクトがあれば通知
-  for (GGObject* obj : self->objects_)
+  for (const GGObject* obj : self->objects_)
   {
     std::string message = "未開放の";
     message.append(obj->GetObjectName());
@@ -51,7 +51,7 @@ void GGObjectManager::Update()
   //使用メモリサイズなどを参考に
   for (auto itr = Self().objects_.begin(); itr != Self().objects_.end();)
   {
-    GGObject* obj = (*itr);
+    const GGObject* obj = (*itr);
     if (obj->GetReferenceCount() == 0)
     {
       delete obj;
@@ -68,7 +68,7 @@ void GGObjectManager::Update()
 size_t GGObjectManager::GetMemorySize()
 {
   size_t ret = 0;
-  for (GGObject* obj : Self().objects_)
+  for (const GGObject* obj : Self().objects_)
   {
     ret += obj->GetMemorySize();
   }
@@ -78,7 +78,7 @@ size_t GGObjectManager::GetMemorySize()
 size_t GGObjectManager::GetVideoMemorySize()
 {
   size_t ret = 0;
-  for (GGObject* obj : Self().objects_)
+  for (const GGObject* obj : Self().objects_)
   {
     ret += obj->GetVideoMemorySize();
   }

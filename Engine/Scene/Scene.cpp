@@ -46,9 +46,9 @@ void Scene::Hide()
 
 void Scene::Draw()
 {
-  for (std::vector<Camera*>::iterator itr = this->cameras_.begin(); itr != this->cameras_.end(); ++itr)
+  for (const SharedRef<Camera>& camera : this->cameras_)
   {
-    (*itr)->DrawScene(this);
+    camera->DrawScene(this);
   }
 }
 

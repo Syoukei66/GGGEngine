@@ -8,17 +8,10 @@ class rcSprite;
 class SpriteRenderer : public Renderer
 {
   // =================================================================
-  // FactoryMethod
+  // GGG Statement
   // =================================================================
-public:
-  static SpriteRenderer* Create(const SharedRef<rcSprite>& sprite, const WeakRef<GameObject>& obj);
-
-  // =================================================================
-  // Constructor / Destructor
-  // =================================================================
-public:
-  SpriteRenderer(const WeakRef<GameObject>& entity);
-  ~SpriteRenderer();
+  GG_COMPONENT(SpriteRenderer);
+  GG_CREATE_FUNC_1(SpriteRenderer, GameObject*);
 
   // =================================================================
   // Methods for/from SuperClass/Interfaces

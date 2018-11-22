@@ -1,13 +1,47 @@
 #pragma once
 
-class GameComponent
+#include <Engine/GameObject/GameObject.h>
+#include "ComponentMacro.h"
+
+/*!
+ * @brief GameObjectにアタッチして使用するコンポーネント
+ */
+class GameComponent : public GGObject
 {
-  // =================================================================
-  // Constructor / Destructor
-  // =================================================================
+protected:
+  enum ComponentType
+  {
+    COMPONENT_TYPE_RENDERER = 1 << 0,
+    COMPONENT_TYPE_CAMERA = 1 << 1,
+  };
+
+  static constexpr T_UINT32 COMPONENT_SHIFT = 8;
+  static constexpr T_UINT32 INHERITANCE_SHIFT = 4;
+
+  enum class ComponentID : T_UINT32
+  {
+    Renderer = COMPONENT_TYPE_RENDERER << COMPONENT_SHIFT,
+    MeshRenderer,
+    SpriteRenderer,
+    Camera = COMPONENT_TYPE_CAMERA << COMPONENT_SHIFT,
+    Camera2D = Camera + (1 << INHERITANCE_SHIFT),
+    Camera3D = Camera + (2 << INHERITANCE_SHIFT),
+    Camera3D_LookAt,
+  };
+
 public:
-  GameComponent();
-  virtual ~GameComponent() {}
+  static constexpr T_UINT32 COMPONENT_MASK   = 0xff00;
+  static constexpr T_UINT32 INHERITANCE_MASK = 0xfff0;
+
+  // =================================================================
+  // GGG Statement
+  // =================================================================
+  GG_INIT_FUNC_1(GameComponent, GameObject* obj)
+  {
+    this->enabled_ = true;
+    this->obj_ = obj;
+    return true;
+  }
 
   // =================================================================
   // Events
@@ -21,11 +55,25 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  void SetEnabled(bool enabled);
+  virtual T_UINT32 GetComponentID() const = 0;
 
+  GG_INLINE void SetEnabled(bool enabled)
+  {
+    this->enabled_ = enabled;
+  }
   GG_INLINE bool IsEnabled() const
   {
     return this->enabled_;
+  }
+
+  SharedRef<GameObject> GetObject()
+  {
+    return SharedRef<GameObject>(this->obj_);
+  }
+
+  SharedRef<const GameObject> GetObject() const
+  {
+    return SharedRef<const GameObject>(this->obj_);
   }
 
   // =================================================================
@@ -33,5 +81,6 @@ public:
   // =================================================================
 private:
   bool enabled_;
+  GameObject* obj_;
 
 };

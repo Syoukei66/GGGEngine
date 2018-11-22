@@ -6,12 +6,10 @@
 class Camera3D_LookAt : public Camera3D
 {
   // =================================================================
-  // Constructor / Destructor
+  // GGG Statement
   // =================================================================
-public:
-  Camera3D_LookAt(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_min, T_FLOAT z_max);
-  Camera3D_LookAt();
-  ~Camera3D_LookAt();
+  GG_COMPONENT(Camera3D_LookAt);
+  GG_CREATE_FUNC_1(Camera3D_LookAt, GameObject*);
 
   // =================================================================
   // Methods for/from SuperClass/Interfaces
@@ -27,7 +25,6 @@ protected:
   // =================================================================
 public:
   void CheckViewDirty();
-  void SetPlayer(GameObject3D* player);
   void Update();
 
 private:
@@ -42,13 +39,13 @@ private:
 public:
   GG_INLINE SharedRef<GameObject3D> GetPlayer() const
   {
-    return SharedRef<GameObject3D>::StaticCast(this->entity_->GetParent().Lock());
+    return SharedRef<GameObject3D>::StaticCast(this->GetObject()->GetParent());
   }
 
   GG_INLINE void SetTarget(GameObject3D* target)
   {
     this->target_ = target;
-    this->target_direction_ = !this->target_ ? this->target_direction_ : (this->target_->GetTransform()->GetWorldPosition() - this->GetEntity()->GetWorldMatrix().GetPosition3d()).Normalized();
+    this->target_direction_ = !this->target_ ? this->target_direction_ : (this->target_->GetTransform()->GetWorldPosition() - this->GetObject()->GetTransform()->GetWorldMatrix().GetPosition3d()).Normalized();
   }
 
   void SetLookAtPos(const TVec3f& look_at_pos);

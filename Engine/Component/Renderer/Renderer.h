@@ -1,19 +1,16 @@
 #pragma once
 
-#include <Asset/Material/Material.h>
 #include <Engine/Component/GameComponent.h>
 
-class GameObject;
 class GameObjectRenderState;
 
 class Renderer : public GameComponent
 {
   // =================================================================
-  // Constructor / Destructor
+  // GGG Statement
   // =================================================================
-public:
-  Renderer(const WeakRef<GameObject>& entity);
-  virtual ~Renderer();
+  GG_COMPONENT(Renderer);
+  GG_INIT_FUNC_1(Renderer, GameObject*);
 
   // =================================================================
   // Methods
@@ -67,21 +64,10 @@ public:
     return (T_UINT8)this->shared_materials_.size();
   }
 
-  GG_INLINE WeakRef<GameObject> GetEntity()
-  {
-    return this->entity_;
-  }
-
-  GG_INLINE WeakRef<const GameObject> GetEntity() const
-  {
-    return this->entity_;
-  }
-
   // =================================================================
   // Data Member
   // =================================================================
 protected:
-  WeakRef<GameObject> entity_;
   T_UINT8 layer_id_;
   std::unordered_map<T_UINT32, SharedRef<const rcMaterial>> shared_materials_;
   std::unordered_map<T_UINT32, SharedRef<rcMaterial>> materials_;

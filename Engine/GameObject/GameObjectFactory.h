@@ -5,6 +5,9 @@ class rcCharacterModel;
 struct CharacterNodeData;
 class rcStaticModel;
 
+#include "GameObject2D.h"
+#include "GameObject3D.h"
+
 namespace GameObjectFactory
 {
 // =================================================================

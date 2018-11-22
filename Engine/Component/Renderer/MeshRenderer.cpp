@@ -2,27 +2,11 @@
 #include <Asset/Mesh/Mesh.h>
 
 // =================================================================
-// Factory Method
+// GGG Statement
 // =================================================================
-MeshRenderer* MeshRenderer::Create(const SharedRef<const rcMesh>& mesh, const WeakRef<GameObject>& entity)
+GG_INIT_FUNC_IMPL_1(MeshRenderer, GameObject* obj)
 {
-  MeshRenderer* ret = new MeshRenderer(entity);
-  ret->SetMesh(mesh);
-  return ret;
-}
-
-// =================================================================
-// Constructor / Destructor
-// =================================================================
-MeshRenderer::MeshRenderer(const WeakRef<GameObject>& entity)
-  : Renderer(entity)
-  , mesh_()
-  , submesh_visible_()
-{
-}
-
-MeshRenderer::~MeshRenderer()
-{
+  return Renderer::Init(obj);
 }
 
 // =================================================================

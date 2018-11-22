@@ -5,28 +5,17 @@
 #include <Engine/Scene/Scene.h>
 
 // =================================================================
-// Constructor / Destructor
+// GGG Statement
 // =================================================================
-Camera2D::Camera2D(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_min, T_FLOAT z_max)
-  : Camera(x, y, width, height, z_min, z_max)
-  , projection_matrix_()
-  , projection_dirty_(true)
+GG_INIT_FUNC_IMPL_1(Camera2D, GameObject* obj)
 {
-  this->entity_ = GameObject2D::Create();
+  this->projection_dirty_ = true;
+  return Camera::Init(obj);
 }
 
-Camera2D::Camera2D()
-  : Camera()
-  , projection_matrix_()
-  , projection_dirty_(true)
-{
-  this->entity_ = GameObject2D::Create();
-}
-
-Camera2D::~Camera2D()
-{
-}
-
+// =================================================================
+// Methods for/from SuperClass/Interfaces
+// =================================================================
 bool Camera2D::FrustumCulling(const TVec3f& positive, const TVec3f& negative, T_INT8* first_index) const
 {
   return Collision2D::Rect(
@@ -35,9 +24,6 @@ bool Camera2D::FrustumCulling(const TVec3f& positive, const TVec3f& negative, T_
   );
 }
 
-// =================================================================
-// Methods for/from SuperClass/Interfaces
-// =================================================================
 const Matrix4x4& Camera2D::GetViewMatrix() const
 {
   return Matrix4x4::identity;

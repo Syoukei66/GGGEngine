@@ -5,7 +5,6 @@
 #include <Entity/AssetMetaData.h>
 #include "GameInput.h"
 
-
 static const char* CAMERA_STATE_NAMES[ViewerScene::CAMERA_STATE_MAX] =
 {
   "3D Scene",
@@ -27,15 +26,16 @@ GG_INIT_FUNC_IMPL(ViewerScene)
 // =================================================================
 void ViewerScene::OnLoad()
 {
-  this->camera_3d_ = new Camera3D_LookAt();
+  this->camera_3d_ = GameObject3D::Create();
+  this->camera_3d_->AddComponent<Camera3D_LookAt>();
   this->camera_3d_->GetTransform()->SetZ(-20.0f);
-  this->AddCamera(this->camera_3d_);
+  this->AddCamera(this->camera_3d_->GetComponent<Camera>());
 }
 
 void ViewerScene::OnUnload()
 {
-  this->RemoveCamera(this->camera_3d_);
-  delete this->camera_3d_;
+  this->RemoveCamera(this->camera_3d_->GetComponent<Camera>());
+  this->camera_3d_ = nullptr;
 }
 
 void ViewerScene::OnShow()

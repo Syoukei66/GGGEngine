@@ -3,6 +3,7 @@
 #include <Algorithm/EasingFunction/EasingFunctionManager.h>
 
 #include <Engine/Component/Modifier/EntityModifierManager.h>
+#include <Engine/GameObject/GameObject.h>
 #include <Engine/Engine/EngineOption.h>
 #include <Engine/Director.h>
 

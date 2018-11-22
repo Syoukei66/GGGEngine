@@ -1,6 +1,5 @@
 #include "TextureViewerBehavior.h"
 #include <Engine/GameObject/Transform/Transform3D.h>
-#include <Engine/Component/Renderer/MeshRenderer.h>
 
 // =================================================================
 // GGG Statement
@@ -9,8 +8,7 @@ GG_INIT_FUNC_IMPL(TextureViewerBehavior)
 {
   this->obj_ = GameObject3D::Create();
   this->obj_->GetTransform()->RotateX(-Mathf::PI_1_2);
-  this->mesh_renderer_ = new MeshRenderer(this->obj_);
-  this->obj_->SetRenderer(this->mesh_renderer_);
+  this->mesh_renderer_ = this->obj_->AddComponent<MeshRenderer>();
   return true;
 }
 

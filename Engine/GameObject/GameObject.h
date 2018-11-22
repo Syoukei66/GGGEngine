@@ -1,9 +1,8 @@
 ﻿#pragma once
 
-#include <Engine/Component/GameComponent.h>
-#include <Engine/Component/Renderer/Renderer.h>
 #include <Engine/GameObject/Transform/Transform.h>
 
+class GameComponent;
 class GameObjectRenderState;
 
 class GameObject : public GGObject
@@ -13,7 +12,6 @@ class GameObject : public GGObject
   // =================================================================
 public:
   GG_INIT_FUNC(GameObject);
-  GG_DESTRUCT_FUNC(GameObject);
 
   // =================================================================
   // Methods
@@ -22,6 +20,43 @@ public:
   void AddChild(const SharedRef<GameObject>& child);
   void RemoveSelf();
   void ClearChildren();
+
+  // =================================================================
+  // Components
+  // =================================================================
+public:
+  template <class T>
+  GG_INLINE SharedRef<T> AddComponent() 
+  {
+    GG_ASSERT(!this->HasComponent<T>(), "コンポーネントが二重に登録されました");
+    const SharedRef<T>& component = T::Create(this);
+    this->components_.emplace(T::ID & GameComponent::COMPONENT_MASK, component);
+    return component;
+  }
+
+  template <class T>
+  GG_INLINE SharedRef<T> GetComponent()
+  {
+    GG_ASSERT(this->HasComponent<T>(), "セットされていないComponentを取得しようとしました");
+    const auto& pair = this->components_.find(T::ID & GameComponent::COMPONENT_MASK);
+    GG_ASSERT(
+      ((T::ID & GameComponent::INHERITANCE_MASK) == (pair->second->GetComponentID() & GameComponent::INHERITANCE_MASK)) ||
+      ((T::ID & GameComponent::INHERITANCE_MASK) == (pair->second->GetComponentID() & GameComponent::COMPONENT_MASK)),
+      "継承関係にないComponentのキャストを行おうとしました");
+    return SharedRef<T>::StaticCast(pair->second);
+  }
+
+  template <class T>
+  GG_INLINE bool HasComponent()
+  {
+    return this->components_.find(T::ID & GameComponent::COMPONENT_MASK) != this->components_.end();
+  }
+
+  template <class T>
+  GG_INLINE void RemoveComponent()
+  {
+    this->components_.erase(T::ID & GameComponent::COMPONENT_MASK);
+  }
 
   // =================================================================
   // Events
@@ -50,9 +85,9 @@ public:
   {
     return this->parent_ != nullptr;
   }
-  GG_INLINE WeakRef<GameObject> GetParent() const
+  GG_INLINE SharedRef<GameObject> GetParent() const
   {
-    return this->parent_;
+    return SharedRef<GameObject>(this->parent_);
   }
 
   GG_INLINE void SetEnabled(bool enabled)
@@ -64,69 +99,13 @@ public:
     return this->enabled_;
   }
 
-  GG_INLINE void SetRenderer(Renderer* renderer)
+  GG_INLINE Transform* GetTransform()
   {
-    this->renderer_ = renderer;
+    return this->transform_;
   }
-  GG_INLINE Renderer* GetRenderer() const
+  GG_INLINE const Transform* GetTransform() const
   {
-    return this->renderer_;
-  }
-
-  // =================================================================
-  // delegate to Transform
-  // =================================================================
-  GG_INLINE const Matrix4x4& GetMatrix() const
-  {
-    return this->transform_->GetMatrix();
-  }
-
-  GG_INLINE const Matrix4x4& GetTranslateMatrix() const
-  {
-    return this->transform_->GetTranslateMatrix();
-  }
-
-  GG_INLINE const Matrix4x4& GetRotationMatrix() const
-  {
-    return this->transform_->GetRotationMatrix();
-  }
-
-  GG_INLINE const Matrix4x4& GetScaleMatrix() const
-  {
-    return this->transform_->GetScaleMatrix();
-  }
-
-  GG_INLINE const Matrix4x4& GetWorldMatrix() const
-  {
-    return this->transform_->GetWorldMatrix();
-  }
-
-  // =================================================================
-  // delegate to Renderer
-  // =================================================================
-  GG_INLINE void SetLayerId(T_UINT8 layer_id)
-  {
-    this->renderer_->SetLayerId(layer_id);
-  }
-  GG_INLINE T_UINT8 GetLayerId() const
-  {
-    this->renderer_->GetLayerId();
-  }
-  GG_INLINE void SetMaterial(const SharedRef<rcMaterial>& material, T_UINT16 index = 0)
-  {
-    this->renderer_->SetMaterial(material, index);
-  }
-  GG_INLINE SharedRef<const rcMaterial> GetMaterial(T_UINT16 index = 0) const
-  {
-    return this->renderer_->GetMaterial(index);
-  }
-  GG_INLINE SharedRef<rcMaterial> GetMaterial(T_UINT16 index = 0)
-  {
-    return this->renderer_->GetMaterial(index);
-  }
-  GG_INLINE T_UINT16 GetMaterialCount()
-  {
-    return this->renderer_->GetMaterialCount();
+    return this->transform_;
   }
 
   // =================================================================
@@ -137,9 +116,16 @@ protected:
 
 private:
 	bool enabled_;
-  WeakRef<GameObject> parent_;
-  std::vector<SharedRef<GameObject>> children_;
+  
+  /*!
+   * @brief 親GameObject,RefでのSFINAEで
+   * 未解決のGameObjectに対する判定が行われる事でエラーが起きるので、
+   * 例外的に生ポインタを扱う。振る舞いとしてはWeakRefと同様となるように
+   * （リファレンスカウンタの操作を行わない）
+   */
+  GameObject* parent_;
 
-  Renderer* renderer_;
+  std::vector<SharedRef<GameObject>> children_;
+  std::unordered_map<T_UINT32, SharedRef<GameComponent>> components_;
 
 };

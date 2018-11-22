@@ -23,6 +23,7 @@
 #include <Core/Macro/ObjectMacro.h>
 
 #include <Core/Application/Object/Object.h>
+#include <Core/Application/Object/Ref.h>
 #include <Core/Application/Object/SharedRef.h>
 #include <Core/Application/Object/UniqueRef.h>
 #include <Core/Application/Object/WeakRef.h>

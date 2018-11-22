@@ -1,34 +1,16 @@
 #include "Camera3D_LookAt.h"
 
 // =================================================================
-// Constructor / Destructor
+// GGG Statement
 // =================================================================
-Camera3D_LookAt::Camera3D_LookAt(T_FLOAT x, T_FLOAT y, T_FLOAT width, T_FLOAT height, T_FLOAT z_min, T_FLOAT z_max)
-  : Camera3D(x, y, width, height, z_min, z_max)
-  , view_matrix_()
-  , look_at_pos_(0.0f, 0.0f, 1.0f)
-  , current_look_at_pos_(0.0f, 0.0f, 1.0f)
-  , target_(nullptr)
-  , target_lerp_t_(0.5f)
-  , target_direction_(0.0f, 0.0f, 1.0f)
-  , view_dirty_(true)
+GG_INIT_FUNC_IMPL_1(Camera3D_LookAt, GameObject* obj)
 {
-}
-
-Camera3D_LookAt::Camera3D_LookAt()
-  : Camera3D()
-  , view_matrix_()
-  , look_at_pos_(0.0f, 0.0f, 1.0f)
-  , current_look_at_pos_(0.0f, 0.0f, 1.0f)
-  , target_(nullptr)
-  , target_lerp_t_(0.5f)
-  , target_direction_(0.0f, 0.0f, 1.0f)
-  , view_dirty_(true)
-{
-}
-
-Camera3D_LookAt::~Camera3D_LookAt()
-{
+  this->look_at_pos_ = TVec3f::forward;
+  this->current_look_at_pos_ = TVec3f::forward;
+  this->target_lerp_t_ = 0.5f;
+  this->target_direction_ = TVec3f::forward;
+  this->view_dirty_ = true;
+  return Camera3D::Init(obj);
 }
 
 // =================================================================
@@ -36,7 +18,7 @@ Camera3D_LookAt::~Camera3D_LookAt()
 // =================================================================
 const Matrix4x4& Camera3D_LookAt::GetViewMatrix() const
 {
-  const_cast<Camera3D_LookAt*>(this)->CheckViewDirty();
+  //const_cast<Camera3D_LookAt*>(this)->CheckViewDirty();
   return this->view_matrix_;
 }
 
@@ -51,72 +33,63 @@ void Camera3D_LookAt::SetupCamera()
 // =================================================================
 void Camera3D_LookAt::CheckViewDirty()
 {
-  if (!this->view_dirty_)
-  {
-    return;
-  }
+  //if (!this->view_dirty_)
+  //{
+  //  return;
+  //}
 
-  this->view_matrix_ = Matrix4x4::identity;
-  if (this->target_)
-  {
-    const SharedRef<GameObject3D>& player = SharedRef<GameObject3D>::StaticCast(this->entity_->GetParent().Lock());
-    if (player)
-    {
-      TVec3f camera_pos = player->GetTransform()->GetWorldPosition();
-      this->direction_ = (this->current_look_at_pos_ - player->GetTransform()->GetWorldPosition()).Normalized();
-      //camera_pos -= this->direction_ * this->GetTransform()->GetPosition().Length();
-      //camera_pos.y = std::max(camera_pos.y, player->GetTransform()->GetY());
-      this->view_matrix_ = Matrix4x4::LookAt(
-        camera_pos,
-        this->current_look_at_pos_,
-        this->GetEntity()->GetWorldMatrix().GetCameraYVec()
-      );
-    }
-    else
-    {
-      TVec3f camera_pos = this->GetTransform()->GetWorldPosition();
-      this->direction_ = (this->current_look_at_pos_ - camera_pos).Normalized();
-      this->view_matrix_ = Matrix4x4::LookAt(
-        camera_pos,
-        this->current_look_at_pos_,
-        this->GetEntity()->GetWorldMatrix().GetCameraYVec()
-      );
-    }
-  }
-  //ターゲットが存在しない時の処理
-  else
-  {
-    this->current_look_at_pos_ = this->look_at_pos_;
+  //this->view_matrix_ = Matrix4x4::identity;
+  //if (this->target_)
+  //{
+  //  const SharedRef<GameObject3D>& player = SharedRef<GameObject3D>::StaticCast(this->GetObject()->GetParent());
+  //  if (player)
+  //  {
+  //    TVec3f camera_pos = player->GetTransform()->GetWorldPosition();
+  //    this->direction_ = (this->current_look_at_pos_ - player->GetTransform()->GetWorldPosition()).Normalized();
+  //    //camera_pos -= this->direction_ * this->GetTransform()->GetPosition().Length();
+  //    //camera_pos.y = std::max(camera_pos.y, player->GetTransform()->GetY());
+  //    this->view_matrix_ = Matrix4x4::LookAt(
+  //      camera_pos,
+  //      this->current_look_at_pos_,
+  //      this->GetObject()->GetTransform()->GetWorldMatrix().GetCameraYVec()
+  //    );
+  //  }
+  //  else
+  //  {
+  //    TVec3f camera_pos = this->GetTransform()->GetWorldPosition();
+  //    this->direction_ = (this->current_look_at_pos_ - camera_pos).Normalized();
+  //    this->view_matrix_ = Matrix4x4::LookAt(
+  //      camera_pos,
+  //      this->current_look_at_pos_,
+  //      this->GetObject()->GetTransform()->GetWorldMatrix().GetCameraYVec()
+  //    );
+  //  }
+  //}
+  ////ターゲットが存在しない時の処理
+  //else
+  //{
+  //  this->current_look_at_pos_ = this->look_at_pos_;
 
-    const TVec3f camera_pos = this->GetEntity()->GetWorldMatrix().GetPosition3d();
-    TVec3f look_at_pos = this->look_at_pos_;
-    look_at_pos = this->GetEntity()->GetWorldMatrix() * look_at_pos;
-    this->direction_ = (look_at_pos - camera_pos).Normalized();
-    this->view_matrix_ = Matrix4x4::LookAt(
-      camera_pos,
-      look_at_pos,
-      this->GetEntity()->GetWorldMatrix().GetCameraYVec()
-    );
-  }
+  //  const TVec3f camera_pos = this->GetObject()->GetTransform()->GetWorldMatrix().GetPosition3d();
+  //  TVec3f look_at_pos = this->look_at_pos_;
+  //  look_at_pos = this->GetObject()->GetTransform()->GetWorldMatrix() * look_at_pos;
+  //  this->direction_ = (look_at_pos - camera_pos).Normalized();
+  //  this->view_matrix_ = Matrix4x4::LookAt(
+  //    camera_pos,
+  //    look_at_pos,
+  //    this->GetObject()->GetTransform()->GetWorldMatrix().GetCameraYVec()
+  //  );
+  //}
 
-  this->view_dirty_ = false;
-}
-
-void Camera3D_LookAt::SetPlayer(GameObject3D* player)
-{
-  if (this->entity_->HasParent())
-  {
-    this->entity_->RemoveSelf();
-  }
-  player->AddChild(this->entity_);
+  //this->view_dirty_ = false;
 }
 
 void Camera3D_LookAt::Update()
 {
-  if (this->target_)
-  {
-    this->current_look_at_pos_ = Mathf::Lerp(this->current_look_at_pos_, this->target_->GetTransform()->GetWorldPosition(), this->target_lerp_t_);
-  }
+  //if (this->target_)
+  //{
+  //  this->current_look_at_pos_ = Mathf::Lerp(this->current_look_at_pos_, this->target_->GetTransform()->GetWorldPosition(), this->target_lerp_t_);
+  //}
 }
 
 // =================================================================

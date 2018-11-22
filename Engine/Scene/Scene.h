@@ -41,34 +41,16 @@ public:
     this->root3d_->ClearChildren();
   }
 
-  GG_INLINE void AddCamera(Camera2D* camera)
+  GG_INLINE void AddCamera(const SharedRef<Camera>& camera)
   {
     this->cameras_.emplace_back(camera);
   }
-  GG_INLINE void AddCamera(Camera3D* camera)
+  GG_INLINE void RemoveCamera(const SharedRef<Camera>& camera)
   {
-    this->cameras_.emplace_back(camera);
-  }
-  void RemoveCamera(Camera2D* camera)
-  {
-    for (std::vector<Camera*>::iterator itr = this->cameras_.begin(); itr != this->cameras_.end(); ++itr)
+    const auto& itr = std::find(this->cameras_.begin(), this->cameras_.end(), camera);
+    if (itr != this->cameras_.end())
     {
-      if (camera == (*itr))
-      {
-        this->cameras_.erase(itr);
-        return;
-      }
-    }
-  }
-  void RemoveCamera(Camera3D* camera)
-  {
-    for (std::vector<Camera*>::iterator itr = this->cameras_.begin(); itr != this->cameras_.end(); ++itr)
-    {
-      if (camera == (*itr))
-      {
-        this->cameras_.erase(itr);
-        return;
-      }
+      this->cameras_.erase(itr);
     }
   }
   GG_INLINE void ClearCamera()
@@ -110,5 +92,5 @@ private:
 
   SharedRef<GameObject2D> root2d_;
   SharedRef<GameObject3D> root3d_;
-  std::vector<Camera*> cameras_;
+  std::vector<SharedRef<Camera>> cameras_;
 };
