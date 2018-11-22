@@ -1,5 +1,7 @@
 #pragma once
 
+#include "GGRefSFINAE.h"
+
 /*!
  * @brief GGGEngineで使用する全てのオブジェクトの基底クラス
  * リファレンスカウンタを持っており、ガーベッジコレクタで自動解放される。
@@ -11,7 +13,7 @@ class GGObject
   GG_NO_COPYABLE(GGObject);
 
   friend class GGObjectManager;
-  template <class Obj_>
+  template <class Obj_, GGIsObject<Obj_>>
   friend class GGRef;
   template <class Obj_>
   friend class SharedRef;
