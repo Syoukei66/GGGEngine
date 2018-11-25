@@ -50,6 +50,7 @@ AssetMetaData::AssetMetaData(const URI& uri, T_UINT32 source_unique_id, AssetCon
 void AssetMetaData::Save()
 {
   const std::string path = FileUtil::CreateInputPath(this->uri_.GetFullPath() + "." + Extensions::META);
+  this->UpdateTimeStamp();
   CerealIO::Json::Export(path.c_str(), this);
 }
 
