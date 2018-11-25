@@ -6,8 +6,8 @@
 GG_INIT_FUNC_IMPL(Scene)
 {
   this->is_loaded_ = false;
-  this->root2d_ = GameObject2D::Create();
-  this->root3d_ = GameObject3D::Create();
+  this->root2d_ = GameObject2D::Create("2d_root");
+  this->root3d_ = GameObject3D::Create("3d_root");
   return true;
 }
 
