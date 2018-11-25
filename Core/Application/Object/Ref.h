@@ -91,6 +91,15 @@ public:
   }
 
   /*!
+   * @brief ポインタ等値比較
+   */
+  template <class Other_>
+  GG_INLINE bool operator== (Other_* ptr) const noexcept
+  {
+    return this->ptr_ == ptr;
+  }
+
+  /*!
    * @brief nullptr等値比較
    */
   GG_INLINE bool operator== (nullptr_t o) const noexcept
@@ -105,6 +114,15 @@ public:
   GG_INLINE bool operator!= (const GGRef<Other_>& o) const noexcept
   {
     return this->ptr_ != o.ptr_;
+  }
+
+  /*!
+   * @brief ポインタ等非値比較
+   */
+  template <class Other_>
+  GG_INLINE bool operator!= (Other_* ptr) const noexcept
+  {
+    return this->ptr_ != ptr;
   }
 
   /*!
