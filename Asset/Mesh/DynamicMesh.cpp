@@ -369,10 +369,6 @@ void rcDynamicMesh::CreateVertices(T_UINT32 vertex_count, T_UINT32 format, Verte
   this->vertices_dirty_ = true;
 }
 
-void rcDynamicMesh::AddVertices(T_UINT32 vertex_count, T_UINT32 format, Vertex::PrimitiveType primitive_type)
-{
-}
-
 T_UINT32 rcDynamicMesh::AddIndices(T_UINT32 index_count, T_UINT32 polygon_count)
 {
   this->submesh_indices_.emplace_back(std::vector<T_UINT32>());
@@ -487,7 +483,7 @@ void rcDynamicMesh::RecalculateTangents()
   */
   for (T_UINT8 i = 0; i < this->submesh_count_; ++i)
   {
-    const T_UINT32 submesh_index_count = this->submesh_index_buffers_[i]->GetVertexCount();
+    const T_UINT32 submesh_index_count = (T_UINT32)this->submesh_indices_[i].size();
     TVec3f* tan0 = new TVec3f[submesh_index_count];
     TVec3f* tan1 = new TVec3f[submesh_index_count];
 

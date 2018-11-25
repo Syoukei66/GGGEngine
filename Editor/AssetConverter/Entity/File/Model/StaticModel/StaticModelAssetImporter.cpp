@@ -29,153 +29,101 @@ SharedRef<ModelStaticMeshAssetEntity> ImportMesh(const AssetMetaData* model_asse
     return nullptr;
   }
 
-  StaticMeshData* data = new StaticMeshData();
-
   using namespace Vertex;
 
-  T_UINT32 index_count = 0;
+  SharedRef<rcDynamicMesh> ret = rcDynamicMesh::Create();
 
-  data->vertex_format_ = V_FORMAT_PNUT;
-
-  data->index_datas_.resize(scene->mNumMeshes);
-  data->index_formats_.resize(scene->mNumMeshes);
-  data->index_counts_.resize(scene->mNumMeshes);
-  data->polygon_counts_.resize(scene->mNumMeshes);
+  T_UINT32 vertex_count = 0;
   // 頂点データの作成
   for (T_UINT32 m = 0; m < scene->mNumMeshes; ++m)
   {
     const aiMesh* mesh = scene->mMeshes[m];
-    
     GG_ASSERT(mesh->mPrimitiveTypes == aiPrimitiveType_TRIANGLE, "ポリゴンが三角形ではありません");
-
-    data->vertex_count_ += mesh->mNumVertices;
+    vertex_count += mesh->mNumVertices;
   }
+  ret->CreateVertices(vertex_count, V_FORMAT_PNUT);
+
+  T_UINT32 index_offset = 0;
+  bool need_recalculate_normals = false;
+  bool need_recalculate_tangents = false;
   // インデックスデータの作成
   // （頂点サイズが分からないとインデックスのサイズが決まらないため）
-  for (T_UINT32 m = 0; m < scene->mNumMeshes; ++m)
+  for (T_UINT32 m = 0, vi = 0; m < scene->mNumMeshes; ++m)
   {
     const aiMesh* mesh = scene->mMeshes[m];
+    ret->AddIndices(mesh->mNumFaces * 3);
 
-    GG_ASSERT(mesh->mPrimitiveTypes == aiPrimitiveType_TRIANGLE, "ポリゴンが三角形ではありません");
-
-    // 頂点数からインデックスフォーマットを判別する
-    Vertex::IndexFormat format = Vertex::IndexFormat::INDEX_FMT_16;
-    if (data->vertex_count_ > Limit::T_FIXED_UINT16_MAX)
-    {
-      format = Vertex::IndexFormat::INDEX_FMT_32;
-    }
-
-    data->index_formats_[m] = static_cast<T_UINT8>(format);
-    data->index_counts_[m] = 3 * mesh->mNumFaces;
-    data->index_datas_[m].resize(data->index_counts_[m] * INDEX_FORMAT_SIZES[data->index_formats_[m]]);
-    data->polygon_counts_[m] = mesh->mNumFaces;
-  }
-
-  TVec3f min = { 0.0f, 0.0f, 0.0f };
-  TVec3f max = { 0.0f, 0.0f, 0.0f };
-
-  //
-  data->vertex_data_.resize(data->vertex_count_ * CalcVertexSize(data->vertex_format_));
-  T_UINT32 index_offset = 0;
-  unsigned char* p = &data->vertex_data_[0];
-  for (T_UINT32 m = 0; m < scene->mNumMeshes; ++m)
-  {
-    const aiMesh* mesh = scene->mMeshes[m];
-
-    //
-    for (T_UINT32 v = 0; v < mesh->mNumVertices; ++v)
+    // 頂点データの作成
+    for (T_UINT32 v = 0; v < mesh->mNumVertices; ++v, ++vi)
     {
       // Vertex
-      if (data->vertex_format_ & V_ATTR_POSITION)
-      {
-        GG_ASSERT(mesh->HasPositions(), "位置情報が含まれていないメッシュがあります");
+      GG_ASSERT(mesh->HasPositions(), "位置情報が含まれていないメッシュがあります");
 
-        const aiVector3D& vec = mesh->mVertices[v];
-        SetVertexPosition(TVec3f(vec.x, vec.y, vec.z), &p);
+      const aiVector3D& vec = mesh->mVertices[v];
+      ret->SetVertex(vi, TVec3f(vec.x, vec.y, vec.z));
 
-        min.x = std::min(min.x, vec.x);
-        min.y = std::min(min.y, vec.y);
-        min.z = std::min(min.z, vec.z);
-
-        max.x = std::max(max.x, vec.x);
-        max.y = std::max(max.y, vec.y);
-        max.z = std::max(max.z, vec.z);
-      }
       // Normal
-      if (data->vertex_format_ & V_ATTR_NORMAL)
+      if (mesh->HasNormals())
       {
-        GG_ASSERT(mesh->HasNormals(), "法線情報が含まれていないメッシュがあります");
-
-        const aiVector3D& vec = mesh->mNormals[v];
-        SetVertexNormal(TVec3f(vec.x, vec.y, vec.z), &p);
+        const aiVector3D& normal = mesh->mNormals[v];
+        ret->SetNormal(vi, TVec3f(normal.x, normal.y, normal.z));
+      }
+      else
+      {
+        need_recalculate_normals = true;
       }
       // Uv
-      if (data->vertex_format_ & V_ATTR_UV)
+      if (mesh->HasTextureCoords(0))
       {
-        GG_ASSERT(mesh->HasTextureCoords(0), "UV情報が含まれていないメッシュがあります");
-
-        const aiVector3D& vec = mesh->mTextureCoords[0][v];
-        SetVertexUv(TVec2f(vec.x, vec.y), &p);
+        const aiVector3D& uv = mesh->mTextureCoords[0][v];
+        ret->SetUv(vi, TVec2f(uv.x, uv.y));
       }
-      // Uv2
-      if (data->vertex_format_ & V_ATTR_UV2)
+      else
       {
-        const aiVector3D& vec = mesh->mTextureCoords[1][v];
-        SetVertexUv2(TVec2f(vec.x, vec.y), &p);
-      }
-      // Uv3
-      if (data->vertex_format_ & V_ATTR_UV3)
-      {
-        const aiVector3D& vec = mesh->mTextureCoords[2][v];
-        SetVertexUv3(TVec2f(vec.x, vec.y), &p);
-      }
-      // Uv4
-      if (data->vertex_format_ & V_ATTR_UV4)
-      {
-        const aiVector3D& vec = mesh->mTextureCoords[3][v];
-        SetVertexUv4(TVec2f(vec.x, vec.y), &p);
+        ret->SetUv(vi, TVec2f(vec.x, vec.y));
       }
       // Tangent
-      if (data->vertex_format_ & V_ATTR_TANGENT)
+      if (mesh->HasTangentsAndBitangents())
       {
-        GG_ASSERT(mesh->HasTangentsAndBitangents(), "接空間ベクトル情報が含まれていないメッシュがあります");
-
-        const aiVector3D& vec = mesh->mTangents[v];
-        SetVertexTangent(TVec4f(vec.x, vec.y, vec.z, 1.0f), &p);
+        const aiVector3D& tangent = mesh->mTangents[v];
+        ret->SetTangent(vi, TVec4f(tangent.x, tangent.y, tangent.z, 1.0f));
       }
-      // Color
-      if (data->vertex_format_ & V_ATTR_COLOR)
+      else
       {
-        const aiColor4D& col = mesh->mColors[0][v];
-        SetVertexColor(TColor(col.r, col.g, col.b, col.a), &p);
+        need_recalculate_tangents = true;
       }
     }
-    //
-    unsigned char* p = &data->index_datas_[m][0];
-    for (T_UINT32 f = 0; f < mesh->mNumFaces; ++f)
+
+    // インデックスデータの作成
+    for (T_UINT32 f = 0, ii = 0; f < mesh->mNumFaces; ++f)
     {
-      GG_ASSERT(mesh->mFaces[f].mNumIndices == 3, "ポリゴンが三角形ではありません");
-      for (T_UINT32 fi = 0; fi < mesh->mFaces[f].mNumIndices; ++fi)
+      for (T_UINT32 i = 0; i < 3; ++i, ++ii)
       {
-        SetIndexIndex(index_offset + mesh->mFaces[f].mIndices[fi], static_cast<IndexFormat>(data->index_formats_[m]), &p);
+        ret->SetIndex(m, ii, index_offset + mesh->mFaces[f].mIndices[i]);
       }
     }
-    index_offset += mesh->mNumVertices;
+
+    index_offset += vertex_count;
   }
-
-  data->bounds_.center.x = (min.x + max.y) * 0.5f;
-  data->bounds_.center.y = (min.y + max.y) * 0.5f;
-  data->bounds_.center.z = (min.z + max.z) * 0.5f;
-
-  data->bounds_.extents.x = (max.x - min.x) * 0.5f;
-  data->bounds_.extents.y = (max.y - min.y) * 0.5f;
-  data->bounds_.extents.z = (max.z - min.z) * 0.5f;
+  if (need_recalculate_normals)
+  {
+    ret->RecalculateNormals();
+  }
+  if (need_recalculate_tangents)
+  {
+    ret->RecalculateTangents();
+  }
+  ret->RecalculateBounds();
 
   AssetMetaData* mesh_asset_info = AssetMetaData::Create(
     URI(model_asset_info->GetURI().GetDirectoryPath(), model_asset_info->GetURI().GetPrefix(), Extensions::STATIC_MESH),
     model_asset_info->GetUniqueID(),
     context
   );
+
+  StaticMeshData* data = new StaticMeshData();
+
+  ret->ConvertToData(data);
 
   return ModelStaticMeshAssetEntity::Create(mesh_asset_info, data);
 }

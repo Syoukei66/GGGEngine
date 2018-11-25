@@ -65,7 +65,7 @@ void AssetConverterDirector::Init()
   self->converter_manager_->AddConverter(DefaultMaterialAssetConverterFactory::Create(self->context_));
 
   // Model
-  //self->converter_manager_->AddConverter(StaticModelAssetEntity::CreateConverter());
+  self->converter_manager_->AddConverter(StaticModelAssetEntity::CreateConverter());
   self->converter_manager_->AddConverter(CharacterModelAssetEntity::CreateConverter());
 }
 

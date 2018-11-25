@@ -158,14 +158,6 @@ public:
   void CreateVertices(T_UINT32 vertex_count, T_UINT32 format, Vertex::PrimitiveType primitive_type = Vertex::PrimitiveType::TRIANGLES);
 
   /*!
-   * @brief 頂点リストに新たな頂点リストを追加する
-   * @param vertex_count 頂点数
-   * @param format 頂点フォーマット
-   * @param primitive_type プリミティブの種類
-   */
-  void AddVertices(T_UINT32 vertex_count, T_UINT32 format, Vertex::PrimitiveType primitive_type = Vertex::PrimitiveType::TRIANGLES);
-
-  /*!
    * @brief インデックスリストを追加し、サブメッシュを作成する。
    * 必ず頂点を作成した後呼び出すように。
    * @param index_count インデックス数
