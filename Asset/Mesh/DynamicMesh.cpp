@@ -16,13 +16,13 @@ GG_INIT_FUNC_IMPL_1(rcDynamicMesh, const DynamicMeshData& data)
   for (T_UINT32 i = 0; i < data.vertex_count_; ++i)
   {
     if (this->vertex_format_ & V_ATTR_POSITION) this->vertices_[i] = data.vertices_[i];
-    if (this->vertex_format_ & V_ATTR_NORMAL)   this->normals_[i] = data.normals_[i];
-    if (this->vertex_format_ & V_ATTR_UV)       this->uvs_[i] = data.uvs_[i];
-    if (this->vertex_format_ & V_ATTR_UV2)      this->uv2s_[i] = data.uv2s_[i];
-    if (this->vertex_format_ & V_ATTR_UV3)      this->uv3s_[i] = data.uv3s_[i];
-    if (this->vertex_format_ & V_ATTR_UV4)      this->uv4s_[i] = data.uv4s_[i];
-    if (this->vertex_format_ & V_ATTR_TANGENT)  this->tangents_[i] = data.tangents_[i];
-    if (this->vertex_format_ & V_ATTR_COLOR)    this->colors_[i] = data.colors_[i];
+    if (this->vertex_format_ & V_ATTR_NORMAL  ) this->normals_ [i] = data.normals_ [i];
+    if (this->vertex_format_ & V_ATTR_UV      ) this->uvs_     [i] = data.uvs_     [i];
+    if (this->vertex_format_ & V_ATTR_UV2     ) this->uv2s_    [i] = data.uv2s_    [i];
+    if (this->vertex_format_ & V_ATTR_UV3     ) this->uv3s_    [i] = data.uv3s_    [i];
+    if (this->vertex_format_ & V_ATTR_UV4     ) this->uv4s_    [i] = data.uv4s_    [i];
+    if (this->vertex_format_ & V_ATTR_TANGENT ) this->tangents_[i] = data.tangents_[i];
+    if (this->vertex_format_ & V_ATTR_COLOR   ) this->colors_  [i] = data.colors_  [i];
   }
 
   // Index Bufferの作成
@@ -30,13 +30,12 @@ GG_INIT_FUNC_IMPL_1(rcDynamicMesh, const DynamicMeshData& data)
   {
     const T_UINT32 submesh_index_count = (T_UINT32)data.submesh_indices_[i].size();
     this->AddIndices(submesh_index_count);
+    this->submesh_polygon_counts_[i] = data.submesh_polygon_counts_[i];
     for (T_UINT32 ii = 0; ii < submesh_index_count; ++ii)
     {
       this->SetIndex(i, ii, data.submesh_indices_[i][ii]);
     }
   }
-
-  this->CommitChanges();
 
   return true;
 }
@@ -58,9 +57,9 @@ void rcDynamicMesh::Clear()
 
 void rcDynamicMesh::ClearVertices()
 {
+  this->ClearVertexBuffer();
+
   this->vertex_count_ = 0;
-  this->vertex_buffer_ = nullptr;
-  this->vertex_declaration_ = nullptr;
   this->bounds_ = Bounds();
 
   this->vertices_.clear();
@@ -77,10 +76,27 @@ void rcDynamicMesh::ClearVertices()
 
 void rcDynamicMesh::ClearIndices()
 {
+  this->ClearIndexBuffers();
+
   this->polygon_count_ = 0;
   this->submesh_count_ = 0;
   this->face_normals_.clear();
   this->submesh_indices_.clear();
+  this->submesh_polygon_counts_.clear();
+}
+
+void rcDynamicMesh::ClearVertexBuffer()
+{
+  this->vertex_buffer_ = nullptr;
+}
+
+void rcDynamicMesh::ClearVertexDeclaration()
+{
+  this->vertex_declaration_ = nullptr;
+}
+
+void rcDynamicMesh::ClearIndexBuffers()
+{
   this->submesh_index_buffers_.clear();
 }
 
@@ -97,13 +113,13 @@ void rcDynamicMesh::ConvertToData(StaticMeshData* dest) const
   for (T_UINT32 i = 0; i < dest->vertex_count_; ++i)
   {
     if (this->vertex_format_ & V_ATTR_POSITION) Vertex::SetVertexPosition(this->vertices_[i], &p);
-    if (this->vertex_format_ & V_ATTR_NORMAL)   Vertex::SetVertexNormal(this->normals_[i], &p);
-    if (this->vertex_format_ & V_ATTR_UV)       Vertex::SetVertexUv(this->uvs_[i], &p);
-    if (this->vertex_format_ & V_ATTR_UV2)      Vertex::SetVertexUv2(this->uv2s_[i], &p);
-    if (this->vertex_format_ & V_ATTR_UV3)      Vertex::SetVertexUv3(this->uv3s_[i], &p);
-    if (this->vertex_format_ & V_ATTR_UV4)      Vertex::SetVertexUv4(this->uv4s_[i], &p);
-    if (this->vertex_format_ & V_ATTR_TANGENT)  Vertex::SetVertexTangent(this->tangents_[i], &p);
-    if (this->vertex_format_ & V_ATTR_COLOR)    Vertex::SetVertexColor(this->colors_[i], &p);
+    if (this->vertex_format_ & V_ATTR_NORMAL  ) Vertex::SetVertexNormal  (this->normals_ [i], &p);
+    if (this->vertex_format_ & V_ATTR_UV      ) Vertex::SetVertexUv      (this->uvs_     [i], &p);
+    if (this->vertex_format_ & V_ATTR_UV2     ) Vertex::SetVertexUv2     (this->uv2s_    [i], &p);
+    if (this->vertex_format_ & V_ATTR_UV3     ) Vertex::SetVertexUv3     (this->uv3s_    [i], &p);
+    if (this->vertex_format_ & V_ATTR_UV4     ) Vertex::SetVertexUv4     (this->uv4s_    [i], &p);
+    if (this->vertex_format_ & V_ATTR_TANGENT ) Vertex::SetVertexTangent (this->tangents_[i], &p);
+    if (this->vertex_format_ & V_ATTR_COLOR   ) Vertex::SetVertexColor   (this->colors_  [i], &p);
     //SetVertexBoneWeights(this->bone_weights_[i], dest->vertex_format_, &p);
   }
 
@@ -114,14 +130,13 @@ void rcDynamicMesh::ConvertToData(StaticMeshData* dest) const
   dest->polygon_counts_.resize(this->submesh_count_);
   for (T_UINT32 i = 0; i < this->submesh_count_; ++i)
   {
-    const SharedRef<rcIndexBuffer>& index_buffer = this->submesh_index_buffers_[i];
-    const Vertex::IndexFormat index_format = index_buffer->GetIndexFormat();
+    const Vertex::IndexFormat index_format = Vertex::CalcIndexFormat(dest->vertex_count_);
     const T_UINT8 index_format_index = static_cast<T_UINT8>(index_format);
     const T_UINT32 index_size = Vertex::INDEX_FORMAT_SIZES[index_format_index];
-    const T_UINT32 index_count = index_buffer->GetVertexCount();
+    const T_UINT32 index_count = (T_UINT32)this->submesh_indices_[i].size();
     dest->index_counts_[i] = index_count;
     dest->index_formats_[i] = index_format_index;
-    dest->polygon_counts_[i] = index_buffer->GetPolygonCount();
+    dest->polygon_counts_[i] = this->submesh_polygon_counts_[i];
     dest->index_datas_[i].resize(index_count * index_size);
     unsigned char* p = &dest->index_datas_[i][0];
     for (T_UINT32 ii = 0; ii < index_count; ++ii)
@@ -142,28 +157,29 @@ void rcDynamicMesh::ConvertToData(DynamicMeshData* dest) const
   using namespace Vertex;
 
   if (dest->vertex_format_ & V_ATTR_POSITION) dest->vertices_.resize(dest->vertex_count_);
-  if (dest->vertex_format_ & V_ATTR_NORMAL)   dest->normals_.resize(dest->vertex_count_);
-  if (dest->vertex_format_ & V_ATTR_UV)       dest->uvs_.resize(dest->vertex_count_);
-  if (dest->vertex_format_ & V_ATTR_UV2)      dest->uv2s_.resize(dest->vertex_count_);
-  if (dest->vertex_format_ & V_ATTR_UV3)      dest->uv3s_.resize(dest->vertex_count_);
-  if (dest->vertex_format_ & V_ATTR_UV4)      dest->uv4s_.resize(dest->vertex_count_);
-  if (dest->vertex_format_ & V_ATTR_TANGENT)  dest->tangents_.resize(dest->vertex_count_);
-  if (dest->vertex_format_ & V_ATTR_COLOR)    dest->colors_.resize(dest->vertex_count_);
+  if (dest->vertex_format_ & V_ATTR_NORMAL  ) dest->normals_ .resize(dest->vertex_count_);
+  if (dest->vertex_format_ & V_ATTR_UV      ) dest->uvs_     .resize(dest->vertex_count_);
+  if (dest->vertex_format_ & V_ATTR_UV2     ) dest->uv2s_    .resize(dest->vertex_count_);
+  if (dest->vertex_format_ & V_ATTR_UV3     ) dest->uv3s_    .resize(dest->vertex_count_);
+  if (dest->vertex_format_ & V_ATTR_UV4     ) dest->uv4s_    .resize(dest->vertex_count_);
+  if (dest->vertex_format_ & V_ATTR_TANGENT ) dest->tangents_.resize(dest->vertex_count_);
+  if (dest->vertex_format_ & V_ATTR_COLOR   ) dest->colors_  .resize(dest->vertex_count_);
 
   for (T_UINT32 i = 0; i < dest->vertex_count_; ++i)
   {
     if (dest->vertex_format_ & V_ATTR_POSITION) dest->vertices_[i] = this->vertices_[i];
-    if (dest->vertex_format_ & V_ATTR_NORMAL)   dest->normals_[i] = this->normals_[i];
-    if (dest->vertex_format_ & V_ATTR_UV)       dest->uvs_[i] = this->uvs_[i];
-    if (dest->vertex_format_ & V_ATTR_UV2)      dest->uv2s_[i] = this->uv2s_[i];
-    if (dest->vertex_format_ & V_ATTR_UV3)      dest->uv3s_[i] = this->uv3s_[i];
-    if (dest->vertex_format_ & V_ATTR_UV4)      dest->uv4s_[i] = this->uv4s_[i];
-    if (dest->vertex_format_ & V_ATTR_TANGENT)  dest->tangents_[i] = this->tangents_[i];
-    if (dest->vertex_format_ & V_ATTR_COLOR)    dest->colors_[i] = this->colors_[i];
+    if (dest->vertex_format_ & V_ATTR_NORMAL  ) dest->normals_ [i] = this->normals_ [i];
+    if (dest->vertex_format_ & V_ATTR_UV      ) dest->uvs_     [i] = this->uvs_     [i];
+    if (dest->vertex_format_ & V_ATTR_UV2     ) dest->uv2s_    [i] = this->uv2s_    [i];
+    if (dest->vertex_format_ & V_ATTR_UV3     ) dest->uv3s_    [i] = this->uv3s_    [i];
+    if (dest->vertex_format_ & V_ATTR_UV4     ) dest->uv4s_    [i] = this->uv4s_    [i];
+    if (dest->vertex_format_ & V_ATTR_TANGENT ) dest->tangents_[i] = this->tangents_[i];
+    if (dest->vertex_format_ & V_ATTR_COLOR   ) dest->colors_  [i] = this->colors_  [i];
   }
 
   dest->submesh_count_ = this->submesh_count_;
   dest->submesh_indices_.resize(this->submesh_count_);
+  dest->submesh_polygon_counts_.resize(this->submesh_count_);
   for (T_UINT32 i = 0; i < this->submesh_count_; ++i)
   {
     dest->submesh_indices_.emplace_back(std::vector<T_UINT32>());
@@ -173,6 +189,7 @@ void rcDynamicMesh::ConvertToData(DynamicMeshData* dest) const
     {
       dest->submesh_indices_[i][ii] = this->submesh_indices_[i][ii];
     }
+    dest->submesh_polygon_counts_[i] = this->submesh_polygon_counts_[i];
   }
 
   dest->bounds_ = this->bounds_;
@@ -185,21 +202,23 @@ UniqueRef<rcDynamicMesh> rcDynamicMesh::Clone() const
   // clone Vertices
   clone->CreateVertices(this->vertex_count_, this->vertex_format_, this->primitive_type_);
   if (this->HasVertices())  clone->SetVertices(this->vertices_.data());
-  if (this->HasNormals())   clone->SetNormals(this->normals_.data());
-  if (this->HasUvs())       clone->SetUvs(this->uvs_.data());
-  if (this->HasUv2s())      clone->SetUv2s(this->uv2s_.data());
-  if (this->HasUv3s())      clone->SetUv3s(this->uv3s_.data());
-  if (this->HasUv4s())      clone->SetUv4s(this->uv4s_.data());
+  if (this->HasNormals ())  clone->SetNormals (this->normals_ .data());
+  if (this->HasUvs     ())  clone->SetUvs     (this->uvs_     .data());
+  if (this->HasUv2s    ())  clone->SetUv2s    (this->uv2s_    .data());
+  if (this->HasUv3s    ())  clone->SetUv3s    (this->uv3s_    .data());
+  if (this->HasUv4s    ())  clone->SetUv4s    (this->uv4s_    .data());
   if (this->HasTangents())  clone->SetTangents(this->tangents_.data());
-  if (this->HasColors())    clone->SetColors(this->colors_.data());
+  if (this->HasColors  ())  clone->SetColors  (this->colors_  .data());
 
   // clone indices
-  for (const SharedRef<rcIndexBuffer>& index_buffer : this->submesh_index_buffers_)
+  const T_UINT32 submesh_count = 0;
+  for (T_UINT32 i = 0; i < submesh_count; ++i)
   {
-    const T_UINT32 submesh_index_index = clone->AddIndices(index_buffer->GetVertexCount(), index_buffer->GetPolygonCount());
-    const std::vector<T_UINT32>& submesh_indices = this->submesh_indices_[submesh_index_index];
-    const T_UINT32 submesh_index_count = (T_UINT32)submesh_indices.size();
-    clone->SetIndices(submesh_index_index, this->GetIndices(submesh_index_index));
+    const T_UINT32 submesh_index_count = (T_UINT32)this->submesh_indices_[i].size();
+    const T_UINT32 submesh_polygon_count = this->submesh_polygon_counts_[i];
+    clone->AddIndices(submesh_index_count, submesh_polygon_count);
+    clone->SetIndices(i, this->GetIndices(i));
+    clone->submesh_polygon_counts_[i] = submesh_polygon_count;
   }
 
   clone->CommitChanges();
@@ -223,13 +242,13 @@ UniqueRef<rcMesh> rcDynamicMesh::CloneStatic() const
   for (T_UINT32 i = 0; i < this->vertex_count_; ++i)
   {
     if (this->vertex_format_ & V_ATTR_POSITION) SetVertexPosition(this->vertices_[i], &p);
-    if (this->vertex_format_ & V_ATTR_NORMAL)   SetVertexNormal(this->normals_[i], &p);
-    if (this->vertex_format_ & V_ATTR_UV)       SetVertexUv(this->uvs_[i], &p);
-    if (this->vertex_format_ & V_ATTR_UV2)      SetVertexUv2(this->uv2s_[i], &p);
-    if (this->vertex_format_ & V_ATTR_UV3)      SetVertexUv3(this->uv3s_[i], &p);
-    if (this->vertex_format_ & V_ATTR_UV4)      SetVertexUv4(this->uv4s_[i], &p);
-    if (this->vertex_format_ & V_ATTR_TANGENT)  SetVertexTangent(this->tangents_[i], &p);
-    if (this->vertex_format_ & V_ATTR_COLOR)    SetVertexColor(this->colors_[i], &p);
+    if (this->vertex_format_ & V_ATTR_NORMAL  ) SetVertexNormal  (this->normals_ [i], &p);
+    if (this->vertex_format_ & V_ATTR_UV      ) SetVertexUv      (this->uvs_     [i], &p);
+    if (this->vertex_format_ & V_ATTR_UV2     ) SetVertexUv2     (this->uv2s_    [i], &p);
+    if (this->vertex_format_ & V_ATTR_UV3     ) SetVertexUv3     (this->uv3s_    [i], &p);
+    if (this->vertex_format_ & V_ATTR_UV4     ) SetVertexUv4     (this->uv4s_    [i], &p);
+    if (this->vertex_format_ & V_ATTR_TANGENT ) SetVertexTangent (this->tangents_[i], &p);
+    if (this->vertex_format_ & V_ATTR_COLOR   ) SetVertexColor   (this->colors_  [i], &p);
   }
   ret->vertex_buffer_->Unlock();
 
@@ -273,37 +292,94 @@ UniqueRef<rcMesh> rcDynamicMesh::MoveStatic()
   return ret;
 }
 
+void rcDynamicMesh::Append(const SharedRef<const rcDynamicMesh>& other)
+{
+  if (this->vertex_format_ == 0)
+  {
+    this->vertex_format_ = other->vertex_format_;
+  }
+  if (this->primitive_type_ == Vertex::PrimitiveType::NONE)
+  {
+    this->primitive_type_ = other->primitive_type_;
+  }
+
+  GG_ASSERT(this->vertex_format_ == other->vertex_format_, "メッシュ結合は同じフォーマットのメッシュ同士でないと実行できません");
+  GG_ASSERT(this->primitive_type_ == other->primitive_type_, "メッシュ結合は同じプリミティブタイプのメッシュ同士でないと実行できません");
+
+  this->ClearVertexBuffer();
+
+  const T_UINT32 old_vertex_count = this->vertex_count_;
+  this->vertex_count_ += other->vertex_count_;
+  using namespace Vertex;
+  if (this->vertex_format_ & V_ATTR_POSITION) this->vertices_.resize(this->vertex_count_);
+  if (this->vertex_format_ & V_ATTR_NORMAL  ) this->normals_.resize (this->vertex_count_);
+  if (this->vertex_format_ & V_ATTR_UV      ) this->uvs_.resize     (this->vertex_count_);
+  if (this->vertex_format_ & V_ATTR_UV2     ) this->uv2s_.resize    (this->vertex_count_);
+  if (this->vertex_format_ & V_ATTR_UV3     ) this->uv3s_.resize    (this->vertex_count_);
+  if (this->vertex_format_ & V_ATTR_UV4     ) this->uv4s_.resize    (this->vertex_count_);
+  if (this->vertex_format_ & V_ATTR_TANGENT ) this->tangents_.resize(this->vertex_count_);
+  if (this->vertex_format_ & V_ATTR_COLOR   ) this->colors_.resize  (this->vertex_count_);
+
+  for (T_UINT32 i = old_vertex_count; i < this->vertex_count_; ++i)
+  {
+    if (this->vertex_format_ & V_ATTR_POSITION) this->vertices_[i] = other->vertices_[i - old_vertex_count];
+    if (this->vertex_format_ & V_ATTR_NORMAL  ) this->normals_ [i] = other->normals_ [i - old_vertex_count];
+    if (this->vertex_format_ & V_ATTR_UV      ) this->uvs_     [i] = other->uvs_     [i - old_vertex_count];
+    if (this->vertex_format_ & V_ATTR_UV2     ) this->uv2s_    [i] = other->uv2s_    [i - old_vertex_count];
+    if (this->vertex_format_ & V_ATTR_UV3     ) this->uv3s_    [i] = other->uv3s_    [i - old_vertex_count];
+    if (this->vertex_format_ & V_ATTR_UV4     ) this->uv4s_    [i] = other->uv4s_    [i - old_vertex_count];
+    if (this->vertex_format_ & V_ATTR_TANGENT ) this->tangents_[i] = other->tangents_[i - old_vertex_count];
+    if (this->vertex_format_ & V_ATTR_COLOR   ) this->colors_  [i] = other->colors_  [i - old_vertex_count];
+  }
+  this->vertices_dirty_ = true;
+
+  const T_UINT32 old_submesh_count = this->submesh_count_;
+  for (T_UINT32 i = 0; i < other->submesh_count_; ++i)
+  {
+    const T_UINT32 submesh_index_count = (T_UINT32)other->submesh_indices_[i].size();
+    const T_UINT32 submesh_polygo_count = other->submesh_polygon_counts_[i];
+    this->AddIndices(submesh_index_count, submesh_polygo_count);
+    for (T_UINT32 ii = 0; ii < submesh_index_count; ++ii)
+    {
+      this->submesh_indices_[old_submesh_count + i][ii] = other->submesh_indices_[i][ii];
+    }
+    this->submesh_polygon_counts_[old_submesh_count + i] = other->submesh_polygon_counts_[i];
+  }
+
+  //TODO: 面法線についての挙動を考える
+}
+
 void rcDynamicMesh::CreateVertices(T_UINT32 vertex_count, T_UINT32 format, Vertex::PrimitiveType primitive_type)
 {
   this->ClearVertices();
-
-  this->vertex_declaration_ = rcVertexDeclaration::Create(format);
 
   this->vertex_format_ = format;
   this->vertex_count_ = vertex_count;
   this->primitive_type_ = primitive_type;
 
   using namespace Vertex;
-
   if (format & V_ATTR_POSITION) this->vertices_.resize(vertex_count);
-  if (format & V_ATTR_NORMAL)   this->normals_.resize(vertex_count);
-  if (format & V_ATTR_UV)       this->uvs_.resize(vertex_count);
-  if (format & V_ATTR_UV2)      this->uv2s_.resize(vertex_count);
-  if (format & V_ATTR_UV3)      this->uv3s_.resize(vertex_count);
-  if (format & V_ATTR_UV4)      this->uv4s_.resize(vertex_count);
-  if (format & V_ATTR_TANGENT)  this->tangents_.resize(vertex_count);
-  if (format & V_ATTR_COLOR)    this->colors_.resize(vertex_count);
-  this->vertex_buffer_ = rcVertexBuffer::Create(vertex_count * this->vertex_declaration_->GetVertexSize());
+  if (format & V_ATTR_NORMAL  ) this->normals_ .resize(vertex_count);
+  if (format & V_ATTR_UV      ) this->uvs_     .resize(vertex_count);
+  if (format & V_ATTR_UV2     ) this->uv2s_    .resize(vertex_count);
+  if (format & V_ATTR_UV3     ) this->uv3s_    .resize(vertex_count);
+  if (format & V_ATTR_UV4     ) this->uv4s_    .resize(vertex_count);
+  if (format & V_ATTR_TANGENT ) this->tangents_.resize(vertex_count);
+  if (format & V_ATTR_COLOR   ) this->colors_  .resize(vertex_count);
   this->vertices_dirty_ = true;
+}
+
+void rcDynamicMesh::AddVertices(T_UINT32 vertex_count, T_UINT32 format, Vertex::PrimitiveType primitive_type)
+{
 }
 
 T_UINT32 rcDynamicMesh::AddIndices(T_UINT32 index_count, T_UINT32 polygon_count)
 {
   this->submesh_indices_.emplace_back(std::vector<T_UINT32>());
   this->submesh_indices_[this->submesh_count_].resize(index_count);
+  this->submesh_polygon_counts_.emplace_back(polygon_count);
   this->submesh_indices_dirties_.emplace_back(true);
 
-  this->submesh_index_buffers_.push_back(rcIndexBuffer::Create(index_count, polygon_count, this->vertex_count_));
   ++this->submesh_count_;
   this->polygon_count_ += polygon_count;
   return this->submesh_count_ - 1;
@@ -316,17 +392,25 @@ void rcDynamicMesh::CommitChanges()
   if (this->vertices_dirty_)
   {
     unsigned char* p;
+    if (!this->vertex_declaration_)
+    {
+      this->vertex_declaration_ = rcVertexDeclaration::Create(this->vertex_format_);
+    }
+    if (!this->vertex_buffer_)
+    {
+      this->vertex_buffer_ = rcVertexBuffer::Create(this->vertex_count_ * this->vertex_declaration_->GetVertexSize());
+    }
     this->vertex_buffer_->Lock((void**)&p);
     for (T_UINT32 i = 0; i < this->vertex_count_; ++i)
     {
       if (this->vertex_format_ & V_ATTR_POSITION) SetVertexPosition(this->vertices_[i], &p);
-      if (this->vertex_format_ & V_ATTR_NORMAL)   SetVertexNormal(this->normals_[i], &p);
-      if (this->vertex_format_ & V_ATTR_UV)       SetVertexUv(this->uvs_[i], &p);
-      if (this->vertex_format_ & V_ATTR_UV2)      SetVertexUv2(this->uv2s_[i], &p);
-      if (this->vertex_format_ & V_ATTR_UV3)      SetVertexUv3(this->uv3s_[i], &p);
-      if (this->vertex_format_ & V_ATTR_UV4)      SetVertexUv4(this->uv4s_[i], &p);
-      if (this->vertex_format_ & V_ATTR_TANGENT)  SetVertexTangent(this->tangents_[i], &p);
-      if (this->vertex_format_ & V_ATTR_COLOR)    SetVertexColor(this->colors_[i], &p);
+      if (this->vertex_format_ & V_ATTR_NORMAL  ) SetVertexNormal  (this->normals_ [i], &p);
+      if (this->vertex_format_ & V_ATTR_UV      ) SetVertexUv      (this->uvs_     [i], &p);
+      if (this->vertex_format_ & V_ATTR_UV2     ) SetVertexUv2     (this->uv2s_    [i], &p);
+      if (this->vertex_format_ & V_ATTR_UV3     ) SetVertexUv3     (this->uv3s_    [i], &p);
+      if (this->vertex_format_ & V_ATTR_UV4     ) SetVertexUv4     (this->uv4s_    [i], &p);
+      if (this->vertex_format_ & V_ATTR_TANGENT ) SetVertexTangent (this->tangents_[i], &p);
+      if (this->vertex_format_ & V_ATTR_COLOR   ) SetVertexColor   (this->colors_  [i], &p);
     }
     this->vertex_buffer_->Unlock();
     this->vertices_dirty_ = false;
@@ -336,6 +420,10 @@ void rcDynamicMesh::CommitChanges()
     if (!this->submesh_indices_dirties_[i])
     {
       continue;
+    }
+    if (this->submesh_index_buffers_.size() <= i)
+    {
+      this->submesh_index_buffers_.push_back(rcIndexBuffer::Create((T_UINT32)this->submesh_indices_[i].size(), this->submesh_polygon_counts_[i], this->vertex_count_));
     }
     const T_UINT32 submesh_index_count = this->submesh_index_buffers_[i]->GetVertexCount();
     const IndexFormat index_format = this->submesh_index_buffers_[i]->GetIndexFormat();

@@ -30,6 +30,7 @@ struct DynamicMeshData
 
     archive(submesh_count_);
     archive(submesh_indices_);
+    archive(submesh_polygon_counts_);
 
     archive(bounds_);
   }
@@ -58,6 +59,7 @@ public:
   // IndexBuffer Params
   T_UINT32 submesh_count_;
   std::vector<std::vector<T_UINT32>> submesh_indices_;
+  std::vector<T_UINT32> submesh_polygon_counts_;
 
   Bounds bounds_;
 };
@@ -65,6 +67,8 @@ public:
 /*!
  * @brief Meshの機能に加え、メッシュの編集機能と
  * パラメーターへのアクセス機能を持ったメッシュ
+ * Meshと違い、生成時点ではバッファへのデータ転送が行われていない為、
+ * CommitChangesを呼び出すまでレンダラで使用できない
  */
 class rcDynamicMesh : public rcMesh
 {
@@ -98,6 +102,21 @@ public:
   void ClearIndices();
 
   /*!
+   * @brief 頂点バッファを削除する
+   */
+  void ClearVertexBuffer();
+
+  /*!
+   * @brief 頂点情報を削除する
+   */
+  void ClearVertexDeclaration();
+
+  /*!
+   * @brief インデックスバッファを全て削除する
+   */
+  void ClearIndexBuffers();
+
+  /*!
    * @brief Mesh内の頂点、インデックス情報を静的なメッシュデータとしてデータ化する
    */
   void ConvertToData(StaticMeshData* dest) const;
@@ -126,7 +145,12 @@ public:
   UniqueRef<rcMesh> MoveStatic();
 
   /*!
-   * @brief 頂点バッファを作成する。
+   * @brief 他のメッシュをこのメッシュのサブメッシュとして追加する
+   */
+  void Append(const SharedRef<const rcDynamicMesh>& other);
+
+  /*!
+   * @brief 頂点リストを作成する。
    * @param vertex_count 頂点数
    * @param format 頂点フォーマット
    * @param primitive_type プリミティブの種類
@@ -134,8 +158,16 @@ public:
   void CreateVertices(T_UINT32 vertex_count, T_UINT32 format, Vertex::PrimitiveType primitive_type = Vertex::PrimitiveType::TRIANGLES);
 
   /*!
-   * @brief インデックスバッファを追加し、サブメッシュを作成する。
-   * 必ず頂点バッファを作成した後呼び出すように。
+   * @brief 頂点リストに新たな頂点リストを追加する
+   * @param vertex_count 頂点数
+   * @param format 頂点フォーマット
+   * @param primitive_type プリミティブの種類
+   */
+  void AddVertices(T_UINT32 vertex_count, T_UINT32 format, Vertex::PrimitiveType primitive_type = Vertex::PrimitiveType::TRIANGLES);
+
+  /*!
+   * @brief インデックスリストを追加し、サブメッシュを作成する。
+   * 必ず頂点を作成した後呼び出すように。
    * @param index_count インデックス数
    * @param polygon_count ポリゴン数
    */
@@ -403,6 +435,7 @@ private:
 
   // IndexBuffer Params
   std::vector<std::vector<T_UINT32>> submesh_indices_;
+  std::vector<T_UINT32> submesh_polygon_counts_;
   std::vector<bool> submesh_indices_dirties_;
 
 };
