@@ -263,6 +263,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="Component\Collider\Collision3D.h" />
     <ClInclude Include="Component\ComponentMacro.h" />
     <ClInclude Include="Component\GameComponent.h" />
+    <ClInclude Include="Component\GameComponentManager.h" />
     <ClInclude Include="Component\Modifier\EntityModifier.h" />
     <ClInclude Include="Component\Modifier\EntityModifierAttribute.h" />
     <ClInclude Include="Component\Modifier\EntityModifierFactory.h" />

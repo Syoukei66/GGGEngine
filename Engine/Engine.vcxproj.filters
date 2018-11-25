@@ -392,6 +392,9 @@
     <ClInclude Include="Component\ComponentMacro.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Component\GameComponentManager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shader\DefaultProperty.hlsli" />

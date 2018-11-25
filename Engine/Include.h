@@ -12,6 +12,7 @@
 #include <Engine/Component/Collider/Collision3D.h>
 #include <Engine/Component/ComponentMacro.h>
 #include <Engine/Component/GameComponent.h>
+#include <Engine/Component/GameComponentManager.h>
 #include <Engine/Component/Modifier/EntityModifier.h>
 #include <Engine/Component/Modifier/EntityModifierAttribute.h>
 #include <Engine/Component/Modifier/EntityModifierFactory.h>

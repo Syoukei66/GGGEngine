@@ -11,8 +11,9 @@ class GameComponent : public GGObject
 protected:
   enum ComponentType
   {
-    COMPONENT_TYPE_RENDERER = 1 << 0,
-    COMPONENT_TYPE_CAMERA = 1 << 1,
+    COMPONENT_TYPE_RENDERER,
+    COMPONENT_TYPE_CAMERA,
+    COMPONENT_TYPE_GIZMO_RENDERER,
   };
 
   static constexpr T_UINT32 COMPONENT_SHIFT = 8;
@@ -20,13 +21,14 @@ protected:
 
   enum class ComponentID : T_UINT32
   {
-    Renderer = COMPONENT_TYPE_RENDERER << COMPONENT_SHIFT,
+    Renderer          = (1 << COMPONENT_TYPE_RENDERER) << COMPONENT_SHIFT,
     MeshRenderer,
     SpriteRenderer,
-    Camera = COMPONENT_TYPE_CAMERA << COMPONENT_SHIFT,
-    Camera2D = Camera + (1 << INHERITANCE_SHIFT),
-    Camera3D = Camera + (2 << INHERITANCE_SHIFT),
+    Camera            = (1 << COMPONENT_TYPE_CAMERA) << COMPONENT_SHIFT,
+    Camera2D          = Camera + (1 << INHERITANCE_SHIFT),
+    Camera3D          = Camera + (2 << INHERITANCE_SHIFT),
     Camera3D_LookAt,
+    GizmoRenderer     = (1 << COMPONENT_TYPE_GIZMO_RENDERER) << COMPONENT_SHIFT,
   };
 
 public:
