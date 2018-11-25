@@ -5,7 +5,7 @@
 IAssetConverter* CharacterModelAssetEntity::CreateConverter()
 {
   return FileAssetConverterFactory::Create<CharacterModelAssetEntity>(
-    new CharacterModelAssetImporter({ "x", "fbx", "blend" }),
+    new CharacterModelAssetImporter({ "dae", "blend" }),
     "CharacterModel",
     "rcCharacterModel",
     1,
