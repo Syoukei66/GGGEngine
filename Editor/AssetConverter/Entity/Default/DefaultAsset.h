@@ -5,11 +5,11 @@
 
 namespace DefaultAsset
 {
-static const std::string& SHADER_PATH_LAMBERT = "shader/default/Lambert.cso";
-static const std::string& SHADER_PATH_PHONG   = "shader/default/Phong.cso";
-static const std::string& SHADER_PATH_WHITE   = "shader/default/White.cso";
-static const std::string& SHADER_PATH_UNLIT  = "shader/default/Unlit.cso";
-static const std::string& SHADER_PATH_STENCIL_SHADOW = "shader/default/StencilShadow.cso";
+static const std::string& SHADER_PATH_LAMBERT = "shader/default/Lambert.fx";
+static const std::string& SHADER_PATH_PHONG   = "shader/default/Phong.fx";
+static const std::string& SHADER_PATH_WHITE   = "shader/default/White.fx";
+static const std::string& SHADER_PATH_UNLIT  = "shader/default/Unlit.fx";
+static const std::string& SHADER_PATH_STENCIL_SHADOW = "shader/default/StencilShadow.fx";
 
 //‰¼‘z‚ÌƒpƒX
 static const std::string& MESH_PATH_CUBE   = "mesh/default/Cube.mesh";

@@ -21,7 +21,7 @@ class ShaderAssetEntity : public RawAssetEntity<rcShader>
 public:
   static inline IAssetConverter* CreateConverter()
   {
-    return RawAssetConverterFactory::Create<ShaderAssetEntity>("Shader", "rcShader", "cso");
+    return RawAssetConverterFactory::Create<ShaderAssetEntity>("Shader", "rcShader", "fx");
   }
 
 };

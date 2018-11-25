@@ -446,6 +446,8 @@ UniqueRef<rcShader> DX9GraphicsAPI::ShaderLoad(const char* path)
 {
   LPD3DXEFFECT dest = nullptr;
 
+  LPD3DXBUFFER error_buffer = nullptr;
+
   HRESULT hr = D3DXCreateEffectFromFile(
     this->d3d_device_,
     path,
@@ -454,9 +456,13 @@ UniqueRef<rcShader> DX9GraphicsAPI::ShaderLoad(const char* path)
     D3DXSHADER_SKIPVALIDATION,
     NULL,
     &dest,
-    NULL
+    &error_buffer
   );
-  GG_ASSERT(SUCCEEDED(hr), "シェーダーのロードに失敗しました");
+  if (FAILED(hr))
+  {
+    Log::Error(("シェーダーのロードに失敗しました" + (error_buffer ? "\n=>" + std::string((LPCSTR)error_buffer->GetBufferPointer()) : "")).c_str());
+    return UniqueRef<rcShader>();
+  }
   return UniqueRef<rcShader>(new DX9Shader(dest));
 }
 
