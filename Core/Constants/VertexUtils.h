@@ -90,12 +90,24 @@ static T_UINT8 INDEX_FORMAT_SIZES[static_cast<T_UINT8>(IndexFormat::INDEX_FMT_DA
   (T_UINT8)sizeof(T_FIXED_INT32),
 };
 
+static IndexFormat CalcIndexFormat(T_UINT32 max_value)
+{
+  // 頂点数からインデックスフォーマットを判別する
+  if (max_value > Limit::T_FIXED_UINT16_MAX)
+  {
+    return Vertex::IndexFormat::INDEX_FMT_32;
+  }
+  return Vertex::IndexFormat::INDEX_FMT_16;
+}
+
 /*!
  * @brief プリミティブの種類
  */
 enum class PrimitiveType : T_UINT32
 {
-  POINTS,
+  NONE,
+
+  POINTS = 0,
   LINES,
   LINESTRIP,
   TRIANGLES,

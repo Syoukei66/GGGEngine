@@ -23,13 +23,7 @@ public:
   }
   GG_INLINE static UniqueRef<rcIndexBuffer> Create(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT32 max_value)
   {
-    // 頂点数からインデックスフォーマットを判別する
-    Vertex::IndexFormat format = Vertex::IndexFormat::INDEX_FMT_16;
-    if (max_value > Limit::T_FIXED_UINT16_MAX)
-    {
-      format = Vertex::IndexFormat::INDEX_FMT_32;
-    }
-    return Create(vertex_count, polygon_count, format);
+    return Create(vertex_count, polygon_count, Vertex::CalcIndexFormat(max_value));
   }
 
   // =================================================================
