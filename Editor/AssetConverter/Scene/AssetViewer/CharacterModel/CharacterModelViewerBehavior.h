@@ -21,6 +21,8 @@ public:
   virtual void OnUnload() override;
   virtual bool IsTarget(T_UINT32 id) override;
 
+  virtual void OnUpdate() override;
+
   // =================================================================
   // Data Members
   // =================================================================

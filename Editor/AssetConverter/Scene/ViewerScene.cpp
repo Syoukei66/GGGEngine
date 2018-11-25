@@ -55,8 +55,8 @@ void ViewerScene::Update()
   using namespace HalEngine;
   Transform3D* transform = this->camera_3d_->GetTransform();
 
-  const T_FLOAT horizontal = Input(0)->GetAxis(GameInput::X_AXIS);
-  const T_FLOAT vertical = Input(0)->GetAxis(GameInput::Y_AXIS);
+  const T_FLOAT horizontal = Input(0)->GetAxis(GameInput::X_AXIS, 0.0f);
+  const T_FLOAT vertical = Input(0)->GetAxis(GameInput::Y_AXIS, 0.0f);
 
   transform->MoveX(horizontal * 0.3f * this->move_speed_);
   transform->MoveZ(vertical * 0.3f * this->move_speed_);
@@ -64,9 +64,9 @@ void ViewerScene::Update()
   const bool mouse_click_L = Input(0)->GetButton(GameInput::MOUSE_CLICK_L);
   const bool mouse_click_C = Input(0)->GetButton(GameInput::MOUSE_CLICK_C);
   const bool mouse_click_R = Input(0)->GetButton(GameInput::MOUSE_CLICK_R);
-  const T_FLOAT move_x = Input(0)->GetAxis(GameInput::MOUSE_MOVE_X, 0.01f);
-  const T_FLOAT move_y = Input(0)->GetAxis(GameInput::MOUSE_MOVE_Y, 0.01f);
-  const T_FLOAT move_z = Input(0)->GetAxis(GameInput::MOUSE_MOVE_Z, 0.01f);
+  const T_FLOAT move_x = Input(0)->GetAxis(GameInput::MOUSE_MOVE_X, 0.0f);
+  const T_FLOAT move_y = Input(0)->GetAxis(GameInput::MOUSE_MOVE_Y, 0.0f);
+  const T_FLOAT move_z = Input(0)->GetAxis(GameInput::MOUSE_MOVE_Z, 0.0f);
   if (mouse_click_C)
   {
     transform->MoveX(-move_x * 0.66f * this->move_speed_);

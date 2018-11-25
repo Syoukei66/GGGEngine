@@ -120,7 +120,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\Editor\AssetConverter;$(SolutionDir)Engine\Editor\EditorUtils;$(SolutionDir)Engine\Editor\ThirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\Editor\EditorUtils;$(SolutionDir)Engine\Editor\ThirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
@@ -156,7 +156,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\Editor\AssetConverter;$(SolutionDir)Engine\Editor\EditorUtils;$(SolutionDir)Engine\Editor\ThirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\Editor\EditorUtils;$(SolutionDir)Engine\Editor\ThirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
@@ -185,6 +185,8 @@
     <ClInclude Include="GUI\EntityView\AssetEntityView.h" />
     <ClInclude Include="GUI\FileView\AssetEntityFileLeaf.h" />
     <ClInclude Include="GUI\FileView\AssetEntityFileNode.h" />
+    <ClInclude Include="GUI\HierarchyView\HierarchyNode.h" />
+    <ClInclude Include="GUI\HierarchyView\HierarchyView.h" />
     <ClInclude Include="ProgramGenerator\AssetProgramGenerator.h" />
     <ClInclude Include="ProgramGenerator\AssetProgramGenerator_identifier.h" />
     <ClInclude Include="Entity\File\Raw\CSV\CsvAssetEntity.h" />
@@ -250,6 +252,8 @@
     <ClCompile Include="GUI\EntityView\AssetEntityView.cpp" />
     <ClCompile Include="GUI\FileView\AssetEntityFileLeaf.cpp" />
     <ClCompile Include="GUI\FileView\AssetEntityFileNode.cpp" />
+    <ClCompile Include="GUI\HierarchyView\HierarchyNode.cpp" />
+    <ClCompile Include="GUI\HierarchyView\HierarchyView.cpp" />
     <ClCompile Include="ProgramGenerator\AssetProgramGenerator_identifier.cpp" />
     <ClCompile Include="Entity\Default\Material\DefaultMaterialAssetConverterFactory.cpp" />
     <ClCompile Include="Entity\Default\Material\DefaultMaterialAssetEntity.cpp" />
