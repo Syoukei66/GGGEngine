@@ -12,6 +12,7 @@ class GameObject2D : public GameObject
   // =================================================================
   GG_OBJECT(GameObject2D);
   GG_CREATE_FUNC(GameObject2D);
+  GG_CREATE_FUNC_1(GameObject2D, const std::string&);
   GG_DESTRUCT_FUNC(GameObject2D);
   
   // =================================================================

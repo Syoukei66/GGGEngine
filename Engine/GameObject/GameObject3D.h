@@ -11,6 +11,7 @@ class GameObject3D : public GameObject
   // =================================================================
   GG_OBJECT(GameObject3D);
   GG_CREATE_FUNC(GameObject3D);
+  GG_CREATE_FUNC_1(GameObject3D, const std::string&);
   GG_DESTRUCT_FUNC(GameObject3D);
 
   // =================================================================

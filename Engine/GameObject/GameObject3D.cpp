@@ -9,9 +9,14 @@
 // =================================================================
 GG_INIT_FUNC_IMPL(GameObject3D)
 {
+  return GameObject3D::Init("GameObject3D");
+}
+
+GG_INIT_FUNC_IMPL_1(GameObject3D, const std::string& name)
+{
   this->transform_ = new Transform3D(this);
   this->transform_->Init();
-  return GameObject::Init();
+  return GameObject::Init(name);
 }
 
 GG_DESTRUCT_FUNC_IMPL(GameObject3D)

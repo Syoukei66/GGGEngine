@@ -12,6 +12,7 @@ class GameObject : public GGObject
   // =================================================================
 public:
   GG_INIT_FUNC(GameObject);
+  GG_INIT_FUNC_1(GameObject, const std::string&);
 
   // =================================================================
   // Methods
@@ -20,6 +21,15 @@ public:
   void AddChild(const SharedRef<GameObject>& child);
   void RemoveSelf();
   void ClearChildren();
+
+  GG_INLINE T_UINT32 GetChildrenCount() const
+  {
+    return (T_UINT32)this->children_.size();
+  }
+  GG_INLINE SharedRef<GameObject> GetChild(T_UINT32 index) const
+  {
+    return this->children_[index];
+  }
 
   // =================================================================
   // Components
@@ -81,6 +91,15 @@ protected:
   // Setter / Getter
   // =================================================================
 public:
+  GG_INLINE void SetName(const std::string& name)
+  {
+    this->name_ = name;
+  }
+  GG_INLINE const std::string& GetName() const
+  {
+    return this->name_;
+  }
+
   GG_INLINE bool HasParent() const
   {
     return this->parent_ != nullptr;
@@ -111,6 +130,13 @@ public:
   // =================================================================
   // Data Member
   // =================================================================
+private:
+  /*!
+   * @brief オブジェクトの名前
+   * デバッグの為にコーディング規約無視してでも先頭に置きたい
+   */
+  std::string name_;
+
 protected:
   Transform* transform_;
 

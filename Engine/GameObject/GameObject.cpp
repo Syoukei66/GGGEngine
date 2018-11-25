@@ -7,6 +7,12 @@
 // =================================================================
 GG_INIT_FUNC_IMPL(GameObject)
 {
+  return GameObject::Init("GameObject");
+}
+
+GG_INIT_FUNC_IMPL_1(GameObject, const std::string& name)
+{
+  this->name_ = name;
   this->enabled_ = true;
   return true;
 }
