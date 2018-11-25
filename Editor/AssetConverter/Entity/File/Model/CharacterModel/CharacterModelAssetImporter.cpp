@@ -21,75 +21,29 @@ CharacterModelAssetImporter::CharacterModelAssetImporter(const std::vector<std::
 // =================================================================
 // Methods
 // =================================================================
-SharedRef<ModelDynamicMeshAssetEntity> ImportMesh(const AssetMetaData* model_asset_info, const aiScene* scene, const aiMesh* mesh, AssetConverterContext* context)
+void ImportMesh(const AssetMetaData* model_asset_info, const aiScene* scene, const aiMesh* mesh, AssetConverterContext* context, CharacterMeshData* dest)
 {
   SharedRef<rcDynamicMesh> ret = rcDynamicMesh::Create();
 
   using namespace Vertex;
 
-  T_UINT32 format = 0;
-  format |= mesh->HasPositions() ? V_ATTR_POSITION : 0;
-  format |= mesh->HasNormals() ? V_ATTR_NORMAL : 0;
-  format |= mesh->HasTextureCoords(0) ? V_ATTR_UV : 0;
-  format |= mesh->HasTextureCoords(1) ? V_ATTR_UV2 : 0;
-  format |= mesh->HasTextureCoords(2) ? V_ATTR_UV3 : 0;
-  format |= mesh->HasTextureCoords(3) ? V_ATTR_UV4 : 0;
-  format |= mesh->HasTangentsAndBitangents() ? V_ATTR_TANGENT : 0;
-  format |= mesh->HasVertexColors(0) ? V_ATTR_COLOR : 0;
-
-  ret->CreateVertices(mesh->mNumVertices, format);
+  ret->CreateVertices(mesh->mNumVertices, V_FORMAT_PNUT);
 
   //
   for (T_UINT32 v = 0; v < mesh->mNumVertices; ++v)
   {
     // Vertex
-    if (format & V_ATTR_POSITION)
-    {
-      const aiVector3D& vec = mesh->mVertices[v];
-      ret->SetVertex(v, TVec3f(vec.x, vec.y, vec.z));
-    }
+    const aiVector3D& vec = mesh->mVertices[v];
+    ret->SetVertex(v, TVec3f(vec.x, vec.y, vec.z));
     // Normal
-    if (format & V_ATTR_NORMAL)
-    {
-      const aiVector3D& vec = mesh->mNormals[v];
-      ret->SetNormal(v, TVec3f(vec.x, vec.y, vec.z));
-    }
+    const aiVector3D& normal = mesh->mNormals[v];
+    ret->SetNormal(v, TVec3f(normal.x, normal.y, normal.z));
     // Uv
-    if (format & V_ATTR_UV)
-    {
-      const aiVector3D& vec = mesh->mTextureCoords[0][v];
-      ret->SetUv(v, TVec2f(vec.x, vec.y));
-    }
-    // Uv2
-    if (format & V_ATTR_UV2)
-    {
-      const aiVector3D& vec = mesh->mTextureCoords[1][v];
-      ret->SetUv2(v, TVec2f(vec.x, vec.y));
-    }
-    // Uv3
-    if (format & V_ATTR_UV3)
-    {
-      const aiVector3D& vec = mesh->mTextureCoords[2][v];
-      ret->SetUv3(v, TVec2f(vec.x, vec.y));
-    }
-    // Uv4
-    if (format & V_ATTR_UV4)
-    {
-      const aiVector3D& vec = mesh->mTextureCoords[3][v];
-      ret->SetUv4(v, TVec2f(vec.x, vec.y));
-    }
+    const aiVector3D& uv = mesh->mTextureCoords[0][v];
+    ret->SetUv(v, TVec2f(uv.x, uv.y));
     // Tangent
-    if (format & V_ATTR_TANGENT)
-    {
-      const aiVector3D& vec = mesh->mTangents[v];
-      ret->SetTangent(v, TVec4f(vec.x, vec.y, vec.z, 1.0f));
-    }
-    // Color
-    if (format & V_ATTR_COLOR)
-    {
-      const aiColor4D& col = mesh->mColors[0][v];
-      ret->SetColor(v, TColor(col.r, col.g, col.b, col.a));
-    }
+    const aiVector3D& tangent = mesh->mTangents[v];
+    ret->SetTangent(v, TVec4f(tangent.x, tangent.y, tangent.z, 1.0f));
   }
 
   //
@@ -105,28 +59,31 @@ SharedRef<ModelDynamicMeshAssetEntity> ImportMesh(const AssetMetaData* model_ass
 
   ret->RecalculateBounds();
 
-  AssetMetaData* mesh_asset_info = AssetMetaData::Create(
-    URI(model_asset_info->GetURI().GetDirectoryPath(), model_asset_info->GetURI().GetPrefix() + mesh->mName.C_Str(), Extensions::DYNAMIC_MESH),
-    model_asset_info->GetUniqueID(),
-    context
-  );
+  for (T_UINT32 i = 0; i < mesh->mNumAnimMeshes; ++i)
+  {
+    const aiAnimMesh& anim_mesh = *mesh->mAnimMeshes[i];
+  }
 
-  DynamicMeshData* data = new DynamicMeshData();
-
-  ret->ConvertToData(data);
-
-  return ModelDynamicMeshAssetEntity::Create(mesh_asset_info, data);
+  ret->ConvertToData(&dest->data_);
 }
 
 void ImportNode(const aiNode* node, CharacterNodeData* dest)
 { 
-  aiVector3D position;
-  aiVector3D scaling;
-  aiVector3D rotation;
-  node->mTransformation.Decompose(scaling, rotation, position);
-  dest->position_ = TVec3f(position.x, position.y, position.z);
-  dest->scale_ = TVec3f(scaling.x, scaling.y, scaling.z);
-  dest->rotation_ = TVec3f(rotation.x, rotation.y, rotation.z);
+  if (node->mName.length == 0 || strcmp(node->mName.C_Str(), "DummyRootNode") == 0)
+  {
+    aiVector3D position;
+    aiVector3D scaling;
+    aiVector3D rotation;
+    node->mTransformation.Decompose(scaling, rotation, position);
+    dest->position_ = TVec3f(position.x, position.y, position.z);
+    dest->scale_ = TVec3f(scaling.x, scaling.y, scaling.z);
+    dest->rotation_ = TVec3f(rotation.x, rotation.y, rotation.z);
+    ImportNode(node->mChildren[0], dest);
+    return;
+  }
+
+  dest->name_ = node->mName.C_Str();
+
   for (T_UINT32 i = 0; i < node->mNumMeshes; ++i)
   {
     dest->mesh_indices_.emplace_back(node->mMeshes[i]);
@@ -169,12 +126,15 @@ SharedRef<CharacterModelAssetEntity> CharacterModelAssetImporter::ImportProcess(
   aiSetImportPropertyInteger(props, AI_CONFIG_GLOB_MEASURE_TIME, 1);
   aiSetImportPropertyInteger(props, AI_CONFIG_PP_PTV_NORMALIZE, 1);
 
+  aiSetImportPropertyInteger(props, AI_CONFIG_PP_RVC_FLAGS, aiComponent_LIGHTS | aiComponent_CAMERAS | aiComponent_COLORS);
+
   const aiScene* scene = aiImportFileExWithProperties(
     meta->GetInputPath().c_str(),
     ppsteps | /* configurable pp steps */
     aiProcess_GenSmoothNormals | // generate smooth normal vectors if not existing
     aiProcess_SplitLargeMeshes | // split large, unrenderable meshes into submeshes
     aiProcess_Triangulate | // triangulate polygons with more than 3 edges
+    aiProcess_RemoveComponent |
     aiProcess_ConvertToLeftHanded | // convert everything to D3D left handed space
     aiProcess_SortByPType | // make 'clean' meshes which consist of a single typ of primitives
     0,
@@ -195,12 +155,11 @@ SharedRef<CharacterModelAssetEntity> CharacterModelAssetImporter::ImportProcess(
   std::vector<SharedRef<AssetEntity>> referenced_assets = std::vector<SharedRef<AssetEntity>>();
 
   // Mesh
+  data->mesh_datas_.resize(scene->mNumMeshes);
   for (T_UINT32 i = 0; i < scene->mNumMeshes; ++i)
   {
     aiMesh* mesh = scene->mMeshes[i];
-    const SharedRef<AssetEntity>& mesh_asset_entity = context->AddEntity(ImportMesh(meta, scene, mesh, context));
-    referenced_assets.push_back(mesh_asset_entity);
-    data->mesh_unique_ids_.emplace_back(mesh_asset_entity->GetMetaData()->GetUniqueID());
+    ImportMesh(meta, scene, mesh, context, &data->mesh_datas_[i]);
     data->mesh_material_indices_.emplace_back(mesh->mMaterialIndex);
   }
 
@@ -228,6 +187,8 @@ SharedRef<CharacterModelAssetEntity> CharacterModelAssetImporter::ImportProcess(
   {
     entity->AddReferencedEntity(referenced);
   }
+
+  data->name_ = entity->GetMetaData()->GetURI().GetPrefix();
 
   aiReleaseImport(scene);
 

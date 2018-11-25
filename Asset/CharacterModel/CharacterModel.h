@@ -10,6 +10,7 @@ struct CharacterNodeData
   // =================================================================
   GG_SERIALIZABLE(CharacterNodeData)
   {
+    archive(name_);
     archive(mesh_indices_);
     archive(position_);
     archive(scale_);
@@ -21,11 +22,31 @@ struct CharacterNodeData
   // Data Member
   // =================================================================
 public:
+  std::string name_;
   std::vector<T_FIXED_UINT32> mesh_indices_;
   TVec3f position_;
   TVec3f scale_;
   TVec3f rotation_;
   std::vector<CharacterNodeData> children_;
+};
+
+struct CharacterMeshData
+{
+  // =================================================================
+  // GGG Statement
+  // =================================================================
+  GG_SERIALIZABLE(CharacterMeshData)
+  {
+    archive(data_);
+    archive(keys_);
+  }
+
+  // =================================================================
+  // Data Member
+  // =================================================================
+public:
+  DynamicMeshData data_;
+  std::unordered_map<std::string, DynamicMeshData> keys_;
 };
 
 struct CharacterModelData
@@ -35,8 +56,11 @@ struct CharacterModelData
   // =================================================================
   GG_SERIALIZABLE(CharacterModelData)
   {
+    archive(name_);
+    archive(mesh_root_name_);
+    archive(bone_root_name_);
     archive(root_node_);
-    archive(mesh_unique_ids_);
+    archive(mesh_datas_);
     archive(mesh_material_indices_);
     archive(material_unique_ids_);
   }
@@ -45,12 +69,14 @@ struct CharacterModelData
   // Data Member
   // =================================================================
 public:
+  std::string name_;
+  std::string mesh_root_name_;
+  std::string bone_root_name_;
   CharacterNodeData root_node_;
-  std::vector<T_FIXED_UINT32> mesh_unique_ids_;
+  std::vector<CharacterMeshData> mesh_datas_;
   std::vector<T_FIXED_UINT32> mesh_material_indices_;
   std::vector<T_FIXED_UINT32> material_unique_ids_;
 };
-
 
 class rcCharacterModel : public GGAssetObject
 {
@@ -64,6 +90,11 @@ class rcCharacterModel : public GGAssetObject
   // Setter / Getter
   // =================================================================
 public:
+  GG_INLINE const std::string& GetName()
+  {
+    return this->name_;
+  }
+
   GG_INLINE const CharacterNodeData& GetRootNode()
   {
     return this->root_node_;
@@ -98,6 +129,7 @@ public:
   // Data Member
   // =================================================================
 protected:
+  std::string name_;
   CharacterNodeData root_node_;
   std::vector<SharedRef<const rcDynamicMesh>> meshes_;
   std::vector<T_UINT32> mesh_material_indices_;

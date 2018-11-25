@@ -41,14 +41,14 @@ static TColor ToTColor(const aiColor4D& col)
 static SharedRef<TextureAssetEntity> ImportTexture(const AssetMetaData* model_asset_info, const aiMaterial* material, aiTextureType type, T_UINT32 i, AssetConverterContext* context)
 {
   aiString path;
-  aiTextureMapping mapping;
-  T_UINT32 uv_index;
-  T_FLOAT blend;
-  aiTextureOp op;
-  aiTextureMapMode map_mode;
-  T_UINT32 flags;
+  //aiTextureMapping mapping;
+  //T_UINT32 uv_index;
+  //T_FLOAT blend;
+  //aiTextureOp op;
+  //aiTextureMapMode map_mode;
+  //T_UINT32 flags;
 
-  if (AI_SUCCESS == aiGetMaterialTexture(material, type, i, &path, &mapping, &uv_index, &blend, &op, &map_mode, &flags))
+  if (AI_SUCCESS == aiGetMaterialTexture(material, type, i, &path))
   {
     URI uri = URI(model_asset_info->GetURI().GetDirectoryPath(), path.C_Str());
     return context->ImportImmediately<TextureAssetEntity>(uri, false);
@@ -63,7 +63,7 @@ static SharedRef<ShaderAssetEntity> ImportShader(const AssetMetaData* meta, cons
   AssetMetaData* shader_meta_data = nullptr;
   if (AI_SUCCESS == material->Get(AI_MATKEY_SHADING_MODEL, mode))
   {
-    return context->ImportImmediately<ShaderAssetEntity>(context->GetDefaultAssetURI(DefaultUniqueID::DEFAULT_UID_BEGIN + mode), false);
+    //return context->ImportImmediately<ShaderAssetEntity>(context->GetDefaultAssetURI(DefaultUniqueID::DEFAULT_UID_BEGIN + mode), false);
   }
   return context->ImportImmediately<ShaderAssetEntity>(context->GetDefaultAssetURI(DefaultUniqueID::SHADER_GOURAUD), false);
 }

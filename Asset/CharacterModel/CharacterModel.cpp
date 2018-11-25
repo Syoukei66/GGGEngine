@@ -5,13 +5,13 @@
 // =================================================================
 GG_INIT_FUNC_IMPL_1(rcCharacterModel, const CharacterModelData& data)
 {
+  this->name_ = data.name_;
   this->root_node_ = data.root_node_;
 
-  const size_t mesh_count = data.mesh_unique_ids_.size();
-
-  for (T_FIXED_UINT32 mesh_unique_id : data.mesh_unique_ids_)
+  const size_t mesh_count = data.mesh_datas_.size();
+  for (const CharacterMeshData& mesh_data : data.mesh_datas_)
   {
-    this->meshes_.emplace_back(AssetManager::Load<rcDynamicMesh>(mesh_unique_id));
+    this->meshes_.emplace_back(rcDynamicMesh::Create(mesh_data.data_));
   }
   for (T_FIXED_UINT32 mesh_material_index : data.mesh_material_indices_)
   {
