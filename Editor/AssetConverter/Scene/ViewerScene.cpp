@@ -17,6 +17,7 @@ static const char* CAMERA_STATE_NAMES[ViewerScene::CAMERA_STATE_MAX] =
 // =================================================================
 GG_INIT_FUNC_IMPL(ViewerScene)
 {
+  this->move_speed_weight_ = 1.0f;
   this->move_speed_ = 0.5f;
   return Scene::Init();
 }
@@ -55,11 +56,13 @@ void ViewerScene::Update()
   using namespace HalEngine;
   Transform3D* transform = this->camera_3d_->GetTransform();
 
+  const T_FLOAT move_speed = this->move_speed_weight_ * this->move_speed_;
+
   const T_FLOAT horizontal = Input(0)->GetAxis(GameInput::X_AXIS, 0.0f);
   const T_FLOAT vertical = Input(0)->GetAxis(GameInput::Y_AXIS, 0.0f);
 
-  transform->MoveX(horizontal * 0.3f * this->move_speed_);
-  transform->MoveZ(vertical * 0.3f * this->move_speed_);
+  transform->MoveX(horizontal * move_speed);
+  transform->MoveZ(vertical * move_speed);
 
   const bool mouse_click_L = Input(0)->GetButton(GameInput::MOUSE_CLICK_L);
   const bool mouse_click_C = Input(0)->GetButton(GameInput::MOUSE_CLICK_C);
@@ -69,8 +72,8 @@ void ViewerScene::Update()
   const T_FLOAT move_z = Input(0)->GetAxis(GameInput::MOUSE_MOVE_Z, 0.0f);
   if (mouse_click_C)
   {
-    transform->MoveX(-move_x * 0.66f * this->move_speed_);
-    transform->MoveY(move_y * 0.66f * this->move_speed_);
+    transform->MoveX(-move_x * move_speed);
+    transform->MoveY(move_y * move_speed);
   }
   if (mouse_click_R)
   {
@@ -102,7 +105,7 @@ void ViewerScene::Update()
 
   if (fabs(move_z) != 0.0f)
   {
-    transform->MoveZ(move_z * 1.1f * this->move_speed_);
+    transform->MoveZ(move_z * move_speed * 2.0f);
   }
 
   ImGui::SetNextWindowPos(ImVec2(20.0f, 20.0f), ImGuiCond_Once);
@@ -110,8 +113,19 @@ void ViewerScene::Update()
 
   ImGui::Begin(u8"メニュー");
   ImGui::SliderFloat(u8"カメラ移動速度", &this->move_speed_, 0.0f, 1.0f);
+  ImGui::SliderFloat(u8"カメラ移動速度倍率", &this->move_speed_weight_, 0.0f, 5.0f);
 
   ImGui::Combo(u8"カメラモード", &this->camera_state_, CAMERA_STATE_NAMES, CAMERA_STATE_MAX);
+  
+  if (ImGui::Button(u8"カメラを初期位置に戻す"))
+  {
+    this->camera_3d_->GetTransform()->SetPosition(TVec3f(0.0f, 0.0f, -20.0f));
+    this->camera_3d_->GetTransform()->SetEularAngles(TVec3f::zero);
+  }
+
+  ImGui::Spacing();
+  ImGui::Separator();
+  ImGui::Spacing();
 
   if (ImGui::Button(u8"スタートメニューに戻る"))
   {
