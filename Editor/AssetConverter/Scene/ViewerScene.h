@@ -65,5 +65,6 @@ private:
   T_INT32 camera_state_;
   T_FLOAT move_speed_;
   T_FLOAT move_speed_weight_;
-
+  TColor bg_color_;
+  
 };

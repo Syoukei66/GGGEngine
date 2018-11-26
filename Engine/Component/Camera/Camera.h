@@ -94,15 +94,24 @@ public:
 
   void SetViewportZRange(T_FLOAT z_min, T_FLOAT z_max);
   void SetViewportZMin(T_FLOAT z_min);
-  GG_INLINE T_FLOAT GetViewportZMin()
+  GG_INLINE T_FLOAT GetViewportZMin() const
   {
     return this->z_min_;
   }
 
   void SetViewportZMax(T_FLOAT z_max);
-  GG_INLINE T_FLOAT GetViewportZMax()
+  GG_INLINE T_FLOAT GetViewportZMax() const
   {
     return this->z_max_;
+  }
+
+  void SetBgColor(const TColor& color)
+  {
+    this->bg_color_ = color;
+  }
+  GG_INLINE const TColor& GetBgColor() const
+  {
+    return this->bg_color_;
   }
 
   GG_INLINE const TVec3f& GetDirection() const
@@ -132,5 +141,6 @@ private:
   TVec2f position_;
   TVec2f size_;
   T_FLOAT z_min_, z_max_;
+  TColor bg_color_;
 
 };

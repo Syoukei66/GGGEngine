@@ -13,6 +13,7 @@ GG_INIT_FUNC_IMPL_1(Camera, GameObject* obj)
   this->z_min_ = 0.0f;
   this->z_max_ = 1.0f;
   this->render_state_ = new GameObjectRenderState(this);
+  this->bg_color_ = TColor::BLACK;
   return GameComponent::Init(obj);
 }
 
@@ -38,7 +39,7 @@ void Camera::DrawScene(Scene* scene)
   this->SetupCamera();
   if (this->viewport_clear_)
   {
-    Application::GetPlatform()->GetGraphicsAPI()->ViewportClear();
+    Application::GetPlatform()->GetGraphicsAPI()->ViewportClear(this->bg_color_);
   }
   this->OnDrawScene(scene);
   if (this->target_texture_)

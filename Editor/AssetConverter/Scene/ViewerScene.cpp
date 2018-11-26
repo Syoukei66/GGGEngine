@@ -19,6 +19,7 @@ GG_INIT_FUNC_IMPL(ViewerScene)
 {
   this->move_speed_weight_ = 1.0f;
   this->move_speed_ = 0.5f;
+  this->bg_color_ = TColor::BLACK;
   return Scene::Init();
 }
 
@@ -121,6 +122,11 @@ void ViewerScene::Update()
   {
     this->camera_3d_->GetTransform()->SetPosition(TVec3f(0.0f, 0.0f, -20.0f));
     this->camera_3d_->GetTransform()->SetEularAngles(TVec3f::zero);
+  }
+
+  if (ImGui::ColorEdit3(u8"”wŒiF", this->bg_color_.data))
+  {
+    this->camera_3d_->GetComponent<Camera>()->SetBgColor(this->bg_color_);
   }
 
   ImGui::Spacing();

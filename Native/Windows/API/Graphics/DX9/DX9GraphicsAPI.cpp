@@ -138,12 +138,17 @@ GG_DESTRUCT_FUNC_IMPL(DX9GraphicsAPI)
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
-void DX9GraphicsAPI::ViewportClear()
+void DX9GraphicsAPI::ViewportClear(const TColor& color)
 {
   this->d3d_device_->Clear(
     0, NULL,
     (D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL),
-    D3DCOLOR_RGBA(0, 0, 0, 0),
+    D3DCOLOR_RGBA(
+      (T_UINT8)(color.r * 255),
+      (T_UINT8)(color.g * 255),
+      (T_UINT8)(color.b * 255),
+      (T_UINT8)(color.a * 255),
+    ),
     1.0f, 0
   );
 }
