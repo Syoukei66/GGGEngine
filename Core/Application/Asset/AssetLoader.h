@@ -85,6 +85,7 @@ public:
     if (!self->cache_)
     {
       self->cache_ = Asset_::CreateFromFile(self->path_.c_str());
+      self->cache_->SetUniqueId(this->unique_id_);
       GG_ASSERT(self->cache_, "Asset‚Ìƒ[ƒh‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
     }
     return self->cache_;
