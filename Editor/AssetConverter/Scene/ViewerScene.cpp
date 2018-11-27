@@ -30,7 +30,7 @@ void ViewerScene::OnLoad()
 {
   this->camera_3d_ = GameObject3D::Create();
   this->camera_3d_->AddComponent<Camera3D_LookAt>();
-  this->camera_3d_->GetTransform()->SetZ(-20.0f);
+  this->camera_3d_->GetTransform()->SetZ(-10.0f);
   this->AddCamera(this->camera_3d_->GetComponent<Camera>());
 }
 
@@ -120,7 +120,9 @@ void ViewerScene::Update()
   
   if (ImGui::Button(u8"ƒJƒƒ‰‚ð‰ŠúˆÊ’u‚É–ß‚·"))
   {
-    this->camera_3d_->GetTransform()->SetPosition(TVec3f(0.0f, 0.0f, -20.0f));
+    this->camera_move_x_ = 0.0f;
+    this->camera_move_y_ = 0.0f;
+    this->camera_3d_->GetTransform()->SetPosition(TVec3f(0.0f, 0.0f, -10.0f));
     this->camera_3d_->GetTransform()->SetEularAngles(TVec3f::zero);
   }
 
