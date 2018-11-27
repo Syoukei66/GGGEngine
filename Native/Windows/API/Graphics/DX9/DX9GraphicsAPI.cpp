@@ -147,7 +147,7 @@ void DX9GraphicsAPI::ViewportClear(const TColor& color)
       (T_UINT8)(color.r * 255),
       (T_UINT8)(color.g * 255),
       (T_UINT8)(color.b * 255),
-      (T_UINT8)(color.a * 255),
+      (T_UINT8)(color.a * 255)
     ),
     1.0f, 0
   );
