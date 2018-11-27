@@ -23,9 +23,9 @@ public:
 };
 
 /*!
-* @brief １つのテクスチャとそのテクスチャを使用するメッシュの集合
-* Spriteのドローコールを抑える為に、AssetConverterによって作成される。
-*/
+ * @brief １つのテクスチャとそのテクスチャを使用するメッシュの集合
+ * Spriteのドローコールを抑える為に、AssetConverterによって作成される。
+ */
 class rcTextureAtlas : public GGAssetObject
 {
   // =================================================================
