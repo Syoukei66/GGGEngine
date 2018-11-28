@@ -14,8 +14,9 @@ static const std::string& SHADER_PATH_STENCIL_SHADOW = "shader/default/StencilSh
 //仮想のパス
 static const std::string& MESH_PATH_CUBE   = "mesh/default/Cube.smesh";
 static const std::string& MESH_PATH_PLANE  = "mesh/default/Plane.smesh";
-static const std::string& MESH_PATH_SPHERE = "mesh/default/Sphere.smesh";
 static const std::string& MESH_PATH_CAPSULE = "mesh/default/Capsule.smesh";
+static const std::string& MESH_PATH_CUBE_SPHERE = "mesh/default/CubeSphere.smesh";
+static const std::string& MESH_PATH_UV_SPHERE = "mesh/default/UvSphere.smesh";
 
 //仮想のパス
 static const std::string& MATERIAL_PATH_LAMBERT = "material/default/Lambert.mat";

@@ -330,6 +330,9 @@
     <ClInclude Include="Scene\AssetViewer\Shader\ShaderViewerBehavior.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Util\MeshBuilder\MeshBuilder_Capsule.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
     <ClInclude Include="Util\MeshBuilder\MeshBuilder_CubeSphere.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -468,6 +471,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Scene\AssetViewer\Shader\ShaderViewerBehavior.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\MeshBuilder\MeshBuilder_Capsule.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Util\MeshBuilder\MeshBuilder_CubeSphere.cpp">

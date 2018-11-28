@@ -23,13 +23,13 @@ MeshBuilder_CubeSphere::MeshBuilder_CubeSphere()
   , scale_x_(1.0f)
   , scale_y_(1.0f)
   , scale_z_(1.0f)
-  , resolution_x_(2)
-  , resolution_y_(2)
-  , resolution_z_(2)
+  , resolution_x_(12)
+  , resolution_y_(12)
+  , resolution_z_(12)
   , tile_count_x_(1.0f)
   , tile_count_y_(1.0f)
   , tile_count_z_(1.0f)
-  , roundness_(1)
+  , roundness_(6)
 {
 }
 

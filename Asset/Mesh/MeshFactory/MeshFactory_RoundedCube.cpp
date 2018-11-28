@@ -73,7 +73,11 @@ static void SetVertex(
 
   if (format & V_ATTR_POSITION)
   {
-    mesh->SetVertex(i, vertex);
+    mesh->SetVertex(i, TVec3f(
+      ((vertex.x / resolution_x) - 0.5f) * scale_x, 
+      ((vertex.y / resolution_y) - 0.5f) * scale_y,
+      ((vertex.z / resolution_z) - 0.5f) * scale_z
+      ));
   }
   if (format & V_ATTR_NORMAL)
   {

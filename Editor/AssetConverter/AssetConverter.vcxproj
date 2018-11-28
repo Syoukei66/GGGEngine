@@ -217,6 +217,7 @@
     <ClInclude Include="Entity\File\Raw\Json\JsonAssetEntity.h" />
     <ClInclude Include="Util\Logger.h" />
     <ClInclude Include="Util\MeshBuilder\MeshBuilder.h" />
+    <ClInclude Include="Util\MeshBuilder\MeshBuilder_Capsule.h" />
     <ClInclude Include="Util\MeshBuilder\MeshBuilder_Cube.h" />
     <ClInclude Include="Util\MeshBuilder\MeshBuilder_CubeSphere.h" />
     <ClInclude Include="Util\MeshBuilder\MeshBuilder_Plane.h" />
@@ -276,6 +277,7 @@
     <ClCompile Include="Scene\AssetViewer\Texture\TextureViewerBehavior.cpp" />
     <ClCompile Include="Util\FileUtil.cpp" />
     <ClCompile Include="Util\Logger.cpp" />
+    <ClCompile Include="Util\MeshBuilder\MeshBuilder_Capsule.cpp" />
     <ClCompile Include="Util\MeshBuilder\MeshBuilder_Cube.cpp" />
     <ClCompile Include="Util\MeshBuilder\MeshBuilder_CubeSphere.cpp" />
     <ClCompile Include="Util\MeshBuilder\MeshBuilder_Plane.cpp" />
