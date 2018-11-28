@@ -33,9 +33,9 @@ IAssetConverter* DefaultMeshAssetConverterFactory::Create(AssetConverterContext*
   this->cube_sphere_.CreateMesh()->ConvertToData(cube_sphere_mesh);
   ret->AddEntity(DefaultMeshAssetEntity::Create(AssetMetaData::Create(MESH_PATH_CUBE_SPHERE, context), cube_sphere_mesh));
 
-  //StaticMeshData* uv_sphere_mesh = new StaticMeshData();
-  //this->uv_sphere_.CreateMesh()->ConvertToData(uv_sphere_mesh);
-  //ret->AddEntity(DefaultMeshAssetEntity::Create(AssetMetaData::Create(MESH_PATH_UV_SPHERE, context), uv_sphere_mesh));
+  StaticMeshData* uv_sphere_mesh = new StaticMeshData();
+  this->uv_sphere_.CreateMesh()->ConvertToData(uv_sphere_mesh);
+  ret->AddEntity(DefaultMeshAssetEntity::Create(AssetMetaData::Create(MESH_PATH_UV_SPHERE, context), uv_sphere_mesh));
 
   return ret;
 }

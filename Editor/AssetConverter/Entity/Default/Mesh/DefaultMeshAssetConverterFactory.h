@@ -5,6 +5,7 @@
 #include <Util/MeshBuilder/MeshBuilder_Plane.h>
 #include <Util/MeshBuilder/MeshBuilder_Capsule.h>
 #include <Util/MeshBuilder/MeshBuilder_CubeSphere.h>
+#include <Util/MeshBuilder/MeshBuilder_UvSphere.h>
 
 #include <Converter/AssetConverterFactory.h>
 
@@ -33,6 +34,7 @@ public:
     ar(cereal::make_nvp("Plane", this->plane_));
     ar(cereal::make_nvp("Capsule", this->capsule_));
     ar(cereal::make_nvp("CubeSphere", this->cube_sphere_));
+    ar(cereal::make_nvp("UvSphere", this->uv_sphere_));
   }
 
   // =================================================================
@@ -43,6 +45,7 @@ private:
   MeshBuilder_Plane plane_;
   MeshBuilder_Capsule capsule_;
   MeshBuilder_CubeSphere cube_sphere_;
+  MeshBuilder_UvSphere uv_sphere_;
 
 };
 CEREAL_CLASS_VERSION(DefaultMeshAssetConverterFactory, 1);

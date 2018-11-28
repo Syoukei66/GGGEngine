@@ -78,6 +78,9 @@
     <ClCompile Include="Mesh\MeshFactory\MeshFactory_RoundedCube.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Mesh\MeshFactory\MeshFactory_UVSphere.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mesh\Mesh.h">

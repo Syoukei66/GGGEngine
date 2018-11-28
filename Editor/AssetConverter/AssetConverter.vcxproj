@@ -243,6 +243,7 @@
     <ClInclude Include="Scene\EntryScene.h" />
     <ClInclude Include="Scene\AssetViewer\StaticMesh\StaticMeshViewerBehavior.h" />
     <ClInclude Include="Scene\ViewerScene.h" />
+    <ClInclude Include="Util\MeshBuilder\MeshBuilder_UvSphere.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Converter\AssetConverterManager.cpp" />
@@ -282,6 +283,7 @@
     <ClCompile Include="Util\MeshBuilder\MeshBuilder_CubeSphere.cpp" />
     <ClCompile Include="Util\MeshBuilder\MeshBuilder_Plane.cpp" />
     <ClCompile Include="Entity\File\Model\StaticModel\StaticModelAssetImporter.cpp" />
+    <ClCompile Include="Util\MeshBuilder\MeshBuilder_UvSphere.cpp" />
     <ClCompile Include="Util\NativeLogger.cpp" />
     <ClCompile Include="Setting\Setting.cpp" />
     <ClCompile Include="Entity\File\StandardMaterial.cpp" />

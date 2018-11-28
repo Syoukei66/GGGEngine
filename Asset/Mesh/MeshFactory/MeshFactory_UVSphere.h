@@ -21,9 +21,9 @@ namespace UVSphere
  */
 UniqueRef<rcDynamicMesh> Create(
   T_UINT32 format,
-  T_FLOAT scale_x, T_FLOAT scale_y, T_FLOAT scale_z,
-  T_UINT32 resolution_x, T_UINT32 resolution_y, T_UINT32 resolution_z,
-  T_FLOAT tile_count_x, T_FLOAT tile_count_y, T_FLOAT tile_count_z
+  T_FLOAT scale,
+  T_UINT32 resolution_x, T_UINT32 resolution_y,
+  bool reverse_normal = false
 );
 
 /*!
@@ -33,15 +33,11 @@ UniqueRef<rcDynamicMesh> Create(
  */
 static GG_INLINE UniqueRef<rcDynamicMesh> Create(
   T_UINT32 format,
-  T_FLOAT scale
+  T_FLOAT scale,
+  bool reverse_normal = false
 )
 {
-  return Create(
-    format,
-    scale, scale, scale,
-    1.0f, 1.0f, 1.0f,
-    1.0f, 1.0f, 1.0f
-  );
+  return Create(format, scale, 12, 12, reverse_normal);
 }
 
 } // namespace Cube
