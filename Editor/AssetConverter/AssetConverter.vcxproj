@@ -218,6 +218,7 @@
     <ClInclude Include="Util\Logger.h" />
     <ClInclude Include="Util\MeshBuilder\MeshBuilder.h" />
     <ClInclude Include="Util\MeshBuilder\MeshBuilder_Cube.h" />
+    <ClInclude Include="Util\MeshBuilder\MeshBuilder_CubeSphere.h" />
     <ClInclude Include="Util\MeshBuilder\MeshBuilder_Plane.h" />
     <ClInclude Include="Entity\File\Model\ModelConstants.h" />
     <ClInclude Include="Entity\File\Model\Material\ModelMaterialAssetEntity.h" />
@@ -276,6 +277,7 @@
     <ClCompile Include="Util\FileUtil.cpp" />
     <ClCompile Include="Util\Logger.cpp" />
     <ClCompile Include="Util\MeshBuilder\MeshBuilder_Cube.cpp" />
+    <ClCompile Include="Util\MeshBuilder\MeshBuilder_CubeSphere.cpp" />
     <ClCompile Include="Util\MeshBuilder\MeshBuilder_Plane.cpp" />
     <ClCompile Include="Entity\File\Model\StaticModel\StaticModelAssetImporter.cpp" />
     <ClCompile Include="Util\NativeLogger.cpp" />

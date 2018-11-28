@@ -176,6 +176,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClCompile Include="Mesh\Mesh.cpp" />
     <ClCompile Include="Mesh\MeshFactory\MeshFactory_Cube.cpp" />
     <ClCompile Include="Mesh\MeshFactory\MeshFactory_Plane.cpp" />
+    <ClCompile Include="Mesh\MeshFactory\MeshFactory_RoundedCube.cpp" />
     <ClCompile Include="StaticModel\StaticModel.cpp" />
     <ClCompile Include="Particle\ParticleData.cpp" />
     <ClCompile Include="Particle\ParticleDataManager.cpp" />
@@ -205,6 +206,8 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="Mesh\MeshFactory\MeshFactory_Cube.h" />
     <ClInclude Include="Mesh\MeshFactory\MeshFactory_Plane.h" />
     <ClInclude Include="Mesh\DynamicMesh.h" />
+    <ClInclude Include="Mesh\MeshFactory\MeshFactory_RoundedCube.h" />
+    <ClInclude Include="Mesh\MeshFactory\MeshFactory_UVSphere.h" />
     <ClInclude Include="StaticModel\StaticModel.h" />
     <ClInclude Include="Particle\ParticleData.h" />
     <ClInclude Include="Particle\ParticleDataManager.h" />

@@ -13,6 +13,8 @@
 #include <Asset/Mesh/Mesh.h>
 #include <Asset/Mesh/MeshFactory/MeshFactory_Cube.h>
 #include <Asset/Mesh/MeshFactory/MeshFactory_Plane.h>
+#include <Asset/Mesh/MeshFactory/MeshFactory_RoundedCube.h>
+#include <Asset/Mesh/MeshFactory/MeshFactory_UVSphere.h>
 #include <Asset/Particle/ParticleData.h>
 #include <Asset/Particle/ParticleDataManager.h>
 #include <Asset/Particle/ParticleSystem.h>

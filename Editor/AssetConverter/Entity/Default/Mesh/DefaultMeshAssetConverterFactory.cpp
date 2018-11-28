@@ -25,5 +25,13 @@ IAssetConverter* DefaultMeshAssetConverterFactory::Create(AssetConverterContext*
   this->plane_.CreateMesh()->ConvertToData(plane_mesh);
   ret->AddEntity(DefaultMeshAssetEntity::Create(AssetMetaData::Create(MESH_PATH_PLANE, context), plane_mesh));
 
+  StaticMeshData* capsule_mesh = new StaticMeshData();
+  this->capsule_.CreateMesh()->ConvertToData(capsule_mesh);
+  ret->AddEntity(DefaultMeshAssetEntity::Create(AssetMetaData::Create(MESH_PATH_CAPSULE, context), capsule_mesh));
+
+  //StaticMeshData* capsule_mesh = new StaticMeshData();
+  //this->capsule_.CreateMesh()->ConvertToData(capsule_mesh);
+  //ret->AddEntity(DefaultMeshAssetEntity::Create(AssetMetaData::Create(MESH_PATH_PLANE, context), capsule_mesh));
+
   return ret;
 }

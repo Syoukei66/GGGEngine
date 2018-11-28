@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Core/Application/Input/EngineInput.h>
 #include <Core/Include.h>
 #include <Asset/Include.h>
 #include <Algorithm/Include.h>

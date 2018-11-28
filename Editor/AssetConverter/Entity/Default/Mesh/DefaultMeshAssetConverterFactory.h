@@ -3,6 +3,7 @@
 #include <Cereal/cereal.hpp>
 #include <Util/MeshBuilder/MeshBuilder_Cube.h>
 #include <Util/MeshBuilder/MeshBuilder_Plane.h>
+#include <Util/MeshBuilder/MeshBuilder_CubeSphere.h>
 
 #include <Converter/AssetConverterFactory.h>
 
@@ -29,6 +30,7 @@ public:
   {
     ar(cereal::make_nvp("Cube", this->cube_));
     ar(cereal::make_nvp("Plane", this->plane_));
+    ar(cereal::make_nvp("Capsule", this->capsule_));
   }
 
   // =================================================================
@@ -37,6 +39,7 @@ public:
 private:
   MeshBuilder_Cube cube_;
   MeshBuilder_Plane plane_;
+  MeshBuilder_CubeSphere capsule_;
 
 };
 CEREAL_CLASS_VERSION(DefaultMeshAssetConverterFactory, 1);
