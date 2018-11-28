@@ -46,9 +46,9 @@ UniqueRef<rcDynamicMesh> MeshFactory::UVSphere::Create(
       const T_FLOAT u = (T_FLOAT)x / resolution_x;
       TVec3f position;
       float r = cosf(Mathf::PI * (v - 0.5f));
-      position.x = r * sinf(Mathf::PI_2 * (u - 0.5f));
-      position.y = sinf(Mathf::PI * (v - 0.5f));
-      position.z = r * cosf(Mathf::PI_2 * (u - 0.5f));
+      position.x = r * sinf(Mathf::PI_2 * (u - 0.5f)) * 0.5f * scale;
+      position.y = sinf(Mathf::PI * (v - 0.5f)) * 0.5f * scale;
+      position.z = r * cosf(Mathf::PI_2 * (u - 0.5f)) * 0.5f * scale;
       if (format & V_ATTR_POSITION)
       {
         ret->SetVertex(vi, position);
