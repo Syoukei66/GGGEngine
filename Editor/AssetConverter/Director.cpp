@@ -11,8 +11,6 @@
 #include <Entity/File/Raw/Texture/TextureAssetEntity.h>
 
 #include <Entity/File/Model/Material/ModelMaterialAssetEntity.h>
-#include <Entity/File/Model/StaticMesh/ModelStaticMeshAssetEntity.h>
-#include <Entity/File/Model/DynamicMesh/ModelDynamicMeshAssetEntity.h>
 #include <Entity/File/Model/StaticModel/StaticModelAssetEntity.h>
 #include <Entity/File/Model/CharacterModel/CharacterModelAssetEntity.h>
 
@@ -57,8 +55,6 @@ void AssetConverterDirector::Init()
 
   // Mesh
   self->converter_manager_->AddConverter(self->setting_->default_mesh_asset_converter_factory.Create(self->context_));
-  self->converter_manager_->AddConverter(ModelStaticMeshAssetEntity::CreateConverter());
-  self->converter_manager_->AddConverter(ModelDynamicMeshAssetEntity::CreateConverter());
 
   // Material
   self->converter_manager_->AddConverter(ModelMaterialAssetEntity::CreateConverter());
@@ -230,6 +226,9 @@ void AssetConverterDirector::CreateDefaultAssets()
 
   self->context_->RegisterDefaultUniqueID(MESH_CUBE, MESH_PATH_CUBE);
   self->context_->RegisterDefaultUniqueID(MESH_PLANE, MESH_PATH_PLANE);
+  self->context_->RegisterDefaultUniqueID(MESH_CAPSULE, MESH_PATH_CAPSULE);
+  self->context_->RegisterDefaultUniqueID(MESH_CUBE_SPHERE, MESH_PATH_CUBE_SPHERE);
+  self->context_->RegisterDefaultUniqueID(MESH_UV_SPHERE, MESH_PATH_UV_SPHERE);
 
   self->context_->RegisterDefaultUniqueID(MATERIAL_WHITE, MATERIAL_PATH_WHITE);
   self->context_->RegisterDefaultUniqueID(MATERIAL_LAMBERT, MATERIAL_PATH_LAMBERT);

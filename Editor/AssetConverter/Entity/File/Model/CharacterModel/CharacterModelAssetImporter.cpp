@@ -5,9 +5,6 @@
 #include <Util/FileUtil.h>
 
 #include <Director.h>
-
-#include <Entity/File/Model/DynamicMesh/ModelDynamicMeshAssetEntity.h>
-
 #include <Entity/File/Model/AssimpImportUtil.h>
 
 // =================================================================

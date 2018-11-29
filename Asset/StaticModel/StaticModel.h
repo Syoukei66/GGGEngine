@@ -2,6 +2,7 @@
 
 #include <Asset/Mesh/Mesh.h>
 #include <Asset/Material/Material.h>
+#include <Asset/Mesh/Mesh.h>
 
 struct StaticModelData
 {
@@ -10,7 +11,7 @@ struct StaticModelData
   // =================================================================
   GG_SERIALIZABLE(CharacterModelData)
   {
-    archive(mesh_unique_id_);
+    archive(mesh_);
     archive(material_unique_ids_);
   }
 
@@ -18,7 +19,7 @@ struct StaticModelData
   // Data Member
   // =================================================================
 public:
-  T_FIXED_UINT32 mesh_unique_id_;
+  StaticMeshData mesh_;
   std::vector<T_FIXED_UINT32> material_unique_ids_;
 
 };

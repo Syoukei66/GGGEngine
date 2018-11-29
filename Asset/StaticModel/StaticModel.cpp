@@ -8,7 +8,7 @@
 // =================================================================
 GG_INIT_FUNC_IMPL_1(rcStaticModel, const StaticModelData& data)
 {
-  this->mesh_ = AssetManager::Load<rcMesh>(data.mesh_unique_id_);
+  this->mesh_ = rcMesh::Create(data.mesh_);
   for (T_FIXED_UINT32 material_unique_id : data.material_unique_ids_)
   {
     this->materials_.emplace_back(AssetManager::Load<rcMaterial>(material_unique_id));

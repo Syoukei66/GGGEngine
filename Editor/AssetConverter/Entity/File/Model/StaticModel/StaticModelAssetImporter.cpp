@@ -5,9 +5,6 @@
 #include <Util/FileUtil.h>
 
 #include <Director.h>
-
-#include <Entity/File/Model/StaticMesh/ModelStaticMeshAssetEntity.h>
-
 #include <Entity/File/Model/AssimpImportUtil.h>
 
 // =================================================================
@@ -21,12 +18,12 @@ StaticModelAssetImporter::StaticModelAssetImporter(const std::vector<std::string
 // =================================================================
 // Methods
 // =================================================================
-SharedRef<ModelStaticMeshAssetEntity> ImportMesh(const AssetMetaData* model_asset_info, const aiScene* scene, AssetConverterContext* context)
+void ImportMesh(const AssetMetaData* model_asset_info, const aiScene* scene, AssetConverterContext* context, StaticMeshData* dest)
 {
   if (scene->mNumMeshes == 0)
   {
     Log::Warn("ƒƒbƒVƒ…‚Ì”‚ª‚OŒÂ‚Å‚µ‚½");
-    return nullptr;
+    return;
   }
 
   using namespace Vertex;
@@ -115,17 +112,7 @@ SharedRef<ModelStaticMeshAssetEntity> ImportMesh(const AssetMetaData* model_asse
   }
   ret->RecalculateBounds();
 
-  AssetMetaData* mesh_asset_info = AssetMetaData::Create(
-    URI(model_asset_info->GetURI().GetDirectoryPath(), model_asset_info->GetURI().GetPrefix(), Extensions::STATIC_MESH),
-    model_asset_info->GetUniqueID(),
-    context
-  );
-
-  StaticMeshData* data = new StaticMeshData();
-
-  ret->ConvertToData(data);
-
-  return ModelStaticMeshAssetEntity::Create(mesh_asset_info, data);
+  ret->ConvertToData(dest);
 }
 
 SharedRef<StaticModelAssetEntity> StaticModelAssetImporter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context)
@@ -186,9 +173,7 @@ SharedRef<StaticModelAssetEntity> StaticModelAssetImporter::ImportProcess(AssetM
   std::vector<SharedRef<AssetEntity>> referenced_assets = std::vector<SharedRef<AssetEntity>>();
 
   //Mesh
-  const SharedRef<AssetEntity>& mesh_asset_entity = context->AddEntity(ImportMesh(meta, scene, context));
-  referenced_assets.push_back(mesh_asset_entity);
-  data->mesh_unique_id_ = mesh_asset_entity->GetMetaData()->GetUniqueID();
+  ImportMesh(meta, scene, context, &data->mesh_);
 
   //Material
   std::vector<AssetMetaData*> material_asset_infos;

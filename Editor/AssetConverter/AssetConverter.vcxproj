@@ -179,7 +179,6 @@
     <ClInclude Include="Entity\File\FileAssetEntity.h" />
     <ClInclude Include="Entity\File\Model\AssimpImportUtil.h" />
     <ClInclude Include="Entity\File\Model\CharacterModel\CharacterModelAssetImporter.h" />
-    <ClInclude Include="Entity\File\Model\DynamicMesh\ModelDynamicMeshAssetEntity.h" />
     <ClInclude Include="Entity\File\Model\CharacterModel\CharacterModelAssetEntity.h" />
     <ClInclude Include="Entity\File\Raw\RawAssetEntity.h" />
     <ClInclude Include="GUI\EntityView\AssetEntityView.h" />
@@ -223,7 +222,6 @@
     <ClInclude Include="Util\MeshBuilder\MeshBuilder_Plane.h" />
     <ClInclude Include="Entity\File\Model\ModelConstants.h" />
     <ClInclude Include="Entity\File\Model\Material\ModelMaterialAssetEntity.h" />
-    <ClInclude Include="Entity\File\Model\StaticMesh\ModelStaticMeshAssetEntity.h" />
     <ClInclude Include="Entity\File\Model\StaticModel\StaticModelAssetEntity.h" />
     <ClInclude Include="Entity\File\Model\StaticModel\StaticModelAssetImporter.h" />
     <ClInclude Include="Entity\File\FileAssetConverterFactory.h" />

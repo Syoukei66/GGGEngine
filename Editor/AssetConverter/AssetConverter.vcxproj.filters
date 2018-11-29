@@ -291,12 +291,6 @@
     <ClInclude Include="Scene\AssetViewer\StaticMesh\StaticMeshViewerBehavior.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\File\Model\StaticMesh\ModelStaticMeshAssetEntity.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Model\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\File\Model\DynamicMesh\ModelDynamicMeshAssetEntity.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Entity\File\Model\StaticModel\StaticModelAssetEntity.h">
       <Filter>ヘッダー ファイル\Asset\_File\Model</Filter>
     </ClInclude>
