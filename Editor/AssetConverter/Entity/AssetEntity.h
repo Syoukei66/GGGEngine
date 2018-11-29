@@ -15,17 +15,16 @@ virtual T_UINT32 GetID() const override\
 class AssetEntity : public GGObject
 {
 public:
+  // àÀë∂ä÷åWÇê≥ÇµÇ≠âåàÇ≈Ç´ÇÈèáî‘Ç≈ï¿Ç◊ÇÈ
   enum EntityID
   {
-    ID_DEFAULT_MESH,
-    ID_DEFAULT_MATERIAL,
     ID_TEXTURE,
     ID_CSV,
     ID_JSON,
     ID_SHADER,
     ID_SOUND,
-    ID_MODEL_STATIC_MESH,
-    ID_MODEL_DYNAMIC_MESH,
+    ID_DEFAULT_MESH,
+    ID_DEFAULT_MATERIAL,
     ID_MODEL_MATERIAL,
     ID_STATIC_MODEL,
     ID_CHARACTER_MODEL,

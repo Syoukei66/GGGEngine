@@ -44,8 +44,6 @@ void AssetConverterDirector::Init()
   self->context_ = new AssetConverterContext(self->unique_id_table_, self->converter_manager_);
   AssetManager::Init(self->unique_id_table_);
 
-  // ˆË‘¶ŠÖŒW‚ð³‚µ‚­‰ðŒˆ‚Å‚«‚é‡”Ô‚ÉAssetConverter‚ð“o˜^‚·‚é•K—v‚ª‚ ‚é
-
   // Raw
   self->converter_manager_->AddConverter(CsvAssetEntity::CreateConverter());
   self->converter_manager_->AddConverter(JsonAssetEntity::CreateConverter());

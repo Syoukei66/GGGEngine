@@ -206,7 +206,6 @@
     <ClInclude Include="GUI\FileView\FileView.h" />
     <ClInclude Include="Scene\AssetViewer\AssetViewerScene.h" />
     <ClInclude Include="Scene\AssetViewer\CharacterModel\CharacterModelViewerBehavior.h" />
-    <ClInclude Include="Scene\AssetViewer\DynamicMesh\DynamicMeshViewerBehavior.h" />
     <ClInclude Include="Scene\AssetViewer\Shader\ShaderViewerBehavior.h" />
     <ClInclude Include="Scene\AssetViewer\StaticModel\StaticModelViewerBehavior.h" />
     <ClInclude Include="Scene\AssetViewer\Texture\TextureViewerBehavior.h" />
@@ -239,7 +238,6 @@
     <ClInclude Include="GameInput.h" />
     <ClInclude Include="Scene\AssetViewer\AssetViewerBehavior.h" />
     <ClInclude Include="Scene\EntryScene.h" />
-    <ClInclude Include="Scene\AssetViewer\StaticMesh\StaticMeshViewerBehavior.h" />
     <ClInclude Include="Scene\ViewerScene.h" />
     <ClInclude Include="Util\MeshBuilder\MeshBuilder_UvSphere.h" />
   </ItemGroup>
@@ -270,7 +268,6 @@
     <ClCompile Include="Scene\AssetViewer\AssetViewerBehavior.cpp" />
     <ClCompile Include="Scene\AssetViewer\AssetViewerScene.cpp" />
     <ClCompile Include="Scene\AssetViewer\CharacterModel\CharacterModelViewerBehavior.cpp" />
-    <ClCompile Include="Scene\AssetViewer\DynamicMesh\DynamicMeshViewerBehavior.cpp" />
     <ClCompile Include="Scene\AssetViewer\Shader\ShaderViewerBehavior.cpp" />
     <ClCompile Include="Scene\AssetViewer\StaticModel\StaticModelViewerBehavior.cpp" />
     <ClCompile Include="Scene\AssetViewer\Texture\TextureViewerBehavior.cpp" />
@@ -299,7 +296,6 @@
     <ClCompile Include="GameInput.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scene\EntryScene.cpp" />
-    <ClCompile Include="Scene\AssetViewer\StaticMesh\StaticMeshViewerBehavior.cpp" />
     <ClCompile Include="Scene\ViewerScene.cpp" />
   </ItemGroup>
   <ItemGroup>

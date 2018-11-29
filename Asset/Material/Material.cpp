@@ -9,7 +9,7 @@ GG_INIT_FUNC_IMPL_1(rcMaterial, const MaterialData& data)
 {
   this->texture_ = data.main_tex_unique_id_ != 0 ?
     AssetManager::Load<rcTexture>(data.main_tex_unique_id_) :
-    nullptr;
+    AssetManager::Load<rcTexture>(DefaultUniqueID::TEXTURE_WHITE);
   this->tiling_ = data.tiling_;
   this->tiling_offset_ = data.tiling_offset_;
   this->color_ = data.color_;

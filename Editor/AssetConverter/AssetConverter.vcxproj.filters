@@ -288,9 +288,6 @@
     <ClInclude Include="Converter\AssetConverterFactory.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\AssetViewer\StaticMesh\StaticMeshViewerBehavior.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Entity\File\Model\StaticModel\StaticModelAssetEntity.h">
       <Filter>ヘッダー ファイル\Asset\_File\Model</Filter>
     </ClInclude>
@@ -307,9 +304,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Scene\AssetViewer\StaticModel\StaticModelViewerBehavior.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene\AssetViewer\DynamicMesh\DynamicMeshViewerBehavior.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Scene\AssetViewer\CharacterModel\CharacterModelViewerBehavior.h">
@@ -437,9 +431,6 @@
     <ClCompile Include="Scene\AssetViewer\Texture\TextureViewerBehavior.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\AssetViewer\StaticMesh\StaticMeshViewerBehavior.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Entity\File\Model\StaticModel\StaticModelAssetEntity.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -453,9 +444,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Scene\AssetViewer\StaticModel\StaticModelViewerBehavior.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene\AssetViewer\DynamicMesh\DynamicMeshViewerBehavior.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Scene\AssetViewer\CharacterModel\CharacterModelViewerBehavior.cpp">

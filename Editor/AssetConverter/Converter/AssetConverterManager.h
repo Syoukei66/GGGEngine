@@ -52,7 +52,7 @@ public:
   // Data Members
   // =================================================================
 private:
-  std::unordered_map<T_UINT32, IAssetConverter*> converter_map_;
+  std::map<T_UINT32, IAssetConverter*> converter_map_;
 
 };
 
