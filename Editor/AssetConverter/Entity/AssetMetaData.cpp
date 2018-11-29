@@ -1,7 +1,6 @@
 #include "AssetMetaData.h"
 
 #include <Util/FileUtil.h>
-#include "Director.h"
 #include <Constants/Extensions.h>
 #include <Director.h>
 
