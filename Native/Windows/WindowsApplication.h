@@ -29,6 +29,11 @@ public:
   {
     return SharedRef<DX9GraphicsAPI>::StaticCast(Application::GetPlatform()->GetGraphicsAPI());
   }
+#elif GG_GRAPHICS_API_DX11
+  static GG_INLINE SharedRef<DX11GraphicsAPI> GetGraphics()
+  {
+    return SharedRef<DX11GraphicsAPI>::StaticCast(Application::GetPlatform()->GetGraphicsAPI());
+  }
 #endif
 
   static GG_INLINE SharedRef<XAudioAPI> GetAudio()

@@ -7,7 +7,7 @@
 // Platform Setting
 // =================================================================
 
-#define GG_GRAPHICS_API_DX9 1
+#define GG_GRAPHICS_API_DX11 1
 
 #include <Native/Windows/main.h>
 
