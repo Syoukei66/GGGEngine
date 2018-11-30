@@ -1,5 +1,7 @@
 #include "DX9VertexBuffer.h"
 
+#if GG_GRAPHICS_API_DX9
+
 #include <Core/Application/Platform/API/_Resource/VertexDeclaration/VertexDeclaration.h>
 #include <Native/Windows/WindowsApplication.h>
 
@@ -11,7 +13,7 @@
 // =================================================================
 DX9VertexBuffer::DX9VertexBuffer(T_UINT32 size)
 {
-  LPDIRECT3DDEVICE9 device = WindowsApplication::GetGraphics()->GetDevice();
+  LPDIRECT3DDEVICE9 device = WindowsApplication::GetDX9Graphics()->GetDevice();
   HRESULT hr = device->CreateVertexBuffer(
     size,
     0,
@@ -46,8 +48,9 @@ void DX9VertexBuffer::Unlock()
 void DX9VertexBuffer::SetStreamSource(const SharedRef<const rcVertexDeclaration>& declaration) const
 {
   declaration->SetVertexDeclaration();
-  LPDIRECT3DDEVICE9 device = WindowsApplication::GetGraphics()->GetDevice();
+  LPDIRECT3DDEVICE9 device = WindowsApplication::GetDX9Graphics()->GetDevice();
   HRESULT hr = device->SetStreamSource(0, this->vertex_buffer_, 0, declaration->GetVertexSize());
   GG_ASSERT(SUCCEEDED(hr), "VertexBuffer‚ÌƒZƒbƒg‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 }
 
+#endif

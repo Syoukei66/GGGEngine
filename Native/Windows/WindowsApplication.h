@@ -25,12 +25,12 @@ public:
   }
 
 #if GG_GRAPHICS_API_DX9
-  static GG_INLINE SharedRef<DX9GraphicsAPI> GetGraphics()
+  static GG_INLINE SharedRef<DX9GraphicsAPI> GetDX9Graphics()
   {
     return SharedRef<DX9GraphicsAPI>::StaticCast(Application::GetPlatform()->GetGraphicsAPI());
   }
 #elif GG_GRAPHICS_API_DX11
-  static GG_INLINE SharedRef<DX11GraphicsAPI> GetGraphics()
+  static GG_INLINE SharedRef<DX11GraphicsAPI> GetDX11Graphics()
   {
     return SharedRef<DX11GraphicsAPI>::StaticCast(Application::GetPlatform()->GetGraphicsAPI());
   }

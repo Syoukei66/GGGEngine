@@ -1,5 +1,7 @@
 #include "DX9VertexDeclaration.h"
 
+#if GG_GRAPHICS_API_DX9
+
 #include <Native/Windows/WindowsApplication.h>
 
 // =================================================================
@@ -8,7 +10,7 @@
 DX9VertexDeclaration::DX9VertexDeclaration(T_UINT32 format)
   : format_(format)
 {
-  LPDIRECT3DDEVICE9 device = WindowsApplication::GetGraphics()->GetDevice();
+  LPDIRECT3DDEVICE9 device = WindowsApplication::GetDX9Graphics()->GetDevice();
   std::vector<D3DVERTEXELEMENT9> elements = std::vector<D3DVERTEXELEMENT9>();
 
   WORD offset = 0;
@@ -123,7 +125,9 @@ T_UINT32 DX9VertexDeclaration::GetVertexSize() const
 
 void DX9VertexDeclaration::SetVertexDeclaration() const
 {
-  LPDIRECT3DDEVICE9 device = WindowsApplication::GetGraphics()->GetDevice();
+  LPDIRECT3DDEVICE9 device = WindowsApplication::GetDX9Graphics()->GetDevice();
   HRESULT hr = device->SetVertexDeclaration(this->vertex_declaration_);
   GG_ASSERT(SUCCEEDED(hr), "頂点宣言のセットに失敗しました");
 }
+
+#endif

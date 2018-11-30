@@ -1,5 +1,7 @@
 #pragma once
 
+#if GG_GRAPHICS_API_DX9
+
 #include <d3d9.h>
 #include <d3dx9.h>
 
@@ -34,3 +36,5 @@ private:
   Vertex::IndexFormat format_;
   IDirect3DIndexBuffer9* index_buffer_;
 };
+
+#endif

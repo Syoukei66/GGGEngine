@@ -1,5 +1,7 @@
 #pragma once
 
+#if GG_GRAPHICS_API_DX9
+
 #include <d3d9.h>
 #include <d3dx9.h>
 
@@ -30,3 +32,5 @@ private:
   T_UINT32 stride_;
   IDirect3DVertexDeclaration9* vertex_declaration_;
 };
+
+#endif

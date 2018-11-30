@@ -1,5 +1,7 @@
 #include "DX9GraphicsAPI.h"
 
+#if GG_GRAPHICS_API_DX9
+
 #define NOMINMAX
 #include <windows.h>
 #include <windowsx.h>
@@ -333,7 +335,7 @@ void DX9GraphicsAPI::DrawStencilBuffer()
 
 void DX9GraphicsAPI::DrawIndexedPrimitive(Vertex::PrimitiveType primitive_type, const SharedRef<const rcIndexBuffer>& index_buffer)
 {
-  LPDIRECT3DDEVICE9 device = WindowsApplication::GetGraphics()->GetDevice();
+  LPDIRECT3DDEVICE9 device = WindowsApplication::GetDX9Graphics()->GetDevice();
   HRESULT hr = device->DrawIndexedPrimitive(
     DX9::PRIMITIVE_TYPES[static_cast<T_UINT32>(primitive_type)],
     0,
@@ -516,3 +518,5 @@ bool DX9GraphicsAPI::PostDraw()
   this->d3d_device_->Present(NULL, NULL, NULL, NULL);
   return true;
 }
+
+#endif

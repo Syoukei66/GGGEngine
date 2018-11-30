@@ -1,5 +1,7 @@
 #include "DX9Shader.h"
 
+#if GG_GRAPHICS_API_DX9
+
 // =================================================================
 // Constructor / Destructor
 // =================================================================
@@ -270,3 +272,5 @@ D3DXHANDLE DX9Shader::GetHandle(const std::string& property_name)
   this->bad_property_ids_.insert(property_name);
   return NULL;
 }
+
+#endif

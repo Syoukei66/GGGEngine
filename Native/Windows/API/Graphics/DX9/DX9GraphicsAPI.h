@@ -1,5 +1,7 @@
 #pragma once
 
+#if GG_GRAPHICS_API_DX9
+
 #include <d3d9.h>
 
 class DX9GraphicsAPI : public GraphicsAPI
@@ -59,3 +61,5 @@ private:
   LPDIRECT3DDEVICE9 d3d_device_;
 
 };
+
+#endif

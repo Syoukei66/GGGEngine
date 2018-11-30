@@ -1,5 +1,7 @@
 #pragma once
 
+#if GG_GRAPHICS_API_DX9
+
 #include <d3d9.h>
 #include <d3dx9.h>
 
@@ -28,3 +30,5 @@ public:
 private:
   IDirect3DVertexBuffer9* vertex_buffer_;
 };
+
+#endif

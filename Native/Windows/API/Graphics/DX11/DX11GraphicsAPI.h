@@ -49,13 +49,17 @@ protected:
   // Setter / Getter
   // =================================================================
 public:
-  GG_INLINE LPDIRECT3DDEVICE9 GetDevice() const
+  GG_INLINE ID3D11Device* GetDevice() const
   {
-    return this->d3d_device_;
+    return this->device_;
   }
 
 private:
-  LPDIRECT3D9 d3d_;
-  LPDIRECT3DDEVICE9 d3d_device_;
+  ID3D11Device* device_;
+  ID3D11DeviceContext* immediate_context_;
+  IDXGISwapChain* swap_chain_;
+  ID3D11RenderTargetView* render_target_view_;
+  D3D_DRIVER_TYPE driver_type_;
+  D3D_FEATURE_LEVEL feature_level_;
 
 };

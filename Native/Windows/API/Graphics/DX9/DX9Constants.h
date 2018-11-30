@@ -1,5 +1,7 @@
 #pragma once
 
+#if GG_GRAPHICS_API_DX9
+
 #include <d3d9.h>
 
 namespace DX9
@@ -32,3 +34,5 @@ static D3DFORMAT TEXTURE_FORMATS[static_cast<T_UINT32>(Graphics::PixelFormat::FO
 };
 
 }
+
+#endif

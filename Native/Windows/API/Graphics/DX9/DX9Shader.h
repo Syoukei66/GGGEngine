@@ -1,5 +1,7 @@
 #pragma once
 
+#if GG_GRAPHICS_API_DX9
+
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <unordered_map>
@@ -64,3 +66,5 @@ private:
   LPD3DXEFFECT effect_;
 
 };
+
+#endif

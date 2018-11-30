@@ -24,6 +24,8 @@ public:
     (*audio) = XAudioAPI::Create();
 #if GG_GRAPHICS_API_DX9
     (*graphics) = DX9GraphicsAPI::Create();
+#else
+    (*graphics) = DX11GraphicsAPI::Create();
 #endif
   }
 
