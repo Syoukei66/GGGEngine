@@ -39,7 +39,6 @@ public:
   virtual UniqueRef<rcVertexDeclaration> CreateVertexDeclaration(T_UINT32 format) override;
 
   virtual bool ImGuiNewFrame() override;
-  virtual bool ImGuiEndFrame() override;
 
 protected:
   virtual bool PreDraw() override;

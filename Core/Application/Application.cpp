@@ -73,7 +73,7 @@ void Application::Run(IApplicationBehavior* behavior, IApplicationSetting* setti
       });
     }
 
-    self->platform_->graphics_api_->ImGuiEndFrame();
+    ImGui::EndFrame();
     GGObjectManager::GC();
   }
 

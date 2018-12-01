@@ -50,7 +50,6 @@ public:
   virtual UniqueRef<rcVertexDeclaration> CreateVertexDeclaration(T_UINT32 format) = 0;
 
   virtual bool ImGuiNewFrame() = 0;
-  virtual bool ImGuiEndFrame() = 0;
 
 protected:
   virtual bool PreDraw() = 0;

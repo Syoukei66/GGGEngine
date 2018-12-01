@@ -17,7 +17,6 @@
 
 #include <Native/Windows/WindowsApplication.h>
 
-#include <ThirdParty/imgui/imgui.h>
 #include "imgui\imgui_impl_dx9.h"
 
 #include "DX9Constants.h"
@@ -491,12 +490,6 @@ UniqueRef<rcVertexDeclaration> DX9GraphicsAPI::CreateVertexDeclaration(T_UINT32 
 bool DX9GraphicsAPI::ImGuiNewFrame()
 {
   ImGui_ImplDX9_NewFrame();
-  return true;
-}
-
-bool DX9GraphicsAPI::ImGuiEndFrame()
-{
-  ImGui::EndFrame();
   return true;
 }
 

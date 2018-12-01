@@ -2,6 +2,8 @@
 
 #include <Native/Windows/WindowsApplication.h>
 
+#include "imgui\imgui_impl_dx11.h"
+
 // =================================================================
 // GGG Statement
 // =================================================================
@@ -110,11 +112,16 @@ GG_INIT_FUNC_IMPL(DX11GraphicsAPI)
   vp.TopLeftY = 0;
   this->immediate_context_->RSSetViewports(1, &vp);
 
+  // imgui initialize
+  ImGui_ImplDX11_Init(this->device_, this->immediate_context_);
   return true;
 }
 
 GG_DESTRUCT_FUNC_IMPL(DX11GraphicsAPI)
 {
+  //imgui uninitialize
+  ImGui_ImplDX11_Shutdown();
+
   if (this->immediate_context_) this->immediate_context_->ClearState();
   if (this->render_target_view_) this->render_target_view_->Release();
   if (this->swap_chain_) this->swap_chain_->Release();
@@ -215,20 +222,20 @@ UniqueRef<rcVertexDeclaration> DX11GraphicsAPI::CreateVertexDeclaration(T_UINT32
 
 bool DX11GraphicsAPI::ImGuiNewFrame()
 {
-  return false;
-}
-
-bool DX11GraphicsAPI::ImGuiEndFrame()
-{
-  return false;
+  ImGui_ImplDX11_NewFrame();
+  return true;
 }
 
 bool DX11GraphicsAPI::PreDraw()
 {
-  return false;
+  return true;
 }
 
 bool DX11GraphicsAPI::PostDraw()
 {
-  return false;
+  //imgui
+  ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+  this->swap_chain_->Present(0, 0);
+  return true;
 }
