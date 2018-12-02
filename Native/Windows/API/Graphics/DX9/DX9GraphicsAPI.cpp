@@ -448,11 +448,6 @@ UniqueRef<rcRenderTexture> DX9GraphicsAPI::CreateRenderTexture(T_UINT16 width, T
   return rcRenderTexture::Create(width, height, tex, depth_format);
 }
 
-UniqueRef<rcIndexBuffer> DX9GraphicsAPI::CreateIndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format)
-{
-  return UniqueRef<rcIndexBuffer>(new DX9IndexBuffer(vertex_count, polygon_count, format));
-}
-
 bool DX9GraphicsAPI::ImGuiNewFrame()
 {
   ImGui_ImplDX9_NewFrame();

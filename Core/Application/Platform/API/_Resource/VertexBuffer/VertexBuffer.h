@@ -2,9 +2,7 @@
 
 #include <Core/Application/Platform/API/_Resource/APIResourceObject.h>
 
-class rcIndexBuffer;
 class rcVertexDeclaration;
-class rcShader;
 
 /*!
  * @brief 頂点バッファのベースクラス。

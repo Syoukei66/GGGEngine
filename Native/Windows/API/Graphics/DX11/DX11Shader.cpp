@@ -6,6 +6,11 @@
 #include <Native/Windows/WindowsApplication.h>
 #include "DX11VertexDeclaration.h"
 
+UniqueRef<rcShader> rcShader::CreateFromFile(const char* path)
+{
+  return UniqueRef<rcShader>(new DX11Shader(path));
+}
+
 HRESULT CompileShaderFromString(const std::string& str, LPCSTR szEntryPoint, LPCSTR szShaderModel, ID3DBlob** ppBlobOut)
 {
   HRESULT hr = S_OK;
@@ -114,11 +119,11 @@ void DX11Shader::SetInputLayout(const SharedRef<const rcVertexDeclaration>& decl
   const auto& itr = this->input_layouts_.find(declaration->GetFormat());
   if (itr == this->input_layouts_.end())
   {
-    const SharedRef<DX11VertexDeclaration>& dx11_vertex_decl = SharedRef<DX11VertexDeclaration>::StaticCast(declaration);
+    const SharedRef<const DX11VertexDeclaration>& dx11_vertex_decl = SharedRef<const DX11VertexDeclaration>::StaticCast(declaration);
 
     ID3D11Device* device = WindowsApplication::GetDX11Graphics()->GetDevice();
     HRESULT hr = device->CreateInputLayout(
-      &dx11_vertex_decl->GetElements().data[0], &dx11_vertex_decl->GetElements().size(),
+      dx11_vertex_decl->GetElements().data(), dx11_vertex_decl->GetElements().size(),
       this->vs_brob_->GetBufferPointer(), this->vs_brob_->GetBufferSize(),
       &input_layout
     );
@@ -137,15 +142,25 @@ void DX11Shader::SetInputLayout(const SharedRef<const rcVertexDeclaration>& decl
 
 T_UINT8 DX11Shader::Begin()
 {
-  return T_UINT8();
+  ID3D11DeviceContext* context = WindowsApplication::GetDX11Graphics()->GetImmediateContext();
+  //context->VSSetConstantBuffers();
+
+  // ƒpƒX‚Ì”‚ð•Ô‚·
+  return 1;
 }
 
 void DX11Shader::BeginPass(T_UINT8 path_id)
 {
+  ID3D11DeviceContext* context = WindowsApplication::GetDX11Graphics()->GetImmediateContext();
+  context->VSSetShader(this->vertex_shader_, NULL, 0);
+  context->PSSetShader(this->pixel_shader_, NULL, 0);
 }
 
 void DX11Shader::CommitChanges()
 {
+  ID3D11DeviceContext* context = WindowsApplication::GetDX11Graphics()->GetImmediateContext();
+  //context->VSSetConstantBuffers();
+
 }
 
 void DX11Shader::EndPass()
@@ -230,11 +245,6 @@ void DX11Shader::GetMatrix(const std::string& property_name, Matrix4x4* dest)
 
 void DX11Shader::GetTexture(const std::string& property_name, void* native_dest)
 {
-}
-
-D3DXHANDLE DX11Shader::GetHandle(const std::string& property_name)
-{
-  return D3DXHANDLE();
 }
 
 #endif

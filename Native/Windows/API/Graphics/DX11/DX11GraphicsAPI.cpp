@@ -5,6 +5,7 @@
 #include <Native/Windows/WindowsApplication.h>
 
 #include "imgui\imgui_impl_dx11.h"
+#include "DX11Constants.h"
 
 // =================================================================
 // GGG Statement
@@ -139,19 +140,36 @@ GG_DESTRUCT_FUNC_IMPL(DX11GraphicsAPI)
 void DX11GraphicsAPI::ViewportClear(const TColor& color)
 {
   this->immediate_context_->ClearRenderTargetView(this->render_target_view_, color.data);
-  this->swap_chain_->Present(0, 0);
 }
 
 void DX11GraphicsAPI::SetViewport(T_FLOAT x, T_FLOAT y, T_FLOAT w, T_FLOAT h, T_FLOAT minZ, T_FLOAT maxZ)
 {
+  D3D11_VIEWPORT vp;
+  vp.TopLeftX = x;
+  vp.TopLeftY = y;
+  vp.Width = w;
+  vp.Height = h;
+  vp.MinDepth = minZ;
+  vp.MaxDepth = maxZ;
+  this->immediate_context_->RSSetViewports(1, &vp);
 }
 
 void DX11GraphicsAPI::PackColor4u8(T_FIXED_UINT32* color, T_UINT8 r, T_UINT8 g, T_UINT8 b, T_UINT8 a)
 {
+  (*color) = 
+    (r & 0xff) << 24 |
+    (g & 0xff) << 16 |
+    (b & 0xff) << 8 |
+    (a & 0xff) << 0
+    ;
 }
 
 void DX11GraphicsAPI::UnpackColor4u8(T_FIXED_UINT32 color, T_UINT8* r, T_UINT8* g, T_UINT8* b, T_UINT8* a)
 {
+  (*r) = (color >> 24) & 0xff;
+  (*g) = (color >> 16) & 0xff;
+  (*b) = (color >> 8) & 0xff;
+  (*a) = (color >> 0) & 0xff;
 }
 
 void DX11GraphicsAPI::SetRenderTarget(const SharedRef<rcRenderBuffer>& color_buffer, const SharedRef<rcRenderBuffer>& depth_stencil_buffer, bool clear)
@@ -168,6 +186,8 @@ void DX11GraphicsAPI::DrawStencilBuffer()
 
 void DX11GraphicsAPI::DrawIndexedPrimitive(Vertex::PrimitiveType primitive_type, const SharedRef<const rcIndexBuffer>& index_buffer)
 {
+  this->immediate_context_->IASetPrimitiveTopology(DX11::PRIMITIVE_TYPES[static_cast<T_UINT32>(primitive_type)]);
+  this->immediate_context_->DrawIndexed(index_buffer->GetVertexCount(), 0, 0);
 }
 
 UniqueRef<rcTexture> DX11GraphicsAPI::TextureLoad(const char* path)
@@ -200,26 +220,6 @@ void DX11GraphicsAPI::DeleteRenderBuffer(rcRenderBuffer* render_buffer)
 UniqueRef<rcRenderTexture> DX11GraphicsAPI::CreateRenderTexture(T_UINT16 width, T_UINT16 height, ::Graphics::PixelFormat format, ::Graphics::PixelFormat depth_format)
 {
   return UniqueRef<rcRenderTexture>();
-}
-
-UniqueRef<rcShader> DX11GraphicsAPI::ShaderLoad(const char* path)
-{
-  return UniqueRef<rcShader>();
-}
-
-UniqueRef<rcVertexBuffer> DX11GraphicsAPI::CreateVertexBuffer(T_UINT32 size)
-{
-  return UniqueRef<rcVertexBuffer>();
-}
-
-UniqueRef<rcIndexBuffer> DX11GraphicsAPI::CreateIndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format)
-{
-  return UniqueRef<rcIndexBuffer>();
-}
-
-UniqueRef<rcVertexDeclaration> DX11GraphicsAPI::CreateVertexDeclaration(T_UINT32 format)
-{
-  return UniqueRef<rcVertexDeclaration>();
 }
 
 bool DX11GraphicsAPI::ImGuiNewFrame()

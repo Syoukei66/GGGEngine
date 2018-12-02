@@ -183,6 +183,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="Application\IApplicationSetting.h" />
     <ClInclude Include="Application\Input\InputState.h" />
     <ClInclude Include="Application\Object\WeakRef.h" />
+    <ClInclude Include="Application\Platform\API\_Resource\ConstantBuffer\ConstantBuffer.h" />
     <ClInclude Include="Application\Platform\API\_Resource\VertexDeclaration\VertexDeclaration.h" />
     <ClInclude Include="Application\Platform\Platform.h" />
     <ClInclude Include="Application\Activity\Activity.h" />

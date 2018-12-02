@@ -17,14 +17,13 @@ class rcIndexBuffer : public GGAPIResourceObject
   // Factory Method
   // =================================================================
 public:
-  GG_INLINE static UniqueRef<rcIndexBuffer> Create(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format)
-  {
-    return Application::GetPlatform()->GetGraphicsAPI()->CreateIndexBuffer(vertex_count, polygon_count, format);
-  }
-  GG_INLINE static UniqueRef<rcIndexBuffer> Create(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT32 max_value)
+  static UniqueRef<rcIndexBuffer> Create(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format);
+  static UniqueRef<rcIndexBuffer> Create(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT32 max_value)
   {
     return Create(vertex_count, polygon_count, Vertex::CalcIndexFormat(max_value));
   }
+
+  static UniqueRef<rcIndexBuffer> Create(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format, void* data);
 
   // =================================================================
   // Method

@@ -44,8 +44,6 @@ public:
 
   virtual UniqueRef<rcRenderTexture> CreateRenderTexture(T_UINT16 width, T_UINT16 height, ::Graphics::PixelFormat format, ::Graphics::PixelFormat depth_format) = 0;
 
-  virtual UniqueRef<rcIndexBuffer> CreateIndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format) = 0;
-
   virtual bool ImGuiNewFrame() = 0;
 
 protected:

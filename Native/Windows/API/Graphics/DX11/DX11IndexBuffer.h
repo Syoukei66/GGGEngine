@@ -2,19 +2,19 @@
 
 #if GG_GRAPHICS_API_DX11
 
-#include <d3d9.h>
-#include <d3dx9.h>
+#include <d3d11.h>
 
 #include <Core/Application/Platform/API/_Resource/IndexBuffer/IndexBuffer.h>
 
-class DX9IndexBuffer : public rcIndexBuffer
+class DX11IndexBuffer : public rcIndexBuffer
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  DX9IndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format);
-  ~DX9IndexBuffer();
+  DX11IndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format);
+  DX11IndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format, void* data);
+  ~DX11IndexBuffer();
 
   // =================================================================
   // Method
@@ -34,7 +34,7 @@ private:
   T_UINT32 vertex_count_;
   T_UINT32 polygon_count_;
   Vertex::IndexFormat format_;
-  IDirect3DIndexBuffer9* index_buffer_;
+  ID3D11Buffer* index_buffer_;
 };
 
 #endif

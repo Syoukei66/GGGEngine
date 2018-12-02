@@ -7,6 +7,16 @@
 #include "DX9GraphicsAPI.h"
 #include "DX9Constants.h"
 
+UniqueRef<rcIndexBuffer> rcIndexBuffer::Create(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format)
+{
+  return UniqueRef<rcIndexBuffer>(new DX9IndexBuffer(vertex_count, polygon_count, format));
+}
+
+UniqueRef<rcIndexBuffer> rcIndexBuffer::Create(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format, void* data)
+{
+  return UniqueRef<rcIndexBuffer>(new DX9IndexBuffer(vertex_count, polygon_count, format));
+}
+
 // =================================================================
 // Constructor / Destructor
 // =================================================================

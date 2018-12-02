@@ -197,5 +197,8 @@
     <ClCompile Include="API\Graphics\DX11\DX11Shader.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="API\Graphics\DX11\DX11IndexBuffer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

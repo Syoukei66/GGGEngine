@@ -215,6 +215,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClCompile Include="Activity\WindowsActivity.cpp" />
     <ClCompile Include="API\Audio\XAudio\XAudioAPI.cpp" />
     <ClCompile Include="API\Graphics\DX11\DX11GraphicsAPI.cpp" />
+    <ClCompile Include="API\Graphics\DX11\DX11IndexBuffer.cpp" />
     <ClCompile Include="API\Graphics\DX11\DX11Shader.cpp" />
     <ClCompile Include="API\Graphics\DX11\DX11VertexBuffer.cpp" />
     <ClCompile Include="API\Graphics\DX11\DX11VertexDeclaration.cpp" />

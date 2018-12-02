@@ -39,6 +39,7 @@
 #include <Core/Application/Platform/API/_Asset/Shader/Shader.h>
 #include <Core/Application/Platform/API/_Asset/Texture/Texture.h>
 #include <Core/Application/Platform/API/_Resource/APIResourceObject.h>
+#include <Core/Application/Platform/API/_Resource/ConstantBuffer/ConstantBuffer.h>
 #include <Core/Application/Platform/API/_Resource/IndexBuffer/IndexBuffer.h>
 #include <Core/Application/Platform/API/_Resource/RenderBuffer/RenderBuffer.h>
 #include <Core/Application/Platform/API/_Resource/RenderTexture/RenderTexture.h>
