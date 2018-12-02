@@ -22,13 +22,13 @@ bool MeshRenderer::SetStreamSource() const
   return true;
 }
 
-bool MeshRenderer::SetInputFormat(const SharedRef<rcShader>& shader) const
+bool MeshRenderer::SetInputLayout(const SharedRef<rcShader>& shader) const
 {
   if (!this->mesh_)
   {
     return false;
   }
-  this->mesh_->SetInputFormat(shader);
+  shader->SetInputLayout(this->mesh_->GetVertexDeclaration());
   return true;
 }
 

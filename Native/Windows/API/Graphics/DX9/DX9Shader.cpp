@@ -3,6 +3,7 @@
 #if GG_GRAPHICS_API_DX9
 
 #include <Native/Windows/WindowsApplication.h>
+#include "DX9VertexDeclaration.h"
 
 UniqueRef<rcShader> rcShader::CreateFromFile(const char* path)
 {
@@ -41,6 +42,11 @@ DX9Shader::~DX9Shader()
 // =================================================================
 // Method for/from SuperClass/Interfaces
 // =================================================================
+void DX9Shader::SetInputLayout(const SharedRef<const rcVertexDeclaration>& declaration)
+{
+  SharedRef<const DX9VertexDeclaration>::StaticCast(declaration)->SetDeclaration();
+}
+
 T_UINT8 DX9Shader::Begin()
 {
   UINT path_count;

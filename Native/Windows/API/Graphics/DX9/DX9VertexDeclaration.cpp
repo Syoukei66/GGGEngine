@@ -128,7 +128,7 @@ T_UINT32 DX9VertexDeclaration::GetVertexSize() const
   return this->stride_;
 }
 
-void DX9VertexDeclaration::SetInputLayout(const SharedRef<rcShader>& shader) const
+void DX9VertexDeclaration::SetDeclaration() const
 {
   LPDIRECT3DDEVICE9 device = WindowsApplication::GetDX9Graphics()->GetDevice();
   HRESULT hr = device->SetVertexDeclaration(this->vertex_declaration_);

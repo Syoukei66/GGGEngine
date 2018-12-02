@@ -181,15 +181,6 @@ void rcMesh::SetStreamSource() const
   this->vertex_buffer_->SetStreamSource(this->vertex_declaration_);
 }
 
-void rcMesh::SetInputFormat(const SharedRef<rcShader>& shader) const
-{
-  if (!this->vertex_buffer_)
-  {
-    return;
-  }
-  this->vertex_declaration_->SetInputLayout(shader);
-}
-
 void rcMesh::DrawSubset(T_UINT8 index) const
 {
   if (!this->vertex_buffer_)

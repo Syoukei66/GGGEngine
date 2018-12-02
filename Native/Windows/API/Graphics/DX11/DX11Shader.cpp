@@ -4,8 +4,9 @@
 
 #include <d3dcompiler.h>
 #include <Native/Windows/WindowsApplication.h>
+#include "DX11VertexDeclaration.h"
 
-HRESULT CompileShaderFromFile(const std::string& str, LPCSTR szEntryPoint, LPCSTR szShaderModel, ID3DBlob** ppBlobOut)
+HRESULT CompileShaderFromString(const std::string& str, LPCSTR szEntryPoint, LPCSTR szShaderModel, ID3DBlob** ppBlobOut)
 {
   HRESULT hr = S_OK;
 
@@ -67,7 +68,8 @@ DX11Shader::DX11Shader(const char* path)
 
   ID3D11Device* device = WindowsApplication::GetDX11Graphics()->GetDevice();
 
-  HRESULT hr = CompileShaderFromFile(code, "vert", "vs_4_0", &this->vs_brob_);
+  // 頂点シェーダーコンパイル
+  HRESULT hr = CompileShaderFromString(code, "vert", "vs_4_0", &this->vs_brob_);
   GG_ASSERT(SUCCEEDED(hr), "頂点シェーダーのコンパイルに失敗しました");
   hr = device->CreateVertexShader(
     this->vs_brob_->GetBufferPointer(),
@@ -75,21 +77,64 @@ DX11Shader::DX11Shader(const char* path)
     NULL,
     &this->vertex_shader_
   );
-  if (FAILED(hr))
-  {
-    this->vs_brob_->Release();
-    GG_ASSERT(SUCCEEDED(hr), "頂点シェーダーのコンパイルに失敗しました");
-  }
+  GG_ASSERT(SUCCEEDED(hr), "頂点シェーダーの作成に失敗しました");
+
+  // ピクセルシェーダーコンパイル
+  hr = CompileShaderFromString(code, "frag", "ps_4_0", &this->ps_brob_);
+  GG_ASSERT(SUCCEEDED(hr), "ピクセルシェーダーのコンパイルに失敗しました");
+  hr = device->CreatePixelShader(
+    this->ps_brob_->GetBufferPointer(),
+    this->ps_brob_->GetBufferSize(),
+    NULL,
+    &this->pixel_shader_
+  );
+  GG_ASSERT(SUCCEEDED(hr), "ピクセルシェーダーの作成に失敗しました");
 
 }
 
 DX11Shader::~DX11Shader()
 {
+  this->vs_brob_->Release();
+  this->vertex_shader_->Release();
+  for (const auto& pair : this->input_layouts_)
+  {
+    pair.second->Release();
+  }
+  this->ps_brob_->Release();
+  this->pixel_shader_->Release();
 }
 
 // =================================================================
 // Method for/from SuperClass/Interfaces
 // =================================================================
+void DX11Shader::SetInputLayout(const SharedRef<const rcVertexDeclaration>& declaration)
+{
+  ID3D11InputLayout* input_layout = nullptr;
+
+  const auto& itr = this->input_layouts_.find(declaration->GetFormat());
+  if (itr == this->input_layouts_.end())
+  {
+    const SharedRef<DX11VertexDeclaration>& dx11_vertex_decl = SharedRef<DX11VertexDeclaration>::StaticCast(declaration);
+
+    ID3D11Device* device = WindowsApplication::GetDX11Graphics()->GetDevice();
+    HRESULT hr = device->CreateInputLayout(
+      &dx11_vertex_decl->GetElements().data[0], &dx11_vertex_decl->GetElements().size(),
+      this->vs_brob_->GetBufferPointer(), this->vs_brob_->GetBufferSize(),
+      &input_layout
+    );
+    GG_ASSERT(SUCCEEDED(hr), "InputLayoutの作成に失敗しました");
+
+    this->input_layouts_[declaration->GetFormat()] = input_layout;
+  }
+  else
+  {
+    input_layout = itr->second;
+  }
+
+  ID3D11DeviceContext* context = WindowsApplication::GetDX11Graphics()->GetImmediateContext();
+  context->IASetInputLayout(input_layout);
+}
+
 T_UINT8 DX11Shader::Begin()
 {
   return T_UINT8();

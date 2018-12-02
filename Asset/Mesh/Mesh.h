@@ -77,7 +77,6 @@ public:
   UniqueRef<rcDynamicMesh> MoveDynamic();
 
   void SetStreamSource() const;
-  void SetInputFormat(const SharedRef<rcShader>& shader) const;
   void DrawSubset(T_UINT8 index) const;
 
   // =================================================================
@@ -107,6 +106,10 @@ public:
   GG_INLINE const Bounds& GetBounds() const
   {
     return this->bounds_;
+  }
+  GG_INLINE SharedRef<const rcVertexDeclaration> GetVertexDeclaration() const
+  {
+    return this->vertex_declaration_;
   }
 
   // =================================================================

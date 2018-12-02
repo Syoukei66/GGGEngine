@@ -16,12 +16,20 @@ public:
   ~DX11VertexDeclaration();
 
   // =================================================================
-  // Method
+  // Method from rcVertexDeclaration
   // =================================================================
 public:
   virtual T_UINT32 GetFormat() const override;
   virtual T_UINT32 GetVertexSize() const override;
-  virtual void SetInputLayout(const SharedRef<rcShader>& shader) const override;
+
+  // =================================================================
+  // Method
+  // =================================================================
+public:
+  GG_INLINE const std::vector<D3D11_INPUT_ELEMENT_DESC>& GetElements() const
+  {
+    return this->elements_;
+  }
 
   // =================================================================
   // Data Member
@@ -29,13 +37,8 @@ public:
 private:
   const T_UINT32 format_;
   T_UINT32 stride_;
-  ID3D11InputLayout* input_layout_;
+  std::vector<D3D11_INPUT_ELEMENT_DESC> elements_;
 
 };
-
-static UniqueRef<rcVertexDeclaration> rcVertexDeclaration::Create(T_UINT32 format)
-{
-  return UniqueRef<rcVertexDeclaration>(new DX11VertexDeclaration(format));
-}
 
 #endif

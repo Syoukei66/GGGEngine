@@ -22,7 +22,7 @@ public:
 
 protected:
   virtual bool SetStreamSource() const = 0;
-  virtual bool SetInputFormat(const SharedRef<rcShader>& shader) const = 0;
+  virtual bool SetInputLayout(const SharedRef<rcShader>& shader) const = 0;
   virtual void SetProperties(const SharedRef<rcShader>& shader) const = 0;
   virtual void DrawSubset(T_UINT8 submesh_index) const = 0;
 

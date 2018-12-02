@@ -2,8 +2,6 @@
 
 #include <Core/Application/Platform/API/_Resource/APIResourceObject.h>
 
-class rcShader;
-
 /*!
  * @brief 頂点情報のベースクラス
  * プラットフォーム毎の処理を派生クラス側で定義する。
@@ -27,6 +25,5 @@ public:
 public:
   virtual T_UINT32 GetFormat() const = 0;
   virtual T_UINT32 GetVertexSize() const = 0;
-  virtual void SetInputLayout(const SharedRef<rcShader>& shader) const = 0;
 
 };

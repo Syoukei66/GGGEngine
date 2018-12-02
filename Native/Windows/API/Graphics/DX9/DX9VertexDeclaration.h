@@ -22,7 +22,8 @@ public:
 public:
   virtual T_UINT32 GetFormat() const override;
   virtual T_UINT32 GetVertexSize() const override;
-  virtual void SetInputLayout(const SharedRef<rcShader>& shader) const override;
+  
+  void SetDeclaration() const;
 
   // =================================================================
   // Data Member

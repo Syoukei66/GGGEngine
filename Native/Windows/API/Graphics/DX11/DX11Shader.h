@@ -17,7 +17,8 @@ public:
   // =================================================================
   // Method for/from SuperClass/Interfaces
   // =================================================================
-public:
+public:  
+  virtual void SetInputLayout(const SharedRef<const rcVertexDeclaration>& declaration) override;
   virtual T_UINT8 Begin() override;
   virtual void BeginPass(T_UINT8 path_id) override;
   virtual void CommitChanges() override;
@@ -56,7 +57,10 @@ public:
 private:
   ID3DBlob* vs_brob_;
   ID3D11VertexShader* vertex_shader_;
-  std::unordered_map<T_UINT32, ID3D11InputLayout*> vertex_layouts_;
+  std::unordered_map<T_UINT32, ID3D11InputLayout*> input_layouts_;
+
+  ID3DBlob* ps_brob_;
+  ID3D11PixelShader* pixel_shader_;
 
 };
 

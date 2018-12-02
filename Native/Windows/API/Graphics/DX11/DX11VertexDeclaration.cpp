@@ -5,6 +5,11 @@
 #include <Native/Windows/WindowsApplication.h>
 #include "DX11Shader.h"
 
+UniqueRef<rcVertexDeclaration> rcVertexDeclaration::Create(T_UINT32 format)
+{
+  return UniqueRef<rcVertexDeclaration>(new DX11VertexDeclaration(format));
+}
+
 // =================================================================
 // Constructor / Destructor
 // =================================================================
@@ -12,7 +17,6 @@ DX11VertexDeclaration::DX11VertexDeclaration(T_UINT32 format)
   : format_(format)
 {
   ID3D11Device* device = WindowsApplication::GetDX11Graphics()->GetDevice();
-  std::vector<D3D11_INPUT_ELEMENT_DESC> elements = std::vector<D3D11_INPUT_ELEMENT_DESC>();
 
   WORD offset = 0;
 
@@ -26,7 +30,7 @@ DX11VertexDeclaration::DX11VertexDeclaration(T_UINT32 format)
       0,
       offset,
       D3D11_INPUT_PER_VERTEX_DATA, 0 };
-    elements.emplace_back(element);
+    this->elements_.emplace_back(element);
     offset += V_ATTRSIZE_POSITION;
   }
   if (format & V_ATTR_NORMAL)
@@ -37,7 +41,7 @@ DX11VertexDeclaration::DX11VertexDeclaration(T_UINT32 format)
       0,
       offset,
       D3D11_INPUT_PER_VERTEX_DATA, 0 };
-    elements.emplace_back(element);
+    this->elements_.emplace_back(element);
     offset += V_ATTRSIZE_NORMAL;
   }
   if (format & V_ATTR_UV)
@@ -48,7 +52,7 @@ DX11VertexDeclaration::DX11VertexDeclaration(T_UINT32 format)
       0,
       offset,
       D3D11_INPUT_PER_VERTEX_DATA, 0 };
-    elements.emplace_back(element);
+    this->elements_.emplace_back(element);
     offset += V_ATTRSIZE_UV;
   }
   if (format & V_ATTR_UV2)
@@ -59,7 +63,7 @@ DX11VertexDeclaration::DX11VertexDeclaration(T_UINT32 format)
       0,
       offset,
       D3D11_INPUT_PER_VERTEX_DATA, 0 };
-    elements.emplace_back(element);
+    this->elements_.emplace_back(element);
     offset += V_ATTRSIZE_UV2;
   }
   if (format & V_ATTR_UV3)
@@ -70,7 +74,7 @@ DX11VertexDeclaration::DX11VertexDeclaration(T_UINT32 format)
       0,
       offset,
       D3D11_INPUT_PER_VERTEX_DATA, 0 };
-    elements.emplace_back(element);
+    this->elements_.emplace_back(element);
     offset += V_ATTRSIZE_UV3;
   }
   if (format & V_ATTR_UV4)
@@ -81,7 +85,7 @@ DX11VertexDeclaration::DX11VertexDeclaration(T_UINT32 format)
       0,
       offset,
       D3D11_INPUT_PER_VERTEX_DATA, 0 };
-    elements.emplace_back(element);
+    this->elements_.emplace_back(element);
     offset += V_ATTRSIZE_UV4;
   }
   if (format & V_ATTR_TANGENT)
@@ -92,7 +96,7 @@ DX11VertexDeclaration::DX11VertexDeclaration(T_UINT32 format)
       0,
       offset,
       D3D11_INPUT_PER_VERTEX_DATA, 0 };
-    elements.emplace_back(element);
+    this->elements_.emplace_back(element);
     offset += V_ATTRSIZE_TANGENT;
   }
   if (format & V_ATTR_COLOR)
@@ -103,14 +107,11 @@ DX11VertexDeclaration::DX11VertexDeclaration(T_UINT32 format)
       0,
       offset,
       D3D11_INPUT_PER_VERTEX_DATA, 0 };
-    elements.emplace_back(element);
+    this->elements_.emplace_back(element);
     offset += V_ATTRSIZE_COLOR;
   }
 
   this->stride_ = offset;
-
-  HRESULT hr = device->CreateInputLayout(&elements[0], elements.size(), NULL, NULL, &this->input_layout_);
-  GG_ASSERT(SUCCEEDED(hr), "頂点フォーマットの作成に失敗しました");
 }
 
 DX11VertexDeclaration::~DX11VertexDeclaration()
@@ -122,20 +123,12 @@ DX11VertexDeclaration::~DX11VertexDeclaration()
 // =================================================================
 T_UINT32 DX11VertexDeclaration::GetFormat() const
 {
-  return T_UINT32();
+  return this->format_;
 }
 
 T_UINT32 DX11VertexDeclaration::GetVertexSize() const
 {
-  return T_UINT32();
-}
-
-void DX11VertexDeclaration::SetInputLayout(const SharedRef<rcShader>& shader) const
-{
-  ID3D11Device* device = WindowsApplication::GetDX11Graphics()->GetDevice();
-  SharedRef<DX11Shader>
-    HRESULT hr = device->SetVertexDeclaration(this->vertex_declaration_);
-  GG_ASSERT(SUCCEEDED(hr), "頂点宣言のセットに失敗しました");
+  return this->stride_;
 }
 
 #endif

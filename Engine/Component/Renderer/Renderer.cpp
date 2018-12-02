@@ -46,7 +46,7 @@ void Renderer::Draw(GameObjectRenderState* state) const
     }
     shader->SetTexture("_MainTex", material->GetMainTexture());
     material->SetProperties(shader);
-    if (!this->SetInputFormat(shader))
+    if (!this->SetInputLayout(shader))
     {
       return;
     }

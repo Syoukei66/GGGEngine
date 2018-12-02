@@ -22,6 +22,7 @@ public:
   // Method for/from SuperClass/Interfaces
   // =================================================================
 public:
+  virtual void SetInputLayout(const SharedRef<const rcVertexDeclaration>& declaration) override;
   virtual T_UINT8 Begin() override;
   virtual void BeginPass(T_UINT8 path_id) override;
   virtual void CommitChanges() override;

@@ -22,6 +22,7 @@ public:
   // Method 
   // =================================================================
 public:
+  virtual void SetInputLayout(const SharedRef<const rcVertexDeclaration>& declaration) = 0;
   virtual T_UINT8 Begin() = 0;
   virtual void BeginPass(T_UINT8 path_id) = 0;
   virtual void CommitChanges() = 0;

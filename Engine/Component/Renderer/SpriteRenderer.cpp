@@ -20,9 +20,9 @@ bool SpriteRenderer::SetStreamSource() const
   return true;
 }
 
-bool SpriteRenderer::SetInputFormat(const SharedRef<rcShader>& shader) const
+bool SpriteRenderer::SetInputLayout(const SharedRef<rcShader>& shader) const
 {
-  this->sprite_->GetMesh()->SetInputFormat(shader);
+  shader->SetInputLayout(this->sprite_->GetMesh()->GetVertexDeclaration());
   return true;
 }
 
