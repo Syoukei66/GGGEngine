@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <Core/Application/Platform/API/_Asset/APIAssetObject.h>
 
 class rcTexture;

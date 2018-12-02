@@ -46,6 +46,10 @@ void Renderer::Draw(GameObjectRenderState* state) const
     }
     shader->SetTexture("_MainTex", material->GetMainTexture());
     material->SetProperties(shader);
+    if (!this->SetInputFormat(shader))
+    {
+      return;
+    }
     T_UINT8 pass_count = shader->Begin();
     for (T_UINT8 j = 0; j < pass_count; ++j)
     {

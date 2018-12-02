@@ -4,6 +4,11 @@
 
 #include <Native/Windows/WindowsApplication.h>
 
+UniqueRef<rcVertexDeclaration> rcVertexDeclaration::Create(T_UINT32 format)
+{
+  return UniqueRef<rcVertexDeclaration>(new DX9VertexDeclaration(format));
+}
+
 // =================================================================
 // Constructor / Destructor
 // =================================================================
@@ -123,7 +128,7 @@ T_UINT32 DX9VertexDeclaration::GetVertexSize() const
   return this->stride_;
 }
 
-void DX9VertexDeclaration::SetVertexDeclaration() const
+void DX9VertexDeclaration::SetInputLayout(const SharedRef<rcShader>& shader) const
 {
   LPDIRECT3DDEVICE9 device = WindowsApplication::GetDX9Graphics()->GetDevice();
   HRESULT hr = device->SetVertexDeclaration(this->vertex_declaration_);

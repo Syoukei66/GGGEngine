@@ -2,6 +2,8 @@
 
 #include <Core/Application/Platform/API/_Resource/APIResourceObject.h>
 
+class rcShader;
+
 /*!
  * @brief 頂点情報のベースクラス
  * プラットフォーム毎の処理を派生クラス側で定義する。
@@ -17,10 +19,7 @@ class rcVertexDeclaration : public GGAPIResourceObject
   // Factory Method
   // =================================================================
 public:
-  static UniqueRef<rcVertexDeclaration> Create(T_UINT32 format)
-  {
-    return Application::GetPlatform()->GetGraphicsAPI()->CreateVertexDeclaration(format);
-  }
+  static UniqueRef<rcVertexDeclaration> Create(T_UINT32 format);
 
   // =================================================================
   // Method
@@ -28,6 +27,6 @@ public:
 public:
   virtual T_UINT32 GetFormat() const = 0;
   virtual T_UINT32 GetVertexSize() const = 0;
-  virtual void SetVertexDeclaration() const = 0;
+  virtual void SetInputLayout(const SharedRef<rcShader>& shader) const = 0;
 
 };

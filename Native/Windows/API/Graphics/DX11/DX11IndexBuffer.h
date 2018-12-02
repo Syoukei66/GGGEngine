@@ -1,21 +1,20 @@
 #pragma once
 
-#if GG_GRAPHICS_API_DX9
+#if GG_GRAPHICS_API_DX11
 
 #include <d3d9.h>
 #include <d3dx9.h>
 
-#include <Core/Application/Platform/API/_Resource/VertexBuffer/VertexBuffer.h>
+#include <Core/Application/Platform/API/_Resource/IndexBuffer/IndexBuffer.h>
 
-class DX9VertexBuffer : public rcVertexBuffer
+class DX9IndexBuffer : public rcIndexBuffer
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  DX9VertexBuffer(T_UINT32 size);
-  DX9VertexBuffer(T_UINT32 size, void* data);
-  ~DX9VertexBuffer();
+  DX9IndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format);
+  ~DX9IndexBuffer();
 
   // =================================================================
   // Method
@@ -23,13 +22,19 @@ public:
 public:
   virtual void Lock(void** dest) override;
   virtual void Unlock() override;
-  virtual void SetStreamSource(const SharedRef<const rcVertexDeclaration>& declaration) const override;
+  virtual void SetIndices() const override;
+  virtual T_UINT32 GetVertexCount() const override;
+  virtual T_UINT32 GetPolygonCount() const override;
+  virtual Vertex::IndexFormat GetIndexFormat() const override;
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
-  IDirect3DVertexBuffer9* vertex_buffer_;
+  T_UINT32 vertex_count_;
+  T_UINT32 polygon_count_;
+  Vertex::IndexFormat format_;
+  IDirect3DIndexBuffer9* index_buffer_;
 };
 
 #endif

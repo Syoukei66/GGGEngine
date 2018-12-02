@@ -1,23 +1,19 @@
 #pragma once
 
-#if GG_GRAPHICS_API_DX9
+#if GG_GRAPHICS_API_DX11
 
-#include <d3d9.h>
-#include <d3dx9.h>
-#include <unordered_map>
-#include <unordered_set>
-
+#include <d3d11.h>
 #include <Core/Application/Platform/API/_Asset/Shader/Shader.h>
 
-class DX9Shader : public rcShader 
+class DX11Shader : public rcShader
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  DX9Shader(const char* path);
-  ~DX9Shader();
-  
+  DX11Shader(const char* path);
+  ~DX11Shader();
+
   // =================================================================
   // Method for/from SuperClass/Interfaces
   // =================================================================
@@ -54,17 +50,15 @@ public:
   virtual void GetMatrix(const std::string& property_name, Matrix4x4* dest) override;
   virtual void GetTexture(const std::string& property_name, void* native_dest) override;
 
-private:
-  D3DXHANDLE GetHandle(const std::string& property_name);
-  
   // =================================================================
   // Data Members
   // =================================================================
 private:
-  std::unordered_map<std::string, D3DXHANDLE> property_handles_;
-  std::unordered_set<std::string> bad_property_ids_;
-  LPD3DXEFFECT effect_;
+  ID3DBlob* vs_brob_;
+  ID3D11VertexShader* vertex_shader_;
+  std::unordered_map<T_UINT32, ID3D11InputLayout*> vertex_layouts_;
 
 };
+
 
 #endif

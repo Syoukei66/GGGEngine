@@ -20,6 +20,12 @@ bool SpriteRenderer::SetStreamSource() const
   return true;
 }
 
+bool SpriteRenderer::SetInputFormat(const SharedRef<rcShader>& shader) const
+{
+  this->sprite_->GetMesh()->SetInputFormat(shader);
+  return true;
+}
+
 void SpriteRenderer::SetProperties(const SharedRef<rcShader>& shader) const
 {
   if (!this->sprite_)

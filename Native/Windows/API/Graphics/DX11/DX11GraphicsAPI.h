@@ -1,5 +1,7 @@
 #pragma once
 
+#if GG_GRAPHICS_API_DX11
+
 #include <d3d11.h>
 
 class DX11GraphicsAPI : public GraphicsAPI
@@ -52,6 +54,10 @@ public:
   {
     return this->device_;
   }
+  GG_INLINE ID3D11DeviceContext* GetImmediateContext() const
+  {
+    return this->immediate_context_;
+  }
 
 private:
   ID3D11Device* device_;
@@ -62,3 +68,5 @@ private:
   D3D_FEATURE_LEVEL feature_level_;
 
 };
+
+#endif

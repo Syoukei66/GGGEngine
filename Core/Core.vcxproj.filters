@@ -398,9 +398,6 @@
     <ClCompile Include="Application\Platform\API\_Asset\AudioClip\AudioClip.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Application\Platform\API\_Asset\Shader\Shader.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Application\Platform\API\_Asset\Texture\Texture.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>

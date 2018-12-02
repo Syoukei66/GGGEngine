@@ -1,21 +1,19 @@
 #pragma once
 
-#if GG_GRAPHICS_API_DX9
+#if GG_GRAPHICS_API_DX11
 
-#include <d3d9.h>
-#include <d3dx9.h>
-
+#include <d3d11.h>
 #include <Core/Application/Platform/API/_Resource/VertexBuffer/VertexBuffer.h>
 
-class DX9VertexBuffer : public rcVertexBuffer
+class DX11VertexBuffer : public rcVertexBuffer
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  DX9VertexBuffer(T_UINT32 size);
-  DX9VertexBuffer(T_UINT32 size, void* data);
-  ~DX9VertexBuffer();
+  DX11VertexBuffer(T_UINT32 size);
+  DX11VertexBuffer(T_UINT32 size, void* data);
+  ~DX11VertexBuffer();
 
   // =================================================================
   // Method
@@ -29,7 +27,16 @@ public:
   // Data Member
   // =================================================================
 private:
-  IDirect3DVertexBuffer9* vertex_buffer_;
+  ID3D11Buffer* vertex_buffer_;
 };
+
+UniqueRef<rcVertexBuffer> rcVertexBuffer::Create(T_UINT32 size)
+{
+  return UniqueRef<rcVertexBuffer>(new DX11VertexBuffer(size));
+}
+UniqueRef<rcVertexBuffer> rcVertexBuffer::Create(T_UINT32 size, void* data)
+{
+  return UniqueRef<rcVertexBuffer>(new DX11VertexBuffer(size, data));
+}
 
 #endif

@@ -2,12 +2,35 @@
 
 #if GG_GRAPHICS_API_DX9
 
+#include <Native/Windows/WindowsApplication.h>
+
+UniqueRef<rcShader> rcShader::CreateFromFile(const char* path)
+{
+  return UniqueRef<rcShader>(new DX9Shader(path));
+}
+
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-DX9Shader::DX9Shader(LPD3DXEFFECT effect)
+DX9Shader::DX9Shader(const char* path)
 {
-  this->effect_ = effect;
+  LPD3DXBUFFER error_buffer = nullptr;
+  IDirect3DDevice9* device = WindowsApplication::GetDX9Graphics()->GetDevice();
+
+  HRESULT hr = D3DXCreateEffectFromFile(
+    device,
+    path,
+    NULL,
+    NULL,
+    D3DXSHADER_SKIPVALIDATION,
+    NULL,
+    &this->effect_,
+    &error_buffer
+  );
+  if (FAILED(hr))
+  {
+    Log::Error(("シェーダーのロードに失敗しました" + (error_buffer ? "\n=>" + std::string((LPCSTR)error_buffer->GetBufferPointer()) : "")).c_str());
+  }
 }
 
 DX9Shader::~DX9Shader()

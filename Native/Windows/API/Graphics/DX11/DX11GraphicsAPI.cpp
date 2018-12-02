@@ -1,5 +1,7 @@
 #include "DX11GraphicsAPI.h"
 
+#if GG_GRAPHICS_API_DX11
+
 #include <Native/Windows/WindowsApplication.h>
 
 #include "imgui\imgui_impl_dx11.h"
@@ -239,3 +241,5 @@ bool DX11GraphicsAPI::PostDraw()
   this->swap_chain_->Present(0, 0);
   return true;
 }
+
+#endif

@@ -22,6 +22,16 @@ bool MeshRenderer::SetStreamSource() const
   return true;
 }
 
+bool MeshRenderer::SetInputFormat(const SharedRef<rcShader>& shader) const
+{
+  if (!this->mesh_)
+  {
+    return false;
+  }
+  this->mesh_->SetInputFormat(shader);
+  return true;
+}
+
 void MeshRenderer::SetProperties(const SharedRef<rcShader>& shader) const
 {
 }

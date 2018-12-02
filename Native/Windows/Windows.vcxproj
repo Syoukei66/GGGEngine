@@ -72,25 +72,25 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
     <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
-    <IncludePath>$(DXSDK_DIR)Include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(DXSDK_DIR)include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
     <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
-    <IncludePath>$(DXSDK_DIR)Include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(DXSDK_DIR)include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
     <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
-    <IncludePath>$(DXSDK_DIR)Include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(DXSDK_DIR)include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x64;$(LibraryPath);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
     <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
-    <IncludePath>$(DXSDK_DIR)Include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(DXSDK_DIR)include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x64;$(LibraryPath);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -176,8 +176,13 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
   <ItemGroup>
     <ClInclude Include="Activity\EditorWindowActivity.h" />
     <ClInclude Include="Activity\WindowsActivity.h" />
+    <ClInclude Include="API\Graphics\DX11\DX11Constants.h" />
     <ClInclude Include="API\Graphics\DX11\DX11GraphicsAPI.h" />
+    <ClInclude Include="API\Graphics\DX11\DX11IndexBuffer.h" />
+    <ClInclude Include="API\Graphics\DX11\DX11Shader.h" />
+    <ClInclude Include="API\Graphics\DX11\DX11VertexBuffer.h" />
     <ClInclude Include="API\Graphics\DX11\imgui\imgui_impl_dx11.h" />
+    <ClInclude Include="API\Graphics\DX11\DX11VertexDeclaration.h" />
     <ClInclude Include="API\Graphics\DX9\DX9VertexDeclaration.h" />
     <ClInclude Include="imgui\imgui_impl_win32.h" />
     <ClInclude Include="WindowsApplicationSetting_Editor.h" />
@@ -210,6 +215,9 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClCompile Include="Activity\WindowsActivity.cpp" />
     <ClCompile Include="API\Audio\XAudio\XAudioAPI.cpp" />
     <ClCompile Include="API\Graphics\DX11\DX11GraphicsAPI.cpp" />
+    <ClCompile Include="API\Graphics\DX11\DX11Shader.cpp" />
+    <ClCompile Include="API\Graphics\DX11\DX11VertexBuffer.cpp" />
+    <ClCompile Include="API\Graphics\DX11\DX11VertexDeclaration.cpp" />
     <ClCompile Include="API\Graphics\DX11\imgui\imgui_impl_dx11.cpp" />
     <ClCompile Include="API\Graphics\DX9\DX9GraphicsAPI.cpp" />
     <ClCompile Include="API\Graphics\DX9\DX9VertexDeclaration.cpp" />

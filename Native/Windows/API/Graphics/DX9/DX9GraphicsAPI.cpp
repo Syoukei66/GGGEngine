@@ -448,43 +448,9 @@ UniqueRef<rcRenderTexture> DX9GraphicsAPI::CreateRenderTexture(T_UINT16 width, T
   return rcRenderTexture::Create(width, height, tex, depth_format);
 }
 
-UniqueRef<rcShader> DX9GraphicsAPI::ShaderLoad(const char* path)
-{
-  LPD3DXEFFECT dest = nullptr;
-
-  LPD3DXBUFFER error_buffer = nullptr;
-
-  HRESULT hr = D3DXCreateEffectFromFile(
-    this->d3d_device_,
-    path,
-    NULL,
-    NULL,
-    D3DXSHADER_SKIPVALIDATION,
-    NULL,
-    &dest,
-    &error_buffer
-  );
-  if (FAILED(hr))
-  {
-    Log::Error(("シェーダーのロードに失敗しました" + (error_buffer ? "\n=>" + std::string((LPCSTR)error_buffer->GetBufferPointer()) : "")).c_str());
-    return UniqueRef<rcShader>();
-  }
-  return UniqueRef<rcShader>(new DX9Shader(dest));
-}
-
-UniqueRef<rcVertexBuffer> DX9GraphicsAPI::CreateVertexBuffer(T_UINT32 size)
-{
-  return UniqueRef<rcVertexBuffer>(new DX9VertexBuffer(size));
-}
-
 UniqueRef<rcIndexBuffer> DX9GraphicsAPI::CreateIndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format)
 {
   return UniqueRef<rcIndexBuffer>(new DX9IndexBuffer(vertex_count, polygon_count, format));
-}
-
-UniqueRef<rcVertexDeclaration> DX9GraphicsAPI::CreateVertexDeclaration(T_UINT32 format)
-{
-  return UniqueRef<rcVertexDeclaration>(new DX9VertexDeclaration(format));
 }
 
 bool DX9GraphicsAPI::ImGuiNewFrame()

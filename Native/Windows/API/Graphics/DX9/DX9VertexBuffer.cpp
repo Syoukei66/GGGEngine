@@ -8,10 +8,33 @@
 #include "DX9Constants.h"
 #include "DX9GraphicsAPI.h"
 
+UniqueRef<rcVertexBuffer> rcVertexBuffer::Create(T_UINT32 size)
+{
+  return UniqueRef<rcVertexBuffer>(new DX9VertexBuffer(size));
+}
+UniqueRef<rcVertexBuffer> rcVertexBuffer::Create(T_UINT32 size, void* data)
+{
+  return UniqueRef<rcVertexBuffer>(new DX9VertexBuffer(size, data));
+}
+
 // =================================================================
 // Constructor / Destructor
 // =================================================================
 DX9VertexBuffer::DX9VertexBuffer(T_UINT32 size)
+{
+  LPDIRECT3DDEVICE9 device = WindowsApplication::GetDX9Graphics()->GetDevice();
+  HRESULT hr = device->CreateVertexBuffer(
+    size,
+    0,
+    0,
+    D3DPOOL_MANAGED,
+    &this->vertex_buffer_,
+    NULL
+  );
+  GG_ASSERT(SUCCEEDED(hr), "VertexBuffer‚Ìì¬‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
+}
+
+DX9VertexBuffer::DX9VertexBuffer(T_UINT32 size, void* data)
 {
   LPDIRECT3DDEVICE9 device = WindowsApplication::GetDX9Graphics()->GetDevice();
   HRESULT hr = device->CreateVertexBuffer(
@@ -47,7 +70,6 @@ void DX9VertexBuffer::Unlock()
 
 void DX9VertexBuffer::SetStreamSource(const SharedRef<const rcVertexDeclaration>& declaration) const
 {
-  declaration->SetVertexDeclaration();
   LPDIRECT3DDEVICE9 device = WindowsApplication::GetDX9Graphics()->GetDevice();
   HRESULT hr = device->SetStreamSource(0, this->vertex_buffer_, 0, declaration->GetVertexSize());
   GG_ASSERT(SUCCEEDED(hr), "VertexBuffer‚ÌƒZƒbƒg‚ÉŽ¸”s‚µ‚Ü‚µ‚½");

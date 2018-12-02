@@ -16,7 +16,7 @@ void EngineBehavior::OnApplicationEnd()
 void EngineBehavior::OnGameBegin()
 {
   AssetConverterDirector::Init();
-  //AssetConverterDirector::Import();
+  AssetConverterDirector::Import();
 }
 
 void EngineBehavior::OnGameEnd()

@@ -272,7 +272,6 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClCompile Include="Application\Platform\API\_Resource\RenderBuffer\RenderBuffer.cpp" />
     <ClCompile Include="Application\Object\ObjectManager.cpp" />
     <ClCompile Include="Application\Platform\API\_Resource\RenderTexture\RenderTexture.cpp" />
-    <ClCompile Include="Application\Platform\API\_Asset\Shader\Shader.cpp" />
     <ClCompile Include="Application\Platform\API\_Asset\Texture\Texture.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

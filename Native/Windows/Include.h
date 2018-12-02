@@ -7,7 +7,12 @@
 #include <Native/Windows/Activity/WindowsActivity.h>
 #include <Native/Windows/API/Audio/XAudio/XAudioAPI.h>
 #include <Native/Windows/API/Audio/XAudio/XAudioSound.h>
+#include <Native/Windows/API/Graphics/DX11/DX11Constants.h>
 #include <Native/Windows/API/Graphics/DX11/DX11GraphicsAPI.h>
+#include <Native/Windows/API/Graphics/DX11/DX11IndexBuffer.h>
+#include <Native/Windows/API/Graphics/DX11/DX11Shader.h>
+#include <Native/Windows/API/Graphics/DX11/DX11VertexBuffer.h>
+#include <Native/Windows/API/Graphics/DX11/DX11VertexDeclaration.h>
 #include <Native/Windows/API/Graphics/DX11/imgui/imgui_impl_dx11.h>
 #include <Native/Windows/API/Graphics/DX9/DX9Constants.h>
 #include <Native/Windows/API/Graphics/DX9/DX9GraphicsAPI.h>

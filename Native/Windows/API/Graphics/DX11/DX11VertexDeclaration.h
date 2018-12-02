@@ -1,20 +1,19 @@
 #pragma once
 
-#if GG_GRAPHICS_API_DX9
+#if GG_GRAPHICS_API_DX11
 
-#include <d3d9.h>
-#include <d3dx9.h>
+#include <d3d11.h>
 
 #include <Core/Application/Platform/API/_Resource/VertexDeclaration/VertexDeclaration.h>
 
-class DX9VertexDeclaration : public rcVertexDeclaration
+class DX11VertexDeclaration : public rcVertexDeclaration
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  DX9VertexDeclaration(T_UINT32 format);
-  ~DX9VertexDeclaration();
+  DX11VertexDeclaration(T_UINT32 format);
+  ~DX11VertexDeclaration();
 
   // =================================================================
   // Method
@@ -30,7 +29,13 @@ public:
 private:
   const T_UINT32 format_;
   T_UINT32 stride_;
-  IDirect3DVertexDeclaration9* vertex_declaration_;
+  ID3D11InputLayout* input_layout_;
+
 };
+
+static UniqueRef<rcVertexDeclaration> rcVertexDeclaration::Create(T_UINT32 format)
+{
+  return UniqueRef<rcVertexDeclaration>(new DX11VertexDeclaration(format));
+}
 
 #endif

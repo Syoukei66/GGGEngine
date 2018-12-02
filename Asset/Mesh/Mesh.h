@@ -76,8 +76,8 @@ public:
    */
   UniqueRef<rcDynamicMesh> MoveDynamic();
 
-
   void SetStreamSource() const;
+  void SetInputFormat(const SharedRef<rcShader>& shader) const;
   void DrawSubset(T_UINT8 index) const;
 
   // =================================================================

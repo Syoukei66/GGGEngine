@@ -4,6 +4,7 @@
 
 class rcIndexBuffer;
 class rcVertexDeclaration;
+class rcShader;
 
 /*!
  * @brief 頂点バッファのベースクラス。
@@ -20,10 +21,8 @@ class rcVertexBuffer : public GGAPIResourceObject
   // Factory Method
   // =================================================================
 public:
-  static UniqueRef<rcVertexBuffer> Create(T_UINT32 size)
-  {
-    return Application::GetPlatform()->GetGraphicsAPI()->CreateVertexBuffer(size);
-  }
+  static UniqueRef<rcVertexBuffer> Create(T_UINT32 size);
+  static UniqueRef<rcVertexBuffer> Create(T_UINT32 size, void* data);
 
   // =================================================================
   // Method
