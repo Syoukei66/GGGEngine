@@ -9,7 +9,7 @@
 namespace Log
 {
 
-enum class Level : T_UINT32
+enum class Level
 {
   Fatal,
   Error,
@@ -117,7 +117,6 @@ static GG_INLINE void Assert(const char* message)
 {
 #ifdef _DEBUG
   Out(Level::Assert, message);
-  __debugbreak();
 #endif
 }
 template <typename ... Args>
@@ -125,7 +124,6 @@ static GG_INLINE void Assert(const char* message, const char* format, Args const
 {
 #ifdef _DEBUG
   Out(Level::Assert, message);
-  __debugbreak();
 #endif
 }
 

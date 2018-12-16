@@ -70,7 +70,7 @@ std::string LoggerBuilder::CreateMethods()
   {
     ret += CreateLevelMethods(level.name, level.do_level, level.break_flag);
   }
-  ret += CreateLevelMethods(ASSERT_NAME, DoLevel::ON_DEBUG, true);
+  ret += CreateLevelMethods(ASSERT_NAME, DoLevel::ON_DEBUG, false);
   return ret;
 }
 
