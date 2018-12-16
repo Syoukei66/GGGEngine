@@ -192,7 +192,33 @@ void DX11GraphicsAPI::DrawIndexedPrimitive(Vertex::PrimitiveType primitive_type,
 
 UniqueRef<rcTexture> DX11GraphicsAPI::TextureLoad(const char* path)
 {
-  return UniqueRef<rcTexture>();
+  //D3DXIMAGE_INFO info;
+  //HRESULT hr = D3DXGetImageInfoFromFile(
+  //  path,
+  //  &info
+  //);
+  //GG_ASSERT(SUCCEEDED(hr), "テクスチャサイズの取得に失敗しました");
+
+  //LPDIRECT3DTEXTURE9 tex = nullptr;
+  //hr = D3DXCreateTextureFromFileEx(
+  //  (LPDIRECT3DDEVICE9)this->d3d_device_,
+  //  path,
+  //  D3DX_DEFAULT,
+  //  D3DX_DEFAULT,
+  //  D3DX_DEFAULT,
+  //  0,
+  //  D3DFMT_UNKNOWN,
+  //  D3DPOOL_MANAGED,
+  //  D3DX_FILTER_NONE,
+  //  D3DX_DEFAULT,
+  //  0,
+  //  NULL,
+  //  NULL,
+  //  &tex);
+
+  //GG_ASSERT(SUCCEEDED(hr), "テクスチャのロードに失敗しました");
+
+  return rcTexture::Create(256, 256, nullptr);
 }
 
 void DX11GraphicsAPI::DeleteTexture(rcTexture* texture)

@@ -62,6 +62,8 @@ private:
   ID3DBlob* ps_brob_;
   ID3D11PixelShader* pixel_shader_;
 
+  ID3D11Buffer* constant_table_;
+
 };
 
 

@@ -6,12 +6,57 @@
 #include <Native/Windows/WindowsApplication.h>
 #include "DX11VertexDeclaration.h"
 
+class GGInclude : public ID3DInclude
+{
+public:
+  GGInclude() { aPath.push_back(""); }
+
+  HRESULT __stdcall Open(D3D_INCLUDE_TYPE IncludeType, LPCSTR pFileName, LPCVOID pParentData, LPCVOID *ppData, UINT *pBytes)
+  {
+    switch (IncludeType) {
+      // とりあえず""と<>の区別なし
+    case D3D_INCLUDE_LOCAL:
+    case D3D_INCLUDE_SYSTEM:
+      break;
+    default:
+      return E_FAIL;
+    }
+
+    for (auto& p : aPath) {
+      std::string path = p;
+      path += pFileName;
+
+      std::ifstream input;
+      input.open(path.c_str(), std::ios::binary);
+      if (!input.is_open())continue;
+
+      size_t fsize = (size_t)input.seekg(0, std::ios::end).tellg();
+      input.seekg(0, std::ios::beg);
+
+      void* data = ::operator new(fsize);
+      input.read(reinterpret_cast<char*>(data), fsize);
+      *ppData = data;
+      *pBytes = fsize;
+      return S_OK;
+    }
+    return E_FAIL;
+  }
+  HRESULT __stdcall Close(LPCVOID pData) 
+  {
+    ::operator delete(const_cast<void*>(pData));
+    return S_OK;
+  }
+
+  std::vector<std::string> aPath;
+};
+
+
 UniqueRef<rcShader> rcShader::CreateFromFile(const char* path)
 {
   return UniqueRef<rcShader>(new DX11Shader(path));
 }
 
-HRESULT CompileShaderFromString(const std::string& str, LPCSTR szEntryPoint, LPCSTR szShaderModel, ID3DBlob** ppBlobOut)
+HRESULT CompileShaderFromString(const std::string& str, const std::string& include_path, LPCSTR szEntryPoint, LPCSTR szShaderModel, ID3DBlob** ppBlobOut)
 {
   HRESULT hr = S_OK;
 
@@ -25,11 +70,13 @@ HRESULT CompileShaderFromString(const std::string& str, LPCSTR szEntryPoint, LPC
 #endif
 
   ID3DBlob* pErrorBlob;
+  GGInclude inc = GGInclude();
+  inc.aPath.push_back(include_path);
   hr = D3DCompile(
     str.c_str(), str.size(),
     NULL,
     NULL,
-    NULL,
+    &inc,
     szEntryPoint,
     szShaderModel,
     dwShaderFlags, 0,
@@ -52,9 +99,9 @@ HRESULT CompileShaderFromString(const std::string& str, LPCSTR szEntryPoint, LPC
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-DX11Shader::DX11Shader(const char* path)
+DX11Shader::DX11Shader(const char* filepath)
 {
-  std::string code = FileUtil::TextFile_Read(path);
+  std::string code = FileUtil::TextFile_Read(filepath);
 
   // マクロ定義(#define)を読み込む
   D3D10_SHADER_MACRO macro;
@@ -73,8 +120,17 @@ DX11Shader::DX11Shader(const char* path)
 
   ID3D11Device* device = WindowsApplication::GetDX11Graphics()->GetDevice();
 
+  size_t len = strlen(filepath) + 1;
+  std::vector<char> drv(len), path(len), name(len), ext(len);
+  _splitpath_s(filepath, drv.data(), len, path.data(), len, name.data(), len, ext.data(), len);
+  std::string current_path = "";
+  if (drv[0] || path[0]) {
+    current_path = drv.data();
+    current_path += path.data();
+  }
+
   // 頂点シェーダーコンパイル
-  HRESULT hr = CompileShaderFromString(code, "vert", "vs_4_0", &this->vs_brob_);
+  HRESULT hr = CompileShaderFromString(code, current_path, "VS", "vs_4_0", &this->vs_brob_);
   GG_ASSERT(SUCCEEDED(hr), "頂点シェーダーのコンパイルに失敗しました");
   hr = device->CreateVertexShader(
     this->vs_brob_->GetBufferPointer(),
@@ -85,7 +141,7 @@ DX11Shader::DX11Shader(const char* path)
   GG_ASSERT(SUCCEEDED(hr), "頂点シェーダーの作成に失敗しました");
 
   // ピクセルシェーダーコンパイル
-  hr = CompileShaderFromString(code, "frag", "ps_4_0", &this->ps_brob_);
+  hr = CompileShaderFromString(code, current_path, "PS", "ps_4_0", &this->ps_brob_);
   GG_ASSERT(SUCCEEDED(hr), "ピクセルシェーダーのコンパイルに失敗しました");
   hr = device->CreatePixelShader(
     this->ps_brob_->GetBufferPointer(),
@@ -94,6 +150,14 @@ DX11Shader::DX11Shader(const char* path)
     &this->pixel_shader_
   );
   GG_ASSERT(SUCCEEDED(hr), "ピクセルシェーダーの作成に失敗しました");
+
+  D3D11_BUFFER_DESC desc = D3D11_BUFFER_DESC();
+  desc.Usage = D3D11_USAGE_DEFAULT;
+  desc.ByteWidth = sizeof(Matrix4x4);
+  desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+  desc.CPUAccessFlags = 0;
+  hr = device->CreateBuffer(&desc, NULL, &this->constant_table_);
+  GG_ASSERT(SUCCEEDED(hr), "定数バッファの作成に失敗しました");
 
 }
 
@@ -159,8 +223,8 @@ void DX11Shader::BeginPass(T_UINT8 path_id)
 void DX11Shader::CommitChanges()
 {
   ID3D11DeviceContext* context = WindowsApplication::GetDX11Graphics()->GetImmediateContext();
-  //context->VSSetConstantBuffers();
-
+  context->VSSetConstantBuffers(0, 1, &this->constant_table_);
+  context->PSSetConstantBuffers(0, 1, &this->constant_table_);
 }
 
 void DX11Shader::EndPass()
@@ -205,6 +269,11 @@ void DX11Shader::SetColor(const std::string& property_name, const TColor& color)
 
 void DX11Shader::SetMatrix(const std::string& property_name, const Matrix4x4& matrix)
 {
+  if (property_name == "_WorldViewProj")
+  {
+    ID3D11DeviceContext* context = WindowsApplication::GetDX11Graphics()->GetImmediateContext();
+    context->UpdateSubresource(this->constant_table_, 0, NULL, matrix, 0, 0);
+  }
 }
 
 void DX11Shader::SetTexture(const std::string& property_name, const SharedRef<const rcTexture>& texture)

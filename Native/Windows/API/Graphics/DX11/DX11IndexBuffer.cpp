@@ -32,7 +32,7 @@ DX11IndexBuffer::DX11IndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count, 
   buffer_desc.Usage = D3D11_USAGE_DYNAMIC;
   buffer_desc.ByteWidth = vertex_count * Vertex::INDEX_FORMAT_SIZES[format_index];
   buffer_desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
-  buffer_desc.CPUAccessFlags = 0;
+  buffer_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
   buffer_desc.MiscFlags = 0;
   buffer_desc.StructureByteStride = 0;
 
@@ -82,7 +82,7 @@ void DX11IndexBuffer::Lock(void** dest)
 {
   ID3D11DeviceContext* context = WindowsApplication::GetDX11Graphics()->GetImmediateContext();
   D3D11_MAPPED_SUBRESOURCE mapped_subresource;
-  HRESULT hr = context->Map(this->index_buffer_, 0, D3D11_MAP_WRITE, 0, &mapped_subresource);
+  HRESULT hr = context->Map(this->index_buffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped_subresource);
   GG_ASSERT(SUCCEEDED(hr), "VertexBuffer‚ÌƒƒbƒN‚É¸”s‚µ‚Ü‚µ‚½");
   (*dest) = mapped_subresource.pData;
 }

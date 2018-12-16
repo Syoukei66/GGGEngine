@@ -207,6 +207,7 @@
     <ClInclude Include="Scene\AssetViewer\AssetViewerScene.h" />
     <ClInclude Include="Scene\AssetViewer\CharacterModel\CharacterModelViewerBehavior.h" />
     <ClInclude Include="Scene\AssetViewer\Shader\ShaderViewerBehavior.h" />
+    <ClInclude Include="Scene\AssetViewer\StaticMesh\StaticMeshViewerBehavior.h" />
     <ClInclude Include="Scene\AssetViewer\StaticModel\StaticModelViewerBehavior.h" />
     <ClInclude Include="Scene\AssetViewer\Texture\TextureViewerBehavior.h" />
     <ClInclude Include="Util\FileUtil.h" />
@@ -269,6 +270,7 @@
     <ClCompile Include="Scene\AssetViewer\AssetViewerScene.cpp" />
     <ClCompile Include="Scene\AssetViewer\CharacterModel\CharacterModelViewerBehavior.cpp" />
     <ClCompile Include="Scene\AssetViewer\Shader\ShaderViewerBehavior.cpp" />
+    <ClCompile Include="Scene\AssetViewer\StaticMesh\StaticMeshViewerBehavior.cpp" />
     <ClCompile Include="Scene\AssetViewer\StaticModel\StaticModelViewerBehavior.cpp" />
     <ClCompile Include="Scene\AssetViewer\Texture\TextureViewerBehavior.cpp" />
     <ClCompile Include="Util\FileUtil.cpp" />
