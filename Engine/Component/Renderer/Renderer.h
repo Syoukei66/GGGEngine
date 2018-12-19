@@ -17,17 +17,12 @@ class Renderer : public GameComponent
   // =================================================================
 public:
   void ReserveDraw(GameObjectRenderState* state);
-
   void Draw(GameObjectRenderState* state) const;
 
 protected:
   virtual bool SetStreamSource() const = 0;
-  virtual bool SetInputLayout(const SharedRef<rcShader>& shader) const = 0;
-  virtual void SetProperties(const SharedRef<rcShader>& shader) const = 0;
+  virtual bool BeginPass(T_UINT8 pass, const SharedRef<rcShader>& shader) const = 0;
   virtual void DrawSubset(T_UINT8 submesh_index) const = 0;
-
-private:
-  void SetDefaultProperties(GameObjectRenderState* state, const SharedRef<rcShader>& shader) const;
 
   // =================================================================
   // Setter / Getter
@@ -72,5 +67,18 @@ protected:
   T_UINT8 layer_id_;
   std::unordered_map<T_UINT32, SharedRef<const rcMaterial>> shared_materials_;
   std::unordered_map<T_UINT32, SharedRef<rcMaterial>> materials_;
+
+  struct ShaderBuiltinData
+  {
+    Matrix4x4 mat_mvp;
+    //Matrix4x4 mat_mv;
+    //Matrix4x4 obj_to_world;
+    //Matrix4x4 world_to_obj;
+
+    //TVec4f time_;
+    //TVec4f sin_time_;
+    //TVec4f cos_time_;
+  } builtin_variable_;
+  SharedRef<rcConstantBuffer> builtin_variable_buffer_;
 
 };

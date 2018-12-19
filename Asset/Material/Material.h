@@ -1,6 +1,8 @@
 #pragma once
 
-#include "ShaderProperties.h"
+#include <Core/Application/Platform/API/_Asset/Texture/Texture.h>
+#include <Core/Application/Platform/API/_Resource/ConstantBuffer/ConstantBuffer.h>
+#include <Asset/Shader/Shader.h>
 
 struct MaterialData
 {
@@ -10,21 +12,12 @@ struct MaterialData
   GG_SERIALIZABLE(MaterialData)
   {
     archive(shader_unique_id_);
-    archive(main_tex_unique_id_);
-    archive(color_);
-    archive(tiling_);
-    archive(tiling_offset_);
-    archive(billbording_);
 
-    archive(bool_properties_);
-    archive(int_properties_);
-    archive(float_properties_);
-    archive(vec2_properties_);
-    archive(vec3_properties_);
-    archive(vec4_properties_);
-    archive(color_properties_);
-    archive(matrix_properties_);
-    archive(texture_properties_);
+    archive(data_offset_table_);
+    archive(data_);
+
+    archive(texture_index_table_);
+    archive(textures_);
   }
 
   // =================================================================
@@ -32,21 +25,12 @@ struct MaterialData
   // =================================================================
 public:
   T_FIXED_UINT32 shader_unique_id_;
-  T_FIXED_UINT32 main_tex_unique_id_;
-  TColor color_;
-  TVec2f tiling_;
-  TVec2f tiling_offset_;
-  bool billbording_;
 
-  std::unordered_map<std::string, bool> bool_properties_;
-  std::unordered_map<std::string, T_FIXED_INT32> int_properties_;
-  std::unordered_map<std::string, T_FIXED_FLOAT> float_properties_;
-  std::unordered_map<std::string, TVec2f> vec2_properties_;
-  std::unordered_map<std::string, TVec3f> vec3_properties_;
-  std::unordered_map<std::string, TVec4f> vec4_properties_;
-  std::unordered_map<std::string, TColor> color_properties_;
-  std::unordered_map<std::string, Matrix4x4> matrix_properties_;
-  std::unordered_map<std::string, T_FIXED_UINT32> texture_properties_;
+  std::unordered_map<std::string, T_UINT32> data_offset_table_;
+  std::vector<unsigned char> data_;
+
+  std::unordered_map<std::string, T_UINT32> texture_index_table_;
+  std::vector<T_UINT32> textures_;
 };
 
 /*!
@@ -61,7 +45,7 @@ class rcMaterial : public GGAssetObject
   GG_OBJECT(rcMaterial);
   GG_ASSET(rcMaterial, MaterialData);
   GG_CREATE_FUNC_1(rcMaterial, const SharedRef<rcShader>&);
-  GG_DESTRUCT_FUNC(rcMaterial);
+  GG_CREATE_FUNC_1(rcMaterial, const rcMaterial&);
 
   // =================================================================
   // Methods
@@ -70,200 +54,81 @@ public:
   UniqueRef<rcMaterial> Clone() const;
   UniqueRef<rcMaterial> InitialClone() const;
 
+  //TODO:MeshのようなToDataが欲しい
+
 public:
-  void SetProperties(const SharedRef<rcShader>& shader) const;
+  void CommitChanges();
+  void SetBuffer() const;
 
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  void SetShader(const SharedRef<rcShader>& shader);
+  GG_INLINE void SetShader(const SharedRef<rcShader>& shader)
+  {
+    this->shader_ = shader;
+  }
   GG_INLINE SharedRef<rcShader> GetShader() const
   {
     return this->shader_;
   }
 
-  GG_INLINE void SetTechnique(const std::string& technique)
+  GG_INLINE void SetMainTexture(const SharedRef<const rcTexture>& texture)
   {
-    this->technique_ = technique;
+    this->GetTexture("_MainTex") = texture;
   }
-  GG_INLINE const std::string& GetTechnique() const
-  {
-    return this->technique_;
-  }
-
-  GG_INLINE void SetRenderQueue(Graphics::RenderQueue queue)
-  {
-    this->queue_ = queue;
-  }
-  GG_INLINE Graphics::RenderQueue GetRenderQueue() const
-  {
-    return this->queue_;
-  }
-
-  void SetMainTexture(const SharedRef<const rcTexture>& texture);
   GG_INLINE SharedRef<const rcTexture> GetMainTexture() const
   {
-    return this->texture_;
+    return this->GetTexture("_MainTex");
   }
 
-  GG_INLINE void SetTiling(const TVec2f& tiling)
+  GG_INLINE T_UINT32 GetDataHandle(const std::string& property_name) const
   {
-    this->tiling_ = tiling;
+    return this->data_offset_table_.at(property_name);
   }
-  GG_INLINE const TVec2f& GetTiling() const
+  GG_INLINE T_UINT32 GetTextureHandle(const std::string& property_name) const
   {
-    return this->tiling_;
-  }
-
-  GG_INLINE void SetTilingOffset(const TVec2f& offset)
-  {
-    this->tiling_offset_ = offset;
-  }
-  GG_INLINE const TVec2f& GetTilingOffset() const
-  {
-    return this->tiling_offset_;
+    return this->texture_index_table_.at(property_name);
   }
 
-  GG_INLINE void SetMainColor(const TColor& color)
+  // プロパティの取得
+  template <class Type_>
+  GG_INLINE Type_& GetProperty(const std::string& property_name)
   {
-    this->color_ = color;
+    return this->GetProperty<Type_>(this->GetDataHandle(property_name));
   }
-  GG_INLINE void SetMainColor(T_FLOAT r, T_FLOAT g, T_FLOAT b)
+  template <class Type_>
+  GG_INLINE Type_& GetProperty(T_UINT32 handle)
   {
-    this->color_.r = r;
-    this->color_.g = g;
-    this->color_.b = b;
+    return (*(Type_*)&this->data_[handle]);
   }
-  GG_INLINE void SetMainColor(T_FLOAT r, T_FLOAT g, T_FLOAT b, T_FLOAT a)
+  template <class Type_>
+  GG_INLINE const Type_& GetProperty(const std::string& property_name) const
   {
-    this->color_.r = r;
-    this->color_.g = g;
-    this->color_.b = b;
-    this->color_.a = a;
+    return this->GetProperty<Type_>(this->GetDataHandle(property_name));
   }
-  GG_INLINE TColor& GetMainColor()
+  template <class Type_>
+  GG_INLINE const Type_& GetProperty(T_UINT32 handle) const
   {
-    return this->color_;
-  }
-  GG_INLINE const TColor& GetMainColor() const
-  {
-    return this->color_;
+    return (*(Type_*)&this->data_.at(handle));
   }
 
-  GG_INLINE void SetBillboardingFlag(bool billboarding)
+  // テクスチャプロパティの取得
+  GG_INLINE SharedRef<const rcTexture>& GetTexture(const std::string& property_name)
   {
-    this->billbording_ = billboarding;
+    return this->GetTexture(this->GetTextureHandle(property_name));
   }
-
-  GG_INLINE bool IsBillboard() const
+  GG_INLINE SharedRef<const rcTexture>& GetTexture(T_UINT32 handle)
   {
-    return this->billbording_;
+    return this->textures_[handle];
   }
-
-  template <class T>
-  T& GetShaderProperty(const std::string& property_name)
+  GG_INLINE const SharedRef<const rcTexture>& GetTexture(const std::string& property_name) const
   {
-    T* ret = (T*)this->properties_[property_name];
-    if (!ret)
-    {
-      ret = new T();
-      this->properties_[property_name] = ret;
-    }
-    return *ret;
+    return this->GetTexture(this->GetTextureHandle(property_name));
   }
-
-  template <class T>
-  const T& GetShaderProperty(const std::string& property_name) const
+  GG_INLINE const SharedRef<const rcTexture>& GetTexture(T_UINT32 handle) const
   {
-    T* ret = (T*)const_cast<rcMaterial*>(this)->properties_[property_name];
-    if (!ret)
-    {
-      ret = new T();
-      const_cast<rcMaterial*>(this)->properties_[property_name] = ret;
-    }
-    return *ret;
-  }
-
-  GG_INLINE ShaderProperty_bool& BoolProperty(const std::string& property_name)
-  {
-    return this->GetShaderProperty<ShaderProperty_bool>(property_name);
-  }
-  GG_INLINE const ShaderProperty_bool& BoolProperty(const std::string& property_name) const
-  {
-    return this->GetShaderProperty<ShaderProperty_bool>(property_name);
-  }
-
-  GG_INLINE ShaderProperty_int& IntProperty(const std::string& property_name)
-  {
-    return this->GetShaderProperty<ShaderProperty_int>(property_name);
-  }
-  GG_INLINE const ShaderProperty_int& IntProperty(const std::string& property_name) const
-  {
-    return this->GetShaderProperty<ShaderProperty_int>(property_name);
-  }
-
-  GG_INLINE ShaderProperty_float& FloatProperty(const std::string& property_name)
-  {
-    return this->GetShaderProperty<ShaderProperty_float>(property_name);
-  }
-  GG_INLINE const ShaderProperty_float& FloatProperty(const std::string& property_name) const
-  {
-    return this->GetShaderProperty<ShaderProperty_float>(property_name);
-  }
-
-  GG_INLINE ShaderProperty_vec2f& Vec2fProperty(const std::string& property_name)
-  {
-    return this->GetShaderProperty<ShaderProperty_vec2f>(property_name);
-  }
-  GG_INLINE const ShaderProperty_vec2f& Vec2fProperty(const std::string& property_name) const
-  {
-    return this->GetShaderProperty<ShaderProperty_vec2f>(property_name);
-  }
-
-  GG_INLINE ShaderProperty_vec3f& Vec3fProperty(const std::string& property_name)
-  {
-    return this->GetShaderProperty<ShaderProperty_vec3f>(property_name);
-  }
-  GG_INLINE const ShaderProperty_vec3f& Vec3fProperty(const std::string& property_name) const
-  {
-    return this->GetShaderProperty<ShaderProperty_vec3f>(property_name);
-  }
-
-  GG_INLINE ShaderProperty_vec4f& Vec4fProperty(const std::string& property_name)
-  {
-    return this->GetShaderProperty<ShaderProperty_vec4f>(property_name);
-  }
-  GG_INLINE const ShaderProperty_vec4f& Vec4fProperty(const std::string& property_name) const
-  {
-    return this->GetShaderProperty<ShaderProperty_vec4f>(property_name);
-  }
-
-  GG_INLINE ShaderProperty_color& ColorProperty(const std::string& property_name)
-  {
-    return this->GetShaderProperty<ShaderProperty_color>(property_name);
-  }
-  GG_INLINE const ShaderProperty_color& ColorProperty(const std::string& property_name) const
-  {
-    return this->GetShaderProperty<ShaderProperty_color>(property_name);
-  }
-
-  GG_INLINE ShaderProperty_matrix& MatrixProperty(const std::string& property_name)
-  {
-    return this->GetShaderProperty<ShaderProperty_matrix>(property_name);
-  }
-  GG_INLINE const ShaderProperty_matrix& MatrixProperty(const std::string& property_name) const
-  {
-    return this->GetShaderProperty<ShaderProperty_matrix>(property_name);
-  }
-
-  GG_INLINE ShaderProperty_texture& TextureProperty(const std::string& property_name)
-  {
-    return this->GetShaderProperty<ShaderProperty_texture>(property_name);
-  }
-  GG_INLINE const ShaderProperty_texture& TextureProperty(const std::string& property_name) const
-  {
-    return this->GetShaderProperty<ShaderProperty_texture>(property_name);
+    return this->textures_.at(handle);
   }
 
   // =================================================================
@@ -271,15 +136,14 @@ public:
   // =================================================================
 protected:
   SharedRef<rcShader> shader_;
-  std::string technique_;
 
-  Graphics::RenderQueue queue_;
-  std::unordered_map<std::string, ShaderProperty*> properties_;
+  // シェーダープロパティ
+  std::unordered_map<std::string, T_UINT32> data_offset_table_;
+  std::vector<unsigned char> data_;
 
-  SharedRef<const rcTexture> texture_;
-  TVec2f tiling_;
-  TVec2f tiling_offset_;
-  TColor color_;
-  bool billbording_;
+  std::unordered_map<std::string, T_UINT32> texture_index_table_;
+  std::vector<SharedRef<const rcTexture>> textures_;
+
+  SharedRef<rcConstantBuffer> constant_buffer_;
 
 };

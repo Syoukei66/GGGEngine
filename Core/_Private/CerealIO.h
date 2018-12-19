@@ -10,6 +10,7 @@
 #include <Cereal/types/deque.hpp>
 #include <Cereal/types/map.hpp>
 #include <Cereal/types/unordered_map.hpp>
+#include <Cereal/types/memory.hpp>
 
 namespace CerealIO
 {

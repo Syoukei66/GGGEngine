@@ -48,17 +48,12 @@ void GameObjectRenderState::Draw()
   {
     queues_[i]->DrawTransparent(this);
   }
-  for (T_UINT8 i = RQ_TRANSPARENT_LAST; i < RQ_SHADOW_LAST; ++i)
-  {
-    queues_[i]->Draw(this);
-  }
-  Application::GetPlatform()->GetGraphicsAPI()->DrawStencilBuffer();
 }
 
 void GameObjectRenderState::AddQueue(const Renderer* renderer)
 {
   using namespace Graphics;
-  RenderQueue queue = renderer->GetMaterial()->GetRenderQueue();
+  RenderQueue queue = renderer->GetMaterial()->GetShader()->GetRenderQueue();
   if (queue < RQ_GEOMETRY_LAST)
   {
     this->queues_[queue]->Add(renderer);

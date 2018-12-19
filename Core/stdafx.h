@@ -41,6 +41,7 @@
 #include <Core/Constants/GraphicsUtils.h>
 
 #include <Core/Constants/VertexUtils.h>
+#include <Core/Constants/ShaderUtils.h>
 
 #include <Core/Application/Application.h>
 #include <Core/Application/Platform/Platform.h>

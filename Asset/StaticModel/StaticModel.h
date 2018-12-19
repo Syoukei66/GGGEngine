@@ -2,14 +2,13 @@
 
 #include <Asset/Mesh/Mesh.h>
 #include <Asset/Material/Material.h>
-#include <Asset/Mesh/Mesh.h>
 
 struct StaticModelData
 {
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_SERIALIZABLE(CharacterModelData)
+  GG_SERIALIZABLE(StaticModelData)
   {
     archive(mesh_);
     archive(material_unique_ids_);

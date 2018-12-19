@@ -6,13 +6,14 @@
 
 #include <Entity/File/Raw/CSV/CsvAssetEntity.h>
 #include <Entity/File/Raw/Json/JsonAssetEntity.h>
-#include <Entity/File/Raw/Shader/ShaderAssetEntity.h>
 #include <Entity/File/Raw/Sound/SoundAssetEntity.h>
 #include <Entity/File/Raw/Texture/TextureAssetEntity.h>
 
 #include <Entity/File/Model/Material/ModelMaterialAssetEntity.h>
 #include <Entity/File/Model/StaticModel/StaticModelAssetEntity.h>
 #include <Entity/File/Model/CharacterModel/CharacterModelAssetEntity.h>
+
+#include <Entity/File/Shader/ShaderAssetEntity.h>
 
 #include <Entity/Default/Material/DefaultMaterialAssetConverterFactory.h>
 
@@ -47,9 +48,11 @@ void AssetConverterDirector::Init()
   // Raw
   self->converter_manager_->AddConverter(CsvAssetEntity::CreateConverter());
   self->converter_manager_->AddConverter(JsonAssetEntity::CreateConverter());
-  self->converter_manager_->AddConverter(ShaderAssetEntity::CreateConverter());
   self->converter_manager_->AddConverter(SoundAssetEntity::CreateConverter());
   self->converter_manager_->AddConverter(TextureAssetEntity::CreateConverter());
+
+  // Shader
+  self->converter_manager_->AddConverter(ShaderAssetEntity::CreateConverter());
 
   // Mesh
   self->converter_manager_->AddConverter(self->setting_->default_mesh_asset_converter_factory.Create(self->context_));

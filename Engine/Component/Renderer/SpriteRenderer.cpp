@@ -20,19 +20,10 @@ bool SpriteRenderer::SetStreamSource() const
   return true;
 }
 
-bool SpriteRenderer::SetInputLayout(const SharedRef<rcShader>& shader) const
+bool SpriteRenderer::BeginPass(T_UINT8 pass, const SharedRef<rcShader>& shader) const
 {
-  shader->SetInputLayout(this->sprite_->GetMesh()->GetVertexDeclaration());
-  return true;
-}
-
-void SpriteRenderer::SetProperties(const SharedRef<rcShader>& shader) const
-{
-  if (!this->sprite_)
-  {
-    return;
-  }
-  shader->SetTexture("_MainTex", this->sprite_->GetTexture());
+  //shader->SetTexture("_MainTex", this->sprite_->GetTexture());
+  return shader->BeginPass(pass, this->sprite_->GetMesh()->GetVertexDeclaration());
 }
 
 void SpriteRenderer::DrawSubset(T_UINT8 submesh_index) const

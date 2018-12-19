@@ -80,4 +80,16 @@ private:
   Matrix4x4 world_matrix_;
 
   GameObjectRenderQueue* queues_[Graphics::RQ_DATANUM];
+
+  struct ShaderBuiltinData
+  {
+    Matrix4x4 mat_v;
+    Matrix4x4 mat_p;
+
+    TVec4f camera_position_;
+    TVec4f camera_direction_;
+    TVec4f delta_time_;
+  } builtin_variable_;
+  //SharedRef<rcConstantBuffer> builtin_variable_buffer_;
+
 };

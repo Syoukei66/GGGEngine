@@ -31,7 +31,7 @@ void StaticMeshViewerBehavior::OnLoad(T_UINT32 unique_id)
   for (T_UINT32 i = 0; i < submesh_count; ++i)
   {
     this->mesh_renderer_->SetMaterial(AssetManager::Load<rcMaterial>(DefaultUniqueID::MATERIAL_LAMBERT), i);
-    this->mesh_renderer_->GetMaterial(i)->SetMainTexture(AssetManager::Load<rcTexture>(DefaultUniqueID::TEXTURE_WHITE));
+    //this->mesh_renderer_->GetMaterial(i)->SetMainTexture(AssetManager::Load<rcTexture>(DefaultUniqueID::TEXTURE_WHITE));
   }
 }
 

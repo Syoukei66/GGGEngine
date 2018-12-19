@@ -6,10 +6,7 @@
 const std::string FileUtil::TextFile_Read(const char* path)
 {
   std::ifstream ifs(path);
-  if (ifs.fail())
-  {
-    return nullptr;
-  }
+  GG_ASSERT(!ifs.fail(), "ƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ‚É¸”s‚µ‚Ü‚µ‚½");
   return std::string(
     std::istreambuf_iterator<char>(ifs),
     std::istreambuf_iterator<char>()

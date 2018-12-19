@@ -261,9 +261,6 @@
     <ClInclude Include="Application\Platform\API\_Asset\AudioClip\AudioClip.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Platform\API\_Asset\Shader\Shader.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Platform\API\_Asset\Texture\Texture.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -373,6 +370,18 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Application\Platform\API\_Resource\ConstantBuffer\ConstantBuffer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Platform\API\_Resource\PixelShader\PixelShader.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Platform\API\_Resource\VertexShader\VertexShader.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants\ShaderUtils.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Platform\API\_Resource\RenderState\RenderState.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

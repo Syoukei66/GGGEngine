@@ -17,8 +17,7 @@ class MeshRenderer : public Renderer
   // =================================================================
 protected:
   virtual bool SetStreamSource() const override;
-  virtual bool SetInputLayout(const SharedRef<rcShader>& shader) const override;
-  virtual void SetProperties(const SharedRef<rcShader>& shader) const override;
+  virtual bool BeginPass(T_UINT8 pass, const SharedRef<rcShader>& shader) const override;
   virtual void DrawSubset(T_UINT8 submesh_index) const override;
 
   // =================================================================

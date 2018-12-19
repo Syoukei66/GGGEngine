@@ -66,6 +66,11 @@ std::string FileUtil::CreateInputPath(const URI& uri)
   return INPUT_PATH + "/" + uri.GetFullPath();
 }
 
+std::string FileUtil::CreateInputDirectoryPath(const URI& uri)
+{
+  return INPUT_PATH + "/" + uri.GetDirectoryPath();
+}
+
 std::string FileUtil::CreateMidDataPath(const URI& uri)
 {
   return MID_DATA_PATH + "/" + uri.GetFullPath();

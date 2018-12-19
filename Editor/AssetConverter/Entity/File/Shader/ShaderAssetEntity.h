@@ -1,27 +1,24 @@
 #pragma once
 
-#include <Entity/File/Raw/RawAssetEntity.h>
-#include <Entity/File/Raw/RawAssetConverterFactory.h>
+#include <Entity/File/FileAssetEntity.h>
+#include <Entity/File/FileAssetConverterFactory.h>
 
-class ShaderAssetEntity : public RawAssetEntity<rcShader>
+class ShaderAssetEntity : public FileAssetEntity<ShaderData, rcShader>
 {
   // =================================================================
   // GGG Statement
   // =================================================================
   ENTITY_ID(ID_SHADER);
   GG_OBJECT(ShaderAssetEntity);
-  GG_CREATE_FUNC_1(ShaderAssetEntity, AssetMetaData*)
+  GG_CREATE_FUNC_2(ShaderAssetEntity, AssetMetaData*, ShaderData*)
   {
-    return AssetEntity::Init(arg0);
+    return FileAssetEntity<ShaderData, rcShader>::Init(arg0, arg1);
   }
 
   // =================================================================
   // Methods from RawAssetEntity
   // =================================================================
 public:
-  static inline IAssetConverter* CreateConverter()
-  {
-    return RawAssetConverterFactory::Create<ShaderAssetEntity>("Shader", "rcShader", "fx");
-  }
+  static IAssetConverter* CreateConverter();
 
 };

@@ -67,6 +67,11 @@ public:
   {
     return FileUtil::CreateInputPath(this->GetURI());
   }
+  
+  inline std::string GetInputDirectoryPath() const
+  {
+    return FileUtil::CreateInputDirectoryPath(this->GetURI());
+  }
 
   inline std::string GetOutputPath() const
   {

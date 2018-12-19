@@ -181,6 +181,8 @@
     <ClInclude Include="Entity\File\Model\CharacterModel\CharacterModelAssetImporter.h" />
     <ClInclude Include="Entity\File\Model\CharacterModel\CharacterModelAssetEntity.h" />
     <ClInclude Include="Entity\File\Raw\RawAssetEntity.h" />
+    <ClInclude Include="Entity\File\Shader\ShaderAssetEntity.h" />
+    <ClInclude Include="Entity\File\Shader\ShaderAssetImporter.h" />
     <ClInclude Include="GUI\EntityView\AssetEntityView.h" />
     <ClInclude Include="GUI\FileView\AssetEntityFileLeaf.h" />
     <ClInclude Include="GUI\FileView\AssetEntityFileNode.h" />
@@ -230,7 +232,6 @@
     <ClInclude Include="Entity\File\Raw\RawAssetConverterFactory.h" />
     <ClInclude Include="Entity\File\Raw\RawAssetExporter.h" />
     <ClInclude Include="Entity\File\Raw\RawAssetImporter.h" />
-    <ClInclude Include="Entity\File\Raw\Shader\ShaderAssetEntity.h" />
     <ClInclude Include="Entity\File\Raw\Sound\SoundAssetEntity.h" />
     <ClInclude Include="Entity\File\StandardMaterial.h" />
     <ClInclude Include="stdafx.h" />
@@ -249,6 +250,8 @@
     <ClCompile Include="Entity\File\Model\CharacterModel\CharacterModelAssetEntity.cpp" />
     <ClCompile Include="Entity\File\Model\CharacterModel\CharacterModelAssetImporter.cpp" />
     <ClCompile Include="Entity\File\Model\StaticModel\StaticModelAssetEntity.cpp" />
+    <ClCompile Include="Entity\File\Shader\ShaderAssetEntity.cpp" />
+    <ClCompile Include="Entity\File\Shader\ShaderAssetImporter.cpp" />
     <ClCompile Include="GUI\EntityView\AssetEntityView.cpp" />
     <ClCompile Include="GUI\FileView\AssetEntityFileLeaf.cpp" />
     <ClCompile Include="GUI\FileView\AssetEntityFileNode.cpp" />

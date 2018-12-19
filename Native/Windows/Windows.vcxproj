@@ -176,11 +176,14 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
   <ItemGroup>
     <ClInclude Include="Activity\EditorWindowActivity.h" />
     <ClInclude Include="Activity\WindowsActivity.h" />
+    <ClInclude Include="API\Graphics\DX11\DX11ConstantBuffer.h" />
     <ClInclude Include="API\Graphics\DX11\DX11Constants.h" />
     <ClInclude Include="API\Graphics\DX11\DX11GraphicsAPI.h" />
     <ClInclude Include="API\Graphics\DX11\DX11IndexBuffer.h" />
-    <ClInclude Include="API\Graphics\DX11\DX11Shader.h" />
+    <ClInclude Include="API\Graphics\DX11\DX11PixelShader.h" />
+    <ClInclude Include="API\Graphics\DX11\DX11RenderState.h" />
     <ClInclude Include="API\Graphics\DX11\DX11VertexBuffer.h" />
+    <ClInclude Include="API\Graphics\DX11\DX11VertexShader.h" />
     <ClInclude Include="API\Graphics\DX11\imgui\imgui_impl_dx11.h" />
     <ClInclude Include="API\Graphics\DX11\DX11VertexDeclaration.h" />
     <ClInclude Include="API\Graphics\DX9\DX9VertexDeclaration.h" />
@@ -214,11 +217,14 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClCompile Include="Activity\EditorWindowActivity.cpp" />
     <ClCompile Include="Activity\WindowsActivity.cpp" />
     <ClCompile Include="API\Audio\XAudio\XAudioAPI.cpp" />
+    <ClCompile Include="API\Graphics\DX11\DX11ConstantBuffer.cpp" />
     <ClCompile Include="API\Graphics\DX11\DX11GraphicsAPI.cpp" />
     <ClCompile Include="API\Graphics\DX11\DX11IndexBuffer.cpp" />
-    <ClCompile Include="API\Graphics\DX11\DX11Shader.cpp" />
+    <ClCompile Include="API\Graphics\DX11\DX11PixelShader.cpp" />
+    <ClCompile Include="API\Graphics\DX11\DX11RenderState.cpp" />
     <ClCompile Include="API\Graphics\DX11\DX11VertexBuffer.cpp" />
     <ClCompile Include="API\Graphics\DX11\DX11VertexDeclaration.cpp" />
+    <ClCompile Include="API\Graphics\DX11\DX11VertexShader.cpp" />
     <ClCompile Include="API\Graphics\DX11\imgui\imgui_impl_dx11.cpp" />
     <ClCompile Include="API\Graphics\DX9\DX9GraphicsAPI.cpp" />
     <ClCompile Include="API\Graphics\DX9\DX9VertexDeclaration.cpp" />

@@ -180,10 +180,6 @@ void DX11GraphicsAPI::ResetRenderTarget()
 {
 }
 
-void DX11GraphicsAPI::DrawStencilBuffer()
-{
-}
-
 void DX11GraphicsAPI::DrawIndexedPrimitive(Vertex::PrimitiveType primitive_type, const SharedRef<const rcIndexBuffer>& index_buffer)
 {
   this->immediate_context_->IASetPrimitiveTopology(DX11::PRIMITIVE_TYPES[static_cast<T_UINT32>(primitive_type)]);
@@ -253,6 +249,7 @@ bool DX11GraphicsAPI::ImGuiNewFrame()
   ImGui_ImplDX11_NewFrame();
   return true;
 }
+
 
 bool DX11GraphicsAPI::PreDraw()
 {

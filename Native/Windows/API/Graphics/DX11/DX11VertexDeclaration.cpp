@@ -3,7 +3,6 @@
 #if GG_GRAPHICS_API_DX11
 
 #include <Native/Windows/WindowsApplication.h>
-#include "DX11Shader.h"
 
 UniqueRef<rcVertexDeclaration> rcVertexDeclaration::Create(T_UINT32 format)
 {

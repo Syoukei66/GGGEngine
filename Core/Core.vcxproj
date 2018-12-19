@@ -184,7 +184,10 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="Application\Input\InputState.h" />
     <ClInclude Include="Application\Object\WeakRef.h" />
     <ClInclude Include="Application\Platform\API\_Resource\ConstantBuffer\ConstantBuffer.h" />
+    <ClInclude Include="Application\Platform\API\_Resource\PixelShader\PixelShader.h" />
+    <ClInclude Include="Application\Platform\API\_Resource\RenderState\RenderState.h" />
     <ClInclude Include="Application\Platform\API\_Resource\VertexDeclaration\VertexDeclaration.h" />
+    <ClInclude Include="Application\Platform\API\_Resource\VertexShader\VertexShader.h" />
     <ClInclude Include="Application\Platform\Platform.h" />
     <ClInclude Include="Application\Activity\Activity.h" />
     <ClInclude Include="Application\Activity\ActivityOption.h" />
@@ -210,6 +213,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="Application\Application.h" />
     <ClInclude Include="Application\ApplicationOption.h" />
     <ClInclude Include="Application\Event\UpdateEventState.h" />
+    <ClInclude Include="Constants\ShaderUtils.h" />
     <ClInclude Include="GameObject\GameObject.h" />
     <ClInclude Include="Application\Allocator\PoolAllocator.h" />
     <ClInclude Include="Math\Bounds.h" />
@@ -217,7 +221,6 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="Application\Object\Object.h" />
     <ClInclude Include="Application\Object\Ref.h" />
     <ClInclude Include="Application\Platform\API\_Resource\RenderTexture\RenderTexture.h" />
-    <ClInclude Include="Application\Platform\API\_Asset\Shader\Shader.h" />
     <ClInclude Include="Application\Platform\API\_Asset\Texture\Texture.h" />
     <ClInclude Include="Util\FileUtil.h" />
     <ClInclude Include="_Private\CerealIO.h" />

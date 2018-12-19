@@ -13,7 +13,7 @@
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxerr.lib")
 #pragma comment(lib, "dxguid.lib")
-#pragma comment(lib, "d3dcompiler.lib");
+#pragma comment(lib, "d3dcompiler.lib")
 #include <Native/Windows/API/Graphics/DX11/DX11GraphicsAPI.h>
 #else
 

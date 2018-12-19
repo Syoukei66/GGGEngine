@@ -8,7 +8,6 @@
 #include <Asset/Json/JsonData.h>
 #include <Asset/Json/JsonParser.h>
 #include <Asset/Material/Material.h>
-#include <Asset/Material/ShaderProperties.h>
 #include <Asset/Mesh/DynamicMesh.h>
 #include <Asset/Mesh/Mesh.h>
 #include <Asset/Mesh/MeshFactory/MeshFactory_Cube.h>
@@ -18,6 +17,7 @@
 #include <Asset/Particle/ParticleData.h>
 #include <Asset/Particle/ParticleDataManager.h>
 #include <Asset/Particle/ParticleSystem.h>
+#include <Asset/Shader/Shader.h>
 #include <Asset/Spine/AttachmentVertexes.h>
 #include <Asset/Spine/EngineAttachmentLoader.h>
 #include <Asset/Spine/SpineData.h>

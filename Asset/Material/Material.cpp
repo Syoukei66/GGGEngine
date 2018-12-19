@@ -1,77 +1,96 @@
 #include "Material.h"
 
-#include <Core/Application/Platform/API/_Asset/Shader/Shader.h>
+#include <Asset/Shader/Shader.h>
 
 // =================================================================
 // GGG Statement
 // =================================================================
 GG_INIT_FUNC_IMPL_1(rcMaterial, const MaterialData& data)
 {
-  this->texture_ = data.main_tex_unique_id_ != 0 ?
-    AssetManager::Load<rcTexture>(data.main_tex_unique_id_) :
-    AssetManager::Load<rcTexture>(DefaultUniqueID::TEXTURE_WHITE);
-  this->tiling_ = data.tiling_;
-  this->tiling_offset_ = data.tiling_offset_;
-  this->color_ = data.color_;
-  this->billbording_ = data.billbording_;
-  
-  for (const auto& pair : data.bool_properties_)
+  this->data_offset_table_ = data.data_offset_table_;
+  this->data_ = data.data_;
+
+  this->texture_index_table_ = data.texture_index_table_;
+  const T_UINT32 texture_count = (T_UINT32)data.textures_.size();
+  this->textures_.resize(texture_count);
+  for (T_UINT32 i = 0; i < texture_count; ++i)
   {
-    this->BoolProperty(pair.first) = pair.second;
+    this->textures_[i] = AssetManager::Load<rcTexture>(data.textures_[i]);
   }
-  for (const auto& pair : data.int_properties_)
-  {
-    this->IntProperty(pair.first) = pair.second;
-  }
-  for (const auto& pair : data.float_properties_)
-  {
-    this->FloatProperty(pair.first) = pair.second;
-  }
-  for (const auto& pair : data.vec2_properties_)
-  {
-    this->Vec2fProperty(pair.first) = pair.second;
-  }
-  for (const auto& pair : data.vec3_properties_)
-  {
-    this->Vec3fProperty(pair.first) = pair.second;
-  }
-  for (const auto& pair : data.vec4_properties_)
-  {
-    this->Vec4fProperty(pair.first) = pair.second;
-  }
-  for (const auto& pair : data.color_properties_)
-  {
-    this->ColorProperty(pair.first) = pair.second;
-  }
-  for (const auto& pair : data.matrix_properties_)
-  {
-    this->MatrixProperty(pair.first) = pair.second;
-  }
-  for (const auto& pair : data.texture_properties_)
-  {
-    this->TextureProperty(pair.first) = AssetManager::Load<rcTexture>(pair.second);
-  }
+
+  this->constant_buffer_ = rcConstantBuffer::Create(
+    Shader::ConstantBufferId::kProperty,
+    (T_UINT32)this->data_.size()
+  );
+  this->constant_buffer_->CommitChanges(this->data_.data());
+
   return this->Init(
     data.shader_unique_id_ != 0 ?
     AssetManager::Load<rcShader>(data.shader_unique_id_) :
     AssetManager::Load<rcShader>(DefaultUniqueID::SHADER_NO_SHADING)
   );
+
+  return true;
 }
 
 GG_INIT_FUNC_IMPL_1(rcMaterial, const SharedRef<rcShader>& shader)
 {
   this->shader_ = shader;
-  this->technique_ = "Default";
-  this->queue_ = Graphics::RenderQueue::RQ_GEOMETRY;
+
+  using namespace Shader;
+
+  T_UINT32 data_offset = 0;
+  for (const ScalaPropertyData& data : shader->GetScalaPropertyDatas())
+  {
+    this->data_offset_table_[data.name_] = data_offset;
+    VariableType type = static_cast<VariableType>(data.variable_type_);
+    (*(T_FLOAT*)&this->data_[data_offset]) = data.init_value_;
+    data_offset += sizeof(T_FLOAT);
+  }
+  for (const VectorPropertyData& data : shader->GetVectorPropertyDatas())
+  {
+    this->data_offset_table_[data.name_] = data_offset;
+    VariableType type = static_cast<VariableType>(data.variable_type_);
+    ((T_FLOAT*)&this->data_[data_offset])[0] = data.init_value0_;
+    ((T_FLOAT*)&this->data_[data_offset])[1] = data.init_value1_;
+    ((T_FLOAT*)&this->data_[data_offset])[2] = data.init_value2_;
+    ((T_FLOAT*)&this->data_[data_offset])[3] = data.init_value3_;
+    data_offset += sizeof(T_FLOAT) * 4;
+  }
+  for (const ColorPropertyData& data : shader->GetColorPropertyDatas())
+  {
+    this->data_offset_table_[data.name_] = data_offset;
+    ((T_FLOAT*)&this->data_[data_offset])[0] = data.init_r_;
+    ((T_FLOAT*)&this->data_[data_offset])[1] = data.init_g_;
+    ((T_FLOAT*)&this->data_[data_offset])[2] = data.init_b_;
+    ((T_FLOAT*)&this->data_[data_offset])[3] = data.init_a_;
+    data_offset += sizeof(T_FLOAT) * 4;
+  }
+  //TODO: SamplerPropertyも追加する
+
+  this->constant_buffer_ = rcConstantBuffer::Create(
+    Shader::ConstantBufferId::kProperty,
+    (T_UINT32)this->data_.size()
+  );
+  this->constant_buffer_->CommitChanges(this->data_.data());
+
   return true;
 }
 
-GG_DESTRUCT_FUNC_IMPL(rcMaterial)
+GG_INIT_FUNC_IMPL_1(rcMaterial, const rcMaterial& o)
 {
-  for (auto pair : this->properties_)
-  {
-    delete pair.second;
-  }
+  this->shader_ = o.shader_;
+  this->data_offset_table_ = o.data_offset_table_;
+  this->data_ = o.data_;
+  this->texture_index_table_ = o.texture_index_table_;
+  this->textures_ = o.textures_;
+
+  this->constant_buffer_ = rcConstantBuffer::Create(
+    Shader::ConstantBufferId::kProperty,
+    (T_UINT32)this->data_.size()
+  );
+  this->constant_buffer_->CommitChanges(this->data_.data());
+
   return true;
 }
 
@@ -80,44 +99,20 @@ GG_DESTRUCT_FUNC_IMPL(rcMaterial)
 // =================================================================
 UniqueRef<rcMaterial> rcMaterial::Clone() const
 {
-  UniqueRef<rcMaterial> ret = this->InitialClone();
- 
-  ret->queue_ = this->queue_;
-  ret->texture_ = this->texture_;
-  for (auto pair : this->properties_)
-  {
-    ret->properties_[pair.first] = pair.second->Clone();
-  }
-
-  return ret;
+  return rcMaterial::Create(*this);
 }
 
 UniqueRef<rcMaterial> rcMaterial::InitialClone() const
 {
-  GG_ASSERT(this->shader_, "シェーダーが未定義です");
   return rcMaterial::Create(this->shader_);
 }
 
-void rcMaterial::SetProperties(const SharedRef<rcShader>& shader) const
+void rcMaterial::CommitChanges()
 {
-  shader->SetTechnique(this->technique_);
-  shader->SetTexture("_MainTex", this->texture_);
-  shader->SetColor("_Diffuse", this->color_);
-  for (auto pair : this->properties_)
-  {
-    pair.second->Apply(shader, pair.first);
-  }
+  this->constant_buffer_->CommitChanges(this->data_.data());
 }
 
-// =================================================================
-// Setter / Getter
-// =================================================================
-void rcMaterial::SetShader(const SharedRef<rcShader>& shader)
+void rcMaterial::SetBuffer() const
 {
-  this->shader_ = shader;
-}
-
-void rcMaterial::SetMainTexture(const SharedRef<const rcTexture>& texture)
-{
-  this->texture_ = texture;
+  this->constant_buffer_->SetBuffer();
 }

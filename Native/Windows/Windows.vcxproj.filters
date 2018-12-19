@@ -105,9 +105,6 @@
     <ClInclude Include="API\Graphics\DX11\imgui\imgui_impl_dx11.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="API\Graphics\DX11\DX11Shader.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="API\Graphics\DX11\DX11VertexBuffer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -118,6 +115,18 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="API\Graphics\DX11\DX11Constants.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Graphics\DX11\DX11VertexShader.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Graphics\DX11\DX11PixelShader.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Graphics\DX11\DX11ConstantBuffer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="API\Graphics\DX11\DX11RenderState.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -194,10 +203,19 @@
     <ClCompile Include="API\Graphics\DX11\DX11VertexDeclaration.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="API\Graphics\DX11\DX11Shader.cpp">
+    <ClCompile Include="API\Graphics\DX11\DX11IndexBuffer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="API\Graphics\DX11\DX11IndexBuffer.cpp">
+    <ClCompile Include="API\Graphics\DX11\DX11VertexShader.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="API\Graphics\DX11\DX11ConstantBuffer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="API\Graphics\DX11\DX11PixelShader.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="API\Graphics\DX11\DX11RenderState.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

@@ -47,20 +47,20 @@ void GameObjectRenderQueue::DrawTransparent(GameObjectRenderState* state)
 
   for (const DrawParam& param : this->queue_)
   {
-    if (param.renderer->GetMaterial()->IsBillboard())
-    {
-      Matrix4x4 inv_rotation_matrix = param.renderer->GetObject()->GetTransform()->GetRotationMatrix().Inverse();
+    //if (param.renderer->GetMaterial()->IsBillboard())
+    //{
+    //  Matrix4x4 inv_rotation_matrix = param.renderer->GetObject()->GetTransform()->GetRotationMatrix().Inverse();
+    //  state->SetWorldMatrix(param.renderer->GetObject()->GetTransform()->GetWorldMatrix());
+    //  state->PushWorldMatrix(inv_rotation_matrix);
+    //  state->PushWorldMatrix(((const Camera3D*)camera)->GetBillboardingMatrix());
+    //  state->PushWorldMatrix(param.renderer->GetObject()->GetTransform()->GetRotationMatrix());
+    //  param.renderer->Draw(state);
+    //}
+    //else
+    //{
       state->SetWorldMatrix(param.renderer->GetObject()->GetTransform()->GetWorldMatrix());
-      state->PushWorldMatrix(inv_rotation_matrix);
-      state->PushWorldMatrix(((const Camera3D*)camera)->GetBillboardingMatrix());
-      state->PushWorldMatrix(param.renderer->GetObject()->GetTransform()->GetRotationMatrix());
       param.renderer->Draw(state);
-    }
-    else
-    {
-      state->SetWorldMatrix(param.renderer->GetObject()->GetTransform()->GetWorldMatrix());
-      param.renderer->Draw(state);
-    }
+    //}
   }
 
   this->queue_.clear();

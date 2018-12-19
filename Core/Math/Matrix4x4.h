@@ -72,6 +72,12 @@ public:
     return *this;
   }
 
+  //Matrix4x4& operator = (const Matrix4x4&& other)
+  //{
+  //  this->eigen = other.eigen;
+  //  return *this;
+  //}
+
   operator Eigen::Matrix4f() const;
 
   // =================================================================

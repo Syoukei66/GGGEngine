@@ -22,18 +22,14 @@ bool MeshRenderer::SetStreamSource() const
   return true;
 }
 
-bool MeshRenderer::SetInputLayout(const SharedRef<rcShader>& shader) const
+bool MeshRenderer::BeginPass(T_UINT8 pass, const SharedRef<rcShader>& shader) const
 {
   if (!this->mesh_)
   {
     return false;
   }
-  shader->SetInputLayout(this->mesh_->GetVertexDeclaration());
+  shader->BeginPass(pass, this->mesh_->GetVertexDeclaration());
   return true;
-}
-
-void MeshRenderer::SetProperties(const SharedRef<rcShader>& shader) const
-{
 }
 
 void MeshRenderer::DrawSubset(T_UINT8 submesh_index) const
