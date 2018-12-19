@@ -109,7 +109,7 @@ void DX11RenderState::SetState() const
   context->RSSetState(this->rasterizer_state_);
   static const FLOAT blend_factor[4] = {1.0f, 1.0f, 1.0f, 1.0f};
   context->OMSetBlendState(this->blend_state_, blend_factor, 0xffffffff);
-  //context->OMSetDepthStencilState(this->depth_stencil_state_, this->stencil_ref_);
+  context->OMSetDepthStencilState(this->depth_stencil_state_, this->stencil_ref_);
 }
 
 #endif

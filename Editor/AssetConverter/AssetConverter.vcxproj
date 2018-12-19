@@ -316,6 +316,9 @@
     <ProjectReference Include="..\EditorUtils\EditorUtils.vcxproj">
       <Project>{980f180f-d523-4328-8cda-6c2add3aa7d8}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\ThirdParty\DirectXTex\DirectXTex_Desktop_2017_Win10.vcxproj">
+      <Project>{371b9fa9-4c90-4ac6-a123-aced756d6c77}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
