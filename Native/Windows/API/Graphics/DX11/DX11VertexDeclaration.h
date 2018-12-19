@@ -4,7 +4,7 @@
 
 #include <d3d11.h>
 
-#include <Core/Application/Platform/API/_Resource/VertexDeclaration/VertexDeclaration.h>
+#include <Core/Application/Platform/API/_Resource/VertexDeclaration.h>
 
 class DX11VertexDeclaration : public rcVertexDeclaration
 {

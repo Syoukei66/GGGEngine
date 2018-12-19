@@ -2,7 +2,7 @@
 
 #if GG_GRAPHICS_API_DX11
 
-#include <Core/Application/Platform/API/_Resource/VertexDeclaration/VertexDeclaration.h>
+#include <Core/Application/Platform/API/_Resource/VertexDeclaration.h>
 #include <Native/Windows/WindowsApplication.h>
 
 #include "DX11Constants.h"

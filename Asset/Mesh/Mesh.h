@@ -1,8 +1,8 @@
 #pragma once
 
-#include <Core/Application/Platform/API/_Resource/VertexBuffer/VertexBuffer.h>
-#include <Core/Application/Platform/API/_Resource/VertexDeclaration/VertexDeclaration.h>
-#include <Core/Application/Platform/API/_Resource/IndexBuffer/IndexBuffer.h>
+#include <Core/Application/Platform/API/_Resource/VertexBuffer.h>
+#include <Core/Application/Platform/API/_Resource/VertexDeclaration.h>
+#include <Core/Application/Platform/API/_Resource/IndexBuffer.h>
 
 /*!
  * @brief 静的なメッシュのデータ

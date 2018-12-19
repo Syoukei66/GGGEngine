@@ -2,9 +2,9 @@
 
 #include <Core/Application/Platform/API/_Asset/APIAssetObject.h>
 
-#include <Core/Application/Platform/API/_Resource/PixelShader/PixelShader.h>
-#include <Core/Application/Platform/API/_Resource/VertexShader/VertexShader.h>
-#include <Core/Application/Platform/API/_Resource/RenderState/RenderState.h>
+#include <Core/Application/Platform/API/_Resource/PixelShader.h>
+#include <Core/Application/Platform/API/_Resource/VertexShader.h>
+#include <Core/Application/Platform/API/_Resource/RenderState.h>
 
 /*!
  * @brief シェーダー内のスカラープロパティ

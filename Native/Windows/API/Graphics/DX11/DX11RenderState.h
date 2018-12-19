@@ -3,7 +3,7 @@
 #if GG_GRAPHICS_API_DX11
 
 #include <d3d11.h>
-#include <Core/Application/Platform/API/_Resource/RenderState/RenderState.h>
+#include <Core/Application/Platform/API/_Resource/RenderState.h>
 
 class DX11RenderState : public rcRenderState
 {

@@ -4,7 +4,7 @@
 
 #include <d3d11.h>
 
-#include <Core/Application/Platform/API/_Resource/IndexBuffer/IndexBuffer.h>
+#include <Core/Application/Platform/API/_Resource/IndexBuffer.h>
 
 class DX11IndexBuffer : public rcIndexBuffer
 {

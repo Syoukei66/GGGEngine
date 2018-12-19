@@ -3,7 +3,7 @@
 #if GG_GRAPHICS_API_DX11
 
 #include <d3d11.h>
-#include <Core/Application/Platform/API/_Resource/PixelShader/PixelShader.h>
+#include <Core/Application/Platform/API/_Resource/PixelShader.h>
 
 class DX11PixelShader : public rcPixelShader
 {

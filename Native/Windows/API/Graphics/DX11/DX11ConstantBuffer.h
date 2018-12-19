@@ -3,7 +3,7 @@
 #if GG_GRAPHICS_API_DX11
 
 #include <d3d11.h>
-#include <Core/Application/Platform/API/_Resource/ConstantBuffer/ConstantBuffer.h>
+#include <Core/Application/Platform/API/_Resource/ConstantBuffer.h>
 
 class DX11ConstantBuffer : public rcConstantBuffer
 {
