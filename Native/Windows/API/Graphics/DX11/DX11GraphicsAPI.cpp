@@ -189,24 +189,28 @@ void DX11GraphicsAPI::DrawIndexedPrimitive(Vertex::PrimitiveType primitive_type,
 
 #include <DirectXTex.h>
 //#include <Editor/ThirdParty/DirectXTex/DirectXTex.inl>
-//#include <Editor/ThirdParty/DirectXTex/WICTextureLoader/WICTextureLoader.h>
+#include <Editor/ThirdParty/DirectXTex/WICTextureLoader/WICTextureLoader.h>
+
+#pragma comment(lib, "DirectXTex.lib")
+
 
 UniqueRef<rcTexture> DX11GraphicsAPI::TextureLoad(const char* path)
 {
-  //ID3D11Resource* texture;
-  //ID3D11ShaderResourceView* shader_resource_view;
-  //
-  //WCHAR	wpath[256];
+  ID3D11Resource* texture;
+  ID3D11ShaderResourceView* shader_resource_view;
+  
+  WCHAR	wpath[256] = {};
 
-  //size_t wLen = 0;
-  //errno_t err = 0;
+  size_t wLen = 0;
+  errno_t err = 0;
 
-  ////ロケール指定
-  //setlocale(LC_ALL, "japanese");
-  ////変換
-  //err = mbstowcs_s(&wLen, wpath, 512, path, _TRUNCATE);
+  //ロケール指定
+  setlocale(LC_ALL, "japanese");
+  //変換
+  err = mbstowcs(wpath, path, sizeof(wpath));
 
-  //DirectX::CreateWICTextureFromFile(this->device_, wpath, &texture, &shader_resource_view);
+  HRESULT hr = DirectX::CreateWICTextureFromFile(this->device_, wpath, &texture, &shader_resource_view);
+  GG_ASSERT(SUCCEEDED(hr), "テクスチャの読み込みに失敗しました");
 
   //D3DXIMAGE_INFO info;
   //HRESULT hr = D3DXGetImageInfoFromFile(
