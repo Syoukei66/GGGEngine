@@ -2,6 +2,7 @@
 
 #if GG_GRAPHICS_API_DX11
 
+#include <dxgiformat.h>
 #include <d3d11.h>
 
 class DX11GraphicsAPI : public GraphicsAPI

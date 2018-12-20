@@ -42,6 +42,8 @@
     <CLInclude Include="scoped.h">
       <Filter>Source Files</Filter>
     </CLInclude>
+    <ClInclude Include="DDSTextureLoader\DDSTextureLoader.h" />
+    <ClInclude Include="WICTextureLoader\WICTextureLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BC.cpp">
@@ -101,6 +103,8 @@
     <ClCompile Include="DirectXTexHDR.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DDSTextureLoader\DDSTextureLoader.cpp" />
+    <ClCompile Include="WICTextureLoader\WICTextureLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="BC.h">

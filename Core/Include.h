@@ -39,6 +39,7 @@
 #include <Core/Application/Platform/API/_Asset/Texture/Texture.h>
 #include <Core/Application/Platform/API/_Resource/APIResourceObject.h>
 #include <Core/Application/Platform/API/_Resource/ConstantBuffer.h>
+#include <Core/Application/Platform/API/_Resource/DepthStencilBuffer.h>
 #include <Core/Application/Platform/API/_Resource/IndexBuffer.h>
 #include <Core/Application/Platform/API/_Resource/PixelShader.h>
 #include <Core/Application/Platform/API/_Resource/RenderBuffer/RenderBuffer.h>

@@ -363,26 +363,29 @@
     <ClInclude Include="Constants\ShaderUtils.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Platform\API\_Resource\ConstantBuffer.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Platform\API\_Resource\IndexBuffer.h">
-      <Filter>ヘッダー ファイル\Resource\_Native\Buffer</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Platform\API\_Resource\PixelShader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Application\Platform\API\_Resource\RenderState.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Platform\API\_Resource\VertexBuffer.h">
-      <Filter>ヘッダー ファイル\Resource\_Native\Buffer</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Platform\API\_Resource\VertexShader.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Application\Platform\API\_Resource\VertexDeclaration.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Platform\API\_Resource\VertexBuffer.h">
+      <Filter>ヘッダー ファイル\Resource\_Native\Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Platform\API\_Resource\ConstantBuffer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Platform\API\_Resource\DepthStencilBuffer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Platform\API\_Resource\IndexBuffer.h">
+      <Filter>ヘッダー ファイル\Resource\_Native\Buffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -184,6 +184,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="Application\Input\InputState.h" />
     <ClInclude Include="Application\Object\WeakRef.h" />
     <ClInclude Include="Application\Platform\API\_Resource\ConstantBuffer.h" />
+    <ClInclude Include="Application\Platform\API\_Resource\DepthStencilBuffer.h" />
     <ClInclude Include="Application\Platform\API\_Resource\PixelShader.h" />
     <ClInclude Include="Application\Platform\API\_Resource\RenderState.h" />
     <ClInclude Include="Application\Platform\API\_Resource\VertexDeclaration.h" />

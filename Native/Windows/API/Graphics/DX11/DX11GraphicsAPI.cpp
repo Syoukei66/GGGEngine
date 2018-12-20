@@ -186,8 +186,28 @@ void DX11GraphicsAPI::DrawIndexedPrimitive(Vertex::PrimitiveType primitive_type,
   this->immediate_context_->DrawIndexed(index_buffer->GetVertexCount(), 0, 0);
 }
 
+
+#include <DirectXTex.h>
+//#include <Editor/ThirdParty/DirectXTex/DirectXTex.inl>
+//#include <Editor/ThirdParty/DirectXTex/WICTextureLoader/WICTextureLoader.h>
+
 UniqueRef<rcTexture> DX11GraphicsAPI::TextureLoad(const char* path)
 {
+  //ID3D11Resource* texture;
+  //ID3D11ShaderResourceView* shader_resource_view;
+  //
+  //WCHAR	wpath[256];
+
+  //size_t wLen = 0;
+  //errno_t err = 0;
+
+  ////ƒƒP[ƒ‹Žw’è
+  //setlocale(LC_ALL, "japanese");
+  ////•ÏŠ·
+  //err = mbstowcs_s(&wLen, wpath, 512, path, _TRUNCATE);
+
+  //DirectX::CreateWICTextureFromFile(this->device_, wpath, &texture, &shader_resource_view);
+
   //D3DXIMAGE_INFO info;
   //HRESULT hr = D3DXGetImageInfoFromFile(
   //  path,
