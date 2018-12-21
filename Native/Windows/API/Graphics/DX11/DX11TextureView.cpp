@@ -5,6 +5,7 @@
 #include <Native/Windows/WindowsApplication.h>
 
 #include "DX11TextureResource.h"
+#include "DX11Constants.h"
 
 UniqueRef<rcTextureView> rcTextureView::Create(const TextureViewData& data, const SharedRef<rcTextureResource>& resource)
 {
@@ -29,16 +30,33 @@ DX11TextureView::DX11TextureView(const TextureViewData& data, const SharedRef<rc
 
   HRESULT hr = device->CreateShaderResourceView(dx11_resource->GetResource(), &resource_view_desc, &this->resource_view_);
 
+  using namespace DX11;
   // サンプラーの作成
   D3D11_SAMPLER_DESC sampDesc = D3D11_SAMPLER_DESC();
   ZeroMemory(&sampDesc, sizeof(sampDesc));
-  sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-  sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-  sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+  if (data.aniso_level_ == 1)
+  {
+    sampDesc.Filter = TEXTURE_FILTERS[data.filter_];
+  }
+  else
+  {
+    sampDesc.Filter = D3D11_FILTER_ANISOTROPIC;
+    sampDesc.MaxAnisotropy = data.aniso_level_;
+  }
+  sampDesc.AddressU = TEXTURE_ADDRESS_MODES[data.address_u_];
+  sampDesc.AddressV = TEXTURE_ADDRESS_MODES[data.address_v_];
   sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
   sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
-  sampDesc.MinLOD = 0;
-  sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
+  if (data.fade_start_ == 0.0f && data.fade_end_ == 0.0f)
+  {
+    sampDesc.MinLOD = 0.0f;
+    sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
+  }
+  else
+  {
+    sampDesc.MinLOD = data.fade_start_;
+    sampDesc.MaxLOD = data.fade_end_;
+  }
 
   hr = device->CreateSamplerState(&sampDesc, &this->sampler_state_);
   GG_ASSERT(SUCCEEDED(hr), "テクスチャサンプラーの作成に失敗しました");

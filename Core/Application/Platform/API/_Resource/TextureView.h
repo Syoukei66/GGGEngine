@@ -27,8 +27,8 @@ struct TextureViewData
 public:
   TextureViewData()
     : filter_(static_cast<T_FIXED_UINT8>(Shader::TextureFilter::kBilinear))
-    , address_u_(static_cast<T_FIXED_UINT8>(Shader::TextureAddress::kClamp))
-    , address_v_(static_cast<T_FIXED_UINT8>(Shader::TextureAddress::kClamp))
+    , address_u_(static_cast<T_FIXED_UINT8>(Shader::TextureAddress::kWrap))
+    , address_v_(static_cast<T_FIXED_UINT8>(Shader::TextureAddress::kWrap))
     , aniso_level_(1)
     , fade_start_(0)
     , fade_end_(0)
