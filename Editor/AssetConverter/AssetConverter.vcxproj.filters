@@ -273,9 +273,6 @@
     <ClInclude Include="Entity\File\Model\ModelConstants.h">
       <Filter>ヘッダー ファイル\Assimp</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\File\Raw\Texture\TextureAssetEntity.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Texture</Filter>
-    </ClInclude>
     <ClInclude Include="Entity\File\FileAssetEntity.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -331,6 +328,12 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Entity\File\Shader\ShaderAssetImporter.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Texture\TextureAssetEntity.h">
+      <Filter>ヘッダー ファイル\Asset\_File\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Texture\TextureAssetImporter.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -480,6 +483,12 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Entity\File\Shader\ShaderAssetImporter.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Texture\TextureAssetEntity.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Texture\TextureAssetImporter.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

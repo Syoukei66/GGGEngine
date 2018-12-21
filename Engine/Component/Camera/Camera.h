@@ -44,15 +44,15 @@ public:
     return this->viewport_clear_;
   }
 
-  GG_INLINE void SetTargetTexture(const SharedRef<rcRenderTexture>& texture)
-  {
-    this->target_texture_ = texture;
-  }
+  //GG_INLINE void SetTargetTexture(const SharedRef<rcRenderTexture>& texture)
+  //{
+  //  this->target_texture_ = texture;
+  //}
 
-  GG_INLINE SharedRef<rcRenderTexture> GetTargetTexture() const
-  {
-    return this->target_texture_;
-  }
+  //GG_INLINE SharedRef<rcRenderTexture> GetTargetTexture() const
+  //{
+  //  return this->target_texture_;
+  //}
 
   void SetViewportPosition(const TVec2f& position);
   void SetViewportPosition(T_FLOAT x, T_FLOAT y);
@@ -136,7 +136,7 @@ protected:
   TVec3f direction_;
 
 private:
-  SharedRef<rcRenderTexture> target_texture_;
+  //SharedRef<rcRenderTexture> target_texture_;
   bool viewport_clear_;
   TVec2f position_;
   TVec2f size_;

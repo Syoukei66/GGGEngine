@@ -40,7 +40,6 @@
 #include <Core/Application/Platform/API/_Resource/ConstantBuffer.h>
 #include <Core/Application/Platform/API/_Resource/IndexBuffer.h>
 #include <Core/Application/Platform/API/_Resource/PixelShader.h>
-#include <Core/Application/Platform/API/_Resource/RenderBuffer/RenderBuffer.h>
 #include <Core/Application/Platform/API/_Resource/RenderState.h>
 #include <Core/Application/Platform/API/_Resource/RenderTexture/RenderTexture.h>
 #include <Core/Application/Platform/API/_Resource/TextureResource.h>

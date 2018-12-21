@@ -4,6 +4,7 @@
 #include <Core/Util/FileUtil.h>
 
 #include "EngineAttachmentLoader.h"
+#include <Asset/Texture/Texture.h>
 
 // =================================================================
 // Factory Method

@@ -6,7 +6,7 @@
 #include <Assimp/postprocess.h>
 
 #include <Entity/File/Model/Material/ModelMaterialAssetEntity.h>
-#include <Entity/File/Raw/Texture/TextureAssetEntity.h>
+#include <Entity/File/Texture/TextureAssetEntity.h>
 #include <Entity/File/Shader/ShaderAssetEntity.h>
 
 #include <Entity/Default/DefaultAsset.h>

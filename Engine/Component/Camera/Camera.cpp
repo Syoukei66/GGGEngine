@@ -32,20 +32,20 @@ void Camera::DrawScene(Scene* scene)
   {
     return;
   }
-  if (this->target_texture_)
-  {
-    this->target_texture_->RenderBegin();
-  }
+  //if (this->target_texture_)
+  //{
+  //  this->target_texture_->RenderBegin();
+  //}
   this->SetupCamera();
   if (this->viewport_clear_)
   {
     Application::GetPlatform()->GetGraphicsAPI()->ViewportClear(this->bg_color_);
   }
   this->OnDrawScene(scene);
-  if (this->target_texture_)
-  {
-    this->target_texture_->RenderEnd();
-  }
+  //if (this->target_texture_)
+  //{
+  //  this->target_texture_->RenderEnd();
+  //}
 }
 
 void Camera::SetupCamera()

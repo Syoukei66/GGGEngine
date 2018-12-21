@@ -12,6 +12,7 @@ struct TextureResourceData
   // =================================================================
   GG_SERIALIZABLE(TextureResourceData)
   {
+    archive(bytes_per_pixel_);
     archive(width_);
     archive(height_);
     archive(format_);
@@ -23,7 +24,8 @@ struct TextureResourceData
   // =================================================================
 public:
   TextureResourceData()
-    : width_(1)
+    : bytes_per_pixel_(1)
+    , width_(1)
     , height_(1)
     , format_(static_cast<T_FIXED_UINT8>(Shader::TextureFormat::kR8G8B8A8_UINT))
     , data_()
@@ -33,6 +35,7 @@ public:
   // Data Members
   // =================================================================
 public:
+  T_FIXED_UINT8 bytes_per_pixel_;
   T_FIXED_UINT16 width_; // two power value
   T_FIXED_UINT16 height_; // two power value
   T_FIXED_UINT8 format_; // TextureFormat

@@ -31,21 +31,6 @@
     <Filter Include="ソース ファイル\Resource">
       <UniqueIdentifier>{c4fddef0-a5fe-46a9-9087-90c4557fdf54}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Resource\Material">
-      <UniqueIdentifier>{94425a4f-a9c5-4fe6-8ee3-8ce7e54de490}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Resource\Mesh">
-      <UniqueIdentifier>{67d24e54-6d35-4d02-9fbb-e6cc2e0c1cc3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Resource\Mesh">
-      <UniqueIdentifier>{1509ecdb-a3d0-4261-8861-60920556c309}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Resource\Mesh\Factory">
-      <UniqueIdentifier>{c1906f7a-81b8-4d2e-b637-1ed6dde0b437}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Resource\Mesh\Factory">
-      <UniqueIdentifier>{bad9e72d-a38d-4b30-a9c9-936fdf32d226}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Color">
       <UniqueIdentifier>{2e3cf0cd-9f8e-4fc7-ba2a-a1ae6357603a}</UniqueIdentifier>
     </Filter>
@@ -64,15 +49,6 @@
     <Filter Include="ヘッダー ファイル\Easing">
       <UniqueIdentifier>{9c28610e-f9b5-4fc4-899a-d71961081ad4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Resource\Sprite">
-      <UniqueIdentifier>{6529bd04-73e1-4f04-b152-01158b134f56}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Resource\Sprite">
-      <UniqueIdentifier>{58bc9e02-a8b4-485b-bd38-4d15d223fad0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Resource\Particle">
-      <UniqueIdentifier>{b0e08f7c-9f36-4f83-9096-e264709dce26}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Resource\_Native">
       <UniqueIdentifier>{1530c29f-3dc1-4c72-bc80-88971cd9989c}</UniqueIdentifier>
     </Filter>
@@ -82,26 +58,11 @@
     <Filter Include="ヘッダー ファイル\Resource\_Native\Texture">
       <UniqueIdentifier>{056f4855-d2f0-4dba-806d-9553f7ce8f31}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\Resource\_Native\Sound">
-      <UniqueIdentifier>{7327134f-9b13-41b1-905a-f4eb10d236ea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Resource\_Native\Shader">
-      <UniqueIdentifier>{9c57507b-8fe5-4f1d-8e3e-3a65c6ffe59a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Resource\_Native">
       <UniqueIdentifier>{dce677fd-bafd-4d28-8d37-f9f8701036c4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Resource\_Native\Buffer">
-      <UniqueIdentifier>{50e857b2-2eba-4ec8-b129-1ca2563746fa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Resource\_Native\Sound">
-      <UniqueIdentifier>{2505bbb5-2ec8-4bce-be00-42ed80018574}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Resource\_Native\Texture">
       <UniqueIdentifier>{5426da2a-9da6-4e19-96cb-f5db012896d2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Resource\_Native\Shader">
-      <UniqueIdentifier>{c4149c55-060d-4818-8261-2efef4c7ac28}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Util">
       <UniqueIdentifier>{d3174858-2639-43ca-8051-07f239adc3ed}</UniqueIdentifier>
@@ -127,41 +88,8 @@
     <Filter Include="ソース ファイル\ThirdPirty\Cereal\Test">
       <UniqueIdentifier>{d4b03b38-f3a4-4c77-8d25-e244e21b478b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Resource\CSV">
-      <UniqueIdentifier>{9fb3c567-02cb-4154-a2c2-ed5e15a5d0e0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Resource\CSV">
-      <UniqueIdentifier>{f602428e-cf2f-4c54-bd39-f1a8169e7207}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Resource\Json">
-      <UniqueIdentifier>{a8191ea1-53ff-4da0-9782-8e215776e1c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Resource\Json">
-      <UniqueIdentifier>{d21b3476-e7fe-4e55-a8ac-781701d60d00}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Resource\Spine">
-      <UniqueIdentifier>{26bd4d5e-5670-4be8-9526-604119e68e01}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Resource\Spine">
-      <UniqueIdentifier>{4bdb9f6c-4711-4f2b-87be-e08c17084ea3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Resource\Particle">
-      <UniqueIdentifier>{bd05a48a-05f9-420d-a7df-6f67858bdfd3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Resource\Model">
-      <UniqueIdentifier>{df72701c-9059-4bc9-b0e4-c11e837cad3e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Resource\Model">
-      <UniqueIdentifier>{6bd89c7e-f7ea-4f24-9b32-b7f40c9d1d2d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Macro">
       <UniqueIdentifier>{7d135c1c-122c-47dd-ab41-706c7fa78929}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\Resource\TextureAtlas">
-      <UniqueIdentifier>{c8435a3e-f2cc-4cb2-8d91-0feaeb281f66}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Resource\TextureAtlas">
-      <UniqueIdentifier>{54a52273-5d80-4f10-ae06-6900bf9668c4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -263,9 +191,6 @@
     </ClInclude>
     <ClInclude Include="Application\Platform\API\_Asset\APIAssetObject.h">
       <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Application\Platform\API\_Resource\RenderBuffer\RenderBuffer.h">
-      <Filter>ヘッダー ファイル\Resource\_Native\Texture</Filter>
     </ClInclude>
     <ClInclude Include="Application\Platform\API\_Resource\RenderTexture\RenderTexture.h">
       <Filter>ヘッダー ファイル</Filter>
@@ -412,9 +337,6 @@
     </ClCompile>
     <ClCompile Include="Application\Platform\API\_Asset\AudioClip\AudioClip.cpp">
       <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Platform\API\_Resource\RenderBuffer\RenderBuffer.cpp">
-      <Filter>ソース ファイル\Resource\_Native\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Application\Platform\API\_Resource\RenderTexture\RenderTexture.cpp">
       <Filter>ソース ファイル</Filter>

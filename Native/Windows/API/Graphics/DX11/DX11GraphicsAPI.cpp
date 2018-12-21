@@ -6,7 +6,6 @@
 
 #include "imgui\imgui_impl_dx11.h"
 #include "DX11Constants.h"
-#include "DX11TextureResource.h"
 
 // =================================================================
 // GGG Statement
@@ -198,9 +197,9 @@ void DX11GraphicsAPI::UnpackColor4u8(T_FIXED_UINT32 color, T_UINT8* r, T_UINT8* 
   (*a) = (color >> 0) & 0xff;
 }
 
-void DX11GraphicsAPI::SetRenderTarget(const SharedRef<rcRenderBuffer>& color_buffer, const SharedRef<rcRenderBuffer>& depth_stencil_buffer, bool clear)
-{
-}
+//void DX11GraphicsAPI::SetRenderTarget(const SharedRef<rcRenderBuffer>& color_buffer, const SharedRef<rcRenderBuffer>& depth_stencil_buffer, bool clear)
+//{
+//}
 
 void DX11GraphicsAPI::ResetRenderTarget()
 {
@@ -210,75 +209,6 @@ void DX11GraphicsAPI::DrawIndexedPrimitive(Vertex::PrimitiveType primitive_type,
 {
   this->immediate_context_->IASetPrimitiveTopology(DX11::PRIMITIVE_TYPES[static_cast<T_UINT32>(primitive_type)]);
   this->immediate_context_->DrawIndexed(index_buffer->GetVertexCount(), 0, 0);
-}
-
-
-#include <DirectXTex.h>
-//#include <Editor/ThirdParty/DirectXTex/DirectXTex.inl>
-#include <Editor/ThirdParty/DirectXTex/WICTextureLoader/WICTextureLoader.h>
-
-#pragma comment(lib, "DirectXTex.lib")
-
-#include <regex>
-
-UniqueRef<rcTexture> DX11GraphicsAPI::TextureLoad(const char* path)
-{
-  ID3D11Resource* texture;
-  ID3D11ShaderResourceView* shader_resource_view;
-
-  std::string filename = path;
-  std::regex re("(.+)\\.(.+)");
-  std::smatch result;
-  std::regex_match(filename, result, re);
-  std::string extension = result[2];
-
-  WCHAR	wpath[256] = {};
-
-  size_t wLen = 0;
-  errno_t err = 0;
-
-  //ロケール指定
-  setlocale(LC_ALL, "japanese");
-  //変換
-  err = mbstowcs(wpath, path, sizeof(wpath));
-  DirectX::TexMetadata metadata;
-  DirectX::ScratchImage image;
-
-
-  HRESULT hr = S_FALSE;
-  if (extension == "tga")
-  {
-    hr = DirectX::LoadFromTGAFile(wpath, &metadata, image);
-  }
-  else
-  {
-    hr = DirectX::LoadFromWICFile(wpath, 0, &metadata, image);
-  }
-  GG_ASSERT(SUCCEEDED(hr), "テクスチャの読み込みに失敗しました");
-
-  hr = DirectX::CreateShaderResourceView(this->device_, image.GetImages(), image.GetImageCount(), metadata, &shader_resource_view);
-  GG_ASSERT(SUCCEEDED(hr), "シェーダーリソースビューの作成に失敗しました");
-
-  return rcTexture::Create(metadata.width, metadata.height, UniqueRef<DX11TextureResource>(new DX11TextureResource(shader_resource_view)));
-}
-
-UniqueRef<rcRenderBuffer> DX11GraphicsAPI::CreateColorBuffer(const SharedRef<const rcTexture>& texture)
-{
-  return UniqueRef<rcRenderBuffer>();
-}
-
-UniqueRef<rcRenderBuffer> DX11GraphicsAPI::CreateDepthStencilBuffer(T_UINT16 width, T_UINT16 height, ::Graphics::PixelFormat format)
-{
-  return UniqueRef<rcRenderBuffer>();
-}
-
-void DX11GraphicsAPI::DeleteRenderBuffer(rcRenderBuffer* render_buffer)
-{
-}
-
-UniqueRef<rcRenderTexture> DX11GraphicsAPI::CreateRenderTexture(T_UINT16 width, T_UINT16 height, ::Graphics::PixelFormat format, ::Graphics::PixelFormat depth_format)
-{
-  return UniqueRef<rcRenderTexture>();
 }
 
 bool DX11GraphicsAPI::ImGuiNewFrame()

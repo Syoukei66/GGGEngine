@@ -7,13 +7,14 @@
 #include <Entity/File/Raw/CSV/CsvAssetEntity.h>
 #include <Entity/File/Raw/Json/JsonAssetEntity.h>
 #include <Entity/File/Raw/Sound/SoundAssetEntity.h>
-#include <Entity/File/Raw/Texture/TextureAssetEntity.h>
 
 #include <Entity/File/Model/Material/ModelMaterialAssetEntity.h>
 #include <Entity/File/Model/StaticModel/StaticModelAssetEntity.h>
 #include <Entity/File/Model/CharacterModel/CharacterModelAssetEntity.h>
 
 #include <Entity/File/Shader/ShaderAssetEntity.h>
+
+#include <Entity/File/Texture/TextureAssetEntity.h>
 
 #include <Entity/Default/Material/DefaultMaterialAssetConverterFactory.h>
 
@@ -49,6 +50,8 @@ void AssetConverterDirector::Init()
   self->converter_manager_->AddConverter(CsvAssetEntity::CreateConverter());
   self->converter_manager_->AddConverter(JsonAssetEntity::CreateConverter());
   self->converter_manager_->AddConverter(SoundAssetEntity::CreateConverter());
+
+  // Texture
   self->converter_manager_->AddConverter(TextureAssetEntity::CreateConverter());
 
   // Shader

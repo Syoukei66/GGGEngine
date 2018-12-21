@@ -1,5 +1,4 @@
 #include "Texture.h"
-#include <Core/Application/Platform/API/_Resource/RenderBuffer/RenderBuffer.h>
 
 // =================================================================
 // GGG Statement
@@ -11,6 +10,8 @@ GG_INIT_FUNC_IMPL_1(rcTexture, const TextureData& data)
 
   this->resource_ = rcTextureResource::Create(data.resource_data_);
   //this->sampler_ = rcTextureSampler::Create(data.sampler_data_);
+
+  return true;
 }
 
 // =================================================================
