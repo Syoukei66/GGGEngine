@@ -194,12 +194,19 @@ void DX11GraphicsAPI::DrawIndexedPrimitive(Vertex::PrimitiveType primitive_type,
 
 #pragma comment(lib, "DirectXTex.lib")
 
+#include <regex>
 
 UniqueRef<rcTexture> DX11GraphicsAPI::TextureLoad(const char* path)
 {
   ID3D11Resource* texture;
   ID3D11ShaderResourceView* shader_resource_view;
-  
+
+  std::string filename = path;
+  std::regex re("(.+)\\.(.+)");
+  std::smatch result;
+  std::regex_match(filename, result, re);
+  std::string extension = result[2];
+
   WCHAR	wpath[256] = {};
 
   size_t wLen = 0;
@@ -211,7 +218,17 @@ UniqueRef<rcTexture> DX11GraphicsAPI::TextureLoad(const char* path)
   err = mbstowcs(wpath, path, sizeof(wpath));
   DirectX::TexMetadata metadata;
   DirectX::ScratchImage image;
-  HRESULT hr = DirectX::LoadFromWICFile(wpath, 0, &metadata, image);
+
+
+  HRESULT hr = S_FALSE;
+  if (extension == "tga")
+  {
+    hr = DirectX::LoadFromTGAFile(wpath, &metadata, image);
+  }
+  else
+  {
+    hr = DirectX::LoadFromWICFile(wpath, 0, &metadata, image);
+  }
   GG_ASSERT(SUCCEEDED(hr), "テクスチャの読み込みに失敗しました");
 
   hr = DirectX::CreateShaderResourceView(this->device_, image.GetImages(), image.GetImageCount(), metadata, &shader_resource_view);
