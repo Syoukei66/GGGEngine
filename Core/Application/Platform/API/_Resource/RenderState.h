@@ -25,24 +25,24 @@ struct BlendStateData
   // =================================================================
 public:
   BlendStateData()
-    : blend_color_src_factor_(static_cast<T_UINT8>(Shader::BlendFactor::kOne))
-    , blend_color_dst_factor_(static_cast<T_UINT8>(Shader::BlendFactor::kZero))
-    , blend_color_op_(static_cast<T_UINT8>(Shader::BlendOp::kAdd))
-    , blend_alpha_src_factor_(static_cast<T_UINT8>(Shader::BlendFactor::kOne))
-    , blend_alpha_dst_factor_(static_cast<T_UINT8>(Shader::BlendFactor::kZero))
-    , blend_alpha_op_(static_cast<T_UINT8>(Shader::BlendOp::kAdd))
+    : blend_color_src_factor_(static_cast<T_FIXED_UINT8>(Shader::BlendFactor::kOne))
+    , blend_color_dst_factor_(static_cast<T_FIXED_UINT8>(Shader::BlendFactor::kZero))
+    , blend_color_op_(static_cast<T_FIXED_UINT8>(Shader::BlendOp::kAdd))
+    , blend_alpha_src_factor_(static_cast<T_FIXED_UINT8>(Shader::BlendFactor::kOne))
+    , blend_alpha_dst_factor_(static_cast<T_FIXED_UINT8>(Shader::BlendFactor::kZero))
+    , blend_alpha_op_(static_cast<T_FIXED_UINT8>(Shader::BlendOp::kAdd))
   {}
 
   // =================================================================
   // Data Members
   // =================================================================
 public:
-  T_UINT8 blend_color_src_factor_; // BlendFactor
-  T_UINT8 blend_color_dst_factor_; // BlendFactor
-  T_UINT8 blend_color_op_;         // BlendOp
-  T_UINT8 blend_alpha_src_factor_; // BlendFactor
-  T_UINT8 blend_alpha_dst_factor_; // BlendFactor
-  T_UINT8 blend_alpha_op_;         // BlendOp
+  T_FIXED_UINT8 blend_color_src_factor_; // BlendFactor
+  T_FIXED_UINT8 blend_color_dst_factor_; // BlendFactor
+  T_FIXED_UINT8 blend_color_op_;         // BlendOp
+  T_FIXED_UINT8 blend_alpha_src_factor_; // BlendFactor
+  T_FIXED_UINT8 blend_alpha_dst_factor_; // BlendFactor
+  T_FIXED_UINT8 blend_alpha_op_;         // BlendOp
 };
 
 /*!
@@ -76,33 +76,33 @@ public:
     : stencil_ref_(0xff)
     , stencil_read_mask_(0xff)
     , stencil_write_mask_(0xff)
-    , stencil_comp_front_(static_cast<T_UINT8>(Shader::ComparasionFunc::kAlways))
-    , stencil_pass_front_(static_cast<T_UINT8>(Shader::StencilOperation::kKeep))
-    , stencil_fail_front_(static_cast<T_UINT8>(Shader::StencilOperation::kKeep))
-    , stencil_zfail_front_(static_cast<T_UINT8>(Shader::StencilOperation::kKeep))
-    , stencil_comp_back_(static_cast<T_UINT8>(Shader::ComparasionFunc::kAlways))
-    , stencil_pass_back_(static_cast<T_UINT8>(Shader::StencilOperation::kKeep))
-    , stencil_fail_back_(static_cast<T_UINT8>(Shader::StencilOperation::kKeep))
-    , stencil_zfail_back_(static_cast<T_UINT8>(Shader::StencilOperation::kKeep))
+    , stencil_comp_front_(static_cast<T_FIXED_UINT8>(Shader::ComparasionFunc::kAlways))
+    , stencil_pass_front_(static_cast<T_FIXED_UINT8>(Shader::StencilOperation::kKeep))
+    , stencil_fail_front_(static_cast<T_FIXED_UINT8>(Shader::StencilOperation::kKeep))
+    , stencil_zfail_front_(static_cast<T_FIXED_UINT8>(Shader::StencilOperation::kKeep))
+    , stencil_comp_back_(static_cast<T_FIXED_UINT8>(Shader::ComparasionFunc::kAlways))
+    , stencil_pass_back_(static_cast<T_FIXED_UINT8>(Shader::StencilOperation::kKeep))
+    , stencil_fail_back_(static_cast<T_FIXED_UINT8>(Shader::StencilOperation::kKeep))
+    , stencil_zfail_back_(static_cast<T_FIXED_UINT8>(Shader::StencilOperation::kKeep))
   {}
 
   // =================================================================
   // Data Members
   // =================================================================
 public:
-  T_UINT8 stencil_ref_;        // 0~255
-  T_UINT8 stencil_read_mask_;  // 0~255
-  T_UINT8 stencil_write_mask_; // 0~255
+  T_FIXED_UINT8 stencil_ref_;        // 0~255
+  T_FIXED_UINT8 stencil_read_mask_;  // 0~255
+  T_FIXED_UINT8 stencil_write_mask_; // 0~255
 
-  T_UINT8 stencil_comp_front_;  // ComparasionFunc
-  T_UINT8 stencil_pass_front_;  // StencilOperation
-  T_UINT8 stencil_fail_front_;  // StencilOperation
-  T_UINT8 stencil_zfail_front_; // StencilOperation
+  T_FIXED_UINT8 stencil_comp_front_;  // ComparasionFunc
+  T_FIXED_UINT8 stencil_pass_front_;  // StencilOperation
+  T_FIXED_UINT8 stencil_fail_front_;  // StencilOperation
+  T_FIXED_UINT8 stencil_zfail_front_; // StencilOperation
 
-  T_UINT8 stencil_comp_back_;  // ComparasionFunc
-  T_UINT8 stencil_pass_back_;  // StencilOperation
-  T_UINT8 stencil_fail_back_;  // StencilOperation
-  T_UINT8 stencil_zfail_back_; // StencilOperation
+  T_FIXED_UINT8 stencil_comp_back_;  // ComparasionFunc
+  T_FIXED_UINT8 stencil_pass_back_;  // StencilOperation
+  T_FIXED_UINT8 stencil_fail_back_;  // StencilOperation
+  T_FIXED_UINT8 stencil_zfail_back_; // StencilOperation
 };
 
 /*!
@@ -128,9 +128,9 @@ struct RenderStateData
   // =================================================================
 public:
   RenderStateData()
-    : cull_mode_(static_cast<T_UINT8>(Shader::CullMode::kBack))
-    , z_write_(static_cast<T_UINT8>(Shader::ZWrite::kOn))
-    , z_test_(static_cast<T_UINT8>(Shader::ComparasionFunc::kLEqual))
+    : cull_mode_(static_cast<T_FIXED_UINT8>(Shader::CullMode::kBack))
+    , z_write_(static_cast<T_FIXED_UINT8>(Shader::ZWrite::kOn))
+    , z_test_(static_cast<T_FIXED_UINT8>(Shader::ComparasionFunc::kLEqual))
     , blend_state_datas_()
     , stencil_state_data_()
   {}
@@ -147,9 +147,9 @@ public:
   // Data Members
   // =================================================================
 public:
-  T_UINT8 cull_mode_; // CullMode
-  T_UINT8 z_write_;   // ZWrite
-  T_UINT8 z_test_;    // ComparasionFunc
+  T_FIXED_UINT8 cull_mode_; // CullMode
+  T_FIXED_UINT8 z_write_;   // ZWrite
+  T_FIXED_UINT8 z_test_;    // ComparasionFunc
 
   std::vector<BlendStateData> blend_state_datas_;
   std::unique_ptr<StencilStateData> stencil_state_data_;

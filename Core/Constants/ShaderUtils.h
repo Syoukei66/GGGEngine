@@ -5,7 +5,7 @@ namespace Shader
 /*!
  * @brief 組み込み変数
  */
-enum class BuiltinVariable : T_UINT8
+enum class BuiltinVariable : T_FIXED_UINT8
 {
   kMatrix_MVP,
   kMatrix_MV,
@@ -25,7 +25,7 @@ enum class BuiltinVariable : T_UINT8
 /*!
  * @brief パスのライトモード
  */
-enum class LightMode : T_UINT8
+enum class LightMode : T_FIXED_UINT8
 {
   kAlways,
   kForwardBase,
@@ -40,7 +40,7 @@ enum class LightMode : T_UINT8
 /*!
  * @brief カリングモード
  */
-enum class CullMode : T_UINT8
+enum class CullMode : T_FIXED_UINT8
 {
   kBack,
   kFront,
@@ -52,7 +52,7 @@ enum class CullMode : T_UINT8
 /*!
  * @brief Zバッファ書き込みモード
  */
-enum class ZWrite : T_UINT8
+enum class ZWrite : T_FIXED_UINT8
 {
   kOn,
   kOff,
@@ -63,7 +63,7 @@ enum class ZWrite : T_UINT8
 /*!
  * @brief 比較関数
  */
-enum class ComparasionFunc : T_UINT8
+enum class ComparasionFunc : T_FIXED_UINT8
 {
   kLess,
   kGreater,
@@ -79,7 +79,7 @@ enum class ComparasionFunc : T_UINT8
 /*!
  * @brief ブレンドモード係数
  */
-enum class BlendFactor : T_UINT8
+enum class BlendFactor : T_FIXED_UINT8
 {
   kOne,
   kZero,
@@ -98,7 +98,7 @@ enum class BlendFactor : T_UINT8
 /*!
  * @brief ブレンドモード演算子
  */
-enum class BlendOp : T_UINT8
+enum class BlendOp : T_FIXED_UINT8
 {
   kAdd,
   kSub,
@@ -112,7 +112,7 @@ enum class BlendOp : T_UINT8
 /*!
  * @brief ステンシルテスト通過時の操作
  */
-enum class StencilOperation : T_UINT8
+enum class StencilOperation : T_FIXED_UINT8
 {
   kKeep,
   kZero,
@@ -129,7 +129,7 @@ enum class StencilOperation : T_UINT8
 /*!
  * @brief 変数のタイプ
  */
-enum class VariableType : T_UINT8
+enum class VariableType : T_FIXED_UINT8
 {
   kBool,
   kInt,
@@ -143,7 +143,7 @@ enum class VariableType : T_UINT8
 /*!
  * @brief 変数のタイプ
  */
-enum class ColorType : T_UINT8
+enum class ColorType : T_FIXED_UINT8
 {
   kColor,
   kColorHDR,
@@ -154,7 +154,7 @@ enum class ColorType : T_UINT8
 /*!
  * @brief サンプラーのタイプ
  */
-enum class SamplerType : T_UINT8
+enum class SamplerType : T_FIXED_UINT8
 {
   kSampler2D,
   kSamplerCube,
@@ -166,7 +166,7 @@ enum class SamplerType : T_UINT8
 /*!
  * @brief デフォルトテクスチャのタイプ
  */
-enum class DefaultTextureType : T_UINT8
+enum class DefaultTextureType : T_FIXED_UINT8
 {
   kWhite,
   kBlack,
@@ -178,7 +178,7 @@ enum class DefaultTextureType : T_UINT8
 /*!
  * @brief RenderQueueのタイプ
  */
-enum class RenderQueue : T_UINT8
+enum class RenderQueue : T_FIXED_UINT8
 {
   kBackGround,
   kGeometry,
@@ -192,7 +192,7 @@ enum class RenderQueue : T_UINT8
 /*!
  * @brief 描画タイプ
  */
-enum class RenderType : T_UINT8
+enum class RenderType : T_FIXED_UINT8
 {
   kOpaque,
   kTransparent,
@@ -206,7 +206,7 @@ enum class RenderType : T_UINT8
 /*!
  * @brief コンスタントバッファのID
  */
-enum class ConstantBufferId : T_UINT8
+enum class ConstantBufferId : T_FIXED_UINT8
 {
   kRendererBuiltin,
   kRenderStateBuiltin,
@@ -216,15 +216,30 @@ enum class ConstantBufferId : T_UINT8
 };
 
 /*!
- * @brief コンスタントバッファのID
+ * @brief テクスチャのフィルタリングモード
  */
-//enum class ConstantBufferId : T_UINT8
-//{
-//  kRendererBuiltin,
-//  kRenderStateBuiltin,
-//  kProperty,
-//
-//  DATANUM,
-//};
+enum class TextureFilter
+{
+  kPoint,
+  kBilinear,
+  kTrilinear,
+
+  DATANUM,
+};
+
+/*!
+ * @brief テクスチャのアドレッシングモード。
+ * 0~1の範囲外のUV座標をどう処理するか
+ */
+enum class TextureAddress
+{
+  kWrap,
+  kMirror,
+  kClamp,
+  kBorder,
+  kMirrorOnce,
+
+  DATANUM,
+};
 
 } // namespace Shader
