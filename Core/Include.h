@@ -45,6 +45,7 @@
 #include <Core/Application/Platform/API/_Resource/RenderBuffer/RenderBuffer.h>
 #include <Core/Application/Platform/API/_Resource/RenderState.h>
 #include <Core/Application/Platform/API/_Resource/RenderTexture/RenderTexture.h>
+#include <Core/Application/Platform/API/_Resource/TextureResource.h>
 #include <Core/Application/Platform/API/_Resource/VertexBuffer.h>
 #include <Core/Application/Platform/API/_Resource/VertexDeclaration.h>
 #include <Core/Application/Platform/API/_Resource/VertexShader.h>

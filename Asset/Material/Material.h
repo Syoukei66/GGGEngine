@@ -13,6 +13,8 @@ struct MaterialData
   {
     archive(shader_unique_id_);
 
+    archive(main_texture_unique_id_);
+
     archive(data_offset_table_);
     archive(data_);
 
@@ -25,6 +27,8 @@ struct MaterialData
   // =================================================================
 public:
   T_FIXED_UINT32 shader_unique_id_;
+
+  T_FIXED_UINT32 main_texture_unique_id_;
 
   std::unordered_map<std::string, T_UINT32> data_offset_table_;
   std::vector<unsigned char> data_;
@@ -75,11 +79,11 @@ public:
 
   GG_INLINE void SetMainTexture(const SharedRef<const rcTexture>& texture)
   {
-    this->GetTexture("_MainTex") = texture;
+    this->main_texture_ = texture;
   }
   GG_INLINE SharedRef<const rcTexture> GetMainTexture() const
   {
-    return this->GetTexture("_MainTex");
+    return this->main_texture_;
   }
 
   GG_INLINE T_UINT32 GetDataHandle(const std::string& property_name) const
@@ -136,6 +140,8 @@ public:
   // =================================================================
 protected:
   SharedRef<rcShader> shader_;
+
+  SharedRef<const rcTexture> main_texture_;
 
   // シェーダープロパティ
   std::unordered_map<std::string, T_UINT32> data_offset_table_;

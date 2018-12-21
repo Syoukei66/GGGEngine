@@ -186,6 +186,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="API\Graphics\DX11\DX11IndexBuffer.h" />
     <ClInclude Include="API\Graphics\DX11\DX11PixelShader.h" />
     <ClInclude Include="API\Graphics\DX11\DX11RenderState.h" />
+    <ClInclude Include="API\Graphics\DX11\DX11TextureResource.h" />
     <ClInclude Include="API\Graphics\DX11\DX11VertexBuffer.h" />
     <ClInclude Include="API\Graphics\DX11\DX11VertexShader.h" />
     <ClInclude Include="API\Graphics\DX11\imgui\imgui_impl_dx11.h" />
@@ -226,6 +227,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClCompile Include="API\Graphics\DX11\DX11IndexBuffer.cpp" />
     <ClCompile Include="API\Graphics\DX11\DX11PixelShader.cpp" />
     <ClCompile Include="API\Graphics\DX11\DX11RenderState.cpp" />
+    <ClCompile Include="API\Graphics\DX11\DX11TextureResource.cpp" />
     <ClCompile Include="API\Graphics\DX11\DX11VertexBuffer.cpp" />
     <ClCompile Include="API\Graphics\DX11\DX11VertexDeclaration.cpp" />
     <ClCompile Include="API\Graphics\DX11\DX11VertexShader.cpp" />

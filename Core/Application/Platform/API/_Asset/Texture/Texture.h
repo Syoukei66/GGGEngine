@@ -2,6 +2,7 @@
 
 #include <Core/Application/Platform/API/_Asset/APIAssetObject.h>
 #include <Core/Application/Platform/API/_Resource/RenderBuffer/RenderBuffer.h>
+#include <Core/Application/Platform/API/_Resource/TextureResource.h>
 
 class rcTexture : public GGAPIAssetObject
 {
@@ -15,26 +16,26 @@ class rcTexture : public GGAPIAssetObject
   // =================================================================
 public:
   static UniqueRef<rcTexture> CreateFromFile(const char* path);
-  static UniqueRef<rcTexture> Create(T_UINT16 width, T_UINT16 height, void* native_obj);
+  static UniqueRef<rcTexture> Create(T_UINT16 width, T_UINT16 height, const SharedRef<rcTextureResource>& texture_resource);
 
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 protected:
-  rcTexture(T_UINT16 width, T_UINT16 height, void* native_obj);
+  rcTexture(T_UINT16 width, T_UINT16 height, const SharedRef<rcTextureResource>& texture_resource);
   virtual ~rcTexture();
 
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  GG_INLINE void* GetNativeObject()
+  GG_INLINE SharedRef<rcTextureResource> GetNativeResource()
   {
-    return this->native_obj_;
+    return this->resource_;
   }
-  GG_INLINE const void* GetNativeObject() const
+  GG_INLINE SharedRef<const rcTextureResource> GetNativeResource() const
   {
-    return this->native_obj_;
+    return this->resource_;
   }
 
   GG_INLINE T_UINT16 GetWidth() const
@@ -66,7 +67,7 @@ public:
   // Data Members
   // =================================================================
 protected:
-  void* native_obj_;
+  SharedRef<rcTextureResource> resource_;
 
   T_UINT16 width_;
   T_UINT16 height_;

@@ -54,10 +54,9 @@ void Renderer::Draw(GameObjectRenderState* state) const
     const SharedRef<const rcMaterial>& material = this->GetMaterial(i);
     const SharedRef<rcShader>& shader = material->GetShader();
     this->BeginPass(0, shader);
-    //material->SetBuffer();
+    material->SetBuffer();
     this->builtin_variable_buffer_->SetBuffer();
     //state->SetConstantBuffer();
-    //RenderState‚ÌConstantBuffer‚Ì“o˜^
     this->DrawSubset(i);
   }
 }

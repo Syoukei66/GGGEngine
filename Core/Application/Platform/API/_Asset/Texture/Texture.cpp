@@ -9,16 +9,16 @@ UniqueRef<rcTexture> rcTexture::CreateFromFile(const char* path)
   return Application::GetPlatform()->GetGraphicsAPI()->TextureLoad(path);
 }
 
-UniqueRef<rcTexture> rcTexture::Create(T_UINT16 width, T_UINT16 height, void* native_obj)
+UniqueRef<rcTexture> rcTexture::Create(T_UINT16 width, T_UINT16 height, const SharedRef<rcTextureResource>& texture_resource)
 {
-  return UniqueRef<rcTexture>(new rcTexture(width, height, native_obj));
+  return UniqueRef<rcTexture>(new rcTexture(width, height, texture_resource));
 }
 
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-rcTexture::rcTexture(T_UINT16 width, T_UINT16 height, void* native_obj)
-  : native_obj_(native_obj)
+rcTexture::rcTexture(T_UINT16 width, T_UINT16 height, const SharedRef<rcTextureResource>& texture_resource)
+  : resource_(texture_resource)
   , width_(width)
   , height_(height)
 {

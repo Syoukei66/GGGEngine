@@ -30,6 +30,12 @@ GG_INIT_FUNC_IMPL_1(rcMaterial, const MaterialData& data)
     AssetManager::Load<rcShader>(DefaultUniqueID::SHADER_NO_SHADING)
   );
 
+  this->SetMainTexture(
+    data.main_texture_unique_id_ != 0 ?
+    AssetManager::Load<rcTexture>(data.main_texture_unique_id_) :
+    AssetManager::Load<rcTexture>(DefaultUniqueID::TEXTURE_WHITE)
+  );
+
   return true;
 }
 
@@ -67,12 +73,24 @@ GG_INIT_FUNC_IMPL_1(rcMaterial, const SharedRef<rcShader>& shader)
     data_offset += sizeof(T_FLOAT) * 4;
   }
   //TODO: SamplerProperty‚à’Ç‰Á‚·‚é
+  T_UINT32 texture_offset = 0;
+  for (const SamplerPropertyData& data : shader->GetSamplerPropertyDatas())
+  {
+    if (data.default_texture_ == static_cast<T_UINT8>(DefaultTextureType::kWhite))
+    {
+      this->textures_[texture_offset] = AssetManager::Load<rcTexture>(DefaultUniqueID::TEXTURE_WHITE);
+    }
+    this->texture_index_table_[data.name_] = texture_offset;
+    texture_offset += 1;
+  }
 
   this->constant_buffer_ = rcConstantBuffer::Create(
     Shader::ConstantBufferId::kProperty,
     (T_UINT32)this->data_.size()
   );
   this->constant_buffer_->CommitChanges(this->data_.data());
+
+  this->SetMainTexture(AssetManager::Load<rcTexture>(DefaultUniqueID::TEXTURE_WHITE));
 
   return true;
 }
@@ -115,4 +133,11 @@ void rcMaterial::CommitChanges()
 void rcMaterial::SetBuffer() const
 {
   this->constant_buffer_->SetBuffer();
+  const T_UINT32 texture_count = (T_UINT32)this->textures_.size();
+
+  this->main_texture_->GetNativeResource()->SetResource(0);
+  for (T_UINT32 i = 0; i < texture_count; ++i)
+  {
+    this->textures_[i]->GetNativeResource()->SetResource(i + 1);
+  }
 }

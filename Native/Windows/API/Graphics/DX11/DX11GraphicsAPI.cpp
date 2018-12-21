@@ -6,6 +6,7 @@
 
 #include "imgui\imgui_impl_dx11.h"
 #include "DX11Constants.h"
+#include "DX11TextureResource.h"
 
 // =================================================================
 // GGG Statement
@@ -208,37 +209,15 @@ UniqueRef<rcTexture> DX11GraphicsAPI::TextureLoad(const char* path)
   setlocale(LC_ALL, "japanese");
   //変換
   err = mbstowcs(wpath, path, sizeof(wpath));
-
-  HRESULT hr = DirectX::CreateWICTextureFromFile(this->device_, wpath, &texture, &shader_resource_view);
+  DirectX::TexMetadata metadata;
+  DirectX::ScratchImage image;
+  HRESULT hr = DirectX::LoadFromWICFile(wpath, 0, &metadata, image);
   GG_ASSERT(SUCCEEDED(hr), "テクスチャの読み込みに失敗しました");
 
-  //D3DXIMAGE_INFO info;
-  //HRESULT hr = D3DXGetImageInfoFromFile(
-  //  path,
-  //  &info
-  //);
-  //GG_ASSERT(SUCCEEDED(hr), "テクスチャサイズの取得に失敗しました");
+  hr = DirectX::CreateShaderResourceView(this->device_, image.GetImages(), image.GetImageCount(), metadata, &shader_resource_view);
+  GG_ASSERT(SUCCEEDED(hr), "シェーダーリソースビューの作成に失敗しました");
 
-  //LPDIRECT3DTEXTURE9 tex = nullptr;
-  //hr = D3DXCreateTextureFromFileEx(
-  //  (LPDIRECT3DDEVICE9)this->d3d_device_,
-  //  path,
-  //  D3DX_DEFAULT,
-  //  D3DX_DEFAULT,
-  //  D3DX_DEFAULT,
-  //  0,
-  //  D3DFMT_UNKNOWN,
-  //  D3DPOOL_MANAGED,
-  //  D3DX_FILTER_NONE,
-  //  D3DX_DEFAULT,
-  //  0,
-  //  NULL,
-  //  NULL,
-  //  &tex);
-
-  //GG_ASSERT(SUCCEEDED(hr), "テクスチャのロードに失敗しました");
-
-  return rcTexture::Create(256, 256, nullptr);
+  return rcTexture::Create(metadata.width, metadata.height, UniqueRef<DX11TextureResource>(new DX11TextureResource(shader_resource_view)));
 }
 
 void DX11GraphicsAPI::DeleteTexture(rcTexture* texture)

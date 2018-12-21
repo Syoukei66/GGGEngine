@@ -387,6 +387,9 @@
     <ClInclude Include="Application\Platform\API\_Resource\IndexBuffer.h">
       <Filter>ヘッダー ファイル\Resource\_Native\Buffer</Filter>
     </ClInclude>
+    <ClInclude Include="Application\Platform\API\_Resource\TextureResource.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
