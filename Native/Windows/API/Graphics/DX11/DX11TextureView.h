@@ -3,37 +3,29 @@
 #if GG_GRAPHICS_API_DX11
 
 #include <d3d11.h>
-#include <Core/Application/Platform/API/_Resource/TextureResource.h>
+#include <Core/Application/Platform/API/_Resource/TextureView.h>
 
-class DX11TextureResource : public rcTextureResource
+class DX11TextureView : public rcTextureView
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  DX11TextureResource(const TextureResourceData& data);
-  ~DX11TextureResource();
+  DX11TextureView(const TextureViewData& data, const SharedRef<rcTextureResource>& resource);
+  ~DX11TextureView();
 
   // =================================================================
-  // Data Members
+  // Method for/from SuperClass/Interfaces
   // =================================================================
 public:
-  DXGI_FORMAT GetFormat() const
-  {
-    return this->format_;
-  }
-
-  ID3D11Texture2D* GetResource() const
-  {
-    return this->resource_;
-  }
+  virtual void SetToHardware(T_UINT8 index) const override;
 
   // =================================================================
   // Data Members
   // =================================================================
 private:
-  ID3D11Texture2D* resource_;
-  DXGI_FORMAT format_;
+  ID3D11ShaderResourceView* resource_view_;
+  ID3D11SamplerState* sampler_state_;
 
 };
 

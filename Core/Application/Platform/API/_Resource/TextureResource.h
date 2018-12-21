@@ -59,10 +59,4 @@ class rcTextureResource : public GGAPIResourceObject
 public:
   static UniqueRef<rcTextureResource> Create(const TextureResourceData& data);
 
-  // =================================================================
-  // Method 
-  // =================================================================
-public:
-  virtual void SetResource(T_UINT8 index) const = 0;
-
 };

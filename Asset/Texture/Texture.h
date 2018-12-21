@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Core/Application/Platform/API/_Resource/TextureResource.h>
-#include <Core/Application/Platform/API/_Resource/TextureSampler.h>
+#include <Core/Application/Platform/API/_Resource/TextureView.h>
 
 /*!
  * @brief シェーダーリソースとしてのテクスチャのデータ
@@ -14,7 +14,7 @@ struct TextureData
   GG_SERIALIZABLE(TextureData)
   {
     archive(resource_data_);
-    archive(sampler_data_);
+    archive(view_data_);
   }
 
   // =================================================================
@@ -23,7 +23,7 @@ struct TextureData
 public:
   TextureData()
     : resource_data_()
-    , sampler_data_()
+    , view_data_()
   {}
 
   // =================================================================
@@ -31,7 +31,7 @@ public:
   // =================================================================
 public:
   TextureResourceData resource_data_;
-  TextureSamplerData sampler_data_;
+  TextureViewData view_data_;
 };
 
 /*!
@@ -78,7 +78,7 @@ public:
   // =================================================================
 protected:
   SharedRef<rcTextureResource> resource_;
-  SharedRef<rcTextureSampler> sampler_;
+  SharedRef<rcTextureView> view_;
 
   T_UINT16 width_;
   T_UINT16 height_;

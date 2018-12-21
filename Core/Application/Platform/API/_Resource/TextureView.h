@@ -1,16 +1,17 @@
 #pragma once
 
 #include <Core/Application/Platform/API/_Resource/APIResourceObject.h>
+#include <Core/Application/Platform/API/_Resource/TextureResource.h>
 
 /*!
- * @brief テクスチャサンプラのデータ
+ * @brief テクスチャビューのデータ
  */
-struct TextureSamplerData
+struct TextureViewData
 {
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_SERIALIZABLE(TextureSamplerData)
+  GG_SERIALIZABLE(TextureViewData)
   {
     archive(filter_);
     archive(address_u_);
@@ -24,7 +25,7 @@ struct TextureSamplerData
   // Constructor / Destructor
   // =================================================================
 public:
-  TextureSamplerData()
+  TextureViewData()
     : filter_(static_cast<T_FIXED_UINT8>(Shader::TextureFilter::kBilinear))
     , address_u_(static_cast<T_FIXED_UINT8>(Shader::TextureAddress::kClamp))
     , address_v_(static_cast<T_FIXED_UINT8>(Shader::TextureAddress::kClamp))
@@ -48,26 +49,26 @@ public:
 };
 
 /*!
- * @brief テクスチャサンプラの基底クラス
+ * @brief テクスチャビューの基底クラス
  * プラットフォーム毎の処理を派生クラス側で定義する
  */
-class rcTextureSampler : public GGAPIResourceObject
+class rcTextureView : public GGAPIResourceObject
 {
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_OBJECT(rcTextureSampler);
+  GG_OBJECT(rcTextureView);
 
   // =================================================================
   // Factory Method
   // =================================================================
 public:
-  static UniqueRef<rcTextureSampler> Create(const TextureSamplerData& data);
+  static UniqueRef<rcTextureView> Create(const TextureViewData& data, const SharedRef<rcTextureResource>& resource);
 
   // =================================================================
   // Method 
   // =================================================================
 public:
-  virtual void SetSampler(T_UINT8 index) const = 0;
+  virtual void SetToHardware(T_UINT8 index) const = 0;
 
 };

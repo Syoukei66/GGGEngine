@@ -14,6 +14,7 @@
 #include <Native/Windows/API/Graphics/DX11/DX11PixelShader.h>
 #include <Native/Windows/API/Graphics/DX11/DX11RenderState.h>
 #include <Native/Windows/API/Graphics/DX11/DX11TextureResource.h>
+#include <Native/Windows/API/Graphics/DX11/DX11TextureView.h>
 #include <Native/Windows/API/Graphics/DX11/DX11VertexBuffer.h>
 #include <Native/Windows/API/Graphics/DX11/DX11VertexDeclaration.h>
 #include <Native/Windows/API/Graphics/DX11/DX11VertexShader.h>

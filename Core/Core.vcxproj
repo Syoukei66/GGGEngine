@@ -187,7 +187,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="Application\Platform\API\_Resource\PixelShader.h" />
     <ClInclude Include="Application\Platform\API\_Resource\RenderState.h" />
     <ClInclude Include="Application\Platform\API\_Resource\TextureResource.h" />
-    <ClInclude Include="Application\Platform\API\_Resource\TextureSampler.h" />
+    <ClInclude Include="Application\Platform\API\_Resource\TextureView.h" />
     <ClInclude Include="Application\Platform\API\_Resource\VertexDeclaration.h" />
     <ClInclude Include="Application\Platform\API\_Resource\VertexShader.h" />
     <ClInclude Include="Application\Platform\Platform.h" />

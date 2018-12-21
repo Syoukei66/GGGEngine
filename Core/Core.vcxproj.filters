@@ -309,7 +309,7 @@
     <ClInclude Include="Application\Platform\API\_Resource\TextureResource.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Platform\API\_Resource\TextureSampler.h">
+    <ClInclude Include="Application\Platform\API\_Resource\TextureView.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
