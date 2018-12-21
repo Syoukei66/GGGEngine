@@ -24,9 +24,12 @@ GG_DESTRUCT_FUNC_IMPL(AssetEntity)
 // =================================================================
 void AssetEntity::CommitChanges()
 {
-  for (const SharedRef<AssetEntity>& entity : this->sub_entities_)
+  const T_UINT32 entity_count = (T_UINT32)this->sub_entities_.size();
+  for (T_UINT32 i = 0; i < entity_count; ++i)
   {
-    entity->CommitChanges();
+    // AssetEntity‚ðƒŠƒtƒŒƒbƒVƒ…
+    this->sub_entities_[i] = AssetConverterDirector::GetContext()->GetEntity(this->sub_entities_[i]->GetMetaData()->GetUniqueID());
+    this->sub_entities_[i]->CommitChanges();
   }
   if (this->is_dirty_)
   {
@@ -36,7 +39,7 @@ void AssetEntity::CommitChanges()
   }
 }
 
-bool AssetEntity::CheckChanged(std::set<SharedRef<AssetEntity>>* update_entities)
+void AssetEntity::CheckAssetChanged(std::set<SharedRef<AssetEntity>>* update_entities)
 {
   if (this->meta_data_->UpdateTimeStamp())
   {
@@ -46,7 +49,15 @@ bool AssetEntity::CheckChanged(std::set<SharedRef<AssetEntity>>* update_entities
   }
   for (const SharedRef<AssetEntity>& entity : this->sub_entities_)
   {
-    this->is_dirty_ |= entity->CheckChanged(update_entities);
+    entity->CheckAssetChanged(update_entities);
+  }
+}
+
+bool AssetEntity::CheckSubAssetChanged()
+{
+  for (const SharedRef<AssetEntity>& entity : this->sub_entities_)
+  {
+    this->is_dirty_ |= entity->CheckSubAssetChanged();
   }
   return this->is_dirty_;
 }

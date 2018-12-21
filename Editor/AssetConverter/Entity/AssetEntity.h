@@ -47,10 +47,20 @@ public:
   void CommitChanges();
 
   /*!
-   * @brief 自身や参照しているアセット群に変更があるか調べ、
-   * 変更があった場合アップデートする。
+   * @brief 自身が参照しているアセットに変更があるか調べ、
+   * 変更があった場合タイムスタンプを更新し、update_entitiesに追加し、ダーティフラグを立てる
    */
-  bool CheckChanged(std::set<SharedRef<AssetEntity>>* update_entities);
+  void CheckAssetChanged(std::set<SharedRef<AssetEntity>>* update_entities);
+
+  /*!
+   * @brief 自身が参照しているサブアセットに変更があるか調べ、
+   * 変更があった場合ダーティフラグを立てる
+   * MEMO: 本来はCheckAssetChangedで行っていた処理だったが、
+   * タイムスタンプの監視と同時にサブアセットの走査を行うと、
+   * 複数回参照されてるアセットがあった場合に
+   * チェックのタイミングのズレによる不整合が発生する事がある為、処理を分割した
+   */
+  bool CheckSubAssetChanged();
 
   /*!
    * @brief 参照しているアセットを追加する
