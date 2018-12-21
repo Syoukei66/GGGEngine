@@ -1,7 +1,7 @@
 #pragma once
 
-#include <Core/Application/Platform/API/_Asset/Texture/Texture.h>
 #include <Core/Application/Platform/API/_Resource/ConstantBuffer.h>
+#include <Asset/Texture/Texture.h>
 #include <Asset/Shader/Shader.h>
 
 struct MaterialData

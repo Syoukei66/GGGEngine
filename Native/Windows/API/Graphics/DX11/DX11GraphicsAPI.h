@@ -28,10 +28,6 @@ public:
 
   virtual void DrawIndexedPrimitive(Vertex::PrimitiveType primitive_type, const SharedRef<const rcIndexBuffer>& index_buffer) override;
 
-  virtual UniqueRef<rcTexture> TextureLoad(const char* path) override;
-  virtual void DeleteTexture(rcTexture* texture) override;
-  virtual void GetTextureSize(const rcTexture* texture, T_UINT16* width_dest, T_UINT16 * height_dest) override;
-  
   virtual UniqueRef<rcRenderBuffer> CreateColorBuffer(const SharedRef<const rcTexture>& texture) override;
   virtual UniqueRef<rcRenderBuffer> CreateDepthStencilBuffer(T_UINT16 width, T_UINT16 height, ::Graphics::PixelFormat format) override;
   virtual void DeleteRenderBuffer(rcRenderBuffer* render_buffer) override;

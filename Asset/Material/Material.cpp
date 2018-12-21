@@ -134,9 +134,9 @@ void rcMaterial::SetBuffer() const
   this->constant_buffer_->SetBuffer();
   const T_UINT32 texture_count = (T_UINT32)this->textures_.size();
 
-  this->main_texture_->GetNativeResource()->SetResource(0);
+  this->main_texture_->SetToHardware(0);
   for (T_UINT32 i = 0; i < texture_count; ++i)
   {
-    this->textures_[i]->GetNativeResource()->SetResource(i + 1);
+    this->textures_[i]->SetToHardware(i + 1);
   }
 }

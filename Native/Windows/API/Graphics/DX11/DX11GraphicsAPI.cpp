@@ -262,14 +262,6 @@ UniqueRef<rcTexture> DX11GraphicsAPI::TextureLoad(const char* path)
   return rcTexture::Create(metadata.width, metadata.height, UniqueRef<DX11TextureResource>(new DX11TextureResource(shader_resource_view)));
 }
 
-void DX11GraphicsAPI::DeleteTexture(rcTexture* texture)
-{
-}
-
-void DX11GraphicsAPI::GetTextureSize(const rcTexture* texture, T_UINT16* width_dest, T_UINT16* height_dest)
-{
-}
-
 UniqueRef<rcRenderBuffer> DX11GraphicsAPI::CreateColorBuffer(const SharedRef<const rcTexture>& texture)
 {
   return UniqueRef<rcRenderBuffer>();
@@ -294,7 +286,6 @@ bool DX11GraphicsAPI::ImGuiNewFrame()
   ImGui_ImplDX11_NewFrame();
   return true;
 }
-
 
 bool DX11GraphicsAPI::PreDraw()
 {

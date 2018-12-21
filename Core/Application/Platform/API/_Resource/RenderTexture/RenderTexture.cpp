@@ -23,7 +23,7 @@ UniqueRef<rcRenderTexture> rcRenderTexture::Create(T_UINT16 width, T_UINT16 heig
 // Constructor / Destructor
 // =================================================================
 rcRenderTexture::rcRenderTexture(T_UINT16 width, T_UINT16 height, const SharedRef<rcTextureResource>& texture_resource, Graphics::PixelFormat depth_format)
-  : rcTexture(width, height, texture_resource)
+  : rcTexture()
 {
   this->depth_stencil_buffer_ = rcRenderBuffer::CreateDepthStencilBuffer(this->GetTwoPoweredWidth(), this->GetTwoPoweredHeight(), depth_format);
 }
@@ -33,7 +33,7 @@ rcRenderTexture::rcRenderTexture(T_UINT16 width, T_UINT16 height, const SharedRe
 // =================================================================
 void rcRenderTexture::RenderBegin(bool clear)
 {
-  Application::GetPlatform()->GetGraphicsAPI()->SetRenderTarget(this->GetColorBuffer(), this->depth_stencil_buffer_, clear);
+  //Application::GetPlatform()->GetGraphicsAPI()->SetRenderTarget(this->GetColorBuffer(), this->depth_stencil_buffer_, clear);
 }
 
 void rcRenderTexture::RenderEnd()

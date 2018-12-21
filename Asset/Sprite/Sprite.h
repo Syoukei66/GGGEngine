@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Core/Application/Platform/API/_Asset/Texture/Texture.h>
+#include <Asset/Texture/Texture.h>
 #include <Asset/Mesh/Mesh.h>
 
 struct SpriteData

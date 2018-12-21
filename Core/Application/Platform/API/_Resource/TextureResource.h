@@ -33,8 +33,8 @@ public:
   // Data Members
   // =================================================================
 public:
-  T_FIXED_UINT16 width_; 
-  T_FIXED_UINT16 height_;
+  T_FIXED_UINT16 width_; // two power value
+  T_FIXED_UINT16 height_; // two power value
   T_FIXED_UINT8 format_; // TextureFormat
   std::vector<unsigned char> data_;
 };
@@ -60,6 +60,6 @@ public:
   // Method 
   // =================================================================
 public:
-  virtual void SetResource(T_UINT32 index) const = 0;
+  virtual void SetResource(T_UINT8 index) const = 0;
 
 };

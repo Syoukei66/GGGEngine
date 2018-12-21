@@ -285,7 +285,6 @@ public:
   // =================================================================
   GG_OBJECT(rcShader);
   GG_ASSET(rcShader, ShaderData);
-  GG_CREATE_FUNC(rcShader) { return true; }
 
   // =================================================================
   // Method 

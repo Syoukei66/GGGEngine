@@ -2,31 +2,22 @@
 #include <Core/Application/Platform/API/_Resource/RenderBuffer/RenderBuffer.h>
 
 // =================================================================
-// Factory Method
+// GGG Statement
 // =================================================================
-UniqueRef<rcTexture> rcTexture::CreateFromFile(const char* path)
+GG_INIT_FUNC_IMPL_1(rcTexture, const TextureData& data)
 {
-  return Application::GetPlatform()->GetGraphicsAPI()->TextureLoad(path);
+  this->width_ = data.resource_data_.width_;
+  this->height_ = data.resource_data_.height_;
+
+  this->resource_ = rcTextureResource::Create(data.resource_data_);
+  //this->sampler_ = rcTextureSampler::Create(data.sampler_data_);
 }
 
-UniqueRef<rcTexture> rcTexture::Create(T_UINT16 width, T_UINT16 height, const SharedRef<rcTextureResource>& texture_resource)
-{
-  return UniqueRef<rcTexture>(new rcTexture(width, height, texture_resource));
-}
-
 // =================================================================
-// Constructor / Destructor
+// Method 
 // =================================================================
-rcTexture::rcTexture(T_UINT16 width, T_UINT16 height, const SharedRef<rcTextureResource>& texture_resource)
-  : resource_(texture_resource)
-  , width_(width)
-  , height_(height)
+void rcTexture::SetToHardware(T_UINT8 index) const
 {
-  Application::GetPlatform()->GetGraphicsAPI()->GetTextureSize(this, &this->two_powered_width_, &this->two_powered_height_);
-  this->color_buffer_ = rcRenderBuffer::CreateColorBuffer(SharedRef<rcTexture>(this));
-}
-
-rcTexture::~rcTexture()
-{
-  Application::GetPlatform()->GetGraphicsAPI()->DeleteTexture(this);
+  this->resource_->SetResource(index);
+  //this->sampler_->SetSampler(index);
 }

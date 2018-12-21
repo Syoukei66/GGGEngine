@@ -36,16 +36,15 @@
 #include <Core/Application/Platform/API/Input/InputAPI.h>
 #include <Core/Application/Platform/API/_Asset/APIAssetObject.h>
 #include <Core/Application/Platform/API/_Asset/AudioClip/AudioClip.h>
-#include <Core/Application/Platform/API/_Asset/Texture/Texture.h>
 #include <Core/Application/Platform/API/_Resource/APIResourceObject.h>
 #include <Core/Application/Platform/API/_Resource/ConstantBuffer.h>
-#include <Core/Application/Platform/API/_Resource/DepthStencilBuffer.h>
 #include <Core/Application/Platform/API/_Resource/IndexBuffer.h>
 #include <Core/Application/Platform/API/_Resource/PixelShader.h>
 #include <Core/Application/Platform/API/_Resource/RenderBuffer/RenderBuffer.h>
 #include <Core/Application/Platform/API/_Resource/RenderState.h>
 #include <Core/Application/Platform/API/_Resource/RenderTexture/RenderTexture.h>
 #include <Core/Application/Platform/API/_Resource/TextureResource.h>
+#include <Core/Application/Platform/API/_Resource/TextureSampler.h>
 #include <Core/Application/Platform/API/_Resource/VertexBuffer.h>
 #include <Core/Application/Platform/API/_Resource/VertexDeclaration.h>
 #include <Core/Application/Platform/API/_Resource/VertexShader.h>
