@@ -182,7 +182,7 @@ SharedRef<CharacterModelAssetEntity> CharacterModelAssetImporter::ImportProcess(
   const SharedRef<CharacterModelAssetEntity>& entity = CharacterModelAssetEntity::Create(meta, data);
   for (const SharedRef<AssetEntity>& referenced : referenced_assets)
   {
-    entity->AddReferencedEntity(referenced);
+    entity->AddSubEntity(referenced);
   }
 
   data->name_ = entity->GetMetaData()->GetURI().GetPrefix();

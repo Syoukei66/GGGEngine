@@ -199,7 +199,7 @@ SharedRef<StaticModelAssetEntity> StaticModelAssetImporter::ImportProcess(AssetM
   const SharedRef<StaticModelAssetEntity>& entity = StaticModelAssetEntity::Create(meta, data);
   for (const SharedRef<AssetEntity>& referenced : referenced_assets)
   {
-    entity->AddReferencedEntity(referenced);
+    entity->AddSubEntity(referenced);
   }
 
   aiReleaseImport(scene);

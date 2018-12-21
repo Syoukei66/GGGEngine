@@ -86,8 +86,8 @@ static SharedRef<ModelMaterialAssetEntity> ImportMaterial(AssetMetaData* meta, c
 
   //TODO:プロパティのインポート処理
   const SharedRef<ModelMaterialAssetEntity>& entity = ModelMaterialAssetEntity::Create(meta, data);
-  entity->AddReferencedEntity(tex_asset_entity);
-  entity->AddReferencedEntity(shader_asset_entity);
+  entity->AddSubEntity(tex_asset_entity);
+  entity->AddSubEntity(shader_asset_entity);
 
   return entity;
 }

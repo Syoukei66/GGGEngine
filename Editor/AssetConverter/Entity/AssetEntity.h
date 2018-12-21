@@ -50,12 +50,12 @@ public:
    * @brief 自身や参照しているアセット群に変更があるか調べ、
    * 変更があった場合アップデートする。
    */
-  void CheckChanged(std::set<SharedRef<AssetEntity>>* update_entities);
+  bool CheckChanged(std::set<SharedRef<AssetEntity>>* update_entities);
 
   /*!
    * @brief 参照しているアセットを追加する
    */
-  void AddReferencedEntity(const SharedRef<AssetEntity>& entity);
+  void AddSubEntity(const SharedRef<AssetEntity>& entity);
 
 protected:
   /*!
@@ -79,6 +79,7 @@ public:
   // =================================================================
 private:
   AssetMetaData* meta_data_;
-  std::vector<SharedRef<AssetEntity>> referenced_entities_;
+  std::vector<SharedRef<AssetEntity>> sub_entities_;
+  bool is_dirty_;
 
 };
