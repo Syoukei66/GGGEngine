@@ -55,6 +55,7 @@ protected:
   AssetLoader(T_UINT32 uid, const std::string& path)
     : unique_id_(uid)
     , path_("Asset/" + path)
+    , cache_()
   {
     //本来はアーカイブファイルから取得する
     this->size_ = 1;

@@ -73,22 +73,20 @@ static SharedRef<ModelMaterialAssetEntity> ImportMaterial(AssetMetaData* meta, c
   MaterialData* data = new MaterialData();
 
   //Colors
-  //aiColor4D color;
+  aiColor4D color;
   //if (AI_SUCCESS == aiGetMaterialColor(material, AI_MATKEY_COLOR_DIFFUSE, &color))
   //{
   //  data->color_ = ToTColor(color);
   //}
-  //SharedRef<TextureAssetEntity> tex_asset_entity = ImportTexture(meta, material, aiTextureType_DIFFUSE, 0, context);
-  //data->main_tex_unique_id_ = tex_asset_entity ? tex_asset_entity->GetMetaData()->GetUniqueID() : DefaultUniqueID::TEXTURE_WHITE;
-  //data->tiling_ = TVec2f(1.0f, 1.0f);
-  //data->tiling_offset_ = TVec2f(0.0f, 0.0f);
+  SharedRef<TextureAssetEntity> tex_asset_entity = ImportTexture(meta, material, aiTextureType_DIFFUSE, 0, context);
+  data->main_texture_unique_id_ = tex_asset_entity ? tex_asset_entity->GetMetaData()->GetUniqueID() : DefaultUniqueID::TEXTURE_WHITE;
 
   SharedRef<ShaderAssetEntity> shader_asset_entity = ImportShader(meta, material, context);
   data->shader_unique_id_ = shader_asset_entity->GetMetaData()->GetUniqueID();
 
   //TODO:プロパティのインポート処理
   const SharedRef<ModelMaterialAssetEntity>& entity = ModelMaterialAssetEntity::Create(meta, data);
-  //entity->AddReferencedEntity(tex_asset_entity);
+  entity->AddReferencedEntity(tex_asset_entity);
   entity->AddReferencedEntity(shader_asset_entity);
 
   return entity;

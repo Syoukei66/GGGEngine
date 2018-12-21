@@ -84,27 +84,50 @@ GG_INIT_FUNC_IMPL(DX11GraphicsAPI)
       break;
     }
   }
-  if (FAILED(hr))
-  {
-    return false;
-  }
+  GG_ASSERT(SUCCEEDED(hr), "ドライバが対応していません");
 
   // Create a render target view
   ID3D11Texture2D* pBackBuffer = NULL;
   hr = this->swap_chain_->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
-  if (FAILED(hr))
-  {
-    return false;
-  }
+  GG_ASSERT(SUCCEEDED(hr), "バックバッファの作成に失敗しました");
 
   hr = this->device_->CreateRenderTargetView(pBackBuffer, NULL, &this->render_target_view_);
   pBackBuffer->Release();
-  if (FAILED(hr))
-  {
-    return false;
-  }
+  GG_ASSERT(SUCCEEDED(hr), "レンダーターゲットビューの作成に失敗しました");
 
-  this->immediate_context_->OMSetRenderTargets(1, &this->render_target_view_, NULL);
+  // Create a depth stencil buffer 
+  ID3D11Texture2D* depth_stencil_buffer = NULL;
+
+  D3D11_TEXTURE2D_DESC desc_ds;
+  desc_ds.Width = width;
+  desc_ds.Height = height;
+  desc_ds.MipLevels = 1;
+  desc_ds.ArraySize = 1;
+  desc_ds.Format = DXGI_FORMAT_D32_FLOAT;
+  desc_ds.SampleDesc.Count = 1;
+  desc_ds.SampleDesc.Quality = 0;
+  desc_ds.Usage = D3D11_USAGE_DEFAULT;
+  desc_ds.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+  desc_ds.CPUAccessFlags = 0;
+  desc_ds.MiscFlags = 0;
+  hr = this->device_->CreateTexture2D(
+    &desc_ds,
+    NULL,
+    &depth_stencil_buffer
+  );
+  GG_ASSERT(SUCCEEDED(hr), "深度・ステンシルバッファの作成に失敗しました");
+
+  D3D11_DEPTH_STENCIL_VIEW_DESC desc_dsv;
+  desc_dsv.Format = desc_ds.Format;
+  desc_dsv.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+  desc_dsv.Flags = 0;
+  desc_dsv.Texture2D.MipSlice = 0;
+
+  hr = this->device_->CreateDepthStencilView(depth_stencil_buffer, NULL, &this->depth_stencil_view_);
+  depth_stencil_buffer->Release();
+  GG_ASSERT(SUCCEEDED(hr), "深度・ステンシルビューの作成に失敗しました");
+
+  this->immediate_context_->OMSetRenderTargets(1, &this->render_target_view_, this->depth_stencil_view_);
 
   // Setup the viewport
   D3D11_VIEWPORT vp;
@@ -128,6 +151,7 @@ GG_DESTRUCT_FUNC_IMPL(DX11GraphicsAPI)
 
   if (this->immediate_context_) this->immediate_context_->ClearState();
   if (this->render_target_view_) this->render_target_view_->Release();
+  if (this->depth_stencil_view_) this->depth_stencil_view_->Release();
   if (this->swap_chain_) this->swap_chain_->Release();
   if (this->immediate_context_) this->immediate_context_->Release();
   if (this->device_) this->device_->Release();
@@ -141,6 +165,7 @@ GG_DESTRUCT_FUNC_IMPL(DX11GraphicsAPI)
 void DX11GraphicsAPI::ViewportClear(const TColor& color)
 {
   this->immediate_context_->ClearRenderTargetView(this->render_target_view_, color.data);
+  this->immediate_context_->ClearDepthStencilView(this->depth_stencil_view_, D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
 
 void DX11GraphicsAPI::SetViewport(T_FLOAT x, T_FLOAT y, T_FLOAT w, T_FLOAT h, T_FLOAT minZ, T_FLOAT maxZ)

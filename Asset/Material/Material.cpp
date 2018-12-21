@@ -22,13 +22,12 @@ GG_INIT_FUNC_IMPL_1(rcMaterial, const MaterialData& data)
     Shader::ConstantBufferId::kProperty,
     (T_UINT32)this->data_.size()
   );
-  this->constant_buffer_->CommitChanges(this->data_.data());
 
-  return this->Init(
+  this->shader_ = 
     data.shader_unique_id_ != 0 ?
     AssetManager::Load<rcShader>(data.shader_unique_id_) :
     AssetManager::Load<rcShader>(DefaultUniqueID::SHADER_NO_SHADING)
-  );
+  ;
 
   this->SetMainTexture(
     data.main_texture_unique_id_ != 0 ?

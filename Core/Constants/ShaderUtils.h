@@ -203,6 +203,9 @@ enum class RenderType : T_UINT8
   DATANUM,
 };
 
+/*!
+ * @brief コンスタントバッファのID
+ */
 enum class ConstantBufferId : T_UINT8
 {
   kRendererBuiltin,
@@ -211,5 +214,17 @@ enum class ConstantBufferId : T_UINT8
 
   DATANUM,
 };
+
+/*!
+ * @brief コンスタントバッファのID
+ */
+//enum class ConstantBufferId : T_UINT8
+//{
+//  kRendererBuiltin,
+//  kRenderStateBuiltin,
+//  kProperty,
+//
+//  DATANUM,
+//};
 
 } // namespace Shader

@@ -62,6 +62,7 @@ private:
   ID3D11DeviceContext* immediate_context_;
   IDXGISwapChain* swap_chain_;
   ID3D11RenderTargetView* render_target_view_;
+  ID3D11DepthStencilView* depth_stencil_view_;
   D3D_DRIVER_TYPE driver_type_;
   D3D_FEATURE_LEVEL feature_level_;
 
