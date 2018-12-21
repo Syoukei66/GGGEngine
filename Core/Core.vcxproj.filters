@@ -261,9 +261,6 @@
     <ClInclude Include="Application\Platform\API\_Asset\AudioClip\AudioClip.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Platform\API\_Asset\Texture\Texture.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Platform\API\_Asset\APIAssetObject.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -381,13 +378,13 @@
     <ClInclude Include="Application\Platform\API\_Resource\ConstantBuffer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Application\Platform\API\_Resource\DepthStencilBuffer.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Application\Platform\API\_Resource\IndexBuffer.h">
       <Filter>ヘッダー ファイル\Resource\_Native\Buffer</Filter>
     </ClInclude>
     <ClInclude Include="Application\Platform\API\_Resource\TextureResource.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Platform\API\_Resource\TextureSampler.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -414,9 +411,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Application\Platform\API\_Asset\AudioClip\AudioClip.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Application\Platform\API\_Asset\Texture\Texture.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Application\Platform\API\_Resource\RenderBuffer\RenderBuffer.cpp">

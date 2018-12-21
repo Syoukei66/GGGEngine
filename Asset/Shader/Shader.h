@@ -1,7 +1,5 @@
 #pragma once
 
-#include <Core/Application/Platform/API/_Asset/APIAssetObject.h>
-
 #include <Core/Application/Platform/API/_Resource/PixelShader.h>
 #include <Core/Application/Platform/API/_Resource/VertexShader.h>
 #include <Core/Application/Platform/API/_Resource/RenderState.h>

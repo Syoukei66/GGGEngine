@@ -184,10 +184,10 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="Application\Input\InputState.h" />
     <ClInclude Include="Application\Object\WeakRef.h" />
     <ClInclude Include="Application\Platform\API\_Resource\ConstantBuffer.h" />
-    <ClInclude Include="Application\Platform\API\_Resource\DepthStencilBuffer.h" />
     <ClInclude Include="Application\Platform\API\_Resource\PixelShader.h" />
     <ClInclude Include="Application\Platform\API\_Resource\RenderState.h" />
     <ClInclude Include="Application\Platform\API\_Resource\TextureResource.h" />
+    <ClInclude Include="Application\Platform\API\_Resource\TextureSampler.h" />
     <ClInclude Include="Application\Platform\API\_Resource\VertexDeclaration.h" />
     <ClInclude Include="Application\Platform\API\_Resource\VertexShader.h" />
     <ClInclude Include="Application\Platform\Platform.h" />
@@ -223,7 +223,6 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="Application\Object\Object.h" />
     <ClInclude Include="Application\Object\Ref.h" />
     <ClInclude Include="Application\Platform\API\_Resource\RenderTexture\RenderTexture.h" />
-    <ClInclude Include="Application\Platform\API\_Asset\Texture\Texture.h" />
     <ClInclude Include="Util\FileUtil.h" />
     <ClInclude Include="_Private\CerealIO.h" />
     <ClInclude Include="Math\Color.h" />
@@ -278,7 +277,6 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClCompile Include="Application\Platform\API\_Resource\RenderBuffer\RenderBuffer.cpp" />
     <ClCompile Include="Application\Object\ObjectManager.cpp" />
     <ClCompile Include="Application\Platform\API\_Resource\RenderTexture\RenderTexture.cpp" />
-    <ClCompile Include="Application\Platform\API\_Asset\Texture\Texture.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
