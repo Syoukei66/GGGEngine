@@ -379,5 +379,8 @@
     <None Include="Math\Vector4.inl">
       <Filter>ヘッダー ファイル</Filter>
     </None>
+    <None Include="Math\Matrix4x4.inl">
+      <Filter>ヘッダー ファイル</Filter>
+    </None>
   </ItemGroup>
 </Project>

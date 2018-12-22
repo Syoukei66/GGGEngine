@@ -301,6 +301,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Math\Matrix4x4.inl" />
     <None Include="Math\Vector4.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
