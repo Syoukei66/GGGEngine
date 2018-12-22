@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Core/Application/Platform/API/APIObject.h>
-#include <Core/Constants/VertexUtils.h>
 
 class Activity;
 class rcIndexBuffer;

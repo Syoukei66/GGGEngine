@@ -21,6 +21,7 @@
 #include <Core/Application/Input/EngineInputState.h>
 #include <Core/Application/Input/InputDevice.h>
 #include <Core/Application/Input/InputDeviceManager.h>
+#include <Core/Application/Input/InputEntity.h>
 #include <Core/Application/Input/InputSetting.h>
 #include <Core/Application/Input/InputState.h>
 #include <Core/Application/Object/GGRefSFINAE.h>
@@ -61,8 +62,6 @@
 #include <Core/Math/Mathf.h>
 #include <Core/Math/Matrix4x4.h>
 #include <Core/Math/Quaternion.h>
-#include <Core/Math/ScalingMatrix.h>
-#include <Core/Math/TranslationMatrix.h>
 #include <Core/Math/Vector2.h>
 #include <Core/Math/Vector3.h>
 #include <Core/Math/Vector4.h>

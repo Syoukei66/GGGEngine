@@ -302,9 +302,6 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ProjectReference Include="..\Core\Core.vcxproj">
       <Project>{ed60a9ab-7765-4071-a74f-16ae746c727f}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\ThirdParty\imgui\imgui.vcxproj">
-      <Project>{39f01ad4-a40f-4a2e-aad2-5b0a33815442}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -262,6 +262,15 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClCompile Include="Activity\WindowActivity.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Algorithm\Algorithm.vcxproj">
+      <Project>{a014e46a-c10d-4ed4-a47c-f79712680dc7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Asset\Asset.vcxproj">
+      <Project>{37173f1e-1a35-4644-8862-81dbb9ad9fc1}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Core.vcxproj">
+      <Project>{ed60a9ab-7765-4071-a74f-16ae746c727f}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\Engine\Engine.vcxproj">
       <Project>{3d96ef11-f5c9-4990-be01-5279dadd6d52}</Project>
     </ProjectReference>

@@ -2,6 +2,7 @@
 #include <Core/Application/Activity/ActivityOption.h>
 #include <Core/Application/Input/InputSetting.h>
 #include <Core/Application/Input/InputState.h>
+#include <Core/Application/Application.h>
 
 // =================================================================
 // Methods

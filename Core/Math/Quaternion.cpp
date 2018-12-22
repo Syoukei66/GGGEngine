@@ -1,8 +1,54 @@
 #include "Quaternion.h"
 
 // =================================================================
-// Constructor / Destructor
+// Static Methods
 // =================================================================
+const Quaternion Quaternion::Eular(const TVec3f& eular_angles)
+{
+  Quaternion ret = Quaternion();
+  ret = ret * Quaternion(TVec3f(0.0f, 0.0f, 1.0f), eular_angles.z);
+  ret = ret.Normalized() * Quaternion(TVec3f(1.0f, 0.0f, 0.0f), eular_angles.x);
+  ret = ret.Normalized() * Quaternion(TVec3f(0.0f, 1.0f, 0.0f), eular_angles.y);
+  return ret;
+}
+
+const Quaternion Quaternion::Lerp(const Quaternion & a, const Quaternion & b, T_FLOAT t)
+{
+  if (t <= 0.0f)
+  {
+    return a;
+  }
+  if (t >= 1.0f)
+  {
+    return b;
+  }
+  const T_FLOAT r = acosf(Dot(a, b));
+  if (fabs(r) <= Mathf::PI_1_2)
+  {
+    return (a + (b - a) * t).Normalized();
+  }
+  return (a + (b - a) * -t).Normalized();
+}
+
+const Quaternion Quaternion::Slerp(const Quaternion & a, const Quaternion & b, T_FLOAT t)
+{
+  if (t <= 0.0f)
+  {
+    return a;
+  }
+  if (t >= 1.0f)
+  {
+    return b;
+  }
+  const T_FLOAT r = acosf(Dot(a, b));
+  const T_FLOAT invsin_r = 1.0f / sinf(r);
+  if (fabs(r) < Mathf::PI_1_2)
+  {
+    return (a * (sin((1.0f - t) * r) * invsin_r) + b * (sin(t * r) * invsin_r));
+  }
+  return (a * (sin((1.0f - t) * r) * invsin_r) + b * -(sin(t * r) * invsin_r));
+}
+
 const Quaternion Quaternion::LookRotation(const TVec3f& forward, const TVec3f& upwards)
 {
   const TVec3f n_upwards = upwards.Normalized();
@@ -15,6 +61,11 @@ const Quaternion Quaternion::LookRotation(const TVec3f& forward, const TVec3f& u
   const Quaternion x = Quaternion(TVec3f(1.0f, 0.0f, 0.0f), acosf(x_dot));
   const Quaternion y = Quaternion(TVec3f(0.0f, 1.0f, 0.0f), acosf(y_dot));
   return y;
+}
+
+GG_INLINE T_FLOAT Quaternion::Dot(const Quaternion & a, const Quaternion & b)
+{
+  return TVec3f::Dot(a.v, b.v) + a.w * b.w;
 }
 
 // =================================================================
@@ -120,4 +171,41 @@ void Quaternion::ToRotationMatrix(Matrix4x4* dest)
   dest->_42 = 0.0f;
   dest->_43 = 0.0f;
   dest->_44 = 1.0f;
+}
+
+GG_INLINE T_FLOAT Quaternion::ScalarSquare() const
+{
+  return
+    this->v.x * this->v.x +
+    this->v.y * this->v.y +
+    this->v.z * this->v.z +
+    this->w * this->w;
+}
+
+GG_INLINE T_FLOAT Quaternion::Scalar() const
+{
+  return sqrtf(this->ScalarSquare());
+}
+
+GG_INLINE const Quaternion Quaternion::Conjugated() const
+{
+  Quaternion ret = Quaternion();
+  ret.v = -this->v;
+  ret.w = this->w;
+  return ret;
+}
+
+GG_INLINE const Quaternion Quaternion::Inversed() const
+{
+  return this->Conjugated() / this->ScalarSquare();
+}
+
+GG_INLINE const Quaternion Quaternion::Normalized() const
+{
+  return *this / this->Scalar();
+}
+
+GG_INLINE bool Quaternion::IsNormal(T_FLOAT eps) const
+{
+  return fabs(1.0f - this->Scalar()) < eps;
 }

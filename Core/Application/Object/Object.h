@@ -13,7 +13,7 @@ class GGObject
   GG_NO_COPYABLE(GGObject);
 
   friend class GGObjectManager;
-  template <class Obj_, GGIsObject<Obj_>>
+  template <class Obj_>
   friend class GGRef;
   template <class Obj_>
   friend class SharedRef;

@@ -133,3 +133,5 @@ public:
   GG_INLINE TVec3f GetWorldScale() const;
 
 };
+
+#include "Matrix4x4.inl"

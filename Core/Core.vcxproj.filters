@@ -135,12 +135,6 @@
     <ClInclude Include="Math\Quaternion.h">
       <Filter>ヘッダー ファイル\Math</Filter>
     </ClInclude>
-    <ClInclude Include="Math\ScalingMatrix.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\TranslationMatrix.h">
-      <Filter>ヘッダー ファイル\Math</Filter>
-    </ClInclude>
     <ClInclude Include="Math\Vector2.h">
       <Filter>ヘッダー ファイル\Math</Filter>
     </ClInclude>
@@ -312,6 +306,9 @@
     <ClInclude Include="Application\Platform\API\_Resource\TextureView.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Application\Input\InputEntity.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -380,6 +377,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </None>
     <None Include="Math\Matrix4x4.inl">
+      <Filter>ヘッダー ファイル</Filter>
+    </None>
+    <None Include="Math\Quaternion.inl">
       <Filter>ヘッダー ファイル</Filter>
     </None>
   </ItemGroup>

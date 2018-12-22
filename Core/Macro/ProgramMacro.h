@@ -1,7 +1,7 @@
 #pragma once
 
 #ifndef NDEBUG
-#define GG_INLINE
+#define GG_INLINE inline
 #define GG_FORCE_INLINE inline
 #else
 /*!

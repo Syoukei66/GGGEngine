@@ -179,6 +179,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Application\Asset\AssetMacro.h" />
+    <ClInclude Include="Application\Input\InputEntity.h" />
     <ClInclude Include="Application\Object\GGRefSFINAE.h" />
     <ClInclude Include="Application\IApplicationSetting.h" />
     <ClInclude Include="Application\Input\InputState.h" />
@@ -241,8 +242,6 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="Application\Platform\API\_Resource\VertexBuffer.h" />
     <ClInclude Include="Math\Quaternion.h" />
     <ClInclude Include="Application\Object\ObjectManager.h" />
-    <ClInclude Include="Math\ScalingMatrix.h" />
-    <ClInclude Include="Math\TranslationMatrix.h" />
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Math\Vector4.h" />
@@ -301,8 +300,13 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Math\Vector4.inl">
+      <FileType>Document</FileType>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Math\Matrix4x4.inl" />
-    <None Include="Math\Vector4.inl" />
+    <None Include="Math\Quaternion.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

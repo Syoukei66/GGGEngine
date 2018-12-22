@@ -1,5 +1,19 @@
 #include "Matrix4x4.h"
 
+// =================================================================
+// Constants
+// =================================================================
+const Matrix4x4 Matrix4x4::identity = Matrix4x4();
+const Matrix4x4 Matrix4x4::zero = Matrix4x4(
+  0.0f, 0.0f, 0.0f, 0.0f,
+  0.0f, 0.0f, 0.0f, 0.0f,
+  0.0f, 0.0f, 0.0f, 0.0f,
+  0.0f, 0.0f, 0.0f, 0.0f
+);
+
+// =================================================================
+// Static Methods
+// =================================================================
 Matrix4x4 Matrix4x4::Frustum(T_FLOAT left, T_FLOAT right, T_FLOAT bottom, T_FLOAT top, T_FLOAT z_near, T_FLOAT z_far)
 {
   Matrix4x4 ret = Matrix4x4::zero;
@@ -77,6 +91,9 @@ Matrix4x4 Matrix4x4::LookAt(const TVec3f & eye, const TVec3f & at, const TVec3f 
   return ret;
 }
 
+// =================================================================
+// Methods
+// =================================================================
 Matrix4x4 Matrix4x4::Inverse() const
 {
   Matrix4x4 a = *this;
@@ -88,8 +105,8 @@ Matrix4x4 Matrix4x4::Inverse() const
     buf = 1.0 / ret.m[i][i];
     for (T_UINT8 j = 0; j < 4; j++)
     {
-      a.m[i][j] *= buf;
-      ret.m[i][j] *= buf;
+      a.m[i][j] = (T_FLOAT)(a.m[i][j] * buf);
+      ret.m[i][j] = (T_FLOAT)(a.m[i][j] * buf);
     }
     for (T_UINT8 j = 0; j < 4; j++)
     {
@@ -98,8 +115,8 @@ Matrix4x4 Matrix4x4::Inverse() const
         buf = a.m[j][i];
         for (T_UINT8 k = 0; k < 4; k++)
         {
-          a.m[j][k] -= a.m[i][k] * buf;
-          ret.m[j][k] -= ret.m[i][k] * buf;
+          a.m[j][k] -= (T_FLOAT)(a.m[i][k] * buf);
+          ret.m[j][k] -= (T_FLOAT)(ret.m[i][k] * buf);
         }
       }
     }

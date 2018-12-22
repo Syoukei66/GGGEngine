@@ -1,5 +1,6 @@
 #include "Mesh.h"
 
+#include <Core/Application/Application.h>
 #include "DynamicMesh.h"
 
 // =================================================================

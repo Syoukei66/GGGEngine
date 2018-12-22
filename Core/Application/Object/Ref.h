@@ -3,7 +3,7 @@
 #include "ObjectManager.h"
 #include "GGRefSFINAE.h"
 
-template <class Obj_, GGIsObject<Obj_> = nullptr>
+template <class Obj_>
 class GGRef
 {
   // =================================================================

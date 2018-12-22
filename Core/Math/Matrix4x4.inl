@@ -1,15 +1,5 @@
 #pragma once
 
-#include "Matrix4x4.h"
-
-const Matrix4x4 Matrix4x4::identity = Matrix4x4();
-const Matrix4x4 Matrix4x4::zero = Matrix4x4(
-  0.0f, 0.0f, 0.0f, 0.0f,
-  0.0f, 0.0f, 0.0f, 0.0f,
-  0.0f, 0.0f, 0.0f, 0.0f,
-  0.0f, 0.0f, 0.0f, 0.0f
-  );
-
 // =================================================================
 // Constructor
 // =================================================================
@@ -18,8 +8,7 @@ GG_INLINE Matrix4x4::Matrix4x4()
   , _21(0.0f), _22(1.0f), _23(0.0f), _24(0.0f)
   , _31(0.0f), _32(0.0f), _33(1.0f), _34(0.0f)
   , _41(0.0f), _42(0.0f), _43(0.0f), _44(1.0f)
-{
-}
+{}
 
 GG_INLINE Matrix4x4::Matrix4x4(const T_FLOAT m[4][4])
   : _11(m[0][0]), _12(m[0][1]), _13(m[0][2]), _14(m[0][3])
@@ -115,10 +104,10 @@ GG_INLINE Matrix4x4 Matrix4x4::operator* (const Matrix4x4& other) const
   {
     for (T_UINT8 j = 0; j < 4; ++j)
     {
-      m[i][j] = 
-        this->m[i][0] * other.m[0][j] + 
-        this->m[i][1] * other.m[1][j] + 
-        this->m[i][2] * other.m[2][j] + 
+      m[i][j] =
+        this->m[i][0] * other.m[0][j] +
+        this->m[i][1] * other.m[1][j] +
+        this->m[i][2] * other.m[2][j] +
         this->m[i][3] * other.m[3][j]
         ;
     }
@@ -132,16 +121,16 @@ GG_INLINE Matrix4x4& Matrix4x4::operator*= (const Matrix4x4& other)
 
 GG_INLINE bool Matrix4x4::operator== (const Matrix4x4& other) const
 {
-  return 
+  return
     this->_11 == other._11 && this->_12 == other._12 && this->_13 == other._13 && this->_14 == other._14 &&
     this->_21 == other._21 && this->_22 == other._22 && this->_23 == other._23 && this->_24 == other._24 &&
     this->_31 == other._31 && this->_32 == other._32 && this->_33 == other._33 && this->_34 == other._34 &&
     this->_41 == other._41 && this->_42 == other._42 && this->_43 == other._43 && this->_44 == other._44
-    ;                                                                            
-}                                                                                
-GG_INLINE bool Matrix4x4::operator!= (const Matrix4x4& other) const              
-{                                                                                
-  return                                                                         
+    ;
+}
+GG_INLINE bool Matrix4x4::operator!= (const Matrix4x4& other) const
+{
+  return
     this->_11 != other._11 || this->_12 != other._12 || this->_13 != other._13 || this->_14 != other._14 ||
     this->_21 != other._21 || this->_22 != other._22 || this->_23 != other._23 || this->_24 != other._24 ||
     this->_31 != other._31 || this->_32 != other._32 || this->_33 != other._33 || this->_34 != other._34 ||

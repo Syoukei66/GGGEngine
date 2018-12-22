@@ -1,4 +1,5 @@
 #include "AudioClip.h"
+#include <Core/Application/Application.h>
 
 // =================================================================
 // Factory Method
