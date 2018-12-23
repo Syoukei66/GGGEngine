@@ -1,0 +1,105 @@
+#########################################################################################################################
+プリプロセッサ―マクロ
+#########################################################################################################################
+
+
+#########################################################################################################################
+ビルトイン変数
+#########################################################################################################################
+ビルトイン変数を使用しているかどうかを判定し、使用していた場合そのデータがConstantTableに追加される
+使用されていた場合にそのフラグも立てておく
+
+先頭にアンダーバーを使用する識別子は予約語である為、独自の変数内には使用しない事
+
+_MatMVP
+_MatMV
+_MatV
+_MatP
+_ObjToWorld
+_WorldToObj
+
+_Time (t/20.0f, t, t * 2, t * 3)
+_SinTime (t/8, t/4, t/2, t)
+_CosTime (t/8, t/4, t/2, t)
+_DeltaTime (dt, 1/dt, smoothDt, 1/smoothDt)
+
+#########################################################################################################################
+シェーダーファイル記述
+#########################################################################################################################
+
+Shader "<ShaderName>"
+(Properties
+{
+	<<PropertyId>("<PropertyName>", <PropertyType>) = <PropertyInitValue>>*
+})
+
+(Tags
+{
+	(Queue <Background | Geometry | AlphaTest | Transparent | Overlay>) //エンジン側のQueueの名前と対応させる
+	(RenderType <Opaque | Transparent | TransparentCutout | Background | Overlay>)
+	//(ForceNoShadowCasting <True | False>)
+	//(IgnoreProjector <True | False>)
+	//(PreviewType <Sphere | Plane | Skybox>)
+})
+
+<
+GrabPass
+{
+} |
+Pass
+{
+	//(Target 3_0)
+	(LightMode <Always | ForwardBase | ForwardAdd | Deferred | ShadowCaster | MotionVector>)
+	(Cull <Back | Front | Off>)
+	(ZWrite <On | Off>)
+	(ZTest <Less | Greater | LEqual | GEqual | Equal | NotEqual | Always>)
+	
+	(<
+	!<BlendFactor> = One | Zero | SrcColor | SrcAlpha | DstColor | DstAlpha | InvSrcColor | InvSrcAlpha | InvDstColor | InvDstAlpha
+	Blend (N) <BlendFactor> <BlendFactor> |
+	Blend (N) <BlendFactor> <BlendFactor>, <BlendFactor> <BlendFactor> 
+	>)
+	(<
+	!<BlendOp> = Add | Sub | RevSub | Min | Max
+	BlendOp (N) <BlendOp> |
+	BlendOp (N) <BlendOp>, <BlendOp>
+	>)
+
+	(Stencil
+	{
+		(Ref 0~255)
+		(ReadMask 0~255)
+		(WriteMask 0~255)
+		(Comp <Greater | GEqual | Less | LEqual | Equal | NotEqual | Always | Never>)
+		(Pass <Keep | Zero | Replace | IncrSat | DecrSat | Invert | IncrWrap | DecrWrap>)
+		(Fail <Keep | Zero | Replace | IncrSat | DecrSat | Invert | IncrWrap | DecrWrap>)
+		(ZFail <Keep | Zero | Replace | IncrSat | DecrSat | Invert | IncrWrap | DecrWrap>)
+	})
+
+	CODE_BEGIN
+
+	//HLSLコードを記述する
+
+	CODE_END
+}
+>*
+
+#########################################################################################################################
+シェーダー本文記述
+#########################################################################################################################
+
+定数バッファ
+bool
+int
+uint
+float
+
+カラー
+color
+colorHDR
+
+サンプラー
+sampler2D
+samplerCube
+sampler3D
+
