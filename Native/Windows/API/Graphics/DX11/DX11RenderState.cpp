@@ -63,23 +63,23 @@ DX11RenderState::DX11RenderState(const RenderStateData& data)
   ds_desc.DepthWriteMask = Z_WRITES[data.z_write_];
   ds_desc.DepthFunc = COMPARASION_FUNCS[data.z_test_];
 
-  if (data.stencil_state_data_)
+  if (data.stencil_state_data_.enabled_)
   {
-    this->stencil_ref_ = data.stencil_state_data_->stencil_ref_;
+    this->stencil_ref_ = data.stencil_state_data_.stencil_ref_;
 
-    ds_desc.StencilReadMask = data.stencil_state_data_->stencil_read_mask_;
-    ds_desc.StencilWriteMask = data.stencil_state_data_->stencil_write_mask_;
+    ds_desc.StencilReadMask = data.stencil_state_data_.stencil_read_mask_;
+    ds_desc.StencilWriteMask = data.stencil_state_data_.stencil_write_mask_;
     ds_desc.StencilEnable = TRUE;
 
-    ds_desc.FrontFace.StencilFunc = COMPARASION_FUNCS[data.stencil_state_data_->stencil_comp_front_];
-    ds_desc.FrontFace.StencilPassOp = STENCIL_OPERATIONS[data.stencil_state_data_->stencil_pass_front_];
-    ds_desc.FrontFace.StencilFailOp = STENCIL_OPERATIONS[data.stencil_state_data_->stencil_fail_front_];
-    ds_desc.FrontFace.StencilDepthFailOp = STENCIL_OPERATIONS[data.stencil_state_data_->stencil_zfail_front_];
+    ds_desc.FrontFace.StencilFunc = COMPARASION_FUNCS[data.stencil_state_data_.stencil_comp_front_];
+    ds_desc.FrontFace.StencilPassOp = STENCIL_OPERATIONS[data.stencil_state_data_.stencil_pass_front_];
+    ds_desc.FrontFace.StencilFailOp = STENCIL_OPERATIONS[data.stencil_state_data_.stencil_fail_front_];
+    ds_desc.FrontFace.StencilDepthFailOp = STENCIL_OPERATIONS[data.stencil_state_data_.stencil_zfail_front_];
 
-    ds_desc.BackFace.StencilFunc = COMPARASION_FUNCS[data.stencil_state_data_->stencil_comp_back_];
-    ds_desc.BackFace.StencilPassOp = STENCIL_OPERATIONS[data.stencil_state_data_->stencil_pass_back_];
-    ds_desc.BackFace.StencilFailOp = STENCIL_OPERATIONS[data.stencil_state_data_->stencil_fail_back_];
-    ds_desc.BackFace.StencilDepthFailOp = STENCIL_OPERATIONS[data.stencil_state_data_->stencil_zfail_back_];
+    ds_desc.BackFace.StencilFunc = COMPARASION_FUNCS[data.stencil_state_data_.stencil_comp_back_];
+    ds_desc.BackFace.StencilPassOp = STENCIL_OPERATIONS[data.stencil_state_data_.stencil_pass_back_];
+    ds_desc.BackFace.StencilFailOp = STENCIL_OPERATIONS[data.stencil_state_data_.stencil_fail_back_];
+    ds_desc.BackFace.StencilDepthFailOp = STENCIL_OPERATIONS[data.stencil_state_data_.stencil_zfail_back_];
   }
   else
   {

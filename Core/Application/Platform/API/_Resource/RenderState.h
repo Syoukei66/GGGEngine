@@ -58,6 +58,7 @@ struct StencilStateData
   // =================================================================
   GG_SERIALIZABLE(StencilStateData)
   {
+    archive(enabled_);
     archive(stencil_ref_);
     archive(stencil_read_mask_);
     archive(stencil_write_mask_);
@@ -76,7 +77,8 @@ struct StencilStateData
   // =================================================================
 public:
   StencilStateData()
-    : stencil_ref_(0xff)
+    : enabled_(false)
+    , stencil_ref_(0xff)
     , stencil_read_mask_(0xff)
     , stencil_write_mask_(0xff)
     , stencil_comp_front_(static_cast<T_FIXED_UINT8>(Shader::ComparasionFunc::kAlways))
@@ -93,6 +95,7 @@ public:
   // Data Members
   // =================================================================
 public:
+  bool enabled_;
   T_FIXED_UINT8 stencil_ref_;        // 0~255
   T_FIXED_UINT8 stencil_read_mask_;  // 0~255
   T_FIXED_UINT8 stencil_write_mask_; // 0~255
@@ -143,7 +146,7 @@ public:
     , z_write_(o.z_write_)
     , z_test_(o.z_test_)
     , blend_state_datas_(o.blend_state_datas_)
-    , stencil_state_data_(o.stencil_state_data_ ? new StencilStateData(*o.stencil_state_data_) : nullptr)
+    , stencil_state_data_(o.stencil_state_data_)
   {}
 
   // =================================================================
@@ -155,7 +158,7 @@ public:
   T_FIXED_UINT8 z_test_;    // ComparasionFunc
 
   std::array<BlendStateData, 8> blend_state_datas_;
-  std::unique_ptr<StencilStateData> stencil_state_data_;
+  StencilStateData stencil_state_data_;
 };
 
 /*!
