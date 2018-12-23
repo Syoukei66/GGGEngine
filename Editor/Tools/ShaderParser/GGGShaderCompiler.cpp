@@ -197,8 +197,8 @@ bool ParseIdentifier(const char** p, std::string* dest)
   do
   {
     (*dest) += **p;
-    EatToken(p);
-    next_token = CheckNextToken(p);
+    EatToken(p, false);
+    next_token = CheckNextToken(p, false);
   } while (next_token == TokenType::kAlphabet || next_token == TokenType::kUnderBar || next_token == TokenType::kNumber);
   return true;
 }
@@ -376,7 +376,6 @@ bool ParseProperty(const char** p, ShaderData* dest)
     data.name_ = property_id;
     data.display_name_ = property_name;
     data.variable_type_ = static_cast<T_FIXED_UINT8>(Shader::VariableType::kInt);
-    char* err;
     data.min_value_ = (T_FLOAT)Limit::T_INT32_MIN;
     data.max_value_ = (T_FLOAT)Limit::T_INT32_MAX;
     dest->scala_properties_.emplace_back(data);
@@ -814,7 +813,6 @@ void GGGShaderCompiler::Parse(const std::string& str, IHLSLCompiler* compiler, S
   const char* p = str.c_str();
   
   bool grab = false;
-  TokenType type;
   while (CheckNextToken(&p) != TokenType::kEOF)
   {
     std::string token = "";
