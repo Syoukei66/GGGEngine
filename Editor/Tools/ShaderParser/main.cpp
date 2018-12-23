@@ -26,7 +26,22 @@ std::string ToString(const ScalaPropertyData& data)
   using namespace GGGShaderParser;
   std::string ret = std::string();
   ret.append(VariableTypeTokens[data.variable_type_] + " " + data.name_ + " = " + std::to_string(data.init_value_));
-  ret.append("// " + data.display_name_ + "(" + std::to_string(data.min_value_) + " Å` " + std::to_string(data.max_value_) + ")");
+  std::string min_value = "";
+  std::string max_value = "";
+  if (data.min_value_ != Limit::T_FLOAT_MIN && data.min_value_ != Limit::T_INT32_MIN)
+  {
+    min_value = std::to_string(data.min_value_);
+  }
+  if (data.max_value_ != Limit::T_FLOAT_MAX && data.max_value_ != Limit::T_INT32_MAX)
+  {
+    max_value = std::to_string(data.max_value_);
+  }
+  std::string limit = "";
+  if (min_value.size() > 0 || max_value.size() > 0)
+  {
+    limit = " (" + min_value + " Å` " + max_value + ")";
+  }
+  ret.append(" // " + data.display_name_ + limit);
   return ret;
 }
 std::string ToString(const VectorPropertyData& data)
@@ -34,7 +49,7 @@ std::string ToString(const VectorPropertyData& data)
   using namespace GGGShaderParser;
   std::string ret = std::string();
   ret.append(VariableTypeTokens[data.variable_type_] + " " + data.name_ + " = {" + std::to_string(data.init_value0_) + "," + std::to_string(data.init_value1_) + "," + std::to_string(data.init_value2_) + "," + std::to_string(data.init_value3_) + "}");
-  ret.append("// " + data.display_name_);
+  ret.append(" // " + data.display_name_);
   return ret;
 }
 std::string ToString(const ColorPropertyData& data)
@@ -42,15 +57,15 @@ std::string ToString(const ColorPropertyData& data)
   using namespace GGGShaderParser;
   std::string ret = std::string();
   ret.append("Color " + data.name_ + " = {" + std::to_string(data.init_r_) + "," + std::to_string(data.init_g_) + "," + std::to_string(data.init_b_) + "," + std::to_string(data.init_a_) + "}");
-  ret.append("// " + data.display_name_);
+  ret.append(" // " + data.display_name_);
   return ret;
 }
 std::string ToString(const SamplerPropertyData& data)
 {
   using namespace GGGShaderParser;
   std::string ret = std::string();
-  ret.append("Texture" + SamplerTypeTokens[data.sampler_type_] + " " + data.name_ + " = " + SamplerTypeTokens[data.sampler_type_]);
-  ret.append("// " + data.display_name_);
+  ret.append(SamplerTypeTokens[data.sampler_type_] + " " + data.name_ + " = " + DefaultTextureTypeTokens[data.default_texture_]);
+  ret.append(" // " + data.display_name_);
   return ret;
 }
 
@@ -76,7 +91,7 @@ std::string ToString(const RenderStateData& data)
           BlendFactorTokens[bdata.blend_alpha_src_factor_] + BlendOpTokens[bdata.blend_alpha_op_] + BlendFactorTokens[bdata.blend_alpha_dst_factor_] +
         ")\n");
     }
-    if (bdata.enabled_)
+    else
     {
       ret.append(" No Blend\n");
     }

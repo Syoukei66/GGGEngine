@@ -18,8 +18,14 @@ enum class TokenType : T_UINT8
   kTextParen,
   kComma,
   kEqual,
-  kIdentifier
+  kAlphabet,
+  kNumber,
+  kUnderBar,
+  kDot,
+  kPlus,
+  kMinus,
 };
+
 
 TokenType GetSeparator(const char c)
 {
@@ -59,78 +65,260 @@ TokenType GetSeparator(const char c)
   {
     return TokenType::kEqual;
   }
+  if (c == '_')
+  {
+    return TokenType::kUnderBar;
+  }
+  if (c == '.')
+  {
+    return TokenType::kDot;
+  }
+  if (c == '+')
+  {
+    return TokenType::kPlus;
+  }
+  if (c == '-')
+  {
+    return TokenType::kMinus;
+  }
+  if ('0' <= c && c <= '9')
+  {
+    return TokenType::kNumber;
+  }
   if (
     ('a' <= c && c <= 'z') ||
-    ('A' <= c && c <= 'Z') ||
-    ('0' <= c && c <= '9') ||
-    (c == '_')
+    ('A' <= c && c <= 'Z')
     )
   {
-    return TokenType::kIdentifier;
+    return TokenType::kAlphabet;
   }
   return TokenType::kNoExcepted;
 }
 
 /*!
- * @brief トークンを受け取る
+ * @brief 空白をスキップする
  * @param p 現在の文字ポインタ
- * @param token トークンを受け取る
- * @return 次のトークンの情報
  */
-TokenType NextToken(const char** p, std::string* token = nullptr)
+void SkipSpace(const char** p)
 {
-  // 空白をスキップ
   TokenType separator;
   while ((separator = GetSeparator(**p)) == TokenType::kSpace)
   {
     ++(*p);
   }
-  // 区切り記号が出てくるまでをトークンに
-  if (separator == TokenType::kIdentifier)
-  {
-    do
-    {
-      if (token)
-      {
-        (*token) += (**p);
-      }
-      ++(*p);
-    } while ((separator = GetSeparator(**p)) == TokenType::kIdentifier);
-    return separator;
-  }
-  ++(*p);
-  return separator;
 }
 
 /*!
- * @brief トークンを取得するが、文字ポインタを変化させない
+ * @brief 次のトークンの情報を取得するが、文字ポインタを変化させない
  * @param p 現在の文字ポインタ
- * @param token トークンを受け取る
  * @return 次のトークンの情報
  */
-TokenType CheckNextToken(const char** p, std::string* token = nullptr)
+TokenType CheckNextToken(const char** p, bool skip_space = true)
 {
-  const char* const buf = (*p);
-  TokenType ret = NextToken(p, token);
-  (*p) = buf;
-  return ret;
+  if (skip_space)
+  {
+    SkipSpace(p);
+  }
+  return GetSeparator(**p);
 }
 
 /*!
  * @brief 型を指定してトークンを取得する。トークンが指定した型と違ったらエラー
  * @param p 現在の文字ポインタ
  * @param type トークンの型
- * @param token トークンを受け取る
  * @return typeで与えたトークンの型が違う場合false
  */
-bool GetToken(const char** p, TokenType type, std::string* token = nullptr)
+bool GetToken(const char** p, TokenType type, bool skip_space = true)
 {
-  if (NextToken(p, token) == type)
+  if (skip_space)
   {
+    SkipSpace(p);
+  }
+  if (GetSeparator(**p) == type)
+  {
+    ++(*p);
     return true;
   }
   ASSERT_TOKEN(GetToken);
   return false;
+}
+
+/*!
+ * @brief 次のトークンを消費する。
+ * @param p 現在の文字ポインタ
+ * @return EOFが出現した場合false
+ */
+bool EatToken(const char** p, bool skip_space = true)
+{
+  if (skip_space)
+  {
+    SkipSpace(p);
+  }
+  if (GetSeparator(**p) == TokenType::kEOF)
+  {
+    return false;
+  }
+  ++(*p);
+  return true;
+}
+
+/*!
+ * @brief ダブルクォーテーションで囲まれた文字列のパース
+ * @return falseなら失敗
+ */
+bool ParseText(const char** p, std::string* dest)
+{
+  (*dest).clear();
+  if (!GetToken(p, TokenType::kTextParen))
+  {
+    return false;
+  }
+  while (CheckNextToken(p, false) !=TokenType::kTextParen)
+  {
+    (*dest) += **p;
+    EatToken(p, false);
+  }
+  EatToken(p);
+  return true;
+}
+
+/*!
+ * @brief 識別子のパース
+ * @return falseなら失敗
+ */
+bool ParseIdentifier(const char** p, std::string* dest)
+{
+  (*dest).clear();
+  TokenType next_token = CheckNextToken(p);
+  if (next_token != TokenType::kAlphabet && next_token != TokenType::kUnderBar)
+  {
+    return false;
+  }
+  do
+  {
+    (*dest) += **p;
+    EatToken(p);
+    next_token = CheckNextToken(p);
+  } while (next_token == TokenType::kAlphabet || next_token == TokenType::kUnderBar || next_token == TokenType::kNumber);
+  return true;
+}
+
+/*!
+ * @brief 特殊識別子のパース
+ * テクスチャプロパティ指定で数値から始まる識別子(2D, 3D)に対応する必要が出てきた
+ * @return falseなら失敗
+ */
+bool ParseSpecialIdentifier(const char** p, std::string* dest)
+{
+  (*dest).clear();
+  TokenType next_token = CheckNextToken(p);
+  if (next_token != TokenType::kAlphabet && next_token != TokenType::kUnderBar && next_token != TokenType::kNumber)
+  {
+    return false;
+  }
+  do
+  {
+    (*dest) += **p;
+    EatToken(p);
+    next_token = CheckNextToken(p);
+  } while (next_token == TokenType::kAlphabet || next_token == TokenType::kUnderBar || next_token == TokenType::kNumber);
+  return true;
+}
+
+/*!
+ * @brief 整数値のパース
+ * @return falseなら失敗
+ */
+bool ParseInt(const char** p, T_FLOAT* dest)
+{
+  bool minus = false;
+  TokenType next_token = CheckNextToken(p);
+  // 符号部分の処理
+  if (next_token == TokenType::kPlus)
+  {
+    EatToken(p);
+    next_token = CheckNextToken(p);
+  }
+  else if (next_token == TokenType::kMinus)
+  {
+    minus = true;
+    EatToken(p);
+    next_token = CheckNextToken(p);
+  }
+
+  std::string str = minus ? "-" : "";
+  if (next_token != TokenType::kNumber)
+  {
+    return false;
+  }
+  do
+  {
+    str += **p;
+    EatToken(p);
+  } while ((next_token = CheckNextToken(p, false)) == TokenType::kNumber);
+  (*dest) = (T_FLOAT)std::strtol(str.c_str(), NULL, 10);
+  return true;
+}
+
+/*!
+ * @brief 実数値のパース
+ * @return falseなら失敗
+ */
+bool ParseFloat(const char** p, T_FLOAT* dest)
+{
+  bool minus = false;
+  TokenType next_token = CheckNextToken(p);
+  // 符号部分の処理
+  if (next_token == TokenType::kPlus)
+  {
+    EatToken(p);
+    next_token = CheckNextToken(p);
+  }
+  else if (next_token == TokenType::kMinus)
+  {
+    minus = true;
+    EatToken(p);
+    next_token = CheckNextToken(p);
+  }
+  std::string sign = minus ? "-" : "";
+  // 整数部の処理
+  std::string integer = "";
+  if (next_token == TokenType::kNumber)
+  {
+    do
+    {
+      integer += **p;
+      EatToken(p);
+      next_token = CheckNextToken(p);
+    } while (next_token == TokenType::kNumber);
+  }
+  // 小数部の処理
+  std::string fractional = "";
+  if (next_token == TokenType::kDot)
+  {
+    EatToken(p);
+    next_token = CheckNextToken(p);
+    if (next_token == TokenType::kNumber)
+    {
+      do
+      {
+        fractional += **p;
+        EatToken(p);
+        next_token = CheckNextToken(p);
+      } while (next_token == TokenType::kNumber);
+    }
+  }
+  (*dest) = std::strtof((sign + integer + "." + fractional).c_str(), NULL);
+  return true;
+}
+
+/*!
+ * @brief Nameのパース
+ * @return falseなら失敗
+ */
+bool ParseName(const char** p, ShaderData* dest)
+{
+  return ParseText(p, &dest->name_);
 }
 
 /*!
@@ -142,201 +330,120 @@ bool ParseProperty(const char** p, ShaderData* dest)
   std::string property_id = "";
   std::string property_name = "";
   std::string property_type = "";
-  if (!GetToken(p, TokenType::kIdentifier, &property_id)) return false;
+  if (!ParseIdentifier(p, &property_id)) return false;
   if (!GetToken(p, TokenType::kParenBegin)) return false;
-  if (!GetToken(p, TokenType::kTextParen)) return false;
-  if (!GetToken(p, TokenType::kIdentifier, &property_name)) return false;
-  if (!GetToken(p, TokenType::kTextParen)) return false;
+  if (!ParseText(p, &property_name)) return false;
   if (!GetToken(p, TokenType::kComma)) return false;
-  if (!GetToken(p, TokenType::kIdentifier, &property_type)) return false;
+  if (!ParseSpecialIdentifier(p, &property_type)) return false;
   using namespace GGGShaderParser;
   if (property_type == "Range")
   {
-    std::string min = "";
-    std::string max = "";
-    std::string init = "";
+    ScalaPropertyData data;
     if (!GetToken(p, TokenType::kParenBegin)) return false;
-    if (!GetToken(p, TokenType::kIdentifier, &min)) return false;
+    if (!ParseFloat(p, &data.min_value_)) return false;
     if (!GetToken(p, TokenType::kComma)) return false;
-    if (!GetToken(p, TokenType::kIdentifier, &max)) return false;
+    if (!ParseFloat(p, &data.max_value_)) return false;
     if (!GetToken(p, TokenType::kParenEnd)) return false;
     if (!GetToken(p, TokenType::kParenEnd)) return false;
     if (!GetToken(p, TokenType::kEqual)) return false;
-    if (!GetToken(p, TokenType::kIdentifier, &init)) return false;
-    ScalaPropertyData data;
+    if (!ParseFloat(p, &data.init_value_)) return false;
     data.name_ = property_id;
     data.display_name_ = property_name;
     data.variable_type_ = static_cast<T_FIXED_UINT8>(Shader::VariableType::kFloat);
-    char* err;
-    data.min_value_ = (T_FLOAT)std::strtod(min.c_str(), &err);
-    if (*err)
-    {
-      ASSERT_PARSE(ParseProperty, "最小値が無効です");
-      return false;
-    }
-    data.max_value_ = (T_FLOAT)std::strtod(max.c_str(), &err);
-    if (*err)
-    {
-      ASSERT_PARSE(ParseProperty, "最大値が無効です");
-      return false;
-    }
-    data.init_value_ = (T_FLOAT)std::strtod(init.c_str(), &err);
-    if (*err)
-    {
-      ASSERT_PARSE(ParseProperty, "初期値が無効です");
-      return false;
-    }
     dest->scala_properties_.emplace_back(data);
     return true;
   }
   if (property_type == "Float")
   {
-    std::string init = "";
+    ScalaPropertyData data;
     if (!GetToken(p, TokenType::kParenEnd)) return false;
     if (!GetToken(p, TokenType::kEqual)) return false;
-    if (!GetToken(p, TokenType::kIdentifier, &init)) return false;
-    ScalaPropertyData data;
+    if (!ParseFloat(p, &data.init_value_)) return false;
     data.name_ = property_id;
     data.display_name_ = property_name;
     data.variable_type_ = static_cast<T_FIXED_UINT8>(Shader::VariableType::kFloat);
-    char* err;
     data.min_value_ = Limit::T_FLOAT_MIN;
     data.max_value_ = Limit::T_FLOAT_MAX;
-    data.init_value_ = std::strtof(init.c_str(), &err);
-    if (*err)
-    {
-      ASSERT_PARSE(ParseProperty, "初期値が無効です");
-      return false;
-    }
     dest->scala_properties_.emplace_back(data);
     return true;
   }
   if (property_type == "Int")
   {
-    std::string init = "";
+    ScalaPropertyData data;
     if (!GetToken(p, TokenType::kParenEnd)) return false;
     if (!GetToken(p, TokenType::kEqual)) return false;
-    if (!GetToken(p, TokenType::kIdentifier, &init)) return false;
-    ScalaPropertyData data;
+    if (!ParseInt(p, &data.init_value_)) return false;
     data.name_ = property_id;
     data.display_name_ = property_name;
     data.variable_type_ = static_cast<T_FIXED_UINT8>(Shader::VariableType::kInt);
     char* err;
     data.min_value_ = (T_FLOAT)Limit::T_INT32_MIN;
     data.max_value_ = (T_FLOAT)Limit::T_INT32_MAX;
-    data.init_value_ = (T_FLOAT)std::strtol(init.c_str(), &err, 10);
-    if (*err)
-    {
-      ASSERT_PARSE(ParseProperty, "初期値が無効です");
-      return false;
-    }
     dest->scala_properties_.emplace_back(data);
     return true;
   }
   if (property_type == "Vector")
   {
-    std::string init_0 = "";
-    std::string init_1 = "";
-    std::string init_2 = "";
-    std::string init_3 = "";
+    VectorPropertyData data;
     if (!GetToken(p, TokenType::kParenEnd)) return false;
     if (!GetToken(p, TokenType::kEqual)) return false;
-    if (!GetToken(p, TokenType::kParenBegin)) return false;
-    if (!GetToken(p, TokenType::kIdentifier, &init_0)) return false;
-    if (!GetToken(p, TokenType::kComma)) return false;
-    if (!GetToken(p, TokenType::kIdentifier, &init_1)) return false;
-    if (!GetToken(p, TokenType::kComma)) return false;
-    if (!GetToken(p, TokenType::kIdentifier, &init_2)) return false;
-    if (!GetToken(p, TokenType::kComma)) return false;
-    if (!GetToken(p, TokenType::kIdentifier, &init_3)) return false;
-    if (!GetToken(p, TokenType::kParenEnd)) return false;
-    VectorPropertyData data;
+    if (!GetToken(p, TokenType::kBlockBegin)) return false;
+    // {}の場合はすべて0、　数値が入ってた場合は数値を読み取る
+    if (CheckNextToken(p) != TokenType::kBlockEnd)
+    {
+      if (!ParseFloat(p, &data.init_value0_)) return false;
+      if (!GetToken(p, TokenType::kComma)) return false;
+      if (!ParseFloat(p, &data.init_value1_)) return false;
+      if (!GetToken(p, TokenType::kComma)) return false;
+      if (!ParseFloat(p, &data.init_value2_)) return false;
+      if (!GetToken(p, TokenType::kComma)) return false;
+      if (!ParseFloat(p, &data.init_value3_)) return false;
+      if (!GetToken(p, TokenType::kBlockEnd)) return false;
+    }
+    else
+    {
+      EatToken(p);
+    }
     data.name_ = property_id;
     data.display_name_ = property_name;
     data.variable_type_ = static_cast<T_FIXED_UINT8>(Shader::VariableType::kFloat);
-    char* err;
-    data.init_value0_ = std::strtof(init_0.c_str(), &err);
-    if (*err)
-    {
-      ASSERT_PARSE(ParseProperty, "1番目の初期値が無効です");
-      return false;
-    }
-    data.init_value1_ = std::strtof(init_1.c_str(), &err);
-    if (*err)
-    {
-      ASSERT_PARSE(ParseProperty, "2番目の初期値が無効です");
-      return false;
-    }
-    data.init_value2_ = std::strtof(init_2.c_str(), &err);
-    if (*err)
-    {
-      ASSERT_PARSE(ParseProperty, "3番目の初期値が無効です");
-      return false;
-    }
-    data.init_value3_ = std::strtof(init_3.c_str(), &err);
-    if (*err)
-    {
-      ASSERT_PARSE(ParseProperty, "4番目の初期値が無効です");
-      return false;
-    }
     dest->vector_properties_.emplace_back(data);
     return true;
   }
   if (property_type == "Color")
   {
-    std::string init_r = "";
-    std::string init_g = "";
-    std::string init_b = "";
-    std::string init_a = "";
+    ColorPropertyData data;
     if (!GetToken(p, TokenType::kParenEnd)) return false;
     if (!GetToken(p, TokenType::kEqual)) return false;
-    if (!GetToken(p, TokenType::kParenBegin)) return false;
-    if (!GetToken(p, TokenType::kIdentifier, &init_r)) return false;
-    if (!GetToken(p, TokenType::kComma)) return false;
-    if (!GetToken(p, TokenType::kIdentifier, &init_g)) return false;
-    if (!GetToken(p, TokenType::kComma)) return false;
-    if (!GetToken(p, TokenType::kIdentifier, &init_b)) return false;
-    if (!GetToken(p, TokenType::kComma)) return false;
-    if (!GetToken(p, TokenType::kIdentifier, &init_a)) return false;
-    if (!GetToken(p, TokenType::kParenEnd)) return false;
-    ColorPropertyData data;
+    if (!GetToken(p, TokenType::kBlockBegin)) return false;
+    // {}の場合はすべて1、　数値が入ってた場合は数値を読み取る
+    if (CheckNextToken(p) != TokenType::kBlockEnd)
+    {
+      if (!ParseFloat(p, &data.init_r_)) return false;
+      if (!GetToken(p, TokenType::kComma)) return false;
+      if (!ParseFloat(p, &data.init_g_)) return false;
+      if (!GetToken(p, TokenType::kComma)) return false;
+      if (!ParseFloat(p, &data.init_b_)) return false;
+      if (!GetToken(p, TokenType::kComma)) return false;
+      if (!ParseFloat(p, &data.init_a_)) return false;
+      if (!GetToken(p, TokenType::kBlockEnd)) return false;
+    }
+    else
+    {
+      EatToken(p);
+    }
     data.name_ = property_id;
     data.display_name_ = property_name;
-    char* err;
-    data.init_r_ = std::strtof(init_r.c_str(), &err);
-    if (*err)
-    {
-      ASSERT_PARSE(ParseProperty, "Rの初期値が無効です");
-      return false;
-    }
-    data.init_g_ = std::strtof(init_g.c_str(), &err);
-    if (*err)
-    {
-      ASSERT_PARSE(ParseProperty, "Gの初期値が無効です");
-      return false;
-    }
-    data.init_b_ = std::strtof(init_b.c_str(), &err);
-    if (*err)
-    {
-      ASSERT_PARSE(ParseProperty, "Bの初期値が無効です");
-      return false;
-    }
-    data.init_a_ = std::strtof(init_a.c_str(), &err);
-    if (*err)
-    {
-      ASSERT_PARSE(ParseProperty, "Aの初期値が無効です");
-      return false;
-    }
     dest->color_properties_.emplace_back(data);
     return true;
   }
   if (property_type == "2D")
   {
-    SamplerPropertyData data;
-    std::string init_tex = "";
+    std::string init_tex;
     if (!GetToken(p, TokenType::kParenEnd)) return false;
     if (!GetToken(p, TokenType::kEqual)) return false;
-    if (!GetToken(p, TokenType::kIdentifier, &init_tex)) return false;
+    if (!ParseText(p, &init_tex)) return false;
+    SamplerPropertyData data;
     data.name_ = property_id;
     data.display_name_ = property_name;
     data.sampler_type_ = static_cast<T_FIXED_UINT8>(Shader::SamplerType::kSampler2D);
@@ -354,13 +461,14 @@ bool ParseProperty(const char** p, ShaderData* dest)
 bool ParseProperties(const char** p, ShaderData* dest)
 {
   if (!GetToken(p, TokenType::kBlockBegin)) return false;
-  while (NextToken(p) != TokenType::kBlockEnd)
+  while (CheckNextToken(p) != TokenType::kBlockEnd)
   {
     if (!ParseProperty(p, dest))
     {
       return false;
     }
   }
+  if (!GetToken(p, TokenType::kBlockEnd)) return false;
   return true;
 }
 
@@ -372,8 +480,8 @@ bool ParseTag(const char** p, ShaderData* dest)
 {
   std::string tag_type = "";
   std::string tag_value = "";
-  if (!GetToken(p, TokenType::kIdentifier, &tag_type)) return false;
-  if (!GetToken(p, TokenType::kIdentifier, &tag_value)) return false;
+  if (!ParseIdentifier(p, &tag_type)) return false;
+  if (!ParseIdentifier(p, &tag_value)) return false;
   using namespace GGGShaderParser;
   if (tag_type == "Queue")
   {
@@ -395,13 +503,14 @@ bool ParseTag(const char** p, ShaderData* dest)
 bool ParseTags(const char** p, ShaderData* dest)
 {
   if (!GetToken(p, TokenType::kBlockBegin)) return false;
-  while (NextToken(p) != TokenType::kBlockEnd)
+  while (CheckNextToken(p) != TokenType::kBlockEnd)
   {
     if (!ParseTag(p, dest))
     {
       return false;
     }
-  }
+  }   
+  EatToken(p);
   return true;
 }
 
@@ -414,8 +523,8 @@ bool ParseStencilData(const char** p, StencilStateData* dest)
   using namespace GGGShaderParser;
   std::string tag = "";
   std::string value = "";
-  if (!GetToken(p, TokenType::kIdentifier, &tag)) return false;
-  if (!GetToken(p, TokenType::kIdentifier, &value)) return false;
+  if (!ParseIdentifier(p, &tag)) return false;
+  if (!ParseIdentifier(p, &value)) return false;
   if (tag == "Ref")
   {
     char* err;
@@ -521,41 +630,41 @@ bool ParseStencilData(const char** p, StencilStateData* dest)
 bool ParsePassData(const char** p, IHLSLCompiler* compiler, const ShaderData& data, PassData* dest)
 {
   std::string identifier = "";
-  if (!GetToken(p, TokenType::kIdentifier, &identifier)) return false;
+  if (!ParseIdentifier(p, &identifier)) return false;
 
   using namespace GGGShaderParser;
   if (identifier == "LightMode")
   {
     std::string value = "";
-    if (!GetToken(p, TokenType::kIdentifier, &value)) return false;
+    if (!ParseIdentifier(p, &value)) return false;
     dest->light_mode_ = ParseLightMode(value);
     return true;
   }
   if (identifier == "Cull")
   {
     std::string value = "";
-    if (!GetToken(p, TokenType::kIdentifier, &value)) return false;
+    if (!ParseIdentifier(p, &value)) return false;
     dest->render_state_data_.cull_mode_ = ParseCullMode(value);
     return true;
   }
   if (identifier == "ZWrite")
   {
     std::string value = "";
-    if (!GetToken(p, TokenType::kIdentifier, &value)) return false;
+    if (!ParseIdentifier(p, &value)) return false;
     dest->render_state_data_.z_write_ = ParseZWrite(value);
     return true;
   }
   if (identifier == "ZTest")
   {
     std::string value = "";
-    if (!GetToken(p, TokenType::kIdentifier, &value)) return false;
+    if (!ParseIdentifier(p, &value)) return false;
     dest->render_state_data_.z_test_ = ParseComparasionFunc(value);
     return true;
   }
   if (identifier == "Blend")
   {
     std::string value = "";
-    if (!GetToken(p, TokenType::kIdentifier, &value)) return false;
+    if (!ParseIdentifier(p, &value)) return false;
     T_INT8 state_index = -1;
     T_INT32 src_factor = ParseBlendFactor(value);
     // レンダーターゲット指定があった場合
@@ -568,19 +677,19 @@ bool ParsePassData(const char** p, IHLSLCompiler* compiler, const ShaderData& da
         ASSERT_PARSE(ParseProperty, "レンダーターゲット番号が無効です");
         return false;
       }
-      if (!GetToken(p, TokenType::kIdentifier, &value)) return false;
+      if (!ParseIdentifier(p, &value)) return false;
       src_factor = ParseBlendFactor(value);
     }
-    if (!GetToken(p, TokenType::kIdentifier, &value)) return false;
+    if (!ParseIdentifier(p, &value)) return false;
     T_INT32 dst_factor = ParseBlendFactor(value);
     T_INT32 asrc_factor = src_factor;
     T_INT32 adst_factor = dst_factor;
     // アルファのFactor指定があった場合
     if (CheckNextToken(p) == TokenType::kComma)
     {
-      if (!GetToken(p, TokenType::kIdentifier, &value)) return false;
+      if (!ParseIdentifier(p, &value)) return false;
       asrc_factor = ParseBlendFactor(value);
-      if (!GetToken(p, TokenType::kIdentifier, &value)) return false;
+      if (!ParseIdentifier(p, &value)) return false;
       adst_factor = ParseBlendFactor(value);
     }
     // ブレンドステートを設定していく
@@ -601,7 +710,7 @@ bool ParsePassData(const char** p, IHLSLCompiler* compiler, const ShaderData& da
   if (identifier == "BlendOp")
   {
     std::string value = "";
-    if (!GetToken(p, TokenType::kIdentifier, &value)) return false;
+    if (!ParseIdentifier(p, &value)) return false;
     T_INT8 state_index = -1;
     T_INT32 color_op = ParseBlendOp(value);
     // レンダーターゲット指定があった場合
@@ -614,14 +723,14 @@ bool ParsePassData(const char** p, IHLSLCompiler* compiler, const ShaderData& da
         ASSERT_PARSE(ParseProperty, "レンダーターゲット番号が無効です");
         return false;
       }
-      if (!GetToken(p, TokenType::kIdentifier, &value)) return false;
+      if (!ParseIdentifier(p, &value)) return false;
       color_op = ParseBlendOp(value);
     }
     T_INT32 alpha_op = color_op;
     // アルファのFactor指定があった場合
     if (CheckNextToken(p) == TokenType::kComma)
     {
-      if (!GetToken(p, TokenType::kIdentifier, &value)) return false;
+      if (!ParseIdentifier(p, &value)) return false;
       alpha_op = ParseBlendOp(value);
     }
     // ブレンドステートを設定していく
@@ -640,13 +749,14 @@ bool ParsePassData(const char** p, IHLSLCompiler* compiler, const ShaderData& da
   if (identifier == "Stencil")
   {
     if (!GetToken(p, TokenType::kBlockBegin)) return false;
-    while (NextToken(p) != TokenType::kBlockEnd)
+    while (CheckNextToken(p) != TokenType::kBlockEnd)
     {
       if (!ParseStencilData(p, &dest->render_state_data_.stencil_state_data_))
       {
         return false;
       }
     }
+    EatToken(p);
     return true;
   }
   if (identifier == "CODE_BEGIN")
@@ -675,13 +785,14 @@ bool ParsePass(const char** p, IHLSLCompiler* compiler, ShaderData* dest, bool g
 {
   if (!GetToken(p, TokenType::kBlockBegin)) return false;
   PassData pass_data = PassData();
-  while (NextToken(p) != TokenType::kBlockEnd)
+  while (CheckNextToken(p) != TokenType::kBlockEnd)
   {
     if (!ParsePassData(p, compiler, *dest, &pass_data))
     {
       return false;
     }
   }
+  EatToken(p);
   pass_data.grab_ = grab;
   dest->passes_.emplace_back(pass_data);
   return true;
@@ -694,19 +805,29 @@ bool ParsePass(const char** p, IHLSLCompiler* compiler, ShaderData* dest, bool g
 bool ParseGrabPass(const char** p, ShaderData* dest)
 {
   if (!GetToken(p, TokenType::kBlockBegin)) return false;
-  while (NextToken(p) != TokenType::kBlockEnd);
+  while (GetToken(p, TokenType::kBlockEnd));
   return true;
 }
 
 void GGGShaderCompiler::Parse(const std::string& str, IHLSLCompiler* compiler, ShaderData* dest)
 {
   const char* p = str.c_str();
-  std::string token = "";
   
   bool grab = false;
   TokenType type;
-  while ((type = NextToken(&p, &token)) != TokenType::kEOF)
+  while (CheckNextToken(&p) != TokenType::kEOF)
   {
+    std::string token = "";
+    if (!ParseIdentifier(&p, &token))
+    {
+      // エラー
+      break;
+    }
+    if (token == "Shader")
+    {
+      ParseName(&p, dest);
+      continue;
+    }
     if (token == "Properties")
     {
       ParseProperties(&p, dest);
