@@ -25,7 +25,7 @@ enum class TokenType : T_UINT8
   kMinus,
 };
 
-TokenType GetSeparator(const char c)
+TokenType GetTokenType(const char c)
 {
   if (c == '\0')
   {
@@ -100,7 +100,7 @@ TokenType GetSeparator(const char c)
 void SkipSpace(const char** p)
 {
   TokenType separator;
-  while ((separator = GetSeparator(**p)) == TokenType::kSpace)
+  while ((separator = GetTokenType(**p)) == TokenType::kSpace)
   {
     ++(*p);
   }
@@ -117,7 +117,7 @@ TokenType CheckNextToken(const char** p, bool skip_space = true)
   {
     SkipSpace(p);
   }
-  return GetSeparator(**p);
+  return GetTokenType(**p);
 }
 
 /*!
@@ -132,7 +132,7 @@ bool GetToken(const char** p, TokenType type, bool skip_space = true)
   {
     SkipSpace(p);
   }
-  if (GetSeparator(**p) == type)
+  if (GetTokenType(**p) == type)
   {
     ++(*p);
     return true;
@@ -152,7 +152,7 @@ bool EatToken(const char** p, bool skip_space = true)
   {
     SkipSpace(p);
   }
-  if (GetSeparator(**p) == TokenType::kEOF)
+  if (GetTokenType(**p) == TokenType::kEOF)
   {
     return false;
   }
@@ -808,6 +808,8 @@ void ShaderCompiler::Parse(const std::string& str, HLSLCompiler* compiler, Shade
 {
   const char* p = str.c_str();
   
+  // コメントアウトするコードも書こう
+
   bool grab = false;
   while (CheckNextToken(&p) != TokenType::kEOF)
   {
@@ -817,14 +819,14 @@ void ShaderCompiler::Parse(const std::string& str, HLSLCompiler* compiler, Shade
       // エラー
       break;
     }
-    if (token == "Shader")
-    {
-      ParseName(&p, dest);
-      continue;
-    }
     if (token == "Properties")
     {
       ParseProperties(&p, dest);
+      continue;
+    }
+    if (token == "Shader")
+    {
+      ParseName(&p, dest);
       continue;
     }
     if (token == "Tags")
