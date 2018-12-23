@@ -72,6 +72,7 @@ enum class ComparasionFunc : T_FIXED_UINT8
   kEqual,
   kNotEqual,
   kAlways,
+  kNever,
 
   DATANUM,
 };

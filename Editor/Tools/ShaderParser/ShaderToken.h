@@ -84,11 +84,12 @@ const std::string ComparasionFuncTokens[static_cast<T_FIXED_UINT8>(Shader::Compa
 {
   "Less",
   "Greater",
-  "kLEqual",
-  "kGEqual",
-  "kEqual",
-  "kNotEqual",
-  "kAlways",
+  "LEqual",
+  "GEqual",
+  "Equal",
+  "NotEqual",
+  "Always",
+  "Never",
 };
 
 SHADER_TOKEN_PARSER(ComparasionFunc);
@@ -134,8 +135,8 @@ const std::string StencilOperationTokens[static_cast<T_FIXED_UINT8>(Shader::Sten
   "Keep",
   "Zero",
   "Replace",
-  "IncrSaturate",
-  "DecrSaturate",
+  "IncrSat",
+  "DecrSat",
   "Invert",
   "IncrWrap",
   "DecrWrap",

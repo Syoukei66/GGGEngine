@@ -521,42 +521,30 @@ bool ParseStencilData(const char** p, StencilStateData* dest)
 {
   using namespace GGGShaderParser;
   std::string tag = "";
-  std::string value = "";
   if (!ParseIdentifier(p, &tag)) return false;
-  if (!ParseIdentifier(p, &value)) return false;
   if (tag == "Ref")
   {
-    char* err;
-    dest->stencil_ref_ = (T_FIXED_UINT8)std::strtol(value.c_str(), &err, 10);
-    if (*err)
-    {
-      ASSERT_PARSE(ParseProperty, "Stencil Refに指定した数値が無効です");
-      return false;
-    }
+    T_FLOAT value = 0.0f;
+    if (!ParseInt(p, &value)) return false;
+    dest->stencil_ref_ = (T_FIXED_UINT8)value;
     return true;
   }
   if (tag == "ReadMask")
   {
-    char* err;
-    dest->stencil_read_mask_ = (T_FIXED_UINT8)std::strtol(value.c_str(), &err, 10);
-    if (*err)
-    {
-      ASSERT_PARSE(ParseProperty, "Stencil Refに指定した数値が無効です");
-      return false;
-    }
+    T_FLOAT value = 0.0f;
+    if (!ParseInt(p, &value)) return false;
+    dest->stencil_read_mask_ = (T_FIXED_UINT8)value;
     return true;
   }
   if (tag == "WriteMask")
   {
-    char* err;
-    dest->stencil_write_mask_ = (T_FIXED_UINT8)std::strtol(value.c_str(), &err, 10);
-    if (*err)
-    {
-      ASSERT_PARSE(ParseProperty, "Stencil Refに指定した数値が無効です");
-      return false;
-    }
+    T_FLOAT value = 0.0f;
+    if (!ParseInt(p, &value)) return false;
+    dest->stencil_write_mask_ = (T_FIXED_UINT8)value;
     return true;
   }
+  std::string value = "";
+  if (!ParseIdentifier(p, &value)) return false;
   if (tag == "Comp")
   {
     dest->stencil_comp_front_ = dest->stencil_comp_back_ = ParseComparasionFunc(value);
@@ -662,30 +650,39 @@ bool ParsePassData(const char** p, IHLSLCompiler* compiler, const ShaderData& da
   }
   if (identifier == "Blend")
   {
+    T_INT8 state_index = -1;
+    // レンダーターゲット指定があった場合
+    if (CheckNextToken(p) == TokenType::kNumber)
+    {
+      T_FLOAT value = 0.0f;
+      if (!ParseInt(p, &value)) return false;
+      state_index = (T_INT8)value;
+    }
     std::string value = "";
     if (!ParseIdentifier(p, &value)) return false;
-    T_INT8 state_index = -1;
-    T_INT32 src_factor = ParseBlendFactor(value);
-    // レンダーターゲット指定があった場合
-    if (src_factor == -1)
+    // ブレンドステートを無効にする
+    if (value == "Off")
     {
-      char* err;
-      state_index = (T_INT8)std::strtol(value.c_str(), &err, 10);
-      if (*err)
+      const T_UINT8 render_target_count = (T_UINT8)dest->render_state_data_.blend_state_datas_.size();
+      for (T_UINT8 i = 0; i < render_target_count; ++i)
       {
-        ASSERT_PARSE(ParseProperty, "レンダーターゲット番号が無効です");
-        return false;
+        if (state_index != -1 && i != state_index)
+        {
+          continue;
+        }
+        dest->render_state_data_.blend_state_datas_[i].enabled_ = false;
       }
-      if (!ParseIdentifier(p, &value)) return false;
-      src_factor = ParseBlendFactor(value);
+      return true;
     }
     if (!ParseIdentifier(p, &value)) return false;
+    T_INT32 src_factor = ParseBlendFactor(value);
     T_INT32 dst_factor = ParseBlendFactor(value);
     T_INT32 asrc_factor = src_factor;
     T_INT32 adst_factor = dst_factor;
     // アルファのFactor指定があった場合
     if (CheckNextToken(p) == TokenType::kComma)
     {
+      EatToken(p);
       if (!ParseIdentifier(p, &value)) return false;
       asrc_factor = ParseBlendFactor(value);
       if (!ParseIdentifier(p, &value)) return false;
@@ -699,6 +696,7 @@ bool ParsePassData(const char** p, IHLSLCompiler* compiler, const ShaderData& da
       {
         continue;
       }
+      dest->render_state_data_.blend_state_datas_[i].enabled_ = true;
       dest->render_state_data_.blend_state_datas_[i].blend_color_src_factor_ = src_factor;
       dest->render_state_data_.blend_state_datas_[i].blend_color_dst_factor_ = dst_factor;
       dest->render_state_data_.blend_state_datas_[i].blend_alpha_src_factor_ = asrc_factor;
@@ -708,27 +706,22 @@ bool ParsePassData(const char** p, IHLSLCompiler* compiler, const ShaderData& da
   }
   if (identifier == "BlendOp")
   {
+    T_INT8 state_index = -1;
+    // レンダーターゲット指定があった場合
+    if (CheckNextToken(p) == TokenType::kNumber)
+    {
+      T_FLOAT value = 0.0f;
+      if (!ParseInt(p, &value)) return false;
+      state_index = (T_INT8)value;
+    }
     std::string value = "";
     if (!ParseIdentifier(p, &value)) return false;
-    T_INT8 state_index = -1;
     T_INT32 color_op = ParseBlendOp(value);
-    // レンダーターゲット指定があった場合
-    if (color_op == -1)
-    {
-      char* err;
-      state_index = (T_INT8)std::strtol(value.c_str(), &err, 10);
-      if (*err)
-      {
-        ASSERT_PARSE(ParseProperty, "レンダーターゲット番号が無効です");
-        return false;
-      }
-      if (!ParseIdentifier(p, &value)) return false;
-      color_op = ParseBlendOp(value);
-    }
     T_INT32 alpha_op = color_op;
     // アルファのFactor指定があった場合
     if (CheckNextToken(p) == TokenType::kComma)
     {
+      EatToken(p);
       if (!ParseIdentifier(p, &value)) return false;
       alpha_op = ParseBlendOp(value);
     }
@@ -747,6 +740,7 @@ bool ParsePassData(const char** p, IHLSLCompiler* compiler, const ShaderData& da
   }
   if (identifier == "Stencil")
   {
+    dest->render_state_data_.stencil_state_data_.enabled_ = true;
     if (!GetToken(p, TokenType::kBlockBegin)) return false;
     while (CheckNextToken(p) != TokenType::kBlockEnd)
     {
@@ -804,7 +798,11 @@ bool ParsePass(const char** p, IHLSLCompiler* compiler, ShaderData* dest, bool g
 bool ParseGrabPass(const char** p, ShaderData* dest)
 {
   if (!GetToken(p, TokenType::kBlockBegin)) return false;
-  while (GetToken(p, TokenType::kBlockEnd));
+  while (CheckNextToken(p) != TokenType::kBlockEnd)
+  {
+    EatToken(p);
+  }
+  EatToken(p);
   return true;
 }
 

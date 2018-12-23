@@ -85,10 +85,10 @@ std::string ToString(const RenderStateData& data)
     {
       ret.append(
         " ColorBlend(" +
-          BlendFactorTokens[bdata.blend_color_src_factor_] + BlendOpTokens[bdata.blend_color_op_] + BlendFactorTokens[bdata.blend_color_dst_factor_] + 
+          BlendFactorTokens[bdata.blend_color_src_factor_] + " " + BlendOpTokens[bdata.blend_color_op_] + " " + BlendFactorTokens[bdata.blend_color_dst_factor_] +
         ")" +
         " AlphaBlend(" + 
-          BlendFactorTokens[bdata.blend_alpha_src_factor_] + BlendOpTokens[bdata.blend_alpha_op_] + BlendFactorTokens[bdata.blend_alpha_dst_factor_] +
+          BlendFactorTokens[bdata.blend_alpha_src_factor_] + " " + BlendOpTokens[bdata.blend_alpha_op_] + " " + BlendFactorTokens[bdata.blend_alpha_dst_factor_] +
         ")\n");
     }
     else
