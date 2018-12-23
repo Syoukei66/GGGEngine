@@ -1,4 +1,5 @@
 #pragma once
 
-#include <Asset/stdafx.h>
+#include <Core/Include.h>
+#include <Asset/Include.h>
 

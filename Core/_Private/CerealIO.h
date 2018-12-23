@@ -7,6 +7,7 @@
 #include <Cereal/types/string.hpp>
 #include <Cereal/types/vector.hpp>
 #include <Cereal/types/list.hpp>
+#include <Cereal/types/array.hpp>
 #include <Cereal/types/deque.hpp>
 #include <Cereal/types/map.hpp>
 #include <Cereal/types/unordered_map.hpp>

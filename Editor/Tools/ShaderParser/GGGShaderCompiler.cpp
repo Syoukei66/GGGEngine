@@ -2,16 +2,15 @@
 #include "GGGShaderCompiler.h"
 #include "ShaderToken.h"
 
-#define ASSERT_EOF(Method) GG_ASSERT_NO_ENTRY(Method ": 予期せぬEOF")
-#define ASSERT_TOKEN(Method) GG_ASSERT_NO_ENTRY(Method ": 予期せぬトークン")
-#define ASSERT_PARSE(Method, Message) GG_ASSERT_NO_ENTRY(Method ": " Message)
+#define ASSERT_EOF(Method) GG_ASSERT(false, #Method ": 予期せぬEOF")
+#define ASSERT_TOKEN(Method) GG_ASSERT(false, #Method ": 予期せぬトークン")
+#define ASSERT_PARSE(Method, Message) GG_ASSERT(false, #Method ": " #Message)
 
 enum class TokenType : T_UINT8
 {
   kNoExcepted,
   kEOF,
   kSpace,
-  kEnter,
   kBlockBegin,
   kBlockEnd,
   kParenBegin,
@@ -19,7 +18,6 @@ enum class TokenType : T_UINT8
   kTextParen,
   kComma,
   kEqual,
-  kSlash,
   kIdentifier
 };
 
@@ -29,13 +27,9 @@ TokenType GetSeparator(const char c)
   {
     return TokenType::kEOF;
   }
-  if (c == ' ' || c == '\t')
+  if (c == ' ' || c == '\t' || c == '\n')
   {
     return TokenType::kSpace;
-  }
-  if (c == '\n')
-  {
-    return TokenType::kEnter;
   }
   if (c == '{')
   {
@@ -65,10 +59,6 @@ TokenType GetSeparator(const char c)
   {
     return TokenType::kEqual;
   }
-  if (c == '/')
-  {
-    return TokenType::kSlash;
-  }
   if (
     ('a' <= c && c <= 'z') ||
     ('A' <= c && c <= 'Z') ||
@@ -96,14 +86,19 @@ TokenType NextToken(const char** p, std::string* token = nullptr)
     ++(*p);
   }
   // 区切り記号が出てくるまでをトークンに
-  while ((separator = GetSeparator(**p)) == TokenType::kIdentifier)
+  if (separator == TokenType::kIdentifier)
   {
-    if (token)
+    do
     {
-      (*token) += (**p);
-    }
-    ++(*p);
+      if (token)
+      {
+        (*token) += (**p);
+      }
+      ++(*p);
+    } while ((separator = GetSeparator(**p)) == TokenType::kIdentifier);
+    return separator;
   }
+  ++(*p);
   return separator;
 }
 
@@ -227,8 +222,8 @@ bool ParseProperty(const char** p, ShaderData* dest)
     data.display_name_ = property_name;
     data.variable_type_ = static_cast<T_FIXED_UINT8>(Shader::VariableType::kInt);
     char* err;
-    data.min_value_ = Limit::T_INT32_MIN;
-    data.max_value_ = Limit::T_INT32_MAX;
+    data.min_value_ = (T_FLOAT)Limit::T_INT32_MIN;
+    data.max_value_ = (T_FLOAT)Limit::T_INT32_MAX;
     data.init_value_ = (T_FLOAT)std::strtol(init.c_str(), &err, 10);
     if (*err)
     {
@@ -365,7 +360,6 @@ bool ParseProperties(const char** p, ShaderData* dest)
     {
       return false;
     }
-    GetToken(p, TokenType::kEnter);
   }
   return true;
 }
@@ -407,7 +401,6 @@ bool ParseTags(const char** p, ShaderData* dest)
     {
       return false;
     }
-    GetToken(p, TokenType::kEnter);
   }
   return true;
 }
@@ -603,6 +596,7 @@ bool ParsePassData(const char** p, IHLSLCompiler* compiler, const ShaderData& da
       dest->render_state_data_.blend_state_datas_[i].blend_alpha_src_factor_ = asrc_factor;
       dest->render_state_data_.blend_state_datas_[i].blend_alpha_dst_factor_ = adst_factor;
     }
+    return true;
   }
   if (identifier == "BlendOp")
   {
@@ -641,6 +635,7 @@ bool ParsePassData(const char** p, IHLSLCompiler* compiler, const ShaderData& da
       dest->render_state_data_.blend_state_datas_[i].blend_color_op_ = color_op;
       dest->render_state_data_.blend_state_datas_[i].blend_alpha_op_ = alpha_op;
     }
+    return true;
   }
   if (identifier == "Stencil")
   {
@@ -651,8 +646,8 @@ bool ParsePassData(const char** p, IHLSLCompiler* compiler, const ShaderData& da
       {
         return false;
       }
-      GetToken(p, TokenType::kEnter);
     }
+    return true;
   }
   if (identifier == "CODE_BEGIN")
   {
@@ -667,7 +662,9 @@ bool ParsePassData(const char** p, IHLSLCompiler* compiler, const ShaderData& da
     compiler->ConvertHLSL(data, &program);
     compiler->CompileVertexShader(program, &dest->vs_byte_code_);
     compiler->CompilePixelShader(program, &dest->ps_byte_code_);
+    return true;
   }
+  return false;
 }
 
 /*!
@@ -684,7 +681,6 @@ bool ParsePass(const char** p, IHLSLCompiler* compiler, ShaderData* dest, bool g
     {
       return false;
     }
-    GetToken(p, TokenType::kEnter);
   }
   pass_data.grab_ = grab;
   dest->passes_.emplace_back(pass_data);
