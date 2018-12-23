@@ -150,7 +150,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="GGGShaderCompiler.h" />
+    <ClInclude Include="HLSLCompiler.h" />
+    <ClInclude Include="ShaderCompiler.h" />
     <ClInclude Include="ShaderToken.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
@@ -160,7 +161,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GGGShaderCompiler.cpp" />
+    <ClCompile Include="HLSLCompiler.cpp" />
+    <ClCompile Include="ShaderCompiler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

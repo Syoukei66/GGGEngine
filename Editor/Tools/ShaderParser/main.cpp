@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <Windows.h>
 
-#include "GGGShaderCompiler.h"
+#include "ShaderCompiler.h"
 #include "ShaderToken.h"
 
-class TestCompiler : public IHLSLCompiler
+class TestCompiler : public HLSLCompiler
 {
 public:
   virtual void ConvertHLSL(const ShaderData& data, std::string* str) override
@@ -171,7 +171,7 @@ std::string ToString(const ShaderData& data)
 int main()
 {
   TestCompiler test = TestCompiler();
-  GGGShaderCompiler compiler = GGGShaderCompiler();
+  ShaderCompiler compiler = ShaderCompiler();
   std::string str = FileUtil::TextFile_Read("Test.shader");
   ShaderData data = ShaderData();
   compiler.Parse(str, &test, &data);

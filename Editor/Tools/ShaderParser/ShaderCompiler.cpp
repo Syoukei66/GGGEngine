@@ -1,5 +1,4 @@
-#include "stdafx.h"
-#include "GGGShaderCompiler.h"
+#include "ShaderCompiler.h"
 #include "ShaderToken.h"
 
 #define ASSERT_EOF(Method) GG_ASSERT(false, #Method ": 予期せぬEOF")
@@ -25,7 +24,6 @@ enum class TokenType : T_UINT8
   kPlus,
   kMinus,
 };
-
 
 TokenType GetSeparator(const char c)
 {
@@ -614,7 +612,7 @@ bool ParseStencilData(const char** p, StencilStateData* dest)
  * @brief Passに記述されている要素のパース
  * @return falseなら失敗
  */
-bool ParsePassData(const char** p, IHLSLCompiler* compiler, const ShaderData& data, PassData* dest)
+bool ParsePassData(const char** p, HLSLCompiler* compiler, const ShaderData& data, PassData* dest)
 {
   std::string identifier = "";
   if (!ParseIdentifier(p, &identifier)) return false;
@@ -774,7 +772,7 @@ bool ParsePassData(const char** p, IHLSLCompiler* compiler, const ShaderData& da
  * @brief Passのパース
  * @return falseなら失敗
  */
-bool ParsePass(const char** p, IHLSLCompiler* compiler, ShaderData* dest, bool grab)
+bool ParsePass(const char** p, HLSLCompiler* compiler, ShaderData* dest, bool grab)
 {
   if (!GetToken(p, TokenType::kBlockBegin)) return false;
   PassData pass_data = PassData();
@@ -806,7 +804,7 @@ bool ParseGrabPass(const char** p, ShaderData* dest)
   return true;
 }
 
-void GGGShaderCompiler::Parse(const std::string& str, IHLSLCompiler* compiler, ShaderData* dest)
+void ShaderCompiler::Parse(const std::string& str, HLSLCompiler* compiler, ShaderData* dest)
 {
   const char* p = str.c_str();
   

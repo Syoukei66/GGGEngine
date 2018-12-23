@@ -2,7 +2,7 @@
 
 #include <Asset/Shader/Shader.h>
 
-class IHLSLCompiler
+class HLSLCompiler
 {
 public:
   // プロパティから変数宣言のプログラムを追加
@@ -11,11 +11,4 @@ public:
   virtual void ConvertHLSL(const ShaderData& data, std::string* str) = 0;
   virtual void CompileVertexShader(const std::string& str, std::vector<unsigned char>* dest) = 0;
   virtual void CompilePixelShader(const std::string& str, std::vector<unsigned char>* dest) = 0;
-};
-
-class GGGShaderCompiler
-{
-public:
-  void Parse(const std::string& str, IHLSLCompiler* compiler, ShaderData* dest);
-
 };
