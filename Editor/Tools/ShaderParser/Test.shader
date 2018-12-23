@@ -29,9 +29,7 @@ Tags
   RenderType Transparent
 }
 GrabPass
-{
-
-}
+{}
 Pass
 {
   LightMode ForwardBase
@@ -43,4 +41,9 @@ Pass
   Blend 4 Off
   BlendOp RevSub
   BlendOp 7 Sub, Max
+
+  CODE_BEGIN
+
+
+  CODE_END
 }

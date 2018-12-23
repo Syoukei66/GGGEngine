@@ -756,7 +756,7 @@ bool ParsePassData(const char** p, IHLSLCompiler* compiler, const ShaderData& da
   {
     std::string end_simbol = "CODE_END";
     std::string program = "";
-    while (program.find(end_simbol) != std::string::npos)
+    while (program.find(end_simbol) == std::string::npos)
     {
       program += (**p);
       ++(*p);
