@@ -38,13 +38,12 @@ DX11RenderState::DX11RenderState(const RenderStateData& data)
   for (T_UINT8 i = 0; i < 8; ++i)
   {
     blend_desc.RenderTarget[i].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-    // 設定されていないレンダーターゲットではブレンド無効
-    if (i >= render_target_count)
+    const BlendStateData& bs_data = data.blend_state_datas_[i];
+    if (!bs_data.enabled_)
     {
       blend_desc.RenderTarget[i].BlendEnable = FALSE;
       continue;
     }
-    const BlendStateData& bs_data = data.blend_state_datas_[i];
     blend_desc.RenderTarget[i].BlendEnable = TRUE;
 
     blend_desc.RenderTarget[i].SrcBlend = BLEND_FACTORS[bs_data.blend_color_src_factor_];

@@ -33,6 +33,7 @@
 #include <Core/Application/Object/WeakRef.h>
 
 #include <math.h>
+#include <array>
 #include <vector>
 #include <deque>
 #include <map>

@@ -12,6 +12,7 @@ struct BlendStateData
   // =================================================================
   GG_SERIALIZABLE(BlendStateData)
   {
+    archive(enabled_);
     archive(blend_color_src_factor_);
     archive(blend_color_dst_factor_);
     archive(blend_color_op_);
@@ -25,7 +26,8 @@ struct BlendStateData
   // =================================================================
 public:
   BlendStateData()
-    : blend_color_src_factor_(static_cast<T_FIXED_UINT8>(Shader::BlendFactor::kOne))
+    : enabled_(false)
+    , blend_color_src_factor_(static_cast<T_FIXED_UINT8>(Shader::BlendFactor::kOne))
     , blend_color_dst_factor_(static_cast<T_FIXED_UINT8>(Shader::BlendFactor::kZero))
     , blend_color_op_(static_cast<T_FIXED_UINT8>(Shader::BlendOp::kAdd))
     , blend_alpha_src_factor_(static_cast<T_FIXED_UINT8>(Shader::BlendFactor::kOne))
@@ -37,6 +39,7 @@ public:
   // Data Members
   // =================================================================
 public:
+  bool enabled_;
   T_FIXED_UINT8 blend_color_src_factor_; // BlendFactor
   T_FIXED_UINT8 blend_color_dst_factor_; // BlendFactor
   T_FIXED_UINT8 blend_color_op_;         // BlendOp
@@ -151,7 +154,7 @@ public:
   T_FIXED_UINT8 z_write_;   // ZWrite
   T_FIXED_UINT8 z_test_;    // ComparasionFunc
 
-  std::vector<BlendStateData> blend_state_datas_;
+  std::array<BlendStateData, 8> blend_state_datas_;
   std::unique_ptr<StencilStateData> stencil_state_data_;
 };
 
