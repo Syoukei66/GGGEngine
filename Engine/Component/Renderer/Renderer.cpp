@@ -43,7 +43,24 @@ void Renderer::Draw(GameObjectRenderState* state) const
 
   self->builtin_variable_.mat_mvp = state->GetWorldMatrix() * state->GetViewProjMatrix();
   //self->builtin_variable_.mat_mv = state->GetWorldMatrix() * state->GetViewMatrix();
-  //self->builtin_variable_.obj_to_world = state->GetWorldMatrix();
+  self->builtin_variable_.obj_to_world = state->GetWorldMatrix();
+  
+  const T_FLOAT time = self->builtin_variable_.time_.y + Application::GetUpdateEventState().GetDeltaTime();
+  self->builtin_variable_.time_.x = time / 20.0f;
+  self->builtin_variable_.time_.y = time;
+  self->builtin_variable_.time_.z = time * 2;
+  self->builtin_variable_.time_.w = time * 3;
+
+  self->builtin_variable_.sin_time_.x = sinf(time / 8.0f);
+  self->builtin_variable_.sin_time_.y = sinf(time / 4.0f);
+  self->builtin_variable_.sin_time_.z = sinf(time / 2.0f);
+  self->builtin_variable_.sin_time_.w = sinf(time / 1.0f);
+
+  self->builtin_variable_.cos_time_.x = cosf(time / 8.0f);
+  self->builtin_variable_.cos_time_.y = cosf(time / 4.0f);
+  self->builtin_variable_.cos_time_.z = cosf(time / 2.0f);
+  self->builtin_variable_.cos_time_.w = cosf(time / 1.0f);
+
   self->builtin_variable_buffer_->CommitChanges(&this->builtin_variable_);
 
   //TODO:マルチパスレンダリングになるよう修正する必要がある。

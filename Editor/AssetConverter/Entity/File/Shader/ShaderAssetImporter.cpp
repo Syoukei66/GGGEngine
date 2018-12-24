@@ -28,7 +28,9 @@ SharedRef<ShaderAssetEntity> ShaderAssetImporter::ImportProcess(AssetMetaData* m
   }
   catch (ParseException e)
   {
+    SharedRef<ShaderAssetEntity> entity = context->GetEntity<ShaderAssetEntity>(DefaultUniqueID::SHADER_ERRROR);
     Log::Info(e.message.c_str());
+    (*data) = *entity->GetData();
   }
 
   return ShaderAssetEntity::Create(meta, data);

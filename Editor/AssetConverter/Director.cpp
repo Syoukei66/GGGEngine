@@ -215,6 +215,8 @@ void AssetConverterDirector::CreateDefaultAssets()
   
   using namespace DefaultUniqueID;
   using namespace DefaultAsset;
+  self->context_->RegisterDefaultUniqueID(SHADER_ERRROR, SHADER_PATH_ERROR);
+
   self->context_->RegisterDefaultUniqueID(SHADER_FLAT, SHADER_PATH_UNLIT);
   self->context_->RegisterDefaultUniqueID(SHADER_GOURAUD, SHADER_PATH_LAMBERT);
   self->context_->RegisterDefaultUniqueID(SHADER_PHONG, SHADER_PATH_PHONG);
@@ -226,8 +228,6 @@ void AssetConverterDirector::CreateDefaultAssets()
   self->context_->RegisterDefaultUniqueID(SHADER_NO_SHADING, SHADER_PATH_WHITE);
   self->context_->RegisterDefaultUniqueID(SHADER_FRESNEL, SHADER_PATH_WHITE);
 
-  self->context_->RegisterDefaultUniqueID(SHADER_STENCIL_SHADOW, SHADER_PATH_STENCIL_SHADOW);
-
   self->context_->RegisterDefaultUniqueID(MESH_CUBE, MESH_PATH_CUBE);
   self->context_->RegisterDefaultUniqueID(MESH_PLANE, MESH_PATH_PLANE);
   self->context_->RegisterDefaultUniqueID(MESH_CAPSULE, MESH_PATH_CAPSULE);
@@ -237,7 +237,6 @@ void AssetConverterDirector::CreateDefaultAssets()
   self->context_->RegisterDefaultUniqueID(MATERIAL_WHITE, MATERIAL_PATH_WHITE);
   self->context_->RegisterDefaultUniqueID(MATERIAL_LAMBERT, MATERIAL_PATH_LAMBERT);
   self->context_->RegisterDefaultUniqueID(MATERIAL_UNLIT, MATERIAL_PATH_UNLIT);
-  self->context_->RegisterDefaultUniqueID(MATERIAL_STENCIL_SHADOW, MATERIAL_PATH_STENCIL_SHADOW);
 
   self->context_->RegisterDefaultUniqueID(TEXTURE_WHITE, TEXTURE_PATH_WHITE);
 

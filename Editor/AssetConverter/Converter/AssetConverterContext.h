@@ -144,6 +144,10 @@ inline SharedRef<AssetEntity> AssetConverterContext::GetEntity(const URI& uri)
 template<class Entity_>
 inline SharedRef<Entity_> AssetConverterContext::GetEntity(T_UINT32 unique_id)
 {
+  if (unique_id > DefaultUniqueID::DEFAULT_UID_BEGIN)
+  {
+    unique_id = this->unique_id_table_->GetDefaultAssetUniqueID(unique_id);
+  }
   return this->converter_manager_->Find<Entity_>([&](AssetConverter<Entity_>* converter)
   {
     return converter->GetEntity(unique_id);
@@ -152,6 +156,10 @@ inline SharedRef<Entity_> AssetConverterContext::GetEntity(T_UINT32 unique_id)
 
 inline SharedRef<AssetEntity> AssetConverterContext::GetEntity(T_UINT32 unique_id)
 {
+  if (unique_id > DefaultUniqueID::DEFAULT_UID_BEGIN)
+  {
+    unique_id = this->unique_id_table_->GetDefaultAssetUniqueID(unique_id);
+  }
   return this->converter_manager_->FindAllEntity([&](const SharedRef<AssetEntity>& entity)
   {
     return entity->GetMetaData()->GetUniqueID() == unique_id;

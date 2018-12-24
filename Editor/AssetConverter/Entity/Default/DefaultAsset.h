@@ -5,11 +5,11 @@
 
 namespace DefaultAsset
 {
-static const std::string& SHADER_PATH_LAMBERT = "shader/default/Lambert.fx";
-static const std::string& SHADER_PATH_PHONG   = "shader/default/Phong.fx";
-static const std::string& SHADER_PATH_WHITE   = "shader/default/White.fx";
-static const std::string& SHADER_PATH_UNLIT  = "shader/default/Unlit.fx";
-static const std::string& SHADER_PATH_STENCIL_SHADOW = "shader/default/StencilShadow.fx";
+static const std::string& SHADER_PATH_ERROR = "shader/default/Error.shader";
+static const std::string& SHADER_PATH_LAMBERT = "shader/default/Lambert.shader";
+static const std::string& SHADER_PATH_PHONG   = "shader/default/Phong.shader";
+static const std::string& SHADER_PATH_WHITE   = "shader/default/White.shader";
+static const std::string& SHADER_PATH_UNLIT  = "shader/default/Unlit.shader";
 
 //‰¼‘z‚ÌƒpƒX
 static const std::string& MESH_PATH_CUBE   = "mesh/default/Cube.mesh";
@@ -22,7 +22,6 @@ static const std::string& MESH_PATH_UV_SPHERE = "mesh/default/UvSphere.mesh";
 static const std::string& MATERIAL_PATH_LAMBERT = "material/default/Lambert.mat";
 static const std::string& MATERIAL_PATH_WHITE   = "material/default/White.mat";
 static const std::string& MATERIAL_PATH_UNLIT  = "material/default/Unlit.mat";
-static const std::string& MATERIAL_PATH_STENCIL_SHADOW = "material/default/StencilShadow.mat";
 
 static const std::string& TEXTURE_PATH_WHITE = "texture/default/white.png";
 

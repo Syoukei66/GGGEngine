@@ -4,7 +4,7 @@
 IAssetConverter* ShaderAssetEntity::CreateConverter()
 {
   return FileAssetConverterFactory::Create<ShaderAssetEntity>(
-    new ShaderAssetImporter({ "fx" }),
+    new ShaderAssetImporter({ "shader" }),
     "Shader",
     "rcShader",
     1,
