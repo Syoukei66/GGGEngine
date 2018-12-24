@@ -11,8 +11,7 @@ void ShaderCompiler::Compile(HLSLCompiler* compiler, ShaderData* dest)
   bool grab = false;
   while (this->parser_.CheckNextToken() != TokenType::kEOF)
   {
-    std::string token = "";
-    this->parser_.ParseIdentifier(&token);
+    const std::string token = this->parser_.ParseIdentifier();
     if (token == "Properties")
     {
       this->CompileProperties(dest);
@@ -45,31 +44,28 @@ void ShaderCompiler::Compile(HLSLCompiler* compiler, ShaderData* dest)
 
 void ShaderCompiler::CompileName(ShaderData* dest)
 {
-  return this->parser_.ParseText(&dest->name_);
+  dest->name_ = this->parser_.ParseText();
 }
 
 void ShaderCompiler::CompileProperty(ShaderData* dest)
 {
-  std::string property_id = "";
-  std::string property_name = "";
-  std::string property_type = "";
-  this->parser_.ParseIdentifier(&property_id);
+  const std::string property_id = this->parser_.ParseIdentifier();
   this->parser_.GetToken(TokenType::kParenBegin);
-  this->parser_.ParseText(&property_name);
+  const std::string property_name = this->parser_.ParseText();
   this->parser_.GetToken(TokenType::kComma);
-  this->parser_.ParseSpecialIdentifier(&property_type);
+  const std::string property_type = this->parser_.ParseSpecialIdentifier();
   using namespace GGGShaderParser;
   if (property_type == "Range")
   {
     ScalaPropertyData data;
     this->parser_.GetToken(TokenType::kParenBegin);
-    this->parser_.ParseFloat(&data.min_value_);
+    data.min_value_ = this->parser_.ParseFloat();
     this->parser_.GetToken(TokenType::kComma);
-    this->parser_.ParseFloat(&data.max_value_);
+    data.max_value_ = this->parser_.ParseFloat();
     this->parser_.GetToken(TokenType::kParenEnd);
     this->parser_.GetToken(TokenType::kParenEnd);
     this->parser_.GetToken(TokenType::kEqual);
-    this->parser_.ParseFloat(&data.init_value_);
+    data.init_value_ = this->parser_.ParseFloat();
     data.name_ = property_id;
     data.display_name_ = property_name;
     data.variable_type_ = static_cast<T_FIXED_UINT8>(Shader::VariableType::kFloat);
@@ -81,7 +77,7 @@ void ShaderCompiler::CompileProperty(ShaderData* dest)
     ScalaPropertyData data;
     this->parser_.GetToken(TokenType::kParenEnd);
     this->parser_.GetToken(TokenType::kEqual);
-    this->parser_.ParseFloat(&data.init_value_);
+    data.init_value_ = this->parser_.ParseFloat();
     data.name_ = property_id;
     data.display_name_ = property_name;
     data.variable_type_ = static_cast<T_FIXED_UINT8>(Shader::VariableType::kFloat);
@@ -95,7 +91,7 @@ void ShaderCompiler::CompileProperty(ShaderData* dest)
     ScalaPropertyData data;
     this->parser_.GetToken(TokenType::kParenEnd);
     this->parser_.GetToken(TokenType::kEqual);
-    this->parser_.ParseInt(&data.init_value_);
+    data.init_value_ = this->parser_.ParseInt();
     data.name_ = property_id;
     data.display_name_ = property_name;
     data.variable_type_ = static_cast<T_FIXED_UINT8>(Shader::VariableType::kInt);
@@ -113,13 +109,13 @@ void ShaderCompiler::CompileProperty(ShaderData* dest)
     // {}の場合はすべて0、　数値が入ってた場合は数値を読み取る
     if (this->parser_.CheckNextToken() != TokenType::kBlockEnd)
     {
-      this->parser_.ParseFloat(&data.init_value0_);
+      data.init_value0_ = this->parser_.ParseFloat();
       this->parser_.GetToken  (TokenType::kComma);
-      this->parser_.ParseFloat(&data.init_value1_);
+      data.init_value1_ = this->parser_.ParseFloat();
       this->parser_.GetToken  (TokenType::kComma);
-      this->parser_.ParseFloat(&data.init_value2_);
+      data.init_value2_ = this->parser_.ParseFloat();
       this->parser_.GetToken  (TokenType::kComma);
-      this->parser_.ParseFloat(&data.init_value3_);
+      data.init_value3_ = this->parser_.ParseFloat();
       this->parser_.GetToken  (TokenType::kBlockEnd);
     }
     else
@@ -141,13 +137,13 @@ void ShaderCompiler::CompileProperty(ShaderData* dest)
     // {}の場合はすべて1、　数値が入ってた場合は数値を読み取る
     if (this->parser_.CheckNextToken() != TokenType::kBlockEnd)
     {
-      this->parser_.ParseFloat(&data.init_r_);
+      data.init_r_ = this->parser_.ParseFloat();
       this->parser_.GetToken(TokenType::kComma);
-      this->parser_.ParseFloat(&data.init_g_);
+      data.init_g_ = this->parser_.ParseFloat();
       this->parser_.GetToken(TokenType::kComma);
-      this->parser_.ParseFloat(&data.init_b_);
+      data.init_b_ = this->parser_.ParseFloat();
       this->parser_.GetToken(TokenType::kComma);
-      this->parser_.ParseFloat(&data.init_a_);
+      data.init_a_ = this->parser_.ParseFloat();
       this->parser_.GetToken(TokenType::kBlockEnd);
     }
     else
@@ -161,10 +157,9 @@ void ShaderCompiler::CompileProperty(ShaderData* dest)
   }
   if (property_type == "2D")
   {
-    std::string init_tex;
     this->parser_.GetToken(TokenType::kParenEnd);
     this->parser_.GetToken(TokenType::kEqual);
-    this->parser_.ParseText(&init_tex);
+    const std::string init_tex = this->parser_.ParseText();
     SamplerPropertyData data;
     data.name_ = property_id;
     data.display_name_ = property_name;
@@ -188,8 +183,7 @@ void ShaderCompiler::CompileProperties(ShaderData* dest)
 
 void ShaderCompiler::CompileTag(ShaderData* dest)
 {
-  std::string tag_type = "";
-  this->parser_.ParseIdentifier(&tag_type);
+  const std::string tag_type = this->parser_.ParseIdentifier();
   using namespace GGGShaderParser;
   if (tag_type == "Queue")
   {
@@ -218,27 +212,20 @@ void ShaderCompiler::CompileTags(ShaderData* dest)
 void ShaderCompiler::CompileStencilData(StencilStateData * dest)
 {
   using namespace GGGShaderParser;
-  std::string tag = "";
-  this->parser_.ParseIdentifier(&tag);
+  const std::string tag = this->parser_.ParseIdentifier();
   if (tag == "Ref")
   {
-    T_FLOAT value = 0.0f;
-    this->parser_.ParseInt(&value);
-    dest->stencil_ref_ = (T_FIXED_UINT8)value;
+    dest->stencil_ref_ = (T_FIXED_UINT8)this->parser_.ParseInt();
     return;
   }
   if (tag == "ReadMask")
   {
-    T_FLOAT value = 0.0f;
-    this->parser_.ParseInt(&value);
-    dest->stencil_read_mask_ = (T_FIXED_UINT8)value;
+    dest->stencil_read_mask_ = this->parser_.ParseInt();
     return;
   }
   if (tag == "WriteMask")
   {
-    T_FLOAT value = 0.0f;
-    this->parser_.ParseInt(&value);
-    dest->stencil_write_mask_ = (T_FIXED_UINT8)value;
+    dest->stencil_write_mask_ = this->parser_.ParseInt();
     return;
   }
   if (tag == "Comp")
@@ -308,9 +295,7 @@ void ShaderCompiler::CompileStencilData(StencilStateData * dest)
 
 void ShaderCompiler::CompilePassData(HLSLCompiler * compiler, const ShaderData & data, PassData * dest)
 {
-  std::string identifier = "";
-  this->parser_.ParseIdentifier(&identifier);
-
+  const std::string identifier = this->parser_.ParseIdentifier();
   using namespace GGGShaderParser;
   if (identifier == "LightMode")
   {
@@ -338,12 +323,9 @@ void ShaderCompiler::CompilePassData(HLSLCompiler * compiler, const ShaderData &
     // レンダーターゲット指定があった場合
     if (this->parser_.CheckNextToken() == TokenType::kNumber)
     {
-      T_FLOAT value = 0.0f;
-      this->parser_.ParseInt(&value);
-      state_index = (T_INT8)value;
+      state_index = (T_INT8)this->parser_.ParseInt();
     }
-    std::string value = "";
-    this->parser_.ParseIdentifier(&value);
+    const std::string value = this->parser_.ParseIdentifier();
     // ブレンドステートを無効にする
     if (value == "Off")
     {
@@ -391,9 +373,7 @@ void ShaderCompiler::CompilePassData(HLSLCompiler * compiler, const ShaderData &
     // レンダーターゲット指定があった場合
     if (this->parser_.CheckNextToken() == TokenType::kNumber)
     {
-      T_FLOAT value = 0.0f;
-      this->parser_.ParseInt(&value);
-      state_index = (T_INT8)value;
+      state_index = (T_INT8)this->parser_.ParseInt();
     }
     T_INT32 color_op = this->parser_.ParseBlendOp();
     T_INT32 alpha_op = color_op;
@@ -429,8 +409,7 @@ void ShaderCompiler::CompilePassData(HLSLCompiler * compiler, const ShaderData &
   }
   if (identifier == "CODE_BEGIN")
   {
-    std::string program = "";
-    this->parser_.GetText("CODE_END", &program);
+    std::string program = this->parser_.GetText("CODE_END");
     compiler->ConvertHLSL(data, &program);
     compiler->CompileVertexShader(program, &dest->vs_byte_code_);
     compiler->CompilePixelShader(program, &dest->ps_byte_code_);

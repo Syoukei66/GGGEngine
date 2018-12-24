@@ -6,8 +6,7 @@
 #define SHADER_TOKEN_PARSER(Name)\
 T_INT32 Parse##Name()\
 {\
-  std::string token;\
-  this->ParseIdentifier(&token);\
+  std::string token = this->ParseIdentifier();\
   for (T_FIXED_UINT8 i = 0; i < static_cast<T_FIXED_UINT8>(Shader::##Name##::DATANUM); ++i)\
   {\
     if (token == GGGShaderParser::Name##Tokens[i])\

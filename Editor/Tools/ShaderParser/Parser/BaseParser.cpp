@@ -54,56 +54,57 @@ void BaseParser::EatToken(bool skip_space)
   this->NextChar();
 }
 
-void BaseParser::ParseText(std::string* dest)
+std::string BaseParser::ParseText()
 {
+  std::string ret = std::string();
   this->BeginParse();
-  (*dest).clear();
   this->GetToken(TokenType::kTextParen);
   while (this->CheckNextToken() != TokenType::kTextParen)
   {
-    (*dest) += this->GetChar();
+    ret += this->GetChar();
     this->EatToken(false);
   }
   this->EatToken();
+  return ret;
 }
 
-void BaseParser::ParseIdentifier(std::string* dest)
+std::string BaseParser::ParseIdentifier()
 {
+  std::string ret = std::string();
   this->BeginParse();
-  (*dest).clear();
   TokenType next_token = this->CheckNextToken();
   if (next_token != TokenType::kAlphabet && next_token != TokenType::kUnderBar)
   {
     this->ThrowTokenError();
-    return;
   }
   do
   {
-    (*dest) += this->GetChar();
+    ret += this->GetChar();
     this->EatToken(false);
     next_token = this->CheckNextToken(false);
   } while (next_token == TokenType::kAlphabet || next_token == TokenType::kUnderBar || next_token == TokenType::kNumber);
+  return ret;
 }
 
-void BaseParser::ParseSpecialIdentifier(std::string* dest)
+std::string BaseParser::ParseSpecialIdentifier()
 {
+  std::string ret = std::string();
   this->BeginParse();
-  (*dest).clear();
   TokenType next_token = this->CheckNextToken();
   if (next_token != TokenType::kAlphabet && next_token != TokenType::kUnderBar && next_token != TokenType::kNumber)
   {
     this->ThrowTokenError();
-    return;
   }
   do
   {
-    (*dest) += this->GetChar();
+    ret += this->GetChar();
     this->EatToken(false);
     next_token = this->CheckNextToken(false);
   } while (next_token == TokenType::kAlphabet || next_token == TokenType::kUnderBar || next_token == TokenType::kNumber);
+  return ret;
 }
 
-void BaseParser::ParseInt(T_FLOAT* dest)
+T_INT32 BaseParser::ParseInt()
 {
   this->BeginParse();
   bool minus = false;
@@ -125,7 +126,6 @@ void BaseParser::ParseInt(T_FLOAT* dest)
   if (next_token != TokenType::kNumber)
   {
     this->ThrowTokenError();
-    return;
   }
   do
   {
@@ -133,10 +133,10 @@ void BaseParser::ParseInt(T_FLOAT* dest)
     this->EatToken(false);
     next_token = this->CheckNextToken();
   } while (next_token == TokenType::kNumber);
-  (*dest) = (T_FLOAT)std::strtol(str.c_str(), NULL, 10);
+  return (T_INT32)std::strtol(str.c_str(), NULL, 10);
 }
 
-void BaseParser::ParseFloat(T_FLOAT* dest)
+T_FLOAT BaseParser::ParseFloat()
 {
   this->BeginParse();
   bool minus = false;
@@ -181,18 +181,20 @@ void BaseParser::ParseFloat(T_FLOAT* dest)
       } while (next_token == TokenType::kNumber);
     }
   }
-  (*dest) = std::strtof((sign + integer + "." + fractional).c_str(), NULL);
+  return std::strtof((sign + integer + "." + fractional).c_str(), NULL);
 }
 
-void BaseParser::GetText(const std::string& end_simbol, std::string* dest)
+std::string BaseParser::GetText(const std::string& end_simbol)
 {
+  std::string ret = std::string();
   this->BeginParse();
-  while ((*dest).find(end_simbol) == std::string::npos)
+  while (ret.find(end_simbol) == std::string::npos)
   {
-    (*dest) += this->GetChar();
+    ret += this->GetChar();
     this->NextChar();
   }
-  (*dest).replace((*dest).length() - end_simbol.length(), end_simbol.length(), "");
+  ret.replace(ret.length() - end_simbol.length(), end_simbol.length(), "");
+  return ret;
 }
 
 void BaseParser::NextChar()

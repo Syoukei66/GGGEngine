@@ -46,33 +46,33 @@ public:
   /*!
    * @brief ダブルクォーテーションで囲まれた文字列のパース
    */
-  void ParseText(std::string* dest);
+  std::string ParseText();
 
   /*!
    * @brief 識別子のパース
    */
-  void ParseIdentifier(std::string* dest);
+  std::string ParseIdentifier();
 
   /*!
    * @brief 特殊識別子のパース
    * テクスチャプロパティ指定で数値から始まる識別子(2D, 3D)に対応する必要が出てきた
    */
-  void ParseSpecialIdentifier(std::string* dest);
+  std::string ParseSpecialIdentifier();
 
   /*!
    * @brief 整数値のパース
    */
-  void ParseInt(T_FLOAT* dest);
+  T_INT32 ParseInt();
 
   /*!
    * @brief 実数値のパース
    */
-  void ParseFloat(T_FLOAT* dest);
+  T_FLOAT ParseFloat();
 
   /*!
    * @brief end_simbolで指定した文字列が出現するまでの文字をそのまま取得する。
    */
-  void GetText(const std::string& end_simbol, std::string* dest);
+  std::string GetText(const std::string& end_simbol);
 
 protected:
   /*!
