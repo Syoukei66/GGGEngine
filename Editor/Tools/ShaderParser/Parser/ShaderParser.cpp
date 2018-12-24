@@ -239,6 +239,11 @@ void ShaderParser::ThrowIdentifierError(const std::string& type, const std::stri
 
 void ShaderParser::ThrowTokenError()
 {
+  if (this->GetTokenType() == TokenType::kEOF)
+  {
+    this->ThrowEofError();
+    return;
+  }
   std::string message = std::string();
   message += "—\Šú‚¹‚Êƒg[ƒNƒ“\'";
   message += this->GetChar();

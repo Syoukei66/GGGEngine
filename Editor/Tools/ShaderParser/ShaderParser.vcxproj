@@ -150,12 +150,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="HLSLCompiler.h" />
-    <ClInclude Include="ShaderCompiler.h" />
-    <ClInclude Include="ShaderLexer.h" />
-    <ClInclude Include="ShaderParser.h" />
+    <ClInclude Include="Parser\HLSLCompiler.h" />
+    <ClInclude Include="Parser\ShaderCompiler.h" />
+    <ClInclude Include="Parser\ShaderLexer.h" />
+    <ClInclude Include="Parser\ShaderParser.h" />
     <ClInclude Include="ShaderTest.h" />
-    <ClInclude Include="ShaderToken.h" />
+    <ClInclude Include="Parser\ShaderToken.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
@@ -164,12 +164,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="HLSLCompiler.cpp" />
+    <ClCompile Include="Parser\HLSLCompiler.cpp" />
     <ClCompile Include="NativeProcess.cpp" />
-    <ClCompile Include="ShaderCompiler.cpp" />
+    <ClCompile Include="Parser\ShaderCompiler.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ShaderLexer.cpp" />
-    <ClCompile Include="ShaderParser.cpp" />
+    <ClCompile Include="Parser\ShaderLexer.cpp" />
+    <ClCompile Include="Parser\ShaderParser.cpp" />
     <ClCompile Include="ShaderTest.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

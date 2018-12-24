@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "ShaderCompiler.h"
+#include "Parser/ShaderCompiler.h"
 #include "ShaderTest.h"
 
 class TestCompiler : public HLSLCompiler

@@ -1,5 +1,5 @@
 #include "ShaderTest.h"
-#include "ShaderToken.h"
+#include "Parser/ShaderToken.h"
 
 namespace ShaderTest
 {
