@@ -148,10 +148,10 @@ void HLSLCompiler::ConvertHLSL(const ShaderData& shader, std::string* str)
 
     const std::string target = "tex2D(" + tex_name;
     const std::string replace = tex_name + ".Sample(" + sampler_name;
-    auto pos = str->find(target);
     auto len = target.length();
-    if (pos != std::string::npos) 
-    {
+    size_t pos = 0;
+    while ((pos = str->find(target)) != std::string::npos)
+    { 
       str->replace(pos, len, replace);
     }
   }
