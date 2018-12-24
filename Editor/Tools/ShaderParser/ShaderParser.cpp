@@ -2,21 +2,25 @@
 
 ShaderParser::ShaderParser(const std::string& str)
   : str_(str)
+  , p_(str.c_str())
+  , line_index_(1)
+  , char_index_(1)
+  , lexer_()
 {
-  this->p_ = str.c_str();
 }
 
 TokenType ShaderParser::GetTokenType()
 {
-  return this->lexer_.GetTokenType(*this->p_);
+  return this->lexer_.GetTokenType(this->GetChar());
 }
 
 void ShaderParser::SkipSpace()
 {
-  TokenType separator;
-  while ((separator = this->GetTokenType()) == TokenType::kSpace)
+  TokenType type = this->GetTokenType();
+  while (type == TokenType::kSpace || type == TokenType::kEnter)
   {
-    ++this->p_;
+    this->NextChar();
+    type = this->GetTokenType();
   }
 }
 
@@ -29,129 +33,121 @@ TokenType ShaderParser::CheckNextToken(bool skip_space)
   return this->GetTokenType();
 }
 
-bool ShaderParser::GetToken(TokenType type, bool skip_space)
+void ShaderParser::GetToken(TokenType type, bool skip_space)
 {
   if (skip_space)
   {
     this->SkipSpace();
   }
-  if (this->GetTokenType() == type)
+  if (this->GetTokenType() != type)
   {
-    ++this->p_;
-    return true;
+    this->ThrowTokenError();
+    return;
   }
-  return false;
+  this->NextChar();
 }
 
-bool ShaderParser::EatToken(bool skip_space)
+void ShaderParser::EatToken(bool skip_space)
 {
   if (skip_space)
   {
     this->SkipSpace();
   }
-  if (this->GetTokenType() == TokenType::kEOF)
-  {
-    return false;
-  }
-  ++this->p_;
-  return true;
+  this->NextChar();
 }
 
-bool ShaderParser::ParseText(std::string* dest)
+void ShaderParser::ParseText(std::string* dest)
 {
   (*dest).clear();
-  if (!this->GetToken(TokenType::kTextParen))
+  this->GetToken(TokenType::kTextParen);
+  while (this->CheckNextToken() != TokenType::kTextParen)
   {
-    return false;
-  }
-  while (this->CheckNextToken(false) != TokenType::kTextParen)
-  {
-    (*dest) += *this->p_;
+    (*dest) += this->GetChar();
     this->EatToken(false);
   }
   this->EatToken();
-  return true;
 }
 
-bool ShaderParser::ParseIdentifier(std::string * dest)
+void ShaderParser::ParseIdentifier(std::string* dest)
 {
   (*dest).clear();
   TokenType next_token = this->CheckNextToken();
   if (next_token != TokenType::kAlphabet && next_token != TokenType::kUnderBar)
   {
-    return false;
+    this->ThrowTokenError();
+    return;
   }
   do
   {
-    (*dest) += *this->p_;
+    (*dest) += this->GetChar();
     this->EatToken(false);
     next_token = this->CheckNextToken(false);
   } while (next_token == TokenType::kAlphabet || next_token == TokenType::kUnderBar || next_token == TokenType::kNumber);
-  return true;
 }
 
-bool ShaderParser::ParseSpecialIdentifier(std::string * dest)
+void ShaderParser::ParseSpecialIdentifier(std::string* dest)
 {
   (*dest).clear();
   TokenType next_token = this->CheckNextToken();
   if (next_token != TokenType::kAlphabet && next_token != TokenType::kUnderBar && next_token != TokenType::kNumber)
   {
-    return false;
+    this->ThrowTokenError();
+    return;
   }
   do
   {
-    (*dest) += *this->p_;
-    this->EatToken();
-    next_token = this->CheckNextToken();
+    (*dest) += this->GetChar();
+    this->EatToken(false);
+    next_token = this->CheckNextToken(false);
   } while (next_token == TokenType::kAlphabet || next_token == TokenType::kUnderBar || next_token == TokenType::kNumber);
-  return true;
 }
 
-bool ShaderParser::ParseInt(T_FLOAT * dest)
+void ShaderParser::ParseInt(T_FLOAT* dest)
 {
   bool minus = false;
   TokenType next_token = this->CheckNextToken();
   // 符号部分の処理
   if (next_token == TokenType::kPlus)
   {
-    this->EatToken();
+    this->EatToken(false);
     next_token = this->CheckNextToken();
   }
   else if (next_token == TokenType::kMinus)
   {
     minus = true;
-    this->EatToken();
+    this->EatToken(false);
     next_token = this->CheckNextToken();
   }
 
   std::string str = minus ? "-" : "";
   if (next_token != TokenType::kNumber)
   {
-    return false;
+    this->ThrowTokenError();
+    return;
   }
   do
   {
-    str += *this->p_;
-    this->EatToken();
-  } while ((next_token = this->CheckNextToken(false)) == TokenType::kNumber);
+    str += this->GetChar();
+    this->EatToken(false);
+    next_token = this->CheckNextToken();
+  } while (next_token == TokenType::kNumber);
   (*dest) = (T_FLOAT)std::strtol(str.c_str(), NULL, 10);
-  return true;
 }
 
-bool ShaderParser::ParseFloat(T_FLOAT * dest)
+void ShaderParser::ParseFloat(T_FLOAT* dest)
 {
   bool minus = false;
   TokenType next_token = this->CheckNextToken();
   // 符号部分の処理
   if (next_token == TokenType::kPlus)
   {
-    this->EatToken();
+    this->EatToken(false);
     next_token = this->CheckNextToken();
   }
   else if (next_token == TokenType::kMinus)
   {
     minus = true;
-    this->EatToken();
+    this->EatToken(false);
     next_token = this->CheckNextToken();
   }
   std::string sign = minus ? "-" : "";
@@ -161,8 +157,8 @@ bool ShaderParser::ParseFloat(T_FLOAT * dest)
   {
     do
     {
-      integer += *this->p_;
-      this->EatToken();
+      integer += this->GetChar();
+      this->EatToken(false);
       next_token = this->CheckNextToken();
     } while (next_token == TokenType::kNumber);
   }
@@ -170,29 +166,72 @@ bool ShaderParser::ParseFloat(T_FLOAT * dest)
   std::string fractional = "";
   if (next_token == TokenType::kDot)
   {
-    this->EatToken();
+    this->EatToken(false);
     next_token = this->CheckNextToken();
     if (next_token == TokenType::kNumber)
     {
       do
       {
-        fractional += *this->p_;
-        this->EatToken();
+        fractional += this->GetChar();
+        this->EatToken(false);
         next_token = this->CheckNextToken();
       } while (next_token == TokenType::kNumber);
     }
   }
   (*dest) = std::strtof((sign + integer + "." + fractional).c_str(), NULL);
-  return true;
 }
 
-bool ShaderParser::GetText(const std::string& end_simbol, std::string* dest)
+void ShaderParser::GetText(const std::string& end_simbol, std::string* dest)
 {
   while ((*dest).find(end_simbol) == std::string::npos)
   {
-    (*dest) += *this->p_;
-    ++this->p_;
+    (*dest) += this->GetChar();
+    this->NextChar();
   }
   (*dest).replace((*dest).length() - end_simbol.length(), end_simbol.length(), "");
-  return true;
+}
+
+void ShaderParser::NextChar()
+{
+  TokenType token_type = this->GetTokenType();
+  if (token_type == TokenType::kEOF)
+  {
+    this->ThrowEofError();
+    return;
+  }
+  if (token_type == TokenType::kEnter)
+  {
+    ++this->line_index_;
+    this->char_index_ = 1;
+  }
+  ++this->p_;
+}
+
+char ShaderParser::GetChar()
+{
+  return *this->p_;
+}
+
+void ShaderParser::ThrowError(const std::string& message)
+{
+  throw ParseException("(" + std::to_string(this->line_index_) + "," + std::to_string(this->char_index_) + "): Parse Error: " + message);
+}
+
+void ShaderParser::ThrowIdentifierError(const std::string& type, const std::string& identifier)
+{
+  this->ThrowError("予期せぬ" + type + "\"" + identifier + "\"が検出されました");
+}
+
+void ShaderParser::ThrowTokenError()
+{
+  std::string message = std::string();
+  message += "予期せぬトークン\'";
+  message += this->GetChar();
+  message += "\'が検出されました";
+  this->ThrowError(message);
+}
+
+void ShaderParser::ThrowEofError()
+{
+  this->ThrowError("予期せぬEOFが検出されました");
 }

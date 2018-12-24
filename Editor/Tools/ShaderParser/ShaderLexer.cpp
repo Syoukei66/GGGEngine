@@ -6,9 +6,13 @@ TokenType ShaderLexer::GetTokenType(const char c)
   {
     return TokenType::kEOF;
   }
-  if (c == ' ' || c == '\t' || c == '\n')
+  if (c == ' ' || c == '\t')
   {
     return TokenType::kSpace;
+  }
+  if (c == '\n')
+  {
+    return TokenType::kEnter;
   }
   if (c == '{')
   {

@@ -5,6 +5,7 @@ enum class TokenType : T_UINT8
   kNoExcepted,
   kEOF,
   kSpace,
+  kEnter,
   kBlockBegin,
   kBlockEnd,
   kParenBegin,
