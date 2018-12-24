@@ -323,6 +323,9 @@
     <ProjectReference Include="..\EditorUtils\EditorUtils.vcxproj">
       <Project>{980f180f-d523-4328-8cda-6c2add3aa7d8}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\Tools\ShaderCompiler\ShaderCompiler.vcxproj">
+      <Project>{3bf2f03b-e9ca-4be1-b15a-8333321ba7ef}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

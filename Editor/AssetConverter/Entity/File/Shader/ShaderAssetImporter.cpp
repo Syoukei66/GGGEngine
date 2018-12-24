@@ -1,4 +1,5 @@
 #include "ShaderAssetImporter.h"
+#include <Editor/Tools/ShaderCompiler/Parser/ShaderCompiler.h>
 
 // =================================================================
 // Constructor / Destructor
@@ -21,10 +22,14 @@ SharedRef<ShaderAssetEntity> ShaderAssetImporter::ImportProcess(AssetMetaData* m
 
   std::string code = FileUtil::TextFile_Read(meta->GetInputPath().c_str());
 
-  // 頂点シェーダーコンパイル
-
-  // ピクセルシェーダーコンパイル
-
+  try
+  {
+    ShaderCompiler(code, meta->GetInputDirectoryPath()).Compile(data);
+  }
+  catch (ParseException e)
+  {
+    Log::Info(e.message.c_str());
+  }
 
   return ShaderAssetEntity::Create(meta, data);
 }
