@@ -2,12 +2,61 @@
 
 BaseParser::BaseParser(const std::string& str)
   : str_(str)
-  , p_(str.c_str())
   , line_index_(1)
   , char_index_begin_(1)
   , char_index_end_(1)
   , lexer_()
 {
+  
+  // 行コメントの削除
+  {
+    const std::string begin = "//";
+    const std::string end = "\n";
+    size_t pos = 0;
+    while ((pos = this->str_.find(begin)) != std::string::npos)
+    {
+      size_t size = begin.size();
+      char* p = &this->str_[pos + size];
+      while (*p != '\0' && *p != '\n')
+      {
+        ++size;
+        ++p;
+      }
+      this->str_.replace(pos, size, "");
+    }
+  }
+  //範囲コメントの削除
+  {
+    const std::string begin = "/*";
+    const std::string end = "*/";
+    size_t begin_pos = 0;
+    while ((begin_pos = this->str_.find(begin)) != std::string::npos)
+    {
+      size_t end_pos = this->str_.find(end);
+      if (end_pos == std::string::npos)
+      {
+        end_pos = this->str_.length();
+      }
+      // 閉じシンボルが先に来た場合
+      if (begin_pos > end_pos)
+      {
+        // エラーだが、ここで処理するものでもないので無視
+        break;
+      }
+      // 行数を維持する
+      std::string replace = "";
+      for (size_t i = begin_pos; i < end_pos; ++i)
+      {
+        if (this->str_[i] == '\n')
+        {
+          replace += '\n';
+        }
+      }
+      this->str_.replace(begin_pos, end_pos - begin_pos + end.size(), replace);
+    }
+  }
+  this->p_ = this->str_.c_str();
+  printf(this->str_.c_str());
 }
 
 TokenType BaseParser::GetTokenType()
