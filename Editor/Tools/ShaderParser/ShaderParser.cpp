@@ -4,7 +4,8 @@ ShaderParser::ShaderParser(const std::string& str)
   : str_(str)
   , p_(str.c_str())
   , line_index_(1)
-  , char_index_(1)
+  , char_index_begin_(1)
+  , char_index_end_(1)
   , lexer_()
 {
 }
@@ -35,10 +36,7 @@ TokenType ShaderParser::CheckNextToken(bool skip_space)
 
 void ShaderParser::GetToken(TokenType type, bool skip_space)
 {
-  if (skip_space)
-  {
-    this->SkipSpace();
-  }
+  this->BeginParse(skip_space);
   if (this->GetTokenType() != type)
   {
     this->ThrowTokenError();
@@ -58,6 +56,7 @@ void ShaderParser::EatToken(bool skip_space)
 
 void ShaderParser::ParseText(std::string* dest)
 {
+  this->BeginParse();
   (*dest).clear();
   this->GetToken(TokenType::kTextParen);
   while (this->CheckNextToken() != TokenType::kTextParen)
@@ -70,6 +69,7 @@ void ShaderParser::ParseText(std::string* dest)
 
 void ShaderParser::ParseIdentifier(std::string* dest)
 {
+  this->BeginParse();
   (*dest).clear();
   TokenType next_token = this->CheckNextToken();
   if (next_token != TokenType::kAlphabet && next_token != TokenType::kUnderBar)
@@ -87,6 +87,7 @@ void ShaderParser::ParseIdentifier(std::string* dest)
 
 void ShaderParser::ParseSpecialIdentifier(std::string* dest)
 {
+  this->BeginParse();
   (*dest).clear();
   TokenType next_token = this->CheckNextToken();
   if (next_token != TokenType::kAlphabet && next_token != TokenType::kUnderBar && next_token != TokenType::kNumber)
@@ -104,6 +105,7 @@ void ShaderParser::ParseSpecialIdentifier(std::string* dest)
 
 void ShaderParser::ParseInt(T_FLOAT* dest)
 {
+  this->BeginParse();
   bool minus = false;
   TokenType next_token = this->CheckNextToken();
   // •„†•”•ª‚Ìˆ—
@@ -136,6 +138,7 @@ void ShaderParser::ParseInt(T_FLOAT* dest)
 
 void ShaderParser::ParseFloat(T_FLOAT* dest)
 {
+  this->BeginParse();
   bool minus = false;
   TokenType next_token = this->CheckNextToken();
   // •„†•”•ª‚Ìˆ—
@@ -183,6 +186,7 @@ void ShaderParser::ParseFloat(T_FLOAT* dest)
 
 void ShaderParser::GetText(const std::string& end_simbol, std::string* dest)
 {
+  this->BeginParse();
   while ((*dest).find(end_simbol) == std::string::npos)
   {
     (*dest) += this->GetChar();
@@ -199,10 +203,12 @@ void ShaderParser::NextChar()
     this->ThrowEofError();
     return;
   }
+  ++this->char_index_end_;
   if (token_type == TokenType::kEnter)
   {
     ++this->line_index_;
-    this->char_index_ = 1;
+    this->char_index_begin_ = 0;
+    this->char_index_end_ = 0;
   }
   ++this->p_;
 }
@@ -212,9 +218,18 @@ char ShaderParser::GetChar()
   return *this->p_;
 }
 
+void ShaderParser::BeginParse(bool skip_space)
+{
+  if (skip_space)
+  {
+    this->SkipSpace();
+  }
+  this->char_index_begin_ = this->char_index_end_;
+}
+
 void ShaderParser::ThrowError(const std::string& message)
 {
-  throw ParseException("(" + std::to_string(this->line_index_) + "," + std::to_string(this->char_index_) + "): Parse Error: " + message);
+  throw ParseException("(" + std::to_string(this->line_index_) + "," + std::to_string(this->char_index_begin_) + "): Parse Error: " + message);
 }
 
 void ShaderParser::ThrowIdentifierError(const std::string& type, const std::string& identifier)

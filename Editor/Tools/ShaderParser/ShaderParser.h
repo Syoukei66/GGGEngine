@@ -85,6 +85,11 @@ private:
    */
   char GetChar();
 
+  /*!
+   * @brief 新しくパース処理単位が開始した事をパーサーに伝える
+   */
+  void BeginParse(bool skip_space = true);
+
 public:
   /*!
    * @brief 例外を投げる
@@ -109,8 +114,11 @@ public:
 private:
   std::string str_;
   const char* p_;
+  // 現在パースしている行
   T_UINT32 line_index_;
-  T_UINT32 char_index_;
+  // 現在トークンとして判定されている文字列の先頭と末尾のインデックス
+  T_UINT32 char_index_begin_;
+  T_UINT32 char_index_end_;
 
   ShaderLexer lexer_;
 };

@@ -243,67 +243,89 @@ void ShaderCompiler::CompileStencilData(StencilStateData * dest)
     dest->stencil_write_mask_ = (T_FIXED_UINT8)value;
     return;
   }
-  std::string value = "";
-  this->parser_.ParseIdentifier(&value);
   if (tag == "Comp")
   {
+    std::string value = "";
+    this->parser_.ParseIdentifier(&value);
     dest->stencil_comp_front_ = dest->stencil_comp_back_ = ParseComparasionFunc(value);
     return;
   }
   if (tag == "Pass")
   {
+    std::string value = "";
+    this->parser_.ParseIdentifier(&value);
     dest->stencil_pass_front_ = dest->stencil_pass_back_ = ParseStencilOperation(value);
     return;
   }
   if (tag == "Fail")
   {
+    std::string value = "";
+    this->parser_.ParseIdentifier(&value);
     dest->stencil_fail_front_ = dest->stencil_fail_back_ = ParseStencilOperation(value);
     return;
   }
   if (tag == "ZFail")
   {
+    std::string value = "";
+    this->parser_.ParseIdentifier(&value);
     dest->stencil_zfail_front_ = dest->stencil_zfail_back_ = ParseStencilOperation(value);
     return;
   }
   // Front
   if (tag == "CompFront")
   {
+    std::string value = "";
+    this->parser_.ParseIdentifier(&value);
     dest->stencil_comp_front_ = ParseComparasionFunc(value);
     return;
   }
   if (tag == "PassFront")
   {
+    std::string value = "";
+    this->parser_.ParseIdentifier(&value);
     dest->stencil_pass_front_ = ParseStencilOperation(value);
     return;
   }
   if (tag == "FailFront")
   {
+    std::string value = "";
+    this->parser_.ParseIdentifier(&value);
     dest->stencil_fail_front_ = ParseStencilOperation(value);
     return;
   }
   if (tag == "ZFailFront")
   {
+    std::string value = "";
+    this->parser_.ParseIdentifier(&value);
     dest->stencil_zfail_front_ = ParseStencilOperation(value);
     return;
   }
   // Back
   if (tag == "CompBack")
   {
+    std::string value = "";
+    this->parser_.ParseIdentifier(&value);
     dest->stencil_comp_back_ = ParseComparasionFunc(value);
     return;
   }
   if (tag == "PassBack")
   {
+    std::string value = "";
+    this->parser_.ParseIdentifier(&value);
     dest->stencil_pass_back_ = ParseStencilOperation(value);
     return;
   }
   if (tag == "FailBack")
   {
+    std::string value = "";
+    this->parser_.ParseIdentifier(&value);
     dest->stencil_fail_back_ = ParseStencilOperation(value);
     return;
   }
   if (tag == "ZFailBack")
   {
+    std::string value = "";
+    this->parser_.ParseIdentifier(&value);
     dest->stencil_zfail_back_ = ParseStencilOperation(value);
     return;
   }

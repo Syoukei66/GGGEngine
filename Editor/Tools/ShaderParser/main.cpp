@@ -25,8 +25,15 @@ int main()
   TestCompiler test = TestCompiler();
   std::string str = FileUtil::TextFile_Read("Test.shader");
   ShaderData data = ShaderData();
-  ShaderCompiler(str).Compile(&test, &data);
-  printf(ShaderTest::ToString(data).c_str());
+  try
+  {
+    ShaderCompiler(str).Compile(&test, &data);
+    printf(ShaderTest::ToString(data).c_str());
+  }
+  catch (ParseException e)
+  {
+    printf(e.message.c_str());
+  }
   printf("\nI—¹‚·‚é‚É‚Í‰½‚©ƒL[‚ğ‰Ÿ‚µ‚Ä‚­‚¾‚³‚¢");
   getchar();
   return 0;
