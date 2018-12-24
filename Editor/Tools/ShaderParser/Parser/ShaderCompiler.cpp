@@ -169,7 +169,7 @@ void ShaderCompiler::CompileProperty(ShaderData* dest)
     data.name_ = property_id;
     data.display_name_ = property_name;
     data.sampler_type_ = static_cast<T_FIXED_UINT8>(Shader::SamplerType::kSampler2D);
-    data.default_texture_ = ParseDefaultTextureType(init_tex);
+    data.default_texture_ = this->parser_.ParseDefaultTextureType(init_tex);
     dest->sampler_properties_.emplace_back(data);
     return;
   }
@@ -189,18 +189,16 @@ void ShaderCompiler::CompileProperties(ShaderData* dest)
 void ShaderCompiler::CompileTag(ShaderData* dest)
 {
   std::string tag_type = "";
-  std::string tag_value = "";
   this->parser_.ParseIdentifier(&tag_type);
-  this->parser_.ParseIdentifier(&tag_value);
   using namespace GGGShaderParser;
   if (tag_type == "Queue")
   {
-    dest->queue_ = ParseRenderQueue(tag_value);
+    dest->queue_ = this->parser_.ParseRenderQueue();
     return;
   }
   if (tag_type == "RenderType")
   {
-    dest->render_type_ = ParseRenderType(tag_value);
+    dest->render_type_ = this->parser_.ParseRenderType();
     return;
   }
   this->parser_.ThrowIdentifierError("Tagトークン", tag_type);
@@ -245,88 +243,64 @@ void ShaderCompiler::CompileStencilData(StencilStateData * dest)
   }
   if (tag == "Comp")
   {
-    std::string value = "";
-    this->parser_.ParseIdentifier(&value);
-    dest->stencil_comp_front_ = dest->stencil_comp_back_ = ParseComparasionFunc(value);
+    dest->stencil_comp_front_ = dest->stencil_comp_back_ = this->parser_.ParseComparasionFunc();
     return;
   }
   if (tag == "Pass")
   {
-    std::string value = "";
-    this->parser_.ParseIdentifier(&value);
-    dest->stencil_pass_front_ = dest->stencil_pass_back_ = ParseStencilOperation(value);
+    dest->stencil_pass_front_ = dest->stencil_pass_back_ = this->parser_.ParseStencilOperation();
     return;
   }
   if (tag == "Fail")
   {
-    std::string value = "";
-    this->parser_.ParseIdentifier(&value);
-    dest->stencil_fail_front_ = dest->stencil_fail_back_ = ParseStencilOperation(value);
+    dest->stencil_fail_front_ = dest->stencil_fail_back_ = this->parser_.ParseStencilOperation();
     return;
   }
   if (tag == "ZFail")
   {
-    std::string value = "";
-    this->parser_.ParseIdentifier(&value);
-    dest->stencil_zfail_front_ = dest->stencil_zfail_back_ = ParseStencilOperation(value);
+    dest->stencil_zfail_front_ = dest->stencil_zfail_back_ = this->parser_.ParseStencilOperation();
     return;
   }
   // Front
   if (tag == "CompFront")
   {
-    std::string value = "";
-    this->parser_.ParseIdentifier(&value);
-    dest->stencil_comp_front_ = ParseComparasionFunc(value);
+    dest->stencil_comp_front_ = this->parser_.ParseComparasionFunc();
     return;
   }
   if (tag == "PassFront")
   {
-    std::string value = "";
-    this->parser_.ParseIdentifier(&value);
-    dest->stencil_pass_front_ = ParseStencilOperation(value);
+    dest->stencil_pass_front_ = this->parser_.ParseStencilOperation();
     return;
   }
   if (tag == "FailFront")
   {
-    std::string value = "";
-    this->parser_.ParseIdentifier(&value);
-    dest->stencil_fail_front_ = ParseStencilOperation(value);
+    dest->stencil_fail_front_ = this->parser_.ParseStencilOperation();
     return;
   }
   if (tag == "ZFailFront")
   {
-    std::string value = "";
-    this->parser_.ParseIdentifier(&value);
-    dest->stencil_zfail_front_ = ParseStencilOperation(value);
+    dest->stencil_zfail_front_ = this->parser_.ParseStencilOperation();
     return;
   }
   // Back
   if (tag == "CompBack")
   {
-    std::string value = "";
-    this->parser_.ParseIdentifier(&value);
-    dest->stencil_comp_back_ = ParseComparasionFunc(value);
+    dest->stencil_comp_back_ = this->parser_.ParseComparasionFunc();
     return;
   }
   if (tag == "PassBack")
   {
-    std::string value = "";
-    this->parser_.ParseIdentifier(&value);
-    dest->stencil_pass_back_ = ParseStencilOperation(value);
+    dest->stencil_pass_back_ = this->parser_.ParseStencilOperation();
     return;
   }
   if (tag == "FailBack")
   {
-    std::string value = "";
-    this->parser_.ParseIdentifier(&value);
-    dest->stencil_fail_back_ = ParseStencilOperation(value);
+    dest->stencil_fail_back_ = this->parser_.ParseStencilOperation();
     return;
   }
   if (tag == "ZFailBack")
   {
-    std::string value = "";
-    this->parser_.ParseIdentifier(&value);
-    dest->stencil_zfail_back_ = ParseStencilOperation(value);
+    dest->stencil_zfail_back_ = this->parser_.ParseStencilOperation();
     return;
   }
   this->parser_.ThrowIdentifierError("Stencilトークン", tag);
@@ -340,30 +314,22 @@ void ShaderCompiler::CompilePassData(HLSLCompiler * compiler, const ShaderData &
   using namespace GGGShaderParser;
   if (identifier == "LightMode")
   {
-    std::string value = "";
-    this->parser_.ParseIdentifier(&value);
-    dest->light_mode_ = ParseLightMode(value);
+    dest->light_mode_ = this->parser_.ParseLightMode();
     return;
   }
   if (identifier == "Cull")
   {
-    std::string value = "";
-    this->parser_.ParseIdentifier(&value);
-    dest->render_state_data_.cull_mode_ = ParseCullMode(value);
+    dest->render_state_data_.cull_mode_ = this->parser_.ParseCullMode();
     return;
   }
   if (identifier == "ZWrite")
   {
-    std::string value = "";
-    this->parser_.ParseIdentifier(&value);
-    dest->render_state_data_.z_write_ = ParseZWrite(value);
+    dest->render_state_data_.z_write_ = this->parser_.ParseZWrite();
     return;
   }
   if (identifier == "ZTest")
   {
-    std::string value = "";
-    this->parser_.ParseIdentifier(&value);
-    dest->render_state_data_.z_test_ = ParseComparasionFunc(value);
+    dest->render_state_data_.z_test_ = this->parser_.ParseComparasionFunc();
     return;
   }
   if (identifier == "Blend")
@@ -392,19 +358,16 @@ void ShaderCompiler::CompilePassData(HLSLCompiler * compiler, const ShaderData &
       }
       return;
     }
-    T_INT32 src_factor = ParseBlendFactor(value);
-    this->parser_.ParseIdentifier(&value);
-    T_INT32 dst_factor = ParseBlendFactor(value);
+    T_INT32 src_factor = this->parser_.ParseBlendFactor(value);
+    T_INT32 dst_factor = this->parser_.ParseBlendFactor();
     T_INT32 asrc_factor = src_factor;
     T_INT32 adst_factor = dst_factor;
     // アルファのFactor指定があった場合
     if (this->parser_.CheckNextToken() == TokenType::kComma)
     {
       this->parser_.EatToken();
-      this->parser_.ParseIdentifier(&value);
-      asrc_factor = ParseBlendFactor(value);
-      this->parser_.ParseIdentifier(&value);
-      adst_factor = ParseBlendFactor(value);
+      asrc_factor = this->parser_.ParseBlendFactor();
+      adst_factor = this->parser_.ParseBlendFactor();
     }
     // ブレンドステートを設定していく
     const T_UINT8 render_target_count = (T_UINT8)dest->render_state_data_.blend_state_datas_.size();
@@ -432,16 +395,13 @@ void ShaderCompiler::CompilePassData(HLSLCompiler * compiler, const ShaderData &
       this->parser_.ParseInt(&value);
       state_index = (T_INT8)value;
     }
-    std::string value = "";
-    this->parser_.ParseIdentifier(&value);
-    T_INT32 color_op = ParseBlendOp(value);
+    T_INT32 color_op = this->parser_.ParseBlendOp();
     T_INT32 alpha_op = color_op;
     // アルファのFactor指定があった場合
     if (this->parser_.CheckNextToken() == TokenType::kComma)
     {
       this->parser_.EatToken();
-      this->parser_.ParseIdentifier(&value);
-      alpha_op = ParseBlendOp(value);
+      alpha_op = this->parser_.ParseBlendOp();
     }
     // ブレンドステートを設定していく
     const T_UINT8 render_target_count = (T_UINT8)dest->render_state_data_.blend_state_datas_.size();
@@ -479,7 +439,7 @@ void ShaderCompiler::CompilePassData(HLSLCompiler * compiler, const ShaderData &
   this->parser_.ThrowIdentifierError("Passトークン", identifier);
 }
 
-void ShaderCompiler::CompilePass(HLSLCompiler * compiler, ShaderData * dest, bool grab)
+void ShaderCompiler::CompilePass(HLSLCompiler* compiler, ShaderData* dest, bool grab)
 {
   this->parser_.GetToken(TokenType::kBlockBegin);
   PassData pass_data = PassData();

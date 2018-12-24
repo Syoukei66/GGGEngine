@@ -153,6 +153,7 @@
     <ClInclude Include="Parser\HLSLCompiler.h" />
     <ClInclude Include="Parser\ShaderCompiler.h" />
     <ClInclude Include="Parser\ShaderLexer.h" />
+    <ClInclude Include="Parser\BaseParser.h" />
     <ClInclude Include="Parser\ShaderParser.h" />
     <ClInclude Include="ShaderTest.h" />
     <ClInclude Include="Parser\ShaderToken.h" />
@@ -169,7 +170,7 @@
     <ClCompile Include="Parser\ShaderCompiler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Parser\ShaderLexer.cpp" />
-    <ClCompile Include="Parser\ShaderParser.cpp" />
+    <ClCompile Include="Parser\BaseParser.cpp" />
     <ClCompile Include="ShaderTest.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

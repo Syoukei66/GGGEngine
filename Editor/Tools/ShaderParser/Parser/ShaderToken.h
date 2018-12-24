@@ -5,24 +5,10 @@
 
 namespace GGGShaderParser
 {
-
-#define SHADER_TOKEN_PARSER(Name)\
-static T_INT32 Parse##Name(const std::string& token)\
-{\
-  for (T_FIXED_UINT8 i = 0; i < static_cast<T_FIXED_UINT8>(Shader::##Name##::DATANUM); ++i)\
-  {\
-    if (token == Name##Tokens[i])\
-    {\
-      return i;\
-    }\
-  }\
-  return -1;\
-}
-
 /*!
  * @brief 組み込み変数
  */
-const std::string BuiltinVariableTokens[static_cast<T_FIXED_UINT8>(Shader::BuiltinVariable::DATANUM)] =
+static const std::string BuiltinVariableTokens[static_cast<T_FIXED_UINT8>(Shader::BuiltinVariable::DATANUM)] =
 {
   "_MatMVP",
   "_MatMV",
@@ -37,12 +23,10 @@ const std::string BuiltinVariableTokens[static_cast<T_FIXED_UINT8>(Shader::Built
   "_DeltaTime",
 };
 
-SHADER_TOKEN_PARSER(BuiltinVariable);
-
 /*!
  * @brief パスのライトモード
  */
-const std::string LightModeTokens[static_cast<T_FIXED_UINT8>(Shader::LightMode::DATANUM)] =
+static const std::string LightModeTokens[static_cast<T_FIXED_UINT8>(Shader::LightMode::DATANUM)] =
 {
   "Always",
   "ForwardBase",
@@ -52,35 +36,29 @@ const std::string LightModeTokens[static_cast<T_FIXED_UINT8>(Shader::LightMode::
   "MotionVector",
 };
 
-SHADER_TOKEN_PARSER(LightMode);
-
 /*!
  * @brief カリングモード
  */
-const std::string CullModeTokens[static_cast<T_FIXED_UINT8>(Shader::CullMode::DATANUM)] =
+static const std::string CullModeTokens[static_cast<T_FIXED_UINT8>(Shader::CullMode::DATANUM)] =
 {
   "Back",
   "Front",
   "Off",
 };
 
-SHADER_TOKEN_PARSER(CullMode);
-
 /*!
  * @brief Zバッファ書き込みモード
  */
-const std::string ZWriteTokens[static_cast<T_FIXED_UINT8>(Shader::ZWrite::DATANUM)] =
+static const std::string ZWriteTokens[static_cast<T_FIXED_UINT8>(Shader::ZWrite::DATANUM)] =
 {
   "On",
   "Off",
 };
 
-SHADER_TOKEN_PARSER(ZWrite);
-
 /*!
  * @brief Zバッファ書き込みモード
  */
-const std::string ComparasionFuncTokens[static_cast<T_FIXED_UINT8>(Shader::ComparasionFunc::DATANUM)] =
+static const std::string ComparasionFuncTokens[static_cast<T_FIXED_UINT8>(Shader::ComparasionFunc::DATANUM)] =
 {
   "Less",
   "Greater",
@@ -92,12 +70,10 @@ const std::string ComparasionFuncTokens[static_cast<T_FIXED_UINT8>(Shader::Compa
   "Never",
 };
 
-SHADER_TOKEN_PARSER(ComparasionFunc);
-
 /*!
  * @brief ブレンドモード係数
  */
-const std::string BlendFactorTokens[static_cast<T_FIXED_UINT8>(Shader::BlendFactor::DATANUM)] =
+static const std::string BlendFactorTokens[static_cast<T_FIXED_UINT8>(Shader::BlendFactor::DATANUM)] =
 {
   "One",
   "Zero",
@@ -111,12 +87,10 @@ const std::string BlendFactorTokens[static_cast<T_FIXED_UINT8>(Shader::BlendFact
   "InvDstAlpha",
 };
 
-SHADER_TOKEN_PARSER(BlendFactor);
-
 /*!
  * @brief ブレンドモード演算子
  */
-const std::string BlendOpTokens[static_cast<T_FIXED_UINT8>(Shader::BlendOp::DATANUM)] =
+static const std::string BlendOpTokens[static_cast<T_FIXED_UINT8>(Shader::BlendOp::DATANUM)] =
 {
   "Add",
   "Sub",
@@ -125,12 +99,10 @@ const std::string BlendOpTokens[static_cast<T_FIXED_UINT8>(Shader::BlendOp::DATA
   "Max",
 };
 
-SHADER_TOKEN_PARSER(BlendOp);
-
 /*!
  * @brief ステンシルテスト通過時の操作
  */
-const std::string StencilOperationTokens[static_cast<T_FIXED_UINT8>(Shader::StencilOperation::DATANUM)] =
+static const std::string StencilOperationTokens[static_cast<T_FIXED_UINT8>(Shader::StencilOperation::DATANUM)] =
 {
   "Keep",
   "Zero",
@@ -142,12 +114,10 @@ const std::string StencilOperationTokens[static_cast<T_FIXED_UINT8>(Shader::Sten
   "DecrWrap",
 };
 
-SHADER_TOKEN_PARSER(StencilOperation);
-
 /*!
  * @brief 変数のタイプ
  */
-const std::string VariableTypeTokens[static_cast<T_FIXED_UINT8>(Shader::VariableType::DATANUM)] =
+static const std::string VariableTypeTokens[static_cast<T_FIXED_UINT8>(Shader::VariableType::DATANUM)] =
 {
   "bool",
   "int",
@@ -156,47 +126,39 @@ const std::string VariableTypeTokens[static_cast<T_FIXED_UINT8>(Shader::Variable
   "color",
 };
 
-SHADER_TOKEN_PARSER(VariableType);
-
 /*!
  * @brief カラーのタイプ
  */
-const std::string ColorTypeTokens[static_cast<T_FIXED_UINT8>(Shader::ColorType::DATANUM)] =
+static const std::string ColorTypeTokens[static_cast<T_FIXED_UINT8>(Shader::ColorType::DATANUM)] =
 {
   "Color",
   "ColorHDR",
 };
 
-SHADER_TOKEN_PARSER(ColorType);
-
 /*!
  * @brief サンプラーのタイプ
  */
-const std::string SamplerTypeTokens[static_cast<T_FIXED_UINT8>(Shader::SamplerType::DATANUM)] =
+static const std::string SamplerTypeTokens[static_cast<T_FIXED_UINT8>(Shader::SamplerType::DATANUM)] =
 {
   "sampler2D",
   "samplerCube",
   "sampler3D",
 };
 
-SHADER_TOKEN_PARSER(SamplerType);
-
 /*!
  * @brief デフォルトテクスチャのタイプ
  */
-const std::string DefaultTextureTypeTokens[static_cast<T_FIXED_UINT8>(Shader::DefaultTextureType::DATANUM)] =
+static const std::string DefaultTextureTypeTokens[static_cast<T_FIXED_UINT8>(Shader::DefaultTextureType::DATANUM)] =
 {
   "white",
   "black",
   "gray",
 };
 
-SHADER_TOKEN_PARSER(DefaultTextureType);
-
 /*!
  * @brief RenderQueueのタイプ
  */
-const std::string RenderQueueTokens[static_cast<T_FIXED_UINT8>(Shader::RenderQueue::DATANUM)] =
+static const std::string RenderQueueTokens[static_cast<T_FIXED_UINT8>(Shader::RenderQueue::DATANUM)] =
 {
   "BackGround",
   "Geometry",
@@ -205,12 +167,10 @@ const std::string RenderQueueTokens[static_cast<T_FIXED_UINT8>(Shader::RenderQue
   "Overlay",
 };
 
-SHADER_TOKEN_PARSER(RenderQueue);
-
 /*!
  * @brief 描画タイプ
  */
-const std::string RenderTypeTokens[static_cast<T_FIXED_UINT8>(Shader::RenderType::DATANUM)] =
+static const std::string RenderTypeTokens[static_cast<T_FIXED_UINT8>(Shader::RenderType::DATANUM)] =
 {
   "Opaque",
   "Transparent",
@@ -218,7 +178,4 @@ const std::string RenderTypeTokens[static_cast<T_FIXED_UINT8>(Shader::RenderType
   "Background",
   "Overlay",
 };
-
-SHADER_TOKEN_PARSER(RenderType);
-
 }

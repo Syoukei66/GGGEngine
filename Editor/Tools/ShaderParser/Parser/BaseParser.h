@@ -10,10 +10,10 @@ struct ParseException
   std::string message;
 };
 
-class ShaderParser
+class BaseParser
 {
 public:
-  ShaderParser(const std::string& str);
+  BaseParser(const std::string& str);
 
 public:
   /*!
@@ -74,7 +74,7 @@ public:
    */
   void GetText(const std::string& end_simbol, std::string* dest);
 
-private:
+protected:
   /*!
    * @brief 文字カウントを進める
    */
