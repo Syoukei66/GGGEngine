@@ -22,6 +22,8 @@ _Time (t/20.0f, t, t * 2, t * 3)
 _SinTime (t/8, t/4, t/2, t)
 _CosTime (t/8, t/4, t/2, t)
 _DeltaTime (dt, 1/dt, smoothDt, 1/smoothDt)
+_CameraPosition
+_CameraDirection
 
 #########################################################################################################################
 シェーダーファイル記述

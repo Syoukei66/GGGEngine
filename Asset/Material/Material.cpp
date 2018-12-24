@@ -71,7 +71,6 @@ GG_INIT_FUNC_IMPL_1(rcMaterial, const SharedRef<rcShader>& shader)
     ((T_FLOAT*)&this->data_[data_offset])[3] = data.init_a_;
     data_offset += sizeof(T_FLOAT) * 4;
   }
-  //TODO: SamplerProperty‚à’Ç‰Á‚·‚é
   T_UINT32 texture_offset = 0;
   for (const SamplerPropertyData& data : shader->GetSamplerPropertyDatas())
   {

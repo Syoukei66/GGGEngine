@@ -164,6 +164,9 @@
     <ProjectReference Include="..\..\..\Asset\Asset.vcxproj">
       <Project>{37173f1e-1a35-4644-8862-81dbb9ad9fc1}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Native\Windows\Windows.vcxproj">
+      <Project>{9f550cbc-9678-49bc-9a91-68c39e40eabd}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Parser\HLSLCompiler.cpp" />

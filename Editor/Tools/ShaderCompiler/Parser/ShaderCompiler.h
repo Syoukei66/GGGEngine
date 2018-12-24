@@ -7,10 +7,10 @@
 class ShaderCompiler
 {
 public:
-  ShaderCompiler(const std::string& str);
+  ShaderCompiler(const std::string& str, const std::string& directory_path);
 
 public:
-  void Compile(HLSLCompiler* compiler, ShaderData* dest);
+  void Compile(ShaderData* dest);
 
 private:
   /*!
@@ -59,5 +59,6 @@ private:
 
 private:
   ShaderParser parser_;
+  HLSLCompiler compiler_;
 
 };

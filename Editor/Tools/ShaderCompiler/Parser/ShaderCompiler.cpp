@@ -1,12 +1,13 @@
 #include "ShaderCompiler.h"
 #include "ShaderToken.h"
 
-ShaderCompiler::ShaderCompiler(const std::string& str)
+ShaderCompiler::ShaderCompiler(const std::string& str, const std::string& directory_path)
   : parser_(str)
+  , compiler_(directory_path)
 {
 }
 
-void ShaderCompiler::Compile(HLSLCompiler* compiler, ShaderData* dest)
+void ShaderCompiler::Compile(ShaderData* dest)
 {
   bool grab = false;
   while (this->parser_.CheckNextToken() != TokenType::kEOF)
@@ -29,7 +30,7 @@ void ShaderCompiler::Compile(HLSLCompiler* compiler, ShaderData* dest)
     }
     if (token == "Pass")
     {
-      this->CompilePass(compiler, dest, grab);
+      this->CompilePass(&this->compiler_, dest, grab);
       grab = false;
       continue;
     }
@@ -410,8 +411,15 @@ void ShaderCompiler::CompilePassData(HLSLCompiler * compiler, const ShaderData &
   {
     std::string program = this->parser_.GetText("CODE_END");
     compiler->ConvertHLSL(data, &program);
-    compiler->CompileVertexShader(program, &dest->vs_byte_code_);
-    compiler->CompilePixelShader(program, &dest->ps_byte_code_);
+    try
+    {
+      compiler->CompileVertexShader(program, &dest->vs_byte_code_);
+      compiler->CompilePixelShader(program, &dest->ps_byte_code_);
+    }
+    catch (HLSLCompileException e)
+    {
+      this->parser_.ThrowError(e.message);
+    }
     return;
   }
   this->parser_.ThrowIdentifierError("Passƒg[ƒNƒ“", identifier);
