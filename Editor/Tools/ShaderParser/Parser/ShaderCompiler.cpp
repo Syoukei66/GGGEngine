@@ -206,7 +206,6 @@ void ShaderCompiler::CompileTags(ShaderData* dest)
     this->CompileTag(dest);
   }
   this->parser_.EatToken();
-  return;
 }
 
 void ShaderCompiler::CompileStencilData(StencilStateData * dest)
