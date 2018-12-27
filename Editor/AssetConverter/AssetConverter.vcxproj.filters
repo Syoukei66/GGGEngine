@@ -189,9 +189,6 @@
     <ClInclude Include="Converter\AssetConverterManager.h">
       <Filter>ヘッダー ファイル\Asset</Filter>
     </ClInclude>
-    <ClInclude Include="Converter\IAssetConverter.h">
-      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
-    </ClInclude>
     <ClInclude Include="ProgramGenerator\AssetProgramGenerator.h">
       <Filter>ヘッダー ファイル\ProgramGenerator</Filter>
     </ClInclude>
@@ -272,9 +269,6 @@
     </ClInclude>
     <ClInclude Include="Entity\File\Model\ModelConstants.h">
       <Filter>ヘッダー ファイル\Assimp</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\File\FileAssetEntity.h">
-      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Entity\File\FileAssetExporter.h">
       <Filter>ヘッダー ファイル</Filter>
@@ -489,6 +483,12 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Entity\File\Texture\TextureAssetImporter.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\AssetImporter.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\AssetExporter.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

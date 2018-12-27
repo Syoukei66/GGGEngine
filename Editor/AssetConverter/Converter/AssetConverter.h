@@ -1,21 +1,19 @@
 #pragma once
 
-#include <Converter/IAssetConverter.h>
 #include <Entity/AssetEntity.h>
 #include <Entity/AssetImporter.h>
 #include <Entity/AssetExporter.h>
 #include <ProgramGenerator/AssetProgramGenerator.h>
 
-template <class Entity_>
-class AssetConverter : public IAssetConverter
+class AssetConverter 
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
   AssetConverter(
-    AssetImporter<Entity_>* importer,
-    AssetExporter<Entity_>* exporter,
+    AssetImporter* importer,
+    AssetExporter* exporter,
     AssetProgramGenerator<Entity_>* program_generator
   );
 
@@ -25,33 +23,31 @@ public:
   // Methods
   // =================================================================
 public:
-  inline T_UINT32 GetID() const override;
+  inline bool Reserve(const URI& uri, AssetConverterContext* context);
+  inline bool Reserve(const URI& uri, T_UINT32 source_unique_id, AssetConverterContext* context);
 
-  inline bool Reserve(const URI& uri, AssetConverterContext* context) override;
-  inline bool Reserve(const URI& uri, T_UINT32 source_unique_id, AssetConverterContext* context) override;
+  inline bool ImportOnce(AssetConverterContext* context);
+  inline bool ImportImmediately(const URI& uri, AssetConverterContext* context, bool reload);
 
-  inline bool ImportOnce(AssetConverterContext* context) override;
-  inline bool ImportImmediately(const URI& uri, AssetConverterContext* context, bool reload) override;
+  inline void AddEntity(const SharedRef<AssetEntity>& entity);
+  inline SharedRef<AssetEntity> GetEntity(const URI& uri, const AssetConverterContext* context);
+  inline SharedRef<AssetEntity> GetEntity(T_UINT32 unique_id);
 
-  inline void AddEntity(const SharedRef<Entity_>& entity);
-  inline SharedRef<Entity_> GetEntity(const URI& uri, const AssetConverterContext* context);
-  inline SharedRef<Entity_> GetEntity(T_UINT32 unique_id);
+  inline void Export(const AssetConverterContext* context) const;
 
-  inline void Export(const AssetConverterContext* context) const override;
+  inline void CreateHeaderProgram(std::string* dest) const;
+  inline void CreateCppProgram(std::string* dest) const;
 
-  inline void CreateHeaderProgram(std::string* dest) const override;
-  inline void CreateCppProgram(std::string* dest) const override;
-
-  inline void VisitAllEntity(const std::function<void(const SharedRef<AssetEntity>&)>& func) override;
-  inline SharedRef<AssetEntity> FindAllEntity(const std::function<bool(const SharedRef<AssetEntity>&)>& func) override;
+  inline void VisitAllEntity(const std::function<void(const SharedRef<AssetEntity>&)>& func);
+  inline SharedRef<AssetEntity> FindAllEntity(const std::function<bool(const SharedRef<AssetEntity>&)>& func);
 
   // =================================================================
   // Data Members
   // =================================================================
 private:
   std::unordered_map<T_UINT32, SharedRef<Entity_>> entities_;
-  AssetImporter<Entity_>* importer_;
-  AssetExporter<Entity_>* exporter_;
+  AssetImporter* importer_;
+  AssetExporter* exporter_;
   AssetProgramGenerator<Entity_>* program_generator_;
 
 };

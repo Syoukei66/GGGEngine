@@ -180,7 +180,6 @@
     <ClInclude Include="Entity\AssetEntity.h" />
     <ClInclude Include="Entity\AssetExporter.h" />
     <ClInclude Include="Entity\File\FileAssetExporter.h" />
-    <ClInclude Include="Entity\File\FileAssetEntity.h" />
     <ClInclude Include="Entity\File\Model\AssimpImportUtil.h" />
     <ClInclude Include="Entity\File\Model\CharacterModel\CharacterModelAssetImporter.h" />
     <ClInclude Include="Entity\File\Model\CharacterModel\CharacterModelAssetEntity.h" />
@@ -219,7 +218,6 @@
     <ClInclude Include="Scene\AssetViewer\Texture\TextureViewerBehavior.h" />
     <ClInclude Include="Util\FileUtil.h" />
     <ClInclude Include="Converter\AssetConverterContext.h" />
-    <ClInclude Include="Converter\IAssetConverter.h" />
     <ClInclude Include="Entity\File\Raw\Json\JsonAssetEntity.h" />
     <ClInclude Include="Util\Logger.h" />
     <ClInclude Include="Util\MeshBuilder\MeshBuilder.h" />
@@ -251,6 +249,8 @@
   <ItemGroup>
     <ClCompile Include="Converter\AssetConverterManager.cpp" />
     <ClCompile Include="Entity\AssetEntity.cpp" />
+    <ClCompile Include="Entity\AssetExporter.cpp" />
+    <ClCompile Include="Entity\AssetImporter.cpp" />
     <ClCompile Include="Entity\AssetMetaData.cpp" />
     <ClCompile Include="Entity\File\Model\CharacterModel\CharacterModelAssetEntity.cpp" />
     <ClCompile Include="Entity\File\Model\CharacterModel\CharacterModelAssetImporter.cpp" />
