@@ -1,5 +1,8 @@
 #include "ShaderAssetImporter.h"
 #include <Editor/Tools/ShaderCompiler/Parser/ShaderCompiler.h>
+#include <Entity/AssetMetaData.h>
+#include <Entity/AssetEntity.h>
+#include <Converter/AssetConverterContext.h>
 
 // =================================================================
 // Constructor / Destructor
@@ -12,7 +15,7 @@ ShaderAssetImporter::ShaderAssetImporter(const std::vector<std::string>& extensi
 // =================================================================
 // Methods
 // =================================================================
-SharedRef<ShaderAssetEntity> ShaderAssetImporter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context)
+void* ShaderAssetImporter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context)
 {
   ShaderData* data = new ShaderData();
 
@@ -28,10 +31,10 @@ SharedRef<ShaderAssetEntity> ShaderAssetImporter::ImportProcess(AssetMetaData* m
   }
   catch (ParseException e)
   {
-    SharedRef<ShaderAssetEntity> entity = context->GetEntity<ShaderAssetEntity>(DefaultUniqueID::SHADER_ERRROR);
+    SharedRef<AssetEntity> entity = context->GetEntity(DefaultUniqueID::SHADER_ERRROR);
     Log::Info(e.message.c_str());
-    (*data) = *entity->GetData();
+    (*data) = *(ShaderData*)(entity->GetData());
   }
 
-  return ShaderAssetEntity::Create(meta, data);
+  return data;
 }

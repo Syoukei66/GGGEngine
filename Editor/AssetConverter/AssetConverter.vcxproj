@@ -179,6 +179,7 @@
     <ClInclude Include="Converter\AssetConverter.h" />
     <ClInclude Include="Entity\AssetEntity.h" />
     <ClInclude Include="Entity\AssetExporter.h" />
+    <ClInclude Include="Entity\File\FileAssetConverter.h" />
     <ClInclude Include="Entity\File\FileAssetExporter.h" />
     <ClInclude Include="Entity\File\Model\AssimpImportUtil.h" />
     <ClInclude Include="Entity\File\Model\CharacterModel\CharacterModelAssetImporter.h" />
@@ -230,7 +231,6 @@
     <ClInclude Include="Entity\File\Model\Material\ModelMaterialAssetEntity.h" />
     <ClInclude Include="Entity\File\Model\StaticModel\StaticModelAssetEntity.h" />
     <ClInclude Include="Entity\File\Model\StaticModel\StaticModelAssetImporter.h" />
-    <ClInclude Include="Entity\File\FileAssetConverterFactory.h" />
     <ClInclude Include="Setting\RuntimeSetting.h" />
     <ClInclude Include="Setting\Setting.h" />
     <ClInclude Include="Entity\File\Raw\RawAssetConverterFactory.h" />

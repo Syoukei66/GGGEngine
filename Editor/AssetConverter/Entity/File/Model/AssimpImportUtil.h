@@ -38,7 +38,16 @@ static TColor ToTColor(const aiColor4D& col)
   return ret;
 }
 
-static SharedRef<TextureAssetEntity> ImportTexture(const AssetMetaData* model_asset_info, const aiMaterial* material, aiTextureType type, T_UINT32 i, AssetConverterContext* context)
+/*!
+ * マテリアルからテクスチャ情報をインポートする
+ * @param directory_path ルートディレクトリのパス
+ * @param material 対象マテリアル
+ * @param type テクスチャタイプ
+ * @param i テクスチャ番号
+ * @param context
+ * @return テクスチャのAssetEntity
+ */
+static SharedRef<AssetEntity> ImportTexture(const std::string& directory_path, const aiMaterial* material, aiTextureType type, T_UINT32 i, AssetConverterContext* context)
 {
   aiString path;
   //aiTextureMapping mapping;
@@ -50,27 +59,60 @@ static SharedRef<TextureAssetEntity> ImportTexture(const AssetMetaData* model_as
 
   if (AI_SUCCESS == aiGetMaterialTexture(material, type, i, &path))
   {
-    URI uri = URI(model_asset_info->GetURI().GetDirectoryPath(), path.C_Str());
-    return context->ImportImmediately<TextureAssetEntity>(uri, false);
+    URI uri = URI(directory_path, path.C_Str());
+    SharedRef<AssetEntity> entity = context->GetEntity(uri);
+    GG_ASSERT(entity, "存在しないテクスチャが指定されました");
+    return entity;
   }
 
-  return nullptr;
+  return context->GetEntity(context->GetDefaultAssetURI(DefaultUniqueID::TEXTURE_WHITE));
 }
 
-static SharedRef<ShaderAssetEntity> ImportShader(const AssetMetaData* meta, const aiMaterial* material, AssetConverterContext* context)
+/*!
+ * マテリアルからシェーダー情報をインポートする
+ * @param material 対象マテリアル
+ * @param context
+ * @return シェーダーのAssetEntity
+ */
+static SharedRef<AssetEntity> ImportShader(const aiMaterial* material, AssetConverterContext* context)
 {
   T_INT32 mode;
   AssetMetaData* shader_meta_data = nullptr;
   if (AI_SUCCESS == material->Get(AI_MATKEY_SHADING_MODEL, mode))
   {
-    //return context->ImportImmediately<ShaderAssetEntity>(context->GetDefaultAssetURI(DefaultUniqueID::DEFAULT_UID_BEGIN + mode), false);
+    return context->GetEntity(context->GetDefaultAssetURI(DefaultUniqueID::DEFAULT_UID_BEGIN + mode));
   }
-  return context->ImportImmediately<ShaderAssetEntity>(context->GetDefaultAssetURI(DefaultUniqueID::SHADER_GOURAUD), false);
+  return context->GetEntity(context->GetDefaultAssetURI(DefaultUniqueID::SHADER_GOURAUD));
 }
 
-static SharedRef<ModelMaterialAssetEntity> ImportMaterial(AssetMetaData* meta, const aiMaterial* material, AssetConverterContext* context)
+/*!
+ * マテリアルをインポートする
+ * @param source_meta_data マテリアルデータが含まれるモデルAssetのMetaData
+ * @param material Material情報
+ * @param context 
+ * @return マテリアルのAssetEntity
+ */
+static SharedRef<AssetEntity> ImportMaterial(AssetMetaData* source_meta_data, const aiMaterial* material, AssetConverterContext* context)
 {
+  aiString name;
+  if (AI_SUCCESS != aiGetMaterialString(material, AI_MATKEY_NAME, &name))
+  {
+    return nullptr;
+  }
+
   MaterialData* data = new MaterialData();
+
+  // マテリアルのURIを作成
+  std::string material_directory_path = source_meta_data->GetURI().GetDirectoryPath() + "Material/";
+  URI material_uri = URI(material_directory_path + name.C_Str(), Extensions::MATERIAL);
+  SharedRef<AssetEntity> entity = context->GetEntity(material_uri);
+
+  // 既に同名のマテリアルAssetが存在し、上書き設定もなければここではインポートは行わない。
+  if (entity)
+  {
+    //TODO:現在は上書きをしない設定にしているが、本来はモデルのConverterSettingで操作できるようにする
+    return entity;
+  }
 
   //Colors
   aiColor4D color;
@@ -78,16 +120,34 @@ static SharedRef<ModelMaterialAssetEntity> ImportMaterial(AssetMetaData* meta, c
   //{
   //  data->color_ = ToTColor(color);
   //}
-  SharedRef<TextureAssetEntity> tex_asset_entity = ImportTexture(meta, material, aiTextureType_DIFFUSE, 0, context);
-  data->main_texture_unique_id_ = tex_asset_entity ? tex_asset_entity->GetMetaData()->GetUniqueID() : DefaultUniqueID::TEXTURE_WHITE;
+  SharedRef<AssetEntity> tex_asset_entity = ImportTexture(source_meta_data->GetURI().GetDirectoryPath(), material, aiTextureType_DIFFUSE, 0, context);
+  tex_asset_entity->Load(context);
+  data->main_texture_unique_id_ = tex_asset_entity->GetMetaData()->GetUniqueID();
 
-  SharedRef<ShaderAssetEntity> shader_asset_entity = ImportShader(meta, material, context);
+  SharedRef<AssetEntity> shader_asset_entity = ImportShader(material, context);
+  shader_asset_entity->Load(context);
   data->shader_unique_id_ = shader_asset_entity->GetMetaData()->GetUniqueID();
-
+  
   //TODO:プロパティのインポート処理
-  const SharedRef<ModelMaterialAssetEntity>& entity = ModelMaterialAssetEntity::Create(meta, data);
-  entity->AddSubEntity(tex_asset_entity);
-  entity->AddSubEntity(shader_asset_entity);
+
+  // AssetEntityが存在していなかった場合、MaterialのAssetファイルを作成し、Assetディレクトリに出力する。
+  if (!entity)
+  {
+    FileUtil::PrepareDirectory(material_uri);
+    CerealIO::Json::Export<MaterialData>(material_uri.GetFullPath().c_str(), data);
+    AssetMetaData* meta_data = AssetMetaData::Create(
+      material_uri,
+      source_meta_data->GetUniqueID(),
+      context
+    );
+    entity = context->AddEntity(AssetEntity::Create(meta_data));
+  }
+
+  // AssetEntityに中間データやサブアセットを設定する
+  entity->SetData(data);
+  entity->GetMetaData()->GetConverterSetting()->ClearSubAssets();
+  entity->GetMetaData()->GetConverterSetting()->AddSubAsset(tex_asset_entity->GetMetaData()->GetUniqueID());
+  entity->GetMetaData()->GetConverterSetting()->AddSubAsset(shader_asset_entity->GetMetaData()->GetUniqueID());
 
   return entity;
 }

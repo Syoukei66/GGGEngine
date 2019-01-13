@@ -3,7 +3,7 @@
 #include <Entity/AssetImporter.h>
 #include "CharacterModelAssetEntity.h"
 
-class CharacterModelAssetImporter : public AssetImporter<CharacterModelAssetEntity>
+class CharacterModelAssetImporter : public AssetImporter
 {
   // =================================================================
   // Constructor / Destructor
@@ -15,6 +15,6 @@ public:
   // Methods
   // =================================================================
 protected:
-  SharedRef<CharacterModelAssetEntity> ImportProcess(AssetMetaData* meta, AssetConverterContext* context) override;
+  void* ImportProcess(AssetMetaData* meta, AssetConverterContext* context) override;
 
 };

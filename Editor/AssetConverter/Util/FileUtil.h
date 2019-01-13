@@ -9,7 +9,8 @@ class AssetMetaData;
 namespace FileUtil
 {
 
-void PrepareDirectories();
+void PrepareDefaultDirectories();
+void PrepareDirectory(const URI& uri);
 
 std::string GetSettingPath();
 std::string GetMidDataUniqueIdTablePath();

@@ -3,7 +3,7 @@
 #include <Entity/AssetImporter.h>
 #include "ShaderAssetEntity.h"
 
-class ShaderAssetImporter : public AssetImporter<ShaderAssetEntity>
+class ShaderAssetImporter : public AssetImporter
 {
   // =================================================================
   // Constructor / Destructor
@@ -15,6 +15,6 @@ public:
   // Methods
   // =================================================================
 protected:
-  SharedRef<ShaderAssetEntity> ImportProcess(AssetMetaData* meta, AssetConverterContext* context) override;
+  void* ImportProcess(AssetMetaData* meta, AssetConverterContext* context) override;
 
 };

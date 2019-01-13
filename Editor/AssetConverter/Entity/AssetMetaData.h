@@ -62,7 +62,7 @@ public:
     return this->uri_;
   }
 
-  inline const std::unique_ptr<ConverterSetting>& GetConverterSetting()
+  inline const std::unique_ptr<ImporterSetting>& GetConverterSetting()
   {
     return this->converter_setting_;
   }
@@ -107,6 +107,6 @@ private:
   T_UINT32 unique_id_;
   T_UINT32 source_unique_id_;
 
-  std::unique_ptr<ConverterSetting> converter_setting_;
+  std::unique_ptr<ImporterSetting> converter_setting_;
 
 };

@@ -162,9 +162,6 @@
     <ClInclude Include="Entity\File\Raw\RawAssetImporter.h">
       <Filter>ヘッダー ファイル\Asset\_File\_Raw</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\File\FileAssetConverterFactory.h">
-      <Filter>ヘッダー ファイル\Asset\_File</Filter>
-    </ClInclude>
     <ClInclude Include="Entity\File\StandardMaterial.h">
       <Filter>ヘッダー ファイル\Assimp</Filter>
     </ClInclude>
@@ -331,6 +328,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Entity\ConverterSetting.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\FileAssetConverter.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

@@ -9,7 +9,7 @@
 // =================================================================
 // Methods
 // =================================================================
-void AssetExporter::Export(AssetMetaData* meta_data, const AssetConverterContext* context)
+void AssetExporter::Export(AssetMetaData* meta_data, void* mid_data, const AssetConverterContext* context)
 {
   //•ÏŠ·Œãƒtƒ@ƒCƒ‹‚ªÁ‚¦‚Ä‚¢‚é‚©
   const bool output_file_exists = std::ifstream(FileUtil::CreateArchivePath(meta_data)).is_open();
@@ -21,5 +21,5 @@ void AssetExporter::Export(AssetMetaData* meta_data, const AssetConverterContext
     Logger::ExportSkipAssetLog(meta_data);
     return;
   }
-  this->ExportProcess(meta_data, context);
+  this->ExportProcess(meta_data, mid_data, context);
 }

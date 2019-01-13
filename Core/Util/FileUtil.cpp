@@ -22,3 +22,8 @@ void FileUtil::TextFile_Write(const char* path, const std::string& str)
   }
   ofs.write(str.c_str(), str.length());
 }
+
+bool FileUtil::IsFileExist(const char* path)
+{
+  return std::ifstream(path).is_open();
+}

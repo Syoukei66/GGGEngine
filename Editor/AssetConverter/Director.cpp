@@ -26,7 +26,7 @@ void AssetConverterDirector::Init()
 
   GG_ASSERT(!self->setting_ && !self->converter_manager_ && !self->context_, "Initが２回連続で呼び出されました");
  
-  FileUtil::PrepareDirectories();
+  FileUtil::PrepareDefaultDirectories();
 
   // (1)
   // 設定のロード

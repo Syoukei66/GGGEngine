@@ -12,14 +12,12 @@ class AssetImporter
   // =================================================================
 public:
   AssetImporter(const std::vector<std::string>& extensions);
-  virtual ~AssetImporter();
 
   // =================================================================
   // Methods
   // =================================================================
 public:
   bool IsTarget(const URI& uri);
-  bool Reserve(const URI& uri, T_UINT32 source_unique_id, AssetConverterContext* context);
 
   void* ImportImmediately(AssetMetaData* meta_data, AssetConverterContext* context);
 
@@ -35,6 +33,5 @@ protected:
   // =================================================================
 private:
   std::vector<std::string> target_extensions_;
-  std::unordered_map<T_UINT32, AssetMetaData*> reserve_assets_;
 
 };

@@ -1,4 +1,5 @@
 #include "TextureAssetImporter.h"
+#include <Entity/AssetMetaData.h>
 #include <DirectXTex.h>
 #include <Editor/ThirdParty/DirectXTex/WICTextureLoader/WICTextureLoader.h>
 
@@ -15,7 +16,7 @@ TextureAssetImporter::TextureAssetImporter(const std::vector<std::string>& exten
 // =================================================================
 // Methods
 // =================================================================
-SharedRef<TextureAssetEntity> TextureAssetImporter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context)
+void* TextureAssetImporter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context)
 {
   TextureData* data = new TextureData();
 
@@ -55,5 +56,5 @@ SharedRef<TextureAssetEntity> TextureAssetImporter::ImportProcess(AssetMetaData*
     data->resource_data_.data_[i] = image.GetPixels()[i];
   }
 
-  return TextureAssetEntity::Create(meta, data);
+  return data;
 }

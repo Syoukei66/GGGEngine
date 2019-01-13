@@ -3,7 +3,7 @@
 #include <Entity/AssetImporter.h>
 #include "StaticModelAssetEntity.h"
 
-class StaticModelAssetImporter : public AssetImporter<StaticModelAssetEntity>
+class StaticModelAssetImporter : public AssetImporter
 {
   // =================================================================
   // Constructor / Destructor
@@ -15,6 +15,6 @@ public:
   // Methods
   // =================================================================
 protected:
-  SharedRef<StaticModelAssetEntity> ImportProcess(AssetMetaData* meta, AssetConverterContext* context) override;
+  void* ImportProcess(AssetMetaData* meta, AssetConverterContext* context) override;
 
 };

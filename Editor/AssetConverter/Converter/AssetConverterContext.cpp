@@ -25,7 +25,8 @@ void AssetConverterContext::Fetch()
     {
       return;
     }
-    const T_UINT32 uid = this->unique_id_table_->Publish(uri.GetFullPath());
+    // AssetEntityが存在していないファイルをunknown_filesに追加
+    const T_UINT32 uid = this->PublishUniqueID(uri.GetFullPath());
     if (this->asset_entities_.find(uid) == this->asset_entities_.end())
     {
       unknown_files.emplace_back(uri);
@@ -35,42 +36,27 @@ void AssetConverterContext::Fetch()
   // (2)
   // AssetEntityが存在しないファイルのURIリストから
   // MetaDataがあるかどうかを探す
+  for (const URI& uri : unknown_files)
+  {
+    if (FileUtil::IsFileExist((uri.GetFullPath() + "." + Extensions::META).c_str()))
+    {
+      //TODO: MetaDataがあるが、MetaData内のURIが実際のURIと対応していないファイルについての処理を記述する。
+    }
+    // AssetEntity、MetaDataを作成
+    const T_UINT32 uid = this->PublishUniqueID(uri.GetFullPath());
+    this->asset_entities_[uid] = AssetEntity::Create(AssetMetaData::Create(uri, this));
+  }
 
   // UniqueIdTableを保存する
-  CerealIO::Json::Export(FileUtil::GetMidDataUniqueIdTablePath().c_str(), self->unique_id_table_);
-
-  self->context_->VisitAllEntity([&](const SharedRef<AssetEntity>& entity)
-  {
-    entity->GetMetaData()->Save();
-  });
-
-  self->converter_manager_->VisitAllEntity([&](const SharedRef<AssetEntity>& entity)
-  {
-    entity->CommitChanges();
-  });
-}
-
-bool AssetConverterContext::Reserve(const URI& uri)
-{
-  //Infoが生成されるまでConverterを走査
-  return this->converter_manager_->Fire([&](AssetConverter* converter)
-  {
-    return converter->Reserve(uri, this);
-  });
-}
-
-bool AssetConverterContext::Reserve(const URI& uri, T_UINT32 source_unique_id)
-{
-  //Infoが生成されるまでConverterを走査
-  return this->converter_manager_->Fire([&](AssetConverter* converter)
-  {
-    return converter->Reserve(uri, source_unique_id, this);
-  });
+  CerealIO::Json::Export(FileUtil::GetMidDataUniqueIdTablePath().c_str(), this->unique_id_table_);
 }
 
 void AssetConverterContext::VisitAllEntity(const std::function<void(const SharedRef<AssetEntity>&)>& func)
 {
-  this->converter_manager_->VisitAllEntity(func);
+  for (const auto& pair : this->asset_entities_)
+  {
+    func(pair.second);
+  }
 }
 
 SharedRef<AssetEntity> AssetConverterContext::AddEntity(const SharedRef<AssetEntity>& entity)
@@ -80,41 +66,13 @@ SharedRef<AssetEntity> AssetConverterContext::AddEntity(const SharedRef<AssetEnt
     Logger::ConvertFaildLog(entity->GetMetaData());
     return nullptr;
   }
-  this->converter_manager_->VisitAll<Entity_>([&](AssetConverter<Entity_>* converter)
-  {
-    converter->AddEntity(entity);
-  });
+  this->asset_entities_[entity->GetMetaData()->GetUniqueID()] = entity;
   return entity;
-}
-
-template<class Entity_>
-SharedRef<Entity_> AssetConverterContext::GetEntity(const URI& uri)
-{
-  return this->converter_manager_->Find<Entity_>([&](AssetConverter<Entity_>* converter)
-  {
-    return converter->GetEntity(uri, this);
-  });
 }
 
 SharedRef<AssetEntity> AssetConverterContext::GetEntity(const URI& uri)
 {
-  return this->converter_manager_->FindAllEntity([&](const SharedRef<AssetEntity>& entity)
-  {
-    return entity->GetMetaData()->GetURI() == uri;
-  });
-}
-
-template<class Entity_>
-SharedRef<Entity_> AssetConverterContext::GetEntity(T_UINT32 unique_id)
-{
-  if (unique_id > DefaultUniqueID::DEFAULT_UID_BEGIN)
-  {
-    unique_id = this->unique_id_table_->GetDefaultAssetUniqueID(unique_id);
-  }
-  return this->converter_manager_->Find<Entity_>([&](AssetConverter<Entity_>* converter)
-  {
-    return converter->GetEntity(unique_id);
-  });
+  return this->asset_entities_[this->GetUniqueID(uri.GetFullPath())];
 }
 
 SharedRef<AssetEntity> AssetConverterContext::GetEntity(T_UINT32 unique_id)
@@ -123,10 +81,7 @@ SharedRef<AssetEntity> AssetConverterContext::GetEntity(T_UINT32 unique_id)
   {
     unique_id = this->unique_id_table_->GetDefaultAssetUniqueID(unique_id);
   }
-  return this->converter_manager_->FindAllEntity([&](const SharedRef<AssetEntity>& entity)
-  {
-    return entity->GetMetaData()->GetUniqueID() == unique_id;
-  });
+  return this->asset_entities_[unique_id];
 }
 
 T_UINT32 AssetConverterContext::PublishUniqueID(const URI& uri)

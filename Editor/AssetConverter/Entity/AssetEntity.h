@@ -20,11 +20,35 @@ class AssetEntity : public GGObject
   // Methods
   // =================================================================
 public:
-  void Import(AssetConverterContext* context);
-  bool Reload(AssetConverterContext* context);
+  /*!
+   * 作成済みのデータを直接受け取る
+   */
+  void SetData(void* data);
+
+  /*!
+   * 自身が参照しているアセット含めて全てのアセットをロードする。
+   * 既にロード済みなら何も行わない。
+   * @param context
+   * @return ロードが行われたならtrue
+   */
+  bool Load(AssetConverterContext* context);
+
+  /*!
+   * 対象のアセットを変換し、変換後のデータを
+   * ランタイム用のディレクトリにランタイム用のフォーマットで出力する。
+   * @param context
+   */
   void Export(AssetConverterContext* context);
 
 private:
+  /*!
+   * 対象のアセットをインポート。
+   * 同時にアセットの依存関係を作成し、
+   * 自身が参照しているアセットのロードも行う。
+   * @param context
+   */
+  void Import(AssetConverterContext* context);
+
   /*!
    * @brief 自身が管理しているデータに変更があった場合
    * AssetManager側へアセットの再登録を行う
@@ -55,6 +79,14 @@ public:
   {
     return this->meta_data_;
   }
+  inline AssetMetaData* GetMetaData()
+  {
+    return this->meta_data_;
+  }
+  inline const void* GetData() const
+  {
+    return this->data_;
+  }
 
   // =================================================================
   // Data Members
@@ -62,6 +94,6 @@ public:
 private:
   AssetMetaData* meta_data_;
   bool is_dirty_;
-  void* cache_;
+  void* data_;
 
 };

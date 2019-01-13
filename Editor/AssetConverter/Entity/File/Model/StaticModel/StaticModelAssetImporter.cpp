@@ -115,7 +115,7 @@ void ImportMesh(const AssetMetaData* model_asset_info, const aiScene* scene, Ass
   ret->ConvertToData(dest);
 }
 
-SharedRef<StaticModelAssetEntity> StaticModelAssetImporter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context)
+void* StaticModelAssetImporter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context)
 {  
   using namespace Assimp;
   //一部のファイルでメモリリークが発生
@@ -170,39 +170,33 @@ SharedRef<StaticModelAssetEntity> StaticModelAssetImporter::ImportProcess(AssetM
 
   StaticModelData* data = new StaticModelData();
 
-  std::vector<SharedRef<AssetEntity>> referenced_assets = std::vector<SharedRef<AssetEntity>>();
-
   //Mesh
   ImportMesh(meta, scene, context, &data->mesh_);
 
   //Material
-  std::vector<AssetMetaData*> material_asset_infos;
+  std::vector<SharedRef<AssetEntity>> material_entities;
   for (T_UINT32 i = 0; i < scene->mNumMaterials; ++i)
   {
     aiMaterial* mat = scene->mMaterials[i];
-    aiString name;
-    if (AI_SUCCESS == aiGetMaterialString(mat, AI_MATKEY_NAME, &name))
-    {
-      AssetMetaData* mat_asset_info = AssetMetaData::Create(URI(meta->GetURI().GetDirectoryPath(), name.C_Str(), Extensions::MATERIAL), meta->GetUniqueID(), context);
-      const SharedRef<AssetEntity>& material_asset_entity = context->AddEntity(ImportMaterial(mat_asset_info, mat, context));
-      material_asset_infos.push_back(mat_asset_info);
-      referenced_assets.push_back(material_asset_entity);
-    }
+    const SharedRef<AssetEntity>& material_asset_entity = context->AddEntity(ImportMaterial(meta, mat, context));
+    material_entities.push_back(material_asset_entity);
   }
 
   for (T_UINT32 i = 0; i < scene->mNumMeshes; ++i)
   {
     aiMesh* mesh = scene->mMeshes[i];
-    data->material_unique_ids_.push_back(material_asset_infos[mesh->mMaterialIndex]->GetUniqueID());
+    data->material_unique_ids_.push_back(material_entities[mesh->mMaterialIndex]->GetMetaData()->GetUniqueID());
   }
 
-  const SharedRef<StaticModelAssetEntity>& entity = StaticModelAssetEntity::Create(meta, data);
-  for (const SharedRef<AssetEntity>& referenced : referenced_assets)
+  // サブアセットをロードし、ConverterSettingに登録を行う
+  meta->GetConverterSetting()->ClearSubAssets();
+  for (const SharedRef<AssetEntity>& sub_asset : material_entities)
   {
-    entity->AddSubEntity(referenced);
+    sub_asset->Load(context);
+    meta->GetConverterSetting()->AddSubAsset(sub_asset->GetMetaData()->GetUniqueID());
   }
 
   aiReleaseImport(scene);
 
-  return entity;
+  return data;
 }

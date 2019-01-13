@@ -3,17 +3,17 @@
 #include <Entity/AssetExporter.h>
 #include <Core/_Private/CerealIO.h>
 
-template <class Entity_>
-class FileAssetExporter : public AssetExporter<Entity_>
+template <class AssetData_>
+class FileAssetExporter : public AssetExporter
 {
   // =================================================================
   // Methods
   // =================================================================
 protected:
-  void ExportProcess(const SharedRef<Entity_>& entity, const AssetConverterContext* context) override
+  void ExportProcess(AssetMetaData* meta_data, void* mid_data, const AssetConverterContext* context) override
   {
-    CerealIO::Binary::Export(entity->GetMetaData()->GetOutputPath().c_str(), entity->GetData());
-    Logger::ConvertAssetLog(entity->GetMetaData());
+    CerealIO::Binary::Export(meta_data->GetOutputPath().c_str(), (AssetData_*)mid_data);
+    Logger::ConvertAssetLog(meta_data);
   }
 
 };

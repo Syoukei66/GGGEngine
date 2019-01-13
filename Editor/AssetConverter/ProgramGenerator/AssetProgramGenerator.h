@@ -10,10 +10,11 @@ class AssetProgramGenerator
   // Constructor / Destructor
   // =================================================================
 public:
-  AssetProgramGenerator(T_UINT32 skip_head, T_UINT32 skip_tail)
+  AssetProgramGenerator(const std::string& asset_name, const std::string& class_name, T_UINT32 skip_head, T_UINT32 skip_tail)
     : namespace_generator_()
     , identifier_generator_(skip_head, skip_tail)
   {
+    this->AddAsset(asset_name, class_name);
   }
 
   // =================================================================

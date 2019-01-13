@@ -24,18 +24,7 @@ GG_DESTRUCT_FUNC_IMPL(AssetEntity)
 // =================================================================
 // Methods
 // =================================================================
-void AssetEntity::Import(AssetConverterContext* context)
-{
-  const std::unique_ptr<ConverterSetting>& setting = this->meta_data_->GetConverterSetting();
-  AssetConverter* converter = context->GetConverter(setting->GetConverterID());
-  if (this->cache_)
-  {
-    delete this->cache_;
-  }
-  this->cache_ = converter->ImportImmediately(this->meta_data_, context);
-}
-
-bool AssetEntity::Reload(AssetConverterContext* context)
+bool AssetEntity::Load(AssetConverterContext* context)
 {
   std::set<SharedRef<AssetEntity>> changed_entities_ = std::set<SharedRef<AssetEntity>>();
 
@@ -65,9 +54,20 @@ void AssetEntity::Export(AssetConverterContext* context)
   converter->ExportImmediately(this->meta_data_, context);
 }
 
+void AssetEntity::Import(AssetConverterContext* context)
+{
+  const std::unique_ptr<ImporterSetting>& setting = this->meta_data_->GetConverterSetting();
+  AssetConverter* converter = context->GetConverter(setting->GetConverterID());
+  if (this->data_)
+  {
+    delete this->data_;
+  }
+  this->data_ = converter->ImportImmediately(this->meta_data_, context);
+}
+
 void AssetEntity::CommitChanges(AssetConverterContext* context)
 {
-  const std::unique_ptr<ConverterSetting>& setting = this->meta_data_->GetConverterSetting();
+  const std::unique_ptr<ImporterSetting>& setting = this->meta_data_->GetConverterSetting();
   const std::unordered_set<T_UINT32>& sub_asset_uids = setting->GetSubAssetUniqueIds();
   for (T_UINT32 uid : sub_asset_uids)
   {
@@ -78,7 +78,7 @@ void AssetEntity::CommitChanges(AssetConverterContext* context)
   {
     Logger::CommitAssetLog(this->meta_data_);
     AssetConverter* converter = context->GetConverter(setting->GetConverterID());
-    converter->RegisterAssetManager(this->meta_data_->GetUniqueID(), this->meta_data_->GetURI().GetExtension(), this->cache_);
+    converter->RegisterAssetManager(this->meta_data_->GetUniqueID(), this->meta_data_->GetURI().GetExtension(), this->data_);
     setting->IsMidFileDirty();
     this->is_dirty_ = false;
   }

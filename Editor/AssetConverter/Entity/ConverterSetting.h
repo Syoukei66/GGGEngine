@@ -3,20 +3,34 @@
 #include "URI.h"
 
 /*!
- * Converter‚Ìİ’èB
+ * Importer‚Ìİ’èB
  */
-class ConverterSetting
+class ImporterSetting
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  ConverterSetting()
+  ImporterSetting()
     : converter_id_()
     , mid_file_uri_()
     , mid_file_dirty_(true)
     , sub_asset_unique_ids_()
   {}
+
+  // =================================================================
+  // Methods
+  // =================================================================
+public:
+  inline void AddSubAsset(T_UINT32 uid)
+  {
+    this->sub_asset_unique_ids_.insert(uid);
+  }
+
+  inline void ClearSubAssets()
+  {
+    this->sub_asset_unique_ids_.clear();
+  }
 
   // =================================================================
   // Setter / Getter

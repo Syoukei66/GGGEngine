@@ -24,7 +24,7 @@ static const std::string INPUT_PATH = ASSET_PATH + "/Raw";
 static const std::string ARCHIVE_PATH = ASSET_PATH + "/Archive";
 static const std::string MID_DATA_PATH = ASSET_PATH + "/Setting";
 
-void FileUtil::PrepareDirectories()
+void FileUtil::PrepareDefaultDirectories()
 {
   _mkdir(PROJECT_PATH.c_str());
   _mkdir(ASSET_PATH.c_str());
@@ -34,6 +34,19 @@ void FileUtil::PrepareDirectories()
   _mkdir(MID_DATA_PATH.c_str());
   _mkdir(RUNTIME_DIRECTORY_PATH.c_str());
   _mkdir((RUNTIME_DIRECTORY_PATH + "/" + Directory::GetAssetDirectory()).c_str());
+}
+
+void FileUtil::PrepareDirectory(const URI& uri)
+{
+  if (uri.GetDirectoryPath().length() == 0)
+  {
+    return;
+  }
+  FileUtil::PrepareDirectory(uri.GetDirectoryPath());
+  if (uri.GetExtension().length() == 0)
+  {
+    _mkdir(uri.GetFullPath().c_str());
+  }
 }
 
 std::string FileUtil::GetSettingPath()

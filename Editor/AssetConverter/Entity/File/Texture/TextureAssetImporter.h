@@ -3,7 +3,7 @@
 #include <Entity/AssetImporter.h>
 #include "TextureAssetEntity.h"
 
-class TextureAssetImporter : public AssetImporter<TextureAssetEntity>
+class TextureAssetImporter : public AssetImporter
 {
   // =================================================================
   // Constructor / Destructor
@@ -15,6 +15,6 @@ public:
   // Methods
   // =================================================================
 protected:
-  SharedRef<TextureAssetEntity> ImportProcess(AssetMetaData* meta, AssetConverterContext* context) override;
+  void* ImportProcess(AssetMetaData* meta, AssetConverterContext* context) override;
 
 };

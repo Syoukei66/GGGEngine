@@ -92,7 +92,7 @@ void ImportNode(const aiNode* node, CharacterNodeData* dest)
   }
 }
 
-SharedRef<CharacterModelAssetEntity> CharacterModelAssetImporter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context)
+void* CharacterModelAssetImporter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context)
 {
   using namespace Assimp;
   // 一部のファイルでメモリリークが発生
@@ -149,7 +149,7 @@ SharedRef<CharacterModelAssetEntity> CharacterModelAssetImporter::ImportProcess(
 
   CharacterModelData* data = new CharacterModelData();
 
-  std::vector<SharedRef<AssetEntity>> referenced_assets = std::vector<SharedRef<AssetEntity>>();
+  std::vector<SharedRef<AssetEntity>> sub_assets = std::vector<SharedRef<AssetEntity>>();
 
   // Mesh
   data->mesh_datas_.resize(scene->mNumMeshes);
@@ -171,7 +171,7 @@ SharedRef<CharacterModelAssetEntity> CharacterModelAssetImporter::ImportProcess(
       AssetMetaData* mat_asset_info = AssetMetaData::Create(URI(meta->GetURI().GetDirectoryPath(), name.C_Str(), Extensions::MATERIAL), meta->GetUniqueID(), context);
       const SharedRef<AssetEntity>& material_asset_entity = context->AddEntity(ImportMaterial(mat_asset_info, mat, context));
       material_asset_infos.push_back(mat_asset_info);
-      referenced_assets.push_back(material_asset_entity);
+      sub_assets.push_back(material_asset_entity);
       data->material_unique_ids_.emplace_back(mat_asset_info->GetUniqueID());
     }
   }
@@ -179,15 +179,15 @@ SharedRef<CharacterModelAssetEntity> CharacterModelAssetImporter::ImportProcess(
   // Node
   ImportNode(scene->mRootNode, &data->root_node_);
 
-  const SharedRef<CharacterModelAssetEntity>& entity = CharacterModelAssetEntity::Create(meta, data);
-  for (const SharedRef<AssetEntity>& referenced : referenced_assets)
+  for (const SharedRef<AssetEntity>& sub_asset : sub_assets)
   {
-    entity->AddSubEntity(referenced);
+    sub_asset->Load(context);
+    meta->GetConverterSetting()->AddSubAsset(sub_asset->GetMetaData()->GetUniqueID());
   }
 
-  data->name_ = entity->GetMetaData()->GetURI().GetPrefix();
+  data->name_ = meta->GetURI().GetPrefix();
 
   aiReleaseImport(scene);
 
-  return entity;
+  return data;
 }
