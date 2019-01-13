@@ -38,71 +38,9 @@ bool AssetImporter::Reserve(const URI& uri, T_UINT32 source_unique_id, AssetConv
   return true;
 }
 
-//アセットが参照しているアセットのロードが行われる為、
-//一括ループではなく１つずつロードした方が安全
-bool AssetImporter::ImportOnce(std::unordered_map<T_UINT32, SharedRef<AssetEntity>>* dest, AssetConverterContext* context)
+void* AssetImporter::ImportImmediately(AssetMetaData* meta_data, AssetConverterContext* context)
 {
-  const auto& begin = this->reserve_assets_.begin();
-  if (begin == this->reserve_assets_.end())
-  {
-    return false;
-  }
-  T_UINT32 unique_id = begin->first;
-  AssetMetaData* meta = begin->second;
-  this->reserve_assets_.erase(begin->first);
-  //イテレーター処理が終わった後にImport処理を行う事で
-  //割り込みが発生しても安全に処理できる
-  Logger::ImportAssetLog(meta->GetURI());
-  (*dest)[unique_id] = this->ImportProcess(meta, context);
-  return true;
-}
-
-bool AssetImporter::ImportOnce(T_UINT32 unique_id, std::unordered_map<T_UINT32, SharedRef<AssetEntity>>* dest, AssetConverterContext* context)
-{
-  const auto& itr = this->reserve_assets_.find(unique_id);
-  if (itr == this->reserve_assets_.end())
-  {
-    return false;
-  }
-  AssetMetaData* meta = itr->second;
-  this->reserve_assets_.erase(itr->first);
-  //イテレーター処理が終わった後にImport処理を行う事で
-  //割り込みが発生しても安全に処理できる
-  std::cout << "importing \"" << meta->GetURI().GetFullPath() << "\" " << std::endl;
-  (*dest)[unique_id] = this->ImportProcess(meta, context);
-  return true;
-}
-
-SharedRef<AssetEntity> AssetImporter::ImportImmediately(const URI& uri, AssetConverterContext* context)
-{
-  AssetMetaData* meta = nullptr;
-
-  //既に予約済みかどうかチェックする
-  T_UINT32 uid = context->GetUniqueID(uri);
-  const auto& itr = this->reserve_assets_.find(uid);
-  if (itr != this->reserve_assets_.end())
-  {
-    meta = itr->second;
-    //予約を解除しとく
-    this->reserve_assets_.erase(itr);
-  }
-  //予約済みじゃなかったらAssetMetaDataを作るところから
-  else
-  {
-    //対応する拡張子かチェック
-    if (!IsTarget(uri))
-    {
-      return nullptr;
-    }
-    meta = AssetMetaData::Create(uri, context);
-  }
-
-  const SharedRef<AssetEntity>& ret = this->ImportProcess(meta, context);
-  if (!ret)
-  {
-    delete meta;
-  }
-  return ret;
+  return this->ImportProcess(meta_data, context);
 }
 
 

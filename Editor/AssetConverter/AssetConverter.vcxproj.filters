@@ -330,6 +330,9 @@
     <ClInclude Include="Entity\File\Texture\TextureAssetImporter.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Entity\ConverterSetting.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Director.cpp">
@@ -489,6 +492,12 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Entity\AssetExporter.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Converter\AssetConverter.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Converter\AssetConverterContext.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

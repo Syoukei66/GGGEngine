@@ -3,6 +3,8 @@
 #include <Util/Logger.h>
 #include <Director.h>
 
+#include <Entity/AssetImporter.h>
+
 // =================================================================
 // GGG Statement
 // =================================================================
@@ -22,19 +24,62 @@ GG_DESTRUCT_FUNC_IMPL(AssetEntity)
 // =================================================================
 // Methods
 // =================================================================
-void AssetEntity::CommitChanges()
+void AssetEntity::Import(AssetConverterContext* context)
 {
-  const T_UINT32 entity_count = (T_UINT32)this->sub_entities_.size();
-  for (T_UINT32 i = 0; i < entity_count; ++i)
+  const std::unique_ptr<ConverterSetting>& setting = this->meta_data_->GetConverterSetting();
+  AssetConverter* converter = context->GetConverter(setting->GetConverterID());
+  if (this->cache_)
+  {
+    delete this->cache_;
+  }
+  this->cache_ = converter->ImportImmediately(this->meta_data_, context);
+}
+
+bool AssetEntity::Reload(AssetConverterContext* context)
+{
+  std::set<SharedRef<AssetEntity>> changed_entities_ = std::set<SharedRef<AssetEntity>>();
+
+  // アセットに変更があるか検出
+  this->CheckAssetChanged(&changed_entities_);
+  if (changed_entities_.size() > 0)
+  {
+    // 変更があったアセットをインポートし直す
+    for (const SharedRef<AssetEntity>& entity : changed_entities_)
+    {
+      entity->Import(context);
+    }
+    // サブアセットの変更を検出
+    this->CheckSubAssetChanged();
+
+    // AssetEntityをリフレッシュし、シーンのリロードを行う
+    this->CommitChanges(context);
+    return true;
+  }
+  return false;
+}
+
+void AssetEntity::Export(AssetConverterContext* context)
+{
+  AssetConverter* converter = context->GetConverter(this->meta_data_->GetConverterSetting()->GetConverterID());
+  //TODO: 中間データが最新のものかチェックし、最新でなかったらインポートする処理を書く
+  converter->ExportImmediately(this->meta_data_, context);
+}
+
+void AssetEntity::CommitChanges(AssetConverterContext* context)
+{
+  const std::unique_ptr<ConverterSetting>& setting = this->meta_data_->GetConverterSetting();
+  const std::unordered_set<T_UINT32>& sub_asset_uids = setting->GetSubAssetUniqueIds();
+  for (T_UINT32 uid : sub_asset_uids)
   {
     // AssetEntityをリフレッシュ
-    this->sub_entities_[i] = AssetConverterDirector::GetContext()->GetEntity(this->sub_entities_[i]->GetMetaData()->GetUniqueID());
-    this->sub_entities_[i]->CommitChanges();
+    AssetConverterDirector::GetContext()->GetEntity(uid)->CommitChanges(context);
   }
   if (this->is_dirty_)
   {
     Logger::CommitAssetLog(this->meta_data_);
-    this->RegisterAssetManager(this->meta_data_->GetUniqueID(), this->meta_data_->GetURI().GetExtension());
+    AssetConverter* converter = context->GetConverter(setting->GetConverterID());
+    converter->RegisterAssetManager(this->meta_data_->GetUniqueID(), this->meta_data_->GetURI().GetExtension(), this->cache_);
+    setting->IsMidFileDirty();
     this->is_dirty_ = false;
   }
 }
@@ -47,27 +92,19 @@ void AssetEntity::CheckAssetChanged(std::set<SharedRef<AssetEntity>>* update_ent
     update_entities->insert(AssetConverterDirector::GetContext()->GetEntity(this->meta_data_->GetSourceUniqueId()));
     this->is_dirty_ = true;
   }
-  for (const SharedRef<AssetEntity>& entity : this->sub_entities_)
+  const std::unordered_set<T_UINT32>& sub_asset_uids = this->meta_data_->GetConverterSetting()->GetSubAssetUniqueIds();
+  for (T_UINT32 uid : sub_asset_uids)
   {
-    entity->CheckAssetChanged(update_entities);
+    AssetConverterDirector::GetContext()->GetEntity(uid)->CheckAssetChanged(update_entities);
   }
 }
 
 bool AssetEntity::CheckSubAssetChanged()
 {
-  for (const SharedRef<AssetEntity>& entity : this->sub_entities_)
+  const std::unordered_set<T_UINT32>& sub_asset_uids = this->meta_data_->GetConverterSetting()->GetSubAssetUniqueIds();
+  for (T_UINT32 uid : sub_asset_uids)
   {
-    this->is_dirty_ |= entity->CheckSubAssetChanged();
+    this->is_dirty_ |= AssetConverterDirector::GetContext()->GetEntity(uid)->CheckSubAssetChanged();
   }
   return this->is_dirty_;
-}
-
-void AssetEntity::AddSubEntity(const SharedRef<AssetEntity>& entity)
-{
-  if (!entity)
-  {
-    return;
-  }
-  this->sub_entities_.push_back(entity);
-  this->is_dirty_ = true;
 }

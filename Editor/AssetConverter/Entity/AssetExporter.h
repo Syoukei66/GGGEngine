@@ -1,5 +1,6 @@
 #pragma once
 
+class AssetMetaData;
 class AssetConverterContext;
 
 class AssetExporter
@@ -15,9 +16,9 @@ public:
   // Methods
   // =================================================================
 public:
-  void Export(const std::unordered_map<T_UINT32, SharedRef<AssetEntity>>& entities, const AssetConverterContext* context);
+  void Export(AssetMetaData* meta_data, const AssetConverterContext* context);
 
 protected:
-  virtual void ExportProcess(const SharedRef<AssetEntity>& entity, const AssetConverterContext* context) = 0;
+  virtual void ExportProcess(AssetMetaData* meta_data, const AssetConverterContext* context) = 0;
 
 };

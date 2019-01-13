@@ -1,10 +1,9 @@
 #pragma once
 
-#include <string>
+#include <Entity/AssetEntity.h>
 #include "AssetProgramGenerator_namespace.h"
 #include "AssetProgramGenerator_identifier.h"
 
-template <class Entity_>
 class AssetProgramGenerator
 {
   // =================================================================
@@ -26,26 +25,26 @@ public:
     this->namespace_generator_.AddAsset(asset_name, class_name);
   }
 
-  void CreateHeaderProgram(const std::unordered_map<T_UINT32, SharedRef<Entity_>>& entities, std::string* dest)
+  void CreateHeaderProgram(const std::vector<SharedRef<AssetEntity>>& entities, std::string* dest)
   {
     (*dest).append(this->namespace_generator_.CreateHeaderProgram([&](const DefinitionGenerator& generator)
     {
       std::string str;
-      for (auto& pair : entities)
+      for (const SharedRef<AssetEntity>& entity : entities)
       {
-        str.append(generator.CreateHeaderProgram(this->identifier_generator_, pair.second->GetMetaData()));
+        str.append(generator.CreateHeaderProgram(this->identifier_generator_, entity->GetMetaData()));
       }
       return str;
     }));
   }
-  void CreateCppProgram(const std::unordered_map<T_UINT32, SharedRef<Entity_>>& entities, std::string* dest)
+  void CreateCppProgram(const std::vector<SharedRef<AssetEntity>>& entities, std::string* dest)
   {
     (*dest).append(this->namespace_generator_.CreateCppProgram([&](const DefinitionGenerator& generator)
     {
       std::string str;
-      for (auto& pair : entities)
+      for (const SharedRef<AssetEntity>& entity : entities)
       {
-        str.append(generator.CreateCppProgram(this->identifier_generator_, pair.second->GetMetaData()));
+        str.append(generator.CreateCppProgram(this->identifier_generator_, entity->GetMetaData()));
       }
       return str;
     }));

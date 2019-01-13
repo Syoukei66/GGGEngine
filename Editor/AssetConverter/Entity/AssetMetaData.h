@@ -9,6 +9,7 @@
 #include <Cereal/types/utility.hpp>
 
 #include "URI.h"
+#include "ConverterSetting.h"
 
 class AssetConverterContext;
 
@@ -33,8 +34,6 @@ public:
   // =================================================================
 public:
   void Save();
-
-  AssetMetaData* CreateChild(const std::string& child_path, AssetConverterContext* context);
 
   void ResetTimeStamp();
   bool UpdateTimeStamp();
@@ -63,6 +62,11 @@ public:
     return this->uri_;
   }
 
+  inline const std::unique_ptr<ConverterSetting>& GetConverterSetting()
+  {
+    return this->converter_setting_;
+  }
+
   inline std::string GetInputPath() const
   {
     return FileUtil::CreateInputPath(this->GetURI());
@@ -86,10 +90,11 @@ public:
   void serialize(Archive& ar, std::uint32_t const version)
   {
     ar(CEREAL_NVP(uri_));
+    ar(CEREAL_NVP(time_stamp_));
+
     ar(CEREAL_NVP(unique_id_));
     ar(CEREAL_NVP(source_unique_id_));
-    ar(CEREAL_NVP(related_unique_ids_));
-    ar(CEREAL_NVP(time_stamp_));
+    ar(CEREAL_NVP(converter_setting_));
   }
 
   // =================================================================
@@ -97,10 +102,11 @@ public:
   // =================================================================
 private:
   URI uri_;
+  std::string time_stamp_;
+
   T_UINT32 unique_id_;
   T_UINT32 source_unique_id_;
-  std::unordered_set<T_UINT32> related_unique_ids_;
 
-  std::string time_stamp_;
+  std::unique_ptr<ConverterSetting> converter_setting_;
 
 };

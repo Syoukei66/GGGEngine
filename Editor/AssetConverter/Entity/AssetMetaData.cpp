@@ -53,13 +53,6 @@ void AssetMetaData::Save()
   CerealIO::Json::Export(path.c_str(), this);
 }
 
-AssetMetaData* AssetMetaData::CreateChild(const std::string& child_path, AssetConverterContext* context)
-{
-  AssetMetaData* ret = new AssetMetaData(child_path, this->source_unique_id_, context);
-  this->related_unique_ids_.emplace(ret->unique_id_);
-  return ret;
-}
-
 void AssetMetaData::ResetTimeStamp()
 {
   this->time_stamp_ = "";

@@ -17,13 +17,10 @@ class AssetConverterDirector
 public:
   static void Init();
   static void Uninit();
-  static void Import();
+  static void Fetch();
   static void Export();
   static void CreateProgram();
-
-private:
-  static void CreateDefaultAssets();
-
+  
   // =================================================================
   // Setter / Getter
   // =================================================================

@@ -21,7 +21,7 @@ public:
   // Methods
   // =================================================================
 public:
-  IAssetConverter* Create(AssetConverterContext* context) const override;
+  AssetConverter* Create(AssetConverterContext* context) const override;
 
   // =================================================================
   // Serializer

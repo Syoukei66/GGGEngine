@@ -5,12 +5,13 @@
 // =================================================================
 T_UINT32 UniqueIdTable::Publish(const std::string& path)
 {
+  // ID発行済みのpathだった場合それを返す
   const auto& itr = this->table_.find(path);
   if (itr != this->table_.end())
   {
     return itr->second;
   }
-  //未使用のIDを検索する, 0は予約済み
+  // 未使用のIDを検索する, 0は予約済み
   T_UINT32 id = 1;
   while (true)
   {

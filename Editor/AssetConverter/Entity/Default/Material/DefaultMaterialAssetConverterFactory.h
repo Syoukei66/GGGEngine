@@ -1,9 +1,9 @@
 #pragma once
 
-class IAssetConverter;
+class AssetConverter;
 class AssetConverterContext;
 
 namespace DefaultMaterialAssetConverterFactory
 {
-IAssetConverter* Create(AssetConverterContext* context);
+AssetConverter* Create(AssetConverterContext* context);
 }

@@ -1,7 +1,6 @@
 #include "Director.h"
 
 #include <Util/FileUtil.h>
-#include <Constants/Extensions.h>
 #include <Entity/Default/DefaultAsset.h>
 
 #include <Entity/File/Raw/CSV/CsvAssetEntity.h>
@@ -29,12 +28,16 @@ void AssetConverterDirector::Init()
  
   FileUtil::PrepareDirectories();
 
+  // (1)
+  // 設定のロード
   self->setting_ = CerealIO::Json::SafeImport<Setting>(FileUtil::GetSettingPath().c_str());
   if (!self->setting_)
   {
     self->setting_ = Setting::Create();
   }
 
+  // (2)
+  // UniqueIdテーブルのロード
   self->unique_id_table_ = CerealIO::Json::SafeImport<UniqueIdTable>(FileUtil::GetMidDataUniqueIdTablePath().c_str());
   if (!self->unique_id_table_)
   {
@@ -42,6 +45,8 @@ void AssetConverterDirector::Init()
     self->unique_id_table_ = new UniqueIdTable();
   }
 
+  // (3)
+  // Converterの登録
   self->converter_manager_ = new AssetConverterManager();
   self->context_ = new AssetConverterContext(self->unique_id_table_, self->converter_manager_);
   AssetManager::Init(self->unique_id_table_);
@@ -67,6 +72,35 @@ void AssetConverterDirector::Init()
   // Model
   self->converter_manager_->AddConverter(StaticModelAssetEntity::CreateConverter());
   self->converter_manager_->AddConverter(CharacterModelAssetEntity::CreateConverter());
+
+  // (4)
+  // デフォルトUniqueIdの登録
+  using namespace DefaultUniqueID;
+  using namespace DefaultAsset;
+  self->context_->RegisterDefaultUniqueID(SHADER_ERRROR, SHADER_PATH_ERROR);
+
+  self->context_->RegisterDefaultUniqueID(SHADER_FLAT, SHADER_PATH_UNLIT);
+  self->context_->RegisterDefaultUniqueID(SHADER_GOURAUD, SHADER_PATH_LAMBERT);
+  self->context_->RegisterDefaultUniqueID(SHADER_PHONG, SHADER_PATH_PHONG);
+  self->context_->RegisterDefaultUniqueID(SHADER_BLIN, SHADER_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(SHADER_TOON, SHADER_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(SHADER_OREN_NAYAR, SHADER_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(SHADER_MINNAERT, SHADER_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(SHADER_COOK_TORRANCE, SHADER_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(SHADER_NO_SHADING, SHADER_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(SHADER_FRESNEL, SHADER_PATH_WHITE);
+
+  self->context_->RegisterDefaultUniqueID(MESH_CUBE, MESH_PATH_CUBE);
+  self->context_->RegisterDefaultUniqueID(MESH_PLANE, MESH_PATH_PLANE);
+  self->context_->RegisterDefaultUniqueID(MESH_CAPSULE, MESH_PATH_CAPSULE);
+  self->context_->RegisterDefaultUniqueID(MESH_CUBE_SPHERE, MESH_PATH_CUBE_SPHERE);
+  self->context_->RegisterDefaultUniqueID(MESH_UV_SPHERE, MESH_PATH_UV_SPHERE);
+
+  self->context_->RegisterDefaultUniqueID(MATERIAL_WHITE, MATERIAL_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(MATERIAL_LAMBERT, MATERIAL_PATH_LAMBERT);
+  self->context_->RegisterDefaultUniqueID(MATERIAL_UNLIT, MATERIAL_PATH_UNLIT);
+
+  self->context_->RegisterDefaultUniqueID(TEXTURE_WHITE, TEXTURE_PATH_WHITE);
 }
 
 void AssetConverterDirector::Uninit()
@@ -82,53 +116,9 @@ void AssetConverterDirector::Uninit()
   //delete self->unique_id_table_;
 }
 
-void AssetConverterDirector::Import()
+void AssetConverterDirector::Fetch()
 {
-  AssetConverterDirector* self = &Self();
 
-  //Importerが対応しているファイルのAssetMetaDataを作成
-  //UniqueIdテーブルなどの作成
-  //ImporterへのAssetMetaDataのセット
-  FileUtil::CrawlInputDirectory([&](const URI& uri)
-  {
-    //AssetMetaDataが生成されれば予約成功
-    if (self->context_->Reserve(uri))
-    {
-      return;
-    }
-    //予約が失敗し、拡張子がメタデータ以外の場合はスキップした事をログに表示
-    if (uri.GetExtension() != Extensions::META)
-    {
-      Logger::ImportSkipAssetLog(uri);
-    }
-  });
-
-  // デフォルトアセットの作成
-  CreateDefaultAssets();
-
-  //Converterのインポート予約が無くなるまでConverterのインポート処理
-  while (
-    //イテレーターのロードを１つずつ行う
-    //１つずつ行う理由はインポート予約のループ中にサブアセットの生成による
-    //インポート予約の挿入の危険性を回避する為
-    self->converter_manager_->Fire([&](IAssetConverter* converter)
-    {
-      return converter->ImportOnce(self->context_);
-    })
-  );
-
-  // UniqueIdTableを保存する
-  CerealIO::Json::Export(FileUtil::GetMidDataUniqueIdTablePath().c_str(), self->unique_id_table_);
-
-  self->context_->VisitAllEntity([&](const SharedRef<AssetEntity>& entity)
-  {
-    entity->GetMetaData()->Save();
-  });
-
-  self->converter_manager_->VisitAllEntity([&](const SharedRef<AssetEntity>& entity)
-  {
-    entity->CommitChanges();
-  });
 }
 
 void AssetConverterDirector::Export()
@@ -207,37 +197,4 @@ void AssetConverterDirector::CreateProgram()
     output_cpp << cpp;
     output_cpp.close();
   }
-}
-
-void AssetConverterDirector::CreateDefaultAssets()
-{
-  AssetConverterDirector* self = &Self();
-  
-  using namespace DefaultUniqueID;
-  using namespace DefaultAsset;
-  self->context_->RegisterDefaultUniqueID(SHADER_ERRROR, SHADER_PATH_ERROR);
-
-  self->context_->RegisterDefaultUniqueID(SHADER_FLAT, SHADER_PATH_UNLIT);
-  self->context_->RegisterDefaultUniqueID(SHADER_GOURAUD, SHADER_PATH_LAMBERT);
-  self->context_->RegisterDefaultUniqueID(SHADER_PHONG, SHADER_PATH_PHONG);
-  self->context_->RegisterDefaultUniqueID(SHADER_BLIN, SHADER_PATH_WHITE);
-  self->context_->RegisterDefaultUniqueID(SHADER_TOON, SHADER_PATH_WHITE);
-  self->context_->RegisterDefaultUniqueID(SHADER_OREN_NAYAR, SHADER_PATH_WHITE);
-  self->context_->RegisterDefaultUniqueID(SHADER_MINNAERT, SHADER_PATH_WHITE);
-  self->context_->RegisterDefaultUniqueID(SHADER_COOK_TORRANCE, SHADER_PATH_WHITE);
-  self->context_->RegisterDefaultUniqueID(SHADER_NO_SHADING, SHADER_PATH_WHITE);
-  self->context_->RegisterDefaultUniqueID(SHADER_FRESNEL, SHADER_PATH_WHITE);
-
-  self->context_->RegisterDefaultUniqueID(MESH_CUBE, MESH_PATH_CUBE);
-  self->context_->RegisterDefaultUniqueID(MESH_PLANE, MESH_PATH_PLANE);
-  self->context_->RegisterDefaultUniqueID(MESH_CAPSULE, MESH_PATH_CAPSULE);
-  self->context_->RegisterDefaultUniqueID(MESH_CUBE_SPHERE, MESH_PATH_CUBE_SPHERE);
-  self->context_->RegisterDefaultUniqueID(MESH_UV_SPHERE, MESH_PATH_UV_SPHERE);
-
-  self->context_->RegisterDefaultUniqueID(MATERIAL_WHITE, MATERIAL_PATH_WHITE);
-  self->context_->RegisterDefaultUniqueID(MATERIAL_LAMBERT, MATERIAL_PATH_LAMBERT);
-  self->context_->RegisterDefaultUniqueID(MATERIAL_UNLIT, MATERIAL_PATH_UNLIT);
-
-  self->context_->RegisterDefaultUniqueID(TEXTURE_WHITE, TEXTURE_PATH_WHITE);
-
 }

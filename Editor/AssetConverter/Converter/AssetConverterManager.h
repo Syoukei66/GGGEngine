@@ -1,8 +1,6 @@
 #pragma once
 
-class IAssetConverter;
-template<class Entity_>
-class AssetConverter;
+#include "AssetConverter.h"
 
 class AssetEntity;
 
@@ -19,88 +17,42 @@ public:
   // Methods
   // =================================================================
 public:
-  //イベントを受理した(戻り値にtrueが帰ってきた)Converterに対してのみ処理を行う
-  bool Fire(const std::function<bool(IAssetConverter*)>& func);
+  ////イベントを受理した(戻り値にtrueが帰ってきた)Converterに対してのみ処理を行う
+  //bool Fire(const std::function<bool(AssetConverter*)>& func);
 
-  template <class Entity_>
-  bool Fire(const std::function<bool(AssetConverter<Entity_>*)>& func);
+  ////全てのConverterに対して処理を行う
+  //void VisitAll(const std::function<void(AssetConverter*)>& func);
+  //void VisitAll(const std::function<void(const AssetConverter*)>& func) const;
 
-  //全てのConverterに対して処理を行う
-  void VisitAll(const std::function<void(IAssetConverter*)>& func);
-  void VisitAll(const std::function<void(const IAssetConverter*)>& func) const;
+  //void VisitAllEntity(const std::function<void(const SharedRef<AssetEntity>&)>& func);
+  //SharedRef<AssetEntity> FindAllEntity(const std::function<bool(const SharedRef<AssetEntity>&)>& func);
 
-  template <class Entity_>
-  void VisitAll(const std::function<void(AssetConverter<Entity_>*)>& func);
+  ////値が帰ってくるまで検索する
+  //SharedRef<AssetEntity> Find(const std::function<SharedRef<AssetEntity>(AssetConverter*)>& func);
 
-  template <class Entity_>
-  void VisitAll(const std::function<void(const AssetConverter<Entity_>*)>& func) const;
+  // =================================================================
+  // Setter / Getter
+  // =================================================================
+public:
+  inline void AddConverter(AssetConverter* converter)
+  {
+    this->converter_map_[converter->GetId()] =  converter;
+  }
 
-  void VisitAllEntity(const std::function<void(const SharedRef<AssetEntity>&)>& func);
-  SharedRef<AssetEntity> FindAllEntity(const std::function<bool(const SharedRef<AssetEntity>&)>& func);
+  inline AssetConverter* GetConverter(const std::string& id)
+  {
+    return this->converter_map_[id];
+  }
 
-  //値が帰ってくるまで検索する
-  template <class Entity_>
-  SharedRef<Entity_> Find(const std::function<SharedRef<Entity_>(IAssetConverter*)>& func);
-  SharedRef<AssetEntity> Find(const std::function<SharedRef<AssetEntity>(IAssetConverter*)>& func);
-
-  template <class Entity_>
-  SharedRef<Entity_> Find(const std::function<SharedRef<Entity_>(AssetConverter<Entity_>*)>& func);
-
-  inline void AddConverter(IAssetConverter* converter);
+  inline const AssetConverter* GetConverter(const std::string& id) const
+  {
+    return this->converter_map_.at(id);
+  }
 
   // =================================================================
   // Data Members
   // =================================================================
 private:
-  std::map<T_UINT32, IAssetConverter*> converter_map_;
+  std::unordered_map<std::string, AssetConverter*> converter_map_;
 
 };
-
-#include <Converter/AssetConverter.h>
-
-//イベントを受理した(戻り値にtrueが帰ってきた)Converterに対してのみ処理を行う
-template<class Entity_>
-inline bool AssetConverterManager::Fire(const std::function<bool(AssetConverter<Entity_>*)>& func)
-{
-  return func((AssetConverter<Entity_>*)this->converter_map_.at(Entity_::ID));
-}
-
-//全てのConverterに対して処理を行う
-template<class Entity_>
-inline void AssetConverterManager::VisitAll(const std::function<void(AssetConverter<Entity_>*)>& func)
-{
-  func((AssetConverter<Entity_>*)this->converter_map_.at(Entity_::ID));
-}
-
-template<class Entity_>
-inline void AssetConverterManager::VisitAll(const std::function<void(const AssetConverter<Entity_>*)>& func) const
-{
-  func((AssetConverter<Entity_>*)this->converter_map_.at(Entity_::ID));
-}
-
-//値が帰ってくるまで検索する
-template<class Entity_>
-inline SharedRef<Entity_> AssetConverterManager::Find(const std::function<SharedRef<Entity_>(IAssetConverter*)>& func)
-{
-  for (auto& pair : this->converter_map_)
-  {
-    const SharedRef<Entity_>& val = func(pair.second);
-    if (val)
-    {
-      return val;
-    }
-  }
-  return nullptr;
-}
-
-template<class Entity_>
-inline SharedRef<Entity_> AssetConverterManager::Find(const std::function<SharedRef<Entity_>(AssetConverter<Entity_>*)>& func)
-{
-  return func((AssetConverter<Entity_>*)this->converter_map_.at(Entity_::ID));
-}
-
-inline void AssetConverterManager::AddConverter(IAssetConverter* converter)
-{
-  GG_ASSERT(this->converter_map_.find(converter->GetID()) == this->converter_map_.end(), "同じAssetEntityを対象とする複数のコンバーターが存在します");
-  this->converter_map_[converter->GetID()] = converter;
-}
