@@ -10,9 +10,10 @@ class FileAssetExporter : public AssetExporter
   // Methods
   // =================================================================
 protected:
-  void ExportProcess(AssetMetaData* meta_data, void* mid_data, const AssetConverterContext* context) override
+  void ExportProcess(const SharedRef<AssetEntity>& entity, const AssetConverterContext* context) override
   {
-    CerealIO::Binary::Export(meta_data->GetOutputPath().c_str(), (AssetData_*)mid_data);
+    AssetMetaData* meta_data = entity->GetMetaData();
+    CerealIO::Binary::Export<AssetData_>(meta_data->GetOutputPath().c_str(), (AssetData_*)entity->GetData());
     Logger::ConvertAssetLog(meta_data);
   }
 

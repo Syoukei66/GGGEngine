@@ -1,25 +1,26 @@
 #pragma once
 
 #include <Converter/AssetConverter.h>
-#include "FileAssetExporter.h"
+#include "RawAssetImporter.h"
+#include "RawAssetExporter.h"
 
-template <class Asset_, class AssetData_>
-class FileAssetConverter : public AssetConverter
+template <class Asset_>
+class RawAssetConverter : public AssetConverter
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  FileAssetConverter(
+  RawAssetConverter(
     const std::string& id,
-    AssetImporter* importer,
-    const std::string& class_name, T_UINT32 skip_head, T_UINT32 skip_tail
+    const std::string& class_name,
+    std::initializer_list<std::string> extensions
   )
     : AssetConverter(
       id,
-      importer, 
-      new FileAssetExporter<AssetData_>(), 
-      new AssetProgramGenerator(id, class_name, skip_head, skip_tail)
+      new RawAssetImporter(extensions),
+      new RawAssetExporter(),
+      new AssetProgramGenerator(id, class_name, 1, 0)
     )
   {}
 
@@ -33,7 +34,7 @@ public:
     AssetManager::AddAsset<Asset_>(
       meta_data->GetUniqueID(),
       meta_data->GetURI().GetExtension(),
-      Asset_::Create(*(AssetData_*)entity->GetData())
+      Asset_::CreateFromFile(meta_data->GetInputPath().c_str())
       );
   }
 

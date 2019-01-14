@@ -30,9 +30,9 @@ void* AssetConverter::ImportImmediately(AssetMetaData* meta_data, AssetConverter
   return this->importer_->ImportImmediately(meta_data, context);
 }
 
-void AssetConverter::ExportImmediately(AssetMetaData* meta_data, const AssetConverterContext* context) const
+void AssetConverter::ExportImmediately(const SharedRef<AssetEntity>& entity, const AssetConverterContext* context) const
 {
-  this->exporter_->Export(meta_data, context);
+  this->exporter_->Export(entity, context);
 }
 
 void AssetConverter::CreateProgram(const std::vector<SharedRef<AssetEntity>>& entities, std::string * cpp, std::string * header) const

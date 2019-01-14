@@ -184,6 +184,7 @@
     <ClInclude Include="Entity\File\Model\AssimpImportUtil.h" />
     <ClInclude Include="Entity\File\Model\CharacterModel\CharacterModelAssetImporter.h" />
     <ClInclude Include="Entity\File\Model\CharacterModel\CharacterModelAssetEntity.h" />
+    <ClInclude Include="Entity\File\Raw\RawAssetConverter.h" />
     <ClInclude Include="Entity\File\Raw\RawAssetEntity.h" />
     <ClInclude Include="Entity\File\Shader\ShaderAssetEntity.h" />
     <ClInclude Include="Entity\File\Shader\ShaderAssetImporter.h" />

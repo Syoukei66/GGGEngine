@@ -16,9 +16,9 @@ public:
   // Methods
   // =================================================================
 public:
-  void Export(AssetMetaData* meta_data, void* mid_data, const AssetConverterContext* context);
+  void Export(const SharedRef<AssetEntity>& entity, const AssetConverterContext* context);
 
 protected:
-  virtual void ExportProcess(AssetMetaData* meta_data, void* mid_data, const AssetConverterContext* context) = 0;
+  virtual void ExportProcess(const SharedRef<AssetEntity>& entity, const AssetConverterContext* context) = 0;
 
 };

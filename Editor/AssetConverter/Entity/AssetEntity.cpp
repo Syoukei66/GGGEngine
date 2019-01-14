@@ -51,7 +51,7 @@ void AssetEntity::Export(AssetConverterContext* context)
 {
   AssetConverter* converter = context->GetConverter(this->meta_data_->GetConverterSetting()->GetConverterID());
   //TODO: 中間データが最新のものかチェックし、最新でなかったらインポートする処理を書く
-  converter->ExportImmediately(this->meta_data_, context);
+  converter->ExportImmediately(SharedRef<AssetEntity>(this), context);
 }
 
 void AssetEntity::Import(AssetConverterContext* context)
@@ -78,7 +78,7 @@ void AssetEntity::CommitChanges(AssetConverterContext* context)
   {
     Logger::CommitAssetLog(this->meta_data_);
     AssetConverter* converter = context->GetConverter(setting->GetConverterID());
-    converter->RegisterAssetManager(this->meta_data_->GetUniqueID(), this->meta_data_->GetURI().GetExtension(), this->data_);
+    converter->RegisterAssetManager(SharedRef<AssetEntity>(this));
     setting->IsMidFileDirty();
     this->is_dirty_ = false;
   }

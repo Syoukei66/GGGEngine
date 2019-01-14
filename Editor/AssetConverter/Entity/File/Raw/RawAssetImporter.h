@@ -2,15 +2,14 @@
 
 #include <Entity/AssetImporter.h>
 
-template <class Entity_>
-class RawAssetImporter : public AssetImporter<Entity_>
+class RawAssetImporter : public AssetImporter
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
   RawAssetImporter(const std::vector<std::string>& extensions)
-    : AssetImporter<Entity_>(extensions)
+    : AssetImporter(extensions)
   {
   }
 
@@ -18,9 +17,9 @@ public:
   // Methods
   // =================================================================
 protected:
-  SharedRef<Entity_> ImportProcess(AssetMetaData* meta, AssetConverterContext* context) override
+  void* ImportProcess(AssetMetaData* meta, AssetConverterContext* context) override
   {
-    return Entity_::Create(meta);
+    return nullptr;
   }
 
 };

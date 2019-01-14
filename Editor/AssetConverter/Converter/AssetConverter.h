@@ -33,10 +33,10 @@ public:
 
   /*!
    * @brief アセットをエクスポートする。
-   * @param meta_data メタデータ
+   * @param entity AssetEntity
    * @param context AssetConverterContext
    */
-  void ExportImmediately(AssetMetaData* meta_data, const AssetConverterContext* context) const;
+  void ExportImmediately(const SharedRef<AssetEntity>& entity, const AssetConverterContext* context) const;
 
   /*!
    * @brief プログラムを出力する
@@ -48,11 +48,9 @@ public:
 
   /*!
    * @brief AssetManagerにアセットを登録する
-   * @param uid uniqueId
-   * @param extension 拡張子（ファイルからの読み込みしか対応していないAPIなどに対応する為）
-   * @param mid_data 中間データ
+   * @param entity AssetEntity
    */
-  virtual void RegisterAssetManager(T_UINT32 uid, const std::string& extension, void* mid_data) = 0;
+  virtual void RegisterAssetManager(const SharedRef<AssetEntity>& entity) = 0;
 
   // =================================================================
   // Setter / Getter
