@@ -1,4 +1,4 @@
-#include "TextureAssetImporter.h"
+#include "TextureAssetConverter.h"
 #include <Entity/AssetMetaData.h>
 #include <DirectXTex.h>
 #include <Editor/ThirdParty/DirectXTex/WICTextureLoader/WICTextureLoader.h>
@@ -6,17 +6,9 @@
 #pragma comment(lib, "DirectXTex.lib")
 
 // =================================================================
-// Constructor / Destructor
+// Methods from AssetConverter
 // =================================================================
-TextureAssetImporter::TextureAssetImporter(const std::vector<std::string>& extensions)
-  : AssetImporter(extensions)
-{
-}
-
-// =================================================================
-// Methods
-// =================================================================
-void* TextureAssetImporter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context)
+void* TextureAssetConverter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context) const
 {
   TextureData* data = new TextureData();
 

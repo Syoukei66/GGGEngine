@@ -168,12 +168,6 @@
     <ClInclude Include="Entity\AssetEntity.h">
       <Filter>ヘッダー ファイル\Asset\_Base</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\AssetExporter.h">
-      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\AssetImporter.h">
-      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
-    </ClInclude>
     <ClInclude Include="Entity\AssetMetaData.h">
       <Filter>ヘッダー ファイル\Asset</Filter>
     </ClInclude>
@@ -249,9 +243,6 @@
     <ClInclude Include="Entity\File\Raw\CSV\CsvAssetEntity.h">
       <Filter>ヘッダー ファイル\Asset\_File\_Raw\CSV</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\File\Raw\RawAssetEntity.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Scene\AssetViewer\AssetViewerBehavior.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -321,9 +312,6 @@
     <ClInclude Include="Entity\File\Shader\ShaderAssetImporter.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\File\Texture\TextureAssetEntity.h">
-      <Filter>ヘッダー ファイル\Asset\_File\Texture</Filter>
-    </ClInclude>
     <ClInclude Include="Entity\File\Texture\TextureAssetImporter.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -334,6 +322,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Entity\File\Raw\RawAssetConverter.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Texture\TextureAssetConverter.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -485,16 +476,7 @@
     <ClCompile Include="Entity\File\Shader\ShaderAssetImporter.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Entity\File\Texture\TextureAssetEntity.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Entity\File\Texture\TextureAssetImporter.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity\AssetImporter.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity\AssetExporter.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Converter\AssetConverter.cpp">

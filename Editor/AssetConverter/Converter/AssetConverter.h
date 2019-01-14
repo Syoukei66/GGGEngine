@@ -1,7 +1,5 @@
 #pragma once
 
-#include <Entity/AssetImporter.h>
-#include <Entity/AssetExporter.h>
 #include <ProgramGenerator/AssetProgramGenerator.h>
 
 class AssetConverter 
@@ -12,9 +10,9 @@ class AssetConverter
 public:
   AssetConverter(
     const std::string& id,
-    AssetImporter* importer,
-    AssetExporter* exporter,
-    AssetProgramGenerator* program_generator
+    const std::string& class_name,
+    const std::vector<std::string>& extensions,
+    T_UINT32 skip_head, T_UINT32 skip_tail
   );
 
   virtual ~AssetConverter();
@@ -24,12 +22,19 @@ public:
   // =================================================================
 public:
   /*!
+   * URIが表すファイルがConverterに対応しているかチェックする
+   * @param uri ファイルのURI
+   * @return 対応していればtrue
+   */
+  bool IsTarget(const URI& uri) const;
+
+  /*!
    * @brief メタデータからアセットをインポートし、中間データを戻り値で返す
    * @param meta_data メタデータ
    * @param context AssetConverterContext
    * @return 中間データ
    */
-  void* ImportImmediately(AssetMetaData* meta_data, AssetConverterContext* context);
+  void* ImportImmediately(AssetMetaData* meta_data, AssetConverterContext* context) const;
 
   /*!
    * @brief アセットをエクスポートする。
@@ -50,7 +55,20 @@ public:
    * @brief AssetManagerにアセットを登録する
    * @param entity AssetEntity
    */
-  virtual void RegisterAssetManager(const SharedRef<AssetEntity>& entity) = 0;
+  virtual void RegisterAssetManager(const SharedRef<AssetEntity>& entity) const = 0;
+
+protected:
+  /*!
+   * @brief アセットのインポート実処理
+   * 派生クラス側で実際のインポート処理を記述する。
+   */
+  virtual void* ImportProcess(AssetMetaData* meta, AssetConverterContext* context) const = 0;
+
+  /*!
+   * @brief アセットのインポート実処理
+   * 派生クラス側で実際のエクスポート処理を記述する。
+   */
+  virtual void ExportProcess(const SharedRef<AssetEntity>& entity, const AssetConverterContext* context) const = 0;
 
   // =================================================================
   // Setter / Getter
@@ -66,8 +84,7 @@ public:
   // =================================================================
 private:
   std::string id_;
-  AssetImporter* importer_;
-  AssetExporter* exporter_;
+  std::vector<std::string> target_extensions_;
   AssetProgramGenerator* program_generator_;
 
 };
