@@ -1,21 +1,13 @@
-#include "ShaderAssetImporter.h"
+#include "ShaderAssetConverter.h"
 #include <Editor/Tools/ShaderCompiler/Parser/ShaderCompiler.h>
 #include <Entity/AssetMetaData.h>
 #include <Entity/AssetEntity.h>
 #include <Converter/AssetConverterContext.h>
 
 // =================================================================
-// Constructor / Destructor
+// Methods from AssetConverter
 // =================================================================
-ShaderAssetImporter::ShaderAssetImporter(const std::vector<std::string>& extensions)
-  : AssetImporter(extensions)
-{
-}
-
-// =================================================================
-// Methods
-// =================================================================
-void* ShaderAssetImporter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context)
+void* ShaderAssetConverter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context) const
 {
   ShaderData* data = new ShaderData();
 

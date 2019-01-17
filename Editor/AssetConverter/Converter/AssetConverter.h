@@ -34,7 +34,7 @@ public:
    * @param context AssetConverterContext
    * @return 中間データ
    */
-  void* ImportImmediately(AssetMetaData* meta_data, AssetConverterContext* context) const;
+  IAssetDataCache* ImportImmediately(AssetMetaData* meta_data, AssetConverterContext* context) const;
 
   /*!
    * @brief アセットをエクスポートする。
@@ -62,7 +62,7 @@ protected:
    * @brief アセットのインポート実処理
    * 派生クラス側で実際のインポート処理を記述する。
    */
-  virtual void* ImportProcess(AssetMetaData* meta, AssetConverterContext* context) const = 0;
+  virtual IAssetDataCache* ImportProcess(AssetMetaData* meta, AssetConverterContext* context) const = 0;
 
   /*!
    * @brief アセットのインポート実処理

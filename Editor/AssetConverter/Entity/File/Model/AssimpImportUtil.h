@@ -4,11 +4,7 @@
 #include <Assimp/Importer.hpp>
 #include <Assimp/cimport.h>
 #include <Assimp/postprocess.h>
-
-#include <Entity/File/Model/Material/ModelMaterialAssetEntity.h>
-#include <Entity/File/Texture/TextureAssetEntity.h>
-#include <Entity/File/Shader/ShaderAssetEntity.h>
-
+#include <Constants/Extensions.h>
 #include <Entity/Default/DefaultAsset.h>
 
 static TVec2f ToTVec2f(const aiVector2D& vec)

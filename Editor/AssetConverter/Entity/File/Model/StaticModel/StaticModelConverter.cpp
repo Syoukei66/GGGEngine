@@ -1,22 +1,10 @@
-#include "StaticModelAssetImporter.h"
+#include "StaticModelConverter.h"
 
-#include <Constants/Extensions.h>
 #include <Converter/AssetConverterContext.h>
-#include <Util/FileUtil.h>
-
-#include <Director.h>
 #include <Entity/File/Model/AssimpImportUtil.h>
 
 // =================================================================
-// Constructor / Destructor
-// =================================================================
-StaticModelAssetImporter::StaticModelAssetImporter(const std::vector<std::string>& extensions)
-  : AssetImporter(extensions)
-{
-}
-
-// =================================================================
-// Methods
+// Methods from AssetConverter
 // =================================================================
 void ImportMesh(const AssetMetaData* model_asset_info, const aiScene* scene, AssetConverterContext* context, StaticMeshData* dest)
 {
@@ -115,8 +103,8 @@ void ImportMesh(const AssetMetaData* model_asset_info, const aiScene* scene, Ass
   ret->ConvertToData(dest);
 }
 
-void* StaticModelAssetImporter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context)
-{  
+void* StaticModelAssetConverter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context) const
+{
   using namespace Assimp;
   //一部のファイルでメモリリークが発生
   Assimp::Importer importer;
@@ -185,7 +173,7 @@ void* StaticModelAssetImporter::ImportProcess(AssetMetaData* meta, AssetConverte
   for (T_UINT32 i = 0; i < scene->mNumMeshes; ++i)
   {
     aiMesh* mesh = scene->mMeshes[i];
-    data->material_unique_ids_.push_back(material_entities[mesh->mMaterialIndex]->GetMetaData()->GetUniqueID());
+    data->material_unique_ids_.emplace_back(material_entities[mesh->mMaterialIndex]->GetMetaData()->GetUniqueID());
   }
 
   // サブアセットをロードし、ConverterSettingに登録を行う

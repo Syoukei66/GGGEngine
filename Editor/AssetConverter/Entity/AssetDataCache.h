@@ -1,28 +1,43 @@
 #pragma once
 
-#include <Entity/AssetEntity.h>
-
-class DefaultMaterialAssetEntity : public AssetEntity
+/*!
+ * @brief AssetDataCacheで必要なテンプレート引数が
+ * 無くても扱えるようにするためのインターフェース
+ */
+class IAssetDataCache
 {
   // =================================================================
-  // GGG Statement
-  // =================================================================
-  ENTITY_ID(ID_DEFAULT_MATERIAL);
-  GG_OBJECT(DefaultMaterialAssetEntity);
-  GG_CREATE_FUNC_2(DefaultMaterialAssetEntity, AssetMetaData*, MaterialData*);
-  GG_DESTRUCT_FUNC(DefaultMaterialAssetEntity);
-
-  // =================================================================
-  // Methods from AssetEntity
+  // Constructor / Destructor
   // =================================================================
 public:
-  virtual void RegisterAssetManager(T_UINT32 uid, const std::string& extension) const override;
+  virtual ~IAssetDataCache() = default;
+};
+
+/*!
+ * @brief AssetEntityが管理する変換後Assetのキャッシュデータの容器
+ * 型のチェックやデストラクタの起動などを行えるようになっている
+ */
+template <typename AssetData_>
+class AssetDataCache : public IAssetDataCache
+{
+  // =================================================================
+  // Constructor / Destructor
+  // =================================================================
+public:
+  AssetDataCache(AssetData_* data)
+    : data_(data)
+  {}
+
+  virtual ~AssetDataCache()
+  {
+    delete this->data_;
+  }
 
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
-  inline const MaterialData* GetData() const
+  AssetData_* GetData()
   {
     return this->data_;
   }
@@ -31,6 +46,6 @@ public:
   // Data Members
   // =================================================================
 private:
-  MaterialData* data_;
+  AssetData_* data_;
 
 };

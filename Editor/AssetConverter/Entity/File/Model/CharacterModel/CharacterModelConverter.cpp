@@ -1,22 +1,10 @@
-#include "CharacterModelAssetImporter.h"
+#include "CharacterModelConverter.h"
 
-#include <Constants/Extensions.h>
 #include <Converter/AssetConverterContext.h>
-#include <Util/FileUtil.h>
-
-#include <Director.h>
 #include <Entity/File/Model/AssimpImportUtil.h>
 
 // =================================================================
-// Constructor / Destructor
-// =================================================================
-CharacterModelAssetImporter::CharacterModelAssetImporter(const std::vector<std::string>& extensions)
-  : AssetImporter(extensions)
-{
-}
-
-// =================================================================
-// Methods
+// Methods from AssetConverter
 // =================================================================
 void ImportMesh(const AssetMetaData* model_asset_info, const aiScene* scene, const aiMesh* mesh, AssetConverterContext* context, CharacterMeshData* dest)
 {
@@ -65,7 +53,7 @@ void ImportMesh(const AssetMetaData* model_asset_info, const aiScene* scene, con
 }
 
 void ImportNode(const aiNode* node, CharacterNodeData* dest)
-{ 
+{
   if (node->mName.length == 0 || strcmp(node->mName.C_Str(), "DummyRootNode") == 0)
   {
     aiVector3D position;
@@ -92,7 +80,8 @@ void ImportNode(const aiNode* node, CharacterNodeData* dest)
   }
 }
 
-void* CharacterModelAssetImporter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context)
+
+void* CharacterModelAssetConverter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context) const
 {
   using namespace Assimp;
   // 一部のファイルでメモリリークが発生
@@ -161,19 +150,18 @@ void* CharacterModelAssetImporter::ImportProcess(AssetMetaData* meta, AssetConve
   }
 
   // Material
-  std::vector<AssetMetaData*> material_asset_infos;
+  std::vector<SharedRef<AssetEntity>> material_entities;
   for (T_UINT32 i = 0; i < scene->mNumMaterials; ++i)
   {
     aiMaterial* mat = scene->mMaterials[i];
-    aiString name;
-    if (AI_SUCCESS == aiGetMaterialString(mat, AI_MATKEY_NAME, &name))
-    {
-      AssetMetaData* mat_asset_info = AssetMetaData::Create(URI(meta->GetURI().GetDirectoryPath(), name.C_Str(), Extensions::MATERIAL), meta->GetUniqueID(), context);
-      const SharedRef<AssetEntity>& material_asset_entity = context->AddEntity(ImportMaterial(mat_asset_info, mat, context));
-      material_asset_infos.push_back(mat_asset_info);
-      sub_assets.push_back(material_asset_entity);
-      data->material_unique_ids_.emplace_back(mat_asset_info->GetUniqueID());
-    }
+    const SharedRef<AssetEntity>& material_asset_entity = context->AddEntity(ImportMaterial(meta, mat, context));
+    sub_assets.push_back(material_asset_entity);
+  }
+
+  for (T_UINT32 i = 0; i < scene->mNumMeshes; ++i)
+  {
+    aiMesh* mesh = scene->mMeshes[i];
+    data->material_unique_ids_.emplace_back(material_entities[mesh->mMaterialIndex]->GetMetaData()->GetUniqueID());
   }
 
   // Node

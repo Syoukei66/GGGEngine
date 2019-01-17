@@ -29,7 +29,7 @@ bool AssetConverter::IsTarget(const URI& uri) const
   return std::find(this->target_extensions_.begin(), this->target_extensions_.end(), uri.GetExtension()) != this->target_extensions_.end();
 }
 
-void* AssetConverter::ImportImmediately(AssetMetaData* meta_data, AssetConverterContext* context) const
+IAssetDataCache* AssetConverter::ImportImmediately(AssetMetaData* meta_data, AssetConverterContext* context) const
 {
   return this->ImportProcess(meta_data, context);
 }

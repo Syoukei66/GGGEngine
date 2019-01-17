@@ -83,13 +83,43 @@ public:
   // Setter / Getter
   // =================================================================
 public:
+  /*!
+   * @brief デフォルトアセットIDからデフォルトアセットのURIを取得する
+   * @param default_uid デフォルトアセットID
+   * @return デフォルトアセットのURI
+   */
   inline const URI& GetDefaultAssetURI(T_UINT32 default_uid)
   {
     return this->default_asset_uri_[default_uid];
   }
-  inline AssetConverter* GetConverter(const std::string& converter_id)
+
+  /*!
+   * @brief AssetConverterを追加する
+   * @param converter 追加するAssetConverter
+   */
+  inline void AddConverter(AssetConverter* converter)
   {
-    return this->converter_manager_->GetConverter(converter_id);
+    this->converter_map_[converter->GetId()] = converter;
+  }
+
+  /*!
+   * @brief AssetCovnerterIdからAssetConverterを取得する
+   * @param id ID
+   * @return 指定したIDを持つAssetConverter
+   */
+  inline AssetConverter* GetConverter(const std::string& id)
+  {
+    return this->converter_map_[id];
+  }
+
+  /*!
+   * @brief AssetConverterIdからconst AssetConverterを取得する
+   * @param id ID
+   * @return 指定したIDを持つAssetConverter
+   */
+  inline const AssetConverter* GetConverter(const std::string& id) const
+  {
+    return this->converter_map_.at(id);
   }
 
   // =================================================================
@@ -97,7 +127,7 @@ public:
   // =================================================================
 protected:
   UniqueIdTable* unique_id_table_;
-  AssetConverterManager* converter_manager_;
+  std::unordered_map<std::string, AssetConverter*> converter_map_;
   std::unordered_map<T_UINT32, URI> default_asset_uri_;
   std::unordered_map<T_UINT32, SharedRef<AssetEntity>> asset_entities_;
 

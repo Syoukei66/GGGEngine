@@ -1,25 +1,20 @@
 #pragma once
 
 #include <Converter/AssetConverter.h>
+#include <Util/Logger.h>
 
-template <class Asset_>
-class RawAssetConverter : public AssetConverter
+template <class Asset_, class AssetData_>
+class DefaultAssetConverter : public AssetConverter
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  RawAssetConverter(
+  DefaultAssetConverter(
     const std::string& id,
-    const std::string& class_name,
-    std::initializer_list<std::string> extensions
+    const std::string& class_name
   )
-    : AssetConverter(
-      id,
-      class_name,
-      extensions,
-      1, 0
-    )
+    : AssetConverter(id, class_name, {}, 2, 0)
   {}
 
   // =================================================================
@@ -32,7 +27,7 @@ public:
     AssetManager::AddAsset<Asset_>(
       meta_data->GetUniqueID(),
       meta_data->GetURI().GetExtension(),
-      Asset_::CreateFromFile(meta_data->GetInputPath().c_str())
+      Asset_::Create(*(AssetData_*)entity->GetData())
       );
   }
 
@@ -43,7 +38,9 @@ public:
 
   virtual void ExportProcess(const SharedRef<AssetEntity>& entity, const AssetConverterContext* context) const
   {
-    FileUtil::CopyRawAsset(entity->GetMetaData());
+    AssetMetaData* meta_data = entity->GetMetaData();
+    CerealIO::Binary::Export<AssetData_>(meta_data->GetOutputPath().c_str(), (AssetData_*)entity->GetData());
+    Logger::ConvertAssetLog(meta_data);
   }
 
 };

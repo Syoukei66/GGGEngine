@@ -2,11 +2,15 @@
 
 #include <set>
 #include <URI.h>
+#include "AssetDataCache.h"
 
 class AssetConverterContext;
 class AssetConverter;
 class AssetMetaData;
 
+/*!
+ * @brief AssetConverterで扱うAssetの実体
+ */
 class AssetEntity : public GGObject
 {
   // =================================================================
@@ -14,17 +18,13 @@ class AssetEntity : public GGObject
   // =================================================================
   GG_OBJECT(AssetEntity);
   GG_CREATE_FUNC_1(AssetEntity, AssetMetaData*);
+  GG_CREATE_FUNC_2(AssetEntity, AssetMetaData*, IAssetDataCache*);
   GG_DESTRUCT_FUNC(AssetEntity);
 
   // =================================================================
   // Methods
   // =================================================================
 public:
-  /*!
-   * 作成済みのデータを直接受け取る
-   */
-  void SetData(void* data);
-
   /*!
    * 自身が参照しているアセット含めて全てのアセットをロードする。
    * 既にロード済みなら何も行わない。
@@ -59,7 +59,7 @@ private:
    * @brief 自身が参照しているアセットに変更があるか調べ、
    * 変更があった場合タイムスタンプを更新し、update_entitiesに追加し、ダーティフラグを立てる
    */
-  void CheckAssetChanged(std::set<SharedRef<AssetEntity>>* update_entities);
+  void CheckAssetChanged(AssetConverterContext* context, std::set<SharedRef<AssetEntity>>* update_entities);
 
   /*!
    * @brief 自身が参照しているサブアセットに変更があるか調べ、
@@ -69,7 +69,7 @@ private:
    * 複数回参照されてるアセットがあった場合に
    * チェックのタイミングのズレによる不整合が発生する事がある為、処理を分割した
    */
-  bool CheckSubAssetChanged();
+  bool CheckSubAssetChanged(AssetConverterContext* context);
 
   // =================================================================
   // Setter / Getter
@@ -83,7 +83,10 @@ public:
   {
     return this->meta_data_;
   }
-  inline const void* GetData() const
+
+  void SetData(IAssetDataCache* data);
+
+  inline const IAssetDataCache* GetData() const
   {
     return this->data_;
   }
@@ -93,7 +96,8 @@ public:
   // =================================================================
 private:
   AssetMetaData* meta_data_;
+  AssetConverter* converter_;
+  IAssetDataCache* data_;
   bool is_dirty_;
-  void* data_;
 
 };
