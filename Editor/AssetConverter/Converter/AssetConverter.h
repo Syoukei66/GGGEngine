@@ -1,6 +1,8 @@
 #pragma once
 
-#include <ProgramGenerator/AssetProgramGenerator.h>
+#include <Entity/AssetEntity.h>
+
+class AssetProgramGenerator;
 
 class AssetConverter 
 {
@@ -34,7 +36,7 @@ public:
    * @param context AssetConverterContext
    * @return 中間データ
    */
-  IAssetDataCache* ImportImmediately(AssetMetaData* meta_data, AssetConverterContext* context) const;
+  IAssetDataContainer* ImportImmediately(AssetMetaData* meta_data, AssetConverterContext* context) const;
 
   /*!
    * @brief アセットをエクスポートする。
@@ -57,12 +59,17 @@ public:
    */
   virtual void RegisterAssetManager(const SharedRef<AssetEntity>& entity) const = 0;
 
+  /*!
+   * @brief AssetConverter固有の設定クラスを生成し、戻り値として返す。
+   */
+  virtual std::unique_ptr<ConverterSetting> CreateSetting() const = 0;
+
 protected:
   /*!
    * @brief アセットのインポート実処理
    * 派生クラス側で実際のインポート処理を記述する。
    */
-  virtual IAssetDataCache* ImportProcess(AssetMetaData* meta, AssetConverterContext* context) const = 0;
+  virtual IAssetDataContainer* ImportProcess(AssetMetaData* meta, AssetConverterContext* context) const = 0;
 
   /*!
    * @brief アセットのインポート実処理

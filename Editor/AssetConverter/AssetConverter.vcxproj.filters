@@ -273,16 +273,16 @@
     <ClInclude Include="Entity\Default\DefaultAssetConverter.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\Default\Mesh\DefaultMeshAssetConverterFactory.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Entity\Default\Mesh\DefaultMeshConverter.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Converter\AssetConverterFactory.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\AssetDataCache.h">
+    <ClInclude Include="Entity\AssetDataContainer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Default\Mesh\DefaultCubeMeshConverter.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -416,10 +416,10 @@
     <ClCompile Include="Entity\File\Model\CharacterModel\CharacterModelConverter.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Entity\Default\Mesh\DefaultMeshAssetConverterFactory.cpp">
+    <ClCompile Include="Entity\Default\Mesh\DefaultMeshConverter.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Entity\Default\Mesh\DefaultMeshConverter.cpp">
+    <ClCompile Include="ProgramGenerator\AssetProgramGenerator.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

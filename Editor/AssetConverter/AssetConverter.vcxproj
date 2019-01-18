@@ -177,10 +177,10 @@
     <ClInclude Include="Converter\AssetConverterFactory.h" />
     <ClInclude Include="Converter\AssetConverterManager.h" />
     <ClInclude Include="Converter\AssetConverter.h" />
-    <ClInclude Include="Entity\AssetDataCache.h" />
+    <ClInclude Include="Entity\AssetDataContainer.h" />
     <ClInclude Include="Entity\AssetEntity.h" />
     <ClInclude Include="Entity\Default\DefaultAssetConverter.h" />
-    <ClInclude Include="Entity\Default\Mesh\DefaultMeshAssetConverterFactory.h" />
+    <ClInclude Include="Entity\Default\Mesh\DefaultCubeMeshConverter.h" />
     <ClInclude Include="Entity\Default\Mesh\DefaultMeshConverter.h" />
     <ClInclude Include="Entity\File\FileAssetConverter.h" />
     <ClInclude Include="Entity\File\Model\AssimpImportUtil.h" />
@@ -237,7 +237,6 @@
     <ClCompile Include="Converter\AssetConverterManager.cpp" />
     <ClCompile Include="Entity\AssetEntity.cpp" />
     <ClCompile Include="Entity\AssetMetaData.cpp" />
-    <ClCompile Include="Entity\Default\Mesh\DefaultMeshAssetConverterFactory.cpp" />
     <ClCompile Include="Entity\Default\Mesh\DefaultMeshConverter.cpp" />
     <ClCompile Include="Entity\File\Model\CharacterModel\CharacterModelConverter.cpp" />
     <ClCompile Include="Entity\File\Model\StaticModel\StaticModelConverter.cpp" />
@@ -248,6 +247,7 @@
     <ClCompile Include="GUI\FileView\AssetEntityFileNode.cpp" />
     <ClCompile Include="GUI\HierarchyView\HierarchyNode.cpp" />
     <ClCompile Include="GUI\HierarchyView\HierarchyView.cpp" />
+    <ClCompile Include="ProgramGenerator\AssetProgramGenerator.cpp" />
     <ClCompile Include="ProgramGenerator\AssetProgramGenerator_identifier.cpp" />
     <ClCompile Include="Entity\Default\Material\DefaultMaterialAssetConverterFactory.cpp" />
     <ClCompile Include="Director.cpp" />

@@ -81,7 +81,7 @@ void ImportNode(const aiNode* node, CharacterNodeData* dest)
 }
 
 
-void* CharacterModelAssetConverter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context) const
+IAssetDataContainer* CharacterModelAssetConverter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context) const
 {
   using namespace Assimp;
   // 一部のファイルでメモリリークが発生
@@ -154,7 +154,7 @@ void* CharacterModelAssetConverter::ImportProcess(AssetMetaData* meta, AssetConv
   for (T_UINT32 i = 0; i < scene->mNumMaterials; ++i)
   {
     aiMaterial* mat = scene->mMaterials[i];
-    const SharedRef<AssetEntity>& material_asset_entity = context->AddEntity(ImportMaterial(meta, mat, context));
+    const SharedRef<AssetEntity>& material_asset_entity = context->AddEntity(ImportMaterial(meta, mat, this, context));
     sub_assets.push_back(material_asset_entity);
   }
 
@@ -177,5 +177,5 @@ void* CharacterModelAssetConverter::ImportProcess(AssetMetaData* meta, AssetConv
 
   aiReleaseImport(scene);
 
-  return data;
+  return new AssetDataContainer<CharacterModelData>(data, this);
 }

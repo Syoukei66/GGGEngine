@@ -103,7 +103,7 @@ void ImportMesh(const AssetMetaData* model_asset_info, const aiScene* scene, Ass
   ret->ConvertToData(dest);
 }
 
-void* StaticModelAssetConverter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context) const
+IAssetDataContainer* StaticModelAssetConverter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context) const
 {
   using namespace Assimp;
   //一部のファイルでメモリリークが発生
@@ -166,7 +166,7 @@ void* StaticModelAssetConverter::ImportProcess(AssetMetaData* meta, AssetConvert
   for (T_UINT32 i = 0; i < scene->mNumMaterials; ++i)
   {
     aiMaterial* mat = scene->mMaterials[i];
-    const SharedRef<AssetEntity>& material_asset_entity = context->AddEntity(ImportMaterial(meta, mat, context));
+    const SharedRef<AssetEntity>& material_asset_entity = context->AddEntity(ImportMaterial(meta, mat, this, context));
     material_entities.push_back(material_asset_entity);
   }
 
@@ -186,5 +186,5 @@ void* StaticModelAssetConverter::ImportProcess(AssetMetaData* meta, AssetConvert
 
   aiReleaseImport(scene);
 
-  return data;
+  return new AssetDataContainer<StaticModelData>(data, this);
 }

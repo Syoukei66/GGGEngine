@@ -36,9 +36,9 @@ public:
       );
   }
 
-  virtual void* ImportProcess(AssetMetaData* meta, AssetConverterContext* context) const override
+  virtual IAssetDataContainer* ImportProcess(AssetMetaData* meta, AssetConverterContext* context) const override
   {
-    return nullptr;
+    return new AssetDataContainer<Asset_>(nullptr, this);
   }
 
   virtual void ExportProcess(const SharedRef<AssetEntity>& entity, const AssetConverterContext* context) const

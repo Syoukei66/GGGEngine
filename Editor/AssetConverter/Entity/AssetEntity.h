@@ -2,11 +2,11 @@
 
 #include <set>
 #include <URI.h>
-#include "AssetDataCache.h"
+#include "AssetDataContainer.h"
+#include "AssetMetaData.h"
 
 class AssetConverterContext;
 class AssetConverter;
-class AssetMetaData;
 
 /*!
  * @brief AssetConverter‚Åˆµ‚¤Asset‚ÌŽÀ‘Ì
@@ -18,7 +18,12 @@ class AssetEntity : public GGObject
   // =================================================================
   GG_OBJECT(AssetEntity);
   GG_CREATE_FUNC_1(AssetEntity, AssetMetaData*);
-  GG_CREATE_FUNC_2(AssetEntity, AssetMetaData*, IAssetDataCache*);
+  GG_CREATE_FUNC_2(AssetEntity, AssetMetaData*, IAssetDataContainer*);
+  template <typename AssetData_>
+  inline static SharedRef<AssetEntity> Create(AssetMetaData* meta, AssetData_* data)
+  {
+    return AssetEntity::Create(meta, new AssetDataContainer<AssetData_>(data))
+  }
   GG_DESTRUCT_FUNC(AssetEntity);
 
   // =================================================================
@@ -84,11 +89,18 @@ public:
     return this->meta_data_;
   }
 
-  void SetData(IAssetDataCache* data);
+  void SetData(IAssetDataContainer* data);
 
-  inline const IAssetDataCache* GetData() const
+  template <class AssetData_>
+  void SetData(AssetData_* data, const AssetConverter* converter)
   {
-    return this->data_;
+    this->SetData(new AssetDataContainer<AssetData_>(data, converter));
+  }
+
+  template <class AssetData_>
+  inline const AssetData_* GetData() const
+  {
+    return ((AssetDataContainer<AssetData_>*)this->data_)->GetData();
   }
 
   // =================================================================
@@ -97,7 +109,7 @@ public:
 private:
   AssetMetaData* meta_data_;
   AssetConverter* converter_;
-  IAssetDataCache* data_;
+  IAssetDataContainer* data_;
   bool is_dirty_;
 
 };

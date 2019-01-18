@@ -29,14 +29,14 @@ public:
     AssetManager::AddAsset<Asset_>(
       meta_data->GetUniqueID(),
       meta_data->GetURI().GetExtension(),
-      Asset_::Create(*(AssetData_*)entity->GetData())
+      Asset_::Create(*entity->GetData<AssetData_>())
       );
   }
 
   virtual void ExportProcess(const SharedRef<AssetEntity>& entity, const AssetConverterContext* context) const
   {
     AssetMetaData* meta_data = entity->GetMetaData();
-    CerealIO::Binary::Export<AssetData_>(meta_data->GetOutputPath().c_str(), (AssetData_*)entity->GetData());
+    CerealIO::Binary::Export<AssetData_>(meta_data->GetOutputPath().c_str(), entity->GetData<AssetData_>());
     Logger::ConvertAssetLog(meta_data);
   }
 

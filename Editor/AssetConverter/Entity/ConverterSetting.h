@@ -3,16 +3,16 @@
 #include "URI.h"
 
 /*!
- * Importer‚ÌÝ’èB
+ * Converter‚ÌÝ’èB
  */
-class ImporterSetting
+class ConverterSetting
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  ImporterSetting()
-    : converter_id_()
+  ConverterSetting(const std::string& converter_id)
+    : converter_id_(converter_id)
     , mid_file_uri_()
     , mid_file_dirty_(true)
     , sub_asset_unique_ids_()
@@ -41,16 +41,6 @@ public:
     return this->converter_id_;
   }
 
-  inline const URI& GetMidFileURI() const
-  {
-    return this->mid_file_uri_;
-  }
-
-  inline bool IsMidFileDirty() const
-  {
-    return this->mid_file_dirty_;
-  }
-
   inline const std::unordered_set<T_UINT32>& GetSubAssetUniqueIds() const
   {
     return this->sub_asset_unique_ids_;
@@ -74,10 +64,8 @@ public:
   // =================================================================
 private:
   std::string converter_id_;
-
-  URI mid_file_uri_;
-  bool mid_file_dirty_;
-
   std::unordered_set<T_UINT32> sub_asset_unique_ids_;
 
 };
+
+CEREAL_CLASS_VERSION(ConverterSetting, 0);

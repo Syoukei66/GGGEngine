@@ -13,7 +13,7 @@ GG_INIT_FUNC_IMPL_1(AssetEntity, AssetMetaData* meta)
   return true;
 }
 
-GG_INIT_FUNC_IMPL_2(AssetEntity, AssetMetaData* meta, IAssetDataCache* data)
+GG_INIT_FUNC_IMPL_2(AssetEntity, AssetMetaData* meta, IAssetDataContainer* data)
 {
   this->meta_data_ = meta;
   this->is_dirty_ = true;
@@ -63,14 +63,14 @@ void AssetEntity::Export(AssetConverterContext* context)
 
 void AssetEntity::Import(AssetConverterContext* context)
 {
-  const std::unique_ptr<ImporterSetting>& setting = this->meta_data_->GetConverterSetting();
+  const std::unique_ptr<ConverterSetting>& setting = this->meta_data_->GetConverterSetting();
   AssetConverter* converter = context->GetConverter(setting->GetConverterID());
   this->SetData(converter->ImportImmediately(this->meta_data_, context));
 }
 
 void AssetEntity::CommitChanges(AssetConverterContext* context)
 {
-  const std::unique_ptr<ImporterSetting>& setting = this->meta_data_->GetConverterSetting();
+  const std::unique_ptr<ConverterSetting>& setting = this->meta_data_->GetConverterSetting();
   const std::unordered_set<T_UINT32>& sub_asset_uids = setting->GetSubAssetUniqueIds();
   for (T_UINT32 uid : sub_asset_uids)
   {
@@ -115,7 +115,7 @@ bool AssetEntity::CheckSubAssetChanged(AssetConverterContext* context)
 // =================================================================
 // Data Members
 // =================================================================
-void AssetEntity::SetData(IAssetDataCache* data)
+void AssetEntity::SetData(IAssetDataContainer* data)
 {
   if (this->data_)
   {

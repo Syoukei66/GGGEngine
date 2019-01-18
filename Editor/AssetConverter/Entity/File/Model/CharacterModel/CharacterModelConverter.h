@@ -21,6 +21,6 @@ public:
   // Methods from AssetConverter
   // =================================================================
 public:
-  virtual void* ImportProcess(AssetMetaData* meta, AssetConverterContext* context) const override;
+  virtual IAssetDataContainer* ImportProcess(AssetMetaData* meta, AssetConverterContext* context) const override;
 
 };

@@ -1,16 +1,18 @@
 #pragma once
 
+class AssetConverter;
+
 /*!
- * @brief AssetDataCacheで必要なテンプレート引数が
+ * @brief AssetDataContainerで必要なテンプレート引数が
  * 無くても扱えるようにするためのインターフェース
  */
-class IAssetDataCache
+class IAssetDataContainer
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  virtual ~IAssetDataCache() = default;
+  virtual ~IAssetDataContainer() = default;
 };
 
 /*!
@@ -18,17 +20,24 @@ public:
  * 型のチェックやデストラクタの起動などを行えるようになっている
  */
 template <typename AssetData_>
-class AssetDataCache : public IAssetDataCache
+class AssetDataContainer : public IAssetDataContainer
 {
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  AssetDataCache(AssetData_* data)
+  /*!
+   * @brief コンストラクタ
+   * @param data データ
+   * @param converter データを作成したConverter
+   */
+  AssetDataContainer(AssetData_* data, const AssetConverter* converter)
     : data_(data)
-  {}
+    , converter_(converter)
+  {
+  }
 
-  virtual ~AssetDataCache()
+  virtual ~AssetDataContainer()
   {
     delete this->data_;
   }
@@ -42,10 +51,16 @@ public:
     return this->data_;
   }
 
+  const AssetConverter* GetConverter()
+  {
+    return this->converter_;
+  }
+
   // =================================================================
   // Data Members
   // =================================================================
 private:
   AssetData_* data_;
+  const AssetConverter* converter_;
 
 };

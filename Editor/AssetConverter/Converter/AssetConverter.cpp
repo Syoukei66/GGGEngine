@@ -1,6 +1,7 @@
 #include "AssetConverter.h"
 #include "AssetConverterContext.h"
 #include <Util/Logger.h>
+#include <ProgramGenerator/AssetProgramGenerator.h>
 
 // =================================================================
 // Constructor / Destructor
@@ -29,8 +30,15 @@ bool AssetConverter::IsTarget(const URI& uri) const
   return std::find(this->target_extensions_.begin(), this->target_extensions_.end(), uri.GetExtension()) != this->target_extensions_.end();
 }
 
-IAssetDataCache* AssetConverter::ImportImmediately(AssetMetaData* meta_data, AssetConverterContext* context) const
+IAssetDataContainer* AssetConverter::ImportImmediately(AssetMetaData* meta_data, AssetConverterContext* context) const
 {
+  // コンバーター設定が登録されていないか、前まで別のコンバーターを使用していた場合は
+  // 自身のコンバーター設定で上書きする。
+  const std::unique_ptr<ConverterSetting>& setting = meta_data->GetConverterSetting();
+  if (!setting || setting->GetConverterID() != this->GetId())
+  {
+    meta_data->SetConverterSetting(this->CreateSetting());
+  }
   return this->ImportProcess(meta_data, context);
 }
 

@@ -7,7 +7,7 @@
 // =================================================================
 // Methods from AssetConverter
 // =================================================================
-void* ShaderAssetConverter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context) const
+IAssetDataContainer* ShaderAssetConverter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context) const
 {
   ShaderData* data = new ShaderData();
 
@@ -25,8 +25,8 @@ void* ShaderAssetConverter::ImportProcess(AssetMetaData* meta, AssetConverterCon
   {
     SharedRef<AssetEntity> entity = context->GetEntity(DefaultUniqueID::SHADER_ERRROR);
     Log::Info(e.message.c_str());
-    (*data) = *(ShaderData*)(entity->GetData());
+    (*data) = *entity->GetData<ShaderData>();
   }
 
-  return data;
+  return new AssetDataContainer<ShaderData>(data, this);
 }
