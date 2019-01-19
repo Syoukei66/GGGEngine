@@ -3,7 +3,7 @@
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-inline AssetProgramGenerator::AssetProgramGenerator(const std::string & asset_name, const std::string & class_name, T_UINT32 skip_head, T_UINT32 skip_tail)
+AssetProgramGenerator::AssetProgramGenerator(const std::string & asset_name, const std::string & class_name, T_UINT32 skip_head, T_UINT32 skip_tail)
   : namespace_generator_()
   , identifier_generator_(skip_head, skip_tail)
 {
@@ -13,12 +13,12 @@ inline AssetProgramGenerator::AssetProgramGenerator(const std::string & asset_na
 // =================================================================
 // Methods
 // =================================================================
-inline void AssetProgramGenerator::AddAsset(const std::string & asset_name, const std::string & class_name)
+void AssetProgramGenerator::AddAsset(const std::string & asset_name, const std::string & class_name)
 {
   this->namespace_generator_.AddAsset(asset_name, class_name);
 }
 
-inline void AssetProgramGenerator::CreateHeaderProgram(const std::vector<SharedRef<AssetEntity>>& entities, std::string * dest)
+void AssetProgramGenerator::CreateHeaderProgram(const std::vector<SharedRef<AssetEntity>>& entities, std::string * dest)
 {
   (*dest).append(this->namespace_generator_.CreateHeaderProgram([&](const DefinitionGenerator& generator)
   {
@@ -31,7 +31,7 @@ inline void AssetProgramGenerator::CreateHeaderProgram(const std::vector<SharedR
   }));
 }
 
-inline void AssetProgramGenerator::CreateCppProgram(const std::vector<SharedRef<AssetEntity>>& entities, std::string * dest)
+void AssetProgramGenerator::CreateCppProgram(const std::vector<SharedRef<AssetEntity>>& entities, std::string * dest)
 {
   (*dest).append(this->namespace_generator_.CreateCppProgram([&](const DefinitionGenerator& generator)
   {

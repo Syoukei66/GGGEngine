@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Converter/AssetConverter.h>
+#include "RawAssetConverterSetting.h"
 
 template <class Asset_>
 class RawAssetConverter : public AssetConverter
@@ -12,13 +13,15 @@ public:
   RawAssetConverter(
     const std::string& id,
     const std::string& class_name,
-    std::initializer_list<std::string> extensions
+    std::initializer_list<std::string> extensions,
+    const SharedRef<AssetViewerBehavior>& viewer
   )
     : AssetConverter(
       id,
       class_name,
       extensions,
-      1, 0
+      1, 0,
+      viewer
     )
   {}
 
@@ -36,14 +39,20 @@ public:
       );
   }
 
-  virtual IAssetDataContainer* ImportProcess(AssetMetaData* meta, AssetConverterContext* context) const override
+  virtual IAssetDataContainer* ImportProcess(const SharedRef<AssetEntity>& entity, AssetConverterContext* context) const override
   {
-    return new AssetDataContainer<Asset_>(nullptr, this);
+    return entity->GetDataContainer();
   }
 
   virtual void ExportProcess(const SharedRef<AssetEntity>& entity, const AssetConverterContext* context) const
   {
     FileUtil::CopyRawAsset(entity->GetMetaData());
   }
+
+  virtual std::unique_ptr<ConverterSetting> CreateSetting() const
+  {
+    return std::unique_ptr<ConverterSetting>(new RawAssetConverterSetting(this->GetId()));
+  }
+
 
 };

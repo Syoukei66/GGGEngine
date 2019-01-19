@@ -1,7 +1,6 @@
 #pragma once
 
 #include "URI.h"
-#include "AssetConverterManager.h"
 
 struct Setting;
 
@@ -17,7 +16,7 @@ class AssetConverterContext
   // Constructor / Destructor
   // =================================================================
 public:
-  AssetConverterContext(UniqueIdTable* unique_id_table, AssetConverterManager* converter_manager);
+  AssetConverterContext(UniqueIdTable* unique_id_table);
   virtual ~AssetConverterContext() = default;
 
   // =================================================================
@@ -96,11 +95,9 @@ public:
   /*!
    * @brief AssetConverter‚ğ’Ç‰Á‚·‚é
    * @param converter ’Ç‰Á‚·‚éAssetConverter
+   * @return ’Ç‰Á‚µ‚½AssetConverter
    */
-  inline void AddConverter(AssetConverter* converter)
-  {
-    this->converter_map_[converter->GetId()] = converter;
-  }
+  AssetConverter* AddConverter(AssetConverter* converter);
 
   /*!
    * @brief AssetCovnerterId‚©‚çAssetConverter‚ğæ“¾‚·‚é

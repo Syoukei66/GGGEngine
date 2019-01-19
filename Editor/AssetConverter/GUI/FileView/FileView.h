@@ -14,7 +14,7 @@ class FileView
   // Methdos
   // =================================================================
 public:
-  static void Init();
+  static void Init(AssetConverterContext* context);
   static void Uninit();
 
   static SharedRef<AssetEntity> SelectWithImGUI();

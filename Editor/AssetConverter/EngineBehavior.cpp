@@ -16,7 +16,7 @@ void EngineBehavior::OnApplicationEnd()
 void EngineBehavior::OnGameBegin()
 {
   AssetConverterDirector::Init();
-  AssetConverterDirector::Import();
+  AssetConverterDirector::Fetch();
 }
 
 void EngineBehavior::OnGameEnd()
@@ -46,5 +46,5 @@ void EngineBehavior::SetupEngineOption(EngineOption& option)
 
 SharedRef<Scene> EngineBehavior::FirstScene()
 {
-  return EntryScene::Create();
+  return EntryScene::Create(AssetConverterDirector::GetContext());
 }

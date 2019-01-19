@@ -31,3 +31,8 @@ UniqueRef<rcDynamicMesh> MeshBuilder_Plane::CreateMesh() const
     tile_count_x_, tile_count_y_
   );
 }
+
+bool MeshBuilder_Plane::EditWithImGui()
+{
+  return false;
+}

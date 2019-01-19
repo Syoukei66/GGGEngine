@@ -11,6 +11,7 @@
 #include "URI.h"
 #include "ConverterSetting.h"
 
+class AssetConverter;
 class AssetConverterContext;
 
 class AssetMetaData
@@ -20,6 +21,7 @@ class AssetMetaData
   // =================================================================
 public:
   static AssetMetaData* Create(const URI& uri, AssetConverterContext* context);
+  static AssetMetaData* Create(const URI& uri, AssetConverter* converter, AssetConverterContext* context);
   static AssetMetaData* Create(const URI& uri, T_UINT32 source_unique_id, AssetConverterContext* context);
 
   // =================================================================
@@ -36,6 +38,11 @@ public:
   void Save();
 
   void ResetTimeStamp();
+
+  /*!
+   * @brief メタデータが対応するデータのタイムスタンプを更新する
+   * @return タイムスタンプに更新があった場合true
+   */
   bool UpdateTimeStamp();
 
   // =================================================================

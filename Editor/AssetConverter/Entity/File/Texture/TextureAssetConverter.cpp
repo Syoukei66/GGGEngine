@@ -23,14 +23,12 @@ static DXGI_FORMAT TEXTURE_FORMATS_SRGB[static_cast<T_FIXED_UINT8>(TextureAssetC
 // =================================================================
 // Methods from AssetConverter
 // =================================================================
-IAssetDataContainer* TextureAssetConverter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context) const
+IAssetDataContainer* TextureAssetConverter::ImportProcess(const SharedRef<AssetEntity>& entity, AssetConverterContext* context) const
 {
   TextureData* data = new TextureData();
 
+  AssetMetaData* meta = entity->GetMetaData();
   TextureAssetConverterSetting* setting = static_cast<TextureAssetConverterSetting*>(meta->GetConverterSetting().get());
-
-  ID3D11Resource* texture;
-  ID3D11ShaderResourceView* shader_resource_view;
 
   WCHAR	wpath[256] = {};
 
@@ -39,7 +37,7 @@ IAssetDataContainer* TextureAssetConverter::ImportProcess(AssetMetaData* meta, A
   //ƒƒP[ƒ‹Žw’è
   setlocale(LC_ALL, "japanese");
   //•ÏŠ·
-  err = mbstowcs(wpath, meta->GetInputPath().c_str(), sizeof(wpath));
+  err = (errno_t)mbstowcs(wpath, meta->GetInputPath().c_str(), sizeof(wpath));
   DirectX::TexMetadata metadata = DirectX::TexMetadata();
   DirectX::ScratchImage image = DirectX::ScratchImage();
 
@@ -65,9 +63,9 @@ IAssetDataContainer* TextureAssetConverter::ImportProcess(AssetMetaData* meta, A
     converted_image
   );
 
-  data->resource_data_.bytes_per_pixel_ = DirectX::BitsPerPixel(metadata.format) / 8;
-  data->resource_data_.width_ = metadata.width;
-  data->resource_data_.height_ = metadata.height;
+  data->resource_data_.bytes_per_pixel_ = (T_FIXED_UINT8)(DirectX::BitsPerPixel(metadata.format) / 8);
+  data->resource_data_.width_ = (T_FIXED_UINT16)metadata.width;
+  data->resource_data_.height_ = (T_FIXED_UINT16)metadata.height;
   data->resource_data_.format_ = format;
   const T_UINT32 pixels_size = (T_UINT32)converted_image.GetPixelsSize();
   data->resource_data_.data_.resize(pixels_size);
@@ -78,5 +76,5 @@ IAssetDataContainer* TextureAssetConverter::ImportProcess(AssetMetaData* meta, A
 
   data->view_data_ = setting->view_data;
 
-  return new AssetDataContainer<TextureData>(data, this);
+  return new AssetDataContainer<TextureData>(data);
 }

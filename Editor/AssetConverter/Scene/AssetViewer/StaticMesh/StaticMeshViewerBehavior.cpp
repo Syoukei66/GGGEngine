@@ -40,8 +40,3 @@ void StaticMeshViewerBehavior::OnUnload()
   this->mesh_renderer_->SetMesh(nullptr);
   this->mesh_renderer_->SetMaterial(nullptr);
 }
-
-bool StaticMeshViewerBehavior::IsTarget(T_UINT32 id)
-{
-  return id == AssetEntity::EntityID::ID_DEFAULT_MESH;
-}

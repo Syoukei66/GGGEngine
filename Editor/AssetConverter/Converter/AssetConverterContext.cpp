@@ -1,12 +1,11 @@
 #include "AssetConverterContext.h"
-#include "AssetConverterManager.h"
 #include "AssetConverter.h"
 #include <Core/Application/Asset/UniqueIdTable.h>
 #include <Constants/Extensions.h>
+#include <Util/Logger.h>
 
-AssetConverterContext::AssetConverterContext(UniqueIdTable* unique_id_table, AssetConverterManager* converter_manager)
+AssetConverterContext::AssetConverterContext(UniqueIdTable* unique_id_table)
   : unique_id_table_(unique_id_table)
-  , converter_manager_(converter_manager)
 {
 }
 
@@ -98,4 +97,10 @@ void AssetConverterContext::RegisterDefaultUniqueID(T_UINT32 default_uid, const 
 {
   this->unique_id_table_->RegisterDefaultAssetUniqueID(default_uid, FileUtil::CreateRuntimeAssetPath(uri));
   this->default_asset_uri_[default_uid] = uri;
+}
+
+AssetConverter* AssetConverterContext::AddConverter(AssetConverter* converter)
+{
+  this->converter_map_[converter->GetId()] = converter;
+  return converter;
 }

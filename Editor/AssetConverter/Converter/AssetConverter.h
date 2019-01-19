@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Entity/AssetEntity.h>
+#include <Scene/AssetViewer/AssetViewerBehavior.h>
 
 class AssetProgramGenerator;
 
@@ -14,7 +15,8 @@ public:
     const std::string& id,
     const std::string& class_name,
     const std::vector<std::string>& extensions,
-    T_UINT32 skip_head, T_UINT32 skip_tail
+    T_UINT32 skip_head, T_UINT32 skip_tail,
+    const SharedRef<AssetViewerBehavior>& viewer
   );
 
   virtual ~AssetConverter();
@@ -32,11 +34,11 @@ public:
 
   /*!
    * @brief メタデータからアセットをインポートし、中間データを戻り値で返す
-   * @param meta_data メタデータ
+   * @param entity AssetEntity
    * @param context AssetConverterContext
    * @return 中間データ
    */
-  IAssetDataContainer* ImportImmediately(AssetMetaData* meta_data, AssetConverterContext* context) const;
+  IAssetDataContainer* ImportImmediately(const SharedRef<AssetEntity>& entity, AssetConverterContext* context) const;
 
   /*!
    * @brief アセットをエクスポートする。
@@ -46,12 +48,18 @@ public:
   void ExportImmediately(const SharedRef<AssetEntity>& entity, const AssetConverterContext* context) const;
 
   /*!
-   * @brief プログラムを出力する
+   * @brief .hプログラムを出力する
    * @param entities AssetEntity一覧
-   * @param header headerファイルプログラム書き込み先
-   * @param cpp cppファイルプログラム書き込み先
+   * @param dest プログラム書き込み先
    */
-  void CreateProgram(const std::vector<SharedRef<AssetEntity>>& entities, std::string* header, std::string* cpp) const;
+  void CreateHeaderProgram(const std::vector<SharedRef<AssetEntity>>& entities, std::string* dest) const;
+
+  /*!
+   * @brief .cppプログラムを出力する
+   * @param entities AssetEntity一覧
+   * @param dest プログラム書き込み先
+   */
+  void CreateCppProgram(const std::vector<SharedRef<AssetEntity>>& entities, std::string* dest) const;
 
   /*!
    * @brief AssetManagerにアセットを登録する
@@ -68,8 +76,9 @@ protected:
   /*!
    * @brief アセットのインポート実処理
    * 派生クラス側で実際のインポート処理を記述する。
+   * @return nullptrや、現在のDataContainerと同じDataContainerを返してもいい
    */
-  virtual IAssetDataContainer* ImportProcess(AssetMetaData* meta, AssetConverterContext* context) const = 0;
+  virtual IAssetDataContainer* ImportProcess(const SharedRef<AssetEntity>& entity, AssetConverterContext* context) const = 0;
 
   /*!
    * @brief アセットのインポート実処理
@@ -86,6 +95,11 @@ public:
     return this->id_;
   }
 
+  inline const SharedRef<AssetViewerBehavior>& GetViewerBehavior()
+  {
+    return this->viewer_;
+  }
+
   // =================================================================
   // Data Members
   // =================================================================
@@ -93,5 +107,6 @@ private:
   std::string id_;
   std::vector<std::string> target_extensions_;
   AssetProgramGenerator* program_generator_;
+  SharedRef<AssetViewerBehavior> viewer_;
 
 };

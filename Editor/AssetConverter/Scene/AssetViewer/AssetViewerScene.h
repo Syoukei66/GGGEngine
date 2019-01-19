@@ -4,6 +4,7 @@
 
 #include "AssetViewerBehavior.h"
 
+class AssetConverterContext;
 class AssetEntity;
 
 //ViewerSceneでのホットリロードの実現
@@ -21,7 +22,7 @@ class AssetViewerScene : public ViewerScene
   // Methods
   // =================================================================
 public:
-  void Run(const SharedRef<AssetEntity>& entity);
+  void Run(const SharedRef<AssetEntity>& entity, AssetConverterContext* context);
 
   // =================================================================
   // Data Members

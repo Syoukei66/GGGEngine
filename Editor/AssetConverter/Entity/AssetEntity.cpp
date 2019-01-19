@@ -1,5 +1,6 @@
 #include <Entity/AssetEntity.h>
 #include <Entity/AssetMetaData.h>
+#include <Converter/AssetConverter.h>
 #include <Converter/AssetConverterContext.h>
 #include <Util/Logger.h>
 
@@ -65,7 +66,7 @@ void AssetEntity::Import(AssetConverterContext* context)
 {
   const std::unique_ptr<ConverterSetting>& setting = this->meta_data_->GetConverterSetting();
   AssetConverter* converter = context->GetConverter(setting->GetConverterID());
-  this->SetData(converter->ImportImmediately(this->meta_data_, context));
+  this->SetData(converter->ImportImmediately(SharedRef<AssetEntity>(this), context));
 }
 
 void AssetEntity::CommitChanges(AssetConverterContext* context)
@@ -82,19 +83,32 @@ void AssetEntity::CommitChanges(AssetConverterContext* context)
     Logger::CommitAssetLog(this->meta_data_);
     AssetConverter* converter = context->GetConverter(setting->GetConverterID());
     converter->RegisterAssetManager(SharedRef<AssetEntity>(this));
-    setting->IsMidFileDirty();
     this->is_dirty_ = false;
   }
 }
 
 void AssetEntity::CheckAssetChanged(AssetConverterContext* context, std::set<SharedRef<AssetEntity>>* update_entities)
 {
+  // タイムスタンプが更新されていたら
   if (this->meta_data_->UpdateTimeStamp())
   {
+    // メタデータを保存し、ダーティフラグを立てる
     this->meta_data_->Save();
-    update_entities->insert(context->GetEntity(this->meta_data_->GetSourceUniqueId()));
     this->is_dirty_ = true;
   }
+
+  // ConverterSettingに変更があったらダーティフラグを立てる
+  if (this->meta_data_->GetConverterSetting()->IsDirty())
+  {
+    this->is_dirty_ = true;
+  }
+
+  // ダーティフラグが経っていたらupdate_entitiesに自身を追加する
+  if (this->is_dirty_)
+  {
+    update_entities->insert(context->GetEntity(this->meta_data_->GetSourceUniqueId()));
+  }
+
   const std::unordered_set<T_UINT32>& sub_asset_uids = this->meta_data_->GetConverterSetting()->GetSubAssetUniqueIds();
   for (T_UINT32 uid : sub_asset_uids)
   {
@@ -113,14 +127,23 @@ bool AssetEntity::CheckSubAssetChanged(AssetConverterContext* context)
 }
 
 // =================================================================
-// Data Members
+// Getter / Setter
 // =================================================================
 void AssetEntity::SetData(IAssetDataContainer* data)
 {
+  if (this->data_ == data)
+  {
+    return;
+  }
   if (this->data_)
   {
     delete this->data_;
   }
   this->data_ = data;
   this->is_dirty_ = true;
+}
+
+AssetConverter* AssetEntity::GetConverter(AssetConverterContext* context)
+{
+  return context->GetConverter(this->meta_data_->GetConverterSetting()->GetConverterID());
 }

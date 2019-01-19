@@ -4,6 +4,9 @@
 #include <Scene/AssetViewer/CharacterModel/CharacterModelViewerBehavior.h>
 #include <Scene/AssetViewer/Texture/TextureViewerBehavior.h>
 
+#include <Entity/AssetEntity.h>
+#include <Converter/AssetConverter.h>
+
 // =================================================================
 // GGG Statement
 // =================================================================
@@ -18,21 +21,13 @@ GG_INIT_FUNC_IMPL(AssetViewerScene)
 // =================================================================
 // Methods
 // =================================================================
-void AssetViewerScene::Run(const SharedRef<AssetEntity>& entity)
+void AssetViewerScene::Run(const SharedRef<AssetEntity>& entity, AssetConverterContext* context)
 {
-  SharedRef<AssetViewerBehavior> current_behavior = nullptr;
-  for (const SharedRef<AssetViewerBehavior>& behavior : this->behaviors_)
-  {
-    if (behavior->IsTarget(entity->GetID()))
-    {
-      current_behavior = behavior;
-      break;
-    }
-  }
-  if (!current_behavior)
+  SharedRef<AssetViewerBehavior> behavior = entity->GetConverter(context)->GetViewerBehavior();
+  if (!behavior)
   {
     return;
   }
-  current_behavior->SetEntity(entity);
-  ViewerScene::Run(current_behavior);
+  behavior->SetEntity(entity);
+  ViewerScene::Run(behavior, context);
 }

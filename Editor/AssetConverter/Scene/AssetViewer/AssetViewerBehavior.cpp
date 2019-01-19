@@ -16,9 +16,9 @@ void AssetViewerBehavior::End()
   this->OnEnd();
 }
 
-void AssetViewerBehavior::Update()
+void AssetViewerBehavior::Update(AssetConverterContext* context)
 {
-  if (this->entity_->Update())
+  if (this->entity_->Load(context))
   {
     this->OnUnload();
     this->OnLoad(this->entity_->GetMetaData()->GetUniqueID());

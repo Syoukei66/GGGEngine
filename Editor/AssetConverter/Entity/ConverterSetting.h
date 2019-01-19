@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Cereal/cereal.hpp>
 #include "URI.h"
 
 /*!
@@ -11,11 +12,15 @@ class ConverterSetting
   // Constructor / Destructor
   // =================================================================
 public:
+  /*!
+   * @brief デフォルトコンストラクタ。シリアライズ用
+   */
+  ConverterSetting() = default;
+
   ConverterSetting(const std::string& converter_id)
     : converter_id_(converter_id)
-    , mid_file_uri_()
-    , mid_file_dirty_(true)
     , sub_asset_unique_ids_()
+    , is_dirty_(true)
   {}
 
   // =================================================================
@@ -32,6 +37,26 @@ public:
     this->sub_asset_unique_ids_.clear();
   }
 
+  /*!
+   * @brief ImGUIを使ってデータを編集する
+   */
+  inline  bool EditWithImGui()
+  {
+    this->is_dirty_ |= this->EditWithImGuiProcess();
+  }
+
+  inline void ClearDirty()
+  {
+    this->is_dirty_ = false;
+  }
+
+protected:
+  /*!
+   * @brief ImGUIを使ってデータを編集する処理を記述する。
+   * @return データに変更があった場合true
+   */
+  virtual bool EditWithImGuiProcess() = 0;
+
   // =================================================================
   // Setter / Getter
   // =================================================================
@@ -46,6 +71,11 @@ public:
     return this->sub_asset_unique_ids_;
   }
 
+  inline bool IsDirty() const
+  {
+    return this->is_dirty_;
+  }
+
   // =================================================================
   // Serialize Method
   // =================================================================
@@ -54,9 +84,8 @@ public:
   void serialize(Archive& ar, std::uint32_t const version)
   {
     ar(CEREAL_NVP(converter_id_));
-    ar(CEREAL_NVP(mid_file_uri_));
-    ar(CEREAL_NVP(mid_file_dirty_));
     ar(CEREAL_NVP(sub_asset_unique_ids_));
+    ar(CEREAL_NVP(is_dirty_));
   }
 
   // =================================================================
@@ -65,6 +94,7 @@ public:
 private:
   std::string converter_id_;
   std::unordered_set<T_UINT32> sub_asset_unique_ids_;
+  bool is_dirty_;
 
 };
 

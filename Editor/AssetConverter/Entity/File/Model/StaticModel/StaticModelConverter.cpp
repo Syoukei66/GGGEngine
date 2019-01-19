@@ -6,7 +6,7 @@
 // =================================================================
 // Methods from AssetConverter
 // =================================================================
-void ImportMesh(const AssetMetaData* model_asset_info, const aiScene* scene, AssetConverterContext* context, StaticMeshData* dest)
+void ImportMesh(const StaticModelAssetConverterSetting* setting, const aiScene* scene, AssetConverterContext* context, StaticMeshData* dest)
 {
   if (scene->mNumMeshes == 0)
   {
@@ -45,7 +45,7 @@ void ImportMesh(const AssetMetaData* model_asset_info, const aiScene* scene, Ass
       GG_ASSERT(mesh->HasPositions(), "位置情報が含まれていないメッシュがあります");
 
       const aiVector3D& vec = mesh->mVertices[v];
-      ret->SetVertex(vi, TVec3f(vec.x, vec.y, vec.z));
+      ret->SetVertex(vi, TVec3f(vec.x * setting->scale, vec.y * setting->scale, vec.z * setting->scale));
 
       // Normal
       if (mesh->HasNormals())
@@ -103,7 +103,7 @@ void ImportMesh(const AssetMetaData* model_asset_info, const aiScene* scene, Ass
   ret->ConvertToData(dest);
 }
 
-IAssetDataContainer* StaticModelAssetConverter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context) const
+IAssetDataContainer* StaticModelAssetConverter::ImportProcess(const SharedRef<AssetEntity>& entity, AssetConverterContext* context) const
 {
   using namespace Assimp;
   //一部のファイルでメモリリークが発生
@@ -134,6 +134,8 @@ IAssetDataContainer* StaticModelAssetConverter::ImportProcess(AssetMetaData* met
   aiSetImportPropertyInteger(props, AI_CONFIG_GLOB_MEASURE_TIME, 1);
   aiSetImportPropertyInteger(props, AI_CONFIG_PP_PTV_NORMALIZE, 1);
 
+  AssetMetaData* meta = entity->GetMetaData();
+
   const aiScene* scene = aiImportFileExWithProperties(
     meta->GetInputPath().c_str(),
     ppsteps | /* configurable pp steps */
@@ -158,15 +160,17 @@ IAssetDataContainer* StaticModelAssetConverter::ImportProcess(AssetMetaData* met
 
   StaticModelData* data = new StaticModelData();
 
+  StaticModelAssetConverterSetting* setting = static_cast<StaticModelAssetConverterSetting*>(meta->GetConverterSetting().get());
+
   //Mesh
-  ImportMesh(meta, scene, context, &data->mesh_);
+  ImportMesh(setting, scene, context, &data->mesh_);
 
   //Material
   std::vector<SharedRef<AssetEntity>> material_entities;
   for (T_UINT32 i = 0; i < scene->mNumMaterials; ++i)
   {
     aiMaterial* mat = scene->mMaterials[i];
-    const SharedRef<AssetEntity>& material_asset_entity = context->AddEntity(ImportMaterial(meta, mat, this, context));
+    const SharedRef<AssetEntity>& material_asset_entity = context->AddEntity(ImportMaterial(setting->override_material, meta, mat, this, context));
     material_entities.push_back(material_asset_entity);
   }
 
@@ -186,5 +190,5 @@ IAssetDataContainer* StaticModelAssetConverter::ImportProcess(AssetMetaData* met
 
   aiReleaseImport(scene);
 
-  return new AssetDataContainer<StaticModelData>(data, this);
+  return new AssetDataContainer<StaticModelData>(data);
 }

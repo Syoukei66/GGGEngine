@@ -26,3 +26,8 @@ UniqueRef<rcDynamicMesh> MeshBuilder_UvSphere::CreateMesh() const
 {
   return MeshFactory::UVSphere::Create(this->format_, this->scale_, this->resolution_x_, this->resolution_y_);
 }
+
+bool MeshBuilder_UvSphere::EditWithImGui()
+{
+  return false;
+}

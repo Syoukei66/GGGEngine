@@ -15,7 +15,7 @@ class AssetViewerBehavior : public IViewerBehavior
 public:
   virtual void Start(Scene* scene) override;
   virtual void End() override;
-  virtual void Update() override;
+  virtual void Update(AssetConverterContext* context) override;
 
   // =================================================================
   // Methods

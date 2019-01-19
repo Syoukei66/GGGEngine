@@ -38,8 +38,3 @@ void StaticModelViewerBehavior::OnUnload()
   this->root_->RemoveSelf();
   this->root_ = nullptr;
 }
-
-bool StaticModelViewerBehavior::IsTarget(T_UINT32 id)
-{
-  return id == AssetEntity::EntityID::ID_STATIC_MODEL;
-}

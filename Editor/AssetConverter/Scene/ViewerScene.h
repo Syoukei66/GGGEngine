@@ -2,6 +2,8 @@
 
 #include <Engine/GameObject/GameObject3D.h>
 
+class AssetConverterContext;
+
 /*!
  * @brief Viewerが表示するオブジェクトや
  * アップデート時のイベントを定義するインターフェース
@@ -14,8 +16,7 @@ class IViewerBehavior : public GGObject
 public:
   virtual void Start(Scene* scene) = 0;
   virtual void End() = 0;
-  virtual void Update() = 0;
-  virtual bool IsTarget(T_UINT32 id) = 0;
+  virtual void Update(AssetConverterContext* context) = 0;
 };
 
 class ViewerScene : public Scene
@@ -50,12 +51,13 @@ public:
   // Methods
   // =================================================================
 public:
-  void Run(const SharedRef<IViewerBehavior>& behavior);
+  void Run(const SharedRef<IViewerBehavior>& behavior, AssetConverterContext* context);
 
   // =================================================================
   // Data Members
   // =================================================================
 private:
+  AssetConverterContext* current_context_;
   SharedRef<IViewerBehavior> current_behavior_;
   SharedRef<GameObject3D> camera_2d_;
   SharedRef<GameObject3D> camera_3d_;

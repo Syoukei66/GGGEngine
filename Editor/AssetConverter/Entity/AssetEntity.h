@@ -19,11 +19,15 @@ class AssetEntity : public GGObject
   GG_OBJECT(AssetEntity);
   GG_CREATE_FUNC_1(AssetEntity, AssetMetaData*);
   GG_CREATE_FUNC_2(AssetEntity, AssetMetaData*, IAssetDataContainer*);
-  template <typename AssetData_>
+
+public:
+  template <class AssetData_>
   inline static SharedRef<AssetEntity> Create(AssetMetaData* meta, AssetData_* data)
   {
-    return AssetEntity::Create(meta, new AssetDataContainer<AssetData_>(data))
+    // キャストは循環参照回避の為
+    return AssetEntity::Create(meta, (IAssetDataContainer*)new AssetDataContainer<AssetData_>(data));
   }
+
   GG_DESTRUCT_FUNC(AssetEntity);
 
   // =================================================================
@@ -92,9 +96,9 @@ public:
   void SetData(IAssetDataContainer* data);
 
   template <class AssetData_>
-  void SetData(AssetData_* data, const AssetConverter* converter)
+  void SetData(AssetData_* data)
   {
-    this->SetData(new AssetDataContainer<AssetData_>(data, converter));
+    this->SetData((IAssetDataContainer*)new AssetDataContainer<AssetData_>(data));
   }
 
   template <class AssetData_>
@@ -102,6 +106,13 @@ public:
   {
     return ((AssetDataContainer<AssetData_>*)this->data_)->GetData();
   }
+
+  inline IAssetDataContainer* GetDataContainer()
+  {
+    return this->data_;
+  }
+
+  AssetConverter* GetConverter(AssetConverterContext* context);
 
   // =================================================================
   // Data Members

@@ -46,3 +46,8 @@ UniqueRef<rcDynamicMesh> MeshBuilder_CubeSphere::CreateMesh() const
     this->roundness_
   );
 }
+
+bool MeshBuilder_CubeSphere::EditWithImGui()
+{
+  return false;
+}

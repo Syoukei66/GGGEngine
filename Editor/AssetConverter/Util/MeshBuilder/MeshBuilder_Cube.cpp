@@ -37,3 +37,8 @@ UniqueRef<rcDynamicMesh> MeshBuilder_Cube::CreateMesh() const
     this->tile_count_x_, this->tile_count_y_, this->tile_count_z_
   );
 }
+
+bool MeshBuilder_Cube::EditWithImGui()
+{
+  return false;
+}

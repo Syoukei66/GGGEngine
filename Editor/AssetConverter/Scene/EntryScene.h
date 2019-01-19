@@ -3,6 +3,7 @@
 #include <Scene/AssetViewer/AssetViewerScene.h>
 
 class AssetEntity;
+class AssetConverterContext;
 
 class EntryScene : public Scene
 {
@@ -10,7 +11,7 @@ class EntryScene : public Scene
   // GGG Statement
   // =================================================================
   GG_OBJECT(EntryScene);
-  GG_CREATE_FUNC(EntryScene);
+  GG_CREATE_FUNC_1(EntryScene, AssetConverterContext*);
 
   // =================================================================
   // Methods from Scene
@@ -34,5 +35,6 @@ private:
 private:
   SharedRef<AssetEntity> selected_entity_;
   SharedRef<AssetViewerScene> viewer_scene_;
+  AssetConverterContext* context_;
 
 };

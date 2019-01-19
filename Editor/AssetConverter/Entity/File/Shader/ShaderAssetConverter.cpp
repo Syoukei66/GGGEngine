@@ -7,13 +7,15 @@
 // =================================================================
 // Methods from AssetConverter
 // =================================================================
-IAssetDataContainer* ShaderAssetConverter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context) const
+IAssetDataContainer* ShaderAssetConverter::ImportProcess(const SharedRef<AssetEntity>& entity, AssetConverterContext* context) const
 {
   ShaderData* data = new ShaderData();
 
   data->name_ = "test";
 
   PassData pass = PassData();
+
+  AssetMetaData* meta = entity->GetMetaData();
 
   std::string code = FileUtil::TextFile_Read(meta->GetInputPath().c_str());
 
@@ -28,5 +30,5 @@ IAssetDataContainer* ShaderAssetConverter::ImportProcess(AssetMetaData* meta, As
     (*data) = *entity->GetData<ShaderData>();
   }
 
-  return new AssetDataContainer<ShaderData>(data, this);
+  return new AssetDataContainer<ShaderData>(data);
 }

@@ -2,12 +2,11 @@
 
 #include <Setting/Setting.h>
 #include <Converter/AssetConverterContext.h>
-#include <Converter/AssetConverterManager.h>
 
 class AssetConverterDirector
 {
   // =================================================================
-  // GGG Editor
+  // GGG Statement
   // =================================================================
   GG_SINGLETON(AssetConverterDirector);
 
@@ -25,25 +24,20 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  static GG_INLINE UniqueIdTable* GetUniqueIdTable()
-  {
-    return Self().unique_id_table_;
-  }
-  
+  //static GG_INLINE UniqueIdTable* GetUniqueIdTable()
+  //{
+  //  return Self().unique_id_table_;
+  //}
+  //
   static GG_INLINE AssetConverterContext* GetContext()
   {
     return Self().context_;
   }
 
-  static GG_INLINE AssetConverterManager* GetConverterManager()
-  {
-    return Self().converter_manager_;
-  }
-
-  static GG_INLINE bool IsUniqueIdTableLoadFailed()
-  {
-    return Self().unique_id_table_load_failed_;
-  }
+  //static GG_INLINE bool IsUniqueIdTableLoadFailed()
+  //{
+  //  return Self().unique_id_table_load_failed_;
+  //}
 
   // =================================================================
   // Data Members
@@ -52,8 +46,7 @@ private:
   Setting* setting_;
   UniqueIdTable* unique_id_table_;
   AssetConverterContext* context_;
-  AssetConverterManager* converter_manager_;
 
-  bool unique_id_table_load_failed_;
+  //bool unique_id_table_load_failed_;
 
 };

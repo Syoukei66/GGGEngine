@@ -37,8 +37,3 @@ void ShaderViewerBehavior::OnUnload()
   this->mesh_renderer_->SetMesh(nullptr);
   this->mesh_renderer_->SetMaterial(nullptr);
 }
-
-bool ShaderViewerBehavior::IsTarget(T_UINT32 id)
-{
-  return id == AssetEntity::EntityID::ID_SHADER;
-}

@@ -40,3 +40,8 @@ UniqueRef<rcDynamicMesh> MeshBuilder_Capsule::CreateMesh() const
     this->roundness_
   );
 }
+
+bool MeshBuilder_Capsule::EditWithImGui()
+{
+  return false;
+}

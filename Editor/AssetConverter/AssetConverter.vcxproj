@@ -107,6 +107,7 @@
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -127,6 +128,7 @@
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <AdditionalDependencies>IrrXML.lib;zlibstaticd.lib;assimp-vc140-mt.lib;zlibd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -145,6 +147,7 @@
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <AdditionalDependencies>IrrXML.lib;zlibstaticd.lib;assimp-vc140-mt.lib;zlibd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -165,6 +168,7 @@
       <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -174,22 +178,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Converter\AssetConverterFactory.h" />
-    <ClInclude Include="Converter\AssetConverterManager.h" />
     <ClInclude Include="Converter\AssetConverter.h" />
     <ClInclude Include="Entity\AssetDataContainer.h" />
     <ClInclude Include="Entity\AssetEntity.h" />
     <ClInclude Include="Entity\Default\DefaultAssetConverter.h" />
-    <ClInclude Include="Entity\Default\Mesh\DefaultCubeMeshConverter.h" />
-    <ClInclude Include="Entity\Default\Mesh\DefaultMeshConverter.h" />
+    <ClInclude Include="Entity\Default\DefaultAssetConverterSetting.h" />
+    <ClInclude Include="Entity\Default\Mesh\DefaultMeshAssetEntityFactory.h" />
     <ClInclude Include="Entity\File\FileAssetConverter.h" />
+    <ClInclude Include="Entity\File\Material\MaterialAssetConverter.h" />
+    <ClInclude Include="Entity\File\Material\MaterialAssetConverterSetting.h" />
+    <ClInclude Include="Entity\File\Mesh\MeshAssetConverter.h" />
+    <ClInclude Include="Entity\File\Mesh\MeshAssetConverterSetting.h" />
     <ClInclude Include="Entity\File\Model\AssimpImportUtil.h" />
     <ClInclude Include="Entity\File\Model\CharacterModel\CharacterModelConverter.h" />
+    <ClInclude Include="Entity\File\Model\CharacterModel\CharacterModelConverterSetting.h" />
     <ClInclude Include="Entity\File\Model\StaticModel\StaticModelConverter.h" />
+    <ClInclude Include="Entity\File\Model\StaticModel\StaticModelConverterSetting.h" />
     <ClInclude Include="Entity\File\Raw\RawAssetConverter.h" />
+    <ClInclude Include="Entity\File\Raw\RawAssetConverterSetting.h" />
     <ClInclude Include="Entity\File\Shader\ShaderAssetConverter.h" />
+    <ClInclude Include="Entity\File\Shader\ShaderAssetConverterSetting.h" />
     <ClInclude Include="Entity\File\Texture\TextureAssetConverter.h" />
     <ClInclude Include="Entity\ConverterSetting.h" />
+    <ClInclude Include="Entity\File\Texture\TextureAssetConverterSetting.h" />
     <ClInclude Include="GUI\EntityView\AssetEntityView.h" />
     <ClInclude Include="GUI\FileView\AssetEntityFileLeaf.h" />
     <ClInclude Include="GUI\FileView\AssetEntityFileNode.h" />
@@ -198,7 +209,7 @@
     <ClInclude Include="ProgramGenerator\AssetProgramGenerator.h" />
     <ClInclude Include="ProgramGenerator\AssetProgramGenerator_identifier.h" />
     <ClInclude Include="Entity\Default\DefaultAsset.h" />
-    <ClInclude Include="Entity\Default\Material\DefaultMaterialAssetConverterFactory.h" />
+    <ClInclude Include="Entity\Default\Material\DefaultMaterialAssetEntityFactory.h" />
     <ClInclude Include="Director.h" />
     <ClInclude Include="Entity\AssetMetaData.h" />
     <ClInclude Include="ProgramGenerator\AssetProgramGenerator_definition.h" />
@@ -234,14 +245,22 @@
   <ItemGroup>
     <ClCompile Include="Converter\AssetConverter.cpp" />
     <ClCompile Include="Converter\AssetConverterContext.cpp" />
-    <ClCompile Include="Converter\AssetConverterManager.cpp" />
     <ClCompile Include="Entity\AssetEntity.cpp" />
     <ClCompile Include="Entity\AssetMetaData.cpp" />
-    <ClCompile Include="Entity\Default\Mesh\DefaultMeshConverter.cpp" />
+    <ClCompile Include="Entity\Default\Mesh\DefaultMeshAssetEntityFactory.cpp" />
+    <ClCompile Include="Entity\File\Material\MaterialAssetConverter.cpp" />
+    <ClCompile Include="Entity\File\Material\MaterialAssetConverterSetting.cpp" />
+    <ClCompile Include="Entity\File\Mesh\MeshAssetConverter.cpp" />
+    <ClCompile Include="Entity\File\Mesh\MeshAssetConverterSetting.cpp" />
     <ClCompile Include="Entity\File\Model\CharacterModel\CharacterModelConverter.cpp" />
+    <ClCompile Include="Entity\File\Model\CharacterModel\CharacterModelConverterSetting.cpp" />
     <ClCompile Include="Entity\File\Model\StaticModel\StaticModelConverter.cpp" />
+    <ClCompile Include="Entity\File\Model\StaticModel\StaticModelConverterSetting.cpp" />
+    <ClCompile Include="Entity\File\Raw\RawAssetConverterSetting.cpp" />
     <ClCompile Include="Entity\File\Shader\ShaderAssetConverter.cpp" />
+    <ClCompile Include="Entity\File\Shader\ShaderAssetConverterSetting.cpp" />
     <ClCompile Include="Entity\File\Texture\TextureAssetConverter.cpp" />
+    <ClCompile Include="Entity\File\Texture\TextureAssetConverterSetting.cpp" />
     <ClCompile Include="GUI\EntityView\AssetEntityView.cpp" />
     <ClCompile Include="GUI\FileView\AssetEntityFileLeaf.cpp" />
     <ClCompile Include="GUI\FileView\AssetEntityFileNode.cpp" />
@@ -249,7 +268,7 @@
     <ClCompile Include="GUI\HierarchyView\HierarchyView.cpp" />
     <ClCompile Include="ProgramGenerator\AssetProgramGenerator.cpp" />
     <ClCompile Include="ProgramGenerator\AssetProgramGenerator_identifier.cpp" />
-    <ClCompile Include="Entity\Default\Material\DefaultMaterialAssetConverterFactory.cpp" />
+    <ClCompile Include="Entity\Default\Material\DefaultMaterialAssetEntityFactory.cpp" />
     <ClCompile Include="Director.cpp" />
     <ClCompile Include="ProgramGenerator\AssetProgramGenerator_definition.cpp" />
     <ClCompile Include="ProgramGenerator\AssetProgramGenerator_namespace.cpp" />
@@ -299,6 +318,9 @@
     </ProjectReference>
     <ProjectReference Include="..\EditorUtils\EditorUtils.vcxproj">
       <Project>{980f180f-d523-4328-8cda-6c2add3aa7d8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ThirdParty\DirectXTex\DirectXTex_Desktop_2017_Win10.vcxproj">
+      <Project>{371b9fa9-4c90-4ac6-a123-aced756d6c77}</Project>
     </ProjectReference>
     <ProjectReference Include="..\Tools\ShaderCompiler\ShaderCompiler.vcxproj">
       <Project>{3bf2f03b-e9ca-4be1-b15a-8333321ba7ef}</Project>

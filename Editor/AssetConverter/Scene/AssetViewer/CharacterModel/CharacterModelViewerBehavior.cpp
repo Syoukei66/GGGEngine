@@ -43,11 +43,6 @@ void CharacterModelViewerBehavior::OnUnload()
   this->root_ = nullptr;
 }
 
-bool CharacterModelViewerBehavior::IsTarget(T_UINT32 id)
-{
-  return id == AssetEntity::EntityID::ID_CHARACTER_MODEL;
-}
-
 void CharacterModelViewerBehavior::OnUpdate()
 {
   HierarchyView::EditWithImGUI();

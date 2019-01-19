@@ -21,6 +21,7 @@ public:
   // =================================================================
 public:
   virtual UniqueRef<rcDynamicMesh> CreateMesh() const override;
+  virtual bool EditWithImGui() override;
 
   // =================================================================
   // Serializer

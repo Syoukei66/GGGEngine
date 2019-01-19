@@ -3,19 +3,30 @@
 #include <Util/FileUtil.h>
 #include <Entity/Default/DefaultAsset.h>
 
-#include <Entity/File/Raw/CSV/CsvAssetEntity.h>
-#include <Entity/File/Raw/Json/JsonAssetEntity.h>
-#include <Entity/File/Raw/Sound/SoundAssetEntity.h>
+// Import Converter
+#include <Entity/File/Raw/RawAssetConverter.h>
 
-#include <Entity/File/Model/Material/ModelMaterialAssetEntity.h>
-#include <Entity/File/Model/StaticModel/StaticModelAssetEntity.h>
-#include <Entity/File/Model/CharacterModel/CharacterModelAssetEntity.h>
+#include <Entity/File/Model/StaticModel/StaticModelConverter.h>
+#include <Entity/File/Model/CharacterModel/CharacterModelConverter.h>
 
-#include <Entity/File/Shader/ShaderAssetEntity.h>
+#include <Entity/File/Shader/ShaderAssetConverter.h>
 
-#include <Entity/File/Texture/TextureAssetEntity.h>
+#include <Entity/File/Texture/TextureAssetConverter.h>
 
-#include <Entity/Default/Material/DefaultMaterialAssetConverterFactory.h>
+#include <Entity/File/Material/MaterialAssetConverter.h>
+
+#include <Entity/File/Mesh/MeshAssetConverter.h>
+
+#include <Entity/Default/Material/DefaultMaterialAssetEntityFactory.h>
+
+// Import Viewer
+#include <Scene/AssetViewer/CharacterModel/CharacterModelViewerBehavior.h>
+//#include <Scene/AssetViewer/Material/MaterialViewerBehavior.h>
+#include <Scene/AssetViewer/Shader/ShaderViewerBehavior.h>
+#include <Scene/AssetViewer/StaticMesh/StaticMeshViewerBehavior.h>
+#include <Scene/AssetViewer/StaticModel/StaticModelViewerBehavior.h>
+//#include <Scene/AssetViewer/Text/TextViewerBehavior.h>
+#include <Scene/AssetViewer/Texture/TextureViewerBehavior.h>
 
 // =================================================================
 // Methods
@@ -24,7 +35,7 @@ void AssetConverterDirector::Init()
 {
   AssetConverterDirector* self = &Self();
 
-  GG_ASSERT(!self->setting_ && !self->converter_manager_ && !self->context_, "InitÇ™ÇQâÒòAë±Ç≈åƒÇ—èoÇ≥ÇÍÇ‹ÇµÇΩ");
+  GG_ASSERT(!self->setting_ && !self->context_, "InitÇ™ÇQâÒòAë±Ç≈åƒÇ—èoÇ≥ÇÍÇ‹ÇµÇΩ");
  
   FileUtil::PrepareDefaultDirectories();
 
@@ -41,40 +52,48 @@ void AssetConverterDirector::Init()
   self->unique_id_table_ = CerealIO::Json::SafeImport<UniqueIdTable>(FileUtil::GetMidDataUniqueIdTablePath().c_str());
   if (!self->unique_id_table_)
   {
-    self->unique_id_table_load_failed_ = true;
     self->unique_id_table_ = new UniqueIdTable();
   }
 
   // (3)
+  // ViewerÇÃçÏê¨
+  const SharedRef<TextureViewerBehavior>& texture_viewer = TextureViewerBehavior::Create();
+  const SharedRef<StaticMeshViewerBehavior>& mesh_viewer = StaticMeshViewerBehavior::Create();
+  //const SHaredRef<MaterialAssetViewerBehavior>& material_viewer = MaterialViewerBehavior::Create();
+  const SharedRef<StaticModelViewerBehavior>& static_model_viewer = StaticModelViewerBehavior::Create();
+  const SharedRef<CharacterModelViewerBehavior>& character_model_viewer = CharacterModelViewerBehavior::Create();
+
+  // (4)
   // ConverterÇÃìoò^
-  self->converter_manager_ = new AssetConverterManager();
-  self->context_ = new AssetConverterContext(self->unique_id_table_, self->converter_manager_);
+  self->context_ = new AssetConverterContext(self->unique_id_table_);
   AssetManager::Init(self->unique_id_table_);
 
   // Raw
-  self->converter_manager_->AddConverter(CsvAssetEntity::CreateConverter());
-  self->converter_manager_->AddConverter(JsonAssetEntity::CreateConverter());
-  self->converter_manager_->AddConverter(SoundAssetEntity::CreateConverter());
+  self->context_->AddConverter(new RawAssetConverter<rcCsvData>("CSV", "rcCsvData", {"csv"}, nullptr));
+  self->context_->AddConverter(new RawAssetConverter<rcJsonData>("Json", "rcJsonData", { "json" }, nullptr));
+  self->context_->AddConverter(new RawAssetConverter<rcAudioClip>("Sound", "rcAudioClip", { "wav" }, nullptr));
 
   // Texture
-  self->converter_manager_->AddConverter(TextureAssetEntity::CreateConverter());
+  self->context_->AddConverter(new TextureAssetConverter("Texture", "rcTexture", {"jpg", "png", "tga", "bmp"}, 1, 1, texture_viewer));
 
   // Shader
-  self->converter_manager_->AddConverter(ShaderAssetEntity::CreateConverter());
+  self->context_->AddConverter(new ShaderAssetConverter("Shader", "rcShader", {"shader"}, 1, 1, nullptr));
 
   // Mesh
-  self->converter_manager_->AddConverter(self->setting_->default_mesh_asset_converter_factory.Create(self->context_));
+  AssetConverter* mesh_converter = self->context_->AddConverter(new MeshAssetConverter("Mesh", "rcMesh", {"mesh"}, 1, 1, mesh_viewer));
 
   // Material
-  self->converter_manager_->AddConverter(ModelMaterialAssetEntity::CreateConverter());
-  self->converter_manager_->AddConverter(DefaultMaterialAssetConverterFactory::Create(self->context_));
+  AssetConverter* material_converter = self->context_->AddConverter(new MaterialAssetConverter("Material", "rcMaterial", {"mat"}, 1, 1, nullptr));
 
   // Model
-  self->converter_manager_->AddConverter(StaticModelAssetEntity::CreateConverter());
-  self->converter_manager_->AddConverter(CharacterModelAssetEntity::CreateConverter());
+  self->context_->AddConverter(new StaticModelAssetConverter("StaticModel", "rcStaticModel", {"fbx", "x", "blend"}, 1, 1, static_model_viewer));
+  self->context_->AddConverter(new CharacterModelAssetConverter("CharacterModel", "rcCharacterModel", {"dae"}, 1, 1, character_model_viewer));
 
-  // (4)
-  // ÉfÉtÉHÉãÉgUniqueIdÇÃìoò^
+  // (5)
+  // ÉfÉtÉHÉãÉgÉAÉZÉbÉgÇÃìoò^
+  self->setting_->default_mesh_asset_converter_factory.Create(mesh_converter, self->context_);
+  DefaultMaterialAssetEntityFactory::Create(material_converter, self->context_);
+
   using namespace DefaultUniqueID;
   using namespace DefaultAsset;
   self->context_->RegisterDefaultUniqueID(SHADER_ERRROR, SHADER_PATH_ERROR);
@@ -111,7 +130,6 @@ void AssetConverterDirector::Uninit()
   CerealIO::Json::Export(FileUtil::GetSettingPath().c_str(), self->setting_);
 
   delete self->context_;
-  delete self->converter_manager_;
   delete self->setting_;
   //delete self->unique_id_table_;
 }
@@ -125,9 +143,9 @@ void AssetConverterDirector::Export()
 {
   AssetConverterDirector* self = &Self();
 
-  self->converter_manager_->VisitAll([&](IAssetConverter* converter)
+  self->context_->VisitAllEntity([&](const SharedRef<AssetEntity>& entity)
   {
-    converter->Export(self->context_);
+    entity->Export(self->context_);
   });
 
   CerealIO::Binary::Export(FileUtil::CreateOutputPath(FileUtil::GetArchiveUniqueIdTablePath()).c_str(), self->unique_id_table_);
@@ -136,6 +154,18 @@ void AssetConverterDirector::Export()
 void AssetConverterDirector::CreateProgram()
 {
   AssetConverterDirector* self = &Self();
+
+  std::unordered_map<AssetConverter*, std::vector<SharedRef<AssetEntity>>> entity_map = std::unordered_map<AssetConverter*, std::vector<SharedRef<AssetEntity>>>();
+  self->context_->VisitAllEntity([&](const SharedRef<AssetEntity>& entity)
+  {
+    AssetConverter* converter = entity->GetConverter(self->context_);
+    const auto& itr = entity_map.find(converter);
+    if (itr == entity_map.end())
+    {
+      entity_map[converter] = std::vector<SharedRef<AssetEntity>>();
+    }
+    entity_map[converter].emplace_back(entity);
+  });
 
   //======================================
   //Asset.h
@@ -147,10 +177,10 @@ void AssetConverterDirector::CreateProgram()
   header.append("{\n");
   header.append("\n");
 
-  self->converter_manager_->VisitAll([&](const IAssetConverter* converter)
+  for (const auto& pair : entity_map)
   {
-    converter->CreateHeaderProgram(&header);
-  });
+    pair.first->CreateHeaderProgram(pair.second, &header);
+  }
 
   header.append("} // namespace Asset\n");
 
@@ -178,10 +208,10 @@ void AssetConverterDirector::CreateProgram()
   cpp.append("{\n");
   cpp.append("\n");
 
-  self->converter_manager_->VisitAll([&](const IAssetConverter* converter)
+  for (const auto& pair : entity_map)
   {
-    converter->CreateCppProgram(&cpp);
-  });
+    pair.first->CreateCppProgram(pair.second, &cpp);
+  }
 
   cpp.append("} // namespace Asset\n");
 

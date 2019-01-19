@@ -1,14 +1,13 @@
 #include "FileView.h"
-#include <Director.h>
+#include <Converter/AssetConverterContext.h>
 
 // =================================================================
 // Methdos
 // =================================================================
-void FileView::Init()
+void FileView::Init(AssetConverterContext* context)
 {
   FileView* self = &Self();
   self->root_ = AssetEntityFileNode::Create();
-  AssetConverterContext* context = AssetConverterDirector::GetContext();
   context->VisitAllEntity([&](const SharedRef<AssetEntity>& entity)
   {
     self->root_->AddAssetEntity(entity);

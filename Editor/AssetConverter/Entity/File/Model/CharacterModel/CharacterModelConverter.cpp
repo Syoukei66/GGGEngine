@@ -6,7 +6,7 @@
 // =================================================================
 // Methods from AssetConverter
 // =================================================================
-void ImportMesh(const AssetMetaData* model_asset_info, const aiScene* scene, const aiMesh* mesh, AssetConverterContext* context, CharacterMeshData* dest)
+void ImportMesh(CharacterModelAssetConverterSetting* setting, const AssetMetaData* model_asset_info, const aiScene* scene, const aiMesh* mesh, AssetConverterContext* context, CharacterMeshData* dest)
 {
   SharedRef<rcDynamicMesh> ret = rcDynamicMesh::Create();
 
@@ -19,7 +19,7 @@ void ImportMesh(const AssetMetaData* model_asset_info, const aiScene* scene, con
   {
     // Vertex
     const aiVector3D& vec = mesh->mVertices[v];
-    ret->SetVertex(v, TVec3f(vec.x, vec.y, vec.z));
+    ret->SetVertex(v, TVec3f(vec.x * setting->scale, vec.y * setting->scale, vec.z * setting->scale));
     // Normal
     const aiVector3D& normal = mesh->mNormals[v];
     ret->SetNormal(v, TVec3f(normal.x, normal.y, normal.z));
@@ -80,8 +80,7 @@ void ImportNode(const aiNode* node, CharacterNodeData* dest)
   }
 }
 
-
-IAssetDataContainer* CharacterModelAssetConverter::ImportProcess(AssetMetaData* meta, AssetConverterContext* context) const
+IAssetDataContainer* CharacterModelAssetConverter::ImportProcess(const SharedRef<AssetEntity>& entity, AssetConverterContext* context) const
 {
   using namespace Assimp;
   // 一部のファイルでメモリリークが発生
@@ -114,6 +113,8 @@ IAssetDataContainer* CharacterModelAssetConverter::ImportProcess(AssetMetaData* 
 
   aiSetImportPropertyInteger(props, AI_CONFIG_PP_RVC_FLAGS, aiComponent_LIGHTS | aiComponent_CAMERAS | aiComponent_COLORS);
 
+  AssetMetaData* meta = entity->GetMetaData();
+
   const aiScene* scene = aiImportFileExWithProperties(
     meta->GetInputPath().c_str(),
     ppsteps | /* configurable pp steps */
@@ -136,6 +137,8 @@ IAssetDataContainer* CharacterModelAssetConverter::ImportProcess(AssetMetaData* 
     return nullptr;
   }
 
+  CharacterModelAssetConverterSetting* setting = static_cast<CharacterModelAssetConverterSetting*>(meta->GetConverterSetting().get());
+
   CharacterModelData* data = new CharacterModelData();
 
   std::vector<SharedRef<AssetEntity>> sub_assets = std::vector<SharedRef<AssetEntity>>();
@@ -145,7 +148,7 @@ IAssetDataContainer* CharacterModelAssetConverter::ImportProcess(AssetMetaData* 
   for (T_UINT32 i = 0; i < scene->mNumMeshes; ++i)
   {
     aiMesh* mesh = scene->mMeshes[i];
-    ImportMesh(meta, scene, mesh, context, &data->mesh_datas_[i]);
+    ImportMesh(setting, meta, scene, mesh, context, &data->mesh_datas_[i]);
     data->mesh_material_indices_.emplace_back(mesh->mMaterialIndex);
   }
 
@@ -154,7 +157,7 @@ IAssetDataContainer* CharacterModelAssetConverter::ImportProcess(AssetMetaData* 
   for (T_UINT32 i = 0; i < scene->mNumMaterials; ++i)
   {
     aiMaterial* mat = scene->mMaterials[i];
-    const SharedRef<AssetEntity>& material_asset_entity = context->AddEntity(ImportMaterial(meta, mat, this, context));
+    const SharedRef<AssetEntity>& material_asset_entity = context->AddEntity(ImportMaterial(setting->override_material, meta, mat, this, context));
     sub_assets.push_back(material_asset_entity);
   }
 
@@ -177,5 +180,5 @@ IAssetDataContainer* CharacterModelAssetConverter::ImportProcess(AssetMetaData* 
 
   aiReleaseImport(scene);
 
-  return new AssetDataContainer<CharacterModelData>(data, this);
+  return new AssetDataContainer<CharacterModelData>(data);
 }

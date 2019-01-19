@@ -37,8 +37,3 @@ void TextureViewerBehavior::OnUnload()
   this->mesh_renderer_->SetMesh(nullptr);
   this->mesh_renderer_->SetMaterial(nullptr);
 }
-
-bool TextureViewerBehavior::IsTarget(T_UINT32 id)
-{
-  return id == AssetEntity::EntityID::ID_TEXTURE;
-}

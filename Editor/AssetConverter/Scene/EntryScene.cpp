@@ -11,9 +11,10 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL(EntryScene)
+GG_INIT_FUNC_IMPL_1(EntryScene, AssetConverterContext* context)
 {
   this->viewer_scene_ = AssetViewerScene::Create();
+  this->context_ = context;
   return Scene::Init();
 }
 
@@ -32,7 +33,7 @@ void EntryScene::OnUnload()
 
 void EntryScene::OnShow()
 {
-  FileView::Init();
+  FileView::Init(this->context_);
 }
 
 void EntryScene::OnHide()
@@ -77,5 +78,5 @@ void EntryScene::Update()
 // =================================================================
 void EntryScene::ShowViewer(const SharedRef<AssetEntity>& entity)
 {
-  this->viewer_scene_->Run(entity);
+  this->viewer_scene_->Run(entity, this->context_);
 }

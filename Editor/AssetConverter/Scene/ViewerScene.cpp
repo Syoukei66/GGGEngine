@@ -52,7 +52,7 @@ void ViewerScene::OnHide()
 
 void ViewerScene::Update()
 {
-  this->current_behavior_->Update();
+  this->current_behavior_->Update(this->current_context_);
 
   using namespace HalEngine;
   Transform3D* transform = this->camera_3d_->GetTransform();
@@ -143,8 +143,9 @@ void ViewerScene::Update()
   ImGui::End();
 }
 
-void ViewerScene::Run(const SharedRef<IViewerBehavior>& behavior)
+void ViewerScene::Run(const SharedRef<IViewerBehavior>& behavior, AssetConverterContext* context)
 {
+  this->current_context_ = context;
   this->current_behavior_ = behavior;
   Director::PushScene(SharedRef<ViewerScene>(this), false);
 }

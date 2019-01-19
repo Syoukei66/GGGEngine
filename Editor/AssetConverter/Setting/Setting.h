@@ -6,7 +6,7 @@
 #include <Cereal/types/string.hpp>
 #include <Cereal/types/common.hpp>
 #include <Cereal/access.hpp>
-#include <Entity/Default/Mesh/DefaultMeshAssetConverterFactory.h>
+#include <Entity/Default/Mesh/DefaultMeshAssetEntityFactory.h>
 #include <Entity/AssetMetaData.h>
 
 struct Setting
@@ -21,7 +21,7 @@ struct Setting
     ar(cereal::make_nvp("DefaultMeshAssetConverter", this->default_mesh_asset_converter_factory));
   }
 
-  DefaultMeshAssetConverterFactory default_mesh_asset_converter_factory;
+  DefaultMeshAssetEntityFactory default_mesh_asset_converter_factory;
 
 };
 CEREAL_CLASS_VERSION(Setting, 1);

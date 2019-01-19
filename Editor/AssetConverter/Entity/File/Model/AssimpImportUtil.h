@@ -83,13 +83,14 @@ static SharedRef<AssetEntity> ImportShader(const aiMaterial* material, AssetConv
 
 /*!
  * マテリアルをインポートする
+ * @param material_override 同名のマテリアルが存在する時、上書きをするかどうか
  * @param source_meta_data マテリアルデータが含まれるモデルAssetのMetaData
  * @param material Material情報
  * @param converter マテリアルデータが含まれるモデルのConverter
  * @param context 
  * @return マテリアルのAssetEntity
  */
-static SharedRef<AssetEntity> ImportMaterial(AssetMetaData* source_meta_data, const aiMaterial* material, const AssetConverter* converter, AssetConverterContext* context)
+static SharedRef<AssetEntity> ImportMaterial(bool material_override, AssetMetaData* source_meta_data, const aiMaterial* material, const AssetConverter* converter, AssetConverterContext* context)
 {
   aiString name;
   if (AI_SUCCESS != aiGetMaterialString(material, AI_MATKEY_NAME, &name))
@@ -141,7 +142,7 @@ static SharedRef<AssetEntity> ImportMaterial(AssetMetaData* source_meta_data, co
   }
 
   // AssetEntityに中間データやサブアセットを設定する
-  entity->SetData(new AssetDataContainer<MaterialData>(data, converter));
+  entity->SetData(new AssetDataContainer<MaterialData>(data));
   entity->GetMetaData()->GetConverterSetting()->ClearSubAssets();
   entity->GetMetaData()->GetConverterSetting()->AddSubAsset(tex_asset_entity->GetMetaData()->GetUniqueID());
   entity->GetMetaData()->GetConverterSetting()->AddSubAsset(shader_asset_entity->GetMetaData()->GetUniqueID());

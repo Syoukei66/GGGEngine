@@ -19,7 +19,7 @@ public:
  * @brief AssetEntityが管理する変換後Assetのキャッシュデータの容器
  * 型のチェックやデストラクタの起動などを行えるようになっている
  */
-template <typename AssetData_>
+template <class AssetData_>
 class AssetDataContainer : public IAssetDataContainer
 {
   // =================================================================
@@ -29,11 +29,9 @@ public:
   /*!
    * @brief コンストラクタ
    * @param data データ
-   * @param converter データを作成したConverter
    */
-  AssetDataContainer(AssetData_* data, const AssetConverter* converter)
+  AssetDataContainer(AssetData_* data)
     : data_(data)
-    , converter_(converter)
   {
   }
 
@@ -51,16 +49,10 @@ public:
     return this->data_;
   }
 
-  const AssetConverter* GetConverter()
-  {
-    return this->converter_;
-  }
-
   // =================================================================
   // Data Members
   // =================================================================
 private:
   AssetData_* data_;
-  const AssetConverter* converter_;
 
 };

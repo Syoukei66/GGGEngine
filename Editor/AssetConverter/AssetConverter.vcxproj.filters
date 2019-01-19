@@ -165,9 +165,6 @@
     <ClInclude Include="Converter\AssetConverterContext.h">
       <Filter>ヘッダー ファイル\Asset</Filter>
     </ClInclude>
-    <ClInclude Include="Converter\AssetConverterManager.h">
-      <Filter>ヘッダー ファイル\Asset</Filter>
-    </ClInclude>
     <ClInclude Include="ProgramGenerator\AssetProgramGenerator.h">
       <Filter>ヘッダー ファイル\ProgramGenerator</Filter>
     </ClInclude>
@@ -203,9 +200,6 @@
     </ClInclude>
     <ClInclude Include="GUI\EntityView\AssetEntityView.h">
       <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\Default\Material\DefaultMaterialAssetConverterFactory.h">
-      <Filter>ヘッダー ファイル\Asset\_Default\Material</Filter>
     </ClInclude>
     <ClInclude Include="Scene\AssetViewer\AssetViewerBehavior.h">
       <Filter>ヘッダー ファイル</Filter>
@@ -273,16 +267,43 @@
     <ClInclude Include="Entity\Default\DefaultAssetConverter.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\Default\Mesh\DefaultMeshConverter.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Converter\AssetConverterFactory.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Entity\AssetDataContainer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\Default\Mesh\DefaultCubeMeshConverter.h">
+    <ClInclude Include="Entity\File\Texture\TextureAssetConverterSetting.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Shader\ShaderAssetConverterSetting.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Raw\RawAssetConverterSetting.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\StaticModel\StaticModelConverterSetting.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\CharacterModel\CharacterModelConverterSetting.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Default\DefaultAssetConverterSetting.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Default\Material\DefaultMaterialAssetEntityFactory.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Material\MaterialAssetConverter.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Material\MaterialAssetConverterSetting.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Default\Mesh\DefaultMeshAssetEntityFactory.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Mesh\MeshAssetConverter.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Mesh\MeshAssetConverterSetting.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -320,9 +341,6 @@
     <ClCompile Include="Entity\AssetMetaData.cpp">
       <Filter>ソース ファイル\Asset</Filter>
     </ClCompile>
-    <ClCompile Include="Converter\AssetConverterManager.cpp">
-      <Filter>ソース ファイル\Asset</Filter>
-    </ClCompile>
     <ClCompile Include="ProgramGenerator\AssetProgramGenerator_definition.cpp">
       <Filter>ソース ファイル\ProgramGenerator</Filter>
     </ClCompile>
@@ -357,9 +375,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="GUI\EntityView\AssetEntityView.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity\Default\Material\DefaultMaterialAssetConverterFactory.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Scene\AssetViewer\AssetViewerScene.cpp">
@@ -416,10 +431,40 @@
     <ClCompile Include="Entity\File\Model\CharacterModel\CharacterModelConverter.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Entity\Default\Mesh\DefaultMeshConverter.cpp">
+    <ClCompile Include="ProgramGenerator\AssetProgramGenerator.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="ProgramGenerator\AssetProgramGenerator.cpp">
+    <ClCompile Include="Entity\File\Texture\TextureAssetConverterSetting.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Shader\ShaderAssetConverterSetting.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Raw\RawAssetConverterSetting.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Model\StaticModel\StaticModelConverterSetting.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Model\CharacterModel\CharacterModelConverterSetting.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Default\Material\DefaultMaterialAssetEntityFactory.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Material\MaterialAssetConverterSetting.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Material\MaterialAssetConverter.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Default\Mesh\DefaultMeshAssetEntityFactory.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Mesh\MeshAssetConverterSetting.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Mesh\MeshAssetConverter.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

@@ -3,6 +3,8 @@
 #include <Converter/AssetConverter.h>
 #include <Util/Logger.h>
 
+#include "DefaultAssetConverterSetting.h"
+
 template <class Asset_, class AssetData_>
 class DefaultAssetConverter : public AssetConverter
 {
@@ -31,11 +33,21 @@ public:
       );
   }
 
+  virtual IAssetDataContainer* ImportProcess(const SharedRef<AssetEntity>& entity, AssetConverterContext* context) const override
+  {
+    return entity->GetDataContainer();
+  }
+
   virtual void ExportProcess(const SharedRef<AssetEntity>& entity, const AssetConverterContext* context) const
   {
     AssetMetaData* meta_data = entity->GetMetaData();
     CerealIO::Binary::Export<AssetData_>(meta_data->GetOutputPath().c_str(), entity->GetData<AssetData_>());
     Logger::ConvertAssetLog(meta_data);
+  }
+  
+  virtual std::unique_ptr<ConverterSetting> CreateSetting() const
+  {
+    return std::unique_ptr<ConverterSetting>(new DefaultAssetConverterSetting(this->GetId()));
   }
 
 };
