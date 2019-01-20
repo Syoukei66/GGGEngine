@@ -92,13 +92,6 @@ SharedRef<AssetEntity> AssetConverterContext::AddEntity(const SharedRef<AssetEnt
   return entity;
 }
 
-SharedRef<AssetEntity> AssetConverterContext::LoadEntity(const SharedRef<AssetEntity>& entity)
-{
-  const SharedRef<AssetEntity>& ret = this->AddEntity(entity);
-  ret->Load(this);
-  return ret;
-}
-
 SharedRef<AssetEntity> AssetConverterContext::GetEntity(const URI& uri)
 {
   return this->asset_entities_[this->GetUniqueID(uri.GetFullPath())];

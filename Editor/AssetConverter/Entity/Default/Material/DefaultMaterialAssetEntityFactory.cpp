@@ -13,18 +13,18 @@ void DefaultMaterialAssetEntityFactory::Create(AssetConverter* converter, AssetC
   lambert->shader_unique_id_ = SHADER_GOURAUD;
   AssetMetaData* lambert_meta = AssetMetaData::Create(MATERIAL_PATH_LAMBERT, converter, context);
   lambert_meta->GetConverterSetting()->AddSubAsset(lambert->shader_unique_id_);
-  context->LoadEntity(AssetEntity::Create(lambert_meta, lambert));
+  context->AddEntity(AssetEntity::Create(lambert_meta, lambert));
 
   MaterialData* unlit = new MaterialData();
   unlit->shader_unique_id_ = SHADER_FLAT;
   AssetMetaData* unlit_meta = AssetMetaData::Create(MATERIAL_PATH_UNLIT, converter, context);
   unlit_meta->GetConverterSetting()->AddSubAsset(unlit->shader_unique_id_);
-  context->LoadEntity(AssetEntity::Create(unlit_meta, unlit));
+  context->AddEntity(AssetEntity::Create(unlit_meta, unlit));
     
   MaterialData* white = new MaterialData();
   white->shader_unique_id_ = SHADER_NO_SHADING;
   AssetMetaData* white_meta = AssetMetaData::Create(MATERIAL_PATH_WHITE, converter, context);
   white_meta->GetConverterSetting()->AddSubAsset(white->shader_unique_id_);
-  context->LoadEntity(AssetEntity::Create(white_meta, white));
+  context->AddEntity(AssetEntity::Create(white_meta, white));
 
 }

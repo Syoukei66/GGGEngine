@@ -73,6 +73,11 @@ public:
   {
     return this->default_asset_unique_id_table_.at(default_id);
   }
+  
+  GG_INLINE const std::unordered_map<T_UINT32, T_UINT32>& GetDefaultAssetUniqueIdTable() const
+  {
+    return this->default_asset_unique_id_table_;
+  }
 
   // =================================================================
   // Data Members
