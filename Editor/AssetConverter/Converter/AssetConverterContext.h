@@ -17,7 +17,7 @@ class AssetConverterContext
   // =================================================================
 public:
   AssetConverterContext(UniqueIdTable* unique_id_table);
-  virtual ~AssetConverterContext() = default;
+  virtual ~AssetConverterContext();
 
   // =================================================================
   // Methods

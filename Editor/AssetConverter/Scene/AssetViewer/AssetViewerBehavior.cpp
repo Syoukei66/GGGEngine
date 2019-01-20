@@ -4,8 +4,9 @@
 // =================================================================
 // Methods from IViewerBehavior
 // =================================================================
-void AssetViewerBehavior::Start(Scene* scene)
+void AssetViewerBehavior::Start(Scene* scene, AssetConverterContext* context)
 {
+  this->entity_->Load(context);
   this->OnStart(scene);
   this->OnLoad(this->entity_->GetMetaData()->GetUniqueID());
 }

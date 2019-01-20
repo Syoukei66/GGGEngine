@@ -15,9 +15,7 @@ void DefaultMaterialAssetEntityFactory::Create(AssetConverter* converter, AssetC
   MaterialData* white = new MaterialData();
   white->shader_unique_id_ = SHADER_NO_SHADING;
   
-  //IAssetDataContainer* container = new AssetDataContainer<MaterialData>(lambert);
-  AssetEntity::Create(AssetMetaData::Create(MATERIAL_PATH_LAMBERT, converter, context), lambert);
-  //context->AddEntity(AssetEntity::Create(AssetMetaData::Create(MATERIAL_PATH_LAMBERT, converter, context), lambert));
-  //context->AddEntity(AssetEntity::Create(AssetMetaData::Create(MATERIAL_PATH_UNLIT, converter, context), unlit));
-  //context->AddEntity(AssetEntity::Create(AssetMetaData::Create(MATERIAL_PATH_WHITE, converter, context), white));
+  context->AddEntity(AssetEntity::Create(AssetMetaData::Create(MATERIAL_PATH_LAMBERT, converter, context), lambert));
+  context->AddEntity(AssetEntity::Create(AssetMetaData::Create(MATERIAL_PATH_UNLIT, converter, context), unlit));
+  context->AddEntity(AssetEntity::Create(AssetMetaData::Create(MATERIAL_PATH_WHITE, converter, context), white));
 }

@@ -42,7 +42,7 @@ void ViewerScene::OnUnload()
 
 void ViewerScene::OnShow()
 {
-  this->current_behavior_->Start(this);
+  this->current_behavior_->Start(this, this->current_context_);
 }
 
 void ViewerScene::OnHide()

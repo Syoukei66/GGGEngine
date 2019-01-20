@@ -9,6 +9,14 @@ AssetConverterContext::AssetConverterContext(UniqueIdTable* unique_id_table)
 {
 }
 
+AssetConverterContext::~AssetConverterContext()
+{
+  for (const auto& pair : this->converter_map_)
+  {
+    delete pair.second;
+  }
+}
+
 void AssetConverterContext::Fetch()
 {
   // (1)

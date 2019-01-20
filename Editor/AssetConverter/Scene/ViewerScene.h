@@ -14,7 +14,7 @@ class IViewerBehavior : public GGObject
   // Methods from Scene
   // =================================================================
 public:
-  virtual void Start(Scene* scene) = 0;
+  virtual void Start(Scene* scene, AssetConverterContext* context) = 0;
   virtual void End() = 0;
   virtual void Update(AssetConverterContext* context) = 0;
 };
