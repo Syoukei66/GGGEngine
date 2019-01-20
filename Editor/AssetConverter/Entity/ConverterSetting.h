@@ -23,6 +23,8 @@ public:
     , is_dirty_(true)
   {}
 
+  virtual ~ConverterSetting() = default;
+
   // =================================================================
   // Methods
   // =================================================================
@@ -99,3 +101,5 @@ private:
 };
 
 CEREAL_CLASS_VERSION(ConverterSetting, 0);
+
+

@@ -51,7 +51,22 @@ void AssetConverterContext::Fetch()
     }
     // AssetEntity、MetaDataを作成
     const T_UINT32 uid = this->PublishUniqueID(uri.GetFullPath());
-    this->asset_entities_[uid] = AssetEntity::Create(AssetMetaData::Create(uri, this));
+    AssetMetaData* meta_data = AssetMetaData::Create(uri, this);
+
+    // ConverterSettingが無ければデフォルトのConverterSettingを設定する
+    if (!meta_data->GetConverterSetting())
+    {
+      for (const auto& pair : this->converter_map_)
+      {
+        if (pair.second->IsTarget(uri))
+        {
+          meta_data->SetConverterSetting(pair.second->CreateSetting());
+          break;
+        }
+      }
+    }
+
+    this->asset_entities_[uid] = AssetEntity::Create(meta_data);
   }
 
   // UniqueIdTableを保存する
@@ -75,6 +90,13 @@ SharedRef<AssetEntity> AssetConverterContext::AddEntity(const SharedRef<AssetEnt
   }
   this->asset_entities_[entity->GetMetaData()->GetUniqueID()] = entity;
   return entity;
+}
+
+SharedRef<AssetEntity> AssetConverterContext::LoadEntity(const SharedRef<AssetEntity>& entity)
+{
+  const SharedRef<AssetEntity>& ret = this->AddEntity(entity);
+  ret->Load(this);
+  return ret;
 }
 
 SharedRef<AssetEntity> AssetConverterContext::GetEntity(const URI& uri)

@@ -264,9 +264,6 @@
     <ClInclude Include="Entity\File\Model\CharacterModel\CharacterModelConverter.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\Default\DefaultAssetConverter.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Entity\AssetDataContainer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -285,9 +282,6 @@
     <ClInclude Include="Entity\File\Model\CharacterModel\CharacterModelConverterSetting.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\Default\DefaultAssetConverterSetting.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Entity\Default\Material\DefaultMaterialAssetEntityFactory.h">
       <Filter>ヘッダー ファイル\Asset\_Default\Material</Filter>
     </ClInclude>
@@ -304,6 +298,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Entity\File\Mesh\MeshAssetConverterSetting.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\ConverterSettingPolymorphicRelations.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

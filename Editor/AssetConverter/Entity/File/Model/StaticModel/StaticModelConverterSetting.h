@@ -14,6 +14,7 @@ public:
   template<class Archive>
   void serialize(Archive& ar, std::uint32_t const version)
   {
+    ar(cereal::base_class<ConverterSetting>(this));
     ar(CEREAL_NVP(scale));
     ar(CEREAL_NVP(override_material));
   }
@@ -49,5 +50,3 @@ public:
 };
 
 CEREAL_CLASS_VERSION(StaticModelAssetConverterSetting, 0);
-CEREAL_REGISTER_TYPE(StaticModelAssetConverterSetting);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(ConverterSetting, StaticModelAssetConverterSetting);

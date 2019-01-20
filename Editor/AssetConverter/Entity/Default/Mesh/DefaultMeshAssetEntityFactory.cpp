@@ -2,7 +2,6 @@
 
 #include <Converter/AssetConverterContext.h>
 #include <Entity/Default/DefaultAsset.h>
-#include <Entity/Default/DefaultAssetConverter.h>
 #include <Converter/AssetConverter.h>
 
 // =================================================================

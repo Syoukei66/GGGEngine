@@ -14,6 +14,7 @@ public:
   template<class Archive>
   void serialize(Archive& ar, std::uint32_t const version)
   {
+    ar(cereal::base_class<ConverterSetting>(this));
   }
 
   // =================================================================
@@ -38,5 +39,3 @@ protected:
 };
 
 CEREAL_CLASS_VERSION(MeshAssetConverterSetting, 0);
-CEREAL_REGISTER_TYPE(MeshAssetConverterSetting);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(ConverterSetting, MeshAssetConverterSetting);

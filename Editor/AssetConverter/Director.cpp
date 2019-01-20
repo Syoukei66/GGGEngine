@@ -89,11 +89,10 @@ void AssetConverterDirector::Init()
   self->context_->AddConverter(new StaticModelAssetConverter("StaticModel", "rcStaticModel", {"fbx", "x", "blend"}, 1, 1, static_model_viewer));
   self->context_->AddConverter(new CharacterModelAssetConverter("CharacterModel", "rcCharacterModel", {"dae"}, 1, 1, character_model_viewer));
 
+  self->Fetch();
+
   // (5)
   // デフォルトアセットの登録
-  self->setting_->default_mesh_asset_converter_factory.Create(mesh_converter, self->context_);
-  DefaultMaterialAssetEntityFactory::Create(material_converter, self->context_);
-
   using namespace DefaultUniqueID;
   using namespace DefaultAsset;
   self->context_->RegisterDefaultUniqueID(SHADER_ERRROR, SHADER_PATH_ERROR);
@@ -120,6 +119,9 @@ void AssetConverterDirector::Init()
   self->context_->RegisterDefaultUniqueID(MATERIAL_UNLIT, MATERIAL_PATH_UNLIT);
 
   self->context_->RegisterDefaultUniqueID(TEXTURE_WHITE, TEXTURE_PATH_WHITE);
+
+  self->setting_->default_mesh_asset_converter_factory.Create(mesh_converter, self->context_);
+  DefaultMaterialAssetEntityFactory::Create(material_converter, self->context_);
 }
 
 void AssetConverterDirector::Uninit()
@@ -136,7 +138,9 @@ void AssetConverterDirector::Uninit()
 
 void AssetConverterDirector::Fetch()
 {
+  AssetConverterDirector* self = &Self();
 
+  self->context_->Fetch();
 }
 
 void AssetConverterDirector::Export()

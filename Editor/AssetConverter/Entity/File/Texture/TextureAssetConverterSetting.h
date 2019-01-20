@@ -34,6 +34,7 @@ public:
   template<class Archive>
   void serialize(Archive& ar, std::uint32_t const version)
   {
+    ar(cereal::base_class<ConverterSetting>(this));
     ar(CEREAL_NVP(max_size));
     ar(CEREAL_NVP(compression));
     ar(CEREAL_NVP(color_model));
@@ -74,5 +75,3 @@ public:
 };
 
 CEREAL_CLASS_VERSION(TextureAssetConverterSetting, 0);
-CEREAL_REGISTER_TYPE(TextureAssetConverterSetting);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(ConverterSetting, TextureAssetConverterSetting);

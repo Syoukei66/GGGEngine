@@ -5,6 +5,8 @@
 #include <Converter/AssetConverter.h>
 #include <Converter/AssetConverterContext.h>
 
+#include "ConverterSettingPolymorphicRelations.h"
+
 // =================================================================
 // Factory Method
 // =================================================================

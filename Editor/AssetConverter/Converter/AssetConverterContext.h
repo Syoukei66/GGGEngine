@@ -42,6 +42,13 @@ public:
   SharedRef<AssetEntity> AddEntity(const SharedRef<AssetEntity>& entity);
 
   /*!
+   * @brief AssetEntityを追加し、ロード処理を行う
+   * @param entity AssetEntity
+   * @return 追加したAssetEntity
+   */
+  SharedRef<AssetEntity> LoadEntity(const SharedRef<AssetEntity>& entity);
+
+  /*!
    * @brief URIからAssetEntityを取得する
    * @param uri URI
    * @return 取得したAssetEntity。登録されていない場合はnullptrが帰ってくる。
