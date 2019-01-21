@@ -27,10 +27,6 @@ public:
     kDataNum
   };
 
-  static const T_INT32 SELECTED_SIZE_INIT = 9;
-  static const T_INT32 COMPRESSION_INIT = static_cast<T_FIXED_UINT8>(CompressionQuality::kNormal);
-  static const T_INT32 COLOR_MODEL_INIT = static_cast<T_FIXED_UINT8>(ColorModel::kRGBA);
-
   // =================================================================
   // Serialize Method
   // =================================================================
@@ -43,14 +39,19 @@ public:
     ar(CEREAL_NVP(compression));
     ar(CEREAL_NVP(color_model));
     ar(CEREAL_NVP(view_data));
-    this->selected_size = SELECTED_SIZE_INIT;
-    this->selected_compression = COMPRESSION_INIT;
-    this->selected_color_model = COLOR_MODEL_INIT;
+    ar(CEREAL_NVP(convert_normal_map));
+    ar(CEREAL_NVP(normal_scaling_factor));
+    this->selected_size = (T_UINT16)std::log2(max_size) - 2;
+    this->selected_compression = compression;
+    this->selected_color_model = color_model;
     this->selected_filter = this->view_data.filter_;
     this->selected_address = this->view_data.address_u_;
+    this->selected_fade_enabled = this->view_data.fade_enabled_;
     this->selected_aniso_level = this->view_data.aniso_level_;
     this->selected_fade_start = this->view_data.fade_start_;
     this->selected_fade_end = this->view_data.fade_end_;
+    this->selected_convert_normal_map = this->convert_normal_map;
+    this->selected_normal_scaling_factor = this->normal_scaling_factor;
   }
 
   // =================================================================
@@ -65,18 +66,23 @@ public:
   TextureAssetConverterSetting(const std::string& converter_id)
     : ConverterSetting(converter_id)
     , max_size(2048)
-    , compression(COMPRESSION_INIT)
-    , color_model(COLOR_MODEL_INIT)
+    , compression(static_cast<T_FIXED_UINT8>(CompressionQuality::kNormal))
+    , color_model(static_cast<T_FIXED_UINT8>(ColorModel::kRGBA))
     , view_data()
+    , convert_normal_map()
+    , normal_scaling_factor(1.0f)    
   {
-    this->selected_size = SELECTED_SIZE_INIT;
-    this->selected_compression = COMPRESSION_INIT;
-    this->selected_color_model = COLOR_MODEL_INIT;
+    this->selected_size = (T_UINT16)std::log2(max_size) - 2;
+    this->selected_compression = compression;
+    this->selected_color_model = color_model;
     this->selected_filter = this->view_data.filter_;
     this->selected_address = this->view_data.address_u_;
+    this->selected_fade_enabled = this->view_data.fade_enabled_;
     this->selected_aniso_level = this->view_data.aniso_level_;
     this->selected_fade_start = this->view_data.fade_start_;
     this->selected_fade_end = this->view_data.fade_end_;
+    this->selected_convert_normal_map = this->convert_normal_map;
+    this->selected_normal_scaling_factor = this->normal_scaling_factor;
   }
 
   // =================================================================
@@ -93,6 +99,8 @@ public:
   T_FIXED_UINT8 compression; // Compression
   T_FIXED_UINT8 color_model; // ColorModel
   TextureViewData view_data;
+  bool convert_normal_map;
+  T_FLOAT normal_scaling_factor;
 
   // Imguiópïœêî
   T_INT32 selected_size;
@@ -101,8 +109,11 @@ public:
   T_INT32 selected_filter;
   T_INT32 selected_address;
   T_INT32 selected_aniso_level;
+  bool selected_fade_enabled;
   T_INT32 selected_fade_start;
   T_INT32 selected_fade_end;
+  bool selected_convert_normal_map;
+  T_FLOAT selected_normal_scaling_factor;
 };
 
 CEREAL_CLASS_VERSION(TextureAssetConverterSetting, 0);

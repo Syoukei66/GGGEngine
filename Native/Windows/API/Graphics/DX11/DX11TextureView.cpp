@@ -47,16 +47,16 @@ DX11TextureView::DX11TextureView(const TextureViewData& data, const SharedRef<rc
   sampDesc.AddressV = TEXTURE_ADDRESS_MODES[data.address_v_];
   sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
   sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
-  if (data.fade_start_ == 0.0f && data.fade_end_ == 0.0f)
+  //if (data.fade_start_ == 0.0f && data.fade_end_ == 0.0f)
   {
     sampDesc.MinLOD = 0.0f;
     sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
   }
-  else
-  {
-    sampDesc.MinLOD = data.fade_start_;
-    sampDesc.MaxLOD = data.fade_end_;
-  }
+  //else
+  //{
+  //  sampDesc.MinLOD = data.fade_start_;
+  //  sampDesc.MaxLOD = data.fade_end_;
+  //}
 
   hr = device->CreateSamplerState(&sampDesc, &this->sampler_state_);
   GG_ASSERT(SUCCEEDED(hr), "テクスチャサンプラーの作成に失敗しました");

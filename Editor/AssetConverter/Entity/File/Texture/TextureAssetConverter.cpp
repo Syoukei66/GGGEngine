@@ -91,15 +91,31 @@ IAssetDataContainer* TextureAssetConverter::ImportProcess(const SharedRef<AssetE
   DirectX::ScratchImage resized_image;
   if (metadata.width != width || metadata.height != height)
   {
-    DirectX::Resize(
+    hr = DirectX::Resize(
       final_image->GetImages(), final_image->GetImageCount(), final_image->GetMetadata(),
       width, height,
       DirectX::TEX_FILTER_DEFAULT,
       resized_image
     );
+    GG_ASSERT(SUCCEEDED(hr), "テクスチャのリサイズに失敗しました");
     final_image = &resized_image;
   }
   
+  // ノーマルマップに変換する
+  DirectX::ScratchImage normal_image;
+  if (setting->convert_normal_map)
+  {
+    hr = DirectX::ComputeNormalMap(
+      final_image->GetImages(), final_image->GetImageCount(), final_image->GetMetadata(),
+      DirectX::CNMAP_CHANNEL_LUMINANCE,
+      setting->normal_scaling_factor * 10.0f, 
+      DXGI_FORMAT_R8G8B8A8_UNORM,
+      normal_image
+    );
+    GG_ASSERT(SUCCEEDED(hr), "テクスチャのノーマルマップ変換に失敗しました");
+    final_image = &normal_image;
+  }
+
   // ミップマップを作成する数
   size_t levels = (size_t)std::log2(std::min(width, height)) + 1;
 
@@ -114,25 +130,85 @@ IAssetDataContainer* TextureAssetConverter::ImportProcess(const SharedRef<AssetE
   DirectX::ScratchImage mipped_image = DirectX::ScratchImage();
   if (levels > 1)
   {
-    DirectX::GenerateMipMaps(
+    hr = DirectX::GenerateMipMaps(
       final_image->GetImages(), final_image->GetImageCount(), final_image->GetMetadata(),
       DirectX::TEX_FILTER_DEFAULT, levels,
       mipped_image
     );
+    GG_ASSERT(SUCCEEDED(hr), "テクスチャのミップマップ作成に失敗しました");
     final_image = &mipped_image;
   }
 
+  // ミップマップのフェードアウト設定
+  // TODO: HDR画像に対応できたらした方がいいかもしれない
+  DirectX::ScratchImage faded_image = DirectX::ScratchImage();
+  if (setting->view_data.fade_enabled_)
+  {
+    std::vector<T_FLOAT> mip_gray_weights = std::vector<T_FLOAT>(levels);
+    T_FLOAT start_mip_level = levels * setting->view_data.fade_start_ * 0.1f;
+    T_FLOAT end_mip_level = levels * setting->view_data.fade_end_ * 0.1f;
+    for (T_UINT32 i = 0; i < levels; ++i)
+    {
+      // start以下のミップレベルは何も行わない
+      if (i <= start_mip_level)
+      {
+        continue;
+      }
+      // end以上のミップレベルはグレーアウトする
+      if (i >= end_mip_level)
+      {
+        mip_gray_weights[i] = 1.0f;
+        continue;
+      }
+      mip_gray_weights[i] = (i - start_mip_level) / (end_mip_level - start_mip_level);
+    }
+
+    // 色の編集が行えるようにフォーマットを固定化する
+    if (DXGI_FORMAT_R8G8B8A8_UNORM != final_image->GetMetadata().format)
+    {
+      hr = DirectX::Convert(
+        final_image->GetImages(), final_image->GetImageCount(), final_image->GetMetadata(),
+        DXGI_FORMAT_R8G8B8A8_UNORM,
+        DX11::TEXTURE_FILTERS[setting->view_data.filter_],
+        DirectX::TEX_THRESHOLD_DEFAULT, // 1bit alphaに変換する際のしきい値
+        faded_image
+      );
+      GG_ASSERT(SUCCEEDED(hr), "テクスチャのフォーマット変換に失敗しました");
+      final_image = &faded_image;
+    }
+
+    size_t bpp = DirectX::BitsPerPixel(DXGI_FORMAT_R8G8B8A8_UNORM) / 8;
+    for (T_UINT32 i = 0; i < levels; ++i)
+    {
+      const T_FLOAT gray_weight = mip_gray_weights[i];
+      const DirectX::Image* image = final_image->GetImage(i, 0, 0);
+      for (T_UINT32 x = 0; x < image->width; ++x)
+      {
+        for (T_UINT32 y = 0; y < image->height; ++y)
+        {
+          T_FIXED_UINT8* pixel = &image->pixels[(image->width * y + x) * bpp];
+          pixel[0] = pixel[0] + (0x80 - pixel[0]) * gray_weight;
+          pixel[1] = pixel[1] + (0x80 - pixel[1]) * gray_weight;
+          pixel[2] = pixel[2] + (0x80 - pixel[2]) * gray_weight;
+          //pixel[3] = pixel[3] + (0x80 - pixel[3]) * gray_weight;
+        }
+      }
+    }
+  }
+
+  // テクスチャのフォーマット変換
   DirectX::ScratchImage converted_image;
-  // 圧縮形式だったら圧縮を行う
+  // 圧縮フォーマットの場合、圧縮処理を行う
   if (IsCompressFormatBC1_5(format))
   {
-    DirectX::Compress(
+    hr = DirectX::Compress(
       final_image->GetImages(), final_image->GetImageCount(), final_image->GetMetadata(),
       format,
       DirectX::TEX_COMPRESS_DEFAULT,
       DirectX::TEX_THRESHOLD_DEFAULT, // 1bit alphaに変換する際のしきい値
       converted_image
     );
+    GG_ASSERT(SUCCEEDED(hr), "テクスチャの圧縮に失敗しました");
     final_image = &converted_image;
 
     // ブロック圧縮特有の処理
@@ -141,7 +217,7 @@ IAssetDataContainer* TextureAssetConverter::ImportProcess(const SharedRef<AssetE
   // GPUアクセラレーションが使用可能な圧縮の場合それを使用する
   else if (IsCompressFormatBC6_7(format))
   {
-    DirectX::Compress(
+    hr = DirectX::Compress(
       WindowsApplication::GetDX11Graphics()->GetDevice(),
       final_image->GetImages(), final_image->GetImageCount(), final_image->GetMetadata(),
       format,
@@ -149,17 +225,20 @@ IAssetDataContainer* TextureAssetConverter::ImportProcess(const SharedRef<AssetE
       DirectX::TEX_THRESHOLD_DEFAULT, // 1bit alphaに変換する際のしきい値
       converted_image
     );
+    GG_ASSERT(SUCCEEDED(hr), "テクスチャの圧縮に失敗しました");
     final_image = &converted_image;
   }
-  else if (format != metadata.format)
+  // フォーマットが異なる場合は変換を行う
+  else if (format != final_image->GetMetadata().format)
   {
-    DirectX::Convert(
+    hr = DirectX::Convert(
       final_image->GetImages(), final_image->GetImageCount(), final_image->GetMetadata(),
       format,
       DX11::TEXTURE_FILTERS[setting->view_data.filter_],
       DirectX::TEX_THRESHOLD_DEFAULT, // 1bit alphaに変換する際のしきい値
       converted_image
     );
+    GG_ASSERT(SUCCEEDED(hr), "テクスチャのフォーマット変換に失敗しました");
     final_image = &converted_image;
   }
 

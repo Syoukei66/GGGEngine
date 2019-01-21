@@ -37,14 +37,24 @@ bool TextureAssetConverterSetting::EditWithImGuiProcess()
   ImGui::Combo(u8"フィルタリング", &this->selected_filter, FILTERS.data(), FILTERS.size());
   ImGui::Combo(u8"Address", &this->selected_address, ADDRESS.data(), ADDRESS.size());
   ImGui::SliderInt(u8"Aniso Level", &this->selected_aniso_level, 1, 16);
-  if (ImGui::SliderInt(u8"Fade Start", &this->selected_fade_start, 1, 12))
+  ImGui::Checkbox(u8"Fade Enabled", &this->selected_fade_enabled);
+  if (this->selected_fade_enabled)
   {
-    this->selected_fade_start = std::min(this->selected_fade_start, this->selected_fade_end);
+    if (ImGui::SliderInt(u8"Fade Start", &this->selected_fade_start, 0, 10))
+    {
+      this->selected_fade_start = std::min(this->selected_fade_start, this->selected_fade_end);
+    }
+    if (ImGui::SliderInt(u8"Fade End", &this->selected_fade_end, 0, 10))
+    {
+      this->selected_fade_end = std::max(this->selected_fade_start, this->selected_fade_end);
+    }
   }
-  if (ImGui::SliderInt(u8"Fade End", &this->selected_fade_end, 1, 12))
+  ImGui::Checkbox(u8"BumpMap To NormalMap", &this->selected_convert_normal_map);
+  if (this->selected_convert_normal_map)
   {
-    this->selected_fade_end = std::max(this->selected_fade_start, this->selected_fade_end);
+    ImGui::DragFloat(u8"Scaling Factor", &this->selected_normal_scaling_factor, 0.1f, 0.0f, 10.0f);
   }
+
   if (ImGui::Button(u8"適用"))
   {
     this->max_size = std::strtol(TEXTURE_MAX_SIZES[this->selected_size], nullptr, 10);
@@ -54,8 +64,11 @@ bool TextureAssetConverterSetting::EditWithImGuiProcess()
     this->view_data.address_u_ = this->selected_address;
     this->view_data.address_v_ = this->selected_address;
     this->view_data.aniso_level_ = this->selected_aniso_level;
+    this->view_data.fade_enabled_ = this->selected_fade_enabled;
     this->view_data.fade_start_ = this->selected_fade_start;
     this->view_data.fade_end_ = this->selected_fade_end;
+    this->convert_normal_map = this->selected_convert_normal_map;
+    this->normal_scaling_factor = this->selected_normal_scaling_factor;
     reload = true;
   }
   return reload;

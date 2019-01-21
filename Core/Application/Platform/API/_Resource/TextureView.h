@@ -18,6 +18,7 @@ struct TextureViewData
     archive(address_v_);
     archive(aniso_level_);
     archive(mip_map_levels_);
+    archive(fade_enabled_);
     archive(fade_start_);
     archive(fade_end_);
   }
@@ -32,6 +33,7 @@ public:
     , address_v_(static_cast<T_FIXED_UINT8>(Shader::TextureAddress::kWrap))
     , aniso_level_(1)
     , mip_map_levels_(1)
+    , fade_enabled_()
     , fade_start_(0)
     , fade_end_(0)
   {}
@@ -46,9 +48,9 @@ public:
   T_FIXED_UINT8 aniso_level_;
   T_FIXED_UINT8 mip_map_levels_;
 
-  // start == end == 0で無効(デフォルト)
-  T_FIXED_UINT8 fade_start_;
-  T_FIXED_UINT8 fade_end_;
+  bool fade_enabled_;
+  T_FIXED_UINT8 fade_start_; // 0-10
+  T_FIXED_UINT8 fade_end_; // 0-10
 };
 
 /*!
