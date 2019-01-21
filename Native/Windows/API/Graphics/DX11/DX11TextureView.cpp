@@ -25,7 +25,7 @@ DX11TextureView::DX11TextureView(const TextureViewData& data, const SharedRef<rc
   D3D11_SHADER_RESOURCE_VIEW_DESC resource_view_desc = D3D11_SHADER_RESOURCE_VIEW_DESC();
   resource_view_desc.Format = dx11_resource->GetFormat();
   resource_view_desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-  resource_view_desc.Texture2D.MipLevels = 1;
+  resource_view_desc.Texture2D.MipLevels = -1;
   resource_view_desc.Texture2D.MostDetailedMip = 0;
 
   HRESULT hr = device->CreateShaderResourceView(dx11_resource->GetResource(), &resource_view_desc, &this->resource_view_);

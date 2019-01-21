@@ -182,6 +182,8 @@
     <ClInclude Include="Entity\AssetDataContainer.h" />
     <ClInclude Include="Entity\AssetEntity.h" />
     <ClInclude Include="Entity\ConverterSettingPolymorphicRelations.h" />
+    <ClInclude Include="Entity\Default\DefaultAssetConverter.h" />
+    <ClInclude Include="Entity\Default\DefaultAssetConverterSetting.h" />
     <ClInclude Include="Entity\Default\Mesh\DefaultMeshAssetEntityFactory.h" />
     <ClInclude Include="Entity\File\FileAssetConverter.h" />
     <ClInclude Include="Entity\File\Material\MaterialAssetConverter.h" />

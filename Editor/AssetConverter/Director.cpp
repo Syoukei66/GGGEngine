@@ -4,6 +4,7 @@
 #include <Entity/Default/DefaultAsset.h>
 
 // Import Converter
+#include <Entity/Default/DefaultAssetConverter.h>
 #include <Entity/File/Raw/RawAssetConverter.h>
 
 #include <Entity/File/Model/StaticModel/StaticModelConverter.h>
@@ -53,6 +54,7 @@ void AssetConverterDirector::Init()
   if (!self->unique_id_table_)
   {
     self->unique_id_table_ = new UniqueIdTable();
+    self->unique_id_table_load_failed_ = true;
   }
 
   // (3)
@@ -65,6 +67,7 @@ void AssetConverterDirector::Init()
 
   // (4)
   // Converterの登録
+  using namespace DefaultUniqueID;
   self->context_ = new AssetConverterContext(self->unique_id_table_);
   AssetManager::Init(self->unique_id_table_);
 
@@ -75,15 +78,19 @@ void AssetConverterDirector::Init()
 
   // Texture
   self->context_->AddConverter(new TextureAssetConverter("Texture", "rcTexture", {"jpg", "png", "tga", "bmp"}, 1, 1, texture_viewer));
+  self->context_->AddDefaultAssetConverter(new TextureAssetConverter("DefaultTexture", "rcTexture", { "jpg", "png", "tga", "bmp" }, 2, 0, texture_viewer));
 
   // Shader
   self->context_->AddConverter(new ShaderAssetConverter("Shader", "rcShader", {"shader"}, 1, 1, nullptr));
+  self->context_->AddDefaultAssetConverter(new ShaderAssetConverter("DefaultShader", "rcShader", { "shader" }, 2, 0, nullptr));
 
   // Mesh
-  AssetConverter* mesh_converter = self->context_->AddConverter(new MeshAssetConverter("Mesh", "rcMesh", {"mesh"}, 1, 1, mesh_viewer));
+  self->context_->AddConverter(new MeshAssetConverter("Mesh", "rcMesh", {"mesh"}, 1, 1, mesh_viewer));
+  AssetConverter* default_mesh_converter = self->context_->AddDefaultAssetConverter(new DefaultAssetConverter<rcMesh, StaticMeshData>("DefaultMesh", "rcMesh", mesh_viewer, {}));
 
   // Material
-  AssetConverter* material_converter = self->context_->AddConverter(new MaterialAssetConverter("Material", "rcMaterial", {"mat"}, 1, 1, nullptr));
+  self->context_->AddConverter(new MaterialAssetConverter("Material", "rcMaterial", {"mat"}, 1, 1, nullptr));
+  AssetConverter* default_material_converter = self->context_->AddDefaultAssetConverter(new DefaultAssetConverter<rcMaterial, MaterialData>("DefaultMaterial", "rcMaterial", nullptr, {TEXTURE_WHITE}));
 
   // Model
   self->context_->AddConverter(new StaticModelAssetConverter("StaticModel", "rcStaticModel", {"fbx", "x", "blend"}, 1, 1, static_model_viewer));
@@ -91,7 +98,6 @@ void AssetConverterDirector::Init()
 
   // (5)
   // デフォルトアセットの登録
-  using namespace DefaultUniqueID;
   using namespace DefaultAsset;
   self->context_->RegisterDefaultUniqueID(SHADER_ERRROR, SHADER_PATH_ERROR);
 
@@ -118,8 +124,8 @@ void AssetConverterDirector::Init()
 
   self->context_->RegisterDefaultUniqueID(TEXTURE_WHITE, TEXTURE_PATH_WHITE);
 
-  self->setting_->default_mesh_asset_converter_factory.Create(mesh_converter, self->context_);
-  DefaultMaterialAssetEntityFactory::Create(material_converter, self->context_);
+  self->setting_->default_mesh_asset_converter_factory.Create(default_mesh_converter, self->context_);
+  DefaultMaterialAssetEntityFactory::Create(default_material_converter, self->context_);
 
   // (6)
   // デフォルトアセットのロード

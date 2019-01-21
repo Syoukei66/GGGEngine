@@ -38,7 +38,7 @@ void FileUtil::PrepareDefaultDirectories()
 
 void FileUtil::PrepareDirectory(const URI& uri)
 {
-  if (uri.GetDirectoryPath().length() == 0)
+  if (uri.GetFullPath().length() == 0)
   {
     return;
   }

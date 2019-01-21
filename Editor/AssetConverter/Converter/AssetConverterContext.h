@@ -100,24 +100,25 @@ public:
   AssetConverter* AddConverter(AssetConverter* converter);
 
   /*!
+   * @brief DefaultAsset—p‚ÌAssetConverter‚ğ’Ç‰Á‚·‚é
+   * @param converter ’Ç‰Á‚·‚éAssetConverter
+   * @return ’Ç‰Á‚µ‚½AssetConverter
+   */
+  AssetConverter* AddDefaultAssetConverter(AssetConverter* converter);
+
+  /*!
    * @brief AssetCovnerterId‚©‚çAssetConverter‚ğæ“¾‚·‚é
    * @param id ID
    * @return w’è‚µ‚½ID‚ğ‚ÂAssetConverter
    */
-  inline AssetConverter* GetConverter(const std::string& id)
-  {
-    return this->converter_map_[id];
-  }
+  AssetConverter* GetConverter(const std::string& id);
 
   /*!
    * @brief AssetConverterId‚©‚çconst AssetConverter‚ğæ“¾‚·‚é
    * @param id ID
    * @return w’è‚µ‚½ID‚ğ‚ÂAssetConverter
    */
-  inline const AssetConverter* GetConverter(const std::string& id) const
-  {
-    return this->converter_map_.at(id);
-  }
+  const AssetConverter* GetConverter(const std::string& id) const;
 
   // =================================================================
   // Data Members
@@ -125,7 +126,9 @@ public:
 protected:
   UniqueIdTable* unique_id_table_;
   std::unordered_map<std::string, AssetConverter*> converter_map_;
+  std::unordered_map<std::string, AssetConverter*> default_asset_converter_map_;
   std::unordered_map<T_UINT32, URI> default_asset_uri_;
+  std::unordered_map<std::string, T_UINT32> default_asset_unique_id_;
   std::unordered_map<T_UINT32, SharedRef<AssetEntity>> asset_entities_;
 
 };

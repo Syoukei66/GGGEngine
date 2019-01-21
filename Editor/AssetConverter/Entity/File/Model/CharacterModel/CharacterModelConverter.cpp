@@ -153,18 +153,12 @@ IAssetDataContainer* CharacterModelAssetConverter::ImportProcess(const SharedRef
   }
 
   // Material
-  std::vector<SharedRef<AssetEntity>> material_entities;
   for (T_UINT32 i = 0; i < scene->mNumMaterials; ++i)
   {
     aiMaterial* mat = scene->mMaterials[i];
     const SharedRef<AssetEntity>& material_asset_entity = context->AddEntity(ImportMaterial(setting->override_material, meta, mat, this, context));
     sub_assets.push_back(material_asset_entity);
-  }
-
-  for (T_UINT32 i = 0; i < scene->mNumMeshes; ++i)
-  {
-    aiMesh* mesh = scene->mMeshes[i];
-    data->material_unique_ids_.emplace_back(material_entities[mesh->mMaterialIndex]->GetMetaData()->GetUniqueID());
+    data->material_unique_ids_.emplace_back(material_asset_entity->GetMetaData()->GetUniqueID());
   }
 
   // Node

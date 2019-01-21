@@ -101,16 +101,16 @@ static SharedRef<AssetEntity> ImportMaterial(bool material_override, AssetMetaDa
   MaterialData* data = new MaterialData();
 
   // マテリアルのURIを作成
-  std::string material_directory_path = source_meta_data->GetURI().GetDirectoryPath() + "Material/";
-  URI material_uri = URI(material_directory_path + name.C_Str(), Extensions::MATERIAL);
+  std::string material_directory_path = source_meta_data->GetURI().GetDirectoryPath() + "/Material";
+  URI material_uri = URI(material_directory_path, name.C_Str(), Extensions::MATERIAL);
   SharedRef<AssetEntity> entity = context->GetEntity(material_uri);
 
-  // 既に同名のマテリアルAssetが存在し、上書き設定もなければここではインポートは行わない。
-  if (entity)
-  {
-    //TODO:現在は上書きをしない設定にしているが、本来はモデルのConverterSettingで操作できるようにする
-    return entity;
-  }
+  //// 既に同名のマテリアルAssetが存在し、上書き設定もなければここではインポートは行わない。
+  //if (entity)
+  //{
+  //  //TODO:現在は上書きをしない設定にしているが、本来はモデルのConverterSettingで操作できるようにする
+  //  return entity;
+  //}
 
   //Colors
   aiColor4D color;
@@ -128,11 +128,17 @@ static SharedRef<AssetEntity> ImportMaterial(bool material_override, AssetMetaDa
   
   //TODO:プロパティのインポート処理
 
-  // AssetEntityが存在していなかった場合、MaterialのAssetファイルを作成し、Assetディレクトリに出力する。
+  // 上書き設定が有効な場合、MaterialのAssetファイルを作成し、Assetディレクトリに出力する。
+  if (material_override)
+  {
+    std::string output_path = FileUtil::CreateInputPath(material_uri);
+    FileUtil::PrepareDirectory(output_path);
+    CerealIO::Json::Export<MaterialData>(output_path.c_str(), data);
+  }
+
+  // AssetEntityが存在していなかった場合AssetEntityを新たに作成する
   if (!entity)
   {
-    FileUtil::PrepareDirectory(material_uri);
-    CerealIO::Json::Export<MaterialData>(material_uri.GetFullPath().c_str(), data);
     AssetMetaData* meta_data = AssetMetaData::Create(
       material_uri,
       source_meta_data->GetUniqueID(),

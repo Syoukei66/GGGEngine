@@ -15,6 +15,10 @@ AssetConverterContext::~AssetConverterContext()
   {
     delete pair.second;
   }
+  for (const auto& pair : this->default_asset_converter_map_)
+  {
+    delete pair.second;
+  }
 }
 
 void AssetConverterContext::Fetch()
@@ -51,22 +55,7 @@ void AssetConverterContext::Fetch()
     }
     // AssetEntity、MetaDataを作成
     const T_UINT32 uid = this->PublishUniqueID(uri.GetFullPath());
-    AssetMetaData* meta_data = AssetMetaData::Create(uri, this);
-
-    // ConverterSettingが無ければデフォルトのConverterSettingを設定する
-    if (!meta_data->GetConverterSetting())
-    {
-      for (const auto& pair : this->converter_map_)
-      {
-        if (pair.second->IsTarget(uri))
-        {
-          meta_data->SetConverterSetting(pair.second->CreateSetting());
-          break;
-        }
-      }
-    }
-
-    this->asset_entities_[uid] = AssetEntity::Create(meta_data);
+    this->AddEntity(AssetEntity::Create(AssetMetaData::Create(uri, this)));
   }
 
   // UniqueIdTableを保存する
@@ -83,11 +72,43 @@ void AssetConverterContext::VisitAllEntity(const std::function<void(const Shared
 
 SharedRef<AssetEntity> AssetConverterContext::AddEntity(const SharedRef<AssetEntity>& entity)
 {
+  AssetMetaData* meta_data = entity->GetMetaData();
+
   if (!entity)
   {
-    Logger::ConvertFaildLog(entity->GetMetaData());
+    Logger::ConvertFaildLog(meta_data);
     return nullptr;
   }
+
+  const URI& uri = meta_data->GetURI();
+  // ConverterSettingが無ければデフォルトのConverterSettingを設定する
+  if (!meta_data->GetConverterSetting())
+  {
+    // デフォルトアセットならデフォルトアセット用のデフォルトのConverterSettingを設定する
+    if (this->default_asset_unique_id_.find(uri.GetFullPath()) != this->default_asset_unique_id_.end())
+    {
+      for (const auto& pair : this->default_asset_converter_map_)
+      {
+        if (pair.second->IsTarget(uri))
+        {
+          meta_data->SetConverterSetting(pair.second->CreateSetting());
+          break;
+        }
+      }
+    }
+    else
+    {
+      for (const auto& pair : this->converter_map_)
+      {
+        if (pair.second->IsTarget(uri))
+        {
+          meta_data->SetConverterSetting(pair.second->CreateSetting());
+          break;
+        }
+      }
+    }
+  }
+
   this->asset_entities_[entity->GetMetaData()->GetUniqueID()] = entity;
   return entity;
 }
@@ -120,10 +141,37 @@ void AssetConverterContext::RegisterDefaultUniqueID(T_UINT32 default_uid, const 
 {
   this->unique_id_table_->RegisterDefaultAssetUniqueID(default_uid, FileUtil::CreateRuntimeAssetPath(uri));
   this->default_asset_uri_[default_uid] = uri;
+  this->default_asset_unique_id_[uri.GetFullPath()] = this->unique_id_table_->GetDefaultAssetUniqueID(default_uid);
 }
 
 AssetConverter* AssetConverterContext::AddConverter(AssetConverter* converter)
 {
   this->converter_map_[converter->GetId()] = converter;
   return converter;
+}
+
+AssetConverter* AssetConverterContext::AddDefaultAssetConverter(AssetConverter* converter)
+{
+  this->default_asset_converter_map_[converter->GetId()] = converter;
+  return converter;
+}
+
+AssetConverter* AssetConverterContext::GetConverter(const std::string& id)
+{
+  const auto& itr = this->converter_map_.find(id);
+  if (itr != this->converter_map_.end())
+  {
+    return this->converter_map_[id];
+  }
+  return this->default_asset_converter_map_[id];
+}
+
+const AssetConverter* AssetConverterContext::GetConverter(const std::string& id) const
+{
+  const auto& itr = this->converter_map_.find(id);
+  if (itr != this->converter_map_.end())
+  {
+    return this->converter_map_.at(id);
+  }
+  return this->default_asset_converter_map_.at(id);
 }

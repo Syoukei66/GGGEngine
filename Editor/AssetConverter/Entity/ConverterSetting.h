@@ -42,7 +42,7 @@ public:
   /*!
    * @brief ImGUIを使ってデータを編集する
    */
-  inline  bool EditWithImGui()
+  inline void EditWithImGui()
   {
     this->is_dirty_ |= this->EditWithImGuiProcess();
   }

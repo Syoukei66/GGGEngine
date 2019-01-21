@@ -103,12 +103,13 @@ void AssetEntity::CheckAssetChanged(AssetConverterContext* context, std::set<Sha
     this->is_dirty_ = true;
   }
 
-  // ダーティフラグが経っていたらupdate_entitiesに自身を追加する
+  // ダーティフラグが立っていたらupdate_entitiesに自身を追加する
   if (this->is_dirty_)
   {
     update_entities->insert(context->GetEntity(this->meta_data_->GetSourceUniqueId()));
   }
 
+  // まだチェックしていないサブアセットがあれば
   const std::unordered_set<T_UINT32>& sub_asset_uids = this->meta_data_->GetConverterSetting()->GetSubAssetUniqueIds();
   for (T_UINT32 uid : sub_asset_uids)
   {

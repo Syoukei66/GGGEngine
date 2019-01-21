@@ -34,10 +34,10 @@ public:
     return Self().context_;
   }
 
-  //static GG_INLINE bool IsUniqueIdTableLoadFailed()
-  //{
-  //  return Self().unique_id_table_load_failed_;
-  //}
+  static GG_INLINE bool IsUniqueIdTableLoadFailed()
+  {
+    return Self().unique_id_table_load_failed_;
+  }
 
   // =================================================================
   // Data Members
@@ -47,6 +47,6 @@ private:
   UniqueIdTable* unique_id_table_;
   AssetConverterContext* context_;
 
-  //bool unique_id_table_load_failed_;
+  bool unique_id_table_load_failed_;
 
 };

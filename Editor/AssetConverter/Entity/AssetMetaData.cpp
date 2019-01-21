@@ -4,6 +4,7 @@
 #include <Constants/Extensions.h>
 #include <Converter/AssetConverter.h>
 #include <Converter/AssetConverterContext.h>
+#include <Director.h>
 
 #include "ConverterSettingPolymorphicRelations.h"
 
@@ -24,6 +25,10 @@ AssetMetaData* AssetMetaData::Create(const URI& uri, AssetConverter* converter, 
 
 AssetMetaData* AssetMetaData::Create(const URI& uri, T_UINT32 source_unique_id, AssetConverterContext* context)
 {
+  if (AssetConverterDirector::IsUniqueIdTableLoadFailed())
+  {
+    return new AssetMetaData(uri, source_unique_id, context);
+  }
   const std::string path = FileUtil::CreateInputPath(uri.GetFullPath() + "." + Extensions::META);
   if (!std::ifstream(path).is_open())
   {
