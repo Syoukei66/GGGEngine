@@ -264,3 +264,10 @@ void Transform3DRotator::SetEularZ(T_FLOAT z)
   this->master_flag_ = MASTER_EULAR;
   this->transform_->OnRotationChanged();
 }
+
+void Transform3DRotator::SetQuaternion(const Quaternion& q)
+{
+  this->quaternion_ = q;
+  this->master_flag_ = MASTER_QUATERNION;
+  this->transform_->OnRotationChanged();
+}

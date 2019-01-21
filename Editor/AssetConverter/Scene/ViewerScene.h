@@ -3,6 +3,7 @@
 #include <Engine/GameObject/GameObject3D.h>
 
 class AssetConverterContext;
+class AssetEntity;
 
 /*!
  * @brief Viewerが表示するオブジェクトや
@@ -17,6 +18,7 @@ public:
   virtual void Start(Scene* scene, AssetConverterContext* context) = 0;
   virtual void End() = 0;
   virtual void Update(AssetConverterContext* context) = 0;
+  virtual SharedRef<AssetEntity> GetEntity() const = 0;
 };
 
 class ViewerScene : public Scene
@@ -59,8 +61,8 @@ public:
 private:
   AssetConverterContext* current_context_;
   SharedRef<IViewerBehavior> current_behavior_;
-  SharedRef<GameObject3D> camera_2d_;
   SharedRef<GameObject3D> camera_3d_;
+  SharedRef<GameObject3D> camera_target_;
   T_FLOAT camera_move_x_;
   T_FLOAT camera_move_y_;
 

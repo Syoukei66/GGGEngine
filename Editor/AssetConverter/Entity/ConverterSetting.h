@@ -2,6 +2,7 @@
 
 #include <Cereal/cereal.hpp>
 #include "URI.h"
+#include <Engine/GameObject/Transform/Transform3D.h>
 
 /*!
  * Converter‚ÌÝ’èB
@@ -21,6 +22,8 @@ public:
     : converter_id_(converter_id)
     , sub_asset_unique_ids_()
     , is_dirty_(true)
+    , camera_position_(TVec3f(0.0f, 0.0f, -10.0f))
+    , camera_rotation_()
   {}
 
   virtual ~ConverterSetting() = default;
@@ -50,6 +53,18 @@ public:
   inline void ClearDirty()
   {
     this->is_dirty_ = false;
+  }
+
+  inline void SetCameraState(Transform3D* transform)
+  {
+    this->camera_position_ = transform->GetPosition();
+    this->camera_rotation_ = transform->GetQuaternion();
+  }
+
+  inline void GetCameraState(Transform3D* transform) const
+  {
+    transform->SetPosition(this->camera_position_);
+    transform->SetQuaternion(this->camera_rotation_);
   }
 
 protected:
@@ -88,6 +103,8 @@ public:
     ar(CEREAL_NVP(converter_id_));
     ar(CEREAL_NVP(sub_asset_unique_ids_));
     ar(CEREAL_NVP(is_dirty_));
+    ar(CEREAL_NVP(camera_position_));
+    ar(CEREAL_NVP(camera_rotation_));
   }
 
   // =================================================================
@@ -97,6 +114,8 @@ private:
   std::string converter_id_;
   std::unordered_set<T_UINT32> sub_asset_unique_ids_;
   bool is_dirty_;
+  TVec3f camera_position_;
+  Quaternion camera_rotation_;
 
 };
 

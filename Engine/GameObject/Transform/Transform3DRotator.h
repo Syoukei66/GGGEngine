@@ -80,6 +80,8 @@ public:
     return this->eular_angles_.z;
   }
 
+  void SetQuaternion(const Quaternion& q);
+
   GG_INLINE const Quaternion& GetQuaternion() const
   {
     const_cast<Transform3DRotator*>(this)->PrepareQuaternion();

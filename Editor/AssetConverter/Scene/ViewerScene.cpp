@@ -30,7 +30,7 @@ void ViewerScene::OnLoad()
 {
   this->camera_3d_ = GameObject3D::Create();
   this->camera_3d_->AddComponent<Camera3D_LookAt>();
-  this->camera_3d_->GetTransform()->SetZ(-10.0f);
+  this->camera_target_ = GameObject3D::Create();
   this->AddCamera(this->camera_3d_->GetComponent<Camera>());
 }
 
@@ -43,10 +43,12 @@ void ViewerScene::OnUnload()
 void ViewerScene::OnShow()
 {
   this->current_behavior_->Start(this, this->current_context_);
+  this->current_behavior_->GetEntity()->GetMetaData()->GetConverterSetting()->GetCameraState(this->camera_target_->GetTransform());
 }
 
 void ViewerScene::OnHide()
 {
+  this->current_behavior_->GetEntity()->GetMetaData()->GetConverterSetting()->SetCameraState(this->camera_3d_->GetTransform());
   this->current_behavior_->End();
 }
 
@@ -55,7 +57,7 @@ void ViewerScene::Update()
   this->current_behavior_->Update(this->current_context_);
 
   using namespace HalEngine;
-  Transform3D* transform = this->camera_3d_->GetTransform();
+  Transform3D* transform = this->camera_target_->GetTransform();
 
   const T_FLOAT move_speed = this->move_speed_weight_ * this->move_speed_;
 
@@ -122,8 +124,8 @@ void ViewerScene::Update()
   {
     this->camera_move_x_ = 0.0f;
     this->camera_move_y_ = 0.0f;
-    this->camera_3d_->GetTransform()->SetPosition(TVec3f(0.0f, 0.0f, -10.0f));
-    this->camera_3d_->GetTransform()->SetEularAngles(TVec3f::zero);
+    transform->SetPosition(TVec3f(0.0f, 0.0f, -10.0f));
+    transform->SetEularAngles(TVec3f::zero);
   }
 
   if (ImGui::ColorEdit3(u8"”wŒiF", this->bg_color_.data))
@@ -139,6 +141,10 @@ void ViewerScene::Update()
   {
     Director::PopScene(false);
   }
+
+  Transform3D* camera_transform = this->camera_3d_->GetTransform();
+  camera_transform->SetPosition(Mathf::Lerp(camera_transform->GetPosition(), transform->GetPosition(), 0.05f));
+  camera_transform->SetQuaternion(Quaternion::Lerp(camera_transform->GetQuaternion(), transform->GetQuaternion(), 0.05f));
 
   ImGui::End();
 }

@@ -35,7 +35,10 @@ public:
   {
     this->entity_ = entity;
   }
-
+  GG_INLINE SharedRef<AssetEntity> GetEntity() const override
+  {
+    return this->entity_;
+  }
   // =================================================================
   // Data Member
   // =================================================================

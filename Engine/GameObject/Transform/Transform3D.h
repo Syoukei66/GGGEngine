@@ -181,7 +181,11 @@ public:
   {
     return this->rotator_->GetEularZ();
   }
-  
+
+  GG_INLINE void SetQuaternion(const Quaternion& q)
+  {
+    return this->rotator_->SetQuaternion(q);
+  }
   GG_INLINE const Quaternion& GetQuaternion() const
   {
     return this->rotator_->GetQuaternion();

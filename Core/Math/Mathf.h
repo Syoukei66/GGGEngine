@@ -29,7 +29,7 @@ constexpr T_FLOAT RadToDeg(T_FLOAT rad)
 template <typename T>
 constexpr T Lerp(const T& a, const T& b, T_FLOAT t)
 {
-  return a * (b - a) * t;
+  return a + (b - a) * t;
 }
 
 template <typename T>
