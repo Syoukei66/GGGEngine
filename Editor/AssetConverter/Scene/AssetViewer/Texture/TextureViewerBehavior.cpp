@@ -56,9 +56,9 @@ SharedRef<rcDynamicMesh> CreateMesh(T_UINT32 mode)
   case kShpere:
     return MeshFactory::UVSphere::Create(format, 1.0f);
   case kHugeSphere:
-    return MeshFactory::UVSphere::Create(format, 10.0f, 10);
+    return MeshFactory::UVSphere::Create(format, 10.0f);
   case kSkyDome:
-    return MeshFactory::UVSphere::Create(format, 100.0f, 1, 1, true);
+    return MeshFactory::UVSphere::Create(format, 1000.0f, 16, 32, true);
   case kPlane:
     return MeshFactory::Plane::Create(format, 100.0f, 100.0f, 100, 100, 100, 100, TVec3f::right, TVec3f::back);
   }
