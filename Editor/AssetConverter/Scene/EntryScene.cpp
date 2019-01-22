@@ -28,7 +28,6 @@ void EntryScene::OnLoad()
 
 void EntryScene::OnUnload()
 {
-  this->viewer_scene_->Unload();
 }
 
 void EntryScene::OnShow()

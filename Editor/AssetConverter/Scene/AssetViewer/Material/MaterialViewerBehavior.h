@@ -3,13 +3,13 @@
 #include <Scene/AssetViewer/AssetViewerBehavior.h>
 #include <Engine/Component/Renderer/MeshRenderer.h>
 
-class TextureViewerBehavior : public AssetViewerBehavior
+class MaterialViewerBehavior : public AssetViewerBehavior
 {
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_OBJECT(TextureViewerBehavior);
-  GG_CREATE_FUNC(TextureViewerBehavior);
+  GG_OBJECT(MaterialViewerBehavior);
+  GG_CREATE_FUNC(MaterialViewerBehavior);
 
   // =================================================================
   // Methods from AssetViewerBehavior
@@ -19,13 +19,6 @@ public:
   virtual void OnEnd() override;
   virtual void OnLoad(T_UINT32 unique_id) override;
   virtual void OnUnload() override;
-  virtual void OnUpdate() override;
-
-  // =================================================================
-  // Methods from AssetViewerBehavior
-  // =================================================================
-public:
-  void UpdateMesh();
 
   // =================================================================
   // Data Members
@@ -33,8 +26,5 @@ public:
 private:
   SharedRef<GameObject3D> obj_;
   SharedRef<MeshRenderer> mesh_renderer_;
-
-  T_INT32 mesh_mode_;
-  std::vector<SharedRef<rcMesh>> meshes_;
 
 };

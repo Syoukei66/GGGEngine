@@ -89,6 +89,7 @@ public:
   // =================================================================
 private:
   bool is_loaded_;
+  bool is_shown_;
 
   SharedRef<GameObject2D> root2d_;
   SharedRef<GameObject3D> root3d_;

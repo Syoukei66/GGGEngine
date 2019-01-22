@@ -4,7 +4,8 @@ UniqueRef<rcDynamicMesh> MeshFactory::Plane::Create(
   T_UINT32 format,
   T_FLOAT scale_x, T_FLOAT scale_y,
   T_UINT32 resolution_x, T_UINT32 resolution_y,
-  T_FLOAT tile_count_x, T_FLOAT tile_count_y
+  T_FLOAT tile_count_x, T_FLOAT tile_count_y, 
+  const TVec3f& x_vec, const TVec3f& y_vec
 )
 {
   UniqueRef<rcDynamicMesh> ret = rcDynamicMesh::Create();
@@ -19,11 +20,9 @@ UniqueRef<rcDynamicMesh> MeshFactory::Plane::Create(
     {
       if (format & V_ATTR_POSITION)
       {
-        ret->SetVertex(i, {
-          ((T_FLOAT)x - resolution_x * 0.5f) * scale_x / resolution_x,
-          0.0f,
-          ((T_FLOAT)y - resolution_y * 0.5f) * scale_y / resolution_y
-        });
+        T_FLOAT x_val = ((T_FLOAT)x - resolution_x * 0.5f) * scale_x / resolution_x;
+        T_FLOAT y_val = ((T_FLOAT)y - resolution_y * 0.5f) * scale_y / resolution_y;
+        ret->SetVertex(i, x_vec * x_val + y_vec * y_val);
       }
       if (format & V_ATTR_NORMAL)
       {
@@ -63,11 +62,11 @@ UniqueRef<rcDynamicMesh> MeshFactory::Plane::Create(
     {
       ret->SetIndex(ti, vi);
 
-      ret->SetIndex(ti + 2, vi + 1);
-      ret->SetIndex(ti + 3, vi + 1);
+      ret->SetIndex(ti + 4, vi + 1);
+      ret->SetIndex(ti + 1, vi + 1);
 
-      ret->SetIndex(ti + 4, vi + resolution_x + 1);
-      ret->SetIndex(ti + 1, vi + resolution_x + 1);
+      ret->SetIndex(ti + 2, vi + resolution_x + 1);
+      ret->SetIndex(ti + 3, vi + resolution_x + 1);
 
       ret->SetIndex(ti + 5, vi + resolution_x + 2);
     }

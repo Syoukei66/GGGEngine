@@ -48,17 +48,26 @@ void SceneManager::ChangeScene(const SharedRef<Scene>& next)
 
 void SceneManager::ClearScene()
 {
+  std::set<SharedRef<Scene>> unloaded_scene = std::set<SharedRef<Scene>>();
   for (const SharedRef<Scene>& scene : this->scene_stack_)
   {
+    if (unloaded_scene.find(scene) != unloaded_scene.end())
+    {
+      continue;
+    }
     scene->Hide();
     scene->Unload();
+    unloaded_scene.insert(scene);
   }
   this->scene_stack_.clear();
   if (this->now_scene_)
   {
-    this->now_scene_->Hide();
-    this->now_scene_->Unload();
-    this->now_scene_ = nullptr;
+    if (unloaded_scene.find(this->now_scene_) == unloaded_scene.end())
+    {
+      this->now_scene_->Hide();
+      this->now_scene_->Unload();
+      this->now_scene_ = nullptr;
+    }
   }
 }
 

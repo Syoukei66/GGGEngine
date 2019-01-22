@@ -309,6 +309,9 @@
     <ClInclude Include="Entity\Default\DefaultAssetConverterSetting.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\AssetViewer\Material\MaterialViewerBehavior.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Director.cpp">
@@ -468,6 +471,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Entity\File\Mesh\MeshAssetConverter.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\AssetViewer\Material\MaterialViewerBehavior.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

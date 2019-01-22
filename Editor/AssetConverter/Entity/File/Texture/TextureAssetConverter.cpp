@@ -101,21 +101,6 @@ IAssetDataContainer* TextureAssetConverter::ImportProcess(const SharedRef<AssetE
     final_image = &resized_image;
   }
   
-  // ノーマルマップに変換する
-  DirectX::ScratchImage normal_image;
-  if (setting->convert_normal_map)
-  {
-    hr = DirectX::ComputeNormalMap(
-      final_image->GetImages(), final_image->GetImageCount(), final_image->GetMetadata(),
-      DirectX::CNMAP_CHANNEL_LUMINANCE,
-      setting->normal_scaling_factor * 10.0f, 
-      DXGI_FORMAT_R8G8B8A8_UNORM,
-      normal_image
-    );
-    GG_ASSERT(SUCCEEDED(hr), "テクスチャのノーマルマップ変換に失敗しました");
-    final_image = &normal_image;
-  }
-
   // ミップマップを作成する数
   size_t levels = (size_t)std::log2(std::min(width, height)) + 1;
 
@@ -194,6 +179,21 @@ IAssetDataContainer* TextureAssetConverter::ImportProcess(const SharedRef<AssetE
         }
       }
     }
+  }
+
+  // ノーマルマップに変換する
+  DirectX::ScratchImage normal_image;
+  if (setting->convert_normal_map)
+  {
+    hr = DirectX::ComputeNormalMap(
+      final_image->GetImages(), final_image->GetImageCount(), final_image->GetMetadata(),
+      DirectX::CNMAP_CHANNEL_RED,
+      setting->normal_scaling_factor * 30.0f,
+      DXGI_FORMAT_R8G8B8A8_UNORM,
+      normal_image
+    );
+    GG_ASSERT(SUCCEEDED(hr), "テクスチャのノーマルマップ変換に失敗しました");
+    final_image = &normal_image;
   }
 
   // テクスチャのフォーマット変換

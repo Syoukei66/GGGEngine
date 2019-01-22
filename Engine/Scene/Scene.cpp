@@ -36,12 +36,22 @@ void Scene::Unload()
 
 void Scene::Show()
 {
+  if (this->is_shown_)
+  {
+    return;
+  }
   this->OnShow();
+  this->is_shown_ = true;
 }
 
 void Scene::Hide()
 {
+  if (!this->is_shown_)
+  {
+    return;
+  }
   this->OnHide();
+  this->is_shown_ = false;
 }
 
 void Scene::Draw()
