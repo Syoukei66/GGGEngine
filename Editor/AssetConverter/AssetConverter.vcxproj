@@ -225,6 +225,7 @@
     <ClInclude Include="Scene\AssetViewer\StaticMesh\StaticMeshViewerBehavior.h" />
     <ClInclude Include="Scene\AssetViewer\StaticModel\StaticModelViewerBehavior.h" />
     <ClInclude Include="Scene\AssetViewer\Texture\TextureViewerBehavior.h" />
+    <ClInclude Include="Scene\TestMesh\TestMesh.h" />
     <ClInclude Include="Util\FileUtil.h" />
     <ClInclude Include="Converter\AssetConverterContext.h" />
     <ClInclude Include="Util\Logger.h" />
@@ -284,6 +285,7 @@
     <ClCompile Include="Scene\AssetViewer\StaticMesh\StaticMeshViewerBehavior.cpp" />
     <ClCompile Include="Scene\AssetViewer\StaticModel\StaticModelViewerBehavior.cpp" />
     <ClCompile Include="Scene\AssetViewer\Texture\TextureViewerBehavior.cpp" />
+    <ClCompile Include="Scene\TestMesh\TestMesh.cpp" />
     <ClCompile Include="Util\FileUtil.cpp" />
     <ClCompile Include="Util\Logger.cpp" />
     <ClCompile Include="Util\MeshBuilder\MeshBuilder_Capsule.cpp" />

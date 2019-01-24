@@ -1,31 +1,33 @@
 #pragma once
 
-#include <Scene/AssetViewer/AssetViewerBehavior.h>
 #include <Engine/Component/Renderer/MeshRenderer.h>
-#include <Scene/TestMesh/TestMesh.h>
 
-class TextureViewerBehavior : public AssetViewerBehavior
+class TestMesh : public GameObject3D
 {
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_OBJECT(TextureViewerBehavior);
-  GG_CREATE_FUNC(TextureViewerBehavior);
+  GG_OBJECT(TestMesh);
+  GG_CREATE_FUNC(TestMesh);
 
   // =================================================================
-  // Methods from AssetViewerBehavior
+  // Methods
   // =================================================================
 public:
-  virtual void OnStart(Scene* scene) override;
-  virtual void OnEnd() override;
-  virtual void OnLoad(T_UINT32 unique_id) override;
-  virtual void OnUnload() override;
-  virtual void OnUpdate() override;
-  
+  void EditWithImGUI();
+
+private:
+  void Load();
+  void Unload();
+  void UpdateMesh();
+
   // =================================================================
   // Data Members
   // =================================================================
 private:
-  SharedRef<TestMesh> obj_;
+  SharedRef<MeshRenderer> mesh_renderer_;
+
+  T_INT32 mesh_mode_;
+  std::vector<SharedRef<rcMesh>> meshes_;
 
 };

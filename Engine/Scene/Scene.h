@@ -27,7 +27,7 @@ public:
   void Draw2DLayers(GameObjectRenderState* state);
   void Draw3DLayers(GameObjectRenderState* state);
 
-  GG_INLINE void AddChild(const SharedRef<GameObject2D>& child)
+  GG_INLINE void AddChild2D(const SharedRef<GameObject2D>& child)
   {
     this->root2d_->AddChild(child);
   }

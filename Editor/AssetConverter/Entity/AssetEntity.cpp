@@ -10,14 +10,14 @@
 GG_INIT_FUNC_IMPL_1(AssetEntity, AssetMetaData* meta)
 {
   this->meta_data_ = meta;
-  this->is_dirty_ = true;
+  this->is_need_commit_ = true;
   return true;
 }
 
 GG_INIT_FUNC_IMPL_2(AssetEntity, AssetMetaData* meta, IAssetDataContainer* data)
 {
   this->meta_data_ = meta;
-  this->is_dirty_ = true;
+  this->is_need_commit_ = true;
   this->data_ = data;
   return true;
 }
@@ -64,9 +64,11 @@ void AssetEntity::Export(AssetConverterContext* context)
 
 void AssetEntity::Import(AssetConverterContext* context)
 {
+  Logger::ImportAssetLog(this->meta_data_->GetURI());
   const std::unique_ptr<ConverterSetting>& setting = this->meta_data_->GetConverterSetting();
   AssetConverter* converter = context->GetConverter(setting->GetConverterID());
   this->SetData(converter->ImportImmediately(SharedRef<AssetEntity>(this), context));
+  this->is_need_commit_ = true;
 }
 
 void AssetEntity::CommitChanges(AssetConverterContext* context)
@@ -75,38 +77,63 @@ void AssetEntity::CommitChanges(AssetConverterContext* context)
   const std::unordered_set<T_UINT32>& sub_asset_uids = setting->GetSubAssetUniqueIds();
   for (T_UINT32 uid : sub_asset_uids)
   {
-    // AssetEntityをリフレッシュ
     context->GetEntity(uid)->CommitChanges(context);
   }
-  if (this->is_dirty_)
+  if (this->is_need_commit_)
   {
     Logger::CommitAssetLog(this->meta_data_);
     AssetConverter* converter = context->GetConverter(setting->GetConverterID());
     converter->RegisterAssetManager(SharedRef<AssetEntity>(this));
-    this->is_dirty_ = false;
+    this->is_need_commit_ = false;
   }
 }
 
 void AssetEntity::CheckAssetChanged(AssetConverterContext* context, std::set<SharedRef<AssetEntity>>* update_entities)
 {
+  bool dirty_self = false;
+
   // タイムスタンプが更新されていたら
   if (this->meta_data_->UpdateTimeStamp())
   {
     // メタデータを保存し、ダーティフラグを立てる
     this->meta_data_->Save();
-    this->is_dirty_ = true;
+    dirty_self = true;
   }
-
+  ;
   // ConverterSettingに変更があったらダーティフラグを立てる
   if (this->meta_data_->GetConverterSetting()->IsDirty())
   {
-    this->is_dirty_ = true;
+    dirty_self = true;
   }
 
-  // ダーティフラグが立っていたらupdate_entitiesに自身を追加する
-  if (this->is_dirty_)
+  // SourceAssetも同様に圏さする
+  const SharedRef<AssetEntity>& source = context->GetEntity(this->meta_data_->GetSourceUniqueId());
+  bool dirty_source = false;
+
+  // タイムスタンプが更新されていたら
+  if (source->GetMetaData()->UpdateTimeStamp())
   {
-    update_entities->insert(context->GetEntity(this->meta_data_->GetSourceUniqueId()));
+    // メタデータを保存し、ダーティフラグを立てる
+    source->GetMetaData()->Save();
+    dirty_source = true;
+  }
+  
+  // ConverterSettingに変更があったらダーティフラグを立てる
+  if (source->GetMetaData()->GetConverterSetting()->IsDirty())
+  {
+    dirty_source = true;
+  }
+  
+  // ダーティフラグが立っていたらupdate_entitiesにUniqueIdを追加する
+  if (dirty_self)
+  {
+    update_entities->insert(SharedRef<AssetEntity>(this));
+  }
+
+  // ダーティフラグが立っていたらupdate_entitiesにソースUniqueIdを追加する
+  if (dirty_source)
+  {
+    update_entities->insert(source);
   }
 
   // まだチェックしていないサブアセットがあれば
@@ -122,9 +149,9 @@ bool AssetEntity::CheckSubAssetChanged(AssetConverterContext* context)
   const std::unordered_set<T_UINT32>& sub_asset_uids = this->meta_data_->GetConverterSetting()->GetSubAssetUniqueIds();
   for (T_UINT32 uid : sub_asset_uids)
   {
-    this->is_dirty_ |= context->GetEntity(uid)->CheckSubAssetChanged(context);
+    this->is_need_commit_ |= context->GetEntity(uid)->CheckSubAssetChanged(context);
   }
-  return this->is_dirty_;
+  return this->is_need_commit_;
 }
 
 // =================================================================
@@ -141,7 +168,7 @@ void AssetEntity::SetData(IAssetDataContainer* data)
     delete this->data_;
   }
   this->data_ = data;
-  this->is_dirty_ = true;
+  this->is_need_commit_ = true;
 }
 
 AssetConverter* AssetEntity::GetConverter(AssetConverterContext* context)

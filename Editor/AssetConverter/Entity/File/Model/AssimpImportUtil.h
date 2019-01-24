@@ -128,14 +128,6 @@ static SharedRef<AssetEntity> ImportMaterial(bool material_override, AssetMetaDa
   
   //TODO:プロパティのインポート処理
 
-  // 上書き設定が有効な場合、MaterialのAssetファイルを作成し、Assetディレクトリに出力する。
-  if (material_override)
-  {
-    std::string output_path = FileUtil::CreateInputPath(material_uri);
-    FileUtil::PrepareDirectory(output_path);
-    CerealIO::Json::Export<MaterialData>(output_path.c_str(), data);
-  }
-
   // AssetEntityが存在していなかった場合AssetEntityを新たに作成する
   if (!entity)
   {
@@ -145,6 +137,14 @@ static SharedRef<AssetEntity> ImportMaterial(bool material_override, AssetMetaDa
       context
     );
     entity = context->AddEntity(AssetEntity::Create(meta_data));
+  }
+
+  // 上書き設定が有効な場合、MaterialのAssetファイルを作成し、Assetディレクトリに出力する。
+  if (material_override)
+  {
+    std::string output_path = FileUtil::CreateInputPath(material_uri);
+    FileUtil::PrepareDirectory(output_path);
+    CerealIO::Json::Export<MaterialData>(output_path.c_str(), data);
   }
 
   // AssetEntityに中間データやサブアセットを設定する

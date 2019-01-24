@@ -121,6 +121,6 @@ private:
   AssetMetaData* meta_data_;
   AssetConverter* converter_;
   IAssetDataContainer* data_;
-  bool is_dirty_;
+  bool is_need_commit_;
 
 };

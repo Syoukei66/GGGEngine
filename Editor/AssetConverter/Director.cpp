@@ -22,7 +22,7 @@
 
 // Import Viewer
 #include <Scene/AssetViewer/CharacterModel/CharacterModelViewerBehavior.h>
-//#include <Scene/AssetViewer/Material/MaterialViewerBehavior.h>
+#include <Scene/AssetViewer/Material/MaterialViewerBehavior.h>
 #include <Scene/AssetViewer/Shader/ShaderViewerBehavior.h>
 #include <Scene/AssetViewer/StaticMesh/StaticMeshViewerBehavior.h>
 #include <Scene/AssetViewer/StaticModel/StaticModelViewerBehavior.h>
@@ -61,7 +61,7 @@ void AssetConverterDirector::Init()
   // Viewer�̍쐬
   const SharedRef<TextureViewerBehavior>& texture_viewer = TextureViewerBehavior::Create();
   const SharedRef<StaticMeshViewerBehavior>& mesh_viewer = StaticMeshViewerBehavior::Create();
-  //const SHaredRef<MaterialAssetViewerBehavior>& material_viewer = MaterialViewerBehavior::Create();
+  const SharedRef<MaterialViewerBehavior>& material_viewer = MaterialViewerBehavior::Create();
   const SharedRef<StaticModelViewerBehavior>& static_model_viewer = StaticModelViewerBehavior::Create();
   const SharedRef<CharacterModelViewerBehavior>& character_model_viewer = CharacterModelViewerBehavior::Create();
 
@@ -89,8 +89,8 @@ void AssetConverterDirector::Init()
   AssetConverter* default_mesh_converter = self->context_->AddDefaultAssetConverter(new DefaultAssetConverter<rcMesh, StaticMeshData>("DefaultMesh", "rcMesh", mesh_viewer, {}));
 
   // Material
-  self->context_->AddConverter(new MaterialAssetConverter("Material", "rcMaterial", {"mat"}, 1, 1, nullptr));
-  AssetConverter* default_material_converter = self->context_->AddDefaultAssetConverter(new DefaultAssetConverter<rcMaterial, MaterialData>("DefaultMaterial", "rcMaterial", nullptr, {TEXTURE_WHITE}));
+  self->context_->AddConverter(new MaterialAssetConverter("Material", "rcMaterial", {"mat"}, 1, 1, material_viewer));
+  AssetConverter* default_material_converter = self->context_->AddDefaultAssetConverter(new DefaultAssetConverter<rcMaterial, MaterialData>("DefaultMaterial", "rcMaterial", material_viewer, {TEXTURE_WHITE}));
 
   // Model
   self->context_->AddConverter(new StaticModelAssetConverter("StaticModel", "rcStaticModel", {"fbx", "x", "blend"}, 1, 1, static_model_viewer));
