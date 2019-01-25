@@ -32,6 +32,7 @@ void EntryScene::OnUnload()
 
 void EntryScene::OnShow()
 {
+  this->context_->Fetch();
   FileView::Init(this->context_);
 }
 
