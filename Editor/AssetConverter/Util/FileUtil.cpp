@@ -21,6 +21,7 @@ static const std::string ASSET_PATH = CURRENT_DIRECTORY + "Asset";
 static const std::string RUNTIME_DIRECTORY_PATH = CURRENT_DIRECTORY + "Game";
 
 static const std::string INPUT_PATH = ASSET_PATH + "/Raw";
+static const std::string MIDDATA_PATH = ASSET_PATH + "/Cache";
 static const std::string ARCHIVE_PATH = ASSET_PATH + "/Archive";
 static const std::string SETTING_PATH = ASSET_PATH + "/Setting";
 
@@ -29,8 +30,8 @@ void FileUtil::PrepareDefaultDirectories()
   _mkdir(PROJECT_PATH.c_str());
   _mkdir(ASSET_PATH.c_str());
   _mkdir(INPUT_PATH.c_str());
+  _mkdir(MIDDATA_PATH.c_str());
   _mkdir(ARCHIVE_PATH.c_str());
-  _mkdir(SETTING_PATH.c_str());
   _mkdir(SETTING_PATH.c_str());
   _mkdir(RUNTIME_DIRECTORY_PATH.c_str());
   _mkdir((RUNTIME_DIRECTORY_PATH + "/" + Directory::GetAssetDirectory()).c_str());
@@ -87,6 +88,11 @@ std::string FileUtil::CreateInputDirectoryPath(const URI& uri)
 std::string FileUtil::CreateSettingPath(const URI& uri)
 {
   return SETTING_PATH + "/" + uri.GetFullPath();
+}
+
+std::string FileUtil::CreateCachePath(const URI & uri)
+{
+  return MIDDATA_PATH + "/" + uri.GetFullPath() + ".cache";
 }
 
 std::string FileUtil::CreateArchivePath(const AssetMetaData* meta_data)

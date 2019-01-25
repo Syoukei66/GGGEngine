@@ -13,6 +13,13 @@ class IAssetDataContainer
   // =================================================================
 public:
   virtual ~IAssetDataContainer() = default;
+
+  // =================================================================
+  // Methods
+  // =================================================================
+public:
+  virtual void SaveCache(const URI& uri) = 0;
+
 };
 
 /*!
@@ -38,6 +45,23 @@ public:
   virtual ~AssetDataContainer()
   {
     delete this->data_;
+  }
+
+  // =================================================================
+  // Methods
+  // =================================================================
+public:
+  virtual void SaveCache(const URI& uri) override
+  {
+    // キャッシュデータが無いタイプのアセットもある
+    // (RawAssetをコピーするだけのものなど)
+    if (!this->data_)
+    {
+      return;
+    }
+    const std::string& path = FileUtil::CreateCachePath(uri).c_str();
+    FileUtil::PrepareDirectory(path);
+    CerealIO::Binary::Export<AssetData_>(path.c_str(), this->GetData());
   }
 
   // =================================================================

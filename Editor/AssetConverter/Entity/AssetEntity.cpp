@@ -17,8 +17,7 @@ GG_INIT_FUNC_IMPL_1(AssetEntity, AssetMetaData* meta)
 GG_INIT_FUNC_IMPL_2(AssetEntity, AssetMetaData* meta, IAssetDataContainer* data)
 {
   this->meta_data_ = meta;
-  this->is_need_commit_ = true;
-  this->data_ = data;
+  this->SetData(data);
   return true;
 }
 
@@ -106,6 +105,11 @@ void AssetEntity::CheckAssetChanged(AssetConverterContext* context, std::set<Sha
     dirty_self = true;
   }
 
+  if (!this->data_)
+  {
+    dirty_self = true;
+  }
+
   // SourceAsset‚à“¯—l‚ÉŒ—‚³‚·‚é
   const SharedRef<AssetEntity>& source = context->GetEntity(this->meta_data_->GetSourceUniqueId());
   bool dirty_source = false;
@@ -168,6 +172,7 @@ void AssetEntity::SetData(IAssetDataContainer* data)
     delete this->data_;
   }
   this->data_ = data;
+  this->data_->SaveCache(this->meta_data_->GetURI());
   this->is_need_commit_ = true;
 }
 
