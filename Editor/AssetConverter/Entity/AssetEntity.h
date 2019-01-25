@@ -130,5 +130,6 @@ private:
   AssetConverter* converter_;
   IAssetDataContainer* data_;
   bool is_need_commit_;
+  std::unordered_map<T_UINT32, std::string> sub_asset_import_time_stamps_;
 
 };

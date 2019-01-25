@@ -45,6 +45,11 @@ public:
    */
   bool UpdateTimeStamp();
 
+  /*!
+   * @brief 最後にインポートした時間のタイムスタンプを更新する
+   */
+  void UpdateLastImportTimeStamp();
+
   // =================================================================
   // Setter / Getter
   // =================================================================
@@ -62,6 +67,11 @@ public:
   inline const std::string& GetTimeStamp() const
   {
     return this->time_stamp_;
+  }
+
+  inline const std::string& GetLastImportTimeStamp()
+  {
+    return this->last_import_time_stamp_;
   }
 
   inline const URI& GetURI() const
@@ -103,6 +113,7 @@ public:
   {
     ar(CEREAL_NVP(uri_));
     ar(CEREAL_NVP(time_stamp_));
+    ar(CEREAL_NVP(last_import_time_stamp_));
 
     ar(CEREAL_NVP(unique_id_));
     ar(CEREAL_NVP(source_unique_id_));
@@ -113,12 +124,34 @@ public:
   // Data Members
   // =================================================================
 private:
+  /*!
+   * @brief 対象アセットのURI
+   */
   URI uri_;
-  std::string time_stamp_;
 
+  /*!
+   * @brief 対象アセットのタイムスタンプ
+   */
+  std::string time_stamp_;
+  
+  /*!
+   * @brief 最後にインポートした時間のタイムスタンプ
+   */
+  std::string last_import_time_stamp_;
+
+  /*!
+   * @brief 対象アセットのUniqueID
+   */
   T_UINT32 unique_id_;
+
+  /*!
+   * @brief 対象アセットを生成したアセットのUniqueID
+   */
   T_UINT32 source_unique_id_;
 
+  /*!
+   * @brief 現在設定している対象アセットのConverterの設定
+   */
   std::unique_ptr<ConverterSetting> converter_setting_;
 
 };

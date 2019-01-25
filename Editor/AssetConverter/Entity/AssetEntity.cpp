@@ -88,9 +88,14 @@ void AssetEntity::CommitChanges(AssetConverterContext* context)
 {
   const std::unique_ptr<ConverterSetting>& setting = this->meta_data_->GetConverterSetting();
   const std::unordered_set<T_UINT32>& sub_asset_uids = setting->GetSubAssetUniqueIds();
+
+  // このコミットでのサブアセットのインポートタイムスタンプを取得
+  this->sub_asset_import_time_stamps_.clear();
   for (T_UINT32 uid : sub_asset_uids)
   {
-    context->GetEntity(uid)->CommitChanges(context);
+    const SharedRef<AssetEntity>& entity = context->GetEntity(uid);
+    entity->CommitChanges(context);
+    this->sub_asset_import_time_stamps_[uid] = entity->GetMetaData()->GetLastImportTimeStamp();
   }
   if (this->is_need_commit_)
   {
@@ -119,7 +124,7 @@ void AssetEntity::CheckAssetChanged(AssetConverterContext* context, std::set<Sha
     dirty_self = true;
   }
 
-  // SourceAssetも同様に圏さする
+  // SourceAssetも同様に調査する
   const SharedRef<AssetEntity>& source = context->GetEntity(this->meta_data_->GetSourceUniqueId());
   bool dirty_source = false;
 
@@ -173,8 +178,36 @@ bool AssetEntity::CheckSubAssetChanged(AssetConverterContext* context)
   const std::unordered_set<T_UINT32>& sub_asset_uids = this->meta_data_->GetConverterSetting()->GetSubAssetUniqueIds();
   for (T_UINT32 uid : sub_asset_uids)
   {
+    const SharedRef<AssetEntity>& entity = context->GetEntity(uid);
+    // (1)
+    // 前回のコミット時とサブアセットのインポートタイムスタンプに
+    // 違いがあればコミットをしなおす必要がある。
+    if (!this->is_need_commit_)
+    {
+      // インポートタイムスタンプが記録されているか調べる
+      const auto& itr = this->sub_asset_import_time_stamps_.find(uid);
+      if (itr == this->sub_asset_import_time_stamps_.end())
+      {
+        // 記録されていなければコミットが必要
+        this->is_need_commit_ = true;
+      }
+      else
+      {
+        // 記録されているが違いがあった場合もコミットが必要
+        if (itr->second != entity->GetMetaData()->GetLastImportTimeStamp())
+        {
+          this->is_need_commit_ = true;
+        }
+      }
+    }
+    this->sub_asset_import_time_stamps_[uid] = entity->GetMetaData()->GetLastImportTimeStamp();
+
+    // (2)
+    // サブアセットにコミットがあれば自身もコミットする必要がある。
     this->is_need_commit_ |= context->GetEntity(uid)->CheckSubAssetChanged(context);
   }
+
+  // 呼び出し主に自身のコミットの有無を伝える
   return this->is_need_commit_;
 }
 
@@ -193,6 +226,7 @@ void AssetEntity::SetData(IAssetDataContainer* data)
   }
   this->data_ = data;
   this->data_->SaveCache(this->meta_data_->GetURI());
+  this->meta_data_->UpdateLastImportTimeStamp();
   this->is_need_commit_ = true;
 }
 

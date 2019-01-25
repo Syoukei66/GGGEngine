@@ -5,6 +5,7 @@
 #include <Converter/AssetConverter.h>
 #include <Converter/AssetConverterContext.h>
 #include <Director.h>
+#include <ctime>
 
 #include "ConverterSettingPolymorphicRelations.h"
 
@@ -51,10 +52,12 @@ AssetMetaData* AssetMetaData::Create(const URI& uri, T_UINT32 source_unique_id, 
 // =================================================================
 AssetMetaData::AssetMetaData(const URI& uri, T_UINT32 source_unique_id, AssetConverterContext* context)
   : uri_(uri)
+  , time_stamp_()
+  , last_import_time_stamp_()
+  , unique_id_(context->PublishUniqueID(uri))
   , source_unique_id_(source_unique_id)
-{
-  this->unique_id_ = context->PublishUniqueID(uri);
-}
+  , converter_setting_()
+{}
 
 // =================================================================
 // Methods
@@ -80,4 +83,23 @@ bool AssetMetaData::UpdateTimeStamp()
     this->time_stamp_ = time_stamp;
   }
   return asset_changed;
+}
+
+void AssetMetaData::UpdateLastImportTimeStamp()
+{
+  std::time_t t = std::time(0);
+  std::tm* now = std::localtime(&t);
+  std::string ret = std::string();
+  ret.append(std::to_string(now->tm_year));
+  ret.append("/");
+  ret.append(std::to_string(now->tm_mon));
+  ret.append("/");
+  ret.append(std::to_string(now->tm_mday));
+  ret.append(" ");
+  ret.append(std::to_string(now->tm_hour));
+  ret.append(":");
+  ret.append(std::to_string(now->tm_min));
+  ret.append(":");
+  ret.append(std::to_string(now->tm_sec));
+  this->last_import_time_stamp_ = ret;
 }
