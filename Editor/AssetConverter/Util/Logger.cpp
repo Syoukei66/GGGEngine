@@ -23,7 +23,12 @@ static void ExportAssetLog(const AssetMetaData* meta, const std::string& action)
 
 void Logger::ImportAssetLog(const URI& uri)
 {
-  std::cout << "importing \"" << uri.GetFullPath() << "\" " << std::endl;
+  std::cout << "import \"" << uri.GetFullPath() << "\" " << std::endl;
+}
+
+void Logger::ImportFromCacheAssetLog(const URI& uri)
+{
+  std::cout << "import from cache \"" << uri.GetFullPath() << "\" " << std::endl;
 }
 
 void Logger::ImportSkipAssetLog(const URI& uri)

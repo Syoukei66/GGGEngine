@@ -195,8 +195,8 @@
     <ClInclude Include="Entity\File\Model\CharacterModel\CharacterModelConverterSetting.h" />
     <ClInclude Include="Entity\File\Model\StaticModel\StaticModelConverter.h" />
     <ClInclude Include="Entity\File\Model\StaticModel\StaticModelConverterSetting.h" />
-    <ClInclude Include="Entity\File\Raw\RawAssetConverter.h" />
-    <ClInclude Include="Entity\File\Raw\RawAssetConverterSetting.h" />
+    <ClInclude Include="Entity\Raw\RawAssetConverter.h" />
+    <ClInclude Include="Entity\Raw\RawAssetConverterSetting.h" />
     <ClInclude Include="Entity\File\Shader\ShaderAssetConverter.h" />
     <ClInclude Include="Entity\File\Shader\ShaderAssetConverterSetting.h" />
     <ClInclude Include="Entity\File\Texture\TextureAssetConverter.h" />
@@ -259,7 +259,7 @@
     <ClCompile Include="Entity\File\Model\CharacterModel\CharacterModelConverterSetting.cpp" />
     <ClCompile Include="Entity\File\Model\StaticModel\StaticModelConverter.cpp" />
     <ClCompile Include="Entity\File\Model\StaticModel\StaticModelConverterSetting.cpp" />
-    <ClCompile Include="Entity\File\Raw\RawAssetConverterSetting.cpp" />
+    <ClCompile Include="Entity\Raw\RawAssetConverterSetting.cpp" />
     <ClCompile Include="Entity\File\Shader\ShaderAssetConverter.cpp" />
     <ClCompile Include="Entity\File\Shader\ShaderAssetConverterSetting.cpp" />
     <ClCompile Include="Entity\File\Texture\TextureAssetConverter.cpp" />

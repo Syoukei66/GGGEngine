@@ -43,10 +43,14 @@ IAssetDataContainer* AssetConverter::ImportImmediately(const SharedRef<AssetEnti
     entity->GetMetaData()->SetConverterSetting(this->CreateSetting());
   }
   // インポートが行われるのでSettingのダーティフラグを削除する
-  // インポートがループしないようにインポート前に行う
+  // インポートがループしないようにインポート前にセーブを行う
   setting->ClearDirty();
   meta->Save();
+
   IAssetDataContainer* ret = this->ImportProcess(entity, context);
+
+  // インポート処理で更新されることもあるので、メタデータをセーブする
+  meta->Save();
 
   return ret;
 }

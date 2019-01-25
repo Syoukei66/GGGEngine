@@ -1,5 +1,9 @@
 #pragma once
 
+#include <Entity/Raw/RawAssetConverterSetting.h>
+CEREAL_REGISTER_TYPE(RawAssetConverterSetting);
+CEREAL_REGISTER_POLYMORPHIC_RELATION(ConverterSetting, RawAssetConverterSetting);
+
 #include <Entity/File/Material/MaterialAssetConverterSetting.h>
 CEREAL_REGISTER_TYPE(MaterialAssetConverterSetting);
 CEREAL_REGISTER_POLYMORPHIC_RELATION(ConverterSetting, MaterialAssetConverterSetting);
@@ -15,10 +19,6 @@ CEREAL_REGISTER_POLYMORPHIC_RELATION(ConverterSetting, CharacterModelAssetConver
 #include <Entity/File/Model/StaticModel/StaticModelConverterSetting.h>
 CEREAL_REGISTER_TYPE(StaticModelAssetConverterSetting);
 CEREAL_REGISTER_POLYMORPHIC_RELATION(ConverterSetting, StaticModelAssetConverterSetting);
-
-#include <Entity/File/Raw/RawAssetConverterSetting.h>
-CEREAL_REGISTER_TYPE(RawAssetConverterSetting);
-CEREAL_REGISTER_POLYMORPHIC_RELATION(ConverterSetting, RawAssetConverterSetting);
 
 #include <Entity/File/Texture/TextureAssetConverterSetting.h>
 CEREAL_REGISTER_TYPE(TextureAssetConverterSetting);

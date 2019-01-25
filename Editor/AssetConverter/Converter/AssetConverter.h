@@ -41,6 +41,14 @@ public:
   IAssetDataContainer* ImportImmediately(const SharedRef<AssetEntity>& entity, AssetConverterContext* context) const;
 
   /*!
+   * @brief キャッシュからアセットをインポートし、中間データを戻り値で返す
+   * @param entity AssetEntity
+   * @param context AssetConverterContext
+   * @return 中間データ
+   */
+  virtual IAssetDataContainer* ImportFromCache(const SharedRef<AssetEntity>& entity, AssetConverterContext* context) const = 0;
+
+  /*!
    * @brief アセットをエクスポートする。
    * @param entity AssetEntity
    * @param context AssetConverterContext

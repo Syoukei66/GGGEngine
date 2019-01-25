@@ -24,6 +24,18 @@ public:
   // Methods from AssetConverter
   // =================================================================
 public:
+  virtual IAssetDataContainer* ImportFromCache(const SharedRef<AssetEntity>& entity, AssetConverterContext* context) const override
+  {
+    AssetMetaData* meta_data = entity->GetMetaData();
+    const std::string& path = FileUtil::CreateCachePath(entity->GetMetaData()->GetURI());
+    AssetData_* data = CerealIO::Binary::SafeImport<AssetData_>(path.c_str());
+    if (!data)
+    {
+      return nullptr;
+    }
+    return new AssetDataContainer<AssetData_>(data);
+  }
+
   virtual void RegisterAssetManager(const SharedRef<AssetEntity>& entity) const override
   {
     AssetMetaData* meta_data = entity->GetMetaData();

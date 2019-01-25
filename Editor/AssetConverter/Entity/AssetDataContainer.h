@@ -59,7 +59,7 @@ public:
     {
       return;
     }
-    const std::string& path = FileUtil::CreateCachePath(uri).c_str();
+    const std::string& path = FileUtil::CreateCachePath(uri);
     FileUtil::PrepareDirectory(path);
     CerealIO::Binary::Export<AssetData_>(path.c_str(), this->GetData());
   }

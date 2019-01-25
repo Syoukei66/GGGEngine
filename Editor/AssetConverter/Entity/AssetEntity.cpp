@@ -44,9 +44,10 @@ bool AssetEntity::Load(AssetConverterContext* context)
     {
       entity->Import(context);
     }
-    // サブアセットの変更を検出
-    this->CheckSubAssetChanged(context);
-
+  }    
+  // サブアセットの変更を検出
+  if (this->CheckSubAssetChanged(context))
+  {
     // AssetEntityをリフレッシュし、シーンのリロードを行う
     this->CommitChanges(context);
     return true;
@@ -56,7 +57,7 @@ bool AssetEntity::Load(AssetConverterContext* context)
 
 void AssetEntity::Export(AssetConverterContext* context)
 {
-  AssetConverter* converter = context->GetConverter(this->meta_data_->GetConverterSetting()->GetConverterID());
+  AssetConverter* converter = this->GetConverter(context);
   //TODO: 中間データが最新のものかチェックし、最新でなかったらインポートする処理を書く
   converter->ExportImmediately(SharedRef<AssetEntity>(this), context);
 }
@@ -64,10 +65,23 @@ void AssetEntity::Export(AssetConverterContext* context)
 void AssetEntity::Import(AssetConverterContext* context)
 {
   Logger::ImportAssetLog(this->meta_data_->GetURI());
-  const std::unique_ptr<ConverterSetting>& setting = this->meta_data_->GetConverterSetting();
-  AssetConverter* converter = context->GetConverter(setting->GetConverterID());
+  AssetConverter* converter = this->GetConverter(context);
   this->SetData(converter->ImportImmediately(SharedRef<AssetEntity>(this), context));
   this->is_need_commit_ = true;
+}
+
+bool AssetEntity::ImportFromCache(AssetConverterContext* context)
+{
+  Logger::ImportFromCacheAssetLog(this->meta_data_->GetURI());
+  AssetConverter* converter = this->GetConverter(context);
+  IAssetDataContainer* data = converter->ImportFromCache(SharedRef<AssetEntity>(this), context);
+  if (!data)
+  {
+    return false;
+  }
+  this->SetData(data);
+  this->is_need_commit_ = true;
+  return true;
 }
 
 void AssetEntity::CommitChanges(AssetConverterContext* context)
@@ -105,11 +119,6 @@ void AssetEntity::CheckAssetChanged(AssetConverterContext* context, std::set<Sha
     dirty_self = true;
   }
 
-  if (!this->data_)
-  {
-    dirty_self = true;
-  }
-
   // SourceAssetも同様に圏さする
   const SharedRef<AssetEntity>& source = context->GetEntity(this->meta_data_->GetSourceUniqueId());
   bool dirty_source = false;
@@ -126,6 +135,17 @@ void AssetEntity::CheckAssetChanged(AssetConverterContext* context, std::set<Sha
   if (source->GetMetaData()->GetConverterSetting()->IsDirty())
   {
     dirty_source = true;
+  }
+
+  // 中間データが存在しておらず、
+  // ダーティフラグが立っていなければキャッシュを拾ってくる
+  if (!this->data_ && !dirty_self && !dirty_source)
+  {
+    // キャッシュからの読み込みも失敗したならダーティフラグを立てる
+    if (!this->ImportFromCache(context))
+    {
+      dirty_self = true;
+    }
   }
   
   // ダーティフラグが立っていたらupdate_entitiesにUniqueIdを追加する

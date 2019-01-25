@@ -5,7 +5,7 @@
 
 // Import Converter
 #include <Entity/Default/DefaultAssetConverter.h>
-#include <Entity/File/Raw/RawAssetConverter.h>
+#include <Entity/Raw/RawAssetConverter.h>
 
 #include <Entity/File/Model/StaticModel/StaticModelConverter.h>
 #include <Entity/File/Model/CharacterModel/CharacterModelConverter.h>

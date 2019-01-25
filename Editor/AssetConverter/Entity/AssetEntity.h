@@ -59,6 +59,14 @@ private:
   void Import(AssetConverterContext* context);
 
   /*!
+   * 対象のアセットのキャッシュをインポート。
+   * 依存関係などはすでにMetaDataに記録されているものとする
+   * @param context
+   * @returns キャッシュが存在しなければfalse
+   */
+  bool ImportFromCache(AssetConverterContext* context);
+
+  /*!
    * @brief 自身が管理しているデータに変更があった場合
    * AssetManager側へアセットの再登録を行う
    */

@@ -29,6 +29,11 @@ public:
   // Methods from AssetConverter
   // =================================================================
 public:
+  virtual IAssetDataContainer* ImportFromCache(const SharedRef<AssetEntity>& entity, AssetConverterContext* context) const override
+  {
+    return nullptr;
+  }
+
   virtual void RegisterAssetManager(const SharedRef<AssetEntity>& entity) const override
   {
     AssetMetaData* meta_data = entity->GetMetaData();

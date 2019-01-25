@@ -249,9 +249,6 @@
     <ClInclude Include="Entity\File\FileAssetConverter.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\File\Raw\RawAssetConverter.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Entity\File\Texture\TextureAssetConverter.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -271,9 +268,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Entity\File\Shader\ShaderAssetConverterSetting.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\File\Raw\RawAssetConverterSetting.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Entity\File\Model\StaticModel\StaticModelConverterSetting.h">
@@ -313,6 +307,12 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Scene\TestMesh\TestMesh.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Raw\RawAssetConverter.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Raw\RawAssetConverterSetting.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -449,9 +449,6 @@
     <ClCompile Include="Entity\File\Shader\ShaderAssetConverterSetting.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Entity\File\Raw\RawAssetConverterSetting.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Entity\File\Model\StaticModel\StaticModelConverterSetting.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -480,6 +477,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Scene\TestMesh\TestMesh.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Raw\RawAssetConverterSetting.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
