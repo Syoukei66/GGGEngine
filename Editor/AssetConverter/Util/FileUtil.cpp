@@ -12,7 +12,7 @@
 #include <Setting/Setting.h>
 #include <Util/Logger.h>
 
-static const std::string SETTING_PATH = "ConvertSetting.json";
+static const std::string SETTING_FILE_NAME = "ConvertSetting.json";
 
 static const std::string CURRENT_DIRECTORY = "../../../";
 
@@ -22,7 +22,7 @@ static const std::string RUNTIME_DIRECTORY_PATH = CURRENT_DIRECTORY + "Game";
 
 static const std::string INPUT_PATH = ASSET_PATH + "/Raw";
 static const std::string ARCHIVE_PATH = ASSET_PATH + "/Archive";
-static const std::string MID_DATA_PATH = ASSET_PATH + "/Setting";
+static const std::string SETTING_PATH = ASSET_PATH + "/Setting";
 
 void FileUtil::PrepareDefaultDirectories()
 {
@@ -30,8 +30,8 @@ void FileUtil::PrepareDefaultDirectories()
   _mkdir(ASSET_PATH.c_str());
   _mkdir(INPUT_PATH.c_str());
   _mkdir(ARCHIVE_PATH.c_str());
-  _mkdir(MID_DATA_PATH.c_str());
-  _mkdir(MID_DATA_PATH.c_str());
+  _mkdir(SETTING_PATH.c_str());
+  _mkdir(SETTING_PATH.c_str());
   _mkdir(RUNTIME_DIRECTORY_PATH.c_str());
   _mkdir((RUNTIME_DIRECTORY_PATH + "/" + Directory::GetAssetDirectory()).c_str());
 }
@@ -51,12 +51,12 @@ void FileUtil::PrepareDirectory(const URI& uri)
 
 std::string FileUtil::GetSettingPath()
 {
-  return CreateMidDataPath(SETTING_PATH);
+  return CreateSettingPath(SETTING_FILE_NAME);
 }
 
 std::string FileUtil::GetMidDataUniqueIdTablePath()
 {
-  return CreateMidDataPath(Directory::GetUniqueIdTableFileName("json"));
+  return CreateSettingPath(Directory::GetUniqueIdTableFileName("json"));
 }
 
 std::string FileUtil::GetArchiveUniqueIdTablePath()
@@ -84,9 +84,9 @@ std::string FileUtil::CreateInputDirectoryPath(const URI& uri)
   return INPUT_PATH + "/" + uri.GetDirectoryPath();
 }
 
-std::string FileUtil::CreateMidDataPath(const URI& uri)
+std::string FileUtil::CreateSettingPath(const URI& uri)
 {
-  return MID_DATA_PATH + "/" + uri.GetFullPath();
+  return SETTING_PATH + "/" + uri.GetFullPath();
 }
 
 std::string FileUtil::CreateArchivePath(const AssetMetaData* meta_data)
