@@ -148,7 +148,7 @@ static SharedRef<AssetEntity> ImportMaterial(bool material_override, AssetMetaDa
   }
 
   // AssetEntityに中間データやサブアセットを設定する
-  entity->SetData(new AssetDataContainer<MaterialData>(data));
+  entity->SetData(data);
   entity->GetMetaData()->GetConverterSetting()->ClearSubAssets();
   entity->GetMetaData()->GetConverterSetting()->AddSubAsset(tex_asset_entity->GetMetaData()->GetUniqueID());
   entity->GetMetaData()->GetConverterSetting()->AddSubAsset(shader_asset_entity->GetMetaData()->GetUniqueID());
