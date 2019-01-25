@@ -115,7 +115,14 @@ SharedRef<AssetEntity> AssetConverterContext::AddEntity(const SharedRef<AssetEnt
 
 SharedRef<AssetEntity> AssetConverterContext::GetEntity(const URI& uri)
 {
-  return this->asset_entities_[this->GetUniqueID(uri.GetFullPath())];
+  const T_UINT32 uid = this->GetUniqueID(uri.GetFullPath());
+  const auto& itr = this->asset_entities_.find(uid);
+  // ‘¶Ý‚µ‚È‚¢URIŽw’è‚¾‚Á‚½‚ç
+  if (itr == this->asset_entities_.end())
+  {
+    return nullptr;
+  }
+  return this->asset_entities_.at(uid);
 }
 
 SharedRef<AssetEntity> AssetConverterContext::GetEntity(T_UINT32 unique_id)
@@ -124,7 +131,7 @@ SharedRef<AssetEntity> AssetConverterContext::GetEntity(T_UINT32 unique_id)
   {
     unique_id = this->unique_id_table_->GetDefaultAssetUniqueID(unique_id);
   }
-  return this->asset_entities_[unique_id];
+  return this->asset_entities_.at(unique_id);
 }
 
 T_UINT32 AssetConverterContext::PublishUniqueID(const URI& uri)
