@@ -36,7 +36,8 @@ IAssetDataContainer* AssetConverter::ImportImmediately(const SharedRef<AssetEnti
 {
   // コンバーター設定が登録されていないか、前まで別のコンバーターを使用していた場合は
   // 自身のコンバーター設定で上書きする。
-  const std::unique_ptr<ConverterSetting>& setting = entity->GetMetaData()->GetConverterSetting();
+  AssetMetaData* meta = entity->GetMetaData();
+  const std::unique_ptr<ConverterSetting>& setting = meta->GetConverterSetting();
   if (!setting || setting->GetConverterID() != this->GetId())
   {
     entity->GetMetaData()->SetConverterSetting(this->CreateSetting());
@@ -44,6 +45,7 @@ IAssetDataContainer* AssetConverter::ImportImmediately(const SharedRef<AssetEnti
   // インポートが行われるのでSettingのダーティフラグを削除する
   // インポートがループしないようにインポート前に行う
   setting->ClearDirty();
+  meta->Save();
   IAssetDataContainer* ret = this->ImportProcess(entity, context);
 
   return ret;

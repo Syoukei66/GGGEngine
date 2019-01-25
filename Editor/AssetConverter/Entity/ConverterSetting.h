@@ -50,6 +50,9 @@ public:
     this->is_dirty_ |= this->EditWithImGuiProcess();
   }
 
+  /*!
+   * @brief 自身を使用してデータを読み込んだらダーティフラグを削除
+   */
   inline void ClearDirty()
   {
     this->is_dirty_ = false;
