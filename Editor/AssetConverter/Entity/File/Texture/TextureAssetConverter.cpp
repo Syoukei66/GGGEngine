@@ -172,9 +172,9 @@ IAssetDataContainer* TextureAssetConverter::ImportProcess(const SharedRef<AssetE
         for (T_UINT32 y = 0; y < image->height; ++y)
         {
           T_FIXED_UINT8* pixel = &image->pixels[(image->width * y + x) * bpp];
-          pixel[0] = pixel[0] + (0x80 - pixel[0]) * gray_weight;
-          pixel[1] = pixel[1] + (0x80 - pixel[1]) * gray_weight;
-          pixel[2] = pixel[2] + (0x80 - pixel[2]) * gray_weight;
+          pixel[0] = (T_FIXED_UINT8)(pixel[0] + (0x80 - pixel[0]) * gray_weight);
+          pixel[1] = (T_FIXED_UINT8)(pixel[1] + (0x80 - pixel[1]) * gray_weight);
+          pixel[2] = (T_FIXED_UINT8)(pixel[2] + (0x80 - pixel[2]) * gray_weight);
           //pixel[3] = pixel[3] + (0x80 - pixel[3]) * gray_weight;
         }
       }
