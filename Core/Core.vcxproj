@@ -260,6 +260,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClCompile Include="Application\Asset\AssetManager.cpp" />
     <ClCompile Include="Application\Asset\UniqueIdTable.cpp" />
     <ClCompile Include="Application\Input\InputState.cpp" />
+    <ClCompile Include="Application\Platform\Platform.cpp" />
     <ClCompile Include="Math\Color.cpp" />
     <ClCompile Include="Util\FileUtil.cpp" />
     <ClInclude Include="Math\Vector2.inl">

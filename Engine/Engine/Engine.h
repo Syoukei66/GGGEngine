@@ -2,7 +2,6 @@
 
 #include <Core/Application/IApplicationBehavior.h>
 #include <Engine/Engine/IEngineBehavior.h>
-#include <Engine/Scene/SceneManager.h>
 
 /*!
  * @brief Sceneを用いてゲームを動作させるクラス
@@ -25,23 +24,11 @@ protected:
   virtual void OnApplicationEnd() override;
   virtual void Init() override;
   virtual void Uninit() override;
-  virtual void Update(const UpdateEventState& state) override;
-  virtual void Draw() override;
-
-  // =================================================================
-  // Setter / Getter
-  // =================================================================
-public:
-  GG_INLINE SceneManager* GetSceneManager() const
-  {
-    return this->scene_manager_;
-  }
-
+  
   // =================================================================
   // Data Members
   // =================================================================
 private:
   IEngineBehavior* engine_behavior_;
-  SceneManager* scene_manager_;
 
 };

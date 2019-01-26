@@ -79,4 +79,5 @@ void EntryScene::Update()
 void EntryScene::ShowViewer(const SharedRef<AssetEntity>& entity)
 {
   this->viewer_scene_->Run(entity, this->context_);
+  Application::StartActivity();
 }

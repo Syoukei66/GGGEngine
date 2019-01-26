@@ -99,21 +99,28 @@ void HLSLCompiler::ConvertHLSL(const ShaderData& shader, std::string* str)
   builtin += "  matrix _MatMV;\n";
   builtin += "  matrix _ObjToWorld;\n";
   builtin += "  matrix _WorldToObj;\n";
-  builtin += "  float4 _Time;\n";
-  builtin += "  float4 _SinTime;\n";
-  builtin += "  float4 _CosTime;\n";
   builtin += "};\n";
   builtin += "cbuffer GameObjectRenderStateBuiltin : register( b1 )\n";
   builtin += "{\n";
   builtin += "  matrix _MatV;\n";
   builtin += "  matrix _MatP;\n";
+  builtin += "  matrix _MatVP;\n";
   builtin += "  float4 _CameraPosition;\n";
-  builtin += "  float4 _CameraDirection;\n";
+  builtin += "  float4 _ProjectionParams;\n";
+  builtin += "  float4 _ScreenParams;\n";
+  builtin += "  float4 _ZBufferParams;\n";
+  builtin += "  float4 _OrthoParams;\n";
+  builtin += "};\n";
+  builtin += "cbuffer TimeBuiltin : register( b2 )\n";
+  builtin += "{\n";
+  builtin += "  float4 _Time;\n";
+  builtin += "  float4 _SinTime;\n";
+  builtin += "  float4 _CosTime;\n";
   builtin += "  float4 _DeltaTime;\n";
   builtin += "};\n";
 
   std::string user = "";
-  user += "cbuffer UserProperty : register( b2 )\n";
+  user += "cbuffer UserProperty : register( b3 )\n";
   user += "{\n";
   for (const ScalaPropertyData& data : shader.scala_properties_)
   {

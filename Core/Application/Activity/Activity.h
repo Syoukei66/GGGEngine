@@ -4,9 +4,13 @@
 #include <Core/Application/Platform/API/Audio/AudioAPI.h>
 #include <Core/Application/Platform/API/Graphics/GraphicsAPI.h>
 #include <Core/Application/Platform/API/Input/InputAPI.h>
-          
+#include <Core/Application/Event/UpdateEventState.h>
+#include <Engine/Scene/SceneManager.h>
+
+struct ImGuiContext;
+
 /*!
- * @brief アプリケーションを動作させるクラス
+ * @brief ウィンドウなど、１つのアプリケーション実行インスタンスのクラス
  */
 class Activity : public GGObject
 {
@@ -20,18 +24,33 @@ class Activity : public GGObject
   // =================================================================
   // Methods
   // =================================================================
-protected:
+public:
   /*!
-   * @brief ゲームが続くかどうかの判定
-   * @return falseならゲーム終了
+   * @brief アクティビティ初期化処理
    */
-  virtual bool ContinueEnabled() = 0;
+  void Start();
 
   /*!
-   * @brief フレーム処理が有効かどうかの判定
-   * @return falseならアップデート処理を行わず待機する
+   * @brief アクティビティ終了処理
    */
-  virtual bool FrameEnabled() = 0;
+  void End();
+
+  /*!
+   * @brief アクティビティのアップデート処理
+   * @return falseならアクティビティ終了
+   */
+  bool Update(const SharedRef<GraphicsAPI>& graphics_api, const SharedRef<InputAPI>& input_api);
+
+protected:
+  /*!
+   * @brief プラットフォーム毎のアクティビティ初期化処理
+   */
+  virtual void OnStart() = 0;
+
+  /*!
+   * @brief プラットフォーム毎のアクティビティ終了処理
+   */
+  virtual void OnEnd() = 0;
 
   /*!
    * @brief アクティビティがアクティブ状態か確かめる
@@ -69,11 +88,34 @@ public:
     return this->option_.window_size.height;
   }
 
+  GG_INLINE void PushScene(const SharedRef<Scene>& next, bool load = true)
+  {
+    this->scene_manager_->PushScene(next, load);
+  }
+
+  GG_INLINE void PopScene(bool unload = true)
+  {
+    this->scene_manager_->PopScene(unload);
+  }
+
+  GG_INLINE void ChangeScene(const SharedRef<Scene>& next)
+  {
+    this->scene_manager_->ChangeScene(next);
+  }
+
+  GG_INLINE SharedRef<Scene> GetNowScene()
+  {
+    return this->scene_manager_->GetNowScene();
+  }
+
   // =================================================================
   // Data Member
   // =================================================================
 private:
+  SceneManager* scene_manager_;
+  UpdateEventState update_event_state_;
   ActivityOption option_;
   T_FLOAT elapsed_time_;
+  ImGuiContext* imgui_context_;
 
 };

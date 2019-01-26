@@ -11,7 +11,6 @@
 
 #include <Core/Application/Asset/AssetManager.h>
 
-#include <imgui/imgui_ja_gryph_ranges.h>
 #include <imgui/imgui.h>
 
 // =================================================================
@@ -34,48 +33,14 @@ void Application::Run(IApplicationBehavior* behavior, IApplicationSetting* setti
   ActivityOption ao;
   behavior->SetupMainActivityOption(ao);
 
-  self->platform_ = Platform::Create();
-
-  IMGUI_CHECKVERSION();
-  ImGui::CreateContext();
-  
-  setting->SetupApplication(self, ao, &self->main_activity_, &self->platform_->graphics_api_, &self->platform_->input_api_, &self->platform_->audio_api_);
-
-  ImGui::StyleColorsDark();
-  ImGui::SetupJapaneseString();
+  self->platform_ = setting->CreatePlatform(self);
+  self->platform_->Init(setting->CreateMainActivity(ao));
 
   // ゲーム開始処理
   behavior->Init();
 
-  self->update_event_state_ = UpdateEventState();
-
-  // メインループ
-  while (self->main_activity_->ContinueEnabled())
-  {
-    if (!self->main_activity_->FrameEnabled())
-    {
-      continue;
-    }
-    self->platform_->graphics_api_->ImGuiNewFrame();
-    ImGui::NewFrame();
-
-    self->update_event_state_.Update();
-    self->platform_->input_api_->Update();
-    behavior->Update(self->update_event_state_);
-
-    // 描画周期が来たら描画を行う
-    if (self->main_activity_->DrawEnabled(self->update_event_state_.GetDeltaTime()))
-    {
-      ImGui::Render();
-      self->platform_->graphics_api_->Draw(self->main_activity_, [&]()
-      {
-        behavior->Draw();
-      });
-    }
-
-    ImGui::EndFrame();
-    GGObjectManager::GC();
-  }
+  // アクティビティ処理
+  while (self->platform_->Update(behavior));
 
   // アプリケーション終了処理
   behavior->Uninit();
@@ -87,10 +52,7 @@ void Application::Run(IApplicationBehavior* behavior, IApplicationSetting* setti
   GGObjectManager::GC();
 
   // 各APIの終了処理
-  self->platform_->input_api_ = nullptr;
-  self->platform_->graphics_api_ = nullptr;
-  self->platform_->audio_api_ = nullptr;
-
+  self->platform_->Uninit();
   self->platform_ = nullptr;
 
   // アクティビティ 解放処理
@@ -98,8 +60,6 @@ void Application::Run(IApplicationBehavior* behavior, IApplicationSetting* setti
 
   // システム側でのリソースの全開放
   GGObjectManager::GC();
-
-  ImGui::DestroyContext();
 
   // メモリリークチェック
   if (GGObjectManager::CheckLeak())
@@ -109,6 +69,10 @@ void Application::Run(IApplicationBehavior* behavior, IApplicationSetting* setti
 
   // アプリケーション終了時イベント
   behavior->OnApplicationEnd();
+}
+
+void Application::StartActivity(const SharedRef<Activity>& activity, const SharedRef<Scene>& first_scene)
+{
 }
 
 bool Application::IsActive()

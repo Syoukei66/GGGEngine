@@ -287,9 +287,6 @@
     <ClInclude Include="stdafx.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Director.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Component\Camera\Camera.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>

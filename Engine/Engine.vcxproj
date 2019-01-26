@@ -272,7 +272,6 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="Component\Renderer\Renderer.h" />
     <ClInclude Include="Component\Renderer\SpriteRenderer.h" />
     <ClInclude Include="Component\Spine\SkeletonAnimation.h" />
-    <ClInclude Include="Director.h" />
     <ClInclude Include="Engine\EngineOption.h" />
     <ClInclude Include="Engine\IEngineBehavior.h" />
     <ClInclude Include="Engine\Engine.h" />

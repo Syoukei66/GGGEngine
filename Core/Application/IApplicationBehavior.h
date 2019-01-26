@@ -45,14 +45,4 @@ public:
    */
   virtual void Uninit() = 0;
 
-  /*!
-   * @brief アプリケーションのアップデート処理
-   */
-  virtual void Update(const UpdateEventState& state) = 0;
-
-  /*!
-   * @brief アプリケーションの描画処理
-   */
-  virtual void Draw() = 0;
-
 };

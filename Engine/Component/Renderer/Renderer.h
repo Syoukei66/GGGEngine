@@ -74,10 +74,6 @@ protected:
     Matrix4x4 mat_mv;
     Matrix4x4 obj_to_world;
     Matrix4x4 world_to_obj;
-
-    TVec4f time_;
-    TVec4f sin_time_;
-    TVec4f cos_time_;
   } builtin_variable_;
   SharedRef<rcConstantBuffer> builtin_variable_buffer_;
 

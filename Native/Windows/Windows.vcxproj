@@ -194,6 +194,8 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="API\Graphics\DX11\DX11VertexDeclaration.h" />
     <ClInclude Include="API\Graphics\DX9\DX9VertexDeclaration.h" />
     <ClInclude Include="imgui\imgui_impl_win32.h" />
+    <ClInclude Include="Platform\DX11Platform.h" />
+    <ClInclude Include="Platform\WindowsPlatform.h" />
     <ClInclude Include="WindowsApplicationSetting_Editor.h" />
     <ClInclude Include="API\Audio\XAudio\XAudioAPI.h" />
     <ClInclude Include="API\Graphics\DX9\DX9GraphicsAPI.h" />
@@ -260,6 +262,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdafx.h;Native/Windows/stdafx.h</ForcedIncludeFiles>
     </ClCompile>
     <ClCompile Include="Activity\WindowActivity.cpp" />
+    <ClCompile Include="WindowsApplication.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Algorithm\Algorithm.vcxproj">

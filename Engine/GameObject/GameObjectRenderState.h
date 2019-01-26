@@ -8,7 +8,6 @@ class Renderer;
 //TODO:ƒJƒƒ‰‚ÆØ‚è—£‚µ‚½•û‚ª‚¢‚¢
 class GameObjectRenderState
 {
-
   // =================================================================
   // Constructor / Destructor
   // =================================================================
@@ -23,14 +22,9 @@ public:
   void Init();
   void Draw();
   void AddQueue(const Renderer* renderer);
-
-  GG_INLINE void SetWorldMatrix(const Matrix4x4& model)
+  GG_INLINE void SetConstantBuffer()
   {
-    this->world_matrix_ = model;
-  }
-  GG_INLINE void PushWorldMatrix(const Matrix4x4& model)
-  {
-    this->world_matrix_ *= model;
+    this->builtin_variable_buffer_->SetBuffer();
   }
 
   // =================================================================
@@ -61,13 +55,18 @@ public:
   {
     return this->camera_;
   }
+
   GG_INLINE const Matrix4x4& GetViewProjMatrix() const
   {
-    return this->view_proj_matrix_;
+    return this->builtin_variable_.mat_vp;
   }
-  GG_INLINE const Matrix4x4& GetWorldMatrix() const
+  GG_INLINE const Matrix4x4& GetViewMatrix() const
   {
-    return this->world_matrix_;
+    return this->builtin_variable_.mat_v;
+  }
+  GG_INLINE const Matrix4x4& GetProjectionMatrix() const
+  {
+    return this->builtin_variable_.mat_p;
   }
 
   // =================================================================
@@ -76,8 +75,6 @@ public:
 private:
   Camera* camera_;
   T_UINT32 layer_state_;
-  Matrix4x4 view_proj_matrix_;
-  Matrix4x4 world_matrix_;
 
   GameObjectRenderQueue* queues_[Graphics::RQ_DATANUM];
 
@@ -85,11 +82,14 @@ private:
   {
     Matrix4x4 mat_v;
     Matrix4x4 mat_p;
+    Matrix4x4 mat_vp;
 
-    TVec4f camera_position_;
-    TVec4f camera_direction_;
-    TVec4f delta_time_;
+    TVec4f world_space_camera_pos_;
+    TVec4f projection_params_;
+    TVec4f screen_params_;
+    TVec4f z_buffer_params_;
+    TVec4f ortho_params_;
   } builtin_variable_;
-  //SharedRef<rcConstantBuffer> builtin_variable_buffer_;
+  SharedRef<rcConstantBuffer> builtin_variable_buffer_;
 
 };

@@ -211,6 +211,7 @@ enum class ConstantBufferId : T_FIXED_UINT8
 {
   kRendererBuiltin,
   kRenderStateBuiltin,
+  kTimeBuiltin,
   kProperty,
 
   DATANUM,

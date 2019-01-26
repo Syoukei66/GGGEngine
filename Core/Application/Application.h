@@ -3,7 +3,6 @@
 #include "ApplicationOption.h"
 #include <Core/Application/Platform/Platform.h>
 #include <Core/Application/Activity/Activity.h>
-#include <Core/Application/Event/UpdateEventState.h>
 
 class IApplicationBehavior;
 class IApplicationSetting;
@@ -25,6 +24,8 @@ class Application
 public:
   static void Run(IApplicationBehavior* behavior, IApplicationSetting* setting);
 
+  static void StartActivity(const SharedRef<Activity>& activity, const SharedRef<Scene>& first_scene);
+
   static bool IsActive();
 
   // =================================================================
@@ -36,11 +37,6 @@ public:
     return Self().option_;
   }
   
-  static GG_INLINE const UpdateEventState& GetUpdateEventState()
-  {
-    return Self().update_event_state_;
-  }
-
   static GG_INLINE SharedRef<Platform> GetPlatform()
   {
     return Self().platform_;
@@ -56,8 +52,8 @@ public:
   // =================================================================
 private:
   ApplicationOption option_;
-  UpdateEventState update_event_state_;
   SharedRef<Platform> platform_;
   SharedRef<Activity> main_activity_;
+  std::vector<SharedRef<Activity>> sub_activity_;
 
 };

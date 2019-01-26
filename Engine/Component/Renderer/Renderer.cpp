@@ -41,9 +41,10 @@ void Renderer::Draw(GameObjectRenderState* state) const
 
   Renderer* self = const_cast<Renderer*>(this);
 
-  self->builtin_variable_.mat_mvp = state->GetWorldMatrix() * state->GetViewProjMatrix();
-  //self->builtin_variable_.mat_mv = state->GetWorldMatrix() * state->GetViewMatrix();
-  self->builtin_variable_.obj_to_world = state->GetWorldMatrix();
+  self->builtin_variable_.mat_mvp = this->GetObject()->GetTransform()->GetWorldMatrix() * state->GetViewProjMatrix();
+  self->builtin_variable_.mat_mv = this->GetObject()->GetTransform()->GetWorldMatrix() * state->GetViewMatrix();
+  self->builtin_variable_.obj_to_world = this->GetObject()->GetTransform()->GetWorldMatrix();
+  self->builtin_variable_.world_to_obj = this->GetObject()->GetTransform()->GetWorldMatrix().Inverse();
   
   const T_FLOAT time = self->builtin_variable_.time_.y + Application::GetUpdateEventState().GetDeltaTime();
   self->builtin_variable_.time_.x = time / 20.0f;
@@ -73,7 +74,7 @@ void Renderer::Draw(GameObjectRenderState* state) const
     this->BeginPass(0, shader);
     material->SetBuffer();
     this->builtin_variable_buffer_->SetBuffer();
-    //state->SetConstantBuffer();
+    state->SetConstantBuffer();
     this->DrawSubset(i);
   }
 }

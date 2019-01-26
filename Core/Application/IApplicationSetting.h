@@ -1,8 +1,6 @@
 #pragma once
 
-#include <Core/Application/Platform/API/Graphics/GraphicsAPI.h>
-#include <Core/Application/Platform/API/Input/InputAPI.h>
-#include <Core/Application/Platform/API/Audio/AudioAPI.h>
+#include <Core/Application/Platform/Platform.h>
 #include <Core/Application/Activity/Activity.h>
 #include <Core/Application/Application.h>
 
@@ -16,8 +14,16 @@ class IApplicationSetting
   // =================================================================
 public:
   /*!
-   * @brief MainActivityの作成やAPIの設定などを行う
+   * @brief Platformを作成する
+   * @return Platformのインスタンス
    */
-  virtual void SetupApplication(Application* app, const ActivityOption& ao, SharedRef<Activity>* activity, SharedRef<GraphicsAPI>* graphics, SharedRef<InputAPI>* input, SharedRef<AudioAPI>* audio) = 0;
+  virtual UniqueRef<Platform> CreatePlatform(Application* app) const = 0;
+
+  /*!
+   * @brief MainActivityを作成する
+   * @param ao ActivityOption
+   * @return MainActivityのインスタンス
+   */
+  virtual UniqueRef<Activity> CreateMainActivity(const ActivityOption& ao) const = 0;
 
 };

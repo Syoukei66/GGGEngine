@@ -21,7 +21,6 @@
 #include <Engine/Component/Renderer/Renderer.h>
 #include <Engine/Component/Renderer/SpriteRenderer.h>
 #include <Engine/Component/Spine/SkeletonAnimation.h>
-#include <Engine/Director.h>
 #include <Engine/Engine/Engine.h>
 #include <Engine/Engine/EngineOption.h>
 #include <Engine/Engine/IEngineBehavior.h>
