@@ -27,7 +27,7 @@ DX9IndexBuffer::DX9IndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count, Ve
 {
   const T_UINT8 format_index = static_cast<T_UINT8>(this->format_);
 
-  LPDIRECT3DDEVICE9 device = WindowsApplication::GetDX9Graphics()->GetDevice();
+  LPDIRECT3DDEVICE9 device = WindowsPlatform::GetDX9Graphics()->GetDevice();
   HRESULT hr = device->CreateIndexBuffer(
     vertex_count * Vertex::INDEX_FORMAT_SIZES[format_index],
     0,
@@ -61,7 +61,7 @@ void DX9IndexBuffer::Unlock()
 
 void DX9IndexBuffer::SetIndices() const
 {
-  LPDIRECT3DDEVICE9 device = WindowsApplication::GetDX9Graphics()->GetDevice();
+  LPDIRECT3DDEVICE9 device = WindowsPlatform::GetDX9Graphics()->GetDevice();
 
   HRESULT hr = device->SetIndices(this->index_buffer_);
   GG_ASSERT(SUCCEEDED(hr), "IndexBuffer‚ÌƒZƒbƒg‚ÉŽ¸”s‚µ‚Ü‚µ‚½");

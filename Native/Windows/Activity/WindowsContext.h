@@ -2,21 +2,20 @@
 
 #define NOMINMAX
 #include <Windows.h>
-#include <Core/Application/Activity/Activity.h>
+#include <Core/Application/Activity/ActivityContext.h>
 
-class WindowsActivity : public Activity
+class WindowsContext : public ActivityContext
 {
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_INIT_FUNC_2(WindowsActivity, const ActivityOption&, HWND);
+public:
+  GG_INIT_FUNC_1(WindowsContext, HWND);
 
   // =================================================================
   // Methods from Activity
   // =================================================================
 protected:
-  virtual bool ContinueEnabled() override;
-  virtual bool FrameEnabled() override;
   virtual bool IsActive() override;
 
   // =================================================================

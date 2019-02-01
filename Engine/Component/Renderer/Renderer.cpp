@@ -39,30 +39,11 @@ void Renderer::Draw(GameObjectRenderState* state) const
     return;
   }
 
-  Renderer* self = const_cast<Renderer*>(this);
-
-  self->builtin_variable_.mat_mvp = this->GetObject()->GetTransform()->GetWorldMatrix() * state->GetViewProjMatrix();
-  self->builtin_variable_.mat_mv = this->GetObject()->GetTransform()->GetWorldMatrix() * state->GetViewMatrix();
-  self->builtin_variable_.obj_to_world = this->GetObject()->GetTransform()->GetWorldMatrix();
-  self->builtin_variable_.world_to_obj = this->GetObject()->GetTransform()->GetWorldMatrix().Inverse();
-  
-  const T_FLOAT time = self->builtin_variable_.time_.y + Application::GetUpdateEventState().GetDeltaTime();
-  self->builtin_variable_.time_.x = time / 20.0f;
-  self->builtin_variable_.time_.y = time;
-  self->builtin_variable_.time_.z = time * 2;
-  self->builtin_variable_.time_.w = time * 3;
-
-  self->builtin_variable_.sin_time_.x = sinf(time / 8.0f);
-  self->builtin_variable_.sin_time_.y = sinf(time / 4.0f);
-  self->builtin_variable_.sin_time_.z = sinf(time / 2.0f);
-  self->builtin_variable_.sin_time_.w = sinf(time / 1.0f);
-
-  self->builtin_variable_.cos_time_.x = cosf(time / 8.0f);
-  self->builtin_variable_.cos_time_.y = cosf(time / 4.0f);
-  self->builtin_variable_.cos_time_.z = cosf(time / 2.0f);
-  self->builtin_variable_.cos_time_.w = cosf(time / 1.0f);
-
-  self->builtin_variable_buffer_->CommitChanges(&this->builtin_variable_);
+  this->builtin_variable_.mat_mvp = this->GetObject()->GetTransform()->GetWorldMatrix() * state->GetViewProjMatrix();
+  this->builtin_variable_.mat_mv = this->GetObject()->GetTransform()->GetWorldMatrix() * state->GetViewMatrix();
+  this->builtin_variable_.obj_to_world = this->GetObject()->GetTransform()->GetWorldMatrix();
+  this->builtin_variable_.world_to_obj = this->GetObject()->GetTransform()->GetWorldMatrix().Inverse();
+  this->builtin_variable_buffer_->CommitChanges(&this->builtin_variable_);
 
   //TODO:マルチパスレンダリングになるよう修正する必要がある。
   //レンダリングパス毎にオブジェクトをソートする必要がある。
@@ -75,6 +56,7 @@ void Renderer::Draw(GameObjectRenderState* state) const
     material->SetBuffer();
     this->builtin_variable_buffer_->SetBuffer();
     state->SetConstantBuffer();
+    Application::GetUpdateEventState().SetConstantBuffer();
     this->DrawSubset(i);
   }
 }

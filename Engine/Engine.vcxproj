@@ -233,6 +233,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClCompile Include="Component\Renderer\SpriteRenderer.cpp" />
     <ClCompile Include="Component\Spine\SkeletonAnimation.cpp" />
     <ClCompile Include="Engine\Engine.cpp" />
+    <ClCompile Include="GameActivity.cpp" />
     <ClCompile Include="GameObject\GameObjectFactory.cpp" />
     <ClCompile Include="GameObject\GameObject.cpp" />
     <ClCompile Include="GameObject\GameObject2D.cpp" />
@@ -272,9 +273,11 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="Component\Renderer\Renderer.h" />
     <ClInclude Include="Component\Renderer\SpriteRenderer.h" />
     <ClInclude Include="Component\Spine\SkeletonAnimation.h" />
+    <ClInclude Include="Director.h" />
     <ClInclude Include="Engine\EngineOption.h" />
     <ClInclude Include="Engine\IEngineBehavior.h" />
     <ClInclude Include="Engine\Engine.h" />
+    <ClInclude Include="GameActivity.h" />
     <ClInclude Include="GameObject\GameObjectFactory.h" />
     <ClInclude Include="GameObject\GameObject.h" />
     <ClInclude Include="GameObject\GameObject2D.h" />

@@ -62,7 +62,7 @@ private:
    * 対象のアセットのキャッシュをインポート。
    * 依存関係などはすでにMetaDataに記録されているものとする
    * @param context
-   * @returns キャッシュが存在しなければfalse
+   * @return キャッシュが存在しなければfalse
    */
   bool ImportFromCache(AssetConverterContext* context);
 

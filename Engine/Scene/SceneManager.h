@@ -22,10 +22,10 @@ public:
    */
   void PopScene(bool unload_current = true);
 
-  void ChangeScene(const SharedRef<Scene>& next);
+  void ChangeScene(const SharedRef<Scene>& next, bool need_unload = true);
   void ClearScene();
 
-  void Update(const UpdateEventState& state);
+  void Update();
   void Draw();
 
   // =================================================================
@@ -42,5 +42,12 @@ public:
   // =================================================================
 private:
   SharedRef<Scene> now_scene_;
+
+  /*!
+   * @brief シーン遷移をアップデートのタイミングで行う為のバッファ
+   */
+  SharedRef<Scene> next_scene_;
+  bool unload_now_scene_;
+
   std::deque<SharedRef<Scene>> scene_stack_;
 };

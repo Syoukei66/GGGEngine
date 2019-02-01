@@ -178,6 +178,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Application\Activity\ActivityContext.h" />
     <ClInclude Include="Application\Asset\AssetMacro.h" />
     <ClInclude Include="Application\Input\InputEntity.h" />
     <ClInclude Include="Application\Object\GGRefSFINAE.h" />
@@ -250,6 +251,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application\Activity\Activity.cpp" />
+    <ClCompile Include="Application\Activity\ActivityContext.cpp" />
     <ClCompile Include="Application\Event\UpdateEventState.cpp" />
     <ClCompile Include="Application\Platform\API\Graphics\GraphicsAPI.cpp" />
     <ClCompile Include="Application\Input\AnalogInput.cpp" />

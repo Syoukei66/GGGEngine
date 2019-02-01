@@ -15,7 +15,7 @@ UniqueRef<rcVertexDeclaration> rcVertexDeclaration::Create(T_UINT32 format)
 DX11VertexDeclaration::DX11VertexDeclaration(T_UINT32 format)
   : format_(format)
 {
-  ID3D11Device* device = WindowsApplication::GetDX11Graphics()->GetDevice();
+  ID3D11Device* device = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice();
 
   WORD offset = 0;
 

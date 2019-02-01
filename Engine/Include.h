@@ -21,9 +21,11 @@
 #include <Engine/Component/Renderer/Renderer.h>
 #include <Engine/Component/Renderer/SpriteRenderer.h>
 #include <Engine/Component/Spine/SkeletonAnimation.h>
+#include <Engine/Director.h>
 #include <Engine/Engine/Engine.h>
 #include <Engine/Engine/EngineOption.h>
 #include <Engine/Engine/IEngineBehavior.h>
+#include <Engine/GameActivity.h>
 #include <Engine/GameObject/GameObject.h>
 #include <Engine/GameObject/GameObject2D.h>
 #include <Engine/GameObject/GameObject3D.h>

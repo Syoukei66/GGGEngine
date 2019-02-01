@@ -178,8 +178,8 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Activity\EditorWindowActivity.h" />
-    <ClInclude Include="Activity\WindowsActivity.h" />
+    <ClInclude Include="Activity\EditorWindowActivityContext.h" />
+    <ClInclude Include="Activity\WindowsContext.h" />
     <ClInclude Include="API\Graphics\DX11\DX11ConstantBuffer.h" />
     <ClInclude Include="API\Graphics\DX11\DX11Constants.h" />
     <ClInclude Include="API\Graphics\DX11\DX11GraphicsAPI.h" />
@@ -196,7 +196,6 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="imgui\imgui_impl_win32.h" />
     <ClInclude Include="Platform\DX11Platform.h" />
     <ClInclude Include="Platform\WindowsPlatform.h" />
-    <ClInclude Include="WindowsApplicationSetting_Editor.h" />
     <ClInclude Include="API\Audio\XAudio\XAudioAPI.h" />
     <ClInclude Include="API\Graphics\DX9\DX9GraphicsAPI.h" />
     <ClInclude Include="API\Graphics\DX9\imgui\imgui_impl_dx9.h" />
@@ -217,13 +216,13 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="API\Input\DirectInput\DirectInputDevice_XInput.h" />
     <ClInclude Include="API\Input\DirectInput\DirectInputImplements.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Activity\WindowActivity.h" />
+    <ClInclude Include="Activity\WindowActivityContext.h" />
     <ClInclude Include="WindowsApplication.h" />
-    <ClInclude Include="WindowsApplicationSetting_Game.h" />
+    <ClInclude Include="WindowsPlatform.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Activity\EditorWindowActivity.cpp" />
-    <ClCompile Include="Activity\WindowsActivity.cpp" />
+    <ClCompile Include="Activity\EditorWindowActivityContext.cpp" />
+    <ClCompile Include="Activity\WindowsContext.cpp" />
     <ClCompile Include="API\Audio\XAudio\XAudioAPI.cpp" />
     <ClCompile Include="API\Graphics\DX11\DX11ConstantBuffer.cpp" />
     <ClCompile Include="API\Graphics\DX11\DX11GraphicsAPI.cpp" />
@@ -261,8 +260,8 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdafx.h;Native/Windows/stdafx.h</ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdafx.h;Native/Windows/stdafx.h</ForcedIncludeFiles>
     </ClCompile>
-    <ClCompile Include="Activity\WindowActivity.cpp" />
-    <ClCompile Include="WindowsApplication.cpp" />
+    <ClCompile Include="Activity\WindowActivityContext.cpp" />
+    <ClCompile Include="WindowsPlatform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Algorithm\Algorithm.vcxproj">

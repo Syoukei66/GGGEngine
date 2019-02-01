@@ -68,7 +68,7 @@ protected:
   std::unordered_map<T_UINT32, SharedRef<const rcMaterial>> shared_materials_;
   std::unordered_map<T_UINT32, SharedRef<rcMaterial>> materials_;
 
-  struct ShaderBuiltinData
+  mutable struct ShaderBuiltinData
   {
     Matrix4x4 mat_mvp;
     Matrix4x4 mat_mv;

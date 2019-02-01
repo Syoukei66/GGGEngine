@@ -17,7 +17,7 @@ UniqueRef<rcTextureView> rcTextureView::Create(const TextureViewData& data, cons
 // =================================================================
 DX11TextureView::DX11TextureView(const TextureViewData& data, const SharedRef<rcTextureResource>& resource)
 {
-  ID3D11Device* device = WindowsApplication::GetDX11Graphics()->GetDevice();
+  ID3D11Device* device = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice();
 
   const SharedRef<DX11TextureResource>& dx11_resource = SharedRef<DX11TextureResource>::StaticCast(resource);
 
@@ -73,7 +73,7 @@ DX11TextureView::~DX11TextureView()
 // =================================================================
 void DX11TextureView::SetToHardware(T_UINT8 index) const
 {
-  ID3D11DeviceContext* context = WindowsApplication::GetDX11Graphics()->GetImmediateContext();
+  ID3D11DeviceContext* context = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetImmediateContext();
   context->VSSetShaderResources(index, 1, &this->resource_view_);
   context->VSSetSamplers(index, 1, &this->sampler_state_);
   context->PSSetShaderResources(index, 1, &this->resource_view_);

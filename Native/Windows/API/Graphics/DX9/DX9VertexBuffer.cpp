@@ -22,7 +22,7 @@ UniqueRef<rcVertexBuffer> rcVertexBuffer::Create(T_UINT32 size, void* data)
 // =================================================================
 DX9VertexBuffer::DX9VertexBuffer(T_UINT32 size)
 {
-  LPDIRECT3DDEVICE9 device = WindowsApplication::GetDX9Graphics()->GetDevice();
+  LPDIRECT3DDEVICE9 device = WindowsPlatform::GetDX9Graphics()->GetDevice();
   HRESULT hr = device->CreateVertexBuffer(
     size,
     0,
@@ -36,7 +36,7 @@ DX9VertexBuffer::DX9VertexBuffer(T_UINT32 size)
 
 DX9VertexBuffer::DX9VertexBuffer(T_UINT32 size, void* data)
 {
-  LPDIRECT3DDEVICE9 device = WindowsApplication::GetDX9Graphics()->GetDevice();
+  LPDIRECT3DDEVICE9 device = WindowsPlatform::GetDX9Graphics()->GetDevice();
   HRESULT hr = device->CreateVertexBuffer(
     size,
     0,
@@ -70,7 +70,7 @@ void DX9VertexBuffer::Unlock()
 
 void DX9VertexBuffer::SetStreamSource(const SharedRef<const rcVertexDeclaration>& declaration) const
 {
-  LPDIRECT3DDEVICE9 device = WindowsApplication::GetDX9Graphics()->GetDevice();
+  LPDIRECT3DDEVICE9 device = WindowsPlatform::GetDX9Graphics()->GetDevice();
   HRESULT hr = device->SetStreamSource(0, this->vertex_buffer_, 0, declaration->GetVertexSize());
   GG_ASSERT(SUCCEEDED(hr), "VertexBuffer‚ÌƒZƒbƒg‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
 }

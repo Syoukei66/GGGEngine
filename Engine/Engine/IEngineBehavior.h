@@ -2,6 +2,8 @@
 
 struct EngineOption;
 
+#include <Engine/Scene/Scene.h>
+
 /*!
  * @brief エンジンの動作を定義するクラス
  */

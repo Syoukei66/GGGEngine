@@ -26,7 +26,7 @@ DX11IndexBuffer::DX11IndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count, 
 {
   const T_UINT8 format_index = static_cast<T_UINT8>(this->format_);
 
-  ID3D11Device* device = WindowsApplication::GetDX11Graphics()->GetDevice();
+  ID3D11Device* device = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice();
 
   D3D11_BUFFER_DESC buffer_desc;
   buffer_desc.Usage = D3D11_USAGE_DYNAMIC;
@@ -49,7 +49,7 @@ DX11IndexBuffer::DX11IndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count, 
 {
   const T_UINT8 format_index = static_cast<T_UINT8>(this->format_);
 
-  ID3D11Device* device = WindowsApplication::GetDX11Graphics()->GetDevice();
+  ID3D11Device* device = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice();
 
   D3D11_BUFFER_DESC buffer_desc;
   buffer_desc.Usage = D3D11_USAGE_IMMUTABLE;
@@ -80,7 +80,7 @@ DX11IndexBuffer::~DX11IndexBuffer()
 // =================================================================
 void DX11IndexBuffer::Lock(void** dest)
 {
-  ID3D11DeviceContext* context = WindowsApplication::GetDX11Graphics()->GetImmediateContext();
+  ID3D11DeviceContext* context = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetImmediateContext();
   D3D11_MAPPED_SUBRESOURCE mapped_subresource;
   HRESULT hr = context->Map(this->index_buffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped_subresource);
   GG_ASSERT(SUCCEEDED(hr), "VertexBuffer‚ÌƒƒbƒN‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
@@ -89,14 +89,14 @@ void DX11IndexBuffer::Lock(void** dest)
 
 void DX11IndexBuffer::Unlock()
 {
-  ID3D11DeviceContext* context = WindowsApplication::GetDX11Graphics()->GetImmediateContext();
+  ID3D11DeviceContext* context = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetImmediateContext();
   context->Unmap(this->index_buffer_, 0);
 }
 
 void DX11IndexBuffer::SetIndices() const
 {
   const T_UINT8 format_index = static_cast<T_UINT8>(this->format_);
-  ID3D11DeviceContext* context = WindowsApplication::GetDX11Graphics()->GetImmediateContext();
+  ID3D11DeviceContext* context = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetImmediateContext();
   context->IASetIndexBuffer(
     this->index_buffer_,
     DX11::INDEX_FORMATS[format_index],

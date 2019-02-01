@@ -25,7 +25,7 @@ bool DirectInputDevice_KeyBoard::Init(LPDIRECTINPUT8 input)
     return false;
   }
 
-  HWND hwnd = WindowsApplication::GetMainActivity()->GetWindowHandle();
+  HWND hwnd = WindowsApplication::GetMainActivityContext()->GetWindowHandle();
 
   //‹¦’²ƒŒƒxƒ‹‚ÌÝ’è
   if (FAILED(this->device_->SetCooperativeLevel(hwnd,

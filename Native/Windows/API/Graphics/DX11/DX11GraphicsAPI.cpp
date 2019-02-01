@@ -33,7 +33,7 @@ GG_INIT_FUNC_IMPL(DX11GraphicsAPI)
   createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
 
-  HWND hwnd = WindowsApplication::GetMainActivity()->GetWindowHandle();
+  HWND hwnd = WindowsApplication::GetMainActivityContext()->GetWindowHandle();
 
   RECT rect;
   GetClientRect(hwnd, &rect);

@@ -15,7 +15,7 @@ DX11RenderState::DX11RenderState(const RenderStateData& data)
 
   // ラスタライザステート
   const SharedRef<GraphicsAPI>& api = Application::GetPlatform()->GetGraphicsAPI();
-  ID3D11Device* device = WindowsApplication::GetDX11Graphics()->GetDevice();
+  ID3D11Device* device = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice();
   D3D11_RASTERIZER_DESC rs_desc = D3D11_RASTERIZER_DESC();
   rs_desc.FillMode = D3D11_FILL_SOLID;
   rs_desc.CullMode = CULL_MODES[data.cull_mode_];
@@ -104,7 +104,7 @@ DX11RenderState::~DX11RenderState()
 // =================================================================
 void DX11RenderState::SetState() const
 {
-  ID3D11DeviceContext* context = WindowsApplication::GetDX11Graphics()->GetImmediateContext();
+  ID3D11DeviceContext* context = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetImmediateContext();
   context->RSSetState(this->rasterizer_state_);
   static const FLOAT blend_factor[4] = {1.0f, 1.0f, 1.0f, 1.0f};
   context->OMSetBlendState(this->blend_state_, blend_factor, 0xffffffff);

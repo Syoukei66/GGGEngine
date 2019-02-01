@@ -26,7 +26,6 @@ void GameObjectRenderQueue::Draw(GameObjectRenderState* state)
 
   for (const DrawParam& param : this->queue_)
   {
-    state->SetWorldMatrix(param.renderer->GetObject()->GetTransform()->GetWorldMatrix());
     param.renderer->Draw(state);
   }
 
@@ -58,7 +57,6 @@ void GameObjectRenderQueue::DrawTransparent(GameObjectRenderState* state)
     //}
     //else
     //{
-      state->SetWorldMatrix(param.renderer->GetObject()->GetTransform()->GetWorldMatrix());
       param.renderer->Draw(state);
     //}
   }
@@ -75,7 +73,6 @@ void GameObjectRenderQueue::DrawShadow(GameObjectRenderState* state)
 
   for (const DrawParam& param : this->queue_)
   {
-    state->SetWorldMatrix(param.renderer->GetObject()->GetTransform()->GetWorldMatrix());
     param.renderer->Draw(state);
   }
 

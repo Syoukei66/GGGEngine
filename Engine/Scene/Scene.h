@@ -79,6 +79,7 @@ public:
   {
     return this->root2d_;
   }
+
   GG_INLINE SharedRef<GameObject3D> GetRoot3d()
   {
     return this->root3d_;

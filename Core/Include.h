@@ -3,6 +3,7 @@
 
 #include <Core/stdafx.h>
 #include <Core/Application/Activity/Activity.h>
+#include <Core/Application/Activity/ActivityContext.h>
 #include <Core/Application/Activity/ActivityOption.h>
 #include <Core/Application/Allocator/PoolAllocator.h>
 #include <Core/Application/Application.h>

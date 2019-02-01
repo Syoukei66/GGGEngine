@@ -15,10 +15,12 @@ struct ApplicationOption
   {
     archive(cereal::make_nvp("FullScreenMode", full_screen_mode));
     archive(cereal::make_nvp("InputSetting", input_setting));
+    archive(cereal::make_nvp("MainActivityOption", main_activity_option));
   }
 
 public:
   bool full_screen_mode;
   InputSetting input_setting;
+  ActivityOption main_activity_option;
 
 };

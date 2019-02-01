@@ -16,7 +16,7 @@ UniqueRef<rcShader> rcShader::CreateFromFile(const char* path)
 DX9Shader::DX9Shader(const char* path)
 {
   LPD3DXBUFFER error_buffer = nullptr;
-  IDirect3DDevice9* device = WindowsApplication::GetDX9Graphics()->GetDevice();
+  IDirect3DDevice9* device = WindowsPlatform::GetDX9Graphics()->GetDevice();
 
   HRESULT hr = D3DXCreateEffectFromFile(
     device,

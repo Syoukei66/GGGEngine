@@ -15,7 +15,7 @@ UniqueRef<rcVertexDeclaration> rcVertexDeclaration::Create(T_UINT32 format)
 DX9VertexDeclaration::DX9VertexDeclaration(T_UINT32 format)
   : format_(format)
 {
-  LPDIRECT3DDEVICE9 device = WindowsApplication::GetDX9Graphics()->GetDevice();
+  LPDIRECT3DDEVICE9 device = WindowsPlatform::GetDX9Graphics()->GetDevice();
   std::vector<D3DVERTEXELEMENT9> elements = std::vector<D3DVERTEXELEMENT9>();
 
   WORD offset = 0;
@@ -130,7 +130,7 @@ T_UINT32 DX9VertexDeclaration::GetVertexSize() const
 
 void DX9VertexDeclaration::SetDeclaration() const
 {
-  LPDIRECT3DDEVICE9 device = WindowsApplication::GetDX9Graphics()->GetDevice();
+  LPDIRECT3DDEVICE9 device = WindowsPlatform::GetDX9Graphics()->GetDevice();
   HRESULT hr = device->SetVertexDeclaration(this->vertex_declaration_);
   GG_ASSERT(SUCCEEDED(hr), "頂点宣言のセットに失敗しました");
 }

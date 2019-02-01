@@ -24,6 +24,7 @@ protected:
   virtual void OnApplicationEnd() override;
   virtual void Init() override;
   virtual void Uninit() override;
+  virtual SharedRef<Activity> CreateMainActivity() override;
   
   // =================================================================
   // Data Members

@@ -31,11 +31,11 @@ static std::vector<const char*> ADDRESS =
 bool TextureAssetConverterSetting::EditWithImGuiProcess()
 {
   bool reload = false;
-  ImGui::Combo(u8"画像最大サイズ", &this->selected_size, TEXTURE_MAX_SIZES.data(), TEXTURE_MAX_SIZES.size());
-  ImGui::Combo(u8"テクスチャ圧縮", &this->selected_compression, COMPRESSIONS.data(), COMPRESSIONS.size());
-  ImGui::Combo(u8"カラーモデル", &this->selected_color_model, COLOR_MODELS.data(), COLOR_MODELS.size());
-  ImGui::Combo(u8"フィルタリング", &this->selected_filter, FILTERS.data(), FILTERS.size());
-  ImGui::Combo(u8"Address", &this->selected_address, ADDRESS.data(), ADDRESS.size());
+  ImGui::Combo(u8"画像最大サイズ", &this->selected_size, TEXTURE_MAX_SIZES.data(), (int)TEXTURE_MAX_SIZES.size());
+  ImGui::Combo(u8"テクスチャ圧縮", &this->selected_compression, COMPRESSIONS.data(), (int)COMPRESSIONS.size());
+  ImGui::Combo(u8"カラーモデル", &this->selected_color_model, COLOR_MODELS.data(), (int)COLOR_MODELS.size());
+  ImGui::Combo(u8"フィルタリング", &this->selected_filter, FILTERS.data(), (int)FILTERS.size());
+  ImGui::Combo(u8"Address", &this->selected_address, ADDRESS.data(), (int)ADDRESS.size());
   ImGui::SliderInt(u8"Aniso Level", &this->selected_aniso_level, 1, 16);
   ImGui::Checkbox(u8"Fade Enabled", &this->selected_fade_enabled);
   if (this->selected_fade_enabled)
@@ -57,7 +57,7 @@ bool TextureAssetConverterSetting::EditWithImGuiProcess()
 
   if (ImGui::Button(u8"適用"))
   {
-    this->max_size = std::strtol(TEXTURE_MAX_SIZES[this->selected_size], nullptr, 10);
+    this->max_size = (T_FIXED_UINT16)std::strtol(TEXTURE_MAX_SIZES[this->selected_size], nullptr, 10);
     this->compression = this->selected_compression;
     this->color_model = this->selected_color_model;
     this->view_data.filter_ = this->selected_filter;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Engine/Component/Renderer/MeshRenderer.h>
+#include <Engine/GameObject/GameObject3D.h>
 
 class TestMesh : public GameObject3D
 {

@@ -218,7 +218,7 @@ IAssetDataContainer* TextureAssetConverter::ImportProcess(const SharedRef<AssetE
   else if (IsCompressFormatBC6_7(format))
   {
     hr = DirectX::Compress(
-      WindowsApplication::GetDX11Graphics()->GetDevice(),
+      WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice(),
       final_image->GetImages(), final_image->GetImageCount(), final_image->GetMetadata(),
       format,
       DirectX::TEX_COMPRESS_DEFAULT,

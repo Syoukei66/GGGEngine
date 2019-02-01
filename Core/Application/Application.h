@@ -8,7 +8,7 @@ class IApplicationBehavior;
 class IApplicationSetting;
 
 /*!
- * @brief アクティビティやAPIを動作させるクラス
+ * @brief アクティビティやプラットフォームを動作させるクラス
  * アクティビティの管理を行う
  */
 class Application
@@ -22,11 +22,16 @@ class Application
   // Methods
   // =================================================================
 public:
-  static void Run(IApplicationBehavior* behavior, IApplicationSetting* setting);
+  static void Run(IApplicationBehavior* behavior, const SharedRef<Platform>& platform);
 
-  static void StartActivity(const SharedRef<Activity>& activity, const SharedRef<Scene>& first_scene);
+  static SharedRef<Activity> StartActivity(const SharedRef<Activity>& activity, const ActivityOption& ao);
 
   static bool IsActive();
+
+private:
+  static bool Init(const SharedRef<Platform>& platform, IApplicationBehavior* behavior, const ApplicationOption& option);
+  static bool Uninit(IApplicationBehavior* behavior);
+  static bool Update();
 
   // =================================================================
   // Setter / Getter
@@ -47,13 +52,19 @@ public:
     return Self().main_activity_;
   }
 
+  static GG_INLINE const UpdateEventState& GetUpdateEventState()
+  {
+    return *(Self().update_event_state_);
+  }
+
   // =================================================================
   // Data Members
   // =================================================================
 private:
+  IApplicationBehavior* behavior_;
   ApplicationOption option_;
   SharedRef<Platform> platform_;
   SharedRef<Activity> main_activity_;
-  std::vector<SharedRef<Activity>> sub_activity_;
-
+  std::vector<SharedRef<Activity>> sub_activities_;
+  UpdateEventState* update_event_state_;
 };

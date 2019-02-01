@@ -46,7 +46,7 @@ GG_INIT_FUNC_IMPL(DX9GraphicsAPI)
     return false;
   }
 
-  HWND hwnd = WindowsApplication::GetMainActivity()->GetWindowHandle();
+  HWND hwnd = WindowsPlatform::GetMainActivity()->GetWindowHandle();
 
   RECT rect;
   GetClientRect(hwnd, &rect);
@@ -334,7 +334,7 @@ void DX9GraphicsAPI::DrawStencilBuffer()
 
 void DX9GraphicsAPI::DrawIndexedPrimitive(Vertex::PrimitiveType primitive_type, const SharedRef<const rcIndexBuffer>& index_buffer)
 {
-  LPDIRECT3DDEVICE9 device = WindowsApplication::GetDX9Graphics()->GetDevice();
+  LPDIRECT3DDEVICE9 device = WindowsPlatform::GetDX9Graphics()->GetDevice();
   HRESULT hr = device->DrawIndexedPrimitive(
     DX9::PRIMITIVE_TYPES[static_cast<T_UINT32>(primitive_type)],
     0,

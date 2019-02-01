@@ -19,11 +19,4 @@ public:
    */
   virtual UniqueRef<Platform> CreatePlatform(Application* app) const = 0;
 
-  /*!
-   * @brief MainActivityを作成する
-   * @param ao ActivityOption
-   * @return MainActivityのインスタンス
-   */
-  virtual UniqueRef<Activity> CreateMainActivity(const ActivityOption& ao) const = 0;
-
 };

@@ -15,7 +15,7 @@ DX11ConstantBuffer::DX11ConstantBuffer(Shader::ConstantBufferId id, T_UINT32 siz
     this->constant_buffer_ = nullptr;
     return;
   }
-  ID3D11Device* device = WindowsApplication::GetDX11Graphics()->GetDevice();
+  ID3D11Device* device = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice();
 
   D3D11_BUFFER_DESC desc = D3D11_BUFFER_DESC();
   desc.Usage = D3D11_USAGE_DEFAULT;
@@ -39,7 +39,7 @@ DX11ConstantBuffer::DX11ConstantBuffer(Shader::ConstantBufferId id, T_UINT32 siz
     this->constant_buffer_ = nullptr;
     return;
   }
-  ID3D11Device* device = WindowsApplication::GetDX11Graphics()->GetDevice();
+  ID3D11Device* device = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice();
   
   D3D11_BUFFER_DESC desc = D3D11_BUFFER_DESC();
   desc.Usage = D3D11_USAGE_IMMUTABLE;
@@ -77,7 +77,7 @@ void DX11ConstantBuffer::CommitChanges(const void* data)
   {
     return;
   }
-  ID3D11DeviceContext* context = WindowsApplication::GetDX11Graphics()->GetImmediateContext();
+  ID3D11DeviceContext* context = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetImmediateContext();
   context->UpdateSubresource(this->constant_buffer_, 0, NULL, data, 0, 0);
 }
 
@@ -87,7 +87,7 @@ void DX11ConstantBuffer::SetBuffer() const
   {
     return;
   }
-  ID3D11DeviceContext* context = WindowsApplication::GetDX11Graphics()->GetImmediateContext();
+  ID3D11DeviceContext* context = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetImmediateContext();
   context->VSSetConstantBuffers(static_cast<T_UINT8>(this->id_), 1, &this->constant_buffer_);
   context->PSSetConstantBuffers(static_cast<T_UINT8>(this->id_), 1, &this->constant_buffer_);
 }

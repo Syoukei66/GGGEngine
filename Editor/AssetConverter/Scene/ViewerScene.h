@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Engine/GameObject/GameObject3D.h>
+#include <Engine/Scene/Scene.h>
 
 class AssetConverterContext;
 class AssetEntity;

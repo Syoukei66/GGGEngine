@@ -11,7 +11,7 @@
 DX11VertexShader::DX11VertexShader(const std::vector<unsigned char>& byte_code)
   : byte_code_(byte_code)
 {
-  HRESULT hr = WindowsApplication::GetDX11Graphics()->GetDevice()->CreateVertexShader(
+  HRESULT hr = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice()->CreateVertexShader(
     this->byte_code_.data(),
     this->byte_code_.size(),
     NULL,
@@ -41,7 +41,7 @@ void DX11VertexShader::SetInputLayout(const SharedRef<const rcVertexDeclaration>
   {
     const SharedRef<const DX11VertexDeclaration>& dx11_vertex_decl = SharedRef<const DX11VertexDeclaration>::StaticCast(declaration);
 
-    ID3D11Device* device = WindowsApplication::GetDX11Graphics()->GetDevice();
+    ID3D11Device* device = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice();
     HRESULT hr = device->CreateInputLayout(
       dx11_vertex_decl->GetElements().data(), dx11_vertex_decl->GetElements().size(),
       this->byte_code_.data(), this->byte_code_.size(),
@@ -56,13 +56,13 @@ void DX11VertexShader::SetInputLayout(const SharedRef<const rcVertexDeclaration>
     input_layout = itr->second;
   }
 
-  ID3D11DeviceContext* context = WindowsApplication::GetDX11Graphics()->GetImmediateContext();
+  ID3D11DeviceContext* context = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetImmediateContext();
   context->IASetInputLayout(input_layout);
 }
 
 void DX11VertexShader::SetShader() const
 {
-  ID3D11DeviceContext* context = WindowsApplication::GetDX11Graphics()->GetImmediateContext();
+  ID3D11DeviceContext* context = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetImmediateContext();
   context->VSSetShader(this->vertex_shader_, NULL, 0);
 }
 

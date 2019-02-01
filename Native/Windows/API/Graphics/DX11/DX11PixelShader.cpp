@@ -10,7 +10,7 @@
 DX11PixelShader::DX11PixelShader(const std::vector<unsigned char>& byte_code)
   : byte_code_(byte_code)
 {
-  HRESULT hr = WindowsApplication::GetDX11Graphics()->GetDevice()->CreatePixelShader(
+  HRESULT hr = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice()->CreatePixelShader(
     this->byte_code_.data(),
     this->byte_code_.size(),
     NULL,
@@ -29,7 +29,7 @@ DX11PixelShader::~DX11PixelShader()
 // =================================================================
 void DX11PixelShader::SetShader() const
 {
-  ID3D11DeviceContext* context = WindowsApplication::GetDX11Graphics()->GetImmediateContext();
+  ID3D11DeviceContext* context = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetImmediateContext();
   context->PSSetShader(this->pixel_shader_, NULL, 0);
 }
 

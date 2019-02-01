@@ -3,8 +3,7 @@
 #include <Core/Application/Activity/ActivityOption.h>
 #include <Core/Application/ApplicationOption.h>
 #include <Core/Application/Event/UpdateEventState.h>
-
-class Scene;
+#include <Core/Application/Activity/Activity.h>
 
 /*!
  * @brief アプリケーションの動作を定義するクラス
@@ -45,4 +44,8 @@ public:
    */
   virtual void Uninit() = 0;
 
+  /*!
+   * @brief MainActivityの作成
+   */
+  virtual SharedRef<Activity> CreateMainActivity() = 0;
 };

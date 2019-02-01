@@ -1,4 +1,4 @@
-#include "WindowActivity.h"
+#include "WindowActivityContext.h"
 
 #include <windowsx.h>
 
@@ -6,19 +6,19 @@
 #include <imgui/imgui.h>
 #include <imgui/imgui_internal.h>
 #include <Native/Windows/imgui/imgui_impl_win32.h>
-#include <Native/Windows/WindowsApplication.h>
+#include <Native/Windows/WindowsPlatform.h>
 
 // =================================================================
-// GGG Statement
+// Methods from ActivityContext
 // =================================================================
-static HWND CreateWindowWithActivityOption(const ActivityOption& option)
+void WindowActivityContext::OnStart(const ActivityOption& option)
 {
   HINSTANCE instance = GetModuleHandle(NULL);
 
   WNDCLASSEX wcex;
   wcex.cbSize = sizeof(WNDCLASSEX);
   wcex.style = CS_VREDRAW | CS_HREDRAW | CS_CLASSDC;
-  wcex.lpfnWndProc = WindowsApplication::WndProc;
+  wcex.lpfnWndProc = WindowsPlatform::WndProc;
   wcex.cbClsExtra = 0;
   wcex.cbWndExtra = 0;
   wcex.hInstance = instance;
@@ -49,7 +49,7 @@ static HWND CreateWindowWithActivityOption(const ActivityOption& option)
   int windowX = desktopWidth < windowWidth ? 0 : (desktopWidth - windowWidth) >> 1;
   int windowY = desktopHeight < windowHeight ? 0 : (desktopHeight - windowHeight) >> 1;
 
-  HWND hwnd = CreateWindowEx(
+  this->window_handle_ = CreateWindowEx(
     0,				//拡張ウィンドウスタイル
     option.activity_name,	//登録されているクラス名
     option.activity_name,	//ウィンドウ名
@@ -63,23 +63,15 @@ static HWND CreateWindowWithActivityOption(const ActivityOption& option)
     instance,	//アプリケーションインスタンスのハンドル
     NULL		//ウィンドウ作成データ
   );
-  ShowWindow(hwnd, SW_SHOWDEFAULT);
-  UpdateWindow(hwnd);
-  
-  ImGuiContext* context;
-  ImGui::SetCurrentContext(context);
-
-  ImGui::CreateContext();
+  ShowWindow(this->window_handle_, SW_SHOWDEFAULT);
+  UpdateWindow(this->window_handle_);
 
   //imgui initialize
-  ImGui_ImplWin32_Init(hwnd);
-
-  return hwnd;
+  ImGui_ImplWin32_Init(this->window_handle_);
 }
 
-GG_INIT_FUNC_IMPL_1(WindowActivity, const ActivityOption& option)
+void WindowActivityContext::OnEnd()
 {
   //imgui uninitialize
   ImGui_ImplWin32_Shutdown();
-  return WindowsActivity::Init(option, CreateWindowWithActivityOption(option));
 }

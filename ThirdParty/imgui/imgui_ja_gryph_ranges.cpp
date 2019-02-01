@@ -1,6 +1,6 @@
 #include "imgui_ja_gryph_ranges.h"
 
-#include "imgui.h"
+#include "imgui_internal.h"
 
 //benikabocha/imgui_ja_gryph_ranges.cpp
 //https://gist.github.com/benikabocha/6b9ee35557b7058810dc2f4a06fe0304
@@ -524,9 +524,9 @@ static const ImWchar glyphRangesJapanese[] = {
   0xFF0E, 0xFF3B, 0xFF3D, 0xFF5D, 0xFF61, 0xFF9F, 0xFFE3, 0xFFE3, 0xFFE5, 0xFFE5, 0xFFFF, 0xFFFF, 0,
 };
 
-void ImGui::SetupJapaneseString()
+void ImGui::SetupJapaneseString(ImGuiContext* context)
 {
-  ImGuiIO* io = &ImGui::GetIO();
+  ImGuiIO* io = context ? &context->IO : &ImGui::GetIO();
   ImFontConfig config;
   config.MergeMode = true;
   io->Fonts->AddFontDefault();

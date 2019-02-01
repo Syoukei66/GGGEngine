@@ -14,7 +14,7 @@ UniqueRef<rcTextureResource> rcTextureResource::Create(const TextureResourceData
 // =================================================================
 DX11TextureResource::DX11TextureResource(const TextureResourceData& data)
 {
-  ID3D11Device* device = WindowsApplication::GetDX11Graphics()->GetDevice();
+  ID3D11Device* device = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice();
 
   this->format_ = static_cast<DXGI_FORMAT>(data.format_);
 

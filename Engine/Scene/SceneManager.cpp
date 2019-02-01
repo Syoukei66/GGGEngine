@@ -34,16 +34,10 @@ void SceneManager::PopScene(bool unload_current)
   }
 }
 
-void SceneManager::ChangeScene(const SharedRef<Scene>& next)
+void SceneManager::ChangeScene(const SharedRef<Scene>& next, bool need_unload)
 {
-  if (this->now_scene_)
-  {
-    this->now_scene_->Hide();
-    this->now_scene_->Unload();
-  }
-  this->now_scene_ = next;
-  this->now_scene_->Load();
-  this->now_scene_->Show();
+  this->next_scene_ = next;
+  this->unload_now_scene_ = need_unload;
 }
 
 void SceneManager::ClearScene()
@@ -71,8 +65,23 @@ void SceneManager::ClearScene()
   }
 }
 
-void SceneManager::Update(const UpdateEventState& state)
+void SceneManager::Update()
 {
+  // 遷移先のシーンが登録されていたら、遷移処理を行う
+  if (this->next_scene_)
+  {
+    // アンロードフラグが経っていれば古いシーンをアンロード
+    if (this->now_scene_ && this->unload_now_scene_)
+    {
+      this->now_scene_->Hide();
+      this->now_scene_->Unload();
+    }
+    this->now_scene_ = this->next_scene_;
+    this->now_scene_->Load();
+    this->now_scene_->Show();
+    this->next_scene_ = nullptr;
+    this->unload_now_scene_ = false;
+  }
   if (!this->now_scene_)
   {
     return;

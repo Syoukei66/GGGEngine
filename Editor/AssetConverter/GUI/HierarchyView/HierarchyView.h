@@ -1,5 +1,6 @@
 #pragma once
 
+#include <Engine/Scene/Scene.h>
 #include "HierarchyNode.h"
 
 class HierarchyView

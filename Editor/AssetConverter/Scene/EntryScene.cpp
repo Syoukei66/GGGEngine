@@ -1,5 +1,4 @@
 #include "EntryScene.h"
-#include <Native/Windows/Activity/WindowsActivity.h>
 #include <Editor/EditorUtils/URI.h>
 #include <Director.h>
 
@@ -79,5 +78,5 @@ void EntryScene::Update()
 void EntryScene::ShowViewer(const SharedRef<AssetEntity>& entity)
 {
   this->viewer_scene_->Run(entity, this->context_);
-  Application::StartActivity();
+  //Application::StartActivity();
 }

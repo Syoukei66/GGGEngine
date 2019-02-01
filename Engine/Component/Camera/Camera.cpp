@@ -9,7 +9,7 @@ GG_INIT_FUNC_IMPL_1(Camera, GameObject* obj)
 {
   this->direction_ = TVec3f::forward;
   this->viewport_clear_ = true;
-  this->size_ = Application::GetMainActivity()->GetScreenSize();
+  this->size_ = Application::GetMainActivity()->GetContext()->GetScreenSize();
   this->z_min_ = 0.0f;
   this->z_max_ = 1.0f;
   this->render_state_ = new GameObjectRenderState(this);

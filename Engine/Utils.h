@@ -14,7 +14,7 @@ static GG_INLINE InputState* Input(T_UINT8 player_id)
 
 namespace Time
 {
-//–ß‚è’l‚Í•b
+// –ß‚è’l‚Í•b
 static GG_INLINE T_FLOAT DeltaTime()
 {
   return Application::GetUpdateEventState().GetDeltaTime();
