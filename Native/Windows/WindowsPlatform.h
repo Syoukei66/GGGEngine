@@ -21,16 +21,7 @@ class WindowsPlatform : public Platform
   // Methods from Platform
   // =================================================================
 protected:
-  /*!
-   * @brief プラットフォームのアップデートが続くかどうかの判定
-   * @return falseなら終了
-   */
   virtual bool ContinueEnabled() override;
-
-  /*!
-   * @brief フレーム処理が有効かどうかの判定
-   * @return falseならアップデート処理を行わず待機する
-   */
   virtual bool FrameEnabled() override;
 
   GG_INLINE virtual UniqueRef<GraphicsAPI> CreateGraphicsAPI(const ApplicationOption& op) const override
@@ -61,6 +52,9 @@ protected:
   {
     return WindowActivityContext::Create();
   }
+
+public:
+  virtual void ImGuiNewFrame() override;
 
   // =================================================================
   // Methods

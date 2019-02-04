@@ -44,6 +44,12 @@ protected:
   virtual UniqueRef<ActivityContext> CreateMainActivityContext() const = 0;
   virtual UniqueRef<ActivityContext> CreateActivityContext() const = 0;
 
+public:
+  /*!
+   * @brief プラットフォーム側のImGuiのNewFrame処理を行う
+   */
+  virtual void ImGuiNewFrame() = 0;
+
   // =================================================================
   // Setter / Getter
   // =================================================================

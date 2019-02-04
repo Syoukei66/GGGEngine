@@ -529,6 +529,7 @@ void ImGui::SetupJapaneseString(ImGuiContext* context)
   ImGuiIO* io = context ? &context->IO : &ImGui::GetIO();
   ImFontConfig config;
   config.MergeMode = true;
-  io->Fonts->AddFontDefault();
+  ImFont* default_font = io->Fonts->AddFontDefault();
   io->Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\meiryo.ttc", 18.0f, &config, glyphRangesJapanese);
+  io->Fonts->Build();
 }

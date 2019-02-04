@@ -9,6 +9,7 @@ bool WindowsPlatform::ContinueEnabled()
 {
   return this->msg_.message != WM_QUIT;
 }
+
 bool WindowsPlatform::FrameEnabled()
 {
   if (PeekMessage(&this->msg_, NULL, 0, 0, PM_REMOVE))
@@ -17,8 +18,12 @@ bool WindowsPlatform::FrameEnabled()
     DispatchMessage(&this->msg_);
     return false;
   }
-  ImGui_ImplWin32_NewFrame();
   return true;
+}
+
+void WindowsPlatform::ImGuiNewFrame()
+{
+  ImGui_ImplWin32_NewFrame();
 }
 
 // =================================================================

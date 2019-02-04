@@ -6,6 +6,7 @@
 #include <GUI/EntityView/AssetEntityView.h>
 #include <Scene/ViewerScene.h>
 #include <GUI/FileView/FileView.h>
+#include <Native/Windows/Activity/WindowActivityContext.h>
 
 // =================================================================
 // GGG Statement
@@ -78,5 +79,10 @@ void EntryScene::Update()
 void EntryScene::ShowViewer(const SharedRef<AssetEntity>& entity)
 {
   this->viewer_scene_->Run(entity, this->context_);
-  //Application::StartActivity();
+  ActivityOption op = ActivityOption();
+  op.activity_name = "編集ウィンドウ";
+  op.render_cycle = 60;
+  op.resize_window = false;
+  op.window_size = Application::GetMainActivity()->GetContext()->GetScreenSize();
+  Application::StartActivity(GameActivity::Create(), op);
 }
