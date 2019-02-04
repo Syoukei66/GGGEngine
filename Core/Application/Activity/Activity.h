@@ -24,7 +24,12 @@ private:
   /*!
    * @brief アクティビティ終了処理
    */
-  void End();
+  void EndActivity();
+
+  /*!
+   * @brief コンテキスト終了処理
+   */
+  void EndContext();
 
   /*!
    * @brief アクティビティのアップデート処理

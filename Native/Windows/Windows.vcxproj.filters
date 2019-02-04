@@ -117,12 +117,6 @@
     <ClInclude Include="API\Graphics\DX11\DX11TextureView.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Platform\WindowsPlatform.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Platform\DX11Platform.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="WindowsPlatform.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>

@@ -194,8 +194,6 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="API\Graphics\DX11\DX11VertexDeclaration.h" />
     <ClInclude Include="API\Graphics\DX9\DX9VertexDeclaration.h" />
     <ClInclude Include="imgui\imgui_impl_win32.h" />
-    <ClInclude Include="Platform\DX11Platform.h" />
-    <ClInclude Include="Platform\WindowsPlatform.h" />
     <ClInclude Include="API\Audio\XAudio\XAudioAPI.h" />
     <ClInclude Include="API\Graphics\DX9\DX9GraphicsAPI.h" />
     <ClInclude Include="API\Graphics\DX9\imgui\imgui_impl_dx9.h" />

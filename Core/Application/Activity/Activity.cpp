@@ -10,9 +10,13 @@ void Activity::Start(const ActivityOption& ao, const SharedRef<ActivityContext>&
   this->OnStart();
 }
 
-void Activity::End()
+void Activity::EndActivity()
 {
   this->OnEnd();
+}
+
+void Activity::EndContext()
+{
   this->context_->End();
   this->context_ = nullptr;
 }

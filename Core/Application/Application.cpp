@@ -37,6 +37,9 @@ void Application::Run(IApplicationBehavior* behavior, const SharedRef<Platform>&
 
   while (self->Update());
 
+  // 引数の参照カウントを消す
+  const_cast<SharedRef<Platform>&>(platform) = nullptr;
+
   // 終了処理
   self->Uninit(behavior);
 
@@ -104,13 +107,27 @@ bool Application::Uninit(IApplicationBehavior* behavior)
 
   delete self->update_event_state_;
 
+  // アクティビティ終了処理
+  for (auto& activity : self->sub_activities_)
+  {
+    activity->EndActivity();
+  }
+
+  GGObjectManager::GC();
+
   // 各APIの終了処理
+  // APIがメインアクティビティのコンテキストに依存しているので
+  // 先にAPI終了処理を行う
   self->platform_->Uninit();
   self->platform_ = nullptr;
 
-  // アクティビティ 解放処理
-  self->main_activity_ = nullptr;
+  GGObjectManager::GC();
 
+  // アクティビティのコンテキストの終了処理
+  for (auto& activity : self->sub_activities_)
+  {
+    activity->EndContext();
+  }
   self->sub_activities_.clear();
   self->main_activity_ = nullptr;
 
@@ -149,7 +166,8 @@ bool Application::Update()
   // Activityの削除処理
   for (const SharedRef<Activity>& activity : delete_activity)
   {
-    activity->End();
+    activity->EndActivity();
+    activity->EndContext();
     const auto& itr = std::remove_if(self->sub_activities_.begin(), self->sub_activities_.end(),
       [&](const SharedRef<Activity>& o)
     {

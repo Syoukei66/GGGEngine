@@ -45,7 +45,7 @@ SharedRef<rcDynamicMesh> CreateMesh(T_UINT32 mode)
 // =================================================================
 GG_INIT_FUNC_IMPL(TestMesh)
 {
-  const T_UINT32 mesh_count = MESH_MODES.size();
+  const T_UINT32 mesh_count = (T_UINT32)MESH_MODES.size();
   for (T_UINT32 i = 0; i < mesh_count; ++i)
   {
     const SharedRef<rcDynamicMesh>& mesh = CreateMesh(i);
