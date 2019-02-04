@@ -80,8 +80,8 @@ void EntryScene::ShowViewer(const SharedRef<AssetEntity>& entity)
 {
   ActivityOption op = ActivityOption();
   op.activity_name = "編集ウィンドウ";
-  op.render_cycle = 60;
   op.resize_window = false;
+  op.sub_window = true;
   op.window_size = Application::GetMainActivity()->GetContext()->GetScreenSize();
   const SharedRef<GameActivity>& activity = GameActivity::Create();
   Application::StartActivity(activity, op);

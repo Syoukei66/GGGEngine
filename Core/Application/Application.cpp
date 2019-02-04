@@ -62,7 +62,8 @@ SharedRef<Activity> Application::StartActivity(const SharedRef<Activity>& activi
 
   const SharedRef<ActivityContext>& context = self->platform_->CreateActivityContext();
   activity->Start(ao, context);
-  self->sub_activities_.emplace_back(activity);
+  self->platform_->GetGraphicsAPI()->CreateSubActivityResources(activity);
+  self->sub_activities_[context->GetActivityID()] = activity;
   return activity;
 }
 
@@ -81,7 +82,7 @@ bool Application::Init(const SharedRef<Platform>& platform, IApplicationBehavior
   const SharedRef<ActivityContext>& context = self->GetPlatform()->CreateActivityContext();
   self->main_activity_ = behavior->CreateMainActivity();
   self->main_activity_->Start(option.main_activity_option, context);
-  self->sub_activities_.emplace_back(self->main_activity_);
+  self->sub_activities_[context->GetActivityID()] = self->main_activity_;
 
   self->platform_->Init(self->option_);
 
@@ -108,9 +109,9 @@ bool Application::Uninit(IApplicationBehavior* behavior)
   delete self->update_event_state_;
 
   // アクティビティ終了処理
-  for (auto& activity : self->sub_activities_)
+  for (auto& pair : self->sub_activities_)
   {
-    activity->EndActivity();
+    pair.second->EndActivity();
   }
 
   GGObjectManager::GC();
@@ -124,9 +125,9 @@ bool Application::Uninit(IApplicationBehavior* behavior)
   GGObjectManager::GC();
 
   // アクティビティのコンテキストの終了処理
-  for (auto& activity : self->sub_activities_)
+  for (auto& pair : self->sub_activities_)
   {
-    activity->EndContext();
+    pair.second->EndContext();
   }
   self->sub_activities_.clear();
   self->main_activity_ = nullptr;
@@ -155,26 +156,21 @@ bool Application::Update()
   std::vector<SharedRef<Activity>> delete_activity = std::vector<SharedRef<Activity>>();
 
   // Activityのフレーム処理
-  for (const SharedRef<Activity>& activity : self->sub_activities_)
+  for (auto& pair : self->sub_activities_)
   {
-    if (!activity->Update(self->platform_))
+    if (!pair.second->Update(self->platform_))
     {
-      delete_activity.emplace_back(activity);
+      delete_activity.emplace_back(pair.second);
     }
   }
 
   // Activityの削除処理
   for (const SharedRef<Activity>& activity : delete_activity)
   {
+    const T_UINT64 id = activity->GetContext()->GetActivityID();
     activity->EndActivity();
     activity->EndContext();
-    const auto& itr = std::remove_if(self->sub_activities_.begin(), self->sub_activities_.end(),
-      [&](const SharedRef<Activity>& o)
-    {
-      return o == activity;
-    }
-    );
-    self->sub_activities_.erase(itr, self->sub_activities_.end());
+    self->sub_activities_.erase(id);
   }
 
   // GCを作動させる

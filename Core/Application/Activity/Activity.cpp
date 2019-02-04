@@ -23,11 +23,17 @@ void Activity::EndContext()
 
 bool Activity::Update(const SharedRef<Platform>& platform)
 {
+  // Activity‚ªI—¹‚µ‚Ä‚¢‚½‚çfalse‚ÅƒŠƒ^[ƒ“
+  if (!this->context_->IsEnabled())
+  {
+    return false;
+  }
   this->context_->NewFrame(platform);
   this->OnUpdate();
   // •`‰æŽüŠú‚ª—ˆ‚½‚ç•`‰æ‚ðs‚¤
-  if (this->context_->DrawEnabled())
+  if (this->context_->IsVisible() && this->context_->DrawEnabled())
   {
+    platform->GetGraphicsAPI()->SetRenderTarget(SharedRef<Activity>(this));
     this->OnDraw(platform);
   }
   this->context_->EndFrame();

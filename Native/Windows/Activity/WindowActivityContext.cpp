@@ -26,15 +26,18 @@ void WindowActivityContext::OnStart(const ActivityOption& option)
   wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
   wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
   wcex.lpszMenuName = NULL;
-  wcex.lpszClassName = option.activity_name;
+  wcex.lpszClassName = option.activity_name.c_str();
   wcex.hIconSm = NULL;
 
   RegisterClassEx(&wcex);
-  DWORD windowStyle = WS_OVERLAPPEDWINDOW & ~WS_MINIMIZEBOX & ~WS_MAXIMIZEBOX;
+  DWORD windowStyle = 0;
+  windowStyle = WS_OVERLAPPEDWINDOW;
   if (!option.resize_window)
   {
     windowStyle &= ~WS_THICKFRAME;
   }
+  windowStyle &= ~WS_MINIMIZEBOX;
+  windowStyle &= ~WS_MAXIMIZEBOX;
   RECT wr = { 0, 0, (LONG)option.window_size.width, (LONG)option.window_size.height };
 
   AdjustWindowRectEx(&wr, windowStyle, false, 0);
@@ -51,8 +54,8 @@ void WindowActivityContext::OnStart(const ActivityOption& option)
 
   this->window_handle_ = CreateWindowEx(
     0,				//拡張ウィンドウスタイル
-    option.activity_name,	//登録されているクラス名
-    option.activity_name,	//ウィンドウ名
+    option.activity_name.c_str(),	//登録されているクラス名
+    option.activity_name.c_str(),	//ウィンドウ名
     windowStyle,	//ウィンドウスタイル
     windowX,	//ウィンドウ横方向の位置
     windowY,	//ウィンドウ縦方向の位置
@@ -65,9 +68,6 @@ void WindowActivityContext::OnStart(const ActivityOption& option)
   );
   ShowWindow(this->window_handle_, SW_SHOWDEFAULT);
   UpdateWindow(this->window_handle_);
-
-  //imgui initialize
-  ImGui_ImplWin32_Init(this->window_handle_);
 }
 
 void WindowActivityContext::OnEnd()

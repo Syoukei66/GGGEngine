@@ -39,7 +39,7 @@ void Camera::DrawScene(Scene* scene)
   this->SetupCamera();
   if (this->viewport_clear_)
   {
-    Application::GetPlatform()->GetGraphicsAPI()->ViewportClear(this->bg_color_);
+    //Application::GetPlatform()->GetGraphicsAPI()->ViewportClear(this->bg_color_);
   }
   this->OnDrawScene(scene);
   //if (this->target_texture_)

@@ -52,6 +52,16 @@ public:
     return Self().main_activity_;
   }
 
+  static GG_INLINE SharedRef<Activity> GetActivity(T_UINT64 id)
+  {
+    const auto& itr = Self().sub_activities_.find(id);
+    if (itr == Self().sub_activities_.end())
+    {
+      return nullptr;
+    }
+    return Self().sub_activities_.at(id);
+  }
+
   static GG_INLINE const UpdateEventState& GetUpdateEventState()
   {
     return *(Self().update_event_state_);
@@ -65,6 +75,6 @@ private:
   ApplicationOption option_;
   SharedRef<Platform> platform_;
   SharedRef<Activity> main_activity_;
-  std::vector<SharedRef<Activity>> sub_activities_;
+  std::unordered_map<T_UINT64, SharedRef<Activity>> sub_activities_;
   UpdateEventState* update_event_state_;
 };

@@ -16,7 +16,15 @@ public:
   // Methods from Activity
   // =================================================================
 protected:
-  virtual bool IsActive() override;
+  virtual void OnNewFrame() override;
+
+  virtual bool IsActive() const override;
+  virtual bool IsVisible() const override;
+  virtual bool IsEnabled() const override;
+  virtual T_UINT64 GetActivityID() const
+  {
+    return (T_UINT64)this->window_handle_;
+  }
 
   // =================================================================
   // Setter / Getter

@@ -53,6 +53,11 @@ protected:
    */
   virtual void OnEnd() = 0;
 
+  /*!
+   * @brief 派生先(プラットフォーム)で定義するフレームの最初に呼び出す処理
+   */
+  virtual void OnNewFrame() = 0;
+
   // =================================================================
   // Setter / Getter
   // =================================================================
@@ -61,7 +66,26 @@ public:
    * @brief アクティビティがアクティブ状態か確かめる
    * @return falseならアクティブ状態ではない
    */
-  virtual bool IsActive() = 0;
+  virtual bool IsActive() const = 0;
+
+  /*!
+   * @brief アクティビティが表示状態か確かめる
+   * @return falseなら表示状態ではない
+   */
+  virtual bool IsVisible() const = 0;
+
+  /*!
+   * @brief アクティビティが生存状態か確かめる
+   * @return falseなら生存状態ではない
+   */
+  virtual bool IsEnabled() const = 0;
+
+  /*!
+   * @brief アクティビティを一意に認識できるIDを取得する。
+   * HWNDなど、プラットフォーム固有の値があればそれを使用する
+   * @return ID
+   */
+  virtual T_UINT64 GetActivityID() const = 0;
 
   GG_INLINE const ActivityOption& GetOption() const
   {
@@ -81,6 +105,11 @@ public:
   GG_INLINE T_FLOAT GetScreenHeight()
   {
     return this->option_.window_size.height;
+  }
+
+  GG_INLINE const std::unique_ptr<ImGuiContext>& GetImGuiContext()
+  {
+    return this->imgui_context_;
   }
 
   // =================================================================

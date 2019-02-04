@@ -12,8 +12,7 @@ void ActivityContext::Start(const ActivityOption& ao)
 
   IMGUI_CHECKVERSION();
   this->imgui_context_.reset(ImGui::CreateContext());
-
-  ImGuiContext* context = ImGui::GetCurrentContext();
+  ImGui::SetCurrentContext(this->imgui_context_.get());
   ImGui::StyleColorsDark(&this->imgui_context_->Style);
   ImGui::SetupJapaneseString(this->imgui_context_.get());
 
@@ -22,8 +21,8 @@ void ActivityContext::Start(const ActivityOption& ao)
 
 void ActivityContext::End()
 {
+  ImGui::SetCurrentContext(this->imgui_context_.get());
   this->OnEnd();
-
   ImGui::DestroyContext(this->imgui_context_.release());
   this->imgui_context_ = nullptr;
 }
@@ -32,6 +31,7 @@ void ActivityContext::NewFrame(const SharedRef<Platform>& platform)
 {
   ImGui::SetCurrentContext(this->imgui_context_.get());
 
+  this->OnNewFrame();
   platform->ImGuiNewFrame();
   platform->GetGraphicsAPI()->ImGuiNewFrame();
   ImGui::NewFrame();
@@ -45,6 +45,7 @@ void ActivityContext::NewFrame(const SharedRef<Platform>& platform)
 
 void ActivityContext::EndFrame()
 {
+  ImGui::SetCurrentContext(this->imgui_context_.get());
   if (this->DrawEnabled())
   {
     this->elapsed_time_ = fmodf(this->elapsed_time_, this->option_.render_cycle);

@@ -3,6 +3,7 @@
 #if GG_GRAPHICS_API_DX11
 
 #include <Native/Windows/WindowsApplication.h>
+#include <Core/Application/Activity/Activity.h>
 
 #include "imgui\imgui_impl_dx11.h"
 #include "DX11Constants.h"
@@ -41,22 +42,20 @@ GG_INIT_FUNC_IMPL(DX11GraphicsAPI)
   UINT width = rect.right - rect.left;
   UINT height = rect.bottom - rect.top;
 
-  DXGI_SWAP_CHAIN_DESC sd;
-  ZeroMemory(&sd, sizeof(sd));
-  sd.BufferCount = 1;
-  sd.BufferDesc.Width = width;
-  sd.BufferDesc.Height = height;
-  sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-  sd.BufferDesc.RefreshRate.Numerator = 60; // リフレッシュレート分母
-  sd.BufferDesc.RefreshRate.Denominator = 1; // リフレッシュレート分子
-  sd.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
-  sd.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
-  sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-  sd.OutputWindow = hwnd;
-  sd.SampleDesc.Count = 1; // マルチサンプリング数
-  sd.SampleDesc.Quality = 0; //マルチサンプリングクオリティ
-  sd.Windowed = TRUE;
-  sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
+  this->swap_chain_desc_.BufferCount = 1;
+  this->swap_chain_desc_.BufferDesc.Width = width;
+  this->swap_chain_desc_.BufferDesc.Height = height;
+  this->swap_chain_desc_.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+  this->swap_chain_desc_.BufferDesc.RefreshRate.Numerator = 60; // リフレッシュレート分母
+  this->swap_chain_desc_.BufferDesc.RefreshRate.Denominator = 1; // リフレッシュレート分子
+  this->swap_chain_desc_.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+  this->swap_chain_desc_.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
+  this->swap_chain_desc_.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+  this->swap_chain_desc_.OutputWindow = hwnd;
+  this->swap_chain_desc_.SampleDesc.Count = 1; // マルチサンプリング数
+  this->swap_chain_desc_.SampleDesc.Quality = 0; //マルチサンプリングクオリティ
+  this->swap_chain_desc_.Windowed = TRUE;
+  this->swap_chain_desc_.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
   HRESULT hr = S_OK;
 
@@ -72,8 +71,8 @@ GG_INIT_FUNC_IMPL(DX11GraphicsAPI)
       featureLevels,
       numFeatureLevels,
       D3D11_SDK_VERSION, 
-      &sd,
-      &this->swap_chain_, 
+      &this->swap_chain_desc_,
+      &this->swap_chains_[hwnd],
       &this->device_, 
       &this->feature_level_, 
       &this->immediate_context_
@@ -85,48 +84,12 @@ GG_INIT_FUNC_IMPL(DX11GraphicsAPI)
   }
   GG_ASSERT(SUCCEEDED(hr), "ドライバが対応していません");
 
-  // Create a render target view
-  ID3D11Texture2D* pBackBuffer = NULL;
-  hr = this->swap_chain_->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
-  GG_ASSERT(SUCCEEDED(hr), "バックバッファの作成に失敗しました");
+  // Create DXGI Objects
+  this->device_->QueryInterface(__uuidof(IDXGIDevice1), (void**)&this->dxgi_);
+  this->dxgi_->GetAdapter(&this->adapter_);
+  this->adapter_->GetParent(__uuidof(IDXGIFactory), (void**)&this->factory_);
 
-  hr = this->device_->CreateRenderTargetView(pBackBuffer, NULL, &this->render_target_view_);
-  pBackBuffer->Release();
-  GG_ASSERT(SUCCEEDED(hr), "レンダーターゲットビューの作成に失敗しました");
-
-  // Create a depth stencil buffer 
-  ID3D11Texture2D* depth_stencil_buffer = NULL;
-
-  D3D11_TEXTURE2D_DESC desc_ds;
-  desc_ds.Width = width;
-  desc_ds.Height = height;
-  desc_ds.MipLevels = 1;
-  desc_ds.ArraySize = 1;
-  desc_ds.Format = DXGI_FORMAT_D32_FLOAT;
-  desc_ds.SampleDesc.Count = 1;
-  desc_ds.SampleDesc.Quality = 0;
-  desc_ds.Usage = D3D11_USAGE_DEFAULT;
-  desc_ds.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-  desc_ds.CPUAccessFlags = 0;
-  desc_ds.MiscFlags = 0;
-  hr = this->device_->CreateTexture2D(
-    &desc_ds,
-    NULL,
-    &depth_stencil_buffer
-  );
-  GG_ASSERT(SUCCEEDED(hr), "深度・ステンシルバッファの作成に失敗しました");
-
-  D3D11_DEPTH_STENCIL_VIEW_DESC desc_dsv;
-  desc_dsv.Format = desc_ds.Format;
-  desc_dsv.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-  desc_dsv.Flags = 0;
-  desc_dsv.Texture2D.MipSlice = 0;
-
-  hr = this->device_->CreateDepthStencilView(depth_stencil_buffer, NULL, &this->depth_stencil_view_);
-  depth_stencil_buffer->Release();
-  GG_ASSERT(SUCCEEDED(hr), "深度・ステンシルビューの作成に失敗しました");
-
-  this->immediate_context_->OMSetRenderTargets(1, &this->render_target_view_, this->depth_stencil_view_);
+  this->CreateRenderTargets(Application::GetMainActivity());
 
   // Setup the viewport
   D3D11_VIEWPORT vp;
@@ -149,10 +112,22 @@ GG_DESTRUCT_FUNC_IMPL(DX11GraphicsAPI)
   ImGui_ImplDX11_Shutdown();
 
   if (this->immediate_context_) this->immediate_context_->ClearState();
-  if (this->render_target_view_) this->render_target_view_->Release();
-  if (this->depth_stencil_view_) this->depth_stencil_view_->Release();
-  if (this->swap_chain_) this->swap_chain_->Release();
+  for (const auto& pair : this->render_target_views_)
+  {
+    pair.second->Release();
+  }
+  for (const auto& pair : this->depth_stencil_views_)
+  {
+    pair.second->Release();
+  }
+  for (const auto& pair : this->swap_chains_)
+  {
+    pair.second->Release();
+  }
   if (this->immediate_context_) this->immediate_context_->Release();
+  if (this->factory_) this->factory_->Release();
+  if (this->adapter_) this->adapter_->Release();
+  if (this->dxgi_) this->dxgi_->Release();  
   if (this->device_) this->device_->Release();
 
   return true;
@@ -161,10 +136,11 @@ GG_DESTRUCT_FUNC_IMPL(DX11GraphicsAPI)
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
-void DX11GraphicsAPI::ViewportClear(const TColor& color)
+void DX11GraphicsAPI::ViewportClear(const SharedRef<Activity>& activity, const TColor& color)
 {
-  this->immediate_context_->ClearRenderTargetView(this->render_target_view_, color.data);
-  this->immediate_context_->ClearDepthStencilView(this->depth_stencil_view_, D3D11_CLEAR_DEPTH, 1.0f, 0);
+  HWND hwnd = (HWND)activity->GetContext()->GetActivityID();
+  this->immediate_context_->ClearRenderTargetView(this->render_target_views_[hwnd], color.data);
+  this->immediate_context_->ClearDepthStencilView(this->depth_stencil_views_[hwnd], D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
 
 void DX11GraphicsAPI::SetViewport(T_FLOAT x, T_FLOAT y, T_FLOAT w, T_FLOAT h, T_FLOAT minZ, T_FLOAT maxZ)
@@ -201,6 +177,12 @@ void DX11GraphicsAPI::UnpackColor4u8(T_FIXED_UINT32 color, T_UINT8* r, T_UINT8* 
 //{
 //}
 
+void DX11GraphicsAPI::SetRenderTarget(const SharedRef<Activity>& activity)
+{
+  HWND hwnd = (HWND)activity->GetContext()->GetActivityID();
+  this->immediate_context_->OMSetRenderTargets(1, &this->render_target_views_[hwnd], this->depth_stencil_views_[hwnd]);
+}
+
 void DX11GraphicsAPI::ResetRenderTarget()
 {
 }
@@ -217,17 +199,77 @@ bool DX11GraphicsAPI::ImGuiNewFrame()
   return true;
 }
 
-bool DX11GraphicsAPI::PreDraw()
+void DX11GraphicsAPI::CreateSubActivityResources(const SharedRef<Activity>& activity)
+{
+  const SharedRef<WindowsContext>& windows_context = SharedRef<WindowsContext>::StaticCast(activity->GetContext());
+  HWND hwnd = (HWND)activity->GetContext()->GetActivityID();
+  this->swap_chain_desc_.OutputWindow = windows_context->GetWindowHandle();
+  this->factory_->CreateSwapChain(
+    this->device_,
+    &this->swap_chain_desc_,
+    &this->swap_chains_[hwnd]
+    );
+  this->CreateRenderTargets(activity);
+}
+
+void DX11GraphicsAPI::CreateRenderTargets(const SharedRef<Activity>& activity)
+{  
+  const ActivityOption& option = activity->GetContext()->GetOption();
+  HWND hwnd = (HWND)activity->GetContext()->GetActivityID();
+
+  // Create a render target view
+  ID3D11Texture2D* pBackBuffer = NULL;
+  HRESULT hr = this->swap_chains_[hwnd]->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
+  GG_ASSERT(SUCCEEDED(hr), "バックバッファの作成に失敗しました");
+
+  hr = this->device_->CreateRenderTargetView(pBackBuffer, NULL, &this->render_target_views_[hwnd]);
+  pBackBuffer->Release();
+  GG_ASSERT(SUCCEEDED(hr), "レンダーターゲットビューの作成に失敗しました");
+
+  // Create a depth stencil buffer 
+  ID3D11Texture2D* depth_stencil_buffer = NULL;
+
+  D3D11_TEXTURE2D_DESC desc_ds;
+  desc_ds.Width = (UINT)option.window_size.width;
+  desc_ds.Height = (UINT)option.window_size.height;
+  desc_ds.MipLevels = 1;
+  desc_ds.ArraySize = 1;
+  desc_ds.Format = DXGI_FORMAT_D32_FLOAT;
+  desc_ds.SampleDesc.Count = 1;
+  desc_ds.SampleDesc.Quality = 0;
+  desc_ds.Usage = D3D11_USAGE_DEFAULT;
+  desc_ds.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+  desc_ds.CPUAccessFlags = 0;
+  desc_ds.MiscFlags = 0;
+  hr = this->device_->CreateTexture2D(
+    &desc_ds,
+    NULL,
+    &depth_stencil_buffer
+  );
+  GG_ASSERT(SUCCEEDED(hr), "深度・ステンシルバッファの作成に失敗しました");
+
+  D3D11_DEPTH_STENCIL_VIEW_DESC desc_dsv;
+  desc_dsv.Format = desc_ds.Format;
+  desc_dsv.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+  desc_dsv.Flags = 0;
+  desc_dsv.Texture2D.MipSlice = 0;
+
+  hr = this->device_->CreateDepthStencilView(depth_stencil_buffer, NULL, &this->depth_stencil_views_[hwnd]);
+  depth_stencil_buffer->Release();
+  GG_ASSERT(SUCCEEDED(hr), "深度・ステンシルビューの作成に失敗しました");
+
+}
+
+bool DX11GraphicsAPI::PreDraw(const SharedRef<Activity>& activity)
 {
   return true;
 }
 
-bool DX11GraphicsAPI::PostDraw()
+bool DX11GraphicsAPI::PostDraw(const SharedRef<Activity>& activity)
 {
-  //imgui
   ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-
-  this->swap_chain_->Present(0, 0);
+  HWND hwnd = (HWND)activity->GetContext()->GetActivityID();
+  this->swap_chains_[hwnd]->Present(0, 0);
   return true;
 }
 
