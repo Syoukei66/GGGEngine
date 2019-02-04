@@ -22,7 +22,7 @@ class AssetViewerScene : public ViewerScene
   // Methods
   // =================================================================
 public:
-  void Run(const SharedRef<AssetEntity>& entity, AssetConverterContext* context);
+  void Run(const SharedRef<GameActivity>& activity, const SharedRef<AssetEntity>& entity, AssetConverterContext* context);
 
   // =================================================================
   // Data Members

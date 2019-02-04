@@ -78,11 +78,12 @@ void EntryScene::Update()
 // =================================================================
 void EntryScene::ShowViewer(const SharedRef<AssetEntity>& entity)
 {
-  this->viewer_scene_->Run(entity, this->context_);
   ActivityOption op = ActivityOption();
   op.activity_name = "編集ウィンドウ";
   op.render_cycle = 60;
   op.resize_window = false;
   op.window_size = Application::GetMainActivity()->GetContext()->GetScreenSize();
-  Application::StartActivity(GameActivity::Create(), op);
+  const SharedRef<GameActivity>& activity = GameActivity::Create();
+  Application::StartActivity(activity, op);
+  this->viewer_scene_->Run(activity, entity, this->context_);
 }

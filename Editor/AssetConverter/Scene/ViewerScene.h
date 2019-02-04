@@ -54,7 +54,7 @@ public:
   // Methods
   // =================================================================
 public:
-  void Run(const SharedRef<IViewerBehavior>& behavior, AssetConverterContext* context);
+  void Run(const SharedRef<GameActivity>& activity, const SharedRef<IViewerBehavior>& behavior, AssetConverterContext* context);
 
   // =================================================================
   // Data Members

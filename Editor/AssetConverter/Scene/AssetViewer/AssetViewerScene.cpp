@@ -21,7 +21,7 @@ GG_INIT_FUNC_IMPL(AssetViewerScene)
 // =================================================================
 // Methods
 // =================================================================
-void AssetViewerScene::Run(const SharedRef<AssetEntity>& entity, AssetConverterContext* context)
+void AssetViewerScene::Run(const SharedRef<GameActivity>& activity, const SharedRef<AssetEntity>& entity, AssetConverterContext* context)
 {
   SharedRef<AssetViewerBehavior> behavior = entity->GetConverter(context)->GetViewerBehavior();
   if (!behavior)
@@ -29,5 +29,5 @@ void AssetViewerScene::Run(const SharedRef<AssetEntity>& entity, AssetConverterC
     return;
   }
   behavior->SetEntity(entity);
-  ViewerScene::Run(behavior, context);
+  ViewerScene::Run(activity, behavior, context);
 }

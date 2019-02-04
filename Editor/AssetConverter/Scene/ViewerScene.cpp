@@ -149,9 +149,9 @@ void ViewerScene::Update()
   ImGui::End();
 }
 
-void ViewerScene::Run(const SharedRef<IViewerBehavior>& behavior, AssetConverterContext* context)
+void ViewerScene::Run(const SharedRef<GameActivity>& activity, const SharedRef<IViewerBehavior>& behavior, AssetConverterContext* context)
 {
   this->current_context_ = context;
   this->current_behavior_ = behavior;
-  Director::PushScene(SharedRef<ViewerScene>(this), false);
+  activity->PushScene(SharedRef<ViewerScene>(this), false);
 }
