@@ -12,12 +12,8 @@ void ActivityContext::Start(const ActivityOption& ao)
 
   IMGUI_CHECKVERSION();
   this->imgui_context_.reset(ImGui::CreateContext());
-  //ImGui::SetCurrentContext(this->imgui_context_);
-
-  ImGui::StyleColorsDark();
-  ImGui::SetupJapaneseString();
-  //ImGui::StyleColorsDark(&this->imgui_context_->Style);
-  //ImGui::SetupJapaneseString(this->imgui_context_);
+  ImGui::StyleColorsDark(&this->imgui_context_->Style);
+  ImGui::SetupJapaneseString(this->imgui_context_.get());
 
   this->OnStart(ao);
 }
@@ -32,7 +28,7 @@ void ActivityContext::End()
 
 void ActivityContext::NewFrame(const SharedRef<Platform>& platform)
 {
-  //ImGui::SetCurrentContext(this->imgui_context_);
+  ImGui::SetCurrentContext(this->imgui_context_.get());
 
   platform->GetGraphicsAPI()->ImGuiNewFrame();
   ImGui::NewFrame();
