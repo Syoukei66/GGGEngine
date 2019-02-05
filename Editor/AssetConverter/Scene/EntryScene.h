@@ -34,7 +34,6 @@ private:
   // =================================================================
 private:
   SharedRef<AssetEntity> selected_entity_;
-  SharedRef<AssetViewerScene> viewer_scene_;
   AssetConverterContext* context_;
 
 };

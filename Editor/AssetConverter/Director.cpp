@@ -21,13 +21,7 @@
 #include <Entity/Default/Material/DefaultMaterialAssetEntityFactory.h>
 
 // Import Viewer
-#include <Scene/AssetViewer/CharacterModel/CharacterModelViewerBehavior.h>
-#include <Scene/AssetViewer/Material/MaterialViewerBehavior.h>
-#include <Scene/AssetViewer/Shader/ShaderViewerBehavior.h>
-#include <Scene/AssetViewer/StaticMesh/StaticMeshViewerBehavior.h>
-#include <Scene/AssetViewer/StaticModel/StaticModelViewerBehavior.h>
 //#include <Scene/AssetViewer/Text/TextViewerBehavior.h>
-#include <Scene/AssetViewer/Texture/TextureViewerBehavior.h>
 
 // =================================================================
 // Methods
@@ -58,45 +52,37 @@ void AssetConverterDirector::Init()
   }
 
   // (3)
-  // Viewerの作成
-  const SharedRef<TextureViewerBehavior>& texture_viewer = TextureViewerBehavior::Create();
-  const SharedRef<StaticMeshViewerBehavior>& mesh_viewer = StaticMeshViewerBehavior::Create();
-  const SharedRef<MaterialViewerBehavior>& material_viewer = MaterialViewerBehavior::Create();
-  const SharedRef<StaticModelViewerBehavior>& static_model_viewer = StaticModelViewerBehavior::Create();
-  const SharedRef<CharacterModelViewerBehavior>& character_model_viewer = CharacterModelViewerBehavior::Create();
-
-  // (4)
   // Converterの登録
   using namespace DefaultUniqueID;
   self->context_ = new AssetConverterContext(self->unique_id_table_);
   AssetManager::Init(self->unique_id_table_);
 
   // Raw
-  self->context_->AddConverter(new RawAssetConverter<rcCsvData>("CSV", "rcCsvData", {"csv"}, nullptr));
-  self->context_->AddConverter(new RawAssetConverter<rcJsonData>("Json", "rcJsonData", { "json" }, nullptr));
-  self->context_->AddConverter(new RawAssetConverter<rcAudioClip>("Sound", "rcAudioClip", { "wav" }, nullptr));
+  self->context_->AddConverter(new RawAssetConverter<rcCsvData>("CSV", "rcCsvData", {"csv"}));
+  self->context_->AddConverter(new RawAssetConverter<rcJsonData>("Json", "rcJsonData", { "json" }));
+  self->context_->AddConverter(new RawAssetConverter<rcAudioClip>("Sound", "rcAudioClip", { "wav" }));
 
   // Texture
-  self->context_->AddConverter(new TextureAssetConverter("Texture", "rcTexture", {"jpg", "png", "tga", "bmp"}, 1, 1, texture_viewer));
-  self->context_->AddDefaultAssetConverter(new TextureAssetConverter("DefaultTexture", "rcTexture", { "jpg", "png", "tga", "bmp" }, 2, 0, texture_viewer));
+  self->context_->AddConverter(new TextureAssetConverter("Texture", "rcTexture", {"jpg", "png", "tga", "bmp"}, 1, 1));
+  self->context_->AddDefaultAssetConverter(new TextureAssetConverter("DefaultTexture", "rcTexture", { "jpg", "png", "tga", "bmp" }, 2, 0));
 
   // Shader
-  self->context_->AddConverter(new ShaderAssetConverter("Shader", "rcShader", {"shader"}, 1, 1, nullptr));
-  self->context_->AddDefaultAssetConverter(new ShaderAssetConverter("DefaultShader", "rcShader", { "shader" }, 2, 0, nullptr));
+  self->context_->AddConverter(new ShaderAssetConverter("Shader", "rcShader", {"shader"}, 1, 1));
+  self->context_->AddDefaultAssetConverter(new ShaderAssetConverter("DefaultShader", "rcShader", { "shader" }, 2, 0));
 
   // Mesh
-  self->context_->AddConverter(new MeshAssetConverter("Mesh", "rcMesh", {"mesh"}, 1, 1, mesh_viewer));
-  AssetConverter* default_mesh_converter = self->context_->AddDefaultAssetConverter(new DefaultAssetConverter<rcMesh, StaticMeshData>("DefaultMesh", "rcMesh", mesh_viewer, {}));
+  self->context_->AddConverter(new MeshAssetConverter("Mesh", "rcMesh", {"mesh"}, 1, 1));
+  AssetConverter* default_mesh_converter = self->context_->AddDefaultAssetConverter(new DefaultAssetConverter<rcMesh, StaticMeshData, StaticMeshViewerBehavior>("DefaultMesh", "rcMesh", {}));
 
   // Material
-  self->context_->AddConverter(new MaterialAssetConverter("Material", "rcMaterial", {"mat"}, 1, 1, material_viewer));
-  AssetConverter* default_material_converter = self->context_->AddDefaultAssetConverter(new DefaultAssetConverter<rcMaterial, MaterialData>("DefaultMaterial", "rcMaterial", material_viewer, {TEXTURE_WHITE}));
+  self->context_->AddConverter(new MaterialAssetConverter("Material", "rcMaterial", {"mat"}, 1, 1));
+  AssetConverter* default_material_converter = self->context_->AddDefaultAssetConverter(new DefaultAssetConverter<rcMaterial, MaterialData, MaterialViewerBehavior>("DefaultMaterial", "rcMaterial", {TEXTURE_WHITE}));
 
   // Model
-  self->context_->AddConverter(new StaticModelAssetConverter("StaticModel", "rcStaticModel", {"fbx", "x", "blend"}, 1, 1, static_model_viewer));
-  self->context_->AddConverter(new CharacterModelAssetConverter("CharacterModel", "rcCharacterModel", {"dae"}, 1, 1, character_model_viewer));
+  self->context_->AddConverter(new StaticModelAssetConverter("StaticModel", "rcStaticModel", {"fbx", "x", "blend"}, 1, 1));
+  self->context_->AddConverter(new CharacterModelAssetConverter("CharacterModel", "rcCharacterModel", {"dae"}, 1, 1));
 
-  // (5)
+  // (4)
   // デフォルトアセットの登録
   using namespace DefaultAsset;
   self->context_->RegisterDefaultUniqueID(SHADER_ERRROR, SHADER_PATH_ERROR);
@@ -127,7 +113,7 @@ void AssetConverterDirector::Init()
   self->setting_->default_mesh_asset_converter_factory.Create(default_mesh_converter, self->context_);
   DefaultMaterialAssetEntityFactory::Create(default_material_converter, self->context_);
 
-  // (6)
+  // (5)
   // デフォルトアセットのロード
   self->Fetch();
   for (const auto& pair : self->unique_id_table_->GetDefaultAssetUniqueIdTable())

@@ -5,7 +5,7 @@
 
 #include "DefaultAssetConverterSetting.h"
 
-template <class Asset_, class AssetData_>
+template <class Asset_, class AssetData_, class ViewerBehavior_>
 class DefaultAssetConverter : public AssetConverter
 {
   // =================================================================
@@ -15,10 +15,9 @@ public:
   DefaultAssetConverter(
     const std::string& id,
     const std::string& class_name,
-    const SharedRef<AssetViewerBehavior>& viewer,
     const std::vector<T_UINT32>& default_sub_assets
   )
-    : AssetConverter(id, class_name, {}, 2, 0, viewer)
+    : AssetConverter(id, class_name, {}, 2, 0)
     , default_sub_assets_(default_sub_assets)
   {}
 
@@ -68,6 +67,11 @@ public:
       ret->AddSubAsset(uid);
     }
     return std::unique_ptr<ConverterSetting>(ret);
+  }
+
+  virtual SharedRef<AssetViewerBehavior> CreateViewerBehavior() const override
+  {
+    return ViewerBehavior_::Create();
   }
 
   // =================================================================

@@ -13,15 +13,13 @@ public:
   RawAssetConverter(
     const std::string& id,
     const std::string& class_name,
-    std::initializer_list<std::string> extensions,
-    const SharedRef<AssetViewerBehavior>& viewer
+    std::initializer_list<std::string> extensions
   )
     : AssetConverter(
       id,
       class_name,
       extensions,
-      1, 0,
-      viewer
+      1, 0
     )
   {}
 
@@ -59,5 +57,9 @@ public:
     return std::unique_ptr<ConverterSetting>(new RawAssetConverterSetting(this->GetId()));
   }
 
+  virtual SharedRef<AssetViewerBehavior> CreateViewerBehavior() const override
+  {
+    return nullptr;
+  }
 
 };

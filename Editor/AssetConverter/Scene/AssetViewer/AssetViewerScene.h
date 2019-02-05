@@ -16,18 +16,9 @@ class AssetViewerScene : public ViewerScene
   // GGG Statement
   // =================================================================
   GG_OBJECT(AssetViewerScene);
-  GG_CREATE_FUNC(AssetViewerScene);
-
-  // =================================================================
-  // Methods
-  // =================================================================
+  GG_CREATE_FUNC_3(AssetViewerScene, const SharedRef<AssetViewerBehavior>&, AssetConverterContext*, const SharedRef<AssetEntity>&);
+  
 public:
-  void Run(const SharedRef<GameActivity>& activity, const SharedRef<AssetEntity>& entity, AssetConverterContext* context);
-
-  // =================================================================
-  // Data Members
-  // =================================================================
-private:
-  std::vector<SharedRef<AssetViewerBehavior>> behaviors_;
+  static UniqueRef<AssetViewerScene> Create(AssetConverterContext*, const SharedRef<AssetEntity>&);
 
 };

@@ -15,8 +15,7 @@ public:
     const std::string& id,
     const std::string& class_name,
     const std::vector<std::string>& extensions,
-    T_UINT32 skip_head, T_UINT32 skip_tail,
-    const SharedRef<AssetViewerBehavior>& viewer
+    T_UINT32 skip_head, T_UINT32 skip_tail
   );
 
   virtual ~AssetConverter();
@@ -80,6 +79,12 @@ public:
    */
   virtual std::unique_ptr<ConverterSetting> CreateSetting() const = 0;
 
+  /*!
+   * @brief 使用するAssetViewerBehaviorを作成する
+   * @return 
+   */
+  virtual SharedRef<AssetViewerBehavior> CreateViewerBehavior() const = 0;
+
 protected:
   /*!
    * @brief アセットのインポート実処理
@@ -103,11 +108,6 @@ public:
     return this->id_;
   }
 
-  inline const SharedRef<AssetViewerBehavior>& GetViewerBehavior()
-  {
-    return this->viewer_;
-  }
-
   // =================================================================
   // Data Members
   // =================================================================
@@ -115,6 +115,5 @@ private:
   std::string id_;
   std::vector<std::string> target_extensions_;
   AssetProgramGenerator* program_generator_;
-  SharedRef<AssetViewerBehavior> viewer_;
 
 };

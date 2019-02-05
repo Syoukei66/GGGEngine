@@ -14,10 +14,9 @@ public:
     const std::string& id,
     const std::string& class_name,
     const std::vector<std::string>& extensions,
-    T_UINT32 skip_head, T_UINT32 skip_tail,
-    const SharedRef<AssetViewerBehavior>& viewer
+    T_UINT32 skip_head, T_UINT32 skip_tail
   )
-    : AssetConverter(id, class_name, extensions, skip_head, skip_tail, viewer)
+    : AssetConverter(id, class_name, extensions, skip_head, skip_tail)
   {}
 
   // =================================================================

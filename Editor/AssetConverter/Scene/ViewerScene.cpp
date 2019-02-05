@@ -15,8 +15,10 @@ static const char* CAMERA_STATE_NAMES[ViewerScene::CAMERA_STATE_MAX] =
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL(ViewerScene)
+GG_INIT_FUNC_IMPL_2(ViewerScene, const SharedRef<IViewerBehavior>& behavior, AssetConverterContext* context)
 {
+  this->current_context_ = context;
+  this->current_behavior_ = behavior;
   this->move_speed_weight_ = 1.0f;
   this->move_speed_ = 0.5f;
   this->bg_color_ = TColor::BLACK;
@@ -138,21 +140,9 @@ void ViewerScene::Update(const ActivityContext& context)
   ImGui::Separator();
   ImGui::Spacing();
 
-  if (ImGui::Button(u8"スタートメニューに戻る"))
-  {
-    Director::PopScene(false);
-  }
-
   Transform3D* camera_transform = this->camera_3d_->GetTransform();
   camera_transform->SetPosition(Mathf::Lerp(camera_transform->GetPosition(), transform->GetPosition(), 0.05f));
   camera_transform->SetQuaternion(Quaternion::Lerp(camera_transform->GetQuaternion(), transform->GetQuaternion(), 0.05f));
 
   ImGui::End();
-}
-
-void ViewerScene::Run(const SharedRef<GameActivity>& activity, const SharedRef<IViewerBehavior>& behavior, AssetConverterContext* context)
-{
-  this->current_context_ = context;
-  this->current_behavior_ = behavior;
-  activity->PushScene(SharedRef<ViewerScene>(this), false);
 }

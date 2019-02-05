@@ -10,24 +10,18 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL(AssetViewerScene)
+GG_INIT_FUNC_IMPL_3(AssetViewerScene, const SharedRef<AssetViewerBehavior>& behavior, AssetConverterContext* context, const SharedRef<AssetEntity>& entity)
 {
-  this->behaviors_.push_back(StaticMeshViewerBehavior::Create());
-  this->behaviors_.push_back(StaticModelViewerBehavior::Create());
-  this->behaviors_.push_back(CharacterModelViewerBehavior::Create());
-  this->behaviors_.push_back(TextureViewerBehavior::Create());
-  return ViewerScene::Init();
+  behavior->SetEntity(entity);
+  return ViewerScene::Init(behavior, context);
 }
-// =================================================================
-// Methods
-// =================================================================
-void AssetViewerScene::Run(const SharedRef<GameActivity>& activity, const SharedRef<AssetEntity>& entity, AssetConverterContext* context)
+
+UniqueRef<AssetViewerScene> AssetViewerScene::Create(AssetConverterContext* context, const SharedRef<AssetEntity>& entity)
 {
-  SharedRef<AssetViewerBehavior> behavior = entity->GetConverter(context)->GetViewerBehavior();
+  SharedRef<AssetViewerBehavior> behavior = entity->GetConverter(context)->CreateViewerBehavior();
   if (!behavior)
   {
-    return;
+    return nullptr;
   }
-  behavior->SetEntity(entity);
-  ViewerScene::Run(activity, behavior, context);
+  return Create(behavior, context, entity);
 }

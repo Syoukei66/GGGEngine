@@ -38,7 +38,7 @@ public:
   // GGG Statement
   // =================================================================
   GG_OBJECT(ViewerScene);
-  GG_CREATE_FUNC(ViewerScene);
+  GG_INIT_FUNC_2(ViewerScene, const SharedRef<IViewerBehavior>&, AssetConverterContext*);
 
   // =================================================================
   // Methods from Scene
@@ -49,12 +49,6 @@ public:
   virtual void OnShow() override;
   virtual void OnHide() override;
   virtual void Update(const ActivityContext& context) override;
-
-  // =================================================================
-  // Methods
-  // =================================================================
-public:
-  void Run(const SharedRef<GameActivity>& activity, const SharedRef<IViewerBehavior>& behavior, AssetConverterContext* context);
 
   // =================================================================
   // Data Members

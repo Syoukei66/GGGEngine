@@ -10,13 +10,11 @@ AssetConverter::AssetConverter(
   const std::string& id,
   const std::string& class_name,
   const std::vector<std::string>& extensions,
-  T_UINT32 skip_head, T_UINT32 skip_tail,
-  const SharedRef<AssetViewerBehavior>& viewer
+  T_UINT32 skip_head, T_UINT32 skip_tail
 )
   : id_(id)
   , target_extensions_(extensions)
   , program_generator_(new AssetProgramGenerator(id, class_name, skip_head, skip_tail))
-  , viewer_(viewer)
 {}
 
 AssetConverter::~AssetConverter()

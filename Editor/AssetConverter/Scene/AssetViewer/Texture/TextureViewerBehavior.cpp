@@ -26,7 +26,7 @@ void TextureViewerBehavior::OnEnd()
 void TextureViewerBehavior::OnLoad(T_UINT32 unique_id)
 {
   const SharedRef<Renderer>& renderer = this->obj_->GetComponent<Renderer>();
-  renderer->SetMaterial(AssetManager::Load<rcMaterial>(DefaultUniqueID::MATERIAL_UNLIT));
+  renderer->SetMaterial(AssetManager::Load<rcMaterial>(DefaultUniqueID::MATERIAL_UNLIT)->Clone());
   renderer->GetMaterial()->SetMainTexture(AssetManager::Load<rcTexture>(unique_id));
 }
 
