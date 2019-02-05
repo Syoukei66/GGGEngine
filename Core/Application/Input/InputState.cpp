@@ -18,11 +18,11 @@ void InputState::Update(const EngineInputState& state)
   this->digital_input_ = state.GetDigitalInput(this->player_id_);
 }
 
-bool InputState::AnyButton()
+bool InputState::AnyButton() const
 {
-  for (std::unordered_map<T_UINT8, InputEntity>::iterator itr = this->entities_.begin(), end = this->entities_.end(); itr != end; ++itr)
+  for (const auto& itr : this->entities_)
   {
-    const InputEntity& entity = itr->second;
+    const InputEntity& entity = itr.second;
     if (
       this->digital_input_.IsHold(entity.negative_button) ||
       this->digital_input_.IsHold(entity.positive_button)
@@ -34,11 +34,11 @@ bool InputState::AnyButton()
   return false;
 }
 
-bool InputState::AnyButtonDown()
+bool InputState::AnyButtonDown() const
 {
-  for (std::unordered_map<T_UINT8, InputEntity>::iterator itr = this->entities_.begin(), end = this->entities_.end(); itr != end; ++itr)
+  for (const auto& itr : this->entities_)
   {
-    const InputEntity& entity = itr->second;
+    const InputEntity& entity = itr.second;
     if (
       this->digital_input_.IsTrigger(entity.negative_button) ||
       this->digital_input_.IsTrigger(entity.positive_button)
@@ -50,11 +50,11 @@ bool InputState::AnyButtonDown()
   return false;
 }
 
-bool InputState::AnyButtonUp()
+bool InputState::AnyButtonUp() const
 {
-  for (std::unordered_map<T_UINT8, InputEntity>::iterator itr = this->entities_.begin(), end = this->entities_.end(); itr != end; ++itr)
+  for (const auto& itr : this->entities_)
   {
-    const InputEntity& entity = itr->second;
+    const InputEntity& entity = itr.second;
     if (
       this->digital_input_.IsRelease(entity.negative_button) ||
       this->digital_input_.IsRelease(entity.positive_button)
@@ -66,11 +66,11 @@ bool InputState::AnyButtonUp()
   return false;
 }
 
-bool InputState::AnyAxis()
+bool InputState::AnyAxis() const
 {
-  for (std::unordered_map<T_UINT8, InputEntity>::iterator itr = this->entities_.begin(), end = this->entities_.end(); itr != end; ++itr)
+  for (const auto& itr : this->entities_)
   {
-    const InputEntity& entity = itr->second;
+    const InputEntity& entity = itr.second;
     if (this->analog_input_.IsEnabled(entity.axis, entity.dimention))
     {
       return true;
@@ -79,14 +79,14 @@ bool InputState::AnyAxis()
   return false;
 }
 
-bool InputState::AnyAxisOrButton()
+bool InputState::AnyAxisOrButton() const
 {
   return this->AnyAxis() || this->AnyButton();
 }
 
-T_FLOAT InputState::GetAxis(T_UINT8 id, T_FLOAT dead_range)
+T_FLOAT InputState::GetAxis(T_UINT8 id, T_FLOAT dead_range) const
 {
-  const InputEntity& entity = this->entities_[id];
+  const InputEntity& entity = this->entities_.at(id);
   if (this->digital_input_.IsHold(entity.positive_button))
   {
     return 1.0f;
@@ -98,9 +98,9 @@ T_FLOAT InputState::GetAxis(T_UINT8 id, T_FLOAT dead_range)
   return this->analog_input_.GetValue(entity.axis, entity.dimention, dead_range);
 }
 
-T_FLOAT InputState::GetAxisDown(T_UINT8 id, T_FLOAT dead_range)
+T_FLOAT InputState::GetAxisDown(T_UINT8 id, T_FLOAT dead_range) const
 {
-  const InputEntity& entity = this->entities_[id];
+  const InputEntity& entity = this->entities_.at(id);
   if (this->digital_input_.IsTrigger(entity.positive_button))
   {
     return 1.0f;
@@ -116,9 +116,9 @@ T_FLOAT InputState::GetAxisDown(T_UINT8 id, T_FLOAT dead_range)
   return this->analog_input_.GetValue(entity.axis, entity.dimention, dead_range);
 }
 
-T_FLOAT InputState::GetAxisUp(T_UINT8 id, T_FLOAT dead_range)
+T_FLOAT InputState::GetAxisUp(T_UINT8 id, T_FLOAT dead_range) const
 {
-  const InputEntity& entity = this->entities_[id];
+  const InputEntity& entity = this->entities_.at(id);
   if (this->digital_input_.IsRelease(entity.positive_button))
   {
     return 1.0f;
@@ -134,9 +134,9 @@ T_FLOAT InputState::GetAxisUp(T_UINT8 id, T_FLOAT dead_range)
   return this->analog_input_.GetOldValue(entity.axis, entity.dimention, dead_range);
 }
 
-T_FLOAT InputState::GetAxisDelta(T_UINT8 id)
+T_FLOAT InputState::GetAxisDelta(T_UINT8 id) const
 {
-  const InputEntity& entity = this->entities_[id];
+  const InputEntity& entity = this->entities_.at(id);
   if (this->digital_input_.IsTrigger(entity.positive_button))
   {
     return 1.0f;
@@ -148,9 +148,9 @@ T_FLOAT InputState::GetAxisDelta(T_UINT8 id)
   return this->analog_input_.GetDelta(entity.axis, entity.dimention);
 }
 
-bool InputState::GetButton(T_UINT8 id)
+bool InputState::GetButton(T_UINT8 id) const
 {
-  const InputEntity& entity = this->entities_[id];
+  const InputEntity& entity = this->entities_.at(id);
   if (this->digital_input_.IsHold(entity.positive_button) || this->digital_input_.IsHold(entity.negative_button))
   {
     return true;
@@ -158,9 +158,9 @@ bool InputState::GetButton(T_UINT8 id)
   return this->analog_input_.GetValue(entity.axis, entity.dimention) != 0.0f;
 }
 
-bool InputState::GetButtonDown(T_UINT8 id)
+bool InputState::GetButtonDown(T_UINT8 id) const
 {
-  const InputEntity& entity = this->entities_[id];
+  const InputEntity& entity = this->entities_.at(id);
   if (this->digital_input_.IsTrigger(entity.positive_button) || this->digital_input_.IsTrigger(entity.negative_button))
   {
     return true;
@@ -168,9 +168,9 @@ bool InputState::GetButtonDown(T_UINT8 id)
   return this->analog_input_.IsTrigger(entity.axis, entity.dimention);
 }
 
-bool InputState::GetButtonUp(T_UINT8 id)
+bool InputState::GetButtonUp(T_UINT8 id) const
 {
-  const InputEntity& entity = this->entities_[id];
+  const InputEntity& entity = this->entities_.at(id);
   if (this->digital_input_.IsRelease(entity.positive_button) || this->digital_input_.IsRelease(entity.negative_button))
   {
     return true;

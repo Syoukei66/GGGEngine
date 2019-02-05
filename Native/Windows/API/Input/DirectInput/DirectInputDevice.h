@@ -16,7 +16,7 @@ public:
   virtual ~DirectInputDevice() {}
 
 public:
-  virtual bool Init(LPDIRECTINPUT8 input) = 0;
+  virtual bool Init(const SharedRef<Activity>& activity, LPDIRECTINPUT8 input) = 0;
   virtual bool Uninit(LPDIRECTINPUT8 input) = 0;
 
 protected:

@@ -22,7 +22,7 @@ void HierarchyView::EditWithImGUI()
 {
   HierarchyView* self = &Self();
 
-  ImGui::SetNextWindowPos(ImVec2(Application::GetMainActivity()->GetContext()->GetScreenWidth() - 250.0f - 20.0f, 20.0f), ImGuiSetCond_Once);
+  ImGui::SetNextWindowPos(ImVec2(Application::GetMainActivity()->GetContext().GetScreenWidth() - 250.0f - 20.0f, 20.0f), ImGuiSetCond_Once);
   ImGui::SetNextWindowSize(ImVec2(250.0f, 600.0f), ImGuiSetCond_Once);
 
   ImGui::Begin("Hierarchy");

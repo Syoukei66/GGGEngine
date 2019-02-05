@@ -60,17 +60,12 @@ SharedRef<Activity> Application::StartActivity(const SharedRef<Activity>& activi
 {
   Application* self = &Self();
 
-  const SharedRef<ActivityContext>& context = self->platform_->CreateActivityContext();
-  activity->Start(ao, context);
+  ActivityContext* context = self->platform_->CreateActivityContext();
+  activity->Start(ao, self->option_.input_setting, context);
   self->platform_->GetGraphicsAPI()->CreateSubActivityResources(activity);
+  self->platform_->GetInputAPI()->CreateSubActivityResources(activity);
   self->sub_activities_[context->GetActivityID()] = activity;
   return activity;
-}
-
-bool Application::IsActive()
-{
-  Application* self = &Self();
-  return self->main_activity_->GetContext()->IsActive();
 }
 
 bool Application::Init(const SharedRef<Platform>& platform, IApplicationBehavior* behavior, const ApplicationOption& option)
@@ -79,9 +74,9 @@ bool Application::Init(const SharedRef<Platform>& platform, IApplicationBehavior
 
   self->platform_ = platform;
 
-  const SharedRef<ActivityContext>& context = self->GetPlatform()->CreateActivityContext();
+  ActivityContext* context = self->GetPlatform()->CreateActivityContext();
   self->main_activity_ = behavior->CreateMainActivity();
-  self->main_activity_->Start(option.main_activity_option, context);
+  self->main_activity_->Start(option.main_activity_option, self->option_.input_setting, context);
   self->sub_activities_[context->GetActivityID()] = self->main_activity_;
 
   self->platform_->Init(self->option_);
@@ -167,7 +162,7 @@ bool Application::Update()
   // Activity‚Ìíœˆ—
   for (const SharedRef<Activity>& activity : delete_activity)
   {
-    const T_UINT64 id = activity->GetContext()->GetActivityID();
+    const T_UINT64 id = activity->GetContext().GetActivityID();
     activity->EndActivity();
     activity->EndContext();
     self->sub_activities_.erase(id);

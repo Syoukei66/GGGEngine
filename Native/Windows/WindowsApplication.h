@@ -22,9 +22,9 @@ public:
     return SharedRef<WindowsPlatform>::StaticCast(Application::GetPlatform());
   }
 
-  static GG_INLINE SharedRef<WindowActivityContext> GetMainActivityContext()
+  static GG_INLINE const WindowActivityContext& GetMainActivityContext()
   {
-    return SharedRef<WindowActivityContext>::StaticCast(Application::GetMainActivity()->GetContext());
+    return static_cast<const WindowActivityContext&>(Application::GetMainActivity()->GetContext());
   }
 
 };

@@ -6,9 +6,11 @@
 // =================================================================
 // Methods
 // =================================================================
-void ActivityContext::Start(const ActivityOption& ao)
+void ActivityContext::Start(const ActivityOption& ao, const InputSetting& input_setting)
 {
   this->option_ = ao;
+
+  this->input_context_ = new InputContext(input_setting);
 
   IMGUI_CHECKVERSION();
   this->imgui_context_.reset(ImGui::CreateContext());
@@ -25,9 +27,12 @@ void ActivityContext::End()
   this->OnEnd();
   ImGui::DestroyContext(this->imgui_context_.release());
   this->imgui_context_ = nullptr;
+  
+  delete this->input_context_;
+  this->input_context_ = nullptr;
 }
 
-void ActivityContext::NewFrame(const SharedRef<Platform>& platform)
+void ActivityContext::NewFrame(const SharedRef<Activity>& activity, const SharedRef<Platform>& platform)
 {
   ImGui::SetCurrentContext(this->imgui_context_.get());
 
@@ -40,7 +45,7 @@ void ActivityContext::NewFrame(const SharedRef<Platform>& platform)
 
   this->elapsed_time_ += delta_time;
 
-  platform->GetInputAPI()->Update();
+  this->input_context_->Update(activity, platform->GetInputAPI());
 }
 
 void ActivityContext::EndFrame()

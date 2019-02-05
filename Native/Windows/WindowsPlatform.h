@@ -40,17 +40,17 @@ protected:
 
   GG_INLINE virtual UniqueRef<InputAPI> CreateInputAPI(const ApplicationOption& op) const override
   {
-    return DirectInputAPI::Create(op.input_setting);
+    return DirectInputAPI::Create();
   }
 
-  GG_INLINE virtual UniqueRef<ActivityContext> CreateMainActivityContext() const override
+  GG_INLINE virtual ActivityContext* CreateMainActivityContext() const override
   {
-    return WindowActivityContext::Create();
+    return new WindowActivityContext();
   }
 
-  GG_INLINE virtual UniqueRef<ActivityContext> CreateActivityContext() const override
+  GG_INLINE virtual ActivityContext* CreateActivityContext() const override
   {
-    return WindowActivityContext::Create();
+    return new WindowActivityContext();
   }
 
 public:

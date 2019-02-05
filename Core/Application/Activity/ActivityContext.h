@@ -1,13 +1,15 @@
 #pragma once
 
-struct ImGuiContext;
+#include <imgui/imgui.h>
+#include <imgui/imgui_internal.h>
+
 class Platform;
 
 /*!
  * @brief アクティビティの状態や情報など
  * プラットフォーム側の情報や処理を受け持つ
  */
-class ActivityContext : public GGObject
+class ActivityContext
 {
   friend class Activity;
 
@@ -18,7 +20,7 @@ private:
   /*!
    * @brief アクティビティ初期化処理
    */
-  void Start(const ActivityOption& ao);
+  void Start(const ActivityOption& ao, const InputSetting& input_setting);
 
   /*!
    * @brief アクティビティ終了処理
@@ -28,7 +30,7 @@ private:
   /*!
    * @brief フレームの最初に呼び出す処理
    */
-  void NewFrame(const SharedRef<Platform>& platform);
+  void NewFrame(const SharedRef<Activity>& activity, const SharedRef<Platform>& platform);
 
   /*!
    * @brief フレームの最後に呼び出す処理
@@ -92,24 +94,29 @@ public:
     return this->option_;
   }
 
-  GG_INLINE const TVec2f& GetScreenSize()
+  GG_INLINE const TVec2f& GetScreenSize() const
   {
     return this->option_.window_size;
   }
 
-  GG_INLINE T_FLOAT GetScreenWidth()
+  GG_INLINE T_FLOAT GetScreenWidth() const
   {
     return this->option_.window_size.width;
   }
 
-  GG_INLINE T_FLOAT GetScreenHeight()
+  GG_INLINE T_FLOAT GetScreenHeight() const
   {
     return this->option_.window_size.height;
   }
 
-  GG_INLINE const std::unique_ptr<ImGuiContext>& GetImGuiContext()
+  GG_INLINE const std::unique_ptr<ImGuiContext>& GetImGuiContext() const
   {
     return this->imgui_context_;
+  }
+
+  GG_INLINE const InputState* Input(T_UINT8 id) const
+  {
+    return this->input_context_->GetState(id);
   }
 
   // =================================================================
@@ -118,6 +125,7 @@ public:
 private:
   ActivityOption option_;
   std::unique_ptr<ImGuiContext> imgui_context_;
+  InputContext* input_context_;
   T_FLOAT elapsed_time_;
 
 };

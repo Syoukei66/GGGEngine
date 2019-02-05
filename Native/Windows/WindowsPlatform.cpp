@@ -35,7 +35,7 @@ LRESULT WindowsPlatform::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
   const SharedRef<Activity>& activity = Application::GetActivity((T_UINT64)hWnd);
   if (activity)
   {
-    ImGui::SetCurrentContext(activity->GetContext()->GetImGuiContext().get());
+    ImGui::SetCurrentContext(activity->GetContext().GetImGuiContext().get());
     ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
   }
   if (uMsg == WM_CLOSE)
@@ -46,7 +46,7 @@ LRESULT WindowsPlatform::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
   {
     // サブウィンドウではないウィンドウが終了したら
     // アプリケーション終了
-    if (activity && !activity->GetContext()->GetOption().sub_window)
+    if (activity && !activity->GetContext().GetOption().sub_window)
     {
       PostQuitMessage(0);
     }
@@ -57,7 +57,7 @@ LRESULT WindowsPlatform::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
     {
       if (MessageBox(hWnd, "終了しますか？", "終了のお知らせ", MB_YESNO | MB_NOFOCUS) == IDYES)
       {
-        DestroyWindow((HWND)Application::GetMainActivity()->GetContext()->GetActivityID());
+        DestroyWindow((HWND)Application::GetMainActivity()->GetContext().GetActivityID());
       }
     }
   }

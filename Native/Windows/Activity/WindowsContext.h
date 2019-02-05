@@ -7,13 +7,7 @@
 class WindowsContext : public ActivityContext
 {
   // =================================================================
-  // GGG Statement
-  // =================================================================
-public:
-  GG_INIT_FUNC_1(WindowsContext, HWND);
-
-  // =================================================================
-  // Methods from Activity
+  // Methods from ActivityContext
   // =================================================================
 protected:
   virtual void OnNewFrame() override;

@@ -72,17 +72,17 @@ void Scene::Draw3DLayers(GameObjectRenderState* state)
   this->root3d_->Draw(state);
 }
 
-void Scene::OnUpdateEvent()
+void Scene::OnUpdateEvent(const ActivityContext& context)
 {
-  this->PreUpdate();
+  this->PreUpdate(context);
   this->root2d_->ManagedPreUpdate();
   this->root3d_->ManagedPreUpdate();
 
-  this->Update();
+  this->Update(context);
   this->root2d_->ManagedUpdate();
   this->root3d_->ManagedUpdate();
 
-  this->PostUpdate();
+  this->PostUpdate(context);
   this->root2d_->ManagedPostUpdate();
   this->root3d_->ManagedPostUpdate();
 }

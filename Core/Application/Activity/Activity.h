@@ -19,7 +19,7 @@ private:
   /*!
    * @brief アクティビティ初期化処理
    */
-  void Start(const ActivityOption& ao, const SharedRef<ActivityContext>& context);
+  void Start(const ActivityOption& ao, const InputSetting& setting, ActivityContext* context);
 
   /*!
    * @brief アクティビティ終了処理
@@ -62,15 +62,20 @@ protected:
   // Setter / Getter
   // =================================================================
 public:
-  GG_INLINE SharedRef<ActivityContext> GetContext()
+  GG_INLINE ActivityContext& GetContext()
   {
-    return this->context_;
+    return *this->context_;
+  }
+
+  GG_INLINE const ActivityContext& GetContext() const
+  {
+    return *this->context_;
   }
 
   // =================================================================
   // Data Member
   // =================================================================
 private:
-  SharedRef<ActivityContext> context_;
+  ActivityContext* context_;
 
 };

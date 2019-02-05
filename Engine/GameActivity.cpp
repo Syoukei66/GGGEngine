@@ -17,7 +17,7 @@ void GameActivity::OnEnd()
 
 void GameActivity::OnUpdate()
 {
-  this->scene_manager_->Update();
+  this->scene_manager_->Update(this->GetContext());
 }
 
 void GameActivity::OnDraw(const SharedRef<Platform>& platform)

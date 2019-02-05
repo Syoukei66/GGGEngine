@@ -139,7 +139,7 @@ static const DirectInputDevice_Mouse::MouseInput MOUSE_INPUTS[MOUSE_INPUT_MAX] =
   { Digital::ID_S5, DirectInputDevice_Mouse::MOUSE_RGB_BUTTON_RIGHT },
 };
 
-void DirectInputImplements::SetupInputDevices(DirectInputDeviceManager* manager)
+void DirectInputImplements::SetupInputDevices(const SharedRef<Activity>& activity, DirectInputDeviceManager* manager)
 {
   const UniqueRef<rcCsvData>& csv = rcCsvData::CreateFromFile("DirectInputConfig.txt");
   for (T_UINT8 i = 0; i < DX_INPUT_DATANUM; ++i)
@@ -158,14 +158,14 @@ void DirectInputImplements::SetupInputDevices(DirectInputDeviceManager* manager)
   }
 
   //キーボードは1Pに対応
-  manager->LoadDevice(new DirectInputDevice_KeyBoard(0, KEYBOARD_INPUTS, KEYBOARD_INPUT_MAX));
+  manager->LoadDevice(activity, new DirectInputDevice_KeyBoard(0, KEYBOARD_INPUTS, KEYBOARD_INPUT_MAX));
   
   //マウスはデバッグ用のみ
-  manager->LoadDevice(new DirectInputDevice_Mouse(0, MOUSE_INPUTS, MOUSE_INPUT_MAX, Analog::ID_SCREEN_1_XY, Analog::ID_SCREEN_0_XY, Analog::ID_C_1_XY));
+  manager->LoadDevice(activity, new DirectInputDevice_Mouse(0, MOUSE_INPUTS, MOUSE_INPUT_MAX, Analog::ID_SCREEN_1_XY, Analog::ID_SCREEN_0_XY, Analog::ID_C_1_XY));
 
   //ジョイスティックは(1P～4P)
-  manager->LoadDevice(new DirectInputDevice_XInput(0, 0, XINPUT_INPUTS, XINPUT_INPUT_MAX, Analog::ID_L_0_XY, Analog::ID_R_0_XY, Analog::ID_C_0_XY));
-  manager->LoadDevice(new DirectInputDevice_XInput(1, 1, XINPUT_INPUTS, XINPUT_INPUT_MAX, Analog::ID_L_0_XY, Analog::ID_R_0_XY, Analog::ID_C_0_XY));
-  manager->LoadDevice(new DirectInputDevice_XInput(2, 2, XINPUT_INPUTS, XINPUT_INPUT_MAX, Analog::ID_L_0_XY, Analog::ID_R_0_XY, Analog::ID_C_0_XY));
-  manager->LoadDevice(new DirectInputDevice_XInput(3, 3, XINPUT_INPUTS, XINPUT_INPUT_MAX, Analog::ID_L_0_XY, Analog::ID_R_0_XY, Analog::ID_C_0_XY));
+  manager->LoadDevice(activity, new DirectInputDevice_XInput(0, 0, XINPUT_INPUTS, XINPUT_INPUT_MAX, Analog::ID_L_0_XY, Analog::ID_R_0_XY, Analog::ID_C_0_XY));
+  manager->LoadDevice(activity, new DirectInputDevice_XInput(1, 1, XINPUT_INPUTS, XINPUT_INPUT_MAX, Analog::ID_L_0_XY, Analog::ID_R_0_XY, Analog::ID_C_0_XY));
+  manager->LoadDevice(activity, new DirectInputDevice_XInput(2, 2, XINPUT_INPUTS, XINPUT_INPUT_MAX, Analog::ID_L_0_XY, Analog::ID_R_0_XY, Analog::ID_C_0_XY));
+  manager->LoadDevice(activity, new DirectInputDevice_XInput(3, 3, XINPUT_INPUTS, XINPUT_INPUT_MAX, Analog::ID_L_0_XY, Analog::ID_R_0_XY, Analog::ID_C_0_XY));
 }

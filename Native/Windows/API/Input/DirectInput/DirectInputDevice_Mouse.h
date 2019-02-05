@@ -30,9 +30,9 @@ public:
     bool bind = false);
 
 public:
-  virtual bool Init(LPDIRECTINPUT8 input) override;
+  virtual bool Init(const SharedRef<Activity>& activity, LPDIRECTINPUT8 input) override;
   virtual bool Uninit(LPDIRECTINPUT8 input) override;
-  virtual void InputProcess(T_UINT8 handler, EngineInputState* state) override;
+  virtual void InputProcess(T_UINT8 handler, const SharedRef<Activity>& activity, EngineInputState* state) override;
 
 private:
   const MouseInput* mouse_inputs_;

@@ -6,12 +6,6 @@
 
 namespace HalEngine
 {
-
-static GG_INLINE InputState* Input(T_UINT8 player_id)
-{
-  return Application::GetPlatform()->GetInputAPI()->GetState(player_id);
-}
-
 namespace Time
 {
 // –ß‚è’l‚Í•b

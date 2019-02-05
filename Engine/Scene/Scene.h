@@ -58,11 +58,11 @@ public:
     this->cameras_.clear();
   }
 
-  virtual void PreUpdate() {}
-  virtual void Update() {}
-  virtual void PostUpdate() {}
+  virtual void PreUpdate(const ActivityContext& context) {}
+  virtual void Update(const ActivityContext& context) {}
+  virtual void PostUpdate(const ActivityContext& context) {}
 
-  void OnUpdateEvent();
+  void OnUpdateEvent(const ActivityContext& context);
 
 protected:
   virtual void OnLoad() = 0;

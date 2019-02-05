@@ -10,11 +10,11 @@ bool GraphicsAPI::Draw(const SharedRef<Activity>& activity, const std::function<
   if (this->PreDraw(activity))
   {
     this->SetRenderTarget(activity);
-    const TVec2f& screen_size = activity->GetContext()->GetOption().window_size;
+    const TVec2f& screen_size = activity->GetContext().GetOption().window_size;
     this->SetViewport(0.0f, 0.0f, screen_size.width, screen_size.height, 0.0f, 1.0f);
     this->ViewportClear(activity, TColor::BLACK);
     draw_method();
-    ImGui::SetCurrentContext(activity->GetContext()->GetImGuiContext().get());
+    ImGui::SetCurrentContext(activity->GetContext().GetImGuiContext().get());
     ImGui::Render();
     this->PostDraw(activity);
   }

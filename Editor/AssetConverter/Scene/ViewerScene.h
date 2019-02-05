@@ -48,7 +48,7 @@ public:
   virtual void OnUnload() override;
   virtual void OnShow() override;
   virtual void OnHide() override;
-  virtual void Update() override;
+  virtual void Update(const ActivityContext& context) override;
 
   // =================================================================
   // Methods

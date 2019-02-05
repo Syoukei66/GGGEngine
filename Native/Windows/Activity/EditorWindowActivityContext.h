@@ -9,10 +9,9 @@
 class EditorWindowActivityContext : public WindowsContext
 {
   // =================================================================
-  // GGG Statement
+  // Constructor / Destructor
   // =================================================================
-  GG_OBJECT(EditorWindowActivityContext);
-  GG_CREATE_FUNC_1(EditorWindowActivityContext, HWND);
+  EditorWindowActivityContext(HWND hwnd);
 
   // =================================================================
   // Methods from ActivityContext

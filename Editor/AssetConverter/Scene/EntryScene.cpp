@@ -41,7 +41,7 @@ void EntryScene::OnHide()
   FileView::Uninit();
 }
 
-void EntryScene::Update()
+void EntryScene::Update(const ActivityContext& context)
 {
   ImGui::SetNextWindowPos(ImVec2(20.0f, 20.0f), ImGuiSetCond_Once);
   ImGui::SetNextWindowSize(ImVec2(200.0f, 400.0f), ImGuiSetCond_Once);
@@ -82,7 +82,7 @@ void EntryScene::ShowViewer(const SharedRef<AssetEntity>& entity)
   op.activity_name = "編集ウィンドウ";
   op.resize_window = false;
   op.sub_window = true;
-  op.window_size = Application::GetMainActivity()->GetContext()->GetScreenSize();
+  op.window_size = Application::GetMainActivity()->GetContext().GetScreenSize();
   const SharedRef<GameActivity>& activity = GameActivity::Create();
   Application::StartActivity(activity, op);
   this->viewer_scene_->Run(activity, entity, this->context_);

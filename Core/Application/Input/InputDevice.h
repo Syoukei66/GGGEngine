@@ -1,6 +1,7 @@
 #pragma once
 
-#include <Core/Application/Input/EngineInputState.h>
+class EngineInputState;
+class Activity;
 
 class InputDevice
 {
@@ -10,7 +11,7 @@ public:
   {}
   virtual ~InputDevice() {}
 
-  virtual void InputProcess(T_UINT8 handler, EngineInputState* state) = 0;
+  virtual void InputProcess(T_UINT8 handler, const SharedRef<Activity>& activity, EngineInputState* state) = 0;
 
 public:
   GG_INLINE T_UINT8 GetHandler() const

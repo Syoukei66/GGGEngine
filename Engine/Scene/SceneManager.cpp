@@ -65,7 +65,7 @@ void SceneManager::ClearScene()
   }
 }
 
-void SceneManager::Update()
+void SceneManager::Update(const ActivityContext& context)
 {
   // ‘JˆÚæ‚ÌƒV[ƒ“‚ª“o˜^‚³‚ê‚Ä‚¢‚½‚çA‘JˆÚˆ—‚ðs‚¤
   if (this->next_scene_)
@@ -86,7 +86,7 @@ void SceneManager::Update()
   {
     return;
   }
-  this->now_scene_->OnUpdateEvent();
+  this->now_scene_->OnUpdateEvent(context);
 }
 
 void SceneManager::Draw()

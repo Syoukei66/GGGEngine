@@ -20,9 +20,9 @@ DirectInputDeviceManager::~DirectInputDeviceManager()
   }
 }
 
-bool DirectInputDeviceManager::OnLoadDevice(DirectInputDevice* device)
+bool DirectInputDeviceManager::OnLoadDevice(const SharedRef<Activity>& activity, DirectInputDevice* device)
 {
-  return device->Init(this->dinput_);
+  return device->Init(activity, this->dinput_);
 }
 
 bool DirectInputDeviceManager::OnUnloadDevice(DirectInputDevice* device)

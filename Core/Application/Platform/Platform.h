@@ -41,8 +41,8 @@ protected:
   virtual UniqueRef<GraphicsAPI> CreateGraphicsAPI(const ApplicationOption& op) const = 0;
   virtual UniqueRef<AudioAPI> CreateAudioAPI(const ApplicationOption& op) const = 0;
   virtual UniqueRef<InputAPI> CreateInputAPI(const ApplicationOption& op) const = 0;
-  virtual UniqueRef<ActivityContext> CreateMainActivityContext() const = 0;
-  virtual UniqueRef<ActivityContext> CreateActivityContext() const = 0;
+  virtual ActivityContext* CreateMainActivityContext() const = 0;
+  virtual ActivityContext* CreateActivityContext() const = 0;
 
 public:
   /*!

@@ -11,7 +11,7 @@ DirectInputDevice_XInput::DirectInputDevice_XInput(T_UINT8 handler, T_UINT8 user
   , trigger_(trigger)
 {}
 
-bool DirectInputDevice_XInput::Init(LPDIRECTINPUT8 input)
+bool DirectInputDevice_XInput::Init(const SharedRef<Activity>& activity, LPDIRECTINPUT8 input)
 {
   return true;
 }
@@ -21,7 +21,7 @@ bool DirectInputDevice_XInput::Uninit(LPDIRECTINPUT8 input)
   return true;
 }
 
-void DirectInputDevice_XInput::InputProcess(T_UINT8 handler, EngineInputState* state)
+void DirectInputDevice_XInput::InputProcess(T_UINT8 handler, const SharedRef<Activity>& activity, EngineInputState* state)
 {
   DWORD dw_result;
   XINPUT_STATE xstate;

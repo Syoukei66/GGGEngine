@@ -20,7 +20,7 @@ DirectInputDevice_Mouse::DirectInputDevice_Mouse(
   , bind_(bind)
 {}
 
-bool DirectInputDevice_Mouse::Init(LPDIRECTINPUT8 input)
+bool DirectInputDevice_Mouse::Init(const SharedRef<Activity>& activity, LPDIRECTINPUT8 input)
 {
   //DirectInputDevice‚Ì‰Šú‰»
   if (FAILED(input->CreateDevice(
@@ -38,7 +38,7 @@ bool DirectInputDevice_Mouse::Init(LPDIRECTINPUT8 input)
     return false;
   }
 
-  HWND hwnd = WindowsApplication::GetMainActivityContext()->GetWindowHandle();
+  HWND hwnd = (HWND)activity->GetContext().GetActivityID();
 
   //‹¦’²ƒŒƒxƒ‹‚ÌÝ’è
   if (FAILED(this->device_->SetCooperativeLevel(hwnd,
@@ -109,11 +109,11 @@ bool DirectInputDevice_Mouse::Uninit(LPDIRECTINPUT8 input)
   return true;
 }
 
-void DirectInputDevice_Mouse::InputProcess(T_UINT8 handler, EngineInputState* state)
+void DirectInputDevice_Mouse::InputProcess(T_UINT8 handler, const SharedRef<Activity>& activity, EngineInputState* state)
 {
   DIMOUSESTATE2 mouse_state;
 
-  const SharedRef<WindowActivityContext>& context = WindowsApplication::GetMainActivityContext();
+  const ActivityContext& context = activity->GetContext();
 
   if (FAILED(this->device_->GetDeviceState(sizeof(mouse_state), &mouse_state)))
   {
@@ -129,8 +129,8 @@ void DirectInputDevice_Mouse::InputProcess(T_UINT8 handler, EngineInputState* st
     }
     state->PostInputDigital(handler, this->mouse_inputs_[i].id);
   }
-  const T_FLOAT w = context->GetScreenWidth();
-  const T_FLOAT h = context->GetScreenHeight();
+  const T_FLOAT w = context.GetScreenWidth();
+  const T_FLOAT h = context.GetScreenHeight();
 
   state->PreInputAnalog(handler, this->move_input_id_);
   state->InputAnalog(handler, this->move_input_id_, 0, mouse_state.lX * 0.1f);
@@ -141,7 +141,7 @@ void DirectInputDevice_Mouse::InputProcess(T_UINT8 handler, EngineInputState* st
   POINT pos;
   if (GetCursorPos(&pos))
   {
-    HWND hwnd = context->GetWindowHandle();
+    HWND hwnd = (HWND)context.GetActivityID();
     RECT rc;
     GetWindowRect(hwnd, &rc);
 

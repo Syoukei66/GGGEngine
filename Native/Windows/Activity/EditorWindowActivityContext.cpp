@@ -1,12 +1,11 @@
 #include "EditorWindowActivityContext.h"
 
 // =================================================================
-// GGG Statement
+// Constructor / Destructor
 // =================================================================
-GG_INIT_FUNC_IMPL_1(EditorWindowActivityContext, HWND hwnd)
+EditorWindowActivityContext::EditorWindowActivityContext(HWND hwnd)
 {
   this->window_handle_ = hwnd;
-  return true;
 }
 
 // =================================================================

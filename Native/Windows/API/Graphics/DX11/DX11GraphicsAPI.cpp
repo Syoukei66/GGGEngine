@@ -34,7 +34,7 @@ GG_INIT_FUNC_IMPL(DX11GraphicsAPI)
   createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
 
-  HWND hwnd = WindowsApplication::GetMainActivityContext()->GetWindowHandle();
+  HWND hwnd = WindowsApplication::GetMainActivityContext().GetWindowHandle();
 
   RECT rect;
   GetClientRect(hwnd, &rect);
@@ -138,7 +138,7 @@ GG_DESTRUCT_FUNC_IMPL(DX11GraphicsAPI)
 // =================================================================
 void DX11GraphicsAPI::ViewportClear(const SharedRef<Activity>& activity, const TColor& color)
 {
-  HWND hwnd = (HWND)activity->GetContext()->GetActivityID();
+  HWND hwnd = (HWND)activity->GetContext().GetActivityID();
   this->immediate_context_->ClearRenderTargetView(this->render_target_views_[hwnd], color.data);
   this->immediate_context_->ClearDepthStencilView(this->depth_stencil_views_[hwnd], D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
@@ -179,7 +179,7 @@ void DX11GraphicsAPI::UnpackColor4u8(T_FIXED_UINT32 color, T_UINT8* r, T_UINT8* 
 
 void DX11GraphicsAPI::SetRenderTarget(const SharedRef<Activity>& activity)
 {
-  HWND hwnd = (HWND)activity->GetContext()->GetActivityID();
+  HWND hwnd = (HWND)activity->GetContext().GetActivityID();
   this->immediate_context_->OMSetRenderTargets(1, &this->render_target_views_[hwnd], this->depth_stencil_views_[hwnd]);
 }
 
@@ -201,9 +201,8 @@ bool DX11GraphicsAPI::ImGuiNewFrame()
 
 void DX11GraphicsAPI::CreateSubActivityResources(const SharedRef<Activity>& activity)
 {
-  const SharedRef<WindowsContext>& windows_context = SharedRef<WindowsContext>::StaticCast(activity->GetContext());
-  HWND hwnd = (HWND)activity->GetContext()->GetActivityID();
-  this->swap_chain_desc_.OutputWindow = windows_context->GetWindowHandle();
+  HWND hwnd = (HWND)activity->GetContext().GetActivityID();
+  this->swap_chain_desc_.OutputWindow = hwnd;
   this->factory_->CreateSwapChain(
     this->device_,
     &this->swap_chain_desc_,
@@ -214,10 +213,10 @@ void DX11GraphicsAPI::CreateSubActivityResources(const SharedRef<Activity>& acti
 
 void DX11GraphicsAPI::CreateRenderTargets(const SharedRef<Activity>& activity)
 {  
-  const ActivityOption& option = activity->GetContext()->GetOption();
-  HWND hwnd = (HWND)activity->GetContext()->GetActivityID();
+  const ActivityOption& option = activity->GetContext().GetOption();
+  HWND hwnd = (HWND)activity->GetContext().GetActivityID();
 
-  activity->GetContext()->GetImGuiContext()->IO.Fonts->TexID = Application::GetMainActivity()->GetContext()->GetImGuiContext()->IO.Fonts->TexID;
+  activity->GetContext().GetImGuiContext()->IO.Fonts->TexID = Application::GetMainActivity()->GetContext().GetImGuiContext()->IO.Fonts->TexID;
 
   // Create a render target view
   ID3D11Texture2D* pBackBuffer = NULL;
@@ -270,7 +269,7 @@ bool DX11GraphicsAPI::PreDraw(const SharedRef<Activity>& activity)
 bool DX11GraphicsAPI::PostDraw(const SharedRef<Activity>& activity)
 {
   ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-  HWND hwnd = (HWND)activity->GetContext()->GetActivityID();
+  HWND hwnd = (HWND)activity->GetContext().GetActivityID();
   this->swap_chains_[hwnd]->Present(0, 0);
   return true;
 }

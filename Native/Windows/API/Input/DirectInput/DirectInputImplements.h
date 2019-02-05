@@ -5,5 +5,5 @@
 class DirectInputImplements
 {
 public:
-  void SetupInputDevices(DirectInputDeviceManager* manager);
+  void SetupInputDevices(const SharedRef<Activity>& activity, DirectInputDeviceManager* manager);
 };

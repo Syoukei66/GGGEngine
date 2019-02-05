@@ -25,7 +25,7 @@ public:
   void ChangeScene(const SharedRef<Scene>& next, bool need_unload = true);
   void ClearScene();
 
-  void Update();
+  void Update(const ActivityContext& context);
   void Draw();
 
   // =================================================================

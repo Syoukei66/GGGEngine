@@ -8,12 +8,6 @@
 class WindowActivityContext : public WindowsContext
 {
   // =================================================================
-  // GGG Statement
-  // =================================================================
-  GG_OBJECT(WindowActivityContext);
-  GG_CREATE_FUNC(WindowActivityContext) { return true; }
-
-  // =================================================================
   // Methods from ActivityContext
   // =================================================================
 protected:

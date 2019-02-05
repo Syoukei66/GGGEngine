@@ -7,48 +7,53 @@ template<class T>
 class InputDeviceManager
 {
 public:
-  virtual bool UnloadDevices()
+  virtual bool UnloadAllDevices()
   {
-    for (T* device : this->devices_)
+    for (const auto& pair : this->devices_map_)
+    {
+      for (T* device : pair.second)
+      {
+        this->OnUnloadDevice(device);
+        delete device;
+      }
+    }
+    return true;
+  }
+
+  virtual bool UnloadDevices(const SharedRef<Activity>& activity)
+  {
+    std::vector<T*>* devices = &this->devices_map_.at(activity->GetContext().GetActivityID());
+    for (T* device : *devices)
     {
       this->OnUnloadDevice(device);
       delete device;
     }
-    this->devices_.clear();
+    devices->clear();
     return true;
   }
-  virtual bool OnLoadDevice(T* device) = 0;
+  virtual bool OnLoadDevice(const SharedRef<Activity>& activity, T* device) = 0;
   virtual bool OnUnloadDevice(T* device) = 0;
 
-  void InputProcess(EngineInputState* state)
+  void InputProcess(const SharedRef<Activity>& activity, EngineInputState* state)
   {
-    for (T* device : this->devices_)
+    const std::vector<T*> devices = this->devices_map_.at(activity->GetContext().GetActivityID());
+    for (T* device : devices)
     {
-      device->InputProcess(device->GetHandler(), state);
+      device->InputProcess(device->GetHandler(), activity, state);
     }
   }
 
 public:
-  GG_INLINE bool LoadDevice(T* device)
+  GG_INLINE bool LoadDevice(const SharedRef<Activity>& activity, T* device)
   {
-    if (!this->OnLoadDevice(device))
+    if (!this->OnLoadDevice(activity, device))
     {
       return false;
     }
-    this->devices_.emplace_back(device);
-    return true;
-  }
-  GG_INLINE bool UnloadDevice(T* device)
-  {
-    if (!this->OnUnloadDevice(device))
-    {
-      return false;
-    }
-    this->devices_.remove(device);
-    delete device;
+    this->devices_map_[activity->GetContext().GetActivityID()].emplace_back(device);
     return true;
   }
 
 private:
-  typename std::list<T*> devices_;
+  typename std::unordered_map<T_UINT64, std::vector<T*>> devices_map_;
 };

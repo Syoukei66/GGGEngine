@@ -5,11 +5,10 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL_1(DirectInputAPI, const InputSetting& setting)
+GG_INIT_FUNC_IMPL(DirectInputAPI)
 {
-  InputAPI::Init(setting);
   this->input_ = new DirectInputDeviceManager();
-  this->native_implements_->SetupInputDevices(this->input_);
+  this->native_implements_->SetupInputDevices(Application::GetMainActivity(), this->input_);
 
   return true;
 }
@@ -18,7 +17,7 @@ GG_DESTRUCT_FUNC_IMPL(DirectInputAPI)
 {
   if (this->input_)
   {
-    this->input_->UnloadDevices();
+    this->input_->UnloadAllDevices();
     delete this->input_;
     this->input_ = nullptr;
   }
@@ -30,7 +29,13 @@ GG_DESTRUCT_FUNC_IMPL(DirectInputAPI)
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
-void DirectInputAPI::InputProcess(EngineInputState* state)
+void DirectInputAPI::InputProcess(const SharedRef<Activity>& activity, EngineInputState* state)
 {
-  this->input_->InputProcess(state);
+  this->input_->InputProcess(activity, state);
+}
+
+void DirectInputAPI::CreateSubActivityResources(const SharedRef<Activity>& activity)
+{
+  this->native_implements_->SetupInputDevices(activity, this->input_);
+
 }

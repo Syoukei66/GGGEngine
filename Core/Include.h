@@ -20,6 +20,7 @@
 #include <Core/Application/Input/DigitalInput.h>
 #include <Core/Application/Input/EngineInput.h>
 #include <Core/Application/Input/EngineInputState.h>
+#include <Core/Application/Input/InputContext.h>
 #include <Core/Application/Input/InputDevice.h>
 #include <Core/Application/Input/InputDeviceManager.h>
 #include <Core/Application/Input/InputEntity.h>

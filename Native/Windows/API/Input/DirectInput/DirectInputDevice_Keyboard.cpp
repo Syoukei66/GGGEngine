@@ -7,7 +7,7 @@ DirectInputDevice_KeyBoard::DirectInputDevice_KeyBoard(T_UINT8 handler, const Ke
   , inputs_count_(inputs_count)
 {}
 
-bool DirectInputDevice_KeyBoard::Init(LPDIRECTINPUT8 input)
+bool DirectInputDevice_KeyBoard::Init(const SharedRef<Activity>& activity, LPDIRECTINPUT8 input)
 {
   //DirectInputDevice‚Ì‰Šú‰»
   if (FAILED(input->CreateDevice(
@@ -25,7 +25,7 @@ bool DirectInputDevice_KeyBoard::Init(LPDIRECTINPUT8 input)
     return false;
   }
 
-  HWND hwnd = WindowsApplication::GetMainActivityContext()->GetWindowHandle();
+  HWND hwnd = WindowsApplication::GetMainActivityContext().GetWindowHandle();
 
   //‹¦’²ƒŒƒxƒ‹‚ÌÝ’è
   if (FAILED(this->device_->SetCooperativeLevel(hwnd,
@@ -51,7 +51,7 @@ bool DirectInputDevice_KeyBoard::Uninit(LPDIRECTINPUT8 input)
 }
 
 
-void DirectInputDevice_KeyBoard::InputProcess(T_UINT8 handler, EngineInputState* state)
+void DirectInputDevice_KeyBoard::InputProcess(T_UINT8 handler, const SharedRef<Activity>& activity, EngineInputState* state)
 {
   BYTE diks[256];
   if (FAILED(this->device_->GetDeviceState(sizeof(diks), &diks)))

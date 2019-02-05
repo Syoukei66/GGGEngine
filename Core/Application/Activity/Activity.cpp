@@ -3,10 +3,10 @@
 // =================================================================
 // Methods
 // =================================================================
-void Activity::Start(const ActivityOption& ao, const SharedRef<ActivityContext>& context)
+void Activity::Start(const ActivityOption& ao, const InputSetting& setting, ActivityContext* context)
 {
   this->context_ = context;
-  this->context_->Start(ao);
+  this->context_->Start(ao, setting);
   this->OnStart();
 }
 
@@ -18,6 +18,7 @@ void Activity::EndActivity()
 void Activity::EndContext()
 {
   this->context_->End();
+  delete this->context_;
   this->context_ = nullptr;
 }
 
@@ -28,7 +29,7 @@ bool Activity::Update(const SharedRef<Platform>& platform)
   {
     return false;
   }
-  this->context_->NewFrame(platform);
+  this->context_->NewFrame(SharedRef<Activity>(this), platform);
   this->OnUpdate();
   // •`‰æŽüŠú‚ª—ˆ‚½‚ç•`‰æ‚ðs‚¤
   if (this->context_->IsVisible() && this->context_->DrawEnabled())

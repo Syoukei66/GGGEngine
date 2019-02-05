@@ -1,13 +1,13 @@
-#include "InputAPI.h"
-#include <Core/Application/Activity/ActivityOption.h>
-#include <Core/Application/Input/InputSetting.h>
+#include "InputContext.h"
+
+#include <Core/Application/Platform/API/Input/InputAPI.h>
 #include <Core/Application/Input/InputState.h>
-#include <Core/Application/Application.h>
+#include <Core/Application/Activity/Activity.h>
 
 // =================================================================
-// Methods
+// Constructor / Destructor
 // =================================================================
-GG_INIT_FUNC_IMPL_1(InputAPI, const InputSetting& setting)
+InputContext::InputContext(const InputSetting& setting)
 {
   this->enable_state_ = setting.enable_state_;
   this->state_count_ = setting.player_count_;
@@ -16,27 +16,28 @@ GG_INIT_FUNC_IMPL_1(InputAPI, const InputSetting& setting)
   {
     this->states_[i] = new InputState(i, setting);
   }
-  return true;
 }
 
-GG_DESTRUCT_FUNC_IMPL(InputAPI)
+InputContext::~InputContext()
 {
   for (T_UINT8 i = 0; i < this->state_count_; ++i)
   {
     delete this->states_[i];
   }
   delete[] this->states_;
-  return true;
 }
 
-void InputAPI::Update()
+// =================================================================
+// Methods
+// =================================================================
+void InputContext::Update(const SharedRef<Activity>& activity, const SharedRef<InputAPI>& api)
 {
-  if (this->enable_state_ == EnableState::ONLY_ON_FOCUS && !Application::IsActive())
+  if (this->enable_state_ == EnableState::ONLY_ON_FOCUS && !activity->GetContext().IsActive())
   {
     return;
   }
   this->engine_input_state_.Prepare();
-  this->InputProcess(&this->engine_input_state_);
+  api->InputProcess(activity, &this->engine_input_state_);
   if (this->enable_state_ == EnableState::ONLY_ON_MOUSE && !this->IsOnCursol())
   {
     return;
@@ -47,7 +48,7 @@ void InputAPI::Update()
   }
 }
 
-bool InputAPI::IsOnCursol()
+bool InputContext::IsOnCursol()
 {
   using namespace EngineInput::Analog;
   const T_FLOAT x = this->engine_input_state_.GetAnalogInput(0).GetValue(this->cursol_input_id_, DIMENSION_X, 0.0f);

@@ -12,14 +12,15 @@ class DirectInputAPI : public InputAPI
   // =================================================================
 public:
   GG_OBJECT(DirectInputAPI);
-  GG_CREATE_FUNC_1(DirectInputAPI, const InputSetting&);
+  GG_CREATE_FUNC(DirectInputAPI);
   GG_DESTRUCT_FUNC(DirectInputAPI);
 
   // =================================================================
   // Methods for/from SuperClass/Interfaces
   // =================================================================
 protected:
-  virtual void InputProcess(EngineInputState* state) override;
+  virtual void InputProcess(const SharedRef<Activity>& activity, EngineInputState* state) override;
+  virtual void CreateSubActivityResources(const SharedRef<Activity>& activity) override;
 
   // =================================================================
   // Data Member

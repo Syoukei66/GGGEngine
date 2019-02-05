@@ -25,9 +25,7 @@ public:
   static void Run(IApplicationBehavior* behavior, const SharedRef<Platform>& platform);
 
   static SharedRef<Activity> StartActivity(const SharedRef<Activity>& activity, const ActivityOption& ao);
-
-  static bool IsActive();
-
+  
 private:
   static bool Init(const SharedRef<Platform>& platform, IApplicationBehavior* behavior, const ApplicationOption& option);
   static bool Uninit(IApplicationBehavior* behavior);
