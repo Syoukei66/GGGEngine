@@ -33,7 +33,6 @@ bool Activity::Update(const SharedRef<Platform>& platform)
   // •`‰æŽüŠú‚ª—ˆ‚½‚ç•`‰æ‚ðs‚¤
   if (this->context_->IsVisible() && this->context_->DrawEnabled())
   {
-    platform->GetGraphicsAPI()->SetRenderTarget(SharedRef<Activity>(this));
     this->OnDraw(platform);
   }
   this->context_->EndFrame();

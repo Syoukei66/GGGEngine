@@ -111,7 +111,6 @@ GG_DESTRUCT_FUNC_IMPL(DX11GraphicsAPI)
   //imgui uninitialize
   ImGui_ImplDX11_Shutdown();
 
-  if (this->immediate_context_) this->immediate_context_->ClearState();
   for (const auto& pair : this->render_target_views_)
   {
     pair.second->Release();
@@ -124,6 +123,7 @@ GG_DESTRUCT_FUNC_IMPL(DX11GraphicsAPI)
   {
     pair.second->Release();
   }
+  if (this->immediate_context_) this->immediate_context_->ClearState();
   if (this->immediate_context_) this->immediate_context_->Release();
   if (this->factory_) this->factory_->Release();
   if (this->adapter_) this->adapter_->Release();
@@ -216,6 +216,8 @@ void DX11GraphicsAPI::CreateRenderTargets(const SharedRef<Activity>& activity)
 {  
   const ActivityOption& option = activity->GetContext()->GetOption();
   HWND hwnd = (HWND)activity->GetContext()->GetActivityID();
+
+  activity->GetContext()->GetImGuiContext()->IO.Fonts->TexID = Application::GetMainActivity()->GetContext()->GetImGuiContext()->IO.Fonts->TexID;
 
   // Create a render target view
   ID3D11Texture2D* pBackBuffer = NULL;
