@@ -84,6 +84,13 @@ IAssetDataContainer* TextureAssetConverter::ImportProcess(const SharedRef<AssetE
 
   DirectX::ScratchImage* final_image = &image;
 
+  // 透明色が含まれるフォーマットの場合はそれを考慮するフィルタに
+  T_UINT64 filter_flag = DirectX::TEX_FILTER_BOX;
+  if (setting->color_model == static_cast<T_FIXED_UINT8>(TextureAssetConverterSetting::ColorModel::kRGBA))
+  {
+    filter_flag |= DirectX::TEX_FILTER_SEPARATE_ALPHA;
+  }
+
   // 画像を2の累乗にリサイズする
   size_t width = Mathf::CalcTwoPowerValue(std::min(metadata.width, (size_t)setting->max_size));
   size_t height = Mathf::CalcTwoPowerValue(std::min(metadata.height, (size_t)setting->max_size));
@@ -94,7 +101,7 @@ IAssetDataContainer* TextureAssetConverter::ImportProcess(const SharedRef<AssetE
     hr = DirectX::Resize(
       final_image->GetImages(), final_image->GetImageCount(), final_image->GetMetadata(),
       width, height,
-      DirectX::TEX_FILTER_DEFAULT,
+      filter_flag,
       resized_image
     );
     GG_ASSERT(SUCCEEDED(hr), "テクスチャのリサイズに失敗しました");
@@ -115,9 +122,10 @@ IAssetDataContainer* TextureAssetConverter::ImportProcess(const SharedRef<AssetE
   DirectX::ScratchImage mipped_image = DirectX::ScratchImage();
   if (levels > 1)
   {
+
     hr = DirectX::GenerateMipMaps(
       final_image->GetImages(), final_image->GetImageCount(), final_image->GetMetadata(),
-      DirectX::TEX_FILTER_DEFAULT, levels,
+      filter_flag, levels,
       mipped_image
     );
     GG_ASSERT(SUCCEEDED(hr), "テクスチャのミップマップ作成に失敗しました");
