@@ -19,7 +19,7 @@ class Camera : public GameComponent
   // Methods
   // =================================================================
 public:
-  void DrawScene(Scene* scene);
+  void DrawScene(const ActivityContext& context, Scene* scene);
 
   virtual bool FrustumCulling(const TVec3f& positive, const TVec3f& negative, T_INT8* first_index = nullptr) const = 0;
   virtual const Matrix4x4& GetViewMatrix() const = 0;

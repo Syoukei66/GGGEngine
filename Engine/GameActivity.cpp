@@ -24,6 +24,6 @@ void GameActivity::OnDraw(const SharedRef<Platform>& platform)
 {
   platform->GetGraphicsAPI()->Draw(SharedRef<Activity>(this), [&]()
   {
-    this->scene_manager_->Draw();
+    this->scene_manager_->Draw(this->GetContext());
   });
 }

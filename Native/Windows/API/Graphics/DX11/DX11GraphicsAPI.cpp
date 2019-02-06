@@ -136,9 +136,9 @@ GG_DESTRUCT_FUNC_IMPL(DX11GraphicsAPI)
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
-void DX11GraphicsAPI::ViewportClear(const SharedRef<Activity>& activity, const TColor& color)
+void DX11GraphicsAPI::ViewportClear(const ActivityContext& context, const TColor& color)
 {
-  HWND hwnd = (HWND)activity->GetContext().GetActivityID();
+  HWND hwnd = (HWND)context.GetActivityID();
   this->immediate_context_->ClearRenderTargetView(this->render_target_views_[hwnd], color.data);
   this->immediate_context_->ClearDepthStencilView(this->depth_stencil_views_[hwnd], D3D11_CLEAR_DEPTH, 1.0f, 0);
 }

@@ -26,7 +26,7 @@ public:
   void ClearScene();
 
   void Update(const ActivityContext& context);
-  void Draw();
+  void Draw(const ActivityContext& context);
 
   // =================================================================
   // Setter / Getter

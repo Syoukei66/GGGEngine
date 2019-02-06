@@ -89,11 +89,11 @@ void SceneManager::Update(const ActivityContext& context)
   this->now_scene_->OnUpdateEvent(context);
 }
 
-void SceneManager::Draw()
+void SceneManager::Draw(const ActivityContext& context)
 {
   if (!this->now_scene_)
   {
     return;
   }
-  this->now_scene_->Draw();
+  this->now_scene_->Draw(context);
 }

@@ -23,7 +23,7 @@ public:
   void Show();
   void Hide();
 
-  void Draw();
+  void Draw(const ActivityContext& context);
   void Draw2DLayers(GameObjectRenderState* state);
   void Draw3DLayers(GameObjectRenderState* state);
 

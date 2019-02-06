@@ -54,11 +54,11 @@ void Scene::Hide()
   this->is_shown_ = false;
 }
 
-void Scene::Draw()
+void Scene::Draw(const ActivityContext& context)
 {
   for (const SharedRef<Camera>& camera : this->cameras_)
   {
-    camera->DrawScene(this);
+    camera->DrawScene(context, this);
   }
 }
 

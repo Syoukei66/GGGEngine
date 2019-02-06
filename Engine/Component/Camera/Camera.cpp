@@ -26,7 +26,7 @@ GG_DESTRUCT_FUNC_IMPL(Camera)
 // =================================================================
 // Methods
 // =================================================================
-void Camera::DrawScene(Scene* scene)
+void Camera::DrawScene(const ActivityContext& context, Scene* scene)
 {
   if (!this->IsEnabled())
   {
@@ -39,7 +39,7 @@ void Camera::DrawScene(Scene* scene)
   this->SetupCamera();
   if (this->viewport_clear_)
   {
-    //Application::GetPlatform()->GetGraphicsAPI()->ViewportClear(this->bg_color_);
+    Application::GetPlatform()->GetGraphicsAPI()->ViewportClear(context, this->bg_color_);
   }
   this->OnDrawScene(scene);
   //if (this->target_texture_)
