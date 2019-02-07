@@ -105,12 +105,12 @@ static SharedRef<AssetEntity> ImportMaterial(bool material_override, AssetMetaDa
   URI material_uri = URI(material_directory_path, name.C_Str(), Extensions::MATERIAL);
   SharedRef<AssetEntity> entity = context->GetEntity(material_uri);
 
-  //// 既に同名のマテリアルAssetが存在し、上書き設定もなければここではインポートは行わない。
-  //if (entity)
-  //{
-  //  //TODO:現在は上書きをしない設定にしているが、本来はモデルのConverterSettingで操作できるようにする
-  //  return entity;
-  //}
+  // 既に同名のマテリアルAssetが存在し、上書き設定もなければここではインポートは行わない。
+  if (entity)
+  {
+    //TODO:現在は上書きをしない設定にしているが、本来はモデルのConverterSettingで操作できるようにする
+    return entity;
+  }
 
   //Colors
   aiColor4D color;

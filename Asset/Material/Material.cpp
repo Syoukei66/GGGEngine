@@ -24,7 +24,7 @@ void MaterialData::CreateWithShader(const SharedRef<rcShader>& shader, MaterialD
     // ƒf[ƒ^‚Ì‰Šú‰»
     VariableType type = static_cast<VariableType>(data.variable_type_);
     (*(T_FLOAT*)&dest->data_[data_offset]) = data.init_value_;
-    data_offset += 16;
+    data_offset += Shader::GetVariableTypeSize(type);
   }
   for (const VectorPropertyData& data : shader->GetVectorPropertyDatas())
   {
@@ -40,7 +40,7 @@ void MaterialData::CreateWithShader(const SharedRef<rcShader>& shader, MaterialD
     ((T_FLOAT*)&dest->data_[data_offset])[1] = data.init_value1_;
     ((T_FLOAT*)&dest->data_[data_offset])[2] = data.init_value2_;
     ((T_FLOAT*)&dest->data_[data_offset])[3] = data.init_value3_;
-    data_offset += 16;
+    data_offset += Shader::GetVariableTypeSize(type) * 4;
   }
   for (const ColorPropertyData& data : shader->GetColorPropertyDatas())
   {
@@ -55,7 +55,7 @@ void MaterialData::CreateWithShader(const SharedRef<rcShader>& shader, MaterialD
     ((T_FLOAT*)&dest->data_[data_offset])[1] = data.init_g_;
     ((T_FLOAT*)&dest->data_[data_offset])[2] = data.init_b_;
     ((T_FLOAT*)&dest->data_[data_offset])[3] = data.init_a_;
-    data_offset += 16;
+    data_offset += Shader::GetVariableTypeSize(VariableType::kColor);
   }
   T_UINT32 texture_offset = 0;
   dest->textures_.resize(shader->GetSamplerPropertyDatas().size());
