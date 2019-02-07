@@ -19,13 +19,13 @@ bool MaterialAssetConverterSetting::EditWithImGuiProcess()
       this->is_updated_ |= ImGui::Checkbox(name.c_str(), (bool*)p);
       break;
     case MaterialPropertyType::kInt:
-      this->is_updated_ |= ImGui::InputInt(name.c_str(), (int*)p);
+      this->is_updated_ |= ImGui::DragInt(name.c_str(), (int*)p);
       break;
     case MaterialPropertyType::kUint:
-      this->is_updated_ |= ImGui::InputInt(name.c_str(), (int*)p);
+      this->is_updated_ |= ImGui::DragInt(name.c_str(), (int*)p);
       break;
     case MaterialPropertyType::kFloat:
-      this->is_updated_ |= ImGui::InputFloat(name.c_str(), (float*)p);
+      this->is_updated_ |= ImGui::DragFloat(name.c_str(), (float*)p, 0.01f);
       break;
     case MaterialPropertyType::kColor:
       this->is_updated_ |= ImGui::ColorEdit4(name.c_str(), ((TColor*)p)->data);
