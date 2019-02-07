@@ -1,4 +1,5 @@
 #include "MaterialViewerBehavior.h"
+#include <Entity/File/Material/MaterialAssetConverterSetting.h>
 
 // =================================================================
 // GGG Statement
@@ -24,8 +25,13 @@ void MaterialViewerBehavior::OnEnd()
 
 void MaterialViewerBehavior::OnLoad(T_UINT32 unique_id)
 {
+  const SharedRef<AssetEntity>& entity = this->GetEntity();
+  MaterialAssetConverterSetting* setting = static_cast<MaterialAssetConverterSetting*>(entity->GetMetaData()->GetConverterSetting().get());
+  setting->StoreShaderProperties(*entity->GetData<MaterialData>());
+
   const SharedRef<Renderer>& renderer = this->obj_->GetComponent<Renderer>();
-  renderer->SetMaterial(AssetManager::Load<rcMaterial>(unique_id));
+  this->material_ = AssetManager::Load<rcMaterial>(unique_id)->Clone();
+  renderer->SetMaterial(this->material_);
 }
 
 void MaterialViewerBehavior::OnUnload()
@@ -34,5 +40,36 @@ void MaterialViewerBehavior::OnUnload()
 
 void MaterialViewerBehavior::OnUpdate()
 {
+  using namespace Shader;
   this->obj_->EditWithImGUI();
+  const MaterialData* data = this->GetEntity()->GetData<MaterialData>();
+  for (const auto& pair : data->property_table_)
+  {
+    const std::string& name = pair.first;
+    const MaterialPropertyData& p = pair.second;
+    const MaterialPropertyType type = static_cast<MaterialPropertyType>(p.type_);
+    switch (type)
+    {
+    case MaterialPropertyType::kBool:
+      this->SetMaterialProperty<bool>(name, p.count_, p.offset_, GetMaterialPropertySize(type), data);
+      break;
+    case MaterialPropertyType::kInt:
+      this->SetMaterialProperty<T_FIXED_INT32>(name, p.count_, p.offset_, GetMaterialPropertySize(type), data);
+      break;
+    case MaterialPropertyType::kUint:
+      this->SetMaterialProperty<T_FIXED_UINT32>(name, p.count_, p.offset_, GetMaterialPropertySize(type), data);
+      break;
+    case MaterialPropertyType::kFloat:
+      this->SetMaterialProperty<T_FIXED_FLOAT>(name, p.count_, p.offset_, GetMaterialPropertySize(type), data);
+      break;
+    case MaterialPropertyType::kColor:
+      this->SetMaterialProperty<TColor>(name, p.count_, p.offset_, GetMaterialPropertySize(type), data);
+      break;
+    case MaterialPropertyType::kTexture:
+      this->material_->GetTexture(name) = AssetManager::Load<rcTexture>(data->textures_[data->property_table_.at(name).offset_]);
+      break;
+    case MaterialPropertyType::DATANUM:
+      break;
+    }
+  }
 }

@@ -17,7 +17,7 @@ void AssetViewerBehavior::End()
   this->OnEnd();
 }
 
-void AssetViewerBehavior::Update(AssetConverterContext* context)
+bool AssetViewerBehavior::Update(AssetConverterContext* context)
 {
   ImGui::SetNextWindowPos(ImVec2(20, 250), ImGuiCond_Once);
   ImGui::SetNextWindowSize(ImVec2(350, 450), ImGuiCond_Once);
@@ -25,10 +25,13 @@ void AssetViewerBehavior::Update(AssetConverterContext* context)
   this->entity_->GetMetaData()->GetConverterSetting()->EditWithImGui();
   ImGui::End();
 
+  bool reloaded = false;
   if (this->entity_->Load(context))
   {
     this->OnUnload();
     this->OnLoad(this->entity_->GetMetaData()->GetUniqueID());
+    reloaded = true;
   }
   this->OnUpdate();
+  return reloaded;
 }

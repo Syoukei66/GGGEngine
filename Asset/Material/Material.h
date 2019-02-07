@@ -4,6 +4,35 @@
 #include <Asset/Texture/Texture.h>
 #include <Asset/Shader/Shader.h>
 
+/*!
+ * @brief マテリアルのプロパティ情報
+ * プロパティのタイプやデータのバイトオフセットなどが格納される
+ */
+struct MaterialPropertyData
+{
+  // =================================================================
+  // GGG Statement
+  // =================================================================
+  GG_SERIALIZABLE(MaterialPropertyData)
+  {
+    archive(type_);
+    archive(count_);
+    archive(offset_);
+  }
+
+  // =================================================================
+  // Data Member
+  // =================================================================
+public:
+  T_FIXED_UINT8 type_; // MaterialPropertyType
+  T_FIXED_UINT8 count_;
+  T_FIXED_UINT32 offset_;
+};
+
+/*!
+ * @brief マテリアルのデータ
+ * シリアライズされてアセットとして扱われる
+ */
 struct MaterialData
 {
   // =================================================================
@@ -15,12 +44,14 @@ struct MaterialData
 
     archive(main_texture_unique_id_);
 
-    archive(data_offset_table_);
+    archive(property_table_);
     archive(data_);
-
-    archive(texture_index_table_);
     archive(textures_);
   }
+  // =================================================================
+  // CreateFunction
+  // =================================================================
+  static void CreateWithShader(const SharedRef<rcShader>& shader, MaterialData* dest);
 
   // =================================================================
   // Data Member
@@ -30,10 +61,8 @@ public:
 
   T_FIXED_UINT32 main_texture_unique_id_;
 
-  std::unordered_map<std::string, T_UINT32> data_offset_table_;
+  std::unordered_map<std::string, MaterialPropertyData> property_table_;
   std::vector<unsigned char> data_;
-
-  std::unordered_map<std::string, T_UINT32> texture_index_table_;
   std::vector<T_UINT32> textures_;
 };
 
@@ -86,20 +115,21 @@ public:
     return this->main_texture_;
   }
 
-  GG_INLINE T_UINT32 GetDataHandle(const std::string& property_name) const
+  GG_INLINE T_UINT32 GetDataHandle(const std::string& property_name, T_UINT8 index) const
   {
-    return this->data_offset_table_.at(property_name);
+    return this->property_table_.at(property_name).offset_ +
+      index * (T_UINT32)Shader::GetMaterialPropertySize(static_cast<Shader::MaterialPropertyType>(this->property_table_.at(property_name).type_));
   }
   GG_INLINE T_UINT32 GetTextureHandle(const std::string& property_name) const
   {
-    return this->texture_index_table_.at(property_name);
+    return this->property_table_.at(property_name).offset_;
   }
 
   // プロパティの取得
   template <class Type_>
-  GG_INLINE Type_& GetProperty(const std::string& property_name)
+  GG_INLINE Type_& GetProperty(const std::string& property_name, T_UINT8 index = 0)
   {
-    return this->GetProperty<Type_>(this->GetDataHandle(property_name));
+    return this->GetProperty<Type_>(this->GetDataHandle(property_name, index));
   }
   template <class Type_>
   GG_INLINE Type_& GetProperty(T_UINT32 handle)
@@ -107,9 +137,9 @@ public:
     return (*(Type_*)&this->data_[handle]);
   }
   template <class Type_>
-  GG_INLINE const Type_& GetProperty(const std::string& property_name) const
+  GG_INLINE const Type_& GetProperty(const std::string& property_name, T_UINT8 index = 0) const
   {
-    return this->GetProperty<Type_>(this->GetDataHandle(property_name));
+    return this->GetProperty<Type_>(this->GetDataHandle(property_name, index));
   }
   template <class Type_>
   GG_INLINE const Type_& GetProperty(T_UINT32 handle) const
@@ -144,10 +174,8 @@ protected:
   SharedRef<const rcTexture> main_texture_;
 
   // シェーダープロパティ
-  std::unordered_map<std::string, T_UINT32> data_offset_table_;
+  std::unordered_map<std::string, MaterialPropertyData> property_table_;
   std::vector<unsigned char> data_;
-
-  std::unordered_map<std::string, T_UINT32> texture_index_table_;
   std::vector<SharedRef<const rcTexture>> textures_;
 
   SharedRef<rcConstantBuffer> constant_buffer_;

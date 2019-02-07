@@ -16,9 +16,9 @@ class AssetViewerScene : public ViewerScene
   // GGG Statement
   // =================================================================
   GG_OBJECT(AssetViewerScene);
-  GG_CREATE_FUNC_3(AssetViewerScene, const SharedRef<AssetViewerBehavior>&, AssetConverterContext*, const SharedRef<AssetEntity>&);
+  GG_CREATE_FUNC_4(AssetViewerScene, const SharedRef<EntryScene>&, const SharedRef<AssetViewerBehavior>&, AssetConverterContext*, const SharedRef<AssetEntity>&);
   
 public:
-  static UniqueRef<AssetViewerScene> Create(AssetConverterContext*, const SharedRef<AssetEntity>&);
+  static UniqueRef<AssetViewerScene> Create(const SharedRef<EntryScene>& entry_scene, AssetConverterContext* context, const SharedRef<AssetEntity>& entity);
 
 };

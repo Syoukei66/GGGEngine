@@ -1,8 +1,7 @@
 #pragma once
 
-#include <Scene/AssetViewer/AssetViewerScene.h>
+#include <Entity/AssetEntity.h>
 
-class AssetEntity;
 class AssetConverterContext;
 
 class EntryScene : public Scene
@@ -26,6 +25,9 @@ public:
   // =================================================================
   // Methods
   // =================================================================
+public:
+  void OnReload();
+
 private:
   void ShowViewer(const SharedRef<AssetEntity>& entity);
 

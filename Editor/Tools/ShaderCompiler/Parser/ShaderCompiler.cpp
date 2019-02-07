@@ -71,6 +71,7 @@ void ShaderCompiler::CompileProperty(ShaderData* dest)
     data.display_name_ = property_name;
     data.variable_type_ = static_cast<T_FIXED_UINT8>(Shader::VariableType::kFloat);
     dest->scala_properties_.emplace_back(data);
+    dest->buffer_size_ += 16;
     return;
   }
   if (property_type == "Float")
@@ -85,6 +86,7 @@ void ShaderCompiler::CompileProperty(ShaderData* dest)
     data.min_value_ = Limit::T_FLOAT_MIN;
     data.max_value_ = Limit::T_FLOAT_MAX;
     dest->scala_properties_.emplace_back(data);
+    dest->buffer_size_ += 16;
     return;
   }
   if (property_type == "Int")
@@ -99,6 +101,7 @@ void ShaderCompiler::CompileProperty(ShaderData* dest)
     data.min_value_ = (T_FLOAT)Limit::T_INT32_MIN;
     data.max_value_ = (T_FLOAT)Limit::T_INT32_MAX;
     dest->scala_properties_.emplace_back(data);
+    dest->buffer_size_ += 16;
     return;
   }
   if (property_type == "Vector")
@@ -127,6 +130,7 @@ void ShaderCompiler::CompileProperty(ShaderData* dest)
     data.display_name_ = property_name;
     data.variable_type_ = static_cast<T_FIXED_UINT8>(Shader::VariableType::kFloat);
     dest->vector_properties_.emplace_back(data);
+    dest->buffer_size_ += Shader::GetVariableTypeSize(Shader::VariableType::kFloat) * 4;
     return;
   }
   if (property_type == "Color")
@@ -154,6 +158,7 @@ void ShaderCompiler::CompileProperty(ShaderData* dest)
     data.name_ = property_id;
     data.display_name_ = property_name;
     dest->color_properties_.emplace_back(data);
+    dest->buffer_size_ += Shader::GetVariableTypeSize(Shader::VariableType::kFloat) * 4;
     return;
   }
   if (property_type == "2D")

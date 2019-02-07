@@ -7,6 +7,8 @@
 #include <Scene/ViewerScene.h>
 #include <GUI/FileView/FileView.h>
 #include <Native/Windows/Activity/WindowActivityContext.h>
+#include <Scene/AssetViewer/AssetViewerScene.h>
+
 
 // =================================================================
 // GGG Statement
@@ -74,9 +76,15 @@ void EntryScene::Update(const ActivityContext& context)
 // =================================================================
 // Methods
 // =================================================================
+void EntryScene::OnReload()
+{
+  this->context_->Fetch();
+  FileView::Init(this->context_);
+}
+
 void EntryScene::ShowViewer(const SharedRef<AssetEntity>& entity)
 {
-  const SharedRef<AssetViewerScene>& scene = AssetViewerScene::Create(this->context_, entity);
+  const SharedRef<AssetViewerScene>& scene = AssetViewerScene::Create(SharedRef<EntryScene>(this), this->context_, entity);
   if (!scene)
   {
     return;

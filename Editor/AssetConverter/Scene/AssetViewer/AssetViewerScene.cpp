@@ -10,18 +10,18 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL_3(AssetViewerScene, const SharedRef<AssetViewerBehavior>& behavior, AssetConverterContext* context, const SharedRef<AssetEntity>& entity)
+GG_INIT_FUNC_IMPL_4(AssetViewerScene, const SharedRef<EntryScene>& entry_scene, const SharedRef<AssetViewerBehavior>& behavior, AssetConverterContext* context, const SharedRef<AssetEntity>& entity)
 {
   behavior->SetEntity(entity);
-  return ViewerScene::Init(behavior, context);
+  return ViewerScene::Init(entry_scene, behavior, context);
 }
 
-UniqueRef<AssetViewerScene> AssetViewerScene::Create(AssetConverterContext* context, const SharedRef<AssetEntity>& entity)
+UniqueRef<AssetViewerScene> AssetViewerScene::Create(const SharedRef<EntryScene>& entry_scene, AssetConverterContext* context, const SharedRef<AssetEntity>& entity)
 {
   SharedRef<AssetViewerBehavior> behavior = entity->GetConverter(context)->CreateViewerBehavior();
   if (!behavior)
   {
     return nullptr;
   }
-  return Create(behavior, context, entity);
+  return Create(entry_scene, behavior, context, entity);
 }

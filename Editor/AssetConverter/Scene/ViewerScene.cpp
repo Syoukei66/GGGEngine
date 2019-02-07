@@ -15,8 +15,9 @@ static const char* CAMERA_STATE_NAMES[ViewerScene::CAMERA_STATE_MAX] =
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL_2(ViewerScene, const SharedRef<IViewerBehavior>& behavior, AssetConverterContext* context)
+GG_INIT_FUNC_IMPL_3(ViewerScene, const SharedRef<EntryScene>& entry_scene, const SharedRef<IViewerBehavior>& behavior, AssetConverterContext* context)
 {
+  this->entry_scene_ = entry_scene;
   this->current_context_ = context;
   this->current_behavior_ = behavior;
   this->move_speed_weight_ = 1.0f;
@@ -46,6 +47,7 @@ void ViewerScene::OnShow()
 {
   this->current_behavior_->Start(this, this->current_context_);
   this->current_behavior_->GetEntity()->GetMetaData()->GetConverterSetting()->GetCameraState(this->camera_target_->GetTransform());
+  this->entry_scene_->OnReload();
 }
 
 void ViewerScene::OnHide()
@@ -56,7 +58,10 @@ void ViewerScene::OnHide()
 
 void ViewerScene::Update(const ActivityContext& context)
 {
-  this->current_behavior_->Update(this->current_context_);
+  if (this->current_behavior_->Update(this->current_context_))
+  {
+    this->entry_scene_->OnReload();
+  }
   const InputState* input = context.Input(0);
   
   using namespace HalEngine;

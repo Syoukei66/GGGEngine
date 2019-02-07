@@ -2,9 +2,9 @@
 
 #include <Engine/GameObject/GameObject3D.h>
 #include <Engine/Scene/Scene.h>
+#include <Scene/EntryScene.h>
 
 class AssetConverterContext;
-class AssetEntity;
 
 /*!
  * @brief Viewerが表示するオブジェクトや
@@ -18,7 +18,7 @@ class IViewerBehavior : public GGObject
 public:
   virtual void Start(Scene* scene, AssetConverterContext* context) = 0;
   virtual void End() = 0;
-  virtual void Update(AssetConverterContext* context) = 0;
+  virtual bool Update(AssetConverterContext* context) = 0;
   virtual SharedRef<AssetEntity> GetEntity() const = 0;
 };
 
@@ -38,7 +38,7 @@ public:
   // GGG Statement
   // =================================================================
   GG_OBJECT(ViewerScene);
-  GG_INIT_FUNC_2(ViewerScene, const SharedRef<IViewerBehavior>&, AssetConverterContext*);
+  GG_INIT_FUNC_3(ViewerScene, const SharedRef<EntryScene>&, const SharedRef<IViewerBehavior>&, AssetConverterContext*);
 
   // =================================================================
   // Methods from Scene
@@ -54,6 +54,8 @@ public:
   // Data Members
   // =================================================================
 private:
+  SharedRef<EntryScene> entry_scene_;
+
   AssetConverterContext* current_context_;
   SharedRef<IViewerBehavior> current_behavior_;
   SharedRef<GameObject3D> camera_3d_;

@@ -141,6 +141,24 @@ enum class VariableType : T_FIXED_UINT8
   DATANUM,
 };
 
+static size_t GetVariableTypeSize(VariableType type)
+{
+  switch (type)
+  {
+  case Shader::VariableType::kBool:
+    return sizeof(bool);
+  case Shader::VariableType::kInt:
+    return sizeof(T_FIXED_INT32);
+  case Shader::VariableType::kUint:
+    return sizeof(T_FIXED_UINT32);
+  case Shader::VariableType::kFloat:
+    return sizeof(T_FIXED_FLOAT);
+  case Shader::VariableType::kColor:
+    return sizeof(T_FIXED_FLOAT) * 4;
+  }
+  return 0;
+}
+
 /*!
  * @brief 変数のタイプ
  */
@@ -375,5 +393,56 @@ enum class TextureImportFormat : T_FIXED_UINT8
   kRGBA_32Bit,
   DATANUM,
 };
+
+/*!
+ * @brief マテリアルのプロパティのタイプ
+ */
+enum class MaterialPropertyType : T_FIXED_UINT8
+{
+  kBool,
+  kInt,
+  kUint,
+  kFloat,
+  kColor,
+  kTexture,
+
+  DATANUM,
+};
+
+static MaterialPropertyType GetMaterialPropertyType(VariableType type)
+{
+  switch (type)
+  {
+  case Shader::VariableType::kBool:
+    return MaterialPropertyType::kBool;
+  case Shader::VariableType::kInt:
+    return MaterialPropertyType::kInt;
+  case Shader::VariableType::kUint:
+    return MaterialPropertyType::kUint;
+  case Shader::VariableType::kFloat:
+    return MaterialPropertyType::kFloat;
+  case Shader::VariableType::kColor:
+    return MaterialPropertyType::kColor;
+  }
+  return MaterialPropertyType::DATANUM;
+}
+
+static size_t GetMaterialPropertySize(MaterialPropertyType type)
+{
+  switch (type)
+  {
+  case Shader::MaterialPropertyType::kBool:
+    return sizeof(bool);
+  case Shader::MaterialPropertyType::kInt:
+    return sizeof(T_FIXED_INT32);
+  case Shader::MaterialPropertyType::kUint:
+    return sizeof(T_FIXED_UINT32);
+  case Shader::MaterialPropertyType::kFloat:
+    return sizeof(T_FIXED_FLOAT);
+  case Shader::MaterialPropertyType::kColor:
+    return sizeof(TColor);
+  }
+  return 0;
+}
 
 } // namespace Shader

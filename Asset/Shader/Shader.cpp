@@ -7,6 +7,7 @@ GG_INIT_FUNC_IMPL_1(rcShader, const ShaderData& data)
 {
   using namespace Shader;
   this->name_ = data.name_;
+  this->buffer_size_ = data.buffer_size_;
   switch (static_cast<RenderQueue>(data.queue_))
   {
   case RenderQueue::kBackGround:
