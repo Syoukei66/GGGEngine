@@ -112,6 +112,15 @@ static SharedRef<AssetEntity> ImportMaterial(bool material_override, AssetMetaDa
     return entity;
   }
 
+  SharedRef<AssetEntity> shader_asset_entity = ImportShader(material, context);
+  shader_asset_entity->Load(context);
+  const ShaderData* shader_data = shader_asset_entity->GetData<ShaderData>();
+  MaterialData::CreateWithShader(
+    shader_data->properties_,
+    shader_asset_entity->GetMetaData()->GetUniqueID(),
+    data
+  );
+
   //Colors
   aiColor4D color;
   //if (AI_SUCCESS == aiGetMaterialColor(material, AI_MATKEY_COLOR_DIFFUSE, &color))
@@ -122,10 +131,6 @@ static SharedRef<AssetEntity> ImportMaterial(bool material_override, AssetMetaDa
   tex_asset_entity->Load(context);
   data->main_texture_unique_id_ = tex_asset_entity->GetMetaData()->GetUniqueID();
 
-  SharedRef<AssetEntity> shader_asset_entity = ImportShader(material, context);
-  shader_asset_entity->Load(context);
-  data->shader_unique_id_ = shader_asset_entity->GetMetaData()->GetUniqueID();
-  
   //TODO:プロパティのインポート処理
 
   // AssetEntityが存在していなかった場合AssetEntityを新たに作成する

@@ -5,34 +5,36 @@
 // =================================================================
 // CreateFunction(MaterialData)
 // =================================================================
-void MaterialData::CreateWithShader(const SharedRef<rcShader>& shader, MaterialData* dest)
+void MaterialData::CreateWithShader(const ShaderPropertyData& shader, T_UINT32 shader_unique_id, MaterialData* dest)
 {
-  dest->shader_unique_id_ = shader->GetUniqueId();
-  dest->data_.resize(shader->GetBufferSize());
+  dest->shader_unique_id_ = shader_unique_id;
+  dest->data_.resize(shader.buffer_size_);
 
   using namespace Shader;
 
   T_UINT32 data_offset = 0;
-  for (const ScalaPropertyData& data : shader->GetScalaPropertyDatas())
+  for (const ScalaPropertyData& data : shader.scala_properties_)
   {
     // プロパティの登録
     MaterialPropertyData pdata = MaterialPropertyData();
     pdata.type_ = static_cast<T_FIXED_UINT8>(GetMaterialPropertyType(static_cast<VariableType>(data.variable_type_)));
     pdata.count_ = 1;
     pdata.offset_ = data_offset;
+    pdata.name_ = data.name_;
     dest->property_table_[data.name_] = pdata;
     // データの初期化
     VariableType type = static_cast<VariableType>(data.variable_type_);
     (*(T_FLOAT*)&dest->data_[data_offset]) = data.init_value_;
-    data_offset += Shader::GetVariableTypeSize(type);
+    data_offset += (T_UINT32)Shader::GetVariableTypeSize(type);
   }
-  for (const VectorPropertyData& data : shader->GetVectorPropertyDatas())
+  for (const VectorPropertyData& data : shader.vector_properties_)
   {
     // プロパティの登録
     MaterialPropertyData pdata = MaterialPropertyData();
     pdata.type_ = static_cast<T_FIXED_UINT8>(GetMaterialPropertyType(static_cast<VariableType>(data.variable_type_)));
     pdata.count_ = 4;
     pdata.offset_ = data_offset;
+    pdata.name_ = data.name_;
     dest->property_table_[data.name_] = pdata;
     // データの初期化
     VariableType type = static_cast<VariableType>(data.variable_type_);
@@ -40,32 +42,34 @@ void MaterialData::CreateWithShader(const SharedRef<rcShader>& shader, MaterialD
     ((T_FLOAT*)&dest->data_[data_offset])[1] = data.init_value1_;
     ((T_FLOAT*)&dest->data_[data_offset])[2] = data.init_value2_;
     ((T_FLOAT*)&dest->data_[data_offset])[3] = data.init_value3_;
-    data_offset += Shader::GetVariableTypeSize(type) * 4;
+    data_offset += (T_UINT32)Shader::GetVariableTypeSize(type) * 4;
   }
-  for (const ColorPropertyData& data : shader->GetColorPropertyDatas())
+  for (const ColorPropertyData& data : shader.color_properties_)
   {
     // プロパティの登録
     MaterialPropertyData pdata = MaterialPropertyData();
     pdata.type_ = static_cast<T_FIXED_UINT8>(MaterialPropertyType::kColor);
     pdata.count_ = 1;
     pdata.offset_ = data_offset;
+    pdata.name_ = data.name_;
     dest->property_table_[data.name_] = pdata;
     // データの初期化
     ((T_FLOAT*)&dest->data_[data_offset])[0] = data.init_r_;
     ((T_FLOAT*)&dest->data_[data_offset])[1] = data.init_g_;
     ((T_FLOAT*)&dest->data_[data_offset])[2] = data.init_b_;
     ((T_FLOAT*)&dest->data_[data_offset])[3] = data.init_a_;
-    data_offset += Shader::GetVariableTypeSize(VariableType::kColor);
+    data_offset += (T_UINT32)Shader::GetVariableTypeSize(VariableType::kColor);
   }
   T_UINT32 texture_offset = 0;
-  dest->textures_.resize(shader->GetSamplerPropertyDatas().size());
-  for (const SamplerPropertyData& data : shader->GetSamplerPropertyDatas())
+  dest->textures_.resize(shader.sampler_properties_.size());
+  for (const SamplerPropertyData& data : shader.sampler_properties_)
   {
     // プロパティの登録
     MaterialPropertyData pdata = MaterialPropertyData();
     pdata.type_ = static_cast<T_FIXED_UINT8>(MaterialPropertyType::kTexture);
     pdata.count_ = 1;
     pdata.offset_ = texture_offset;
+    pdata.name_ = data.name_;
     dest->property_table_[data.name_] = pdata;
     // データの初期化
     if (data.default_texture_ == static_cast<T_UINT8>(DefaultTextureType::kWhite))
@@ -115,7 +119,7 @@ GG_INIT_FUNC_IMPL_1(rcMaterial, const MaterialData& data)
 GG_INIT_FUNC_IMPL_1(rcMaterial, const SharedRef<rcShader>& shader)
 {
   MaterialData data = MaterialData();
-  MaterialData::CreateWithShader(shader, &data);
+  MaterialData::CreateWithShader(shader->GetPropertyData(), shader->GetUniqueId(), &data);
   return rcMaterial::Init(data);
 }
 

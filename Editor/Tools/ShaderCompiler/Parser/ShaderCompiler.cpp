@@ -42,9 +42,9 @@ void ShaderCompiler::Compile(ShaderData* dest)
     }
   }
   // バッファサイズが16の倍数になるようアライメントする
-  if (dest->buffer_size_ % 16 != 0)
+  if (dest->properties_.buffer_size_ % 16 != 0)
   {
-    dest->buffer_size_ += 16 - (dest->buffer_size_ % 16);
+    dest->properties_.buffer_size_ += 16 - (dest->properties_.buffer_size_ % 16);
   }
 }
 
@@ -75,8 +75,8 @@ void ShaderCompiler::CompileProperty(ShaderData* dest)
     data.name_ = property_id;
     data.display_name_ = property_name;
     data.variable_type_ = static_cast<T_FIXED_UINT8>(Shader::VariableType::kFloat);
-    dest->scala_properties_.emplace_back(data);
-    dest->buffer_size_ += Shader::GetVariableTypeSize(Shader::VariableType::kFloat);
+    dest->properties_.scala_properties_.emplace_back(data);
+    dest->properties_.buffer_size_ += Shader::GetVariableTypeSize(Shader::VariableType::kFloat);
     return;
   }
   if (property_type == "Float")
@@ -90,8 +90,8 @@ void ShaderCompiler::CompileProperty(ShaderData* dest)
     data.variable_type_ = static_cast<T_FIXED_UINT8>(Shader::VariableType::kFloat);
     data.min_value_ = Limit::T_FLOAT_MIN;
     data.max_value_ = Limit::T_FLOAT_MAX;
-    dest->scala_properties_.emplace_back(data);
-    dest->buffer_size_ += Shader::GetVariableTypeSize(Shader::VariableType::kFloat);
+    dest->properties_.scala_properties_.emplace_back(data);
+    dest->properties_.buffer_size_ += Shader::GetVariableTypeSize(Shader::VariableType::kFloat);
     return;
   }
   if (property_type == "Int")
@@ -105,8 +105,8 @@ void ShaderCompiler::CompileProperty(ShaderData* dest)
     data.variable_type_ = static_cast<T_FIXED_UINT8>(Shader::VariableType::kInt);
     data.min_value_ = (T_FLOAT)Limit::T_INT32_MIN;
     data.max_value_ = (T_FLOAT)Limit::T_INT32_MAX;
-    dest->scala_properties_.emplace_back(data);
-    dest->buffer_size_ += Shader::GetVariableTypeSize(Shader::VariableType::kInt);
+    dest->properties_.scala_properties_.emplace_back(data);
+    dest->properties_.buffer_size_ += Shader::GetVariableTypeSize(Shader::VariableType::kInt);
     return;
   }
   if (property_type == "Vector")
@@ -134,8 +134,8 @@ void ShaderCompiler::CompileProperty(ShaderData* dest)
     data.name_ = property_id;
     data.display_name_ = property_name;
     data.variable_type_ = static_cast<T_FIXED_UINT8>(Shader::VariableType::kFloat);
-    dest->vector_properties_.emplace_back(data);
-    dest->buffer_size_ += Shader::GetVariableTypeSize(Shader::VariableType::kFloat) * 4;
+    dest->properties_.vector_properties_.emplace_back(data);
+    dest->properties_.buffer_size_ += Shader::GetVariableTypeSize(Shader::VariableType::kFloat) * 4;
     return;
   }
   if (property_type == "Color")
@@ -162,8 +162,8 @@ void ShaderCompiler::CompileProperty(ShaderData* dest)
     }
     data.name_ = property_id;
     data.display_name_ = property_name;
-    dest->color_properties_.emplace_back(data);
-    dest->buffer_size_ += Shader::GetVariableTypeSize(Shader::VariableType::kFloat) * 4;
+    dest->properties_.color_properties_.emplace_back(data);
+    dest->properties_.buffer_size_ += Shader::GetVariableTypeSize(Shader::VariableType::kFloat) * 4;
     return;
   }
   if (property_type == "2D")
@@ -176,7 +176,7 @@ void ShaderCompiler::CompileProperty(ShaderData* dest)
     data.display_name_ = property_name;
     data.sampler_type_ = static_cast<T_FIXED_UINT8>(Shader::SamplerType::kSampler2D);
     data.default_texture_ = this->parser_.ParseDefaultTextureType(init_tex);
-    dest->sampler_properties_.emplace_back(data);
+    dest->properties_.sampler_properties_.emplace_back(data);
     return;
   }
   this->parser_.ThrowIdentifierError("Property Type指定", property_type);

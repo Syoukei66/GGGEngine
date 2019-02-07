@@ -18,6 +18,7 @@ struct MaterialPropertyData
     archive(type_);
     archive(count_);
     archive(offset_);
+    archive(name_);
   }
 
   // =================================================================
@@ -27,6 +28,7 @@ public:
   T_FIXED_UINT8 type_; // MaterialPropertyType
   T_FIXED_UINT8 count_;
   T_FIXED_UINT32 offset_;
+  std::string name_;
 };
 
 /*!
@@ -51,7 +53,7 @@ struct MaterialData
   // =================================================================
   // CreateFunction
   // =================================================================
-  static void CreateWithShader(const SharedRef<rcShader>& shader, MaterialData* dest);
+  static void CreateWithShader(const ShaderPropertyData& shader, T_UINT32 shader_unique_id, MaterialData* dest);
 
   // =================================================================
   // Data Member

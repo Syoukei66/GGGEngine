@@ -7,7 +7,6 @@ GG_INIT_FUNC_IMPL_1(rcShader, const ShaderData& data)
 {
   using namespace Shader;
   this->name_ = data.name_;
-  this->buffer_size_ = data.buffer_size_;
   switch (static_cast<RenderQueue>(data.queue_))
   {
   case RenderQueue::kBackGround:
@@ -27,10 +26,7 @@ GG_INIT_FUNC_IMPL_1(rcShader, const ShaderData& data)
     break;
   }
   this->render_type_ = static_cast<RenderType>(data.queue_);
-  this->scala_properties_ = data.scala_properties_;
-  this->vector_properties_ = data.vector_properties_;
-  this->color_properties_ = data.color_properties_;
-  this->sampler_properties_ = data.sampler_properties_;
+  this->properties_ = data.properties_;
   for (const PassData& pass_data : data.passes_)
   {
     Pass* pass = &this->passes_[pass_data.light_mode_];

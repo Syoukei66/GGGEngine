@@ -50,8 +50,8 @@ void MaterialViewerBehavior::OnUpdate()
   const MaterialData* data = &setting->edit_data_;
   for (const auto& pair : data->property_table_)
   {
-    const std::string& name = pair.first;
     const MaterialPropertyData& p = pair.second;
+    const std::string& name = pair.first;
     const MaterialPropertyType type = static_cast<MaterialPropertyType>(p.type_);
     switch (type)
     {

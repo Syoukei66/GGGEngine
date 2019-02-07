@@ -128,19 +128,19 @@ std::string ToString(const ShaderData& data)
   ret.append("queue : " + RenderQueueTokens[data.queue_] + "\n");
   ret.append("render_type : " + RenderTypeTokens[data.render_type_] + "\n");
   ret.append("properties : [\n");
-  for (const ScalaPropertyData& prop : data.scala_properties_)
+  for (const ScalaPropertyData& prop : data.properties_.scala_properties_)
   {
     ret.append("  " + ToString(prop) + "\n");
   }
-  for (const VectorPropertyData& prop : data.vector_properties_)
+  for (const VectorPropertyData& prop : data.properties_.vector_properties_)
   {
     ret.append("  " + ToString(prop) + "\n");
   }
-  for (const ColorPropertyData& prop : data.color_properties_)
+  for (const ColorPropertyData& prop : data.properties_.color_properties_)
   {
     ret.append("  " + ToString(prop) + "\n");
   }
-  for (const SamplerPropertyData& prop : data.sampler_properties_)
+  for (const SamplerPropertyData& prop : data.properties_.sampler_properties_)
   {
     ret.append("  " + ToString(prop) + "\n");
   }

@@ -214,6 +214,46 @@ public:
 };
 
 /*!
+ * @brief シェーダーが持つプロパティのデータ
+ */
+struct ShaderPropertyData
+{
+  // =================================================================
+  // GGG Statement
+  // =================================================================
+  GG_SERIALIZABLE(ShaderPropertyData)
+  {
+    archive(buffer_size_);
+    archive(scala_properties_);
+    archive(vector_properties_);
+    archive(color_properties_);
+    archive(sampler_properties_);
+  }
+
+  // =================================================================
+  // Constructor / Destructor
+  // =================================================================
+public:
+  ShaderPropertyData()
+    : buffer_size_()
+    , scala_properties_()
+    , vector_properties_()
+    , color_properties_()
+    , sampler_properties_()
+  {}
+
+  // =================================================================
+  // Data Member
+  // =================================================================
+public:
+  T_UINT32 buffer_size_; // ConstantBufferに必要なサイズ
+  std::vector<ScalaPropertyData> scala_properties_;
+  std::vector<VectorPropertyData> vector_properties_;
+  std::vector<ColorPropertyData> color_properties_;
+  std::vector<SamplerPropertyData> sampler_properties_;
+};
+
+/*!
  * @brief シェーダーのパスデータ
  */
 struct ShaderData
@@ -226,11 +266,7 @@ struct ShaderData
     archive(name_);
     archive(queue_);
     archive(render_type_);
-    archive(buffer_size_);
-    archive(scala_properties_);
-    archive(vector_properties_);
-    archive(color_properties_);
-    archive(sampler_properties_);
+    archive(properties_);
     archive(passes_);
   }
 
@@ -242,11 +278,7 @@ public:
     : name_("shader")
     , queue_(static_cast<T_UINT8>(Shader::RenderQueue::kGeometry))
     , render_type_(static_cast<T_UINT8>(Shader::RenderType::kOpaque))
-    , buffer_size_()
-    , scala_properties_()
-    , vector_properties_()
-    , color_properties_()
-    , sampler_properties_()
+    , properties_()
     , passes_()
   {}
 
@@ -258,12 +290,8 @@ public:
 
   T_UINT8 queue_; // RenderQueue
   T_UINT8 render_type_; // RenderType
-  T_UINT32 buffer_size_; // ConstantBufferに必要なサイズ
 
-  std::vector<ScalaPropertyData> scala_properties_;
-  std::vector<VectorPropertyData> vector_properties_;
-  std::vector<ColorPropertyData> color_properties_;
-  std::vector<SamplerPropertyData> sampler_properties_;
+  ShaderPropertyData properties_;
   std::vector<PassData> passes_;
 };
 
@@ -304,25 +332,29 @@ public:
     return this->queue_;
   }
 
+  GG_INLINE const ShaderPropertyData& GetPropertyData() const
+  {
+    return this->properties_;
+  }
   GG_INLINE const std::vector<ScalaPropertyData>& GetScalaPropertyDatas() const
   {
-    return this->scala_properties_;
+    return this->properties_.scala_properties_;
   }
   GG_INLINE const std::vector<VectorPropertyData>& GetVectorPropertyDatas() const
   {
-    return this->vector_properties_;
+    return this->properties_.vector_properties_;
   }
   GG_INLINE const std::vector<ColorPropertyData>& GetColorPropertyDatas() const
   {
-    return this->color_properties_;
+    return this->properties_.color_properties_;
   }
   GG_INLINE const std::vector<SamplerPropertyData>& GetSamplerPropertyDatas() const
   {
-    return this->sampler_properties_;
+    return this->properties_.sampler_properties_;
   }
   GG_INLINE T_UINT32 GetBufferSize() const
   {
-    return this->buffer_size_;
+    return this->properties_.buffer_size_;
   }
 
   // =================================================================
@@ -330,14 +362,10 @@ public:
   // =================================================================
 private:
   std::string name_;
-  T_UINT32 buffer_size_;
 
   Graphics::RenderQueue queue_;
   Shader::RenderType render_type_; // RenderType
 
-  std::vector<ScalaPropertyData> scala_properties_;
-  std::vector<VectorPropertyData> vector_properties_;
-  std::vector<ColorPropertyData> color_properties_;
-  std::vector<SamplerPropertyData> sampler_properties_;
+  ShaderPropertyData properties_;
   std::unordered_map<T_UINT8, Pass> passes_;
 };

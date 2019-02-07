@@ -122,12 +122,12 @@ void HLSLCompiler::ConvertHLSL(const ShaderData& shader, std::string* str)
   std::string user = "";
   user += "cbuffer UserProperty : register( b3 )\n";
   user += "{\n";
-  for (const ScalaPropertyData& data : shader.scala_properties_)
+  for (const ScalaPropertyData& data : shader.properties_.scala_properties_)
   {
     user += "  " + GGGShaderParser::VariableTypeTokens[data.variable_type_] + " " + data.name_ + " = " 
       + std::to_string(data.init_value_) + ";\n";
   }
-  for (const VectorPropertyData& data : shader.vector_properties_)
+  for (const VectorPropertyData& data : shader.properties_.vector_properties_)
   {
     user += "  " + GGGShaderParser::VariableTypeTokens[data.variable_type_] + "4 " + data.name_ + " = { "
       + std::to_string(data.init_value0_) + ", "
@@ -135,7 +135,7 @@ void HLSLCompiler::ConvertHLSL(const ShaderData& shader, std::string* str)
       + std::to_string(data.init_value2_) + ", "
       + std::to_string(data.init_value3_) + " };\n";
   }
-  for (const ColorPropertyData& data : shader.color_properties_)
+  for (const ColorPropertyData& data : shader.properties_.color_properties_)
   {
     user += "  " + GGGShaderParser::VariableTypeTokens[static_cast<T_FIXED_UINT8>(Shader::VariableType::kFloat)] + "4 " + data.name_ + " = { "
       + std::to_string(data.init_r_) + ", "
@@ -145,7 +145,7 @@ void HLSLCompiler::ConvertHLSL(const ShaderData& shader, std::string* str)
   }
   user += "};\n";
   T_UINT32 texture_index = 0;
-  for (const SamplerPropertyData& data : shader.sampler_properties_)
+  for (const SamplerPropertyData& data : shader.properties_.sampler_properties_)
   {
     const std::string tex_name = data.name_;
     const std::string sampler_name = data.name_ + "Sampler";

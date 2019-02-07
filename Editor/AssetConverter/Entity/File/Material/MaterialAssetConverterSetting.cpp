@@ -53,7 +53,7 @@ void MaterialAssetConverterSetting::StoreShaderProperties(const MaterialData& da
   // シェーダーから取得したデータを基にMaterialDataを作り直す
   MaterialData old_data = this->is_master_ ? this->edit_data_ : data;
   this->edit_data_ = MaterialData();
-  MaterialData::CreateWithShader(shader, &this->edit_data_);
+  MaterialData::CreateWithShader(shader->GetPropertyData(), shader->GetUniqueId(), &this->edit_data_);
   // 古いデータに同じプロパティがあればそのまま使用する
   this->edit_data_.main_texture_unique_id_ = old_data.main_texture_unique_id_;
   for (const auto& pair : old_data.property_table_)
