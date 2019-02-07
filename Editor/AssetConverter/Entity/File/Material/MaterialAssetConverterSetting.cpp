@@ -16,22 +16,22 @@ bool MaterialAssetConverterSetting::EditWithImGuiProcess()
     switch (type)
     {
     case MaterialPropertyType::kBool:
-      ImGui::Checkbox(name.c_str(), (bool*)p);
+      this->is_updated_ |= ImGui::Checkbox(name.c_str(), (bool*)p);
       break;
     case MaterialPropertyType::kInt:
-      ImGui::InputInt(name.c_str(), (int*)p);
+      this->is_updated_ |= ImGui::InputInt(name.c_str(), (int*)p);
       break;
     case MaterialPropertyType::kUint:
-      ImGui::InputInt(name.c_str(), (int*)p);
+      this->is_updated_ |= ImGui::InputInt(name.c_str(), (int*)p);
       break;
     case MaterialPropertyType::kFloat:
-      ImGui::InputFloat(name.c_str(), (float*)p);
+      this->is_updated_ |= ImGui::InputFloat(name.c_str(), (float*)p);
       break;
     case MaterialPropertyType::kColor:
-      ImGui::ColorEdit4(name.c_str(), ((TColor*)p)->data);
+      this->is_updated_ |= ImGui::ColorEdit4(name.c_str(), ((TColor*)p)->data);
       break;
     case MaterialPropertyType::kTexture:
-      //ImGui::Checkbox(name.c_str(), (bool*)p);
+      //this->is_updated_ |= ImGui::Checkbox(name.c_str(), (bool*)p);
       break;
     case MaterialPropertyType::DATANUM:
       break;

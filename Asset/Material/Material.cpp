@@ -95,6 +95,8 @@ GG_INIT_FUNC_IMPL_1(rcMaterial, const MaterialData& data)
     (T_UINT32)this->data_.size()
   );
 
+  this->constant_buffer_->CommitChanges(this->data_.data());
+
   this->shader_ = 
     data.shader_unique_id_ != 0 ?
     AssetManager::Load<rcShader>(data.shader_unique_id_) :

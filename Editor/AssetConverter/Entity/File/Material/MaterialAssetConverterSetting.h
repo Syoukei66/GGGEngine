@@ -64,6 +64,11 @@ public:
    * @brief 最新のデータを持っているか
    */
   bool is_master_;
+
+  /*!
+   * @brief データが更新されたか
+   */
+  bool is_updated_;
   MaterialData edit_data_;
 };
 

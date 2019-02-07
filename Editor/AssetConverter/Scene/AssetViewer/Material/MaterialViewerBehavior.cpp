@@ -42,7 +42,12 @@ void MaterialViewerBehavior::OnUpdate()
 {
   using namespace Shader;
   this->obj_->EditWithImGUI();
-  const MaterialData* data = this->GetEntity()->GetData<MaterialData>();
+  MaterialAssetConverterSetting* setting = static_cast<MaterialAssetConverterSetting*>(this->GetEntity()->GetMetaData()->GetConverterSetting().get());
+  if (!setting->is_updated_)
+  {
+    return;
+  }
+  const MaterialData* data = &setting->edit_data_;
   for (const auto& pair : data->property_table_)
   {
     const std::string& name = pair.first;
@@ -72,4 +77,6 @@ void MaterialViewerBehavior::OnUpdate()
       break;
     }
   }
+  this->material_->CommitChanges();
+  setting->is_updated_ = false;
 }
