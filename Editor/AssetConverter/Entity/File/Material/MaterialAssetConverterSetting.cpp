@@ -37,9 +37,12 @@ bool MaterialAssetConverterSetting::EditWithImGuiProcess()
       break;
     }
   }
-  if (ImGui::Button(u8"適用"))
+  if (this->is_updated_)
   {
     this->is_master_ = true;
+  }
+  if (ImGui::Button(u8"適用"))
+  {
     reload = true;
   }
   return reload;

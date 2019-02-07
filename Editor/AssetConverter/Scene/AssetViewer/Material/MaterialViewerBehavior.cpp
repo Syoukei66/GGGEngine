@@ -30,7 +30,7 @@ void MaterialViewerBehavior::OnLoad(T_UINT32 unique_id)
   setting->StoreShaderProperties(*entity->GetData<MaterialData>());
 
   const SharedRef<Renderer>& renderer = this->obj_->GetComponent<Renderer>();
-  this->material_ = AssetManager::Load<rcMaterial>(unique_id)->Clone();
+  this->material_ = rcMaterial::Create(setting->edit_data_);
   renderer->SetMaterial(this->material_);
 }
 
