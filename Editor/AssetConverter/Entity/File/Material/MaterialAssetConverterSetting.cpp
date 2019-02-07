@@ -60,6 +60,10 @@ void MaterialAssetConverterSetting::StoreShaderProperties(const MaterialData& da
   {
     const std::string& name = pair.first;
     const auto& itr = this->edit_data_.property_table_.find(name);
+    if (itr == this->edit_data_.property_table_.end())
+    {
+      continue;
+    }
     const MaterialPropertyData& old_p = pair.second;
     const MaterialPropertyData& new_p = itr->second;
     const MaterialPropertyType type = static_cast<MaterialPropertyType>(old_p.type_);
