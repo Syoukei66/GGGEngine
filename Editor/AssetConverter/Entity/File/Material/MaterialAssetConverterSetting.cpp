@@ -9,8 +9,8 @@ bool MaterialAssetConverterSetting::EditWithImGuiProcess()
   bool reload = false;
   for (const auto& pair : this->edit_data_.property_table_)
   {
-    const std::string& name = pair.first;
     const MaterialPropertyData& data = pair.second;
+    const std::string& name = data.name_;
     const MaterialPropertyType type = static_cast<MaterialPropertyType>(data.type_);
     unsigned char* p = &this->edit_data_.data_[data.offset_];
     switch (type)

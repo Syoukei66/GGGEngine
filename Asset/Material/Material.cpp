@@ -20,7 +20,7 @@ void MaterialData::CreateWithShader(const ShaderPropertyData& shader, T_UINT32 s
     pdata.type_ = static_cast<T_FIXED_UINT8>(GetMaterialPropertyType(static_cast<VariableType>(data.variable_type_)));
     pdata.count_ = 1;
     pdata.offset_ = data_offset;
-    pdata.name_ = data.name_;
+    pdata.name_ = data.display_name_;
     dest->property_table_[data.name_] = pdata;
     // データの初期化
     VariableType type = static_cast<VariableType>(data.variable_type_);
@@ -34,7 +34,7 @@ void MaterialData::CreateWithShader(const ShaderPropertyData& shader, T_UINT32 s
     pdata.type_ = static_cast<T_FIXED_UINT8>(GetMaterialPropertyType(static_cast<VariableType>(data.variable_type_)));
     pdata.count_ = 4;
     pdata.offset_ = data_offset;
-    pdata.name_ = data.name_;
+    pdata.name_ = data.display_name_;
     dest->property_table_[data.name_] = pdata;
     // データの初期化
     VariableType type = static_cast<VariableType>(data.variable_type_);
@@ -51,7 +51,7 @@ void MaterialData::CreateWithShader(const ShaderPropertyData& shader, T_UINT32 s
     pdata.type_ = static_cast<T_FIXED_UINT8>(MaterialPropertyType::kColor);
     pdata.count_ = 1;
     pdata.offset_ = data_offset;
-    pdata.name_ = data.name_;
+    pdata.name_ = data.display_name_;
     dest->property_table_[data.name_] = pdata;
     // データの初期化
     ((T_FLOAT*)&dest->data_[data_offset])[0] = data.init_r_;
@@ -69,7 +69,7 @@ void MaterialData::CreateWithShader(const ShaderPropertyData& shader, T_UINT32 s
     pdata.type_ = static_cast<T_FIXED_UINT8>(MaterialPropertyType::kTexture);
     pdata.count_ = 1;
     pdata.offset_ = texture_offset;
-    pdata.name_ = data.name_;
+    pdata.name_ = data.display_name_;
     dest->property_table_[data.name_] = pdata;
     // データの初期化
     if (data.default_texture_ == static_cast<T_UINT8>(DefaultTextureType::kWhite))
