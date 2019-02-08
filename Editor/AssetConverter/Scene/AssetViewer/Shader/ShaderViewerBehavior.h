@@ -2,6 +2,7 @@
 
 #include <Scene/AssetViewer/AssetViewerBehavior.h>
 #include <Engine/Component/Renderer/MeshRenderer.h>
+#include <Scene/TestMesh/TestMesh.h>
 
 class ShaderViewerBehavior : public AssetViewerBehavior
 {
@@ -19,11 +20,12 @@ public:
   virtual void OnEnd() override;
   virtual void OnLoad(T_UINT32 unique_id) override;
   virtual void OnUnload() override;
+  virtual void OnUpdate() override;
 
   // =================================================================
   // Data Members
   // =================================================================
 private:
-  SharedRef<GameObject3D> obj_;
-  SharedRef<MeshRenderer> mesh_renderer_;
+  SharedRef<TestMesh> obj_;
+  SharedRef<rcMaterial> material_;
 };

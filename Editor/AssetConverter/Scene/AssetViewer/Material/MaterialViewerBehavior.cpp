@@ -40,8 +40,8 @@ void MaterialViewerBehavior::OnUnload()
 
 void MaterialViewerBehavior::OnUpdate()
 {
-  using namespace Shader;
   this->obj_->EditWithImGUI();
+  using namespace Shader;
   MaterialAssetConverterSetting* setting = static_cast<MaterialAssetConverterSetting*>(this->GetEntity()->GetMetaData()->GetConverterSetting().get());
   if (!setting->is_updated_)
   {

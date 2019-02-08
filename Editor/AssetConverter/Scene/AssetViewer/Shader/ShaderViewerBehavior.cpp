@@ -6,10 +6,7 @@
 // =================================================================
 GG_INIT_FUNC_IMPL(ShaderViewerBehavior)
 {
-  this->obj_ = GameObject3D::Create();
-  this->obj_->GetTransform()->RotateX(-Mathf::PI_1_2);
-  this->mesh_renderer_ = this->obj_->AddComponent<MeshRenderer>();
-  return true;
+  this->obj_ = TestMesh::Create();  return true;
 }
 
 // =================================================================
@@ -27,13 +24,20 @@ void ShaderViewerBehavior::OnEnd()
 
 void ShaderViewerBehavior::OnLoad(T_UINT32 unique_id)
 {
-  this->mesh_renderer_->SetMesh(AssetManager::Load<rcMesh>(DefaultUniqueID::MESH_PLANE));
-  this->mesh_renderer_->SetMaterial(AssetManager::Load<rcMaterial>(DefaultUniqueID::MATERIAL_UNLIT));
-  this->mesh_renderer_->GetMaterial()->SetShader(AssetManager::Load<rcShader>(unique_id));
+  //const SharedRef<AssetEntity>& entity = this->GetEntity();
+  //MaterialAssetConverterSetting* setting = static_cast<MaterialAssetConverterSetting*>(entity->GetMetaData()->GetConverterSetting().get());
+  //setting->StoreShaderProperties(*entity->GetData<MaterialData>());
+
+  const SharedRef<Renderer>& renderer = this->obj_->GetComponent<Renderer>();
+  //this->material_ = rcMaterial::Create(setting->edit_data_);
+  //renderer->SetMaterial(this->material_);
 }
 
 void ShaderViewerBehavior::OnUnload()
 {
-  this->mesh_renderer_->SetMesh(nullptr);
-  this->mesh_renderer_->SetMaterial(nullptr);
+}
+
+void ShaderViewerBehavior::OnUpdate()
+{
+  this->obj_->EditWithImGUI();
 }
