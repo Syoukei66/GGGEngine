@@ -7,9 +7,9 @@ IAssetDataContainer* MaterialAssetConverter::ImportProcess(const SharedRef<Asset
 {
   MaterialAssetConverterSetting* setting = static_cast<MaterialAssetConverterSetting*>(entity->GetMetaData()->GetConverterSetting().get());
   MaterialData* data = nullptr;
-  if (setting->is_master_)
+  if (setting->editor.IsMaster())
   {
-    data = new MaterialData(setting->edit_data_);
+    data = new MaterialData(setting->editor.GetEditData());
   }
   else
   {

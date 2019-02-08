@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Entity/ConverterSetting.h>
+#include <GUI/MaterialEditView/MaterialEditView.h>
 
 /*!
  * @brief MaterialAssetConverterの設定
@@ -34,8 +35,7 @@ public:
 
   MaterialAssetConverterSetting(const std::string& converter_id)
     : ConverterSetting(converter_id)
-    , is_master_()
-    , edit_data_()
+    , editor()
   {
     this->AddSubAsset(DefaultUniqueID::SHADER_ERRROR);
     this->AddSubAsset(DefaultUniqueID::TEXTURE_WHITE);
@@ -48,28 +48,11 @@ protected:
   virtual bool EditWithImGuiProcess() override;
 
   // =================================================================
-  // Methods
-  // =================================================================
-public:
-  /*!
-   * @brief シェーダーからプロパティを取得する
-   */
-  void StoreShaderProperties(const MaterialData& data);
-
-  // =================================================================
   // Data Members
   // =================================================================
 public:
-  /*!
-   * @brief 最新のデータを持っているか
-   */
-  bool is_master_;
+  MaterialEditView editor;
 
-  /*!
-   * @brief データが更新されたか
-   */
-  bool is_updated_;
-  MaterialData edit_data_;
 };
 
 CEREAL_CLASS_VERSION(MaterialAssetConverterSetting, 0);

@@ -207,6 +207,7 @@
     <ClInclude Include="GUI\FileView\AssetEntityFileNode.h" />
     <ClInclude Include="GUI\HierarchyView\HierarchyNode.h" />
     <ClInclude Include="GUI\HierarchyView\HierarchyView.h" />
+    <ClInclude Include="GUI\MaterialEditView\MaterialEditView.h" />
     <ClInclude Include="ProgramGenerator\AssetProgramGenerator.h" />
     <ClInclude Include="ProgramGenerator\AssetProgramGenerator_identifier.h" />
     <ClInclude Include="Entity\Default\DefaultAsset.h" />
@@ -269,6 +270,7 @@
     <ClCompile Include="GUI\FileView\AssetEntityFileNode.cpp" />
     <ClCompile Include="GUI\HierarchyView\HierarchyNode.cpp" />
     <ClCompile Include="GUI\HierarchyView\HierarchyView.cpp" />
+    <ClCompile Include="GUI\MaterialEditView\MaterialEditView.cpp" />
     <ClCompile Include="ProgramGenerator\AssetProgramGenerator.cpp" />
     <ClCompile Include="ProgramGenerator\AssetProgramGenerator_identifier.cpp" />
     <ClCompile Include="Entity\Default\Material\DefaultMaterialAssetEntityFactory.cpp" />
