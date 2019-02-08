@@ -5,6 +5,7 @@ DirectInputDevice_KeyBoard::DirectInputDevice_KeyBoard(T_UINT8 handler, const Ke
   : DirectInputDevice(handler)
   , inputs_(inputs)
   , inputs_count_(inputs_count)
+  , diks_()
 {}
 
 bool DirectInputDevice_KeyBoard::Init(const SharedRef<Activity>& activity, LPDIRECTINPUT8 input)
@@ -53,16 +54,19 @@ bool DirectInputDevice_KeyBoard::Uninit(LPDIRECTINPUT8 input)
 
 void DirectInputDevice_KeyBoard::InputProcess(T_UINT8 handler, const SharedRef<Activity>& activity, EngineInputState* state)
 {
-  BYTE diks[256];
-  if (FAILED(this->device_->GetDeviceState(sizeof(diks), &diks)))
+  if (FAILED(this->device_->GetDeviceState(sizeof(this->diks_), &this->diks_)))
   {
     this->device_->Acquire();
     return;
   }
+}
+
+void DirectInputDevice_KeyBoard::ApplyProcess(T_UINT8 handler, const SharedRef<Activity>& activity, EngineInputState * state)
+{
   for (int i = 0; i < this->inputs_count_; ++i)
   {
     state->PreInputDigital(handler, this->inputs_[i].id);
-    if (diks[this->inputs_[i].input] & 0x80)
+    if (this->diks_[this->inputs_[i].input] & 0x80)
     {
       state->InputDigital(handler, this->inputs_[i].id);
     }

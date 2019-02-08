@@ -43,6 +43,15 @@ public:
     }
   }
 
+  void ApplyProcess(const SharedRef<Activity>& activity, EngineInputState* state)
+  {
+    const std::vector<T*> devices = this->devices_map_.at(activity->GetContext().GetActivityID());
+    for (T* device : devices)
+    {
+      device->ApplyProcess(device->GetHandler(), activity, state);
+    }
+  }
+
 public:
   GG_INLINE bool LoadDevice(const SharedRef<Activity>& activity, T* device)
   {

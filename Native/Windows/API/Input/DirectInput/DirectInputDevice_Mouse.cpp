@@ -18,6 +18,7 @@ DirectInputDevice_Mouse::DirectInputDevice_Mouse(
   , position_input_id_(screen_input_id)
   , wheel_input_id_(wheel_input_id)
   , bind_(bind)
+  , mouse_state_()
 {}
 
 bool DirectInputDevice_Mouse::Init(const SharedRef<Activity>& activity, LPDIRECTINPUT8 input)
@@ -111,32 +112,37 @@ bool DirectInputDevice_Mouse::Uninit(LPDIRECTINPUT8 input)
 
 void DirectInputDevice_Mouse::InputProcess(T_UINT8 handler, const SharedRef<Activity>& activity, EngineInputState* state)
 {
-  DIMOUSESTATE2 mouse_state;
-
-  const ActivityContext& context = activity->GetContext();
-
-  if (FAILED(this->device_->GetDeviceState(sizeof(mouse_state), &mouse_state)))
+  if (FAILED(this->device_->GetDeviceState(sizeof(this->mouse_state_), &this->mouse_state_)))
   {
     this->device_->Acquire();
     return;
   }
+}
+
+void DirectInputDevice_Mouse::ApplyProcess(T_UINT8 handler, const SharedRef<Activity>& activity, EngineInputState * state)
+{
+  const ActivityContext& context = activity->GetContext();
+  // マウスボタンの入力
   for (int i = 0; i < this->mouse_inputs_count_; ++i)
   {
     state->PreInputDigital(handler, this->mouse_inputs_[i].id);
-    if (mouse_state.rgbButtons[this->mouse_inputs_[i].input] & 0x80)
+    if (this->mouse_state_.rgbButtons[this->mouse_inputs_[i].input] & 0x80)
     {
       state->InputDigital(handler, this->mouse_inputs_[i].id);
     }
     state->PostInputDigital(handler, this->mouse_inputs_[i].id);
   }
+
+  // マウス動作の入力
   const T_FLOAT w = context.GetScreenWidth();
   const T_FLOAT h = context.GetScreenHeight();
 
   state->PreInputAnalog(handler, this->move_input_id_);
-  state->InputAnalog(handler, this->move_input_id_, 0, mouse_state.lX * 0.1f);
-  state->InputAnalog(handler, this->move_input_id_, 1, mouse_state.lY * 0.1f);
+  state->InputAnalog(handler, this->move_input_id_, 0, this->mouse_state_.lX * 0.1f);
+  state->InputAnalog(handler, this->move_input_id_, 1, this->mouse_state_.lY * 0.1f);
   state->PostInputAnalog(handler, this->move_input_id_);
 
+  // マウス座標の入力
   state->PreInputAnalog(handler, this->position_input_id_);
   POINT pos;
   if (GetCursorPos(&pos))
@@ -145,7 +151,7 @@ void DirectInputDevice_Mouse::InputProcess(T_UINT8 handler, const SharedRef<Acti
     RECT rc;
     GetWindowRect(hwnd, &rc);
 
-    RECT client; 
+    RECT client;
     GetClientRect(hwnd, &client);
     T_FLOAT edge = ((rc.right - rc.left) - (client.right - client.left)) * 0.5f;
     pos.x -= (LONG)(rc.left + edge);
@@ -162,7 +168,9 @@ void DirectInputDevice_Mouse::InputProcess(T_UINT8 handler, const SharedRef<Acti
 
   state->PostInputAnalog(handler, this->position_input_id_);
 
+  // マウスホイールの入力
   state->PreInputAnalog(handler, this->wheel_input_id_);
-  state->InputAnalog(handler, this->wheel_input_id_, 0, mouse_state.lZ * 0.1f);
+  state->InputAnalog(handler, this->wheel_input_id_, 0, this->mouse_state_.lZ * 0.1f);
+  state->PostInputAnalog(handler, this->wheel_input_id_);
   state->PostInputAnalog(handler, this->wheel_input_id_);
 }

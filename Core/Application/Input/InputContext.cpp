@@ -32,12 +32,13 @@ InputContext::~InputContext()
 // =================================================================
 void InputContext::Update(const SharedRef<Activity>& activity, const SharedRef<InputAPI>& api)
 {
+  api->InputProcess(activity, &this->engine_input_state_);
   if (this->enable_state_ == EnableState::ONLY_ON_FOCUS && !activity->GetContext().IsActive())
   {
     return;
   }
   this->engine_input_state_.Prepare();
-  api->InputProcess(activity, &this->engine_input_state_);
+  api->ApplyProcess(activity, &this->engine_input_state_);
   if (this->enable_state_ == EnableState::ONLY_ON_MOUSE && !this->IsOnCursol())
   {
     return;

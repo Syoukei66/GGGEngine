@@ -81,42 +81,46 @@ void ViewerScene::Update(const ActivityContext& context)
   const T_FLOAT move_x = input->GetAxis(GameInput::MOUSE_MOVE_X, 0.0f);
   const T_FLOAT move_y = input->GetAxis(GameInput::MOUSE_MOVE_Y, 0.0f);
   const T_FLOAT move_z = input->GetAxis(GameInput::MOUSE_MOVE_Z, 0.0f);
-  if (mouse_click_C)
+  
+  if (move_x != 0.0f || move_y != 0.0f || move_z != 0.0f)
   {
-    transform->MoveX(-move_x * move_speed);
-    transform->MoveY(move_y * move_speed);
-  }
-  if (mouse_click_R)
-  {
-    this->camera_move_x_ -= move_x * 0.05f;
-    this->camera_move_y_ += move_y * 0.05f;
-  }
+    if (mouse_click_C)
+    {
+      transform->MoveX(-move_x * move_speed);
+      transform->MoveY(move_y * move_speed);
+    }
+    if (mouse_click_R)
+    {
+      this->camera_move_x_ -= move_x * 0.05f;
+      this->camera_move_y_ += move_y * 0.05f;
+    }
 
-  if (this->camera_state_ == CAMERA_2D)
-  {
-    transform->SetX(this->camera_move_x_);
-    transform->SetY(this->camera_move_y_);
-    transform->SetEularAngles(TVec3f::zero);
-  }
-  else if (this->camera_state_ == CAMERA_3D)
-  {
-    TVec3f pos = TVec3f::zero;
-    const T_FLOAT rad = this->camera_move_x_ * Mathf::PI + Mathf::PI_1_2;
-    pos.x = cosf(rad);
-    pos.z = sinf(rad);
-    pos += transform->GetPosition();
+    if (this->camera_state_ == CAMERA_2D)
+    {
+      transform->SetX(this->camera_move_x_);
+      transform->SetY(this->camera_move_y_);
+      transform->SetEularAngles(TVec3f::zero);
+    }
+    else if (this->camera_state_ == CAMERA_3D)
+    {
+      TVec3f pos = TVec3f::zero;
+      const T_FLOAT rad = this->camera_move_x_ * Mathf::PI + Mathf::PI_1_2;
+      pos.x = cosf(rad);
+      pos.z = sinf(rad);
+      pos += transform->GetPosition();
 
-    transform->LookAt(pos, TVec3f::up);
-    transform->RotateX(this->camera_move_y_ * Mathf::PI);
-  }
-  else if (this->camera_state_ == CAMERA_3D_ANCHOR_CENTER)
-  {
+      transform->LookAt(pos, TVec3f::up);
+      transform->RotateX(this->camera_move_y_ * Mathf::PI);
+    }
+    else if (this->camera_state_ == CAMERA_3D_ANCHOR_CENTER)
+    {
 
-  }
+    }
 
-  if (fabs(move_z) != 0.0f)
-  {
-    transform->MoveZ(move_z * move_speed * 2.0f);
+    if (fabs(move_z) != 0.0f)
+    {
+      transform->MoveZ(move_z * move_speed * 2.0f);
+    }
   }
 
   ImGui::SetNextWindowPos(ImVec2(20.0f, 20.0f), ImGuiCond_Once);

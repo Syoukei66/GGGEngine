@@ -15,6 +15,7 @@ class InputAPI : public GGAPIObject
   // =================================================================
 public:
   virtual void InputProcess(const SharedRef<Activity>& activity, EngineInputState* state) = 0;
+  virtual void ApplyProcess(const SharedRef<Activity>& activity, EngineInputState* state) = 0;
   virtual void CreateSubActivityResources(const SharedRef<Activity>& activity) = 0;
 
 };

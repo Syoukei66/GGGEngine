@@ -1,6 +1,7 @@
 #pragma once
 
 #include "DirectInputDevice.h"
+#include <XInput.h>
 
 class DirectInputDevice_XInput : public DirectInputDevice
 {
@@ -17,8 +18,8 @@ public:
 public:
   virtual bool Init(const SharedRef<Activity>& activity, LPDIRECTINPUT8 input) override;
   virtual bool Uninit(LPDIRECTINPUT8 input) override;
-
   virtual void InputProcess(T_UINT8 handler, const SharedRef<Activity>& activity, EngineInputState* state) override;
+  virtual void ApplyProcess(T_UINT8 handler, const SharedRef<Activity>& activity, EngineInputState* state) override;
 
 private:
   T_UINT8 user_index_;
@@ -27,4 +28,6 @@ private:
   EngineInput::Analog::ID left_;
   EngineInput::Analog::ID right_;
   EngineInput::Analog::ID trigger_;
+
+  XINPUT_STATE xstate_;
 };

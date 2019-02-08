@@ -20,6 +20,7 @@ public:
   // =================================================================
 protected:
   virtual void InputProcess(const SharedRef<Activity>& activity, EngineInputState* state) override;
+  virtual void ApplyProcess(const SharedRef<Activity>& activity, EngineInputState* state) override;
   virtual void CreateSubActivityResources(const SharedRef<Activity>& activity) override;
 
   // =================================================================
