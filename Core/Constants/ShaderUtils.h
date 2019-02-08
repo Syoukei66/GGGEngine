@@ -461,14 +461,14 @@ static T_UINT32 AlignmentBufferSize(T_UINT32 size)
 /*!
  * @brief アライメントを考慮してバッファを進める
  */
-static T_UINT32 AddBufferCount(T_UINT32 current, T_UINT32 move)
+static T_UINT32 AlignmentBufferBegin(T_UINT32 current, T_UINT32 move)
 {
   // sizeが16の倍数のデータが与えられた時アライメント処理を行う
   if (move % 16 == 0)
   {
     current = AlignmentBufferSize(current);
   }
-  return current + move;
+  return current;
 }
 
 } // namespace Shader

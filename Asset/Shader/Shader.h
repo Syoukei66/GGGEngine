@@ -248,7 +248,7 @@ public:
 public:
   void AddBufferSize(T_UINT32 value)
   {
-    this->buffer_size_ = Shader::AddBufferCount(this->buffer_size_, value);
+    this->buffer_size_ = Shader::AlignmentBufferBegin(this->buffer_size_, value) + value;
   }
 
   void AlignmentBufferSize()
