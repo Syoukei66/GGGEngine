@@ -19,13 +19,13 @@ void MaterialData::CreateWithShader(const ShaderPropertyData& shader, T_UINT32 s
     MaterialPropertyData pdata = MaterialPropertyData();
     pdata.type_ = static_cast<T_FIXED_UINT8>(GetMaterialPropertyType(static_cast<VariableType>(data.variable_type_)));
     pdata.count_ = 1;
-    pdata.offset_ = data_offset;
+    pdata.offset_ = Shader::AlignmentBufferSize(data_offset);
     pdata.name_ = data.display_name_;
     dest->property_table_[data.name_] = pdata;
     // データの初期化
     VariableType type = static_cast<VariableType>(data.variable_type_);
     (*(T_FLOAT*)&dest->data_[data_offset]) = data.init_value_;
-    data_offset += (T_UINT32)Shader::GetVariableTypeSize(type);
+    data_offset = AddBufferCount(data_offset, (T_UINT32)Shader::GetVariableTypeSize(type));
   }
   for (const VectorPropertyData& data : shader.vector_properties_)
   {
@@ -33,7 +33,7 @@ void MaterialData::CreateWithShader(const ShaderPropertyData& shader, T_UINT32 s
     MaterialPropertyData pdata = MaterialPropertyData();
     pdata.type_ = static_cast<T_FIXED_UINT8>(GetMaterialPropertyType(static_cast<VariableType>(data.variable_type_)));
     pdata.count_ = 4;
-    pdata.offset_ = data_offset;
+    pdata.offset_ = Shader::AlignmentBufferSize(data_offset);
     pdata.name_ = data.display_name_;
     dest->property_table_[data.name_] = pdata;
     // データの初期化
@@ -42,7 +42,7 @@ void MaterialData::CreateWithShader(const ShaderPropertyData& shader, T_UINT32 s
     ((T_FLOAT*)&dest->data_[data_offset])[1] = data.init_value1_;
     ((T_FLOAT*)&dest->data_[data_offset])[2] = data.init_value2_;
     ((T_FLOAT*)&dest->data_[data_offset])[3] = data.init_value3_;
-    data_offset += (T_UINT32)Shader::GetVariableTypeSize(type) * 4;
+    data_offset = AddBufferCount(data_offset, (T_UINT32)Shader::GetVariableTypeSize(type) * 4);
   }
   for (const ColorPropertyData& data : shader.color_properties_)
   {
@@ -50,7 +50,7 @@ void MaterialData::CreateWithShader(const ShaderPropertyData& shader, T_UINT32 s
     MaterialPropertyData pdata = MaterialPropertyData();
     pdata.type_ = static_cast<T_FIXED_UINT8>(MaterialPropertyType::kColor);
     pdata.count_ = 1;
-    pdata.offset_ = data_offset;
+    pdata.offset_ = Shader::AlignmentBufferSize(data_offset);
     pdata.name_ = data.display_name_;
     dest->property_table_[data.name_] = pdata;
     // データの初期化
@@ -58,7 +58,7 @@ void MaterialData::CreateWithShader(const ShaderPropertyData& shader, T_UINT32 s
     ((T_FLOAT*)&dest->data_[data_offset])[1] = data.init_g_;
     ((T_FLOAT*)&dest->data_[data_offset])[2] = data.init_b_;
     ((T_FLOAT*)&dest->data_[data_offset])[3] = data.init_a_;
-    data_offset += (T_UINT32)Shader::GetVariableTypeSize(VariableType::kColor);
+    data_offset = AddBufferCount(data_offset, (T_UINT32)Shader::GetVariableTypeSize(VariableType::kColor));
   }
   T_UINT32 texture_offset = 0;
   dest->textures_.resize(shader.sampler_properties_.size());

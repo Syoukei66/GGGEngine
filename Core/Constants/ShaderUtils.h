@@ -445,4 +445,30 @@ static size_t GetMaterialPropertySize(MaterialPropertyType type)
   return 0;
 }
 
+/*!
+ * @brief 引数で与えられたバッファサイズを
+ * アライメントを考慮した値に変換する
+ */
+static T_UINT32 AlignmentBufferSize(T_UINT32 size)
+{
+  if (size % 16 != 0)
+  {
+    size += 16 - size % 16;
+  }
+  return size;
+}
+
+/*!
+ * @brief アライメントを考慮してバッファを進める
+ */
+static T_UINT32 AddBufferCount(T_UINT32 current, T_UINT32 move)
+{
+  // sizeが16の倍数のデータが与えられた時アライメント処理を行う
+  if (move % 16 == 0)
+  {
+    current = AlignmentBufferSize(current);
+  }
+  return current + move;
+}
+
 } // namespace Shader

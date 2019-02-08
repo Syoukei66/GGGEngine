@@ -243,6 +243,20 @@ public:
   {}
 
   // =================================================================
+  // Method
+  // =================================================================
+public:
+  void AddBufferSize(T_UINT32 value)
+  {
+    this->buffer_size_ = Shader::AddBufferCount(this->buffer_size_, value);
+  }
+
+  void AlignmentBufferSize()
+  {
+    this->buffer_size_ = Shader::AlignmentBufferSize(this->buffer_size_);
+  }
+
+  // =================================================================
   // Data Member
   // =================================================================
 public:
