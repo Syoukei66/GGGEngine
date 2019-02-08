@@ -318,6 +318,9 @@
     <ClInclude Include="GUI\MaterialEditView\MaterialEditView.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="IAssetConverterAddIn.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Director.cpp">

@@ -207,6 +207,7 @@
     <ClInclude Include="GUI\FileView\AssetEntityFileNode.h" />
     <ClInclude Include="GUI\HierarchyView\HierarchyNode.h" />
     <ClInclude Include="GUI\HierarchyView\HierarchyView.h" />
+    <ClInclude Include="IAssetConverterAddIn.h" />
     <ClInclude Include="GUI\MaterialEditView\MaterialEditView.h" />
     <ClInclude Include="ProgramGenerator\AssetProgramGenerator.h" />
     <ClInclude Include="ProgramGenerator\AssetProgramGenerator_identifier.h" />

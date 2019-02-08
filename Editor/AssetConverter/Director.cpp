@@ -26,7 +26,7 @@
 // =================================================================
 // Methods
 // =================================================================
-void AssetConverterDirector::Init()
+void AssetConverterDirector::Init(IAssetConverterAddIn* addin)
 {
   AssetConverterDirector* self = &Self();
 
@@ -82,6 +82,11 @@ void AssetConverterDirector::Init()
   self->context_->AddConverter(new StaticModelAssetConverter("StaticModel", "rcStaticModel", {"fbx", "x", "blend"}, 1, 1));
   self->context_->AddConverter(new CharacterModelAssetConverter("CharacterModel", "rcCharacterModel", {"dae"}, 1, 1));
 
+  if (addin)
+  {
+    addin->RegisterConverter(self->context_);
+  }
+
   // (4)
   // デフォルトアセットの登録
   using namespace DefaultAsset;
@@ -112,6 +117,11 @@ void AssetConverterDirector::Init()
 
   self->setting_->default_mesh_asset_converter_factory.Create(default_mesh_converter, self->context_);
   DefaultMaterialAssetEntityFactory::Create(default_material_converter, self->context_);
+
+  if (addin)
+  {
+    addin->RegisterDefaultAsset(self->context_);
+  }
 
   // (5)
   // デフォルトアセットのロード

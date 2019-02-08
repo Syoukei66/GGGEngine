@@ -3,6 +3,19 @@
 #include <Director.h>
 
 // =================================================================
+// Constructor / Destructor
+// =================================================================
+EngineBehavior::EngineBehavior(IAssetConverterAddIn* addin)
+  : addin_(addin)
+{
+}
+
+EngineBehavior::~EngineBehavior()
+{
+  delete this->addin_;
+}
+
+// =================================================================
 // Methods from IEngineBehavior
 // =================================================================
 void EngineBehavior::OnApplicationBegin()
@@ -15,7 +28,7 @@ void EngineBehavior::OnApplicationEnd()
 
 void EngineBehavior::OnGameBegin()
 {
-  AssetConverterDirector::Init();
+  AssetConverterDirector::Init(this->addin_);
   AssetConverterDirector::Fetch();
 }
 

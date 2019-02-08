@@ -2,6 +2,7 @@
 
 #include <Setting/Setting.h>
 #include <Converter/AssetConverterContext.h>
+#include "IAssetConverterAddIn.h"
 
 class AssetConverterDirector
 {
@@ -14,7 +15,7 @@ class AssetConverterDirector
   // Methods
   // =================================================================
 public:
-  static void Init();
+  static void Init(IAssetConverterAddIn* addin);
   static void Uninit();
   static void Fetch();
   static void Export();
