@@ -71,6 +71,14 @@ void EntryScene::Update(const ActivityContext& context)
     this->ShowViewer(this->selected_entity_);
     this->selected_entity_ = nullptr;
   }
+
+  this->elapsed_time_since_fetch_ += Application::GetUpdateEventState().GetDeltaTime();
+  if (this->elapsed_time_since_fetch_ > 5.0f)
+  {
+    this->context_->Fetch();
+    FileView::Init(this->context_);
+    this->elapsed_time_since_fetch_ = 0.0f;
+  }
 }
 
 // =================================================================

@@ -26,6 +26,9 @@ public:
   // Setter / Getter
   // =================================================================
 public:
+  /*!
+   * @brief Œo‰ßŽžŠÔ‚ð•Ô‚·B’PˆÊ‚Í•b
+   */
   GG_INLINE T_FLOAT GetDeltaTime() const
   {
     return this->delta_time_;

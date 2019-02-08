@@ -3,6 +3,7 @@
 #include <Scene/AssetViewer/AssetViewerBehavior.h>
 #include <Engine/Component/Renderer/MeshRenderer.h>
 #include <Scene/TestMesh/TestMesh.h>
+#include <GUI/MaterialEditView/MaterialEditView.h>
 
 class ShaderViewerBehavior : public AssetViewerBehavior
 {
@@ -27,5 +28,7 @@ public:
   // =================================================================
 private:
   SharedRef<TestMesh> obj_;
-  SharedRef<rcMaterial> material_;
+  std::vector<char> path_;
+  MaterialEditView material_edit_view_;
+
 };

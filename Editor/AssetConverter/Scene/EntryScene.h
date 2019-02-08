@@ -38,4 +38,6 @@ private:
   SharedRef<AssetEntity> selected_entity_;
   AssetConverterContext* context_;
 
+  T_FLOAT elapsed_time_since_fetch_;
+
 };
