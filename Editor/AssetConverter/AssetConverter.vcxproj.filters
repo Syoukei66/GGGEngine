@@ -324,6 +324,12 @@
     <ClInclude Include="Util\ImGuiUtil.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="GUI\TextureSelectScene\TextureSelectView.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\TextureSelectScene\TextureSelectScene.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Director.cpp">
@@ -497,5 +503,8 @@
     <ClCompile Include="Util\ImGuiUtil.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GUI\TextureSelectScene\TextureSelectScene.cpp" />
   </ItemGroup>
 </Project>

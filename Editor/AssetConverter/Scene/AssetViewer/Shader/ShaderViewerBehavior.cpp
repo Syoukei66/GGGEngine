@@ -45,6 +45,11 @@ void ShaderViewerBehavior::OnUpdate(const ActivityContext& activity_context)
 
   ImGui::Begin(activity_context, u8"マテリアル設定", 10.0f, 0.0f, 0.35f, 0.25f, 0.65f);
   this->material_edit_view_.EditWithImGui();
+  
+  ImGui::Spacing();
+  ImGui::Separator();
+  ImGui::Spacing();
+  
   ImGui::InputText(u8"出力パス", this->path_.data(), this->path_.size());
   if (ImGui::Button(u8"保存"))
   {
