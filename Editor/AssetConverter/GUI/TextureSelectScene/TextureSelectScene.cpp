@@ -36,8 +36,9 @@ void TextureSelectScene::Update(const ActivityContext& context)
 {
 }
 
-void TextureSelectScene::Run(const std::function<void(const SharedRef<rcTexture>& texture)>& callback)
+void TextureSelectScene::Run(const SharedRef<rcTexture>& current_texture, const std::function<void(const SharedRef<rcTexture>& texture)>& callback)
 {
+  this->current_texture_ = current_texture;
   this->callback_ = callback;
   const SharedRef<GameActivity>& activity = GameActivity::Create();
   ActivityOption op = ActivityOption();
