@@ -5,7 +5,6 @@
 // =================================================================
 GG_INIT_FUNC_IMPL(Scene)
 {
-  this->is_loaded_ = false;
   this->root2d_ = GameObject2D::Create("2d_root");
   this->root3d_ = GameObject3D::Create("3d_root");
   return true;
@@ -16,22 +15,20 @@ GG_INIT_FUNC_IMPL(Scene)
 // =================================================================
 void Scene::Load()
 {
-  if (this->is_loaded_)
+  if (this->load_count_ == 0)
   {
-    return;
+    this->OnLoad();
   }
-  this->OnLoad();
-  this->is_loaded_ = true;
+  ++this->load_count_;
 }
 
 void Scene::Unload()
 {
-  if (!this->is_loaded_)
+  --this->load_count_;
+  if (this->load_count_ == 0)
   {
-    return;
+    this->OnUnload();
   }
-  this->OnUnload();
-  this->is_loaded_ = false;
 }
 
 void Scene::Show()

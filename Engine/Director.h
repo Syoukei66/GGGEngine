@@ -15,13 +15,13 @@ class Director
   // Methods
   // =================================================================
 public:
-  static GG_INLINE void PushScene(const SharedRef<Scene>& next, bool load = true)
+  static GG_INLINE void PushScene(const SharedRef<Scene>& next)
   {
-    SharedRef<GameActivity>::StaticCast(Application::GetMainActivity())->PushScene(next, load);
+    SharedRef<GameActivity>::StaticCast(Application::GetMainActivity())->PushScene(next);
   }
-  static GG_INLINE void PopScene(bool unload = true)
+  static GG_INLINE void PopScene()
   {
-    SharedRef<GameActivity>::StaticCast(Application::GetMainActivity())->PopScene(unload);
+    SharedRef<GameActivity>::StaticCast(Application::GetMainActivity())->PopScene();
   }
   static GG_INLINE void ChangeScene(const SharedRef<Scene>& next)
   {

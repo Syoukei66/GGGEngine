@@ -23,14 +23,14 @@ protected:
   // Methods
   // =================================================================
 public:
-  GG_INLINE void PushScene(const SharedRef<Scene>& next, bool load = true)
+  GG_INLINE void PushScene(const SharedRef<Scene>& next)
   {
-    this->scene_manager_->PushScene(next, load);
+    this->scene_manager_->PushScene(next);
   }
 
-  GG_INLINE void PopScene(bool unload = true)
+  GG_INLINE void PopScene()
   {
-    this->scene_manager_->PopScene(unload);
+    this->scene_manager_->PopScene();
   }
 
   GG_INLINE void ChangeScene(const SharedRef<Scene>& next)

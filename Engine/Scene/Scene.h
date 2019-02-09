@@ -89,7 +89,9 @@ public:
   // Data Member
   // =================================================================
 private:
-  bool is_loaded_;
+  // ƒ[ƒh‚³‚ê‚½‰ñ”
+  T_UINT32 load_count_;
+
   bool is_shown_;
 
   SharedRef<GameObject2D> root2d_;

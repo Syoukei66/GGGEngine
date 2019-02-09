@@ -12,17 +12,15 @@ class SceneManager
 public:
   /*!
    * @brief 現在のSceneをSceneスタックに加えてSceneを切り替える
-   * Sceneのロード/アンロードは自動的に行われない
    */
-  void PushScene(const SharedRef<Scene>& next, bool load_current = true);
+  void PushScene(const SharedRef<Scene>& next);
 
   /*!
    * @brief 現在のSceneをSceneスタックに加えてSceneを切り替える
-   * Sceneのロード/アンロードは自動的に行われない
    */
-  void PopScene(bool unload_current = true);
+  void PopScene();
 
-  void ChangeScene(const SharedRef<Scene>& next, bool need_unload = true);
+  void ChangeScene(const SharedRef<Scene>& next);
   void ClearScene();
 
   void Update(const ActivityContext& context);
@@ -47,7 +45,6 @@ private:
    * @brief シーン遷移をアップデートのタイミングで行う為のバッファ
    */
   SharedRef<Scene> next_scene_;
-  bool unload_now_scene_;
 
   std::deque<SharedRef<Scene>> scene_stack_;
 };
