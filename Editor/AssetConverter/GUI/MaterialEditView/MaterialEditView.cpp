@@ -61,6 +61,12 @@ bool MaterialEditView::EditWithImGui()
     const MaterialPropertyData& data = pair.second;
     const std::string& name = data.name_;
     const MaterialPropertyType type = static_cast<MaterialPropertyType>(data.type_);
+
+    if (type == MaterialPropertyType::kTexture)
+    {
+      continue;
+    }
+
     unsigned char* p = &this->edit_data_.data_[data.offset_];
     switch (type)
     {
@@ -78,9 +84,6 @@ bool MaterialEditView::EditWithImGui()
       break;
     case MaterialPropertyType::kColor:
       this->is_updated_ |= ImGui::ColorEdit4(name.c_str(), ((TColor*)p)->data);
-      break;
-    case MaterialPropertyType::kTexture:
-      //this->is_updated_ |= ImGui::Checkbox(name.c_str(), (bool*)p);
       break;
     case MaterialPropertyType::DATANUM:
       break;
