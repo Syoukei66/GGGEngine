@@ -1,4 +1,17 @@
 #include "MaterialEditView.h"
+#include <Entity/AssetEntity.h>
+
+// =================================================================
+// Constructor / Destructor
+// =================================================================
+MaterialEditView::MaterialEditView()
+  : material_()
+  , is_master_()
+  , is_updated_()
+  , edit_data_()
+  , texture_select_scene_(TextureSelectScene::Create())
+{
+}
 
 // =================================================================
 // Methods
@@ -13,7 +26,6 @@ SharedRef<rcMaterial> MaterialEditView::CreateEditMaterial(const MaterialData& d
   this->edit_data_ = MaterialData();
   MaterialData::CreateWithShader(shader->GetPropertyData(), shader->GetUniqueId(), &this->edit_data_);
   // 古いデータに同じプロパティがあればそのまま使用する
-  this->edit_data_.main_texture_unique_id_ = old_data.main_texture_unique_id_;
   for (const auto& pair : old_data.property_table_)
   {
     const std::string& name = pair.first;
@@ -52,7 +64,7 @@ SharedRef<rcMaterial> MaterialEditView::CreateEditMaterial(const MaterialData& d
   return this->material_;
 }
 
-bool MaterialEditView::EditWithImGui()
+bool MaterialEditView::EditWithImGui(AssetConverterContext* context)
 {
   using namespace Shader;
   bool reload = false;
@@ -64,6 +76,14 @@ bool MaterialEditView::EditWithImGui()
 
     if (type == MaterialPropertyType::kTexture)
     {
+      ImGui::Separator();
+      const T_UINT32 texture_unique_id = this->edit_data_.textures_[data.offset_];
+      const std::string& filename = context->GetEntity(texture_unique_id)->GetMetaData()->GetURI().GetFileName();
+      const SharedRef<rcTexture>& texture = AssetManager::Load<rcTexture>(texture_unique_id);
+      if (ImGui::ImageButton(texture->GetTextureView()->GetImTextureID(), ImVec2(32, 32)))
+      {
+
+      }
       continue;
     }
 
@@ -131,7 +151,7 @@ void MaterialEditView::Update()
       this->SetMaterialProperty<TColor>(name, p.count_, p.offset_, GetMaterialPropertySize(type), data);
       break;
     case MaterialPropertyType::kTexture:
-      this->material_->GetTexture(name) = AssetManager::Load<rcTexture>(data->textures_[data->property_table_.at(name).offset_]);
+      this->material_->SetTexture(name, AssetManager::Load<rcTexture>(data->textures_[data->property_table_.at(name).offset_]));
       break;
     case MaterialPropertyType::DATANUM:
       break;

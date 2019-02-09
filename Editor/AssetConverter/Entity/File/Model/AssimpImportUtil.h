@@ -129,7 +129,7 @@ static SharedRef<AssetEntity> ImportMaterial(bool material_override, AssetMetaDa
   //}
   SharedRef<AssetEntity> tex_asset_entity = ImportTexture(source_meta_data->GetURI().GetDirectoryPath(), material, aiTextureType_DIFFUSE, 0, context);
   tex_asset_entity->Load(context);
-  data->main_texture_unique_id_ = tex_asset_entity->GetMetaData()->GetUniqueID();
+  data->textures_[data->property_table_[Shader::MAIN_TEXTURE_NAME].offset_] = tex_asset_entity->GetMetaData()->GetUniqueID();
 
   //TODO:プロパティのインポート処理
 

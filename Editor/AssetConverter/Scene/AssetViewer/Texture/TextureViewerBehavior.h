@@ -20,7 +20,7 @@ public:
   virtual void OnEnd() override;
   virtual void OnLoad(T_UINT32 unique_id) override;
   virtual void OnUnload() override;
-  virtual void OnUpdate(const ActivityContext& activity_context) override;
+  virtual void OnUpdate(const ActivityContext& activity_context, AssetConverterContext* context) override;
   
   // =================================================================
   // Data Members

@@ -35,7 +35,7 @@ void MaterialViewerBehavior::OnUnload()
 {
 }
 
-void MaterialViewerBehavior::OnUpdate(const ActivityContext& activity_context)
+void MaterialViewerBehavior::OnUpdate(const ActivityContext& activity_context, AssetConverterContext* context)
 {
   this->obj_->EditWithImGUI(activity_context);
   MaterialAssetConverterSetting* setting = static_cast<MaterialAssetConverterSetting*>(this->GetEntity()->GetMetaData()->GetConverterSetting().get());

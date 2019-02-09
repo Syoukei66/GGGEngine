@@ -9,7 +9,7 @@ class Camera2D : public Camera
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_INIT_FUNC_1(Camera2D, GameObject*);
+  GG_CREATE_FUNC_1(Camera2D, GameObject*);
 
   // =================================================================
   // Methods for/from SuperClass/Interfaces

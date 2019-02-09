@@ -43,7 +43,7 @@ void CharacterModelViewerBehavior::OnUnload()
   this->root_ = nullptr;
 }
 
-void CharacterModelViewerBehavior::OnUpdate(const ActivityContext& activity_context)
+void CharacterModelViewerBehavior::OnUpdate(const ActivityContext& activity_context, AssetConverterContext* context)
 {
   HierarchyView::EditWithImGUI(activity_context);
 }

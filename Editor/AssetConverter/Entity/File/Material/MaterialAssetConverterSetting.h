@@ -45,7 +45,7 @@ public:
   // Methods from ConverterSetting
   // =================================================================
 protected:
-  virtual bool EditWithImGuiProcess() override;
+  virtual bool EditWithImGuiProcess(AssetConverterContext* context) override;
 
   // =================================================================
   // Data Members

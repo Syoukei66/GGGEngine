@@ -63,6 +63,10 @@ public:
   {
     return this->resource_;
   }
+  GG_INLINE SharedRef<const rcTextureView> GetTextureView() const
+  {
+    return this->view_;
+  }
 
   GG_INLINE T_UINT16 GetWidth() const
   {

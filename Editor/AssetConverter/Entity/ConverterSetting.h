@@ -4,6 +4,8 @@
 #include "URI.h"
 #include <Engine/GameObject/Transform/Transform3D.h>
 
+class AssetConverterContext;
+
 /*!
  * Converterの設定。
  */
@@ -45,9 +47,9 @@ public:
   /*!
    * @brief ImGUIを使ってデータを編集する
    */
-  inline void EditWithImGui()
+  inline void EditWithImGui(AssetConverterContext* context)
   {
-    this->is_dirty_ |= this->EditWithImGuiProcess();
+    this->is_dirty_ |= this->EditWithImGuiProcess(context);
   }
 
   /*!
@@ -75,7 +77,7 @@ protected:
    * @brief ImGUIを使ってデータを編集する処理を記述する。
    * @return データに変更があった場合true
    */
-  virtual bool EditWithImGuiProcess() = 0;
+  virtual bool EditWithImGuiProcess(AssetConverterContext* context) = 0;
 
   // =================================================================
   // Setter / Getter

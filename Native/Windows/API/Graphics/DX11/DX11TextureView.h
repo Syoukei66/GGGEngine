@@ -19,6 +19,7 @@ public:
   // =================================================================
 public:
   virtual void SetToHardware(T_UINT8 index) const override;
+  virtual ImTextureID GetImTextureID() const override;
 
   // =================================================================
   // Data Members

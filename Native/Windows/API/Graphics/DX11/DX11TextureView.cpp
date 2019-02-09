@@ -80,4 +80,9 @@ void DX11TextureView::SetToHardware(T_UINT8 index) const
   context->PSSetSamplers(index, 1, &this->sampler_state_);
 }
 
+ImTextureID DX11TextureView::GetImTextureID() const
+{
+  return (ImTextureID)this->resource_view_;
+}
+
 #endif

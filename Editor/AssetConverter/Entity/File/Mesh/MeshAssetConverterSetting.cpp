@@ -3,7 +3,7 @@
 // =================================================================
 // Methods from ConverterSetting
 // =================================================================
-bool MeshAssetConverterSetting::EditWithImGuiProcess()
+bool MeshAssetConverterSetting::EditWithImGuiProcess(AssetConverterContext* context)
 {
   return false;
 }

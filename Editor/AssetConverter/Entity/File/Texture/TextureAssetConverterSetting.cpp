@@ -28,7 +28,7 @@ static std::vector<const char*> ADDRESS =
 // =================================================================
 // Methods from ConverterSetting
 // =================================================================
-bool TextureAssetConverterSetting::EditWithImGuiProcess()
+bool TextureAssetConverterSetting::EditWithImGuiProcess(AssetConverterContext* context)
 {
   bool reload = false;
   ImGui::Combo(u8"‰æ‘œÅ‘åƒTƒCƒY", &this->selected_size, TEXTURE_MAX_SIZES.data(), (int)TEXTURE_MAX_SIZES.size());

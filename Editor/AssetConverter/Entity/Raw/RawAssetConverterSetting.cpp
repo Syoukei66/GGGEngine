@@ -3,7 +3,7 @@
 // =================================================================
 // Methods from ConverterSetting
 // =================================================================
-bool RawAssetConverterSetting::EditWithImGuiProcess()
+bool RawAssetConverterSetting::EditWithImGuiProcess(AssetConverterContext* context)
 {
   return false;
 }

@@ -44,8 +44,6 @@ struct MaterialData
   {
     archive(shader_unique_id_);
 
-    archive(main_texture_unique_id_);
-
     archive(property_table_);
     archive(data_);
     archive(textures_);
@@ -60,8 +58,6 @@ struct MaterialData
   // =================================================================
 public:
   T_FIXED_UINT32 shader_unique_id_;
-
-  T_FIXED_UINT32 main_texture_unique_id_;
 
   std::unordered_map<std::string, MaterialPropertyData> property_table_;
   std::vector<unsigned char> data_;
@@ -108,15 +104,6 @@ public:
     return this->shader_;
   }
 
-  GG_INLINE void SetMainTexture(const SharedRef<const rcTexture>& texture)
-  {
-    this->main_texture_ = texture;
-  }
-  GG_INLINE SharedRef<const rcTexture> GetMainTexture() const
-  {
-    return this->main_texture_;
-  }
-
   GG_INLINE T_UINT32 GetDataHandle(const std::string& property_name, T_UINT8 index) const
   {
     return this->property_table_.at(property_name).offset_ +
@@ -129,15 +116,21 @@ public:
 
   // プロパティの取得
   template <class Type_>
-  GG_INLINE Type_& GetProperty(const std::string& property_name, T_UINT8 index = 0)
+  GG_INLINE void SetProperty(const std::string& property_name, T_UINT8 index, const Type_& value)
   {
-    return this->GetProperty<Type_>(this->GetDataHandle(property_name, index));
+    this->SetProperty<Type_>(this->GetDataHandle(property_name, index), value);
   }
   template <class Type_>
-  GG_INLINE Type_& GetProperty(T_UINT32 handle)
+  GG_INLINE void SetProperty(const std::string& property_name, const Type_& value)
   {
-    return (*(Type_*)&this->data_[handle]);
+    this->SetProperty<Type_>(this->GetDataHandle(property_name, 0), value);
   }
+  template <class Type_>
+  GG_INLINE void SetProperty(T_UINT32 handle, const Type_& value)
+  {
+    (*(Type_*)&this->data_.at(handle)) = value;
+  }
+
   template <class Type_>
   GG_INLINE const Type_& GetProperty(const std::string& property_name, T_UINT8 index = 0) const
   {
@@ -150,14 +143,15 @@ public:
   }
 
   // テクスチャプロパティの取得
-  GG_INLINE SharedRef<const rcTexture>& GetTexture(const std::string& property_name)
+  GG_INLINE void SetTexture(const std::string& property_name, const SharedRef<const rcTexture>& texture)
   {
-    return this->GetTexture(this->GetTextureHandle(property_name));
+    this->SetTexture(this->GetTextureHandle(property_name), texture);
   }
-  GG_INLINE SharedRef<const rcTexture>& GetTexture(T_UINT32 handle)
+  GG_INLINE void SetTexture(T_UINT32 handle, const SharedRef<const rcTexture>& texture)
   {
-    return this->textures_[handle];
+    this->textures_.at(handle) = texture;
   }
+
   GG_INLINE const SharedRef<const rcTexture>& GetTexture(const std::string& property_name) const
   {
     return this->GetTexture(this->GetTextureHandle(property_name));
@@ -172,8 +166,6 @@ public:
   // =================================================================
 protected:
   SharedRef<rcShader> shader_;
-
-  SharedRef<const rcTexture> main_texture_;
 
   // シェーダープロパティ
   std::unordered_map<std::string, MaterialPropertyData> property_table_;

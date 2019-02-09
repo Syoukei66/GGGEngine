@@ -27,14 +27,14 @@ void TextureViewerBehavior::OnLoad(T_UINT32 unique_id)
 {
   const SharedRef<Renderer>& renderer = this->obj_->GetComponent<Renderer>();
   renderer->SetMaterial(AssetManager::Load<rcMaterial>(DefaultUniqueID::MATERIAL_UNLIT)->Clone());
-  renderer->GetMaterial()->SetMainTexture(AssetManager::Load<rcTexture>(unique_id));
+  renderer->GetMaterial()->SetTexture(Shader::MAIN_TEXTURE_NAME, AssetManager::Load<rcTexture>(unique_id));
 }
 
 void TextureViewerBehavior::OnUnload()
 {
 }
 
-void TextureViewerBehavior::OnUpdate(const ActivityContext& activity_context)
+void TextureViewerBehavior::OnUpdate(const ActivityContext& activity_context, AssetConverterContext* context)
 {
   this->obj_->EditWithImGUI(activity_context);
 }

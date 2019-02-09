@@ -3,7 +3,7 @@
 // =================================================================
 // Methods from ConverterSetting
 // =================================================================
-bool MaterialAssetConverterSetting::EditWithImGuiProcess()
+bool MaterialAssetConverterSetting::EditWithImGuiProcess(AssetConverterContext* context)
 {
-  return this->editor.EditWithImGui();
+  return this->editor.EditWithImGui(context);
 }

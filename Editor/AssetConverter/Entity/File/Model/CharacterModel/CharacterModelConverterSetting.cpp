@@ -3,7 +3,7 @@
 // =================================================================
 // Methods
 // =================================================================
-bool CharacterModelAssetConverterSetting::EditWithImGuiProcess()
+bool CharacterModelAssetConverterSetting::EditWithImGuiProcess(AssetConverterContext* context)
 {
   return false;
 }

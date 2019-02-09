@@ -25,7 +25,7 @@ public:
   virtual void OnEnd() = 0;
   virtual void OnLoad(T_UINT32 unique_id) = 0;
   virtual void OnUnload() = 0;
-  virtual void OnUpdate(const ActivityContext& activity_context) {};
+  virtual void OnUpdate(const ActivityContext& activity_context, AssetConverterContext* context) {};
 
   // =================================================================
   // Setter / Getter

@@ -3,7 +3,7 @@
 // =================================================================
 // Methods from ConverterSetting
 // =================================================================
-bool StaticModelAssetConverterSetting::EditWithImGuiProcess()
+bool StaticModelAssetConverterSetting::EditWithImGuiProcess(AssetConverterContext* context)
 {
   return false;
 }

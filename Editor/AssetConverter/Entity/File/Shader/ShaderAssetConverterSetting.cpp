@@ -3,7 +3,7 @@
 // =================================================================
 // Methods from ConverterSetting
 // =================================================================
-bool ShaderAssetConverterSetting::EditWithImGuiProcess()
+bool ShaderAssetConverterSetting::EditWithImGuiProcess(AssetConverterContext* context)
 {
   return false;
 }

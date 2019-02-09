@@ -2,6 +2,9 @@
 
 namespace Shader
 {
+
+static const char* MAIN_TEXTURE_NAME = "_MainTex";
+
 /*!
  * @brief ‘g‚İ‚İ•Ï”
  */

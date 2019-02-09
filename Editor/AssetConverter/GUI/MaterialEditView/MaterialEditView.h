@@ -1,13 +1,22 @@
 #pragma once
 
+#include <GUI/TextureSelectScene/TextureSelectScene.h>
+#include <Converter/AssetConverterContext.h>
+
 class MaterialEditView
 {
+  // =================================================================
+  // Constructor / Destructor
+  // =================================================================
+public:
+  MaterialEditView();
+
   // =================================================================
   // Methods
   // =================================================================
 public:
   SharedRef<rcMaterial> CreateEditMaterial(const MaterialData& data);
-  bool EditWithImGui();
+  bool EditWithImGui(AssetConverterContext* context);
   void Update();
 
 private:
@@ -16,7 +25,7 @@ private:
   {
     for (T_UINT8 i = 0; i < count; ++i)
     {
-      this->material_->GetProperty<Type_>(name, i) = *(Type_*)&data->data_[offset + size * i];
+      this->material_->SetProperty<Type_>(name, i, *(Type_*)&data->data_[offset + size * i]);
     }
   }
 
@@ -50,5 +59,7 @@ private:
    */
   bool is_updated_;
   MaterialData edit_data_;
+
+  SharedRef<TextureSelectScene> texture_select_scene_;
 
 };

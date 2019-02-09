@@ -110,12 +110,6 @@ GG_INIT_FUNC_IMPL_1(rcMaterial, const MaterialData& data)
     AssetManager::Load<rcShader>(DefaultUniqueID::SHADER_NO_SHADING)
   ;
 
-  this->SetMainTexture(
-    data.main_texture_unique_id_ != 0 ?
-    AssetManager::Load<rcTexture>(data.main_texture_unique_id_) :
-    AssetManager::Load<rcTexture>(DefaultUniqueID::TEXTURE_WHITE)
-  );
-
   return true;
 }
 
@@ -132,7 +126,6 @@ GG_INIT_FUNC_IMPL_1(rcMaterial, const rcMaterial& o)
   this->property_table_ = o.property_table_;
   this->data_ = o.data_;
   this->textures_ = o.textures_;
-  this->main_texture_ = o.main_texture_;
 
   this->constant_buffer_ = rcConstantBuffer::Create(
     Shader::ConstantBufferId::kProperty,
@@ -166,9 +159,8 @@ void rcMaterial::SetBuffer() const
   this->constant_buffer_->SetBuffer();
   const T_UINT32 texture_count = (T_UINT32)this->textures_.size();
 
-  this->main_texture_->SetToHardware(0);
   for (T_UINT32 i = 0; i < texture_count; ++i)
   {
-    this->textures_[i]->SetToHardware(i + 1);
+    this->textures_[i]->SetToHardware(i);
   }
 }

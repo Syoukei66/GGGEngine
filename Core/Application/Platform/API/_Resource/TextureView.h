@@ -75,5 +75,6 @@ public:
   // =================================================================
 public:
   virtual void SetToHardware(T_UINT8 index) const = 0;
+  virtual ImTextureID GetImTextureID() const = 0;
 
 };

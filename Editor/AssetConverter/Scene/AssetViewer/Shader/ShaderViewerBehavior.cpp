@@ -38,13 +38,13 @@ void ShaderViewerBehavior::OnUnload()
 {
 }
 
-void ShaderViewerBehavior::OnUpdate(const ActivityContext& activity_context)
+void ShaderViewerBehavior::OnUpdate(const ActivityContext& activity_context, AssetConverterContext* context)
 {
   this->obj_->EditWithImGUI(activity_context);
   this->material_edit_view_.Update();
 
   ImGui::Begin(activity_context, u8"ƒ}ƒeƒŠƒAƒ‹Ý’è", 10.0f, 0.0f, 0.35f, 0.25f, 0.65f);
-  this->material_edit_view_.EditWithImGui();
+  this->material_edit_view_.EditWithImGui(context);
   
   ImGui::Spacing();
   ImGui::Separator();
