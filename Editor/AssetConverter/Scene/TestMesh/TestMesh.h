@@ -15,7 +15,7 @@ class TestMesh : public GameObject3D
   // Methods
   // =================================================================
 public:
-  void EditWithImGUI();
+  void EditWithImGUI(const ActivityContext& context);
 
 private:
   void Load();

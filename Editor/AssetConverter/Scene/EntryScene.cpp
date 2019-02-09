@@ -9,7 +9,6 @@
 #include <Native/Windows/Activity/WindowActivityContext.h>
 #include <Scene/AssetViewer/AssetViewerScene.h>
 
-
 // =================================================================
 // GGG Statement
 // =================================================================
@@ -43,11 +42,7 @@ void EntryScene::OnHide()
 
 void EntryScene::Update(const ActivityContext& context)
 {
-  ImGui::SetNextWindowPos(ImVec2(20.0f, 20.0f), ImGuiSetCond_Once);
-  ImGui::SetNextWindowSize(ImVec2(200.0f, 400.0f), ImGuiSetCond_Once);
-
-  ImGui::Begin("EntryMenu");
-
+  ImGui::Begin(context, u8"EntryMenu", 10.0f, 0.0f, 0.0f, 0.2f, 0.5f);
   if (ImGui::Button(u8"エクスポート"))
   {
     AssetConverterDirector::Export();
@@ -57,7 +52,7 @@ void EntryScene::Update(const ActivityContext& context)
     AssetConverterDirector::CreateProgram();
   }
 
-  const SharedRef<AssetEntity>& selected = FileView::SelectWithImGUI();
+  const SharedRef<AssetEntity>& selected = FileView::SelectWithImGUI(context);
   
   if (selected)
   {
@@ -66,7 +61,7 @@ void EntryScene::Update(const ActivityContext& context)
 
   ImGui::End();
 
-  if (AssetEntityView::ShowEntity(this->selected_entity_))
+  if (AssetEntityView::ShowEntity(context, this->selected_entity_))
   {
     this->ShowViewer(this->selected_entity_);
     this->selected_entity_ = nullptr;

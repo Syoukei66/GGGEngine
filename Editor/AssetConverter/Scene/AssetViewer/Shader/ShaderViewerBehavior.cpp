@@ -38,14 +38,12 @@ void ShaderViewerBehavior::OnUnload()
 {
 }
 
-void ShaderViewerBehavior::OnUpdate()
+void ShaderViewerBehavior::OnUpdate(const ActivityContext& activity_context)
 {
-  this->obj_->EditWithImGUI();
+  this->obj_->EditWithImGUI(activity_context);
   this->material_edit_view_.Update();
 
-  ImGui::SetNextWindowPos(ImVec2(20, 250), ImGuiCond_Once);
-  ImGui::SetNextWindowSize(ImVec2(350, 450), ImGuiCond_Once);
-  ImGui::Begin(u8"マテリアル設定");
+  ImGui::Begin(activity_context, u8"マテリアル設定", 10.0f, 0.0f, 0.35f, 0.25f, 0.65f);
   this->material_edit_view_.EditWithImGui();
   ImGui::InputText(u8"出力パス", this->path_.data(), this->path_.size());
   if (ImGui::Button(u8"保存"))

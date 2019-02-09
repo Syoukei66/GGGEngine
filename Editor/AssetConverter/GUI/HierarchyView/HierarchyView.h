@@ -17,7 +17,7 @@ public:
   static void StartViewer(Scene* scene);
   static void EndViewer();
 
-  static void EditWithImGUI();
+  static void EditWithImGUI(const ActivityContext& activity_context);
 
   // =================================================================
   // Data Members

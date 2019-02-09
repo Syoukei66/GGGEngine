@@ -18,7 +18,7 @@ class IViewerBehavior : public GGObject
 public:
   virtual void Start(Scene* scene, AssetConverterContext* context) = 0;
   virtual void End() = 0;
-  virtual bool Update(AssetConverterContext* context) = 0;
+  virtual bool Update(const ActivityContext& activity_context, AssetConverterContext* context) = 0;
   virtual SharedRef<AssetEntity> GetEntity() const = 0;
 };
 

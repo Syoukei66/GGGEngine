@@ -230,6 +230,7 @@
     <ClInclude Include="Scene\TestMesh\TestMesh.h" />
     <ClInclude Include="Util\FileUtil.h" />
     <ClInclude Include="Converter\AssetConverterContext.h" />
+    <ClInclude Include="Util\ImGuiUtil.h" />
     <ClInclude Include="Util\Logger.h" />
     <ClInclude Include="Util\MeshBuilder\MeshBuilder.h" />
     <ClInclude Include="Util\MeshBuilder\MeshBuilder_Capsule.h" />
@@ -290,6 +291,7 @@
     <ClCompile Include="Scene\AssetViewer\Texture\TextureViewerBehavior.cpp" />
     <ClCompile Include="Scene\TestMesh\TestMesh.cpp" />
     <ClCompile Include="Util\FileUtil.cpp" />
+    <ClCompile Include="Util\ImGuiUtil.cpp" />
     <ClCompile Include="Util\Logger.cpp" />
     <ClCompile Include="Util\MeshBuilder\MeshBuilder_Capsule.cpp" />
     <ClCompile Include="Util\MeshBuilder\MeshBuilder_Cube.cpp" />

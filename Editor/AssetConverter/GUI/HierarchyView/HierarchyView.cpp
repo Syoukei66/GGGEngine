@@ -18,14 +18,11 @@ void HierarchyView::EndViewer()
   self->selected_ = nullptr;
 }
 
-void HierarchyView::EditWithImGUI()
+void HierarchyView::EditWithImGUI(const ActivityContext& activity_context)
 {
   HierarchyView* self = &Self();
 
-  ImGui::SetNextWindowPos(ImVec2(Application::GetMainActivity()->GetContext().GetScreenWidth() - 250.0f - 20.0f, 20.0f), ImGuiSetCond_Once);
-  ImGui::SetNextWindowSize(ImVec2(250.0f, 600.0f), ImGuiSetCond_Once);
-
-  ImGui::Begin("Hierarchy");
+  ImGui::Begin(activity_context, u8"Hierarchy", 10.0f, 0.75f, 0.0f, 0.25f, 1.0f);
 
   T_UINT32 id = 0;
 

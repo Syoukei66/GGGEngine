@@ -34,7 +34,7 @@ void TextureViewerBehavior::OnUnload()
 {
 }
 
-void TextureViewerBehavior::OnUpdate()
+void TextureViewerBehavior::OnUpdate(const ActivityContext& activity_context)
 {
-  this->obj_->EditWithImGUI();
+  this->obj_->EditWithImGUI(activity_context);
 }

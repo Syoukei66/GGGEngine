@@ -35,9 +35,9 @@ void MaterialViewerBehavior::OnUnload()
 {
 }
 
-void MaterialViewerBehavior::OnUpdate()
+void MaterialViewerBehavior::OnUpdate(const ActivityContext& activity_context)
 {
-  this->obj_->EditWithImGUI();
+  this->obj_->EditWithImGUI(activity_context);
   MaterialAssetConverterSetting* setting = static_cast<MaterialAssetConverterSetting*>(this->GetEntity()->GetMetaData()->GetConverterSetting().get());
   setting->editor.Update();
 }

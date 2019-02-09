@@ -15,7 +15,7 @@ class AssetViewerBehavior : public IViewerBehavior
 public:
   virtual void Start(Scene* scene, AssetConverterContext* context) override;
   virtual void End() override;
-  virtual bool Update(AssetConverterContext* context) override;
+  virtual bool Update(const ActivityContext& activity_context, AssetConverterContext* context) override;
 
   // =================================================================
   // Methods
@@ -25,7 +25,7 @@ public:
   virtual void OnEnd() = 0;
   virtual void OnLoad(T_UINT32 unique_id) = 0;
   virtual void OnUnload() = 0;
-  virtual void OnUpdate() {};
+  virtual void OnUpdate(const ActivityContext& activity_context) {};
 
   // =================================================================
   // Setter / Getter

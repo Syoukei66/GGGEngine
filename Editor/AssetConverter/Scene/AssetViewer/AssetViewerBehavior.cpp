@@ -17,11 +17,9 @@ void AssetViewerBehavior::End()
   this->OnEnd();
 }
 
-bool AssetViewerBehavior::Update(AssetConverterContext* context)
+bool AssetViewerBehavior::Update(const ActivityContext& activity_context, AssetConverterContext* context)
 {
-  ImGui::SetNextWindowPos(ImVec2(20, 250), ImGuiCond_Once);
-  ImGui::SetNextWindowSize(ImVec2(350, 450), ImGuiCond_Once);
-  ImGui::Begin(u8"インポート設定");
+  ImGui::Begin(activity_context, u8"インポート設定", 10.0f, 0.0f, 0.35f, 0.25f, 0.65f);
   this->entity_->GetMetaData()->GetConverterSetting()->EditWithImGui();
   ImGui::End();
 
@@ -32,6 +30,6 @@ bool AssetViewerBehavior::Update(AssetConverterContext* context)
     this->OnLoad(this->entity_->GetMetaData()->GetUniqueID());
     reloaded = true;
   }
-  this->OnUpdate();
+  this->OnUpdate(activity_context);
   return reloaded;
 }

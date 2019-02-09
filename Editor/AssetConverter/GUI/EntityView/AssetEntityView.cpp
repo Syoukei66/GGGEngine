@@ -5,15 +5,13 @@
 // =================================================================
 // Methods
 // =================================================================
-bool AssetEntityView::ShowEntity(const SharedRef<AssetEntity>& entity)
+bool AssetEntityView::ShowEntity(const ActivityContext& context, const SharedRef<AssetEntity>& entity)
 {
   if (!entity)
   {
     return false;
   }
-  ImGui::SetNextWindowPos(ImVec2(240.0f, 20.0f), ImGuiSetCond_Once);
-  ImGui::SetNextWindowSize(ImVec2(640.0f, 480.0f), ImGuiSetCond_Once);
-  ImGui::Begin("Entity Datas");
+  ImGui::Begin(context, u8"EntityDatas", 10.0f, 0.21f, 0.0f, 0.53f, 1.0f);
 
   const AssetMetaData* meta = entity->GetMetaData();
   const URI& uri = meta->GetURI();

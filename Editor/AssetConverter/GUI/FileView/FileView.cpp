@@ -20,14 +20,11 @@ void FileView::Uninit()
   self->root_ = nullptr;
 }
 
-SharedRef<AssetEntity> FileView::SelectWithImGUI()
+SharedRef<AssetEntity> FileView::SelectWithImGUI(const ActivityContext& context)
 {
   FileView* self = &Self();
 
-  ImGui::SetNextWindowPos(ImVec2(Application::GetMainActivity()->GetContext().GetScreenWidth() - 250.0f - 20.0f, 20.0f), ImGuiSetCond_Once);
-  ImGui::SetNextWindowSize(ImVec2(250.0f, 600.0f), ImGuiSetCond_Once);
-
-  ImGui::Begin("FileView");
+  ImGui::Begin(context, u8"FileView", 10.0f, 0.75f, 0.0f, 0.25f, 1.0f);
   const SharedRef<AssetEntity>& entity = self->root_->SelectWithImGUI();
   ImGui::End();
 

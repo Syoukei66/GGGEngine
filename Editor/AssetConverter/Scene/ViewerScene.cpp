@@ -58,7 +58,7 @@ void ViewerScene::OnHide()
 
 void ViewerScene::Update(const ActivityContext& context)
 {
-  if (this->current_behavior_->Update(this->current_context_))
+  if (this->current_behavior_->Update(context, this->current_context_))
   {
     this->entry_scene_->OnReload();
   }
@@ -123,10 +123,7 @@ void ViewerScene::Update(const ActivityContext& context)
     }
   }
 
-  ImGui::SetNextWindowPos(ImVec2(20.0f, 20.0f), ImGuiCond_Once);
-  ImGui::SetNextWindowSize(ImVec2(200.0f, 200.0f), ImGuiCond_Once);
-
-  ImGui::Begin(u8"メニュー");
+  ImGui::Begin(context, u8"メニュー", 10.0f, 0.0f, 0.0f, 0.25f, 0.325f);
   ImGui::SliderFloat(u8"カメラ移動速度", &this->move_speed_, 0.0f, 1.0f);
   ImGui::SliderFloat(u8"カメラ移動速度倍率", &this->move_speed_weight_, 0.0f, 5.0f);
 

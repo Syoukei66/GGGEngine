@@ -60,11 +60,9 @@ GG_INIT_FUNC_IMPL(TestMesh)
 // =================================================================
 // Methods
 // =================================================================
-void TestMesh::EditWithImGUI()
+void TestMesh::EditWithImGUI(const ActivityContext& context)
 {
-  ImGui::SetNextWindowPos(ImVec2(1000, 20), ImGuiCond_Once);
-  ImGui::SetNextWindowSize(ImVec2(260, 200), ImGuiCond_Once);
-  ImGui::Begin(u8"メッシュ設定");
+  ImGui::Begin(context, u8"メッシュ設定", 10.0f, 0.75f, 0.0f, 0.25f, 0.2f);
   ImGui::Combo(u8"メッシュタイプ", &this->mesh_mode_, MESH_MODES.data(), MESH_MODES.size());
   if (ImGui::Button(u8"適用"))
   {
