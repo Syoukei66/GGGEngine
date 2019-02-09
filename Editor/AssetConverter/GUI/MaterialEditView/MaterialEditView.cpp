@@ -76,14 +76,18 @@ bool MaterialEditView::EditWithImGui(AssetConverterContext* context)
 
     if (type == MaterialPropertyType::kTexture)
     {
-      ImGui::Separator();
       const T_UINT32 texture_unique_id = this->edit_data_.textures_[data.offset_];
-      const std::string& filename = context->GetEntity(texture_unique_id)->GetMetaData()->GetURI().GetFileName();
+      const std::string& filename = "(" + context->GetEntity(texture_unique_id)->GetMetaData()->GetURI().GetFileName() + ")";
       const SharedRef<rcTexture>& texture = AssetManager::Load<rcTexture>(texture_unique_id);
-      if (ImGui::ImageButton(texture->GetTextureView()->GetImTextureID(), ImVec2(32, 32)))
+      if (ImGui::ImageButton(texture->GetTextureView()->GetImTextureID(), ImVec2(16, 16)))
       {
 
       }
+      ImGui::SameLine();
+      ImGui::AlignFirstTextHeightToWidgets();
+      ImGui::Text(filename.c_str());
+      ImGui::SameLine();
+      ImGui::Text(name.c_str());
       continue;
     }
 
