@@ -25,7 +25,7 @@ public:
   // Methods from Scene
   // =================================================================
 public:
-  void Run(const SharedRef<rcTexture>& current_texture, const AssetConverterContext* context, const std::function<void(const SharedRef<rcTexture>& texture)>& callback);
+  void Run(const SharedRef<rcTexture>& current_texture, AssetConverterContext* context, const std::function<void(const SharedRef<rcTexture>& texture)>& callback);
 
   // =================================================================
   // Data Members
@@ -36,7 +36,6 @@ private:
 
   SharedRef<GameObject2D> camera_;
   std::map<T_UINT32, SharedRef<GameObject3D>> images_;
-
-  const AssetConverterContext* asset_converter_context_;
+  std::unordered_map<T_UINT32, SharedRef<rcTexture>> textures_;
 
 };

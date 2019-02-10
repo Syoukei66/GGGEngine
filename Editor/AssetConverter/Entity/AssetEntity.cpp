@@ -230,7 +230,12 @@ void AssetEntity::SetData(IAssetDataContainer* data)
   this->is_need_commit_ = true;
 }
 
-AssetConverter* AssetEntity::GetConverter(AssetConverterContext* context)
+AssetConverter* AssetEntity::GetConverter(AssetConverterContext* context) const
 {
-  return context->GetConverter(this->meta_data_->GetConverterSetting()->GetConverterID());
+  const std::unique_ptr<ConverterSetting>& setting = this->meta_data_->GetConverterSetting();
+  if (!setting)
+  {
+    return nullptr;
+  }
+  return context->GetConverter(setting->GetConverterID());
 }

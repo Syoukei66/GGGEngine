@@ -60,7 +60,7 @@ public:
    * @param dest 受取先
    * @param cond 条件
    */
-  void GetEntities(std::vector<SharedRef<AssetEntity>>* dest, const std::function<bool(const SharedRef<AssetEntity>&)>& cond);
+  void GetEntities(std::deque<SharedRef<AssetEntity>>* dest, const std::function<bool(const SharedRef<AssetEntity>&)>& cond) const;
 
   /*!
    * @brief URIからUniqueIdを発行する。URIはランタイム時のURIに変換される。

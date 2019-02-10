@@ -134,7 +134,7 @@ SharedRef<AssetEntity> AssetConverterContext::GetEntity(T_UINT32 unique_id)
   return this->asset_entities_.at(unique_id);
 }
 
-void AssetConverterContext::GetEntities(std::vector<SharedRef<AssetEntity>>* dest, const std::function<bool(const SharedRef<AssetEntity>&)>& cond)
+void AssetConverterContext::GetEntities(std::deque<SharedRef<AssetEntity>>* dest, const std::function<bool(const SharedRef<AssetEntity>&)>& cond) const
 {
   for (const auto& pair : this->asset_entities_)
   {

@@ -1,5 +1,7 @@
 #include "TextureSelectScene.h"
+#include <Converter/AssetConverter.h>
 #include <Converter/AssetConverterContext.h>
+#include <Entity/AssetEntity.h>
 
 // =================================================================
 // GGG Statement
@@ -27,7 +29,6 @@ void TextureSelectScene::OnUnload()
 
 void TextureSelectScene::OnShow()
 {
-  //this->asset_converter_context_->GetEntity();
 }
 
 void TextureSelectScene::OnHide()
@@ -38,11 +39,27 @@ void TextureSelectScene::Update(const ActivityContext& context)
 {
 }
 
-void TextureSelectScene::Run(const SharedRef<rcTexture>& current_texture, const AssetConverterContext* context, const std::function<void(const SharedRef<rcTexture>& texture)>& callback)
+void TextureSelectScene::Run(const SharedRef<rcTexture>& current_texture, AssetConverterContext* context, const std::function<void(const SharedRef<rcTexture>& texture)>& callback)
 {
-  this->asset_converter_context_ = context;
   this->current_texture_ = current_texture;
   this->callback_ = callback;
+
+  // 現在AssetConverterContextが管理しているテクスチャを全て取得する
+  std::deque<SharedRef<AssetEntity>> entities = std::deque<SharedRef<AssetEntity>>();
+  context->GetEntities(&entities, [&](const SharedRef<AssetEntity>& entity)
+  {
+    AssetConverter* converter = entity->GetConverter(context);
+    return converter ? converter->IsTargetAsset<rcTexture>() : false;
+  });
+  this->textures_.clear();
+  for (const SharedRef<AssetEntity>& entity : entities)
+  {
+    const T_UINT32 unique_id = entity->GetMetaData()->GetUniqueID();
+    entity->Load(context);
+    this->textures_[unique_id] = AssetManager::Load<rcTexture>(unique_id);
+  }
+
+  // アクティビティを作成する
   const SharedRef<GameActivity>& activity = GameActivity::Create();
   ActivityOption op = ActivityOption();
   op.activity_name = "テクスチャ選択";

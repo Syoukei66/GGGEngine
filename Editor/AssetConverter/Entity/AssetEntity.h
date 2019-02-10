@@ -120,14 +120,8 @@ public:
     return this->data_;
   }
 
-  AssetConverter* GetConverter(AssetConverterContext* context);
+  AssetConverter* GetConverter(AssetConverterContext* context) const;
   
-  template <class Asset_>
-  bool IsTargetAsset() const
-  {
-    return this->GetConverter()->IsTargetAsset<Asset_>();
-  }
-
   // =================================================================
   // Data Members
   // =================================================================

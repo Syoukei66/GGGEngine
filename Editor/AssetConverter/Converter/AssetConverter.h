@@ -99,7 +99,7 @@ public:
   template <class Asset_>
   bool IsTargetAsset() const
   {
-    return this->IsTargetAsset(Asset_::GetObjectName());
+    return this->IsTargetAsset(Asset_::ObjectName());
   }
 
 protected:
