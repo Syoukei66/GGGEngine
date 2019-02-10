@@ -88,7 +88,7 @@ void AssetConverterDirector::Init(IAssetConverterAddIn* addin)
   }
 
   // (4)
-  // デフォルトアセットの登録
+  // デフォルトアセットの登録 / ロード
   using namespace DefaultAsset;
   self->context_->RegisterDefaultUniqueID(SHADER_ERRROR, SHADER_PATH_ERROR);
 
@@ -103,6 +103,17 @@ void AssetConverterDirector::Init(IAssetConverterAddIn* addin)
   self->context_->RegisterDefaultUniqueID(SHADER_NO_SHADING, SHADER_PATH_WHITE);
   self->context_->RegisterDefaultUniqueID(SHADER_FRESNEL, SHADER_PATH_WHITE);
 
+  self->context_->RegisterDefaultUniqueID(TEXTURE_WHITE, TEXTURE_PATH_WHITE);
+
+  self->Fetch();
+  for (const auto& pair : self->unique_id_table_->GetDefaultAssetUniqueIdTable())
+  {
+    const SharedRef<AssetEntity>& entity = self->context_->GetEntity(pair.second);
+    entity->Load(self->context_);
+  }
+
+  // (5)
+  // ビルトインデフォルトアセットの登録 / ロード
   self->context_->RegisterDefaultUniqueID(MESH_CUBE, MESH_PATH_CUBE);
   self->context_->RegisterDefaultUniqueID(MESH_PLANE, MESH_PATH_PLANE);
   self->context_->RegisterDefaultUniqueID(MESH_CAPSULE, MESH_PATH_CAPSULE);
@@ -113,18 +124,23 @@ void AssetConverterDirector::Init(IAssetConverterAddIn* addin)
   self->context_->RegisterDefaultUniqueID(MATERIAL_LAMBERT, MATERIAL_PATH_LAMBERT);
   self->context_->RegisterDefaultUniqueID(MATERIAL_UNLIT, MATERIAL_PATH_UNLIT);
 
-  self->context_->RegisterDefaultUniqueID(TEXTURE_WHITE, TEXTURE_PATH_WHITE);
-
   self->setting_->default_mesh_asset_converter_factory.Create(default_mesh_converter, self->context_);
   DefaultMaterialAssetEntityFactory::Create(default_material_converter, self->context_);
 
+  self->Fetch();
+  for (const auto& pair : self->unique_id_table_->GetDefaultAssetUniqueIdTable())
+  {
+    const SharedRef<AssetEntity>& entity = self->context_->GetEntity(pair.second);
+    entity->Load(self->context_);
+  }
+
+  // (6)
+  // アドインデフォルトアセットの登録 / ロード
   if (addin)
   {
     addin->RegisterDefaultAsset(self->context_);
   }
 
-  // (5)
-  // デフォルトアセットのロード
   self->Fetch();
   for (const auto& pair : self->unique_id_table_->GetDefaultAssetUniqueIdTable())
   {

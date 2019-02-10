@@ -2,6 +2,7 @@
 #include <Converter/AssetConverter.h>
 #include <Converter/AssetConverterContext.h>
 #include <Entity/AssetEntity.h>
+#include <Engine/Component/Renderer/MeshRenderer.h>
 
 // =================================================================
 // GGG Statement
@@ -29,6 +30,16 @@ void TextureSelectScene::OnUnload()
 
 void TextureSelectScene::OnShow()
 {
+  for (const auto& pair : this->textures_)
+  {
+    const SharedRef<GameObject3D>& obj = GameObject3D::Create();
+    const SharedRef<MeshRenderer>& renderer = obj->AddComponent<MeshRenderer>();
+    const SharedRef<rcMaterial>& material = AssetManager::Load<rcMaterial>(DefaultUniqueID::MATERIAL_UNLIT);
+    material->SetTexture(Shader::MAIN_TEXTURE_NAME, pair.second);
+    renderer->SetMaterial(material);
+    renderer->SetMesh(AssetManager::Load<rcMesh>(DefaultUniqueID::MESH_UV_SPHERE));
+    this->AddChild(obj);
+  }
 }
 
 void TextureSelectScene::OnHide()

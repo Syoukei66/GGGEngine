@@ -9,22 +9,35 @@ void DefaultMaterialAssetEntityFactory::Create(AssetConverter* converter, AssetC
   using namespace DefaultAsset;
   using namespace DefaultUniqueID;
 
-  MaterialData* lambert = new MaterialData();
-  lambert->shader_unique_id_ = SHADER_GOURAUD;
-  AssetMetaData* lambert_meta = AssetMetaData::Create(MATERIAL_PATH_LAMBERT, converter, context);
-  lambert_meta->GetConverterSetting()->AddSubAsset(lambert->shader_unique_id_);
-  context->AddEntity(AssetEntity::Create(lambert_meta, lambert));
-
-  MaterialData* unlit = new MaterialData();
-  unlit->shader_unique_id_ = SHADER_FLAT;
-  AssetMetaData* unlit_meta = AssetMetaData::Create(MATERIAL_PATH_UNLIT, converter, context);
-  unlit_meta->GetConverterSetting()->AddSubAsset(unlit->shader_unique_id_);
-  context->AddEntity(AssetEntity::Create(unlit_meta, unlit));
-    
-  MaterialData* white = new MaterialData();
-  white->shader_unique_id_ = SHADER_NO_SHADING;
-  AssetMetaData* white_meta = AssetMetaData::Create(MATERIAL_PATH_WHITE, converter, context);
-  white_meta->GetConverterSetting()->AddSubAsset(white->shader_unique_id_);
-  context->AddEntity(AssetEntity::Create(white_meta, white));
+  // Gouraud
+  {
+    const SharedRef<AssetEntity>& shader = context->GetEntity(SHADER_GOURAUD);
+    const T_UINT32 shader_uid = shader->GetMetaData()->GetUniqueID();
+    MaterialData* mat = new MaterialData();
+    MaterialData::CreateWithShader(shader->GetData<ShaderData>()->properties_, shader_uid, mat);
+    AssetMetaData* meta = AssetMetaData::Create(MATERIAL_PATH_LAMBERT, converter, context);
+    meta->GetConverterSetting()->AddSubAsset(mat->shader_unique_id_);
+    context->AddEntity(AssetEntity::Create(meta, mat));
+  }
+  // Flat
+  {
+    const SharedRef<AssetEntity>& shader = context->GetEntity(SHADER_FLAT);
+    const T_UINT32 shader_uid = shader->GetMetaData()->GetUniqueID();
+    MaterialData* mat = new MaterialData();
+    MaterialData::CreateWithShader(shader->GetData<ShaderData>()->properties_, shader_uid, mat);
+    AssetMetaData* meta = AssetMetaData::Create(MATERIAL_PATH_UNLIT, converter, context);
+    meta->GetConverterSetting()->AddSubAsset(mat->shader_unique_id_);
+    context->AddEntity(AssetEntity::Create(meta, mat));
+  }
+  // NoShading
+  {
+    const SharedRef<AssetEntity>& shader = context->GetEntity(SHADER_NO_SHADING);
+    const T_UINT32 shader_uid = shader->GetMetaData()->GetUniqueID();
+    MaterialData* mat = new MaterialData();
+    MaterialData::CreateWithShader(shader->GetData<ShaderData>()->properties_, shader_uid, mat);
+    AssetMetaData* meta = AssetMetaData::Create(MATERIAL_PATH_WHITE, converter, context);
+    meta->GetConverterSetting()->AddSubAsset(mat->shader_unique_id_);
+    context->AddEntity(AssetEntity::Create(meta, mat));
+  }
 
 }
