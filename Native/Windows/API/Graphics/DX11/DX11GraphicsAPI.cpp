@@ -203,6 +203,8 @@ void DX11GraphicsAPI::CreateSubActivityResources(const SharedRef<Activity>& acti
 {
   HWND hwnd = (HWND)activity->GetContext().GetActivityID();
   this->swap_chain_desc_.OutputWindow = hwnd;
+  this->swap_chain_desc_.BufferDesc.Width = activity->GetContext().GetOption().window_size.width;
+  this->swap_chain_desc_.BufferDesc.Height = activity->GetContext().GetOption().window_size.height;
   this->factory_->CreateSwapChain(
     this->device_,
     &this->swap_chain_desc_,
