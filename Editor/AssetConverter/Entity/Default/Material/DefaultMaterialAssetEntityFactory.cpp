@@ -12,6 +12,7 @@ void DefaultMaterialAssetEntityFactory::Create(AssetConverter* converter, AssetC
   // Gouraud
   {
     const SharedRef<AssetEntity>& shader = context->GetEntity(SHADER_GOURAUD);
+    shader->Load(context);
     const T_UINT32 shader_uid = shader->GetMetaData()->GetUniqueID();
     MaterialData* mat = new MaterialData();
     MaterialData::CreateWithShader(shader->GetData<ShaderData>()->properties_, shader_uid, mat);
@@ -22,6 +23,7 @@ void DefaultMaterialAssetEntityFactory::Create(AssetConverter* converter, AssetC
   // Flat
   {
     const SharedRef<AssetEntity>& shader = context->GetEntity(SHADER_FLAT);
+    shader->Load(context);
     const T_UINT32 shader_uid = shader->GetMetaData()->GetUniqueID();
     MaterialData* mat = new MaterialData();
     MaterialData::CreateWithShader(shader->GetData<ShaderData>()->properties_, shader_uid, mat);
@@ -32,6 +34,7 @@ void DefaultMaterialAssetEntityFactory::Create(AssetConverter* converter, AssetC
   // NoShading
   {
     const SharedRef<AssetEntity>& shader = context->GetEntity(SHADER_NO_SHADING);
+    shader->Load(context);
     const T_UINT32 shader_uid = shader->GetMetaData()->GetUniqueID();
     MaterialData* mat = new MaterialData();
     MaterialData::CreateWithShader(shader->GetData<ShaderData>()->properties_, shader_uid, mat);
