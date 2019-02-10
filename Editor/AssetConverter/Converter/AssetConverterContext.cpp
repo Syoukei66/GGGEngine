@@ -134,6 +134,17 @@ SharedRef<AssetEntity> AssetConverterContext::GetEntity(T_UINT32 unique_id)
   return this->asset_entities_.at(unique_id);
 }
 
+void AssetConverterContext::GetEntities(std::vector<SharedRef<AssetEntity>>* dest, const std::function<bool(const SharedRef<AssetEntity>&)>& cond)
+{
+  for (const auto& pair : this->asset_entities_)
+  {
+    if (cond(pair.second))
+    {
+      dest->emplace_back(pair.second);
+    }
+  }
+}
+
 T_UINT32 AssetConverterContext::PublishUniqueID(const URI& uri)
 {
   return this->unique_id_table_->Publish(FileUtil::CreateRuntimeAssetPath(uri));

@@ -56,6 +56,13 @@ public:
   SharedRef<AssetEntity> GetEntity(T_UINT32 unique_id);
 
   /*!
+   * @brief 条件を満たすAssetEntityを全て取得する
+   * @param dest 受取先
+   * @param cond 条件
+   */
+  void GetEntities(std::vector<SharedRef<AssetEntity>>* dest, const std::function<bool(const SharedRef<AssetEntity>&)>& cond);
+
+  /*!
    * @brief URIからUniqueIdを発行する。URIはランタイム時のURIに変換される。
    * 既に発行済みのURIが来た場合は発行済みの値を返す。
    * @param uri エディタでのURI
