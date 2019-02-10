@@ -21,7 +21,7 @@ public:
   void PopScene();
 
   void ChangeScene(const SharedRef<Scene>& next);
-  void ClearScene();
+  void ClearScene(const ActivityContext& context);
 
   void Update(const ActivityContext& context);
   void Draw(const ActivityContext& context);

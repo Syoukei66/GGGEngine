@@ -1,6 +1,7 @@
 #include "Camera.h"
 
 #include <Engine/GameObject/GameObjectRenderState.h>
+#include <Engine/Scene/Scene.h>
 
 // =================================================================
 // GGG Statement
@@ -14,6 +15,7 @@ GG_INIT_FUNC_IMPL_1(Camera, GameObject* obj)
   this->z_max_ = 1.0f;
   this->render_state_ = new GameObjectRenderState(this);
   this->bg_color_ = TColor::BLACK;
+  this->projection_dirty_ = true;
   return GameComponent::Init(obj);
 }
 
@@ -36,20 +38,6 @@ void Camera::DrawScene(const ActivityContext& context, Scene* scene)
   //{
   //  this->target_texture_->RenderBegin();
   //}
-  this->SetupCamera();
-  if (this->viewport_clear_)
-  {
-    Application::GetPlatform()->GetGraphicsAPI()->ViewportClear(context, this->bg_color_);
-  }
-  this->OnDrawScene(scene);
-  //if (this->target_texture_)
-  //{
-  //  this->target_texture_->RenderEnd();
-  //}
-}
-
-void Camera::SetupCamera()
-{
   Application::GetPlatform()->Platform::GetGraphicsAPI()->SetViewport(
     this->position_.x,
     this->position_.y,
@@ -58,11 +46,38 @@ void Camera::SetupCamera()
     this->z_min_,
     this->z_max_
   );
+  if (this->viewport_clear_)
+  {
+    Application::GetPlatform()->GetGraphicsAPI()->ViewportClear(context, this->bg_color_);
+  }
+  this->render_state_->Init();
+  scene->DrawLayers(this->render_state_);
+  this->render_state_->Draw();
+  //if (this->target_texture_)
+  //{
+  //  this->target_texture_->RenderEnd();
+  //}
 }
 
 // =================================================================
 // Setter / Getter
 // =================================================================
+const Matrix4x4& Camera::GetViewMatrix() const
+{
+  const_cast<Camera*>(this)->UpdateViewMatrix();
+  return this->view_matrix_;
+}
+
+const Matrix4x4& Camera::GetProjectionMatrix() const
+{
+  if (this->projection_dirty_)
+  {
+    const_cast<Camera*>(this)->UpdateProjectionMatrix();
+    const_cast<Camera*>(this)->projection_dirty_ = false;
+  }
+  return this->projection_matrix_;
+}
+
 void Camera::SetViewportPosition(const TVec2f& position)
 {
   if (this->position_ == position)

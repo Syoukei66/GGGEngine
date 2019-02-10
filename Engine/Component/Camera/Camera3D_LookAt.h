@@ -14,24 +14,14 @@ class Camera3D_LookAt : public Camera3D
   // =================================================================
   // Methods for/from SuperClass/Interfaces
   // =================================================================
-public:
-  virtual const Matrix4x4& GetViewMatrix() const override;
-
 protected:
-  virtual void SetupCamera() override;
+  virtual void UpdateViewMatrix() override;
 
   // =================================================================
   // Methods
   // =================================================================
 public:
-  void CheckViewDirty();
   void Update();
-
-private:
-  GG_INLINE void OnViewChanged()
-  {
-    this->view_dirty_ = true;
-  }
 
   // =================================================================
   // Setter / Getter
@@ -93,15 +83,11 @@ public:
   // Data Member
   // =================================================================
 private:
-  Matrix4x4 view_matrix_;
-
   TVec3f look_at_pos_;
   TVec3f current_look_at_pos_;
 
   GameObject* target_;
   TVec3f target_direction_;
   T_FLOAT target_lerp_t_;
-
-  bool view_dirty_;
 
 };

@@ -44,10 +44,10 @@ public:
   // Methods from Scene
   // =================================================================
 public:
-  virtual void OnLoad() override;
-  virtual void OnUnload() override;
-  virtual void OnShow() override;
-  virtual void OnHide() override;
+  virtual void OnLoad(const ActivityContext& context) override;
+  virtual void OnUnload(const ActivityContext& context) override;
+  virtual void OnShow(const ActivityContext& context) override;
+  virtual void OnHide(const ActivityContext& context) override;
   virtual void Update(const ActivityContext& context) override;
 
   // =================================================================
@@ -58,7 +58,7 @@ private:
 
   AssetConverterContext* current_context_;
   SharedRef<IViewerBehavior> current_behavior_;
-  SharedRef<GameObject> camera_3d_;
+  SharedRef<GameObject> camera_;
   SharedRef<GameObject> camera_target_;
   T_FLOAT camera_move_x_;
   T_FLOAT camera_move_y_;

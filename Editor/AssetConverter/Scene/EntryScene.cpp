@@ -22,21 +22,21 @@ GG_INIT_FUNC_IMPL_1(EntryScene, AssetConverterContext* context)
 // =================================================================
 // Methods from Scene
 // =================================================================
-void EntryScene::OnLoad()
+void EntryScene::OnLoad(const ActivityContext& context)
 {
 }
 
-void EntryScene::OnUnload()
+void EntryScene::OnUnload(const ActivityContext& context)
 {
 }
 
-void EntryScene::OnShow()
+void EntryScene::OnShow(const ActivityContext& context)
 {
   this->context_->Fetch();
   FileView::Init(this->context_);
 }
 
-void EntryScene::OnHide()
+void EntryScene::OnHide(const ActivityContext& context)
 {
   FileView::Uninit();
 }

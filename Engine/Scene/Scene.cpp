@@ -12,41 +12,41 @@ GG_INIT_FUNC_IMPL(Scene)
 // =================================================================
 // Methods
 // =================================================================
-void Scene::Load()
+void Scene::Load(const ActivityContext& context)
 {
   if (this->load_count_ == 0)
   {
-    this->OnLoad();
+    this->OnLoad(context);
   }
   ++this->load_count_;
 }
 
-void Scene::Unload()
+void Scene::Unload(const ActivityContext& context)
 {
   --this->load_count_;
   if (this->load_count_ == 0)
   {
-    this->OnUnload();
+    this->OnUnload(context);
   }
 }
 
-void Scene::Show()
+void Scene::Show(const ActivityContext& context)
 {
   if (this->is_shown_)
   {
     return;
   }
-  this->OnShow();
+  this->OnShow(context);
   this->is_shown_ = true;
 }
 
-void Scene::Hide()
+void Scene::Hide(const ActivityContext& context)
 {
   if (!this->is_shown_)
   {
     return;
   }
-  this->OnHide();
+  this->OnHide(context);
   this->is_shown_ = false;
 }
 

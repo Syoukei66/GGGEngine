@@ -15,11 +15,11 @@ class Scene : public GGObject
   // Methods
   // =================================================================
 public:
-  void Load();
-  void Unload();
+  void Load(const ActivityContext& context);
+  void Unload(const ActivityContext& context);
 
-  void Show();
-  void Hide();
+  void Show(const ActivityContext& context);
+  void Hide(const ActivityContext& context);
 
   void Draw(const ActivityContext& context);
   void DrawLayers(GameObjectRenderState* state);
@@ -57,11 +57,11 @@ public:
   void OnUpdateEvent(const ActivityContext& context);
 
 protected:
-  virtual void OnLoad() = 0;
-  virtual void OnUnload() = 0;
+  virtual void OnLoad(const ActivityContext& context) = 0;
+  virtual void OnUnload(const ActivityContext& context) = 0;
 
-  virtual void OnShow() = 0;
-  virtual void OnHide() = 0;
+  virtual void OnShow(const ActivityContext& context) = 0;
+  virtual void OnHide(const ActivityContext& context) = 0;
 
   // =================================================================
   // Setter / Getter

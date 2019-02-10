@@ -17,10 +17,10 @@ class EntryScene : public Scene
   // Methods from Scene
   // =================================================================
 public:
-  virtual void OnLoad() override;
-  virtual void OnUnload() override;
-  virtual void OnShow() override;
-  virtual void OnHide() override;
+  virtual void OnLoad(const ActivityContext& context) override;
+  virtual void OnUnload(const ActivityContext& context) override;
+  virtual void OnShow(const ActivityContext& context) override;
+  virtual void OnHide(const ActivityContext& context) override;
   virtual void Update(const ActivityContext& context) override;
 
   // =================================================================

@@ -3,8 +3,12 @@
 #include <Converter/AssetConverterContext.h>
 #include <Entity/AssetEntity.h>
 #include <Engine/Component/Renderer/MeshRenderer.h>
-#include <Engine/Component/Camera/Camera2D.h>
 #include <Engine/GameActivity.h>
+#include <Engine/GameObject/GameObjectRenderState.h>
+
+#include <Engine/Component/Camera/Camera2D.h>
+#include <Engine/Component/Camera/Camera3D_LookAt.h>
+#include <Engine/Component/Camera/Camera3D.h>
 
 // =================================================================
 // GGG Statement
@@ -17,20 +21,26 @@ GG_INIT_FUNC_IMPL(TextureSelectScene)
 // =================================================================
 // Methods from Scene
 // =================================================================
-void TextureSelectScene::OnLoad()
+void TextureSelectScene::OnLoad(const ActivityContext& context)
 {
   this->camera_ = GameObject::Create();
-  this->camera_->AddComponent<Camera2D>();
-  this->AddChild(this->camera_);
+  const SharedRef<Camera>& camera = this->camera_->AddComponent<Camera2D>();
+  camera->SetViewportClear(true);
+  camera->SetBgColor(TColor::RED);
+  camera->SetViewportWidth(context.GetOption().window_size.width);
+  camera->SetViewportHeight(context.GetOption().window_size.height);
+  this->AddCamera(camera);
+  this->camera_->GetTransform()->SetZ(-10.0f);
+  //this->AddChild(this->camera_);
 }
 
-void TextureSelectScene::OnUnload()
+void TextureSelectScene::OnUnload(const ActivityContext& context)
 {
   this->ClearChildren();
   this->camera_ = nullptr;
 }
 
-void TextureSelectScene::OnShow()
+void TextureSelectScene::OnShow(const ActivityContext& context)
 {
   for (const auto& pair : this->textures_)
   {
@@ -39,12 +49,13 @@ void TextureSelectScene::OnShow()
     const SharedRef<rcMaterial>& material = AssetManager::Load<rcMaterial>(DefaultUniqueID::MATERIAL_UNLIT);
     material->SetTexture(Shader::MAIN_TEXTURE_NAME, pair.second);
     renderer->SetMaterial(material);
-    renderer->SetMesh(AssetManager::Load<rcMesh>(DefaultUniqueID::MESH_UV_SPHERE));
+    renderer->SetMesh(AssetManager::Load<rcMesh>(DefaultUniqueID::MESH_PLANE));
+    obj->GetTransform()->SetScale(100.0f);
     this->AddChild(obj);
   }
 }
 
-void TextureSelectScene::OnHide()
+void TextureSelectScene::OnHide(const ActivityContext& context)
 {
 }
 
@@ -78,7 +89,7 @@ void TextureSelectScene::Run(const SharedRef<rcTexture>& current_texture, AssetC
   op.activity_name = "テクスチャ選択";
   op.resize_window = false;
   op.sub_window = true;
-  op.window_size = TVec2f(200.0f, 600.0f);
+  op.window_size = TVec2f(1200.0f, 600.0f);
   Application::StartActivity(activity, op);
   activity->ChangeScene(SharedRef<Scene>(this));
 }

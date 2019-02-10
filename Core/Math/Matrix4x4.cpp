@@ -32,8 +32,8 @@ Matrix4x4 Matrix4x4::Ortho(T_FLOAT width, T_FLOAT height, T_FLOAT z_near, T_FLOA
   Matrix4x4 ret = Matrix4x4::zero;
   ret(0, 0) = 2.0f / width;
   ret(1, 1) = 2.0f / height;
-  ret(2, 2) = -2.0f / (z_far - z_near);
-  ret(2, 3) = -(z_far + z_near) / (z_far - z_near);
+  ret(2, 2) = 1.0f / (z_far - z_near);
+  ret(2, 3) = z_near / (z_near - z_far);
   ret(3, 3) = 1.0f;
   return Matrix4x4(ret);
 }
@@ -43,10 +43,10 @@ Matrix4x4 Matrix4x4::Ortho(T_FLOAT left, T_FLOAT right, T_FLOAT bottom, T_FLOAT 
   Matrix4x4 ret = Matrix4x4::zero;
   ret(0, 0) = 2.0f / (right - left);
   ret(1, 1) = 2.0f / (top - bottom);
-  ret(2, 2) = -2.0f / (z_far - z_near);
-  ret(0, 3) = -(right + left) / (right - left);
-  ret(1, 3) = -(top + bottom) / (top - bottom);
-  ret(2, 3) = -(z_far + z_near) / (z_far - z_near);
+  ret(2, 2) = 1.0f / (z_far - z_near);
+  ret(0, 3) = (left + right) / (left - right);
+  ret(1, 3) = (top + bottom) / (bottom - top);
+  ret(2, 3) = z_near / (z_near - z_far);
   ret(3, 3) = 1.0f;
   return Matrix4x4(ret);
 }
@@ -102,11 +102,11 @@ Matrix4x4 Matrix4x4::Inverse() const
 
   for (T_UINT8 i = 0; i < 4; i++)
   {
-    buf = 1.0 / ret.m[i][i];
+    buf = 1.0 / a.m[i][i];
     for (T_UINT8 j = 0; j < 4; j++)
     {
       a.m[i][j] = (T_FLOAT)(a.m[i][j] * buf);
-      ret.m[i][j] = (T_FLOAT)(a.m[i][j] * buf);
+      ret.m[i][j] = (T_FLOAT)(ret.m[i][j] * buf);
     }
     for (T_UINT8 j = 0; j < 4; j++)
     {

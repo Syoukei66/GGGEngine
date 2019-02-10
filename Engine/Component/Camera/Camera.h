@@ -22,18 +22,37 @@ public:
   void DrawScene(const ActivityContext& context, Scene* scene);
 
   virtual bool FrustumCulling(const TVec3f& positive, const TVec3f& negative, T_INT8* first_index = nullptr) const = 0;
-  virtual const Matrix4x4& GetViewMatrix() const = 0;
-  virtual const Matrix4x4& GetProjectionMatrix() const = 0;
 
 protected:
-  virtual void SetupCamera();
-  virtual void OnViewportChanged() {}
-  virtual void OnDrawScene(Scene* scene) = 0;
+  virtual void UpdateViewMatrix() = 0;
+  virtual void UpdateProjectionMatrix() = 0;
+
+  GG_INLINE void OnViewportChanged()
+  {
+    this->projection_dirty_ = true;
+  }
+
+  GG_INLINE void OnProjectionChanged()
+  {
+    this->projection_dirty_ = true;
+  }
 
   // =================================================================
   // Setter / Getter
   // =================================================================
 public:
+  const Matrix4x4& GetViewMatrix() const;
+  const Matrix4x4& GetProjectionMatrix() const;
+
+  GG_INLINE Transform* GetTransform()
+  {
+    return this->GetObject()->GetTransform();
+  }
+  GG_INLINE const Transform* GetTransform() const
+  {
+    return this->GetObject()->GetTransform();
+  }
+
   //ビューポート領域をクリアしてから描画するかのフラグ
   GG_INLINE void SetViewportClear(bool clear)
   {
@@ -135,6 +154,9 @@ protected:
   GameObjectRenderState* render_state_;
   TVec3f direction_;
 
+  Matrix4x4 projection_matrix_;
+  Matrix4x4 view_matrix_;
+
 private:
   //SharedRef<rcRenderTexture> target_texture_;
   bool viewport_clear_;
@@ -142,5 +164,7 @@ private:
   TVec2f size_;
   T_FLOAT z_min_, z_max_;
   TColor bg_color_;
+
+  bool projection_dirty_;
 
 };

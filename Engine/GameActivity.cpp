@@ -10,7 +10,7 @@ void GameActivity::OnStart()
 
 void GameActivity::OnEnd()
 {
-  this->scene_manager_->ClearScene();
+  this->scene_manager_->ClearScene(this->GetContext());
   delete this->scene_manager_;
   this->scene_manager_ = nullptr;
 }

@@ -9,35 +9,14 @@ GG_INIT_FUNC_IMPL_1(Camera3D_LookAt, GameObject* obj)
   this->current_look_at_pos_ = TVec3f::forward;
   this->target_lerp_t_ = 0.5f;
   this->target_direction_ = TVec3f::forward;
-  this->view_dirty_ = true;
   return Camera3D::Init(obj);
 }
 
 // =================================================================
 // Methods for/from SuperClass/Interfaces
 // =================================================================
-const Matrix4x4& Camera3D_LookAt::GetViewMatrix() const
+void Camera3D_LookAt::UpdateViewMatrix()
 {
-  const_cast<Camera3D_LookAt*>(this)->CheckViewDirty();
-  return this->view_matrix_;
-}
-
-void Camera3D_LookAt::SetupCamera()
-{
-  this->OnViewChanged();
-  Camera3D::SetupCamera();
-}
-
-// =================================================================
-// Methods
-// =================================================================
-void Camera3D_LookAt::CheckViewDirty()
-{
-  if (!this->view_dirty_)
-  {
-    return;
-  }
-
   this->view_matrix_ = Matrix4x4::identity;
   if (this->target_)
   {
@@ -70,20 +49,22 @@ void Camera3D_LookAt::CheckViewDirty()
   {
     this->current_look_at_pos_ = this->look_at_pos_;
 
-    const TVec3f camera_pos = this->GetObject()->GetTransform()->GetWorldMatrix().GetPosition3d();
-    TVec3f look_at_pos = this->look_at_pos_;
-    look_at_pos = this->GetObject()->GetTransform()->GetWorldMatrix() * look_at_pos;
+    const Matrix4x4& world = this->GetTransform()->GetWorldMatrix();
+    const TVec3f camera_pos = world.GetPosition3d();
+    const TVec3f look_at_pos = world * this->look_at_pos_;
     this->direction_ = (look_at_pos - camera_pos).Normalized();
     this->view_matrix_ = Matrix4x4::LookAt(
       camera_pos,
       look_at_pos,
-      this->GetObject()->GetTransform()->GetWorldMatrix().GetCameraYVec()
+      world.GetCameraYVec()
     );
   }
-
-  this->view_dirty_ = false;
+  this->UpdateBillboardMatrix();
 }
 
+// =================================================================
+// Methods
+// =================================================================
 void Camera3D_LookAt::Update()
 {
   if (this->target_)
@@ -102,7 +83,6 @@ void Camera3D_LookAt::SetLookAtPos(const TVec3f& look_at_pos)
     return;
   }
   this->look_at_pos_ = look_at_pos;
-  this->OnViewChanged();
 }
 
 void Camera3D_LookAt::SetLookAtPos(T_FLOAT x, T_FLOAT y, T_FLOAT z)
@@ -118,7 +98,6 @@ void Camera3D_LookAt::SetLookAtPos(T_FLOAT x, T_FLOAT y, T_FLOAT z)
   this->look_at_pos_.x = x;
   this->look_at_pos_.y = y;
   this->look_at_pos_.z = z;
-  this->OnViewChanged();
 }
 
 void Camera3D_LookAt::SetLookAtPosX(T_FLOAT x)
@@ -128,7 +107,6 @@ void Camera3D_LookAt::SetLookAtPosX(T_FLOAT x)
     return;
   }
   this->look_at_pos_.x = x;
-  this->OnViewChanged();
 }
 
 void Camera3D_LookAt::SetLookAtPosY(T_FLOAT y)
@@ -138,7 +116,6 @@ void Camera3D_LookAt::SetLookAtPosY(T_FLOAT y)
     return;
   }
   this->look_at_pos_.y = y;
-  this->OnViewChanged();
 }
 
 void Camera3D_LookAt::SetLookAtPosZ(T_FLOAT z)
@@ -148,5 +125,4 @@ void Camera3D_LookAt::SetLookAtPosZ(T_FLOAT z)
     return;
   }
   this->look_at_pos_.z = z;
-  this->OnViewChanged();
 }

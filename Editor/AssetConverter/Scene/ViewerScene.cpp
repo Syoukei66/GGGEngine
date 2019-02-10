@@ -29,30 +29,30 @@ GG_INIT_FUNC_IMPL_3(ViewerScene, const SharedRef<EntryScene>& entry_scene, const
 // =================================================================
 // Methods from Scene
 // =================================================================
-void ViewerScene::OnLoad()
+void ViewerScene::OnLoad(const ActivityContext& context)
 {
-  this->camera_3d_ = GameObject::Create();
-  this->camera_3d_->AddComponent<Camera3D_LookAt>();
+  this->camera_ = GameObject::Create();
+  this->camera_->AddComponent<Camera3D_LookAt>();
   this->camera_target_ = GameObject::Create();
-  this->AddCamera(this->camera_3d_->GetComponent<Camera>());
+  this->AddCamera(this->camera_->GetComponent<Camera>());
 }
 
-void ViewerScene::OnUnload()
+void ViewerScene::OnUnload(const ActivityContext& context)
 {
-  this->RemoveCamera(this->camera_3d_->GetComponent<Camera>());
-  this->camera_3d_ = nullptr;
+  this->RemoveCamera(this->camera_->GetComponent<Camera>());
+  this->camera_ = nullptr;
 }
 
-void ViewerScene::OnShow()
+void ViewerScene::OnShow(const ActivityContext& context)
 {
   this->current_behavior_->Start(this, this->current_context_);
   this->current_behavior_->GetEntity()->GetMetaData()->GetConverterSetting()->GetCameraState(this->camera_target_->GetTransform());
   this->entry_scene_->OnReload();
 }
 
-void ViewerScene::OnHide()
+void ViewerScene::OnHide(const ActivityContext& context)
 {
-  this->current_behavior_->GetEntity()->GetMetaData()->GetConverterSetting()->SetCameraState(this->camera_3d_->GetTransform());
+  this->current_behavior_->GetEntity()->GetMetaData()->GetConverterSetting()->SetCameraState(this->camera_->GetTransform());
   this->current_behavior_->End();
 }
 
@@ -139,14 +139,14 @@ void ViewerScene::Update(const ActivityContext& context)
 
   if (ImGui::ColorEdit3(u8"”wŒiF", this->bg_color_.data))
   {
-    this->camera_3d_->GetComponent<Camera>()->SetBgColor(this->bg_color_);
+    this->camera_->GetComponent<Camera>()->SetBgColor(this->bg_color_);
   }
 
   ImGui::Spacing();
   ImGui::Separator();
   ImGui::Spacing();
 
-  Transform* camera_transform = this->camera_3d_->GetTransform();
+  Transform* camera_transform = this->camera_->GetTransform();
   camera_transform->SetPosition(Mathf::Lerp(camera_transform->GetPosition(), transform->GetPosition(), 0.05f));
   camera_transform->SetQuaternion(Quaternion::Lerp(camera_transform->GetQuaternion(), transform->GetQuaternion(), 0.05f));
 

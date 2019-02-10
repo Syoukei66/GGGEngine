@@ -1,7 +1,6 @@
 #include "Camera3D.h"
 #include <Engine/GameObject/Transform/Transform.h>
 #include <Engine/GameObject/GameObjectRenderState.h>
-#include <Engine/Scene/Scene.h>
 
 // =================================================================
 // GGG Statement
@@ -11,7 +10,6 @@ GG_INIT_FUNC_IMPL_1(Camera3D, GameObject* obj)
   this->fov_ = 3.0f;
   this->z_near_ = 0.3f;
   this->z_far_ = 1000.0f;
-  this->projection_dirty_ = true;
   return Camera::Init(obj);
 }
 
@@ -24,57 +22,25 @@ bool Camera3D::FrustumCulling(const TVec3f& positive, const TVec3f& negative, T_
   //return Collision3D::Frustum_AABB(this->render_state_->GetViewProjMatrix(), positive, negative, first_index);
 }
 
-const Matrix4x4& Camera3D::GetViewMatrix() const
+void Camera3D::UpdateViewMatrix()
 {
-  return Matrix4x4::identity;
+  this->view_matrix_ = this->GetTransform()->GetWorldMatrix().Inverse();
+  this->UpdateBillboardMatrix();
 }
 
-const Matrix4x4& Camera3D::GetProjectionMatrix() const
+void Camera3D::UpdateProjectionMatrix()
 {
-  const_cast<Camera3D*>(this)->CheckProjectionDirty();
-  return this->projection_matrix_;
-}
-
-void Camera3D::SetupCamera()
-{
-  Camera::SetupCamera();
-  this->billboarding_matrix_ = this->GetViewMatrix().Inverse();
-
-  this->billboarding_matrix_._41 = 0.0f;
-  this->billboarding_matrix_._42 = 0.0f;
-  this->billboarding_matrix_._43 = 0.0f;
-}
-
-void Camera3D::OnViewportChanged()
-{
-  this->OnProjectionChanged();
-}
-
-void Camera3D::OnDrawScene(Scene* scene)
-{
-  this->render_state_->Init();
-  scene->DrawLayers(this->render_state_);
-  this->render_state_->Draw();
-}
-
-// =================================================================
-// Methods
-// =================================================================
-void Camera3D::CheckProjectionDirty()
-{
-  if (!this->projection_dirty_)
-  {
-    return;
-  }
   this->projection_matrix_ = Matrix4x4::Perspective(
     Mathf::PI / this->fov_,
     this->GetViewportWidth() / this->GetViewportHeight(),
     this->z_near_,
     this->z_far_
   );
-  this->projection_dirty_ = false;
 }
 
+// =================================================================
+// Methods
+// =================================================================
 TVec3f Camera3D::CalcRayVector(const TVec2f& screen_position)
 {
   Matrix4x4 ret;
@@ -82,6 +48,15 @@ TVec3f Camera3D::CalcRayVector(const TVec2f& screen_position)
   ret = this->GetProjectionMatrix() * ret;
   ret = this->GetViewMatrix() * ret;
   return ret.GetPosition3d();
+}
+
+void Camera3D::UpdateBillboardMatrix()
+{
+  this->billboarding_matrix_ = this->view_matrix_.Inverse();
+
+  this->billboarding_matrix_._41 = 0.0f;
+  this->billboarding_matrix_._42 = 0.0f;
+  this->billboarding_matrix_._43 = 0.0f;
 }
 
 // =================================================================

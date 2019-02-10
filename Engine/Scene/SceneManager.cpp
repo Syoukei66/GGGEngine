@@ -6,26 +6,14 @@
 // =================================================================
 void SceneManager::PushScene(const SharedRef<Scene>& next)
 {
-  if (this->now_scene_)
-  {
-    this->now_scene_->Hide();
-    this->scene_stack_.push_back(this->now_scene_);
-  }
-  this->now_scene_ = next;
-  this->now_scene_->Load();
-  this->now_scene_->Show();
+  this->next_scene_ = next;
+  this->scene_stack_.push_back(this->now_scene_);
 }
 
 void SceneManager::PopScene()
 {
-  this->now_scene_->Hide();
-  this->now_scene_->Unload();
-  this->now_scene_ = this->scene_stack_.back();
+  this->next_scene_ = this->scene_stack_.back();
   this->scene_stack_.pop_back();
-  if (this->now_scene_)
-  {
-    this->now_scene_->Show();
-  }
 }
 
 void SceneManager::ChangeScene(const SharedRef<Scene>& next)
@@ -33,18 +21,18 @@ void SceneManager::ChangeScene(const SharedRef<Scene>& next)
   this->next_scene_ = next;
 }
 
-void SceneManager::ClearScene()
+void SceneManager::ClearScene(const ActivityContext& context)
 {
   for (const SharedRef<Scene>& scene : this->scene_stack_)
   {
-    scene->Hide();
-    scene->Unload();
+    scene->Hide(context);
+    scene->Unload(context);
   }
   this->scene_stack_.clear();
   if (this->now_scene_)
   {
-    this->now_scene_->Hide();
-    this->now_scene_->Unload();
+    this->now_scene_->Hide(context);
+    this->now_scene_->Unload(context);
     this->now_scene_ = nullptr;
   }
 }
@@ -57,14 +45,14 @@ void SceneManager::Update(const ActivityContext& context)
     // アンロードフラグが経っていれば古いシーンをアンロード
     if (this->now_scene_)
     {
-      this->now_scene_->Hide();
-      this->now_scene_->Unload();
+      this->now_scene_->Hide(context);
+      this->now_scene_->Unload(context);
     }
     this->now_scene_ = this->next_scene_;
     if (this->now_scene_)
     {
-      this->now_scene_->Load();
-      this->now_scene_->Show();
+      this->now_scene_->Load(context);
+      this->now_scene_->Show(context);
     }
     this->next_scene_ = nullptr;
   }
