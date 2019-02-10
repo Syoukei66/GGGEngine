@@ -1,9 +1,9 @@
 #pragma once
 
 #include <Engine/Component/Renderer/MeshRenderer.h>
-#include <Engine/GameObject/GameObject3D.h>
+#include <Engine/GameObject/GameObject.h>
 
-class TestMesh : public GameObject3D
+class TestMesh : public GameObject
 {
   // =================================================================
   // GGG Statement

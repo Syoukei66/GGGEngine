@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Engine/GameObject/Transform/Transform3D.h>
+#include <Engine/GameObject/Transform/Transform.h>
 #include "Camera3D.h"
 
 class Camera3D_LookAt : public Camera3D
@@ -37,12 +37,12 @@ private:
   // Setter / Getter
   // =================================================================
 public:
-  GG_INLINE SharedRef<GameObject3D> GetPlayer() const
+  GG_INLINE SharedRef<GameObject> GetPlayer() const
   {
-    return SharedRef<GameObject3D>::StaticCast(this->GetObject()->GetParent());
+    return SharedRef<GameObject>::StaticCast(this->GetObject()->GetParent());
   }
 
-  GG_INLINE void SetTarget(GameObject3D* target)
+  GG_INLINE void SetTarget(GameObject* target)
   {
     this->target_ = target;
     this->target_direction_ = !this->target_ ? this->target_direction_ : (this->target_->GetTransform()->GetWorldPosition() - this->GetObject()->GetTransform()->GetWorldMatrix().GetPosition3d()).Normalized();
@@ -98,7 +98,7 @@ private:
   TVec3f look_at_pos_;
   TVec3f current_look_at_pos_;
 
-  GameObject3D* target_;
+  GameObject* target_;
   TVec3f target_direction_;
   T_FLOAT target_lerp_t_;
 

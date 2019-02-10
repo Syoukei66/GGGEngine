@@ -11,8 +11,10 @@ class GameObject : public GGObject
   // GGG Statement
   // =================================================================
 public:
-  GG_INIT_FUNC(GameObject);
-  GG_INIT_FUNC_1(GameObject, const std::string&);
+  GG_OBJECT(GameObject);
+  GG_CREATE_FUNC(GameObject);
+  GG_CREATE_FUNC_1(GameObject, const std::string&);
+  GG_DESTRUCT_FUNC(GameObject);
 
   // =================================================================
   // Methods
@@ -78,9 +80,7 @@ public:
   void ManagedUpdate();
   void ManagedPostUpdate();
 
-  void FireOnPositionChanged();
-  void FireOnScaleChanged();
-  void FireOnRotationChanged();
+  void OnWorldTransformChanged();
 
 protected:
   virtual void PreUpdate() {}

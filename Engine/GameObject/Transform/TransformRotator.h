@@ -1,8 +1,8 @@
 #pragma once
 
-class Transform3D;
+class Transform;
 
-class Transform3DRotator
+class TransformRotator
 {
 private:
 
@@ -20,8 +20,8 @@ private:
   // Constructor / Destructor
   // =================================================================
 public:
-  Transform3DRotator(Transform3D* transform);
-  ~Transform3DRotator();
+  TransformRotator(Transform* transform);
+  ~TransformRotator();
   
   // =================================================================
   // Methods
@@ -55,28 +55,28 @@ public:
   void SetEularAngles(T_FLOAT x, T_FLOAT y, T_FLOAT z);
   GG_INLINE const TVec3f& GetEularAngles() const
   {
-    const_cast<Transform3DRotator*>(this)->PrepareEularAngles();
+    const_cast<TransformRotator*>(this)->PrepareEularAngles();
     return this->eular_angles_;
   }
 
   void SetEularX(T_FLOAT x);
   GG_INLINE T_FLOAT GetEularX() const
   {
-    const_cast<Transform3DRotator*>(this)->PrepareEularAngles();
+    const_cast<TransformRotator*>(this)->PrepareEularAngles();
     return this->eular_angles_.x;
   }
 
   void SetEularY(T_FLOAT y);
   GG_INLINE T_FLOAT GetEularY() const
   {
-    const_cast<Transform3DRotator*>(this)->PrepareEularAngles();
+    const_cast<TransformRotator*>(this)->PrepareEularAngles();
     return this->eular_angles_.y;
   }
 
   void SetEularZ(T_FLOAT z);
   GG_INLINE T_FLOAT GetEularZ() const
   {
-    const_cast<Transform3DRotator*>(this)->PrepareEularAngles();
+    const_cast<TransformRotator*>(this)->PrepareEularAngles();
     return this->eular_angles_.z;
   }
 
@@ -84,20 +84,20 @@ public:
 
   GG_INLINE const Quaternion& GetQuaternion() const
   {
-    const_cast<Transform3DRotator*>(this)->PrepareQuaternion();
+    const_cast<TransformRotator*>(this)->PrepareQuaternion();
     return this->quaternion_;
   }
 
   GG_INLINE const Matrix4x4& GetRotationMatrix() const
   {
-    const_cast<Transform3DRotator*>(this)->PrepareRotationMatrix();
+    const_cast<TransformRotator*>(this)->PrepareRotationMatrix();
     return this->rotation_matrix_;
   }
   // =================================================================
   // Data Member
   // =================================================================
 private:
-  Transform3D* transform_;
+  Transform* transform_;
   Matrix4x4 rotation_matrix_;
   Quaternion quaternion_;
   TVec3f eular_angles_;

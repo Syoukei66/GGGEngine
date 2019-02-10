@@ -3,7 +3,7 @@
 #include <Core/Application/Allocator/PoolAllocator.h>
 #include "EntityModifierAttribute.h"
 
-class GameObject2D;
+class GameObject;
 class EntityModifier;
 
 //=========================================================================
@@ -15,10 +15,10 @@ class EntityModifierRoot : public IPoolAllocatable
 public:
   virtual void OnAllocated();
   virtual void OnFree();
-  virtual bool OnUpdate(T_UINT16 frame_elapsed);
+  virtual bool OnUpdate(T_FLOAT frame_elapsed);
   void OnUpdateFinish();
   void Prepare(EntityModifier* modifier);
-  void OnAttached(GameObject2D* target);
+  void OnAttached(GameObject* target);
   void OnDetached();
   GG_INLINE void Retain()
   {
@@ -40,7 +40,7 @@ public:
 
 public:
   bool IsFinished();
-  GG_INLINE const GameObject2D* GetTargetEntity() const
+  GG_INLINE const GameObject* GetTargetEntity() const
   {
     return this->target_;
   }
@@ -54,14 +54,14 @@ public:
   }
 
 private:
-  GameObject2D* target_;
+  GameObject* target_;
   EntityModifier* modifier_;
 
   bool is_loop_;
   bool is_pause_;
   bool is_reverse_;
-  T_UINT16 duration_;
-  T_UINT16 duration_rest_;
+  T_FLOAT duration_;
+  T_FLOAT duration_rest_;
 
   T_UINT8 reference_count_;
   std::deque<std::function<void()>> listeners_;
@@ -77,14 +77,14 @@ public:
   //インスタンスの初期化
   virtual void OnAllocated();
   virtual void Free() = 0;
-  virtual void OnUpdate(GameObject2D* target, T_FLOAT progress);
+  virtual void OnUpdate(GameObject* target, T_FLOAT progress);
   
 protected:
   //派生クラスのPrepareメソッドで必ず呼び出す
-  virtual void BasePrepare(T_UINT16 duration);
+  virtual void BasePrepare(T_FLOAT duration);
 
 protected:
-  virtual void OnTimelineUpdate(GameObject2D* target, T_FLOAT progress) = 0;
+  virtual void OnTimelineUpdate(GameObject* target, T_FLOAT progress) = 0;
   
 public:
   GG_INLINE void SetEasingFunction(T_UINT8 func, T_UINT8 op)
@@ -92,13 +92,13 @@ public:
     this->easing_func_ = func;
     this->easing_operator_ = op;
   }
-  GG_INLINE T_UINT16 GetDuration() const
+  GG_INLINE T_FLOAT GetDuration() const
   {
     return this->duration_;
   }
 
 private:
-  T_UINT16 duration_;
+  T_FLOAT duration_;
 
   T_UINT8 easing_func_;
   T_UINT8 easing_operator_;
@@ -115,10 +115,10 @@ public:
   virtual void Free() override;
 
 protected:
-  virtual void OnTimelineUpdate(GameObject2D* target, T_FLOAT progress) override;
+  virtual void OnTimelineUpdate(GameObject* target, T_FLOAT progress) override;
 
 public:
-  void Prepare(T_UINT16 duration);
+  void Prepare(T_FLOAT duration);
 };
 
 //=========================================================================
@@ -133,7 +133,7 @@ public:
   virtual void Free() override;
 
 protected:
-  virtual void OnTimelineUpdate(GameObject2D* target, T_FLOAT progress) override;
+  virtual void OnTimelineUpdate(GameObject* target, T_FLOAT progress) override;
 
 public:
   void Register(EntityModifier* modifier);
@@ -155,7 +155,7 @@ public:
   virtual void Free() override;
 
 protected:
-  virtual void OnTimelineUpdate(GameObject2D* target, T_FLOAT progress) override;
+  virtual void OnTimelineUpdate(GameObject* target, T_FLOAT progress) override;
 
 public:
   void Register(EntityModifier* modifier);
@@ -179,7 +179,7 @@ public:
   virtual void Free() override;
 
 protected:
-  virtual void OnTimelineUpdate(GameObject2D* target, T_FLOAT progress) override;
+  virtual void OnTimelineUpdate(GameObject* target, T_FLOAT progress) override;
 
 public:
   void Prepare(EntityModifier* modifier, T_UINT8 loop_count);
@@ -201,7 +201,7 @@ public:
   virtual void Free() override;
 
 protected:
-  virtual void OnTimelineUpdate(GameObject2D* target, T_FLOAT progress) override;
+  virtual void OnTimelineUpdate(GameObject* target, T_FLOAT progress) override;
 
 public:
   void Prepare(EntityModifier* modifier);
@@ -245,10 +245,10 @@ public:
   virtual void Free() override;
 
 protected:
-  virtual void OnTimelineUpdate(GameObject2D* target, T_FLOAT progress) override;
+  virtual void OnTimelineUpdate(GameObject* target, T_FLOAT progress) override;
 
 public:
-  void Prepare(T_UINT16 duration, T_FLOAT arg0, T_FLOAT arg1, const EntityModifierAttribute* attr, T_UINT8 op);
+  void Prepare(T_FLOAT duration, T_FLOAT arg0, T_FLOAT arg1, const EntityModifierAttribute* attr, T_UINT8 op);
 
 protected:
   T_FLOAT arg0_;
@@ -274,13 +274,13 @@ public:
   virtual void Free() override;
 
 protected:
-  virtual void OnTimelineUpdate(GameObject2D* target, T_FLOAT progress);
+  virtual void OnTimelineUpdate(GameObject* target, T_FLOAT progress);
 
 public:
-  void Prepare(T_UINT16 duration, T_FLOAT arg0, T_FLOAT arg1, const EntityModifierAttribute* attr, T_UINT8 op, GameObject2D* other, const EntityModifierAttribute* other_attr);
+  void Prepare(T_FLOAT duration, T_FLOAT arg0, T_FLOAT arg1, const EntityModifierAttribute* attr, T_UINT8 op, GameObject* other, const EntityModifierAttribute* other_attr);
 
 protected:
-  GameObject2D* other_;
+  GameObject* other_;
   const EntityModifierAttribute* other_attribute_;
 };
 

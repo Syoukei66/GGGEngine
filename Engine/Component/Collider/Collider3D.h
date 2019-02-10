@@ -1,8 +1,8 @@
 #pragma once
 
 #include <Engine/Component/GameComponent.h>
-#include <Engine/GameObject/GameObject3D.h>
-#include <Engine/GameObject/Transform/Transform3D.h>
+#include <Engine/GameObject/GameObject.h>
+#include <Engine/GameObject/Transform/Transform.h>
 
 class Collider3D_Sphare;
 //class Collider3D_Capsule;
@@ -13,8 +13,8 @@ class Collider3D : public GameComponent
   // Constructor / Destructor
   // =================================================================
 public:
-  Collider3D(GameObject3D* entity);
-  Collider3D(GameObject3D* entity, const TVec3f& offset);
+  Collider3D(GameObject* entity);
+  Collider3D(GameObject* entity, const TVec3f& offset);
 
   // =================================================================
   // Methods
@@ -45,7 +45,7 @@ public:
   virtual T_FLOAT GetBoundRadius() const = 0;
 
 protected:
-  GameObject3D* entity_;
+  GameObject* entity_;
   TVec3f offset_;
 };
 
@@ -58,7 +58,7 @@ class Collider3D_Sphare : public Collider3D
   // Constructor / Destructor
   // =================================================================
 public:
-  Collider3D_Sphare(GameObject3D* entity);
+  Collider3D_Sphare(GameObject* entity);
 
   // =================================================================
   // Methods

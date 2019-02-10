@@ -1,6 +1,6 @@
 #pragma once
 
-class GameObject2D;
+class GameObject;
 
 class EntityModifierAttribute
 {
@@ -9,9 +9,13 @@ public:
   {
     MODIFIER_ATTR_TRANSLATE_X,
     MODIFIER_ATTR_TRANSLATE_Y,
+    MODIFIER_ATTR_TRANSLATE_Z,
     MODIFIER_ATTR_SCALE_X,
     MODIFIER_ATTR_SCALE_Y,
-    MODIFIER_ATTR_ROTATION,
+    MODIFIER_ATTR_SCALE_Z,
+    MODIFIER_ATTR_ROTATE_X,
+    MODIFIER_ATTR_ROTATE_Y,
+    MODIFIER_ATTR_ROTATE_Z,
     MODIFIER_ATTR_COLOR_R,
     MODIFIER_ATTR_COLOR_G,
     MODIFIER_ATTR_COLOR_B,
@@ -24,6 +28,6 @@ public:
   static const EntityModifierAttribute* Create(T_UINT8 id);
 
 public:
-  virtual void SetValue(GameObject2D* entity, const T_FLOAT next) const = 0;
-  virtual T_FLOAT GetValue(GameObject2D* entity) const = 0;
+  virtual void SetValue(GameObject* entity, const T_FLOAT next) const = 0;
+  virtual T_FLOAT GetValue(GameObject* entity) const = 0;
 };

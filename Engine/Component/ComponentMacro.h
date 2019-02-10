@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Core/Macro/ObjectMacro.h>
+
 /*!
  * @brief アセットの先頭で定義するマクロ
  * GG_OBJECTとGG_LOAD_FUNCの組み合わせ

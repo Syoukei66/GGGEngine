@@ -5,8 +5,7 @@
 // =================================================================
 GG_INIT_FUNC_IMPL(Scene)
 {
-  this->root2d_ = GameObject2D::Create("2d_root");
-  this->root3d_ = GameObject3D::Create("3d_root");
+  this->root_ = GameObject::Create("root");
   return true;
 }
 
@@ -59,27 +58,19 @@ void Scene::Draw(const ActivityContext& context)
   }
 }
 
-void Scene::Draw2DLayers(GameObjectRenderState* state)
+void Scene::DrawLayers(GameObjectRenderState* state)
 {
-  this->root2d_->Draw(state);
-}
-
-void Scene::Draw3DLayers(GameObjectRenderState* state)
-{
-  this->root3d_->Draw(state);
+  this->root_->Draw(state);
 }
 
 void Scene::OnUpdateEvent(const ActivityContext& context)
 {
   this->PreUpdate(context);
-  this->root2d_->ManagedPreUpdate();
-  this->root3d_->ManagedPreUpdate();
+  this->root_->ManagedPreUpdate();
 
   this->Update(context);
-  this->root2d_->ManagedUpdate();
-  this->root3d_->ManagedUpdate();
+  this->root_->ManagedUpdate();
 
   this->PostUpdate(context);
-  this->root2d_->ManagedPostUpdate();
-  this->root3d_->ManagedPostUpdate();
+  this->root_->ManagedPostUpdate();
 }

@@ -1,12 +1,12 @@
 #include "StaticMeshViewerBehavior.h"
-#include <Engine/GameObject/Transform/Transform3D.h>
+#include <Engine/GameObject/Transform/Transform.h>
 
 // =================================================================
 // GGG Statement
 // =================================================================
 GG_INIT_FUNC_IMPL(StaticMeshViewerBehavior)
 {
-  this->obj_ = GameObject3D::Create();
+  this->obj_ = GameObject::Create();
   this->mesh_renderer_ = this->obj_->AddComponent<MeshRenderer>();
   return true;
 }

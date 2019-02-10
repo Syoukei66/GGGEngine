@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Engine/GameObject/GameObject3D.h>
+#include <Engine/GameObject/GameObject.h>
 #include <Engine/Scene/Scene.h>
 #include <Scene/EntryScene.h>
 
@@ -58,8 +58,8 @@ private:
 
   AssetConverterContext* current_context_;
   SharedRef<IViewerBehavior> current_behavior_;
-  SharedRef<GameObject3D> camera_3d_;
-  SharedRef<GameObject3D> camera_target_;
+  SharedRef<GameObject> camera_3d_;
+  SharedRef<GameObject> camera_target_;
   T_FLOAT camera_move_x_;
   T_FLOAT camera_move_y_;
 

@@ -24,14 +24,14 @@ void EntityModifierRoot::OnFree()
   this->listeners_.clear();
 }
 
-bool EntityModifierRoot::OnUpdate(T_UINT16 frame_elapsed)
+bool EntityModifierRoot::OnUpdate(T_FLOAT frame_elapsed)
 {
   if (this->is_pause_)
   {
     return true;
   }
-  this->duration_rest_ = (T_UINT16)std::max((T_INT32)0, (T_INT32)this->duration_rest_ - (T_INT32)frame_elapsed);
-  const T_UINT16 duration_rest = this->is_reverse_ ? this->duration_ - this->duration_rest_ : this->duration_rest_;
+  this->duration_rest_ = (T_FLOAT)std::max((T_INT32)0, (T_INT32)this->duration_rest_ - (T_INT32)frame_elapsed);
+  const T_FLOAT duration_rest = this->is_reverse_ ? this->duration_ - this->duration_rest_ : this->duration_rest_;
   const T_FLOAT progress = 1.0f - (T_FLOAT)duration_rest / this->duration_;
   this->modifier_->OnUpdate(this->target_, progress);
   return this->duration_rest_ > 0;
@@ -52,7 +52,7 @@ void EntityModifierRoot::Prepare(EntityModifier* modifier)
   this->duration_rest_ = this->duration_;
 }
 
-void EntityModifierRoot::OnAttached(GameObject2D* target)
+void EntityModifierRoot::OnAttached(GameObject* target)
 {
   this->target_ = target;
 }
@@ -144,7 +144,7 @@ void EntityModifier::OnAllocated()
   this->easing_operator_ = EasingFunction::EASE_IN;
 }
 
-void EntityModifier::OnUpdate(GameObject2D* target, T_FLOAT progress)
+void EntityModifier::OnUpdate(GameObject* target, T_FLOAT progress)
 {
   //Linerの場合はEasingFunctionの呼び出しを省略する
   //0.0fと1.0fの場合も計算を省略
@@ -156,7 +156,7 @@ void EntityModifier::OnUpdate(GameObject2D* target, T_FLOAT progress)
   this->OnTimelineUpdate(target, progress);
 }
 
-void EntityModifier::BasePrepare(T_UINT16 duration)
+void EntityModifier::BasePrepare(T_FLOAT duration)
 {
   this->duration_ = duration;
 }
@@ -172,10 +172,10 @@ void DelayEntityModifier::Free()
   EntityModifierManager::GetDelayModifierAllocator()->Free(this);
 }
 
-void DelayEntityModifier::OnTimelineUpdate(GameObject2D* target, T_FLOAT progress)
+void DelayEntityModifier::OnTimelineUpdate(GameObject* target, T_FLOAT progress)
 {}
 
-void DelayEntityModifier::Prepare(T_UINT16 duration)
+void DelayEntityModifier::Prepare(T_FLOAT duration)
 {
   EntityModifier::BasePrepare(duration);
 }
@@ -203,7 +203,7 @@ void SequenceEntityModifier::Free()
   EntityModifierManager::GetSequenceModifierAllocator()->Free(this);
 }
 
-void SequenceEntityModifier::OnTimelineUpdate(GameObject2D* target, T_FLOAT progress)
+void SequenceEntityModifier::OnTimelineUpdate(GameObject* target, T_FLOAT progress)
 {
   const T_FLOAT duration = (T_FLOAT)this->GetDuration();
   for (EntityModifier* modifier : this->modifiers_)
@@ -226,7 +226,7 @@ void SequenceEntityModifier::Register(EntityModifier* modifier)
 
 void SequenceEntityModifier::Prepare()
 {
-  T_UINT16 need_power_sum = 0;
+  T_FLOAT need_power_sum = 0;
   for (EntityModifier* modifier : this->modifiers_)
   {
     need_power_sum += modifier->GetDuration();
@@ -257,7 +257,7 @@ void SynchronizedEntityModifier::Free()
   EntityModifierManager::GetSynchronizedModifierAllocator()->Free(this);
 }
 
-void SynchronizedEntityModifier::OnTimelineUpdate(GameObject2D* target, T_FLOAT progress)
+void SynchronizedEntityModifier::OnTimelineUpdate(GameObject* target, T_FLOAT progress)
 {
   const T_FLOAT duration = (T_FLOAT)this->GetDuration();
   for (EntityModifier* modifier : this->modifiers_)
@@ -275,7 +275,7 @@ void SynchronizedEntityModifier::Register(EntityModifier* modifier)
 
 void SynchronizedEntityModifier::Prepare()
 {
-  T_UINT16 need_power_max = 0;
+  T_FLOAT need_power_max = 0;
   for (EntityModifier* modifier : this->modifiers_)
   {
     need_power_max = std::max(need_power_max, modifier->GetDuration());
@@ -305,7 +305,7 @@ void LoopEntityModifier::Free()
   EntityModifierManager::GetLoopModifierAllocator()->Free(this);
 }
 
-void LoopEntityModifier::OnTimelineUpdate(GameObject2D* target, T_FLOAT progress)
+void LoopEntityModifier::OnTimelineUpdate(GameObject* target, T_FLOAT progress)
 {
   const T_FLOAT duration = (T_FLOAT)this->GetDuration();
   for (T_UINT8 i = 0; i < this->loop_count_; ++i)
@@ -347,7 +347,7 @@ void RoundEntityModifier::Free()
   EntityModifierManager::GetRoundModifierAllocator()->Free(this);
 }
 
-void RoundEntityModifier::OnTimelineUpdate(GameObject2D* target, T_FLOAT progress)
+void RoundEntityModifier::OnTimelineUpdate(GameObject* target, T_FLOAT progress)
 {
   if (progress < 0.5f)
   {
@@ -370,47 +370,47 @@ void RoundEntityModifier::Prepare(EntityModifier* modifier)
 // そのインデックスの関数を実行するで多態性を実現する
 // (オペレーターは拡張性がこれ以上無いと思われる為)
 //=========================================================================
-static T_FLOAT Operator_FromBy(GameObject2D* target, const EntityModifierAttribute* attr, T_FLOAT from, T_FLOAT val, T_FLOAT progress)
+static T_FLOAT Operator_FromBy(GameObject* target, const EntityModifierAttribute* attr, T_FLOAT from, T_FLOAT val, T_FLOAT progress)
 {
   return from + val * progress;
 }
 
-static T_FLOAT Operator_FromTo(GameObject2D* target, const EntityModifierAttribute* attr, T_FLOAT from, T_FLOAT to, T_FLOAT progress)
+static T_FLOAT Operator_FromTo(GameObject* target, const EntityModifierAttribute* attr, T_FLOAT from, T_FLOAT to, T_FLOAT progress)
 {
   return from + (to - from) * progress;
 }
 
-static T_FLOAT Operator_By(GameObject2D* target, const EntityModifierAttribute* attr, T_FLOAT n, T_FLOAT val, T_FLOAT progress)
+static T_FLOAT Operator_By(GameObject* target, const EntityModifierAttribute* attr, T_FLOAT n, T_FLOAT val, T_FLOAT progress)
 {
   return Operator_FromBy(target, attr, attr->GetValue(target), val, progress);
 }
 
-static T_FLOAT Operator_To(GameObject2D* target, const EntityModifierAttribute* attr, T_FLOAT n, T_FLOAT to, T_FLOAT progress)
+static T_FLOAT Operator_To(GameObject* target, const EntityModifierAttribute* attr, T_FLOAT n, T_FLOAT to, T_FLOAT progress)
 {
   return Operator_FromTo(target, attr, attr->GetValue(target), to, progress);
 }
 
-static T_FLOAT Operator_Add(GameObject2D* target, const EntityModifierAttribute* attr, T_FLOAT from, T_FLOAT val, T_FLOAT progress)
+static T_FLOAT Operator_Add(GameObject* target, const EntityModifierAttribute* attr, T_FLOAT from, T_FLOAT val, T_FLOAT progress)
 {
   return from + val * progress;
 }
 
-static T_FLOAT Operator_Sub(GameObject2D* target, const EntityModifierAttribute* attr, T_FLOAT from, T_FLOAT val, T_FLOAT progress)
+static T_FLOAT Operator_Sub(GameObject* target, const EntityModifierAttribute* attr, T_FLOAT from, T_FLOAT val, T_FLOAT progress)
 {
   return from - val * progress;
 }
 
-static T_FLOAT Operator_Mul(GameObject2D* target, const EntityModifierAttribute* attr, T_FLOAT from, T_FLOAT val, T_FLOAT progress)
+static T_FLOAT Operator_Mul(GameObject* target, const EntityModifierAttribute* attr, T_FLOAT from, T_FLOAT val, T_FLOAT progress)
 {
   return from * pow(val, progress);
 }
 
-static T_FLOAT Operator_Div(GameObject2D* target, const EntityModifierAttribute* attr, T_FLOAT from, T_FLOAT val, T_FLOAT progress)
+static T_FLOAT Operator_Div(GameObject* target, const EntityModifierAttribute* attr, T_FLOAT from, T_FLOAT val, T_FLOAT progress)
 {
   return from / pow(val, progress);
 }
 
-typedef T_FLOAT(*OPERATOR_FUNC)(GameObject2D*, const EntityModifierAttribute*, T_FLOAT, T_FLOAT, T_FLOAT);
+typedef T_FLOAT(*OPERATOR_FUNC)(GameObject*, const EntityModifierAttribute*, T_FLOAT, T_FLOAT, T_FLOAT);
 static const OPERATOR_FUNC OPERATOR_FUNCS[AttributeEntityModifier::MODIFIER_OP_DATANUM] =
 {
   Operator_By,
@@ -444,12 +444,12 @@ void AttributeEntityModifier::Free()
   EntityModifierManager::GetAttributeModifierAllocator()->Free(this);
 }
 
-void AttributeEntityModifier::OnTimelineUpdate(GameObject2D* target, T_FLOAT progress)
+void AttributeEntityModifier::OnTimelineUpdate(GameObject* target, T_FLOAT progress)
 {
   this->attribute_->SetValue(target, OPERATOR_FUNCS[this->rate_operator_](target, this->attribute_, this->arg0_, this->arg1_, progress));
 }
 
-void AttributeEntityModifier::Prepare(T_UINT16 duration, T_FLOAT arg0, T_FLOAT arg1, const EntityModifierAttribute* attr, T_UINT8 op)
+void AttributeEntityModifier::Prepare(T_FLOAT duration, T_FLOAT arg0, T_FLOAT arg1, const EntityModifierAttribute* attr, T_UINT8 op)
 {
   EntityModifier::BasePrepare(duration);
   this->arg0_ = arg0;
@@ -482,13 +482,13 @@ void AttributeEntityModifierEx::Free()
   EntityModifierManager::GetAttributeModifierExAllocator()->Free(this);
 }
 
-void AttributeEntityModifierEx::OnTimelineUpdate(GameObject2D* target, T_FLOAT progress)
+void AttributeEntityModifierEx::OnTimelineUpdate(GameObject* target, T_FLOAT progress)
 {
   this->arg1_ = this->other_attribute_->GetValue(this->other_);
   AttributeEntityModifier::OnTimelineUpdate(target, progress);
 }
 
-void AttributeEntityModifierEx::Prepare(T_UINT16 duration, T_FLOAT arg0, T_FLOAT arg1, const EntityModifierAttribute* attr, T_UINT8 op, GameObject2D* other, const EntityModifierAttribute* other_attr)
+void AttributeEntityModifierEx::Prepare(T_FLOAT duration, T_FLOAT arg0, T_FLOAT arg1, const EntityModifierAttribute* attr, T_UINT8 op, GameObject* other, const EntityModifierAttribute* other_attr)
 {
   this->other_ = other;
   this->other_attribute_ = other_attr;

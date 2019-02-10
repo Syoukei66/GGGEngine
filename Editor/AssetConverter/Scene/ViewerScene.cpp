@@ -31,9 +31,9 @@ GG_INIT_FUNC_IMPL_3(ViewerScene, const SharedRef<EntryScene>& entry_scene, const
 // =================================================================
 void ViewerScene::OnLoad()
 {
-  this->camera_3d_ = GameObject3D::Create();
+  this->camera_3d_ = GameObject::Create();
   this->camera_3d_->AddComponent<Camera3D_LookAt>();
-  this->camera_target_ = GameObject3D::Create();
+  this->camera_target_ = GameObject::Create();
   this->AddCamera(this->camera_3d_->GetComponent<Camera>());
 }
 
@@ -65,7 +65,7 @@ void ViewerScene::Update(const ActivityContext& context)
   const InputState* input = context.Input(0);
   
   using namespace HalEngine;
-  Transform3D* transform = this->camera_target_->GetTransform();
+  Transform* transform = this->camera_target_->GetTransform();
 
   const T_FLOAT move_speed = this->move_speed_weight_ * this->move_speed_;
 
@@ -146,7 +146,7 @@ void ViewerScene::Update(const ActivityContext& context)
   ImGui::Separator();
   ImGui::Spacing();
 
-  Transform3D* camera_transform = this->camera_3d_->GetTransform();
+  Transform* camera_transform = this->camera_3d_->GetTransform();
   camera_transform->SetPosition(Mathf::Lerp(camera_transform->GetPosition(), transform->GetPosition(), 0.05f));
   camera_transform->SetQuaternion(Quaternion::Lerp(camera_transform->GetQuaternion(), transform->GetQuaternion(), 0.05f));
 

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Engine/Scene/Scene.h>
+
 class AssetConverterContext;
 
 class TextureSelectScene : public Scene
@@ -34,8 +36,8 @@ private:
   std::function<void(const SharedRef<rcTexture>& texture)> callback_;
   SharedRef<rcTexture> current_texture_;
 
-  SharedRef<GameObject2D> camera_;
-  std::map<T_UINT32, SharedRef<GameObject3D>> images_;
+  SharedRef<GameObject> camera_;
+  std::map<T_UINT32, SharedRef<GameObject>> images_;
   std::unordered_map<T_UINT32, SharedRef<rcTexture>> textures_;
 
 };

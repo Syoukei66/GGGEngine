@@ -1,5 +1,5 @@
-#include "Transform3DRotator.h"
-#include <Engine/GameObject/Transform/Transform3D.h>
+#include "TransformRotator.h"
+#include <Engine/GameObject/Transform/Transform.h>
 
 static const TVec3f X_AXIS = TVec3f(1.0f, 0.0f, 0.0f);
 static const TVec3f Y_AXIS = TVec3f(0.0f, 1.0f, 0.0f);
@@ -8,7 +8,7 @@ static const TVec3f Z_AXIS = TVec3f(0.0f, 0.0f, 1.0f);
 // =================================================================
 // Constructor / Destructor
 // =================================================================
-Transform3DRotator::Transform3DRotator(Transform3D* transform)
+TransformRotator::TransformRotator(Transform* transform)
   : transform_(transform)
   , rotation_matrix_()
   , quaternion_()
@@ -17,14 +17,14 @@ Transform3DRotator::Transform3DRotator(Transform3D* transform)
 {
 }
 
-Transform3DRotator::~Transform3DRotator()
+TransformRotator::~TransformRotator()
 {
 }
 
 // =================================================================
 // Methods
 // =================================================================
-void Transform3DRotator::Init()
+void TransformRotator::Init()
 {
   this->quaternion_ = Quaternion();
   this->eular_angles_ = TVec3f(0.0f, 0.0f, 0.0f);
@@ -33,7 +33,7 @@ void Transform3DRotator::Init()
   this->transform_->OnRotationChanged();
 }
 
-void Transform3DRotator::RotateX(T_FLOAT rad)
+void TransformRotator::RotateX(T_FLOAT rad)
 {
   if (rad == 0.0f)
   {
@@ -42,7 +42,7 @@ void Transform3DRotator::RotateX(T_FLOAT rad)
   this->Rotate(X_AXIS, rad);
 }
 
-void Transform3DRotator::RotateY(T_FLOAT rad)
+void TransformRotator::RotateY(T_FLOAT rad)
 {
   if (rad == 0.0f)
   {
@@ -51,7 +51,7 @@ void Transform3DRotator::RotateY(T_FLOAT rad)
   this->Rotate(Y_AXIS, rad);
 }
 
-void Transform3DRotator::RotateZ(T_FLOAT rad)
+void TransformRotator::RotateZ(T_FLOAT rad)
 {
   if (rad == 0.0f)
   {
@@ -60,7 +60,7 @@ void Transform3DRotator::RotateZ(T_FLOAT rad)
   this->Rotate(Z_AXIS, rad);
 }
 
-void Transform3DRotator::Rotate(const TVec3f& v, T_FLOAT rad)
+void TransformRotator::Rotate(const TVec3f& v, T_FLOAT rad)
 {
   if (rad == 0.0f)
   {
@@ -73,7 +73,7 @@ void Transform3DRotator::Rotate(const TVec3f& v, T_FLOAT rad)
   this->transform_->OnRotationChanged();
 }
 
-void Transform3DRotator::FromRotationMatrix(const Matrix4x4& matrix)
+void TransformRotator::FromRotationMatrix(const Matrix4x4& matrix)
 {
   this->rotation_matrix_ = matrix;
 
@@ -81,13 +81,13 @@ void Transform3DRotator::FromRotationMatrix(const Matrix4x4& matrix)
   this->transform_->OnRotationChanged();
 }
 
-void Transform3DRotator::ToRotationMatrix(Matrix4x4* dest)
+void TransformRotator::ToRotationMatrix(Matrix4x4* dest)
 {
   this->PrepareRotationMatrix();
   (*dest) = this->rotation_matrix_;
 }
 
-void Transform3DRotator::Lerp(const Quaternion& a, const Quaternion& b, T_FLOAT t)
+void TransformRotator::Lerp(const Quaternion& a, const Quaternion& b, T_FLOAT t)
 {
   this->PrepareQuaternion();
   Quaternion lerped = Quaternion::Lerp(a, b, t);
@@ -101,7 +101,7 @@ void Transform3DRotator::Lerp(const Quaternion& a, const Quaternion& b, T_FLOAT 
   this->transform_->OnRotationChanged();
 }
 
-void Transform3DRotator::Lerp(const Quaternion& b, T_FLOAT t)
+void TransformRotator::Lerp(const Quaternion& b, T_FLOAT t)
 {
   if (t <= 0.0f)
   {
@@ -119,7 +119,7 @@ void Transform3DRotator::Lerp(const Quaternion& b, T_FLOAT t)
   this->transform_->OnRotationChanged();
 }
 
-void Transform3DRotator::Slerp(const Quaternion& a, const Quaternion& b, T_FLOAT t)
+void TransformRotator::Slerp(const Quaternion& a, const Quaternion& b, T_FLOAT t)
 {
   this->PrepareQuaternion();
   Quaternion slerped = Quaternion::Slerp(a, b, t);
@@ -133,7 +133,7 @@ void Transform3DRotator::Slerp(const Quaternion& a, const Quaternion& b, T_FLOAT
   this->transform_->OnRotationChanged();
 }
 
-void Transform3DRotator::Slerp(const Quaternion& b, T_FLOAT t)
+void TransformRotator::Slerp(const Quaternion& b, T_FLOAT t)
 {
   if (t <= 0.0f)
   {
@@ -151,7 +151,7 @@ void Transform3DRotator::Slerp(const Quaternion& b, T_FLOAT t)
   this->transform_->OnRotationChanged();
 }
 
-void Transform3DRotator::PrepareQuaternion()
+void TransformRotator::PrepareQuaternion()
 {
   if (this->master_flag_ & MASTER_QUATERNION)
   {
@@ -162,7 +162,7 @@ void Transform3DRotator::PrepareQuaternion()
   this->master_flag_ |= MASTER_QUATERNION;
 }
 
-void Transform3DRotator::PrepareRotationMatrix()
+void TransformRotator::PrepareRotationMatrix()
 {
   if (this->master_flag_ & MASTER_MATRIX)
   {
@@ -184,7 +184,7 @@ void Transform3DRotator::PrepareRotationMatrix()
   this->master_flag_ |= MASTER_MATRIX;
 }
 
-void Transform3DRotator::PrepareEularAngles()
+void TransformRotator::PrepareEularAngles()
 {
   if (this->master_flag_ & MASTER_EULAR)
   {
@@ -228,14 +228,14 @@ void Transform3DRotator::PrepareEularAngles()
   this->master_flag_ |= MASTER_EULAR;
 }
 
-void Transform3DRotator::SetEularAngles(const TVec3f& rotation)
+void TransformRotator::SetEularAngles(const TVec3f& rotation)
 {
   this->eular_angles_ = rotation;
   this->master_flag_ = MASTER_EULAR;
   this->transform_->OnRotationChanged();
 }
 
-void Transform3DRotator::SetEularAngles(T_FLOAT x, T_FLOAT y, T_FLOAT z)
+void TransformRotator::SetEularAngles(T_FLOAT x, T_FLOAT y, T_FLOAT z)
 {
   this->eular_angles_.x = x;
   this->eular_angles_.y = y;
@@ -244,28 +244,28 @@ void Transform3DRotator::SetEularAngles(T_FLOAT x, T_FLOAT y, T_FLOAT z)
   this->transform_->OnRotationChanged();
 }
 
-void Transform3DRotator::SetEularX(T_FLOAT x)
+void TransformRotator::SetEularX(T_FLOAT x)
 {
   this->eular_angles_.x = x;
   this->master_flag_ = MASTER_EULAR;
   this->transform_->OnRotationChanged();
 }
 
-void Transform3DRotator::SetEularY(T_FLOAT y)
+void TransformRotator::SetEularY(T_FLOAT y)
 {
   this->eular_angles_.y = y;
   this->master_flag_ = MASTER_EULAR;
   this->transform_->OnRotationChanged();
 }
 
-void Transform3DRotator::SetEularZ(T_FLOAT z)
+void TransformRotator::SetEularZ(T_FLOAT z)
 {
   this->eular_angles_.z = z;
   this->master_flag_ = MASTER_EULAR;
   this->transform_->OnRotationChanged();
 }
 
-void Transform3DRotator::SetQuaternion(const Quaternion& q)
+void TransformRotator::SetQuaternion(const Quaternion& q)
 {
   this->quaternion_ = q;
   this->master_flag_ = MASTER_QUATERNION;

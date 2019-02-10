@@ -4,13 +4,13 @@
 // =================================================================
 // Methods
 // =================================================================
-Collider3D::Collider3D(GameObject3D* entity)
+Collider3D::Collider3D(GameObject* entity)
   : entity_(entity)
   , offset_(0.0f, 0.0f, 0.0f)
 {
 }
 
-Collider3D::Collider3D(GameObject3D* entity, const TVec3f& offset)
+Collider3D::Collider3D(GameObject* entity, const TVec3f& offset)
   : entity_(entity)
   , offset_(offset)
 {
@@ -32,7 +32,7 @@ bool Collider3D::RoughCheck(const Collider3D& other)
 // =================================================================
 // Sphare
 // =================================================================
-Collider3D_Sphare::Collider3D_Sphare(GameObject3D* entity)
+Collider3D_Sphare::Collider3D_Sphare(GameObject* entity)
   : Collider3D(entity)
 {
 }

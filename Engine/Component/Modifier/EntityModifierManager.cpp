@@ -125,7 +125,7 @@ void EntityModifierManager::ClearModifiers()
   this->loop_modifier_pool_->Clear();
 }
 
-void EntityModifierManager::ClearModifiersWithTargetEntity(GameObject2D* target)
+void EntityModifierManager::ClearModifiersWithTargetEntity(GameObject* target)
 {
   Self().finished_roots_.clear();
   Self().modifier_root_pool_->Loop([&](EntityModifierRoot* root) {
@@ -143,7 +143,7 @@ void EntityModifierManager::ClearModifiersWithTargetEntity(GameObject2D* target)
   Self().finished_roots_.clear();
 }
 
-bool EntityModifierManager::OnUpdate(T_UINT16 frame_elapsed)
+bool EntityModifierManager::OnUpdate(T_FLOAT frame_elapsed)
 {
   Self().finished_roots_.clear();
   Self().modifier_root_pool_->Loop([&](EntityModifierRoot* root) {

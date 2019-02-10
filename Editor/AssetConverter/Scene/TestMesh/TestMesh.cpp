@@ -54,7 +54,7 @@ GG_INIT_FUNC_IMPL(TestMesh)
   }
   this->mesh_renderer_ = this->AddComponent<MeshRenderer>();
   this->UpdateMesh();
-  return GameObject3D::Init();
+  return GameObject::Init();
 }
 
 // =================================================================

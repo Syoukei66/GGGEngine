@@ -11,6 +11,7 @@ EntityModifierRoot* Root(EntityModifier* modifier);
 
 //=======================================================================
 // Sequence
+// ìnÇ≥ÇÍÇΩModifierÇèáî‘Ç…é¿çs
 //=======================================================================
 EntityModifier* Sequence(EntityModifier* m0, EntityModifier* m1);
 EntityModifier* Sequence(EntityModifier* m0, EntityModifier* m1, EntityModifier* m2);
@@ -19,6 +20,7 @@ EntityModifier* Sequence(EntityModifier* m0, EntityModifier* m1, EntityModifier*
 
 //=======================================================================
 // Synchronized
+// ìnÇ≥ÇÍÇΩModifierÇï¿óÒÇ…é¿çs
 //=======================================================================
 EntityModifier* Synchronized(EntityModifier* m0, EntityModifier* m1);
 EntityModifier* Synchronized(EntityModifier* m0, EntityModifier* m1, EntityModifier* m2);
@@ -27,111 +29,184 @@ EntityModifier* Synchronized(EntityModifier* m0, EntityModifier* m1, EntityModif
 
 //=======================================================================
 // Loop
+// ìnÇ≥ÇÍÇΩModifierÇéwíËÇµÇΩâÒêîÇæÇØÉãÅ[Év
 //=======================================================================
 EntityModifier* Loop(EntityModifier* target, T_UINT8 loop_count);
 
 //=======================================================================
 // Delay
+// durationïbÇ»Ç…Ç‡ÇµÇ»Ç¢
 //=======================================================================
-EntityModifier* Delay(T_UINT32 duration);
+EntityModifier* Delay(T_FLOAT duration);
 
 //=======================================================================
 // Round
+// ìnÇ≥ÇÍÇΩModifierÇçƒê∂å„ÅAãtçƒê∂Ç∑ÇÈ
 //=======================================================================
 EntityModifier* Round(EntityModifier* target);
 
 //=======================================================================
-// Scale
+// ScaleBy
+// åªç›ÇÃÉXÉPÅ[ÉãÇ©ÇÁdurationïbÇ©ÇØÇƒvalueÇæÇØÉXÉPÅ[ÉäÉìÉO
 //=======================================================================
-EntityModifier* ScaleMove(T_UINT32 duration, const TVec2f& value);
-EntityModifier* ScaleMove(T_UINT32 duration, T_FLOAT value);
-EntityModifier* ScaleMove(T_UINT32 duration, T_FLOAT value_x, T_FLOAT value_y);
-EntityModifier* ScaleMoveX(T_UINT32 duration, T_FLOAT value_x);
-EntityModifier* ScaleMoveY(T_UINT32 duration, T_FLOAT value_y);
-
-EntityModifier* ScaleTo(T_UINT32 duration, const TVec2f& to);
-EntityModifier* ScaleTo(T_UINT32 duration, T_FLOAT to);
-EntityModifier* ScaleTo(T_UINT32 duration, T_FLOAT to_x, T_FLOAT to_y);
-EntityModifier* ScaleToX(T_UINT32 duration, T_FLOAT to_x);
-EntityModifier* ScaleToY(T_UINT32 duration, T_FLOAT to_y);
-
-EntityModifier* ScaleFromMove(T_UINT32 duration, const TVec2f& from, const TVec2f& value);
-EntityModifier* ScaleFromMove(T_UINT32 duration, T_FLOAT from, T_FLOAT value);
-EntityModifier* ScaleFromMove(T_UINT32 duration, T_FLOAT from_x, T_FLOAT from_y, T_FLOAT value_x, T_FLOAT value_y);
-EntityModifier* ScaleFromMoveX(T_UINT32 duration, T_FLOAT from_x, T_FLOAT value_x);
-EntityModifier* ScaleFromMoveY(T_UINT32 duration, T_FLOAT from_y, T_FLOAT value_y);
-
-EntityModifier* ScaleFromTo(T_UINT32 duration, const TVec2f& from, const TVec2f& to);
-EntityModifier* ScaleFromTo(T_UINT32 duration, T_FLOAT from, T_FLOAT to);
-EntityModifier* ScaleFromTo(T_UINT32 duration, T_FLOAT from_x, T_FLOAT from_y, T_FLOAT to_x, T_FLOAT to_y);
-EntityModifier* ScaleFromToX(T_UINT32 duration, T_FLOAT from_x, T_FLOAT to_x);
-EntityModifier* ScaleFromToY(T_UINT32 duration, T_FLOAT from_y, T_FLOAT to_y);
+EntityModifier* ScaleBy(T_FLOAT duration, T_FLOAT value);
+EntityModifier* ScaleBy(T_FLOAT duration, const TVec2f& value);
+EntityModifier* ScaleBy(T_FLOAT duration, const TVec3f& value);
+EntityModifier* ScaleByX(T_FLOAT duration, T_FLOAT value_x);
+EntityModifier* ScaleByY(T_FLOAT duration, T_FLOAT value_y);
+EntityModifier* ScaleByZ(T_FLOAT duration, T_FLOAT value_z);
 
 //=======================================================================
-// Translate
+// ScaleTo
+// åªç›ÇÃÉXÉPÅ[ÉãÇ©ÇÁdurationïbÇ©ÇØÇƒtoÇ÷ÉXÉPÅ[ÉäÉìÉO
 //=======================================================================
-EntityModifier* TranslateBy(T_UINT32 duration, const TVec2f& value);
-EntityModifier* TranslateBy(T_UINT32 duration, T_FLOAT value);
-EntityModifier* TranslateBy(T_UINT32 duration, T_FLOAT value_x, T_FLOAT value_y);
-EntityModifier* TranslateByX(T_UINT32 duration, T_FLOAT value_x);
-EntityModifier* TranslateByY(T_UINT32 duration, T_FLOAT value_y);
-
-EntityModifier* TranslateTo(T_UINT32 duration, const TVec2f& to);
-EntityModifier* TranslateTo(T_UINT32 duration, T_FLOAT to);
-EntityModifier* TranslateTo(T_UINT32 duration, T_FLOAT to_x, T_FLOAT to_y);
-EntityModifier* TranslateToX(T_UINT32 duration, T_FLOAT to_x);
-EntityModifier* TranslateToY(T_UINT32 duration, T_FLOAT to_y);
-
-EntityModifier* TranslateFromBy(T_UINT32 duration, const TVec2f& from, const TVec2f& value);
-EntityModifier* TranslateFromBy(T_UINT32 duration, T_FLOAT from_x, T_FLOAT from_y, T_FLOAT value_x, T_FLOAT value_y);
-EntityModifier* TranslateFromByX(T_UINT32 duration, T_FLOAT from_x, T_FLOAT value_x);
-EntityModifier* TranslateFromByY(T_UINT32 duration, T_FLOAT from_y, T_FLOAT value_y);
-
-EntityModifier* TranslateFromTo(T_UINT32 duration, const TVec2f& from, const TVec2f& to);
-EntityModifier* TranslateFromTo(T_UINT32 duration, T_FLOAT from_x, T_FLOAT from_y, T_FLOAT to_x, T_FLOAT to_y);
-EntityModifier* TranslateFromToX(T_UINT32 duration, T_FLOAT from_x, T_FLOAT to_x);
-EntityModifier* TranslateFromToY(T_UINT32 duration, T_FLOAT from_y, T_FLOAT to_y);
+EntityModifier* ScaleTo(T_FLOAT duration, T_FLOAT to);
+EntityModifier* ScaleTo(T_FLOAT duration, const TVec2f& to);
+EntityModifier* ScaleTo(T_FLOAT duration, const TVec3f& to);
+EntityModifier* ScaleToX(T_FLOAT duration, T_FLOAT to_x);
+EntityModifier* ScaleToY(T_FLOAT duration, T_FLOAT to_y);
+EntityModifier* ScaleToZ(T_FLOAT duration, T_FLOAT to_z);
 
 //=======================================================================
-// Rotation
+// ScaleFromBy
+// fromÉXÉPÅ[ÉãÇ©ÇÁdurationïbÇ©ÇØÇƒvalueÇæÇØÉXÉPÅ[ÉäÉìÉO
 //=======================================================================
-EntityModifier* RotationBy(T_UINT32 duration, T_FLOAT value);
-
-EntityModifier* RotationTo(T_UINT32 duration, T_FLOAT to);
-
-EntityModifier* RotationFromBy(T_UINT32 duration, T_FLOAT from, T_FLOAT value);
-
-EntityModifier* RotationFromTo(T_UINT32 duration, T_FLOAT from, T_FLOAT to);
+EntityModifier* ScaleFromBy(T_FLOAT duration, T_FLOAT from, T_FLOAT value);
+EntityModifier* ScaleFromBy(T_FLOAT duration, const TVec2f& from, const TVec2f& value);
+EntityModifier* ScaleFromBy(T_FLOAT duration, const TVec3f& from, const TVec3f& value);
+EntityModifier* ScaleFromByX(T_FLOAT duration, T_FLOAT from_x, T_FLOAT value_x);
+EntityModifier* ScaleFromByY(T_FLOAT duration, T_FLOAT from_y, T_FLOAT value_y);
+EntityModifier* ScaleFromByZ(T_FLOAT duration, T_FLOAT from_z, T_FLOAT value_z);
 
 //=======================================================================
-// Color
+// ScaleFromTo
+// fromÉXÉPÅ[ÉãÇ©ÇÁdurationïbÇ©ÇØÇƒToÇ÷ÉXÉPÅ[ÉäÉìÉO
 //=======================================================================
-EntityModifier* ColorBy(T_UINT32 duration, const TColor& value);
-EntityModifier* ColorBy(T_UINT32 duration, T_FLOAT value_r, T_FLOAT value_g, T_FLOAT value_b, T_FLOAT value_a);
-EntityModifier* ColorByRed(T_UINT32 duration, T_FLOAT value_r);
-EntityModifier* ColorByGreen(T_UINT32 duration, T_FLOAT value_g);
-EntityModifier* ColorByBlue(T_UINT32 duration, T_FLOAT value_b);
-EntityModifier* ColorByAlpha(T_UINT32 duration, T_FLOAT value_a);
+EntityModifier* ScaleFromTo(T_FLOAT duration, T_FLOAT from, T_FLOAT to);
+EntityModifier* ScaleFromTo(T_FLOAT duration, const TVec2f& from, const TVec2f& to);
+EntityModifier* ScaleFromTo(T_FLOAT duration, const TVec3f& from, const TVec3f& to);
+EntityModifier* ScaleFromToX(T_FLOAT duration, T_FLOAT from_x, T_FLOAT to_x);
+EntityModifier* ScaleFromToY(T_FLOAT duration, T_FLOAT from_y, T_FLOAT to_y);
+EntityModifier* ScaleFromToZ(T_FLOAT duration, T_FLOAT from_z, T_FLOAT to_z);
 
-EntityModifier* ColorTo(T_UINT32 duration, const TColor& to);
-EntityModifier* ColorTo(T_UINT32 duration, T_FLOAT to_r, T_FLOAT to_g, T_FLOAT to_b, T_FLOAT to_a);
-EntityModifier* ColorToRed(T_UINT32 duration, T_FLOAT to_r);
-EntityModifier* ColorToGreen(T_UINT32 duration, T_FLOAT to_g);
-EntityModifier* ColorToBlue(T_UINT32 duration, T_FLOAT to_b);
-EntityModifier* ColorToAlpha(T_UINT32 duration, T_FLOAT to_a);
+//=======================================================================
+// TranslateBy
+// åªç›ÇÃà íuÇ©ÇÁdurationïbÇ©ÇØÇƒvalueÇæÇØà⁄ìÆ
+//=======================================================================
+EntityModifier* TranslateBy(T_FLOAT duration, const TVec2f& value);
+EntityModifier* TranslateBy(T_FLOAT duration, const TVec3f& value);
+EntityModifier* TranslateByX(T_FLOAT duration, T_FLOAT value_x);
+EntityModifier* TranslateByY(T_FLOAT duration, T_FLOAT value_y);
+EntityModifier* TranslateByZ(T_FLOAT duration, T_FLOAT value_z);
 
-EntityModifier* ColorFromBy(T_UINT32 duration, const TColor& from, const TColor& value);
-EntityModifier* ColorFromBy(T_UINT32 duration, T_FLOAT from_r, T_FLOAT from_g, T_FLOAT from_b, T_FLOAT from_a, T_FLOAT value_r, T_FLOAT value_g, T_FLOAT value_b, T_FLOAT value_a);
-EntityModifier* ColorFromByRed(T_UINT32 duration, T_FLOAT from_r, T_FLOAT value_r);
-EntityModifier* ColorFromByGreen(T_UINT32 duration, T_FLOAT from_g, T_FLOAT value_g);
-EntityModifier* ColorFromByBlue(T_UINT32 duration, T_FLOAT from_b, T_FLOAT value_b);
-EntityModifier* ColorFromByAlpha(T_UINT32 duration, T_FLOAT from_a, T_FLOAT value_a);
+//=======================================================================
+// TranslateTo
+// åªç›ÇÃà íuÇ©ÇÁdurationïbÇ©ÇØÇƒtoÇ÷à⁄ìÆ
+//=======================================================================
+EntityModifier* TranslateTo(T_FLOAT duration, const TVec2f& to);
+EntityModifier* TranslateTo(T_FLOAT duration, const TVec3f& to);
+EntityModifier* TranslateToX(T_FLOAT duration, T_FLOAT to_x);
+EntityModifier* TranslateToY(T_FLOAT duration, T_FLOAT to_y);
+EntityModifier* TranslateToZ(T_FLOAT duration, T_FLOAT to_z);
 
-EntityModifier* ColorFromTo(T_UINT32 duration, const TColor& from, const TColor& to);
-EntityModifier* ColorFromTo(T_UINT32 duration, T_FLOAT from_r, T_FLOAT from_g, T_FLOAT from_b, T_FLOAT from_a, T_FLOAT to_r, T_FLOAT to_g, T_FLOAT to_b, T_FLOAT to_a);
-EntityModifier* ColorFromToRed(T_UINT32 duration, T_FLOAT from_r, T_FLOAT to_r);
-EntityModifier* ColorFromToGreen(T_UINT32 duration, T_FLOAT from_g, T_FLOAT to_g);
-EntityModifier* ColorFromToBlue(T_UINT32 duration, T_FLOAT from_b, T_FLOAT to_b);
-EntityModifier* ColorFromToAlpha(T_UINT32 duration, T_FLOAT from_a, T_FLOAT to_a);
+//=======================================================================
+// TranslateFromBy
+// fromà íuÇ©ÇÁdurationïbÇ©ÇØÇƒvalueÇæÇØà⁄ìÆ
+//=======================================================================
+EntityModifier* TranslateFromBy(T_FLOAT duration, const TVec2f& from, const TVec2f& value);
+EntityModifier* TranslateFromBy(T_FLOAT duration, const TVec3f& from, const TVec3f& value);
+EntityModifier* TranslateFromByX(T_FLOAT duration, T_FLOAT from_x, T_FLOAT value_x);
+EntityModifier* TranslateFromByY(T_FLOAT duration, T_FLOAT from_y, T_FLOAT value_y);
+EntityModifier* TranslateFromByZ(T_FLOAT duration, T_FLOAT from_z, T_FLOAT value_z);
+
+//=======================================================================
+// TranslateFromTo
+// fromà íuÇ©ÇÁdurationïbÇ©ÇØÇƒToÇ÷à⁄ìÆ
+//=======================================================================
+EntityModifier* TranslateFromTo(T_FLOAT duration, const TVec2f& from, const TVec2f& to);
+EntityModifier* TranslateFromTo(T_FLOAT duration, const TVec3f& from, const TVec3f& to);
+EntityModifier* TranslateFromToX(T_FLOAT duration, T_FLOAT from_x, T_FLOAT to_x);
+EntityModifier* TranslateFromToY(T_FLOAT duration, T_FLOAT from_y, T_FLOAT to_y);
+EntityModifier* TranslateFromToZ(T_FLOAT duration, T_FLOAT from_z, T_FLOAT to_z);
+
+//=======================================================================
+// RotationBy
+// åªç›ÇÃäpìxÇ©ÇÁdurationïbÇ©ÇØÇƒvalueìxÇæÇØâÒì]
+//=======================================================================
+EntityModifier* RotationBy(T_FLOAT duration, const TVec2f& value);
+EntityModifier* RotationBy(T_FLOAT duration, const TVec3f& value);
+EntityModifier* RotationByX(T_FLOAT duration, T_FLOAT value_x);
+EntityModifier* RotationByY(T_FLOAT duration, T_FLOAT value_y);
+EntityModifier* RotationByZ(T_FLOAT duration, T_FLOAT value_z);
+
+//=======================================================================
+// RotationTo
+// åªç›ÇÃäpìxÇ©ÇÁdurationïbÇ©ÇØÇƒtoìxÇ÷âÒì]
+//=======================================================================
+EntityModifier* RotationTo(T_FLOAT duration, const TVec2f& to);
+EntityModifier* RotationTo(T_FLOAT duration, const TVec3f& to);
+EntityModifier* RotationToX(T_FLOAT duration, T_FLOAT to_x);
+EntityModifier* RotationToY(T_FLOAT duration, T_FLOAT to_y);
+EntityModifier* RotationToZ(T_FLOAT duration, T_FLOAT to_z);
+
+//=======================================================================
+// RotationFromBy
+// fromäpìxÇ©ÇÁdurationïbÇ©ÇØÇƒvalueìxÇæÇØâÒì]
+//=======================================================================
+EntityModifier* RotationFromBy(T_FLOAT duration, const TVec2f& from, const TVec2f& value);
+EntityModifier* RotationFromBy(T_FLOAT duration, const TVec3f& from, const TVec3f& value);
+EntityModifier* RotationFromByX(T_FLOAT duration, T_FLOAT from_x, T_FLOAT value_x);
+EntityModifier* RotationFromByY(T_FLOAT duration, T_FLOAT from_y, T_FLOAT value_y);
+EntityModifier* RotationFromByZ(T_FLOAT duration, T_FLOAT from_z, T_FLOAT value_z);
+
+//=======================================================================
+// RotationFromTo
+// fromäpìxÇ©ÇÁdurationïbÇ©ÇØÇƒToìxÇ÷âÒì]
+//=======================================================================
+EntityModifier* RotationFromTo(T_FLOAT duration, const TVec2f& from, const TVec2f& to);
+EntityModifier* RotationFromTo(T_FLOAT duration, const TVec3f& from, const TVec3f& to);
+EntityModifier* RotationFromToX(T_FLOAT duration, T_FLOAT from_x, T_FLOAT to_x);
+EntityModifier* RotationFromToY(T_FLOAT duration, T_FLOAT from_y, T_FLOAT to_y);
+EntityModifier* RotationFromToZ(T_FLOAT duration, T_FLOAT from_z, T_FLOAT to_z);
+
+//=======================================================================
+// ColorBy
+//=======================================================================
+EntityModifier* ColorBy(T_FLOAT duration, const TColor& value);
+EntityModifier* ColorBy(T_FLOAT duration, T_FLOAT value_r, T_FLOAT value_g, T_FLOAT value_b, T_FLOAT value_a);
+EntityModifier* ColorByRed(T_FLOAT duration, T_FLOAT value_r);
+EntityModifier* ColorByGreen(T_FLOAT duration, T_FLOAT value_g);
+EntityModifier* ColorByBlue(T_FLOAT duration, T_FLOAT value_b);
+EntityModifier* ColorByAlpha(T_FLOAT duration, T_FLOAT value_a);
+
+//=======================================================================
+// ColorTo
+//=======================================================================
+EntityModifier* ColorTo(T_FLOAT duration, const TColor& to);
+EntityModifier* ColorTo(T_FLOAT duration, T_FLOAT to_r, T_FLOAT to_g, T_FLOAT to_b, T_FLOAT to_a);
+EntityModifier* ColorToRed(T_FLOAT duration, T_FLOAT to_r);
+EntityModifier* ColorToGreen(T_FLOAT duration, T_FLOAT to_g);
+EntityModifier* ColorToBlue(T_FLOAT duration, T_FLOAT to_b);
+EntityModifier* ColorToAlpha(T_FLOAT duration, T_FLOAT to_a);
+
+//=======================================================================
+// ColorFromBy
+//=======================================================================
+EntityModifier* ColorFromBy(T_FLOAT duration, const TColor& from, const TColor& value);
+EntityModifier* ColorFromBy(T_FLOAT duration, T_FLOAT from_r, T_FLOAT from_g, T_FLOAT from_b, T_FLOAT from_a, T_FLOAT value_r, T_FLOAT value_g, T_FLOAT value_b, T_FLOAT value_a);
+EntityModifier* ColorFromByRed(T_FLOAT duration, T_FLOAT from_r, T_FLOAT value_r);
+EntityModifier* ColorFromByGreen(T_FLOAT duration, T_FLOAT from_g, T_FLOAT value_g);
+EntityModifier* ColorFromByBlue(T_FLOAT duration, T_FLOAT from_b, T_FLOAT value_b);
+EntityModifier* ColorFromByAlpha(T_FLOAT duration, T_FLOAT from_a, T_FLOAT value_a);
+
+//=======================================================================
+// ColorFromTo
+//=======================================================================
+EntityModifier* ColorFromTo(T_FLOAT duration, const TColor& from, const TColor& to);
+EntityModifier* ColorFromTo(T_FLOAT duration, T_FLOAT from_r, T_FLOAT from_g, T_FLOAT from_b, T_FLOAT from_a, T_FLOAT to_r, T_FLOAT to_g, T_FLOAT to_b, T_FLOAT to_a);
+EntityModifier* ColorFromToRed(T_FLOAT duration, T_FLOAT from_r, T_FLOAT to_r);
+EntityModifier* ColorFromToGreen(T_FLOAT duration, T_FLOAT from_g, T_FLOAT to_g);
+EntityModifier* ColorFromToBlue(T_FLOAT duration, T_FLOAT from_b, T_FLOAT to_b);
+EntityModifier* ColorFromToAlpha(T_FLOAT duration, T_FLOAT from_a, T_FLOAT to_a);
 
 }

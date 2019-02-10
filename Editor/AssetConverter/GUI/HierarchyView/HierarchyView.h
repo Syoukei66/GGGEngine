@@ -23,9 +23,7 @@ public:
   // Data Members
   // =================================================================
 private:
-  SharedRef<HierarchyNode> root2d_;
-  SharedRef<HierarchyNode> root3d_;
-
+  SharedRef<HierarchyNode> root_;
   SharedRef<HierarchyNode> selected_;
 
 };

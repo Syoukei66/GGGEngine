@@ -53,7 +53,7 @@ void Camera2D::OnViewportChanged()
 void Camera2D::OnDrawScene(Scene* scene)
 {
   this->render_state_->Init();
-  scene->Draw2DLayers(this->render_state_);
+  scene->DrawLayers(this->render_state_);
   this->render_state_->Draw();
 }
 

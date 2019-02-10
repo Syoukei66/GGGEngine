@@ -27,15 +27,11 @@
 #include <Engine/Engine/IEngineBehavior.h>
 #include <Engine/GameActivity.h>
 #include <Engine/GameObject/GameObject.h>
-#include <Engine/GameObject/GameObject2D.h>
-#include <Engine/GameObject/GameObject3D.h>
 #include <Engine/GameObject/GameObjectFactory.h>
 #include <Engine/GameObject/GameObjectRenderQueue.h>
 #include <Engine/GameObject/GameObjectRenderState.h>
 #include <Engine/GameObject/Transform/Transform.h>
-#include <Engine/GameObject/Transform/Transform2D.h>
-#include <Engine/GameObject/Transform/Transform3D.h>
-#include <Engine/GameObject/Transform/Transform3DRotator.h>
+#include <Engine/GameObject/Transform/TransformRotator.h>
 #include <Engine/Scene/Scene.h>
 #include <Engine/Scene/SceneManager.h>
 #include <Engine/Utils.h>

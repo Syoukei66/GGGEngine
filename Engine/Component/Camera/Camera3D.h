@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Engine/GameObject/GameObject3D.h>
+#include <Engine/GameObject/GameObject.h>
 
 #include "Camera.h"
 
@@ -47,16 +47,16 @@ private:
   // Setter / Getter
   // =================================================================
 public:
-  const TVec3f Get2dPositionScale(const GameObject3D* obj) const;
-  const TVec3f Get2dPosition(const GameObject3D* obj) const;
+  const TVec3f Get2dPositionScale(const GameObject* obj) const;
+  const TVec3f Get2dPosition(const GameObject* obj) const;
 
-  GG_INLINE Transform3D* GetTransform()
+  GG_INLINE Transform* GetTransform()
   {
-    return SharedRef<GameObject3D>::StaticCast(this->GetObject())->GetTransform();
+    return SharedRef<GameObject>::StaticCast(this->GetObject())->GetTransform();
   }
-  GG_INLINE const Transform3D* GetTransform() const
+  GG_INLINE const Transform* GetTransform() const
   {
-    return SharedRef<const GameObject3D>::StaticCast(this->GetObject())->GetTransform();
+    return SharedRef<const GameObject>::StaticCast(this->GetObject())->GetTransform();
   }
   void SetFov(T_FLOAT fov);
   GG_INLINE T_FLOAT GetFov() const

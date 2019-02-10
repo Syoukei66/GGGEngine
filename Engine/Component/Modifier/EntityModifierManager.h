@@ -27,11 +27,11 @@ public:
   static void Init(const EntityModifierAllocateOption& option);
   static void Uninit();
 
-  static bool OnUpdate(T_UINT16 frame_elapsed);
+  static bool OnUpdate(T_FLOAT frame_elapsed);
 
 public:
   void ClearModifiers();
-  static void ClearModifiersWithTargetEntity(GameObject2D* target);
+  static void ClearModifiersWithTargetEntity(GameObject* target);
 
 public:
   static GG_INLINE PoolAllocator<EntityModifierRoot>* GetModifierRootAllocator()

@@ -14,6 +14,14 @@ GG_INIT_FUNC_IMPL_1(GameObject, const std::string& name)
 {
   this->name_ = name;
   this->enabled_ = true;
+  this->transform_ = new Transform(this);
+  this->transform_->Init();
+  return true;
+}
+
+GG_DESTRUCT_FUNC_IMPL(GameObject)
+{
+  delete this->transform_;
   return true;
 }
 
@@ -24,9 +32,7 @@ void GameObject::AddChild(const SharedRef<GameObject>& child)
 {
   child->parent_ = this;
   this->children_.emplace_back(child);
-  child->FireOnPositionChanged();
-  child->FireOnScaleChanged();
-  child->FireOnRotationChanged();
+  child->OnWorldTransformChanged();
 }
 
 void GameObject::RemoveSelf()
@@ -44,7 +50,6 @@ void GameObject::ClearChildren()
 {
   this->children_.clear();
 }
-
 
 // =================================================================
 // Events
@@ -106,29 +111,11 @@ void GameObject::ManagedPostUpdate()
   }
 }
 
-void GameObject::FireOnPositionChanged()
+void GameObject::OnWorldTransformChanged()
 {
   this->transform_->OnWorldTransformDirty();
   for (const SharedRef<GameObject>& child : this->children_)
   {
-    child->FireOnPositionChanged();
-  }
-}
-
-void GameObject::FireOnScaleChanged()
-{
-  this->transform_->OnWorldTransformDirty();
-  for (const SharedRef<GameObject>& child : this->children_)
-  {
-    child->FireOnScaleChanged();
-  }
-}
-
-void GameObject::FireOnRotationChanged()
-{
-  this->transform_->OnWorldTransformDirty();
-  for (const SharedRef<GameObject>& child : this->children_)
-  {
-    child->FireOnRotationChanged();
+    child->OnWorldTransformChanged();
   }
 }

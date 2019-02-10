@@ -24,6 +24,6 @@ public:
   // Data Members
   // =================================================================
 private:
-  SharedRef<GameObject3D> obj_;
+  SharedRef<GameObject> obj_;
   SharedRef<MeshRenderer> mesh_renderer_;
 };

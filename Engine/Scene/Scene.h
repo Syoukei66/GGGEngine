@@ -1,10 +1,8 @@
 #pragma once
 
-#include <Engine/GameObject/GameObject2D.h>
-#include <Engine/GameObject/GameObject3D.h>
+#include <Core/Application/Activity/ActivityContext.h>
+#include <Engine/GameObject/GameObject.h>
 #include <Engine/Component/Camera/Camera.h>
-#include <Engine/Component/Camera/Camera2D.h>
-#include <Engine/Component/Camera/Camera3D.h>
 
 class Scene : public GGObject
 {
@@ -24,21 +22,15 @@ public:
   void Hide();
 
   void Draw(const ActivityContext& context);
-  void Draw2DLayers(GameObjectRenderState* state);
-  void Draw3DLayers(GameObjectRenderState* state);
+  void DrawLayers(GameObjectRenderState* state);
 
-  GG_INLINE void AddChild2D(const SharedRef<GameObject2D>& child)
+  GG_INLINE void AddChild(const SharedRef<GameObject>& child)
   {
-    this->root2d_->AddChild(child);
-  }
-  GG_INLINE void AddChild(const SharedRef<GameObject3D>& child)
-  {
-    this->root3d_->AddChild(child);
+    this->root_->AddChild(child);
   }
   GG_INLINE void ClearChildren()
   {
-    this->root2d_->ClearChildren();
-    this->root3d_->ClearChildren();
+    this->root_->ClearChildren();
   }
 
   GG_INLINE void AddCamera(const SharedRef<Camera>& camera)
@@ -75,14 +67,9 @@ protected:
   // Setter / Getter
   // =================================================================
 public:
-  GG_INLINE SharedRef<GameObject2D> GetRoot2d()
+  GG_INLINE SharedRef<GameObject> GetRoot()
   {
-    return this->root2d_;
-  }
-
-  GG_INLINE SharedRef<GameObject3D> GetRoot3d()
-  {
-    return this->root3d_;
+    return this->root_;
   }
 
   // =================================================================
@@ -94,7 +81,6 @@ private:
 
   bool is_shown_;
 
-  SharedRef<GameObject2D> root2d_;
-  SharedRef<GameObject3D> root3d_;
+  SharedRef<GameObject> root_;
   std::vector<SharedRef<Camera>> cameras_;
 };

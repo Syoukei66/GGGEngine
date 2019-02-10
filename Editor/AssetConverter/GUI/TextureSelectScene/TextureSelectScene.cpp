@@ -3,6 +3,8 @@
 #include <Converter/AssetConverterContext.h>
 #include <Entity/AssetEntity.h>
 #include <Engine/Component/Renderer/MeshRenderer.h>
+#include <Engine/Component/Camera/Camera2D.h>
+#include <Engine/GameActivity.h>
 
 // =================================================================
 // GGG Statement
@@ -17,9 +19,9 @@ GG_INIT_FUNC_IMPL(TextureSelectScene)
 // =================================================================
 void TextureSelectScene::OnLoad()
 {
-  this->camera_ = GameObject2D::Create();
+  this->camera_ = GameObject::Create();
   this->camera_->AddComponent<Camera2D>();
-  this->AddChild2D(this->camera_);
+  this->AddChild(this->camera_);
 }
 
 void TextureSelectScene::OnUnload()
@@ -32,7 +34,7 @@ void TextureSelectScene::OnShow()
 {
   for (const auto& pair : this->textures_)
   {
-    const SharedRef<GameObject3D>& obj = GameObject3D::Create();
+    const SharedRef<GameObject>& obj = GameObject::Create();
     const SharedRef<MeshRenderer>& renderer = obj->AddComponent<MeshRenderer>();
     const SharedRef<rcMaterial>& material = AssetManager::Load<rcMaterial>(DefaultUniqueID::MATERIAL_UNLIT);
     material->SetTexture(Shader::MAIN_TEXTURE_NAME, pair.second);

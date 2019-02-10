@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Engine/GameObject/GameObject2D.h>
+#include <Engine/GameObject/GameObject.h>
 
 #include "Camera.h"
 
@@ -9,6 +9,7 @@ class Camera2D : public Camera
   // =================================================================
   // GGG Statement
   // =================================================================
+  GG_COMPONENT(Camera2D);
   GG_CREATE_FUNC_1(Camera2D, GameObject*);
 
   // =================================================================
@@ -37,9 +38,9 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  GG_INLINE Transform2D* GetTransform()
+  GG_INLINE Transform* GetTransform()
   {
-    return SharedRef<GameObject2D>::StaticCast(this->GetObject())->GetTransform();
+    return this->GetObject()->GetTransform();
   }
 
   // =================================================================

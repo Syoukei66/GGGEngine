@@ -2,7 +2,7 @@
 
 #include <Cereal/cereal.hpp>
 #include "URI.h"
-#include <Engine/GameObject/Transform/Transform3D.h>
+#include <Engine/GameObject/Transform/Transform.h>
 
 class AssetConverterContext;
 
@@ -60,13 +60,13 @@ public:
     this->is_dirty_ = false;
   }
 
-  inline void SetCameraState(Transform3D* transform)
+  inline void SetCameraState(Transform* transform)
   {
     this->camera_position_ = transform->GetPosition();
     this->camera_rotation_ = transform->GetQuaternion();
   }
 
-  inline void GetCameraState(Transform3D* transform) const
+  inline void GetCameraState(Transform* transform) const
   {
     transform->SetPosition(this->camera_position_);
     transform->SetQuaternion(this->camera_rotation_);

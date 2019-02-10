@@ -8,6 +8,7 @@
 #include <GUI/FileView/FileView.h>
 #include <Native/Windows/Activity/WindowActivityContext.h>
 #include <Scene/AssetViewer/AssetViewerScene.h>
+#include <Engine/GameActivity.h>
 
 // =================================================================
 // GGG Statement

@@ -1,5 +1,5 @@
 #include "Camera3D.h"
-#include <Engine/GameObject/Transform/Transform3D.h>
+#include <Engine/GameObject/Transform/Transform.h>
 #include <Engine/GameObject/GameObjectRenderState.h>
 #include <Engine/Scene/Scene.h>
 
@@ -53,7 +53,7 @@ void Camera3D::OnViewportChanged()
 void Camera3D::OnDrawScene(Scene* scene)
 {
   this->render_state_->Init();
-  scene->Draw3DLayers(this->render_state_);
+  scene->DrawLayers(this->render_state_);
   this->render_state_->Draw();
 }
 
@@ -87,7 +87,7 @@ TVec3f Camera3D::CalcRayVector(const TVec2f& screen_position)
 // =================================================================
 // Setter / Getter
 // =================================================================
-const TVec3f Camera3D::Get2dPositionScale(const GameObject3D* obj) const
+const TVec3f Camera3D::Get2dPositionScale(const GameObject* obj) const
 {
   Matrix4x4 ret;
   ret = obj->GetTransform()->GetWorldMatrix();
@@ -97,7 +97,7 @@ const TVec3f Camera3D::Get2dPositionScale(const GameObject3D* obj) const
   return TVec3f(pos.x / pos.w, pos.y / pos.w, pos.z / fabs(pos.w));
 }
 
-const TVec3f Camera3D::Get2dPosition(const GameObject3D* obj) const
+const TVec3f Camera3D::Get2dPosition(const GameObject* obj) const
 {
   TVec3f ret = this->Get2dPositionScale(obj);
   ret.x *= this->GetViewportWidth() * 0.5f;

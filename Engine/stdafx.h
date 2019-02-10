@@ -8,4 +8,3 @@
 
 #include <Engine/GameObject/GameObject.h>
 #include <Engine/Component/GameComponent.h>
-#include <Engine/Director.h>
