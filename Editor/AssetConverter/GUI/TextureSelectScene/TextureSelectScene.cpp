@@ -3,7 +3,6 @@
 #include <Converter/AssetConverterContext.h>
 #include <Entity/AssetEntity.h>
 #include <Engine/Component/Renderer/MeshRenderer.h>
-#include <Engine/GameActivity.h>
 #include <Engine/GameObject/GameObjectRenderState.h>
 
 #include <Engine/Component/Camera/Camera2D.h>
@@ -50,7 +49,7 @@ void TextureSelectScene::OnShow(const ActivityContext& context)
     material->SetTexture(Shader::MAIN_TEXTURE_NAME, pair.second);
     renderer->SetMaterial(material);
     renderer->SetMesh(AssetManager::Load<rcMesh>(DefaultUniqueID::MESH_PLANE));
-    obj->GetTransform()->SetScale(100.0f);
+    obj->GetTransform()->SetScale(128.0f);
     this->AddChild(obj);
   }
 }
@@ -83,13 +82,26 @@ void TextureSelectScene::Run(const SharedRef<rcTexture>& current_texture, AssetC
     this->textures_[unique_id] = AssetManager::Load<rcTexture>(unique_id);
   }
 
-  // アクティビティを作成する
-  const SharedRef<GameActivity>& activity = GameActivity::Create();
-  ActivityOption op = ActivityOption();
-  op.activity_name = "テクスチャ選択";
-  op.resize_window = false;
-  op.sub_window = true;
-  op.window_size = TVec2f(1200.0f, 600.0f);
-  Application::StartActivity(activity, op);
-  activity->ChangeScene(SharedRef<Scene>(this));
+  if (!this->activity_)
+  {
+    // アクティビティを作成する
+    this->activity_ = GameActivity::Create();
+    ActivityOption op = ActivityOption();
+    op.activity_name = "テクスチャ選択";
+    op.resize_window = false;
+    op.sub_window = true;
+    op.window_size = TVec2f(300.0f, 600.0f);
+    Application::StartActivity(this->activity_, op);
+    this->activity_->ChangeScene(SharedRef<Scene>(this));
+  }
+  this->activity_->GetContext().Show();
+}
+
+void TextureSelectScene::End()
+{
+  if (this->activity_)
+  {
+    this->activity_->GetContext().Hide();
+    this->activity_ = nullptr;
+  }
 }

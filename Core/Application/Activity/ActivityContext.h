@@ -44,6 +44,17 @@ private:
    */
   bool DrawEnabled();
 
+public:
+  /*!
+   * @brief アクティビティを表示状態にする
+   */
+  void Show();
+
+  /*!
+   * @brief アクティビティを非表示状態にする
+   */
+  void Hide();
+
 protected:
   /*!
    * @brief 派生先(プラットフォーム)で定義するActivityContext初期化処理
@@ -59,6 +70,16 @@ protected:
    * @brief 派生先(プラットフォーム)で定義するフレームの最初に呼び出す処理
    */
   virtual void OnNewFrame() = 0;
+
+  /*!
+   * @brief 派生先(プラットフォーム)で定義する表示処理
+   */
+  virtual void OnShow() = 0;
+
+  /*!
+   * @brief 派生先(プラットフォーム)で定義する非表示処理
+   */
+  virtual void OnHide() = 0;
 
   // =================================================================
   // Setter / Getter

@@ -11,6 +11,8 @@ class WindowsContext : public ActivityContext
   // =================================================================
 protected:
   virtual void OnNewFrame() override;
+  virtual void OnShow() override;
+  virtual void OnHide() override;
 
   virtual bool IsActive() const override;
   virtual bool IsVisible() const override;

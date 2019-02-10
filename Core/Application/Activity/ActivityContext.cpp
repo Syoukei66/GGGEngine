@@ -8,6 +8,7 @@
 // =================================================================
 void ActivityContext::Start(const ActivityOption& ao, const InputSetting& input_setting)
 {
+  ImGuiContext* context = ImGui::GetCurrentContext();
   this->option_ = ao;
 
   this->input_context_ = new InputContext(input_setting);
@@ -17,12 +18,13 @@ void ActivityContext::Start(const ActivityOption& ao, const InputSetting& input_
   ImGui::SetCurrentContext(this->imgui_context_.get());
   ImGui::StyleColorsDark(&this->imgui_context_->Style);
   ImGui::SetupJapaneseString(this->imgui_context_.get());
-
   this->OnStart(ao);
+  ImGui::SetCurrentContext(context);
 }
 
 void ActivityContext::End()
 {
+  ImGuiContext* context = ImGui::GetCurrentContext();
   ImGui::SetCurrentContext(this->imgui_context_.get());
   this->OnEnd();
   ImGui::DestroyContext(this->imgui_context_.release());
@@ -30,6 +32,7 @@ void ActivityContext::End()
   
   delete this->input_context_;
   this->input_context_ = nullptr;
+  ImGui::SetCurrentContext(context);
 }
 
 void ActivityContext::NewFrame(const SharedRef<Activity>& activity, const SharedRef<Platform>& platform)
@@ -50,7 +53,6 @@ void ActivityContext::NewFrame(const SharedRef<Activity>& activity, const Shared
 
 void ActivityContext::EndFrame()
 {
-  ImGui::SetCurrentContext(this->imgui_context_.get());
   if (this->DrawEnabled())
   {
     this->elapsed_time_ = fmodf(this->elapsed_time_, this->option_.render_cycle);
@@ -61,4 +63,22 @@ void ActivityContext::EndFrame()
 bool ActivityContext::DrawEnabled()
 {
   return this->elapsed_time_ >= this->option_.render_cycle;
+}
+
+void ActivityContext::Show()
+{
+  if (this->IsVisible())
+  {
+    return;
+  }
+  this->OnShow();
+}
+
+void ActivityContext::Hide()
+{
+  if (!this->IsVisible())
+  {
+    return;
+  }
+  this->OnHide();
 }

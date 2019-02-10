@@ -11,6 +11,16 @@ void WindowsContext::OnNewFrame()
   ImGui_ImplWin32_Init(this->window_handle_);
 }
 
+void WindowsContext::OnShow()
+{
+  ShowWindow(this->window_handle_, SW_SHOW);
+}
+
+void WindowsContext::OnHide()
+{
+  ShowWindow(this->window_handle_, SW_HIDE);
+}
+
 bool WindowsContext::IsActive() const
 {
   return this->window_handle_ == GetForegroundWindow();

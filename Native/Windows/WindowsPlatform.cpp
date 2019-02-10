@@ -33,14 +33,18 @@ extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam
 LRESULT WindowsPlatform::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
   const SharedRef<Activity>& activity = Application::GetActivity((T_UINT64)hWnd);
-  if (activity)
-  {
-    ImGui::SetCurrentContext(activity->GetContext().GetImGuiContext().get());
-    ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
-  }
   if (uMsg == WM_CLOSE)
   {
-    DestroyWindow(hWnd);
+    // メインアクティビティなら終了、そうでなければ非表示に
+    if (activity && !activity->GetContext().GetOption().sub_window)
+    {
+      DestroyWindow(hWnd);
+    }
+    else
+    {
+      ShowWindow(hWnd, SW_HIDE);
+      return 0;
+    }
   }
   if (uMsg == WM_DESTROY)
   {
@@ -60,6 +64,13 @@ LRESULT WindowsPlatform::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
         DestroyWindow((HWND)Application::GetMainActivity()->GetContext().GetActivityID());
       }
     }
+  }  
+  if (activity)
+  {
+    ImGuiContext* context = ImGui::GetCurrentContext();
+    ImGui::SetCurrentContext(activity->GetContext().GetImGuiContext().get());
+    ImGui_ImplWin32_WndProcHandler(hWnd, uMsg, wParam, lParam);
+    ImGui::SetCurrentContext(context);
   }
   return DefWindowProc(hWnd, uMsg, wParam, lParam);
 }

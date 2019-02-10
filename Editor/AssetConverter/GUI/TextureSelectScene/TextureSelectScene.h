@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Engine/Scene/Scene.h>
+#include <Engine/GameActivity.h>
 
 class AssetConverterContext;
 
@@ -28,6 +29,7 @@ public:
   // =================================================================
 public:
   void Run(const SharedRef<rcTexture>& current_texture, AssetConverterContext* context, const std::function<void(const SharedRef<rcTexture>& texture)>& callback);
+  void End();
 
   // =================================================================
   // Data Members
@@ -35,6 +37,8 @@ public:
 private:
   std::function<void(const SharedRef<rcTexture>& texture)> callback_;
   SharedRef<rcTexture> current_texture_;
+
+  SharedRef<GameActivity> activity_;
 
   SharedRef<GameObject> camera_;
   std::map<T_UINT32, SharedRef<GameObject>> images_;

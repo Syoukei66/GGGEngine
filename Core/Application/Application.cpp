@@ -155,7 +155,11 @@ bool Application::Update()
   {
     if (!pair.second->Update(self->platform_))
     {
-      delete_activity.emplace_back(pair.second);
+      // ApplicationˆÈŠO‚ÉŠÇ—‚³‚ê‚Ä‚¢‚È‚©‚Á‚½‚ç
+      if (pair.second->GetReferenceCount() == 1)
+      {
+        delete_activity.emplace_back(pair.second);
+      }
     }
   }
 

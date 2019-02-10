@@ -29,10 +29,14 @@ bool Activity::Update(const SharedRef<Platform>& platform)
   {
     return false;
   }
+  if (!this->context_->IsVisible())
+  {
+    return false;
+  }
   this->context_->NewFrame(SharedRef<Activity>(this), platform);
   this->OnUpdate();
   // •`‰æŽüŠú‚ª—ˆ‚½‚ç•`‰æ‚ðs‚¤
-  if (this->context_->IsVisible() && this->context_->DrawEnabled())
+  if (this->context_->DrawEnabled())
   {
     this->OnDraw(platform);
   }

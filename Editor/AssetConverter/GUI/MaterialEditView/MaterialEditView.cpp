@@ -13,6 +13,11 @@ MaterialEditView::MaterialEditView()
 {
 }
 
+MaterialEditView::~MaterialEditView()
+{
+  this->texture_select_scene_->End();
+}
+
 // =================================================================
 // Methods
 // =================================================================

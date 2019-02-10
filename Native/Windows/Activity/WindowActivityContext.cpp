@@ -74,4 +74,8 @@ void WindowActivityContext::OnEnd()
 {
   //imgui uninitialize
   ImGui_ImplWin32_Shutdown();
+  if (!this->GetOption().sub_window)
+  {
+    DestroyWindow(this->window_handle_);
+  }
 }
