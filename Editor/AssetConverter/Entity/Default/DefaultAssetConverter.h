@@ -74,6 +74,11 @@ public:
     return ViewerBehavior_::Create();
   }
 
+  virtual bool IsTargetAsset(const std::string& asset_name) const override
+  {
+    return asset_name == Asset_::ObjectName();
+  }
+
   // =================================================================
   // Methods from AssetConverter
   // =================================================================

@@ -85,6 +85,23 @@ public:
    */
   virtual SharedRef<AssetViewerBehavior> CreateViewerBehavior() const = 0;
 
+  /*!
+   * @brief 引数で指定したAssetクラス名のアセットに変換するConverterなのかを確かめる
+   * @param asset_name Assetクラス名
+   * @return 変換後Assetクラス名と一致していればtrue
+   */
+  virtual bool IsTargetAsset(const std::string& asset_name) const = 0;
+
+  /*!
+   * @brief テンプレート引数で指定したAssetクラスに変換するConverterなのかを確かめる
+   * @return 変換後Assetクラスと一致していればtrue
+   */
+  template <class Asset_>
+  bool IsTargetAsset() const
+  {
+    return this->IsTargetAsset(Asset_::GetObjectName());
+  }
+
 protected:
   /*!
    * @brief アセットのインポート実処理

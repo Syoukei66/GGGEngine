@@ -52,4 +52,9 @@ public:
     Logger::ConvertAssetLog(meta_data);
   }
 
+  virtual bool IsTargetAsset(const std::string& asset_name) const override
+  {
+    return asset_name == Asset_::ObjectName();
+  }
+
 };

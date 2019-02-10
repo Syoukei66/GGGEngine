@@ -1,4 +1,5 @@
 #include "TextureSelectScene.h"
+#include <Converter/AssetConverterContext.h>
 
 // =================================================================
 // GGG Statement
@@ -26,6 +27,7 @@ void TextureSelectScene::OnUnload()
 
 void TextureSelectScene::OnShow()
 {
+  //this->asset_converter_context_->GetEntity();
 }
 
 void TextureSelectScene::OnHide()
@@ -36,8 +38,9 @@ void TextureSelectScene::Update(const ActivityContext& context)
 {
 }
 
-void TextureSelectScene::Run(const SharedRef<rcTexture>& current_texture, const std::function<void(const SharedRef<rcTexture>& texture)>& callback)
+void TextureSelectScene::Run(const SharedRef<rcTexture>& current_texture, const AssetConverterContext* context, const std::function<void(const SharedRef<rcTexture>& texture)>& callback)
 {
+  this->asset_converter_context_ = context;
   this->current_texture_ = current_texture;
   this->callback_ = callback;
   const SharedRef<GameActivity>& activity = GameActivity::Create();

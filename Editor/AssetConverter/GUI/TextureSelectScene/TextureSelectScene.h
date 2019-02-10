@@ -1,5 +1,7 @@
 #pragma once
 
+class AssetConverterContext;
+
 class TextureSelectScene : public Scene
 {
   // =================================================================
@@ -23,7 +25,7 @@ public:
   // Methods from Scene
   // =================================================================
 public:
-  void Run(const SharedRef<rcTexture>& current_texture, const std::function<void(const SharedRef<rcTexture>& texture)>& callback);
+  void Run(const SharedRef<rcTexture>& current_texture, const AssetConverterContext* context, const std::function<void(const SharedRef<rcTexture>& texture)>& callback);
 
   // =================================================================
   // Data Members
@@ -33,6 +35,8 @@ private:
   SharedRef<rcTexture> current_texture_;
 
   SharedRef<GameObject2D> camera_;
-  std::vector<SharedRef<GameObject3D>> images_;
+  std::map<T_UINT32, SharedRef<GameObject3D>> images_;
+
+  const AssetConverterContext* asset_converter_context_;
 
 };

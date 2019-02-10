@@ -38,6 +38,10 @@ private:\
  * ツールのサポートを受けたい場合はこのマクロを通して記述する事。
  */
 #define GG_OBJECT(Name)public:\
+  static GG_INLINE const char* ObjectName()\
+  {\
+    return #Name;\
+  }\
   virtual GG_INLINE const char* GetObjectName() const override\
   {\
     return #Name;\

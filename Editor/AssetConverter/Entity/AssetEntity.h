@@ -121,13 +121,18 @@ public:
   }
 
   AssetConverter* GetConverter(AssetConverterContext* context);
+  
+  template <class Asset_>
+  bool IsTargetAsset() const
+  {
+    return this->GetConverter()->IsTargetAsset<Asset_>();
+  }
 
   // =================================================================
   // Data Members
   // =================================================================
 private:
   AssetMetaData* meta_data_;
-  AssetConverter* converter_;
   IAssetDataContainer* data_;
   bool is_need_commit_;
   std::unordered_map<T_UINT32, std::string> sub_asset_import_time_stamps_;
