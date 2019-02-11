@@ -37,8 +37,6 @@ public:
     : ConverterSetting(converter_id)
     , editor()
   {
-    this->AddSubAsset(DefaultUniqueID::SHADER_ERRROR);
-    this->AddSubAsset(DefaultUniqueID::TEXTURE_WHITE);
   }
 
   // =================================================================

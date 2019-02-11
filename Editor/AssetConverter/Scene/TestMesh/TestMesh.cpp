@@ -22,7 +22,7 @@ static const std::vector<const char*> MESH_MODES = std::vector<const char*>
 
 SharedRef<rcDynamicMesh> CreateMesh(T_UINT32 mode)
 {
-  T_UINT32 format = Vertex::V_FORMAT_PU;
+  T_UINT32 format = Vertex::V_FORMAT_PNU;
   switch (mode)
   {
   case kQuad:
