@@ -1,13 +1,20 @@
 #include "TextureSelectScene.h"
 #include <Converter/AssetConverter.h>
 #include <Converter/AssetConverterContext.h>
-#include <Entity/AssetEntity.h>
 #include <Engine/Component/Renderer/MeshRenderer.h>
 #include <Engine/GameObject/GameObjectRenderState.h>
 
 #include <Engine/Component/Camera/Camera2D.h>
 #include <Engine/Component/Camera/Camera3D_LookAt.h>
 #include <Engine/Component/Camera/Camera3D.h>
+
+static const T_FLOAT PADDING = 16.0f;
+static const T_UINT32 X_NUM = 2;
+static const T_UINT32 Y_NUM = 5;
+static const T_FLOAT IMAGE_SIZE = 100.0f;
+static const T_FLOAT PAD_IMAGE_SIZE = IMAGE_SIZE + PADDING;
+static const T_FLOAT SCREEN_WIDTH = X_NUM * (PAD_IMAGE_SIZE) + PADDING;
+static const T_FLOAT SCREEN_HEIGHT = Y_NUM * (PAD_IMAGE_SIZE) + PADDING;
 
 // =================================================================
 // GGG Statement
@@ -25,7 +32,6 @@ void TextureSelectScene::OnLoad(const ActivityContext& context)
   this->camera_ = GameObject::Create();
   const SharedRef<Camera>& camera = this->camera_->AddComponent<Camera2D>();
   camera->SetViewportClear(true);
-  camera->SetBgColor(TColor::RED);
   camera->SetViewportWidth(context.GetOption().window_size.width);
   camera->SetViewportHeight(context.GetOption().window_size.height);
   this->AddCamera(camera);
@@ -41,25 +47,61 @@ void TextureSelectScene::OnUnload(const ActivityContext& context)
 
 void TextureSelectScene::OnShow(const ActivityContext& context)
 {
-  for (const auto& pair : this->textures_)
+  const T_FLOAT offset_x = -SCREEN_WIDTH * 0.5f + IMAGE_SIZE * 0.5f + PADDING;
+  const T_FLOAT offset_y = -SCREEN_HEIGHT * 0.5f + IMAGE_SIZE * 0.5f + PADDING;
+
+  for (const auto& pair : this->entities_)
   {
-    const SharedRef<GameObject>& obj = GameObject::Create();
-    const SharedRef<MeshRenderer>& renderer = obj->AddComponent<MeshRenderer>();
-    const SharedRef<rcMaterial>& material = AssetManager::Load<rcMaterial>(DefaultUniqueID::MATERIAL_UNLIT);
-    material->SetTexture(Shader::MAIN_TEXTURE_NAME, pair.second);
-    renderer->SetMaterial(material);
-    renderer->SetMesh(AssetManager::Load<rcMesh>(DefaultUniqueID::MESH_PLANE));
-    obj->GetTransform()->SetScale(128.0f);
-    this->AddChild(obj);
+    this->textures_[pair.second->GetMetaData()->GetURI().GetFileName()] = AssetManager::Load<rcTexture>(pair.second->GetMetaData()->GetUniqueID());
   }
+
+  for (T_UINT32 y = 0, i = 0; y < Y_NUM + 1; ++y)
+  {
+    for (T_UINT32 x = 0; x < X_NUM; ++x, ++i)
+    {
+      if (i > this->entities_.size())
+      {
+        break;
+      }
+      const SharedRef<GameObject>& obj = GameObject::Create();
+      const SharedRef<MeshRenderer>& renderer = obj->AddComponent<MeshRenderer>();
+      const SharedRef<rcMaterial>& material = AssetManager::Load<rcMaterial>(DefaultUniqueID::MATERIAL_UNLIT)->Clone();
+      renderer->SetMaterial(material);
+      renderer->SetMesh(AssetManager::Load<rcMesh>(DefaultUniqueID::MESH_PLANE));
+      obj->GetTransform()->SetScale(IMAGE_SIZE);
+      obj->GetTransform()->SetPosition(offset_x + x * PAD_IMAGE_SIZE, -(offset_y + y * PAD_IMAGE_SIZE), 0.0f);
+      this->AddChild(obj);
+      this->images_.emplace_back(obj);
+    }
+  }
+
+  this->scroll_ = 0.0f;
+  this->scroll_max_ = PAD_IMAGE_SIZE * this->textures_.size() / X_NUM + PADDING + IMAGE_SIZE * 0.5f - SCREEN_HEIGHT;
+
+  this->OnUpdateScreen();
 }
 
 void TextureSelectScene::OnHide(const ActivityContext& context)
 {
+  for (const auto& image : this->images_)
+  {
+    image->RemoveSelf();
+  }
+  this->images_.clear();
+  this->textures_.clear();
 }
 
 void TextureSelectScene::Update(const ActivityContext& context)
 {
+  T_FLOAT old_scroll = this->scroll_;
+  const T_FLOAT wheel_move = context.Input(0)->GetAxis(GameInput::MOUSE_MOVE_Z, 0.0f);
+  this->next_scroll_ -= wheel_move * 50.0f;
+  this->next_scroll_ = std::min(this->scroll_max_, std::max(0.0f, this->next_scroll_));
+  this->scroll_ = Mathf::Lerp(this->scroll_, this->next_scroll_, 0.1f);
+  if (this->scroll_ != old_scroll)
+  {
+    this->OnUpdateScreen();
+  }
 }
 
 void TextureSelectScene::Run(const SharedRef<rcTexture>& current_texture, AssetConverterContext* context, const std::function<void(const SharedRef<rcTexture>& texture)>& callback)
@@ -74,12 +116,12 @@ void TextureSelectScene::Run(const SharedRef<rcTexture>& current_texture, AssetC
     AssetConverter* converter = entity->GetConverter(context);
     return converter ? converter->IsTargetAsset<rcTexture>() : false;
   });
-  this->textures_.clear();
+  this->entities_.clear();
   for (const SharedRef<AssetEntity>& entity : entities)
   {
     const T_UINT32 unique_id = entity->GetMetaData()->GetUniqueID();
     entity->Load(context);
-    this->textures_[unique_id] = AssetManager::Load<rcTexture>(unique_id);
+    this->entities_[unique_id] = entity;
   }
 
   if (!this->activity_)
@@ -90,7 +132,7 @@ void TextureSelectScene::Run(const SharedRef<rcTexture>& current_texture, AssetC
     op.activity_name = "テクスチャ選択";
     op.resize_window = false;
     op.sub_window = true;
-    op.window_size = TVec2f(300.0f, 600.0f);
+    op.window_size = TVec2f(SCREEN_WIDTH, SCREEN_HEIGHT);
     Application::StartActivity(this->activity_, op);
     this->activity_->ChangeScene(SharedRef<Scene>(this));
   }
@@ -103,5 +145,41 @@ void TextureSelectScene::End()
   {
     this->activity_->GetContext().Hide();
     this->activity_ = nullptr;
+  }
+}
+
+void TextureSelectScene::OnUpdateScreen()
+{
+  const T_UINT32 texture_index_offset = std::floor((this->scroll_ / (Y_NUM * PAD_IMAGE_SIZE)) * Y_NUM) * X_NUM;
+  T_UINT32 texture_index = 0;
+  T_UINT32 image_index = 0;
+
+  T_FLOAT offset_y = -SCREEN_HEIGHT * 0.5f + IMAGE_SIZE * 0.5f + PADDING;
+  offset_y -= std::fmodf(this->scroll_, PAD_IMAGE_SIZE);
+
+  for (const SharedRef<GameObject>& obj : this->images_)
+  {
+    obj->SetEnabled(false);
+  }
+
+  for (const auto& pair : this->textures_)
+  {
+    if (image_index >= this->images_.size())
+    {
+      break;
+    }
+    if (texture_index < texture_index_offset)
+    {
+      ++texture_index;
+      continue;
+    }
+    const SharedRef<GameObject>& obj = this->images_[image_index];
+    obj->SetEnabled(true);
+    const SharedRef<rcMaterial>& mat = obj->GetComponent<Renderer>()->GetMaterial();
+    mat->SetTexture("_MainTex", pair.second);
+    mat->CommitChanges();
+    obj->GetTransform()->SetY(-(offset_y + image_index / X_NUM * PAD_IMAGE_SIZE));
+    ++texture_index;
+    ++image_index;
   }
 }

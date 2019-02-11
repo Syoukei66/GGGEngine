@@ -21,6 +21,10 @@ GG_INIT_FUNC_IMPL_1(Renderer, GameObject* obj)
 // =================================================================
 void Renderer::ReserveDraw(GameObjectRenderState* state)
 {
+  if (!this->IsEnabled())
+  {
+    return;
+  }
   if (!state->IsTargetedLayer(this->layer_id_))
   {
     return;

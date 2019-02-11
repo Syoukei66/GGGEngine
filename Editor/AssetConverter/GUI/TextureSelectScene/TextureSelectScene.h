@@ -2,6 +2,7 @@
 
 #include <Engine/Scene/Scene.h>
 #include <Engine/GameActivity.h>
+#include <Entity/AssetEntity.h>
 
 class AssetConverterContext;
 
@@ -25,11 +26,14 @@ public:
   virtual void Update(const ActivityContext& context) override;
 
   // =================================================================
-  // Methods from Scene
+  // Methods
   // =================================================================
 public:
   void Run(const SharedRef<rcTexture>& current_texture, AssetConverterContext* context, const std::function<void(const SharedRef<rcTexture>& texture)>& callback);
   void End();
+
+private:
+  void OnUpdateScreen();
 
   // =================================================================
   // Data Members
@@ -41,7 +45,11 @@ private:
   SharedRef<GameActivity> activity_;
 
   SharedRef<GameObject> camera_;
-  std::map<T_UINT32, SharedRef<GameObject>> images_;
-  std::unordered_map<T_UINT32, SharedRef<rcTexture>> textures_;
+  std::vector<SharedRef<GameObject>> images_;
+  std::map<std::string, SharedRef<rcTexture>> textures_;
+  std::unordered_map<T_UINT32, SharedRef<AssetEntity>> entities_;
+  T_FLOAT scroll_;
+  T_FLOAT next_scroll_;
+  T_FLOAT scroll_max_;
 
 };
