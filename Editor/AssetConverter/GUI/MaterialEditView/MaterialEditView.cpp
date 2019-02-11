@@ -86,9 +86,10 @@ bool MaterialEditView::EditWithImGui(AssetConverterContext* context)
       const SharedRef<rcTexture>& texture = AssetManager::Load<rcTexture>(texture_unique_id);
       if (ImGui::ImageButton(texture->GetTextureView()->GetImTextureID(), ImVec2(16, 16)))
       {
-        this->texture_select_scene_->Run(texture, context, [&](const SharedRef<rcTexture>& texture)
+        this->texture_select_scene_->Run(texture, context, [&, data](const SharedRef<rcTexture>& texture)
         {
           this->edit_data_.textures_.at(data.offset_) = texture->GetUniqueId();
+          this->is_updated_ = true;
         });
       }
       ImGui::SameLine();

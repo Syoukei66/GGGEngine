@@ -93,8 +93,41 @@ void TextureSelectScene::OnHide(const ActivityContext& context)
 
 void TextureSelectScene::Update(const ActivityContext& context)
 {
+  using namespace GameInput;
+  // クリック処理
+  if (context.Input(0)->GetButtonDown(MOUSE_CLICK_L))
+  {
+    const T_FLOAT mouse_x = context.Input(0)->GetAxis(MOUSE_SCREEN_X, 0.0f) * 0.5f * context.GetOption().window_size.width;
+    const T_FLOAT mouse_y = -context.Input(0)->GetAxis(MOUSE_SCREEN_Y, 0.0f) * 0.5f * context.GetOption().window_size.height;
+    const T_UINT32 texture_index_offset = std::floor((this->scroll_ / (Y_NUM * PAD_IMAGE_SIZE)) * Y_NUM) * X_NUM;
+    const T_FLOAT r = IMAGE_SIZE * 0.5f;
+    T_UINT32 i = 0;
+    auto itr = this->textures_.begin();
+    for (T_UINT32 j = 0; j < texture_index_offset; ++j, ++itr);
+    for (const SharedRef<GameObject>& obj : this->images_)
+    {
+      if (itr == this->textures_.end())
+      {
+        break;
+      }
+      const T_FLOAT x = obj->GetTransform()->GetX();
+      const T_FLOAT y = obj->GetTransform()->GetY();
+      if (
+        x - r <= mouse_x && mouse_x <= x + r &&
+        y - r <= mouse_y && mouse_y <= y + r
+        )
+      {
+        this->callback_(itr->second);
+        break;
+      }
+      ++i;
+      ++itr;
+    }
+  }
+
+  // スクロール処理
   T_FLOAT old_scroll = this->scroll_;
-  const T_FLOAT wheel_move = context.Input(0)->GetAxis(GameInput::MOUSE_MOVE_Z, 0.0f);
+  const T_FLOAT wheel_move = context.Input(0)->GetAxis(MOUSE_MOVE_Z, 0.0f);
   this->next_scroll_ -= wheel_move * 50.0f;
   this->next_scroll_ = std::min(this->scroll_max_, std::max(0.0f, this->next_scroll_));
   this->scroll_ = Mathf::Lerp(this->scroll_, this->next_scroll_, 0.1f);
