@@ -65,6 +65,14 @@ SharedRef<rcMaterial> MaterialEditView::CreateEditMaterial(const MaterialData& d
       }
     }
   }
+
+  // View用のデータ作成
+  this->edit_property_datas_.clear();
+  for (const auto& pair : this->edit_data_.property_table_)
+  {
+    this->edit_property_datas_[pair.second.index_] = &this->edit_data_.property_table_[pair.first];
+  }
+
   this->material_ = rcMaterial::Create(this->edit_data_);
   return this->material_;
 }
@@ -73,9 +81,9 @@ bool MaterialEditView::EditWithImGui(AssetConverterContext* context)
 {
   using namespace Shader;
   bool reload = false;
-  for (const auto& pair : this->edit_data_.property_table_)
+  for (const auto& pair : this->edit_property_datas_)
   {
-    const MaterialPropertyData& data = pair.second;
+    const MaterialPropertyData& data = *pair.second;
     const std::string& name = data.name_;
     const MaterialPropertyType type = static_cast<MaterialPropertyType>(data.type_);
 

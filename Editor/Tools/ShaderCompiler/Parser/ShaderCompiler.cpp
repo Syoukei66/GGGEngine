@@ -52,6 +52,12 @@ void ShaderCompiler::CompileName(ShaderData* dest)
 
 void ShaderCompiler::CompileProperty(ShaderData* dest)
 {
+  const T_UINT32 index = 
+    dest->properties_.scala_properties_.size() +
+    dest->properties_.vector_properties_.size() +
+    dest->properties_.color_properties_.size() +
+    dest->properties_.sampler_properties_.size()
+    ;
   const std::string property_id = this->parser_.ParseIdentifier();
   this->parser_.GetToken(TokenType::kParenBegin);
   const std::string property_name = this->parser_.ParseText();
@@ -71,6 +77,7 @@ void ShaderCompiler::CompileProperty(ShaderData* dest)
     data.init_value_ = this->parser_.ParseFloat();
     data.name_ = property_id;
     data.display_name_ = property_name;
+    data.index_ = index;
     data.variable_type_ = static_cast<T_FIXED_UINT8>(Shader::VariableType::kFloat);
     dest->properties_.scala_properties_.emplace_back(data);
     dest->properties_.AddBufferSize(Shader::GetVariableTypeSize(Shader::VariableType::kFloat));
@@ -84,6 +91,7 @@ void ShaderCompiler::CompileProperty(ShaderData* dest)
     data.init_value_ = this->parser_.ParseFloat();
     data.name_ = property_id;
     data.display_name_ = property_name;
+    data.index_ = index;
     data.variable_type_ = static_cast<T_FIXED_UINT8>(Shader::VariableType::kFloat);
     data.min_value_ = Limit::T_FLOAT_MIN;
     data.max_value_ = Limit::T_FLOAT_MAX;
@@ -99,6 +107,7 @@ void ShaderCompiler::CompileProperty(ShaderData* dest)
     data.init_value_ = this->parser_.ParseInt();
     data.name_ = property_id;
     data.display_name_ = property_name;
+    data.index_ = index;
     data.variable_type_ = static_cast<T_FIXED_UINT8>(Shader::VariableType::kInt);
     data.min_value_ = (T_FLOAT)Limit::T_INT32_MIN;
     data.max_value_ = (T_FLOAT)Limit::T_INT32_MAX;
@@ -130,6 +139,7 @@ void ShaderCompiler::CompileProperty(ShaderData* dest)
     }
     data.name_ = property_id;
     data.display_name_ = property_name;
+    data.index_ = index;
     data.variable_type_ = static_cast<T_FIXED_UINT8>(Shader::VariableType::kFloat);
     dest->properties_.vector_properties_.emplace_back(data);
     dest->properties_.AddBufferSize(Shader::GetVariableTypeSize(Shader::VariableType::kFloat) * 4);
@@ -159,6 +169,7 @@ void ShaderCompiler::CompileProperty(ShaderData* dest)
     }
     data.name_ = property_id;
     data.display_name_ = property_name;
+    data.index_ = index;
     dest->properties_.color_properties_.emplace_back(data);
     dest->properties_.AddBufferSize(Shader::GetVariableTypeSize(Shader::VariableType::kFloat) * 4);
     return;
@@ -171,6 +182,7 @@ void ShaderCompiler::CompileProperty(ShaderData* dest)
     SamplerPropertyData data;
     data.name_ = property_id;
     data.display_name_ = property_name;
+    data.index_ = index;
     data.sampler_type_ = static_cast<T_FIXED_UINT8>(Shader::SamplerType::kSampler2D);
     data.default_texture_ = this->parser_.ParseDefaultTextureType(init_tex);
     dest->properties_.sampler_properties_.emplace_back(data);

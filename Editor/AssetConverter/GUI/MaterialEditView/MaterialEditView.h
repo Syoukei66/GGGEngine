@@ -62,5 +62,6 @@ private:
   MaterialData edit_data_;
 
   SharedRef<TextureSelectScene> texture_select_scene_;
+  std::map<T_UINT8, MaterialPropertyData*> edit_property_datas_;
 
 };

@@ -15,6 +15,7 @@ struct MaterialPropertyData
   // =================================================================
   GG_SERIALIZABLE(MaterialPropertyData)
   {
+    archive(index_);
     archive(type_);
     archive(count_);
     archive(offset_);
@@ -25,6 +26,7 @@ struct MaterialPropertyData
   // Data Member
   // =================================================================
 public:
+  T_FIXED_UINT8 index_;
   T_FIXED_UINT8 type_; // MaterialPropertyType
   T_FIXED_UINT8 count_;
   T_FIXED_UINT32 offset_;

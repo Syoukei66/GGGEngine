@@ -23,6 +23,7 @@ void MaterialData::CreateWithShader(const ShaderPropertyData& shader, T_UINT32 s
     pdata.count_ = 1;
     pdata.offset_ = AlignmentBufferBegin(data_offset, size);
     pdata.name_ = data.display_name_;
+    pdata.index_ = data.index_;
     dest->property_table_[data.name_] = pdata;
     // データの初期化
     (*(T_FLOAT*)&dest->data_[data_offset]) = data.init_value_;
@@ -38,6 +39,7 @@ void MaterialData::CreateWithShader(const ShaderPropertyData& shader, T_UINT32 s
     pdata.count_ = 4;
     pdata.offset_ = AlignmentBufferBegin(data_offset, size);
     pdata.name_ = data.display_name_;
+    pdata.index_ = data.index_;
     dest->property_table_[data.name_] = pdata;
     // データの初期化
     ((T_FLOAT*)&dest->data_[data_offset])[0] = data.init_value0_;
@@ -55,6 +57,7 @@ void MaterialData::CreateWithShader(const ShaderPropertyData& shader, T_UINT32 s
     pdata.count_ = 1;
     pdata.offset_ = AlignmentBufferBegin(data_offset, size);
     pdata.name_ = data.display_name_;
+    pdata.index_ = data.index_;
     dest->property_table_[data.name_] = pdata;
     // データの初期化
     ((T_FLOAT*)&dest->data_[data_offset])[0] = data.init_r_;
@@ -73,6 +76,7 @@ void MaterialData::CreateWithShader(const ShaderPropertyData& shader, T_UINT32 s
     pdata.count_ = 1;
     pdata.offset_ = texture_offset;
     pdata.name_ = data.display_name_;
+    pdata.index_ = data.index_;
     dest->property_table_[data.name_] = pdata;
     // データの初期化
     if (data.default_texture_ == static_cast<T_UINT8>(DefaultTextureType::kWhite))

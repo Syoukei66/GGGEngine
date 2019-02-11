@@ -16,6 +16,7 @@ struct ScalaPropertyData
   {
     archive(name_);
     archive(display_name_);
+    archive(index_);
     archive(variable_type_);
     archive(min_value_);
     archive(max_value_);
@@ -29,7 +30,8 @@ public:
   ScalaPropertyData()
     : name_("scala")
     , display_name_("scala")
-    , variable_type_(static_cast<T_UINT8>(Shader::VariableType::kFloat))
+    , index_()
+    , variable_type_(static_cast<T_FIXED_UINT8>(Shader::VariableType::kFloat))
     , min_value_(Limit::T_FLOAT_MIN)
     , max_value_(Limit::T_FLOAT_MAX)
     , init_value_(0.0f)
@@ -41,10 +43,11 @@ public:
 public:
   std::string name_;
   std::string display_name_;
-  T_UINT8 variable_type_; // VariableType
-  T_FLOAT min_value_;
-  T_FLOAT max_value_;
-  T_FLOAT init_value_;
+  T_FIXED_UINT8 index_;
+  T_FIXED_UINT8 variable_type_; // VariableType
+  T_FIXED_FLOAT min_value_;
+  T_FIXED_FLOAT max_value_;
+  T_FIXED_FLOAT init_value_;
 };
 
 /*!
@@ -59,6 +62,7 @@ struct VectorPropertyData
   {
     archive(name_);
     archive(display_name_);
+    archive(index_);
     archive(variable_type_);
     archive(init_value0_);
     archive(init_value1_);
@@ -73,7 +77,8 @@ public:
   VectorPropertyData()
     : name_("vector")
     , display_name_("vector")
-    , variable_type_(static_cast<T_UINT8>(Shader::VariableType::kFloat))
+    , index_()
+    , variable_type_(static_cast<T_FIXED_UINT8>(Shader::VariableType::kFloat))
     , init_value0_(0.0f)
     , init_value1_(0.0f)
     , init_value2_(0.0f)
@@ -86,11 +91,12 @@ public:
 public:
   std::string name_;
   std::string display_name_;
-  T_UINT8 variable_type_; // VariableType
-  T_FLOAT init_value0_;
-  T_FLOAT init_value1_;
-  T_FLOAT init_value2_;
-  T_FLOAT init_value3_;
+  T_FIXED_UINT8 index_;
+  T_FIXED_UINT8 variable_type_; // VariableType
+  T_FIXED_FLOAT init_value0_;
+  T_FIXED_FLOAT init_value1_;
+  T_FIXED_FLOAT init_value2_;
+  T_FIXED_FLOAT init_value3_;
 };
 
 /*!
@@ -105,6 +111,7 @@ struct ColorPropertyData
   {
     archive(name_);
     archive(display_name_);
+    archive(index_);
     archive(init_r_);
     archive(init_g_);
     archive(init_b_);
@@ -118,6 +125,7 @@ public:
   ColorPropertyData()
     : name_("color")
     , display_name_("color")
+    , index_()
     , init_r_(1.0f)
     , init_g_(1.0f)
     , init_b_(1.0f)
@@ -130,10 +138,11 @@ public:
 public:
   std::string name_;
   std::string display_name_;
-  T_FLOAT init_r_;
-  T_FLOAT init_g_;
-  T_FLOAT init_b_;
-  T_FLOAT init_a_;
+  T_FIXED_UINT8 index_;
+  T_FIXED_FLOAT init_r_;
+  T_FIXED_FLOAT init_g_;
+  T_FIXED_FLOAT init_b_;
+  T_FIXED_FLOAT init_a_;
 };
 
 /*!
@@ -148,6 +157,7 @@ struct SamplerPropertyData
   {
     archive(name_);
     archive(display_name_);
+    archive(index_);
     archive(sampler_type_);
     archive(default_texture_);
   }
@@ -159,8 +169,9 @@ public:
   SamplerPropertyData()
     : name_("sampler")
     , display_name_("sampler")
-    , sampler_type_(static_cast<T_UINT8>(Shader::SamplerType::kSampler2D))
-    , default_texture_(static_cast<T_UINT8>(Shader::DefaultTextureType::kWhite))
+    , index_()
+    , sampler_type_(static_cast<T_FIXED_UINT8>(Shader::SamplerType::kSampler2D))
+    , default_texture_(static_cast<T_FIXED_UINT8>(Shader::DefaultTextureType::kWhite))
   {}
 
   // =================================================================
@@ -169,8 +180,9 @@ public:
 public:
   std::string name_;
   std::string display_name_;
-  T_UINT8 sampler_type_; // SamplerType
-  T_UINT8 default_texture_; // DefaultTextureType
+  T_FIXED_UINT8 index_;
+  T_FIXED_UINT8 sampler_type_; // SamplerType
+  T_FIXED_UINT8 default_texture_; // DefaultTextureType
 };
 
 /*!
@@ -196,7 +208,7 @@ struct PassData
 public:
   PassData()
     : grab_(false)
-    , light_mode_(static_cast<T_UINT8>(Shader::LightMode::kAlways))
+    , light_mode_(static_cast<T_FIXED_UINT8>(Shader::LightMode::kAlways))
     , render_state_data_()
     , vs_byte_code_()
     , ps_byte_code_()
@@ -207,7 +219,7 @@ public:
   // =================================================================
 public:
   bool grab_;
-  T_UINT8 light_mode_; // LightMode
+  T_FIXED_UINT8 light_mode_; // LightMode
   RenderStateData render_state_data_;
   std::vector<unsigned char> vs_byte_code_;
   std::vector<unsigned char> ps_byte_code_;
@@ -260,7 +272,7 @@ public:
   // Data Member
   // =================================================================
 public:
-  T_UINT32 buffer_size_; // ConstantBufferに必要なサイズ
+  T_FIXED_UINT32 buffer_size_; // ConstantBufferに必要なサイズ
   std::vector<ScalaPropertyData> scala_properties_;
   std::vector<VectorPropertyData> vector_properties_;
   std::vector<ColorPropertyData> color_properties_;
@@ -302,8 +314,8 @@ public:
 public:
   std::string name_;
 
-  T_UINT8 queue_; // RenderQueue
-  T_UINT8 render_type_; // RenderType
+  T_FIXED_UINT8 queue_; // RenderQueue
+  T_FIXED_UINT8 render_type_; // RenderType
 
   ShaderPropertyData properties_;
   std::vector<PassData> passes_;
@@ -318,7 +330,7 @@ public:
   struct Pass
   {
     bool grab_;
-    T_UINT8 light_mode_; // LightMode
+    T_FIXED_UINT8 light_mode_; // LightMode
 
     SharedRef<rcRenderState> render_state;
     SharedRef<rcVertexShader> vertex_shader;
@@ -381,5 +393,5 @@ private:
   Shader::RenderType render_type_; // RenderType
 
   ShaderPropertyData properties_;
-  std::unordered_map<T_UINT8, Pass> passes_;
+  std::unordered_map<T_FIXED_UINT8, Pass> passes_;
 };
