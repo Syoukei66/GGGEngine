@@ -45,6 +45,8 @@ void Renderer::Draw(GameObjectRenderState* state) const
 
   this->builtin_variable_.mat_mvp = this->GetObject()->GetTransform()->GetWorldMatrix() * state->GetViewProjMatrix();
   this->builtin_variable_.mat_mv = this->GetObject()->GetTransform()->GetWorldMatrix() * state->GetViewMatrix();
+  this->builtin_variable_.mat_t_mv = this->builtin_variable_.mat_mv.Transpose();
+  this->builtin_variable_.mat_it_mv = this->builtin_variable_.mat_t_mv.Inverse();
   this->builtin_variable_.obj_to_world = this->GetObject()->GetTransform()->GetWorldMatrix();
   this->builtin_variable_.world_to_obj = this->GetObject()->GetTransform()->GetWorldMatrix().Inverse();
   this->builtin_variable_buffer_->CommitChanges(&this->builtin_variable_);

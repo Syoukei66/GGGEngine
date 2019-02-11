@@ -2,6 +2,7 @@
 
 #include <Scene/AssetViewer/AssetViewerBehavior.h>
 #include <Engine/Component/Renderer/MeshRenderer.h>
+#include <GUI/MaterialEditView/MaterialEditView.h>
 #include <Scene/TestMesh/TestMesh.h>
 
 class MaterialViewerBehavior : public AssetViewerBehavior
@@ -27,4 +28,6 @@ public:
   // =================================================================
 private:
   SharedRef<TestMesh> obj_;
+  MaterialEditView edit_view_;
+
 };

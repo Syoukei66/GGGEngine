@@ -5,5 +5,5 @@
 // =================================================================
 bool MaterialAssetConverterSetting::EditWithImGuiProcess(AssetConverterContext* context)
 {
-  return this->editor.EditWithImGui(context);
+  return false;
 }

@@ -5,7 +5,9 @@ enum MeshMode
   kQuad,
   kHugeQuad,
   kShpere,
+  kCubeShpere,
   kHugeSphere,
+  kHugeCubeShpere,
   kSkyDome,
   kPlane,
 };
@@ -15,7 +17,9 @@ static const std::vector<const char*> MESH_MODES = std::vector<const char*>
   u8"Quad",
   u8"HugeQuad",
   u8"Sphere",
+  u8"CubeSphere",
   u8"HugeSphere",
+  u8"HugeCubeSphere",
   u8"SkyDome",
   u8"Plane",
 };
@@ -31,8 +35,12 @@ SharedRef<rcDynamicMesh> CreateMesh(T_UINT32 mode)
     return MeshFactory::Plane::Create(format, 100.0f, 100.0f, 100, 100, 100, 100);
   case kShpere:
     return MeshFactory::UVSphere::Create(format, 1.0f);
+  case kCubeShpere:
+    return MeshFactory::CubeSphere::Create(format, 1.0f, 1.0f, 1.0f, 6.0f, 6.0f, 6.0f, 3);
   case kHugeSphere:
     return MeshFactory::UVSphere::Create(format, 10.0f);
+  case kHugeCubeShpere:
+    return MeshFactory::CubeSphere::Create(format, 10.0f, 10.0f, 10.0f, 60.0f, 60.0f, 60.0f, 30);
   case kSkyDome:
     return MeshFactory::UVSphere::Create(format, 1000.0f, 16, 32, true);
   case kPlane:

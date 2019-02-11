@@ -53,6 +53,14 @@ public:
   }
 
   /*!
+   * @brief ダーティフラグを立てる
+   */
+  inline void SetDirty()
+  {
+    this->is_dirty_ = true;
+  }
+
+  /*!
    * @brief 自身を使用してデータを読み込んだらダーティフラグを削除
    */
   inline void ClearDirty()

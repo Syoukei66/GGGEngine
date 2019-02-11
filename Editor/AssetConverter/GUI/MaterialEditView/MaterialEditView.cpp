@@ -90,6 +90,7 @@ bool MaterialEditView::EditWithImGui(AssetConverterContext* context)
         {
           this->edit_data_.textures_.at(data.offset_) = texture->GetUniqueId();
           this->is_updated_ = true;
+          this->is_master_ = true;
         });
       }
       ImGui::SameLine();

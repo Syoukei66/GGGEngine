@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Entity/ConverterSetting.h>
-#include <GUI/MaterialEditView/MaterialEditView.h>
 
 /*!
  * @brief MaterialAssetConverterÇÃê›íË
@@ -35,7 +34,6 @@ public:
 
   MaterialAssetConverterSetting(const std::string& converter_id)
     : ConverterSetting(converter_id)
-    , editor()
   {
   }
 
@@ -44,12 +42,6 @@ public:
   // =================================================================
 protected:
   virtual bool EditWithImGuiProcess(AssetConverterContext* context) override;
-
-  // =================================================================
-  // Data Members
-  // =================================================================
-public:
-  MaterialEditView editor;
 
 };
 

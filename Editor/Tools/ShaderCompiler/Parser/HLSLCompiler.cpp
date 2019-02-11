@@ -97,6 +97,8 @@ void HLSLCompiler::ConvertHLSL(const ShaderData& shader, std::string* str)
   builtin += "{\n";
   builtin += "  matrix _MatMVP;\n";
   builtin += "  matrix _MatMV;\n";
+  builtin += "  matrix _MatTMV;\n";
+  builtin += "  matrix _MatITMV;\n";
   builtin += "  matrix _ObjToWorld;\n";
   builtin += "  matrix _WorldToObj;\n";
   builtin += "};\n";
@@ -171,7 +173,7 @@ void HLSLCompiler::ConvertHLSL(const ShaderData& shader, std::string* str)
 void HLSLCompiler::CompileVertexShader(const std::string& str, std::vector<unsigned char>* dest)
 {
   ID3DBlob* vs_blob;
-  CompileShaderFromString(str, this->input_directory_path_, "VS", "vs_4_0", &vs_blob);
+  CompileShaderFromString(str, this->input_directory_path_, "VS", "vs_5_0", &vs_blob);
 
   const T_UINT32 vs_size = (T_UINT32)vs_blob->GetBufferSize();
   dest->resize(vs_size);
@@ -184,7 +186,7 @@ void HLSLCompiler::CompileVertexShader(const std::string& str, std::vector<unsig
 void HLSLCompiler::CompilePixelShader(const std::string& str, std::vector<unsigned char>* dest)
 {
   ID3DBlob* ps_blob;
-  CompileShaderFromString(str, this->input_directory_path_, "PS", "ps_4_0", &ps_blob);
+  CompileShaderFromString(str, this->input_directory_path_, "PS", "ps_5_0", &ps_blob);
 
   const T_UINT32 ps_size = (T_UINT32)ps_blob->GetBufferSize();
   dest->resize(ps_size);

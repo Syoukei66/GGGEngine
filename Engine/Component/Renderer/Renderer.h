@@ -72,6 +72,8 @@ protected:
   {
     Matrix4x4 mat_mvp;
     Matrix4x4 mat_mv;
+    Matrix4x4 mat_t_mv;
+    Matrix4x4 mat_it_mv;
     Matrix4x4 obj_to_world;
     Matrix4x4 world_to_obj;
   } builtin_variable_;
