@@ -23,12 +23,15 @@ bool AssetViewerBehavior::Update(const ActivityContext& activity_context, AssetC
   this->entity_->GetMetaData()->GetConverterSetting()->EditWithImGui(context);
   ImGui::End();
 
-  bool reloaded = false;
-  if (this->entity_->Load(context))
+  bool reloaded = this->entity_->Load(context);
+  for (const auto& entity : this->use_entities_)
+  {
+    reloaded |= entity->Load(context);
+  }
+  if (reloaded)
   {
     this->OnUnload();
     this->OnLoad(this->entity_->GetMetaData()->GetUniqueID());
-    reloaded = true;
   }
   this->OnUpdate(activity_context, context);
   return reloaded;

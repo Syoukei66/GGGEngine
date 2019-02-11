@@ -137,7 +137,7 @@ void TextureSelectScene::Update(const ActivityContext& context)
   }
 }
 
-void TextureSelectScene::Run(const SharedRef<rcTexture>& current_texture, AssetConverterContext* context, const std::function<void(const SharedRef<rcTexture>& texture)>& callback)
+void TextureSelectScene::Run(AssetViewerBehavior* behavior, const SharedRef<rcTexture>& current_texture, AssetConverterContext* context, const std::function<void(const SharedRef<rcTexture>& texture)>& callback)
 {
   this->current_texture_ = current_texture;
   this->callback_ = callback;
@@ -149,12 +149,17 @@ void TextureSelectScene::Run(const SharedRef<rcTexture>& current_texture, AssetC
     AssetConverter* converter = entity->GetConverter(context);
     return converter ? converter->IsTargetAsset<rcTexture>() : false;
   });
+  for (const auto& pair : this->entities_)
+  {
+    behavior->RemoveEditorUseEntity(pair.second);
+  }
   this->entities_.clear();
   for (const SharedRef<AssetEntity>& entity : entities)
   {
     const T_UINT32 unique_id = entity->GetMetaData()->GetUniqueID();
     entity->Load(context);
     this->entities_[unique_id] = entity;
+    behavior->AddEditorUseEntity(entity);
   }
 
   if (!this->activity_)
@@ -179,6 +184,16 @@ void TextureSelectScene::End()
     this->activity_->GetContext().Hide();
     this->activity_ = nullptr;
   }
+}
+
+void TextureSelectScene::Reload()
+{
+  this->textures_.clear();
+  for (const auto& pair : this->entities_)
+  {
+    this->textures_[pair.second->GetMetaData()->GetURI().GetFileName()] = AssetManager::Load<rcTexture>(pair.second->GetMetaData()->GetUniqueID());
+  }
+  this->OnUpdateScreen();
 }
 
 void TextureSelectScene::OnUpdateScreen()

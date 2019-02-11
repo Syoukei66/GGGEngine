@@ -207,6 +207,7 @@
     <ClInclude Include="GUI\FileView\AssetEntityFileNode.h" />
     <ClInclude Include="GUI\HierarchyView\HierarchyNode.h" />
     <ClInclude Include="GUI\HierarchyView\HierarchyView.h" />
+    <ClInclude Include="GUI\ShaderSelectScene\ShaderSelectScene.h" />
     <ClInclude Include="GUI\TextureSelectScene\TextureSelectScene.h" />
     <ClInclude Include="GUI\TextureSelectScene\TextureSelectView.h" />
     <ClInclude Include="IAssetConverterAddIn.h" />
@@ -275,6 +276,7 @@
     <ClCompile Include="GUI\HierarchyView\HierarchyNode.cpp" />
     <ClCompile Include="GUI\HierarchyView\HierarchyView.cpp" />
     <ClCompile Include="GUI\MaterialEditView\MaterialEditView.cpp" />
+    <ClCompile Include="GUI\ShaderSelectScene\ShaderSelectScene.cpp" />
     <ClCompile Include="GUI\TextureSelectScene\TextureSelectScene.cpp" />
     <ClCompile Include="ProgramGenerator\AssetProgramGenerator.cpp" />
     <ClCompile Include="ProgramGenerator\AssetProgramGenerator_identifier.cpp" />

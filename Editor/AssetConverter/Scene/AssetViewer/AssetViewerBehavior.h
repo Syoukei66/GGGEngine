@@ -39,10 +39,34 @@ public:
   {
     return this->entity_;
   }
+
+  /*!
+   * @brief エディタが使用しているAssetEntityを追加する
+   */
+  GG_INLINE void AddEditorUseEntity(const SharedRef<AssetEntity>& entity)
+  {
+    this->use_entities_.insert(entity);
+  }
+  /*!
+   * @brief エディタが使用しているAssetEntityを追加する
+   */
+  GG_INLINE void RemoveEditorUseEntity(const SharedRef<AssetEntity>& entity)
+  {
+    this->use_entities_.erase(entity);
+  }
+  /*!
+   * @brief エディガ使用しているAssetEntityの登録を全て解除する
+   */
+  GG_INLINE void RemoveEditorUseEntity()
+  {
+    this->use_entities_.clear();
+  }
+
   // =================================================================
   // Data Member
   // =================================================================
 private:
   SharedRef<AssetEntity> entity_;
+  std::set<SharedRef<AssetEntity>> use_entities_;
 
 };

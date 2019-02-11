@@ -4,6 +4,7 @@
 #include <Engine/GameActivity.h>
 #include <Entity/AssetEntity.h>
 
+class AssetViewerBehavior;
 class AssetConverterContext;
 
 class TextureSelectScene : public Scene
@@ -29,8 +30,9 @@ public:
   // Methods
   // =================================================================
 public:
-  void Run(const SharedRef<rcTexture>& current_texture, AssetConverterContext* context, const std::function<void(const SharedRef<rcTexture>& texture)>& callback);
+  void Run(AssetViewerBehavior* behavior, const SharedRef<rcTexture>& current_texture, AssetConverterContext* context, const std::function<void(const SharedRef<rcTexture>& texture)>& callback);
   void End();
+  void Reload();
 
 private:
   void OnUpdateScreen();

@@ -31,6 +31,7 @@ void ShaderViewerBehavior::OnLoad(T_UINT32 unique_id)
   MaterialData material_data = MaterialData();
   MaterialData::CreateWithShader(data.properties_, unique_id, &material_data);
   const SharedRef<Renderer>& renderer = this->obj_->GetComponent<Renderer>();
+  this->material_edit_view_.Reload();
   renderer->SetMaterial(this->material_edit_view_.CreateEditMaterial(material_data));
 }
 
@@ -44,7 +45,7 @@ void ShaderViewerBehavior::OnUpdate(const ActivityContext& activity_context, Ass
   this->material_edit_view_.Update();
 
   ImGui::Begin(activity_context, u8"ƒ}ƒeƒŠƒAƒ‹Ý’è", 10.0f, 0.0f, 0.35f, 0.25f, 0.65f);
-  this->material_edit_view_.EditWithImGui(context);
+  this->material_edit_view_.EditWithImGui(this, context);
   
   ImGui::Spacing();
   ImGui::Separator();

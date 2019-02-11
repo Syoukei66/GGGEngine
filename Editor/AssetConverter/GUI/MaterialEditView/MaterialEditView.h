@@ -3,6 +3,11 @@
 #include <GUI/TextureSelectScene/TextureSelectScene.h>
 #include <Converter/AssetConverterContext.h>
 
+class AssetViewerBehavior;
+
+/*!
+ * @brief マテリアルを編集する為のImGuiウィンドウ
+ */
 class MaterialEditView
 {
   // =================================================================
@@ -17,8 +22,9 @@ public:
   // =================================================================
 public:
   SharedRef<rcMaterial> CreateEditMaterial(const MaterialData& data);
-  bool EditWithImGui(AssetConverterContext* context);
+  bool EditWithImGui(AssetViewerBehavior* behavior, AssetConverterContext* context);
   void Update();
+  void Reload();
 
 private:
   template <typename Type_>
@@ -34,11 +40,19 @@ private:
   // Setter / Getter
   // =================================================================
 public:
+  /*!
+   * @brief 編集中のデータを優先モードかどうか調べる
+   * @return 優先モードならtrue
+   */
   inline bool IsMaster() const
   {
     return this->is_master_;
   }
 
+  /*!
+   * @brief 編集中のデータを取得する
+   * @return 編集中のデータ
+   */
   inline const MaterialData& GetEditData() const
   {
     return this->edit_data_;
@@ -48,6 +62,9 @@ public:
   // Data Members
   // =================================================================
 private:
+  /*!
+   * @brief 編集中のマテリアル
+   */
   SharedRef<rcMaterial> material_;
 
   /*!
@@ -59,9 +76,21 @@ private:
    * @brief データが更新されたか
    */
   bool is_updated_;
+
+  /*!
+   * @brief 編集中のデータ
+   */
   MaterialData edit_data_;
 
+  /*!
+   * @brief テクスチャ選択用のScene
+   */
   SharedRef<TextureSelectScene> texture_select_scene_;
+
+  /*!
+   * @brief 編集プロパティデータの一覧。
+   * プロパティ宣言での順序を基に整列している
+   */
   std::map<T_UINT8, MaterialPropertyData*> edit_property_datas_;
 
 };
