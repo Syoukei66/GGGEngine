@@ -87,6 +87,7 @@ bool MaterialEditView::EditWithImGui(AssetConverterContext* context)
     const std::string& name = data.name_;
     const MaterialPropertyType type = static_cast<MaterialPropertyType>(data.type_);
 
+    ImGui::PushID(data.index_);
     if (type == MaterialPropertyType::kTexture)
     {
       const T_UINT32 texture_unique_id = this->edit_data_.textures_[data.offset_];
@@ -106,30 +107,32 @@ bool MaterialEditView::EditWithImGui(AssetConverterContext* context)
       ImGui::Text(filename.c_str());
       ImGui::SameLine();
       ImGui::Text(name.c_str());
-      continue;
     }
-
-    unsigned char* p = &this->edit_data_.data_[data.offset_];
-    switch (type)
+    else
     {
-    case MaterialPropertyType::kBool:
-      this->is_updated_ |= ImGui::Checkbox(name.c_str(), (bool*)p);
-      break;
-    case MaterialPropertyType::kInt:
-      this->is_updated_ |= ImGui::DragInt(name.c_str(), (int*)p);
-      break;
-    case MaterialPropertyType::kUint:
-      this->is_updated_ |= ImGui::DragInt(name.c_str(), (int*)p);
-      break;
-    case MaterialPropertyType::kFloat:
-      this->is_updated_ |= ImGui::DragFloat(name.c_str(), (float*)p, 0.01f);
-      break;
-    case MaterialPropertyType::kColor:
-      this->is_updated_ |= ImGui::ColorEdit4(name.c_str(), ((TColor*)p)->data);
-      break;
-    case MaterialPropertyType::DATANUM:
-      break;
+      unsigned char* p = &this->edit_data_.data_[data.offset_];
+      switch (type)
+      {
+      case MaterialPropertyType::kBool:
+        this->is_updated_ |= ImGui::Checkbox(name.c_str(), (bool*)p);
+        break;
+      case MaterialPropertyType::kInt:
+        this->is_updated_ |= ImGui::DragInt(name.c_str(), (int*)p);
+        break;
+      case MaterialPropertyType::kUint:
+        this->is_updated_ |= ImGui::DragInt(name.c_str(), (int*)p);
+        break;
+      case MaterialPropertyType::kFloat:
+        this->is_updated_ |= ImGui::DragFloat(name.c_str(), (float*)p, 0.01f);
+        break;
+      case MaterialPropertyType::kColor:
+        this->is_updated_ |= ImGui::ColorEdit4(name.c_str(), ((TColor*)p)->data);
+        break;
+      case MaterialPropertyType::DATANUM:
+        break;
+      }
     }
+    ImGui::PopID();
   }
   if (this->is_updated_)
   {
