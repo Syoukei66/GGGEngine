@@ -8,7 +8,7 @@ MaterialEditView::MaterialEditView()
   : material_()
   , is_master_()
   , is_updated_()
-  , edit_data_()
+  , edit_data_map_()
   , texture_select_scene_(TextureSelectScene::Create())
 {
 }
@@ -25,9 +25,16 @@ SharedRef<rcMaterial> MaterialEditView::CreateEditMaterial(const MaterialData& d
 {
   using namespace Shader;
 
+  // シェーダー切り替え時にデータが失われないように
+  if (this->material_)
+  {
+    this->edit_data_map_[this->material_->GetShader()->GetShaderName()] = this->edit_data_;
+  }
+
   const SharedRef<rcShader>& shader = AssetManager::Load<rcShader>(data.shader_unique_id_);
+
   // シェーダーから取得したデータを基にMaterialDataを作り直す
-  MaterialData old_data = this->is_master_ ? this->edit_data_ : data;
+  const MaterialData& old_data = this->is_master_ ? this->edit_data_map_[shader->GetShaderName()] : data;
   this->edit_data_ = MaterialData();
   MaterialData::CreateWithShader(shader->GetPropertyData(), shader->GetUniqueId(), &this->edit_data_);
   // 古いデータに同じプロパティがあればそのまま使用する

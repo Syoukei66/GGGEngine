@@ -128,7 +128,7 @@ void TextureSelectScene::Update(const ActivityContext& context)
   // ƒXƒNƒ[ƒ‹ˆ—
   T_FLOAT old_scroll = this->scroll_;
   const T_FLOAT wheel_move = context.Input(0)->GetAxis(MOUSE_MOVE_Z, 0.0f);
-  this->next_scroll_ -= wheel_move * 50.0f;
+  this->next_scroll_ -= wheel_move * 100.0f;
   this->next_scroll_ = std::min(this->scroll_max_, std::max(0.0f, this->next_scroll_));
   this->scroll_ = Mathf::Lerp(this->scroll_, this->next_scroll_, 0.1f);
   if (this->scroll_ != old_scroll)

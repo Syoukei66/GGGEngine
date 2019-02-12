@@ -353,11 +353,14 @@ public:
   // Setter / Getter
   // =================================================================
 public:
+  GG_INLINE const std::string& GetShaderName() const
+  {
+    return this->name_;
+  }
   GG_INLINE Graphics::RenderQueue GetRenderQueue() const
   {
     return this->queue_;
   }
-
   GG_INLINE const ShaderPropertyData& GetPropertyData() const
   {
     return this->properties_;

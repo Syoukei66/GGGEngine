@@ -78,6 +78,11 @@ private:
   bool is_updated_;
 
   /*!
+   * @brief 編集中のデータをシェーダーの種類が切り替わってもデータを保持できるように退避させるマップ
+   */
+  std::unordered_map<std::string, MaterialData> edit_data_map_;
+
+  /*!
    * @brief 編集中のデータ
    */
   MaterialData edit_data_;
