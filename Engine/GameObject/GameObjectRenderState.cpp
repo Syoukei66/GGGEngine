@@ -41,7 +41,7 @@ void GameObjectRenderState::Init()
   this->builtin_variable_.mat_vp = this->builtin_variable_.mat_v;
   this->builtin_variable_.mat_vp *= this->builtin_variable_.mat_p;
 
-  this->builtin_variable_.world_space_camera_pos_ = this->builtin_variable_.mat_v.GetPosition4d();
+  this->builtin_variable_.world_space_camera_pos_ = TVec4f(this->camera_->GetTransform()->GetWorldPosition(), 0.0f);
 
   const T_FLOAT near = this->camera_->GetViewportZMin();
   const T_FLOAT far = this->camera_->GetViewportZMax();
