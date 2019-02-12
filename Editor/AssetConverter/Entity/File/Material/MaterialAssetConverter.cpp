@@ -9,6 +9,7 @@ IAssetDataContainer* MaterialAssetConverter::ImportProcess(const SharedRef<Asset
   setting->ClearSubAssets();
   std::string output_path = FileUtil::CreateInputPath(entity->GetMetaData()->GetURI());
   MaterialData* data = CerealIO::Json::Import<MaterialData>(output_path.c_str());
+  setting->AddSubAsset(data->shader_unique_id_);
   for (T_FIXED_UINT32 uid : data->textures_)
   {
     setting->AddSubAsset(uid);
