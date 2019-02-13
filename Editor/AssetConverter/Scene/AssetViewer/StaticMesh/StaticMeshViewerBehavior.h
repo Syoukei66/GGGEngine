@@ -19,7 +19,10 @@ public:
   virtual void OnEnd() override;
   virtual void OnLoad(T_UINT32 unique_id) override;
   virtual void OnUnload() override;
-
+  virtual SharedRef<GameObject> GetTargetObject() const override
+  {
+    return this->obj_;
+  }
   // =================================================================
   // Data Members
   // =================================================================

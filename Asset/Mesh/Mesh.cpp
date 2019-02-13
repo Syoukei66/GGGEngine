@@ -57,13 +57,13 @@ GG_INIT_FUNC_IMPL_1(rcMesh, const StaticMeshData& data)
 // =================================================================
 // Methods
 // =================================================================
-UniqueRef<rcDynamicMesh> rcMesh::CloneDynamic() const
+SharedRef<rcDynamicMesh> rcMesh::CloneDynamic() const
 {
   using namespace Vertex;
 
   const T_UINT32 vertex_format = this->vertex_declaration_->GetFormat();
 
-  UniqueRef<rcDynamicMesh> ret = rcDynamicMesh::Create();
+  SharedRef<rcDynamicMesh> ret = rcDynamicMesh::Create();
 
   ret->CreateVertices(this->vertex_count_, vertex_format);
 
@@ -106,11 +106,11 @@ UniqueRef<rcDynamicMesh> rcMesh::CloneDynamic() const
   return ret;
 }
 
-UniqueRef<rcDynamicMesh> rcMesh::MoveDynamic()
+SharedRef<rcDynamicMesh> rcMesh::MoveDynamic()
 {
   using namespace Vertex;
 
-  UniqueRef<rcDynamicMesh> ret = rcDynamicMesh::Create();
+  SharedRef<rcDynamicMesh> ret = rcDynamicMesh::Create();
 
   ret->vertex_declaration_ = std::move(this->vertex_declaration_);
   ret->vertex_buffer_ = std::move(this->vertex_buffer_);

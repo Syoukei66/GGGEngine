@@ -22,6 +22,10 @@ public:
   virtual void OnLoad(T_UINT32 unique_id) override;
   virtual void OnUnload() override;
   virtual void OnUpdate(const ActivityContext& activity_context, AssetConverterContext* context) override;
+  virtual SharedRef<GameObject> GetTargetObject() const override
+  {
+    return this->obj_;
+  }
 
   // =================================================================
   // Data Members

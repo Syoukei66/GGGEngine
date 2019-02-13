@@ -34,6 +34,7 @@ void ViewerScene::OnLoad(const ActivityContext& context)
   this->camera_ = GameObject::Create();
   this->camera_->AddComponent<Camera3D_LookAt>();
   this->camera_target_ = GameObject::Create();
+  this->target_object_ = this->current_behavior_->GetTargetObject();
   this->AddCamera(this->camera_->GetComponent<Camera>());
 }
 
@@ -128,7 +129,13 @@ void ViewerScene::Update(const ActivityContext& context)
   ImGui::SliderFloat(u8"カメラ移動速度倍率", &this->move_speed_weight_, 0.0f, 5.0f);
 
   ImGui::Combo(u8"カメラモード", &this->camera_state_, CAMERA_STATE_NAMES, CAMERA_STATE_MAX);
-  
+
+  if (this->target_object_)
+  {
+    ImGui::SliderFloat(u8"オブジェクト回転", &this->rotate_speed_, 0.0f, 10.0f);
+    this->target_object_->GetTransform()->RotateY(Mathf::DegToRad(this->rotate_speed_ * 0.1f));
+  }
+
   if (ImGui::Button(u8"カメラを初期位置に戻す"))
   {
     this->camera_move_x_ = 0.0f;

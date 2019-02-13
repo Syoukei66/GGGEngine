@@ -20,6 +20,7 @@ public:
   virtual void End() = 0;
   virtual bool Update(const ActivityContext& activity_context, AssetConverterContext* context) = 0;
   virtual SharedRef<AssetEntity> GetEntity() const = 0;
+  virtual SharedRef<GameObject> GetTargetObject() const = 0;
 };
 
 class ViewerScene : public Scene
@@ -60,12 +61,14 @@ private:
   SharedRef<IViewerBehavior> current_behavior_;
   SharedRef<GameObject> camera_;
   SharedRef<GameObject> camera_target_;
+  SharedRef<GameObject> target_object_;
   T_FLOAT camera_move_x_;
   T_FLOAT camera_move_y_;
 
   T_INT32 camera_state_;
   T_FLOAT move_speed_;
   T_FLOAT move_speed_weight_;
+  T_FLOAT rotate_speed_;
   TColor bg_color_;
   
 };

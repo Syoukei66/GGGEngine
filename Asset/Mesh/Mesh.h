@@ -67,14 +67,14 @@ public:
   /*!
    * @brief 頂点・インデックス情報をバッファから取得し、編集可能なメッシュを生成する。
    */
-  UniqueRef<rcDynamicMesh> CloneDynamic() const;
+  SharedRef<rcDynamicMesh> CloneDynamic() const;
 
   /*!
    * @brief 頂点・インデックス情報をバッファから取得し、編集可能なメッシュを生成する。
    * バッファのコピーが行われない分低コストだがバッファの所有権を移動する為、
    * このメソッド使用後このメッシュは使用不可になる。
    */
-  UniqueRef<rcDynamicMesh> MoveDynamic();
+  SharedRef<rcDynamicMesh> MoveDynamic();
 
   void SetStreamSource() const;
   void DrawSubset(T_UINT8 index) const;

@@ -88,6 +88,7 @@ bool MaterialEditView::EditWithImGui(AssetViewerBehavior* behavior, AssetConvert
 {
   using namespace Shader;
   bool reload = false;
+
   for (const auto& pair : this->edit_property_datas_)
   {
     const MaterialPropertyData& data = *pair.second;

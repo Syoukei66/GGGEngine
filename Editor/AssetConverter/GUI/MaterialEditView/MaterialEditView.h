@@ -98,4 +98,13 @@ private:
    */
   std::map<T_UINT8, MaterialPropertyData*> edit_property_datas_;
 
+  /*!
+   * @brief シェーダー一覧
+   */
+  std::map<std::string, SharedRef<AssetEntity>> shader_entities_;
+
+  /*!
+   * @brief ImGuiで使用する為のシェーダー名一覧
+   */
+  std::vector<char> shader_names_;
 };
