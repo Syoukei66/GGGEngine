@@ -1,5 +1,6 @@
 #include "AssetViewerBehavior.h"
 #include <Director.h>
+#include <Util/ImGuiUtil.h>
 
 // =================================================================
 // Methods from IViewerBehavior
@@ -8,7 +9,7 @@ void AssetViewerBehavior::Start(Scene* scene, AssetConverterContext* context)
 {
   this->entity_->Load(context);
   this->OnStart(scene);
-  this->OnLoad(this->entity_->GetMetaData()->GetUniqueID());
+  this->OnLoad(this->entity_->GetMetaData()->GetUniqueID(), context);
 }
 
 void AssetViewerBehavior::End()
@@ -31,7 +32,7 @@ bool AssetViewerBehavior::Update(const ActivityContext& activity_context, AssetC
   if (reloaded)
   {
     this->OnUnload();
-    this->OnLoad(this->entity_->GetMetaData()->GetUniqueID());
+    this->OnLoad(this->entity_->GetMetaData()->GetUniqueID(), context);
   }
   this->OnUpdate(activity_context, context);
   return reloaded;

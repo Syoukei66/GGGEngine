@@ -84,7 +84,7 @@ SharedRef<rcMaterial> MaterialEditView::CreateEditMaterial(const MaterialData& d
   return this->material_;
 }
 
-bool MaterialEditView::EditWithImGui(AssetViewerBehavior* behavior, AssetConverterContext* context)
+bool MaterialEditView::EditWithImGui(AssetConverterContext* context)
 {
   using namespace Shader;
   bool reload = false;
@@ -103,7 +103,7 @@ bool MaterialEditView::EditWithImGui(AssetViewerBehavior* behavior, AssetConvert
       const SharedRef<rcTexture>& texture = AssetManager::Load<rcTexture>(texture_unique_id);
       if (ImGui::ImageButton(texture->GetTextureView()->GetImTextureID(), ImVec2(16, 16)))
       {
-        this->texture_select_scene_->Run(behavior, texture, context, [&, data](const SharedRef<rcTexture>& texture)
+        this->texture_select_scene_->Run(texture, [&, data](const SharedRef<rcTexture>& texture)
         {
           this->edit_data_.textures_.at(data.offset_) = texture->GetUniqueId();
           this->is_updated_ = true;
@@ -194,7 +194,7 @@ void MaterialEditView::Update()
   this->is_updated_ = false;
 }
 
-void MaterialEditView::Reload()
+void MaterialEditView::Reload(AssetViewerBehavior* behavior, AssetConverterContext* context)
 {
-  this->texture_select_scene_->Reload();
+  this->texture_select_scene_->Reload(behavior, context);
 }

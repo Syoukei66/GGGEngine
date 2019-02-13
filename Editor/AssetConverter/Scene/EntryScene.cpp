@@ -9,6 +9,7 @@
 #include <Native/Windows/Activity/WindowActivityContext.h>
 #include <Scene/AssetViewer/AssetViewerScene.h>
 #include <Engine/GameActivity.h>
+#include <Util/ImGuiUtil.h>
 
 // =================================================================
 // GGG Statement

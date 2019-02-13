@@ -19,7 +19,7 @@ class MaterialViewerBehavior : public AssetViewerBehavior
 public:
   virtual void OnStart(Scene* scene) override;
   virtual void OnEnd() override;
-  virtual void OnLoad(T_UINT32 unique_id) override;
+  virtual void OnLoad(T_UINT32 unique_id, AssetConverterContext* context) override;
   virtual void OnUnload() override;
   virtual void OnUpdate(const ActivityContext& activity_context, AssetConverterContext* context) override;
   virtual SharedRef<GameObject> GetTargetObject() const override

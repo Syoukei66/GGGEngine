@@ -28,7 +28,7 @@ void CharacterModelViewerBehavior::OnEnd()
 {
 }
 
-void CharacterModelViewerBehavior::OnLoad(T_UINT32 unique_id)
+void CharacterModelViewerBehavior::OnLoad(T_UINT32 unique_id, AssetConverterContext* context)
 {
   const SharedRef<rcCharacterModel>& model = AssetManager::Load<rcCharacterModel>(unique_id);
   this->root_ = GameObjectFactory::Create(model);

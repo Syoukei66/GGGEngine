@@ -30,9 +30,9 @@ public:
   // Methods
   // =================================================================
 public:
-  void Run(AssetViewerBehavior* behavior, const SharedRef<rcTexture>& current_texture, AssetConverterContext* context, const std::function<void(const SharedRef<rcTexture>& texture)>& callback);
+  void Run(const SharedRef<rcTexture>& current_texture, const std::function<void(const SharedRef<rcTexture>& texture)>& callback);
   void End();
-  void Reload();
+  void Reload(AssetViewerBehavior* behavior, AssetConverterContext* context);
 
 private:
   void OnUpdateScreen();

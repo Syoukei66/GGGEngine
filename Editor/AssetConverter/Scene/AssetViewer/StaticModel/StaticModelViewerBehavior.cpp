@@ -26,7 +26,7 @@ void StaticModelViewerBehavior::OnEnd()
 {
 }
 
-void StaticModelViewerBehavior::OnLoad(T_UINT32 unique_id)
+void StaticModelViewerBehavior::OnLoad(T_UINT32 unique_id, AssetConverterContext* context)
 {
   const SharedRef<rcStaticModel>& model = AssetManager::Load<rcStaticModel>(unique_id);
   this->root_ = GameObjectFactory::Create(model);

@@ -137,30 +137,10 @@ void TextureSelectScene::Update(const ActivityContext& context)
   }
 }
 
-void TextureSelectScene::Run(AssetViewerBehavior* behavior, const SharedRef<rcTexture>& current_texture, AssetConverterContext* context, const std::function<void(const SharedRef<rcTexture>& texture)>& callback)
+void TextureSelectScene::Run(const SharedRef<rcTexture>& current_texture, const std::function<void(const SharedRef<rcTexture>& texture)>& callback)
 {
   this->current_texture_ = current_texture;
   this->callback_ = callback;
-
-  // 現在AssetConverterContextが管理しているテクスチャを全て取得する
-  std::deque<SharedRef<AssetEntity>> entities = std::deque<SharedRef<AssetEntity>>();
-  context->GetEntities(&entities, [&](const SharedRef<AssetEntity>& entity)
-  {
-    AssetConverter* converter = entity->GetConverter(context);
-    return converter ? converter->IsTargetAsset<rcTexture>() : false;
-  });
-  for (const auto& pair : this->entities_)
-  {
-    behavior->RemoveEditorUseEntity(pair.second);
-  }
-  this->entities_.clear();
-  for (const SharedRef<AssetEntity>& entity : entities)
-  {
-    const T_UINT32 unique_id = entity->GetMetaData()->GetUniqueID();
-    entity->Load(context);
-    this->entities_[unique_id] = entity;
-    behavior->AddEditorUseEntity(entity);
-  }
 
   if (!this->activity_)
   {
@@ -186,8 +166,28 @@ void TextureSelectScene::End()
   }
 }
 
-void TextureSelectScene::Reload()
+void TextureSelectScene::Reload(AssetViewerBehavior* behavior, AssetConverterContext* context)
 {
+  // 現在AssetConverterContextが管理しているテクスチャを全て取得する
+  std::deque<SharedRef<AssetEntity>> entities = std::deque<SharedRef<AssetEntity>>();
+  context->GetEntities(&entities, [&](const SharedRef<AssetEntity>& entity)
+  {
+    AssetConverter* converter = entity->GetConverter(context);
+    return converter ? converter->IsTargetAsset<rcTexture>() : false;
+  });
+  for (const auto& pair : this->entities_)
+  {
+    behavior->RemoveEditorUseEntity(pair.second);
+  }
+  this->entities_.clear();
+  for (const SharedRef<AssetEntity>& entity : entities)
+  {
+    const T_UINT32 unique_id = entity->GetMetaData()->GetUniqueID();
+    entity->Load(context);
+    this->entities_[unique_id] = entity;
+    behavior->AddEditorUseEntity(entity);
+  }
+
   this->textures_.clear();
   for (const auto& pair : this->entities_)
   {

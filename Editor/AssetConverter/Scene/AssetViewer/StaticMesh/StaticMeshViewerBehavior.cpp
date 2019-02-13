@@ -24,7 +24,7 @@ void StaticMeshViewerBehavior::OnEnd()
   this->obj_->RemoveSelf();
 }
 
-void StaticMeshViewerBehavior::OnLoad(T_UINT32 unique_id)
+void StaticMeshViewerBehavior::OnLoad(T_UINT32 unique_id, AssetConverterContext* context)
 {
   this->mesh_renderer_->SetMesh(AssetManager::Load<rcMesh>(unique_id));
   const T_UINT32 submesh_count = this->mesh_renderer_->GetMesh()->GetSubmeshCount();

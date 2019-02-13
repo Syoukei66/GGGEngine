@@ -22,9 +22,9 @@ public:
   // =================================================================
 public:
   SharedRef<rcMaterial> CreateEditMaterial(const MaterialData& data);
-  bool EditWithImGui(AssetViewerBehavior* behavior, AssetConverterContext* context);
+  bool EditWithImGui(AssetConverterContext* context);
   void Update();
-  void Reload();
+  void Reload(AssetViewerBehavior* behavior, AssetConverterContext* context);
 
 private:
   template <typename Type_>

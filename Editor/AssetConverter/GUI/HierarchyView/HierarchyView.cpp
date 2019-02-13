@@ -1,4 +1,5 @@
 #include "HierarchyView.h"
+#include <Util/ImGuiUtil.h>
 
 // =================================================================
 // Methods

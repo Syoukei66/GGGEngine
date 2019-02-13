@@ -3,6 +3,7 @@
 #include <Engine/Component/Camera/Camera3D_LookAt.h>
 #include <Entity/AssetEntity.h>
 #include <Entity/AssetMetaData.h>
+#include <Util/ImGuiUtil.h>
 #include "GameInput.h"
 
 static const char* CAMERA_STATE_NAMES[ViewerScene::CAMERA_STATE_MAX] =

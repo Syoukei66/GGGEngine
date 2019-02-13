@@ -1,6 +1,7 @@
 #include "ShaderViewerBehavior.h"
 #include <Engine/GameObject/Transform/Transform.h>
 #include <Constants/Extensions.h>
+#include <Util/ImGuiUtil.h>
 
 // =================================================================
 // GGG Statement
@@ -24,14 +25,14 @@ void ShaderViewerBehavior::OnEnd()
   this->obj_->RemoveSelf();
 }
 
-void ShaderViewerBehavior::OnLoad(T_UINT32 unique_id)
+void ShaderViewerBehavior::OnLoad(T_UINT32 unique_id, AssetConverterContext* context)
 {
   const SharedRef<AssetEntity>& entity = this->GetEntity();
   const ShaderData& data = *entity->GetData<ShaderData>();
   MaterialData material_data = MaterialData();
   MaterialData::CreateWithShader(data.properties_, unique_id, &material_data);
   const SharedRef<Renderer>& renderer = this->obj_->GetComponent<Renderer>();
-  this->material_edit_view_.Reload();
+  this->material_edit_view_.Reload(this, context);
   renderer->SetMaterial(this->material_edit_view_.CreateEditMaterial(material_data));
 }
 
@@ -45,7 +46,7 @@ void ShaderViewerBehavior::OnUpdate(const ActivityContext& activity_context, Ass
   this->material_edit_view_.Update();
 
   ImGui::Begin(activity_context, u8"ƒ}ƒeƒŠƒAƒ‹Ý’è", 10.0f, 0.0f, 0.35f, 0.25f, 0.65f);
-  this->material_edit_view_.EditWithImGui(this, context);
+  this->material_edit_view_.EditWithImGui(context);
   
   ImGui::Spacing();
   ImGui::Separator();

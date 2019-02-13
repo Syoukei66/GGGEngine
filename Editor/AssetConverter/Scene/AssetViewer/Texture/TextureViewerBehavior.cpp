@@ -23,7 +23,7 @@ void TextureViewerBehavior::OnEnd()
   this->obj_->RemoveSelf();
 }
 
-void TextureViewerBehavior::OnLoad(T_UINT32 unique_id)
+void TextureViewerBehavior::OnLoad(T_UINT32 unique_id, AssetConverterContext* context)
 {
   const SharedRef<Renderer>& renderer = this->obj_->GetComponent<Renderer>();
   renderer->SetMaterial(AssetManager::Load<rcMaterial>(DefaultUniqueID::MATERIAL_UNLIT)->Clone());

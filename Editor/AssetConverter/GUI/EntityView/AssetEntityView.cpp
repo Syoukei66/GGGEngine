@@ -1,6 +1,7 @@
 #include "AssetEntityView.h"
 #include <Entity/AssetEntity.h>
 #include <Entity/AssetMetaData.h>
+#include <Util/ImGuiUtil.h>
 
 // =================================================================
 // Methods
