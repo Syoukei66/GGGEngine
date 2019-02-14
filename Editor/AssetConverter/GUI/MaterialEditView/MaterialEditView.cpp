@@ -116,6 +116,28 @@ bool MaterialEditView::EditWithImGui(AssetConverterContext* context)
       ImGui::SameLine();
       ImGui::Text(name.c_str());
     }
+    // VectorProperty‚ÌŽž‚Ìˆ—
+    else if (data.count_ > 0)
+    {
+      unsigned char* p = &this->edit_data_.data_[data.offset_];
+      switch (type)
+      {
+      case MaterialPropertyType::kInt:
+        this->is_updated_ |= ImGui::DragInt4(name.c_str(), (int*)p);
+        break;
+      case MaterialPropertyType::kUint:
+        this->is_updated_ |= ImGui::DragInt4(name.c_str(), (int*)p);
+        break;
+      case MaterialPropertyType::kFloat:
+        this->is_updated_ |= ImGui::DragFloat4(name.c_str(), (float*)p, 0.01f);
+        break;
+      case MaterialPropertyType::kColor:
+        this->is_updated_ |= ImGui::ColorEdit4(name.c_str(), ((TColor*)p)->data);
+        break;
+      case MaterialPropertyType::DATANUM:
+        break;
+      }
+    }
     else
     {
       unsigned char* p = &this->edit_data_.data_[data.offset_];
@@ -132,9 +154,6 @@ bool MaterialEditView::EditWithImGui(AssetConverterContext* context)
         break;
       case MaterialPropertyType::kFloat:
         this->is_updated_ |= ImGui::DragFloat(name.c_str(), (float*)p, 0.01f);
-        break;
-      case MaterialPropertyType::kColor:
-        this->is_updated_ |= ImGui::ColorEdit4(name.c_str(), ((TColor*)p)->data);
         break;
       case MaterialPropertyType::DATANUM:
         break;
