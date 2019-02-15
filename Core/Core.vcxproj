@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{ED60A9AB-7765-4071-A74F-16AE746C727F}</ProjectGuid>
+    <RootNamespace>Core</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h;Core/stdafx.h</ForcedIncludeFiles>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <PreBuildEvent />
+    <PreBuildEvent>
+      <Command>cd $(SolutionDir)
+call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe $(ProjectName)</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h;Core/stdafx.h</ForcedIncludeFiles>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <PreBuildEvent />
+    <PreBuildEvent>
+      <Command>cd $(SolutionDir)
+call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe $(ProjectName)</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h;Core/stdafx.h</ForcedIncludeFiles>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <PreBuildEvent />
+    <PreBuildEvent>
+      <Command>cd $(SolutionDir)
+call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe $(ProjectName)</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h;Core/stdafx.h</ForcedIncludeFiles>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <PreBuildEvent />
+    <PreBuildEvent>
+      <Command>cd $(SolutionDir)
+call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe $(ProjectName)</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="Application\Activity\ActivityContext.h" />
+    <ClInclude Include="Application\Asset\AssetMacro.h" />
+    <ClInclude Include="Application\Input\InputContext.h" />
+    <ClInclude Include="Application\Input\InputEntity.h" />
+    <ClInclude Include="Application\Object\GGRefSFINAE.h" />
+    <ClInclude Include="Application\IApplicationSetting.h" />
+    <ClInclude Include="Application\Input\InputState.h" />
+    <ClInclude Include="Application\Object\WeakRef.h" />
+    <ClInclude Include="Application\Platform\API\_Resource\ConstantBuffer.h" />
+    <ClInclude Include="Application\Platform\API\_Resource\PixelShader.h" />
+    <ClInclude Include="Application\Platform\API\_Resource\RenderState.h" />
+    <ClInclude Include="Application\Platform\API\_Resource\TextureResource.h" />
+    <ClInclude Include="Application\Platform\API\_Resource\TextureView.h" />
+    <ClInclude Include="Application\Platform\API\_Resource\VertexDeclaration.h" />
+    <ClInclude Include="Application\Platform\API\_Resource\VertexShader.h" />
+    <ClInclude Include="Application\Platform\Platform.h" />
+    <ClInclude Include="Application\Activity\Activity.h" />
+    <ClInclude Include="Application\Activity\ActivityOption.h" />
+    <ClInclude Include="Application\Platform\API\Audio\AudioAPI.h" />
+    <ClInclude Include="Application\Platform\API\APIObject.h" />
+    <ClInclude Include="Application\Platform\API\Graphics\GraphicsAPI.h" />
+    <ClInclude Include="Application\Input\AnalogInput.h" />
+    <ClInclude Include="Application\Input\DigitalInput.h" />
+    <ClInclude Include="Application\Input\EngineInput.h" />
+    <ClInclude Include="Application\Input\EngineInputState.h" />
+    <ClInclude Include="Application\Platform\API\Input\InputAPI.h" />
+    <ClInclude Include="Application\Input\InputDevice.h" />
+    <ClInclude Include="Application\Input\InputDeviceManager.h" />
+    <ClInclude Include="Application\Input\InputSetting.h" />
+    <ClInclude Include="Application\Platform\API\_Asset\AudioClip\AudioClip.h" />
+    <ClInclude Include="Application\Platform\API\_Asset\APIAssetObject.h" />
+    <ClInclude Include="Application\Platform\API\_Resource\APIResourceObject.h" />
+    <ClInclude Include="Application\Asset\AssetLoader.h" />
+    <ClInclude Include="Application\Asset\AssetManager.h" />
+    <ClInclude Include="Application\Asset\AssetObject.h" />
+    <ClInclude Include="Application\Asset\UniqueIdTable.h" />
+    <ClInclude Include="Application\IApplicationBehavior.h" />
+    <ClInclude Include="Application\Application.h" />
+    <ClInclude Include="Application\ApplicationOption.h" />
+    <ClInclude Include="Application\Event\UpdateEventState.h" />
+    <ClInclude Include="Constants\ShaderUtils.h" />
+    <ClInclude Include="GameObject\GameObject.h" />
+    <ClInclude Include="Application\Allocator\PoolAllocator.h" />
+    <ClInclude Include="Math\Bounds.h" />
+    <ClInclude Include="Macro\ObjectMacro.h" />
+    <ClInclude Include="Application\Object\Object.h" />
+    <ClInclude Include="Application\Object\Ref.h" />
+    <ClInclude Include="Application\Platform\API\_Resource\RenderTexture\RenderTexture.h" />
+    <ClInclude Include="Util\FileUtil.h" />
+    <ClInclude Include="_Private\CerealIO.h" />
+    <ClInclude Include="Math\Color.h" />
+    <ClInclude Include="Constants\DirectoryUtils.h" />
+    <ClInclude Include="Constants\GraphicsUtils.h" />
+    <ClInclude Include="Include.h" />
+    <ClInclude Include="Macro\ProgramMacro.h" />
+    <ClInclude Include="Util\Logger.h" />
+    <ClInclude Include="Application\Object\SharedRef.h" />
+    <ClInclude Include="Math\Mathf.h" />
+    <ClInclude Include="Math\Matrix4x4.h" />
+    <ClInclude Include="Macro\AssertMacro.h" />
+    <ClInclude Include="Application\Platform\API\_Resource\IndexBuffer.h" />
+    <ClInclude Include="Types.h" />
+    <ClInclude Include="Application\Object\UniqueRef.h" />
+    <ClInclude Include="Application\Platform\API\_Resource\VertexBuffer.h" />
+    <ClInclude Include="Math\Quaternion.h" />
+    <ClInclude Include="Application\Object\ObjectManager.h" />
+    <ClInclude Include="Math\Vector2.h" />
+    <ClInclude Include="Math\Vector3.h" />
+    <ClInclude Include="Math\Vector4.h" />
+    <ClInclude Include="Constants\VertexUtils.h" />
+    <ClInclude Include="stdafx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Application\Activity\Activity.cpp" />
+    <ClCompile Include="Application\Activity\ActivityContext.cpp" />
+    <ClCompile Include="Application\Event\UpdateEventState.cpp" />
+    <ClCompile Include="Application\Input\InputContext.cpp" />
+    <ClCompile Include="Application\Platform\API\Graphics\GraphicsAPI.cpp" />
+    <ClCompile Include="Application\Input\AnalogInput.cpp" />
+    <ClCompile Include="Application\Input\DigitalInput.cpp" />
+    <ClCompile Include="Application\Input\EngineInputState.cpp" />
+    <ClCompile Include="Application\Platform\API\_Asset\AudioClip\AudioClip.cpp" />
+    <ClCompile Include="Application\Asset\AssetManager.cpp" />
+    <ClCompile Include="Application\Asset\UniqueIdTable.cpp" />
+    <ClCompile Include="Application\Input\InputState.cpp" />
+    <ClCompile Include="Application\Platform\Platform.cpp" />
+    <ClCompile Include="Math\Color.cpp" />
+    <ClCompile Include="Util\FileUtil.cpp" />
+    <ClInclude Include="Math\Vector2.inl">
+      <FileType>Document</FileType>
+    </ClInclude>
+    <ClInclude Include="Math\Vector3.inl">
+      <FileType>Document</FileType>
+    </ClInclude>
+    <ClCompile Include="Math\Matrix4x4.cpp" />
+    <ClCompile Include="Application\Application.cpp" />
+    <ClCompile Include="Application\Object\Object.cpp" />
+    <ClCompile Include="Math\Quaternion.cpp" />
+    <ClCompile Include="Application\Object\ObjectManager.cpp" />
+    <ClCompile Include="Application\Platform\API\_Resource\RenderTexture\RenderTexture.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ForcedIncludeFiles>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Macro\ObjectMacro.AutoGenerated.h">
+      <FileType>Document</FileType>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tools\IncludeBuilder\IncludeBuilder.vcxproj">
+      <Project>{b55e9d28-8b46-4e5f-bb2d-07170284a13d}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Math\Vector4.inl">
+      <FileType>Document</FileType>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Math\Matrix4x4.inl" />
+    <None Include="Math\Quaternion.inl" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

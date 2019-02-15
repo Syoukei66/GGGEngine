@@ -1,0 +1,516 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ソース ファイル\Asset">
+      <UniqueIdentifier>{965a814d-fef3-4eb1-92f2-e98e0e18b163}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Assimp">
+      <UniqueIdentifier>{54c59830-6364-407e-a131-15c94d3e8fde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ProgramGenerator">
+      <UniqueIdentifier>{732889fb-d23f-42c3-94bc-dea539126c3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Setting">
+      <UniqueIdentifier>{d92edc33-c5b5-47d9-b9a4-1dd841a373df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Util">
+      <UniqueIdentifier>{6d3f76a9-e037-4386-a3b2-e5febeeacd91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Asset">
+      <UniqueIdentifier>{d6a7f732-4838-4eef-996d-cc49b197107e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Assimp">
+      <UniqueIdentifier>{508a2cf0-873b-4e8e-b8f1-9fc2062abf37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\ProgramGenerator">
+      <UniqueIdentifier>{b74f0635-85a3-499f-b02b-c70214402a37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Util">
+      <UniqueIdentifier>{21110223-555a-4559-94fe-f868f3deebbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Setting">
+      <UniqueIdentifier>{0b86e6a4-8a86-4e45-ad24-3db6cb2b6478}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Asset\_Base">
+      <UniqueIdentifier>{c5edbf77-3354-4be7-bb16-f8bf672f0ee0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Asset\_Base">
+      <UniqueIdentifier>{4deecf00-f9e8-4d80-8a9f-5a663541b27e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Constants">
+      <UniqueIdentifier>{3ab8ee0d-1c13-43b4-8a96-eb7b24ccf374}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Asset\_File">
+      <UniqueIdentifier>{9229604e-de0a-41f2-af46-152dcc8b25fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Asset\_File\Model">
+      <UniqueIdentifier>{53d84b21-4595-4ccf-a5cb-fafc426556d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Asset\_File\Model\Mesh">
+      <UniqueIdentifier>{930f59f9-f897-4e10-9b6a-28c39dbd917c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Asset\_File\Model\Material">
+      <UniqueIdentifier>{3c11c3d8-274c-4ffc-bc63-3c28af00202e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Asset\_File\Texture">
+      <UniqueIdentifier>{e11f4ac1-304a-45a5-a518-a07b839bdb7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Asset\_File\_Raw">
+      <UniqueIdentifier>{385741e2-c55c-4712-873e-cb2b233b983a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Asset\_File">
+      <UniqueIdentifier>{ac34e0f9-55c2-47b7-a941-1f6a0de627ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Asset\_File\Model">
+      <UniqueIdentifier>{c6ca1e2b-7f12-4c11-9084-ef156224848d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Asset\_File\Model\Mesh">
+      <UniqueIdentifier>{78f6c46d-4a55-4ef9-bec1-4cad02f5289f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Asset\_File\Model\Material">
+      <UniqueIdentifier>{5a3fdebf-09a3-4507-ad6f-00eca22b2429}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Asset\_File\Texture">
+      <UniqueIdentifier>{876dc873-7610-4395-a804-f7784750a69e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Asset\_File\_Raw\Json">
+      <UniqueIdentifier>{12a9087f-26cc-48e4-90f8-a6df5fd6b2a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Asset\_File\_Raw\CSV">
+      <UniqueIdentifier>{648ce904-948e-4469-9157-05787249fe38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Asset\_File\_Raw\Shader">
+      <UniqueIdentifier>{36c0fc26-963d-479f-9f5e-dda4f755df3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Asset\_File\_Raw\Sound">
+      <UniqueIdentifier>{7da4af4e-d1f3-407d-b293-13164bbc4b64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Asset\_Default">
+      <UniqueIdentifier>{321c468e-998e-4e8e-80a2-7a2859af25b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Asset\_Default">
+      <UniqueIdentifier>{b3ffab26-c03f-4fbd-97dc-304616eba838}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Asset\_Default\Mesh">
+      <UniqueIdentifier>{fcadb73f-5e14-41b1-8c9b-5ff13bcfdc4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Asset\_Default\Mesh">
+      <UniqueIdentifier>{a9f2b0c7-5a6f-4fa2-96a7-3cea980a1554}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Asset\_Default\Material">
+      <UniqueIdentifier>{f2f2220d-1380-4eb7-bd21-947ed806f66f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Asset\_Default\Material">
+      <UniqueIdentifier>{78d9b5c7-db9b-42c7-834e-af35b9eb624b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Director.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\MeshBuilder\MeshBuilder.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\MeshBuilder\MeshBuilder_Cube.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\MeshBuilder\MeshBuilder_Plane.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Assimp\AssimpMaterialSystemImporter.h">
+      <Filter>ヘッダー ファイル\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\FileUtil.h">
+      <Filter>ヘッダー ファイル\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Setting\Setting.h">
+      <Filter>ヘッダー ファイル\Setting</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants\Extensions.h">
+      <Filter>ヘッダー ファイル\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="Setting\RuntimeSetting.h">
+      <Filter>ヘッダー ファイル\Setting</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\Logger.h">
+      <Filter>ヘッダー ファイル\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Default\DefaultAsset.h">
+      <Filter>ヘッダー ファイル\Constants</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\AssetEntity.h">
+      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\AssetMetaData.h">
+      <Filter>ヘッダー ファイル\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="Converter\AssetConverter.h">
+      <Filter>ヘッダー ファイル\Asset\_Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Converter\AssetConverterContext.h">
+      <Filter>ヘッダー ファイル\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgramGenerator\AssetProgramGenerator.h">
+      <Filter>ヘッダー ファイル\ProgramGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgramGenerator\AssetProgramGenerator_definition.h">
+      <Filter>ヘッダー ファイル\ProgramGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgramGenerator\AssetProgramGenerator_identifier.h">
+      <Filter>ヘッダー ファイル\ProgramGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgramGenerator\AssetProgramGenerator_namespace.h">
+      <Filter>ヘッダー ファイル\ProgramGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="GameInput.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineBehavior.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\EntryScene.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\ViewerScene.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\FileView\AssetEntityFileLeaf.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\FileView\AssetEntityFileNode.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\FileView\FileView.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\EntityView\AssetEntityView.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\AssetViewer\AssetViewerBehavior.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\AssetViewer\AssetViewerScene.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\AssetViewer\Texture\TextureViewerBehavior.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\ModelConstants.h">
+      <Filter>ヘッダー ファイル\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\AssimpImportUtil.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\AssetViewer\StaticModel\StaticModelViewerBehavior.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\AssetViewer\CharacterModel\CharacterModelViewerBehavior.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\HierarchyView\HierarchyView.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\HierarchyView\HierarchyNode.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\AssetViewer\Shader\ShaderViewerBehavior.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\MeshBuilder\MeshBuilder_Capsule.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\MeshBuilder\MeshBuilder_CubeSphere.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\MeshBuilder\MeshBuilder_UvSphere.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\AssetViewer\StaticMesh\StaticMeshViewerBehavior.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\ConverterSetting.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\FileAssetConverter.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Texture\TextureAssetConverter.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Shader\ShaderAssetConverter.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\StaticModel\StaticModelConverter.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\CharacterModel\CharacterModelConverter.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\AssetDataContainer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Texture\TextureAssetConverterSetting.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Shader\ShaderAssetConverterSetting.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\StaticModel\StaticModelConverterSetting.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Model\CharacterModel\CharacterModelConverterSetting.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Default\Material\DefaultMaterialAssetEntityFactory.h">
+      <Filter>ヘッダー ファイル\Asset\_Default\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Material\MaterialAssetConverter.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Material\MaterialAssetConverterSetting.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Default\Mesh\DefaultMeshAssetEntityFactory.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Mesh\MeshAssetConverter.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Mesh\MeshAssetConverterSetting.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\ConverterSettingPolymorphicRelations.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Default\DefaultAssetConverter.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Default\DefaultAssetConverterSetting.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\AssetViewer\Material\MaterialViewerBehavior.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\TestMesh\TestMesh.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Raw\RawAssetConverter.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\Raw\RawAssetConverterSetting.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\MaterialEditView\MaterialEditView.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="IAssetConverterAddIn.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Util\ImGuiUtil.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\TextureSelectScene\TextureSelectView.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\TextureSelectScene\TextureSelectScene.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\ShaderSelectScene\ShaderSelectScene.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Director.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\MeshBuilder\MeshBuilder_Cube.cpp">
+      <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\MeshBuilder\MeshBuilder_Plane.cpp">
+      <Filter>ソース ファイル\Asset\_Default\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Assimp\AssimpMaterialSystemImporter.cpp">
+      <Filter>ソース ファイル\Assimp</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\FileUtil.cpp">
+      <Filter>ソース ファイル\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Setting\Setting.cpp">
+      <Filter>ソース ファイル\Setting</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\Logger.cpp">
+      <Filter>ソース ファイル\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\NativeLogger.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\AssetEntity.cpp">
+      <Filter>ソース ファイル\Asset\_Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\AssetMetaData.cpp">
+      <Filter>ソース ファイル\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgramGenerator\AssetProgramGenerator_definition.cpp">
+      <Filter>ソース ファイル\ProgramGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgramGenerator\AssetProgramGenerator_identifier.cpp">
+      <Filter>ソース ファイル\ProgramGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgramGenerator\AssetProgramGenerator_namespace.cpp">
+      <Filter>ソース ファイル\ProgramGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="GameInput.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineBehavior.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\EntryScene.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\ViewerScene.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\FileView\AssetEntityFileLeaf.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\FileView\AssetEntityFileNode.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\FileView\FileView.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\EntityView\AssetEntityView.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\AssetViewer\AssetViewerScene.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\AssetViewer\AssetViewerBehavior.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\AssetViewer\Texture\TextureViewerBehavior.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\AssetViewer\StaticModel\StaticModelViewerBehavior.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\AssetViewer\CharacterModel\CharacterModelViewerBehavior.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\HierarchyView\HierarchyView.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\HierarchyView\HierarchyNode.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\AssetViewer\Shader\ShaderViewerBehavior.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\MeshBuilder\MeshBuilder_Capsule.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\MeshBuilder\MeshBuilder_CubeSphere.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\MeshBuilder\MeshBuilder_UvSphere.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\AssetViewer\StaticMesh\StaticMeshViewerBehavior.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Converter\AssetConverter.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Converter\AssetConverterContext.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Texture\TextureAssetConverter.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Shader\ShaderAssetConverter.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Model\StaticModel\StaticModelConverter.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Model\CharacterModel\CharacterModelConverter.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgramGenerator\AssetProgramGenerator.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Texture\TextureAssetConverterSetting.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Shader\ShaderAssetConverterSetting.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Model\StaticModel\StaticModelConverterSetting.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Model\CharacterModel\CharacterModelConverterSetting.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Default\Material\DefaultMaterialAssetEntityFactory.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Material\MaterialAssetConverterSetting.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Material\MaterialAssetConverter.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Default\Mesh\DefaultMeshAssetEntityFactory.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Mesh\MeshAssetConverterSetting.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Mesh\MeshAssetConverter.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\AssetViewer\Material\MaterialViewerBehavior.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\TestMesh\TestMesh.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\Raw\RawAssetConverterSetting.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\MaterialEditView\MaterialEditView.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Util\ImGuiUtil.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\TextureSelectScene\TextureSelectScene.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\ShaderSelectScene\ShaderSelectScene.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
