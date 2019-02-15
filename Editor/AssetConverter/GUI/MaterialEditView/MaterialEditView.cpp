@@ -89,6 +89,7 @@ bool MaterialEditView::EditWithImGui(AssetConverterContext* context)
   using namespace Shader;
   bool reload = false;
 
+  const ShaderData* shader = context->GetEntity(this->edit_data_.shader_unique_id_)->GetData<ShaderData>();
   for (const auto& pair : this->edit_property_datas_)
   {
     const MaterialPropertyData& data = *pair.second;
@@ -117,46 +118,44 @@ bool MaterialEditView::EditWithImGui(AssetConverterContext* context)
       ImGui::Text(name.c_str());
     }
     // VectorProperty‚ÌŽž‚Ìˆ—
-    else if (data.count_ > 0)
+    else if (data.count_ > 1)
     {
       unsigned char* p = &this->edit_data_.data_[data.offset_];
-      switch (type)
+      if (type == MaterialPropertyType::kInt)
       {
-      case MaterialPropertyType::kInt:
         this->is_updated_ |= ImGui::DragInt4(name.c_str(), (int*)p);
-        break;
-      case MaterialPropertyType::kUint:
+      }
+      else if (type == MaterialPropertyType::kUint)
+      {
         this->is_updated_ |= ImGui::DragInt4(name.c_str(), (int*)p);
-        break;
-      case MaterialPropertyType::kFloat:
+      }
+      else if (type == MaterialPropertyType::kFloat)
+      {
         this->is_updated_ |= ImGui::DragFloat4(name.c_str(), (float*)p, 0.01f);
-        break;
-      case MaterialPropertyType::kColor:
-        this->is_updated_ |= ImGui::ColorEdit4(name.c_str(), ((TColor*)p)->data);
-        break;
-      case MaterialPropertyType::DATANUM:
-        break;
       }
     }
     else
     {
       unsigned char* p = &this->edit_data_.data_[data.offset_];
-      switch (type)
+      if (type == MaterialPropertyType::kBool)
       {
-      case MaterialPropertyType::kBool:
         this->is_updated_ |= ImGui::Checkbox(name.c_str(), (bool*)p);
-        break;
-      case MaterialPropertyType::kInt:
+      }
+      if (type == MaterialPropertyType::kInt)
+      {
         this->is_updated_ |= ImGui::DragInt(name.c_str(), (int*)p);
-        break;
-      case MaterialPropertyType::kUint:
+      }
+      else if (type == MaterialPropertyType::kUint)
+      {
         this->is_updated_ |= ImGui::DragInt(name.c_str(), (int*)p);
-        break;
-      case MaterialPropertyType::kFloat:
+      }
+      else if (type == MaterialPropertyType::kFloat)
+      {
         this->is_updated_ |= ImGui::DragFloat(name.c_str(), (float*)p, 0.01f);
-        break;
-      case MaterialPropertyType::DATANUM:
-        break;
+      }
+      else if (type == MaterialPropertyType::kColor)
+      {
+        this->is_updated_ |= ImGui::ColorEdit4(name.c_str(), ((TColor*)p)->data);
       }
     }
     ImGui::PopID();
