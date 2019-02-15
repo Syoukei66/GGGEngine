@@ -25,11 +25,17 @@ public:
   // =================================================================
 public:
   /*!
-   * URIが表すファイルがConverterに対応しているかチェックする
+   * @brief URIが表すファイルがConverterに対応しているかチェックする
    * @param uri ファイルのURI
    * @return 対応していればtrue
    */
   bool IsTarget(const URI& uri) const;
+
+  /*!
+   * @brief AssetConverter側で新しいインスタンスを作成する事が可能かチェックする
+   * @return 可能ならtrue
+   */
+  virtual bool CanCreateNewInstance() const = 0;
 
   /*!
    * @brief メタデータからアセットをインポートし、中間データを戻り値で返す
@@ -73,6 +79,12 @@ public:
    * @param entity AssetEntity
    */
   virtual void RegisterAssetManager(const SharedRef<AssetEntity>& entity) const = 0;
+
+  /*!
+   * @brief 新しいインスタンスを作成し、保存する
+   * @return 成功したらtrue
+   */
+  virtual bool CreateNewInstance(const URI& uri) const = 0;
 
   /*!
    * @brief AssetConverter固有の設定クラスを生成し、戻り値として返す。

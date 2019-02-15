@@ -26,6 +26,16 @@ public:
   // Methods from AssetConverter
   // =================================================================
 public:
+  virtual bool CanCreateNewInstance() const override
+  {
+    return false;
+  }
+
+  virtual bool CreateNewInstance(const URI& uri) const
+  {
+    return false;
+  }
+
   virtual IAssetDataContainer* ImportProcess(const SharedRef<AssetEntity>& entity, AssetConverterContext* context) const override;
 
   virtual std::unique_ptr<ConverterSetting> CreateSetting() const

@@ -46,15 +46,6 @@ public:
     this->persistence_ = persistence;
   }
 
-  GG_INLINE T_UINT32 GetResolution() const
-  {
-    return this->resolution_;
-  }
-  GG_INLINE void SetResolution(T_UINT32 resolution)
-  {
-    this->resolution_ = resolution;
-  }
-
   GG_INLINE T_FLOAT GetFrequency() const
   {
     return this->frequency_;
@@ -69,7 +60,6 @@ private:
   T_UINT32 octaves_;
   T_FLOAT lacunarity_;
   T_FLOAT persistence_;
-  T_UINT32 resolution_;
   T_FLOAT frequency_;
 
 };

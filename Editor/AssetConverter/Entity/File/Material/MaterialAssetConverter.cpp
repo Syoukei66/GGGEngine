@@ -16,3 +16,10 @@ IAssetDataContainer* MaterialAssetConverter::ImportProcess(const SharedRef<Asset
   }
   return new AssetDataContainer<MaterialData>(data);
 }
+
+bool MaterialAssetConverter::CreateNewInstance(const URI& uri) const
+{
+  MaterialData data = MaterialData();
+  std::string output_path = FileUtil::CreateInputPath(uri);
+  return CerealIO::Json::SafeExport<MaterialData>(output_path.c_str(), &data);
+}

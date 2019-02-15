@@ -27,6 +27,16 @@ public:
   // Methods from AssetConverter
   // =================================================================
 public:
+  virtual bool CanCreateNewInstance() const override
+  {
+    return false;
+  }
+
+  virtual bool CreateNewInstance(const URI& uri) const
+  {
+    return false;
+  }
+
   virtual IAssetDataContainer* ImportFromCache(const SharedRef<AssetEntity>& entity, AssetConverterContext* context) const override
   {
     return nullptr;
