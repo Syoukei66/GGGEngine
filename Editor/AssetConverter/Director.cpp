@@ -106,6 +106,9 @@ void AssetConverterDirector::Init(IAssetConverterAddIn* addin)
   self->context_->RegisterDefaultUniqueID(SHADER_FRESNEL, SHADER_PATH_WHITE);
 
   self->context_->RegisterDefaultUniqueID(TEXTURE_WHITE, TEXTURE_PATH_WHITE);
+  self->context_->RegisterDefaultUniqueID(TEXTURE_BLACK, TEXTURE_PATH_BLACK);
+  self->context_->RegisterDefaultUniqueID(TEXTURE_GRAY, TEXTURE_PATH_GRAY);
+  self->context_->RegisterDefaultUniqueID(TEXTURE_BUMP, TEXTURE_PATH_BUMP);
 
   self->context_->RegisterDefaultUniqueID(MESH_CUBE, MESH_PATH_CUBE);
   self->context_->RegisterDefaultUniqueID(MESH_PLANE, MESH_PATH_PLANE);

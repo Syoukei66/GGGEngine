@@ -83,6 +83,18 @@ void MaterialData::CreateWithShader(const ShaderPropertyData& shader, T_UINT32 s
     {
       dest->textures_[texture_offset] = DefaultUniqueID::TEXTURE_WHITE;
     }
+    else if (data.default_texture_ == static_cast<T_UINT8>(DefaultTextureType::kBlack))
+    {
+      dest->textures_[texture_offset] = DefaultUniqueID::TEXTURE_BLACK;
+    }
+    else if (data.default_texture_ == static_cast<T_UINT8>(DefaultTextureType::kGray))
+    {
+      dest->textures_[texture_offset] = DefaultUniqueID::TEXTURE_GRAY;
+    }
+    else if (data.default_texture_ == static_cast<T_UINT8>(DefaultTextureType::kBump))
+    {
+      dest->textures_[texture_offset] = DefaultUniqueID::TEXTURE_BUMP;
+    }
     texture_offset += 1;
   }
 }

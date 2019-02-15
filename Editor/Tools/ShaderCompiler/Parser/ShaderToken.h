@@ -153,6 +153,7 @@ static const std::string DefaultTextureTypeTokens[static_cast<T_FIXED_UINT8>(Sha
   "white",
   "black",
   "gray",
+  "bump",
 };
 
 /*!

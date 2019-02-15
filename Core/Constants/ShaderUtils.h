@@ -193,6 +193,7 @@ enum class DefaultTextureType : T_FIXED_UINT8
   kWhite,
   kBlack,
   kGray,
+  kBump,
 
   DATANUM,
 };

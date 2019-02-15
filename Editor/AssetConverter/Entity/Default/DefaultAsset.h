@@ -24,5 +24,8 @@ static const std::string& MATERIAL_PATH_WHITE   = "material/default/White.mat";
 static const std::string& MATERIAL_PATH_UNLIT  = "material/default/Unlit.mat";
 
 static const std::string& TEXTURE_PATH_WHITE = "texture/default/white.png";
+static const std::string& TEXTURE_PATH_BLACK = "texture/default/black.png";
+static const std::string& TEXTURE_PATH_GRAY = "texture/default/gray.png";
+static const std::string& TEXTURE_PATH_BUMP = "texture/default/bump.png";
 
 }
