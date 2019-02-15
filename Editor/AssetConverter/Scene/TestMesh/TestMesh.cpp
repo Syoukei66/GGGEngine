@@ -39,7 +39,7 @@ static const std::vector<const char*> MESH_MODES = std::vector<const char*>
 
 SharedRef<rcDynamicMesh> CreateMesh(T_UINT32 mode)
 {
-  T_UINT32 format = Vertex::V_FORMAT_PNU;
+  T_UINT32 format = Vertex::V_FORMAT_PNUT | Vertex::V_ATTR_UV2;
   switch (mode)
   {
   case kQuad:
@@ -59,7 +59,7 @@ SharedRef<rcDynamicMesh> CreateMesh(T_UINT32 mode)
   case kHugeCube:
     return MeshFactory::Cube::Create(format, 10.0f);
   case kHugeSphere:
-    return MeshFactory::UVSphere::Create(format, 10.0f);
+    return MeshFactory::UVSphere::Create(format, 10.0f, 120.0f, 60.0f);
   case kHugeCubeShpere:
     return MeshFactory::CubeSphere::Create(format, 10.0f, 10.0f, 10.0f, 60.0f, 60.0f, 60.0f, 30);
   case kHugeDiamond:

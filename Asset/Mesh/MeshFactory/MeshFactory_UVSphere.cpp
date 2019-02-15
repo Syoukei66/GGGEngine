@@ -68,6 +68,10 @@ UniqueRef<rcDynamicMesh> MeshFactory::UVSphere::Create(
       {
         ret->SetUv(vi, TVec2f(u, v));
       }
+      if (format & V_ATTR_UV2)
+      {
+        ret->SetUv2(vi, TVec2f(u * 10, v * 10));
+      }
     }
   }
 
