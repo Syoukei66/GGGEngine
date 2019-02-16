@@ -58,16 +58,16 @@ public:
   // テクスチャの用途
   enum class Usage
   {
-    // 変更不可&参照不可
+    // 変更不可 & 参照不可
     kImmutable,
 
-    // 変更不可&参照可能
+    // 変更不可 & 参照可能
     kReadable,
 
-    // 変更可能&参照不可
+    // 変更可能 & 参照不可
     kDynamic,
 
-    // 変更可能&参照可能
+    // 変更可能 & 参照可能
     kDynamicReadable,
   };
 
