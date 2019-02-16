@@ -11,8 +11,15 @@ class DX11TextureResource : public rcTextureResource
   // Constructor / Destructor
   // =================================================================
 public:
-  DX11TextureResource(const TextureResourceData& data);
+  DX11TextureResource(const TextureResourceData& data, Usage usage);
   ~DX11TextureResource();
+
+  // =================================================================
+  // Method
+  // =================================================================
+public:
+  virtual void Lock(void** dest) override;
+  virtual void Unlock() override;
 
   // =================================================================
   // Data Members

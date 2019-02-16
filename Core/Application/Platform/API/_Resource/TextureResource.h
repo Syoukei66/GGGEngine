@@ -54,6 +54,23 @@ public:
  */
 class rcTextureResource : public GGAPIResourceObject
 {
+public:
+  // テクスチャの用途
+  enum class Usage
+  {
+    // 変更不可&参照不可
+    kImmutable,
+
+    // 変更不可&参照可能
+    kReadable,
+
+    // 変更可能&参照不可
+    kDynamic,
+
+    // 変更可能&参照可能
+    kDynamicReadable,
+  };
+
   // =================================================================
   // GGG Statement
   // =================================================================
@@ -63,6 +80,13 @@ class rcTextureResource : public GGAPIResourceObject
   // Factory Method
   // =================================================================
 public:
-  static UniqueRef<rcTextureResource> Create(const TextureResourceData& data);
+  static UniqueRef<rcTextureResource> Create(const TextureResourceData& data, Usage usage = Usage::kImmutable);
+
+  // =================================================================
+  // Method
+  // =================================================================
+public:
+  virtual void Lock(void** dest) = 0;
+  virtual void Unlock() = 0;
 
 };
