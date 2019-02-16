@@ -1,4 +1,5 @@
 #include "MaterialAssetConverter.h"
+#include <Constants/Extensions.h>
 
 // =================================================================
 // Methods from AssetConverter
@@ -20,6 +21,6 @@ IAssetDataContainer* MaterialAssetConverter::ImportProcess(const SharedRef<Asset
 bool MaterialAssetConverter::CreateNewInstance(const URI& uri) const
 {
   MaterialData data = MaterialData();
-  std::string output_path = FileUtil::CreateInputPath(uri);
+  std::string output_path = uri.GetFullPath() + "." + Extensions::MATERIAL;
   return CerealIO::Json::SafeExport<MaterialData>(output_path.c_str(), &data);
 }

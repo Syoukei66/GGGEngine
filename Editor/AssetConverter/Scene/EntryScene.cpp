@@ -54,7 +54,7 @@ void EntryScene::Update(const ActivityContext& context)
     AssetConverterDirector::CreateProgram();
   }
 
-  const SharedRef<AssetEntity>& selected = FileView::SelectWithImGUI(context);
+  const SharedRef<AssetEntity>& selected = FileView::SelectWithImGUI(context, this->context_);
   
   if (selected)
   {

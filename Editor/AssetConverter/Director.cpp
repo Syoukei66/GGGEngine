@@ -87,6 +87,8 @@ void AssetConverterDirector::Init(IAssetConverterAddIn* addin)
     addin->RegisterConverter(self->context_);
   }
 
+  self->context_->CommitConvertes();
+
   // (4)
   // デフォルトアセットの登録 / ロード
   self->Fetch();

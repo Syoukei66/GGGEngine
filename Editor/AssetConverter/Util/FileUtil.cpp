@@ -50,6 +50,11 @@ void FileUtil::PrepareDirectory(const URI& uri)
   }
 }
 
+const std::string& FileUtil::GetInputPath()
+{
+  return INPUT_PATH;
+}
+
 std::string FileUtil::GetSettingPath()
 {
   return CreateSettingPath(SETTING_FILE_NAME);

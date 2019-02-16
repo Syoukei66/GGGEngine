@@ -14,7 +14,6 @@ void ToolUtil::Crawl(const std::string& root_path, const std::string& directory_
   if (handle == INVALID_HANDLE_VALUE)
   {
     std::cout << "error Asset File not found" << std::endl;
-    getchar();
     return;
   }
 

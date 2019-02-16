@@ -17,7 +17,7 @@ public:
   static void Init(AssetConverterContext* context);
   static void Uninit();
 
-  static SharedRef<AssetEntity> SelectWithImGUI(const ActivityContext& context);
+  static SharedRef<AssetEntity> SelectWithImGUI(const ActivityContext& activity_context, AssetConverterContext* context);
 
   // =================================================================
   // Data Members

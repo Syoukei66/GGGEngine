@@ -174,6 +174,18 @@ AssetConverter* AssetConverterContext::AddDefaultAssetConverter(AssetConverter* 
   return converter;
 }
 
+void AssetConverterContext::CommitConvertes()
+{
+  this->newable_asset_converter_map_.clear();
+  for (const auto& pair : this->converter_map_)
+  {
+    if (pair.second->CanCreateNewInstance())
+    {
+      this->newable_asset_converter_map_[pair.first] = pair.second;
+    }
+  }
+}
+
 AssetConverter* AssetConverterContext::GetConverter(const std::string& id)
 {
   const auto& itr = this->converter_map_.find(id);

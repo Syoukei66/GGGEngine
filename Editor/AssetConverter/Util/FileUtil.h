@@ -12,6 +12,7 @@ namespace FileUtil
 void PrepareDefaultDirectories();
 void PrepareDirectory(const URI& uri);
 
+const std::string& GetInputPath();
 std::string GetSettingPath();
 std::string GetMidDataUniqueIdTablePath();
 std::string GetArchiveUniqueIdTablePath();
