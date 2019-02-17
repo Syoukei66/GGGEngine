@@ -186,6 +186,7 @@
     <ClInclude Include="Entity\Default\DefaultAssetConverterSetting.h" />
     <ClInclude Include="Entity\Default\Mesh\DefaultMeshAssetEntityFactory.h" />
     <ClInclude Include="Entity\File\FileAssetConverter.h" />
+    <ClInclude Include="Entity\File\GameAssetConverter.h" />
     <ClInclude Include="Entity\File\Material\MaterialAssetConverter.h" />
     <ClInclude Include="Entity\File\Material\MaterialAssetConverterSetting.h" />
     <ClInclude Include="Entity\File\Mesh\MeshAssetConverter.h" />

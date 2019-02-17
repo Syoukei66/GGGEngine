@@ -137,6 +137,11 @@ public:
     return this->id_;
   }
 
+  inline const std::vector<std::string>& GetTargetExtensions() const
+  {
+    return this->target_extensions_;
+  }
+
   // =================================================================
   // Data Members
   // =================================================================
