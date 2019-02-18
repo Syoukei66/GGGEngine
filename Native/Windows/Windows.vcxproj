@@ -274,6 +274,9 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ProjectReference Include="..\..\Engine\Engine.vcxproj">
       <Project>{3d96ef11-f5c9-4990-be01-5279dadd6d52}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\ThirdParty\DirectXTex\DirectXTex_Desktop_2017_Win10.vcxproj">
+      <Project>{371b9fa9-4c90-4ac6-a123-aced756d6c77}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -194,6 +194,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TextureAtlas\TextureAtlas.cpp" />
+    <ClCompile Include="Texture\DynamicTexture.cpp" />
     <ClCompile Include="Texture\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +222,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="Sprite\Sprite.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TextureAtlas\TextureAtlas.h" />
+    <ClInclude Include="Texture\DynamicTexture.h" />
     <ClInclude Include="Texture\Texture.h" />
   </ItemGroup>
   <ItemGroup>

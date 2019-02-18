@@ -23,6 +23,7 @@
 #include <Asset/Spine/SpineData.h>
 #include <Asset/Sprite/Sprite.h>
 #include <Asset/StaticModel/StaticModel.h>
+#include <Asset/Texture/DynamicTexture.h>
 #include <Asset/Texture/Texture.h>
 #include <Asset/TextureAtlas/TextureAtlas.h>
 
