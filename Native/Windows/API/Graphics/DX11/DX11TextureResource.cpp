@@ -139,6 +139,10 @@ void DX11TextureResource::OptimisationResourceData(const OptimisationSetting& se
     dest->block_size_ = 4;
     levels -= 2;
   }
+  else
+  {
+    dest->block_size_ = 1;
+  }
 
   // ミップマップの作成
   DirectX::ScratchImage mipped_image = DirectX::ScratchImage();
@@ -240,9 +244,6 @@ void DX11TextureResource::OptimisationResourceData(const OptimisationSetting& se
     );
     GG_ASSERT(SUCCEEDED(hr), "テクスチャの圧縮に失敗しました");
     final_image = &converted_image;
-
-    // ブロック圧縮特有の処理
-    dest->block_size_ = 4;
   }
   // GPUアクセラレーションが使用可能な圧縮の場合それを使用する
   else if (IsCompressFormatBC6_7(format))
