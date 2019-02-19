@@ -32,5 +32,6 @@ public:
 private:
   Scene* scene_;
   SharedRef<GameObject> root_;
+  SharedRef<GameObject> model_;
 
 };
