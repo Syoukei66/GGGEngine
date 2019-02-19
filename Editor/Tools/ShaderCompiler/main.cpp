@@ -10,11 +10,11 @@ int main()
   try
   {
     ShaderCompiler(str, "").Compile(&data);
-    printf(ShaderTest::ToString(data).c_str());
+    Log::Info(ShaderTest::ToString(data).c_str());
   }
   catch (ParseException e)
   {
-    printf(e.message.c_str());
+    Log::Info(e.message.c_str());
   }
   printf("\nI—¹‚·‚é‚É‚Í‰½‚©ƒL[‚ğ‰Ÿ‚µ‚Ä‚­‚¾‚³‚¢");
   getchar();

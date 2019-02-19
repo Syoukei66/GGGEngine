@@ -56,7 +56,7 @@ BaseParser::BaseParser(const std::string& str)
     }
   }
   this->p_ = this->str_.c_str();
-  printf(this->str_.c_str());
+  Log::Info(this->str_.c_str());
 }
 
 TokenType BaseParser::GetTokenType()

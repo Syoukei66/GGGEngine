@@ -36,5 +36,19 @@ public:
   {
     return SharedRef<GameActivity>::StaticCast(Application::GetMainActivity())->GetNowScene();
   }
+  static GG_INLINE void SetIgnoreLog(bool ignore)
+  {
+    Self().ignore_log_ = ignore;
+  }
+  static GG_INLINE bool IsIgnoreLog()
+  {
+    return Self().ignore_log_;
+  }
+
+  // =================================================================
+  // Data Members
+  // =================================================================
+private:
+  bool ignore_log_;
 
 };

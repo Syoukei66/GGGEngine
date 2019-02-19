@@ -47,9 +47,6 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="NativeProcess.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="ShaderTest.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>

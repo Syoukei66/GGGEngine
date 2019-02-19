@@ -23,22 +23,22 @@ static void ExportAssetLog(const AssetMetaData* meta, const std::string& action)
 
 void Logger::ImportAssetLog(const URI& uri)
 {
-  std::cout << "import \"" << uri.GetFullPath() << "\" " << std::endl;
+  Log::Info(("import \"" + uri.GetFullPath() + "\"").c_str());
 }
 
 void Logger::ImportFromCacheAssetLog(const URI& uri)
 {
-  std::cout << "import from cache \"" << uri.GetFullPath() << "\" " << std::endl;
+  Log::Info(("import from cache \"" + uri.GetFullPath() + "\"").c_str());
 }
 
 void Logger::ImportSkipAssetLog(const URI& uri)
 {
-  std::cout << "skip \"" << uri.GetFullPath() << "\" " << std::endl;
+  Log::Info(("skip \"" + uri.GetFullPath() + "\"").c_str());
 }
 
 void Logger::CommitAssetLog(const AssetMetaData* meta)
 {
-  std::cout << "commiting \"" << meta->GetURI().GetFullPath() << "\" " << std::endl;
+  Log::Info(("commiting \"" + meta->GetURI().GetFullPath() + "\"").c_str());
 }
 
 void Logger::ConvertAssetLog(const AssetMetaData* meta)

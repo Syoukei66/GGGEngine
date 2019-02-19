@@ -53,7 +53,7 @@ void EntryScene::Update(const ActivityContext& context)
   //{
   //  AssetConverterDirector::CreateProgram();
   //}
-  if (ImGui::Button(u8"時間計測開始"))
+  if (ImGui::Button(u8"ロード時間計測開始"))
   {
     AssetConverterDirector::Measurement();
   }

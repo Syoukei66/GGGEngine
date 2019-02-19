@@ -35,5 +35,6 @@ void CopyRawAsset(const AssetMetaData* meta_data);
 std::string GetTimeStamp(const std::string& path);
 
 void CrawlInputDirectory(std::function<void(const URI& uri)> process);
+void CrawlCacheDirectory(std::function<void(const URI& uri)> process);
 
 }

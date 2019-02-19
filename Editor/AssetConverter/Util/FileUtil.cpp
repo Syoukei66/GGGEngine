@@ -166,3 +166,8 @@ void FileUtil::CrawlInputDirectory(std::function<void(const URI& uri)> process)
 {
   ToolUtil::Crawl(INPUT_PATH + "/", "", process);
 }
+
+void FileUtil::CrawlCacheDirectory(std::function<void(const URI&uri)> process)
+{
+  ToolUtil::Crawl(MIDDATA_PATH + "/", "", process);
+}

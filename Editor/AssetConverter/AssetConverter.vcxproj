@@ -304,7 +304,6 @@
     <ClCompile Include="Util\MeshBuilder\MeshBuilder_CubeSphere.cpp" />
     <ClCompile Include="Util\MeshBuilder\MeshBuilder_Plane.cpp" />
     <ClCompile Include="Util\MeshBuilder\MeshBuilder_UvSphere.cpp" />
-    <ClCompile Include="Util\NativeLogger.cpp" />
     <ClCompile Include="Setting\Setting.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
