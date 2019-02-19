@@ -55,6 +55,7 @@ IAssetDataContainer* TextureAssetConverter::ImportProcess(const SharedRef<AssetE
   opt_setting.format = TEXTURE_FORMATS[setting->color_model][setting->compression];
   opt_setting.max_size = setting->max_size;
   opt_setting.normal_scaling_factor = setting->normal_scaling_factor;
+  opt_setting.max_levels = SIZE_MAX;
 
   DX11TextureResource::OptimisationResourceData(opt_setting, &data->resource_data_);
 

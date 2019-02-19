@@ -131,7 +131,7 @@ void DX11TextureResource::OptimisationResourceData(const OptimisationSetting& se
   }
 
   // ミップマップを作成する数
-  size_t levels = (size_t)std::log2(std::min(width, height)) + 1;
+  size_t levels = std::min(setting.max_levels, (size_t)std::log2(std::min(width, height)) + 1);
 
   // ブロック圧縮特有の処理
   if (IsCompressFormat(format))

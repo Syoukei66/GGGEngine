@@ -14,6 +14,7 @@ public:
     DirectX::ScratchImage image;
     DirectX::TexMetadata metadata;
     bool alpha;
+    size_t max_levels;
     size_t max_size;
     bool fade_enabled;
     T_UINT8 fade_start;
