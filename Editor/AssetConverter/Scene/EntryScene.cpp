@@ -95,7 +95,7 @@ void EntryScene::ShowViewer(const SharedRef<AssetEntity>& entity)
     return;
   }
   ActivityOption op = ActivityOption();
-  op.activity_name = "編集ウィンドウ";
+  op.activity_name = entity->GetMetaData()->GetURI().GetFullPath().c_str();
   op.resize_window = false;
   op.sub_window = true;
   op.window_size = Application::GetMainActivity()->GetContext().GetScreenSize();
