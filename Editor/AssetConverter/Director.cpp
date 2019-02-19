@@ -79,7 +79,7 @@ void AssetConverterDirector::Init(IAssetConverterAddIn* addin)
   AssetConverter* default_material_converter = self->context_->AddDefaultAssetConverter(new DefaultAssetConverter<rcMaterial, MaterialData, MaterialViewerBehavior>("DefaultMaterial", "rcMaterial", {TEXTURE_WHITE}));
 
   // Model
-  self->context_->AddConverter(new StaticModelAssetConverter("StaticModel", "rcStaticModel", {"fbx", "x", "blend"}, 1, 1));
+  self->context_->AddConverter(new StaticModelAssetConverter("StaticModel", "rcStaticModel", {"fbx", "x", "blend", "obj"}, 1, 1));
   self->context_->AddConverter(new CharacterModelAssetConverter("CharacterModel", "rcCharacterModel", {"dae"}, 1, 1));
 
   if (addin)
@@ -247,4 +247,55 @@ void AssetConverterDirector::CreateProgram()
     output_cpp << cpp;
     output_cpp.close();
   }
+}
+
+void AssetConverterDirector::Measurement()
+{
+  AssetConverterDirector* self = &Self();
+
+  std::cout << "キャッシュデータ消去中..." << std::endl;
+  self->context_->VisitAllEntity([&](const SharedRef<AssetEntity>& entity)
+  {
+    entity->ClearCache();
+  }); 
+  AssetManager::UnloadCaches();
+
+  std::cout << "キャッシュファイル消去中..." << std::endl;
+  FileUtil::GetCachePath();
+
+
+  std::cout << "//======================================" << std::endl;
+  std::cout << "//生アセットロード時間計測開始" << std::endl;
+  std::cout << "//======================================" << std::endl;
+
+  self->context_->VisitAllEntity([&](const SharedRef<AssetEntity>& entity)
+  {
+    entity->Load(self->context_);
+  });
+
+  std::cout << "//======================================" << std::endl;
+  std::cout << "//生アセットロード時間計測終了" << std::endl;
+  std::cout << "//======================================" << std::endl;
+
+  std::cout << "キャッシュデータ消去中..." << std::endl;
+  self->context_->VisitAllEntity([&](const SharedRef<AssetEntity>& entity)
+  {
+    entity->ClearCache();
+  });
+  AssetManager::UnloadCaches();
+
+  std::cout << "//======================================" << std::endl;
+  std::cout << "//最適化アセットロード時間計測開始" << std::endl;
+  std::cout << "//======================================" << std::endl;
+
+  self->context_->VisitAllEntity([&](const SharedRef<AssetEntity>& entity)
+  {
+    entity->Load(self->context_);
+  });
+
+  std::cout << "//======================================" << std::endl;
+  std::cout << "//最適化アセットロード時間計測終了" << std::endl;
+  std::cout << "//======================================" << std::endl;
+
+
 }

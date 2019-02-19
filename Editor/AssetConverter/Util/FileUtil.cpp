@@ -55,6 +55,11 @@ const std::string& FileUtil::GetInputPath()
   return INPUT_PATH;
 }
 
+const std::string& FileUtil::GetCachePath()
+{
+  return MIDDATA_PATH;
+}
+
 std::string FileUtil::GetSettingPath()
 {
   return CreateSettingPath(SETTING_FILE_NAME);

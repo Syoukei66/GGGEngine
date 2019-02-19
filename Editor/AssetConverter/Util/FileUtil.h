@@ -13,6 +13,8 @@ void PrepareDefaultDirectories();
 void PrepareDirectory(const URI& uri);
 
 const std::string& GetInputPath();
+const std::string& GetCachePath();
+
 std::string GetSettingPath();
 std::string GetMidDataUniqueIdTablePath();
 std::string GetArchiveUniqueIdTablePath();
