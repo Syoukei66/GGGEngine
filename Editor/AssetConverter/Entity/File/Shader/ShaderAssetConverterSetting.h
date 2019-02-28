@@ -23,8 +23,8 @@ public:
 public:
 
   /*!
- * @brief デフォルトコンストラクタ。シリアライズ用
- */
+   * @brief デフォルトコンストラクタ。シリアライズ用
+   */
   ShaderAssetConverterSetting() = default;
 
   ShaderAssetConverterSetting(const std::string& converter_id)

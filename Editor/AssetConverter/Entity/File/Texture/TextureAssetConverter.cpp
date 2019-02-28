@@ -38,11 +38,11 @@ IAssetDataContainer* TextureAssetConverter::ImportProcess(const SharedRef<AssetE
   HRESULT hr = S_FALSE;
   if (meta->GetURI().GetExtension() == "tga")
   {
-    hr = DirectX::LoadFromTGAFile(wpath, &opt_setting.metadata, opt_setting.image);
+    hr = DirectX::LoadFromTGAFile(wpath, nullptr, opt_setting.image);
   }
   else
   {
-    hr = DirectX::LoadFromWICFile(wpath, 0, &opt_setting.metadata, opt_setting.image);
+    hr = DirectX::LoadFromWICFile(wpath, 0, nullptr, opt_setting.image);
   }
   GG_ASSERT(SUCCEEDED(hr), "テクスチャの読み込みに失敗しました");
 
@@ -51,7 +51,7 @@ IAssetDataContainer* TextureAssetConverter::ImportProcess(const SharedRef<AssetE
   opt_setting.fade_enabled = setting->view_data.fade_enabled_;
   opt_setting.fade_end = setting->view_data.fade_end_;
   opt_setting.fade_start = setting->view_data.fade_start_;
-  opt_setting.filter = DX11::TEXTURE_FILTERS[setting->view_data.filter_];
+  opt_setting.filter = static_cast<TextureFilter>(setting->view_data.filter_);
   opt_setting.format = TEXTURE_FORMATS[setting->color_model][setting->compression];
   opt_setting.max_size = setting->max_size;
   opt_setting.normal_scaling_factor = setting->normal_scaling_factor;

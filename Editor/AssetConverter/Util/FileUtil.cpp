@@ -14,7 +14,7 @@
 
 static const std::string SETTING_FILE_NAME = "ConvertSetting.json";
 
-static const std::string CURRENT_DIRECTORY = "../../../";
+static const std::string CURRENT_DIRECTORY = "../";
 
 static const std::string PROJECT_PATH = CURRENT_DIRECTORY + "Project";
 static const std::string ASSET_PATH = CURRENT_DIRECTORY + "Asset";

@@ -17,8 +17,8 @@ void rcDynamicTexture::CreatePixels(T_FIXED_UINT16 width, T_FIXED_UINT16 height,
   this->data_.resource_data_.bits_per_pixel_ = 0;
   this->data_.resource_data_.block_size_ = 0;
   this->data_.resource_data_.mip_map_levels_ = 0;
-  this->data_.resource_data_.width_ = 0;
-  this->data_.resource_data_.height_ = 0;
+  this->data_.resource_data_.width_ = width;
+  this->data_.resource_data_.height_ = height;
   this->data_.resource_data_.format_ = static_cast<T_FIXED_UINT8>(format);
 
   this->width_ = width;

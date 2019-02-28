@@ -339,6 +339,33 @@ static T_FIXED_UINT8 GetBytePerPixel(Shader::TextureFormat type)
 }
 
 /*!
+ * @brief フォーマットがα要素を持っているか判定
+ */
+static bool HasAlpha(Shader::TextureFormat type)
+{
+  switch (type)
+  {
+  case Shader::TextureFormat::kHeightMap_Low:
+  case Shader::TextureFormat::kHeightMap:
+  case Shader::TextureFormat::kHeightMap_High:
+  case Shader::TextureFormat::kDepth_Low:
+  case Shader::TextureFormat::kDepth:
+  case Shader::TextureFormat::kDepthStencil_Low:
+  case Shader::TextureFormat::kDepthStencil:
+  case Shader::TextureFormat::kRGB:
+  case Shader::TextureFormat::kRGB_Compressed:
+  case Shader::TextureFormat::kHDR:
+  case Shader::TextureFormat::kHDR_Compressed:
+    return false;
+
+  case Shader::TextureFormat::kRGBA:
+  case Shader::TextureFormat::kRGBA_Compressed:
+    return true;
+  }
+  return false;
+}
+
+/*!
  * @brief マテリアルのプロパティのタイプ
  */
 enum class MaterialPropertyType : T_FIXED_UINT8

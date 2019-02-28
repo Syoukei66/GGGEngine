@@ -102,6 +102,7 @@ void DX11TextureResource::OptimisationResourceData(const OptimisationSetting& se
 {
   dest->format_ = static_cast<T_FIXED_UINT8>(setting.format);
   DXGI_FORMAT format = TEXTURE_FORMATS_LINEAR[dest->format_];
+  D3D11_FILTER filter = DX11::TEXTURE_FILTERS[static_cast<T_FIXED_UINT8>(setting.filter)];
 
   // 透明色が含まれるフォーマットの場合はそれを考慮するフィルタに
   T_UINT64 filter_flag = DirectX::TEX_FILTER_BOX;
@@ -111,8 +112,8 @@ void DX11TextureResource::OptimisationResourceData(const OptimisationSetting& se
   }
 
   // 画像を2の累乗にリサイズする
-  size_t width = Mathf::CalcTwoPowerValue(std::min(setting.metadata.width, setting.max_size));
-  size_t height = Mathf::CalcTwoPowerValue(std::min(setting.metadata.height, setting.max_size));
+  size_t width = Mathf::CalcTwoPowerValue(std::min(setting.image.GetMetadata().width, setting.max_size));
+  size_t height = Mathf::CalcTwoPowerValue(std::min(setting.image.GetMetadata().height, setting.max_size));
 
   const DirectX::ScratchImage* final_image = &setting.image;
 
@@ -188,7 +189,7 @@ void DX11TextureResource::OptimisationResourceData(const OptimisationSetting& se
       hr = DirectX::Convert(
         final_image->GetImages(), final_image->GetImageCount(), final_image->GetMetadata(),
         DXGI_FORMAT_R8G8B8A8_UNORM,
-        setting.filter,
+        filter,
         DirectX::TEX_THRESHOLD_DEFAULT, // 1bit alphaに変換する際のしきい値
         faded_image
       );
@@ -265,7 +266,7 @@ void DX11TextureResource::OptimisationResourceData(const OptimisationSetting& se
     hr = DirectX::Convert(
       final_image->GetImages(), final_image->GetImageCount(), final_image->GetMetadata(),
       format,
-      setting.filter,
+      filter,
       DirectX::TEX_THRESHOLD_DEFAULT, // 1bit alphaに変換する際のしきい値
       converted_image
     );
@@ -294,6 +295,28 @@ static const TextureResourceData* OptimisationResourceData(const TextureResource
     return &data;
   }
   DX11TextureResource::OptimisationSetting opt_setting = DX11TextureResource::OptimisationSetting();
+
+  opt_setting.max_size = Mathf::CalcTwoPowerValue(std::max(data.width_, data.height_));
+  opt_setting.convert_normal_map = false;
+  opt_setting.fade_enabled = false;
+  opt_setting.filter = Shader::TextureFilter::kBilinear;
+  opt_setting.format = static_cast<Shader::TextureFormat>(data.format_);
+  opt_setting.alpha = Shader::HasAlpha(opt_setting.format);
+
+  opt_setting.max_levels = data.mip_map_levels_;
+  if (opt_setting.max_levels == 0)
+  {
+    opt_setting.max_levels = 1;
+  }
+
+  opt_setting.image.Initialize2D(
+    TEXTURE_FORMATS_LINEAR[data.format_],
+    data.width_, data.height_,
+    1, 1  
+    );
+
+  ID3D11Device* device = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice();
+  //DirectX::Create(device, &opt_setting.image, );
 
   DX11TextureResource::OptimisationResourceData(opt_setting, dest);
   return dest;
@@ -335,6 +358,9 @@ DX11TextureResource::DX11TextureResource(const TextureResourceData& data, Usage 
     // 最適化されていないデータだったら最適化する
     TextureResourceData buf = TextureResourceData();
     const TextureResourceData* optimized = ::OptimisationResourceData(data, &buf);
+    texture_desc.Width = optimized->width_;
+    texture_desc.Height = optimized->height_;
+    texture_desc.MipLevels = optimized->mip_map_levels_;
 
     std::vector<D3D11_SUBRESOURCE_DATA> initial_datas = std::vector<D3D11_SUBRESOURCE_DATA>(optimized->mip_map_levels_);
     T_FIXED_UINT16 width = optimized->width_;

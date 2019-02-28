@@ -9,15 +9,11 @@ namespace Windows
 {
 static void main(IEngineBehavior* behavior)
 {
-  Engine* engine = new Engine(behavior);
-  Application::Run(engine, WindowsPlatform::Create());
-  delete engine;
+  Application::Run(&Engine(behavior), WindowsPlatform::Create());
 }
 
 static void main(IEngineBehavior* behavior, HWND hwnd)
 {
-  Engine* engine = new Engine(behavior);
-  Application::Run(engine, WindowsPlatform::Create());
-  delete engine;
+  Application::Run(&Engine(behavior), WindowsPlatform::Create());
 }
 }
