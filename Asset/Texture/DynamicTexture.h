@@ -82,6 +82,11 @@ public:
     return &this->data_.resource_data_.data_[(this->width_ * y + x) * this->bytes_per_pixel_];
   }
 
+  GG_INLINE T_UINT8 GetBytesPerPixel() const
+  {
+    return this->bytes_per_pixel_;
+  }
+
   // =================================================================
   // Data Members
   // =================================================================

@@ -319,7 +319,7 @@ static T_FIXED_UINT8 GetBytePerPixel(Shader::TextureFormat type)
 
   case Shader::TextureFormat::kRGB:
   case Shader::TextureFormat::kRGB_Compressed:
-    return 3;
+    return 4;
 
   case Shader::TextureFormat::kRGBA:
   case Shader::TextureFormat::kRGBA_Compressed:

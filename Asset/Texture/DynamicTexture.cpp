@@ -14,6 +14,16 @@ GG_INIT_FUNC_IMPL_1(rcDynamicTexture, const TextureData& data)
 // =================================================================
 void rcDynamicTexture::CreatePixels(T_FIXED_UINT16 width, T_FIXED_UINT16 height, Shader::TextureFormat format)
 {
+  // テクスチャのサイズやフォーマットに変更がなければ何もしない
+  if (
+    this->data_.resource_data_.width_ == width &&
+    this->data_.resource_data_.height_ == height &&
+    this->data_.resource_data_.format_ == static_cast<T_FIXED_UINT8>(format)
+    )
+  {
+    return;
+  }
+
   this->data_.resource_data_.bits_per_pixel_ = 0;
   this->data_.resource_data_.block_size_ = 0;
   this->data_.resource_data_.mip_map_levels_ = 0;

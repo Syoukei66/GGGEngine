@@ -1,33 +1,5 @@
 #include "PerlinNoiseGenerator.h"
 
-PerlinNoiseGenerator::PerlinNoiseGenerator()
-  : seed_(123456789)
-{
-}
-
-PerlinNoiseGenerator::~PerlinNoiseGenerator()
-{
-}
-
-void PerlinNoiseGenerator::Init(T_UINT32 seed)
-{
-  this->seed_ = seed;
-}
-
-T_FLOAT PerlinNoiseGenerator::Noise1D(T_FLOAT x)
-{
-  return Noise1D(x, this->frequency_);
-}
-
-T_FLOAT PerlinNoiseGenerator::Noise2D(T_FLOAT x, T_FLOAT y)
-{
-  return Noise2D(x, y, this->frequency_);
-}
-
-T_FLOAT PerlinNoiseGenerator::Noise3D(T_FLOAT x, T_FLOAT y, T_FLOAT z)
-{
-  return Noise3D(x, y, z, this->frequency_);
-}
 
 static T_UINT32 XorShift32(T_UINT32 v)
 {
@@ -95,9 +67,9 @@ static TVec2f gradients2D[] = {
   { -1.0f,  1.0f },
   {  0.0f,  1.0f },
   {  0.0f, -1.0f },
-  TVec2f( 1.0f,  1.0f).Normalized(),
+  TVec2f(1.0f,  1.0f).Normalized(),
   TVec2f(-1.0f,  1.0f).Normalized(),
-  TVec2f( 1.0f, -1.0f).Normalized(),
+  TVec2f(1.0f, -1.0f).Normalized(),
   TVec2f(-1.0f, -1.0f).Normalized(),
 };
 
@@ -108,10 +80,18 @@ static T_FLOAT Dot(const TVec2f& g, T_FLOAT x, T_FLOAT y)
   return g.x * x + g.y * y;
 }
 
-T_FLOAT PerlinNoiseGenerator::Noise1D(T_FLOAT x, T_FLOAT frequency)
+// =================================================================
+// Methods
+// =================================================================
+void PerlinNoiseGenerator::Init(const NoiseSetting& setting)
 {
-  const T_INT32 v = XorShift32(this->seed_);
-  x *= frequency;
+  this->setting_ = setting;
+}
+
+T_FLOAT PerlinNoiseGenerator::Noise1D(T_FLOAT x) const
+{
+  const T_INT32 v = XorShift32(this->setting_.seed_);
+
   T_INT32 i0 = (T_INT32)floorf(x);
   const T_FLOAT t0 = x - i0;
   const T_FLOAT t1 = t0 - 1.0f;
@@ -129,18 +109,16 @@ T_FLOAT PerlinNoiseGenerator::Noise1D(T_FLOAT x, T_FLOAT frequency)
   return Lerp(t0, v1, t) * 2.0f;
 }
 
-T_FLOAT PerlinNoiseGenerator::Noise2D(T_FLOAT x, T_FLOAT y, T_FLOAT frequency)
+T_FLOAT PerlinNoiseGenerator::Noise2D(T_FLOAT x, T_FLOAT y) const
 {
-  const T_INT32 v = XorShift32(this->seed_);
+  const T_INT32 v = XorShift32(this->setting_.seed_);
 
-  x *= frequency;
   T_INT32 ix0 = (T_INT32)floorf(x);
   const T_FLOAT tx0 = x - ix0;
   const T_FLOAT tx1 = tx0 - 1.0f;
   ix0 = (ix0 + v) & hashMask;
   const T_INT32 ix1 = ix0 + 1;
 
-  y *= frequency;
   T_INT32 iy0 = (T_INT32)floorf(y);
   const T_FLOAT ty0 = y - iy0;
   const T_FLOAT ty1 = ty0 - 1.0f;
@@ -168,53 +146,54 @@ T_FLOAT PerlinNoiseGenerator::Noise2D(T_FLOAT x, T_FLOAT y, T_FLOAT frequency)
     ty) * sqrtf(2.0f);
 }
 
-T_FLOAT PerlinNoiseGenerator::Noise3D(T_FLOAT x, T_FLOAT y, T_FLOAT z, T_FLOAT frequency)
+T_FLOAT PerlinNoiseGenerator::Noise3D(T_FLOAT x, T_FLOAT y, T_FLOAT z) const
 {
-  return T_FLOAT();
+  GG_ASSERT_NO_ENTRY();
+  return 0;
 }
 
-T_FLOAT PerlinNoiseGenerator::FractalNoise1D(T_FLOAT x)
+T_FLOAT PerlinNoiseGenerator::FractalNoise1D(T_FLOAT x) const
 {
-  T_FLOAT sum = Noise1D(x);
-  T_FLOAT frequency = this->frequency_;
+  T_FLOAT frequency = this->setting_.frequency_;
+  T_FLOAT sum = Noise1D(x, frequency);
   T_FLOAT amplitude = 1.0f;
   T_FLOAT range = 1.0f;
-  for (T_UINT32 o = 1; o < this->octaves_; o++)
+  for (T_UINT32 o = 1; o < this->setting_.octaves_; o++)
   {
-    frequency *= this->lacunarity_;
-    amplitude *= this->persistence_;
+    frequency *= this->setting_.lacunarity_;
+    amplitude *= this->setting_.persistence_;
     range += amplitude;
     sum += Noise1D(x, frequency) * amplitude;
   }
   return sum * (1.0f / range);
 }
 
-T_FLOAT PerlinNoiseGenerator::FractalNoise2D(T_FLOAT x, T_FLOAT y)
+T_FLOAT PerlinNoiseGenerator::FractalNoise2D(T_FLOAT x, T_FLOAT y) const
 {
-  T_FLOAT sum = Noise2D(x, y);
-  T_FLOAT frequency = this->frequency_;
+  T_FLOAT frequency = this->setting_.frequency_;
+  T_FLOAT sum = Noise2D(x, y, frequency);
   T_FLOAT amplitude = 1.0f;
   T_FLOAT range = 1.0f;
-  for (T_UINT32 o = 1; o < this->octaves_; o++)
+  for (T_UINT32 o = 1; o < this->setting_.octaves_; o++)
   {
-    frequency *= this->lacunarity_;
-    amplitude *= this->persistence_;
+    frequency *= this->setting_.lacunarity_;
+    amplitude *= this->setting_.persistence_;
     range += amplitude;
     sum += Noise2D(x, y, frequency) * amplitude;
   }
   return sum * (1.0f / range);
 }
 
-T_FLOAT PerlinNoiseGenerator::FractalNoise3D(T_FLOAT x, T_FLOAT y, T_FLOAT z)
+T_FLOAT PerlinNoiseGenerator::FractalNoise3D(T_FLOAT x, T_FLOAT y, T_FLOAT z) const
 {
-  T_FLOAT sum = Noise3D(x, y, z);
-  T_FLOAT frequency = this->frequency_;
+  T_FLOAT frequency = this->setting_.frequency_;
+  T_FLOAT sum = Noise3D(x, y, z, frequency);
   T_FLOAT amplitude = 1.0f;
   T_FLOAT range = 1.0f;
-  for (T_UINT32 o = 1; o < this->octaves_; o++)
+  for (T_UINT32 o = 1; o < this->setting_.octaves_; o++)
   {
-    frequency *= this->lacunarity_;
-    amplitude *= this->persistence_;
+    frequency *= this->setting_.lacunarity_;
+    amplitude *= this->setting_.persistence_;
     range += amplitude;
     sum += Noise3D(x, y, z, frequency) * amplitude;
   }

@@ -101,8 +101,8 @@ bool IsCompressFormat(DXGI_FORMAT format)
 void DX11TextureResource::OptimisationResourceData(const OptimisationSetting& setting, TextureResourceData* dest)
 {
   dest->format_ = static_cast<T_FIXED_UINT8>(setting.format);
-  DXGI_FORMAT format = TEXTURE_FORMATS_LINEAR[dest->format_];
-  D3D11_FILTER filter = DX11::TEXTURE_FILTERS[static_cast<T_FIXED_UINT8>(setting.filter)];
+  const DXGI_FORMAT format = TEXTURE_FORMATS_LINEAR[dest->format_];
+  const D3D11_FILTER filter = DX11::TEXTURE_FILTERS[static_cast<T_FIXED_UINT8>(setting.filter)];
 
   // 透明色が含まれるフォーマットの場合はそれを考慮するフィルタに
   T_UINT64 filter_flag = DirectX::TEX_FILTER_BOX;
@@ -277,7 +277,6 @@ void DX11TextureResource::OptimisationResourceData(const OptimisationSetting& se
   dest->bits_per_pixel_ = (T_FIXED_UINT8)(DirectX::BitsPerPixel(format));
   dest->width_ = (T_FIXED_UINT16)width;
   dest->height_ = (T_FIXED_UINT16)height;
-  dest->format_ = format;
   const T_UINT32 pixels_size = (T_UINT32)final_image->GetPixelsSize();
   dest->data_.resize(pixels_size);
   for (T_UINT32 i = 0; i < pixels_size; ++i)
@@ -314,9 +313,29 @@ static const TextureResourceData* OptimisationResourceData(const TextureResource
     data.width_, data.height_,
     1, 1  
     );
+  
+  // データをimageに格納
+  // TextureResourceとしてのデータとimageとしてのデータだと
+  // １ピクセルあたりのバイト数に差がある場合があるので、
+  // そこを考慮しながら格納していく
+  const DirectX::Image* image = &opt_setting.image.GetImages()[0];
+  const T_UINT8 native_byte_count = DirectX::BitsPerPixel(image->format) / 8;
+  const T_UINT8 byte_count = Shader::GetBytePerPixel(static_cast<Shader::TextureFormat>(data.format_));
 
-  ID3D11Device* device = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice();
-  //DirectX::Create(device, &opt_setting.image, );
+  for (T_UINT32 y = 0, i = 0, di = 0; y < data.height_; ++y)
+  {
+    for (T_UINT32 x = 0; x < data.width_; ++x)
+    {
+      for (T_UINT8 b = 0; b < byte_count; ++b, ++di, ++i)
+      {
+        image->pixels[i] = data.data_[di];
+      }
+      for (T_UINT8 b = 0; b < native_byte_count - byte_count; ++b, ++i)
+      {
+        image->pixels[i] = 0xff;
+      }
+    }
+  }
 
   DX11TextureResource::OptimisationResourceData(opt_setting, dest);
   return dest;
@@ -329,15 +348,13 @@ DX11TextureResource::DX11TextureResource(const TextureResourceData& data, Usage 
 {
   ID3D11Device* device = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice();
 
-  this->format_ = static_cast<DXGI_FORMAT>(data.format_);
-
   // テクスチャリソースの作成
   D3D11_TEXTURE2D_DESC texture_desc = D3D11_TEXTURE2D_DESC();
   texture_desc.Width = data.width_;
   texture_desc.Height = data.height_;
   texture_desc.MipLevels = data.mip_map_levels_;
   texture_desc.ArraySize = 1;
-  texture_desc.Format = this->format_;
+  texture_desc.Format = TEXTURE_FORMATS_LINEAR[data.format_];
   texture_desc.SampleDesc.Count = 1;
   texture_desc.SampleDesc.Quality = 0;
   if (usage == Usage::kImmutable)
@@ -361,6 +378,7 @@ DX11TextureResource::DX11TextureResource(const TextureResourceData& data, Usage 
     texture_desc.Width = optimized->width_;
     texture_desc.Height = optimized->height_;
     texture_desc.MipLevels = optimized->mip_map_levels_;
+    texture_desc.Format = TEXTURE_FORMATS_LINEAR[optimized->format_];
 
     std::vector<D3D11_SUBRESOURCE_DATA> initial_datas = std::vector<D3D11_SUBRESOURCE_DATA>(optimized->mip_map_levels_);
     T_FIXED_UINT16 width = optimized->width_;
@@ -386,6 +404,7 @@ DX11TextureResource::DX11TextureResource(const TextureResourceData& data, Usage 
     GG_ASSERT(SUCCEEDED(hr), "テクスチャの作成に失敗しました");
   }
 
+  this->format_ = texture_desc.Format;
 }
 
 DX11TextureResource::~DX11TextureResource()
@@ -405,14 +424,7 @@ void DX11TextureResource::UpdateSubresource(const TextureResourceData& data, Usa
 
   TextureResourceData buf = TextureResourceData();
   const TextureResourceData* optimized = ::OptimisationResourceData(data, &buf);
-  unsigned char* p = (unsigned char*)mapped_subresource.pData;
-
-  std::vector<D3D11_SUBRESOURCE_DATA> initial_datas = std::vector<D3D11_SUBRESOURCE_DATA>(optimized->mip_map_levels_);
-  T_UINT64 size = optimized->data_.size();
-  for (T_UINT64 i = 0; i < size; ++i)
-  {
-    p[i] = optimized->data_[i];
-  }
+  memcpy(mapped_subresource.pData, optimized->data_.data(), optimized->data_.size());
   context->Unmap(this->resource_, 0);
 }
 
