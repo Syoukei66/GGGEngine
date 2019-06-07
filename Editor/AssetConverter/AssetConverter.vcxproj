@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{AFF08C67-6948-4BF5-904B-8F356308647C}</ProjectGuid>
+    <RootNamespace>AssetConverter</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
+    <IncludePath>$(SolutionDir)Engine\Editor\ThirdParty\DirectXTex;$(SolutionDir)Engine\Editor\ThirdParty\Assimp\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\$(Platform)\$(Configuration);$(SolutionDir)Engine\Editor\ThirdParty\Assimp\lib\$(Platform)\$(Configuration);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
+    <IncludePath>$(SolutionDir)Engine\Editor\ThirdParty\DirectXTex;$(SolutionDir)Engine\Editor\ThirdParty\Assimp\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\$(Platform)\$(Configuration);$(SolutionDir)Engine\Editor\ThirdParty\Assimp\lib\$(Platform)\$(Configuration);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
+    <IncludePath>$(SolutionDir)Engine\Editor\ThirdParty\DirectXTex;$(SolutionDir)Engine\Editor\ThirdParty\Assimp\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\$(Platform)\$(Configuration);$(SolutionDir)Engine\Editor\ThirdParty\Assimp\lib\$(Platform)\$(Configuration);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
+    <IncludePath>$(SolutionDir)Engine\Editor\ThirdParty\DirectXTex;$(SolutionDir)Engine\Editor\ThirdParty\Assimp\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\$(Platform)\$(Configuration);$(SolutionDir)Engine\Editor\ThirdParty\Assimp\lib\$(Platform)\$(Configuration);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\Editor\ThirdParty\DirectXTex;$(ProjectDir);$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\Editor\EditorUtils;$(SolutionDir)Engine\Editor\ThirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TreatWarningAsError>false</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>IrrXML.lib;assimp-vc140-mt.lib;zlibstatic.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\x64;</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\Editor\ThirdParty\DirectXTex;$(ProjectDir);$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\Editor\EditorUtils;$(SolutionDir)Engine\Editor\ThirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TreatWarningAsError>false</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>IrrXML.lib;assimp-vc140-mt.lib;zlibstaticd.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\x86;</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\Editor\ThirdParty\DirectXTex;$(ProjectDir);$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\Editor\EditorUtils;$(SolutionDir)Engine\Editor\ThirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TreatWarningAsError>false</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>IrrXML.lib;assimp-vc140-mt.lib;zlibstaticd.lib;zlibd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\x64;</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\Editor\ThirdParty\DirectXTex;$(ProjectDir);$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty;$(SolutionDir)Engine\Editor\EditorUtils;$(SolutionDir)Engine\Editor\ThirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <TreatWarningAsError>false</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>IrrXML.lib;assimp-vc140-mt.lib;zlibstatic.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\x86;</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="Converter\AssetConverter.h" />
+    <ClInclude Include="Entity\AssetDataContainer.h" />
+    <ClInclude Include="Entity\AssetEntity.h" />
+    <ClInclude Include="Entity\ConverterSettingPolymorphicRelations.h" />
+    <ClInclude Include="Entity\Default\DefaultAssetConverter.h" />
+    <ClInclude Include="Entity\Default\DefaultAssetConverterSetting.h" />
+    <ClInclude Include="Entity\Default\Mesh\DefaultMeshAssetEntityFactory.h" />
+    <ClInclude Include="Entity\File\FileAssetConverter.h" />
+    <ClInclude Include="Entity\File\GameAssetConverter.h" />
+    <ClInclude Include="Entity\File\Material\MaterialAssetConverter.h" />
+    <ClInclude Include="Entity\File\Material\MaterialAssetConverterSetting.h" />
+    <ClInclude Include="Entity\File\Mesh\MeshAssetConverter.h" />
+    <ClInclude Include="Entity\File\Mesh\MeshAssetConverterSetting.h" />
+    <ClInclude Include="Entity\File\Model\AssimpImportUtil.h" />
+    <ClInclude Include="Entity\File\Model\CharacterModel\CharacterModelConverter.h" />
+    <ClInclude Include="Entity\File\Model\CharacterModel\CharacterModelConverterSetting.h" />
+    <ClInclude Include="Entity\File\Model\StaticModel\StaticModelConverter.h" />
+    <ClInclude Include="Entity\File\Model\StaticModel\StaticModelConverterSetting.h" />
+    <ClInclude Include="Entity\Raw\RawAssetConverter.h" />
+    <ClInclude Include="Entity\Raw\RawAssetConverterSetting.h" />
+    <ClInclude Include="Entity\File\Shader\ShaderAssetConverter.h" />
+    <ClInclude Include="Entity\File\Shader\ShaderAssetConverterSetting.h" />
+    <ClInclude Include="Entity\File\Texture\TextureAssetConverter.h" />
+    <ClInclude Include="Entity\ConverterSetting.h" />
+    <ClInclude Include="Entity\File\Texture\TextureAssetConverterSetting.h" />
+    <ClInclude Include="GUI\EntityView\AssetEntityView.h" />
+    <ClInclude Include="GUI\FileView\AssetEntityFileLeaf.h" />
+    <ClInclude Include="GUI\FileView\AssetEntityFileNode.h" />
+    <ClInclude Include="GUI\HierarchyView\HierarchyNode.h" />
+    <ClInclude Include="GUI\HierarchyView\HierarchyView.h" />
+    <ClInclude Include="GUI\ShaderSelectScene\ShaderSelectScene.h" />
+    <ClInclude Include="GUI\TextureSelectScene\TextureSelectScene.h" />
+    <ClInclude Include="GUI\TextureSelectScene\TextureSelectView.h" />
+    <ClInclude Include="IAssetConverterAddIn.h" />
+    <ClInclude Include="GUI\MaterialEditView\MaterialEditView.h" />
+    <ClInclude Include="ProgramGenerator\AssetProgramGenerator.h" />
+    <ClInclude Include="ProgramGenerator\AssetProgramGenerator_identifier.h" />
+    <ClInclude Include="Entity\Default\DefaultAsset.h" />
+    <ClInclude Include="Entity\Default\Material\DefaultMaterialAssetEntityFactory.h" />
+    <ClInclude Include="Director.h" />
+    <ClInclude Include="Entity\AssetMetaData.h" />
+    <ClInclude Include="ProgramGenerator\AssetProgramGenerator_definition.h" />
+    <ClInclude Include="ProgramGenerator\AssetProgramGenerator_namespace.h" />
+    <ClInclude Include="Assimp\AssimpMaterialSystemImporter.h" />
+    <ClInclude Include="Constants\Extensions.h" />
+    <ClInclude Include="GUI\FileView\FileView.h" />
+    <ClInclude Include="Scene\AssetViewer\AssetViewerScene.h" />
+    <ClInclude Include="Scene\AssetViewer\CharacterModel\CharacterModelViewerBehavior.h" />
+    <ClInclude Include="Scene\AssetViewer\Material\MaterialViewerBehavior.h" />
+    <ClInclude Include="Scene\AssetViewer\Shader\ShaderViewerBehavior.h" />
+    <ClInclude Include="Scene\AssetViewer\StaticMesh\StaticMeshViewerBehavior.h" />
+    <ClInclude Include="Scene\AssetViewer\StaticModel\StaticModelViewerBehavior.h" />
+    <ClInclude Include="Scene\AssetViewer\Texture\TextureViewerBehavior.h" />
+    <ClInclude Include="Scene\TestMesh\TestMesh.h" />
+    <ClInclude Include="Util\FileUtil.h" />
+    <ClInclude Include="Converter\AssetConverterContext.h" />
+    <ClInclude Include="Util\ImGuiUtil.h" />
+    <ClInclude Include="Util\Logger.h" />
+    <ClInclude Include="Util\MeshBuilder\MeshBuilder.h" />
+    <ClInclude Include="Util\MeshBuilder\MeshBuilder_Capsule.h" />
+    <ClInclude Include="Util\MeshBuilder\MeshBuilder_Cube.h" />
+    <ClInclude Include="Util\MeshBuilder\MeshBuilder_CubeSphere.h" />
+    <ClInclude Include="Util\MeshBuilder\MeshBuilder_Plane.h" />
+    <ClInclude Include="Entity\File\Model\ModelConstants.h" />
+    <ClInclude Include="Setting\RuntimeSetting.h" />
+    <ClInclude Include="Setting\Setting.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="EngineBehavior.h" />
+    <ClInclude Include="GameInput.h" />
+    <ClInclude Include="Scene\AssetViewer\AssetViewerBehavior.h" />
+    <ClInclude Include="Scene\EntryScene.h" />
+    <ClInclude Include="Scene\ViewerScene.h" />
+    <ClInclude Include="Util\MeshBuilder\MeshBuilder_UvSphere.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Converter\AssetConverter.cpp" />
+    <ClCompile Include="Converter\AssetConverterContext.cpp" />
+    <ClCompile Include="Entity\AssetEntity.cpp" />
+    <ClCompile Include="Entity\AssetMetaData.cpp" />
+    <ClCompile Include="Entity\Default\Mesh\DefaultMeshAssetEntityFactory.cpp" />
+    <ClCompile Include="Entity\File\Material\MaterialAssetConverter.cpp" />
+    <ClCompile Include="Entity\File\Material\MaterialAssetConverterSetting.cpp" />
+    <ClCompile Include="Entity\File\Mesh\MeshAssetConverter.cpp" />
+    <ClCompile Include="Entity\File\Mesh\MeshAssetConverterSetting.cpp" />
+    <ClCompile Include="Entity\File\Model\CharacterModel\CharacterModelConverter.cpp" />
+    <ClCompile Include="Entity\File\Model\CharacterModel\CharacterModelConverterSetting.cpp" />
+    <ClCompile Include="Entity\File\Model\StaticModel\StaticModelConverter.cpp" />
+    <ClCompile Include="Entity\File\Model\StaticModel\StaticModelConverterSetting.cpp" />
+    <ClCompile Include="Entity\Raw\RawAssetConverterSetting.cpp" />
+    <ClCompile Include="Entity\File\Shader\ShaderAssetConverter.cpp" />
+    <ClCompile Include="Entity\File\Shader\ShaderAssetConverterSetting.cpp" />
+    <ClCompile Include="Entity\File\Texture\TextureAssetConverter.cpp" />
+    <ClCompile Include="Entity\File\Texture\TextureAssetConverterSetting.cpp" />
+    <ClCompile Include="GUI\EntityView\AssetEntityView.cpp" />
+    <ClCompile Include="GUI\FileView\AssetEntityFileLeaf.cpp" />
+    <ClCompile Include="GUI\FileView\AssetEntityFileNode.cpp" />
+    <ClCompile Include="GUI\HierarchyView\HierarchyNode.cpp" />
+    <ClCompile Include="GUI\HierarchyView\HierarchyView.cpp" />
+    <ClCompile Include="GUI\MaterialEditView\MaterialEditView.cpp" />
+    <ClCompile Include="GUI\ShaderSelectScene\ShaderSelectScene.cpp" />
+    <ClCompile Include="GUI\TextureSelectScene\TextureSelectScene.cpp" />
+    <ClCompile Include="ProgramGenerator\AssetProgramGenerator.cpp" />
+    <ClCompile Include="ProgramGenerator\AssetProgramGenerator_identifier.cpp" />
+    <ClCompile Include="Entity\Default\Material\DefaultMaterialAssetEntityFactory.cpp" />
+    <ClCompile Include="Director.cpp" />
+    <ClCompile Include="ProgramGenerator\AssetProgramGenerator_definition.cpp" />
+    <ClCompile Include="ProgramGenerator\AssetProgramGenerator_namespace.cpp" />
+    <ClCompile Include="Assimp\AssimpMaterialSystemImporter.cpp" />
+    <ClCompile Include="GUI\FileView\FileView.cpp" />
+    <ClCompile Include="Scene\AssetViewer\AssetViewerBehavior.cpp" />
+    <ClCompile Include="Scene\AssetViewer\AssetViewerScene.cpp" />
+    <ClCompile Include="Scene\AssetViewer\CharacterModel\CharacterModelViewerBehavior.cpp" />
+    <ClCompile Include="Scene\AssetViewer\Material\MaterialViewerBehavior.cpp" />
+    <ClCompile Include="Scene\AssetViewer\Shader\ShaderViewerBehavior.cpp" />
+    <ClCompile Include="Scene\AssetViewer\StaticMesh\StaticMeshViewerBehavior.cpp" />
+    <ClCompile Include="Scene\AssetViewer\StaticModel\StaticModelViewerBehavior.cpp" />
+    <ClCompile Include="Scene\AssetViewer\Texture\TextureViewerBehavior.cpp" />
+    <ClCompile Include="Scene\TestMesh\TestMesh.cpp" />
+    <ClCompile Include="Util\FileUtil.cpp" />
+    <ClCompile Include="Util\ImGuiUtil.cpp" />
+    <ClCompile Include="Util\Logger.cpp" />
+    <ClCompile Include="Util\MeshBuilder\MeshBuilder_Capsule.cpp" />
+    <ClCompile Include="Util\MeshBuilder\MeshBuilder_Cube.cpp" />
+    <ClCompile Include="Util\MeshBuilder\MeshBuilder_CubeSphere.cpp" />
+    <ClCompile Include="Util\MeshBuilder\MeshBuilder_Plane.cpp" />
+    <ClCompile Include="Util\MeshBuilder\MeshBuilder_UvSphere.cpp" />
+    <ClCompile Include="Setting\Setting.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdafx.h</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdafx.h</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdafx.h</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdafx.h</ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="EngineBehavior.cpp" />
+    <ClCompile Include="GameInput.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Scene\EntryScene.cpp" />
+    <ClCompile Include="Scene\ViewerScene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Engine\Engine.vcxproj">
+      <Project>{3d96ef11-f5c9-4990-be01-5279dadd6d52}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Native\Windows\Windows.vcxproj">
+      <Project>{9f550cbc-9678-49bc-9a91-68c39e40eabd}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ThirdParty\imgui\imgui.vcxproj">
+      <Project>{39f01ad4-a40f-4a2e-aad2-5b0a33815442}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\EditorUtils\EditorUtils.vcxproj">
+      <Project>{980f180f-d523-4328-8cda-6c2add3aa7d8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ThirdParty\DirectXTex\DirectXTex_Desktop_2017_Win10.vcxproj">
+      <Project>{371b9fa9-4c90-4ac6-a123-aced756d6c77}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools\ShaderCompiler\ShaderCompiler.vcxproj">
+      <Project>{3bf2f03b-e9ca-4be1-b15a-8333321ba7ef}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

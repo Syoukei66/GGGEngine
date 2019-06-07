@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{9F550CBC-9678-49BC-9A91-68C39E40EABD}</ProjectGuid>
+    <RootNamespace>Windows</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
+    <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(LibraryPath);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
+    <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(LibraryPath);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
+    <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(LibraryPath);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\mid\</IntDir>
+    <OutDir>$(SolutionDir)build\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(LibraryPath);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Project;$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h;Native/Windows/stdafx.h</ForcedIncludeFiles>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <PreBuildEvent>
+      <Command>cd $(SolutionDir)
+call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe Native/$(ProjectName)</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Project;$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h;Native/Windows/stdafx.h</ForcedIncludeFiles>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <PreBuildEvent>
+      <Command>cd $(SolutionDir)
+call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe Native/$(ProjectName)</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Project;$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h;Native/Windows/stdafx.h</ForcedIncludeFiles>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <PreBuildEvent>
+      <Command>cd $(SolutionDir)
+call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe Native/$(ProjectName)</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)Project;$(SolutionDir)Engine;$(SolutionDir)Engine\ThirdParty\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <ForcedIncludeFiles>stdafx.h;Native/Windows/stdafx.h</ForcedIncludeFiles>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <PreBuildEvent>
+      <Command>cd $(SolutionDir)
+call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuilder.exe Native/$(ProjectName)</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="Activity\EditorWindowActivityContext.h" />
+    <ClInclude Include="Activity\WindowsContext.h" />
+    <ClInclude Include="API\Graphics\DX11\Resource\DX11ConstantBuffer.h" />
+    <ClInclude Include="API\Graphics\DX11\DX11Constants.h" />
+    <ClInclude Include="API\Graphics\DX11\DX11GraphicsAPI.h" />
+    <ClInclude Include="API\Graphics\DX11\Resource\DX11IndexBuffer.h" />
+    <ClInclude Include="API\Graphics\DX11\Resource\DX11PixelShader.h" />
+    <ClInclude Include="API\Graphics\DX11\Resource\DX11RenderState.h" />
+    <ClInclude Include="API\Graphics\DX11\Resource\DX11TextureResource.h" />
+    <ClInclude Include="API\Graphics\DX11\Resource\DX11TextureView.h" />
+    <ClInclude Include="API\Graphics\DX11\Resource\DX11VertexBuffer.h" />
+    <ClInclude Include="API\Graphics\DX11\Resource\DX11VertexShader.h" />
+    <ClInclude Include="API\Graphics\DX11\imgui\imgui_impl_dx11.h" />
+    <ClInclude Include="API\Graphics\DX11\Resource\DX11VertexDeclaration.h" />
+    <ClInclude Include="API\Graphics\DX11\Module\DX11TextureModule.h" />
+    <ClInclude Include="API\Graphics\DX9\DX9VertexDeclaration.h" />
+    <ClInclude Include="imgui\imgui_impl_win32.h" />
+    <ClInclude Include="API\Audio\XAudio\XAudioAPI.h" />
+    <ClInclude Include="API\Graphics\DX9\DX9GraphicsAPI.h" />
+    <ClInclude Include="API\Graphics\DX9\imgui\imgui_impl_dx9.h" />
+    <ClInclude Include="API\Graphics\DX9\DX9Constants.h" />
+    <ClInclude Include="API\Graphics\DX9\DX9IndexBuffer.h" />
+    <ClInclude Include="API\Graphics\DX9\DX9Shader.h" />
+    <ClInclude Include="API\Graphics\DX9\DX9VertexBuffer.h" />
+    <ClInclude Include="API\Graphics\WindowsGraphicsAPI.h" />
+    <ClInclude Include="API\Input\DirectInput\DirectInputAPI.h" />
+    <ClInclude Include="API\Input\DirectInput\DirectInputDevice.h" />
+    <ClInclude Include="API\Input\DirectInput\DirectInputDeviceManager.h" />
+    <ClInclude Include="API\Audio\XAudio\XAudioSound.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="Include.h" />
+    <ClInclude Include="PlatformMacro.h" />
+    <ClInclude Include="API\Input\DirectInput\DirectInputDevice_Keyboard.h" />
+    <ClInclude Include="API\Input\DirectInput\DirectInputDevice_Mouse.h" />
+    <ClInclude Include="API\Input\DirectInput\DirectInputDevice_XInput.h" />
+    <ClInclude Include="API\Input\DirectInput\DirectInputImplements.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Activity\WindowActivityContext.h" />
+    <ClInclude Include="WindowsApplication.h" />
+    <ClInclude Include="WindowsPlatform.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Activity\EditorWindowActivityContext.cpp" />
+    <ClCompile Include="Activity\WindowsContext.cpp" />
+    <ClCompile Include="API\Audio\XAudio\XAudioAPI.cpp" />
+    <ClCompile Include="API\Graphics\DX11\Resource\DX11ConstantBuffer.cpp" />
+    <ClCompile Include="API\Graphics\DX11\DX11GraphicsAPI.cpp" />
+    <ClCompile Include="API\Graphics\DX11\Resource\DX11IndexBuffer.cpp" />
+    <ClCompile Include="API\Graphics\DX11\Resource\DX11PixelShader.cpp" />
+    <ClCompile Include="API\Graphics\DX11\Resource\DX11RenderState.cpp" />
+    <ClCompile Include="API\Graphics\DX11\Resource\DX11TextureResource.cpp" />
+    <ClCompile Include="API\Graphics\DX11\Resource\DX11TextureView.cpp" />
+    <ClCompile Include="API\Graphics\DX11\Resource\DX11VertexBuffer.cpp" />
+    <ClCompile Include="API\Graphics\DX11\Resource\DX11VertexDeclaration.cpp" />
+    <ClCompile Include="API\Graphics\DX11\Resource\DX11VertexShader.cpp" />
+    <ClCompile Include="API\Graphics\DX11\imgui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="API\Graphics\DX11\Module\DX11TextureModule.cpp" />
+    <ClCompile Include="API\Graphics\DX9\DX9GraphicsAPI.cpp" />
+    <ClCompile Include="API\Graphics\DX9\DX9VertexDeclaration.cpp" />
+    <ClCompile Include="API\Graphics\DX9\imgui\imgui_impl_dx9.cpp" />
+    <ClCompile Include="API\Graphics\DX9\DX9IndexBuffer.cpp" />
+    <ClCompile Include="API\Graphics\DX9\DX9Shader.cpp" />
+    <ClCompile Include="API\Graphics\DX9\DX9VertexBuffer.cpp" />
+    <ClCompile Include="API\Input\DirectInput\DirectInputAPI.cpp" />
+    <ClCompile Include="API\Input\DirectInput\DirectInputDeviceManager.cpp" />
+    <ClCompile Include="API\Input\DirectInput\DirectInputDevice_Keyboard.cpp" />
+    <ClCompile Include="API\Input\DirectInput\DirectInputDevice_Mouse.cpp" />
+    <ClCompile Include="API\Input\DirectInput\DirectInputDevice_XInput.cpp" />
+    <ClCompile Include="imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="Native\NativeProcess.cpp" />
+    <ClCompile Include="API\Audio\XAudio\XAudioSound.cpp" />
+    <ClCompile Include="API\Input\DirectInput\DirectInputImplements.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdafx.h;Native/Windows/stdafx.h</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdafx.h;Native/Windows/stdafx.h</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdafx.h;Native/Windows/stdafx.h</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdafx.h;Native/Windows/stdafx.h</ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="Activity\WindowActivityContext.cpp" />
+    <ClCompile Include="WindowsPlatform.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Algorithm\Algorithm.vcxproj">
+      <Project>{a014e46a-c10d-4ed4-a47c-f79712680dc7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Asset\Asset.vcxproj">
+      <Project>{37173f1e-1a35-4644-8862-81dbb9ad9fc1}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Core.vcxproj">
+      <Project>{ed60a9ab-7765-4071-a74f-16ae746c727f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Engine\Engine.vcxproj">
+      <Project>{3d96ef11-f5c9-4990-be01-5279dadd6d52}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ThirdParty\DirectXTex\DirectXTex_Desktop_2017_Win10.vcxproj">
+      <Project>{371b9fa9-4c90-4ac6-a123-aced756d6c77}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
