@@ -3,9 +3,9 @@
 #if GG_GRAPHICS_API_DX11
 
 #include <Native/Windows/WindowsApplication.h>
+#include <Native/Windows/API/Graphics/DX11/DX11Constants.h>
 
 #include "DX11TextureResource.h"
-#include "DX11Constants.h"
 
 UniqueRef<rcTextureView> rcTextureView::Create(const TextureViewData& data, const SharedRef<rcTextureResource>& resource)
 {

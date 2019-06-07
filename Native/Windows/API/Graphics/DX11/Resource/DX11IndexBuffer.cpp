@@ -3,8 +3,7 @@
 #if GG_GRAPHICS_API_DX11
 
 #include <Native/Windows/WindowsApplication.h>
-
-#include "DX11Constants.h"
+#include <Native/Windows/API/Graphics/DX11/DX11Constants.h>
 
 UniqueRef<rcIndexBuffer> rcIndexBuffer::Create(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format)
 {
