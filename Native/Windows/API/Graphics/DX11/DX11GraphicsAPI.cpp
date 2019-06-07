@@ -4,6 +4,7 @@
 
 #include <Native/Windows/WindowsApplication.h>
 #include <Core/Application/Activity/Activity.h>
+#include <Native/Windows/API/Graphics/DX11/Module/DX11TextureModule.h>
 
 #include "imgui\imgui_impl_dx11.h"
 #include "DX11Constants.h"
@@ -274,6 +275,11 @@ bool DX11GraphicsAPI::PostDraw(const SharedRef<Activity>& activity)
   HWND hwnd = (HWND)activity->GetContext().GetActivityID();
   this->swap_chains_[hwnd]->Present(0, 0);
   return true;
+}
+
+SharedRef<TextureModule> DX11GraphicsAPI::CreateTextureModule() const
+{
+  return DX11TextureModule::Create();
 }
 
 #endif

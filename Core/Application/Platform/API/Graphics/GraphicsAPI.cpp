@@ -2,6 +2,11 @@
 #include <Core/Application/Activity/Activity.h>
 #include <imgui/imgui.h>
 
+void GraphicsAPI::SetupModules()
+{
+  this->texture_module_ = this->CreateTextureModule();
+}
+
 // =================================================================
 // Methods
 // =================================================================

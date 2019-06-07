@@ -19,6 +19,7 @@
 #include <Native/Windows/API/Graphics/DX11/DX11VertexDeclaration.h>
 #include <Native/Windows/API/Graphics/DX11/DX11VertexShader.h>
 #include <Native/Windows/API/Graphics/DX11/imgui/imgui_impl_dx11.h>
+#include <Native/Windows/API/Graphics/DX11/Module/DX11TextureModule.h>
 #include <Native/Windows/API/Graphics/DX9/DX9Constants.h>
 #include <Native/Windows/API/Graphics/DX9/DX9GraphicsAPI.h>
 #include <Native/Windows/API/Graphics/DX9/DX9IndexBuffer.h>

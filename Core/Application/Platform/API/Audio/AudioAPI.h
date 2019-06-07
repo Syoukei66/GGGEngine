@@ -6,6 +6,15 @@
 
 class AudioAPI : public GGAPIObject
 {
+  // =================================================================
+  // Methods from GGAPIObject
+  // =================================================================
+public:
+  virtual void SetupModules() override;
+
+  // =================================================================
+  // Methods
+  // =================================================================
 public:
   virtual UniqueRef<rcAudioClip> LoadSound(const char* path) = 0;
 

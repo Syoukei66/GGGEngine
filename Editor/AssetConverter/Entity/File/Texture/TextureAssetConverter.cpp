@@ -1,10 +1,6 @@
 #include "TextureAssetConverter.h"
 #include <Entity/AssetMetaData.h>
-#include <Native/Windows/API/Graphics/DX11/DX11Constants.h>
-#include <Native/Windows/WindowsApplication.h>
-#include <Native/ThirdParty/DirectXTex/DirectXTex.h>
-#include <Native/ThirdParty/DirectXTex/WICTextureLoader/WICTextureLoader.h>
-#include <Native/Windows/API/Graphics/DX11/DX11TextureResource.h>
+#include <Native/Windows/WindowsApplication.h>Z
 
 using namespace Shader;
 
@@ -24,28 +20,8 @@ IAssetDataContainer* TextureAssetConverter::ImportProcess(const SharedRef<AssetE
   AssetMetaData* meta = entity->GetMetaData();
   TextureAssetConverterSetting* setting = static_cast<TextureAssetConverterSetting*>(meta->GetConverterSetting().get());
 
-  WCHAR	wpath[256] = {};
-
-  errno_t err = 0;
-
-  //ロケール指定
-  setlocale(LC_ALL, "japanese");
-  //変換
-  err = (errno_t)mbstowcs(wpath, meta->GetInputPath().c_str(), sizeof(wpath));
-
-  DX11TextureResource::OptimisationSetting opt_setting = DX11TextureResource::OptimisationSetting();
-  
-  HRESULT hr = S_FALSE;
-  if (meta->GetURI().GetExtension() == "tga")
-  {
-    hr = DirectX::LoadFromTGAFile(wpath, nullptr, opt_setting.image);
-  }
-  else
-  {
-    hr = DirectX::LoadFromWICFile(wpath, 0, nullptr, opt_setting.image);
-  }
-  GG_ASSERT(SUCCEEDED(hr), "テクスチャの読み込みに失敗しました");
-
+  TextureResourceOptimisationSetting opt_setting = TextureResourceOptimisationSetting();
+  Application::GetPlatform()->GetGraphicsAPI()->GetTextureModule()->LoadTextureResourceData(meta->GetInputPath(), meta->GetURI().GetExtension(), &opt_setting.native_image);
   opt_setting.alpha = setting->color_model == static_cast<T_FIXED_UINT8>(TextureAssetConverterSetting::ColorModel::kRGBA);
   opt_setting.convert_normal_map = setting->convert_normal_map;
   opt_setting.fade_enabled = setting->view_data.fade_enabled_;
@@ -57,7 +33,8 @@ IAssetDataContainer* TextureAssetConverter::ImportProcess(const SharedRef<AssetE
   opt_setting.normal_scaling_factor = setting->normal_scaling_factor;
   opt_setting.max_levels = SIZE_MAX;
 
-  DX11TextureResource::OptimisationResourceData(opt_setting, &data->resource_data_);
+  // ターゲットプラットフォーム側でテクスチャの最適化を行う
+  Application::GetPlatform()->GetGraphicsAPI()->GetTextureModule()->OptimisationResourceData(opt_setting, &data->resource_data_);
 
   data->view_data_ = setting->view_data;
   data->view_data_.mip_map_levels_ = (T_FIXED_UINT8)data->resource_data_.mip_map_levels_;

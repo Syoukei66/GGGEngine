@@ -9,26 +9,6 @@
 class DX11TextureResource : public rcTextureResource
 {
 public:
-  struct OptimisationSetting
-  {
-    DirectX::ScratchImage image;
-    bool alpha;
-    size_t max_levels;
-    size_t max_size;
-    bool fade_enabled;
-    T_UINT8 fade_start;
-    T_UINT8 fade_end;
-    Shader::TextureFilter filter;
-    bool convert_normal_map;
-    T_FLOAT normal_scaling_factor;
-    Shader::TextureFormat format;
-  };
-
-  /*!
-   * @brief テクスチャリソースデータの最適化を行う
-   */
-  static void OptimisationResourceData(const OptimisationSetting& setting, TextureResourceData* dest);
-
   // =================================================================
   // Constructor / Destructor
   // =================================================================

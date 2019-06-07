@@ -186,6 +186,8 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClInclude Include="Application\IApplicationSetting.h" />
     <ClInclude Include="Application\Input\InputState.h" />
     <ClInclude Include="Application\Object\WeakRef.h" />
+    <ClInclude Include="Application\Platform\API\APIModuleObject.h" />
+    <ClInclude Include="Application\Platform\API\Graphics\TextureModule.h" />
     <ClInclude Include="Application\Platform\API\_Resource\ConstantBuffer.h" />
     <ClInclude Include="Application\Platform\API\_Resource\PixelShader.h" />
     <ClInclude Include="Application\Platform\API\_Resource\RenderState.h" />
@@ -255,10 +257,12 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClCompile Include="Application\Activity\ActivityContext.cpp" />
     <ClCompile Include="Application\Event\UpdateEventState.cpp" />
     <ClCompile Include="Application\Input\InputContext.cpp" />
+    <ClCompile Include="Application\Platform\API\Audio\AudioAPI.cpp" />
     <ClCompile Include="Application\Platform\API\Graphics\GraphicsAPI.cpp" />
     <ClCompile Include="Application\Input\AnalogInput.cpp" />
     <ClCompile Include="Application\Input\DigitalInput.cpp" />
     <ClCompile Include="Application\Input\EngineInputState.cpp" />
+    <ClCompile Include="Application\Platform\API\Input\InputAPI.cpp" />
     <ClCompile Include="Application\Platform\API\_Asset\AudioClip\AudioClip.cpp" />
     <ClCompile Include="Application\Asset\AssetManager.cpp" />
     <ClCompile Include="Application\Asset\UniqueIdTable.cpp" />
