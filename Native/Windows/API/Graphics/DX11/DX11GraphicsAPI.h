@@ -39,6 +39,8 @@ protected:
   virtual bool PreDraw(const SharedRef<Activity>& activity) override;
   virtual bool PostDraw(const SharedRef<Activity>& activity) override;
 
+  virtual SharedRef<TextureModule> CreateTextureModule() const override;
+
   // =================================================================
   // Setter / Getter
   // =================================================================

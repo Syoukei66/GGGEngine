@@ -279,12 +279,6 @@
     <ClInclude Include="Entity\Default\Material\DefaultMaterialAssetEntityFactory.h">
       <Filter>ヘッダー ファイル\Asset\_Default\Material</Filter>
     </ClInclude>
-    <ClInclude Include="Entity\File\Material\MaterialAssetConverter.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity\File\Material\MaterialAssetConverterSetting.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Entity\Default\Mesh\DefaultMeshAssetEntityFactory.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -333,6 +327,15 @@
     <ClInclude Include="GUI\ShaderSelectScene\ShaderSelectScene.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Entity\File\Material\MaterialAssetConverter.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\Material\MaterialAssetConverterSetting.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity\File\GameAssetConverter.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Director.cpp">
@@ -358,9 +361,6 @@
     </ClCompile>
     <ClCompile Include="Util\Logger.cpp">
       <Filter>ソース ファイル\Util</Filter>
-    </ClCompile>
-    <ClCompile Include="Util\NativeLogger.cpp">
-      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Entity\AssetEntity.cpp">
       <Filter>ソース ファイル\Asset\_Base</Filter>
@@ -476,12 +476,6 @@
     <ClCompile Include="Entity\Default\Material\DefaultMaterialAssetEntityFactory.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Entity\File\Material\MaterialAssetConverterSetting.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity\File\Material\MaterialAssetConverter.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Entity\Default\Mesh\DefaultMeshAssetEntityFactory.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -510,6 +504,12 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="GUI\ShaderSelectScene\ShaderSelectScene.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Material\MaterialAssetConverter.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity\File\Material\MaterialAssetConverterSetting.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

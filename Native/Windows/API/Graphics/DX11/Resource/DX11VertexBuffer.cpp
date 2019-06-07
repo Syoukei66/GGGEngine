@@ -4,9 +4,8 @@
 
 #include <Core/Application/Platform/API/_Resource/VertexDeclaration.h>
 #include <Native/Windows/WindowsApplication.h>
-
-#include "DX11Constants.h"
-#include "DX11GraphicsAPI.h"
+#include <Native/Windows/API/Graphics/DX11/DX11Constants.h>
+#include <Native/Windows/API/Graphics/DX11/DX11GraphicsAPI.h>
 
 // =================================================================
 // Constructor / Destructor

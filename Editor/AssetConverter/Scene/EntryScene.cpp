@@ -45,16 +45,20 @@ void EntryScene::OnHide(const ActivityContext& context)
 void EntryScene::Update(const ActivityContext& context)
 {
   ImGui::Begin(context, u8"EntryMenu", 10.0f, 0.0f, 0.0f, 0.2f, 0.5f);
-  if (ImGui::Button(u8"エクスポート"))
+  //if (ImGui::Button(u8"エクスポート"))
+  //{
+  //  AssetConverterDirector::Export();
+  //}
+  //if (ImGui::Button(u8"プログラム生成"))
+  //{
+  //  AssetConverterDirector::CreateProgram();
+  //}
+  if (ImGui::Button(u8"ロード時間計測開始"))
   {
-    AssetConverterDirector::Export();
-  }
-  if (ImGui::Button(u8"プログラム生成"))
-  {
-    AssetConverterDirector::CreateProgram();
+    AssetConverterDirector::Measurement();
   }
 
-  const SharedRef<AssetEntity>& selected = FileView::SelectWithImGUI(context);
+  const SharedRef<AssetEntity>& selected = FileView::SelectWithImGUI(context, this->context_);
   
   if (selected)
   {
@@ -95,7 +99,7 @@ void EntryScene::ShowViewer(const SharedRef<AssetEntity>& entity)
     return;
   }
   ActivityOption op = ActivityOption();
-  op.activity_name = "編集ウィンドウ";
+  op.activity_name = entity->GetMetaData()->GetURI().GetFullPath().c_str();
   op.resize_window = false;
   op.sub_window = true;
   op.window_size = Application::GetMainActivity()->GetContext().GetScreenSize();

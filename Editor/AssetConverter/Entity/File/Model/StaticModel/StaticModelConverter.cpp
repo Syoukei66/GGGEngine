@@ -88,7 +88,7 @@ void ImportMesh(const StaticModelAssetConverterSetting* setting, const aiScene* 
       }
     }
 
-    index_offset += vertex_count;
+    //index_offset += vertex_count;
   }
   if (need_recalculate_normals)
   {

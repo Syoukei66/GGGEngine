@@ -2432,6 +2432,11 @@ bool ImGui::SliderInt4(const char* label, int v[4], int v_min, int v_max, const 
     return SliderScalarN(label, ImGuiDataType_S32, v, 4, &v_min, &v_max, format);
 }
 
+bool ImGui::SliderUInt(const char* label, unsigned int* v, unsigned int v_min, unsigned int v_max, const char* format)
+{
+  return SliderScalar(label, ImGuiDataType_U32, v, &v_min, &v_max, format);
+}
+
 bool ImGui::VSliderScalar(const char* label, const ImVec2& size, ImGuiDataType data_type, void* v, const void* v_min, const void* v_max, const char* format, float power)
 {
     ImGuiWindow* window = GetCurrentWindow();

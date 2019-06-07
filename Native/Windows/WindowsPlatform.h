@@ -28,7 +28,7 @@ protected:
   {
 #if GG_GRAPHICS_API_DX9
     return DX9GraphicsAPI::Create();
-#else
+#elif GG_GRAPHICS_API_DX11
     return DX11GraphicsAPI::Create();
 #endif
   }

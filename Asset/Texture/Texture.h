@@ -39,11 +39,14 @@ public:
  */
 class rcTexture : public GGAssetObject
 {
+  friend class rcDynamicTexture;
+
   // =================================================================
   // GGG Statement
   // =================================================================
   GG_OBJECT(rcTexture);
   GG_ASSET(rcTexture, TextureData);
+  GG_CREATE_FUNC(rcTexture) { return true; }
 
   // =================================================================
   // Method 
@@ -55,10 +58,6 @@ public:
   // Setter / Getter
   // =================================================================
 public:
-  GG_INLINE SharedRef<rcTextureResource> GetTextureResource()
-  {
-    return this->resource_;
-  }
   GG_INLINE SharedRef<const rcTextureResource> GetTextureResource() const
   {
     return this->resource_;
@@ -84,6 +83,8 @@ protected:
   SharedRef<rcTextureResource> resource_;
   SharedRef<rcTextureView> view_;
 
+  // テクスチャのテクセルサイズ、
+  // DynamicTextureのサイズなど、２の累乗ではない場合もある。
   T_UINT16 width_;
   T_UINT16 height_;
 };

@@ -3,73 +3,42 @@
 class PerlinNoiseGenerator
 {
 public:
-  PerlinNoiseGenerator();
-  ~PerlinNoiseGenerator();
+  struct NoiseSetting
+  {
+    T_UINT32 seed_;
+    T_UINT32 octaves_;
+    T_FLOAT lacunarity_;
+    T_FLOAT persistence_;
+    T_FLOAT frequency_;
+  };
 
+  // =================================================================
+  // Methods
+  // =================================================================
 public:
-  void Init(T_UINT32 seed);
-  T_FLOAT Noise1D(T_FLOAT x);
-  T_FLOAT Noise2D(T_FLOAT x, T_FLOAT y);
-  T_FLOAT Noise3D(T_FLOAT x, T_FLOAT y, T_FLOAT z);
-  T_FLOAT Noise1D(T_FLOAT x, T_FLOAT frequency);
-  T_FLOAT Noise2D(T_FLOAT x, T_FLOAT y, T_FLOAT frequency);
-  T_FLOAT Noise3D(T_FLOAT x, T_FLOAT y, T_FLOAT z, T_FLOAT frequency);
-  T_FLOAT FractalNoise1D(T_FLOAT x);
-  T_FLOAT FractalNoise2D(T_FLOAT x, T_FLOAT y);
-  T_FLOAT FractalNoise3D(T_FLOAT x, T_FLOAT y, T_FLOAT z);
+  void Init(const NoiseSetting& setting);
+  T_FLOAT Noise1D(T_FLOAT x) const;
+  T_FLOAT Noise2D(T_FLOAT x, T_FLOAT y) const;
+  T_FLOAT Noise3D(T_FLOAT x, T_FLOAT y, T_FLOAT z) const;
+  GG_INLINE T_FLOAT Noise1D(T_FLOAT x, T_FLOAT frequency) const
+  {
+    return Noise1D(x * frequency);
+  }
+  GG_INLINE T_FLOAT Noise2D(T_FLOAT x, T_FLOAT y, T_FLOAT frequency) const
+  {
+    return Noise2D(x * frequency, y * frequency);
+  }
+  GG_INLINE T_FLOAT Noise3D(T_FLOAT x, T_FLOAT y, T_FLOAT z, T_FLOAT frequency) const
+  {
+    return Noise3D(x * frequency, y * frequency, z * frequency);
+  }
+  T_FLOAT FractalNoise1D(T_FLOAT x) const;
+  T_FLOAT FractalNoise2D(T_FLOAT x, T_FLOAT y) const;
+  T_FLOAT FractalNoise3D(T_FLOAT x, T_FLOAT y, T_FLOAT z) const;
 
-public:
-  GG_INLINE T_UINT32 GetOctaves() const
-  {
-    return this->octaves_;
-  }
-  GG_INLINE void SetOctaves(T_UINT32 octaves)
-  {
-    this->octaves_ = octaves;
-  }
-
-  GG_INLINE T_FLOAT GetLacunarity() const
-  {
-    return this->lacunarity_;
-  }
-  GG_INLINE void SetLacunarity(T_FLOAT lacunarity)
-  {
-    this->lacunarity_ = lacunarity;
-  }
-
-  GG_INLINE T_FLOAT GetPersistence() const
-  {
-    return this->persistence_;
-  }
-  GG_INLINE void SetPersistence(T_FLOAT persistence)
-  {
-    this->persistence_ = persistence;
-  }
-
-  GG_INLINE T_UINT32 GetResolution() const
-  {
-    return this->resolution_;
-  }
-  GG_INLINE void SetResolution(T_UINT32 resolution)
-  {
-    this->resolution_ = resolution;
-  }
-
-  GG_INLINE T_FLOAT GetFrequency() const
-  {
-    return this->frequency_;
-  }
-  GG_INLINE void SetFrequency(T_FLOAT frequency)
-  {
-    this->frequency_ = frequency;
-  }
-
+  // =================================================================
+  // Data Member
+  // =================================================================
 private:
-  T_UINT32 seed_;
-  T_UINT32 octaves_;
-  T_FLOAT lacunarity_;
-  T_FLOAT persistence_;
-  T_UINT32 resolution_;
-  T_FLOAT frequency_;
-
+  NoiseSetting setting_;
 };

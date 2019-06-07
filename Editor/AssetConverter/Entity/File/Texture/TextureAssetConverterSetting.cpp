@@ -7,7 +7,7 @@ static std::vector<const char*> TEXTURE_MAX_SIZES =
 
 static std::vector<const char*> COMPRESSIONS =
 {
-  u8"ˆ³k‚È‚µ", "Normal", "High", "Low"
+  u8"ˆ³k‚È‚µ", u8"ˆ³k", u8"•i¿—Dæˆ³k"
 };
 
 static std::vector<const char*> COLOR_MODELS =

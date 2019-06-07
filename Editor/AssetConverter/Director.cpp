@@ -20,6 +20,8 @@
 
 #include <Entity/Default/Material/DefaultMaterialAssetEntityFactory.h>
 
+#include <Engine/Director.h>
+
 // Import Viewer
 //#include <Scene/AssetViewer/Text/TextViewerBehavior.h>
 
@@ -79,13 +81,15 @@ void AssetConverterDirector::Init(IAssetConverterAddIn* addin)
   AssetConverter* default_material_converter = self->context_->AddDefaultAssetConverter(new DefaultAssetConverter<rcMaterial, MaterialData, MaterialViewerBehavior>("DefaultMaterial", "rcMaterial", {TEXTURE_WHITE}));
 
   // Model
-  self->context_->AddConverter(new StaticModelAssetConverter("StaticModel", "rcStaticModel", {"fbx", "x", "blend"}, 1, 1));
+  self->context_->AddConverter(new StaticModelAssetConverter("StaticModel", "rcStaticModel", {"fbx", "x", "blend", "obj"}, 1, 1));
   self->context_->AddConverter(new CharacterModelAssetConverter("CharacterModel", "rcCharacterModel", {"dae"}, 1, 1));
 
   if (addin)
   {
     addin->RegisterConverter(self->context_);
   }
+
+  self->context_->CommitConvertes();
 
   // (4)
   // デフォルトアセットの登録 / ロード
@@ -134,8 +138,6 @@ void AssetConverterDirector::Init(IAssetConverterAddIn* addin)
     const SharedRef<AssetEntity>& entity = self->context_->GetEntity(pair.second);
     entity->Load(self->context_);
   }
-
-
 }
 
 void AssetConverterDirector::Uninit()
@@ -245,4 +247,75 @@ void AssetConverterDirector::CreateProgram()
     output_cpp << cpp;
     output_cpp.close();
   }
+}
+
+void AssetConverterDirector::Measurement()
+{
+  AssetConverterDirector* self = &Self();
+
+  Director::SetIgnoreLog(true);
+
+  std::cout << "キャッシュデータ消去中..." << std::endl;
+  self->context_->VisitAllEntity([&](const SharedRef<AssetEntity>& entity)
+  {
+    entity->ClearCache();
+  }); 
+  AssetManager::UnloadCaches();
+
+  std::cout << "キャッシュファイル消去中..." << std::endl;
+  const std::string& cache_path = FileUtil::GetCachePath();
+
+  FileUtil::CrawlInputDirectory([](const URI& uri) {
+    std::remove(FileUtil::CreateCachePath(uri).c_str());
+  });
+
+  std::cout << "//======================================" << std::endl;
+  std::cout << "//生アセットロード時間計測開始" << std::endl;
+  std::cout << "//======================================" << std::endl;
+
+  auto start_raw_asset_load_time = std::chrono::system_clock::now();
+
+  self->context_->VisitAllEntity([&](const SharedRef<AssetEntity>& entity)
+  {
+    entity->Load(self->context_);
+  });
+
+  auto end_raw_asset_load_time = std::chrono::system_clock::now();
+  
+  std::cout << "//======================================" << std::endl;
+  std::cout << "//生アセットロード時間計測終了" << std::endl;
+  std::cout << "//======================================" << std::endl;
+
+  std::cout << "キャッシュデータ消去中..." << std::endl;
+  self->context_->VisitAllEntity([&](const SharedRef<AssetEntity>& entity)
+  {
+    entity->ClearCache();
+  });
+  AssetManager::UnloadCaches();
+
+  std::cout << "//======================================" << std::endl;
+  std::cout << "//最適化アセットロード時間計測開始" << std::endl;
+  std::cout << "//======================================" << std::endl;
+
+  auto start_converted_asset_load_time = std::chrono::system_clock::now();
+
+  self->context_->VisitAllEntity([&](const SharedRef<AssetEntity>& entity)
+  {
+    entity->Load(self->context_);
+  });
+
+  auto end_converted_asset_load_time = std::chrono::system_clock::now();
+
+  std::cout << "//======================================" << std::endl;
+  std::cout << "//最適化アセットロード時間計測終了" << std::endl;
+  std::cout << "//======================================" << std::endl;
+
+  T_FLOAT raw_asset_load_time = std::chrono::duration_cast<std::chrono::microseconds>(end_raw_asset_load_time - start_raw_asset_load_time).count() * 0.001f * 0.001f;
+  T_FLOAT converted_asset_load_time = std::chrono::duration_cast<std::chrono::microseconds>(end_converted_asset_load_time - start_converted_asset_load_time).count() * 0.001f * 0.001f;
+
+  std::cout << "生アセットロード時間　　 : " << raw_asset_load_time << "秒" << std::endl;
+  std::cout << "最適化アセットロード時間 : " << converted_asset_load_time << "秒" << std::endl;
+  std::cout << "ロード時間 " << raw_asset_load_time / converted_asset_load_time << "倍高速化！" << std::endl;
+
+  Director::SetIgnoreLog(false);
 }

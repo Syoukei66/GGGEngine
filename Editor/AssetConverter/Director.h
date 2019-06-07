@@ -20,6 +20,11 @@ public:
   static void Fetch();
   static void Export();
   static void CreateProgram();
+
+  /*!
+   * @brief ƒ[ƒhŠÔ‚É‚©‚©‚éŠÔ‚ğŒv‘ª
+   */
+  static void Measurement();
   
   // =================================================================
   // Setter / Getter

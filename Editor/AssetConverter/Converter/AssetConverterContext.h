@@ -85,20 +85,6 @@ public:
    */
   void RegisterDefaultUniqueID(T_UINT32 default_uid, const URI& uri);
 
-  // =================================================================
-  // Setter / Getter
-  // =================================================================
-public:
-  /*!
-   * @brief デフォルトアセットIDからデフォルトアセットのURIを取得する
-   * @param default_uid デフォルトアセットID
-   * @return デフォルトアセットのURI
-   */
-  inline const URI& GetDefaultAssetURI(T_UINT32 default_uid)
-  {
-    return this->default_asset_uri_[default_uid];
-  }
-
   /*!
    * @brief AssetConverterを追加する
    * @param converter 追加するAssetConverter
@@ -114,6 +100,25 @@ public:
   AssetConverter* AddDefaultAssetConverter(AssetConverter* converter);
 
   /*!
+   * @brief AssetConverterリストを確定させる
+   */
+  void CommitConvertes();
+
+  // =================================================================
+  // Setter / Getter
+  // =================================================================
+public:
+  /*!
+   * @brief デフォルトアセットIDからデフォルトアセットのURIを取得する
+   * @param default_uid デフォルトアセットID
+   * @return デフォルトアセットのURI
+   */
+  inline const URI& GetDefaultAssetURI(T_UINT32 default_uid)
+  {
+    return this->default_asset_uri_[default_uid];
+  }
+
+  /*!
    * @brief AssetCovnerterIdからAssetConverterを取得する
    * @param id ID
    * @return 指定したIDを持つAssetConverter
@@ -127,6 +132,14 @@ public:
    */
   const AssetConverter* GetConverter(const std::string& id) const;
 
+  /*!
+   * @brief AssetConverter側から作成できるアセットのマップを取得する
+   */
+  inline const std::map<std::string, AssetConverter*>& GetNewableAssetConverters() const
+  {
+    return this->newable_asset_converter_map_;
+  }
+
   // =================================================================
   // Data Members
   // =================================================================
@@ -134,6 +147,10 @@ protected:
   UniqueIdTable* unique_id_table_;
   std::unordered_map<std::string, AssetConverter*> converter_map_;
   std::unordered_map<std::string, AssetConverter*> default_asset_converter_map_;
+
+  // AssetConverter側から作成できるアセットのマップ
+  std::map<std::string, AssetConverter*> newable_asset_converter_map_;
+
   std::unordered_map<T_UINT32, URI> default_asset_uri_;
   std::unordered_map<std::string, T_UINT32> default_asset_unique_id_;
   std::unordered_map<T_UINT32, SharedRef<AssetEntity>> asset_entities_;

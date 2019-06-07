@@ -3,16 +3,24 @@
 #if GG_GRAPHICS_API_DX11
 
 #include <d3d11.h>
+#include <Native/ThirdParty/DirectXTex/DirectXTex.h>
 #include <Core/Application/Platform/API/_Resource/TextureResource.h>
 
 class DX11TextureResource : public rcTextureResource
 {
+public:
   // =================================================================
   // Constructor / Destructor
   // =================================================================
 public:
-  DX11TextureResource(const TextureResourceData& data);
+  DX11TextureResource(const TextureResourceData& data, Usage usage);
   ~DX11TextureResource();
+
+  // =================================================================
+  // Methods from rcTextureResource
+  // =================================================================
+public:
+  virtual void UpdateSubresource(const TextureResourceData& data, Usage usage) override;
 
   // =================================================================
   // Data Members

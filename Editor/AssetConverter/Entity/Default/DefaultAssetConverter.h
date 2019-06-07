@@ -25,6 +25,11 @@ public:
   // Methods from AssetConverter
   // =================================================================
 public:
+  virtual bool CanCreateNewInstance() const override
+  {
+    return false;
+  }
+
   virtual IAssetDataContainer* ImportFromCache(const SharedRef<AssetEntity>& entity, AssetConverterContext* context) const override
   {
     AssetMetaData* meta_data = entity->GetMetaData();
@@ -45,6 +50,11 @@ public:
       meta_data->GetURI().GetExtension(),
       Asset_::Create(*entity->GetData<AssetData_>())
       );
+  }
+  
+  virtual bool CreateNewInstance(const URI& uri) const
+  {
+    return false;
   }
 
   virtual IAssetDataContainer* ImportProcess(const SharedRef<AssetEntity>& entity, AssetConverterContext* context) const override

@@ -3,7 +3,7 @@
 #include <Core/Application/Platform/API/_Resource/APIResourceObject.h>
 
 /*!
- * @brief テクスチャリソースのデータ
+ * @brief 各データ作成済みのテクスチャリソースのデータ
  */
 struct TextureResourceData
 {
@@ -26,12 +26,12 @@ struct TextureResourceData
   // =================================================================
 public:
   TextureResourceData()
-    : bits_per_pixel_(1)
-    , block_size_(1)
-    , mip_map_levels_(1)
+    : bits_per_pixel_(0)
+    , block_size_(0)
+    , mip_map_levels_(0)
     , width_(1)
     , height_(1)
-    , format_(static_cast<T_FIXED_UINT8>(Shader::TextureFormat::kR8G8B8A8_UINT))
+    , format_(static_cast<T_FIXED_UINT8>(Shader::TextureFormat::kRGB))
     , data_()
   {}
 
@@ -39,12 +39,18 @@ public:
   // Data Members
   // =================================================================
 public:
-  T_FIXED_UINT8 bits_per_pixel_;
-  T_FIXED_UINT8 block_size_;
-  T_FIXED_UINT8 mip_map_levels_;
+  T_FIXED_UINT8 bits_per_pixel_; // 0の場合実行時に計算される
+  T_FIXED_UINT8 block_size_;     // 0の場合実行時に計算される
+  T_FIXED_UINT8 mip_map_levels_; // 0の場合実行時に計算される
   T_FIXED_UINT16 width_; // two power value
   T_FIXED_UINT16 height_; // two power value
   T_FIXED_UINT8 format_; // TextureFormat
+
+  // bits_per_pixel_が1以上の場合はプラットフォーム向けに最適化されている為、
+  // バイト配列を用いたピクセルへのアクセスは使用できない。（未定義）
+  // bits_per_pixel_が0の場合は非最適化データなので
+  // その場合はformat_を引数にShader::GetBytePerPixelを用いる事で
+  // 実際のピクセル当たりのバイト数が取得できる。
   std::vector<unsigned char> data_;
 };
 
@@ -54,6 +60,22 @@ public:
  */
 class rcTextureResource : public GGAPIResourceObject
 {
+public:
+  // テクスチャの用途
+  enum class Usage
+  {
+    // 変更しない
+    kImmutable,
+
+    // 変更する
+    // TODO:Map/Unmap UpdateSubresourceのコストに関するリサーチをして
+    // UpdateSubresourceでのリソースの更新に意義を感じたら実装する
+    //kDynamic,
+
+    // ほぼ毎フレーム変更する
+    kUltraDynamic,
+  };
+
   // =================================================================
   // GGG Statement
   // =================================================================
@@ -63,6 +85,12 @@ class rcTextureResource : public GGAPIResourceObject
   // Factory Method
   // =================================================================
 public:
-  static UniqueRef<rcTextureResource> Create(const TextureResourceData& data);
+  static UniqueRef<rcTextureResource> Create(const TextureResourceData& data, Usage usage = Usage::kImmutable);
+
+  // =================================================================
+  // Method
+  // =================================================================
+public:
+  virtual void UpdateSubresource(const TextureResourceData& data, Usage usage = Usage::kImmutable) = 0;
 
 };

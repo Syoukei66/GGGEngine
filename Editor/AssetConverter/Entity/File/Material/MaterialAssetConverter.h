@@ -1,13 +1,13 @@
 #pragma once
 
-#include <Entity/File/FileAssetConverter.h>
+#include <Entity/File/GameAssetConverter.h>
 #include <Scene/AssetViewer/Material/MaterialViewerBehavior.h>
 #include "MaterialAssetConverterSetting.h"
 
 /*!
  * @brief マテリアルアセットのConverter
  */
-class MaterialAssetConverter : public FileAssetConverter<rcMaterial, MaterialData>
+class MaterialAssetConverter : public GameAssetConverter<rcMaterial, MaterialData>
 {
   // =================================================================
   // Constructor / Destructor
@@ -19,7 +19,7 @@ public:
     const std::vector<std::string>& extensions,
     T_UINT32 skip_head, T_UINT32 skip_tail
   )
-    : FileAssetConverter(id, class_name, extensions, skip_head, skip_tail)
+    : GameAssetConverter(id, class_name, extensions, skip_head, skip_tail)
   {}
 
   // =================================================================

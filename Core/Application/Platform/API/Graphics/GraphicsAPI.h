@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Core/Application/Platform/API/APIObject.h>
+#include <Core/Application/Platform/API/Graphics/TextureModule.h>
 
 class Activity;
 class rcIndexBuffer;
@@ -10,6 +11,12 @@ class rcIndexBuffer;
  */
 class GraphicsAPI : public GGAPIObject
 {
+  // =================================================================
+  // Methods from GGAPIObject
+  // =================================================================
+public:
+  virtual void SetupModules() override;
+
   // =================================================================
   // Methods
   // =================================================================
@@ -34,5 +41,26 @@ public:
 protected:
   virtual bool PreDraw(const SharedRef<Activity>& activity) = 0;
   virtual bool PostDraw(const SharedRef<Activity>& activity) = 0;
+
+  virtual SharedRef<TextureModule> CreateTextureModule() const = 0;
+
+  // =================================================================
+  // Setter / Getter
+  // =================================================================
+public:
+  GG_INLINE SharedRef<TextureModule> GetTextureModule()
+  {
+    return this->texture_module_;
+  }
+  GG_INLINE const SharedRef<TextureModule> GetTextureModule() const
+  {
+    return this->texture_module_;
+  }
+
+  // =================================================================
+  // Data Members
+  // =================================================================
+private:
+	SharedRef<TextureModule> texture_module_;
 
 };

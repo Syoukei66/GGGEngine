@@ -14,7 +14,7 @@
 
 static const std::string SETTING_FILE_NAME = "ConvertSetting.json";
 
-static const std::string CURRENT_DIRECTORY = "../../../";
+static const std::string CURRENT_DIRECTORY = "../";
 
 static const std::string PROJECT_PATH = CURRENT_DIRECTORY + "Project";
 static const std::string ASSET_PATH = CURRENT_DIRECTORY + "Asset";
@@ -48,6 +48,16 @@ void FileUtil::PrepareDirectory(const URI& uri)
   {
     _mkdir(uri.GetFullPath().c_str());
   }
+}
+
+const std::string& FileUtil::GetInputPath()
+{
+  return INPUT_PATH;
+}
+
+const std::string& FileUtil::GetCachePath()
+{
+  return MIDDATA_PATH;
 }
 
 std::string FileUtil::GetSettingPath()
@@ -155,4 +165,9 @@ std::string FileUtil::GetTimeStamp(const std::string& path)
 void FileUtil::CrawlInputDirectory(std::function<void(const URI& uri)> process)
 {
   ToolUtil::Crawl(INPUT_PATH + "/", "", process);
+}
+
+void FileUtil::CrawlCacheDirectory(std::function<void(const URI&uri)> process)
+{
+  ToolUtil::Crawl(MIDDATA_PATH + "/", "", process);
 }

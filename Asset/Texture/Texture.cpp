@@ -19,5 +19,9 @@ GG_INIT_FUNC_IMPL_1(rcTexture, const TextureData& data)
 // =================================================================
 void rcTexture::SetToHardware(T_UINT8 index) const
 {
+  if (!this->view_)
+  {
+    return;
+  }
   this->view_->SetToHardware(index);
 }

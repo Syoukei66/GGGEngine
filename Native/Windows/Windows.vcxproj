@@ -22,32 +22,32 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{9F550CBC-9678-49BC-9A91-68C39E40EABD}</ProjectGuid>
     <RootNamespace>Windows</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -180,18 +180,19 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
   <ItemGroup>
     <ClInclude Include="Activity\EditorWindowActivityContext.h" />
     <ClInclude Include="Activity\WindowsContext.h" />
-    <ClInclude Include="API\Graphics\DX11\DX11ConstantBuffer.h" />
+    <ClInclude Include="API\Graphics\DX11\Resource\DX11ConstantBuffer.h" />
     <ClInclude Include="API\Graphics\DX11\DX11Constants.h" />
     <ClInclude Include="API\Graphics\DX11\DX11GraphicsAPI.h" />
-    <ClInclude Include="API\Graphics\DX11\DX11IndexBuffer.h" />
-    <ClInclude Include="API\Graphics\DX11\DX11PixelShader.h" />
-    <ClInclude Include="API\Graphics\DX11\DX11RenderState.h" />
-    <ClInclude Include="API\Graphics\DX11\DX11TextureResource.h" />
-    <ClInclude Include="API\Graphics\DX11\DX11TextureView.h" />
-    <ClInclude Include="API\Graphics\DX11\DX11VertexBuffer.h" />
-    <ClInclude Include="API\Graphics\DX11\DX11VertexShader.h" />
+    <ClInclude Include="API\Graphics\DX11\Resource\DX11IndexBuffer.h" />
+    <ClInclude Include="API\Graphics\DX11\Resource\DX11PixelShader.h" />
+    <ClInclude Include="API\Graphics\DX11\Resource\DX11RenderState.h" />
+    <ClInclude Include="API\Graphics\DX11\Resource\DX11TextureResource.h" />
+    <ClInclude Include="API\Graphics\DX11\Resource\DX11TextureView.h" />
+    <ClInclude Include="API\Graphics\DX11\Resource\DX11VertexBuffer.h" />
+    <ClInclude Include="API\Graphics\DX11\Resource\DX11VertexShader.h" />
     <ClInclude Include="API\Graphics\DX11\imgui\imgui_impl_dx11.h" />
-    <ClInclude Include="API\Graphics\DX11\DX11VertexDeclaration.h" />
+    <ClInclude Include="API\Graphics\DX11\Resource\DX11VertexDeclaration.h" />
+    <ClInclude Include="API\Graphics\DX11\Module\DX11TextureModule.h" />
     <ClInclude Include="API\Graphics\DX9\DX9VertexDeclaration.h" />
     <ClInclude Include="imgui\imgui_impl_win32.h" />
     <ClInclude Include="API\Audio\XAudio\XAudioAPI.h" />
@@ -222,17 +223,18 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClCompile Include="Activity\EditorWindowActivityContext.cpp" />
     <ClCompile Include="Activity\WindowsContext.cpp" />
     <ClCompile Include="API\Audio\XAudio\XAudioAPI.cpp" />
-    <ClCompile Include="API\Graphics\DX11\DX11ConstantBuffer.cpp" />
+    <ClCompile Include="API\Graphics\DX11\Resource\DX11ConstantBuffer.cpp" />
     <ClCompile Include="API\Graphics\DX11\DX11GraphicsAPI.cpp" />
-    <ClCompile Include="API\Graphics\DX11\DX11IndexBuffer.cpp" />
-    <ClCompile Include="API\Graphics\DX11\DX11PixelShader.cpp" />
-    <ClCompile Include="API\Graphics\DX11\DX11RenderState.cpp" />
-    <ClCompile Include="API\Graphics\DX11\DX11TextureResource.cpp" />
-    <ClCompile Include="API\Graphics\DX11\DX11TextureView.cpp" />
-    <ClCompile Include="API\Graphics\DX11\DX11VertexBuffer.cpp" />
-    <ClCompile Include="API\Graphics\DX11\DX11VertexDeclaration.cpp" />
-    <ClCompile Include="API\Graphics\DX11\DX11VertexShader.cpp" />
+    <ClCompile Include="API\Graphics\DX11\Resource\DX11IndexBuffer.cpp" />
+    <ClCompile Include="API\Graphics\DX11\Resource\DX11PixelShader.cpp" />
+    <ClCompile Include="API\Graphics\DX11\Resource\DX11RenderState.cpp" />
+    <ClCompile Include="API\Graphics\DX11\Resource\DX11TextureResource.cpp" />
+    <ClCompile Include="API\Graphics\DX11\Resource\DX11TextureView.cpp" />
+    <ClCompile Include="API\Graphics\DX11\Resource\DX11VertexBuffer.cpp" />
+    <ClCompile Include="API\Graphics\DX11\Resource\DX11VertexDeclaration.cpp" />
+    <ClCompile Include="API\Graphics\DX11\Resource\DX11VertexShader.cpp" />
     <ClCompile Include="API\Graphics\DX11\imgui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="API\Graphics\DX11\Module\DX11TextureModule.cpp" />
     <ClCompile Include="API\Graphics\DX9\DX9GraphicsAPI.cpp" />
     <ClCompile Include="API\Graphics\DX9\DX9VertexDeclaration.cpp" />
     <ClCompile Include="API\Graphics\DX9\imgui\imgui_impl_dx9.cpp" />
@@ -273,6 +275,9 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     </ProjectReference>
     <ProjectReference Include="..\..\Engine\Engine.vcxproj">
       <Project>{3d96ef11-f5c9-4990-be01-5279dadd6d52}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ThirdParty\DirectXTex\DirectXTex_Desktop_2017_Win10.vcxproj">
+      <Project>{371b9fa9-4c90-4ac6-a123-aced756d6c77}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

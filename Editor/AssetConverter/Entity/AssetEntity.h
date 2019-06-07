@@ -49,6 +49,11 @@ public:
    */
   void Export(AssetConverterContext* context);
 
+  /*!
+   * @brief キャッシュ（ロード済みのデータ）をクリアする
+   */
+  void ClearCache();
+
 private:
   /*!
    * 対象のアセットをインポート。

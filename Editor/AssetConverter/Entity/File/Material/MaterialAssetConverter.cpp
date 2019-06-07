@@ -1,4 +1,5 @@
 #include "MaterialAssetConverter.h"
+#include <Constants/Extensions.h>
 
 // =================================================================
 // Methods from AssetConverter

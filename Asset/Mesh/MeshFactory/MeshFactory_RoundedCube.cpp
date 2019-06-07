@@ -407,5 +407,10 @@ UniqueRef<rcDynamicMesh> MeshFactory::CubeSphere::Create(
     mesh
   );
   CreateTriangles(resolution_x, resolution_y, resolution_z, mesh);
+
+  if (format & Vertex::V_ATTR_TANGENT)
+  {
+    mesh->RecalculateTangents();
+  }
   return mesh;
 }

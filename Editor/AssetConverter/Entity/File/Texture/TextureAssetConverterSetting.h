@@ -20,9 +20,8 @@ public:
   enum class CompressionQuality : T_FIXED_UINT8
   {
     kNone,
-    kNormal,
-    kHigh,
-    kLow,
+    kCompress,
+    kHighQuarityCompress,
 
     kDataNum
   };
@@ -66,7 +65,7 @@ public:
   TextureAssetConverterSetting(const std::string& converter_id)
     : ConverterSetting(converter_id)
     , max_size(2048)
-    , compression(static_cast<T_FIXED_UINT8>(CompressionQuality::kNormal))
+    , compression(static_cast<T_FIXED_UINT8>(CompressionQuality::kCompress))
     , color_model(static_cast<T_FIXED_UINT8>(ColorModel::kRGBA))
     , view_data()
     , convert_normal_map()

@@ -35,6 +35,12 @@ bool AssetEntity::Load(AssetConverterContext* context)
 {
   std::set<SharedRef<AssetEntity>> changed_entities_ = std::set<SharedRef<AssetEntity>>();
 
+  // ConverterSettingが無ければロード処理は行わない
+  if (!this->meta_data_->GetConverterSetting())
+  {
+    return false;
+  }
+
   // アセットに変更があるか検出
   this->CheckAssetChanged(context, &changed_entities_);
   if (changed_entities_.size() > 0)
@@ -60,6 +66,11 @@ void AssetEntity::Export(AssetConverterContext* context)
   AssetConverter* converter = this->GetConverter(context);
   //TODO: 中間データが最新のものかチェックし、最新でなかったらインポートする処理を書く
   converter->ExportImmediately(SharedRef<AssetEntity>(this), context);
+}
+
+void AssetEntity::ClearCache()
+{
+  this->SetData(nullptr);
 }
 
 void AssetEntity::Import(AssetConverterContext* context)
@@ -117,7 +128,13 @@ void AssetEntity::CheckAssetChanged(AssetConverterContext* context, std::set<Sha
     this->meta_data_->Save();
     dirty_self = true;
   }
-  ;
+  
+  // ConverterSettingが無ければ何も行わない
+  if (!this->meta_data_->GetConverterSetting())
+  {
+    return;
+  }
+
   // ConverterSettingに変更があったらダーティフラグを立てる
   if (this->meta_data_->GetConverterSetting()->IsDirty())
   {
@@ -225,6 +242,10 @@ void AssetEntity::SetData(IAssetDataContainer* data)
     delete this->data_;
   }
   this->data_ = data;
+  if (!this->data_)
+  {
+    return;
+  }
   this->data_->SaveCache(this->meta_data_->GetURI());
   this->meta_data_->UpdateLastImportTimeStamp();
   this->is_need_commit_ = true;

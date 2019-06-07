@@ -15,6 +15,7 @@ void ActivityContext::Start(const ActivityOption& ao, const InputSetting& input_
 
   IMGUI_CHECKVERSION();
   this->imgui_context_.reset(ImGui::CreateContext());
+  this->imgui_context_->IO.IniFilename = NULL;
   ImGui::SetCurrentContext(this->imgui_context_.get());
   ImGui::StyleColorsDark(&this->imgui_context_->Style);
   ImGui::SetupJapaneseString(this->imgui_context_.get());
