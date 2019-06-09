@@ -5,11 +5,14 @@
 #include <Native/Windows/WindowsApplication.h>
 
 // =================================================================
-// Constructor / Destructor
+// GGG Statement
 // =================================================================
-DX11PixelShader::DX11PixelShader(const std::vector<unsigned char>& byte_code)
-  : byte_code_(byte_code)
+GG_NATIVE_CREATE_FUNC_IMPL_1(rcPixelShader, DX11PixelShader, const std::vector<unsigned char>&, byte_code);
+
+GG_CREATE_FUNC_IMPL_1(DX11PixelShader, const std::vector<unsigned char>&, byte_code)
 {
+  this->byte_code_ = byte_code;
+
   HRESULT hr = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice()->CreatePixelShader(
     this->byte_code_.data(),
     this->byte_code_.size(),
@@ -17,11 +20,15 @@ DX11PixelShader::DX11PixelShader(const std::vector<unsigned char>& byte_code)
     &this->pixel_shader_
   );
   GG_ASSERT(SUCCEEDED(hr), "ピクセルシェーダーの作成に失敗しました");
+
+  return true;
 }
 
-DX11PixelShader::~DX11PixelShader()
+GG_DESTRUCT_FUNC_IMPL(DX11PixelShader)
 {
   this->pixel_shader_->Release();
+
+  return true;
 }
 
 // =================================================================

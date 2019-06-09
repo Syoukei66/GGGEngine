@@ -39,7 +39,7 @@ public:
   // GGG Statement
   // =================================================================
   GG_OBJECT(ViewerScene);
-  GG_INIT_FUNC_3(ViewerScene, const SharedRef<EntryScene>&, const SharedRef<IViewerBehavior>&, AssetConverterContext*);
+  GG_INIT_FUNC_3(ViewerScene, const SharedRef<EntryScene>&, entry_scene, const SharedRef<IViewerBehavior>&, behavior, AssetConverterContext*, context);
 
   // =================================================================
   // Methods from Scene

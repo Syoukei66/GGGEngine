@@ -12,12 +12,7 @@ class rcPixelShader : public GGAPIResourceObject
   // GGG Statement
   // =================================================================
   GG_OBJECT(rcPixelShader);
-
-  // =================================================================
-  // Factory Method
-  // =================================================================
-public:
-  static UniqueRef<rcPixelShader> Create(const std::vector<unsigned char>& byte_code);
+  GG_NATIVE_CREATE_FUNC_1(rcPixelShader, const std::vector<unsigned char>&, byte_code);
 
   // =================================================================
   // Method 

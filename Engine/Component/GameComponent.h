@@ -38,12 +38,7 @@ public:
   // =================================================================
   // GGG Statement
   // =================================================================
-  GG_INIT_FUNC_1(GameComponent, GameObject* obj)
-  {
-    this->enabled_ = true;
-    this->obj_ = obj;
-    return true;
-  }
+  GG_INIT_FUNC_1(GameComponent, GameObject*, obj);
 
   // =================================================================
   // Events

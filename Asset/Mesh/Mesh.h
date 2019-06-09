@@ -58,7 +58,7 @@ class rcMesh : public GGAssetObject
   // =================================================================
   GG_OBJECT(rcMesh);
   GG_ASSET(rcMesh, StaticMeshData);
-  GG_CREATE_FUNC(rcMesh) { return true; }
+  GG_CREATE_FUNC(rcMesh);
 
   // =================================================================
   // Methods

@@ -6,7 +6,7 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL_1(rcStaticModel, const StaticModelData& data)
+GG_ASSET_INIT(rcStaticModel, StaticModelData)
 {
   this->mesh_ = rcMesh::Create(data.mesh_);
   for (T_FIXED_UINT32 material_unique_id : data.material_unique_ids_)

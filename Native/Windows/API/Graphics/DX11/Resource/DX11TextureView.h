@@ -8,11 +8,11 @@
 class DX11TextureView : public rcTextureView
 {
   // =================================================================
-  // Constructor / Destructor
+  // GGG Statement
   // =================================================================
-public:
-  DX11TextureView(const TextureViewData& data, const SharedRef<rcTextureResource>& resource);
-  ~DX11TextureView();
+  GG_OBJECT(DX11TextureView);
+  GG_CREATE_FUNC_2(DX11TextureView, const TextureViewData&, data, const SharedRef<rcTextureResource>&, resource);
+  GG_DESTRUCT_FUNC(DX11TextureView);
 
   // =================================================================
   // Method for/from SuperClass/Interfaces

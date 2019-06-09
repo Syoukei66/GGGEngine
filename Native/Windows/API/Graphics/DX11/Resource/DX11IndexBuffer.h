@@ -9,12 +9,12 @@
 class DX11IndexBuffer : public rcIndexBuffer
 {
   // =================================================================
-  // Constructor / Destructor
+  // GGG Statement
   // =================================================================
-public:
-  DX11IndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format);
-  DX11IndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format, void* data);
-  ~DX11IndexBuffer();
+  GG_OBJECT(DX11IndexBuffer);
+  GG_CREATE_FUNC_3(DX11IndexBuffer, T_UINT32, vertex_count, T_UINT32, polygon_count, Vertex::IndexFormat, format);
+  GG_CREATE_FUNC_4(DX11IndexBuffer, T_UINT32, vertex_count, T_UINT32, polygon_count, Vertex::IndexFormat, format, void*, data);
+  GG_DESTRUCT_FUNC(DX11IndexBuffer);
 
   // =================================================================
   // Method

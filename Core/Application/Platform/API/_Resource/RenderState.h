@@ -171,12 +171,7 @@ class rcRenderState : public GGAPIResourceObject
   // GGG Statement
   // =================================================================
   GG_OBJECT(rcRenderState);
-
-  // =================================================================
-  // Factory Method
-  // =================================================================
-public:
-  static UniqueRef<rcRenderState> Create(const RenderStateData& data);
+  GG_NATIVE_CREATE_FUNC_1(rcRenderState, const RenderStateData&, data);
 
   // =================================================================
   // Method 

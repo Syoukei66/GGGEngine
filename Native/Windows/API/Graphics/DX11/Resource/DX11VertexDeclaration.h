@@ -9,11 +9,10 @@
 class DX11VertexDeclaration : public rcVertexDeclaration
 {
   // =================================================================
-  // Constructor / Destructor
+  // GGG Statement
   // =================================================================
-public:
-  DX11VertexDeclaration(T_UINT32 format);
-  ~DX11VertexDeclaration();
+  GG_OBJECT(DX11VertexDeclaration);
+  GG_CREATE_FUNC_1(DX11VertexDeclaration, T_UINT32, format);
 
   // =================================================================
   // Method from rcVertexDeclaration
@@ -35,10 +34,9 @@ public:
   // Data Member
   // =================================================================
 private:
-  const T_UINT32 format_;
+  T_UINT32 format_;
   T_UINT32 stride_;
   std::vector<D3D11_INPUT_ELEMENT_DESC> elements_;
-
 };
 
 #endif

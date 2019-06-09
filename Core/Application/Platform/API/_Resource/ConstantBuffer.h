@@ -13,19 +13,13 @@ class rcConstantBuffer : public GGAPIResourceObject
   // GGG Statement
   // =================================================================
   GG_OBJECT(rcConstantBuffer);
-
-protected:
-  rcConstantBuffer(Shader::ConstantBufferId id)
-    : id_(id)
+  GG_INIT_FUNC_1(rcConstantBuffer, Shader::ConstantBufferId, id)
   {
+    this->id_ = id;
+    return true;
   }
-
-  // =================================================================
-  // Factory Method
-  // =================================================================
-public:
-  static UniqueRef<rcConstantBuffer> Create(Shader::ConstantBufferId id, T_UINT32 size);
-  static UniqueRef<rcConstantBuffer> Create(Shader::ConstantBufferId id, T_UINT32 size, const void* data);
+  GG_NATIVE_CREATE_FUNC_2(rcConstantBuffer, Shader::ConstantBufferId, id, T_UINT32, size);
+  GG_NATIVE_CREATE_FUNC_3(rcConstantBuffer, Shader::ConstantBufferId, id, T_UINT32, size, const void*, data);
 
   // =================================================================
   // Method

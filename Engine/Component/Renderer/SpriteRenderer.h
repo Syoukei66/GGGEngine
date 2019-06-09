@@ -11,7 +11,7 @@ class SpriteRenderer : public Renderer
   // GGG Statement
   // =================================================================
   GG_COMPONENT(SpriteRenderer);
-  GG_CREATE_FUNC_1(SpriteRenderer, GameObject*);
+  GG_CREATE_FUNC_1(SpriteRenderer, GameObject*, obj);
 
   // =================================================================
   // Methods for/from SuperClass/Interfaces

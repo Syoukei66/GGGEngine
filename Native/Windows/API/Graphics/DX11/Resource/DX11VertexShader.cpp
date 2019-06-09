@@ -6,11 +6,13 @@
 #include "DX11VertexDeclaration.h"
 
 // =================================================================
-// Constructor / Destructor
+// GGG Statement
 // =================================================================
-DX11VertexShader::DX11VertexShader(const std::vector<unsigned char>& byte_code)
-  : byte_code_(byte_code)
+GG_NATIVE_CREATE_FUNC_IMPL_1(rcVertexShader, DX11VertexShader, const std::vector<unsigned char>&, byte_code);
+
+GG_CREATE_FUNC_IMPL_1(DX11VertexShader, const std::vector<unsigned char>&, byte_code)
 {
+  this->byte_code_ = byte_code;
   HRESULT hr = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice()->CreateVertexShader(
     this->byte_code_.data(),
     this->byte_code_.size(),
@@ -18,15 +20,17 @@ DX11VertexShader::DX11VertexShader(const std::vector<unsigned char>& byte_code)
     &this->vertex_shader_
   );
   GG_ASSERT(SUCCEEDED(hr), "頂点シェーダーの作成に失敗しました");
+  return true;
 }
 
-DX11VertexShader::~DX11VertexShader()
+GG_DESTRUCT_FUNC_IMPL(DX11VertexShader)
 {
   this->vertex_shader_->Release();
   for (const auto& pair : this->input_layouts_)
   {
     pair.second->Release();
   }
+  return true;
 }
 
 // =================================================================

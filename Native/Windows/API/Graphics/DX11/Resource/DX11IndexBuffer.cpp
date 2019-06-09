@@ -5,24 +5,18 @@
 #include <Native/Windows/WindowsApplication.h>
 #include <Native/Windows/API/Graphics/DX11/DX11Constants.h>
 
-UniqueRef<rcIndexBuffer> rcIndexBuffer::Create(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format)
-{
-  return UniqueRef<rcIndexBuffer>(new DX11IndexBuffer(vertex_count, polygon_count, format));
-}
-
-UniqueRef<rcIndexBuffer> rcIndexBuffer::Create(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format, void* data)
-{
-  return UniqueRef<rcIndexBuffer>(new DX11IndexBuffer(vertex_count, polygon_count, format, data));
-}
-
 // =================================================================
-// Constructor / Destructor
+// GGG Statement
 // =================================================================
-DX11IndexBuffer::DX11IndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format)
-  : vertex_count_(vertex_count)
-  , polygon_count_(polygon_count)
-  , format_(format)
+GG_NATIVE_CREATE_FUNC_IMPL_3(rcIndexBuffer, DX11IndexBuffer, T_UINT32, vertex_count, T_UINT32, polygon_count, Vertex::IndexFormat, format);
+GG_NATIVE_CREATE_FUNC_IMPL_4(rcIndexBuffer, DX11IndexBuffer, T_UINT32, vertex_count, T_UINT32, polygon_count, Vertex::IndexFormat, format, void*, data);
+
+GG_CREATE_FUNC_IMPL_3(DX11IndexBuffer, T_UINT32, vertex_count, T_UINT32, polygon_count, Vertex::IndexFormat, format)
 {
+  this->vertex_count_ = vertex_count;
+  this->polygon_count_ = polygon_count;
+  this->format_ = format;
+
   const T_UINT8 format_index = static_cast<T_UINT8>(this->format_);
 
   ID3D11Device* device = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice();
@@ -39,13 +33,15 @@ DX11IndexBuffer::DX11IndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count, 
     &buffer_desc, NULL, &this->index_buffer_
   );
   GG_ASSERT(SUCCEEDED(hr), "IndexBuffer‚Ìì¬‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
+  return true;
 }
 
-DX11IndexBuffer::DX11IndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format, void * data)
-  : vertex_count_(vertex_count)
-  , polygon_count_(polygon_count)
-  , format_(format)
+GG_CREATE_FUNC_IMPL_4(DX11IndexBuffer, T_UINT32, vertex_count, T_UINT32, polygon_count, Vertex::IndexFormat, format, void*, data)
 {
+  this->vertex_count_ = vertex_count;
+  this->polygon_count_ = polygon_count;
+  this->format_ = format;
+
   const T_UINT8 format_index = static_cast<T_UINT8>(this->format_);
 
   ID3D11Device* device = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice();
@@ -67,11 +63,13 @@ DX11IndexBuffer::DX11IndexBuffer(T_UINT32 vertex_count, T_UINT32 polygon_count, 
     &buffer_desc, &sub_data, &this->index_buffer_
   );
   GG_ASSERT(SUCCEEDED(hr), "IndexBuffer‚Ìì¬‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
+  return true;
 }
 
-DX11IndexBuffer::~DX11IndexBuffer()
+GG_DESTRUCT_FUNC_IMPL(DX11IndexBuffer)
 {
   this->index_buffer_->Release();
+  return true;
 }
 
 // =================================================================

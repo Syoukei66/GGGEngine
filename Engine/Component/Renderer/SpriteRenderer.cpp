@@ -5,7 +5,7 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL_1(SpriteRenderer, GameObject* obj)
+GG_CREATE_FUNC_IMPL_1(SpriteRenderer, GameObject*, obj)
 {
   this->SetMaterial(AssetManager::Load<rcMaterial>(DefaultUniqueID::MATERIAL_UNLIT));
   return Renderer::Init(obj);

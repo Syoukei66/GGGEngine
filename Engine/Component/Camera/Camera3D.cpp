@@ -5,7 +5,7 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL_1(Camera3D, GameObject* obj)
+GG_CREATE_FUNC_IMPL_1(Camera3D, GameObject*, obj)
 {
   this->fov_ = 3.0f;
   this->z_near_ = 0.3f;

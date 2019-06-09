@@ -4,20 +4,18 @@
 
 #include <Native/Windows/WindowsApplication.h>
 
-UniqueRef<rcVertexDeclaration> rcVertexDeclaration::Create(T_UINT32 format)
-{
-  return UniqueRef<rcVertexDeclaration>(new DX11VertexDeclaration(format));
-}
+// =================================================================
+// GGG Statement
+// =================================================================
+GG_NATIVE_CREATE_FUNC_IMPL_1(rcVertexDeclaration, DX11VertexDeclaration, T_UINT32, format);
 
-// =================================================================
-// Constructor / Destructor
-// =================================================================
-DX11VertexDeclaration::DX11VertexDeclaration(T_UINT32 format)
-  : format_(format)
+GG_CREATE_FUNC_IMPL_1(DX11VertexDeclaration, T_UINT32, format)
 {
   ID3D11Device* device = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice();
 
   WORD offset = 0;
+
+  this->format_ = format;
 
   using namespace Vertex;
 
@@ -111,10 +109,7 @@ DX11VertexDeclaration::DX11VertexDeclaration(T_UINT32 format)
   }
 
   this->stride_ = offset;
-}
-
-DX11VertexDeclaration::~DX11VertexDeclaration()
-{
+  return true;
 }
 
 // =================================================================

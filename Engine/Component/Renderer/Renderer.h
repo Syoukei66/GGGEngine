@@ -10,7 +10,7 @@ class Renderer : public GameComponent
   // GGG Statement
   // =================================================================
   GG_COMPONENT(Renderer);
-  GG_INIT_FUNC_1(Renderer, GameObject*);
+  GG_INIT_FUNC_1(Renderer, GameObject*, obj);
 
   // =================================================================
   // Methods

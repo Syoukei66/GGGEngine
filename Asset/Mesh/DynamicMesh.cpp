@@ -3,7 +3,7 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL_1(rcDynamicMesh, const DynamicMeshData& data)
+GG_ASSET_INIT(rcDynamicMesh, DynamicMeshData)
 {
   using namespace Vertex;
 
@@ -38,6 +38,11 @@ GG_INIT_FUNC_IMPL_1(rcDynamicMesh, const DynamicMeshData& data)
   }
 
   return true;
+}
+
+GG_CREATE_FUNC_IMPL(rcDynamicMesh)
+{
+  return rcMesh::Init();
 }
 
 GG_DESTRUCT_FUNC_IMPL(rcDynamicMesh)

@@ -6,7 +6,7 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL_1(rcMesh, const StaticMeshData& data)
+GG_ASSET_INIT(rcMesh, StaticMeshData)
 {
   using namespace Vertex;
 
@@ -51,6 +51,11 @@ GG_INIT_FUNC_IMPL_1(rcMesh, const StaticMeshData& data)
     this->submesh_index_buffers_[i]->Unlock();
   }
 
+  return true;
+}
+
+GG_CREATE_FUNC_IMPL(rcMesh)
+{
   return true;
 }
 

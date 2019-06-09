@@ -8,7 +8,7 @@ class GameActivity : public Activity
   // GGG Statement
   // =================================================================
   GG_OBJECT(GameActivity);
-  GG_CREATE_FUNC(GameActivity) { return true; }
+  GG_CREATE_FUNC(GameActivity);
 
   // =================================================================
   // Methods from Activity

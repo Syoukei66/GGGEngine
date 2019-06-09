@@ -8,6 +8,17 @@
 
 #pragma comment(lib, "DirectXTex.lib")
 
+// =================================================================
+// GGG Statement
+// =================================================================
+GG_CREATE_FUNC_IMPL(DX11TextureModule)
+{
+  return true;
+}
+
+// =================================================================
+// Methods from TextureModule
+// =================================================================
 void DX11TextureModule::LoadTextureResourceData(const std::string& path, const std::string& extension, void** dest) const
 {
   WCHAR	wpath[256] = {};

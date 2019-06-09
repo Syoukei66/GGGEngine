@@ -5,7 +5,7 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL(MaterialViewerBehavior)
+GG_CREATE_FUNC_IMPL(MaterialViewerBehavior)
 {
   this->obj_ = TestMesh::Create();
   return true;

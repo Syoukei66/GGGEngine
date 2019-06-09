@@ -80,12 +80,7 @@ public:
   // GGG Statement
   // =================================================================
   GG_OBJECT(rcTextureResource);
-
-  // =================================================================
-  // Factory Method
-  // =================================================================
-public:
-  static UniqueRef<rcTextureResource> Create(const TextureResourceData& data, Usage usage = Usage::kImmutable);
+  GG_NATIVE_CREATE_FUNC_2(rcTextureResource, const TextureResourceData&, data, Usage, usage);
 
   // =================================================================
   // Method

@@ -77,8 +77,8 @@ class rcMaterial : public GGAssetObject
   // =================================================================
   GG_OBJECT(rcMaterial);
   GG_ASSET(rcMaterial, MaterialData);
-  GG_CREATE_FUNC_1(rcMaterial, const SharedRef<rcShader>&);
-  GG_CREATE_FUNC_1(rcMaterial, const rcMaterial&);
+  GG_CREATE_FUNC_1(rcMaterial, const SharedRef<rcShader>&, shader);
+  GG_CREATE_FUNC_1(rcMaterial, const rcMaterial&, other);
 
   // =================================================================
   // Methods

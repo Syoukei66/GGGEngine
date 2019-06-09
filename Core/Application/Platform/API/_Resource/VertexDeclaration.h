@@ -12,12 +12,7 @@ class rcVertexDeclaration : public GGAPIResourceObject
   // GGG Statement
   // =================================================================
   GG_OBJECT(rcVertexDeclaration);
-
-  // =================================================================
-  // Factory Method
-  // =================================================================
-public:
-  static UniqueRef<rcVertexDeclaration> Create(T_UINT32 format);
+  GG_NATIVE_CREATE_FUNC_1(rcVertexDeclaration, T_UINT32, format);
 
   // =================================================================
   // Method

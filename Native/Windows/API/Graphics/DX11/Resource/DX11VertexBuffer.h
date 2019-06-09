@@ -8,12 +8,12 @@
 class DX11VertexBuffer : public rcVertexBuffer
 {
   // =================================================================
-  // Constructor / Destructor
+  // GGG Statement
   // =================================================================
-public:
-  DX11VertexBuffer(T_UINT32 size);
-  DX11VertexBuffer(T_UINT32 size, void* data);
-  ~DX11VertexBuffer();
+  GG_OBJECT(DX11VertexBuffer);
+  GG_CREATE_FUNC_1(DX11VertexBuffer, T_UINT32, size);
+  GG_CREATE_FUNC_2(DX11VertexBuffer, T_UINT32, size, void*, data);
+  GG_DESTRUCT_FUNC(DX11VertexBuffer);
 
   // =================================================================
   // Method
@@ -29,14 +29,5 @@ public:
 private:
   ID3D11Buffer* vertex_buffer_;
 };
-
-UniqueRef<rcVertexBuffer> rcVertexBuffer::Create(T_UINT32 size)
-{
-  return UniqueRef<rcVertexBuffer>(new DX11VertexBuffer(size));
-}
-UniqueRef<rcVertexBuffer> rcVertexBuffer::Create(T_UINT32 size, void* data)
-{
-  return UniqueRef<rcVertexBuffer>(new DX11VertexBuffer(size, data));
-}
 
 #endif

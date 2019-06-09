@@ -5,15 +5,21 @@
 #include <Native/Windows/WindowsApplication.h>
 
 // =================================================================
-// Constructor / Destructor
+// GGG Statement
 // =================================================================
-DX11ConstantBuffer::DX11ConstantBuffer(Shader::ConstantBufferId id, T_UINT32 size)
-  : rcConstantBuffer(id)
+GG_NATIVE_CREATE_FUNC_IMPL_2(rcConstantBuffer, DX11ConstantBuffer, Shader::ConstantBufferId, id, T_UINT32, size);
+GG_NATIVE_CREATE_FUNC_IMPL_3(rcConstantBuffer, DX11ConstantBuffer, Shader::ConstantBufferId, id, T_UINT32, size, const void*, data);
+
+GG_CREATE_FUNC_IMPL_2(DX11ConstantBuffer, Shader::ConstantBufferId, id, T_UINT32, size)
 {
+  if (!rcConstantBuffer::Init(id))
+  {
+    return false;
+  }
   if (size == 0)
   {
     this->constant_buffer_ = nullptr;
-    return;
+    return true;
   }
   ID3D11Device* device = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice();
 
@@ -29,15 +35,20 @@ DX11ConstantBuffer::DX11ConstantBuffer(Shader::ConstantBufferId id, T_UINT32 siz
     &desc, NULL, &this->constant_buffer_
   );
   GG_ASSERT(SUCCEEDED(hr), "定数バッファの作成に失敗しました");
+
+  return true;
 }
 
-DX11ConstantBuffer::DX11ConstantBuffer(Shader::ConstantBufferId id, T_UINT32 size, const void* data)
-  : rcConstantBuffer(id)
+GG_CREATE_FUNC_IMPL_3(DX11ConstantBuffer, Shader::ConstantBufferId, id, T_UINT32, size, const void*, data)
 {
+  if (!rcConstantBuffer::Init(id))
+  {
+    return false;
+  }
   if (size == 0)
   {
     this->constant_buffer_ = nullptr;
-    return;
+    return true;
   }
   ID3D11Device* device = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice();
   
@@ -58,14 +69,18 @@ DX11ConstantBuffer::DX11ConstantBuffer(Shader::ConstantBufferId id, T_UINT32 siz
     &desc, &sub_data, &this->constant_buffer_
   );
   GG_ASSERT(SUCCEEDED(hr), "定数バッファの作成に失敗しました");
+
+  return true;
 }
 
-DX11ConstantBuffer::~DX11ConstantBuffer()
+GG_DESTRUCT_FUNC_IMPL(DX11ConstantBuffer)
 {
   if (this->constant_buffer_)
   {
     this->constant_buffer_->Release();
   }
+
+  return true;
 }
 
 // =================================================================

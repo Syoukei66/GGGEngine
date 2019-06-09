@@ -14,13 +14,8 @@ class rcVertexBuffer : public GGAPIResourceObject
   // GGG Statement
   // =================================================================
   GG_OBJECT(rcVertexBuffer);
-
-  // =================================================================
-  // Factory Method
-  // =================================================================
-public:
-  static UniqueRef<rcVertexBuffer> Create(T_UINT32 size);
-  static UniqueRef<rcVertexBuffer> Create(T_UINT32 size, void* data);
+  GG_NATIVE_CREATE_FUNC_1(rcVertexBuffer, T_UINT32, size);
+  GG_NATIVE_CREATE_FUNC_2(rcVertexBuffer, T_UINT32, size, void*, data);
 
   // =================================================================
   // Method

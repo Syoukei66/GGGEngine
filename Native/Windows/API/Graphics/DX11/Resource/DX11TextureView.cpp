@@ -7,15 +7,12 @@
 
 #include "DX11TextureResource.h"
 
-UniqueRef<rcTextureView> rcTextureView::Create(const TextureViewData& data, const SharedRef<rcTextureResource>& resource)
-{
-  return UniqueRef<rcTextureView>(new DX11TextureView(data, resource));
-}
+// =================================================================
+// GGG Statement
+// =================================================================
+GG_NATIVE_CREATE_FUNC_IMPL_2(rcTextureView, DX11TextureView, const TextureViewData&, data, const SharedRef<rcTextureResource>&, resource);
 
-// =================================================================
-// Constructor / Destructor
-// =================================================================
-DX11TextureView::DX11TextureView(const TextureViewData& data, const SharedRef<rcTextureResource>& resource)
+GG_CREATE_FUNC_IMPL_2(DX11TextureView, const TextureViewData&, data, const SharedRef<rcTextureResource>&, resource)
 {
   ID3D11Device* device = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice();
 
@@ -60,12 +57,15 @@ DX11TextureView::DX11TextureView(const TextureViewData& data, const SharedRef<rc
 
   hr = device->CreateSamplerState(&sampDesc, &this->sampler_state_);
   GG_ASSERT(SUCCEEDED(hr), "テクスチャサンプラーの作成に失敗しました");
+
+  return true;
 }
 
-DX11TextureView::~DX11TextureView()
+GG_DESTRUCT_FUNC_IMPL(DX11TextureView)
 {
   this->sampler_state_->Release();
   this->resource_view_->Release();
+  return true;
 }
 
 // =================================================================

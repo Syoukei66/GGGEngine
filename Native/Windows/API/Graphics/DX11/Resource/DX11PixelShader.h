@@ -8,11 +8,11 @@
 class DX11PixelShader : public rcPixelShader
 {
   // =================================================================
-  // Constructor / Destructor
+  // GGG Statement
   // =================================================================
-public:
-  DX11PixelShader(const std::vector<unsigned char>& byte_code);
-  ~DX11PixelShader();
+  GG_OBJECT(DX11PixelShader);
+  GG_CREATE_FUNC_1(DX11PixelShader, const std::vector<unsigned char>&, byte_code);
+  GG_DESTRUCT_FUNC(DX11PixelShader);
 
   // =================================================================
   // Method for/from SuperClass/Interfaces
@@ -28,10 +28,4 @@ private:
   ID3D11PixelShader* pixel_shader_;
 };
 
-UniqueRef<rcPixelShader> rcPixelShader::Create(const std::vector<unsigned char>& byte_code)
-{
-  return UniqueRef<rcPixelShader>(new DX11PixelShader(byte_code));
-}
-
 #endif
-

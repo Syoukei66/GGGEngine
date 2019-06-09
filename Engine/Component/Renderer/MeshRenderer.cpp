@@ -4,7 +4,7 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL_1(MeshRenderer, GameObject* obj)
+GG_CREATE_FUNC_IMPL_1(MeshRenderer, GameObject*, obj)
 {
   return Renderer::Init(obj);
 }

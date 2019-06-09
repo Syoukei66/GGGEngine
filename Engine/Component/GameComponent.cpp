@@ -1,10 +1,11 @@
-#include "AssetEntityFileLeaf.h"
+#include "GameComponent.h"
 
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_CREATE_FUNC_IMPL_1(AssetEntityFileLeaf, const SharedRef<AssetEntity>&, entity)
+GG_INIT_FUNC_IMPL_1(GameComponent, GameObject*, obj)
 {
-  this->entity_ = entity;
+  this->enabled_ = true;
+  this->obj_ = obj;
   return true;
 }

@@ -6,10 +6,11 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL(ShaderViewerBehavior)
+GG_CREATE_FUNC_IMPL(ShaderViewerBehavior)
 {
   this->path_.resize(1024);
-  this->obj_ = TestMesh::Create();  return true;
+  this->obj_ = TestMesh::Create();  
+  return true;
 }
 
 // =================================================================

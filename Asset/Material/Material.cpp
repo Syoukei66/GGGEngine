@@ -102,7 +102,7 @@ void MaterialData::CreateWithShader(const ShaderPropertyData& shader, T_UINT32 s
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL_1(rcMaterial, const MaterialData& data)
+GG_ASSET_INIT(rcMaterial, MaterialData)
 {
   this->property_table_ = data.property_table_;
   this->data_ = data.data_;
@@ -129,19 +129,19 @@ GG_INIT_FUNC_IMPL_1(rcMaterial, const MaterialData& data)
   return true;
 }
 
-GG_INIT_FUNC_IMPL_1(rcMaterial, const SharedRef<rcShader>& shader)
+GG_CREATE_FUNC_IMPL_1(rcMaterial, const SharedRef<rcShader>&, shader)
 {
   MaterialData data = MaterialData();
   MaterialData::CreateWithShader(shader->GetPropertyData(), shader->GetUniqueId(), &data);
   return rcMaterial::Init(data);
 }
 
-GG_INIT_FUNC_IMPL_1(rcMaterial, const rcMaterial& o)
+GG_CREATE_FUNC_IMPL_1(rcMaterial, const rcMaterial&, other)
 {
-  this->shader_ = o.shader_;
-  this->property_table_ = o.property_table_;
-  this->data_ = o.data_;
-  this->textures_ = o.textures_;
+  this->shader_ = other.shader_;
+  this->property_table_ = other.property_table_;
+  this->data_ = other.data_;
+  this->textures_ = other.textures_;
 
   this->constant_buffer_ = rcConstantBuffer::Create(
     Shader::ConstantBufferId::kProperty,

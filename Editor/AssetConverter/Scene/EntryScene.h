@@ -11,7 +11,7 @@ class EntryScene : public Scene
   // GGG Statement
   // =================================================================
   GG_OBJECT(EntryScene);
-  GG_CREATE_FUNC_1(EntryScene, AssetConverterContext*);
+  GG_CREATE_FUNC_1(EntryScene, AssetConverterContext*, context);
 
   // =================================================================
   // Methods from Scene

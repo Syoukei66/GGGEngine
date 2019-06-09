@@ -8,7 +8,7 @@ class AssetEntityFileNode : public GGObject
   // GGG Statement
   // =================================================================
   GG_OBJECT(AssetEntityFileNode);
-  GG_CREATE_FUNC(AssetEntityFileNode) { return true; }
+  GG_CREATE_FUNC(AssetEntityFileNode);
 
   // =================================================================
   // Methdos

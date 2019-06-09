@@ -7,7 +7,7 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL_1(Camera2D, GameObject* obj)
+GG_CREATE_FUNC_IMPL_1(Camera2D, GameObject*, obj)
 {
   return Camera::Init(obj);
 }

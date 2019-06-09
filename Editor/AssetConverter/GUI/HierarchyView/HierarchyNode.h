@@ -6,7 +6,7 @@ class HierarchyNode : public GGObject
   // GGG Statement
   // =================================================================
   GG_OBJECT(HierarchyNode);
-  GG_CREATE_FUNC_1(HierarchyNode, const SharedRef<GameObject>&);
+  GG_CREATE_FUNC_1(HierarchyNode, const SharedRef<GameObject>&, obj);
 
   // =================================================================
   // Methdos

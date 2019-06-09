@@ -11,4 +11,7 @@
     CerealIO::Binary::Import<Data>(path, &data);\
     return Create(data);\
   }\
-  GG_CREATE_FUNC_1(Type, const Data&)
+  GG_CREATE_FUNC_1(Type, const Data&, data)
+
+#define GG_ASSET_INIT(Type, Data)\
+GG_CREATE_FUNC_IMPL_1(Type, const Data&, data)

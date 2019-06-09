@@ -10,7 +10,7 @@ class MeshRenderer : public Renderer
   // GGG Statement
   // =================================================================
   GG_COMPONENT(MeshRenderer);
-  GG_CREATE_FUNC_1(MeshRenderer, GameObject*);
+  GG_CREATE_FUNC_1(MeshRenderer, GameObject*, obj);
 
   // =================================================================
   // Methods

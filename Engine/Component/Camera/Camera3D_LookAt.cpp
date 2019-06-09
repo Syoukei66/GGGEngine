@@ -3,7 +3,7 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL_1(Camera3D_LookAt, GameObject* obj)
+GG_CREATE_FUNC_IMPL_1(Camera3D_LookAt, GameObject*, obj)
 {
   this->look_at_pos_ = TVec3f::forward;
   this->current_look_at_pos_ = TVec3f::forward;

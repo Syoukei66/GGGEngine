@@ -8,12 +8,12 @@
 class DX11ConstantBuffer : public rcConstantBuffer
 {
   // =================================================================
-  // Constructor / Destructor
+  // GGG Statement
   // =================================================================
 public:
-  DX11ConstantBuffer(Shader::ConstantBufferId id, T_UINT32 size);
-  DX11ConstantBuffer(Shader::ConstantBufferId id, T_UINT32 size, const void* data);
-  ~DX11ConstantBuffer();
+  GG_CREATE_FUNC_2(DX11ConstantBuffer, Shader::ConstantBufferId, id, T_UINT32, size);
+  GG_CREATE_FUNC_3(DX11ConstantBuffer, Shader::ConstantBufferId, id, T_UINT32, size, const void*, data);
+  GG_DESTRUCT_FUNC(DX11ConstantBuffer);
 
   // =================================================================
   // Method for/from SuperClass/Interfaces
@@ -29,16 +29,6 @@ private:
   ID3D11Buffer* constant_buffer_;
 
 };
-
-UniqueRef<rcConstantBuffer> rcConstantBuffer::Create(Shader::ConstantBufferId id, T_UINT32 size)
-{
-  return UniqueRef<rcConstantBuffer>(new DX11ConstantBuffer(id, size));
-}
-
-UniqueRef<rcConstantBuffer> rcConstantBuffer::Create(Shader::ConstantBufferId id, T_UINT32 size, const void* data)
-{
-  return UniqueRef<rcConstantBuffer>(new DX11ConstantBuffer(id, size, data));
-}
 
 #endif
 

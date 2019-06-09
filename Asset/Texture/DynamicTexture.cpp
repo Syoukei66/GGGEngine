@@ -3,10 +3,15 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL_1(rcDynamicTexture, const TextureData& data)
+GG_ASSET_INIT(rcDynamicTexture, TextureData)
 {
   this->data_ = data;
   return rcTexture::Init(data);
+}
+
+GG_CREATE_FUNC_IMPL(rcDynamicTexture)
+{
+  return rcTexture::Init();
 }
 
 // =================================================================

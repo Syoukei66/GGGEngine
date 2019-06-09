@@ -9,7 +9,7 @@ class rcDynamicTexture : public rcTexture
   // =================================================================
   GG_OBJECT(rcDynamicTexture);
   GG_ASSET(rcDynamicTexture, TextureData);
-  GG_CREATE_FUNC(rcDynamicTexture) { return rcTexture::Init(); }
+  GG_CREATE_FUNC(rcDynamicTexture);
 
   // =================================================================
   // Methods

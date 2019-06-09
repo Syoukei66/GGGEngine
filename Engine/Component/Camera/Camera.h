@@ -12,7 +12,7 @@ class Camera : public GameComponent
   // GGG Statement
   // =================================================================
   GG_COMPONENT(Camera);
-  GG_INIT_FUNC_1(Camera, GameObject*);
+  GG_INIT_FUNC_1(Camera, GameObject*, obj);
   GG_DESTRUCT_FUNC(Camera);
 
   // =================================================================

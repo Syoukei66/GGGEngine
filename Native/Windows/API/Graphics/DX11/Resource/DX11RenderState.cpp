@@ -6,9 +6,11 @@
 #include <Native/Windows/API/Graphics/DX11/DX11Constants.h>
 
 // =================================================================
-// Constructor / Destructor
+// GGG Statement
 // =================================================================
-DX11RenderState::DX11RenderState(const RenderStateData& data)
+GG_NATIVE_CREATE_FUNC_IMPL_1(rcRenderState, DX11RenderState, const RenderStateData&, data);
+
+GG_CREATE_FUNC_IMPL_1(DX11RenderState, const RenderStateData&, data)
 {
   using namespace Shader;
   using namespace DX11;
@@ -90,13 +92,16 @@ DX11RenderState::DX11RenderState(const RenderStateData& data)
   hr = device->CreateDepthStencilState(&ds_desc, &this->depth_stencil_state_);
   GG_ASSERT(SUCCEEDED(hr), "デプス・ステンシルステートの作成に失敗しました");
 
+  return true;
 }
 
-DX11RenderState::~DX11RenderState()
+GG_DESTRUCT_FUNC_IMPL(DX11RenderState)
 {
   this->depth_stencil_state_->Release();
   this->blend_state_->Release();
   this->rasterizer_state_->Release();
+
+  return true;
 }
 
 // =================================================================

@@ -36,6 +36,8 @@ IAssetDataContainer* TextureAssetConverter::ImportProcess(const SharedRef<AssetE
   // ターゲットプラットフォーム側でテクスチャの最適化を行う
   Application::GetPlatform()->GetGraphicsAPI()->GetTextureModule()->OptimisationResourceData(opt_setting, &data->resource_data_);
 
+  Application::GetPlatform()->GetGraphicsAPI()->GetTextureModule()->UnloadTextureResourceData(&opt_setting.native_image);
+
   data->view_data_ = setting->view_data;
   data->view_data_.mip_map_levels_ = (T_FIXED_UINT8)data->resource_data_.mip_map_levels_;
 

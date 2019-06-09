@@ -9,7 +9,7 @@ class Camera3D_LookAt : public Camera3D
   // GGG Statement
   // =================================================================
   GG_COMPONENT(Camera3D_LookAt);
-  GG_CREATE_FUNC_1(Camera3D_LookAt, GameObject*);
+  GG_CREATE_FUNC_1(Camera3D_LookAt, GameObject*, obj);
 
   // =================================================================
   // Methods for/from SuperClass/Interfaces

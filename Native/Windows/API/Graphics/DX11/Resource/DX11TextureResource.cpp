@@ -9,15 +9,12 @@
 
 #pragma comment(lib, "DirectXTex.lib")
 
-UniqueRef<rcTextureResource> rcTextureResource::Create(const TextureResourceData& data, Usage usage)
-{
-  return UniqueRef<rcTextureResource>(new DX11TextureResource(data, usage));
-}
+// =================================================================
+// GGG Statement
+// =================================================================
+GG_NATIVE_CREATE_FUNC_IMPL_2(rcTextureResource, DX11TextureResource, const TextureResourceData&, data, Usage, usage);
 
-// =================================================================
-// Constructor / Destructor
-// =================================================================
-DX11TextureResource::DX11TextureResource(const TextureResourceData& data, Usage usage)
+GG_CREATE_FUNC_IMPL_2(DX11TextureResource, const TextureResourceData&, data, Usage, usage)
 {
   ID3D11Device* device = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice();
   const SharedRef<DX11TextureModule>& texture_module = SharedRef<DX11TextureModule>::StaticCast(Application::GetPlatform()->GetGraphicsAPI()->GetTextureModule());
@@ -79,11 +76,13 @@ DX11TextureResource::DX11TextureResource(const TextureResourceData& data, Usage 
   }
 
   this->format_ = texture_desc.Format;
+  return true;
 }
 
-DX11TextureResource::~DX11TextureResource()
+GG_DESTRUCT_FUNC_IMPL(DX11TextureResource)
 {
   this->resource_->Release();
+  return true;
 }
 
 // =================================================================

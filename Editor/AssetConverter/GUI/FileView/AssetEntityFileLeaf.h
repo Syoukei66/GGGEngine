@@ -8,7 +8,7 @@ class AssetEntityFileLeaf : public GGObject
   // GGG Statement
   // =================================================================
   GG_OBJECT(AssetEntityFileLeaf);
-  GG_CREATE_FUNC_1(AssetEntityFileLeaf, const SharedRef<AssetEntity>&);
+  GG_CREATE_FUNC_1(AssetEntityFileLeaf, const SharedRef<AssetEntity>&, entity);
 
   // =================================================================
   // Setter / Getter

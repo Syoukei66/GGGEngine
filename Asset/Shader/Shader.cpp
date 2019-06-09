@@ -3,7 +3,7 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL_1(rcShader, const ShaderData& data)
+GG_ASSET_INIT(rcShader, ShaderData)
 {
   using namespace Shader;
   this->name_ = data.name_;

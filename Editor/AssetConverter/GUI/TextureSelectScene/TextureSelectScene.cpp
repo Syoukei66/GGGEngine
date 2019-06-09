@@ -19,7 +19,7 @@ static const T_FLOAT SCREEN_HEIGHT = Y_NUM * (PAD_IMAGE_SIZE) + PADDING;
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL(TextureSelectScene)
+GG_CREATE_FUNC_IMPL(TextureSelectScene)
 {
   return Scene::Init();
 }

@@ -8,11 +8,11 @@
 class DX11VertexShader : public rcVertexShader
 {
   // =================================================================
-  // Constructor / Destructor
+  // GGG Statement
   // =================================================================
-public:
-  DX11VertexShader(const std::vector<unsigned char>& byte_code);
-  ~DX11VertexShader();
+  GG_OBJECT(DX11VertexShader);
+  GG_CREATE_FUNC_1(DX11VertexShader, const std::vector<unsigned char>&, byte_code);
+  GG_DESTRUCT_FUNC(DX11VertexShader);
 
   // =================================================================
   // Method for/from SuperClass/Interfaces
@@ -29,10 +29,5 @@ private:
   ID3D11VertexShader* vertex_shader_;
   std::unordered_map<T_UINT32, ID3D11InputLayout*> input_layouts_;
 };
-
-UniqueRef<rcVertexShader> rcVertexShader::Create(const std::vector<unsigned char>& byte_code)
-{
-  return UniqueRef<rcVertexShader>(new DX11VertexShader(byte_code));
-}
 
 #endif

@@ -12,7 +12,7 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL(DX11GraphicsAPI)
+GG_CREATE_FUNC_IMPL(DX11GraphicsAPI)
 {
   D3D_DRIVER_TYPE driverTypes[] =
   {

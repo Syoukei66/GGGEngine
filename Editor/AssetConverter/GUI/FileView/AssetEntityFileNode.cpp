@@ -3,6 +3,14 @@
 #include <regex>
 
 // =================================================================
+// GGG Statement
+// =================================================================
+GG_CREATE_FUNC_IMPL(AssetEntityFileNode)
+{
+  return true;
+}
+
+// =================================================================
 // Methdos
 // =================================================================
 void AssetEntityFileNode::AddAssetEntity(const SharedRef<AssetEntity>& entity)

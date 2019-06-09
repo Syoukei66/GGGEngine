@@ -22,312 +22,572 @@ bool Type::Init()
  */
 #define GG_CREATE_FUNC(Type)\
 public:\
-  static UniqueRef<Type> Create()\
+  static UniqueRef<Type> Create();\
+GG_INIT_FUNC(Type);
+
+/*!
+ * @brief GGObjectのCreateMethodを実装する
+ * 引数0個バージョン
+ */
+#define GG_CREATE_FUNC_IMPL(Type)\
+UniqueRef<Type> Type::Create()\
+{\
+  Type* ret = new (std::nothrow) Type();\
+  GG_ASSERT(ret != nullptr, #Type"::Create(""): インスタンスの生成に失敗しました");\
+  if (!ret->Init())\
   {\
-    Type* ret = new (std::nothrow) Type();\
-    GG_ASSERT(ret != nullptr, #Type"::Create(""): インスタンスの生成に失敗しました");\
-    if (!ret->Init())\
-    {\
-      GG_ASSERT(false, #Type"::Init(""): インスタンスの初期化に失敗しました");\
-    }\
-    return UniqueRef<Type>(ret);\
+    GG_ASSERT(false, #Type"::Init(""): インスタンスの初期化に失敗しました");\
   }\
-GG_INIT_FUNC(Type)
+  return UniqueRef<Type>(ret);\
+}\
+GG_INIT_FUNC_IMPL(Type)
+
+/*!
+ * @brief GGAPIObject/GGAPIResourceObjectのCreateMethodを定義する
+ * 引数0個バージョン
+ */
+#define GG_NATIVE_CREATE_FUNC(Type)\
+public:\
+  static UniqueRef<Type> Create();
+
+/*!
+ * @brief GGAPIObject/GGAPIResourceObjectのCreateMethodを定義する
+ * 引数0個バージョン
+ */
+#define GG_NATIVE_CREATE_FUNC_IMPL(Type, NativeType)\
+UniqueRef<Type> Type::Create()\
+{\
+  return NativeType::Create();\
+}
 
 /*!
  * @brief GGObjectの初期化関数宣言
  * 引数1個バージョン
  */
-#define GG_INIT_FUNC_1(Type, Arg0)\
+#define GG_INIT_FUNC_1(Type, Arg0, ArgName0)\
 protected:\
-  virtual bool Init(Arg0)
+  virtual bool Init(Arg0 ArgName0)
 
 /*!
  * @brief GGObjectの初期化関数実装
  * 引数1個バージョン
  */
-#define GG_INIT_FUNC_IMPL_1(Type, Arg0)\
-bool Type::Init(Arg0)
+#define GG_INIT_FUNC_IMPL_1(Type, Arg0, ArgName0)\
+bool Type::Init(Arg0 ArgName0)
 
 /*!
  * @brief GGObjectのCreateMethodを定義する
  * 引数1個バージョン
  */
-#define GG_CREATE_FUNC_1(Type, Arg0)\
+#define GG_CREATE_FUNC_1(Type, Arg0, ArgName0)\
 public:\
-  static UniqueRef<Type> Create(Arg0 arg0)\
+  static UniqueRef<Type> Create(Arg0 ArgName0);\
+GG_INIT_FUNC_1(Type, Arg0, ArgName0);
+
+/*!
+ * @brief GGObjectのCreateMethodを実装する
+ * 引数1個バージョン
+ */
+#define GG_CREATE_FUNC_IMPL_1(Type, Arg0, ArgName0)\
+UniqueRef<Type> Type::Create(Arg0 ArgName0)\
+{\
+  Type* ret = new (std::nothrow) Type();\
+  GG_ASSERT(ret != nullptr, #Type"::Create("#Arg0"): インスタンスの生成に失敗しました");\
+  if (!ret->Init(ArgName0))\
   {\
-    Type* ret = new (std::nothrow) Type();\
-    GG_ASSERT(ret != nullptr, #Type"::Create("#Arg0"): インスタンスの生成に失敗しました");\
-    if (!ret->Init(arg0))\
-    {\
-      GG_ASSERT(false, #Type"::Init("#Arg0"): インスタンスの初期化に失敗しました");\
-    }\
-    return UniqueRef<Type>(ret);\
+    GG_ASSERT(false, #Type"::Init("#Arg0"): インスタンスの初期化に失敗しました");\
   }\
-GG_INIT_FUNC_1(Type, Arg0 arg0)
+  return UniqueRef<Type>(ret);\
+}\
+GG_INIT_FUNC_IMPL_1(Type, Arg0, ArgName0)
+
+/*!
+ * @brief GGAPIObject/GGAPIResourceObjectのCreateMethodを定義する
+ * 引数1個バージョン
+ */
+#define GG_NATIVE_CREATE_FUNC_1(Type, Arg0, ArgName0)\
+public:\
+  static UniqueRef<Type> Create(Arg0 ArgName0);
+
+/*!
+ * @brief GGAPIObject/GGAPIResourceObjectのCreateMethodを定義する
+ * 引数1個バージョン
+ */
+#define GG_NATIVE_CREATE_FUNC_IMPL_1(Type, NativeType, Arg0, ArgName0)\
+UniqueRef<Type> Type::Create(Arg0 ArgName0)\
+{\
+  return NativeType::Create(ArgName0);\
+}
 
 /*!
  * @brief GGObjectの初期化関数宣言
  * 引数2個バージョン
  */
-#define GG_INIT_FUNC_2(Type, Arg0, Arg1)\
+#define GG_INIT_FUNC_2(Type, Arg0, ArgName0, Arg1, ArgName1)\
 protected:\
-  virtual bool Init(Arg0, Arg1)
+  virtual bool Init(Arg0 ArgName0, Arg1 ArgName1)
 
 /*!
  * @brief GGObjectの初期化関数実装
  * 引数2個バージョン
  */
-#define GG_INIT_FUNC_IMPL_2(Type, Arg0, Arg1)\
-bool Type::Init(Arg0, Arg1)
+#define GG_INIT_FUNC_IMPL_2(Type, Arg0, ArgName0, Arg1, ArgName1)\
+bool Type::Init(Arg0 ArgName0, Arg1 ArgName1)
 
 /*!
  * @brief GGObjectのCreateMethodを定義する
  * 引数2個バージョン
  */
-#define GG_CREATE_FUNC_2(Type, Arg0, Arg1)\
+#define GG_CREATE_FUNC_2(Type, Arg0, ArgName0, Arg1, ArgName1)\
 public:\
-  static UniqueRef<Type> Create(Arg0 arg0, Arg1 arg1)\
+  static UniqueRef<Type> Create(Arg0 ArgName0, Arg1 ArgName1);\
+GG_INIT_FUNC_2(Type, Arg0, ArgName0, Arg1, ArgName1);
+
+/*!
+ * @brief GGObjectのCreateMethodを実装する
+ * 引数2個バージョン
+ */
+#define GG_CREATE_FUNC_IMPL_2(Type, Arg0, ArgName0, Arg1, ArgName1)\
+UniqueRef<Type> Type::Create(Arg0 ArgName0, Arg1 ArgName1)\
+{\
+  Type* ret = new (std::nothrow) Type();\
+  GG_ASSERT(ret != nullptr, #Type"::Create("#Arg0", "#Arg1"): インスタンスの生成に失敗しました");\
+  if (!ret->Init(ArgName0, ArgName1))\
   {\
-    Type* ret = new (std::nothrow) Type();\
-    GG_ASSERT(ret != nullptr, #Type"::Create("#Arg0", "#Arg1"): インスタンスの生成に失敗しました");\
-    if (!ret->Init(arg0, arg1))\
-    {\
-      GG_ASSERT(false, #Type"::Init("#Arg0", "#Arg1"): インスタンスの初期化に失敗しました");\
-    }\
-    return UniqueRef<Type>(ret);\
+    GG_ASSERT(false, #Type"::Init("#Arg0", "#Arg1"): インスタンスの初期化に失敗しました");\
   }\
-GG_INIT_FUNC_2(Type, Arg0 arg0, Arg1 arg1)
+  return UniqueRef<Type>(ret);\
+}\
+GG_INIT_FUNC_IMPL_2(Type, Arg0, ArgName0, Arg1, ArgName1)
+
+/*!
+ * @brief GGAPIObject/GGAPIResourceObjectのCreateMethodを定義する
+ * 引数2個バージョン
+ */
+#define GG_NATIVE_CREATE_FUNC_2(Type, Arg0, ArgName0, Arg1, ArgName1)\
+public:\
+  static UniqueRef<Type> Create(Arg0 ArgName0, Arg1 ArgName1);
+
+/*!
+ * @brief GGAPIObject/GGAPIResourceObjectのCreateMethodを定義する
+ * 引数2個バージョン
+ */
+#define GG_NATIVE_CREATE_FUNC_IMPL_2(Type, NativeType, Arg0, ArgName0, Arg1, ArgName1)\
+UniqueRef<Type> Type::Create(Arg0 ArgName0, Arg1 ArgName1)\
+{\
+  return NativeType::Create(ArgName0, ArgName1);\
+}
 
 /*!
  * @brief GGObjectの初期化関数宣言
  * 引数3個バージョン
  */
-#define GG_INIT_FUNC_3(Type, Arg0, Arg1, Arg2)\
+#define GG_INIT_FUNC_3(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2)\
 protected:\
-  virtual bool Init(Arg0, Arg1, Arg2)
+  virtual bool Init(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2)
 
 /*!
  * @brief GGObjectの初期化関数実装
  * 引数3個バージョン
  */
-#define GG_INIT_FUNC_IMPL_3(Type, Arg0, Arg1, Arg2)\
-bool Type::Init(Arg0, Arg1, Arg2)
+#define GG_INIT_FUNC_IMPL_3(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2)\
+bool Type::Init(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2)
 
 /*!
  * @brief GGObjectのCreateMethodを定義する
  * 引数3個バージョン
  */
-#define GG_CREATE_FUNC_3(Type, Arg0, Arg1, Arg2)\
+#define GG_CREATE_FUNC_3(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2)\
 public:\
-  static UniqueRef<Type> Create(Arg0 arg0, Arg1 arg1, Arg2 arg2)\
+  static UniqueRef<Type> Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2);\
+GG_INIT_FUNC_3(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2);
+
+/*!
+ * @brief GGObjectのCreateMethodを実装する
+ * 引数3個バージョン
+ */
+#define GG_CREATE_FUNC_IMPL_3(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2)\
+UniqueRef<Type> Type::Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2)\
+{\
+  Type* ret = new (std::nothrow) Type();\
+  GG_ASSERT(ret != nullptr, #Type"::Create("#Arg0", "#Arg1", "#Arg2"): インスタンスの生成に失敗しました");\
+  if (!ret->Init(ArgName0, ArgName1, ArgName2))\
   {\
-    Type* ret = new (std::nothrow) Type();\
-    GG_ASSERT(ret != nullptr, #Type"::Create("#Arg0", "#Arg1", "#Arg2"): インスタンスの生成に失敗しました");\
-    if (!ret->Init(arg0, arg1, arg2))\
-    {\
-      GG_ASSERT(false, #Type"::Init("#Arg0", "#Arg1", "#Arg2"): インスタンスの初期化に失敗しました");\
-    }\
-    return UniqueRef<Type>(ret);\
+    GG_ASSERT(false, #Type"::Init("#Arg0", "#Arg1", "#Arg2"): インスタンスの初期化に失敗しました");\
   }\
-GG_INIT_FUNC_3(Type, Arg0 arg0, Arg1 arg1, Arg2 arg2)
+  return UniqueRef<Type>(ret);\
+}\
+GG_INIT_FUNC_IMPL_3(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2)
+
+/*!
+ * @brief GGAPIObject/GGAPIResourceObjectのCreateMethodを定義する
+ * 引数3個バージョン
+ */
+#define GG_NATIVE_CREATE_FUNC_3(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2)\
+public:\
+  static UniqueRef<Type> Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2);
+
+/*!
+ * @brief GGAPIObject/GGAPIResourceObjectのCreateMethodを定義する
+ * 引数3個バージョン
+ */
+#define GG_NATIVE_CREATE_FUNC_IMPL_3(Type, NativeType, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2)\
+UniqueRef<Type> Type::Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2)\
+{\
+  return NativeType::Create(ArgName0, ArgName1, ArgName2);\
+}
 
 /*!
  * @brief GGObjectの初期化関数宣言
  * 引数4個バージョン
  */
-#define GG_INIT_FUNC_4(Type, Arg0, Arg1, Arg2, Arg3)\
+#define GG_INIT_FUNC_4(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3)\
 protected:\
-  virtual bool Init(Arg0, Arg1, Arg2, Arg3)
+  virtual bool Init(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3)
 
 /*!
  * @brief GGObjectの初期化関数実装
  * 引数4個バージョン
  */
-#define GG_INIT_FUNC_IMPL_4(Type, Arg0, Arg1, Arg2, Arg3)\
-bool Type::Init(Arg0, Arg1, Arg2, Arg3)
+#define GG_INIT_FUNC_IMPL_4(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3)\
+bool Type::Init(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3)
 
 /*!
  * @brief GGObjectのCreateMethodを定義する
  * 引数4個バージョン
  */
-#define GG_CREATE_FUNC_4(Type, Arg0, Arg1, Arg2, Arg3)\
+#define GG_CREATE_FUNC_4(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3)\
 public:\
-  static UniqueRef<Type> Create(Arg0 arg0, Arg1 arg1, Arg2 arg2, Arg3 arg3)\
+  static UniqueRef<Type> Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3);\
+GG_INIT_FUNC_4(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3);
+
+/*!
+ * @brief GGObjectのCreateMethodを実装する
+ * 引数4個バージョン
+ */
+#define GG_CREATE_FUNC_IMPL_4(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3)\
+UniqueRef<Type> Type::Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3)\
+{\
+  Type* ret = new (std::nothrow) Type();\
+  GG_ASSERT(ret != nullptr, #Type"::Create("#Arg0", "#Arg1", "#Arg2", "#Arg3"): インスタンスの生成に失敗しました");\
+  if (!ret->Init(ArgName0, ArgName1, ArgName2, ArgName3))\
   {\
-    Type* ret = new (std::nothrow) Type();\
-    GG_ASSERT(ret != nullptr, #Type"::Create("#Arg0", "#Arg1", "#Arg2", "#Arg3"): インスタンスの生成に失敗しました");\
-    if (!ret->Init(arg0, arg1, arg2, arg3))\
-    {\
-      GG_ASSERT(false, #Type"::Init("#Arg0", "#Arg1", "#Arg2", "#Arg3"): インスタンスの初期化に失敗しました");\
-    }\
-    return UniqueRef<Type>(ret);\
+    GG_ASSERT(false, #Type"::Init("#Arg0", "#Arg1", "#Arg2", "#Arg3"): インスタンスの初期化に失敗しました");\
   }\
-GG_INIT_FUNC_4(Type, Arg0 arg0, Arg1 arg1, Arg2 arg2, Arg3 arg3)
+  return UniqueRef<Type>(ret);\
+}\
+GG_INIT_FUNC_IMPL_4(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3)
+
+/*!
+ * @brief GGAPIObject/GGAPIResourceObjectのCreateMethodを定義する
+ * 引数4個バージョン
+ */
+#define GG_NATIVE_CREATE_FUNC_4(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3)\
+public:\
+  static UniqueRef<Type> Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3);
+
+/*!
+ * @brief GGAPIObject/GGAPIResourceObjectのCreateMethodを定義する
+ * 引数4個バージョン
+ */
+#define GG_NATIVE_CREATE_FUNC_IMPL_4(Type, NativeType, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3)\
+UniqueRef<Type> Type::Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3)\
+{\
+  return NativeType::Create(ArgName0, ArgName1, ArgName2, ArgName3);\
+}
 
 /*!
  * @brief GGObjectの初期化関数宣言
  * 引数5個バージョン
  */
-#define GG_INIT_FUNC_5(Type, Arg0, Arg1, Arg2, Arg3, Arg4)\
+#define GG_INIT_FUNC_5(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4)\
 protected:\
-  virtual bool Init(Arg0, Arg1, Arg2, Arg3, Arg4)
+  virtual bool Init(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4)
 
 /*!
  * @brief GGObjectの初期化関数実装
  * 引数5個バージョン
  */
-#define GG_INIT_FUNC_IMPL_5(Type, Arg0, Arg1, Arg2, Arg3, Arg4)\
-bool Type::Init(Arg0, Arg1, Arg2, Arg3, Arg4)
+#define GG_INIT_FUNC_IMPL_5(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4)\
+bool Type::Init(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4)
 
 /*!
  * @brief GGObjectのCreateMethodを定義する
  * 引数5個バージョン
  */
-#define GG_CREATE_FUNC_5(Type, Arg0, Arg1, Arg2, Arg3, Arg4)\
+#define GG_CREATE_FUNC_5(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4)\
 public:\
-  static UniqueRef<Type> Create(Arg0 arg0, Arg1 arg1, Arg2 arg2, Arg3 arg3, Arg4 arg4)\
+  static UniqueRef<Type> Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4);\
+GG_INIT_FUNC_5(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4);
+
+/*!
+ * @brief GGObjectのCreateMethodを実装する
+ * 引数5個バージョン
+ */
+#define GG_CREATE_FUNC_IMPL_5(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4)\
+UniqueRef<Type> Type::Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4)\
+{\
+  Type* ret = new (std::nothrow) Type();\
+  GG_ASSERT(ret != nullptr, #Type"::Create("#Arg0", "#Arg1", "#Arg2", "#Arg3", "#Arg4"): インスタンスの生成に失敗しました");\
+  if (!ret->Init(ArgName0, ArgName1, ArgName2, ArgName3, ArgName4))\
   {\
-    Type* ret = new (std::nothrow) Type();\
-    GG_ASSERT(ret != nullptr, #Type"::Create("#Arg0", "#Arg1", "#Arg2", "#Arg3", "#Arg4"): インスタンスの生成に失敗しました");\
-    if (!ret->Init(arg0, arg1, arg2, arg3, arg4))\
-    {\
-      GG_ASSERT(false, #Type"::Init("#Arg0", "#Arg1", "#Arg2", "#Arg3", "#Arg4"): インスタンスの初期化に失敗しました");\
-    }\
-    return UniqueRef<Type>(ret);\
+    GG_ASSERT(false, #Type"::Init("#Arg0", "#Arg1", "#Arg2", "#Arg3", "#Arg4"): インスタンスの初期化に失敗しました");\
   }\
-GG_INIT_FUNC_5(Type, Arg0 arg0, Arg1 arg1, Arg2 arg2, Arg3 arg3, Arg4 arg4)
+  return UniqueRef<Type>(ret);\
+}\
+GG_INIT_FUNC_IMPL_5(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4)
+
+/*!
+ * @brief GGAPIObject/GGAPIResourceObjectのCreateMethodを定義する
+ * 引数5個バージョン
+ */
+#define GG_NATIVE_CREATE_FUNC_5(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4)\
+public:\
+  static UniqueRef<Type> Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4);
+
+/*!
+ * @brief GGAPIObject/GGAPIResourceObjectのCreateMethodを定義する
+ * 引数5個バージョン
+ */
+#define GG_NATIVE_CREATE_FUNC_IMPL_5(Type, NativeType, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4)\
+UniqueRef<Type> Type::Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4)\
+{\
+  return NativeType::Create(ArgName0, ArgName1, ArgName2, ArgName3, ArgName4);\
+}
 
 /*!
  * @brief GGObjectの初期化関数宣言
  * 引数6個バージョン
  */
-#define GG_INIT_FUNC_6(Type, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5)\
+#define GG_INIT_FUNC_6(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5)\
 protected:\
-  virtual bool Init(Arg0, Arg1, Arg2, Arg3, Arg4, Arg5)
+  virtual bool Init(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4, Arg5 ArgName5)
 
 /*!
  * @brief GGObjectの初期化関数実装
  * 引数6個バージョン
  */
-#define GG_INIT_FUNC_IMPL_6(Type, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5)\
-bool Type::Init(Arg0, Arg1, Arg2, Arg3, Arg4, Arg5)
+#define GG_INIT_FUNC_IMPL_6(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5)\
+bool Type::Init(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4, Arg5 ArgName5)
 
 /*!
  * @brief GGObjectのCreateMethodを定義する
  * 引数6個バージョン
  */
-#define GG_CREATE_FUNC_6(Type, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5)\
+#define GG_CREATE_FUNC_6(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5)\
 public:\
-  static UniqueRef<Type> Create(Arg0 arg0, Arg1 arg1, Arg2 arg2, Arg3 arg3, Arg4 arg4, Arg5 arg5)\
+  static UniqueRef<Type> Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4, Arg5 ArgName5);\
+GG_INIT_FUNC_6(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5);
+
+/*!
+ * @brief GGObjectのCreateMethodを実装する
+ * 引数6個バージョン
+ */
+#define GG_CREATE_FUNC_IMPL_6(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5)\
+UniqueRef<Type> Type::Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4, Arg5 ArgName5)\
+{\
+  Type* ret = new (std::nothrow) Type();\
+  GG_ASSERT(ret != nullptr, #Type"::Create("#Arg0", "#Arg1", "#Arg2", "#Arg3", "#Arg4", "#Arg5"): インスタンスの生成に失敗しました");\
+  if (!ret->Init(ArgName0, ArgName1, ArgName2, ArgName3, ArgName4, ArgName5))\
   {\
-    Type* ret = new (std::nothrow) Type();\
-    GG_ASSERT(ret != nullptr, #Type"::Create("#Arg0", "#Arg1", "#Arg2", "#Arg3", "#Arg4", "#Arg5"): インスタンスの生成に失敗しました");\
-    if (!ret->Init(arg0, arg1, arg2, arg3, arg4, arg5))\
-    {\
-      GG_ASSERT(false, #Type"::Init("#Arg0", "#Arg1", "#Arg2", "#Arg3", "#Arg4", "#Arg5"): インスタンスの初期化に失敗しました");\
-    }\
-    return UniqueRef<Type>(ret);\
+    GG_ASSERT(false, #Type"::Init("#Arg0", "#Arg1", "#Arg2", "#Arg3", "#Arg4", "#Arg5"): インスタンスの初期化に失敗しました");\
   }\
-GG_INIT_FUNC_6(Type, Arg0 arg0, Arg1 arg1, Arg2 arg2, Arg3 arg3, Arg4 arg4, Arg5 arg5)
+  return UniqueRef<Type>(ret);\
+}\
+GG_INIT_FUNC_IMPL_6(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5)
+
+/*!
+ * @brief GGAPIObject/GGAPIResourceObjectのCreateMethodを定義する
+ * 引数6個バージョン
+ */
+#define GG_NATIVE_CREATE_FUNC_6(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5)\
+public:\
+  static UniqueRef<Type> Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4, Arg5 ArgName5);
+
+/*!
+ * @brief GGAPIObject/GGAPIResourceObjectのCreateMethodを定義する
+ * 引数6個バージョン
+ */
+#define GG_NATIVE_CREATE_FUNC_IMPL_6(Type, NativeType, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5)\
+UniqueRef<Type> Type::Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4, Arg5 ArgName5)\
+{\
+  return NativeType::Create(ArgName0, ArgName1, ArgName2, ArgName3, ArgName4, ArgName5);\
+}
 
 /*!
  * @brief GGObjectの初期化関数宣言
  * 引数7個バージョン
  */
-#define GG_INIT_FUNC_7(Type, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6)\
+#define GG_INIT_FUNC_7(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5, Arg6, ArgName6)\
 protected:\
-  virtual bool Init(Arg0, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6)
+  virtual bool Init(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4, Arg5 ArgName5, Arg6 ArgName6)
 
 /*!
  * @brief GGObjectの初期化関数実装
  * 引数7個バージョン
  */
-#define GG_INIT_FUNC_IMPL_7(Type, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6)\
-bool Type::Init(Arg0, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6)
+#define GG_INIT_FUNC_IMPL_7(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5, Arg6, ArgName6)\
+bool Type::Init(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4, Arg5 ArgName5, Arg6 ArgName6)
 
 /*!
  * @brief GGObjectのCreateMethodを定義する
  * 引数7個バージョン
  */
-#define GG_CREATE_FUNC_7(Type, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6)\
+#define GG_CREATE_FUNC_7(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5, Arg6, ArgName6)\
 public:\
-  static UniqueRef<Type> Create(Arg0 arg0, Arg1 arg1, Arg2 arg2, Arg3 arg3, Arg4 arg4, Arg5 arg5, Arg6 arg6)\
+  static UniqueRef<Type> Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4, Arg5 ArgName5, Arg6 ArgName6);\
+GG_INIT_FUNC_7(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5, Arg6, ArgName6);
+
+/*!
+ * @brief GGObjectのCreateMethodを実装する
+ * 引数7個バージョン
+ */
+#define GG_CREATE_FUNC_IMPL_7(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5, Arg6, ArgName6)\
+UniqueRef<Type> Type::Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4, Arg5 ArgName5, Arg6 ArgName6)\
+{\
+  Type* ret = new (std::nothrow) Type();\
+  GG_ASSERT(ret != nullptr, #Type"::Create("#Arg0", "#Arg1", "#Arg2", "#Arg3", "#Arg4", "#Arg5", "#Arg6"): インスタンスの生成に失敗しました");\
+  if (!ret->Init(ArgName0, ArgName1, ArgName2, ArgName3, ArgName4, ArgName5, ArgName6))\
   {\
-    Type* ret = new (std::nothrow) Type();\
-    GG_ASSERT(ret != nullptr, #Type"::Create("#Arg0", "#Arg1", "#Arg2", "#Arg3", "#Arg4", "#Arg5", "#Arg6"): インスタンスの生成に失敗しました");\
-    if (!ret->Init(arg0, arg1, arg2, arg3, arg4, arg5, arg6))\
-    {\
-      GG_ASSERT(false, #Type"::Init("#Arg0", "#Arg1", "#Arg2", "#Arg3", "#Arg4", "#Arg5", "#Arg6"): インスタンスの初期化に失敗しました");\
-    }\
-    return UniqueRef<Type>(ret);\
+    GG_ASSERT(false, #Type"::Init("#Arg0", "#Arg1", "#Arg2", "#Arg3", "#Arg4", "#Arg5", "#Arg6"): インスタンスの初期化に失敗しました");\
   }\
-GG_INIT_FUNC_7(Type, Arg0 arg0, Arg1 arg1, Arg2 arg2, Arg3 arg3, Arg4 arg4, Arg5 arg5, Arg6 arg6)
+  return UniqueRef<Type>(ret);\
+}\
+GG_INIT_FUNC_IMPL_7(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5, Arg6, ArgName6)
+
+/*!
+ * @brief GGAPIObject/GGAPIResourceObjectのCreateMethodを定義する
+ * 引数7個バージョン
+ */
+#define GG_NATIVE_CREATE_FUNC_7(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5, Arg6, ArgName6)\
+public:\
+  static UniqueRef<Type> Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4, Arg5 ArgName5, Arg6 ArgName6);
+
+/*!
+ * @brief GGAPIObject/GGAPIResourceObjectのCreateMethodを定義する
+ * 引数7個バージョン
+ */
+#define GG_NATIVE_CREATE_FUNC_IMPL_7(Type, NativeType, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5, Arg6, ArgName6)\
+UniqueRef<Type> Type::Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4, Arg5 ArgName5, Arg6 ArgName6)\
+{\
+  return NativeType::Create(ArgName0, ArgName1, ArgName2, ArgName3, ArgName4, ArgName5, ArgName6);\
+}
 
 /*!
  * @brief GGObjectの初期化関数宣言
  * 引数8個バージョン
  */
-#define GG_INIT_FUNC_8(Type, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7)\
+#define GG_INIT_FUNC_8(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5, Arg6, ArgName6, Arg7, ArgName7)\
 protected:\
-  virtual bool Init(Arg0, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7)
+  virtual bool Init(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4, Arg5 ArgName5, Arg6 ArgName6, Arg7 ArgName7)
 
 /*!
  * @brief GGObjectの初期化関数実装
  * 引数8個バージョン
  */
-#define GG_INIT_FUNC_IMPL_8(Type, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7)\
-bool Type::Init(Arg0, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7)
+#define GG_INIT_FUNC_IMPL_8(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5, Arg6, ArgName6, Arg7, ArgName7)\
+bool Type::Init(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4, Arg5 ArgName5, Arg6 ArgName6, Arg7 ArgName7)
 
 /*!
  * @brief GGObjectのCreateMethodを定義する
  * 引数8個バージョン
  */
-#define GG_CREATE_FUNC_8(Type, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7)\
+#define GG_CREATE_FUNC_8(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5, Arg6, ArgName6, Arg7, ArgName7)\
 public:\
-  static UniqueRef<Type> Create(Arg0 arg0, Arg1 arg1, Arg2 arg2, Arg3 arg3, Arg4 arg4, Arg5 arg5, Arg6 arg6, Arg7 arg7)\
+  static UniqueRef<Type> Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4, Arg5 ArgName5, Arg6 ArgName6, Arg7 ArgName7);\
+GG_INIT_FUNC_8(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5, Arg6, ArgName6, Arg7, ArgName7);
+
+/*!
+ * @brief GGObjectのCreateMethodを実装する
+ * 引数8個バージョン
+ */
+#define GG_CREATE_FUNC_IMPL_8(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5, Arg6, ArgName6, Arg7, ArgName7)\
+UniqueRef<Type> Type::Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4, Arg5 ArgName5, Arg6 ArgName6, Arg7 ArgName7)\
+{\
+  Type* ret = new (std::nothrow) Type();\
+  GG_ASSERT(ret != nullptr, #Type"::Create("#Arg0", "#Arg1", "#Arg2", "#Arg3", "#Arg4", "#Arg5", "#Arg6", "#Arg7"): インスタンスの生成に失敗しました");\
+  if (!ret->Init(ArgName0, ArgName1, ArgName2, ArgName3, ArgName4, ArgName5, ArgName6, ArgName7))\
   {\
-    Type* ret = new (std::nothrow) Type();\
-    GG_ASSERT(ret != nullptr, #Type"::Create("#Arg0", "#Arg1", "#Arg2", "#Arg3", "#Arg4", "#Arg5", "#Arg6", "#Arg7"): インスタンスの生成に失敗しました");\
-    if (!ret->Init(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7))\
-    {\
-      GG_ASSERT(false, #Type"::Init("#Arg0", "#Arg1", "#Arg2", "#Arg3", "#Arg4", "#Arg5", "#Arg6", "#Arg7"): インスタンスの初期化に失敗しました");\
-    }\
-    return UniqueRef<Type>(ret);\
+    GG_ASSERT(false, #Type"::Init("#Arg0", "#Arg1", "#Arg2", "#Arg3", "#Arg4", "#Arg5", "#Arg6", "#Arg7"): インスタンスの初期化に失敗しました");\
   }\
-GG_INIT_FUNC_8(Type, Arg0 arg0, Arg1 arg1, Arg2 arg2, Arg3 arg3, Arg4 arg4, Arg5 arg5, Arg6 arg6, Arg7 arg7)
+  return UniqueRef<Type>(ret);\
+}\
+GG_INIT_FUNC_IMPL_8(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5, Arg6, ArgName6, Arg7, ArgName7)
+
+/*!
+ * @brief GGAPIObject/GGAPIResourceObjectのCreateMethodを定義する
+ * 引数8個バージョン
+ */
+#define GG_NATIVE_CREATE_FUNC_8(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5, Arg6, ArgName6, Arg7, ArgName7)\
+public:\
+  static UniqueRef<Type> Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4, Arg5 ArgName5, Arg6 ArgName6, Arg7 ArgName7);
+
+/*!
+ * @brief GGAPIObject/GGAPIResourceObjectのCreateMethodを定義する
+ * 引数8個バージョン
+ */
+#define GG_NATIVE_CREATE_FUNC_IMPL_8(Type, NativeType, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5, Arg6, ArgName6, Arg7, ArgName7)\
+UniqueRef<Type> Type::Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4, Arg5 ArgName5, Arg6 ArgName6, Arg7 ArgName7)\
+{\
+  return NativeType::Create(ArgName0, ArgName1, ArgName2, ArgName3, ArgName4, ArgName5, ArgName6, ArgName7);\
+}
 
 /*!
  * @brief GGObjectの初期化関数宣言
  * 引数9個バージョン
  */
-#define GG_INIT_FUNC_9(Type, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)\
+#define GG_INIT_FUNC_9(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5, Arg6, ArgName6, Arg7, ArgName7, Arg8, ArgName8)\
 protected:\
-  virtual bool Init(Arg0, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
+  virtual bool Init(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4, Arg5 ArgName5, Arg6 ArgName6, Arg7 ArgName7, Arg8 ArgName8)
 
 /*!
  * @brief GGObjectの初期化関数実装
  * 引数9個バージョン
  */
-#define GG_INIT_FUNC_IMPL_9(Type, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)\
-bool Type::Init(Arg0, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
+#define GG_INIT_FUNC_IMPL_9(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5, Arg6, ArgName6, Arg7, ArgName7, Arg8, ArgName8)\
+bool Type::Init(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4, Arg5 ArgName5, Arg6 ArgName6, Arg7 ArgName7, Arg8 ArgName8)
 
 /*!
  * @brief GGObjectのCreateMethodを定義する
  * 引数9個バージョン
  */
-#define GG_CREATE_FUNC_9(Type, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)\
+#define GG_CREATE_FUNC_9(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5, Arg6, ArgName6, Arg7, ArgName7, Arg8, ArgName8)\
 public:\
-  static UniqueRef<Type> Create(Arg0 arg0, Arg1 arg1, Arg2 arg2, Arg3 arg3, Arg4 arg4, Arg5 arg5, Arg6 arg6, Arg7 arg7, Arg8 arg8)\
+  static UniqueRef<Type> Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4, Arg5 ArgName5, Arg6 ArgName6, Arg7 ArgName7, Arg8 ArgName8);\
+GG_INIT_FUNC_9(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5, Arg6, ArgName6, Arg7, ArgName7, Arg8, ArgName8);
+
+/*!
+ * @brief GGObjectのCreateMethodを実装する
+ * 引数9個バージョン
+ */
+#define GG_CREATE_FUNC_IMPL_9(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5, Arg6, ArgName6, Arg7, ArgName7, Arg8, ArgName8)\
+UniqueRef<Type> Type::Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4, Arg5 ArgName5, Arg6 ArgName6, Arg7 ArgName7, Arg8 ArgName8)\
+{\
+  Type* ret = new (std::nothrow) Type();\
+  GG_ASSERT(ret != nullptr, #Type"::Create("#Arg0", "#Arg1", "#Arg2", "#Arg3", "#Arg4", "#Arg5", "#Arg6", "#Arg7", "#Arg8"): インスタンスの生成に失敗しました");\
+  if (!ret->Init(ArgName0, ArgName1, ArgName2, ArgName3, ArgName4, ArgName5, ArgName6, ArgName7, ArgName8))\
   {\
-    Type* ret = new (std::nothrow) Type();\
-    GG_ASSERT(ret != nullptr, #Type"::Create("#Arg0", "#Arg1", "#Arg2", "#Arg3", "#Arg4", "#Arg5", "#Arg6", "#Arg7", "#Arg8"): インスタンスの生成に失敗しました");\
-    if (!ret->Init(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8))\
-    {\
-      GG_ASSERT(false, #Type"::Init("#Arg0", "#Arg1", "#Arg2", "#Arg3", "#Arg4", "#Arg5", "#Arg6", "#Arg7", "#Arg8"): インスタンスの初期化に失敗しました");\
-    }\
-    return UniqueRef<Type>(ret);\
+    GG_ASSERT(false, #Type"::Init("#Arg0", "#Arg1", "#Arg2", "#Arg3", "#Arg4", "#Arg5", "#Arg6", "#Arg7", "#Arg8"): インスタンスの初期化に失敗しました");\
   }\
-GG_INIT_FUNC_9(Type, Arg0 arg0, Arg1 arg1, Arg2 arg2, Arg3 arg3, Arg4 arg4, Arg5 arg5, Arg6 arg6, Arg7 arg7, Arg8 arg8)
+  return UniqueRef<Type>(ret);\
+}\
+GG_INIT_FUNC_IMPL_9(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5, Arg6, ArgName6, Arg7, ArgName7, Arg8, ArgName8)
+
+/*!
+ * @brief GGAPIObject/GGAPIResourceObjectのCreateMethodを定義する
+ * 引数9個バージョン
+ */
+#define GG_NATIVE_CREATE_FUNC_9(Type, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5, Arg6, ArgName6, Arg7, ArgName7, Arg8, ArgName8)\
+public:\
+  static UniqueRef<Type> Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4, Arg5 ArgName5, Arg6 ArgName6, Arg7 ArgName7, Arg8 ArgName8);
+
+/*!
+ * @brief GGAPIObject/GGAPIResourceObjectのCreateMethodを定義する
+ * 引数9個バージョン
+ */
+#define GG_NATIVE_CREATE_FUNC_IMPL_9(Type, NativeType, Arg0, ArgName0, Arg1, ArgName1, Arg2, ArgName2, Arg3, ArgName3, Arg4, ArgName4, Arg5, ArgName5, Arg6, ArgName6, Arg7, ArgName7, Arg8, ArgName8)\
+UniqueRef<Type> Type::Create(Arg0 ArgName0, Arg1 ArgName1, Arg2 ArgName2, Arg3 ArgName3, Arg4 ArgName4, Arg5 ArgName5, Arg6 ArgName6, Arg7 ArgName7, Arg8 ArgName8)\
+{\
+  return NativeType::Create(ArgName0, ArgName1, ArgName2, ArgName3, ArgName4, ArgName5, ArgName6, ArgName7, ArgName8);\
+}
 

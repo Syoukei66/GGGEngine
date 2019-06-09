@@ -14,7 +14,7 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL_1(EntryScene, AssetConverterContext* context)
+GG_CREATE_FUNC_IMPL_1(EntryScene, AssetConverterContext*, context)
 {
   this->context_ = context;
   return Scene::Init();

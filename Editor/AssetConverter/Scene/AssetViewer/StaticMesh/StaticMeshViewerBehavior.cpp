@@ -4,7 +4,7 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL(StaticMeshViewerBehavior)
+GG_CREATE_FUNC_IMPL(StaticMeshViewerBehavior)
 {
   this->obj_ = GameObject::Create();
   this->mesh_renderer_ = this->obj_->AddComponent<MeshRenderer>();

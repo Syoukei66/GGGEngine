@@ -6,7 +6,7 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL_1(Camera, GameObject* obj)
+GG_INIT_FUNC_IMPL_1(Camera, GameObject*, obj)
 {
   this->direction_ = TVec3f::forward;
   this->viewport_clear_ = true;

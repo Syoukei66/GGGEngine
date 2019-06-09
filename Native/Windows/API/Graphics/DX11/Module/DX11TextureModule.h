@@ -13,7 +13,7 @@ class DX11TextureModule : public TextureModule
   // GGG Statement
   // =================================================================
   GG_OBJECT(DX11TextureModule);
-  GG_CREATE_FUNC(DX11TextureModule) { return true; }
+  GG_CREATE_FUNC(DX11TextureModule);
 
   // =================================================================
   // Methods from TextureModule

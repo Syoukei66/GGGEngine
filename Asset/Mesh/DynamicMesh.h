@@ -79,7 +79,7 @@ class rcDynamicMesh : public rcMesh
   // =================================================================
   GG_OBJECT(rcDynamicMesh);
   GG_ASSET(rcDynamicMesh, DynamicMeshData);
-  GG_CREATE_FUNC(rcDynamicMesh) { return rcMesh::Init(); }
+  GG_CREATE_FUNC(rcDynamicMesh);
   GG_DESTRUCT_FUNC(rcDynamicMesh);
 
   // =================================================================

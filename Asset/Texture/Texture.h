@@ -46,7 +46,7 @@ class rcTexture : public GGAssetObject
   // =================================================================
   GG_OBJECT(rcTexture);
   GG_ASSET(rcTexture, TextureData);
-  GG_CREATE_FUNC(rcTexture) { return true; }
+  GG_CREATE_FUNC(rcTexture);
 
   // =================================================================
   // Method 

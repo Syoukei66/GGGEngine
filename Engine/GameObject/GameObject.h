@@ -13,7 +13,7 @@ class GameObject : public GGObject
 public:
   GG_OBJECT(GameObject);
   GG_CREATE_FUNC(GameObject);
-  GG_CREATE_FUNC_1(GameObject, const std::string&);
+  GG_CREATE_FUNC_1(GameObject, const std::string&, name);
   GG_DESTRUCT_FUNC(GameObject);
 
   // =================================================================

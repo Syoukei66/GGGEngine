@@ -4,7 +4,7 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL(StaticModelViewerBehavior)
+GG_CREATE_FUNC_IMPL(StaticModelViewerBehavior)
 {
   this->root_ = GameObject::Create();
   return true;

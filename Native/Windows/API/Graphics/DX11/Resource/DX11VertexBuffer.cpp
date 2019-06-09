@@ -8,9 +8,12 @@
 #include <Native/Windows/API/Graphics/DX11/DX11GraphicsAPI.h>
 
 // =================================================================
-// Constructor / Destructor
+// GGG Statement
 // =================================================================
-DX11VertexBuffer::DX11VertexBuffer(T_UINT32 size)
+GG_NATIVE_CREATE_FUNC_IMPL_1(rcVertexBuffer, DX11VertexBuffer, T_UINT32, size);
+GG_NATIVE_CREATE_FUNC_IMPL_2(rcVertexBuffer, DX11VertexBuffer, T_UINT32, size, void*, data);
+
+GG_CREATE_FUNC_IMPL_1(DX11VertexBuffer, T_UINT32, size)
 {
   ID3D11Device* device = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice();
 
@@ -26,9 +29,10 @@ DX11VertexBuffer::DX11VertexBuffer(T_UINT32 size)
     &buffer_desc, NULL, &this->vertex_buffer_
   );
   GG_ASSERT(SUCCEEDED(hr), "VertexBuffer‚Ìì¬‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
+  return true;
 }
 
-DX11VertexBuffer::DX11VertexBuffer(T_UINT32 size, void* data)
+GG_CREATE_FUNC_IMPL_2(DX11VertexBuffer, T_UINT32, size, void*, data)
 {
   ID3D11Device* device = WindowsApplication::GetPlatform()->GetDX11Graphics()->GetDevice();
 
@@ -49,11 +53,13 @@ DX11VertexBuffer::DX11VertexBuffer(T_UINT32 size, void* data)
     &buffer_desc, &sub_data, &this->vertex_buffer_
   );
   GG_ASSERT(SUCCEEDED(hr), "VertexBuffer‚Ìì¬‚ÉŽ¸”s‚µ‚Ü‚µ‚½");
+  return true;
 }
 
-DX11VertexBuffer::~DX11VertexBuffer()
+GG_DESTRUCT_FUNC_IMPL(DX11VertexBuffer)
 {
   this->vertex_buffer_->Release();
+  return true;
 }
 
 // =================================================================

@@ -224,6 +224,7 @@ call $(SolutionDir)build\$(Platform)\$(Configuration)\IncludeBuilder\IncludeBuil
     <ClCompile Include="Component\Collider\Collider3D.cpp" />
     <ClCompile Include="Component\Collider\Collision2D.cpp" />
     <ClCompile Include="Component\Collider\Collision3D.cpp" />
+    <ClCompile Include="Component\GameComponent.cpp" />
     <ClCompile Include="Component\Modifier\EntityModifier.cpp" />
     <ClCompile Include="Component\Modifier\EntityModifierAttribute.cpp" />
     <ClCompile Include="Component\Modifier\EntityModifierFactory.cpp" />

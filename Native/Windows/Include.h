@@ -20,6 +20,8 @@
 #include <Native/Windows/API/Graphics/DX11/Resource/DX11VertexBuffer.h>
 #include <Native/Windows/API/Graphics/DX11/Resource/DX11VertexDeclaration.h>
 #include <Native/Windows/API/Graphics/DX11/Resource/DX11VertexShader.h>
+#include <Native/Windows/API/Graphics/DX12/d3dx12.h>
+#include <Native/Windows/API/Graphics/DX12/Resource/DX12CommandBuffer.h>
 #include <Native/Windows/API/Graphics/DX9/DX9Constants.h>
 #include <Native/Windows/API/Graphics/DX9/DX9GraphicsAPI.h>
 #include <Native/Windows/API/Graphics/DX9/DX9IndexBuffer.h>

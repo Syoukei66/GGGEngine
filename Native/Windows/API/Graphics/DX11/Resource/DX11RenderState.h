@@ -8,11 +8,11 @@
 class DX11RenderState : public rcRenderState
 {
   // =================================================================
-  // Constructor / Destructor
+  // GGG Statement
   // =================================================================
-public:
-  DX11RenderState(const RenderStateData& data);
-  ~DX11RenderState();
+  GG_OBJECT(DX11RenderState);
+  GG_CREATE_FUNC_1(DX11RenderState, const RenderStateData&, data);
+  GG_DESTRUCT_FUNC(DX11RenderState);
 
   // =================================================================
   // Method for/from SuperClass/Interfaces
@@ -31,10 +31,5 @@ private:
   T_UINT8 stencil_ref_;
 
 };
-
-UniqueRef<rcRenderState> rcRenderState::Create(const RenderStateData& data)
-{
-  return UniqueRef<rcRenderState>(new DX11RenderState(data));
-}
 
 #endif

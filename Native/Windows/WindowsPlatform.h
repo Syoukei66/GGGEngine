@@ -15,7 +15,7 @@ class WindowsPlatform : public Platform
   // GGG Statement
   // =================================================================
   GG_OBJECT(WindowsPlatform);
-  GG_CREATE_FUNC(WindowsPlatform) { return true; }
+  GG_CREATE_FUNC(WindowsPlatform);
 
   // =================================================================
   // Methods from Platform

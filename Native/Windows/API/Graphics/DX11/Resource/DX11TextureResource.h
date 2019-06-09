@@ -10,11 +10,11 @@ class DX11TextureResource : public rcTextureResource
 {
 public:
   // =================================================================
-  // Constructor / Destructor
+  // GGG Statement
   // =================================================================
-public:
-  DX11TextureResource(const TextureResourceData& data, Usage usage);
-  ~DX11TextureResource();
+  GG_OBJECT(DX11TextureResource);
+  GG_CREATE_FUNC_2(DX11TextureResource, const TextureResourceData&, data, Usage, usage);
+  GG_DESTRUCT_FUNC(DX11TextureResource);
 
   // =================================================================
   // Methods from rcTextureResource

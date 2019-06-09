@@ -5,7 +5,7 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL(DirectInputAPI)
+GG_CREATE_FUNC_IMPL(DirectInputAPI)
 {
   this->input_ = new DirectInputDeviceManager();
   this->native_implements_->SetupInputDevices(Application::GetMainActivity(), this->input_);

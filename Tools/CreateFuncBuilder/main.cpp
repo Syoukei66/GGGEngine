@@ -26,7 +26,7 @@ int main()
   std::cout << "//==================================================" << std::endl;
   std::cout << header;
 
-  getchar();
+  return getchar();
 }
 
 void AppendComment(const string& comment, int argnum, string* dest)
@@ -47,7 +47,7 @@ string CreateArgment(int argnum)
       ret.append(", ");
     }
     string s = to_string(i);
-    ret.append("Arg" + s);
+    ret.append("Arg" + s + ", ArgName" + s);
   }
   return ret;
 }
@@ -77,7 +77,7 @@ string CreateArgmentImpl(int argnum)
       ret.append(", ");
     }
     string s = to_string(i);
-    ret.append("Arg" + s + " arg" + s);
+    ret.append("Arg" + s + " ArgName" + s);
   }
   return ret;
 }
@@ -92,7 +92,7 @@ string CreateArgmentCall(int argnum)
       ret.append(", ");
     }
     string s = to_string(i);
-    ret.append("arg" + s);
+    ret.append("ArgName" + s);
   }
   return ret;
 }
@@ -107,7 +107,7 @@ string CreateMacroCall(const string& name, int argnum)
     suffix = "_" + to_string(argnum);
     type += ", ";
   }
-  ret.append(name + suffix + "(" + type + CreateArgmentImpl(argnum) + ")");
+  ret.append(name + suffix + "(" + type + CreateArgment(argnum) + ")");
   return ret;
 }
 
@@ -115,6 +115,18 @@ void AppendMacro(const string& name, int argnum, string* dest)
 {
   string suffix;
   string type = "Type";
+  if (argnum > 0)
+  {
+    suffix = "_" + to_string(argnum);
+    type += ", ";
+  }
+  dest->append("#define " + name + suffix + "(" + type + CreateArgment(argnum) + ")");
+}
+
+void AppendMacroForNative(const string& name, int argnum, string* dest)
+{
+  string suffix;
+  string type = "Type, NativeType";
   if (argnum > 0)
   {
     suffix = "_" + to_string(argnum);
@@ -133,7 +145,7 @@ void AppendDefineInitFunc(int argnum, string* dest)
   AppendComment("GGObjectの初期化関数宣言", argnum, dest);
   AppendMacro("GG_INIT_FUNC", argnum, dest);
   AppendMacroLine(dest, "protected:");
-  AppendMacroLine(dest, "  virtual bool Init(" + CreateArgment(argnum) + ")");
+  AppendMacroLine(dest, "  virtual bool Init(" + CreateArgmentImpl(argnum) + ")");
   dest->append("\n\n");
 }
 
@@ -141,7 +153,7 @@ void AppendDefineInitFuncImpl(int argnum, string* dest)
 {
   AppendComment("GGObjectの初期化関数実装", argnum, dest);
   AppendMacro("GG_INIT_FUNC_IMPL", argnum, dest);
-  AppendMacroLine(dest, "bool Type::Init(" + CreateArgment(argnum) + ")");
+  AppendMacroLine(dest, "bool Type::Init(" + CreateArgmentImpl(argnum) + ")");
   dest->append("\n\n");
 }
 
@@ -150,19 +162,49 @@ void AppendDefineCreateFunc(int argnum, string* dest)
   AppendComment("GGObjectのCreateMethodを定義する", argnum, dest);
   AppendMacro("GG_CREATE_FUNC", argnum, dest);
   AppendMacroLine(dest, "public:");
-  AppendMacroLine(dest, "  static UniqueRef<Type> Create(" + CreateArgmentImpl(argnum) + ")");
-  AppendMacroLine(dest, "  {");
-  AppendMacroLine(dest, "    Type* ret = new (std::nothrow) Type();");
-  AppendMacroLine(dest, "    GG_ASSERT(ret != nullptr, #Type\"::Create(\"" + CreateArgmentSharp(argnum) + "\"): インスタンスの生成に失敗しました\");");
-  AppendMacroLine(dest, "    if (!ret->Init(" + CreateArgmentCall(argnum) + "))");
-  AppendMacroLine(dest, "    {");
-  AppendMacroLine(dest, "      GG_ASSERT(false, #Type\"::Init(\"" + CreateArgmentSharp(argnum) + "\"): インスタンスの初期化に失敗しました\");");
-  AppendMacroLine(dest, "    }");
-  AppendMacroLine(dest, "    return UniqueRef<Type>(ret);");
-  AppendMacroLine(dest, "  }");
-  AppendMacroLine(dest, CreateMacroCall("GG_INIT_FUNC", argnum));
+  AppendMacroLine(dest, "  static UniqueRef<Type> Create(" + CreateArgmentImpl(argnum) + ");");
+  AppendMacroLine(dest, CreateMacroCall("GG_INIT_FUNC", argnum) + ";");
   dest->append("\n\n");
 }
+
+void AppendDefineCreateFuncImpl(int argnum, string* dest)
+{
+  AppendComment("GGObjectのCreateMethodを実装する", argnum, dest);
+  AppendMacro("GG_CREATE_FUNC_IMPL", argnum, dest);
+  AppendMacroLine(dest, "UniqueRef<Type> Type::Create(" + CreateArgmentImpl(argnum) + ")");
+  AppendMacroLine(dest, "{");
+  AppendMacroLine(dest, "  Type* ret = new (std::nothrow) Type();");
+  AppendMacroLine(dest, "  GG_ASSERT(ret != nullptr, #Type\"::Create(\"" + CreateArgmentSharp(argnum) + "\"): インスタンスの生成に失敗しました\");");
+  AppendMacroLine(dest, "  if (!ret->Init(" + CreateArgmentCall(argnum) + "))");
+  AppendMacroLine(dest, "  {");
+  AppendMacroLine(dest, "    GG_ASSERT(false, #Type\"::Init(\"" + CreateArgmentSharp(argnum) + "\"): インスタンスの初期化に失敗しました\");");
+  AppendMacroLine(dest, "  }");
+  AppendMacroLine(dest, "  return UniqueRef<Type>(ret);");
+  AppendMacroLine(dest, "}");
+  AppendMacroLine(dest, CreateMacroCall("GG_INIT_FUNC_IMPL", argnum));
+  dest->append("\n\n");
+}
+
+void AppendDefineNativeCreateFunc(int argnum, string* dest)
+{
+  AppendComment("GGAPIObject/GGAPIResourceObjectのCreateMethodを定義する", argnum, dest);
+  AppendMacro("GG_NATIVE_CREATE_FUNC", argnum, dest);
+  AppendMacroLine(dest, "public:");
+  AppendMacroLine(dest, "  static UniqueRef<Type> Create(" + CreateArgmentImpl(argnum) + ");");
+  dest->append("\n\n");
+}
+
+void AppendDefineNativeCreateFuncImpl(int argnum, string* dest)
+{
+  AppendComment("GGAPIObject/GGAPIResourceObjectのCreateMethodを定義する", argnum, dest);
+  AppendMacroForNative("GG_NATIVE_CREATE_FUNC_IMPL", argnum, dest);
+  AppendMacroLine(dest, "UniqueRef<Type> Type::Create(" + CreateArgmentImpl(argnum) + ")");
+  AppendMacroLine(dest, "{");
+  AppendMacroLine(dest, "  return NativeType::Create(" + CreateArgmentCall(argnum) + ");");
+  AppendMacroLine(dest, "}");
+  dest->append("\n\n");
+}
+
 
 void Create(int argnum, string* dest)
 {
@@ -171,5 +213,8 @@ void Create(int argnum, string* dest)
     AppendDefineInitFunc(i, dest);
     AppendDefineInitFuncImpl(i, dest);
     AppendDefineCreateFunc(i, dest);
+    AppendDefineCreateFuncImpl(i, dest);
+    AppendDefineNativeCreateFunc(i, dest);
+    AppendDefineNativeCreateFuncImpl(i, dest);
   }
 }

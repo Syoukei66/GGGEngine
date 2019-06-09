@@ -3,7 +3,7 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL_1(rcCharacterModel, const CharacterModelData& data)
+GG_ASSET_INIT(rcCharacterModel, CharacterModelData)
 {
   this->name_ = data.name_;
   this->root_node_ = data.root_node_;

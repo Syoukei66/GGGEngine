@@ -16,7 +16,7 @@ static const char* CAMERA_STATE_NAMES[ViewerScene::CAMERA_STATE_MAX] =
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL_3(ViewerScene, const SharedRef<EntryScene>& entry_scene, const SharedRef<IViewerBehavior>& behavior, AssetConverterContext* context)
+GG_INIT_FUNC_IMPL_3(ViewerScene, const SharedRef<EntryScene>&, entry_scene, const SharedRef<IViewerBehavior>&, behavior, AssetConverterContext*, context)
 {
   this->entry_scene_ = entry_scene;
   this->current_context_ = context;

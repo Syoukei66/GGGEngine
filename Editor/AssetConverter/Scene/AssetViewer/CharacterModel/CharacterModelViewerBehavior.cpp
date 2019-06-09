@@ -6,7 +6,7 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL(CharacterModelViewerBehavior)
+GG_CREATE_FUNC_IMPL(CharacterModelViewerBehavior)
 {
   return true;
 }

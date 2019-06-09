@@ -7,7 +7,7 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL_1(Renderer, GameObject* obj)
+GG_INIT_FUNC_IMPL_1(Renderer, GameObject*, obj)
 {
   this->builtin_variable_buffer_ = rcConstantBuffer::Create(
     Shader::ConstantBufferId::kRendererBuiltin,

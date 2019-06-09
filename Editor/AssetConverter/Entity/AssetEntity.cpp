@@ -7,14 +7,14 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL_1(AssetEntity, AssetMetaData* meta)
+GG_CREATE_FUNC_IMPL_1(AssetEntity, AssetMetaData*, meta)
 {
   this->meta_data_ = meta;
   this->is_need_commit_ = true;
   return true;
 }
 
-GG_INIT_FUNC_IMPL_2(AssetEntity, AssetMetaData* meta, IAssetDataContainer* data)
+GG_CREATE_FUNC_IMPL_2(AssetEntity, AssetMetaData*, meta, IAssetDataContainer*, data)
 {
   this->meta_data_ = meta;
   this->SetData(data);

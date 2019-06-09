@@ -1,6 +1,13 @@
 #include "WindowsPlatform.h"
 #include <imgui/imgui.h>
 #include <Native/Windows/imgui/imgui_impl_win32.h>
+// =================================================================
+// GGG Statement
+// =================================================================
+GG_CREATE_FUNC_IMPL(WindowsPlatform)
+{
+  return true;
+}
 
 // =================================================================
 // Methods from Platform

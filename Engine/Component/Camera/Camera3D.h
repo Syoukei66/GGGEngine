@@ -10,7 +10,7 @@ class Camera3D : public Camera
   // GGG Statement
   // =================================================================
   GG_COMPONENT(Camera3D);
-  GG_CREATE_FUNC_1(Camera3D, GameObject*);
+  GG_CREATE_FUNC_1(Camera3D, GameObject*, obj);
 
   // =================================================================
   // Methods for/from SuperClass/Interfaces

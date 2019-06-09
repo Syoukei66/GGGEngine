@@ -63,12 +63,7 @@ class rcTextureView : public GGAPIResourceObject
   // GGG Statement
   // =================================================================
   GG_OBJECT(rcTextureView);
-
-  // =================================================================
-  // Factory Method
-  // =================================================================
-public:
-  static UniqueRef<rcTextureView> Create(const TextureViewData& data, const SharedRef<rcTextureResource>& resource);
+  GG_NATIVE_CREATE_FUNC_2(rcTextureView, const TextureViewData&, data, const SharedRef<rcTextureResource>&, resource);
 
   // =================================================================
   // Method 

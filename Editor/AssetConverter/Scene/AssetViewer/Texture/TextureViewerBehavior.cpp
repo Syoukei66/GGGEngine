@@ -4,7 +4,7 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL(TextureViewerBehavior)
+GG_CREATE_FUNC_IMPL(TextureViewerBehavior)
 {
   this->obj_ = TestMesh::Create();
   return true;

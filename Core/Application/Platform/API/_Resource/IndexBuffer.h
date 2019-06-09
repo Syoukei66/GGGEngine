@@ -12,18 +12,14 @@ class rcIndexBuffer : public GGAPIResourceObject
   // GGG Statement
   // =================================================================
   GG_OBJECT(rcIndexBuffer);
+  GG_NATIVE_CREATE_FUNC_3(rcIndexBuffer, T_UINT32, vertex_count, T_UINT32, polygon_count, Vertex::IndexFormat, format);
+  GG_NATIVE_CREATE_FUNC_4(rcIndexBuffer, T_UINT32, vertex_count, T_UINT32, polygon_count, Vertex::IndexFormat, format, void*, data);
 
-  // =================================================================
-  // Factory Method
-  // =================================================================
 public:
-  static UniqueRef<rcIndexBuffer> Create(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format);
   static UniqueRef<rcIndexBuffer> Create(T_UINT32 vertex_count, T_UINT32 polygon_count, T_UINT32 max_value)
   {
     return Create(vertex_count, polygon_count, Vertex::CalcIndexFormat(max_value));
   }
-
-  static UniqueRef<rcIndexBuffer> Create(T_UINT32 vertex_count, T_UINT32 polygon_count, Vertex::IndexFormat format, void* data);
 
   // =================================================================
   // Method

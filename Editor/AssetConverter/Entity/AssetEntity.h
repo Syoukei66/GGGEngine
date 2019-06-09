@@ -17,8 +17,8 @@ class AssetEntity : public GGObject
   // GGG Statement
   // =================================================================
   GG_OBJECT(AssetEntity);
-  GG_CREATE_FUNC_1(AssetEntity, AssetMetaData*);
-  GG_CREATE_FUNC_2(AssetEntity, AssetMetaData*, IAssetDataContainer*);
+  GG_CREATE_FUNC_1(AssetEntity, AssetMetaData*, meta);
+  GG_CREATE_FUNC_2(AssetEntity, AssetMetaData*, meta, IAssetDataContainer*, data);
 
 public:
   template <class AssetData_>

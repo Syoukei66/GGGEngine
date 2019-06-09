@@ -14,13 +14,8 @@ class rcVertexShader : public GGAPIResourceObject
   // GGG Statement
   // =================================================================
   GG_OBJECT(rcVertexShader);
+  GG_NATIVE_CREATE_FUNC_1(rcVertexShader, const std::vector<unsigned char>&, byte_code);
   
-  // =================================================================
-  // Factory Method
-  // =================================================================
-public:
-  static UniqueRef<rcVertexShader> Create(const std::vector<unsigned char>& byte_code);
-
   // =================================================================
   // Method 
   // =================================================================

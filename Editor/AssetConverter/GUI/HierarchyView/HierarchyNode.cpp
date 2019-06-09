@@ -3,7 +3,7 @@
 // =================================================================
 // GGG Statement
 // =================================================================
-GG_INIT_FUNC_IMPL_1(HierarchyNode, const SharedRef<GameObject>& obj)
+GG_CREATE_FUNC_IMPL_1(HierarchyNode, const SharedRef<GameObject>&, obj)
 {
   this->visible_ = true;
   this->double_click_frame_ = -1;
